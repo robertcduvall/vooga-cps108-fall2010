@@ -7,6 +7,26 @@ import java.util.*;
  * events.
  * 
  * 
+ * Example:
+ * public class Ghost extends AbstractEventManager implements PacmanMoveListener {
+	private int x,y;
+	
+	Ghost(int x, int y) {
+		this. x = x;
+		this. y = y;
+	}
+
+	@Override
+	public void actionPerformed(MyEvent e) {
+		action((PacmanMoveEvent)e);
+	}
+	
+	@Override
+	public void action(PacmanMoveEvent e) {
+		//do something
+		setX(e.getX());
+		setY(e.getY());
+	}
  * 
  * @author Hao He
  * @author Meng Li
