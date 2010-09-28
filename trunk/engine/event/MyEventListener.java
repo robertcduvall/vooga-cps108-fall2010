@@ -1,4 +1,4 @@
-package engine.event;
+package event;
 
 
 /**
@@ -34,9 +34,9 @@ package engine.event;
  *
  */
 public interface MyEventListener {
-	/**
-	 * When the event is triggered, this method will be called.
-	 * @param e:MyEvent interface
-	 */
-	public void actionPerformed(MyEvent e);
+   /**
+    * When the event is triggered, this method will be called.
+    * @param e:MyEvent interface
+    */
+   public void actionPerformed(MyEvent e);
 }
