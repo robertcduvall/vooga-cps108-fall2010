@@ -3,10 +3,11 @@ package engine.overlay;
 import greenfoot.*;
 
 /**
- * @author Se-Gil Feldsott
  * Takes an OverlayString and places it over the top
  * of another Actor.  It constantly updates the
  * position in case 
+ * @author Se-Gil Feldsott
+ * 
  */
 public class OverlayLabel extends Actor {
 
