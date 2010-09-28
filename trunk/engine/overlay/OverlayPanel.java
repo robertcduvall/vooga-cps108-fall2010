@@ -5,10 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Se-Gil Feldsott & Andrew Brown
  * The OverlayPanel provides a convenient way for users
  * to evenly place up to 5 overlays across the top or
  * bottom of the screen.
+ * 
+ * OverlayPanel panel = new Overlay(someWorld, true);
+ * panel.add(overlay1);
+ * panel.add(overlay2);
+ * panel.add(overlay3);
+ * panel.initialize();
+ * @author Se-Gil Feldsott & Andrew Brown
  */
 public class OverlayPanel extends OverlayManager{
 
@@ -16,9 +22,10 @@ public class OverlayPanel extends OverlayManager{
 	private boolean isOnTop;
 	
 	/**
+	 * Constructs the initial panel with a given world,
+	 * and establishing its position on the top or bottom.
 	 * @param thisWorld
 	 * @param topOrBottom
-	 * @param overlay1
 	 */
 	public OverlayPanel(World thisWorld, boolean topOrBottom)
 	{
@@ -27,6 +34,10 @@ public class OverlayPanel extends OverlayManager{
 		myOvrlys = new ArrayList<Overlay>();
 	}
 	
+	/**
+	 * Adds an overlay to the panel.
+	 * @param overlay
+	 */
 	public void addOverlay(Overlay overlay){
         myOvrlys.add(overlay);
 	}
