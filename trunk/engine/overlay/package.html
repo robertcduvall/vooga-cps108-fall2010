@@ -4,8 +4,12 @@
 </head>
 <body bgcolor="white">
 <p>
-FILL ME IN !!!
+Overlay 
+Our “Overlay” API allows developers to quickly and easily display stats and/or labels from their game on the screen in Greenfoot. Developers can use one of the several Overlay classes we have developed to accomplish this. Simply instantiate an instance of the overlay class that interests you, pass it the necessary parameters, and never worry about it again. The key parameter you must pass to the Overlay when you construct it is an object that implements one of our StatKeeper interfaces. That object contains a method which should return the score or other of your game at the time it is called. For example, if you want to display how many bullets a user has remaining the method should always return the number of bullets remaining.
 
+Each of our overlay classesdisplay your statistic in a different manner. For example, OverlayBar displays a gauge that increases and decreases according to the current value it’s keeping track of. In addition, you can set a variety of style parameters that change the color of the text displayed, the font, and many other properties. If you would like to display more than one piece of data on the screen at a time simply instantiate any overlay class.
+
+If you are creating multiple overlays we provide an OverlayManager for your convenience. Our OverlayManager allows you to do things like position your overlays relative to one another and remove all the overlays at once.
 <!-- Put @see and @since tags down here. -->
 
 </body>
