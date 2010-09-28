@@ -5,8 +5,15 @@ import java.lang.reflect.*;
 import greenfoot.*;
 
 /**
- * Control class which can be used to create control schemes. 
- * Can also be extended to create alternate schemes (for AI, control pads, etc)
+ * Control class which can be used to create control schemes. Can also be extended to create alternate schemes (for AI, control pads, etc)
+ * 
+ * Control takes one or more Players and registers actions that those Players will perform if an event occurs from some predetermined input device.
+ * If the programmer is just trying to use the keyboard and mouse listening capabilties, they can do:
+ * 
+ * 	Control shipControl = new Control(this); //this is inside of a Player class.
+ * 	shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.
+ * 	shipControl.addInput("KEYBOARD", "left", "rotateLeft", "Ship", 10); //Registers the left key to trigger rotateLeft with a parameter of 10.
+ *  shipControl.act(); //Within Player's act method.  Tells Control to check the registered events and see if any have occurred.
  * 
  * @author Choi, Cue, Hawthorne
  * @version 1.0

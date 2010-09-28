@@ -5,7 +5,11 @@ import greenfoot.*;
 
 /**
  * The Player class keeps track of basic information about a player, including its score,
- * remaining lives, whether it is its turn to act, and an inventory of items which it owns
+ * remaining lives, whether it is its turn to act, and an inventory of items which it owns.
+ * 
+ * Users of this class should extend Player and can then take advantage of the self explanatory
+ * constructors and instance fields.  You can manipulate the Player any way you want to inside of the
+ * act method, which is called each iteration of the run loop.
  * 
  * @author Choi, Cue and Hawthorne
  * @version 1.0
