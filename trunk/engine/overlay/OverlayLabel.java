@@ -5,9 +5,14 @@ import greenfoot.*;
 /**
  * Takes an OverlayString and places it over the top
  * of another Actor.  It constantly updates the
- * position in case 
- * @author Se-Gil Feldsott
+ * position in case
  * 
+ *
+ * Actor player1 = new Actor();
+ * OverlayString playerName = new OverlayString("Player 1");
+ * OverlayLabel playerLabel = new OverlayLabel(player1, playerName);
+ * 
+ * @author Se-Gil Feldsott
  */
 public class OverlayLabel extends Actor {
 
