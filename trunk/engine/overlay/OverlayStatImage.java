@@ -6,9 +6,12 @@ import greenfoot.GreenfootImage;
 /**
  * The OverlayStatImage class displays a GreenfootImage defined by the user
  * @author Se-Gil Feldsott and Justin Goldsmith
+ * 
+ * GreenfootImage image = new GreenfootImage("...");
+ * OverlayStatImage overlay = new OverlayStatImage(image, 10, 10);
  *
  */
-public class OverlayStatImage extends Actor{
+public class OverlayStatImage extends Overlay{
 	
 	/**
 	 * Creats a Image to be placed in game.

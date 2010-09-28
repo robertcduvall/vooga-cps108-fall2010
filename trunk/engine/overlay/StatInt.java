@@ -1,16 +1,17 @@
+package engine.overlay;
+
 /**
  * Int specific Stat tracker
- * 
- *
- * 
  * getStat() will be called when it is time to display the stat
  * in order to change the stat call setStat(int i)
  * 
  * @author Justin Goldsimth
+ * 
+ * StatInt stat = new StatInt(5);
+ * stat.setStat(7);
  */
 public class StatInt{
 
-	
 	private int myStat;
 	
 	

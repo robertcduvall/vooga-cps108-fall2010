@@ -14,6 +14,9 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 /**
  * The Overlay stat class to display a String and something the user defines
  * @author Justin Goldsmith
+ * 
+ * Stat<Integer> stat = new Stat<Integer>(5);
+ * OverlayStat overlay = new OverlayStat("score: ", stat);
  */
 
 
@@ -58,8 +61,10 @@ public class OverlayStat extends OverlayString {
 	private String setStat() {
 		if(myIntTracker != null){
 			return Integer.toString(myIntTracker.getStat());
-		}else{
+		}else if(myGenTracker != null){
 			return myGenTracker.getStat().toString();
+		}else {
+			return "";
 		}
 		
 	}

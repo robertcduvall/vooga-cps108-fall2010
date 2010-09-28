@@ -8,17 +8,21 @@ import java.util.ArrayList;
 /**
  * This Overlay class displays a finite number of icons, with the image provided by the user
  * @author Se-Gil Feldsott and Justin Goldsmith
+ * 
+ * StatInt stat = new StatInt(5);
+ * GreenfootImage image = new GreenfootImage("...");
+ * OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");
  *
  */
 public class OverlayIcon extends Overlay {
 
-	private GreenfootImage icon;
-	private int numOfIcons;
-	private int previousNumOfIcons;
-	private StatInt statKeeper;
-	private Stat<Integer> statKeeperGen;
-	private ArrayList<OverlayStatImage> list;
-	private OverlayString text;
+	private GreenfootImage myIcon;
+	private int myNumOfIcons;
+	private int myPreviousNumOfIcons;
+	private StatInt myStatKeeper;
+	private Stat<Integer> myStatKeeperGen;
+	private ArrayList<OverlayStatImage> myList;
+	private OverlayString myText;
 	
 	
 	/**
@@ -29,12 +33,12 @@ public class OverlayIcon extends Overlay {
 	 */
 	public OverlayIcon (StatInt stat, GreenfootImage newIcon, String label)  //Dimensions of the image
 	{
-		text = new OverlayString(label);
-		statKeeper = stat;
-		icon = newIcon;
-		numOfIcons = 0;
-		previousNumOfIcons = 0;
-		list = new ArrayList<OverlayStatImage>();
+		myText = new OverlayString(label);
+		myStatKeeper = stat;
+		myIcon = newIcon;
+		myNumOfIcons = 0;
+		myPreviousNumOfIcons = 0;
+		myList = new ArrayList<OverlayStatImage>();
 		makeLabel();
 	}
 	
@@ -51,7 +55,7 @@ public class OverlayIcon extends Overlay {
 	public OverlayIcon (Stat<Integer> stat, GreenfootImage newIcon, String label, int width, int height) //Dimensions given
 	{
 		this(stat, newIcon, label);
-		icon.scale(width, height);
+		myIcon.scale(width, height);
 	}
 	
 	/**
@@ -63,12 +67,12 @@ public class OverlayIcon extends Overlay {
 	 */
 	public OverlayIcon (Stat<Integer> stat, GreenfootImage newIcon, String label)  //Dimensions of the image
 	{
-		text = new OverlayString(label);
-		statKeeperGen = stat;
-		icon = newIcon;
-		numOfIcons = 0;
-		previousNumOfIcons = 0;
-		list = new ArrayList<OverlayStatImage>();
+		myText = new OverlayString(label);
+		myStatKeeperGen = stat;
+		myIcon = newIcon;
+		myNumOfIcons = 0;
+		myPreviousNumOfIcons = 0;
+		myList = new ArrayList<OverlayStatImage>();
 		makeLabel();
 	}
 	
@@ -85,15 +89,15 @@ public class OverlayIcon extends Overlay {
 	public OverlayIcon (StatInt stat, GreenfootImage newIcon, String label, int width, int height) //Dimensions given
 	{
 		this(stat, newIcon, label);
-		icon.scale(width, height);
+		myIcon.scale(width, height);
 	}
 	
 	
 	
 	
 	private void makeLabel(){  //make the label, which is text appearing before the icons
-		text.print(text.getString());
-		this.setImage(text.getImage());
+		myText.print(myText.getString());
+		this.setImage(myText.getImage());
 	}
 	
 	
@@ -105,10 +109,12 @@ public class OverlayIcon extends Overlay {
 	@Override
 	public void act()
 	{
-		if (statKeeper != null){
-			numOfIcons = statKeeper.getStat();
+		if (myStatKeeper != null){
+			myNumOfIcons = myStatKeeper.getStat();
+		}else if(myStatKeeperGen != null){
+			myNumOfIcons = myStatKeeperGen.getStat();
 		}else{
-			numOfIcons = statKeeperGen.getStat();
+			myNumOfIcons = 0;
 		}
 		update();
 	}
@@ -116,31 +122,33 @@ public class OverlayIcon extends Overlay {
 	private void update()
 	{
 		//Loops until the previous number of icons equals the new number of icons
-		while(numOfIcons != previousNumOfIcons) 
+		while(myNumOfIcons != myPreviousNumOfIcons) 
 		{
-			if(numOfIcons > previousNumOfIcons){
-				OverlayStatImage osi = new OverlayStatImage(icon);
-				list.add(osi);
+			if(myNumOfIcons > myPreviousNumOfIcons){
+				OverlayStatImage image = new OverlayStatImage(myIcon);
+				myList.add(image);
 				double endOfString =  getX() + ((double)getImage().getWidth())/2;
-				int widthOfIcons = (osi.getImage().getWidth() + 5) * (list.size() -1);
-				getWorld().addObject(osi, (int)(endOfString + widthOfIcons + 8) , getY());
-				previousNumOfIcons++;
+				int widthOfIcons = (image.getImage().getWidth() + 5) * (myList.size() -1);
+				getWorld().addObject(image, (int)(endOfString + widthOfIcons + 8) , getY());
+				myPreviousNumOfIcons++;
 			}
 				
-			else if(numOfIcons < previousNumOfIcons)
+			else if(myNumOfIcons < myPreviousNumOfIcons)
 			{
-				OverlayStatImage osi = list.remove(list.size() - 1);
-				osi.getWorld().removeObject(osi);
-				previousNumOfIcons--;
+				OverlayStatImage image = myList.remove(myList.size() - 1);
+				image.getWorld().removeObject(image);
+				myPreviousNumOfIcons--;
 			}
 			else{
 				break;
 			}
 		}
 		double endOfString =  getX() + ((double)getImage().getWidth())/2;
-		int widthOfIcons = (list.get(list.size()-1).getImage().getWidth() + 5);
-		for(int i=0; i<list.size(); i++){
-			list.get(i).setLocation((int)(endOfString + (widthOfIcons* (i)) + 8) , getY());
+		int paddingBetweenIcons = 5;
+		int paddingBetweenStringAndIcons = 8;
+		int widthOfIcons = (myList.get(myList.size()-1).getImage().getWidth() + paddingBetweenIcons);
+		for(int i=0; i<myList.size(); i++){
+			myList.get(i).setLocation((int)(endOfString + (widthOfIcons* (i)) + paddingBetweenStringAndIcons) , getY());
 		}
 		
 	}
@@ -149,23 +157,24 @@ public class OverlayIcon extends Overlay {
 	/**
 	 * @return width of the Overlay Icon including String and all icons
 	 */
+	@Override
 	public int getWidth(){
-		int mid = text.getX();
-		int begLocOfString = mid - text.getImage().getWidth()/2;
-		int locOfLastIcon = list.get(list.size() - 1).getX();
-		int endLocOfLastIcon = locOfLastIcon + list.get(list.size() - 1).getImage().getWidth()/2;
+		int mid = myText.getX();
+		int begLocOfString = mid - myText.getImage().getWidth()/2;
+		int locOfLastIcon = myList.get(myList.size() - 1).getX();
+		int endLocOfLastIcon = locOfLastIcon + myList.get(myList.size() - 1).getImage().getWidth()/2;
 		return endLocOfLastIcon - begLocOfString;
 		
 	}
 	
 	
 	public void setFont(Font font){
-		text.setFont(font);
+		myText.setFont(font);
 		makeLabel();
 	}
 	
 	public void setColor(Color color){
-		text.setColor(color);
+		myText.setColor(color);
 		makeLabel();
 	}
 
