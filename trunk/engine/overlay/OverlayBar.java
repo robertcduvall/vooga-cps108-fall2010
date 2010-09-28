@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import greenfoot.*;
 
 
 /**
@@ -17,11 +18,11 @@ import java.util.*;
  */
 public class OverlayBar extends Overlay {
 
-	private static final int DEFAULT_MAXLENGTH;
-	private static final int DEFAULT_HEIGHT;
-	private static final Color DEFAULT_FILLCOLOR;
-	private static final Color DEFAULT_BACKGROUNDCOLOR;
-	private static final boolean DEFAULT_SHOWBACKGROUND;
+	private static int DEFAULT_MAXLENGTH;
+	private static int DEFAULT_HEIGHT;
+	private static Color DEFAULT_FILLCOLOR;
+	private static Color DEFAULT_BACKGROUNDCOLOR;
+	private static boolean DEFAULT_SHOWBACKGROUND;
 
 	private Stat<Integer> myStat;
 	private int myMaxLength = DEFAULT_MAXLENGTH;

@@ -1,6 +1,7 @@
 package engine.overlay;
 
 import java.util.*;
+import greenfoot.*;
 
 /**
  * The OverlayManager class lets you create a group of Overlays, which can then
