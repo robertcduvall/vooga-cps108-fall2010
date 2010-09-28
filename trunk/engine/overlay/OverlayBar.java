@@ -13,6 +13,14 @@ import greenfoot.*;
  * The OverlayBar class displays a bar that grows or shrinks based on an int and
  * a maximum indicated by the user
  * 
+ * This example creates an OverlayBar that displays the score of a game (as represented by myStat). The
+ * OverlayBar is placed at point (10,10);
+ * 
+ * Stat<Integer> myStat;
+ * myStat = new Stat(Integer 0);
+ * OverlayBar scorebar = new OverlayBar(myStat,100);
+ * addObject(scorebar,10,10); 
+ * 
  * @author Andrew Bown
  * 
  */

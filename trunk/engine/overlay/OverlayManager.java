@@ -8,6 +8,13 @@ import greenfoot.*;
  * be manipulated. You translate all the overlays, absolutely position them, or
  * remove them all at once.
  * 
+ * This example creates an OverlayManager from the World class and bases it at point (0,0).
+ * Two Overlays are then added to the manager. 
+ * 
+ * OverlayManger manager = new OverlayManger(this,0,0);
+ * manager.addOverlay(someOverlay,10,10);
+ * manager.addOverlay(anotherOverlay,20,20);
+ * 
  * @author Andrew Brown
  */
 public class OverlayManager {
