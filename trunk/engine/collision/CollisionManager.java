@@ -13,6 +13,37 @@ import java.util.List;
  */
 public abstract class CollisionManager {
 
+	/**
+	 * Detects collision between object1 and object2, must be implemented in the
+	 * subclass. It is up to the game designer to determine how to write a collision
+	 * detection algorithm that is fit of the game he/she is trying to create in 
+	 * terms of efficiency and precision
+	 * 
+	 * @param object1
+	 *            an object that implements the interface Collidable
+	 * @param object2
+	 *            an object that implements the interface Collidable
+	 * @return true if a collision is detected
+	 */
+	abstract boolean detectCollision(Collidable object1, Collidable object2);
+
+
+	/**
+	 * Calls the actOnCollision method for each of the object involved in a
+	 * collision. It's protected so that the method can be overwritten by
+	 * subclasses to customize behavior
+	 * 
+	 * @param object1
+	 *            an object that implements the interface Collidable
+	 * @param object2
+	 *            an object that implements the interface Collidable
+	 */
+	protected void act(Collidable object1, Collidable object2) {
+		// EvenListener.action();
+		object1.actOnCollision(object2);
+		object2.actOnCollision(object1);
+	}
+	
 	// the method collides() is overloaded so that it can take two objects, a
 	// list and an object and two lists as parameters.
 	/**
@@ -86,34 +117,11 @@ public abstract class CollisionManager {
 		}
 	}
 
-	/**
-	 * Detects collision between object1 and object2, must be implemented in the
-	 * subclass.
-	 * 
-	 * @param object1
-	 *            an object that implements the interface Collidable
-	 * @param object2
-	 *            an object that implements the interface Collidable
-	 * @return true if a collision is detected
-	 */
-	abstract boolean detectCollision(Collidable object1, Collidable object2);
-
-	/**
-	 * Calls the actOnCollision method for each of the object involved in a
-	 * collision. It's protected so that the method can be overwritten by
-	 * subclasses to customize behavior
-	 * 
-	 * @param object1
-	 *            an object that implements the interface Collidable
-	 * @param object2
-	 *            an object that implements the interface Collidable
-	 */
-	protected void act(Collidable object1, Collidable object2) {
-		// EvenListener.action();
-		object1.actOnCollision(object2);
-		object2.actOnCollision(object1);
-	}
-
+	
+	//the processBorders methods is overloaded so that it can process default borders,
+	//which are the four sides of the game world(provided that it is a rectangular universe).
+	//It also allows for customization that restrict to an object's movement to a specific
+	//area in the game
 	/**
 	 * Process border collisions for a given object. Bouncing is the default
 	 * behavior

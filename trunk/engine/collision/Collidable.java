@@ -3,14 +3,19 @@ package engine.collision;
 /**
  * This interface must be implemented by active/movable objects involved in a game to ensure 
  * that the collision manager is able to interact with the objects and detect collisions correctly and 
- * properly
- * @author Yang
+ * properly. It allows a game designer to specify how each object behaves upon collision, possibly
+ * define different behavior for different types of objects that the current one collides with. It 
+ * also forces the implementation of useful methods that are necessary in calculation post collision
+ * behavior.
+ * @author Yang, Nick, Kate
  */
 public interface Collidable {
 	/**
 	 * This method is called whenever an object comes into contact with another. It determines
 	 * the post collision behavior of this object according to what kind of object it collides with.
-	 * @param object
+	 * This can be customized when an object implements it and allows for the implementation to 
+	 * extract information about the object it collides with.
+	 * @param object the Collidable object that the current object has collided with
 	 */
 	public void actOnCollision(Collidable object);
 	
