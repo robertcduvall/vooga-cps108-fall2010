@@ -1,4 +1,4 @@
-package engine.event;
+package event;
 
 import java.util.*;
 /**
@@ -61,13 +61,13 @@ public abstract class AbstractEventManager {
 		}
 	}
 	
-///**
-// * remove a eventlistener in the Vector 
-// * @param ml: MyEventListener interface
-// */
-//	public void removeMyEventListener(MyEventListener ml) {
-//		mapRepository.remove(ml);
-//	}
+/**
+ * remove a eventlistener in the Map 
+ * @param ml: MyEventListener interface
+ */
+	public void removeMyEventListener(String key,MyEventListener ml) {
+		mapRepository.get(key).remove(ml);
+	}
 
 /**
  * dispatch a event and let the listener receive this event	
