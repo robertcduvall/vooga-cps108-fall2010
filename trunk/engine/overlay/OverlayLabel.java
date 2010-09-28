@@ -5,9 +5,8 @@ import greenfoot.*;
 /**
  * Takes an OverlayString and places it over the top
  * of another Actor.  It constantly updates the
- * position in case
+ * position in case the Actor moves around.
  * 
- *
  * Actor player1 = new Actor();
  * OverlayString playerName = new OverlayString("Player 1");
  * OverlayLabel playerLabel = new OverlayLabel(player1, playerName);
