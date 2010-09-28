@@ -1,7 +1,7 @@
 package engine.collision;
 
 /**
- * This interface must be implemented by active/movable objects involved in the game to ensure 
+ * This interface must be implemented by active/movable objects involved in a game to ensure 
  * that the collision manager is able to interact with the objects and detect collisions correctly and 
  * properly
  * @author Yang
@@ -22,7 +22,6 @@ public interface Collidable {
 	 * @return y component of the velocity of this object
 	 */
 	public double getYVelocity();
-	
 	/**
 	 * Set the velocity of this object
 	 * @param vx x component of the velocity
@@ -38,7 +37,6 @@ public interface Collidable {
 	 * @return y coordinate of this object
 	 */
 	public double getY();
-	
 	/**
 	 * Set the location of this object
 	 * @param x x coordinate 

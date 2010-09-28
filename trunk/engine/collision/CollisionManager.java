@@ -3,28 +3,27 @@ package engine.collision;
 import java.util.List;
 
 /**
- * Collision Manager API
- * This api is completely independent from any game engine. It handles collision 
- * detection and post-collision behavior. we allowed the game designer to customize
- * both.
+ * Collision Manager API This collision manager class is abstract and is
+ * intended to be extended by a subclass that specifies the mechanics for a
+ * specific game. It has built-in methods to process collisions between objects
+ * and between objects and borders
+ * 
  * @author Yang, Nick, Kate
  * 
  */
 public abstract class CollisionManager {
 
-	public CollisionManager() {
-	}
-
 	// the method collides() is overloaded so that it can take two objects, a
-	// list and an object
-	// and two lists as parameters.
+	// list and an object and two lists as parameters.
 	/**
 	 * Process collisions between two objects. If a collision is detected, both
 	 * objects are called to act according to their behavior defined in their
 	 * actOnCollision method
 	 * 
 	 * @param object1
+	 *            an object that implements the interface Collidable
 	 * @param object2
+	 *            an object that implements the interface Collidable
 	 */
 	public void collides(Collidable object1, Collidable object2) {
 		if (detectCollision(object1, object2))
@@ -38,7 +37,9 @@ public abstract class CollisionManager {
 	 * method
 	 * 
 	 * @param object1
+	 *            an object that implements the interface Collidable
 	 * @param listOfObjects
+	 *            a list of Collidable objects
 	 */
 	public void collides(Collidable object1, List<Collidable> listOfObjects) {
 		for (Collidable object2 : listOfObjects) {
@@ -49,16 +50,17 @@ public abstract class CollisionManager {
 
 	/**
 	 * Process collisions in a list objects. If a collision is detected between
-	 * any pair of objects, both objects are called to act according to their
-	 * behavior defined in their actOnCollision method
+	 * any pair of objects within the list, both objects are called to act
+	 * according to their behavior defined in their actOnCollision method
 	 * 
-	 * @param list
+	 * @param listOfObjects
+	 *            a list of Collidable objects
 	 */
-	public void collides(List<Collidable> list) {
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = i + 1; j < list.size(); j++) {
-				if (detectCollision(list.get(i), list.get(j)))
-					act(list.get(i), list.get(j));
+	public void collides(List<Collidable> listOfObjects) {
+		for (int i = 0; i < listOfObjects.size(); i++) {
+			for (int j = i + 1; j < listOfObjects.size(); j++) {
+				if (detectCollision(listOfObjects.get(i), listOfObjects.get(j)))
+					act(listOfObjects.get(i), listOfObjects.get(j));
 			}
 		}
 	}
@@ -69,7 +71,9 @@ public abstract class CollisionManager {
 	 * according to their behavior defined in their actOnCollision method
 	 * 
 	 * @param list1
+	 *            a list of Collidable objects
 	 * @param list2
+	 *            a list of Collidable objects
 	 */
 	public void collides(List<Collidable> list1, List<Collidable> list2) {
 		for (int i = 0; i < list1.size(); i++) {
@@ -83,14 +87,27 @@ public abstract class CollisionManager {
 	}
 
 	/**
-	 * Detects collision between object1 and object2
+	 * Detects collision between object1 and object2, must be implemented in the
+	 * subclass.
 	 * 
 	 * @param object1
+	 *            an object that implements the interface Collidable
 	 * @param object2
+	 *            an object that implements the interface Collidable
 	 * @return true if a collision is detected
 	 */
 	abstract boolean detectCollision(Collidable object1, Collidable object2);
 
+	/**
+	 * Calls the actOnCollision method for each of the object involved in a
+	 * collision. It's protected so that the method can be overwritten by
+	 * subclasses to customize behavior
+	 * 
+	 * @param object1
+	 *            an object that implements the interface Collidable
+	 * @param object2
+	 *            an object that implements the interface Collidable
+	 */
 	protected void act(Collidable object1, Collidable object2) {
 		// EvenListener.action();
 		object1.actOnCollision(object2);
@@ -98,11 +115,15 @@ public abstract class CollisionManager {
 	}
 
 	/**
-	 * Process border collisions
+	 * Process border collisions for a given object. Bouncing is the default
+	 * behavior
 	 * 
 	 * @param object
+	 *            an object that implements the interface Collidable
 	 * @param worldWidth
+	 *            width of the game world
 	 * @param worldHeight
+	 *            height of the game world
 	 */
 	public void processBorders(Collidable object, double worldWidth,
 			double worldHeight) {
@@ -110,78 +131,99 @@ public abstract class CollisionManager {
 	}
 
 	/**
-	 * Process border collisions
+	 * Process border collisions for a given object. Bouncing is the default
+	 * behavior
 	 * 
 	 * @param object
+	 *            an object that implements the interface Collidable
 	 * @param top
+	 *            location of the top border of the game world
 	 * @param bottom
+	 *            location of the bottom border of the game world
 	 * @param left
+	 *            location of the left border of the game world
 	 * @param right
+	 *            location of the right border of the game world
 	 */
 	public void processBorders(Collidable object, double top, double bottom,
 			double left, double right) {
-		// if (object.getX() < top || object.getX() > bottom) {
-		// object.setVelocity(-object.getXVelocity(),
-		// object.getYVelocity());
-		// }
-		// if (object.getY() < left || object.getY() > right) {
-		// object.setVelocity(object.getXVelocity(),
-		// -object.getYVelocity());
-		// }
-		processTopBorder(object, top);
-		processBottomBorder(object, bottom);
-		processLeftBorder(object, left);
-		processRightBorder(object, right);
+		if (object.getY() < top)
+			processTopBorder(object, top);
+		if (object.getY() > bottom)
+			processBottomBorder(object, bottom);
+		if (object.getX() < left)
+			processLeftBorder(object, left);
+		if (object.getX() > right)
+			processRightBorder(object, right);
 	}
-	
+
 	/**
-	 * Process collision with top border
+	 * Process collision with top border. Bouncing is the default behavior. It's
+	 * protected so it can be overwritten to customize behavior.
+	 * 
 	 * @param object
+	 *            an object that implements the interface Collidable
 	 * @param top
+	 *            location of the top border of the game world
 	 */
 	protected void processTopBorder(Collidable object, double top) {
-		if (object.getY() < top)
-			negateY(object);
+		negateVY(object);
 	}
+
 	/**
-	 * Process collision with top bottom
+	 * Process collision with bottom border. Bouncing is the default behavior.
+	 * It's protected so it can be overwritten to customize behavior.
+	 * 
 	 * @param object
+	 *            an object that implements the interface Collidable
 	 * @param bottom
+	 *            location of the bottom border of the game world
 	 */
 	protected void processBottomBorder(Collidable object, double bottom) {
-		if (object.getY() > bottom)
-			negateY(object);
+		negateVY(object);
 	}
+
 	/**
-	 * Process collision with top left
+	 * Process collision with left border. Bouncing is the default behavior.
+	 * It's protected so it can be overwritten to customize behavior.
+	 * 
 	 * @param object
+	 *            an object that implements the interface Collidable
 	 * @param left
+	 *            location of the left border of the game world
 	 */
 	protected void processLeftBorder(Collidable object, double left) {
-		if (object.getX() < left)
-			negateX(object);
+		negateVX(object);
 	}
+
 	/**
-	 * Process collision with top right
+	 * Process collision with right border. Bouncing is the default behavior.
+	 * It's protected so it can be overwritten to customize behavior.
+	 * 
 	 * @param object
+	 *            an object that implements the interface Collidable
 	 * @param right
+	 *            location of the right border of the game world
 	 */
 	protected void processRightBorder(Collidable object, double right) {
-		if (object.getX() > right)
-			negateX(object);
+		negateVX(object);
 	}
+
 	/**
-	 * invert X component of the velocity
+	 * Invert X component of the velocity
+	 * 
 	 * @param object
 	 */
-	protected void negateX(Collidable object) {
+	private void negateVX(Collidable object) {
 		object.setVelocity(-object.getXVelocity(), object.getYVelocity());
 	}
+
 	/**
-	 * invert Y component of the velocity
+	 * Invert Y component of the velocity
+	 * 
 	 * @param object
 	 */
-	protected void negateY(Collidable object) {
+	private void negateVY(Collidable object) {
 		object.setVelocity(object.getXVelocity(), -object.getYVelocity());
 	}
 }
