@@ -1,37 +1,31 @@
-package engine.player.control;
+package PlayerItemSprite;
 
-import engine.core.Game;
+import com.golden.gamedev.engine.BaseInput;
 
 public class MouseController implements IPlayerController {
 
-	private Game myGame;
-	
-	public MouseController(Game game)
-	{
-		myGame = game;
-	}
-	@Override
-	public double deltaX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    private BaseInput myMouseController;
 
-	@Override
-	public double deltaY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public MouseController(BaseInput bi) {
+        myMouseController = bi;
+    }
 
-	@Override
-	public double deltaVelocityX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public double deltaX() {
+        return myMouseController.getMouseDX();
+    }
 
-	@Override
-	public double deltaVelocityY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public double deltaY() {
+        return myMouseController.getMouseDY();
+    }
+
+    public double deltaVelocityX() {
+        return 0;
+    }
+
+    public double deltaVelocityY() {
+        return 0;
+    }
 
 }
