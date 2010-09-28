@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,9 +6,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.sound.midi.Sequence;
+import javax.sound.sampled.AudioFormat;
 
 import com.brackeen.javagamebook.sound.Sound;
 import com.brackeen.javagamebook.sound.SoundManager;
@@ -20,55 +24,25 @@ import com.brackeen.javagamebook.sound.MidiPlayer;
  * @author John Kline
  * @date September 26, 2010
  */
-public class SoundHandler extends ResourceHandler {
+public class SoundHandler {
 
-	private SoundManager sm;
-	private MidiPlayer mp;
+	private static List<String> myDirectories = new ArrayList<String>();
+	private static Map<String, Object> myMap = new HashMap<String, Object>();
 	
-	public SoundHandler(SoundManager sm, MidiPlayer mp) {
-		this.sm = sm;
-		this.mp = mp;
-	}
-
-	/**
-	 * This constructor invokes the loadFile() method on "directory" to fill myMap.
-	 * @param directory The directory to access.
-	 */
-	public SoundHandler(SoundManager sm, MidiPlayer mp, String directory) {
-		this.sm = sm;
-		this.mp = mp;
-		try {
-			loadFile(directory);
-		}catch (IOException e) {
-			System.out.println("Could not load file for soundhandler");
-		}
-	}
-
-	/**
-	 * This constructor invokes the loadFile() method on all Strings in "directories" to fill myMap.
-	 * @param directories The list of directories to access.
-	 */
-	public SoundHandler(SoundManager sm, MidiPlayer mp, ArrayList<String> directories) {
-		super(directories);
-		this.sm = sm;
-		this.mp = mp;
-		for (String s: directories) {
-			try {
-				loadFile(s);
-			} catch (IOException e) {
-				System.out.println("Could not load file for soundhandler");
-			}
-		}
-	}
+	// uncompressed, 44100Hz, 16-bit, mono, signed, little-endian
+	private static SoundManager sm = new SoundManager(new AudioFormat(44100,
+			16, 1, true, false), 8);
+	
+	private static MidiPlayer mp = new MidiPlayer();
 
 	/**
 	 * Adds the Sound specified at "filepath" to myMap with key="name".
 	 * @param name The name to be associated with the Sound located at the filepath.
 	 * @param filepath The location of the Sound in the filesystem.
 	 */
-	public void addSoundMapping(String name, String filepath) {
-		Sound sound = loadSound(getClass().getClassLoader().getResource(filepath).toString());
-		super.addMapping(name, sound);
+	public static void addSoundMapping(String name, String filepath) {
+		Sound sound = loadSound(filepath);
+		addMapping(name, sound);
 	}
 	
 	/**
@@ -76,8 +50,8 @@ public class SoundHandler extends ResourceHandler {
 	 * @param name The name to be associated with the sound.
 	 * @param sound The sound to be added to the map.
 	 */
-	public void addSoundMapping(String name, Sound sound) {
-		super.addMapping(name, sound);
+	public static void addSoundMapping(String name, Sound sound) {
+		addMapping(name, sound);
 	}
 	
 	/**
@@ -85,9 +59,9 @@ public class SoundHandler extends ResourceHandler {
 	 * @param name The name to be associated with the sequence.
 	 * @param filepath The location of the Sequence in the filesystem.
 	 */
-	public void addSequenceMapping(String name, String filepath) {
-		Sequence seq = loadSequence(getClass().getClassLoader().getResource(filepath).toString());
-		super.addMapping(name, seq);
+	public static void addSequenceMapping(String name, String filepath) {
+		Sequence seq = loadSequence(filepath);
+		addMapping(name, seq);
 	}
 	
 	/**
@@ -95,21 +69,47 @@ public class SoundHandler extends ResourceHandler {
 	 * @param name The name to be associated with the sequence.
 	 * @param sequence The sequence to be added to the map.
 	 */
-	public void addSequenceMapping(String name, Sequence sequence) {
-		super.addMapping(name, sequence);
+	public static void addSequenceMapping(String name, Sequence sequence) {
+		addMapping(name, sequence);
 	}
 
+	/**
+	 * Adds a directory to myDirectories.
+	 * @param newDir The directory location as a string.
+	 */
+	public static void addDirectory(String newDir) {
+		myDirectories.add(newDir);
+	}
+	
+	/**
+	 * Adds a mapping to myMap.
+	 * @param key The String key to add.
+	 * @param object The Object associated with the key.
+	 */
+	public static void addMapping(String key, Object object) {
+		myMap.put(key, object);
+	}
+	
+	/**
+	 * Return an Object value associated with the String key.
+	 * @param key The String key to check for.
+	 * @return The Object value associated with key.
+	 */
+	public static Object getMapping(String key) {
+		return myMap.get(key);
+	}
+	
 	/**
 	 * Loads a file from a directory string. Adds the directory string to myDirectories,
 	 * and puts the filepath->reference mappings into myMap. This method handles Sounds and Sequences.
 	 * @param directory The location of the file to load.
 	 * @throws IOException
 	 */
-	public void loadFile(String directory) throws IOException {
-		super.addDirectory(directory);
+	public static void loadFile(String directory) throws IOException {
+		addDirectory(directory);
 		ArrayList<String> lines = new ArrayList<String>();
 		int size = 0;
-		URL url = getClass().getClassLoader().getResource(directory);
+		URL url = SoundHandler.class.getClassLoader().getResource(directory);
 		if (url == null) {
 			throw new IOException("No such directory: " + directory);
 		}
@@ -148,7 +148,7 @@ public class SoundHandler extends ResourceHandler {
 					snd = loadSound(filepath); 
 				}
 				if (snd != null)
-					super.addMapping(name, snd);
+					addMapping(name, snd);
 			} else {
 				line = lines.get(y);
 				StringTokenizer st = new StringTokenizer(line, ",");
@@ -161,7 +161,7 @@ public class SoundHandler extends ResourceHandler {
 					sequence = loadSequence(filepath);
 				}
 				if (sequence != null) {
-                	super.addMapping(name, sequence);
+                	addMapping(name, sequence);
 				}
 			}
 		}
@@ -172,7 +172,7 @@ public class SoundHandler extends ResourceHandler {
 	 * @param filepath The location of the sound file.
 	 * @return The sound.
 	 */
-	public Sound loadSound(String filepath) {
+	public static Sound loadSound(String filepath) {
         return sm.getSound(getResourceAsStream(filepath));
     }
 
@@ -181,12 +181,17 @@ public class SoundHandler extends ResourceHandler {
 	 * @param filepath The location of the sequence file.
 	 * @return The sequence.
 	 */
-    public Sequence loadSequence(String filepath) {
+    public static Sequence loadSequence(String filepath) {
         return mp.getSequence(getResourceAsStream(filepath));
     }
     
-    public InputStream getResourceAsStream(String filename) {
-        return getClass().getClassLoader().
+    /**
+     * Returns as an InputStream the file specified by filename.
+     * @param filename The String representation of the filename.
+     * @return
+     */
+    public static InputStream getResourceAsStream(String filename) {
+        return SoundHandler.class.getClassLoader().
             getResourceAsStream(filename);
     }
 
@@ -194,15 +199,15 @@ public class SoundHandler extends ResourceHandler {
      * Returns the SoundManager
      * @return SoundManager.
      */
-	public SoundManager getSM() {
-		return this.sm;
+	public static SoundManager getSM() {
+		return sm;
 	}
 	
 	/**
 	 * Returns the MidiPlayer.
 	 * @return MidiPlayer.
 	 */
-	public MidiPlayer getMP() {
-		return this.mp;
+	public static MidiPlayer getMP() {
+		return mp;
 	}
 }

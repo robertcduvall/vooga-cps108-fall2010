@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -18,18 +18,11 @@ import org.w3c.dom.Document;
  *
  */
 public abstract class DataHandler {
-	DocumentBuilder db;
 	Map<String, Object> Data;
 	
 
 	protected DataHandler() {
 		Data = new HashMap<String, Object>();
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		try {
-			db = dbf.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -54,6 +47,13 @@ public abstract class DataHandler {
 	 * @return dom Document parsed from XML file.
 	 */
 	protected Document loadFromXML(String filename) {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = null;
+		try {
+			db = dbf.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
 		try {
 			System.out.println(System.getProperty("user.dir"));
 			InputStream is = getResourceAsStream(filename);
@@ -66,7 +66,6 @@ public abstract class DataHandler {
 	}
 
 	protected InputStream getResourceAsStream(String filename) {
-		filename = "data/" + filename;
 		return getClass().getClassLoader().getResourceAsStream(filename);
 	}
 
@@ -81,31 +80,69 @@ public abstract class DataHandler {
 	public Object getData(String fieldName) {
 		return Data.get(fieldName.toUpperCase().trim());
 	}
-
-	protected Object[][] loadFromSpreadSheet(String filename, String delimiter) {
+	
+	/**
+	 * 
+	 * @param s Scanner for spreadsheet that is to be parsed.
+	 * @param delimiter Spreadsheet delimiter.
+	 * @return 2-D array of strings from spreadsheet cells.
+	 */
+	protected String[][] loadFromSpreadsheet(Scanner s, String delimiter) {
 		try {
 			System.out.println(System.getProperty("user.dir"));
-			InputStream is = getResourceAsStream(filename);
-			Scanner s = new Scanner(is);
 			int curLine = 1;
 			String line = s.nextLine();
 			String[] splitLine = line.split(delimiter);
 			while (s.hasNextLine()) {
 				curLine++;
 			}
-			Object[][] outArray = new Object[curLine][splitLine.length];
+			int sheetWidth = splitLine.length;
+			String[][] outArray = new String[curLine][sheetWidth];
 			s.reset();
 			curLine = 0;
 			while (s.hasNextLine()) {
 				line = s.nextLine();
 				splitLine = line.split(delimiter);
-				outArray[curLine++] = splitLine;
+				for(int i = 0; i < sheetWidth; i++) {
+					outArray[curLine][i] = splitLine[i];
+				}
+				curLine++;
 			}
 			return outArray;
 		} catch (Exception e) {
-			System.out.println(filename + " does not exist!");
+			System.out.println("File does not exist!");
 			return null;
 		}
+	}
+	
+	/**
+	 * 
+	 * @param filename A string containing the file path of the spreadsheet to be parsed.
+	 * @param delimiter Spreadsheet delimiter.
+	 * @return 2-D array of strings from spreadsheet cells.
+	 */
+	protected String[][] loadFromSpreadsheet(String filename, String delimiter) {
+		return loadFromSpreadsheet(new Scanner(filename), delimiter);
+	}
+	
+	/**
+	 * 
+	 * @param s Scanner for spreadsheet that is to be parsed.
+	 * @param delimiter Spreadsheet delimiter.
+	 * @return 2-D array of strings from spreadsheet cells.
+	 */
+	protected String[][] loadFromSpreadsheet(Scanner s, Character delimiter) {
+		return loadFromSpreadsheet(s, ""+delimiter);
+	}
+	
+	/**
+	 * 
+	 * @param filename A string containing the file path of the spreadsheet to be parsed.
+	 * @param delimiter Spreadsheet delimiter.
+	 * @return 2-D array of strings from spreadsheet cells.
+	 */
+	protected String[][] loadFromSpreadsheet(String filename, Character delimiter) {
+		return loadFromSpreadsheet(new Scanner(filename), ""+delimiter);
 	}
 
 	// create methods for getting fields from XML (e.g., return arraylist of

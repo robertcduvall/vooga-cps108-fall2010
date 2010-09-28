@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 import java.io.File;
 import com.almworks.sqlite4java.*;

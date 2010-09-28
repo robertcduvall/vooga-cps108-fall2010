@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 import java.util.*;
 
@@ -7,19 +7,19 @@ import java.util.*;
  * Manages random number generation for the game using a primary random number 
  * generator. The majority if not all of the game functions should use the 
  * primary random number generator in order to facilitate reproducibility and
- * replayabilty for game sessions. The available random value are:
+ * replayability for game sessions. The available random value are:
  * integers uniformly distributed across the full range
  * integers uniformly distributed across a range of 0 to some maximum value
- * integers uniformly distributed across a range with a mimimum and maximum value
+ * integers uniformly distributed across a range with a minimum and maximum value
  * longs uniformly distributed across the full range
  * longs uniformly distributed across a range of 0 to some maximum value
- * longs uniformly distributed across a range with a mimimum and maximum value
+ * longs uniformly distributed across a range with a minimum and maximum value
  * doubles uniformly distributed across from 0 inclusive to 1 exclusive
  * doubles uniformly distributed across a range of 0 inclusive to some maximum value exclusive
- * doubles uniformly distributed across a range with a mimimum inclusive and maximum exclusive value
+ * doubles uniformly distributed across a range with a minimum inclusive and maximum exclusive value
  * floats uniformly distributed across from 0 inclusive to 1 exclusive
  * floats uniformly distributed across a range of 0 inclusive to some maximum value exclusive
- * floats uniformly distributed across a range with a mimimum inclusive and maximum exclusive value
+ * floats uniformly distributed across a range with a minimum inclusive and maximum exclusive value
  * booleans
  * doubles in a standardized Gaussian distribution
  * 

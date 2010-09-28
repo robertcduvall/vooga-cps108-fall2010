@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 
 import java.util.Calendar;
@@ -8,11 +8,18 @@ import java.util.TimeZone;
  * Allows for checking the time in the local time zone and Coordinated Universal Time (UTC).
  * The local time zone by default is UTC, but this can be set to any time zone using 
  * the TimeZone class or any time zone unique string ids set up by the TimeZone class such as
- * "EST" or "Pacific Standard Time" or "GMT+10" or "America/Los_Angelos".
+ * "EST" or "Pacific Standard Time" or "GMT+10" or "America/Los_Angelos". A complete
+ * list of available time zones can be found at http://mindprod.com/jgloss/timezone.html
  * 
  * The local or UTC time can be retrieved as milliseconds since January 1, 1970 00:00:00.00
  * Individual components of the time from the number of milliseconds in the current time to the 
  * current year can also be retrieved.
+ * 
+ * This class can be used to create game events which depend on real world time. For 
+ * instance, the background of the game could change to mirror the time of day; scenery
+ * in the game could reflect the real world season; after 1 hour of the game being open 
+ * irrespective of how long the game has been running according the game clock the game 
+ * could display a message telling the user to take a break and go outside like the Wii.
  * 
  * WorldClock is dependent upon java.util.Calendar and java.util.TimeZone.
  * @author Daniel Koverman

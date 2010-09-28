@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -35,6 +35,15 @@ import javax.swing.Timer;
  * This sets a marker at the beginning of game time and moves the marker up to the 
  * current game time each time the game loop is executed, returning the time elapsed 
  * since the last update of the "gameLoop" marker for use in update calculations.
+ * 
+ * The first operation of the game clock is to start it with GameClock.start(). Until 
+ * the clock is started, resetting, pausing, and unpausing will throw exceptions. Once 
+ * time is started it can be paused, unpaused, or reset to time zero. However, if the 
+ * game is paused while it is already paused or unpaused while it is running, it will 
+ * throw an exception.
+ * 
+ * @author Daniel Koverman	
+ * @date September 27, 2010
  */
 public class GameClock {
 	private static long timeAtStart; // system time in milliseconds when timer
@@ -48,8 +57,6 @@ public class GameClock {
 	// begin()
 	private static List<Timer> timers; // collection of timers GameClock is
 	private static Map<String, Long> markers;
-
-	// managing
 
 	/**
 	 * Stop the GameClock from and all timers from advancing. If time is already

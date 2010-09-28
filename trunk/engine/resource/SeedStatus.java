@@ -1,4 +1,4 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
 /**
  * Keeps track of the value of the seed, the number of times a seed is used,

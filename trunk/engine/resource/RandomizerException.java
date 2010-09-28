@@ -1,5 +1,14 @@
-package engine.resource;
+package com.brackeen.javagamebook.resources;
 
+/**
+ * RandomizerException is thrown whenever Randomizer attempts to work with 
+ * some kind of inconsistent parameters. This can arise when Randomizer is passed
+ * two differing Number types when attempting to specify a range or when the first 
+ * parameter when specifying a range is larger than the second. Examples:
+ * 
+ * @author David Herzka
+ *
+ */
 public class RandomizerException extends Exception {
 
 	/**
