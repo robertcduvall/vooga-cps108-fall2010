@@ -6,7 +6,7 @@ package engine.event;
  * @author Meng Li
  * @author Cody Kolodziejzyk
  * @Version: September 26th
- *
+ *gog
  */
 public interface MyEvent{
 	/**
