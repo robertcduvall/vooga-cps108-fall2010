@@ -4,7 +4,9 @@
 </head>
 <body bgcolor="white">
 <p>
-FILL ME IN !!!
+The application which utilizes this event system will be able to help objects to register or listen to a event as well as fire a event when the event is triggered. The event will be automatically fired and received by program when the event is triggered. 
+This Event system primarily includes three classes whose name are AbstractEventManager, MyEvent and MyEventListener. MyEvent and MyEventListener are two interfaces while AbstractEventManager is an abstract class. A class which is designed to listen to a event should implement MyEventListener or implement the interface which extends the MyEventListener.  MyEvent will be implemented by the classes which will be designed to be the object that passes as parameter through the event dispatch. AbstractEventManager class will be extended by event listener and event dispatcher and it will take care of receiving listener and firing the event to listener when the event is triggered.
+For example, if A wants to listener to B and the event is triggered when B moves up. A should implements MyEventListener and extends AbstractEventManager while B should extends AbstractEventManager. A can call A.addMyEventListener to register an event while B can call fireEvent to fire the event to A and A's method actionPerformed(MyEvent e) will be invoked.
 
 <!-- Put @see and @since tags down here. -->
 
