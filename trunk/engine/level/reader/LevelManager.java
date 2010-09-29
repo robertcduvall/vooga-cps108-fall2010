@@ -1,6 +1,8 @@
+package engine.level.reader;
+
 import java.io.*;
 import java.util.*;
-import com.golden.gamedev.object.Sprite;
+import engine.core.Sprite;
 
 /**
  *@author Bhawana, Cameron, Derek

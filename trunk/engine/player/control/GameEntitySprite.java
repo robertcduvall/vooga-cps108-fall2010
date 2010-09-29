@@ -1,4 +1,4 @@
-package PlayerItemSprite;
+package engine.player.control;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.Sprite;
+import engine.core.Sprite;
 
 /**
  * GameEntitySprite represents any object that you might interact with in a

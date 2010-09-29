@@ -1,8 +1,11 @@
+package engine.level.reader;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
-import com.golden.gamedev.object.Sprite;
+import engine.core.Sprite;
+import engine.resource.ImageHandler;
 
 
 /**
@@ -41,7 +44,7 @@ public class Level {
 	 */
 	
 	public void loadSprites(Scanner fileToBeRead) {
-		ResourceManager resourceManager = new ResourceManager();
+		ImageHandler resourceManager = new ImageHandler();
 		
         while (fileToBeRead.hasNextLine()) {
             String spriteDetails = fileToBeRead.nextLine();
@@ -49,10 +52,6 @@ public class Level {
             details.useDelimiter(", *");
             String imageName = details.next();
             BufferedImage image = resourceManager.getImage(imageName);
-//			  This line should make use of an outside API: the resource manager
-//			  As of this afternoon, we were unable to unify our methods.
-//            They are working on making their ResourceManager non-static, so that we will ideally 
-//            be able to use it without having to instantiate it in our own package.
             
             double xPosition = details.nextDouble();
             double yPosition = details.nextDouble();

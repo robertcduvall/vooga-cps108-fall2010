@@ -1,4 +1,4 @@
-package PlayerItemSprite;
+package engine.player.control;
 
 /**
  * This interface defines the methods that a controller class must implement in

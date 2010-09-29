@@ -1,4 +1,4 @@
-package com.brackeen.javagamebook.resources;
+package engine.resource;
 
 /**
  * Thrown when an invalid GameClock Operation is performed. These operations

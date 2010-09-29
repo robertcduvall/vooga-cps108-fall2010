@@ -1,8 +1,8 @@
-package PlayerItemSprite;
+package engine.player.control;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.golden.gamedev.object.Sprite;
+import engine.core.Sprite;
 
 /**
  * PlayerSprite is designed to represent a player in a game. It keeps track of

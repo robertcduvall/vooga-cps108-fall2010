@@ -1,4 +1,4 @@
-package PlayerItemSprite;
+package engine.player.control;
 
 public class MovementKeys {
 

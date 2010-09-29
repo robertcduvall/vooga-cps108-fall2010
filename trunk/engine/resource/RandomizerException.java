@@ -1,4 +1,4 @@
-package com.brackeen.javagamebook.resources;
+package engine.resource;
 
 /**
  * RandomizerException is thrown whenever Randomizer attempts to work with 

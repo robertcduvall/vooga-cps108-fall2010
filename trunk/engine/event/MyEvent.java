@@ -1,4 +1,6 @@
-package event;
+package engine.event;
+
+
 /**
  * A object of a class which implements this interface will be passed to the eventlistener
  * The class which implements this interface can be customized to create more methods.

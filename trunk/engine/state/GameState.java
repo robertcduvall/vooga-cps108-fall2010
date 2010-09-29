@@ -1,6 +1,7 @@
-import java.awt.Graphics2D;
+package engine.state;
 
-import com.golden.gamedev.object.Sprite;
+import java.awt.Graphics2D;
+import engine.core.Sprite;
 import java.util.*;
 
 /**

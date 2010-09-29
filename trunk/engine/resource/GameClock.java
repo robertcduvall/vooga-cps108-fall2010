@@ -1,4 +1,4 @@
-package com.brackeen.javagamebook.resources;
+package engine.resource;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

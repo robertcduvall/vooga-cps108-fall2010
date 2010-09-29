@@ -1,7 +1,6 @@
-package PlayerItemSprite;
+package engine.player.control;
 
-import com.golden.gamedev.object.Sprite;
-import PlayerItemSprite.GameEntitySprite;
+import engine.core.Sprite;
 
 /**
  * The ItemSprite class is designed to represent an entity in the game that
@@ -14,7 +13,6 @@ import PlayerItemSprite.GameEntitySprite;
  * @author Marcus Molchany, Drew Sternesky, Jimmy Mu
  * 
  */
-
 @SuppressWarnings("serial")
 public class ItemSprite extends GameEntitySprite {
 

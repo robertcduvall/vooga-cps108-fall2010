@@ -1,4 +1,4 @@
-package com.brackeen.javagamebook.resources;
+package engine.resource;
 
 import java.io.BufferedReader;
 import java.io.IOException;

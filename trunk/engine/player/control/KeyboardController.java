@@ -1,10 +1,10 @@
-package PlayerItemSprite;
+package engine.player.control;
 
 import java.awt.event.KeyEvent;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
 
-import PlayerItemSprite.IPlayerController;
+import engine.player.control.IPlayerController;
 
 /**
  * This class provides mappings to the UP, LEFT, RIGHT, and DOWN keys for moving
