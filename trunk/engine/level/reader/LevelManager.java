@@ -1,8 +1,6 @@
-package engine.level.reader;
-
 import java.io.*;
 import java.util.*;
-import engine.core.Sprite;
+import com.golden.gamedev.object.Sprite;
 
 /**
  *@author Bhawana, Cameron, Derek
@@ -26,7 +24,6 @@ public class LevelManager {
 	 * end all files with ".txt".
 	 * @throws FileNotFoundException
 	 */
-
 	public void addLevels() throws FileNotFoundException {
 		String path = ".";
 		String files;
@@ -45,8 +42,8 @@ public class LevelManager {
 	}
 
 	/**
-	 * Used to remove a Level from the Collection
-	 * @param levelIndex - indicates which Level should be removed
+	 * Used to remove a Level from the Collection.
+	 * @param levelIndex - Indicates which Level should be removed.
 	 */
 	public void removeLevel(int levelIndex) {
 		if (levelIndex < myCurrentLevel) 
@@ -55,9 +52,9 @@ public class LevelManager {
 	}
 	
 	/**
-	 * Used to skip to any Level within the current Collection of Levels
-	 * @param levelIndex - indicates the Level to jump to
-	 * @return the Collection of Sprites that constitutes the selected Level
+	 * Used to skip to any Level within the current Collection of Levels.
+	 * @param levelIndex - indicates the Level to jump to.
+	 * @return the Collection of Sprites that constitutes the selected Level.
 	 */
 
 	public Collection<Sprite> skipToLevel(int levelIndex) {
@@ -67,7 +64,7 @@ public class LevelManager {
 
 	/**
 	 * 
-	 * @return the Collection of Sprites that constitutes the next Level in the folder
+	 * @return The Collection of Sprites that constitutes the next Level in the folder.
 	 */
 	
 	public Collection<Sprite> nextLevel() {

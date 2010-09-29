@@ -4,7 +4,25 @@
 </head>
 <body bgcolor="white">
 <p>
-FILL ME IN !!!
+The high-level design goal of our project was to provide a basic template
+for game developers to read and load in "Levels", which are a collection of Sprite images and positions. Also,
+the developers should be able to store all of these Levels in a collection.
+
+<p>
+In order to add new features to this template, the developer would need to create sub-classes
+that represent different types of levels. These levels would extend the Level class, but would
+contain new methods that would differentiate themselves from a normal level.
+For instance, if the developer wanted to develop a scrolling level, the developer would
+have to make that as a new subclass that extended Level.
+
+<p>
+One assumption we made was that all level initialization files store Sprite
+details in the following format:
+<PRE>
+SpriteImageFile, x-coordinate, y-coordinate.
+</PRE>
+Also, the level initialization files are named levelX.txt or levelX.TXT,
+where 'X' denotes the index of the level.
 
 <!-- Put @see and @since tags down here. -->
 
