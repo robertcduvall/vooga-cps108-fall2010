@@ -4,7 +4,51 @@
 </head>
 <body bgcolor="white">
 <p>
-FILL ME IN !!!
+For our high-level game engine project, we were assigned to create a state 
+system for the Golden T Game Engine.  Ideally, this would simplify the 
+programmers progression through the state of their game—paused, play, menu 
+screens, etc—and avoid the sloppily universal “game_state” variable employed 
+in the original BubblefishBob code.  We envision accomplishing this through 
+a simple “GameState” class which will facilitate changes in the SpriteGroups 
+that are being updated and/or rendered.
+
+<p>
+This GameState class will be fairly simple, allowing it to be easily extended
+for different game states which the programmer might want.  It will have an 
+“active” boolean variable that will be initialized to false until the activate() 
+method is called.  There will also be two lists of Sprite Groups: renderGroups 
+and updateGroups.  Only the renderGroups will be rendered and only the 
+updateGroups will be updated.  There will be methods to add SpriteGroups— 
+individually or from another GameState—to the renderGroups and updateGroups lists.
+
+<p>
+GameState is, at its most basic conception, a container class for collections 
+of sprites. Beyond that, it should be used control state-specific behavior 
+that defines those sprites. For example, the mainGameState should include all 
+of the sprites necessary to play the game in both the render and update groups. 
+The mainGameState, when set to active, will then iterate through those sprites 
+and render and update them appropriately. Additional behavior can be called in 
+the gameState' render or update methods to provide high-level functionality 
+(i.e. functionality to be preserved across the entire gameState, not a specific 
+level).
+               
+<p>
+GameStates show their power most of all when changing states. As an example, 
+take the change from a mainGameState into a pausedGameState. The pausedGameState 
+could be constructed using the mainGameState's sprites as render-only sprites, 
+effectively "freezing" the action by no longer updating those sprites. A menu 
+could then be added as rendered+updated sprites, displayed over the "frozen" 
+action. Returning to the main game flow is as simple as toggling back to the 
+mainGameState.
+
+<p>
+This Game State system also has the potential to provide cool new features to 
+the Araknoid concept.  For example, one could easily implement a bonus which 
+slowed the ball down using Game State.  The bonus, which would be an Item from 
+Player/Item System, would send along a “slow down” message to the Level System.  
+This Level System would then simply activate a “Slow-down” Game State which 
+would be contained within the Game State collection. The GameState would take 
+the current GameStates update and render groups and modify the sprites' velocities.
 
 <!-- Put @see and @since tags down here. -->
 
