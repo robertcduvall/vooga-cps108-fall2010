@@ -5,6 +5,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
 
-import com.brackeen.javagamebook.graphics.Animation;
+//import com.brackeen.javagamebook.graphics.Animation;
 
 /**
  * The ImageHandler class manages Images and Animations for the ResourceManager.
@@ -56,7 +57,7 @@ public class ImageHandler {
 	 * @param name The name to be associated with the animation.
 	 * @param anim The animation to be added to the map.
 	 */
-	public static void addAnimMapping(String name, Animation anim) {
+	public static void addAnimMapping(String name, BufferedImage[] anim) {
 		addMapping(name, anim);
 	}
 		
@@ -119,16 +120,21 @@ public class ImageHandler {
                 	addMapping(name, img);
           
             } else {
-            	Animation anim = new Animation();
-            	String animName = lines.get(y);
+            	StringTokenizer st1 = new StringTokenizer(lines.get(y), ",");
+            	String animName = st1.nextToken();
+            	int animSize = Integer.parseInt(st1.nextToken());
+            	BufferedImage[] anim = new BufferedImage[animSize];
             	y++;
             	line = lines.get(y);
-            	StringTokenizer st = new StringTokenizer(line, ",");
-                while(st.hasMoreTokens()) {
-                	String filepath = st.nextToken();
-                	long duration = Long.valueOf(st.nextToken());
-                	Image img = new ImageIcon(ImageHandler.class.getClassLoader().getResource(filepath)).getImage();
-                	anim.addFrame(img, duration);
+            	StringTokenizer st2 = new StringTokenizer(line, ",");
+            	int index = 0;
+                while(st2.hasMoreTokens()) {
+                	String filepath = st2.nextToken();
+                	//long duration = Long.valueOf(st2.nextToken());
+                	BufferedImage img = (BufferedImage) new ImageIcon(ImageHandler.class.getClassLoader().getResource(filepath)).getImage();
+                	//anim.addFrame(img, duration);
+                	anim[index] = img;
+                	index++;
                 }
                 addMapping(animName, anim);
             }
