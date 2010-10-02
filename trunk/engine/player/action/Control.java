@@ -2,7 +2,9 @@ package engine.player.action;
 
 import java.util.*;
 import java.lang.reflect.*;
-import greenfoot.*;
+import java.awt.event.KeyEvent;
+import com.golden.gamedev.Game;
+import com.golden.gamedev.engine.BaseInput;
 
 /**
  * Control class which can be used to create control schemes. Can also be extended to create alternate schemes (for AI, control pads, etc)
@@ -18,34 +20,47 @@ import greenfoot.*;
  * @author Choi, Cue, Hawthorne
  * @version 1.0
  */
-public class Control {
-    protected List<Player> players;
+public class Control implements Controller{
+    protected List<PlayerSprite> players;
     protected Class[] paramTypes;
+    protected Game myGame;
     
     /**
      * Default Control Constructor
      */
     public Control() {
-        players = new ArrayList<Player>();
+        players = new ArrayList<PlayerSprite>();
+    }
+    
+    /**
+     * Control Constructor with only a Game declared
+     * 
+     * @param game The game which this Control object is a part of
+     */
+    public Control(Game game) {
+        this();
+        myGame = game;
     }
 
     /**
      * Constructor which can add an intial player to the scheme
      * 
-     * @param Player initialPlayer First player to add to use this control scheme
+     * @param initialPlayer First player to add to use this control scheme
+     * @param game The game which this Control object is a part of
      */
-    public Control(Player initialPlayer) {
-        this();
+    public Control(PlayerSprite initialPlayer, Game game) {
+        this(game);
         players.add(initialPlayer);
     }
 
     /**
      * Constructor that can add multiple players initially
      * 
-     * @param ArrayList<Player> players Initial players to use this scheme
+     * @param players Initial players to use this scheme
+     * @param game The game which this Control object is a part of
      */
-    public Control(ArrayList<Player> players) {
-        this();
+    public Control(ArrayList<PlayerSprite> players, Game game) {
+        this(game);
         this.players = players;
     }
 
@@ -70,4 +85,8 @@ public class Control {
         
     }
     
+    public void addInput(String listen, String method, String classname, Object... paramVals) {
+    //should be overridden in subclasses
+    }
+    }
 }

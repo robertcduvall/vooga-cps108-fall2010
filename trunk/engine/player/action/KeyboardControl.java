@@ -2,6 +2,9 @@ package engine.player.action;
 
 import java.lang.reflect.*;
 import java.util.*;
+import java.awt.event.KeyEvent;
+import com.golden.gamedev.Game;
+import com.golden.gamedev.engine.BaseInput;
 
 public class KeyboardControl extends Control{
 	private Map<String, Method> keyMethodMap;
@@ -12,13 +15,18 @@ public class KeyboardControl extends Control{
 		initializeMappings();
 	}
 	
-	public KeyboardControl(String player){
-		super();
+	public KeyboardControl(Game game){
+		super(game);
 		initializeMappings();
 	}
 	
-	public KeyboardControl(ArrayList<Player> players){
-		super();
+	public KeyboardControl(PlayerSprite player, Game game){
+		super(player, game);
+		initializeMappings();
+	}
+	
+	public KeyboardControl(ArrayList<PlayerSprite> players, Game game){
+		super(players, game);
 		initializeMappings();
 	}
 	
@@ -28,9 +36,7 @@ public class KeyboardControl extends Control{
 	}
 	
 	/**
-     * Create keyset to map input to method. Can be overwritten to create new control scheme
-     * 
-     * @param String inputType Which type of input is to be used: "KEYBOARD", "MOUSE", etc.
+     * Create keyset to map input to method. Can be overwritten to create new control scheme  
      * 
      * @param String listen Use a String version of what to listen to (eg. "a"
      * for "KEYBOARD" or "1" for "MOUSE")
@@ -43,8 +49,8 @@ public class KeyboardControl extends Control{
      * @param Class<?> paramVals Value of the parameters that the method has
      */
     public void addInput(String listen, String method, String classname, Object... paramVals) {
-        
-        try {
+
+    	try {
             Class myClass = Class.forName(classname);
             Method perform = myClass.getMethod(method, paramTypes);
             keyMethodMap.put(listen, perform);
@@ -58,15 +64,15 @@ public class KeyboardControl extends Control{
     }
     
 	public void update(){
-		String key = Greenfoot.getKey();
-        if (key == null) {
+		String key = String.valueOf(myGame.bsInput.getKeyPressed());
+        if (key == game.bsInput.NO_KEY) {
             for (String possibleKey : keymethodMap.keySet()) {
-                if (Greenfoot.isKeyDown(possibleKey)) {
+                if (myGame.bsInput.isKeyDown(Integer.parseInt(possibleKey))) {
                     key = possibleKey;
                 }
             }
-            if (key == null)
-                key = "";
+            if (key == game.bsInput.NO_KEY)
+                key = game.bsInput.NO_KEY;
         }
         if (keymethodMap.containsKey(key)) {
             try {

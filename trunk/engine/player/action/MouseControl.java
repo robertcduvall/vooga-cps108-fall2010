@@ -13,13 +13,18 @@ public class MouseControl extends Control{
 		initializeMappings();
 	}
 	
-	public MouseControl(Player initialPlayer){
-		super();
+	public MouseControl(Game game){
+		super(game);
 		initializeMappings();
 	}
 	
-	public MouseControl(ArrayList<Player> initialPlayers){
-		super();
+	public MouseControl(PlayerSprite initialPlayer, Game game){
+		super(initialPlayer, game);
+		initializeMappings();
+	}
+	
+	public MouseControl(ArrayList<PlayerSprite> initialPlayers, Game game){
+		super(initialPlayers, game);
 		initializeMappings();
 	}
 	
@@ -43,7 +48,7 @@ public class MouseControl extends Control{
     }
 	
 	public void update(){
-		int key = Greenfoot.getMouseInfo().getButton();
+		int key = myGame.bsInput.getMousePressed();
         if (mouseMethodMap.containsKey(key))
         {
             try{
