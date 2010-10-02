@@ -1,10 +1,15 @@
 README file for the Event System
 ------------------------------------------------------------------------------
+Author: Hao He, Meng Li, Cody Kolodziejzyk
+Version: October 1st
+
+------------------------------------------------------------------------------
 This explains how to use our Event package to develop games. If you have any
 problems with the package or how to use it, send an email to us.
 <hao.he2@duke.edu>
 <meng.li@duke.edu>
 <cody.ko@gmail.com>
+
 ------------------------------------------------------------------------------
 
 Description
@@ -21,35 +26,29 @@ A Simple Example
   Our package is extremely easy to use. Taking Pacman game for example,
   ghosts, enemies of pacman, are trying to catch pacman and end the game. In
   order to make the game more challenging, ghosts should always try to move 
-  closer to pacman instead of wandering around randomly. We can make it
-  happen by firstly building a simple PacmanMoveEvent that implements our 
-  Event interface, which takes Pacman's (x, y) positions, and creating a 
-  PacmanMoveListener interface to listen to this specific event. We then make 
-  both pacman and ghosts extends our super class AbstractEventManager, 
-  which is used for registering, removing and firing events. The final step is to 
-  make ghost implement PacmanMoveListener, and write a short piece of code 
-  in the action method such that ghost will do something interesting when pacman 
-  moves. Programmers can also choose either register the listener in ghost's 
-  construction method if he wanted ghosts always move according to pacman, 
-  or they can also register the listener anywhere in the main game if they wanted 
-  ghosts to follow pacman at a specific time.
+  closer to pacman instead of wandering around randomly. In this case, we should
+  make ghost listen to packman's movement and try to catch up with him. This is
+  a simple example showing where and how our event system can be used.
+  
+  See the example demo @ examples/event
 
 
 -------------------------------------------------------------------------------
 Package Discription
 
 -------------------------------------------------------------------------------
-AbstractEventManager
+EventManager
  
-  This is the super class for all objects to extend. It is abstract so that it cannot
-  be instantiated. It has one static field mapRepository that keeps all listeners.
-  We think it's fine to make a static field because our event system is really high
-  level, and other objects need to register their listeners at one place in order to 
-  make it easy to manage. 
+   This class manages the behavior of game events. Its main purpose is to manage
+   events, and inform listeners when the event they are listening to
+   happens.This class should be instantiated at the very beginning of the game,
+   and be shared by all objects who would like to use our event systems. It can
+   register and remove listener. In addition, it can establish relationships
+   between isolated objects.
 
   There are two simple methods in it, 
-  - addMyEventListener()
-  - removeMyEventListener()
+  - addEventListener()
+  - removeEventListener()
 
   used for registering and removing event listener. There is another method
   - fireEvent()
@@ -59,7 +58,7 @@ AbstractEventManager
 
 
 
-MyEvent
+IEvent
 
   This is the interface for every user defined event to implement. It has two 
   methods,
@@ -71,11 +70,11 @@ MyEvent
 
 
 
-MyEventListener
+IEventListener
 
   This is the interface for every user defined listener to implement. It has only
   one method,
-  - actionPerformed(MyEvent e)
+  - actionPerformed(IEvent e)
   
-  When developers make their own listener, they need to change MyEvent
+  When developers make their own listener, they need to change IEvent
   into the name of the specific event this listener listens to.
