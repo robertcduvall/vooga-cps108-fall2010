@@ -44,14 +44,14 @@ public class Level {
 	 */
 	
 	public void loadSprites(Scanner fileToBeRead) {
-		ImageHandler resourceManager = new ImageHandler();
+		//ImageHandler resourceManager = new ImageHandler();
 		
         while (fileToBeRead.hasNextLine()) {
             String spriteDetails = fileToBeRead.nextLine();
             Scanner details = new Scanner(spriteDetails);
             details.useDelimiter(", *");
             String imageName = details.next();
-            BufferedImage image = resourceManager.getImage(imageName);
+            BufferedImage image = (BufferedImage)ImageHandler.getMapping(imageName);
             
             double xPosition = details.nextDouble();
             double yPosition = details.nextDouble();
