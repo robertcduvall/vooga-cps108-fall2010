@@ -28,10 +28,11 @@ public abstract class GameEntitySprite extends Sprite {
     private String myName;
     private Map<String, Sprite> mySprites;
     private Sprite myCurrentSprite;
-
+    
+    
     /**
      * @param name is any name you'd like to give to the object.
-     * @param stateName is the name you'd like to map to the following Sprite
+     * @param state Name is the name you'd like to map to the following Sprite
      *            object. e.g."alive" to represent a sprite that's a live, or
      *            "dead" if the sprite represents the entity in a dead state,
      *            etc
@@ -77,12 +78,20 @@ public abstract class GameEntitySprite extends Sprite {
     /**
      * Changes the name of the GameEntity.
      * 
-     * @param s new name.
+     * @param name new name.
      */
-    public void setName(String s) {
-        myName = s;
+    private void setName(String name) {
+        myName = name;
     }
 
+    public void switchState()
+    {
+    	
+    	
+    }
+    
+    
+    
     /**
      * Modify GameEntity so that it is represented by the Sprite specified by
      * spriteName.
@@ -90,25 +99,42 @@ public abstract class GameEntitySprite extends Sprite {
      * @param spriteName the "name" of the sprite that GameEntity will now be
      *            represented by.
      */
-    public void setCurrentSprite(String spriteName) {
-        if (mySprites.containsKey(spriteName)) {
-            Sprite tempSprite = mySprites.get(spriteName);
-            syncIncomingAndOutgoingSprite(tempSprite);
-            myCurrentSprite = tempSprite;
-        } else
-            System.out
-                    .println("String does not exist in as a state to set current image");
+    private void setToCurrentSprite(String spriteName) {
+    	
+       if(nameExists(spriteName))
+       {
+    	   Sprite nextSprite = mySprites.get(spriteName);           
+           setToCurrentSprite(nextSprite);
+       }      
+            
+//        } else
+//            System.out
+//                    .println("String does not exist in as a state to set current image");
     }
+    
+    private boolean nameExists(String spriteName)
+    {
+    	return mySprites.containsKey(spriteName);
+    }
+   
 
-    // syncs the outgoing and incoming sprites so that no matter what Sprite
+    // synchronize to the current sprite
     // GameEntity is using currently,
     // the GameEntity object will always be in the same place and moving at the
     // same speed.
-    private void syncIncomingAndOutgoingSprite(Sprite incoming) {
-        incoming.setLocation(myCurrentSprite.getX(), myCurrentSprite.getY());
-        incoming.setSpeed(myCurrentSprite.getHorizontalSpeed(),
-                myCurrentSprite.getVerticalSpeed());
-        incoming.setActive(true);
+    private void setToCurrentSprite(Sprite nextSprite) {
+        
+    	double currentX = myCurrentSprite.getX();
+    	double currentY = myCurrentSprite.getY();
+    	double currentVX = myCurrentSprite.getHorizontalSpeed();
+    	double currentVY = myCurrentSprite.getVerticalSpeed();
+    
+    	nextSprite.setLocation(currentX, currentY);
+    	nextSprite.setSpeed(currentVX, currentVY);
+    	
+    	myCurrentSprite.setActive(false);
+    	myCurrentSprite = nextSprite;
+    	mycurrentSprite.setActive(true);
     }
 
     /*
@@ -126,13 +152,16 @@ public abstract class GameEntitySprite extends Sprite {
 
     public void addHorizontalSpeed(long elapsedTime, double accel,
             double maxSpeed) {
-        myCurrentSprite.addHorizontalSpeed(elapsedTime, accel, maxSpeed);
+        ((GameEntitySprite) myCurrentSprite).addHorizontalSpeed(elapsedTime, accel, maxSpeed);
     }
 
     public void addVerticalSpeed(long elapsedTime, double accel, double maxSpeed) {
         myCurrentSprite.addVerticalSpeed(elapsedTime, accel, maxSpeed);
     }
 
+    /*
+     * 
+     */
     public void forceX(double xs) {
         myCurrentSprite.forceX(xs);
     }
