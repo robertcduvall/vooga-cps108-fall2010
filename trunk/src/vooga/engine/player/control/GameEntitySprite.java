@@ -28,7 +28,7 @@ public abstract class GameEntitySprite extends Sprite {
     private String myName;
     private Map<String, Sprite> mySprites;
     private Sprite myCurrentSprite;
-    
+    private Level myCurrentLevel;
     
     /**
      * @param name is any name you'd like to give to the object.
@@ -40,12 +40,13 @@ public abstract class GameEntitySprite extends Sprite {
      *        Screen.
      */
 
-    public GameEntitySprite(String name, String stateName, Sprite s) {
+    public GameEntitySprite(String name, String stateName, Level level, Sprite s) {
         myStartTime = System.currentTimeMillis();
         mySprites = new HashMap<String, Sprite>();
         mapNameToSprite(stateName, s);
         myCurrentSprite = s;
         setName(name);
+        setLevel(level);
     }
 
     /**
@@ -56,6 +57,11 @@ public abstract class GameEntitySprite extends Sprite {
 
     public void mapNameToSprite(String state, Sprite sp) {
         mySprites.put(state, sp);
+    }
+    
+    private setLevel(Level level)
+    {
+    	myCurrentLevel = level;
     }
 
     /**
