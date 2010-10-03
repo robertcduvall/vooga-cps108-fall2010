@@ -1,5 +1,7 @@
 package vooga.engine.overlay;
 
+import java.awt.image.BufferedImage;
+
 import com.golden.gamedev.object.Sprite;
 
 
@@ -12,6 +14,5 @@ import com.golden.gamedev.object.Sprite;
 public abstract class Overlay extends Sprite {
 
 	private Stat myStat;
-	
 	
 }
