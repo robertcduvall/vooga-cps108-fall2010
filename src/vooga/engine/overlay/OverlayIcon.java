@@ -1,6 +1,6 @@
 package vooga.engine.overlay;
 
-import greenfoot.*;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -106,7 +106,6 @@ public class OverlayIcon extends Overlay {
 	/**
 	 * Updates the number of images showing
 	 */
-	@Override
 	public void act()
 	{
 		if (myStatKeeper != null){

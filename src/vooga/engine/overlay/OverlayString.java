@@ -6,8 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import greenfoot.Actor;
-import greenfoot.GreenfootImage;
+
 
 /**
  * This OverlayString class displays some text on the screen.
