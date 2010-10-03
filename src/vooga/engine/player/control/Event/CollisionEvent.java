@@ -1,29 +1,22 @@
 package vooga.engine.player.control.Event;
 
-import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.level.persist.Level;
 
-public class CollisionEvent extends Event{
+public class CollisionEvent extends InGameEvent{
 
 	
 	
-	public CollisionEvent(GameEntitySprite ge) {
-		super(ge);
+	public CollisionEvent(Level level) {
+		super(level);
 		
+	}
+
+
+	public void checkEvent() {
 		
 		
 	}
 
 	
-	public void act() {
-		
-		
-	}
 	
-	
-	
-	
-	
-	
-	
-
 }
