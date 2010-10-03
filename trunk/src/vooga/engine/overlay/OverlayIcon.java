@@ -3,9 +3,12 @@ package vooga.engine.overlay;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
 /**
@@ -24,8 +27,8 @@ public class OverlayIcon extends Overlay {
 	private int myPreviousNumOfIcons;
 	private StatInt myStatKeeper;
 	private Stat<Integer> myStatKeeperGen;
-	private ArrayList<OverlayStatImage> myList;
 	private OverlayString myText;
+	private SpriteGroup myIconGroup;
 	
 	
 	/**
@@ -41,7 +44,7 @@ public class OverlayIcon extends Overlay {
 		myImage = newIcon;
 		myNumOfIcons = 0;
 		myPreviousNumOfIcons = 0;
-		myList = new ArrayList<OverlayStatImage>();
+		myIconGroup = new SpriteGroup("Icons");
 		makeLabel();
 	}
 	
@@ -75,7 +78,7 @@ public class OverlayIcon extends Overlay {
 		myImage = newIcon;
 		myNumOfIcons = 0;
 		myPreviousNumOfIcons = 0;
-		myList = new ArrayList<OverlayStatImage>();
+		myIconGroup = new SpriteGroup("Icons");
 		makeLabel();
 	}
 	
@@ -110,7 +113,7 @@ public class OverlayIcon extends Overlay {
 	/**
 	 * Updates the number of images showing
 	 */
-	public void act()
+	public void update(long t)
 	{
 		if (myStatKeeper != null){
 			myNumOfIcons = myStatKeeper.getStat();
@@ -119,27 +122,27 @@ public class OverlayIcon extends Overlay {
 		}else{
 			myNumOfIcons = 0;
 		}
-		update();
+		updateIcon();
+		myIconGroup.update(t);
 	}
 	
-	private void update()
+	private void updateIcon()
 	{
 		//Loops until the previous number of icons equals the new number of icons
 		while(myNumOfIcons != myPreviousNumOfIcons) 
 		{
 			if(myNumOfIcons > myPreviousNumOfIcons){
 				OverlayStatImage image = new OverlayStatImage(myImage);
-				myList.add(image);
+				myIconGroup.add(image);
 				double endOfString =  getX() + ((double)getImage().getWidth())/2;
-				int widthOfIcons = (image.getImage().getWidth() + 5) * (myList.size() -1);
+				int widthOfIcons = (image.getImage().getWidth() + 5) * (myIconGroup.getSize() -1);
 				image.render(image.getImage().createGraphics(), (int)(endOfString + widthOfIcons + 8) , (int)getY());
 				myPreviousNumOfIcons++;
 			}
 				
 			else if(myNumOfIcons < myPreviousNumOfIcons)
 			{
-				OverlayStatImage image = myList.remove(myList.size() - 1);
-				image.setActive(false);
+				myIconGroup.remove(myIconGroup.getSize() - 1);
 				myPreviousNumOfIcons--;
 			}
 			else{
@@ -149,9 +152,11 @@ public class OverlayIcon extends Overlay {
 		double endOfString =  getX() + ((double)getImage().getWidth())/2;
 		int paddingBetweenIcons = 5;
 		int paddingBetweenStringAndIcons = 8;
-		int widthOfIcons = (myList.get(myList.size()-1).getImage().getWidth() + paddingBetweenIcons);
-		for(int i=0; i<myList.size(); i++){
-			myList.get(i).setLocation((int)(endOfString + (widthOfIcons* (i)) + paddingBetweenStringAndIcons) , getY());
+		int widthOfIcons = (myIconGroup.getActiveSprite().getImage().getWidth() + paddingBetweenIcons);
+		int i = 0;
+		for(Sprite sprite: myIconGroup.getSprites()){
+			sprite.setLocation((int)(endOfString + (widthOfIcons* (i)) + paddingBetweenStringAndIcons) , getY());
+			i++;
 		}
 		
 	}
@@ -164,8 +169,8 @@ public class OverlayIcon extends Overlay {
 	public int getWidth(){
 		int mid = (int)myText.getX();
 		int begLocOfString = mid - myText.getImage().getWidth()/2;
-		int locOfLastIcon = (int)myList.get(myList.size() - 1).getX();
-		int endLocOfLastIcon = locOfLastIcon + myList.get(myList.size() - 1).getImage().getWidth()/2;
+		int locOfLastIcon = (int)myIconGroup.getSprites()[(myIconGroup.getSize() - 1)].getX();
+		int endLocOfLastIcon = locOfLastIcon + myIconGroup.getActiveSprite().getImage().getWidth()/2;
 		return endLocOfLastIcon - begLocOfString;
 		
 	}
