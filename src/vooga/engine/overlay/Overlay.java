@@ -13,23 +13,5 @@ public abstract class Overlay extends Sprite {
 
 	private Stat myStat;
 	
-	/**
-	 * Returns the width of this actor.
-	 * @return
-	 */
-	public int getWidth()
-	{
-		return this.getImage().getWidth();
-	}
-	
-	/**
-	 * Returs the height of this actor.
-	 * @return
-	 */
-	public int getHeight()
-	{
-		return this.getImage().getHeight();
-	}
-	
 	
 }
