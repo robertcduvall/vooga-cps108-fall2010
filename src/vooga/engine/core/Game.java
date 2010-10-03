@@ -1,8 +1,11 @@
 package vooga.engine.core;
 
 import java.awt.*;
-import com.golden.gamedev.*;
+import java.io.IOException;
 
+import vooga.engine.resource.ResourceHandler;
+
+import com.golden.gamedev.*;
 
 /**
  * Placeholder until we decide whose Sprite to use.
@@ -13,6 +16,12 @@ public class Game extends com.golden.gamedev.Game {
 
    public void initResources() {
       // initialize game packages
+	   try {
+		   ResourceHandler.loadFile("resourcelist.txt");
+	   } catch (IOException e) {
+		   System.out.println("Images not loaded successfully");
+		   e.printStackTrace();
+	   }
    }
 
    public void update(long elapsedTime) {

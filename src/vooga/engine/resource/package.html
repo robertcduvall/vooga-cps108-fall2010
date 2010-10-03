@@ -35,17 +35,7 @@ should be generated using this class. Random numbers which do not require exact
 replication, such as aesthetic or particle effects, can also be generated with this 
 class using secondary random paths.<br>@Randomizer<p>
 
-<p>Image and Sound handling should be handled by the ResourceManager class. The ResourceManager
-class uses the static classes ImageHandler and SoundHandler to maintain two maps of 
-Images/Animations and Sounds/Sequences, respectively. Classes that need to load and store
-image and sound files should, in the initialization method in their main "GameManager" 
-class (or whichever contains the main method) use the loadFile() methods of ImageHandler and
-SoundHandler to load the respective text files into the Handlers to construct mappings
-of String "keys" to Object (Image, Animation, Sound, or Sequence) "values". Whenever a 
-certain resource is needed by, say, a GameState, all the class needs to do is call their
-instantiated ResourceManager's retrieveImage(), retrieveAnimation(), retrieveSound(), 
-or retrieveSequence() method to retrieve the resource. The ResourceManager class should 
-ideally be extended to fit the needs of the specific game being developed.<br>@see ImageHandler , SoundHandler, ResourceHandler</p> 
+<p>Image and Sound handling should be handled by the ResourceManager class. The static classes ImageHandler and SoundHandler maintain two maps of Images/Animations and filepaths for sounds, respectively. Classes that need to load and store image and sound files should, in the initialization method in their main "GameManager" class (or whichever contains the main method) use the loadFile() methods of ImageHandler andSoundHandler to load the respective text files into the Handlers to construct mappings of String "keys" to Object (Image, Animation) or sound filepath "values". Whenever a certain resource is needed by, say, a GameState, all the class needs to do is call the ImageHandler or SoundHandler's getMapping() method to retrieve the resource.<br>@see ImageHandler , SoundHandler</p> 
 
 @since 1.6
 
