@@ -1,8 +1,7 @@
 package vooga.engine.state;
 
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.TreeSet;
 
 /**
  * GameStateManager manages the behavior of GameState for overarching classes like Game. At its heart,
@@ -10,17 +9,19 @@ import java.util.Collections;
  * deactivating specific states. Otherwise, its main purpose is to sort and iterate over GameStates, rendering and
  * updating the active ones.
  * 
- * @author vitorolivier & sort of brentsodman
+ * @author VitorOlivier & BrianSimel & sort of BrentSodman
+ * 
+ * Special thanks to UTA Ben Getson for helping with refactoring
  */
 public class GameStateManager {
 
-	private ArrayList<GameState> currentGameStates;
+	private TreeSet<GameState> currentGameStates;
 
 	/**
 	 * Constructs a new GameStateManager.
 	 */
 	public GameStateManager() {
-		currentGameStates = new ArrayList<GameState>();
+		currentGameStates = new TreeSet<GameState>();
 	}
 
 	/**
@@ -47,12 +48,11 @@ public class GameStateManager {
 	 * @param t
 	 */
 	public void update(long t) {
-		sort();
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			if (currentGameStates.get(i).isActive()) {
-				currentGameStates.get(i).update(t);
+		//sort();
+		for (GameState state: currentGameStates){
+			if (state.isActive()){
+				state.update(t);
 			}
-
 		}
 	}
 	
@@ -62,10 +62,10 @@ public class GameStateManager {
 	 * @param g
 	 */
 	public void render(Graphics2D g) {
-		sort();
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			if (currentGameStates.get(i).isActive()) {
-				currentGameStates.get(i).render(g);
+		//sort();
+		for (GameState state: currentGameStates){
+			if (state.isActive()){
+				state.render(g);
 			}
 		}
 	}
@@ -76,11 +76,13 @@ public class GameStateManager {
 	 * @param gamestate
 	 */
 	public void activateOnly(GameState gamestate) {
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			if (currentGameStates.get(i).equals(gamestate)) {
-				currentGameStates.get(i).activate();
-			} else
-				currentGameStates.get(i).deactivate();
+		for (GameState state: currentGameStates){
+			if (state.equals(gamestate)){
+				state.activate();
+			}
+			else{
+				state.deactivate();
+			}
 		}
 	}
 
@@ -90,9 +92,9 @@ public class GameStateManager {
 	 * @param gamestate
 	 */
 	public void deactivateOnly(GameState gamestate) {
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			if (currentGameStates.get(i).equals(gamestate)) {
-				currentGameStates.get(i).deactivate();
+		for (GameState state: currentGameStates){
+			if (state.equals(gamestate)){
+				state.deactivate();
 			}
 		}
 	}
@@ -101,8 +103,8 @@ public class GameStateManager {
 	 * Activates all GameStates.
 	 */
 	public void activateAll() {
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			currentGameStates.get(i).activate();
+		for (GameState state: currentGameStates){
+			state.activate();
 		}
 	}
 
@@ -113,14 +115,12 @@ public class GameStateManager {
 	 * @param gamestate
 	 */
 	public void toggle(GameState gamestate) {
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			GameState currentState = currentGameStates.get(i);
-			
-			if (currentState.equals(gamestate)) {
-				if (currentState.isActive()){
-					currentState.deactivate();
+		for (GameState state: currentGameStates){
+			if (state.equals(gamestate)) {
+				if (state.isActive()){
+					state.deactivate();
 				} else {
-					currentState.activate();
+					state.activate();
 				}
 			}
 		}
@@ -130,16 +130,57 @@ public class GameStateManager {
 	 * Deactivates all GameStates in the GameStateManager.
 	 */
 	public void deactivateAll() {
-		for (int i = 0; i < currentGameStates.size(); i++) {
-			currentGameStates.get(i).deactivate();
+		for (GameState state: currentGameStates){
+			state.deactivate();
 		}
 	}
 
 	/**
-	 * Sorts all of the GameStates by layer values.
+	 * Deactivates all GameStates except for the parameter GameState, which is activated.
+	 * 
+	 * @param gamestate
 	 */
-	private void sort() {
-		Collections.sort(currentGameStates);
+	public void switchTo(GameState activatedGameState) {
+		for (GameState state: currentGameStates){
+			state.deactivate();
+		}
+		activatedGameState.activate();
+
 	}
 
+//	/**
+//	 * Deactivates a GameState, transfers all sprite groups to another GameState
+//	 * which is then activated.
+//	 * 
+//	 * @param gamestate
+//	 */
+//	public void switchToAndTransferAll(GameState gamestate) {
+//		
+//		gamestate.addState(this);
+//		this.switchTo(gamestate);
+//	}
+//
+//	/**
+//	 * Deactivates this GameState, transfers update sprite group to gamestate
+//	 * which is then activated
+//	 * 
+//	 * @param gamestate
+//	 */
+//	public void switchToAndTransferUpdate(GameState gamestate) {
+//		gamestate.addUpdateState(this);
+//		switchTo(gamestate);
+//	}
+//
+//	/**
+//	 * Deactivates this GameState, transfers update sprite group to gamestate
+//	 * which is then activated
+//	 * 
+//	 * @param gamestate
+//	 */
+//	public void switchToAndTransferRender(GameState gamestate) {
+//		gamestate.addRenderState(this);
+//		switchTo(gamestate);
+//	}
+
+	
 }
