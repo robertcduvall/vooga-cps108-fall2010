@@ -1,4 +1,6 @@
-package vooga.engine.player.control;
+package vooga.engine.player.control.Event;
+
+import vooga.engine.player.control.GameEntitySprite;
 
 public class CollisionEvent extends Event{
 

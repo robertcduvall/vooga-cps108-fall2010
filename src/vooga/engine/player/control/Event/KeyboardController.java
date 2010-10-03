@@ -1,10 +1,9 @@
-package vooga.engine.player.control;
+package vooga.engine.player.control.Event;
 
 import java.awt.event.KeyEvent;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
 
-import vooga.engine.player.control.IPlayerController;
 
 /**
  * This class provides mappings to the UP, LEFT, RIGHT, and DOWN keys for moving

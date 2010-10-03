@@ -1,4 +1,5 @@
-package vooga.engine.player.control;
+package vooga.engine.player.control.Event;
+
 
 import com.golden.gamedev.engine.BaseInput;
 

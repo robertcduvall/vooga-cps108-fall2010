@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.player.control.Event;
 
 /**
  * This interface defines the methods that a controller class must implement in

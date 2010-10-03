@@ -1,4 +1,7 @@
-package vooga.engine.player.control;
+package vooga.engine.player.control.Event;
+
+import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.player.control.PlayerSprite;
 
 
 public class PlayerEvent extends Event{
