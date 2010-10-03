@@ -1,10 +1,8 @@
 package vooga.engine.player.action;
 
 import java.util.*;
-import java.lang.reflect.*;
-import java.awt.event.KeyEvent;
 import com.golden.gamedev.Game;
-import com.golden.gamedev.engine.BaseInput;
+import vooga.engine.player.control.*;
 
 /**
  * Control class which can be used to create control schemes. Can also be extended to create alternate schemes (for AI, control pads, etc)
@@ -88,5 +86,10 @@ public class Control implements Controller{
     public void addInput(String listen, String method, String classname, Object... paramVals) {
     //should be overridden in subclasses
     }
-    }
+
+	@Override
+	public void initializeMappings() {
+		// TODO Auto-generated method stub
+		
+	}
 }

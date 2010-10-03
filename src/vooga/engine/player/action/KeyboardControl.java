@@ -5,6 +5,7 @@ import java.util.*;
 import java.awt.event.KeyEvent;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
+import vooga.engine.player.control.*;
 
 public class KeyboardControl extends Control{
 	private Map<String, Method> keyMethodMap;
@@ -65,20 +66,20 @@ public class KeyboardControl extends Control{
     
 	public void update(){
 		String key = String.valueOf(myGame.bsInput.getKeyPressed());
-        if (key == game.bsInput.NO_KEY) {
-            for (String possibleKey : keymethodMap.keySet()) {
+        if (key == myGame.bsInput.NO_KEY) {
+            for (String possibleKey : keyMethodMap.keySet()) {
                 if (myGame.bsInput.isKeyDown(Integer.parseInt(possibleKey))) {
                     key = possibleKey;
                 }
             }
-            if (key == game.bsInput.NO_KEY)
-                key = game.bsInput.NO_KEY;
+            if (key == myGame.bsInput.NO_KEY)
+                key = myGame.bsInput.NO_KEY;
         }
-        if (keymethodMap.containsKey(key)) {
+        if (keyMethodMap.containsKey(key)) {
             try {
                 for (int i = 0; i < players.size(); i++) {
-                    Method perform = keymethodMap.get(key);
-                    Object[] paramVals = keyparamMap.get(key);
+                    Method perform = keyMethodMap.get(key);
+                    Object[] paramVals = keyParamMap.get(key);
                     perform.invoke(players.get(i), paramVals);
                 }
             } catch (Throwable e) {
