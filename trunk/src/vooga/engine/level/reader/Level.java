@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 import vooga.engine.core.Sprite;
-import vooga.engine.resource.ImageHandler;
+import vooga.engine.resource.ResourceHandler;
 
 
 /**
@@ -51,7 +51,7 @@ public class Level {
             Scanner details = new Scanner(spriteDetails);
             details.useDelimiter(", *");
             String imageName = details.next();
-            BufferedImage image = (BufferedImage)ImageHandler.getMapping(imageName);
+            BufferedImage image = (BufferedImage)ResourceHandler.getMapping(imageName);
             
             double xPosition = details.nextDouble();
             double yPosition = details.nextDouble();
