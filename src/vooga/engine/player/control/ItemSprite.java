@@ -14,7 +14,7 @@ import com.golden.gamedev.object.Sprite;
  * 
  */
 @SuppressWarnings("serial")
-public class ItemSprite extends GameEntitySprite {
+public abstract class ItemSprite extends GameEntitySprite {
 
     /**
      * Constructs an ItemSprite.
@@ -37,11 +37,8 @@ public class ItemSprite extends GameEntitySprite {
     }
 
     /**
-     * This method does nothing by default. It can be implemented in a subclass
-     * and will allow this item to affect the game in some way.
+     * This method defines what should happen when an item is "used."
      */
-    public void act() {
-
-    }
+    public abstract void act();
     
 }
