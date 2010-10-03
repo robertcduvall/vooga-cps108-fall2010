@@ -1,7 +1,9 @@
 package vooga.engine.overlay;
 
 import java.util.*;
-import greenfoot.*;
+import com.golden.gamedev.*;
+import com.golden.gamedev.engine.*;
+import com.golden.gamedev.object.*;
 
 /**
  * The OverlayManager class lets you create a group of Overlays, which can then
@@ -19,10 +21,10 @@ import greenfoot.*;
  */
 public class OverlayManager {
 
-	private Collection<Overlay> myOverlays;
-	private World myWorld;
-	private int myX;
-	private int myY;
+	protected Collection<Overlay> myOverlays;
+	private Game myGame;
+	private double myX;
+	private double myY;
 
 	/**
 	 * Constructs an OverlayManager that uses the given x and y coordinate as
@@ -37,8 +39,8 @@ public class OverlayManager {
 	 *            The y offset of all the Overlays (you can think of it as the y
 	 *            coordinate of the top-left corner of the OverlayManager).
 	 */
-	public OverlayManager(World world, int x, int y) {
-		myWorld = world;
+	public OverlayManager(Game game, double x, double y) {
+		myGame = game;
 		myX = x;
 		myY = y;
 		myOverlays = new HashSet<Overlay>();
@@ -60,7 +62,7 @@ public class OverlayManager {
 	public void addOverlay(Overlay overlay, int x, int y) {
 		if (overlay != null && x > 0 && y > 0) {
 			myOverlays.add(overlay);
-			myWorld.addObject(overlay, myX + x, myY + y);
+			overlay.render(overlay.getImage().createGraphics(), (int)(myX + x), (int)(myY + y));
 		}
 	}
 
@@ -76,16 +78,16 @@ public class OverlayManager {
 	 */
 	public void translateOverlays(int x, int y) {
 		for (Overlay o : myOverlays) {
-			int newX = o.getX() + x;
-			int newY = o.getY() + y;
+			double newX = o.getX() + x;
+			double newY = o.getY() + y;
 			if (newX < 0)
 				newX = 0;
-			if (newX > (myWorld.getWidth() - 1))
-				newX = myWorld.getWidth() - 1;
+			if (newX > (myGame.getWidth() - 1))
+				newX = myGame.getWidth() - 1;
 			if (newY < 0)
 				newY = 0;
-			if (newY > (myWorld.getHeight() - 1))
-				newY = myWorld.getHeight() - 1;
+			if (newY > (myGame.getHeight() - 1))
+				newY = myGame.getHeight() - 1;
 			o.setLocation(newX, newY);
 		}
 	}
@@ -102,8 +104,8 @@ public class OverlayManager {
 	 *            be within the boundaries of the World.
 	 */
 	public void setOverlayPosition(int x, int y) {
-		if (x >= 0 && x <= (myWorld.getWidth() - 1) && y >= 0
-				&& y <= (myWorld.getHeight() - 1)) {
+		if (x >= 0 && x <= (myGame.getWidth() - 1) && y >= 0
+				&& y <= (myGame.getHeight() - 1)) {
 			myX = x;
 			myY = y;
 		}
@@ -114,7 +116,7 @@ public class OverlayManager {
 	 */
 	public void removeOverlays() {
 		for (Overlay o : myOverlays) {
-			myWorld.removeObject(o);
+			o.setActive(false);
 		}
 	}
 
@@ -132,8 +134,8 @@ public class OverlayManager {
 	 * 
 	 * @return The World that the OverlayManager draws the Overlays in.
 	 */
-	public World getWorld() {
-		return myWorld;
+	public Game getGame() {
+		return myGame;
 	}
 
 }
