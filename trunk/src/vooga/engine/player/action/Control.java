@@ -19,9 +19,9 @@ import vooga.engine.player.control.*;
  * @version 1.0
  */
 public class Control implements Controller{
-    protected List<PlayerSprite> players;
-    protected Class[] paramTypes;
-    protected Game myGame;
+    private List<PlayerSprite> players;
+    private Class[] paramTypes;
+    private Game myGame;
     
     /**
      * Default Control Constructor
