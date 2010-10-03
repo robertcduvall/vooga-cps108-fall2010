@@ -6,16 +6,16 @@ package vooga.engine.player.control;
 
 public abstract class Event {
 
-	private GameEntitySprite myGameEntity;
+	private GameEntitySprite myGameEntityReference;
 	
 	public Event(GameEntitySprite ge)
 	{
-		myGameEntity = ge;
+		myGameEntityReference = ge;
 	}
 	
 	public GameEntitySprite getReference()
 	{
-		return myGameEntity;
+		return myGameEntityReference;
 	}
 	
 	public abstract void act();
