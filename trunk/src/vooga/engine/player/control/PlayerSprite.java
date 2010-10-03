@@ -145,8 +145,20 @@ public class PlayerSprite extends GameEntitySprite {
         myScore += i;
     }
 
+    public void setScore(int i) {
+    	myScore = i;
+    	
+    }
     public int getHealth() {
         return myHealth;
+    }
+    
+    public void updateHealth(int i) {
+        myHealth += i;
+    }
+    
+    public void setHealth(int i) {
+    	myHealth = i;
     }
 
     public int getLives() {
@@ -157,20 +169,20 @@ public class PlayerSprite extends GameEntitySprite {
         myLives += i;
     }
 
-    public void updateHealth(int i) {
-        myHealth += i;
+    public void setLives(int i) {
+    	myLives = i;
     }
 
     public int getRank() {
         return myRank;
     }
 
-    public void setRank(int k) {
-        myRank = k;
-    }
-
     public void updateRank(int i) {
         myRank += i;
+    }
+    
+    public void setRank(int k) {
+        myRank = k;
     }
 
 }
