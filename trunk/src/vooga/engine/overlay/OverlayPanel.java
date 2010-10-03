@@ -60,9 +60,10 @@ public class OverlayPanel extends OverlayManager{
 		int xOffset = 0;	//off the screen.
 		if(!isOnTop)
 			yCoordinate = getGame().getHeight() - distanceFromEdge;
-		for(Overlay overlay: myOverlays)
+		int i=0;
+		for(Overlay overlay : myOverlays)
 		{
-			getGame().addObject(overlay, 0, yCoordinate);
+			overlay.render(overlay.getImage().createGraphics(), 0, yCoordinate);
 			
 			if(overlay.getHeight()/2 > distanceFromEdge)
 				yOffset = overlay.getHeight()/2 - distanceFromEdge + 1;
@@ -70,23 +71,24 @@ public class OverlayPanel extends OverlayManager{
 				yOffset*=(-1);
 			if(i==0)
 				xOffset = (overlay.getWidth()*3)/5;
-			else if(i==numberOfOverlays)
+			else if(i==numberOfOverlays-1)
 				xOffset = ((overlay.getWidth()*3)/5)*(-1);
 			overlay.setLocation(xCoordinates[i]+xOffset, yCoordinate+yOffset);
 			xOffset = 0;
 			yOffset = 0;
+			i++;
 		}
 	}
 	
 	private int[] setXCoordinates()
 	{
-		int numberOfOverlays = myOvrlys.size();
+		int numberOfOverlays = myOverlays.size();
 		int[] xCoordinates = new int[numberOfOverlays];
 		if(numberOfOverlays == 1)
-			xCoordinates[0] = getWorld().getWidth()/2;
+			xCoordinates[0] = getGame().getWidth()/2;
 		else
 		{
-			int xIncrement = getWorld().getWidth() / (numberOfOverlays-1);
+			int xIncrement = getGame().getWidth() / (numberOfOverlays-1);
 			for(int i=0; i < numberOfOverlays; i++)
 			{
 				xCoordinates[i] = xIncrement * i;		//x-coordinates for the overlays
