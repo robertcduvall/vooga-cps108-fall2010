@@ -17,24 +17,31 @@ import com.golden.gamedev.object.Sprite;
  */
 public class OverlayLabel extends Sprite {
 
-	private Actor myActor;
+	/**
+	 * Sprite that will have the label displayed above.
+	 */
+	private Sprite mySprite;
 	/**
 	 * The string / value to be displayed over the Actor.
 	 */
 	private OverlayString myOverlayString;
 	
-	public OverlayLabel(Actor actor, OverlayString overlayString)
+	public OverlayLabel(Sprite sprite, OverlayString overlayString)
 	{
-		myActor = actor;
+		mySprite = sprite;
 		myOverlayString = overlayString;
 	}
 
 	public void act()
 	{
-		int xCoordinate = myActor.getX();
+		double xCoordinate = mySprite.getX();
 		//Make the label clear the top of the image of the Actor
-		int yCoordinate = myActor.getY()+(myActor.getImage().getHeight()*3)/5;
+		double yCoordinate = getYCoordinateAboveSprite();
 		myOverlayString.setLocation(xCoordinate, yCoordinate);
+	}
+
+	private double getYCoordinateAboveSprite() {
+		return mySprite.getY()+(mySprite.getHeight()*3)/5 + myOverlayString.getHeight()/2;
 	}
 	
 }
