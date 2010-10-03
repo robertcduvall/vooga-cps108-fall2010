@@ -2,6 +2,9 @@ package vooga.engine.player.control;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import vooga.engine.player.control.Event.IPlayerController;
+
 import com.golden.gamedev.object.Sprite;
 
 /**

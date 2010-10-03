@@ -1,6 +1,9 @@
-package vooga.engine.player.control;
+package vooga.engine.player.control.Event;
 //will change this package when this package is finalized
 import vooga.engine.level.reader.Level;
+import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.player.control.ItemSprite;
+import vooga.engine.player.control.PlayerSprite;
 
 /* This is currently used to refer to Devon Townsend's work
  * Timer, Level specific events, bonues

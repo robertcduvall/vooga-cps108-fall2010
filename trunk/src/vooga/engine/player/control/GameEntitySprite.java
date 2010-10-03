@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import vooga.engine.player.control.Event.Event;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
 
