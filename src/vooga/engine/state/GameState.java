@@ -21,9 +21,9 @@ import java.util.*;
  */
 public abstract class GameState implements Comparable<GameState> {
 
-	private boolean isActive = false;
-	private Collection<Sprite> renderGroups = new ArrayList<Sprite>();
-	private Collection<Sprite> updateGroups = new ArrayList<Sprite>();
+	private boolean myIsActive = false;
+	private Collection<Sprite> myRenderGroups = new ArrayList<Sprite>();
+	private Collection<Sprite> myUpdateGroups = new ArrayList<Sprite>();
 	private int myLayer;
 
 	/**
@@ -63,7 +63,6 @@ public abstract class GameState implements Comparable<GameState> {
 	public GameState(int layer) {
 		this();
 		this.setLayer(layer);
-		// this.initialize();
 	}
 
 	/**
@@ -75,9 +74,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public GameState(GameState gamestate, int layer) {
 		this(gamestate);
-		// this.addState(gamestate);
 		this.setLayer(layer);
-		this.initialize();
 	}
 
 	/**
@@ -90,8 +87,6 @@ public abstract class GameState implements Comparable<GameState> {
 	public GameState(Collection<Sprite> sprites, int layer) {
 		this(sprites);
 		this.setLayer(layer);
-		this.initialize();
-
 	}
 
 	/**
@@ -99,7 +94,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 */
 	public void activate() {
-		this.isActive = true;
+		this.myIsActive = true;
 	}
 
 	/**
@@ -107,7 +102,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 */
 	public void deactivate() {
-		this.isActive = false;
+		this.myIsActive = false;
 	}
 
 	/**
@@ -124,7 +119,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @return boolean
 	 */
 	public boolean isActive() {
-		return isActive;
+		return myIsActive;
 	}
 
 	/**
@@ -134,7 +129,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public void render(Graphics2D g) {
 
-		for (Sprite s : renderGroups) {
+		for (Sprite s : myRenderGroups) {
 			s.render(g);
 		}
 	}
@@ -145,7 +140,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param t
 	 */
 	public void update(long t) {
-		for (Sprite sprite : updateGroups) {
+		for (Sprite sprite : myUpdateGroups) {
 			sprite.update(t);
 		}
 	}
@@ -156,7 +151,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param s
 	 */
 	public void addRenderGroup(Collection<Sprite> sprites) {
-		renderGroups.addAll(sprites);
+		myRenderGroups.addAll(sprites);
 	}
 
 	/**
@@ -165,7 +160,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param s
 	 */
 	public void addUpdateGroups(Collection<Sprite> sprites) {
-		updateGroups.addAll(sprites);
+		myUpdateGroups.addAll(sprites);
 	}
 
 	/**
@@ -184,7 +179,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @return List<SpriteGroup>
 	 */
 	public Collection<Sprite> getRenderGroups() {
-		return renderGroups;
+		return myRenderGroups;
 	}
 
 	/**
@@ -193,7 +188,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @return List<SpriteGroup>
 	 */
 	public Collection<Sprite> getUpdateGroups() {
-		return updateGroups;
+		return myUpdateGroups;
 	}
 
 	/**
@@ -203,7 +198,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public void addRenderState(GameState gamestate) {
 		for (Sprite group : gamestate.getRenderGroups()) {
-			renderGroups.add(group);
+			myRenderGroups.add(group);
 		}
 	}
 
@@ -214,7 +209,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public void addUpdateState(GameState gamestate) {
 		for (Sprite group : gamestate.getUpdateGroups()) {
-			updateGroups.add(group);
+			myUpdateGroups.add(group);
 		}
 	}
 
@@ -233,59 +228,10 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 */
 	public void removeAllGroups() {
-		renderGroups.clear();
-		updateGroups.clear();
+		myRenderGroups.clear();
+		myUpdateGroups.clear();
 	}
 
-	/**
-	 * Sets the current GameState to inactive and sets the parameter GameState to active.
-	 * 
-	 * @param gamestate
-	 */
-	public void switchTo(GameState gamestate) {
-		this.deactivate();
-		gamestate.activate();
-
-	}
-
-	/**
-	 * Deactivates a GameState, transfers all sprite groups to another GameState
-	 * which is then activated.
-	 * 
-	 * @param gamestate
-	 */
-	public void switchToAndTransferAll(GameState gamestate) {
-		gamestate.addState(this);
-		this.deactivate();
-		gamestate.activate();
-
-	}
-
-	/**
-	 * Deactivates this GameState, transfers update sprite group to gamestate
-	 * which is then activated
-	 * 
-	 * @param gamestate
-	 */
-	public void switchToAndTransferUpdate(GameState gamestate) {
-		gamestate.addUpdateState(this);
-		this.deactivate();
-		gamestate.activate();
-
-	}
-
-	/**
-	 * Deactivates this GameState, transfers update sprite group to gamestate
-	 * which is then activated
-	 * 
-	 * @param gamestate
-	 */
-	public void switchToAndTransferRender(GameState gamestate) {
-		gamestate.addRenderState(this);
-		this.deactivate();
-		gamestate.activate();
-
-	}
 
 	/**
 	 * Sets the current GameState's layer value. Layers are used to render multiple GameStates in a defined order.
@@ -311,9 +257,44 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param gamestate
 	 * @return int
 	 */
+	@Override
 	public int compareTo(GameState gamestate) {
 		return this.getLayer() - gamestate.getLayer();
+	}
+	
+	/**
+	 * Equals function for GameStates
+	 * 
+	 * @param Object
+	 * @return boolean
+	 */
+	public boolean equals(Object obj){
+		if (this == obj){
+			return true;
+		}
+		if (this.myLayer == ((GameState) obj).getLayer() &&
+				this.myIsActive == ((GameState) obj).isActive() &&
+				this.myRenderGroups.hashCode() == ((GameState) obj).getRenderGroups().hashCode() &&
+				this.myUpdateGroups.hashCode() == ((GameState) obj).getUpdateGroups().hashCode()) {
+			return true;
+		}
+		return false;
+	}
 
+	/**
+	 * Hash coding for GameStates
+	 * 
+	 * @return int
+	 */
+
+	public int hashCode(){
+		final int PRIME_NUMBER = 7;
+		
+		int code = (PRIME_NUMBER * myRenderGroups.hashCode()); 
+		code += PRIME_NUMBER * myUpdateGroups.hashCode();
+		code += PRIME_NUMBER * myLayer;
+		
+		return code;
 	}
 
 }
