@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 
 
 
@@ -83,19 +84,37 @@ public class OverlayString extends Overlay {
 	 * @param str
 	 */
 	public void print(String str) {		 //get a image from a string
-		int width = getTextWidth(str, myFont);  // get needed width and height of the image to fit the string
-		int height = getTextHeight(str, myFont);
-		GreenfootImage image = new GreenfootImage(width + 5, height + 2);
-		image.setFont(myFont);
-	    image.setColor(myColor);
-		image.drawString(str, 2, height - 1);
-        setImage(image);
+        setImage(createImage(str));
 	}
+	
+	
+	private BufferedImage createImage(String str) {
+	
+		int width = getTextWidth(str) + 4;
+		int height = getTextHeight(str) + 2;
+		// Create a buffered image in
+		// which to draw
+		BufferedImage bufferedImage = new BufferedImage(width, height,BufferedImage.TYPE_USHORT_GRAY);
+		//  Create a graphics contents
+		// on the buffered image
+		Graphics2D g2d = bufferedImage.createGraphics();
+		// Draw graphics
+		g2d.setColor(myColor);
+		g2d.setFont(myFont);
+		
+		g2d.drawString(str, 2, height - 1);
+		
+		// Graphics context
+		// no longer needed so dispose
+		// it
+		g2d.dispose(); 
+		return bufferedImage; 
+		}
 
 	/**
 	 * print the String
 	 */
-	public void act()
+	public void update()
 	{
 		print(myString);
 	}
@@ -104,15 +123,15 @@ public class OverlayString extends Overlay {
 		return myString;
 	}
 	
-	private int getTextWidth(String str, Font font){
-		GRAPHIC.setFont(font);
+	private int getTextWidth(String str){
+		GRAPHIC.setFont(myFont);
 		FontMetrics fm = GRAPHIC.getFontMetrics();
 		return fm.stringWidth(str);
 		
 	}
 	
-	private int getTextHeight(String str, Font font){
-		GRAPHIC.setFont(font);
+	private int getTextHeight(String str){
+		GRAPHIC.setFont(myFont);
 		FontMetrics fm = GRAPHIC.getFontMetrics();
 		return fm.getHeight();
 		

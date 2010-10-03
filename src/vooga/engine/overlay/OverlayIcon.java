@@ -3,7 +3,10 @@ package vooga.engine.overlay;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import com.golden.gamedev.util.ImageUtil;
 
 /**
  * This Overlay class displays a finite number of icons, with the image provided by the user
@@ -16,7 +19,7 @@ import java.util.ArrayList;
  */
 public class OverlayIcon extends Overlay {
 
-	private GreenfootImage myIcon;
+	private BufferedImage myIcon;
 	private int myNumOfIcons;
 	private int myPreviousNumOfIcons;
 	private StatInt myStatKeeper;
@@ -31,7 +34,7 @@ public class OverlayIcon extends Overlay {
 	 * @param newIcon Icon to display
 	 * @param label String to label the icons
 	 */
-	public OverlayIcon (StatInt stat, GreenfootImage newIcon, String label)  //Dimensions of the image
+	public OverlayIcon (StatInt stat, BufferedImage newIcon, String label)  //Dimensions of the image
 	{
 		myText = new OverlayString(label);
 		myStatKeeper = stat;
@@ -52,10 +55,10 @@ public class OverlayIcon extends Overlay {
 	 * @param width Width of the icon
 	 * @param height Height of the icon
 	 */
-	public OverlayIcon (Stat<Integer> stat, GreenfootImage newIcon, String label, int width, int height) //Dimensions given
+	public OverlayIcon (Stat<Integer> stat, BufferedImage newIcon, String label, int width, int height) //Dimensions given
 	{
 		this(stat, newIcon, label);
-		myIcon.scale(width, height);
+		myIcon = ImageUtil.resize(myIcon, width, height);
 	}
 	
 	/**
@@ -65,7 +68,7 @@ public class OverlayIcon extends Overlay {
 	 * @param newIcon Icon to display
 	 * @param label String to label the icons
 	 */
-	public OverlayIcon (Stat<Integer> stat, GreenfootImage newIcon, String label)  //Dimensions of the image
+	public OverlayIcon (Stat<Integer> stat, BufferedImage newIcon, String label)  //Dimensions of the image
 	{
 		myText = new OverlayString(label);
 		myStatKeeperGen = stat;
@@ -86,10 +89,11 @@ public class OverlayIcon extends Overlay {
 	 * @param width Width of the icon
 	 * @param height Height of the icon
 	 */
-	public OverlayIcon (StatInt stat, GreenfootImage newIcon, String label, int width, int height) //Dimensions given
+	public OverlayIcon (StatInt stat, BufferedImage newIcon, String label, int width, int height) //Dimensions given
 	{
 		this(stat, newIcon, label);
-		myIcon.scale(width, height);
+		myIcon = ImageUtil.resize(myIcon, width, height);
+
 	}
 	
 	

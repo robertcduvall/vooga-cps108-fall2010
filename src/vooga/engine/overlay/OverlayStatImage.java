@@ -1,5 +1,12 @@
 package vooga.engine.overlay;
 
+import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import com.golden.gamedev.util.ImageUtil;
+import com.sun.media.sound.Toolkit;
+
 
 
 /**
@@ -13,10 +20,15 @@ package vooga.engine.overlay;
 public class OverlayStatImage extends Overlay{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creats a Image to be placed in game.
 	 * @param image image to display
 	 */
-	public OverlayStatImage(GreenfootImage image){
+	public OverlayStatImage(BufferedImage image){
 		setImage(image);
 	}
 	/**
@@ -25,18 +37,19 @@ public class OverlayStatImage extends Overlay{
 	 * @param width width of image
 	 * @param height height of image
 	 */
-	public OverlayStatImage(GreenfootImage image, int width, int height){
+	public OverlayStatImage(BufferedImage image, int width, int height){
 		this(image);
-		this.getImage().scale(width, height);
+		setImage(ImageUtil.resize(this.getImage(), width, height));
 	}
 	
 	/**
 	 * Creats a Image to be placed in game.
 	 * @param location file location of image to be displayed
+	 * @throws MalformedURLException 
 	 */
-	public OverlayStatImage(String location){
-		GreenfootImage image = new GreenfootImage(location);
-		setImage(image);
+	public OverlayStatImage(String location) throws MalformedURLException{
+		URL url = new URL(location);
+		setImage(ImageUtil.getImage(url));
 	}
 	
 	/**
@@ -44,10 +57,11 @@ public class OverlayStatImage extends Overlay{
 	 * @param location file location of image to be displayed
 	 * @param width width of image to be displayed
 	 * @param height height of image to be displayed
+	 * @throws MalformedURLException 
 	 */
-	public OverlayStatImage(String location, int width, int height){
+	public OverlayStatImage(String location, int width, int height) throws MalformedURLException{
 		this(location);
-		this.getImage().scale(width, height);
+		setImage(ImageUtil.resize(this.getImage(), width, height));
 	}
 	
 }
