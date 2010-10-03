@@ -1,7 +1,6 @@
 package vooga.engine.overlay;
 
-import greenfoot.Actor;
-import greenfoot.GreenfootImage;
+
 
 /**
  * The OverlayStatImage class displays a GreenfootImage defined by the user

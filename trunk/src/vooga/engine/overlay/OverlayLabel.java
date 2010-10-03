@@ -1,6 +1,8 @@
 package vooga.engine.overlay;
 
-import greenfoot.*;
+import com.golden.gamedev.object.Sprite;
+
+
 
 /**
  * Takes an OverlayString and places it over the top
@@ -13,7 +15,7 @@ import greenfoot.*;
  * 
  * @author Se-Gil Feldsott
  */
-public class OverlayLabel extends Actor {
+public class OverlayLabel extends Sprite {
 
 	private Actor myActor;
 	/**

@@ -1,7 +1,6 @@
 package vooga.engine.overlay;
 
-import greenfoot.Actor;
-import greenfoot.GreenfootImage;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
