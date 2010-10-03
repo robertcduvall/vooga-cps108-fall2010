@@ -19,9 +19,9 @@ import vooga.engine.player.control.*;
  * @version 1.0
  */
 public class Control implements Controller{
-    private List<PlayerSprite> players;
-    private Class[] paramTypes;
-    private Game myGame;
+    protected List<PlayerSprite> players;
+    protected Class[] paramTypes;
+    protected Game myGame;
     
     /**
      * Default Control Constructor
@@ -87,7 +87,7 @@ public class Control implements Controller{
     //should be overridden in subclasses
     }
 
-	@Override
+	
 	public void initializeMappings() {
 		// TODO Auto-generated method stub
 		
