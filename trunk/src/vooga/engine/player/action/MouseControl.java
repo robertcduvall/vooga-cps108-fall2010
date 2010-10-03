@@ -2,6 +2,9 @@ package vooga.engine.player.action;
 
 import java.util.*;
 import java.lang.reflect.*;
+import com.golden.gamedev.Game;
+import com.golden.gamedev.engine.BaseInput;
+import vooga.engine.player.control.*;
 
 public class MouseControl extends Control{
 	private Map<Integer, Method> mouseMethodMap;

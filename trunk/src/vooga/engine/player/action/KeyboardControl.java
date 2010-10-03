@@ -66,14 +66,14 @@ public class KeyboardControl extends Control{
     
 	public void update(){
 		String key = String.valueOf(myGame.bsInput.getKeyPressed());
-        if (key == myGame.bsInput.NO_KEY) {
+        if (key.equals(String.valueOf(myGame.bsInput.NO_KEY))) {
             for (String possibleKey : keyMethodMap.keySet()) {
                 if (myGame.bsInput.isKeyDown(Integer.parseInt(possibleKey))) {
                     key = possibleKey;
                 }
             }
-            if (key == myGame.bsInput.NO_KEY)
-                key = myGame.bsInput.NO_KEY;
+            if (key.equals(String.valueOf(myGame.bsInput.NO_KEY)))
+                key = String.valueOf(myGame.bsInput.NO_KEY);
         }
         if (keyMethodMap.containsKey(key)) {
             try {
