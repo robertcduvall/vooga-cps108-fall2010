@@ -1,4 +1,4 @@
-package vooga.engine.player.control.Event;
+package vooga.engine.player.control;
 
 import java.awt.event.KeyEvent;
 import com.golden.gamedev.Game;

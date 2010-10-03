@@ -1,4 +1,4 @@
-package vooga.engine.player.control.Event;
+package vooga.engine.player.control;
 
 /**
  * MovementKeys sets default values or specific values to the LEFT, RIGHT, UP
