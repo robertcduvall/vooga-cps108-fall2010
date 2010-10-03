@@ -5,7 +5,7 @@ import vooga.engine.player.control.GameEntitySprite;
 public class MouseEvent extends Event{
 
 	public MouseEvent(GameEntitySprite ge) {
-		super(ge);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
