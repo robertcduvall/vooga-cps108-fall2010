@@ -101,6 +101,7 @@ public class PlayerSprite extends GameEntitySprite {
     public void resetRank() {
         myRank = DEFAULT_RANK;
     }
+    
 
     public void resetHealth() {
         myHealth = DEFAULT_HEALTH;
