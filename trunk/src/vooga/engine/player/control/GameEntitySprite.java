@@ -2,12 +2,11 @@ package vooga.engine.player.control;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vooga.engine.player.control.Event.Event;
+import vooga.engine.player.control.Event;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
@@ -48,7 +47,6 @@ public abstract class GameEntitySprite extends Sprite {
     public GameEntitySprite(String name, String stateName, Sprite s) {
         myStartTime = System.currentTimeMillis();
         mySprites = new HashMap<String, Sprite>();
-        myEvents = new ArrayList<Event>();
         mapNameToSprite(stateName, s);
         setToCurrentSprite(s);
         setName(name);
@@ -153,8 +151,6 @@ public abstract class GameEntitySprite extends Sprite {
 
     public void update(long elapsedTime) {
         myCurrentSprite.update(elapsedTime);
-        for(Event event: myEvents) 
-        	event.checkEvent();
     }
 
     public void render(Graphics2D g) {
