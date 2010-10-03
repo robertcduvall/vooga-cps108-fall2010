@@ -1,5 +1,9 @@
 package vooga.engine.player.control;
 
+/*
+ * 
+ */
+
 public abstract class Event {
 
 	private GameEntitySprite myGameEntity;
