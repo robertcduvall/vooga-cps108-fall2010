@@ -14,28 +14,28 @@ package vooga.engine.player.control.Event;
 
 public interface IPlayerController {
 
-    /**
-     * 
-     * @return Amount to change the X-position of the Player.
-     */
-    public double deltaX();
+	/**
+	 * 
+	 * @return Amount to change the X-position of the Player.
+	 */
+	public double deltaX();
 
-    /**
-     * 
-     * @return Amount to change the Y-position of the Player.
-     */
-    public double deltaY();
+	/**
+	 * 
+	 * @return Amount to change the Y-position of the Player.
+	 */
+	public double deltaY();
 
-    /**
-     * 
-     * @return Amount to change the X-velocity by.
-     */
-    public double deltaVelocityX();
+	/**
+	 * 
+	 * @return Amount to change the X-velocity by.
+	 */
+	public double deltaVelocityX();
 
-    /**
-     * 
-     * @return Amount to change the Y-velocity by.
-     */
-    public double deltaVelocityY();
+	/**
+	 * 
+	 * @return Amount to change the Y-velocity by.
+	 */
+	public double deltaVelocityY();
 
 }
