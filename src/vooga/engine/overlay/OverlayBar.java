@@ -1,12 +1,8 @@
 package vooga.engine.overlay;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.*;
-
 
 
 /**
@@ -26,11 +22,10 @@ import java.util.*;
  */
 public class OverlayBar extends Overlay {
 
-	private static int DEFAULT_MAXLENGTH;
-	private static int DEFAULT_HEIGHT;
-	private static Color DEFAULT_FILLCOLOR;
-	private static Color DEFAULT_BACKGROUNDCOLOR;
-	private static boolean DEFAULT_SHOWBACKGROUND;
+	private static final int DEFAULT_MAXLENGTH = 300;
+	private static final int DEFAULT_HEIGHT = 20;
+	private static final Color DEFAULT_FILLCOLOR = Color.BLACK;
+	private static final Color DEFAULT_BACKGROUNDCOLOR = Color.RED;
 
 	private Stat<Integer> myStat;
 	private int myMaxLength = DEFAULT_MAXLENGTH;
@@ -48,20 +43,14 @@ public class OverlayBar extends Overlay {
 	 *            The maximum value the statistic can reach.
 	 */
 	public OverlayBar(Stat<Integer> stat, int maxScore) {
-		DEFAULT_MAXLENGTH = 300;
-		DEFAULT_HEIGHT = 20;
-		DEFAULT_FILLCOLOR = Color.BLACK;
-		DEFAULT_BACKGROUNDCOLOR = Color.RED;
-		DEFAULT_SHOWBACKGROUND = true;
-
 		myStat = stat;
 		myMaxScore = maxScore;
 	}
 
 	/**
-	 * This method is called by the Greenfoot API. It calls drawBar().
+	 * Prints the bar on the screen by calling drawBar().
 	 */
-	public void act() {
+	public void update() {
 		drawBar();
 	}
 
@@ -69,27 +58,23 @@ public class OverlayBar extends Overlay {
 	 * This method draws the OverlayBar on the screen according to the
 	 * specifications set by the user.
 	 */
-	private void drawBar() {
-		GreenfootImage image = getImage();
-		if (image.getWidth() != myMaxLength || image.getHeight() != myHeight) {
-			image = new GreenfootImage(myMaxLength, myHeight);
-		}
-
-		// fillRect uses 0,0 because it is drawn in relation to the
-		// GreenfootImage boundry
-		image.setColor(myBackgroundColor);
-		image.fillRect(0, 0, myMaxLength, myHeight);
-
+	private void drawBar(){
+		BufferedImage bufferedImage = new BufferedImage(myMaxLength, myHeight,BufferedImage.TYPE_USHORT_GRAY);
+		Graphics2D g2d = bufferedImage.createGraphics();
+		g2d.setColor(myBackgroundColor);
+		g2d.fillRect(0, 0, myMaxLength, myHeight);
+		
 		float ratio = (float) myStat.getStat() / (float) myMaxScore;
 
 		// only draw the bar fill if the score is greater than 0
 		if (ratio > 0) {
 			int width = Math.round(ratio * myMaxLength);
-			image.setColor(myColor);
-			image.fillRect(0, 0, width, myHeight);
+			g2d.setColor(myColor);
+			g2d.fillRect(0, 0, width, myHeight);
 		}
-
-		setImage(image);
+		
+		g2d.dispose();
+		setImage(bufferedImage);
 	}
 
 	/**
