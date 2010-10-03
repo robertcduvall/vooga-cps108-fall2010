@@ -74,17 +74,30 @@ public class PlayerSprite extends GameEntitySprite {
      * sprite accordingly.
      */
     public void update(long elapsedTime) {
+    	
         super.update(elapsedTime);
-        setHorizontalSpeed(getHorizontalSpeed() + myController.deltaVelocityX());
-        setVerticalSpeed(getVerticalSpeed() + myController.deltaVelocityY());
-        if (this.getY() + myController.deltaY() < this.getBackground()
-                .getHeight() && this.getY() + myController.deltaY() > 0) {
-            this.move(0, myController.deltaY());
-        }
-        if (this.getX() + myController.deltaX() < this.getBackground()
-                .getWidth() && this.getX() + myController.deltaX() > 0) {
-            this.move(myController.deltaX(), 0);
-        }
+        
+        double horizontalspeed = getHorizontalSpeed() + myController.deltaVelocityX();
+        double verticalspeed = getVerticalSpeed() + myController.deltaVelocityY();
+        
+        setHorizontalSpeed(horizontalspeed);
+        setVerticalSpeed(verticalspeed);
+        
+        double currentPosition = getY() + myController.deltaY();
+        double min = 0;
+        double max = getBackground().getHeight();
+        
+        if(isInBound(currentPosition, min, max)) move(0, myController.deltaY());
+        
+        currentPosition = getX() + myController.deltaX();
+        max = getBackground().getWidth();
+        
+    }
+    
+    private boolean isInBound(double currPosition, double min, double max)
+    {
+    	return (currPosition > min && currPosition < max);
+    	
     }
 
     /**

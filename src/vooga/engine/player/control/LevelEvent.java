@@ -29,7 +29,7 @@ public abstract class LevelEvent extends Event{
 		setToLevel(level);
 	}
 
-	private void setToLevel(Level level)
+	public void setToLevel(Level level)
 	{
 		myLevel = level;
 	}
