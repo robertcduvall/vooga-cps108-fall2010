@@ -1,4 +1,5 @@
-import vooga.engine.player.control.*;
+package vooga.engine.player.control;
+
 
 public class PlayerEvent extends Event{
 
@@ -9,8 +10,11 @@ public class PlayerEvent extends Event{
 
 
 	public void act() {
+		//
 		GameEntitySprite player = getReference();
 		player = (PlayerSprite) player;
+		
+		
 	}
 	
 	
