@@ -1,0 +1,44 @@
+package vooga.engine.player.control;
+//will change this package when this package is finalized
+import vooga.engine.level.reader.Level;
+
+/* This is currently used to refer to Devon Townsend's work
+ * Timer, Level specific events, bonues
+ */
+
+public abstract class LevelEvent extends Event{
+
+	private Level myLevel;
+	
+	public LevelEvent(PlayerSprite gs, Level level) {
+		super(gs);
+		setToLevel(level);
+		gs = (PlayerSprite) gs;
+	}
+	
+	public LevelEvent(ItemSprite is, Level level)
+	{
+		super(is);
+		setToLevel(level);
+		is = (ItemSprite) is;
+	}
+	
+	public LevelEvent(GameEntitySprite ge, Level level)
+	{
+		super(ge);
+		setToLevel(level);
+	}
+
+	private void setToLevel(Level level)
+	{
+		myLevel = level;
+	}
+	
+	//Here you want to specify how the level system can affect a particular type
+	//of GameEntitySprite
+	public abstract void act();
+
+	
+	
+	
+}
