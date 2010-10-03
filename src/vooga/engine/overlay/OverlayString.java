@@ -114,7 +114,7 @@ public class OverlayString extends Overlay {
 	/**
 	 * print the String
 	 */
-	public void update()
+	public void update(long t)
 	{
 		print(myString);
 	}

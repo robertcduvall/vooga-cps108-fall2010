@@ -33,7 +33,6 @@ public class OverlayStat extends OverlayString {
 	public OverlayStat(String label, StatInt tracker){
 		super(label);
 		myIntTracker = tracker;
-		update();
 	}
 	
 	/**
@@ -44,13 +43,12 @@ public class OverlayStat extends OverlayString {
 	public OverlayStat(String label, Stat<?> tracker){
 		super(label);
 		myGenTracker = tracker;
-		update();
 	}	
 
 	/**
 	 * Creats String that will be displayed
 	 */
-	public void update()
+	public void update(long t)
 	{
 		String track = setStat();
 		print(getString() + " " + track);
