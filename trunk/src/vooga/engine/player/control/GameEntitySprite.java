@@ -2,7 +2,9 @@ package vooga.engine.player.control;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
@@ -28,6 +30,7 @@ public abstract class GameEntitySprite extends Sprite {
     private String myName;
     private Map<String, Sprite> mySprites;
     private Sprite myCurrentSprite;
+    private List<Event> myEvents;	
     
     /**
      * @param name is any name you'd like to give to the object.
@@ -42,10 +45,12 @@ public abstract class GameEntitySprite extends Sprite {
     public GameEntitySprite(String name, String stateName, Sprite s) {
         myStartTime = System.currentTimeMillis();
         mySprites = new HashMap<String, Sprite>();
+        myEvents = new ArrayList<Event>();
         mapNameToSprite(stateName, s);
-        myCurrentSprite = s;
+        setToCurrentSprite(s);
         setName(name);
     }
+    
 
     /**
      * @param state is the name you'd like to use to represent the Sprite
@@ -65,7 +70,21 @@ public abstract class GameEntitySprite extends Sprite {
         long currentTime = System.currentTimeMillis();
         return currentTime - myStartTime;
     }
-
+    
+    /**
+     * Collects all the events from control, level, and collision manager. 
+     * The events make the gameEntity take care of itself.
+     */
+    
+    public void addEvent(Event event)
+    {
+    	myEvents.add(event);
+    }
+    
+    public void addEvents(List<Event> events)
+    {
+    	myEvents.addAll(events);
+    }
     /**
      * 
      * @return GameEntity's name.
@@ -98,9 +117,6 @@ public abstract class GameEntitySprite extends Sprite {
     		setToCurrentSprite(nextSprite);
     	}      
 
-    	//        } else
-    	//            System.out
-    	//                    .println("String does not exist in as a state to set current image");
     }
     
     private boolean nameExists(String spriteName)
