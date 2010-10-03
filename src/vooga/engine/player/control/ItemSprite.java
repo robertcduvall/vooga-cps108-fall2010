@@ -1,6 +1,6 @@
 package vooga.engine.player.control;
 
-import vooga.engine.core.Sprite;
+import com.golden.gamedev.object.Sprite;
 
 /**
  * The ItemSprite class is designed to represent an entity in the game that
