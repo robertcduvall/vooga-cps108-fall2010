@@ -4,9 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
-import vooga.engine.core.Sprite;
+
 
 /**
  * GameEntitySprite represents any object that you might interact with in a
@@ -28,7 +28,6 @@ public abstract class GameEntitySprite extends Sprite {
     private String myName;
     private Map<String, Sprite> mySprites;
     private Sprite myCurrentSprite;
-    private Level myCurrentLevel;
     
     /**
      * @param name is any name you'd like to give to the object.
@@ -40,13 +39,12 @@ public abstract class GameEntitySprite extends Sprite {
      *        Screen.
      */
 
-    public GameEntitySprite(String name, String stateName, Level level, Sprite s) {
+    public GameEntitySprite(String name, String stateName, Sprite s) {
         myStartTime = System.currentTimeMillis();
         mySprites = new HashMap<String, Sprite>();
         mapNameToSprite(stateName, s);
         myCurrentSprite = s;
         setName(name);
-        setLevel(level);
     }
 
     /**
@@ -57,11 +55,6 @@ public abstract class GameEntitySprite extends Sprite {
 
     public void mapNameToSprite(String state, Sprite sp) {
         mySprites.put(state, sp);
-    }
-    
-    private setLevel(Level level)
-    {
-    	myCurrentLevel = level;
     }
 
     /**
@@ -90,13 +83,6 @@ public abstract class GameEntitySprite extends Sprite {
         myName = name;
     }
 
-    public void switchState()
-    {
-    	
-    	
-    }
-    
-    
     
     /**
      * Modify GameEntity so that it is represented by the Sprite specified by
@@ -106,16 +92,15 @@ public abstract class GameEntitySprite extends Sprite {
      *            represented by.
      */
     private void setToCurrentSprite(String spriteName) {
-    	
-       if(nameExists(spriteName))
-       {
-    	   Sprite nextSprite = mySprites.get(spriteName);           
-           setToCurrentSprite(nextSprite);
-       }      
-            
-//        } else
-//            System.out
-//                    .println("String does not exist in as a state to set current image");
+    	if(nameExists(spriteName))
+    	{
+    		Sprite nextSprite = mySprites.get(spriteName);           
+    		setToCurrentSprite(nextSprite);
+    	}      
+
+    	//        } else
+    	//            System.out
+    	//                    .println("String does not exist in as a state to set current image");
     }
     
     private boolean nameExists(String spriteName)
@@ -140,7 +125,6 @@ public abstract class GameEntitySprite extends Sprite {
     	
     	myCurrentSprite.setActive(false);
     	myCurrentSprite = nextSprite;
-    	mycurrentSprite.setActive(true);
     }
 
     /*

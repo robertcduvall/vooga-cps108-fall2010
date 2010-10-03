@@ -2,7 +2,7 @@ package vooga.engine.player.control;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.engine.core.Sprite;
+import com.golden.gamedev.object.Sprite;
 
 /**
  * PlayerSprite is designed to represent a player in a game. It keeps track of
