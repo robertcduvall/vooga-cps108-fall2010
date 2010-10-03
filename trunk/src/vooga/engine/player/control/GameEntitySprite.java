@@ -153,6 +153,8 @@ public abstract class GameEntitySprite extends Sprite {
 
     public void update(long elapsedTime) {
         myCurrentSprite.update(elapsedTime);
+        for(Event event: myEvents) 
+        	event.checkEvent();
     }
 
     public void render(Graphics2D g) {

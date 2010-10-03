@@ -9,8 +9,10 @@ public class MouseEvent extends Event{
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	@Override
-	public void act() {
+	public void checkEvent() {
 		// TODO Auto-generated method stub
 		
 	}

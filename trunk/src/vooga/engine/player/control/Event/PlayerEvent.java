@@ -1,32 +1,23 @@
 package vooga.engine.player.control.Event;
 
+import vooga.engine.level.persist.Level;
 import vooga.engine.player.control.GameEntitySprite;
 import vooga.engine.player.control.PlayerSprite;
 
 
-public class PlayerEvent extends Event{
+public abstract class PlayerEvent extends GameEntityEvent{
 
-	public PlayerEvent(PlayerSprite player)
-	{
-		super(player);
+	public PlayerEvent(Level level, PlayerSprite one, PlayerSprite two) {
+		super(level, one, two);
+		one = (PlayerSprite) one;
+		two = (PlayerSprite) two;
+		
 	}
 
+	
+	public abstract void checkEvent();
 
-	/* Act specifies that if a particular event happens, then an event will 
-	 * affect the player
-	 * 
-	 */
-	
-	public void act() {
-		
-		GameEntitySprite player = getReference();
-		player = (PlayerSprite) player;
-		
-		//specify how this particular event will affect player's methods here. 
-		//(i.e. player.setHealth(-3) or player.setScore(3);
-	}
-	
-	
+
 	
 	
 }
