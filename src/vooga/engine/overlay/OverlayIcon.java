@@ -19,7 +19,7 @@ import com.golden.gamedev.util.ImageUtil;
  */
 public class OverlayIcon extends Overlay {
 
-	private BufferedImage myIcon;
+	private BufferedImage myImage;
 	private int myNumOfIcons;
 	private int myPreviousNumOfIcons;
 	private StatInt myStatKeeper;
@@ -38,7 +38,7 @@ public class OverlayIcon extends Overlay {
 	{
 		myText = new OverlayString(label);
 		myStatKeeper = stat;
-		myIcon = newIcon;
+		myImage = newIcon;
 		myNumOfIcons = 0;
 		myPreviousNumOfIcons = 0;
 		myList = new ArrayList<OverlayStatImage>();
@@ -58,7 +58,7 @@ public class OverlayIcon extends Overlay {
 	public OverlayIcon (Stat<Integer> stat, BufferedImage newIcon, String label, int width, int height) //Dimensions given
 	{
 		this(stat, newIcon, label);
-		myIcon = ImageUtil.resize(myIcon, width, height);
+		myImage = ImageUtil.resize(myImage, width, height);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class OverlayIcon extends Overlay {
 	{
 		myText = new OverlayString(label);
 		myStatKeeperGen = stat;
-		myIcon = newIcon;
+		myImage = newIcon;
 		myNumOfIcons = 0;
 		myPreviousNumOfIcons = 0;
 		myList = new ArrayList<OverlayStatImage>();
@@ -92,7 +92,7 @@ public class OverlayIcon extends Overlay {
 	public OverlayIcon (StatInt stat, BufferedImage newIcon, String label, int width, int height) //Dimensions given
 	{
 		this(stat, newIcon, label);
-		myIcon = ImageUtil.resize(myIcon, width, height);
+		myImage = ImageUtil.resize(myImage, width, height);
 
 	}
 	
@@ -128,18 +128,18 @@ public class OverlayIcon extends Overlay {
 		while(myNumOfIcons != myPreviousNumOfIcons) 
 		{
 			if(myNumOfIcons > myPreviousNumOfIcons){
-				OverlayStatImage image = new OverlayStatImage(myIcon);
+				OverlayStatImage image = new OverlayStatImage(myImage);
 				myList.add(image);
 				double endOfString =  getX() + ((double)getImage().getWidth())/2;
 				int widthOfIcons = (image.getImage().getWidth() + 5) * (myList.size() -1);
-				getWorld().addObject(image, (int)(endOfString + widthOfIcons + 8) , getY());
+				image.render(image.getImage().createGraphics(), (int)(endOfString + widthOfIcons + 8) , (int)getY());
 				myPreviousNumOfIcons++;
 			}
 				
 			else if(myNumOfIcons < myPreviousNumOfIcons)
 			{
 				OverlayStatImage image = myList.remove(myList.size() - 1);
-				image.getWorld().removeObject(image);
+				image.setActive(false);
 				myPreviousNumOfIcons--;
 			}
 			else{
@@ -162,9 +162,9 @@ public class OverlayIcon extends Overlay {
 	 */
 	@Override
 	public int getWidth(){
-		int mid = myText.getX();
+		int mid = (int)myText.getX();
 		int begLocOfString = mid - myText.getImage().getWidth()/2;
-		int locOfLastIcon = myList.get(myList.size() - 1).getX();
+		int locOfLastIcon = (int)myList.get(myList.size() - 1).getX();
 		int endLocOfLastIcon = locOfLastIcon + myList.get(myList.size() - 1).getImage().getWidth()/2;
 		return endLocOfLastIcon - begLocOfString;
 		
