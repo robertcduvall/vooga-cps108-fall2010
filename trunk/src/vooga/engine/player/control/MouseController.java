@@ -24,12 +24,12 @@ public class MouseController implements IPlayerController {
         myMouseController = bi;
     }
 
-    @Override // returns amount to change the X position by.
+    // returns amount to change the X position by.
     public double deltaX() {
         return myMouseController.getMouseDX();
     }
 
-    @Override // returns amount to change the Y position by.
+    // returns amount to change the Y position by.
     public double deltaY() {
         return myMouseController.getMouseDY();
     }
