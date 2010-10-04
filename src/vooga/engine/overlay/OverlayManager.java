@@ -2,20 +2,24 @@ package vooga.engine.overlay;
 
 import java.util.*;
 import com.golden.gamedev.*;
-import com.golden.gamedev.engine.*;
-import com.golden.gamedev.object.*;
 
 /**
  * The OverlayManager class lets you create a group of Overlays, which can then
  * be manipulated. You translate all the overlays, absolutely position them, or
  * remove them all at once.
  * 
- * This example creates an OverlayManager from the World class and bases it at point (0,0).
+ * This example creates an OverlayManager class and bases it at point (0,0).
  * Two Overlays are then added to the manager. 
  * 
+ * </br>
+ * <code>
+ * </br>
  * OverlayManger manager = new OverlayManger(this,0,0);
+ * </br>
  * manager.addOverlay(someOverlay,10,10);
+ * </br>
  * manager.addOverlay(anotherOverlay,20,20);
+ * </code>
  * 
  * @author Andrew Brown
  */
@@ -69,7 +73,7 @@ public class OverlayManager {
 	/**
 	 * Translates all the Overlays in the OverlayManager by the x and y amounts
 	 * given. If the given translation tries to move the Overlay out of the
-	 * World the Overlay simply stops at the edge of the World.
+	 * Game the Overlay simply stops at the edge of the Game.
 	 * 
 	 * @param x
 	 *            The amount to translate the Overlays on the x axis.
@@ -98,10 +102,10 @@ public class OverlayManager {
 	 * 
 	 * @param x
 	 *            The x coordinate at which to anchor the OverlayManager. Must
-	 *            be within the boundaries of the World.
+	 *            be within the boundaries of the Game.
 	 * @param y
 	 *            The y coordinate at which to anchor the OverlayManager. Must
-	 *            be within the boundaries of the World.
+	 *            be within the boundaries of the Game.
 	 */
 	public void setOverlayPosition(int x, int y) {
 		if (x >= 0 && x <= (myGame.getWidth() - 1) && y >= 0
@@ -112,7 +116,7 @@ public class OverlayManager {
 	}
 
 	/**
-	 * Removes all the Overlays in the OverlayManager from the World.
+	 * Removes all the Overlays in the OverlayManager from the Game by setting them to not-active.
 	 */
 	public void removeOverlays() {
 		for (Overlay o : myOverlays) {
@@ -130,9 +134,9 @@ public class OverlayManager {
 	}
 
 	/**
-	 * Returns the World the OverlayManager draws the Overlays in.
+	 * Returns the Game the OverlayManager draws the Overlays in.
 	 * 
-	 * @return The World that the OverlayManager draws the Overlays in.
+	 * @return The Game that the OverlayManager draws the Overlays in.
 	 */
 	public Game getGame() {
 		return myGame;
