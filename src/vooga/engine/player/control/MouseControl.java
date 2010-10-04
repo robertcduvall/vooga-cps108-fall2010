@@ -13,7 +13,7 @@ import vooga.engine.player.control.*;
  * @version 1.0
  */
 
-public class MouseControl extends Control{
+public class MouseControl extends Control implements Controller{
 	private Map<Integer, Method> mouseMethodMap;
 	private Map<Integer, Object[]> mouseParamMap;
 	private Object[] parametervalues;
