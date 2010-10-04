@@ -122,16 +122,15 @@ public abstract class GameEntitySprite extends Sprite {
 		nextSprite.setLocation(currentX, currentY);
 		nextSprite.setSpeed(currentVX, currentVY);
 
-		myCurrentSprite.setActive(false);
+		setActive(false);
 		myCurrentSprite = nextSprite;
+		setActive(true);
 	}
 
 	/***********************************************************************************************************
 	 * THIS SECTION REWRITES ALL OF SPRITE'S METHODS. These simply forward the
 	 * method calls to the currently active sprite in the GameEntity.
-	 * ***********
-	 * ***************************************************************
-	 * *******************************
+	 * *********************************************************************************************************
 	 */
 
 	/**
