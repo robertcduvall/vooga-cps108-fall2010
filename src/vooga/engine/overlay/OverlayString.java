@@ -1,11 +1,15 @@
 package vooga.engine.overlay;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+
+import com.golden.gamedev.object.GameFont;
+import com.golden.gamedev.object.GameFontManager;
 
 
 
@@ -30,8 +34,12 @@ public class OverlayString extends Overlay {
 	
 	
 	private String myString;
-	Font myFont;
-	Color myColor;
+	private GameFont myFont;
+	private Color myColor;
+	private Font myRealFont;
+	private GameFontManager myFontManager;
+	private int myWidth;
+	private int myHeight;
 	
 	/**
 	 * Creats a String to be displayed as an image
@@ -57,8 +65,10 @@ public class OverlayString extends Overlay {
 	 */
 	public OverlayString(String str, Font font, Color color){
 		myString = str;
-		myFont = font;
 		myColor = color;
+		myFontManager = new GameFontManager();
+		myRealFont = font;
+		myFont = myFontManager.getFont(myRealFont, myColor);
 	}
 	/**
 	 * Creats a String to be displayed as an image
@@ -70,12 +80,14 @@ public class OverlayString extends Overlay {
 	}
 	
 	public void setFont(Font font){
-		myFont = font;
+		myFont = myFontManager.getFont(font);
 
 	}
 	
 	public void setColor(Color color){
 		myColor = color;
+		myFont = myFontManager.getFont(myRealFont, myColor);
+		
 	}
 	
 	
@@ -83,40 +95,53 @@ public class OverlayString extends Overlay {
 	 * Sets the image of this object to the passed String
 	 * @param str
 	 */
-	public void print(String str) {		 //get a image from a string
-        setImage(createImage(str));
+	public void print(String str, Graphics2D g) {		 //get a image from a string
+        createImage(str, g);
 	}
 	
 	
-	private BufferedImage createImage(String str) {
+	private void createImage(String str, Graphics2D g) {
 	
-		int width = getTextWidth(str) + 4;
-		int height = getTextHeight(str) + 2;
-		// Create a buffered image in
+		myWidth = getTextWidth(str) + 1;
+		myHeight = getTextHeight();
+		/*// Create a buffered image in
 		// which to draw
-		BufferedImage bufferedImage = new BufferedImage(width, height,BufferedImage.TYPE_USHORT_GRAY);
+		BufferedImage bufferedImage = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
 		//  Create a graphics contents
 		// on the buffered image
 		Graphics2D g2d = bufferedImage.createGraphics();
+		g2d.clearRect(0, 0, width, height);
+		g2d.setColor(new Color(Color.WHITE.getRed(), Color.WHITE.getGreen(), Color.WHITE.getBlue(), 0));
+		g2d.fillRect(0, 0, width, height);
+
 		// Draw graphics
+		g2d.setFont(myRealFont);
 		g2d.setColor(myColor);
-		g2d.setFont(myFont);
 		
 		g2d.drawString(str, 2, height - 1);
+		
+		
+		
+		
 		
 		// Graphics context
 		// no longer needed so dispose
 		// it
 		g2d.dispose(); 
 		return bufferedImage; 
+		*/
+		
+		myFont.drawString(g,str,(int)getX() , (int)getY());
+		
+		
 		}
 
 	/**
 	 * print the String
 	 */
-	public void update(long t)
+	public void render(Graphics2D g)
 	{
-		print(myString);
+		print(myString, g);
 	}
 	
 	public String getString(){
@@ -124,16 +149,19 @@ public class OverlayString extends Overlay {
 	}
 	
 	private int getTextWidth(String str){
-		GRAPHIC.setFont(myFont);
-		FontMetrics fm = GRAPHIC.getFontMetrics();
-		return fm.stringWidth(str);
-		
+		return myFont.getWidth(str);
 	}
 	
-	private int getTextHeight(String str){
-		GRAPHIC.setFont(myFont);
-		FontMetrics fm = GRAPHIC.getFontMetrics();
-		return fm.getHeight();
+	private int getTextHeight(){
+		return myFont.getHeight();
+	}
+	
+	protected int getMyWidth(){
+		return myWidth;
+	}
+	
+	protected int getMyHeight(){
+		return myHeight;
 		
 	}
 	

@@ -1,6 +1,7 @@
 package vooga.engine.overlay;
 
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -45,13 +46,11 @@ public class OverlayStat extends OverlayString {
 		myGenTracker = tracker;
 	}	
 
-	/**
-	 * Creats String that will be displayed
-	 */
-	public void update(long t)
-	{
+
+	
+	public void render(Graphics2D g){
 		String track = setStat();
-		print(getString() + " " + track);
+		print(getString() + " " + track, g);
 	}
 
 	private String setStat() {
