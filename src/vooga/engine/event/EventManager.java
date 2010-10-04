@@ -14,7 +14,7 @@ import java.util.*;
  * @author Meng Li
  * @author Cody Kolodziejzyk
  * @see examples/event
- * @Version: October 1st
+ * @Version: October 1s
  */
 
 public class EventManager {
