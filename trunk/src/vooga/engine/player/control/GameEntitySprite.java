@@ -149,6 +149,102 @@ public abstract class GameEntitySprite extends Sprite {
 		myCurrentSprite.render(g);
 	}
 
+	/***********************************************************************************
+	 * myCurrentSprite: IMAGE MANIPULATION, DISPLAY, ROTATION
+	 * *********************************************************************************
+	 */
+	
+	/**
+	 * Get the bitmap representation of myCurrentSprite
+	 */
+	public BufferedImage getImage() {
+		return myCurrentSprite.getImage();
+	}
+
+	/**
+	 * This method sets a new image to the current Image. This method is used by
+	 * rotate Image;
+	 * 
+	 * @param Image
+	 */
+	private void setNewImage(BufferedImage Image) {
+		myCurrentSprite.setImage(Image);
+	}
+
+	/**
+	 * roteSpriteImage rotates the displayed myCurrentSprite by a specified
+	 * angle
+	 * 
+	 * @param angle
+	 *            specifies how much myCurrentSprite image is rotated in
+	 *            clockwise direction
+	 */
+	public void rotateSpriteImage(double angle) {
+		BufferedImage currentSpriteImage = getImage();
+		int width = currentSpriteImage.getWidth();
+		int height = currentSpriteImage.getHeight();
+
+		int transparency = currentSpriteImage.getColorModel().getTransparency();
+		BufferedImage image = ImageUtil
+				.createImage(width, height, transparency);
+
+		Graphics2D g = image.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.rotate(Math.toRadians(angle), width / 2, height / 2);
+		g.drawImage(currentSpriteImage, 0, 0, null);
+		g.dispose();
+
+		setNewImage(image);
+	}
+
+	/**
+	 * Check whether the myCurrentSprite is on the screen
+	 */
+	public boolean isOnScreen() {
+		return myCurrentSprite.isOnScreen();
+	}
+
+
+	/**
+	 * set whether myCurrentSprite will be visible on the screen
+	 */
+	public void setActive(boolean b) {
+		myCurrentSprite.setActive(b);
+	}
+
+	/**
+	 * check if myCurrentSprite is currently displayed
+	 */
+	public boolean isActive() {
+		return myCurrentSprite.isActive();
+	}
+
+	/**
+	 * Set the background for the Golden T. This allows the sprites to be part
+	 * of the playfield.
+	 */
+	public void setBackground(Background backgr) {
+		for (String s : mySprites.keySet()) {
+			mySprites.get(s).setBackground(backgr);
+		}
+	}
+
+
+	/**
+	 * Set all the sprites to the same
+	 */
+	public void setLayer(int i) {
+		for (String s : mySprites.keySet()) {
+			mySprites.get(s).setLayer(i);
+		}
+	}
+	
+	/**************************************************************************************
+	 * myCurrentSprite: MOVEMENT, SPEED, LOCATION
+	 * ************************************************************************************
+	 */
+
 	/**
 	 * Add an acceleration value to the sprite or change the horizontal speed of
 	 * the sprite
@@ -225,58 +321,38 @@ public abstract class GameEntitySprite extends Sprite {
 	public double getVerticalSpeed() {
 		return myCurrentSprite.getVerticalSpeed();
 	}
+	
+	public void setHorizontalSpeed(double vx) {
+		myCurrentSprite.setHorizontalSpeed(vx);
+	}
 
-	/**
-	 * Get the bitmap representation of myCurrentSprite
-	 */
-	public BufferedImage getImage() {
-		return myCurrentSprite.getImage();
+	public void setVerticalSpeed(double vy) {
+		myCurrentSprite.setVerticalSpeed(vy);
+	}
+	
+	public void setLocation(double xs, double ys) {
+		myCurrentSprite.setLocation(xs, ys);
 	}
 
 	/**
-	 * This method sets a new image to the current Image. This method is used by
-	 * rotate Image;
-	 * 
-	 * @param Image
+	 * set the magnitude of myCurrenttSprite with an initial angle
 	 */
-	private void setNewImage(BufferedImage Image) {
-		myCurrentSprite.setImage(Image);
+	public void setMovement(double speed, double angleDir) {
+		myCurrentSprite.setMovement(speed, angleDir);
 	}
 
-	/**
-	 * roteSpriteImage rotates the displayed myCurrentSprite by a specified
-	 * angle
-	 * 
-	 * @param angle
-	 *            specifies how much myCurrentSprite image is rotated in
-	 *            clockwise direction
-	 */
-	public void rotateSpriteImage(double angle) {
-		BufferedImage currentSpriteImage = getImage();
-		int width = currentSpriteImage.getWidth();
-		int height = currentSpriteImage.getHeight();
-
-		int transparency = currentSpriteImage.getColorModel().getTransparency();
-		BufferedImage image = ImageUtil
-				.createImage(width, height, transparency);
-
-		Graphics2D g = image.createGraphics();
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g.rotate(Math.toRadians(angle), width / 2, height / 2);
-		g.drawImage(currentSpriteImage, 0, 0, null);
-		g.dispose();
-
-		setNewImage(image);
+	public void setSpeed(double vs, double vy) {
+		myCurrentSprite.setSpeed(vs, vy);
 	}
 
-	/**
-	 * Check whether the myCurrentSprite is on the screen
-	 */
-	public boolean isOnScreen() {
-		return myCurrentSprite.isOnScreen();
+	public void setX(double xs) {
+		myCurrentSprite.setX(xs);
 	}
 
+	public void setY(double ys) {
+		myCurrentSprite.setY(ys);
+	}
+	
 	/**
 	 * Move the current Sprite newx and newy
 	 * 
@@ -301,69 +377,7 @@ public abstract class GameEntitySprite extends Sprite {
 	public void moveY(double dy) {
 		myCurrentSprite.moveY(dy);
 	}
-
-	/**
-	 * set whether myCurrentSprite will be visible on the screen
-	 */
-	public void setActive(boolean b) {
-		myCurrentSprite.setActive(b);
-	}
-
-	/**
-	 * check if myCurrentSprite is currently displayed
-	 */
-	public boolean isActive() {
-		return myCurrentSprite.isActive();
-	}
-
-	/**
-	 * Set the background for the Golden T. This allows the sprites to be part
-	 * of the playfield.
-	 */
-	public void setBackground(Background backgr) {
-		for (String s : mySprites.keySet()) {
-			mySprites.get(s).setBackground(backgr);
-		}
-	}
-
-	public void setHorizontalSpeed(double vx) {
-		myCurrentSprite.setHorizontalSpeed(vx);
-	}
-
-	public void setVerticalSpeed(double vy) {
-		myCurrentSprite.setVerticalSpeed(vy);
-	}
-
-	/**
-	 * Set all the sprites to the same
-	 */
-	public void setLayer(int i) {
-		for (String s : mySprites.keySet()) {
-			mySprites.get(s).setLayer(i);
-		}
-	}
-
-	public void setLocation(double xs, double ys) {
-		myCurrentSprite.setLocation(xs, ys);
-	}
-
-	/**
-	 * set the magnitude of myCurrenttSprite with an initial angle
-	 */
-	public void setMovement(double speed, double angleDir) {
-		myCurrentSprite.setMovement(speed, angleDir);
-	}
-
-	public void setSpeed(double vs, double vy) {
-		myCurrentSprite.setSpeed(vs, vy);
-	}
-
-	public void setX(double xs) {
-		myCurrentSprite.setX(xs);
-	}
-
-	public void setY(double ys) {
-		myCurrentSprite.setY(ys);
-	}
+	
+	
 
 }
