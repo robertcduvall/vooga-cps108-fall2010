@@ -12,9 +12,8 @@ import java.util.*;
 
 
 /**
- * This class is an integration of our original level class with the rest of the API. It is also 
- * a port to golden T.  
- * The constructor contains the locations of Sprites and images, etc.
+ * This class is an integration of our original level class with the rest of the API. It is where the main body of the level
+ * (or the subgame) should be implemented. 
  * @author Jiaqi Yan 
  *
  */
@@ -27,19 +26,33 @@ public class Level extends Game{
 		private EventManager eventManager;
 		private GameState gameState;
 		private ResourceHandler resourceHandler;
-
+		/** 
+		 * @return the gameEntities of the level 
+		 */
 		public Collection<GameEntitySprite> getEntities(){
 			return gameEntities;
 		}
+		/** 
+		 * @return the game State of the level 
+		 */
 		public GameState getLevelState(){
 			return gameState;
 		}
+		/** 
+		 * @return the event manager of the level 
+		 */
 		public EventManager getEvents(){
 			return eventManager;
 		}
+		/** 
+		 * @return the Collision Manager of the level 
+		 */
 		public CollisionManager getCollisionManager(){
 			return collisionManager;
 		}
+		/** 
+		 * @return the resource handler of the level 
+		 */
 		public ResourceHandler getResourceHandler(){
 			return resourceHandler;
 		}
@@ -107,18 +120,6 @@ public class Level extends Game{
 			resourceHandler = rh;
 		}		
 		
-		
-		
-		
-		
-
-		public void initializeLevel(){
-			
-		}
-	
-		public void startLevel(){
-			
-		}
 		
 		public void addGameEntity(GameEntitySprite ges){
 			gameEntities.add(ges);
