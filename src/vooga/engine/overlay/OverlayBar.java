@@ -33,6 +33,9 @@ public class OverlayBar extends Overlay {
 	private Color myColor = DEFAULT_FILLCOLOR;
 	private Color myBackgroundColor = DEFAULT_BACKGROUNDCOLOR;
 	private int myHeight = DEFAULT_HEIGHT;
+	
+	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * Constructs an OverlayBar with the given Stat<Integer> and maxScore.
@@ -50,7 +53,8 @@ public class OverlayBar extends Overlay {
 	/**
 	 * Prints the bar on the screen by calling drawBar().
 	 */
-	public void update() {
+	@Override
+	public void update(long t) {
 		drawBar();
 	}
 
@@ -59,7 +63,7 @@ public class OverlayBar extends Overlay {
 	 * specifications set by the user.
 	 */
 	private void drawBar(){
-		BufferedImage bufferedImage = new BufferedImage(myMaxLength, myHeight,BufferedImage.TYPE_USHORT_GRAY);
+		BufferedImage bufferedImage = new BufferedImage(myMaxLength, myHeight,BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = bufferedImage.createGraphics();
 		g2d.setColor(myBackgroundColor);
 		g2d.fillRect(0, 0, myMaxLength, myHeight);
