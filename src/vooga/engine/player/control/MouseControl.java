@@ -6,6 +6,11 @@ import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
 import vooga.engine.player.control.*;
 
+/*
+ * @author Choi, Cue, Hawthorne
+ * @version 1.0
+ */
+
 public class MouseControl extends Control{
 	private Map<Integer, Method> mouseMethodMap;
 	private Map<Integer, Object[]> mouseParamMap;

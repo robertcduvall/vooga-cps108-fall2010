@@ -7,6 +7,11 @@ import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
 import vooga.engine.player.control.*;
 
+/*
+ * @author Choi, Cue, Hawthorne
+ * @version 1.0
+ */
+
 public class KeyboardControl extends Control{
 	private Map<String, Method> keyMethodMap;
 	private Map<String, Object[]> keyParamMap;
