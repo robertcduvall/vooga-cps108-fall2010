@@ -21,164 +21,176 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public class PlayerSprite extends GameEntitySprite {
 
-    // general instance variables
-    private List<ItemSprite> myItemList;
-    private int myScore;
-    private int myLives;
-    private int myHealth;
-    private int myRank;
+	// general instance variables
+	private List<ItemSprite> myItemList;
+	private int myScore;
+	private int myLives;
+	private int myHealth;
+	private int myRank;
 
-    // constants
-    private final int DEFAULT_RANK = 1;
-    private final int DEFAULT_SCORE = 0;
-    private final int DEFAULT_HEALTH = 10;
-    private final int DEFAULT_LIVES = 5;
+	// constants
+	private final int DEFAULT_RANK = 1;
+	private final int DEFAULT_SCORE = 0;
+	private final int DEFAULT_HEALTH = 10;
+	private final int DEFAULT_LIVES = 5;
 
-    /**
-     * 
-     * @param name is any name you'd like to associate with a player.
-     * @param stateName is the name that will be associated with the Sprite
-     *            parameter (to switch to it).
-     * @param s is a Sprite that will represent this player.
-     * @param control is a class that implements the IPlayerController interface
-     *            (for controlling player speed and movement).
-     */
-    public PlayerSprite(String name, String stateName, Sprite s) {
-        super(name, stateName, s);
-        myItemList = new ArrayList<ItemSprite>();
-        resetAllStatistics();
-    }
+	/**
+	 * 
+	 * @param name
+	 *            is any name you'd like to associate with a player.
+	 * @param stateName
+	 *            is the name that will be associated with the Sprite parameter
+	 *            (to switch to it).
+	 * @param s
+	 *            is a Sprite that will represent this player.
+	 * @param control
+	 *            is a class that implements the IPlayerController interface
+	 *            (for controlling player speed and movement).
+	 */
+	public PlayerSprite(String name, String stateName, Sprite s) {
+		super(name, stateName, s);
+		myItemList = new ArrayList<ItemSprite>();
+		resetAllStatistics();
+	}
 
-    /**
-     * 
-     * @param name is any name you'd like to associate with a player.
-     * @param stateName is the name that will be associated with the Sprite
-     *            parameter (to switch to it).
-     * @param s is a Sprite that will represent this player.
-     * @param control is a class that implements the IPlayerController interface
-     *            (for controlling player speed and movement).
-     * @param playerHealth is the player's initial health.
-     * @param playerRank is the player's initial rank.
-     */
-    public PlayerSprite(String name, String stateName, Sprite s,int playerHealth, int playerRank) {
-        this(name, stateName, s);
-        updateHealth(playerHealth);
-        updateRank(playerRank);
-    }
+	/**
+	 * 
+	 * @param name
+	 *            is any name you'd like to associate with a player.
+	 * @param stateName
+	 *            is the name that will be associated with the Sprite parameter
+	 *            (to switch to it).
+	 * @param s
+	 *            is a Sprite that will represent this player.
+	 * @param control
+	 *            is a class that implements the IPlayerController interface
+	 *            (for controlling player speed and movement).
+	 * @param playerHealth
+	 *            is the player's initial health.
+	 * @param playerRank
+	 *            is the player's initial rank.
+	 */
+	public PlayerSprite(String name, String stateName, Sprite s,
+			int playerHealth, int playerRank) {
+		this(name, stateName, s);
+		updateHealth(playerHealth);
+		updateRank(playerRank);
+	}
 
-    /*
-     * Checks for any inputs from controller class and updates player's current
-     * sprite accordingly.
-     */
-    public void update(long elapsedTime) {
-    	
-        super.update(elapsedTime);
-        
-    }
-    
-    private boolean isInBound(double currPosition, double min, double max)
-    {
-    	return (currPosition > min && currPosition < max);
-    	
-    }
+	/**
+	 * Updates player's current sprite.
+	 */
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+	}
 
-    /**
-     * Sets rank to DEFAULT_RANK, health to DEFAULT_HEALTH, score to
-     * DEFAULT_SCORE, lives to DEFAULT_LIVES
-     */
-    public void resetAllStatistics() {
-        resetRank();
-        resetHealth();
-        resetScore();
-        resetLives();
-    }
+	/**
+	 * Checks whether a value is inbound
+	 */
+	private boolean isInBound(double currPosition, double min, double max) {
+		return (currPosition > min && currPosition < max);
+	}
 
-    public void resetRank() {
-        myRank = DEFAULT_RANK;
-    }
-    
+	/**
+	 * Sets rank to DEFAULT_RANK, health to DEFAULT_HEALTH, score to
+	 * DEFAULT_SCORE, lives to DEFAULT_LIVES
+	 */
+	public void resetAllStatistics() {
+		resetRank();
+		resetHealth();
+		resetScore();
+		resetLives();
+	}
 
-    public void resetHealth() {
-        myHealth = DEFAULT_HEALTH;
-    }
+	public void resetRank() {
+		myRank = DEFAULT_RANK;
+	}
 
-    public void resetLives() {
-        myLives = DEFAULT_LIVES;
-    }
+	public void resetHealth() {
+		myHealth = DEFAULT_HEALTH;
+	}
 
-    public void resetScore() {
-        myScore = DEFAULT_SCORE;
-    }
+	public void resetLives() {
+		myLives = DEFAULT_LIVES;
+	}
 
-    /**
-     * Causes the act method of an item to be executed and the item to be
-     * removed from the player's list.
-     * 
-     * @param i is the item to be used.
-     */
-    public void useItem(ItemSprite i) {
-        i.act();
-        myItemList.remove(i);
-    }
+	public void resetScore() {
+		myScore = DEFAULT_SCORE;
+	}
 
-    public int getItemListSize() {
-        return myItemList.size();
-    }
+	/**
+	 * Causes the act method of an item to be executed and the item to be
+	 * removed from the player's list.
+	 * 
+	 * @param i
+	 *            is the item to be used.
+	 */
+	public void useItem(ItemSprite i) {
+		i.act();
+		if(!i.hasMoreUses()) {
+			myItemList.remove(i);
+		}
+	}
 
-    public void addItemToList(ItemSprite i) {
-        myItemList.add(i);
-    }
+	public int getItemListSize() {
+		return myItemList.size();
+	}
 
-    public void addItemsToList(List<ItemSprite> list) {
-        myItemList.addAll(list);
-    }
+	public void addItemToList(ItemSprite i) {
+		myItemList.add(i);
+	}
 
-    public int getScore() {
-        return myScore;
-    }
+	public void addItemsToList(List<ItemSprite> list) {
+		myItemList.addAll(list);
+	}
 
-    public void updateScore(int i) {
-        myScore += i;
-    }
+	public int getScore() {
+		return myScore;
+	}
 
-    public void setScore(int i) {
-    	myScore = i;
-    	
-    }
-    public int getHealth() {
-        return myHealth;
-    }
-    
-    public void updateHealth(int i) {
-        myHealth += i;
-    }
-    
-    public void setHealth(int i) {
-    	myHealth = i;
-    }
+	public void updateScore(int i) {
+		myScore += i;
+	}
 
-    public int getLives() {
-        return myLives;
-    }
+	public void setScore(int i) {
+		myScore = i;
 
-    public void updateLives(int i) {
-        myLives += i;
-    }
+	}
 
-    public void setLives(int i) {
-    	myLives = i;
-    }
+	public int getHealth() {
+		return myHealth;
+	}
 
-    public int getRank() {
-        return myRank;
-    }
+	public void updateHealth(int i) {
+		myHealth += i;
+	}
 
-    public void updateRank(int i) {
-        myRank += i;
-    }
-    
-    public void setRank(int k) {
-        myRank = k;
-    }
+	public void setHealth(int i) {
+		myHealth = i;
+	}
+
+	public int getLives() {
+		return myLives;
+	}
+
+	public void updateLives(int i) {
+		myLives += i;
+	}
+
+	public void setLives(int i) {
+		myLives = i;
+	}
+
+	public int getRank() {
+		return myRank;
+	}
+
+	public void updateRank(int i) {
+		myRank += i;
+	}
+
+	public void setRank(int k) {
+		myRank = k;
+	}
 
 }
