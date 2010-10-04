@@ -7,12 +7,15 @@ import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
 import vooga.engine.player.control.*;
 
-/*
+/**
+ * Built-in example of how to extend Control class properly. Also a usable keyboard
+ * Controller creator.
+ * 
  * @author Choi, Cue, Hawthorne
  * @version 1.0
  */
 
-public class KeyboardControl extends Control{
+public class KeyboardControl extends Control implements Controller{
 	private Map<String, Method> keyMethodMap;
 	private Map<String, Object[]> keyParamMap;
 	
@@ -44,15 +47,15 @@ public class KeyboardControl extends Control{
 	/**
      * Create keyset to map input to method. Can be overwritten to create new control scheme  
      * 
-     * @param String listen Use a String version of what to listen to (eg. "a"
+     * @param listen Use a String version of what to listen to (eg. "a"
      * for "KEYBOARD" or "1" for "MOUSE")
      * 
-     * @param String method Name of method to map to (do not include brackets)
+     * @param method Name of method to map to (do not include brackets)
      * 
-     * @param String classname Name of class that wants to use this (eg.
+     * @param classname Name of class that wants to use this (eg.
      * "Player" or "Game")
      * 
-     * @param Class<?> paramVals Value of the parameters that the method has
+     * @param paramVals Value of the parameters that the method has
      */
     public void addInput(String listen, String method, String classname, Object... paramVals) {
 

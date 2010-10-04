@@ -65,18 +65,32 @@ public class Control implements Controller{
     /**
      * Sets the parameter types that need to be used for the next method
      * 
-     * @param Class<?> parameterTypes The types of parameters that need to be used. Need to be implemented in the form setParams(new Class[]{Class cls})
+     * @param parameterTypes The types of parameters that need to be used. Need to be implemented in the form setParams(new Class[]{Class cls})
      */
     public void setParams(Class<?>... parameterTypes) {
         paramTypes = parameterTypes;
     }
 
-    // Calls this each time through run loop.
+    /**
+     * Invoke methods here. Call method each time through game loop
+     */
     public void update() {
     	
     }
 
-    
+	/**
+     * Create keyset to map input to method. Can be overwritten to create new control scheme  
+     * 
+     * @param listen Use a String version of what to listen to (eg. "a"
+     * for "KEYBOARD" or "1" for "MOUSE")
+     * 
+     * @param method Name of method to map to (do not include brackets)
+     * 
+     * @param classname Name of class that wants to use this (eg.
+     * "Player" or "Game")
+     * 
+     * @param paramVals Value of the parameters that the method has
+     */
     public void addInput(String listen, String method, String classname, Object... paramVals) {
     //should be overridden in subclasses
     }
