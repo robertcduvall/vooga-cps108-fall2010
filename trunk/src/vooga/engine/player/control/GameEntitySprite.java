@@ -1,11 +1,13 @@
 package vooga.engine.player.control;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.util.ImageUtil;
 
 
 /**
@@ -24,238 +26,335 @@ import com.golden.gamedev.object.Background;
 @SuppressWarnings("serial")
 public abstract class GameEntitySprite extends Sprite {
 
-    private long myStartTime;
-    private String myName;
-    private Map<String, Sprite> mySprites;
-    private Sprite myCurrentSprite;
-    
-    /**
-     * @param name is any name you'd like to give to the object.
-     * @param state Name is the name you'd like to map to the following Sprite
-     *            object. e.g."alive" to represent a sprite that's a live, or
-     *            "dead" if the sprite represents the entity in a dead state,
-     *            etc
-     * @param this is the default Sprite that will represent this Entity on the
-     *        Screen.
-     */
+	private long myStartTime;
+	private String myName;
+	private Map<String, Sprite> mySprites;
+	private Sprite myCurrentSprite;
 
-    public GameEntitySprite(String name, String stateName, Sprite s) {
-        myStartTime = System.currentTimeMillis();
-        mySprites = new HashMap<String, Sprite>();
-        mapNameToSprite(stateName, s);
-        setToCurrentSprite(s);
-        setName(name);
-    }
-    
+	/**
+	 * @param name is any name you'd like to give to the object.
+	 * @param state Name is the name you'd like to map to the following Sprite
+	 *            object. e.g."alive" to represent a sprite that's a live, or
+	 *            "dead" if the sprite represents the entity in a dead state,
+	 *            etc
+	 * @param this is the default Sprite that will represent this Entity on the
+	 *        Screen.
+	 */
 
-    /**
-     * @param state is the name you'd like to use to represent the Sprite
-     *            parameter. e.g. "alive" or "dead" or "shooting"
-     * @param sp is the Sprite you are mapping to the first parameter.
-     */
+	public GameEntitySprite(String name, String stateName, Sprite s) {
+		myStartTime = System.currentTimeMillis();
+		mySprites = new HashMap<String, Sprite>();
+		mapNameToSprite(stateName, s);
+		setToCurrentSprite(s);
+		setName(name);
+	}
 
-    public void mapNameToSprite(String state, Sprite sp) {
-        mySprites.put(state, sp);
-    }
 
-    /**
-     * 
-     * @return length of time object has existed
-     */
-    public long getTimeInExistence() {
-        long currentTime = System.currentTimeMillis();
-        return currentTime - myStartTime;
-    }
+	/**
+	 * @param state is the name you'd like to use to represent the Sprite
+	 *            parameter. e.g. "alive" or "dead" or "shooting"
+	 * @param sp is the Sprite you are mapping to the first parameter.
+	 */
 
-    /**
-     * 
-     * @return GameEntity's name.
-     */
-    public String getName() {
-        return myName;
-    }
+	public void mapNameToSprite(String state, Sprite sp) {
+		mySprites.put(state, sp);
+	}
 
-    /**
-     * Changes the name of the GameEntity.
-     * 
-     * @param name new name.
-     */
-    private void setName(String name) {
-        myName = name;
-    }
+	/**
+	 * 
+	 * @return length of time the GameEntity has existed
+	 */
+	public long getTimeInExistence() {
+		long currentTime = System.currentTimeMillis();
+		return currentTime - myStartTime;
+	}
 
-    
-    /**
-     * Modify GameEntity so that it is represented by the Sprite specified by
-     * spriteName.
-     * 
-     * @param spriteName the "name" of the sprite that GameEntity will now be
-     *            represented by.
-     */
-    private void setToCurrentSprite(String spriteName) {
-    	if(nameExists(spriteName))
-    	{
-    		Sprite nextSprite = mySprites.get(spriteName);           
-    		setToCurrentSprite(nextSprite);
-    	}      
+	/**
+	 * 
+	 * @return GameEntity's name
+	 */
+	public String getName() {
+		return myName;
+	}
 
-    }
-    
-    private boolean nameExists(String spriteName)
-    {
-    	return mySprites.containsKey(spriteName);
-    }
-   
+	/**
+	 * Changes the name of the GameEntity.
+	 * 
+	 * @param name new name.
+	 */
+	private void setName(String name) {
+		myName = name;
+	}
 
-    // synchronize to the current sprite
-    // GameEntity is using currently,
-    // the GameEntity object will always be in the same place and moving at the
-    // same speed.
-    private void setToCurrentSprite(Sprite nextSprite) {
-        
-    	double currentX = myCurrentSprite.getX();
-    	double currentY = myCurrentSprite.getY();
-    	double currentVX = myCurrentSprite.getHorizontalSpeed();
-    	double currentVY = myCurrentSprite.getVerticalSpeed();
-    
-    	nextSprite.setLocation(currentX, currentY);
-    	nextSprite.setSpeed(currentVX, currentVY);
-    	
-    	myCurrentSprite.setActive(false);
-    	myCurrentSprite = nextSprite;
-    }
 
-    /*
-     * THIS SECTION REWRITES ALL OF SPRITE'S METHODS. These simply forward the
-     * method calls to the currently active sprite in the GameEntity.
-     */
+	/**
+	 * Modify GameEntity so that it is represented by the Sprite specified by
+	 * spriteName.
+	 * 
+	 * @param spriteName the "name" of the sprite that GameEntity will now be
+	 *            represented by.
+	 */
+	private void setToCurrentSprite(String spriteName) {
+		if(nameExists(spriteName))
+		{
+			Sprite nextSprite = mySprites.get(spriteName);           
+			setToCurrentSprite(nextSprite);
+		}      
 
-    public void update(long elapsedTime) {
-        myCurrentSprite.update(elapsedTime);
-    }
+	}
 
-    public void render(Graphics2D g) {
-        myCurrentSprite.render(g);
-    }
+	/**
+	 * @param spriteName
+	 * @return whether a sprite with a specific name exists in mySprites
+	 */
+	private boolean nameExists(String spriteName)
+	{
+		return mySprites.containsKey(spriteName);
+	}
 
-    public void addHorizontalSpeed(long elapsedTime, double accel,
-            double maxSpeed) {
-        ((GameEntitySprite) myCurrentSprite).addHorizontalSpeed(elapsedTime, accel, maxSpeed);
-    }
 
-    public void addVerticalSpeed(long elapsedTime, double accel, double maxSpeed) {
-        myCurrentSprite.addVerticalSpeed(elapsedTime, accel, maxSpeed);
-    }
+	/**
+	 * Set the nextSprite to be myCurrentSprite. 
+	 * Synchronize the position and velocity of the nextSprite to myCurrentSprite
+	 * @param nextSprite set the "nextSprite" to the current sprite
+	 */
 
-    /*
-     * 
-     */
-    public void forceX(double xs) {
-        myCurrentSprite.forceX(xs);
-    }
+	private void setToCurrentSprite(Sprite nextSprite) {
 
-    public void forceY(double ys) {
-        myCurrentSprite.forceY(ys);
-    }
+		double currentX = myCurrentSprite.getX();
+		double currentY = myCurrentSprite.getY();
+		double currentVX = myCurrentSprite.getHorizontalSpeed();
+		double currentVY = myCurrentSprite.getVerticalSpeed();
 
-    public double getX() {
-        return myCurrentSprite.getX();
-    }
+		nextSprite.setLocation(currentX, currentY);
+		nextSprite.setSpeed(currentVX, currentVY);
 
-    public double getY() {
-        return myCurrentSprite.getY();
-    }
+		myCurrentSprite.setActive(false);
+		myCurrentSprite = nextSprite;
+	}
 
-    public double getDistance(Sprite other) {
-        return myCurrentSprite.getDistance(other);
-    }
+	/***********************************************************************************************************
+	 * THIS SECTION REWRITES ALL OF SPRITE'S METHODS. These simply forward the
+	 * method calls to the currently active sprite in the GameEntity.
+	 * *********************************************************************************************************
+	 */
 
-    public int getHeight() {
-        return myCurrentSprite.getHeight();
-    }
+	/**
+	 * Specify how the GameEntity Object should be updated. 
+	 */
+	public void update(long elapsedTime) {
+		myCurrentSprite.update(elapsedTime);
+	}
 
-    public int getWidth() {
-        return myCurrentSprite.getWidth();
-    }
+	/**
+	 * Render the image onto the screen
+	 * @see com.golden.gamedev.object.Sprite#render(java.awt.Graphics2D)
+	 */
+	public void render(Graphics2D g) {
+		myCurrentSprite.render(g);
+	}
 
-    public double getHorizontalSpeed() {
-        return myCurrentSprite.getHorizontalSpeed();
-    }
+	/**
+	 * Add an acceleration value to the sprite or change the horizontal speed of the sprite
+	 * @see com.golden.gamedev.object.Sprite#addHorizontalSpeed(long, double, double)
+	 */
+	public void addHorizontalSpeed(long elapsedTime, double accel,
+			double maxSpeed) {
+		((GameEntitySprite) myCurrentSprite).addHorizontalSpeed(elapsedTime, accel, maxSpeed);
+	}
 
-    public BufferedImage getImage() {
-        return myCurrentSprite.getImage();
-    }
+	/**
+	 * Add an acceleration value to the sprite or change the vertical speed of the sprite
+	 * @see com.golden.gamedev.object.Sprite#addVerticalSpeed(long, double, double)
+	 */
+	public void addVerticalSpeed(long elapsedTime, double accel, double maxSpeed) {
+		myCurrentSprite.addVerticalSpeed(elapsedTime, accel, maxSpeed);
+	}
 
-    public double getVerticalSpeed() {
-        return myCurrentSprite.getVerticalSpeed();
-    }
+	/**
+	 * Force myCurrentSprite to a specific X location newx on the screen
+	 */
+	public void forceX(double newx) {
+		myCurrentSprite.forceX(newx);
+	}
 
-    public boolean isOnScreen() {
-        return myCurrentSprite.isOnScreen();
-    }
+	/**
+	 * Force myCurrentSprite to a specific Y location newy on the screen
+	 */
+	public void forceY(double newy) {
+		myCurrentSprite.forceY(newy);
+	}
 
-    public void move(double dx, double dy) {
-        myCurrentSprite.move(dx, dy);
-    }
 
-    public boolean moveTo(long elapsedTime, double xs, double ys, double speed) {
-        return myCurrentSprite.moveTo(elapsedTime, xs, ys, speed);
-    }
+	/**
+	 * Get the current X position of myCurrentSprite
+	 */
+	public double getX() {
+		return myCurrentSprite.getX();
+	}
 
-    public void moveX(double dx) {
-        myCurrentSprite.moveX(dx);
-    }
+	/**
+	 * Get the current Y position of myCurrentSprite
+	 * @see com.golden.gamedev.object.Sprite#getY()
+	 */
+	public double getY() {
+		return myCurrentSprite.getY();
+	}
 
-    public void moveY(double dy) {
-        myCurrentSprite.moveY(dy);
-    }
+	/**
+	 * Get the distance from mycurrentSprite
+	 */
+	public double getDistance(Sprite other) {
+		return myCurrentSprite.getDistance(other);
+	}
 
-    public void setActive(boolean b) {
-        myCurrentSprite.setActive(b);
-    }
+	public int getHeight() {
+		return myCurrentSprite.getHeight();
+	}
 
-    public boolean isActive() {
-        return myCurrentSprite.isActive();
-    }
+	public int getWidth() {
+		return myCurrentSprite.getWidth();
+	}
 
-    public void setBackground(Background backgr) {
-        for (String s : mySprites.keySet()) {
-            mySprites.get(s).setBackground(backgr);
-        }
-    }
+	public double getHorizontalSpeed() {
+		return myCurrentSprite.getHorizontalSpeed();
+	}
 
-    public void setHorizontalSpeed(double vx) {
-        myCurrentSprite.setHorizontalSpeed(vx);
-    }
+	public double getVerticalSpeed() {
+		return myCurrentSprite.getVerticalSpeed();
+	}
 
-    public void setLayer(int i) {
-        for (String s : mySprites.keySet()) {
-            mySprites.get(s).setLayer(i);
-        }
-    }
+	/**
+	 * Get the bitmap representation of myCurrentSprite
+	 */
+	public BufferedImage getImage() {
+		return myCurrentSprite.getImage();
+	}
 
-    public void setLocation(double xs, double ys) {
-        myCurrentSprite.setLocation(xs, ys);
-    }
+	/**
+	 * This method sets a new image to the current Image.
+	 * This method is used by rotate Image;
+	 * @param Image
+	 */
+	private void setNewImage(BufferedImage Image)
+	{
+		myCurrentSprite.setImage(Image);
+	}
+	
+	/**
+	 * roteSpriteImage rotates the displayed myCurrentSprite by a specified angle
+	 * @param angle specifies how much myCurrentSprite image is rotated in clockwise direction
+	 */
+	public void rotateSpriteImage(double angle)
+	{
+		BufferedImage currentSpriteImage = getImage();
+		int width = currentSpriteImage.getWidth(); 
+		int height = currentSpriteImage.getHeight();
+		
+		int transparency = currentSpriteImage.getColorModel().getTransparency();
+		BufferedImage image = ImageUtil.createImage(width, height, transparency);
 
-    public void setMovement(double speed, double angleDir) {
-        myCurrentSprite.setMovement(speed, angleDir);
-    }
+		Graphics2D g = image.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.rotate(Math.toRadians(angle), width/2, height/2);
+		g.drawImage(currentSpriteImage, 0, 0, null);
+		g.dispose();
 
-    public void setSpeed(double vs, double vy) {
-        myCurrentSprite.setSpeed(vs, vy);
-    }
+		setNewImage(image);
+	}
 
-    public void setVerticalSpeed(double vy) {
-        myCurrentSprite.setVerticalSpeed(vy);
-    }
+	/**
+	 * Check whether the myCurrentSprite is on the screen
+	 */
+	public boolean isOnScreen() {
+		return myCurrentSprite.isOnScreen();
+	}
 
-    public void setX(double xs) {
-        myCurrentSprite.setX(xs);
-    }
+	/**
+	 * Move the current Sprite newx and newy
+	 * @see com.golden.gamedev.object.Sprite#move(double, double)
+	 */
+	public void move(double newx, double newy) {
+		myCurrentSprite.move(newx, newy);
+	}
 
-    public void setY(double ys) {
-        myCurrentSprite.setY(ys);
-    }
-    
+	/**
+	 * Move myCurrentSprie to newx and newy and change the velocity to newSpeed
+	 */
+	public boolean moveTo(long elapsedTime, double newx, double newy, double newspeed) {
+		return myCurrentSprite.moveTo(elapsedTime, newx, newy, newspeed);
+	}
+
+	public void moveX(double dx) {
+		myCurrentSprite.moveX(dx);
+	}
+
+	public void moveY(double dy) {
+		myCurrentSprite.moveY(dy);
+	}
+
+	/**
+	 * set whether myCurrentSprite will be visible on the screen
+	 */
+	public void setActive(boolean b) {
+		myCurrentSprite.setActive(b);
+	}
+
+	/**
+	 * check if myCurrentSprite is currently displayed
+	 */
+	public boolean isActive() {
+		return myCurrentSprite.isActive();
+	}
+
+	/**
+	 * Set the background for the Golden T. This allows the sprites to be part of the playfield.
+	 */
+	public void setBackground(Background backgr) {
+		for (String s : mySprites.keySet()) {
+			mySprites.get(s).setBackground(backgr);
+		}
+	}
+
+	public void setHorizontalSpeed(double vx) {
+		myCurrentSprite.setHorizontalSpeed(vx);
+	}
+	
+	public void setVerticalSpeed(double vy) {
+		myCurrentSprite.setVerticalSpeed(vy);
+	}
+		
+	/**
+	 * Set all the sprites to the same 
+	 */
+	public void setLayer(int i) {
+		for (String s : mySprites.keySet()) {
+			mySprites.get(s).setLayer(i);
+		}
+	}
+
+	public void setLocation(double xs, double ys) {
+		myCurrentSprite.setLocation(xs, ys);
+	}
+
+	/**
+	 * set the magnitude of myCurrenttSprite with an initial angle
+	 */
+	public void setMovement(double speed, double angleDir) {
+		myCurrentSprite.setMovement(speed, angleDir);
+	}
+
+	public void setSpeed(double vs, double vy) {
+		myCurrentSprite.setSpeed(vs, vy);
+	}
+
+	public void setX(double xs) {
+		myCurrentSprite.setX(xs);
+	}
+
+	public void setY(double ys) {
+		myCurrentSprite.setY(ys);
+	}
+
 }
