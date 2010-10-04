@@ -3,8 +3,6 @@ package vooga.engine.player.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.engine.player.control.IPlayerController;
-
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -29,7 +27,6 @@ public class PlayerSprite extends GameEntitySprite {
     private int myLives;
     private int myHealth;
     private int myRank;
-    private IPlayerController myController;
 
     // constants
     private final int DEFAULT_RANK = 1;
@@ -46,11 +43,9 @@ public class PlayerSprite extends GameEntitySprite {
      * @param control is a class that implements the IPlayerController interface
      *            (for controlling player speed and movement).
      */
-    public PlayerSprite(String name, String stateName, Sprite s,
-            IPlayerController control) {
+    public PlayerSprite(String name, String stateName, Sprite s) {
         super(name, stateName, s);
         myItemList = new ArrayList<ItemSprite>();
-        myController = control;
         resetAllStatistics();
     }
 
@@ -65,9 +60,8 @@ public class PlayerSprite extends GameEntitySprite {
      * @param playerHealth is the player's initial health.
      * @param playerRank is the player's initial rank.
      */
-    public PlayerSprite(String name, String stateName, Sprite s,
-            IPlayerController control, int playerHealth, int playerRank) {
-        this(name, stateName, s, control);
+    public PlayerSprite(String name, String stateName, Sprite s,int playerHealth, int playerRank) {
+        this(name, stateName, s);
         updateHealth(playerHealth);
         updateRank(playerRank);
     }
@@ -79,21 +73,6 @@ public class PlayerSprite extends GameEntitySprite {
     public void update(long elapsedTime) {
     	
         super.update(elapsedTime);
-        
-        double horizontalspeed = getHorizontalSpeed() + myController.deltaVelocityX();
-        double verticalspeed = getVerticalSpeed() + myController.deltaVelocityY();
-        
-        setHorizontalSpeed(horizontalspeed);
-        setVerticalSpeed(verticalspeed);
-        
-        double currentPosition = getY() + myController.deltaY();
-        double min = 0;
-        double max = getBackground().getHeight();
-        
-        if(isInBound(currentPosition, min, max)) move(0, myController.deltaY());
-        
-        currentPosition = getX() + myController.deltaX();
-        max = getBackground().getWidth();
         
     }
     
