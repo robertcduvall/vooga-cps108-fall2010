@@ -50,7 +50,7 @@ public class KeyboardControl extends Control{
      * @param String method Name of method to map to (do not include brackets)
      * 
      * @param String classname Name of class that wants to use this (eg.
-     * "Player" or "Greenfoot")
+     * "Player" or "Game")
      * 
      * @param Class<?> paramVals Value of the parameters that the method has
      */
@@ -65,8 +65,6 @@ public class KeyboardControl extends Control{
         } catch (Throwable e) {
             System.err.println(e);
         }
-    
-
     }
     
 	public void update(){

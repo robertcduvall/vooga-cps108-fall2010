@@ -9,7 +9,6 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.util.ImageUtil;
 
-
 /**
  * GameEntitySprite represents any object that you might interact with in a
  * game. Player and Item are both extensions of this class. It supports having
@@ -32,11 +31,13 @@ public abstract class GameEntitySprite extends Sprite {
 	private Sprite myCurrentSprite;
 
 	/**
-	 * @param name is any name you'd like to give to the object.
-	 * @param state Name is the name you'd like to map to the following Sprite
-	 *            object. e.g."alive" to represent a sprite that's a live, or
-	 *            "dead" if the sprite represents the entity in a dead state,
-	 *            etc
+	 * @param name
+	 *            is any name you'd like to give to the object.
+	 * @param state
+	 *            State name is the name you'd like to map to the following
+	 *            Sprite object. e.g."alive" to represent a sprite that's a
+	 *            live, or "dead" if the sprite represents the entity in a dead
+	 *            state, etc
 	 * @param this is the default Sprite that will represent this Entity on the
 	 *        Screen.
 	 */
@@ -49,11 +50,12 @@ public abstract class GameEntitySprite extends Sprite {
 		setName(name);
 	}
 
-
 	/**
-	 * @param state is the name you'd like to use to represent the Sprite
+	 * @param state
+	 *            is the name you'd like to use to represent the Sprite
 	 *            parameter. e.g. "alive" or "dead" or "shooting"
-	 * @param sp is the Sprite you are mapping to the first parameter.
+	 * @param sp
+	 *            is the Sprite you are mapping to the first parameter.
 	 */
 
 	public void mapNameToSprite(String state, Sprite sp) {
@@ -80,43 +82,34 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Changes the name of the GameEntity.
 	 * 
-	 * @param name new name.
+	 * @param name
+	 *            new name.
 	 */
 	private void setName(String name) {
 		myName = name;
 	}
 
-
 	/**
 	 * Modify GameEntity so that it is represented by the Sprite specified by
 	 * spriteName.
 	 * 
-	 * @param spriteName the "name" of the sprite that GameEntity will now be
+	 * @param spriteName
+	 *            the "name" of the sprite that GameEntity will now be
 	 *            represented by.
 	 */
 	public void setToCurrentSprite(String spriteName) {
-		if(nameExists(spriteName))
-		{
-			Sprite nextSprite = mySprites.get(spriteName);           
+		if (mySprites.containsKey(spriteName)) {
+			Sprite nextSprite = mySprites.get(spriteName);
 			setToCurrentSprite(nextSprite);
-		}      
-
+		}
 	}
 
 	/**
-	 * @param spriteName
-	 * @return whether a sprite with a specific name exists in mySprites
-	 */
-	private boolean nameExists(String spriteName)
-	{
-		return mySprites.containsKey(spriteName);
-	}
-
-
-	/**
-	 * Set the nextSprite to be myCurrentSprite. 
-	 * Synchronize the position and velocity of the nextSprite to myCurrentSprite
-	 * @param nextSprite set the "nextSprite" to the current sprite
+	 * Set the nextSprite to be myCurrentSprite. Synchronize the position and
+	 * velocity of the nextSprite to myCurrentSprite
+	 * 
+	 * @param nextSprite
+	 *            set the "nextSprite" to the current sprite
 	 */
 
 	private void setToCurrentSprite(Sprite nextSprite) {
@@ -136,11 +129,13 @@ public abstract class GameEntitySprite extends Sprite {
 	/***********************************************************************************************************
 	 * THIS SECTION REWRITES ALL OF SPRITE'S METHODS. These simply forward the
 	 * method calls to the currently active sprite in the GameEntity.
-	 * *********************************************************************************************************
+	 * ***********
+	 * ***************************************************************
+	 * *******************************
 	 */
 
 	/**
-	 * Specify how the GameEntity Object should be updated. 
+	 * Specify how the GameEntity Object should be updated.
 	 */
 	public void update(long elapsedTime) {
 		myCurrentSprite.update(elapsedTime);
@@ -148,6 +143,7 @@ public abstract class GameEntitySprite extends Sprite {
 
 	/**
 	 * Render the image onto the screen
+	 * 
 	 * @see com.golden.gamedev.object.Sprite#render(java.awt.Graphics2D)
 	 */
 	public void render(Graphics2D g) {
@@ -155,17 +151,24 @@ public abstract class GameEntitySprite extends Sprite {
 	}
 
 	/**
-	 * Add an acceleration value to the sprite or change the horizontal speed of the sprite
-	 * @see com.golden.gamedev.object.Sprite#addHorizontalSpeed(long, double, double)
+	 * Add an acceleration value to the sprite or change the horizontal speed of
+	 * the sprite
+	 * 
+	 * @see com.golden.gamedev.object.Sprite#addHorizontalSpeed(long, double,
+	 *      double)
 	 */
 	public void addHorizontalSpeed(long elapsedTime, double accel,
 			double maxSpeed) {
-		((GameEntitySprite) myCurrentSprite).addHorizontalSpeed(elapsedTime, accel, maxSpeed);
+		((GameEntitySprite) myCurrentSprite).addHorizontalSpeed(elapsedTime,
+				accel, maxSpeed);
 	}
 
 	/**
-	 * Add an acceleration value to the sprite or change the vertical speed of the sprite
-	 * @see com.golden.gamedev.object.Sprite#addVerticalSpeed(long, double, double)
+	 * Add an acceleration value to the sprite or change the vertical speed of
+	 * the sprite
+	 * 
+	 * @see com.golden.gamedev.object.Sprite#addVerticalSpeed(long, double,
+	 *      double)
 	 */
 	public void addVerticalSpeed(long elapsedTime, double accel, double maxSpeed) {
 		myCurrentSprite.addVerticalSpeed(elapsedTime, accel, maxSpeed);
@@ -185,7 +188,6 @@ public abstract class GameEntitySprite extends Sprite {
 		myCurrentSprite.forceY(newy);
 	}
 
-
 	/**
 	 * Get the current X position of myCurrentSprite
 	 */
@@ -195,6 +197,7 @@ public abstract class GameEntitySprite extends Sprite {
 
 	/**
 	 * Get the current Y position of myCurrentSprite
+	 * 
 	 * @see com.golden.gamedev.object.Sprite#getY()
 	 */
 	public double getY() {
@@ -232,32 +235,36 @@ public abstract class GameEntitySprite extends Sprite {
 	}
 
 	/**
-	 * This method sets a new image to the current Image.
-	 * This method is used by rotate Image;
+	 * This method sets a new image to the current Image. This method is used by
+	 * rotate Image;
+	 * 
 	 * @param Image
 	 */
-	private void setNewImage(BufferedImage Image)
-	{
+	private void setNewImage(BufferedImage Image) {
 		myCurrentSprite.setImage(Image);
 	}
-	
+
 	/**
-	 * roteSpriteImage rotates the displayed myCurrentSprite by a specified angle
-	 * @param angle specifies how much myCurrentSprite image is rotated in clockwise direction
+	 * roteSpriteImage rotates the displayed myCurrentSprite by a specified
+	 * angle
+	 * 
+	 * @param angle
+	 *            specifies how much myCurrentSprite image is rotated in
+	 *            clockwise direction
 	 */
-	public void rotateSpriteImage(double angle)
-	{
+	public void rotateSpriteImage(double angle) {
 		BufferedImage currentSpriteImage = getImage();
-		int width = currentSpriteImage.getWidth(); 
+		int width = currentSpriteImage.getWidth();
 		int height = currentSpriteImage.getHeight();
-		
+
 		int transparency = currentSpriteImage.getColorModel().getTransparency();
-		BufferedImage image = ImageUtil.createImage(width, height, transparency);
+		BufferedImage image = ImageUtil
+				.createImage(width, height, transparency);
 
 		Graphics2D g = image.createGraphics();
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g.rotate(Math.toRadians(angle), width/2, height/2);
+		g.rotate(Math.toRadians(angle), width / 2, height / 2);
 		g.drawImage(currentSpriteImage, 0, 0, null);
 		g.dispose();
 
@@ -273,6 +280,7 @@ public abstract class GameEntitySprite extends Sprite {
 
 	/**
 	 * Move the current Sprite newx and newy
+	 * 
 	 * @see com.golden.gamedev.object.Sprite#move(double, double)
 	 */
 	public void move(double newx, double newy) {
@@ -282,7 +290,8 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Move myCurrentSprie to newx and newy and change the velocity to newSpeed
 	 */
-	public boolean moveTo(long elapsedTime, double newx, double newy, double newspeed) {
+	public boolean moveTo(long elapsedTime, double newx, double newy,
+			double newspeed) {
 		return myCurrentSprite.moveTo(elapsedTime, newx, newy, newspeed);
 	}
 
@@ -309,7 +318,8 @@ public abstract class GameEntitySprite extends Sprite {
 	}
 
 	/**
-	 * Set the background for the Golden T. This allows the sprites to be part of the playfield.
+	 * Set the background for the Golden T. This allows the sprites to be part
+	 * of the playfield.
 	 */
 	public void setBackground(Background backgr) {
 		for (String s : mySprites.keySet()) {
@@ -320,13 +330,13 @@ public abstract class GameEntitySprite extends Sprite {
 	public void setHorizontalSpeed(double vx) {
 		myCurrentSprite.setHorizontalSpeed(vx);
 	}
-	
+
 	public void setVerticalSpeed(double vy) {
 		myCurrentSprite.setVerticalSpeed(vy);
 	}
-		
+
 	/**
-	 * Set all the sprites to the same 
+	 * Set all the sprites to the same
 	 */
 	public void setLayer(int i) {
 		for (String s : mySprites.keySet()) {

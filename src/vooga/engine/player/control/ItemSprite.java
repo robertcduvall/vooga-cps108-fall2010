@@ -16,13 +16,25 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public abstract class ItemSprite extends GameEntitySprite {
 
-    /**
+	private int myNumberOfUses;
+	private static final int DEFAULT_NUM_USES = 1;
+	
+	 /**
      * Constructs an ItemSprite.
      * 
      * @param s sprite that will represent this item
      */
     public ItemSprite(Sprite s) {
-        super("", "default", s);
+        this("", "default", s, DEFAULT_NUM_USES);
+    }
+	
+    /**
+     * Constructs an ItemSprite.
+     * 
+     * @param s sprite that will represent this item
+     */
+    public ItemSprite(Sprite s, int numUses) {
+        this("", "default", s, numUses);
     }
 
     /**
@@ -32,13 +44,25 @@ public abstract class ItemSprite extends GameEntitySprite {
      * @param stateName is a name to map to the Sprite parameter.
      * @param s is the Sprite that will represent this item.
      */
-    public ItemSprite(String name, String stateName, Sprite s) {
+    public ItemSprite(String name, String stateName, Sprite s, int numUses) {
         super(name, stateName, s);
+        myNumberOfUses = numUses;
+    }
+   
+    /**
+     * Examines the number of uses the item has left.
+     * 
+     * @return Whether or not the item has more uses left.
+     */
+    public boolean hasMoreUses() {
+    	return myNumberOfUses > 0;
     }
 
     /**
      * This method defines what should happen when an item is "used."
      */
-    public abstract void act();
+    public void act() {
+    	myNumberOfUses--;
+    }
     
 }
