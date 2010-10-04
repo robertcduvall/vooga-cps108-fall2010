@@ -61,6 +61,8 @@ public class ScrollerLevel extends Level {
 	 * @param allSprites - Collection of all the sprites for the current level
 	 * @param heroX - X coordinate of the hero, 
 	 * @param heroY - Y coordinate of the hero
+	 * 
+	 * @return Collection of Sprites to be updated to the screen
 	 */
 	public static Collection<Sprite> getCurrentScreenSprites(
 			Collection<Sprite> allSprites, double heroX, double heroY) {
@@ -83,6 +85,15 @@ public class ScrollerLevel extends Level {
 		return currentSpritesList;
 	}
 
+	/**
+	 * This method returns the minimum value of the coordinate to be displayed
+	 * on the screen depending upon the current position of the hero.
+	 * 
+	 * @param heroCoordinate - hero's current position
+	 * @param screen - screen dimension
+	 * @param gameSpace - gameSpace dimension
+	 * @return minimum value of the coordinate to be displayed
+	 */
 	private static double getMin(double heroCoordinate, double screen, double gameSpace) {
 		if (heroCoordinate < screen / 2) {
 			return 0;
@@ -94,7 +105,17 @@ public class ScrollerLevel extends Level {
 			return heroCoordinate - screen / 2;
 		}
 	}
-
+	
+	/**
+	 * This method checks whether a Sprite's current position is in range or not,
+	 * i.e., if the sprite's current coordinates lie between the minimum and
+	 * maximum values of the displayed coordinates.
+	 *
+	 *@param value - Sprite's coordinate to be checked
+	 *@param min - minimum coordinate displayed on screen
+	 *@param max - maximum coordinate displayed on screen
+	 *@return a boolean which indicates whether the sprite's current coordinate is in range or not
+	 */
 	private static boolean isInRange(double value, double min, double max) {
 		return (min < value && value < max);
 	}
