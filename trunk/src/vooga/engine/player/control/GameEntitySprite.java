@@ -94,7 +94,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * @param spriteName the "name" of the sprite that GameEntity will now be
 	 *            represented by.
 	 */
-	private void setToCurrentSprite(String spriteName) {
+	public void setToCurrentSprite(String spriteName) {
 		if(nameExists(spriteName))
 		{
 			Sprite nextSprite = mySprites.get(spriteName);           
