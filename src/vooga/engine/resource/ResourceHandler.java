@@ -15,6 +15,25 @@ import java.io.InputStream;
 
 import javax.swing.ImageIcon;
 
+/**
+ * The ResourceHandler class manages the Images, "Animations", and Sounds which will be
+ * needed in the game. It maintains a map that connects String labels to Objects, which 
+ * currently are Images, BufferedImage[]'s, and String filepaths for Images, "Animations",
+ * and Sounds, respectively. When the game initializes its resources, the following code
+ * should be executed:
+ * 
+ * ResourceHandler.loadFile("resourcelist.txt");
+ * 
+ * This call will create the ResourceHandler's map, and its elements (such as a background 
+ * image that has been labeled as "Background") can be accessed using this example code:
+ * 
+ * ResourceHandler.getMapping("Background");
+ * 
+ * Sounds are currently handled by the basic mapping of "Label"->filepath.
+ * 
+ * @author John Kline
+ *
+ */
 public class ResourceHandler {
 	private static List<String> myDirectories = new ArrayList<String>();
 	private static Map<String, Object> myMap = new HashMap<String, Object>();
