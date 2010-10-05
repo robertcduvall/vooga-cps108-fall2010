@@ -114,15 +114,20 @@ public abstract class GameEntitySprite extends Sprite {
 
 	private void setToCurrentSprite(Sprite nextSprite) {
 
+		/*
 		double currentX = myCurrentSprite.getX();
 		double currentY = myCurrentSprite.getY();
 		double currentVX = myCurrentSprite.getHorizontalSpeed();
 		double currentVY = myCurrentSprite.getVerticalSpeed();
-
+		*/
+		double currentX = 0;
+		double currentY = 0;
+		double currentVX = 0;
+		double currentVY = 0;
 		nextSprite.setLocation(currentX, currentY);
 		nextSprite.setSpeed(currentVX, currentVY);
 
-		setActive(false);
+		//setActive(false);
 		myCurrentSprite = nextSprite;
 		setActive(true);
 	}
