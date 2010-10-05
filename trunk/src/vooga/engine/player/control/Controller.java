@@ -24,7 +24,7 @@ public interface Controller {
      * 
      * @param paramVals Value of the parameters that the method has
      */
-	public void addInput(String listen, String method, String classname, Object... paramVals);
+	public void addInput(int listen, String method, String classname, Object... paramVals);
     /**
      * Sets the parameter types that need to be used for the next method
      * 

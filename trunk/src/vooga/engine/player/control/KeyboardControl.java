@@ -16,8 +16,8 @@ import vooga.engine.player.control.*;
  */
 
 public class KeyboardControl extends Control implements Controller{
-	private Map<String, Method> keyMethodMap;
-	private Map<String, Object[]> keyParamMap;
+	private Map<Integer, Method> keyMethodMap;
+	private Map<Integer, Object[]> keyParamMap;
 	
 	public KeyboardControl(){
 		super();
@@ -40,15 +40,15 @@ public class KeyboardControl extends Control implements Controller{
 	}
 	
 	public void initializeMappings(){
-		keyMethodMap = new HashMap<String, Method>();
-		keyParamMap = new HashMap<String, Object[]>();
+		keyMethodMap = new HashMap<Integer, Method>();
+		keyParamMap = new HashMap<Integer, Object[]>();
 	}
 	
 	/**
      * Create keyset to map input to method. Can be overwritten to create new control scheme  
      * 
-     * @param listen Use a String version of what to listen to (eg. "a"
-     * for "KEYBOARD" or "1" for "MOUSE")
+     * @param listen Use the java.awt.event.KeyEvent constants to determine what to listen for. Need to
+     * import java.awt.event.KeyEvent
      * 
      * @param method Name of method to map to (do not include brackets)
      * 
@@ -57,7 +57,7 @@ public class KeyboardControl extends Control implements Controller{
      * 
      * @param paramVals Value of the parameters that the method has
      */
-    public void addInput(String listen, String method, String classname, Object... paramVals) {
+    public void addInput(int listen, String method, String classname, Object... paramVals) {
 
     	try {
             Class myClass = Class.forName(classname);
@@ -71,15 +71,15 @@ public class KeyboardControl extends Control implements Controller{
     }
     
 	public void update(){
-		String key = String.valueOf(myGame.bsInput.getKeyPressed());
-        if (key.equals(String.valueOf(myGame.bsInput.NO_KEY))) {
-            for (String possibleKey : keyMethodMap.keySet()) {
-                if (myGame.bsInput.isKeyDown(Integer.parseInt(possibleKey))) {
+		int key = myGame.bsInput.getKeyPressed();
+        if (key==(myGame.bsInput.NO_KEY)) {
+            for (int possibleKey : keyMethodMap.keySet()) {
+                if (myGame.bsInput.isKeyDown(possibleKey)) {
                     key = possibleKey;
                 }
             }
-            if (key.equals(String.valueOf(myGame.bsInput.NO_KEY)))
-                key = String.valueOf(myGame.bsInput.NO_KEY);
+            if (key==(myGame.bsInput.NO_KEY))
+                key = myGame.bsInput.NO_KEY;
         }
         if (keyMethodMap.containsKey(key)) {
             try {
