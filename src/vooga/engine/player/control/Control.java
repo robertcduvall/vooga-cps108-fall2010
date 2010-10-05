@@ -1,6 +1,7 @@
 package vooga.engine.player.control;
 
 import java.util.*;
+import java.awt.event.*;
 import com.golden.gamedev.Game;
 import vooga.engine.player.control.*;
 
@@ -18,7 +19,7 @@ import vooga.engine.player.control.*;
  * @author Choi, Cue, Hawthorne
  * @version 1.0
  */
-public class Control implements Controller{
+public class Control{
     protected List<PlayerSprite> players;
     protected Class[] paramTypes;
     protected Game myGame;
@@ -81,8 +82,8 @@ public class Control implements Controller{
 	/**
      * Create keyset to map input to method. Can be overwritten to create new control scheme  
      * 
-     * @param listen Use a String version of what to listen to (eg. "a"
-     * for "KEYBOARD" or "1" for "MOUSE")
+     * @param listen Use an Integer version of what to listen to (eg. Java.awt.event.KeyEvent constants
+     * for "KEYBOARD" or Java.awt.event.MouseEvent constants for "MOUSE")
      * 
      * @param method Name of method to map to (do not include brackets)
      * 
@@ -91,7 +92,7 @@ public class Control implements Controller{
      * 
      * @param paramVals Value of the parameters that the method has
      */
-    public void addInput(String listen, String method, String classname, Object... paramVals) {
+    public void addInput(int listen, String method, String classname, Object... paramVals) {
     //should be overridden in subclasses
     }
 

@@ -46,8 +46,8 @@ public class MouseControl extends Control implements Controller{
 	/**
      * Create keyset to map input to method. Can be overwritten to create new control scheme  
      * 
-     * @param listen Use a String version of what to listen to (eg. "a"
-     * for "KEYBOARD" or "1" for "MOUSE")
+     * @param listen Use the Java.awt.event.MouseEvent constant values to determine which button to listen for.
+     * Need to import java.awt.event.MouseEvent
      * 
      * @param method Name of method to map to (do not include brackets)
      * 
@@ -56,12 +56,12 @@ public class MouseControl extends Control implements Controller{
      * 
      * @param paramVals Value of the parameters that the method has
      */
-	public void addInput(String listen, String method,
+	public void addInput(int listen, String method,
             String classname, Object... paramVals) {
         try{
     		Class myClass = Class.forName(classname);
             Method perform = myClass.getMethod(method,paramTypes);
-        	int key = Integer.parseInt(listen);
+        	int key = listen;
             mouseMethodMap.put(key, perform);
             mouseParamMap.put(key, paramVals);
             paramTypes = null;
