@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+</head>
+<body bgcolor="white">
+<h1>ReadMe/Class Doc</h1>
+<ul>
+<li>Authors: Kate Yang, Nick Straub, Yang Su</li>
+<li>Date Started: September 15, 2010</li>
+<li>Date Finished: September 27, 2010</li>
+<li>Total Hours: 25</li>
+<li>Kate: worked on altering her BouncingBall game to implement the CollisionManager class and the Collidable interface</li>
+<li>Nick: worked on creating FANG specific classes that the Collision API</li>
+<li>Yang: created CollisionManager and the Collidable interface</li>
+</ul>
+<p>
+The goal of this collision manager api is to build a class that makes it very easy to handle and customize collision detection and post-collision behavior. The API does not rely on any external libraries or resources other than the standard java library. It’s designed to be flexible and easily extensible so that it can be customized for a game without hassle.
+</p>
+<br />
+<p>
+Ideally, all active or movable objects in a game would implement our Collidable interface and write a specific actOnCollision method for each object, which specifies how each object reacts to a collision, potentially different behavior for different types of objects it collides with. Any customized behavior is allowed as long as it works with Collidable objects. A potential error here is that an object that’s passed into the collision manager for processing may not necessarily be a Collidable object. However, such errors would be detected upon calling a collision manager method and passing it a non-Collidable object, which could be easily fixed in the main game. Then the game designer writes a customized version of the collision manager that specifies how collision detection is implemented for the game he or she is trying to build. Anything beyond that should be handled by the collision manager by calling the appropriate methods during each processing loop or frame for the game. Additionaly, We have written overloaded methods for the collides method to allow multiple options as inputs, including two objects, an object and a list of objects, a list against itself, and two lists of objects. This gives the designer the flexibility so that he can either use the collision manager to manage all objects at once or make specialized collision calculations. We have also included functions that allow general processing of borders. We have written the code in such a way that the processingBorders is flexible in terms of what it takes as inputs and specifying what happens at each of the four borders, assuming that the game is a rectangular world. We allowed protected encapsulation for the methods that process how each border is handled can be overwritten in a subclass. This gives the game designer an easy way of setting up universal rules of how objects interact with the world boundaries. 
+</p>
+<br />
+<p>
+To add additional functionalities to the collision manager, all one would have to do is add additional methods in the customized subclass of CollisionManager. The detectCollisions and act method can both be overwritten so they can be used to call any customized functions that go beyond the basic functions we have provided.
+</p>
+<br />
+<p>
+We decided to write the interface Collidable so that we could force all objects that are passed to be CollisionManager for processing has standard functions that we can use in processing collisions. Originally, we used an abstract class that would be extended by all objects in a game. While this approach allowed for providing example or general code for the game designer and forcing the implementation of useful instance variables, it was not flexible in terms of the required hierarchy, which ran into problems when we were working the FANG. The interface approach was much more flexible despite the inability to write code that objects in the game could use. However, that problem can easily be solved by adding additional inheritance structures. We also used abstract methods in a few places because such methods were crucial to how the collision manager functions but are also very specific to each game. So we decided to make them abstract to force the implementation of them but also to allow for complete customizability of the collision algorithms. We used protected encapsulation for a few methods in the collision manager class because we wanted it to be possible to both have a default behavior and allow for customization. The protected encapsulation allows exactly for that as it cannot be called externally be can be overwritten by subclasses.
+</p>
+<br />
+<p>
+The following code is a simple example of how the collision manager is used. (take from our last game example)
+manager.collides(bounceBall, launcher);<br />
+manager.processBorders(bounceBall, 1, 1);<br />
+bounceBall.setLocation(bounceBall.getX()+bounceBall.getXVelocity()*0.05,bounceBall.getY()+bounceBall.getYVelocity()*0.05);<br />
+The first line manages the collision between the ball and the paddle, both of which have specified behavior for one another. The second line processes the collisions with the borders. The last line uses methods in the Collidable interface to update the location of the ball object.<br />
+</p>
+<!-- Put @see and @since tags down here. -->
+
+</body>
+</html>
