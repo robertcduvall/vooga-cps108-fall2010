@@ -46,7 +46,7 @@ public abstract class GameEntitySprite extends Sprite {
 		myStartTime = System.currentTimeMillis();
 		mySprites = new HashMap<String, Sprite>();
 		mapNameToSprite(stateName, s);
-		setToCurrentSprite(s);
+		myCurrentSprite = s;
 		setName(name);
 	}
 
