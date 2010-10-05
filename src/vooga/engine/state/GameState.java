@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import vooga.engine.core.Sprite;
 import java.util.*;
 
+import com.golden.gamedev.object.SpriteGroup;
+
 /**
  * GameState is, at its most basic conception, a container class for collections of sprites. Beyond that, it should be used
  * control state-specific behavior that defines those sprites. For example, the mainGameState should include all of the
@@ -22,8 +24,8 @@ import java.util.*;
 public abstract class GameState implements Comparable<GameState> {
 
 	private boolean myIsActive = false;
-	private Collection<Sprite> myRenderGroups = new ArrayList<Sprite>();
-	private Collection<Sprite> myUpdateGroups = new ArrayList<Sprite>();
+	private  ArrayList<SpriteGroup> myRenderGroups = new ArrayList<SpriteGroup>();
+	private ArrayList<SpriteGroup> myUpdateGroups = new ArrayList<SpriteGroup>();
 	private int myLayer;
 
 	/**
@@ -49,7 +51,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 * @param spritegroup
 	 */
-	public GameState(Collection<Sprite> sprites) {
+	public GameState(SpriteGroup sprites) {
 		this();
 		this.addGroup(sprites);
 
@@ -84,7 +86,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param spritegroup
 	 * @param layer
 	 */
-	public GameState(Collection<Sprite> sprites, int layer) {
+	public GameState(SpriteGroup sprites, int layer) {
 		this(sprites);
 		this.setLayer(layer);
 	}
@@ -129,7 +131,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public void render(Graphics2D g) {
 
-		for (Sprite s : myRenderGroups) {
+		for (SpriteGroup s : myRenderGroups) {
 			s.render(g);
 		}
 	}
@@ -140,7 +142,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param t
 	 */
 	public void update(long t) {
-		for (Sprite sprite : myUpdateGroups) {
+		for (SpriteGroup sprite : myUpdateGroups) {
 			sprite.update(t);
 		}
 	}
@@ -150,8 +152,8 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 * @param s
 	 */
-	public void addRenderGroup(Collection<Sprite> sprites) {
-		myRenderGroups.addAll(sprites);
+	public void addRenderGroup(SpriteGroup sg) {
+		myRenderGroups.add(sg);
 	}
 
 	/**
@@ -159,8 +161,8 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 * @param s
 	 */
-	public void addUpdateGroups(Collection<Sprite> sprites) {
-		myUpdateGroups.addAll(sprites);
+	public void addUpdateGroups(SpriteGroup sprites) {
+		myUpdateGroups.add(sprites);
 	}
 
 	/**
@@ -168,9 +170,9 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 * @param s
 	 */
-	public void addGroup(Collection<Sprite> sprites) {
-		this.addRenderGroup(sprites);
-		this.addUpdateGroups(sprites);
+	public void addGroup(SpriteGroup sg) {
+		this.addRenderGroup(sg);
+		this.addUpdateGroups(sg);
 	}
 
 	/**
@@ -178,7 +180,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 * @return List<SpriteGroup>
 	 */
-	public Collection<Sprite> getRenderGroups() {
+	public ArrayList<SpriteGroup> getRenderGroups() {
 		return myRenderGroups;
 	}
 
@@ -187,7 +189,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * 
 	 * @return List<SpriteGroup>
 	 */
-	public Collection<Sprite> getUpdateGroups() {
+	public ArrayList<SpriteGroup> getUpdateGroups() {
 		return myUpdateGroups;
 	}
 
@@ -197,7 +199,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param gamestate
 	 */
 	public void addRenderState(GameState gamestate) {
-		for (Sprite group : gamestate.getRenderGroups()) {
+		for (SpriteGroup group : gamestate.getRenderGroups()) {
 			myRenderGroups.add(group);
 		}
 	}
@@ -208,7 +210,7 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param gamestate
 	 */
 	public void addUpdateState(GameState gamestate) {
-		for (Sprite group : gamestate.getUpdateGroups()) {
+		for (SpriteGroup group : gamestate.getUpdateGroups()) {
 			myUpdateGroups.add(group);
 		}
 	}
