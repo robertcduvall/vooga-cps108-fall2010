@@ -15,8 +15,10 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
  * The Overlay stat class to display a String and something the user defines
  * @author Justin Goldsmith
  * 
- * Stat<Integer> stat = new Stat<Integer>(5);
- * OverlayStat overlay = new OverlayStat("score: ", stat);
+ * <p>Stat<Integer> stat = new Stat<Integer>(5);</p>
+ * <p>OverlayStat overlay = new OverlayStat("score: ", stat);</p>
+ * 
+ *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  */
 
 
@@ -46,8 +48,10 @@ public class OverlayStat extends OverlayString {
 		myGenTracker = tracker;
 	}	
 
-
-	
+	/**
+	 * Used to render to the screen.
+	 * @param g Graphic to render image to.
+	 */
 	public void render(Graphics2D g){
 		String track = setStat();
 		print(getString() + " " + track, g);

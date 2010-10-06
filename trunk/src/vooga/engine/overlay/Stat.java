@@ -9,8 +9,8 @@ package vooga.engine.overlay;
  * 
  * @author Justin Goldsimth
  * 
- * Stat<String> stat = new Stat<String>("Hello");
- * stat.setStat("World");
+ * <p>Stat<String> stat = new Stat<String>("Hello");</p>
+ * <p>stat.setStat("World");</p>
  */
 public class Stat<T> {
 
