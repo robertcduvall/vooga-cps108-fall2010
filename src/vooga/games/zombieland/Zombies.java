@@ -16,7 +16,7 @@ public class Zombies extends PlayerSprite{
 		super(name, stateName, s);
 		target = hero;
 		targetDirection = "X";
-		speed = -0.5;
+		speed = -0.25;
 	}
 	
 	public double getDirection(){
@@ -34,7 +34,7 @@ public class Zombies extends PlayerSprite{
 		}
 	}
 	
-	public void update(){
+	public void update(long elapsedTime){
 		double direction = getDirection();
 		if (targetDirection.equals("X")){
 			if (direction < 0){
