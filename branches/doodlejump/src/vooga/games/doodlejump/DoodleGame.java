@@ -47,10 +47,8 @@ public class DoodleGame extends Game {
 	private SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup;
 	
 	// Collision Manager
-	private CollisionManager doodleToGreenPlatform;
+	private CollisionManager doodleToGreenPlatform, doodleToMonster;
 	
-	private long time;
-
 	public void initResources() {
 		
 		// background
@@ -113,10 +111,11 @@ public class DoodleGame extends Game {
 		
 		// Collision	
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
+		doodleToMonster = new DoodleToMonsterCollision();
 		
 		playfield.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
+		playfield.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
 		
-		time = 0;
 		setFPS(100);
 	}
 	
