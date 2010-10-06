@@ -16,14 +16,17 @@ import com.golden.gamedev.util.ImageUtil;
  * This Overlay class displays a finite number of icons, with the image provided by the user
  * @author Se-Gil Feldsott and Justin Goldsmith
  * 
- * StatInt stat = new StatInt(5);
- * GreenfootImage image = new GreenfootImage("...");
- * OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");
+ * <p>StatInt stat = new StatInt(5);</p>
+ * <p>GreenfootImage image = new GreenfootImage("...");</p>
+ * <p>OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");</p>
+ * 
+ *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
+ * 
+ * 
  *
  */
 public class OverlayIcon extends Overlay {
 
-	private static final long serialVersionUID = 1L;
 	private OverlayStatImage myImage;
 	private int myNumOfIcons;
 	private int myPreviousNumOfIcons;
@@ -47,7 +50,6 @@ public class OverlayIcon extends Overlay {
 		myNumOfIcons = 0;
 		myPreviousNumOfIcons = 0;
 		myIconGroup = new SpriteGroup("Icons");
-		//makeLabel();
 	}
 	
 		
@@ -69,7 +71,10 @@ public class OverlayIcon extends Overlay {
 	}
 	
 		
-	
+	/**
+	 * Used to render to the screen.
+	 * @param g Graphic to render image to.
+	 */
 	public void render(Graphics2D g){  //make the label, which is text appearing before the icons
 		myText.setLocation(getX(), getY());
 		myText.print(myText.getString(), g);
@@ -103,9 +108,6 @@ public class OverlayIcon extends Overlay {
 		{
 			if(myNumOfIcons > myPreviousNumOfIcons){
 				myIconGroup.add(myImage.clone());
-				//double endOfString =  getX() + ((double)myText.getMyWidth());
-				//int widthOfIcons = (myText.getMyWidth() + 5) * (myIconGroup.getSize() -1);
-				//myImage.setLocation((int)(endOfString + widthOfIcons + 8), getY());
 				myPreviousNumOfIcons++;
 			}
 				
@@ -118,7 +120,7 @@ public class OverlayIcon extends Overlay {
 				break;
 			}
 		}
-		double endOfString =  getX() + ((double)myText.getMyWidth());
+		double endOfString =  getX() + ((double)myText.getWidth());
 		int paddingBetweenIcons = 5;
 		int paddingBetweenStringAndIcons = 8;
 		if(myIconGroup.getActiveSprite()!= null){
@@ -126,7 +128,7 @@ public class OverlayIcon extends Overlay {
 			int i = 0;
 			for(Sprite sprite: myIconGroup.getSprites()){
 				if(sprite != null){
-					sprite.setLocation((int)(endOfString + (widthOfIcons * (i)) + paddingBetweenStringAndIcons) , getY() + myText.getMyHeight()/2);
+					sprite.setLocation((int)(endOfString + (widthOfIcons * (i)) + paddingBetweenStringAndIcons) , getY() + myText.getHeight()/2);
 					i++;
 				}
 			}

@@ -7,8 +7,8 @@ package vooga.engine.overlay;
  * 
  * @author Justin Goldsimth
  * 
- * StatInt stat = new StatInt(5);
- * stat.setStat(7);
+ * <p>StatInt stat = new StatInt(5);</p>
+ * <p>stat.setStat(7);</p>
  */
 public class StatInt{
 

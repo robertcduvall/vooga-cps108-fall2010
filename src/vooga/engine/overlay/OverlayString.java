@@ -17,10 +17,12 @@ import com.golden.gamedev.object.GameFontManager;
  * This OverlayString class displays some text on the screen.
  * @author Justin Goldsmith
  * 
- * OverlayString overlay = new OverlayString("Hello");
- * Font font = new Font("sampleFont", Font.PLAIN, 22);
- * overlay.setFont(font);
- * overlay.setColor(Color.BLUE);
+ * <p>OverlayString overlay = new OverlayString("Hello");</p>
+ * <p>Font font = new Font("sampleFont", Font.PLAIN, 22);</p>
+ * <p>overlay.setFont(font);</p>
+ * <p>overlay.setColor(Color.BLUE);</p>
+ * 
+ * <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  *
  */
 
@@ -71,6 +73,16 @@ public class OverlayString extends Overlay {
 		myFont = myFontManager.getFont(myRealFont, myColor);
 	}
 	/**
+	 * 
+	 * @param str String to display
+	 * @param font 
+	 */
+	public OverlayString(String str, GameFont font){
+		myString = str;
+		myFont = font;
+	}
+	
+	/**
 	 * Creats a String to be displayed as an image
 	 * @param str String to be printed
 	 * @param color
@@ -79,23 +91,40 @@ public class OverlayString extends Overlay {
 		this(str, DEFAULT_FONT, color);	
 	}
 	
+	/**
+	 * This method will implemented if this Overlay was created with a Font or only a String and not a GameFont.
+	 * It will also not work if the setFont(GameFont) method was ever used.
+	 * @param font
+	 */
 	public void setFont(Font font){
-		myFont = myFontManager.getFont(font);
-
+		if(myRealFont != null){
+			myFont = myFontManager.getFont(font, myColor);
+		}
 	}
 	
+	public void setFont(GameFont font){
+		myFont = font;
+		myRealFont = null;
+	}
+	
+	/**
+	 * This method will implemented if this Overlay was created with a Font or only a String and not a GameFont.
+	 * setFont(GameFont)
+	 * @param color
+	 */
 	public void setColor(Color color){
-		myColor = color;
-		myFont = myFontManager.getFont(myRealFont, myColor);
+		if(myRealFont != null){
+			myColor = color;
+			myFont = myFontManager.getFont(myRealFont, myColor);
+		}
 		
 	}
 	
-	
 	/**
-	 * Sets the image of this object to the passed String
-	 * @param str
+	 * This method is needed for other classes in the Overlay package.
+	 * It should never be used by a game creator.
 	 */
-	public void print(String str, Graphics2D g) {		 //get a image from a string
+	protected void print(String str, Graphics2D g) {		
         createImage(str, g);
 	}
 	
@@ -104,33 +133,6 @@ public class OverlayString extends Overlay {
 	
 		myWidth = getTextWidth(str) + 1;
 		myHeight = getTextHeight();
-		/*// Create a buffered image in
-		// which to draw
-		BufferedImage bufferedImage = new BufferedImage(width, height,BufferedImage.TYPE_INT_ARGB);
-		//  Create a graphics contents
-		// on the buffered image
-		Graphics2D g2d = bufferedImage.createGraphics();
-		g2d.clearRect(0, 0, width, height);
-		g2d.setColor(new Color(Color.WHITE.getRed(), Color.WHITE.getGreen(), Color.WHITE.getBlue(), 0));
-		g2d.fillRect(0, 0, width, height);
-
-		// Draw graphics
-		g2d.setFont(myRealFont);
-		g2d.setColor(myColor);
-		
-		g2d.drawString(str, 2, height - 1);
-		
-		
-		
-		
-		
-		// Graphics context
-		// no longer needed so dispose
-		// it
-		g2d.dispose(); 
-		return bufferedImage; 
-		*/
-		
 		myFont.drawString(g,str,(int)getX() , (int)getY());
 		
 		
@@ -144,6 +146,9 @@ public class OverlayString extends Overlay {
 		print(myString, g);
 	}
 	
+	/**
+	 * @return returns the string this Overlay is displaying.
+	 */
 	public String getString(){
 		return myString;
 	}
@@ -155,12 +160,20 @@ public class OverlayString extends Overlay {
 	private int getTextHeight(){
 		return myFont.getHeight();
 	}
-	
-	protected int getMyWidth(){
+
+	/**
+	 * @return returns the width of the string.
+	 */
+	@Override
+	public int getWidth(){
 		return myWidth;
 	}
 	
-	protected int getMyHeight(){
+	/**
+	 * @return returns the height of the string.
+	 */
+	@Override
+	public int getHeight(){
 		return myHeight;
 		
 	}
