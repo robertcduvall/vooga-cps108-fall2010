@@ -1,0 +1,6 @@
+$Images
+BreakTile,images/BreakTile.png
+Indestructible,images/IndestructibleTile.png  
+Changing1,images/ChangingTile1.png
+Changing2,images/ChangingTile2.png
+Changing3,images/ChangingTile3.png

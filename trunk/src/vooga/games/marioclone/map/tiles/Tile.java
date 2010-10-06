@@ -8,7 +8,7 @@ public abstract class Tile implements Collidable {
 	private double x;
 	private double y;
 	private State state;
-	protected enum State {active,inactive,removed};
+	public enum State {active,inactive,removed};
 	
 	public Tile() {
 		
