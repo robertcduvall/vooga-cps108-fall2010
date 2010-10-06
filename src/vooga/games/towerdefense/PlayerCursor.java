@@ -1,5 +1,6 @@
 package vooga.games.towerdefense;
 
+import java.awt.Point;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,21 +22,15 @@ public class PlayerCursor extends PlayerSprite{
 		this.towerGroup = towerGroup;
 	}
 	
-	public void buildTower(int x, int y) throws MalformedURLException{
+	public void buildTower() throws MalformedURLException{
 		try {
-			File file = new File("src/vooga/games/towerdefense/images/tower.png");
+			File file = new File("src/vooga/games/towerdefense/resources/images/tower.png");
 			URL imageURL = file.toURI().toURL();
-			Sprite image = new Sprite(ImageUtil.getImage(imageURL), x, y);
+			Sprite image = new Sprite(ImageUtil.getImage(imageURL), getX(), getY());
 			towerGroup.add(image);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void buildTower() throws MalformedURLException{
-		URL imageURL = new URL("images/tower.png");
-		Sprite image = new Sprite(ImageUtil.getImage(imageURL), 20, 20);
-		towerGroup.add(image); 
 	}
 
 	

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.*;
+
 import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
 import vooga.engine.player.control.*;
@@ -69,18 +70,30 @@ public class PlayerCursorControl extends Control implements Controller{
     }
 	
 	public void update(){
-		int key = myGame.bsInput.getMousePressed();
 		for (int i = 0; i < players.size(); i++)
         {
-             try {
-            	 if(key==1){
-            		 PlayerCursor p = (PlayerCursor) players.get(i);
-            		 p.buildTower(myGame.bsInput.getMouseX(), myGame.bsInput.getMouseY());
-            	 }
-				moveToCursor(players.get(i));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				try {
+					moveToCursor(players.get(i));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        }
+		int key = myGame.bsInput.getMousePressed();
+        if (mouseMethodMap.containsKey(key))
+        {
+            try{
+                for (int i = 0; i < players.size(); i++)
+                {
+                	System.out.println("Invoking");
+                     Method perform = mouseMethodMap.get(key);
+                     Object[] paramVals = mouseParamMap.get(key);
+                     perform.invoke((PlayerCursor) players.get(i), paramVals);
+                }
+            }
+            catch (Throwable e){
+                System.err.println(e);
+            }
         }
 	}
 	
