@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="trunk/src"/>
+	<classpathentry kind="lib" path="trunk/GTGE-0.2.3-src.jar"/>
+	<classpathentry kind="lib" path="trunk/GTGE-0.2.3.jar"/>
+	<classpathentry kind="lib" path="trunk/sqlite4java.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
