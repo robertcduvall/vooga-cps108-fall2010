@@ -15,6 +15,7 @@ import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
 import vooga.engine.player.control.Control;
+import vooga.engine.player.control.ItemSprite;
 import vooga.engine.player.control.PlayerSprite;
 
 
@@ -25,7 +26,7 @@ public class TowerDefense extends Game{
 	
 	public BaseInput bsInput;
 	private PlayerSprite playerCursor;
-	private Control playerCursorControl;
+	private PlayerCursorControl playerCursorControl;
 	private Sprite duvall;
 	private Background background;
 	private PlayField playfield;
@@ -77,6 +78,8 @@ public class TowerDefense extends Game{
 		temp = new Sprite(getImage("resources/images/duvallFace.png"));
 		playerCursor = new PlayerSprite("player", "playerCursor", playerSprite);
 		playerCursorControl = new PlayerCursorControl(playerCursor, this);
+		//playerCursorControl.addInput("1", "useItem", "vooga.engine.player.control.PlayerSprite", new TowerSprite(new Sprite(getImage("images/tower.png"), 20, 20), towerGroup));
+		//playerCursor.addItemToList(new TowerSprite(new Sprite(getImage("images/tower.png"), 20, 20), towerGroup));
 	}
 	
 	private void initBackground(){
