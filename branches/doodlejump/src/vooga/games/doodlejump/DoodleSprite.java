@@ -9,16 +9,17 @@ public class DoodleSprite extends PlayerSprite {
 	public DoodleSprite(String name, String stateName, Sprite s) {
 		super(name, stateName, s);
 	}
-	
-	public void moveLeft(){
-		//if (isOnScreen(0, 0, 695, 822)) {
-			super.setX(this.getX()-1);
-		//}
+
+	public void moveLeft() {
+		if (isOnScreen()) {
+			setX(getX() - 5);
+		}
+
 	}
-	
-	public void moveRight(){
-		//if (isOnScreen(0, 0, 695, 822)) {
-		super.setX(this.getX()+1);
-		//}
+
+	public void moveRight() {
+		if (isOnScreen()) {
+			setX(getX() + 5);
+		}
 	}
 }
