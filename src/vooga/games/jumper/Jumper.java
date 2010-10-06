@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 //import vooga.engine.core.Sprite;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.state.GameState;
+import vooga.engine.state.GameStateManager;
 
 // GTGE
 import com.golden.gamedev.Game;
@@ -31,38 +32,35 @@ public class Jumper extends Game {
 
 	private final static int GAME_WIDTH = 600;
 	private final static int GAME_HEIGHT = 480;
-	
-	private PlayField myPlayfield;
-	
+		
+	private GameStateManager myManager;
  /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
 
     public void initResources() {
+    	myManager = new GameStateManager();
     	
-    	myPlayfield = new PlayField();
-    	//TODO: add background
+    	GameState playGameState = new PlayGameState();
     	
-    	//find a new image
-    	BufferedImage image1 = getImage("resources/transBall.gif");    	
-    
-    	PlayerSprite player1 = new PlayerSprite("player1", "alive", new Sprite(image1, GAME_WIDTH / 2, GAME_HEIGHT / 2));
+    	myManager.addGameState(playGameState);
     	
-    	SpriteGroup protagonists = new SpriteGroup("good_guys");
-    	myPlayfield.addGroup(protagonists);
-    	
-    	protagonists.add(player1);
-    	
-    	SpriteGroup blocks = new SpriteGroup("blocks");
-    	myPlayfield.addGroup(blocks);
     }
 
-    public void update(long elapsedTime) {
-    	myPlayfield.update(elapsedTime);
+    public static int getGameWidth() {
+    	return GAME_WIDTH;
+    }
+
+    public static int getGameHeight() {
+    	return GAME_HEIGHT;
+    }
+
+	public void update(long elapsedTime) {
+    	myManager.update(elapsedTime);
     }
 
     public void render(Graphics2D g) {
-    	myPlayfield.render(g);
+    	myManager.render(g);
     }
 
 
@@ -75,5 +73,5 @@ public class Jumper extends Game {
         game.setup(new Jumper(), new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
         game.start();
     }
-
+    
 }

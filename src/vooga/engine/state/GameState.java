@@ -1,6 +1,8 @@
 package vooga.engine.state;
 
 import java.awt.Graphics2D;
+
+import vooga.engine.core.Game;
 import vooga.engine.core.Sprite;
 import java.util.*;
 
