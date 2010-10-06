@@ -9,7 +9,6 @@ import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 
 import vooga.engine.core.Game;
-import vooga.games.jumper.Jumper;
 import vooga.engine.player.control.*;
 
 public class Zombieland extends Game{
@@ -50,13 +49,14 @@ public class Zombieland extends Game{
 		rightzombie = new BufferedImage[]{getImage("resources/ZombieRight1.png"), getImage("resources/ZombieRight2.png"), getImage("resources/ZombieRight3.png")};
 		
 		shooter = new AnimatedSprite(downplayer, 350, 250);
-		zombie = new Sprite(getImage("resources/ZombieDown1.png"), 100, 100);
+		zombie = new AnimatedSprite(downzombie, 100, 100);
+		
 		zombies = new SpriteGroup("Zombies");
 		player = new Shooter("Hero", "Down", shooter, 100, 0);
-		player.mapNameToSprite("Up", new AnimatedSprite(upplayer));
-		player.mapNameToSprite("Left", new AnimatedSprite(leftplayer));
-		player.mapNameToSprite("Right", new AnimatedSprite(rightplayer));
-		player.mapNameToSprite("Down", new AnimatedSprite(downplayer));
+		player.mapNameToSprite("Up", getInitializedAnimatedSprite(upplayer));
+		player.mapNameToSprite("Left", getInitializedAnimatedSprite(leftplayer));
+		player.mapNameToSprite("Right", getInitializedAnimatedSprite(rightplayer));
+		player.mapNameToSprite("Down", getInitializedAnimatedSprite(downplayer));
 		zombie1 = new Zombies("First", "Moving", zombie, player);
 		zombies.add(zombie1);
 		playfield = new PlayField();
@@ -64,23 +64,7 @@ public class Zombieland extends Game{
 		background = new ColorBackground(Color.white);
 		counter = new Timer(1000);
 		
-		AnimatedSprite sprite;
-		
-		// create the sprite
-	    sprite = new AnimatedSprite(downplayer, 151, 0);
-
-	    // set animation speed 100 milliseconds for each frame
-	    sprite.getAnimationTimer().setDelay(100);
-
-	    // set animation frame starting from the first image to the third image
-	    sprite.setAnimationFrame(0, 3);
-
-	    // animate the sprite, and perform continous animation
-	    sprite.setAnimate(true);
-	    sprite.setLoopAnim(true);
-		
 		playfield.add(player);
-		playfield.add(sprite);
 		playfield.addGroup(zombies);
 		playfield.setBackground(background);
 		setListeners();
@@ -97,11 +81,32 @@ public class Zombieland extends Game{
     }
 
 	public void addZombie(){
-		Sprite newZombie = new Sprite(getImage("resources/Zombie Down1.png"), 100, 100);
-		Zombies getZombie = new Zombies("New", "Moving", newZombie, player);
+		AnimatedSprite zombieImage = new AnimatedSprite(downzombie, 100, 100);
+		initializeZombieAnimation(zombieImage);
+		Zombies getZombie = new Zombies("New", "Moving", zombieImage, player);
 		zombies.add(getZombie);
 	}
 	
+	private void initializeZombieAnimation(AnimatedSprite zombieImage){
+	    // set animation speed 100 milliseconds for each frame
+	    zombieImage.getAnimationTimer().setDelay(100);
+
+	    // set animation frame starting from the first image to the third image
+	    zombieImage.setAnimationFrame(0, 3);
+
+	    // animate the sprite, and perform continous animation
+	    zombieImage.setAnimate(true);
+	    zombieImage.setLoopAnim(true);
+	}
+	
+	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images){
+		AnimatedSprite sprite = new AnimatedSprite(images);
+		sprite.getAnimationTimer().setDelay(100);
+		sprite.setAnimationFrame(0, images.length-1);
+		sprite.setAnimate(true);
+		sprite.setLoopAnim(true);
+		return sprite;
+	}
 	public void setListeners(){
 		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
