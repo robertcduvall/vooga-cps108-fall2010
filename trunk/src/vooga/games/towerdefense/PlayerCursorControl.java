@@ -74,6 +74,7 @@ public class PlayerCursorControl extends Control implements Controller{
             paramTypes = null;
         } catch (Throwable e) {
             System.err.println(e);
+            e.printStackTrace();
         }
     }
 	
@@ -95,11 +96,12 @@ public class PlayerCursorControl extends Control implements Controller{
                 {
                      Method perform = mouseMethodMap.get(key);
                      Object[] paramVals = mouseParamMap.get(key);
-                     perform.invoke(players.get(i), paramVals);
+                     perform.invoke((PlayerCursor) players.get(i), paramVals);
                 }
             }
             catch (Throwable e){
                 System.err.println(e);
+                e.printStackTrace();
             }
         }
         // Code only used for level creation
