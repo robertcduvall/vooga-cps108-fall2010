@@ -47,8 +47,18 @@ public class Shooter extends PlayerSprite{
 
 
 	private void animateSprite() {
+		
+		
+	    // set animation speed 100 milliseconds for each frame
+		currentSprite.getAnimationTimer().setDelay(100);
+
+	    // set animation frame starting from the first image to the third image
+		currentSprite.setAnimationFrame(0, 5);
 		currentSprite.setAnimate(true);
-		currentSprite.setLoopAnim(false);
+		currentSprite.setLoopAnim(true);
+//	    // animate the sprite, and perform continous animation
+//	    sprite.setAnimate(true);
+//	    sprite.setLoopAnim(true);
 	}
 	
 }
