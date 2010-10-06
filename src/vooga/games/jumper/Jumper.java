@@ -15,6 +15,7 @@ import vooga.engine.state.GameState;
 // GTGE
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -28,33 +29,40 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends Game {
 
-	private final static int GAME_WIDTH = 200;
+	private final static int GAME_WIDTH = 600;
 	private final static int GAME_HEIGHT = 480;
 	
+	private PlayField myPlayfield;
 	
  /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
 
     public void initResources() {
-    	GameState playGameState = new PlayGameState();
+    	
+    	myPlayfield = new PlayField();
+    	//TODO: add background
     	
     	//find a new image
     	BufferedImage image1 = getImage("resources/transBall.gif");    	
     
-    	//maybe make this a PlayerGroup instead of a SpriteGroup
-    	//also, eventually need to use VOOGA Sprite class
-    	Sprite protagonist = new Sprite(image1, 100, 100);
-
-    	SpriteGroup protagonists = new SpriteGroup("good_guys");
+    	PlayerSprite player1 = new PlayerSprite("player1", "alive", new Sprite(image1, GAME_WIDTH / 2, GAME_HEIGHT / 2));
     	
-    	protagonists.add(protagonist);
+    	SpriteGroup protagonists = new SpriteGroup("good_guys");
+    	myPlayfield.addGroup(protagonists);
+    	
+    	protagonists.add(player1);
+    	
+    	SpriteGroup blocks = new SpriteGroup("blocks");
+    	myPlayfield.addGroup(blocks);
     }
 
     public void update(long elapsedTime) {
+    	myPlayfield.update(elapsedTime);
     }
 
     public void render(Graphics2D g) {
+    	myPlayfield.render(g);
     }
 
 
