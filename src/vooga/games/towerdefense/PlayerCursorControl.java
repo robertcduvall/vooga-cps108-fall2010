@@ -1,6 +1,11 @@
 package vooga.games.towerdefense;
 
 import java.util.*;
+import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.*;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
@@ -17,10 +22,27 @@ public class PlayerCursorControl extends Control implements Controller{
 	private Map<Integer, Method> mouseMethodMap;
 	private Map<Integer, Object[]> mouseParamMap;
 	private Object[] parametervalues;
+	FileWriter fstream;
+    BufferedWriter out;
+    // Code only used for level creation
+   /* long myTime;
+    long myStartTime;
+    int myX;
+    int myY;*/
 	
 	public PlayerCursorControl(PlayerSprite initialPlayer, Game game){
 		super(initialPlayer, game);
 		initializeMappings();
+		 // Code only used for level creation
+		/*File file = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
+		try {
+			fstream = new FileWriter(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		out = new BufferedWriter(fstream);
+		myStartTime = System.currentTimeMillis();*/
 	}
 	
 	public void initializeMappings(){
@@ -58,7 +80,12 @@ public class PlayerCursorControl extends Control implements Controller{
 	public void update(){
 		for (int i = 0; i < players.size(); i++)
         {
-             moveToCursor(players.get(i));
+             try {
+				moveToCursor(players.get(i));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 		int key = myGame.bsInput.getMousePressed();
         if (mouseMethodMap.containsKey(key))
@@ -75,10 +102,35 @@ public class PlayerCursorControl extends Control implements Controller{
                 System.err.println(e);
             }
         }
+        // Code only used for level creation
+       /*myTime = System.currentTimeMillis() - myStartTime;*/
+        
+        
 	}
 	
-	private void moveToCursor(PlayerSprite player){
+	private void moveToCursor(PlayerSprite player) throws IOException{
 		player.forceX(myGame.bsInput.getMouseX());
         player.forceY(myGame.bsInput.getMouseY());
+        
+        // Code only used for level creation
+      /* if(myTime < 30000){
+	        if(myGame.bsInput.isMouseDown(MouseEvent.BUTTON1)){
+				int x = myGame.bsInput.getMouseX();
+				int y = myGame.bsInput.getMouseY();
+				if((x != myX) && (y != myY)){
+					myX = x;
+					myY = y;
+					out.write(myX+ " ");
+					out.write(myY+ " ");
+					System.out.println(myX + " : " + myY);
+				}
+			}
+        }else{
+        	System.out.println("stop");
+ 			out.close();
+        }
+        */
 	}
+	
+	
 }
