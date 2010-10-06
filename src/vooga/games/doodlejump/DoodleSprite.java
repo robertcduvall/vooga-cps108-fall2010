@@ -22,4 +22,17 @@ public class DoodleSprite extends PlayerSprite {
 			setX(getX() + 5);
 		}
 	}
+	
+	public void moveUp() {
+		if (isOnScreen()) {
+			setY(getY() - 5);
+		}
+
+	}
+
+	public void moveDown() {
+		if (isOnScreen()) {
+			setY(getY() + 5);
+		}
+	}
 }
