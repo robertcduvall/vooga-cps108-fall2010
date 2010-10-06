@@ -59,20 +59,18 @@ public class Level {
      */
     
     public void loadSprites(Scanner fileToBeRead) {
-        //ImageHandler resourceManager = new ImageHandler();
-        
-    while (fileToBeRead.hasNextLine()) {
-        String spriteDetails = fileToBeRead.nextLine();
-        Scanner details = new Scanner(spriteDetails);
-        details.useDelimiter(", *");
-        String imageName = details.next();
-        BufferedImage image = (BufferedImage)ResourceHandler.getMapping(imageName);
-        
-        double xPosition = details.nextDouble();
-        double yPosition = details.nextDouble();
-        Sprite sprite = new Sprite(image, xPosition, yPosition);
-        mySpritesList.add(sprite);
-    }
+	    while (fileToBeRead.hasNextLine()) {
+	        String spriteDetails = fileToBeRead.nextLine();
+	        Scanner details = new Scanner(spriteDetails);
+	        details.useDelimiter(", *");
+	        String imageName = details.next();
+	        BufferedImage image = ResourceHandler.getImage(imageName);
+	        
+	        double xPosition = details.nextDouble();
+	        double yPosition = details.nextDouble();
+	        Sprite sprite = new Sprite(image, xPosition, yPosition);
+	        mySpritesList.add(sprite);
+	    }
     }
     
     /**
