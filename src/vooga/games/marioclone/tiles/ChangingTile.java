@@ -1,4 +1,4 @@
-package vooga.games.marioclone.src.map.tiles;
+package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

@@ -1,19 +1,20 @@
-package vooga.games.marioclone.src.map.tiles;
+package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 
 import vooga.engine.collision.Collidable;
 
-public class BreakTile extends Tile {	
+public class IndestructibleTile extends Tile {
 	private BufferedImage image;
 	
-	public BreakTile(double x, double y, BufferedImage image) {
+	public IndestructibleTile(double x, double y, BufferedImage image) {
+		super(x,y);
 		this.image = image;
 	}
 	
 	@Override
 	public void actOnCollision(Collidable object) {
-		this.setState(State.removed);
+		// do nothing
 	}
 
 	@Override
