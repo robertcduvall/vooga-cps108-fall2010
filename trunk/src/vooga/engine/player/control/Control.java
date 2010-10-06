@@ -2,6 +2,7 @@ package vooga.engine.player.control;
 
 import java.util.*;
 import java.awt.event.*;
+import java.lang.reflect.*;
 import com.golden.gamedev.Game;
 import vooga.engine.player.control.*;
 
@@ -88,7 +89,9 @@ public class Control{
      * @param method Name of method to map to (do not include brackets)
      * 
      * @param classname Name of class that wants to use this (eg.
-     * "Player" or "Game")
+     * "Player" or "Game") NOTE: You must put the class's fully qualified name (including its package)
+     * For example: if a class is called Test and is in the package cps108.games.example then the
+     * String here must be "cps108.games.example.Test"
      * 
      * @param paramVals Value of the parameters that the method has
      */
