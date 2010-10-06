@@ -28,9 +28,6 @@ public class DoodleGame extends Game {
 	private Sprite gray_platform;
 	private Sprite green_platform;
 	private Sprite light_blue_platform;
-	private Sprite red_platform;
-	private Sprite spring_platform;
-	private Sprite trampoline_platform;
 	private Sprite white_platform;
 	private Sprite yellow_platform;
 
@@ -76,12 +73,6 @@ public class DoodleGame extends Game {
 		PlatformGroup.add(green_platform);
 		light_blue_platform = new Sprite(getImage("light_blue_platform.png"), 200, 100);
 		PlatformGroup.add(light_blue_platform);
-		red_platform = new Sprite(getImage("red_platform.png"), 600, 600);
-		PlatformGroup.add(red_platform);
-		spring_platform = new Sprite(getImage("spring_platform.png"), 600, 100);
-		PlatformGroup.add(spring_platform);
-		trampoline_platform = new Sprite(getImage("trampoline_platform.png"), 300, 200);
-		PlatformGroup.add(trampoline_platform);
 		white_platform = new Sprite(getImage("white_platform.png"), 525, 300);
 		PlatformGroup.add(white_platform);
 		yellow_platform = new Sprite(getImage("yellow_platform.png"), 100, 600);
@@ -102,7 +93,7 @@ public class DoodleGame extends Game {
 		MonsterGroup.add(red_monster);
 		
 		// doodle (main player)
-		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("doodle_crop.png")));
+		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("doodle_right.png")));
 		doodle.setLocation(325, 650);
 		doodle.setVerticalSpeed(0.5);
 		DoodleGroup.add(doodle);
@@ -157,9 +148,6 @@ public class DoodleGame extends Game {
 		gray_platform.render(g);
 		green_platform.render(g);
 		light_blue_platform.render(g);
-		red_platform.render(g);
-		spring_platform.render(g);
-		trampoline_platform.render(g);
 		white_platform.render(g);
 		yellow_platform.render(g);
 
@@ -169,7 +157,7 @@ public class DoodleGame extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new DoodleGame(), new Dimension(695, 822), false);
+		game.setup(new DoodleGame(), new Dimension(532, 850), false);
 		game.start();
 	}
 
