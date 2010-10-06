@@ -1,4 +1,4 @@
-package vooga.games.marioclone.src.map;
+package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.resource.ResourceHandler;
-import vooga.games.marioclone.src.map.tiles.BreakTile;
-import vooga.games.marioclone.src.map.tiles.ChangingTile;
-import vooga.games.marioclone.src.map.tiles.IndestructibleTile;
-import vooga.games.marioclone.src.map.tiles.Tile;
-import vooga.games.marioclone.src.map.tiles.Tile.State;
+import vooga.games.marioclone.tiles.BreakTile;
+import vooga.games.marioclone.tiles.ChangingTile;
+import vooga.games.marioclone.tiles.IndestructibleTile;
+import vooga.games.marioclone.tiles.Tile;
+import vooga.games.marioclone.tiles.Tile.State;
 
 public class TileMap {
 	List<Tile> tiles;
