@@ -1,22 +1,27 @@
-package vooga.games.marioclone.map;
+package vooga.games.marioclone.src.map;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.resource.ResourceHandler;
-import vooga.games.marioclone.map.tiles.BreakTile;
-import vooga.games.marioclone.map.tiles.ChangingTile;
-import vooga.games.marioclone.map.tiles.IndestructibleTile;
-import vooga.games.marioclone.map.tiles.Tile;
-import vooga.games.marioclone.map.tiles.Tile.State;
+import vooga.games.marioclone.src.map.tiles.BreakTile;
+import vooga.games.marioclone.src.map.tiles.ChangingTile;
+import vooga.games.marioclone.src.map.tiles.IndestructibleTile;
+import vooga.games.marioclone.src.map.tiles.Tile;
+import vooga.games.marioclone.src.map.tiles.Tile.State;
 
-public class Map {
+public class TileMap {
 	List<Tile> tiles;
+	
+	public TileMap(String filename) throws IOException {
+		tiles = new ArrayList<Tile>();
+		loadTiles(filename);
+	}
 	
 	public List<Tile> getTiles() {
 		return tiles;
@@ -33,15 +38,15 @@ public class Map {
 		int width = 0;
 		int height = 0;
 		
-		ClassLoader classLoader = getClass().getClassLoader();
-		URL url = classLoader.getResource(filename);
-		if (url == null) {
+		InputStream is = ResourceHandler.getResourceAsStream(filename);
+		
+		if (is == null) {
 			throw new IOException("No such map: " + filename);
 		}
 		
 		// read every line in the text file into the list
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				url.openStream()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+				
 		while (true) {
 			String line = reader.readLine();
 			// no more lines to read
