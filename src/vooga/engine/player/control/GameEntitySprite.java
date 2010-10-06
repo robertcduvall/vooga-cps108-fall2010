@@ -167,7 +167,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * 
 	 * @param Image
 	 */
-	private void setNewImage(BufferedImage Image) {
+	protected void setNewImage(BufferedImage Image) {
 		myCurrentSprite.setImage(Image);
 	}
 
