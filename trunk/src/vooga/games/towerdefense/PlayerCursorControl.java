@@ -31,18 +31,8 @@ public class PlayerCursorControl extends Control implements Controller{
     int myY;*/
 	
 	public PlayerCursorControl(PlayerSprite initialPlayer, Game game){
-		super(initialPlayer, game);
+		super(initialPlayer, game);		
 		initializeMappings();
-		 // Code only used for level creation
-		/*File file = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
-		try {
-			fstream = new FileWriter(file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		out = new BufferedWriter(fstream);
-		myStartTime = System.currentTimeMillis();*/
 	}
 	
 	public void initializeMappings(){
@@ -79,59 +69,24 @@ public class PlayerCursorControl extends Control implements Controller{
     }
 	
 	public void update(){
+		int key = myGame.bsInput.getMousePressed();
 		for (int i = 0; i < players.size(); i++)
         {
              try {
+            	 if(key==1){
+            		 PlayerCursor p = (PlayerCursor) players.get(i);
+            		 p.buildTower(myGame.bsInput.getMouseX(), myGame.bsInput.getMouseY());
+            	 }
 				moveToCursor(players.get(i));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
-		int key = myGame.bsInput.getMousePressed();
-        if (mouseMethodMap.containsKey(key))
-        {
-            try{
-                for (int i = 0; i < players.size(); i++)
-                {
-                     Method perform = mouseMethodMap.get(key);
-                     Object[] paramVals = mouseParamMap.get(key);
-                     perform.invoke((PlayerCursor) players.get(i), paramVals);
-                }
-            }
-            catch (Throwable e){
-                System.err.println(e);
-                e.printStackTrace();
-            }
-        }
-        // Code only used for level creation
-       /*myTime = System.currentTimeMillis() - myStartTime;*/
-        
-        
 	}
 	
 	private void moveToCursor(PlayerSprite player) throws IOException{
 		player.forceX(myGame.bsInput.getMouseX());
         player.forceY(myGame.bsInput.getMouseY());
-        
-        // Code only used for level creation
-      /* if(myTime < 30000){
-	        if(myGame.bsInput.isMouseDown(MouseEvent.BUTTON1)){
-				int x = myGame.bsInput.getMouseX();
-				int y = myGame.bsInput.getMouseY();
-				if((x != myX) && (y != myY)){
-					myX = x;
-					myY = y;
-					out.write(myX+ " ");
-					out.write(myY+ " ");
-					System.out.println(myX + " : " + myY);
-				}
-			}
-        }else{
-        	System.out.println("stop");
- 			out.close();
-        }
-        */
 	}
 	
 	
