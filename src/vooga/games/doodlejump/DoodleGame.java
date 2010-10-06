@@ -1,17 +1,16 @@
 package vooga.games.doodlejump;
 
-import vooga.engine.player.control.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.net.*;
 
+import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
 
 import com.golden.gamedev.object.background.*;
+
+import java.awt.event.KeyEvent;
 
 public class DoodleGame extends Game {
 
@@ -39,23 +38,16 @@ public class DoodleGame extends Game {
 	private PlayerSprite red_monster;
 
 	// Doodle (main player)
-	private PlayerSprite doodle;
+	private DoodleSprite doodle;
+	private KeyboardControl doodle_keyboard_control;
 
 	public void initResources() {
 
 		// background
 		background = new ImageBackground(getImage("background.png"));
 
-		// platforms
-		// BufferedImage image = getImage("green_platform.png");
-		// double x = 100;
-		// double y = 200;
-		// green_platform = new Sprite(image, x, y);
-		// BufferedImage image1 = getImage("light_blue_platform.png");
-		// double x1 = 200;
-		// double y1 = 100;
-		// light_blue_platform = new Sprite(image1, x1, y1);
 
+		// platforms
 		brown_platform = new Sprite(getImage("brown_platform.png"), 500, 500);
 		dark_blue_platform = new Sprite(getImage("dark_blue_platform.png"), 400, 400);
 		gray_platform = new Sprite(getImage("gray_platform.png"), 200, 400);
@@ -76,14 +68,18 @@ public class DoodleGame extends Game {
 		red_monster = new PlayerSprite("red_monster", "rm", new Sprite(getImage("red_monster.png"),500,550));
 
 		// doodle (main player)
-		doodle = new PlayerSprite("doodle", "normal", new Sprite(getImage("doodle_crop.png")));
+		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("doodle_crop.png")));
 		doodle.setLocation(325, 650);
-
+		doodle_keyboard_control = new KeyboardControl(doodle, this);
+		doodle_keyboard_control.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.doodlejump.DoodleSprite", null);
+		doodle_keyboard_control.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.doodlejump.DoodleSprite", null);
 		setFPS(100);
 	}
+	
+
 
 	public void update(long elapsedTime) {
-
+		doodle_keyboard_control.update();
 	}
 
 	public void render(Graphics2D g) {
