@@ -1,6 +1,5 @@
 package vooga.engine.resource;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,67 +12,35 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.io.InputStream;
 
-import javax.swing.ImageIcon;
+import com.golden.gamedev.Game;
 
 /**
  * The ResourceHandler class manages the Images, "Animations", and Sounds which will be
- * needed in the game. It maintains a map that connects String labels to Objects, which 
- * currently are Images, BufferedImage[]'s, and String filepaths for Images, "Animations",
- * and Sounds, respectively. When the game initializes its resources, the following code
- * should be executed:
+ * needed in the game. It maintains a map that connects String labels to String filepaths. 
  * 
+ * Golden T luckily has very strong Image and Animation management, and so the ResourceHandler
+ * class has been simplified in this most recent version. In Golden T, one should place the following code
+ * in their main class' initResources() method:
+ * 
+ * ResourceHandler.setGame(this);
  * ResourceHandler.loadFile("resourcelist.txt");
  * 
- * This call will create the ResourceHandler's map, and its elements (such as a background 
- * image that has been labeled as "Background") can be accessed using this example code:
+ * Then, one can retrieve an image as follows:
+ * ResourceHandler.getImage("name");
  * 
- * ResourceHandler.getMapping("Background");
- * 
- * Sounds are currently handled by the basic mapping of "Label"->filepath.
+ * Example text file format::
+ * #Resources are put into the ResourceHandler.myMap field as follows:
+ * #*filepath1*,*resource1 name*
+ * #*filepath2*,*resource2 name*
+ * #...
  * 
  * @author John Kline
  *
  */
 public class ResourceHandler {
 	private static List<String> myDirectories = new ArrayList<String>();
-	private static Map<String, Object> myMap = new HashMap<String, Object>();
-
-	/**
-	 * Adds the Image specified at "filepath" to myMap with key="name".
-	 * @param name The name to be associated with the image.
-	 * @param filepath The filesystem location of the image to be added to the map. 
-	 */
-	public static void addImageMapping(String name, String filepath) {
-		Image image = new ImageIcon(ResourceHandler.class.getClassLoader().getResource(name)).getImage();
-		addMapping(name, image);
-	}
-
-	/**
-	 * Adds the Image "image" to myMap with key="name".
-	 * @param name The name to be associated with the image.
-	 * @param image The image to be added to the map.
-	 */
-	public static void addImageMapping(String name, Image image) {
-		addMapping(name, image);
-	}
-
-	/**
-	 * Adds the Animation "animation" to myMap with key="name".
-	 * @param name The name to be associated with the animation.
-	 * @param animation The animation to be added to the map.
-	 */
-	public static void addAnimationMapping(String name, BufferedImage[] animation) {
-		addMapping(name, animation);
-	}
-
-	/**
-	 * Adds the filepath associated with the Sound to myMap with key="name".
-	 * @param name The name to be associated with the Sound located at the filepath.
-	 * @param filepath The location of the Sound in the filesystem.
-	 */
-	public static void addSoundMapping(String name, String filepath) {
-		addMapping(name, filepath);
-	}
+	private static Map<String, String> myMap = new HashMap<String, String>();
+	private static Game myGame;
 	
 	/**
 	 * Adds a new directory to the ImageHandler's list of directories.
@@ -112,67 +79,16 @@ public class ResourceHandler {
 			}
 		}
 		size = lines.size();
-		boolean animationMode = false;
-		boolean imageMode = false;
-		boolean soundMode = false;
 		for (int y=0; y<size; y++) {
 			String line = (String)lines.get(y);
-			if (line.equals("$Images")) {
-				animationMode = false;
-				imageMode = true;
-				soundMode = false;
-				y++;
-			} else if (line.equals("$Animations")) {
-				animationMode = true;
-				imageMode = false;
-				soundMode = false;
-				y++;
-			} else if (line.equals("$Sounds")) {
-				animationMode = false;
-				imageMode = false;
-				soundMode = true;
-			}
-			if (imageMode) {
-				line = lines.get(y);
-				st = new StringTokenizer(line, ",");
-				String filepath = st.nextToken();
-				String name = st.nextToken();
-				Image img = null;
-				if (name.equals("")) {
-					System.out.println("Filepath " + y + "has no reference name associated with it.");
-				} else {
-					img = new ImageIcon(ResourceHandler.class.getClassLoader().getResource(filepath)).getImage(); 
-				}
-				if (img != null)
-					addImageMapping(name, img);
-
-			} else if (animationMode) {
-				st = new StringTokenizer(lines.get(y), ",");
-				String animationName = st.nextToken();
-				int animationSize = Integer.parseInt(st.nextToken());	
-				BufferedImage[] animation = new BufferedImage[animationSize];
-				y++;
-				line = lines.get(y);
-				st = new StringTokenizer(line, ",");
-				int index = 0;
-				while(st.hasMoreTokens()) {
-					String filepath = st.nextToken();
-					BufferedImage image = (BufferedImage) new ImageIcon(
-							ResourceHandler.class.getClassLoader().getResource(filepath)).getImage();
-					animation[index] = image;
-					index++;
-				}
-				addAnimationMapping(animationName, animation);
-			} else if (soundMode) {
-				line = lines.get(y);
-				st = new StringTokenizer(line, ",");
-				String filepath = st.nextToken();
-				String name = st.nextToken();
-				if (name.equals("")) {
-					System.out.println("Filepath " + y + "has no reference name associated with it.");
-				} else {
-					addSoundMapping(name, filepath);
-				}
+			line = lines.get(y);
+			st = new StringTokenizer(line, ",");
+			String filepath = st.nextToken();
+			String name = st.nextToken();
+			if (name.equals("")) {
+				System.out.println("Filepath " + y + "has no reference name associated with it.");
+			} else {
+				addMapping(name, filepath);
 			}
 		}
 	}
@@ -182,8 +98,8 @@ public class ResourceHandler {
 	 * @param key The String key to add.
 	 * @param object The Object value associated with key.
 	 */
-	private static void addMapping(String key, Object object) {
-		myMap.put(key, object);
+	private static void addMapping(String key, String value) {
+		myMap.put(key, value);
 	}
 
 	/**
@@ -191,8 +107,34 @@ public class ResourceHandler {
 	 * @param name
 	 * @return
 	 */
-	public static Object getMapping(String key) {
+	public static String getMapping(String key) {
 		return myMap.get(key);
+	}
+	
+	/**
+	 * Returns the BufferedImage associated with the given label.
+	 * @param key The label of the image in the map.
+	 * @return The BufferedImage.
+	 */
+	public static BufferedImage getImage(String key) {
+		return myGame.getImage(getMapping(key));
+	}
+	
+	/**
+	 * Returns the BufferedImage[] associated with the given label.
+	 * @param key The label of the image in the map.
+	 * @return The BufferedImage[].
+	 */
+	public static BufferedImage[] getImages(String key, int c, int r) {
+		return myGame.getImages(getMapping(key), c, r);
+	}
+	
+	/**
+	 * Sets the Game field in ResourceHandler.
+	 * @param game The Game.
+	 */
+	public static void setGame(Game game) {
+		myGame = game;
 	}
 	
     /**
