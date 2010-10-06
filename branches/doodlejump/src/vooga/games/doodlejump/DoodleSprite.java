@@ -35,4 +35,8 @@ public class DoodleSprite extends PlayerSprite {
 			setY(getY() + 5);
 		}
 	}
+	
+	public void shootBall() {
+		//Sprite ball = new Sprite();
+	}
 }

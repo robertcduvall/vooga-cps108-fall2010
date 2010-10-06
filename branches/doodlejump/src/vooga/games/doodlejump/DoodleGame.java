@@ -3,6 +3,7 @@ package vooga.games.doodlejump;
 import java.awt.*;
 
 import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.player.control.MouseControl;
 import vooga.engine.player.control.PlayerSprite;
 
 import com.golden.gamedev.*;
@@ -11,6 +12,7 @@ import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class DoodleGame extends Game {
 
@@ -43,6 +45,7 @@ public class DoodleGame extends Game {
 	// Doodle (main player)
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
+	private MouseControl doodle_mouse_control;
 	
 	private SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup;
 	
@@ -108,6 +111,9 @@ public class DoodleGame extends Game {
 		doodle_keyboard_control.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.doodlejump.DoodleSprite", null);
 		doodle_keyboard_control.addInput(KeyEvent.VK_W, "moveUp", "vooga.games.doodlejump.DoodleSprite", null);
 		doodle_keyboard_control.addInput(KeyEvent.VK_S, "moveDown", "vooga.games.doodlejump.DoodleSprite", null);
+		
+		doodle_mouse_control = new MouseControl(doodle, this);
+		doodle_keyboard_control.addInput(MouseEvent.BUTTON1, "shootBall", "vooga.games.doodlejump.DoodleSprite", null);
 		
 		// Collision	
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
