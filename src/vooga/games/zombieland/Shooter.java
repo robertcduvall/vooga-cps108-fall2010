@@ -9,32 +9,34 @@ import vooga.engine.player.control.PlayerSprite;
 public class Shooter extends PlayerSprite{
 	
 	private Sprite currentSprite;
+	private int speed;
 	
 	public Shooter(String name, String stateName, Sprite s,int playerHealth, int playerRank) {
 		super(name, stateName, s, playerHealth, playerRank);
 		currentSprite = s;
+		speed = -1;
 	}
 
 	
 	
 	public void goLeft()
 	{
-		moveX(-10);
+		moveX(speed);
 	}
 	
 	public void goRight()
 	{
-		moveX(10);
+		moveX(Math.abs(speed));
 	}
 	
 	public void goUp()
 	{
-		moveY(-10);
+		moveY(speed);
 	}
 	
 	public void goDown()
 	{
-		moveY(10);
+		moveY(Math.abs(speed));
 	}
 	
 }
