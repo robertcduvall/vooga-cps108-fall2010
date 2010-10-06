@@ -25,7 +25,7 @@ public class TowerDefense extends Game{
 	public static final int HEIGHT = 600;
 	
 	public BaseInput bsInput;
-	private PlayerSprite playerCursor;
+	private PlayerCursor playerCursor;
 	private PlayerCursorControl playerCursorControl;
 	private Sprite duvall;
 	private Background background;
@@ -38,13 +38,13 @@ public class TowerDefense extends Game{
 	
 	public void initResources(){
 		initBackground();
-		playfield = new PlayField(background);
-		initPlayer();
-		initPath();
 		
+		playfield = new PlayField(background);
 		towerGroup = playfield.addGroup(new SpriteGroup("Player Group"));
 		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
+		initPlayer();
+		initPath();
 		
 		playfield.addCollisionGroup(towerShotGroup, enemyGroup, new TowerShotEnemyCollision());
 		
@@ -76,10 +76,8 @@ public class TowerDefense extends Game{
 	private void initPlayer(){
 		Sprite playerSprite =  new Sprite(getImage("resources/images/duvallFace.png"), 20, 50);
 		temp = new Sprite(getImage("resources/images/duvallFace.png"));
-		playerCursor = new PlayerSprite("player", "playerCursor", playerSprite);
+		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, towerGroup);
 		playerCursorControl = new PlayerCursorControl(playerCursor, this);
-		//playerCursorControl.addInput("1", "useItem", "vooga.engine.player.control.PlayerSprite", new TowerSprite(new Sprite(getImage("images/tower.png"), 20, 20), towerGroup));
-		//playerCursor.addItemToList(new TowerSprite(new Sprite(getImage("images/tower.png"), 20, 20), towerGroup));
 	}
 	
 	private void initBackground(){
