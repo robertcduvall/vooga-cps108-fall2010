@@ -9,10 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.resource.ResourceHandler;
-import vooga.games.marioclone.map.tiles.*;
+import vooga.games.marioclone.map.tiles.BreakTile;
+import vooga.games.marioclone.map.tiles.ChangingTile;
+import vooga.games.marioclone.map.tiles.IndestructibleTile;
+import vooga.games.marioclone.map.tiles.Tile;
+import vooga.games.marioclone.map.tiles.Tile.State;
 
 public class Map {
 	List<Tile> tiles;
+	
+	public List<Tile> getTiles() {
+		return tiles;
+	}
+	
+	public void updateTiles() {
+		for(Tile t : tiles) {
+			if(t.getState()==State.removed) tiles.remove(t);
+		}
+	}
 	
 	public void loadTiles(String filename) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
@@ -58,7 +72,11 @@ public class Map {
 					tiles.add(new BreakTile(j,k,(BufferedImage) ResourceHandler.getMapping("Break")));
 					break;	
 				case('C'):
-					tiles.add(new ChangingTile(j,k,(BufferedImage) ResourceHandler.getMapping("Changing")));
+					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
+					changingImages.add((BufferedImage) ResourceHandler.getMapping("Changing1"));
+					changingImages.add((BufferedImage) ResourceHandler.getMapping("Changing2"));
+					changingImages.add((BufferedImage) ResourceHandler.getMapping("Changing3"));
+					tiles.add(new ChangingTile(j,k,changingImages));
 					break;
 				}
 			}
