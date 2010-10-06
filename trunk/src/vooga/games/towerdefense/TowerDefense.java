@@ -7,6 +7,7 @@ import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
+import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
 import vooga.engine.player.control.Control;
@@ -14,6 +15,9 @@ import vooga.engine.player.control.PlayerSprite;
 
 
 public class TowerDefense extends Game{
+	
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	
 	public BaseInput bsInput;
 	private PlayerSprite playerCursor;
@@ -25,7 +29,7 @@ public class TowerDefense extends Game{
 	
 	public void initResources(){
 		duvall = new Sprite(getImage("images/duvallFace.png"), 100, 200);
-		background = new ColorBackground(Color.BLUE, 800, 600);
+		initBackground();
 		playfield = new PlayField(background);
 		initPlayer();
 		
@@ -46,6 +50,10 @@ public class TowerDefense extends Game{
 		playerCursorControl = new PlayerCursorControl(playerCursor, this);
 	}
 	
+	private void initBackground(){
+		background = new ImageBackground(ImageUtil.resize(getImage("images/grassBackground.png"),WIDTH, HEIGHT), WIDTH, HEIGHT);
+	}
+	
 	public void update(long elapsedTime) {
 		playfield.update(elapsedTime);
 		playerCursorControl.update();
@@ -58,7 +66,7 @@ public class TowerDefense extends Game{
 	
 	public static void main(String[] args) {
         GameLoader game = new GameLoader();
-        game.setup(new TowerDefense(), new Dimension(640,480), false);
+        game.setup(new TowerDefense(), new Dimension(WIDTH,HEIGHT), false);
         game.start();
     }
 	
