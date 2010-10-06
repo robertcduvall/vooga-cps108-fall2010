@@ -2,6 +2,7 @@ package vooga.games.towerdefense;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import vooga.engine.core.Game;
 import vooga.engine.player.control.Control;
 import vooga.engine.player.control.ItemSprite;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.Resources;
 
 
 public class TowerDefense extends Game{
@@ -37,10 +39,11 @@ public class TowerDefense extends Game{
 	int j = 0;
 	
 	public void initResources(){
+		Resources.setGame(this);
 		initBackground();
 		
 		playfield = new PlayField(background);
-		towerGroup = playfield.addGroup(new SpriteGroup("Player Group"));
+		towerGroup = playfield.addGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
 		initPlayer();
@@ -74,10 +77,12 @@ public class TowerDefense extends Game{
 	}
 
 	private void initPlayer(){
-		Sprite playerSprite =  new Sprite(getImage("resources/images/duvallFace.png"), 20, 50);
+		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
+		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
 		temp = new Sprite(getImage("resources/images/duvallFace.png"));
 		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, towerGroup);
 		playerCursorControl = new PlayerCursorControl(playerCursor, this);
+		playerCursorControl.addInput("1", "buildTower", "vooga.games.towerdefense.PlayerCursor");
 	}
 	
 	private void initBackground(){
