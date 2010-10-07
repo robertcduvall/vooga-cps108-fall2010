@@ -55,7 +55,7 @@ public class DoodleSprite extends PlayerSprite {
 		try{
 			BufferedImage image = ImageIO.read(new File("src/vooga/games/doodlejump/images/doodle_up.png"));
 			setNewImage(image);
-			BufferedImage ballImage = ImageIO.read(new File("src/bin/vooga/games/doodlejump/images/ball.png")); 
+			BufferedImage ballImage = ImageIO.read(new File("src/vooga/games/doodlejump/images/ball.png")); 
 			ball = new PlayerSprite("ball", "flying", new Sprite(ballImage, getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY() - ballImage.getHeight()));
 			ball.setVerticalSpeed(0.7);
 		}
