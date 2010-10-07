@@ -22,8 +22,9 @@ public class ProjectileEnemyCollision extends BasicCollision{
 	}
 	
 	@Override
-	public void collided(Sprite playerSprite, Sprite enemy) {
-		super.collided(playerSprite, enemy);
+	public void collided(Sprite bullet, Sprite enemy) {
+		super.collided(bullet, enemy);
+		bullet.setActive(false);
 		enemy.setActive(false);
 		grandius.updateScoreOnCollision();
 	}
