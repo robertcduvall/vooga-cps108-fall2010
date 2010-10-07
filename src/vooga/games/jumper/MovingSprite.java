@@ -33,7 +33,7 @@ public class MovingSprite extends Sprite {
     }
     
     public void update(long elapsedTime){
-    	//move(myXSpeed, myYSpeed);
-    	setSpeed(myXSpeed, myYSpeed);
+    	move(myXSpeed, myYSpeed);
+    	//setSpeed(myXSpeed, myYSpeed);
     }
 }
