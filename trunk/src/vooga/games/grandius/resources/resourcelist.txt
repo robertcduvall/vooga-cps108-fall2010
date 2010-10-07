@@ -19,13 +19,13 @@
 # *filepath2*,*resource2 name*
 # ...
 
-resources/background.png,BG
-resources/zipster.png,Zipster
-resources/boomer.png,Boomer
-resources/player.png,PlayerShip
-resources/explosion.png,Explosion
-resources/projectile.png,Projectile
-resources/projectile-blue.png,Laser
-resources/playersingle.png,PlayerShipSingle
-resources/orange-circle.png,SideKick
-resources/laser.wav,Laser
+BG,resources/background.png
+Zipster,resources/zipster1.png,resources/zipster2.png
+Boomer,resources/boomer1.png,resources/boomer2.png
+PlayerShip,resources/player.png
+Explosion,resources/explosion.png
+Projectile,resources/projectile.png
+PlayerShipSingle,resources/playersingle.png
+Laser,resources/projectile-blue.png
+SideKick,resources/orange-circle.png
+#LaserSound,resources/laser.wav
