@@ -1,5 +1,6 @@
 package vooga.engine.overlay;
 
+import java.awt.Graphics2D;
 import java.util.*;
 import com.golden.gamedev.*;
 
@@ -67,6 +68,25 @@ public class OverlayManager {
 		if (overlay != null && x > 0 && y > 0) {
 			myOverlays.add(overlay);
 			overlay.render(overlay.getImage().createGraphics(), (int)(myX + x), (int)(myY + y));
+		}
+	}
+	/**
+	 * Calls update on each of the Overlays contained in the manager.
+	 * @param elapsedTime
+	 */
+	public void update(long elapsedTime){
+		for(Overlay o : myOverlays){
+			o.update(elapsedTime);
+		}
+	}
+	
+	/**
+	 * Calls render on each of the Overlays contained in the manager.
+	 * @param g
+	 */
+	public void render(Graphics2D g){
+		for(Overlay o : myOverlays){
+			o.render(g);
 		}
 	}
 
