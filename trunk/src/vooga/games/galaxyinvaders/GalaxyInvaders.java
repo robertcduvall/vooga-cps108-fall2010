@@ -14,6 +14,12 @@ import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.ColorBackground;
 
+
+/**
+ * 
+ * @author Drew Sternesky, Kate Yang, Nick Hawthorne
+ *
+ */
 public class GalaxyInvaders extends Game {
 	
 	private static final int LIVES = 5;
@@ -50,9 +56,12 @@ public class GalaxyInvaders extends Game {
 	}
 	
 	public void initEnemies() {
+		
 		for(int k=0; k<getHeight()/4; k+=60) {
 			for(int j=60; j<getWidth()-60; j+=80) {
-				Sprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.gif"), j, k));
+				GameEntitySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), j, k));
+				Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
+				e.mapNameToSprite("damaged", damaged);
 				e.setSpeed(-.05, .005);
 				enemies.add(e);
 			}
