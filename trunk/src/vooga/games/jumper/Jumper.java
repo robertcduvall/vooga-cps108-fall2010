@@ -42,7 +42,7 @@ public class Jumper extends Game {
 
     public void initResources() {
     	myManager = new GameStateManager();
-    	addDirectory(jumperDirectory);
+    	//addDirectory(jumperDirectory);
     	
     	GameState playGameState = new PlayGameState();
     	
