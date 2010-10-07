@@ -1,11 +1,17 @@
 package vooga.games.grandius.collisions;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
 import vooga.games.grandius.enemy.common.Boomer;
 
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
+import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**
  * This class takes care of collisions between the player
@@ -26,11 +32,16 @@ public class PlayerEnemyCollision extends BasicCollisionGroup {
 	}
 	
 	@Override
-	public void collided(Sprite playerSprite, Sprite commonEnemy) {	
+	public void collided(Sprite playerSprite, Sprite commonEnemy) {
 		PlayerSprite player = (PlayerSprite) playerSprite;
-		//TODO - add an explosion image
-		commonEnemy.setActive(false);
 		grandius.updatePlayerLives();
+
+		//TODO - add an explosion sound
+		// make the explosion image stay longer
+		BufferedImage[] images = Resources.getAnimation("Explosion");
+		AnimatedSprite explosion = new VolatileSprite(images, player.getX(), player.getY());
+		grandius.getPlayfield().add(explosion);
 	}
+
 	
 }
