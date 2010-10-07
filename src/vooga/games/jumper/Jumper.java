@@ -7,6 +7,7 @@ package vooga.games.jumper;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
+import vooga.engine.core.*;
 import vooga.engine.*;
 
 // GTGE
@@ -33,18 +35,22 @@ import com.golden.gamedev.object.SpriteGroup;
  * @author BrianSimel
  */
 
-public class Jumper extends Game {
+public class Jumper extends vooga.engine.core.Game {
 
         private final static int GAME_WIDTH = 600;
         private final static int GAME_HEIGHT = 480;
         private String jumperDirectory;
                
         private PlayField myPlayfield;
+        
+        private SpriteGroup myBlocks;
+        
        /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
 
     public void initResources() {
+    	
     	ResourceHandler.setGame(this);
     	try{
     		ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
@@ -54,9 +60,10 @@ public class Jumper extends Game {
     	
     	myPlayfield = new PlayField();
     	
-    	Sprite player1 = new Sprite(ResourceHandler.getImage("ball"), getWidth() / 2, 100);
+    	Sprite player1 = new MovingSprite(ResourceHandler.getImage("crop"), new Point(getWidth() / 2, 100), new Point(0, 4));
     	
     	SpriteGroup myPlayers = new SpriteGroup("good guys");
+    	
     	myPlayers.add(player1);
     	
     	myPlayfield.addGroup(myPlayers);
@@ -69,9 +76,14 @@ public class Jumper extends Game {
     public static int getGameHeight() {
         return GAME_HEIGHT;
     }
+    
+    public void createNewBlocks(){
+//    	myBlocks.add(new MovingSprite(ResourceHandler.getImage("crop"), null, null);)
+    }
 
-        public void update(long elapsedTime) {
+    public void update(long elapsedTime) {
         myPlayfield.update(elapsedTime);
+        createNewBlocks();
     }
 
     public void render(Graphics2D g) {
