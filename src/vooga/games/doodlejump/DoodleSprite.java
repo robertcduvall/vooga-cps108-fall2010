@@ -3,6 +3,8 @@ package vooga.games.doodlejump;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+
 import vooga.engine.player.control.*;
 
 import javax.imageio.ImageIO;
@@ -12,11 +14,14 @@ import com.golden.gamedev.object.Sprite;
 import vooga.engine.player.control.PlayerSprite;
 
 public class DoodleSprite extends PlayerSprite {
-	private BallSprite ball;
-	private boolean ballMade = false;
+	private ArrayList<BallSprite> balls;
+	private DoodleGame game;
+	private int bulletDelay = 50;
 	
-	public DoodleSprite(String name, String stateName, Sprite s) {
+	public DoodleSprite(String name, String stateName, Sprite s, DoodleGame game) {
 		super(name, stateName, s);
+		balls = new ArrayList<BallSprite>();
+		this.game = game;
 	}
 
 	public void moveLeft() {
@@ -52,30 +57,34 @@ public class DoodleSprite extends PlayerSprite {
 		super.update(elapsedTime);
 		if (getVerticalSpeed() < 0.5)
 			setVerticalSpeed(getVerticalSpeed() + 0.01);
-		
-		if(ballMade) {
+		for(BallSprite ball : balls) {
 			ball.update(elapsedTime);
 		}
+		bulletDelay--;
 	}
 	
 	public void shoot() {
-		try{
-			BufferedImage image = ImageIO.read(new File("src/vooga/games/doodlejump/images/doodle_up.png"));
-			setNewImage(image);
-			BufferedImage ballImage = ImageIO.read(new File("src/vooga/games/doodlejump/images/ball.png")); 
-			ball = new BallSprite("ball", "flying", new Sprite(ballImage, getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY() - ballImage.getHeight()));
-			ballMade = true;
-			ball.setVerticalSpeed(-0.7);
-		}
-		catch(Exception e){
-			System.out.println(e);
-			System.exit(0);
+		if(bulletDelay <= 0){
+			try{
+				BufferedImage image = ImageIO.read(new File("src/vooga/games/doodlejump/images/doodle_up.png"));
+				setNewImage(image);
+				BufferedImage ballImage = ImageIO.read(new File("src/vooga/games/doodlejump/images/ball.png")); 
+				BallSprite ball = new BallSprite("ball", "flying", new Sprite(ballImage, getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY() - ballImage.getHeight()));
+				ball.setVerticalSpeed(-0.7);
+				balls.add(ball);
+				game.BallGroup.add(ball);
+			}
+			catch(Exception e){
+	            System.out.println(e);
+	            System.exit(0);
+	    	}
+			bulletDelay = 50;
 		}
 	}
 	
 	public void render(Graphics2D g){
 		super.render(g);
-		if(ball != null)
-			ball.render(g);
+		for(BallSprite ball : balls)
+            ball.render(g);
 	}
 }

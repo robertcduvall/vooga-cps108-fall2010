@@ -20,7 +20,7 @@ public class DoodleGame extends Game {
 	private Background background;
 	
 	// Playfield
-	private PlayField playfield;
+	protected PlayField playField;
 
 	// Platforms
 	private Sprite brown_platform;
@@ -43,10 +43,10 @@ public class DoodleGame extends Game {
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
 	
-	private SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup;
+	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup;
 	
 	// Collision Manager
-	private CollisionManager doodleToGreenPlatform, doodleToMonster;
+	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster;
 	
 	public void initResources() {
 		
@@ -54,12 +54,13 @@ public class DoodleGame extends Game {
 		background = new ImageBackground(getImage("images/background.png"));
 
 		// playfield
-		playfield = new PlayField(background);
+		playField = new PlayField(background);
 		
 		// spritegroups
-		PlatformGroup = playfield.addGroup(new SpriteGroup("Platform Group"));
-		MonsterGroup = playfield.addGroup(new SpriteGroup("Monster Group"));
-		DoodleGroup = playfield.addGroup(new SpriteGroup("Doodle Group"));
+		PlatformGroup = playField.addGroup(new SpriteGroup("Platform Group"));
+		MonsterGroup = playField.addGroup(new SpriteGroup("Monster Group"));
+		DoodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
+		BallGroup = playField.addGroup(new SpriteGroup("Ball Group"));
 
 		// platforms
 		brown_platform = new Sprite(getImage("images/brown_platform.png"), 500, 500);
@@ -92,7 +93,7 @@ public class DoodleGame extends Game {
 		MonsterGroup.add(red_monster);
 		
 		// doodle (main player)
-		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("images/doodle_right.png")));
+		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("images/doodle_right.png")), this);
 		doodle.setLocation(325,550);
 		doodle.setVerticalSpeed(0.5);
 		DoodleGroup.add(doodle);
@@ -106,9 +107,11 @@ public class DoodleGame extends Game {
 		// Collision	
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
 		doodleToMonster = new DoodleToMonsterCollision();
+		ballToMonster = new BallToMonsterCollision();
 		
-		playfield.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
-		playfield.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
+		playField.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
+		playField.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
+		playField.addCollisionGroup(BallGroup, MonsterGroup, ballToMonster);
 		
 		setFPS(100);
 	}
@@ -118,11 +121,11 @@ public class DoodleGame extends Game {
 	public void update(long elapsedTime) {
 		doodle_keyboard_control.update();
 		
-		playfield.update(elapsedTime);
+		playField.update(elapsedTime);
 	}
 
 	public void render(Graphics2D g) {		
-		playfield.render(g);
+		playField.render(g);
 	}
 
 	public static void main(String[] args) {
