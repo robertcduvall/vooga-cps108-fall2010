@@ -47,6 +47,7 @@ public class Grandius extends Game{
 	private ProjectileEnemyCollision2 collision;
 	
 	private OverlayPanel myOverlayPanel;
+	private OverlayStatImage livesIcon;
 	private Stat<Integer> myLives;
 	private Stat<Integer> myScore;
 	private Stat<Integer> myCash;
@@ -61,13 +62,14 @@ public class Grandius extends Game{
 	public Grandius()
 	{
 		myOverlayPanel = new OverlayPanel(this, true);
+		livesIcon = new OverlayStatImage(getImage(ResourceHandler.getMapping("PlayerShipSingle")));
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 	}
 	
 	public void initResources() {
-		OverlayStat livesCounter = new OverlayStat("Lives",myLives);
+		OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
 		
