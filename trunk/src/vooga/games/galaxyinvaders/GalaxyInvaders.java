@@ -35,11 +35,9 @@ public class GalaxyInvaders extends Game {
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(getImage("img/ship.gif"), getWidth()/2, getHeight()-100));
 		ship.setLives(LIVES);
-		enemy = new EnemySprite("","default", new Sprite(getImage("img/enemy1.gif"), getWidth()/2, getHeight()/2));
 		torpedos = new SpriteGroup("shots");
 		enemies = new SpriteGroup("enemies");
 		players = new SpriteGroup("players");
-		enemies.add(enemy);
 		initEnemies();
 		players.add(ship);
 		enemyTorpedos = new SpriteGroup("enemyTorpedos");
@@ -52,9 +50,10 @@ public class GalaxyInvaders extends Game {
 	}
 	
 	public void initEnemies() {
-		for(int k=0; k<getHeight()/3; k+=60) {
-			for(int j=0; j<getWidth(); j+=60) {
+		for(int k=0; k<getHeight()/4; k+=60) {
+			for(int j=60; j<getWidth()-60; j+=80) {
 				Sprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.gif"), j, k));
+				e.setSpeed(-.05, .005);
 				enemies.add(e);
 			}
 		}
@@ -86,6 +85,18 @@ public class GalaxyInvaders extends Game {
 		if(keyPressed(KeyEvent.VK_SPACE)) {
 			fire();
 		}
+		
+		Sprite[] enemySprites = enemies.getSprites();
+		for(Sprite s : enemySprites) {
+			if(s!=null) {
+				if(!s.isOnScreen()) s.setActive(false);
+				if(s.getX()<0-15 || s.getX()>getWidth()-39) {
+					reverseVelocity(enemySprites);
+					break;
+				}
+			}
+		}
+
 	}
 	
 	public void moveLeft() {
@@ -98,8 +109,16 @@ public class GalaxyInvaders extends Game {
 	
 	public void fire() {
 		Sprite temp = new Sprite(getImage("img/torpedo.png"), ship.getX()+25, ship.getY()-35);
-		temp.setSpeed(0, -.5);
+		temp.setSpeed(0, -.8);
 		torpedos.add(temp);
+	}
+	
+	public void reverseVelocity(Sprite[] enemySprites) {
+		for(Sprite s : enemySprites) {
+			if(s!=null) {
+				s.setHorizontalSpeed(s.getHorizontalSpeed()*-1);
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
