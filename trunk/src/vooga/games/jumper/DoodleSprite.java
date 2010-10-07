@@ -6,6 +6,7 @@ import vooga.engine.player.control.PlayerSprite;
 
 public class DoodleSprite extends PlayerSprite {
 
+
 	public DoodleSprite(String name, String stateName, Sprite s) {
 		super(name, stateName, s);
 	}

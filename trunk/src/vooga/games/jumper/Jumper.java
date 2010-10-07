@@ -63,11 +63,21 @@ public class Jumper extends Game {
     	myKeyControl = new KeyboardControl(player1, this);
     	myKeyControl.addInput(KeyEvent.VK_LEFT, "goLeft", player1.getClass().toString() /*"vooga.games.jumper.DoodleSprite"*/);
     	
+    	createBlocks(1);
     	SpriteGroup blocks = new SpriteGroup("blocks");    	
     	myPlayfield.addGroup(blocks);
-    	//addDirectory(jumperDirectory);
+    	//addDirectory(jumperDirectory);	
     	
+    }
+    
+    public void createBlocks(int level){
+    	SpriteGroup blocks = new SpriteGroup("blocks");    	
     	
+    	if (level == 1){
+    		for (int i = 0; i < 1; i+=0.1){
+        		blocks.add(new BlockSprite(new Sprite(ResourceHandler.getImage("crop"), this.getHeight() * i, this.getWidth()), 4));
+    		}
+    	}
     }
     
 	@Override
