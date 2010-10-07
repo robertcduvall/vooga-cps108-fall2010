@@ -16,6 +16,7 @@ public class Zipster extends AnimatedSprite {
 	public static final int MOVING_W = 0;
 	public static final int MOVING_NW = 1;
 	public static final int MOVING_SW = 2;
+	public static final int SCORE_VALUE = 100;
 	
 	private int myDirection;
 	
@@ -46,7 +47,14 @@ public class Zipster extends AnimatedSprite {
 		this.updateMovement(elapsedTime);
 	}
 	
-	
+	/**
+	 * Returns the point value of this enemy.
+	 * @return
+	 */
+	public int getScoreValue()
+	{
+		return SCORE_VALUE;
+	}
 	
 	
 	
