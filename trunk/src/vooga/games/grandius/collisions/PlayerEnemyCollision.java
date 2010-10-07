@@ -9,27 +9,27 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 /**
  * This class takes care of collisions between the player
- * and a Boomer. An instance of this class needs to be added to
- * the playfield using the playfield's addCollisionGroup method. 
- * Once this is done,the playfield checks for a collision between 
- * the player and a Boomer every time the playfield is updated.
+ * and a common enemy - a Boomer or a Zipster. An instance 
+ * of this class needs to be added to the playfield using 
+ * the playfield's addCollisionGroup method. Once this is 
+ * done,the playfield checks for a collision between the player
+ * and an enemy every time the playfield is updated.
  * @author bhawana
  */
-public class PlayerBoomerCollision extends BasicCollisionGroup {
+public class PlayerEnemyCollision extends BasicCollisionGroup {
 
 	private Grandius grandius;
 	
-	public PlayerBoomerCollision(Grandius grandius) {
+	public PlayerEnemyCollision(Grandius grandius) {
 		super();
 		this.grandius = grandius;
 	}
 	
 	@Override
-	public void collided(Sprite playerSprite, Sprite boomerSprite) {		
-		Boomer boomer = (Boomer) boomerSprite;
+	public void collided(Sprite playerSprite, Sprite commonEnemy) {	
 		PlayerSprite player = (PlayerSprite) playerSprite;
 		//TODO - add an explosion image
-		boomer.setActive(false);
+		commonEnemy.setActive(false);
 		grandius.updatePlayerLives();
 	}
 	
