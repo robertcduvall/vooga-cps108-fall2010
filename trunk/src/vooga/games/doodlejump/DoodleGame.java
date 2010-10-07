@@ -13,6 +13,10 @@ import com.golden.gamedev.object.background.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 public class DoodleGame extends Game {
 
@@ -29,7 +33,7 @@ public class DoodleGame extends Game {
 	private Sprite green_platform;
 	private Sprite light_blue_platform;
 	private Sprite white_platform;
-	private Sprite yellow_platform;
+	private AnimatedSprite brown_platform1;
 
 	// monsters
 	private PlayerSprite blue_flying_monster;
@@ -43,10 +47,10 @@ public class DoodleGame extends Game {
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
 	
-	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup;
+	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup;
 	
 	// Collision Manager
-	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster;
+	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform;
 	
 	public void initResources() {
 		
@@ -61,6 +65,7 @@ public class DoodleGame extends Game {
 		MonsterGroup = playField.addGroup(new SpriteGroup("Monster Group"));
 		DoodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
 		BallGroup = playField.addGroup(new SpriteGroup("Ball Group"));
+		BrownPlatformGroup = playField.addGroup(new SpriteGroup("Brown Platform Group"));
 
 		// platforms
 		brown_platform = new Sprite(getImage("images/brown_platform.png"), 500, 500);
@@ -75,8 +80,13 @@ public class DoodleGame extends Game {
 		PlatformGroup.add(light_blue_platform);
 		white_platform = new Sprite(getImage("images/white_platform.png"), 525, 300);
 		PlatformGroup.add(white_platform);
-		yellow_platform = new Sprite(getImage("images/yellow_platform.png"), 100, 600);
-		PlatformGroup.add(yellow_platform);
+		BufferedImage[] breaking_brown_images = new BufferedImage[4];
+		breaking_brown_images[0] = getImage("images/brown_platform.png");
+		breaking_brown_images[1] = getImage("images/brown_platform_breaking_1.png");
+		breaking_brown_images[2] = getImage("images/brown_platform_breaking_2.png");
+		breaking_brown_images[3] = getImage("images/brown_platform_breaking_3.png");
+		brown_platform1 = new AnimatedSprite(breaking_brown_images, 100, 600);
+		BrownPlatformGroup.add(brown_platform1);
 				
 		// create monsters
 		blue_flying_monster = new PlayerSprite("blue_flying_monster", "bfm", new Sprite(getImage("images/blue_flying_monster.png"),50,100));
@@ -108,10 +118,12 @@ public class DoodleGame extends Game {
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
 		doodleToMonster = new DoodleToMonsterCollision();
 		ballToMonster = new BallToMonsterCollision();
+		doodleToBrownPlatform = new DoodleToBrownPlatformCollision();
 		
 		playField.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
 		playField.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
 		playField.addCollisionGroup(BallGroup, MonsterGroup, ballToMonster);
+		playField.addCollisionGroup(DoodleGroup, BrownPlatformGroup, doodleToBrownPlatform);
 		
 		setFPS(100);
 	}
