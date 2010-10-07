@@ -49,6 +49,8 @@ public class DoodleSprite extends PlayerSprite {
 	
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+		if (getVerticalSpeed() < 0.5)
+			setVerticalSpeed(getVerticalSpeed() + 0.01);
 	}
 	
 	public void shoot() {

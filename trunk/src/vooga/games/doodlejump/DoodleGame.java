@@ -119,35 +119,10 @@ public class DoodleGame extends Game {
 		doodle_keyboard_control.update();
 		
 		playfield.update(elapsedTime);
-		if (doodle.getVerticalSpeed() < 0.5)
-			doodle.setVerticalSpeed(doodle.getVerticalSpeed() + 0.01);
 	}
 
-	public void render(Graphics2D g) {
-		// Graphics Engine
-
-		// render background
-		background.render(g);
-
-		// render monsters
-		blue_flying_monster.render(g);
-		blue_monster.render(g);
-		green_flying_monster.render(g);
-		green_monster.render(g);
-		purple_monster.render(g);
-		red_monster.render(g);
-
-		// render platforms
-		brown_platform.render(g);
-		dark_blue_platform.render(g);
-		gray_platform.render(g);
-		green_platform.render(g);
-		light_blue_platform.render(g);
-		white_platform.render(g);
-		yellow_platform.render(g);
-
-		// render doodle
-		doodle.render(g);
+	public void render(Graphics2D g) {		
+		playfield.render(g);
 	}
 
 	public static void main(String[] args) {
