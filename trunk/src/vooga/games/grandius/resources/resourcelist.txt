@@ -25,5 +25,6 @@ resources/boomer.png,Boomer
 resources/player.png,PlayerShip
 resources/explosion.png,Explosion
 resources/projectile.png,Projectile
+resources/projectile-blue.png,Laser
 resources/playersingle.png,PlayerShipSingle
 resources/laser.wav,Laser
