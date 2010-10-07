@@ -1,24 +1,30 @@
 package vooga.games.zombieland;
 
-import java.awt.image.BufferedImage;
-
 import com.golden.gamedev.object.AnimatedSprite;
-import com.golden.gamedev.object.Sprite;
-
 import vooga.engine.player.control.PlayerSprite;
 
-public class Zombies extends PlayerSprite {
+public class Zombie extends PlayerSprite {
 
 	private Shooter target;
 	private double xTarget;
 	private double yTarget;
 	private String targetDirection;
 	private double speed;
-	private AnimatedSprite image;
-	public Zombies(String name, String stateName, AnimatedSprite s, Shooter hero) {
+	
+	public Zombie(String name, String stateName, AnimatedSprite s, Shooter hero) {
 		super(name, stateName, s);
 		target = hero;
-		image=s;
+		targetDirection = "X";
+		speed = -0.25;
+	}
+	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
+			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
+		super(name, stateName, down);
+		 this.mapNameToSprite("Up", up);
+		 this.mapNameToSprite("Left", left);
+		 this.mapNameToSprite("Right", right);
+		 this.mapNameToSprite("Down", down);
+		target = hero;
 		targetDirection = "X";
 		speed = -0.25;
 	}
@@ -42,16 +48,20 @@ public class Zombies extends PlayerSprite {
 		if (targetDirection.equals("X")) {
 			if (direction < 0) {
 				moveX(speed);
+				setToCurrentSprite("Left");
 			} else {
 				moveX(Math.abs(speed));
+				setToCurrentSprite("Right");
 			}
 		} else {
 			if (direction < 0) {
 				moveY(speed);
+				setToCurrentSprite("Up");
 			} else {
 				moveY(Math.abs(speed));
+				setToCurrentSprite("Down");
 			}
 		}
-		image.update(elapsedTime);
+		//super.update(elapsedTime);
 	}
 }

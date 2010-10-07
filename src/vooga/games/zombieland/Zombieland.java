@@ -25,66 +25,83 @@ public class Zombieland extends Game {
 	private Timer counter;
 	private KeyboardControl control;
 
-	private BufferedImage[] downplayer;
-	private BufferedImage[] upplayer;
-	private BufferedImage[] leftplayer;
-	private BufferedImage[] rightplayer;
+	private BufferedImage[] playerUpImage;
+	private BufferedImage[] playerDownImage;
+	private BufferedImage[] playerLeftImage;
+	private BufferedImage[] playerRightImage;
 
-	private BufferedImage[] downzombie;
-	private BufferedImage[] upzombie;
-	private BufferedImage[] leftzombie;
-	private BufferedImage[] rightzombie;
-	
-	private double defaultX=100;
-	private double defaultY=100;
+	private BufferedImage[] zombieUpImage;
+	private BufferedImage[] zombieDownImage;
+	private BufferedImage[] zombieLeftImage;
+	private BufferedImage[] zombieRightImage;
+
+	private AnimatedSprite zombieUp;
+	private AnimatedSprite zombieDown;
+	private AnimatedSprite zombieLeft;
+	private AnimatedSprite zombieRight;
+
+	private double defaultX = 100;
+	private double defaultY = 100;
 
 	public void initResources() {
-		
-		downplayer = new BufferedImage[] { getImage("resources/Down1.png"),
+
+		playerDownImage = new BufferedImage[] {
+				getImage("resources/Down1.png"),
 				getImage("resources/Down2.png"),
 				getImage("resources/Down3.png"),
 				getImage("resources/Down4.png") };
-		upplayer = new BufferedImage[] { getImage("resources/up1.png"),
-				getImage("resources/up2.png"), getImage("resources/up3.png"),
+		playerUpImage = new BufferedImage[] { 
+				getImage("resources/up1.png"),
+				getImage("resources/up2.png"), 
+				getImage("resources/up3.png"),
 				getImage("resources/up4.png") };
-		leftplayer = new BufferedImage[] { getImage("resources/left1.png"),
+		playerLeftImage = new BufferedImage[] {
+				getImage("resources/left1.png"),
 				getImage("resources/left2.png"),
 				getImage("resources/left3.png"),
 				getImage("resources/left4.png") };
-		rightplayer = new BufferedImage[] { getImage("resources/right1.png"),
+		playerRightImage = new BufferedImage[] {
+				getImage("resources/right1.png"),
 				getImage("resources/right2.png"),
 				getImage("resources/right3.png"),
 				getImage("resources/right4.png") };
 
-		downzombie = new BufferedImage[] {
+		zombieDownImage = new BufferedImage[] {
 				getImage("resources/ZombieDown1.png"),
 				getImage("resources/ZombieDown2.png"),
 				getImage("resources/ZombieDown3.png") };
-		upzombie = new BufferedImage[] { getImage("resources/ZombieUp1.png"),
+		zombieUpImage = new BufferedImage[] {
+				getImage("resources/ZombieUp1.png"),
 				getImage("resources/ZombieUp2.png"),
 				getImage("resources/ZombieUp3.png") };
-		leftzombie = new BufferedImage[] {
+		zombieLeftImage = new BufferedImage[] {
 				getImage("resources/ZombieLeft1.png"),
 				getImage("resources/ZombieLeft2.png"),
 				getImage("resources/ZombieLeft3.png") };
-		rightzombie = new BufferedImage[] {
+		zombieRightImage = new BufferedImage[] {
 				getImage("resources/ZombieRight1.png"),
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
 
-		shooterImage = new AnimatedSprite(downplayer, 350, 250);
-//		zombieImage = new AnimatedSprite(downzombie, 100, 100);
+		/*
+		 * The animated sprites for zombies are stored in the variables below
+		 * because they will be reused every time a new zombie is created. This
+		 * avoids having to call the getInitializedAnimatedSprite() method 4
+		 * times every time a new zombie is created
+		 */
+		zombieUp = getInitializedAnimatedSprite(zombieUpImage);
+		zombieDown = getInitializedAnimatedSprite(zombieDownImage);
+		zombieLeft = getInitializedAnimatedSprite(zombieLeftImage);
+		zombieRight = getInitializedAnimatedSprite(zombieRightImage);
+
+		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
+		player = new Shooter("Hero", "Down", shooterImage, 100, 0);
+		player.mapNameToSprite("Up",getInitializedAnimatedSprite(playerUpImage));
+		player.mapNameToSprite("Left",getInitializedAnimatedSprite(playerLeftImage));
+		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
+		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
 		zombies = new SpriteGroup("Zombies");
-		player = new Shooter("Hero", "Down", shooterImage, 100, 0);
-		player.mapNameToSprite("Up", getInitializedAnimatedSprite(upplayer));
-		player.mapNameToSprite("Left", getInitializedAnimatedSprite(leftplayer));
-		player.mapNameToSprite("Right", getInitializedAnimatedSprite(rightplayer));
-		player.mapNameToSprite("Down", getInitializedAnimatedSprite(downplayer));
-		
-//		zombie1 = new Zombies("First", "Moving", zombieImage, player);
-//		zombies.add(zombie1);
-		
 		playfield = new PlayField();
 		control = new KeyboardControl(player, this);
 		background = new ColorBackground(Color.white);
@@ -100,42 +117,34 @@ public class Zombieland extends Game {
 		playfield.update(elapsedTime);
 		control.update();
 		player.update(elapsedTime);
-		zombies.update(elapsedTime);
+//		zombies.update(elapsedTime);
 		if (counter.action(elapsedTime)) {
-			//addZombie();
-			addZombie2();
+			addZombie();
 		}
 	}
 
 	public void addZombie() {
-		Zombies getZombie = new Zombies("New", "Moving",
-				getInitializedAnimatedSprite(downzombie), player);
-		getZombie.setX(defaultX);
-		getZombie.setY(defaultY);
-		zombies.add(getZombie);
-	}
-	
-	public void addZombie2() {
-		Zombie1 getZombie = new Zombie1("New", "Moving",
-				getInitializedAnimatedSprite(upzombie),
-				getInitializedAnimatedSprite(downzombie),
-				getInitializedAnimatedSprite(leftzombie),
-				getInitializedAnimatedSprite(rightzombie),player);
-		getZombie.setX(100);
-		getZombie.setY(100);
-		zombies.add(getZombie);
+//		Zombie newZombie = new Zombie("New", "Moving", zombieDown, player);
+		Zombie newZombie = new Zombie("New", "Moving", zombieDown, zombieUp, zombieLeft, zombieRight, player);
+		// newZombie.mapNameToSprite("Up", zombieUp);
+		// newZombie.mapNameToSprite("Left", zombieLeft);
+		// newZombie.mapNameToSprite("Right", zombieRight);
+		// newZombie.mapNameToSprite("Down", zombieDown);
+		newZombie.setX(defaultX);
+		newZombie.setY(defaultY);
+		zombies.add(newZombie);
 	}
 
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
-		initializeAnimatedSprite(sprite,300);
+		initializeAnimatedSprite(sprite, 300);
 		return sprite;
 	}
 
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images,
 			long delay) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
-		initializeAnimatedSprite(sprite,delay);
+		initializeAnimatedSprite(sprite, delay);
 		return sprite;
 	}
 
