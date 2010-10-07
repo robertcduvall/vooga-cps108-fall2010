@@ -53,15 +53,18 @@ public class Resources {
 		loadImage(name, new File(filePath));
 	}
 	
-	public static void loadAnimation(String name, String[] filePaths){
-		File[] files = new File[filePaths.length];
-		loadAnimation(name, files);
+	public static void loadAnimation(String name, String[] filePaths) {
+		BufferedImage[] animation = new BufferedImage[filePaths.length];
+		for(int i=0; i<animation.length; i++){
+			animation[i] = myGame.getImage(filePaths[i]);
+		}
+		imageMap.put(name, animation);
 	}
 	
 	public static void loadAnimation(String name, File[] files){
 		BufferedImage[] animation = new BufferedImage[files.length];
 		for(int i=0; i<animation.length; i++){
-			animation[i] = myGame.getImage(files[i].getAbsolutePath());
+			animation[i] = myGame.getImage(files[i].getPath());
 		}
 		imageMap.put(name, animation);
 	}
@@ -104,7 +107,9 @@ public class Resources {
 		ArrayList<String> lines = new ArrayList<String>();
 		int size = 0;
 		StringTokenizer st;
-		URL url = ResourceHandler.class.getClassLoader().getResource(directory);
+		URL url = Resources.class.getClassLoader().getResource(directory);
+		url = new File(directory).toURI().toURL();
+		System.out.println(url);
 		if (url == null) {
 			throw new IOException("No such directory: " + directory);
 		}
@@ -125,13 +130,27 @@ public class Resources {
 			String line = (String)lines.get(y);
 			line = lines.get(y);
 			st = new StringTokenizer(line, ",");
-			String filepath = st.nextToken();
 			String name = st.nextToken();
-			if (name.equals("")) {
-				System.out.println("Filepath " + y + "has no reference name associated with it.");
+			String filepath = st.nextToken();
+			ArrayList<String> pathList = new ArrayList<String>();
+			if (filepath.equals("")) {
+				System.out.println("Name " + name + "has no filepath associated with it.");
 			} else {
-				addMapping(name, filepath);
+				while(!filepath.equals("")) {
+					pathList.add(filepath);
+					if (st.hasMoreTokens())
+						filepath = st.nextToken();
+					else
+						break;
+				}
 			}
+			String[] pathArray = new String[pathList.size()];
+			for (int i = 0; i < pathList.size(); i++) {
+				pathArray[i] = pathList.get(i);
+				System.out.print(pathList.get(i));
+			}
+			System.out.println();
+			loadAnimation(name, pathArray);
 		}
 	}
 

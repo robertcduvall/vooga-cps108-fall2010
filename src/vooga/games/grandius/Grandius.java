@@ -12,7 +12,7 @@ import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.*;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.engine.*;
@@ -68,14 +68,15 @@ public class Grandius extends Game{
 	}
 	
 	public void initResources() { 
+		Resources.setGame(this);
 		//Load the resourcelist.txt file to initialize resource mappings.
 		try {
-        	ResourceHandler.loadFile("resources/resourcelist.txt");
+        	Resources.loadFile("src/vooga/games/grandius/resources/resourcelist.txt");
         } catch (IOException e) {
-        	
+        	System.out.println("failed to load resource file");
         }
 
-		livesIcon = new OverlayStatImage(getImage(ResourceHandler.getMapping("PlayerShipSingle")));
+		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
 		OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
@@ -89,7 +90,7 @@ public class Grandius extends Game{
 		myPlayfield = new PlayField();
 		
 		//TODO Scrolling background
-		myBackground = new ImageBackground(getImage(ResourceHandler.getMapping("BG")), 640, 480);
+		myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
 		myPlayfield.setBackground(myBackground);
 
 		//Does PlayerSprite support animations? It extends GameEntitySprite, which extends the regular Sprite (not AnimatedSprite).
@@ -101,8 +102,7 @@ public class Grandius extends Game{
 		 * able to be added to SpriteGroups, but can also use multiple sprites (and
 		 * different kind of sprites) to represent the entity.
 		 */	
-		//playersprite = new AnimatedSprite(getImages(ResourceHandler.getMapping("PlayerShip"), 3, 1), 0, 300);
-		shipsprite = new Sprite(getImage(ResourceHandler.getMapping("PlayerShipSingle")));
+		shipsprite = new Sprite(Resources.getImage("PlayerShipSingle"));
 		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
 		//playersprite.setAnimate(true);
 		//playersprite.setLoopAnim(true);
@@ -115,8 +115,13 @@ public class Grandius extends Game{
 
 		PLAYER_GROUP.add(playersprite);
 
-		Sprite zipster = new AnimatedSprite(getImages(ResourceHandler.getMapping("Zipster"), 2, 1), 400, 400);
-		Sprite boomer = new AnimatedSprite(getImages(ResourceHandler.getMapping("Boomer"), 2, 1), 200, 200);
+		AnimatedSprite zipster = new AnimatedSprite(Resources.getAnimation("Zipster"), 400, 400);
+		AnimatedSprite boomer = new AnimatedSprite(Resources.getAnimation("Boomer"), 200, 200);
+		zipster.setAnimate(true);
+		zipster.setLoopAnim(true);
+		boomer.setAnimate(true);
+		boomer.setLoopAnim(true);
+		
 		zipster.setHorizontalSpeed(-0.08);
 		boomer.setHorizontalSpeed(-0.03);
 		ENEMY_GROUP.add(zipster);
@@ -196,7 +201,7 @@ public class Grandius extends Game{
 		// firing!!
 		if (keyPressed(KeyEvent.VK_CONTROL)) {
 			// create projectile sprite
-			Sprite projectile = new Sprite(getImage(ResourceHandler.getMapping("Projectile")));
+			Sprite projectile = new Sprite(Resources.getImage("Projectile"));
 //			projectile.setLocation(myShip.getSprite().getX()+myShip.getSprite().getWidth(), myShip.getSprite().getY());
 			projectile.setHorizontalSpeed(0.2);
 
@@ -204,7 +209,7 @@ public class Grandius extends Game{
 			PROJECTILE_GROUP.add(projectile);
 
 			// play laser sound
-			playSound(ResourceHandler.getMapping("Laser"));
+			//playSound(Resources.getMapping("Laser"));
 		}
 
 
@@ -272,7 +277,7 @@ class ProjectileEnemyCollision2 extends BasicCollisionGroup {
 
 		// show explosion on the center of the exploded enemy
 		// we use VolatileSprite -> sprite that animates once and vanishes afterward
-		BufferedImage[] images = owner.getImages(ResourceHandler.getMapping("Explosion"), 1, 1);
+		BufferedImage[] images = Resources.getAnimation("Explosion");
 		VolatileSprite explosion = new VolatileSprite(images, s2.getX(), s2.getY());
 
 		// directly add to playfield without using SpriteGroup
