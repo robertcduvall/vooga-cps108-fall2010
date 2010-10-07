@@ -3,11 +3,8 @@ package vooga.engine.overlay;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.GameFontManager;
 
@@ -141,6 +138,7 @@ public class OverlayString extends Overlay {
 	/**
 	 * print the String
 	 */
+	@Override
 	public void render(Graphics2D g)
 	{
 		print(myString, g);

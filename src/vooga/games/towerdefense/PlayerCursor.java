@@ -1,6 +1,5 @@
 package vooga.games.towerdefense;
 
-import java.awt.Point;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,7 +8,6 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
-import vooga.engine.core.Game;
 import vooga.engine.player.control.PlayerSprite;
 
 public class PlayerCursor extends PlayerSprite{

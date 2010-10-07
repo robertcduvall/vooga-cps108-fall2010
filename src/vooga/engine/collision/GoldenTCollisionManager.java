@@ -13,6 +13,7 @@ public class GoldenTCollisionManager extends CollisionManager {
 	public GoldenTCollisionManager() {
 	}
 
+	@Override
 	public boolean detectCollision(Collidable object1, Collidable object2) {
 		if(object1 instanceof CollisionShape && object2 instanceof CollisionShape){
 			return ((CollisionShape)object1).intersects((CollisionShape)object2);

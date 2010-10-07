@@ -1,11 +1,7 @@
 package vooga.engine.overlay;
 
 import com.golden.gamedev.*;
-import com.golden.gamedev.engine.*;
-import com.golden.gamedev.object.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Collection;
 
 /**
  * The OverlayPanel provides a convenient way for users

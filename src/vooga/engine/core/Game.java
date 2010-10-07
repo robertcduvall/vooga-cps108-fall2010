@@ -5,8 +5,6 @@ import java.io.IOException;
 
 import vooga.engine.resource.ResourceHandler;
 
-import com.golden.gamedev.*;
-
 /**
  * Placeholder until we decide whose Sprite to use.
  *
@@ -14,7 +12,8 @@ import com.golden.gamedev.*;
  */
 public class Game extends com.golden.gamedev.Game {
 
-   public void initResources() {
+   @Override
+public void initResources() {
       // initialize game packages
 	   try {
 		   ResourceHandler.loadFile("resourcelist.txt");
@@ -24,11 +23,13 @@ public class Game extends com.golden.gamedev.Game {
 	   }
    }
 
-   public void update(long elapsedTime) {
+   @Override
+public void update(long elapsedTime) {
       // call game packages before user gets to update
    }
 
-   public void render(Graphics2D g) {
+   @Override
+public void render(Graphics2D g) {
       // render the game to the screen
    }
 }

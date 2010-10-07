@@ -5,12 +5,8 @@ package vooga.engine.overlay;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.util.ImageUtil;
 
 /**
  * This Overlay class displays a finite number of icons, with the image provided by the user
@@ -75,6 +71,7 @@ public class OverlayIcon extends Overlay {
 	 * Used to render to the screen.
 	 * @param g Graphic to render image to.
 	 */
+	@Override
 	public void render(Graphics2D g){  //make the label, which is text appearing before the icons
 		myText.setLocation(getX(), getY());
 		myText.print(myText.getString(), g);
@@ -88,6 +85,7 @@ public class OverlayIcon extends Overlay {
 	/**
 	 * Updates the number of images showing
 	 */
+	@Override
 	public void update(long t)
 	{
 		if (myStatKeeper != null){
@@ -120,7 +118,7 @@ public class OverlayIcon extends Overlay {
 				break;
 			}
 		}
-		double endOfString =  getX() + ((double)myText.getWidth());
+		double endOfString =  getX() + (myText.getWidth());
 		int paddingBetweenIcons = 5;
 		int paddingBetweenStringAndIcons = 8;
 		if(myIconGroup.getActiveSprite()!= null){

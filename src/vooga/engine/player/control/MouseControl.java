@@ -3,8 +3,6 @@ package vooga.engine.player.control;
 import java.util.*;
 import java.lang.reflect.*;
 import com.golden.gamedev.Game;
-import com.golden.gamedev.engine.BaseInput;
-import vooga.engine.player.control.*;
 
 /**
  * Built-in example of how to extend Control class properly. Also a usable mouse
@@ -38,6 +36,7 @@ public class MouseControl extends Control implements Controller{
 		initializeMappings();
 	}
 	
+	@Override
 	public void initializeMappings(){
 		mouseMethodMap = new HashMap<Integer, Method>();
 		mouseParamMap = new HashMap<Integer, Object[]>();
@@ -58,6 +57,7 @@ public class MouseControl extends Control implements Controller{
      * 
      * @param paramVals Value of the parameters that the method has
      */
+	@Override
 	public void addInput(int listen, String method,
             String classname, Object... paramVals) {
         try{
@@ -72,6 +72,7 @@ public class MouseControl extends Control implements Controller{
         }
     }
 	
+	@Override
 	public void update(){
 		int key = myGame.bsInput.getMousePressed();
         if (mouseMethodMap.containsKey(key))

@@ -33,6 +33,7 @@ public class Zipster extends AnimatedSprite {
 		this.myDirection = newDirection;
 	}
 	
+	@Override
 	public void update(long elapsedTime) {
 		if (this.myDirection == MOVING_W) {
 			this.setHorizontalSpeed(-5);

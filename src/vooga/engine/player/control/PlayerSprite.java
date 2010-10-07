@@ -80,6 +80,7 @@ public class PlayerSprite extends GameEntitySprite {
 	/**
 	 * Updates player's current sprite.
 	 */
+	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 	}

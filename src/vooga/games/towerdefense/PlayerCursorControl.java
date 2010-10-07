@@ -1,15 +1,12 @@
 package vooga.games.towerdefense;
 
 import java.util.*;
-import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.*;
 
 import com.golden.gamedev.Game;
-import com.golden.gamedev.engine.BaseInput;
 import vooga.engine.player.control.*;
 
 /**
@@ -32,6 +29,7 @@ public class PlayerCursorControl extends Control implements Controller{
 		initializeMappings();
 	}
 	
+	@Override
 	public void initializeMappings(){
 		mouseMethodMap = new HashMap<Integer, Method>();
 		mouseParamMap = new HashMap<Integer, Object[]>();
@@ -65,6 +63,7 @@ public class PlayerCursorControl extends Control implements Controller{
         }
     }
 	
+	@Override
 	public void update(){
 		for (int i = 0; i < players.size(); i++)
         {

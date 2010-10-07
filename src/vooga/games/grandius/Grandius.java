@@ -7,15 +7,12 @@ import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 
-import vooga.engine.overlay.OverlayManager;
 import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.*;
-import com.golden.gamedev.engine.*;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.object.collision.*;
@@ -71,6 +68,7 @@ public class Grandius extends Game{
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 	}
 	
+	@Override
 	public void initResources() { 
 		Resources.setGame(this);
 		//TODO : assign appropriate values to playerInitialY and playerInitialX
@@ -298,6 +296,7 @@ class ProjectileEnemyCollision2 extends BasicCollisionGroup {
 
 	// when projectiles (in group a) collided with enemy (in group b)
 	// what to do?
+	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		// we kill/remove both sprite!
 		s1.setActive(false); // the projectile is set to non-active

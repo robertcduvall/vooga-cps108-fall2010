@@ -10,6 +10,7 @@ public class BallSprite extends GameEntitySprite {
 		super(name, stateName, s);
 	}
 	
+	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 	}

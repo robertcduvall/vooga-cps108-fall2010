@@ -2,8 +2,6 @@ package vooga.engine.state;
 
 import java.awt.Graphics2D;
 
-import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
 import java.util.*;
 
 import com.golden.gamedev.object.SpriteGroup;
@@ -26,10 +24,12 @@ import com.golden.gamedev.object.SpriteGroup;
 public abstract class GameState implements Comparable<GameState> {
 
 	private boolean myIsActive = false;
-	private  ArrayList<SpriteGroup> myRenderGroups = new ArrayList<SpriteGroup>();
+	private ArrayList<SpriteGroup> myRenderGroups = new ArrayList<SpriteGroup>();
 	private ArrayList<SpriteGroup> myUpdateGroups = new ArrayList<SpriteGroup>();
 	private int myLayer;
 
+
+	
 	/**
 	 * Constructs a new GameState 
 	 */
@@ -272,17 +272,19 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @param Object
 	 * @return boolean
 	 */
+	@Override
 	public boolean equals(Object obj){
 		if (this == obj){
 			return true;
 		}
-		if (this.myLayer == ((GameState) obj).getLayer() &&
-				this.myIsActive == ((GameState) obj).isActive() &&
-				this.myRenderGroups.hashCode() == ((GameState) obj).getRenderGroups().hashCode() &&
-				this.myUpdateGroups.hashCode() == ((GameState) obj).getUpdateGroups().hashCode()) {
-			return true;
-		}
-		return false;
+		if(!(obj instanceof GameState))
+			return false;
+		
+		GameState other = (GameState) obj;
+		// Two GameStates are the same if they have the same update and render groups, and the same layer
+		return  myLayer == other.getLayer() &&
+				myUpdateGroups.equals(other.getUpdateGroups()) &&
+				myRenderGroups.equals(other.getRenderGroups());
 	}
 
 	/**
@@ -291,12 +293,14 @@ public abstract class GameState implements Comparable<GameState> {
 	 * @return int
 	 */
 
+	@Override
 	public int hashCode(){
 		final int PRIME_NUMBER = 7;
 		
-		int code = (PRIME_NUMBER * myRenderGroups.hashCode()); 
-		code += PRIME_NUMBER * myUpdateGroups.hashCode();
-		code += PRIME_NUMBER * myLayer;
+		int code = 37;
+		code = code * PRIME_NUMBER + myRenderGroups.hashCode(); 
+		code = code * PRIME_NUMBER + myUpdateGroups.hashCode();
+		code = code * PRIME_NUMBER + myLayer;
 		
 		return code;
 	}

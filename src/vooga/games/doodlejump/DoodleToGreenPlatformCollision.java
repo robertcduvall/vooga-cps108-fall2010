@@ -1,7 +1,6 @@
 package vooga.games.doodlejump;
 
 import java.applet.AudioClip;
-import java.io.File;
 import java.net.URL;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -12,6 +11,7 @@ public class DoodleToGreenPlatformCollision extends BasicCollisionGroup {
 		pixelPerfectCollision = true;
 	}
 
+	@Override
 	public void collided(Sprite doodle, Sprite green_platform) {
 		
 		/*

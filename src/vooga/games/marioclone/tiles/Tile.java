@@ -40,6 +40,7 @@ public abstract class Tile extends GameEntitySprite implements Collidable {
 	
 	public abstract BufferedImage getImage();
 
+	@Override
 	public abstract void actOnCollision(Collidable object);
 	
 	protected void setState(State state) {

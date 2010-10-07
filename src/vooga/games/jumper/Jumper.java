@@ -2,18 +2,18 @@ package vooga.games.jumper;
 
 
 // JFC
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 //VOOGA
 //import vooga.engine.core.Sprite;
+import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
-import vooga.engine.*;
-
 // GTGE
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
@@ -32,38 +32,52 @@ import com.golden.gamedev.object.SpriteGroup;
 public class Jumper extends Game {
 
 	private final static int GAME_WIDTH = 600;
-	private final static int GAME_HEIGHT = 480;
+	private final static int GAME_HEIGHT = 600;
 	private String jumperDirectory;
 		
-	private GameStateManager myManager;
+	PlayField myPlayfield;
+	
+	KeyboardControl myKeyControl;
+	
  /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
 
-    public void initResources() {
-    	myManager = new GameStateManager();
+    @Override
+	public void initResources() {
+    	ResourceHandler.setGame(this);
+    	try {
+			ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		myPlayfield = new PlayField();
+		
+		DoodleSprite player1 = new DoodleSprite("player1", "alive", new Sprite(ResourceHandler.getImage("crop"), 400,400));		
+    	SpriteGroup protagonists = new SpriteGroup("good_guys");
+    	protagonists.add(player1);
+    	myPlayfield.addGroup(protagonists);
+
+    	myKeyControl = new KeyboardControl(player1, this);
+    	myKeyControl.addInput(KeyEvent.VK_LEFT, "goLeft", player1.getClass().toString() /*"vooga.games.jumper.DoodleSprite"*/);
+    	
+    	SpriteGroup blocks = new SpriteGroup("blocks");    	
+    	myPlayfield.addGroup(blocks);
     	//addDirectory(jumperDirectory);
     	
-    	GameState playGameState = new PlayGameState();
-    	
-    	myManager.addGameState(playGameState);
     	
     }
-
-    public static int getGameWidth() {
-    	return GAME_WIDTH;
-    }
-
-    public static int getGameHeight() {
-    	return GAME_HEIGHT;
-    }
-
+    
+	@Override
 	public void update(long elapsedTime) {
-    	myManager.update(elapsedTime);
+		myPlayfield.update(elapsedTime);
     }
 
-    public void render(Graphics2D g) {
-    	myManager.render(g);
+    @Override
+	public void render(Graphics2D g) {
+    	myPlayfield.render(g);
     }
 
 

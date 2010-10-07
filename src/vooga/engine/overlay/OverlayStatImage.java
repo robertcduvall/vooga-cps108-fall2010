@@ -2,9 +2,6 @@ package vooga.engine.overlay;
 
 
 import java.awt.image.BufferedImage;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.golden.gamedev.util.ImageUtil;
 
 
