@@ -2,31 +2,38 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import vooga.engine.core.Game;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.games.marioclone.tiles.Tile;
 
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
+import com.golden.gamedev.object.PlayField;
 
-public class MarioClone {
+public class MarioClone extends Game {
 
+	private static final int GAME_WIDTH = 700;
+	private static final int GAME_HEIGHT = 500;
+	PlayField playfield;
+	
 	public static void main(String[] args)  throws IOException {
-		Game game = new Game();
-		ResourceHandler.setGame(game);
-		game.bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
+		MarioClone game = new MarioClone();
+		game.init();
+	}	
+	
+	
+	private void init() throws IOException {
+		Resources.setGame(this);
+		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
 
-		System.out.println(game.bsLoader.getBaseIO().getRootPath(BaseIO.CLASS_URL));
-		URL a = game.bsLoader.getBaseIO().getURL("resourcelist.txt");
-		ResourceHandler.loadFile("resourcelist.txt");
+		Resources.loadFile("src/vooga/games/marioclone/resourcelist.txt");
 		System.out.println("loaded resource list");
-		TileMap m = new TileMap("testmap.txt");
+		TileMap m = new TileMap(bsLoader.getBaseIO().getURL("testmap.txt"));
 		System.out.println("loaded tiles");
 		List<Tile> tiles = m.getTiles();
-	}	
+	}
 	
 	
 //	public static void main(String[] args) throws IOException {
