@@ -2,6 +2,7 @@ package vooga.games.zombieland;
 
 import com.golden.gamedev.object.*;
 
+import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 
 public class Shooter extends PlayerSprite {
@@ -10,6 +11,7 @@ public class Shooter extends PlayerSprite {
 	private double angle;
 	private Zombieland game;
 	private int weapon;
+	private Stat<Integer> health;
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
 		super(name, stateName, s, playerHealth, playerRank);
@@ -17,8 +19,13 @@ public class Shooter extends PlayerSprite {
 		speed = -1;
 		angle=90;
 		weapon=1;
+		health = new Stat<Integer>(playerHealth);
 	}
 
+	public Stat<Integer> getHealthStat(){
+		return health;
+	}
+	
 	public void goLeft() {
 		angle=180;
 		setToCurrentSprite("Left");
@@ -52,7 +59,14 @@ public class Shooter extends PlayerSprite {
 		fire();
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
-
+	/**
+	 * @overwrite
+	 */
+	public void setHealth(int i) {
+		super.setHealth(i);
+		health.setStat(getHealth());
+	}
+	
 	private void fire() {
 		switch(weapon) {
 		case 1:
