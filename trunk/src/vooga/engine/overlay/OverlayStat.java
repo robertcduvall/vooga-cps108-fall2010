@@ -2,13 +2,7 @@ package vooga.engine.overlay;
 
 
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 
 /**
@@ -52,6 +46,7 @@ public class OverlayStat extends OverlayString {
 	 * Used to render to the screen.
 	 * @param g Graphic to render image to.
 	 */
+	@Override
 	public void render(Graphics2D g){
 		String track = setStat();
 		print(getString() + " " + track, g);

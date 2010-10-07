@@ -24,10 +24,12 @@ public class PacmanMoveEvent implements IEvent {
 		this.y = y;
 	}
 
+	@Override
 	public Object getSource() {
 		return obj;
 	}
 
+	@Override
 	public String getName() {
 		return eventName;
 	}

@@ -8,6 +8,7 @@ public class BallToMonsterCollision extends BasicCollisionGroup{
 		pixelPerfectCollision = true;
 	}
 	
+	@Override
 	public void collided(Sprite ball, Sprite monster) {
 		System.out.println("hit");
 		ball.setActive(false);

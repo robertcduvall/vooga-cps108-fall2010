@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
-import vooga.games.grandius.enemy.common.Boomer;
-
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;

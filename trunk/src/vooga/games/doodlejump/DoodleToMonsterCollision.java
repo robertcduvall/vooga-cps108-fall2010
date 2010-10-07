@@ -9,6 +9,7 @@ public class DoodleToMonsterCollision extends BasicCollisionGroup {
 		pixelPerfectCollision = true;
 	}
 
+	@Override
 	public void collided(Sprite doodle, Sprite monster) {
 		if(doodle.getVerticalSpeed() < 0){
 			doodle.setActive(false);

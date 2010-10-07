@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
-import vooga.engine.player.control.*;
-
 import javax.imageio.ImageIO;
 
 import com.golden.gamedev.object.Sprite;
@@ -53,6 +51,7 @@ public class DoodleSprite extends PlayerSprite {
 		}
 	}
 	
+	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		if (getVerticalSpeed() < 0.5)
@@ -82,6 +81,7 @@ public class DoodleSprite extends PlayerSprite {
 		}
 	}
 	
+	@Override
 	public void render(Graphics2D g){
 		super.render(g);
 		for(BallSprite ball : balls)

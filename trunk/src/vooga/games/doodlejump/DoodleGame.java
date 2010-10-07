@@ -3,7 +3,6 @@ package vooga.games.doodlejump;
 import java.awt.*;
 
 import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.player.control.MouseControl;
 import vooga.engine.player.control.PlayerSprite;
 
 import com.golden.gamedev.*;
@@ -12,11 +11,7 @@ import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
 
 public class DoodleGame extends Game {
 
@@ -52,6 +47,7 @@ public class DoodleGame extends Game {
 	// Collision Manager
 	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform;
 	
+	@Override
 	public void initResources() {
 		
 		// background
@@ -130,12 +126,14 @@ public class DoodleGame extends Game {
 	
 
 
+	@Override
 	public void update(long elapsedTime) {
 		doodle_keyboard_control.update();
 		
 		playField.update(elapsedTime);
 	}
 
+	@Override
 	public void render(Graphics2D g) {		
 		playField.render(g);
 	}

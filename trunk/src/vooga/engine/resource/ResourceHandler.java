@@ -80,7 +80,7 @@ public class ResourceHandler {
 		}
 		size = lines.size();
 		for (int y=0; y<size; y++) {
-			String line = (String)lines.get(y);
+			String line = lines.get(y);
 			line = lines.get(y);
 			st = new StringTokenizer(line, ",");
 			String filepath = st.nextToken();

@@ -15,6 +15,7 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 public class ZZCollisionManager extends PreciseCollisionGroup{
 
 	
+	@Override
 	public void collided(Sprite zombie1, Sprite zombie2) {
 				
 		actOnCollision(zombie1, zombie2);

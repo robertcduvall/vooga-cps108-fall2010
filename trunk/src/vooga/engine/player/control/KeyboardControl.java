@@ -2,10 +2,8 @@ package vooga.engine.player.control;
 
 import java.lang.reflect.*;
 import java.util.*;
-import java.awt.event.KeyEvent;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.engine.BaseInput;
-import vooga.engine.player.control.*;
 
 /**
  * Built-in example of how to extend Control class properly. Also a usable keyboard
@@ -39,6 +37,7 @@ public class KeyboardControl extends Control implements Controller{
 		initializeMappings();
 	}
 	
+	@Override
 	public void initializeMappings(){
 		keyMethodMap = new HashMap<Integer, Method>();
 		keyParamMap = new HashMap<Integer, Object[]>();
@@ -59,7 +58,8 @@ public class KeyboardControl extends Control implements Controller{
      * 
      * @param paramVals Value of the parameters that the method has
      */
-    public void addInput(int listen, String method, String classname, Object... paramVals) {
+    @Override
+	public void addInput(int listen, String method, String classname, Object... paramVals) {
 
     	try {
             Class myClass = Class.forName(classname);
@@ -72,16 +72,17 @@ public class KeyboardControl extends Control implements Controller{
         }
     }
     
+	@Override
 	public void update(){
 		int key = myGame.bsInput.getKeyPressed();
-        if (key==(myGame.bsInput.NO_KEY)) {
+        if (key==(BaseInput.NO_KEY)) {
             for (int possibleKey : keyMethodMap.keySet()) {
                 if (myGame.bsInput.isKeyDown(possibleKey)) {
                     key = possibleKey;
                 }
             }
-            if (key==(myGame.bsInput.NO_KEY))
-                key = myGame.bsInput.NO_KEY;
+            if (key==(BaseInput.NO_KEY))
+                key = BaseInput.NO_KEY;
         }
         if (keyMethodMap.containsKey(key)) {
             try {

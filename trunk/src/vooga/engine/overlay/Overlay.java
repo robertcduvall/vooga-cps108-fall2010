@@ -1,7 +1,5 @@
 package vooga.engine.overlay;
 
-import java.awt.image.BufferedImage;
-
 import com.golden.gamedev.object.Sprite;
 
 

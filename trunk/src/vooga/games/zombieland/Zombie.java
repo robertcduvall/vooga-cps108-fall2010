@@ -38,6 +38,7 @@ public class Zombie extends PlayerSprite {
 		}
 	}
 
+	@Override
 	public void update(long elapsedTime) {
 		double direction = getDirection();
 		if (targetDirection.equals("X")) {

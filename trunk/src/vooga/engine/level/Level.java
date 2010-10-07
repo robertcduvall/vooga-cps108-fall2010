@@ -8,7 +8,6 @@ import java.util.Scanner;
 import vooga.engine.collision.CollisionManager;
 import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
-import vooga.engine.player.control.GameEntitySprite;
 import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 

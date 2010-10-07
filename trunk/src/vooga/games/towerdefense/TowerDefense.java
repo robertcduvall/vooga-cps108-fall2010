@@ -1,8 +1,6 @@
 package vooga.games.towerdefense;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,9 +13,6 @@ import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
-import vooga.engine.player.control.Control;
-import vooga.engine.player.control.ItemSprite;
-import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 
 
@@ -37,6 +32,7 @@ public class TowerDefense extends Game{
 	int i = 0;
 	int j = 0;
 	
+	@Override
 	public void initResources(){
 		Resources.setGame(this);
 		initBackground();
@@ -88,12 +84,14 @@ public class TowerDefense extends Game{
 		background = new ImageBackground(ImageUtil.resize(getImage("resources/images/grassBackground.png"),WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
 	
+	@Override
 	public void update(long elapsedTime) {
 		playfield.update(elapsedTime);
 		playerCursorControl.update();
 		enemyGroup.update(elapsedTime);
     }
 
+	@Override
 	public void render(Graphics2D g) {
 		playfield.render(g);
 		playerCursor.render(g);

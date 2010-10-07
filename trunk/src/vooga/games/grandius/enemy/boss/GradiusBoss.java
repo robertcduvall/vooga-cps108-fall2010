@@ -49,6 +49,7 @@ public abstract class GradiusBoss extends AnimatedSprite {
 	}
 	
 	
+	@Override
 	public void update(long elapsedTime) {
 		if (this.myDirection == NOT_MOVING) {
 			this.setHorizontalSpeed(0);

@@ -1,7 +1,6 @@
 package vooga.games.grandius.enemy.common;
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**

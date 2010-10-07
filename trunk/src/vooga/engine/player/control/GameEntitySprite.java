@@ -146,6 +146,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Specify how the GameEntity Object should be updated.
 	 */
+	@Override
 	public void update(long elapsedTime) {
 		myCurrentSprite.update(elapsedTime);
 	}
@@ -155,6 +156,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * 
 	 * @see com.golden.gamedev.object.Sprite#render(java.awt.Graphics2D)
 	 */
+	@Override
 	public void render(Graphics2D g) {
 		myCurrentSprite.render(g);
 	}
@@ -167,6 +169,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Get the bitmap representation of myCurrentSprite
 	 */
+	@Override
 	public BufferedImage getImage() {
 		return myCurrentSprite.getImage();
 	}
@@ -211,6 +214,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Check whether the myCurrentSprite is on the screen
 	 */
+	@Override
 	public boolean isOnScreen() {
 		return myCurrentSprite.isOnScreen();
 	}
@@ -219,6 +223,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * set whether myCurrentSprite will be visible on the screen
 	 */
+	@Override
 	public void setActive(boolean b) {
 		myCurrentSprite.setActive(b);
 	}
@@ -226,6 +231,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * check if myCurrentSprite is currently displayed
 	 */
+	@Override
 	public boolean isActive() {
 		return myCurrentSprite.isActive();
 	}
@@ -234,6 +240,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * Set the background for the Golden T. This allows the sprites to be part
 	 * of the playfield.
 	 */
+	@Override
 	public void setBackground(Background backgr) {
 		for (String s : mySprites.keySet()) {
 			mySprites.get(s).setBackground(backgr);
@@ -244,6 +251,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Set all the sprites to the same
 	 */
+	@Override
 	public void setLayer(int i) {
 		for (String s : mySprites.keySet()) {
 			mySprites.get(s).setLayer(i);
@@ -262,6 +270,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * @see com.golden.gamedev.object.Sprite#addHorizontalSpeed(long, double,
 	 *      double)
 	 */
+	@Override
 	public void addHorizontalSpeed(long elapsedTime, double accel,
 			double maxSpeed) {
 		((GameEntitySprite) myCurrentSprite).addHorizontalSpeed(elapsedTime,
@@ -275,6 +284,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * @see com.golden.gamedev.object.Sprite#addVerticalSpeed(long, double,
 	 *      double)
 	 */
+	@Override
 	public void addVerticalSpeed(long elapsedTime, double accel, double maxSpeed) {
 		myCurrentSprite.addVerticalSpeed(elapsedTime, accel, maxSpeed);
 	}
@@ -282,6 +292,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Force myCurrentSprite to a specific X location newx on the screen
 	 */
+	@Override
 	public void forceX(double newx) {
 		myCurrentSprite.forceX(newx);
 	}
@@ -289,6 +300,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Force myCurrentSprite to a specific Y location newy on the screen
 	 */
+	@Override
 	public void forceY(double newy) {
 		myCurrentSprite.forceY(newy);
 	}
@@ -296,6 +308,7 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Get the current X position of myCurrentSprite
 	 */
+	@Override
 	public double getX() {
 		return myCurrentSprite.getX();
 	}
@@ -305,6 +318,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * 
 	 * @see com.golden.gamedev.object.Sprite#getY()
 	 */
+	@Override
 	public double getY() {
 		return myCurrentSprite.getY();
 	}
@@ -312,34 +326,42 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Get the distance from mycurrentSprite
 	 */
+	@Override
 	public double getDistance(Sprite other) {
 		return myCurrentSprite.getDistance(other);
 	}
 
+	@Override
 	public int getHeight() {
 		return myCurrentSprite.getHeight();
 	}
 
+	@Override
 	public int getWidth() {
 		return myCurrentSprite.getWidth();
 	}
 
+	@Override
 	public double getHorizontalSpeed() {
 		return myCurrentSprite.getHorizontalSpeed();
 	}
 
+	@Override
 	public double getVerticalSpeed() {
 		return myCurrentSprite.getVerticalSpeed();
 	}
 	
+	@Override
 	public void setHorizontalSpeed(double vx) {
 		myCurrentSprite.setHorizontalSpeed(vx);
 	}
 
+	@Override
 	public void setVerticalSpeed(double vy) {
 		myCurrentSprite.setVerticalSpeed(vy);
 	}
 	
+	@Override
 	public void setLocation(double xs, double ys) {
 		myCurrentSprite.setLocation(xs, ys);
 	}
@@ -347,18 +369,22 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * set the magnitude of myCurrenttSprite with an initial angle
 	 */
+	@Override
 	public void setMovement(double speed, double angleDir) {
 		myCurrentSprite.setMovement(speed, angleDir);
 	}
 
+	@Override
 	public void setSpeed(double vs, double vy) {
 		myCurrentSprite.setSpeed(vs, vy);
 	}
 
+	@Override
 	public void setX(double xs) {
 		myCurrentSprite.setX(xs);
 	}
 
+	@Override
 	public void setY(double ys) {
 		myCurrentSprite.setY(ys);
 	}
@@ -368,6 +394,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * 
 	 * @see com.golden.gamedev.object.Sprite#move(double, double)
 	 */
+	@Override
 	public void move(double newx, double newy) {
 		myCurrentSprite.move(newx, newy);
 	}
@@ -375,15 +402,18 @@ public abstract class GameEntitySprite extends Sprite {
 	/**
 	 * Move myCurrentSprie to newx and newy and change the velocity to newSpeed
 	 */
+	@Override
 	public boolean moveTo(long elapsedTime, double newx, double newy,
 			double newspeed) {
 		return myCurrentSprite.moveTo(elapsedTime, newx, newy, newspeed);
 	}
 
+	@Override
 	public void moveX(double dx) {
 		myCurrentSprite.moveX(dx);
 	}
 
+	@Override
 	public void moveY(double dy) {
 		myCurrentSprite.moveY(dy);
 	}

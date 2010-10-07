@@ -1,10 +1,7 @@
 package vooga.engine.player.control;
 
 import java.util.*;
-import java.awt.event.*;
-import java.lang.reflect.*;
 import com.golden.gamedev.Game;
-import vooga.engine.player.control.*;
 
 /**
  * Control class which can be used to create control schemes. Can also be extended to create alternate schemes (for AI, control pads, etc)
