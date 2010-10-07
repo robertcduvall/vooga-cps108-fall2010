@@ -14,10 +14,11 @@ public class Zombie extends PlayerSprite {
 	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
 			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
 		super(name, stateName, down);
-		this.mapNameToSprite("Up", up);
-		this.mapNameToSprite("Left", left);
-		this.mapNameToSprite("Right", right);
-		this.mapNameToSprite("Down", down);
+		mapNameToSprite("Up", up);
+		mapNameToSprite("Left", left);
+		mapNameToSprite("Right", right);
+		mapNameToSprite("Down", down);
+		
 		target = hero;
 		targetDirection = "X";
 		speed = -0.25;
