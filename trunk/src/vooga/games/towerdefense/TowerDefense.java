@@ -26,7 +26,6 @@ public class TowerDefense extends Game{
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	
-	public BaseInput bsInput;
 	private PlayerCursor playerCursor;
 	private PlayerCursorControl playerCursorControl;
 	private Sprite duvall;
@@ -34,7 +33,7 @@ public class TowerDefense extends Game{
 	private PlayField playfield;
 	private SpriteGroup towerGroup, enemyGroup, towerShotGroup;
 	private ArrayList<PathPoint> path;
-	private Sprite temp;
+	private Enemy temp;
 	int i = 0;
 	int j = 0;
 	
@@ -46,8 +45,9 @@ public class TowerDefense extends Game{
 		towerGroup = playfield.addGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
-		initPlayer();
 		initPath();
+		initPlayer();
+		
 		
 		playfield.addCollisionGroup(towerShotGroup, enemyGroup, new TowerShotEnemyCollision());
 		
@@ -58,10 +58,8 @@ public class TowerDefense extends Game{
 		File thisLevel = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
 		try {
 			Scanner sc = new Scanner(thisLevel);
-			System.out.println("c");
 			while(sc.hasNextInt()){
 				int x = sc.nextInt();
-				System.out.println("b");
 				if(sc.hasNextInt()){
 					int y = sc.nextInt();
 					path.add(new PathPoint(x,y));
@@ -79,7 +77,8 @@ public class TowerDefense extends Game{
 	private void initPlayer(){
 		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
 		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
-		temp = new Sprite(getImage("resources/images/duvallFace.png"));
+		temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
+		enemyGroup.add(temp);
 		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, towerGroup);
 		playerCursorControl = new PlayerCursorControl(playerCursor, this);
 		playerCursorControl.addInput("1", "buildTower", "vooga.games.towerdefense.PlayerCursor");
@@ -92,20 +91,13 @@ public class TowerDefense extends Game{
 	public void update(long elapsedTime) {
 		playfield.update(elapsedTime);
 		playerCursorControl.update();
-		if(i<path.size() && j % 4 == 0){
-			PathPoint point = path.get(i);
-			System.out.println("a");
-			temp.setLocation(point.getX(), point.getY());
-			i++;
-		}
-		j++;
-		
+		enemyGroup.update(elapsedTime);
     }
 
 	public void render(Graphics2D g) {
 		playfield.render(g);
 		playerCursor.render(g);
-		temp.render(g);
+		enemyGroup.render(g);
     }
 	
 	public static void main(String[] args) {
@@ -113,6 +105,12 @@ public class TowerDefense extends Game{
         game.setup(new TowerDefense(), new Dimension(WIDTH,HEIGHT), false);
         game.start();
     }
+	
+	protected ArrayList<PathPoint> getPath() {
+		return path;
+	}
+	
+	
 	
 	
 }

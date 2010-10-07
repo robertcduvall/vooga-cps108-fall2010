@@ -25,11 +25,7 @@ public class PlayerCursorControl extends Control implements Controller{
 	private Object[] parametervalues;
 	FileWriter fstream;
     BufferedWriter out;
-    // Code only used for level creation
-   /* long myTime;
-    long myStartTime;
-    int myX;
-    int myY;*/
+  
 	
 	public PlayerCursorControl(PlayerSprite initialPlayer, Game game){
 		super(initialPlayer, game);		
