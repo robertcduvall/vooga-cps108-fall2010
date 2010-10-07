@@ -21,38 +21,24 @@ public class Shooter extends PlayerSprite {
 	public void goLeft() {
 		setToCurrentSprite("Left");
 		moveX(speed);
-		animateSprite();
 	}
 
 	public void goRight() {
 		setToCurrentSprite("Right");
 		moveX(Math.abs(speed));
-		animateSprite();
 	}
 
 	public void goUp() {
 		setToCurrentSprite("Up");
 		moveY(speed);
-		animateSprite();
 	}
 
 	public void goDown() {
 		setToCurrentSprite("Down");
 		moveY(Math.abs(speed));
-		animateSprite();
 	}
 
-	private void animateSprite() {
-//		System.out.println(currentSprite.getFrame() + ":"
-//				+ currentSprite.getStartAnimationFrame() + "-"
-//				+ currentSprite.getFinishAnimationFrame());
-//		// if(currentSprite.getFrame()>=currentSprite.getFinishAnimationFrame())
-//		// {
-//		currentSprite.setFrame(currentSprite.getFrame() + 1);
-//		// }
-//
-//		// currentSprite.setAnimate(true);
-//		// currentSprite.setLoopAnim(true);
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
 	}
-
 }
