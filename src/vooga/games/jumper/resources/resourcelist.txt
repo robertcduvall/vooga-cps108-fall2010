@@ -1,2 +1,26 @@
 resources/ball.png,ball
 resources/doodle_crop.png,crop
+resources/yellow_platform.png,platformYellow
+resources/trampoline_up,trampolineUp
+resources/trampoline_platform, platformTrampoline
+resources/trampoline.png, trampoline
+resources/spring_platform.png, platformSpring
+resources/shield.png, specialShield
+resources/red_platform, platformRed
+resources/red_monster.png, monsterRed
+resources/purple_monster.png, monsterPurple
+resources/light_blue_platform, platformLightBlue
+resources/green_platform.png, platformGreen
+resources/green_monster.png, monsterGreen
+resources/green_flying_monster.png, monsterGreenFlying
+resources/gray_platform.png, platformGray
+resources/doodle_right.png, doodleRight
+resources/doodle_left.png, doodleLeft
+resources/brown_platform_breaking_3.png, platformBreak3
+resources/brown_platform_breaking_2.png, platformBreak2
+resources/brown_platform_breaking_1.png, platformBreak1
+resources/brown_platform.png, platformBreak
+resources/blue_monster.png, monsterBlue
+resources/blue_flying_monster.png, monsterBlueFlying
+resources/background.ong/backgroundImg
+resources/white_platform.png/platformWhite
