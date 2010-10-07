@@ -90,7 +90,7 @@ public class Jumper extends vooga.engine.core.Game {
     	double randomYVelocity = myRandom.nextDouble();
     	
     	if (randomBlockOccurance < BLOCK_FREQUENCY){
-        	myBlocks.add(new MovingSprite(ResourceHandler.getImage("crop"), new Point ((int) ( getWidth() * randomXLocation), GAME_HEIGHT - 100), new Point((int) ((randomXVelocity * 5) - 5), (int)(randomYVelocity - 0.5)*5)));
+        	myBlocks.add(new MovingSprite(ResourceHandler.getImage("platformGreen"), new Point ((int) ( getWidth() * randomXLocation), GAME_HEIGHT), new Point((int) ((randomXVelocity * 5)-2.5), (int)(randomYVelocity *-5))));
     	}
     }
 
