@@ -35,11 +35,6 @@ public class Zombieland extends Game {
 	private BufferedImage[] zombieLeftImage;
 	private BufferedImage[] zombieRightImage;
 
-	private AnimatedSprite zombieUp;
-	private AnimatedSprite zombieDown;
-	private AnimatedSprite zombieLeft;
-	private AnimatedSprite zombieRight;
-
 	private double defaultX = 100;
 	private double defaultY = 100;
 
@@ -83,17 +78,6 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
 
-		/*
-		 * The animated sprites for zombies are stored in the variables below
-		 * because they will be reused every time a new zombie is created. This
-		 * avoids having to call the getInitializedAnimatedSprite() method 4
-		 * times every time a new zombie is created
-		 */
-		zombieUp = getInitializedAnimatedSprite(zombieUpImage);
-		zombieDown = getInitializedAnimatedSprite(zombieDownImage);
-		zombieLeft = getInitializedAnimatedSprite(zombieLeftImage);
-		zombieRight = getInitializedAnimatedSprite(zombieRightImage);
-
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
 		player = new Shooter("Hero", "Down", shooterImage, 100, 0);
 		player.mapNameToSprite("Up",getInitializedAnimatedSprite(playerUpImage));
@@ -124,25 +108,11 @@ public class Zombieland extends Game {
 	}
 
 	public void addZombie() {
-		//option1 works perfectly
-//		Zombie newZombie = new Zombie("New", "Moving", getInitializedAnimatedSprite(zombieDownImage), getInitializedAnimatedSprite(zombieUpImage), getInitializedAnimatedSprite(zombieLeftImage), getInitializedAnimatedSprite(zombieRightImage), player);
-
-		//option 2 works, no spawn, no sliding problem, no deleting problem
-		Zombie newZombie = new Zombie("New", "Moving", getInitializedAnimatedSprite(zombieDownImage), player);
-		newZombie.mapNameToSprite("Up", getInitializedAnimatedSprite(zombieUpImage));
-		newZombie.mapNameToSprite("Left", getInitializedAnimatedSprite(zombieLeftImage));
-		newZombie.mapNameToSprite("Right",getInitializedAnimatedSprite(zombieRightImage));
-		newZombie.mapNameToSprite("Down", getInitializedAnimatedSprite(zombieDownImage));
-		
-		//option 3 no spawn, sliding, zigzag, deleting
-//		Zombie newZombie = new Zombie("New", "Moving", zombieDown, zombieUp, zombieLeft, zombieRight, player);
-		
-		//option 4 no spawn, sliding, zigzag, deleting
-//		Zombie newZombie = new Zombie("New", "Moving", zombieDown, player);
-//		newZombie.mapNameToSprite("Up", zombieUp);
-//		newZombie.mapNameToSprite("Left", zombieLeft);
-//		newZombie.mapNameToSprite("Right", zombieRight);
-//		newZombie.mapNameToSprite("Down", zombieDown);
+		Zombie newZombie = new Zombie("New", "Moving", 
+				getInitializedAnimatedSprite(zombieDownImage), 
+				getInitializedAnimatedSprite(zombieUpImage), 
+				getInitializedAnimatedSprite(zombieLeftImage), 
+				getInitializedAnimatedSprite(zombieRightImage), player);
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
 		zombies.add(newZombie);

@@ -10,13 +10,7 @@ public class Zombie extends PlayerSprite {
 	private double yTarget;
 	private String targetDirection;
 	private double speed;
-	
-	public Zombie(String name, String stateName, AnimatedSprite s, Shooter hero) {
-		super(name, stateName, s);
-		target = hero;
-		targetDirection = "X";
-		speed = -0.25;
-	}
+
 	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
 			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
 		super(name, stateName, down);
