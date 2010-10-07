@@ -15,6 +15,7 @@ public class Boomer extends VolatileSprite {
 	public static final int BOOMER_BLUE = 0;
 	public static final int BOOMER_YELLOW = 1;
 	public static final int BOOMER_RED = 2;
+	public static final int SCORE_VALUE = 50;
 	
 	private int myColor;
 	
@@ -34,6 +35,15 @@ public class Boomer extends VolatileSprite {
 		} else {
 			this.myColor++;
 		}
+	}
+	
+	/**
+	 * Returns the point value of this enemy.
+	 * @return
+	 */
+	public int getScoreValue()
+	{
+		return SCORE_VALUE;
 	}
 	
 	
