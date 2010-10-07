@@ -67,7 +67,7 @@ public class Grandius extends Game{
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 	}
 	
-	public void initResources() {
+	public void initResources() { 
 		//Load the resourcelist.txt file to initialize resource mappings.
 		try {
         	ResourceHandler.loadFile("resources/resourcelist.txt");
@@ -231,6 +231,18 @@ public class Grandius extends Game{
 	
 	public PlayField getPlayfield() {
 		return this.myPlayfield;
+	}
+	
+	public void updatePlayerLives(){
+		int playerLives = playersprite.getLives();
+		if(playerLives>1){
+			playersprite.setLives(playerLives-1);			
+		}
+		else{
+			playersprite.setActive(false);
+			//TODO - modify this - add an end game screen, etc
+			this.stop();
+		}
 	}
 	
 	public static void main(String[] args) {
