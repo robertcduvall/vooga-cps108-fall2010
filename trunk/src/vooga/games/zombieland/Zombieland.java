@@ -136,6 +136,7 @@ public class Zombieland extends Game {
 		playfield.setBackground(background);
 		setListeners();
 		
+		
 		//Here's are the managers in use.
 		zombieZombieManager = new ZZCollisionManager();
 		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
