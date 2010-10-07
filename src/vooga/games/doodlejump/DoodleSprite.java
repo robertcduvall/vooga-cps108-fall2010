@@ -65,7 +65,7 @@ public class DoodleSprite extends PlayerSprite {
 			BufferedImage ballImage = ImageIO.read(new File("src/vooga/games/doodlejump/images/ball.png")); 
 			ball = new BallSprite("ball", "flying", new Sprite(ballImage, getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY() - ballImage.getHeight()));
 			ballMade = true;
-			ball.setVerticalSpeed(0.7);
+			ball.setVerticalSpeed(-0.7);
 		}
 		catch(Exception e){
 			System.out.println(e);
