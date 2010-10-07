@@ -23,7 +23,7 @@ import java.awt.image.BufferedImage;
  * addObject(scorebar,10,10);
  * </code> 
  * 
- * @author Andrew Bown
+ * @author Andrew Brown
  * 
  */
 public class OverlayBar extends Overlay {
