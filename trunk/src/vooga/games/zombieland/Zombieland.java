@@ -40,6 +40,9 @@ public class Zombieland extends Game {
 
 	private ZZCollisionManager zombieZombieManager;
 	
+	//do I need this?
+	private SpriteGroup zombies2;
+	
 	public void initResources() {
 
 		playerDownImage = new BufferedImage[] {
@@ -88,6 +91,7 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
 		zombies = new SpriteGroup("Zombies");
+		zombies2 = new SpriteGroup("Zombies2");
 		playfield = new PlayField();
 		control = new KeyboardControl(player, this);
 		background = new ColorBackground(Color.white);
@@ -100,7 +104,7 @@ public class Zombieland extends Game {
 		
 		//Here's the manager in use.
 		zombieZombieManager = new ZZCollisionManager();
-		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
+		playfield.addCollisionGroup(zombies, zombies2, zombieZombieManager);
 	}
 
 	public void update(long elapsedTime) {
@@ -122,6 +126,7 @@ public class Zombieland extends Game {
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
 		zombies.add(newZombie);
+		zombies2.add(newZombie);
 	}
 
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
