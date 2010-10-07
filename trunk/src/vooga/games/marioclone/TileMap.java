@@ -71,16 +71,16 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
-					tiles.add(new IndestructibleTile(j,k,(Image) ResourceHandler.getMapping("Indestructible")));
+					tiles.add(new IndestructibleTile(j,k,ResourceHandler.getImage("Indestructible")));
 					break;
 				case('B'):
-					tiles.add(new BreakTile(j,k,(Image) ResourceHandler.getMapping("Break")));
+					tiles.add(new BreakTile(j,k,ResourceHandler.getImage("Break")));
 					break;	
 				case('C'):
 					List<Image> changingImages = new ArrayList<Image>();
-					changingImages.add((Image) ResourceHandler.getMapping("Changing1"));
-					changingImages.add((Image) ResourceHandler.getMapping("Changing2"));
-					changingImages.add((Image) ResourceHandler.getMapping("Changing3"));
+					changingImages.add(ResourceHandler.getImage("Changing1"));
+					changingImages.add(ResourceHandler.getImage("Changing2"));
+					changingImages.add(ResourceHandler.getImage("Changing3"));
 					tiles.add(new ChangingTile(j,k,changingImages));
 					break;
 				}
