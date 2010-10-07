@@ -34,6 +34,9 @@ public class Zombieland extends Game {
 	private BufferedImage[] upzombie;
 	private BufferedImage[] leftzombie;
 	private BufferedImage[] rightzombie;
+	
+	private double defaultX=100;
+	private double defaultY=100;
 
 	public void initResources() {
 		downplayer = new BufferedImage[] { getImage("resources/Down1.png"),
@@ -95,15 +98,26 @@ public class Zombieland extends Game {
 	public void update(long elapsedTime) {
 		playfield.update(elapsedTime);
 		control.update();
+		player.update(elapsedTime);
 		zombies.update(elapsedTime);
 		if (counter.action(elapsedTime)) {
-			addZombie();
+			//addZombie();
+			addZombie2();
 		}
 	}
 
 	public void addZombie() {
 		Zombies getZombie = new Zombies("New", "Moving",
-				getInitializedZombieAnimatedSprite(downzombie, 100, 100), player);
+				getInitializedZombieAnimatedSprite(downzombie, defaultX, defaultY), player);
+		zombies.add(getZombie);
+	}
+	
+	public void addZombie2() {
+		Zombie1 getZombie = new Zombie1("New", "Moving",
+				getInitializedZombieAnimatedSprite(upzombie, defaultX, defaultY),
+				getInitializedZombieAnimatedSprite(downzombie, defaultX, defaultY),
+				getInitializedZombieAnimatedSprite(leftzombie, defaultX, defaultY),
+				getInitializedZombieAnimatedSprite(rightzombie, defaultX, defaultY),player);
 		zombies.add(getZombie);
 	}
 
