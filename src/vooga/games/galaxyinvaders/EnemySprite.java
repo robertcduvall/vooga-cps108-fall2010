@@ -6,7 +6,7 @@ import vooga.engine.player.control.GameEntitySprite;
 
 public class EnemySprite extends GameEntitySprite {
 
-	private static final int DEFAULT_HP = 3;
+	private static final int DEFAULT_HP = 2;
 	
 	private int hitPoints;
 	
@@ -17,6 +17,9 @@ public class EnemySprite extends GameEntitySprite {
 	
 	public void update(long time) {
 		super.update(time);
+		if(hitPoints < 2) {
+			setToCurrentSprite("damaged");
+		}
 		if(hitPoints <= 0) {
 			setActive(false);
 		}

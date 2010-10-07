@@ -11,6 +11,7 @@ public class TorpedoPlayerCollider extends BasicCollisionGroup {
 	
 	public TorpedoPlayerCollider(Game game) {
 		g = game;
+		pixelPerfectCollision = true;
 	}
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
