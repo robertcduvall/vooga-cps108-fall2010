@@ -13,22 +13,21 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 public class ZZCollisionManager extends PreciseCollisionGroup{
 
 	
-	
 	public void collided(Sprite zombie1, Sprite zombie2) {
 		
-		zombie1 = (Zombies) zombie1;
-		zombie2 = (Zombies) zombie2;
+		zombie1 = (Zombie) zombie1;
+		zombie2 = (Zombie) zombie2;
 		
 		collided(zombie1, zombie2);
 	}
 	
-	private void collided(Zombies z1, Zombies z2)
+	private void collided(Zombie z1, Zombie z2)
 	{
 		int collisionside = getCollisionSide();
 		actOnCollisionSide(collisionside, z1, z2);
 	}
 	
-	private void actOnCollisionSide (int collisionside, Zombies z1, Zombies z2)
+	private void actOnCollisionSide (int collisionside, Zombie z1, Zombie z2)
 	{
 		if( collisionside == BOTTOM_TOP_COLLISION)
 			bottomTopCollision(z1, z2);
@@ -46,30 +45,72 @@ public class ZZCollisionManager extends PreciseCollisionGroup{
 		revertPosition2();
 	}
 	
-	private void leftRightCollision(Zombies z1, Zombies z2)
+	
+	//although leftRightCollision and rightleftcollision may seem redundant..b/c same code,
+	//there's subtle problem. If you pass in a right zombie in a leftRightCollision param
+	//left, then when you call on left.setToCurrentSprite("Right"), the zombie still maintains
+	//it's current sprite (assuming it's facing right)
+	private void leftRightCollision(Zombie left, Zombie right)
 	{
 		revert();
 		
+		left.setToCurrentSprite("Right");
+		double leftVelocity = left.getHorizontalSpeed();
+		leftVelocity = -leftVelocity;
+		left.move(-leftVelocity, 0);
 		
+		right.setToCurrentSprite("Left");
+		double rightVelocity = right.getHorizontalSpeed();
+		rightVelocity = -rightVelocity;
+		right.move(-rightVelocity, 0);
 		
 	}
 	
-	private void rightLeftCollision(Zombies z1, Zombies z2)
+	private void rightLeftCollision(Zombie right, Zombie left)
 	{
 		revert();
+		
+		left.setToCurrentSprite("Right");
+		double leftVelocity = left.getHorizontalSpeed();
+		leftVelocity = -leftVelocity;
+		left.move(-leftVelocity, 0);
+		
+		right.setToCurrentSprite("Left");
+		double rightVelocity = right.getHorizontalSpeed();
+		rightVelocity = -rightVelocity;
+		right.move(-rightVelocity, 0);
+			
+	}
+	
+	private void topBottomCollision(Zombie top, Zombie bottom)
+	{
+		revert();
+		
+		top.setToCurrentSprite("Down");
+		double topVelocity = top.getVerticalSpeed();
+		topVelocity = -topVelocity;
+		top.move(0, topVelocity);
+		
+		bottom.setToCurrentSprite("Up");
+		double bottomVelocity = bottom.getVerticalSpeed();
+		bottomVelocity = -bottomVelocity;
+		bottom.move(0, bottomVelocity);
 		
 	}
 	
-	private void topBottomCollision(Zombies z1, Zombies z2)
+	private void bottomTopCollision(Zombie bottom, Zombie top)
 	{
 		revert();
 		
-	}
-	
-	private void bottomTopCollision(Zombies z1, Zombies z2)
-	{
-		revert();
+		top.setToCurrentSprite("Down");
+		double topVelocity = top.getVerticalSpeed();
+		topVelocity = -topVelocity;
+		top.move(0, topVelocity);
 		
+		bottom.setToCurrentSprite("Up");
+		double bottomVelocity = bottom.getVerticalSpeed();
+		bottomVelocity = -bottomVelocity;
+		bottom.move(0, bottomVelocity);
 		
 	}
 }
