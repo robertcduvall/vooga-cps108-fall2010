@@ -117,19 +117,32 @@ public class Zombieland extends Game {
 		playfield.update(elapsedTime);
 		control.update();
 		player.update(elapsedTime);
-//		zombies.update(elapsedTime);
+		zombies.update(elapsedTime);
 		if (counter.action(elapsedTime)) {
 			addZombie();
 		}
 	}
 
 	public void addZombie() {
+		//option1 works perfectly
+		Zombie newZombie = new Zombie("New", "Moving", getInitializedAnimatedSprite(zombieDownImage), getInitializedAnimatedSprite(zombieUpImage), getInitializedAnimatedSprite(zombieLeftImage), getInitializedAnimatedSprite(zombieRightImage), player);
+
+		//option 2 works, no spawn, no sliding problem, no deleting problem
 //		Zombie newZombie = new Zombie("New", "Moving", zombieDown, player);
-		Zombie newZombie = new Zombie("New", "Moving", zombieDown, zombieUp, zombieLeft, zombieRight, player);
-		// newZombie.mapNameToSprite("Up", zombieUp);
-		// newZombie.mapNameToSprite("Left", zombieLeft);
-		// newZombie.mapNameToSprite("Right", zombieRight);
-		// newZombie.mapNameToSprite("Down", zombieDown);
+//		newZombie.mapNameToSprite("Up", getInitializedAnimatedSprite(zombieUpImage));
+//		newZombie.mapNameToSprite("Left", getInitializedAnimatedSprite(zombieLeftImage));
+//		newZombie.mapNameToSprite("Right",getInitializedAnimatedSprite(zombieRightImage));
+//		newZombie.mapNameToSprite("Down", getInitializedAnimatedSprite(zombieDownImage));
+		
+		//option 3 no spawn, sliding, zigzag, deleting
+//		Zombie newZombie = new Zombie("New", "Moving", zombieDown, zombieUp, zombieLeft, zombieRight, player);
+		
+		//option 4 no spawn, sliding, zigzag, deleting
+//		Zombie newZombie = new Zombie("New", "Moving", zombieDown, player);
+//		newZombie.mapNameToSprite("Up", zombieUp);
+//		newZombie.mapNameToSprite("Left", zombieLeft);
+//		newZombie.mapNameToSprite("Right", zombieRight);
+//		newZombie.mapNameToSprite("Down", zombieDown);
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
 		zombies.add(newZombie);

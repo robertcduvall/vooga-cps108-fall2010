@@ -20,10 +20,10 @@ public class Zombie extends PlayerSprite {
 	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
 			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
 		super(name, stateName, down);
-		 this.mapNameToSprite("Up", up);
-		 this.mapNameToSprite("Left", left);
-		 this.mapNameToSprite("Right", right);
-		 this.mapNameToSprite("Down", down);
+		this.mapNameToSprite("Up", up);
+		this.mapNameToSprite("Left", left);
+		this.mapNameToSprite("Right", right);
+		this.mapNameToSprite("Down", down);
 		target = hero;
 		targetDirection = "X";
 		speed = -0.25;
@@ -62,6 +62,6 @@ public class Zombie extends PlayerSprite {
 				setToCurrentSprite("Down");
 			}
 		}
-		//super.update(elapsedTime);
+		super.update(elapsedTime);
 	}
 }
