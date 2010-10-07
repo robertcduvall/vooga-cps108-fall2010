@@ -62,13 +62,20 @@ public class Grandius extends Game{
 	public Grandius()
 	{
 		myOverlayPanel = new OverlayPanel(this, true);
-		livesIcon = new OverlayStatImage(getImage(ResourceHandler.getMapping("PlayerShipSingle")));
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 	}
 	
 	public void initResources() {
+		//Load the resourcelist.txt file to initialize resource mappings.
+		try {
+        	ResourceHandler.loadFile("resources/resourcelist.txt");
+        } catch (IOException e) {
+        	
+        }
+
+		livesIcon = new OverlayStatImage(getImage(ResourceHandler.getMapping("PlayerShipSingle")));
 		OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
@@ -79,13 +86,6 @@ public class Grandius extends Game{
 		
 		myOverlayPanel.initialize();
 		
-		//Load the resourcelist.txt file to initialize resource mappings.
-		try {
-        	ResourceHandler.loadFile("resources/resourcelist.txt");
-        } catch (IOException e) {
-        	
-        }
-        
 		myPlayfield = new PlayField();
 		
 		//TODO Scrolling background
