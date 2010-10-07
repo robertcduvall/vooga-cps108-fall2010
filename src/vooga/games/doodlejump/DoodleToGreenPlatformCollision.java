@@ -12,12 +12,12 @@ public class DoodleToGreenPlatformCollision extends BasicCollisionGroup {
 		pixelPerfectCollision = true;
 	}
 
-	public void collided(Sprite doodle, Sprite green_paddle) {
+	public void collided(Sprite doodle, Sprite green_platform) {
 		
 		/*
 		 * Borrowed Code from http://forums.sun.com/thread.jspa?threadID=5320753
 		 */
-		if(doodle.getVerticalSpeed() > 0 && doodle.getY() + doodle.getHeight() - 15 < green_paddle.getY()){
+		if(doodle.getVerticalSpeed() > 0 && doodle.getY() + doodle.getHeight() - 15 < green_platform.getY()){
 			URL jump_url = getClass().getResource("sounds/jump_sound.wav");
 			doodle.setVerticalSpeed(-0.5);
 	        AudioClip clip = java.applet.Applet.newAudioClip(jump_url);

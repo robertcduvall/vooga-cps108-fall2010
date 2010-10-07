@@ -10,8 +10,13 @@ public class DoodleToMonsterCollision extends BasicCollisionGroup {
 	}
 
 	public void collided(Sprite doodle, Sprite monster) {
-
-		doodle.setActive(false);
-		monster.setActive(false);
+		if(doodle.getVerticalSpeed() < 0){
+			doodle.setActive(false);
+			monster.setActive(false);
+		}
+		else{
+			doodle.setVerticalSpeed(-0.5);
+			monster.setActive(false);
+		}
 	}
 }
