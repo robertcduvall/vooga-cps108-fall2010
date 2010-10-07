@@ -33,4 +33,12 @@ public class StatInt{
 		myStat = i;
 	}
 
+	
+	public void addTo(int i){
+		myStat += i;
+	}
+	
+	public void subtractFrom(int i){
+		myStat -= i;
+	}
 }
