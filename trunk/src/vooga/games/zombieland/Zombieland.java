@@ -77,10 +77,10 @@ public class Zombieland extends Game {
 
 		zombies = new SpriteGroup("Zombies");
 		player = new Shooter("Hero", "Down", shooterImage, 100, 0);
-		player.mapNameToSprite("Up", getInitializedShooterAnimatedSprite(upplayer));
-		player.mapNameToSprite("Left", getInitializedShooterAnimatedSprite(leftplayer));
-		player.mapNameToSprite("Right", getInitializedShooterAnimatedSprite(rightplayer));
-		player.mapNameToSprite("Down", getInitializedShooterAnimatedSprite(downplayer));
+		player.mapNameToSprite("Up", getInitializedAnimatedSprite(upplayer));
+		player.mapNameToSprite("Left", getInitializedAnimatedSprite(leftplayer));
+		player.mapNameToSprite("Right", getInitializedAnimatedSprite(rightplayer));
+		player.mapNameToSprite("Down", getInitializedAnimatedSprite(downplayer));
 		
 //		zombie1 = new Zombies("First", "Moving", zombieImage, player);
 //		zombies.add(zombie1);
@@ -109,29 +109,33 @@ public class Zombieland extends Game {
 
 	public void addZombie() {
 		Zombies getZombie = new Zombies("New", "Moving",
-				getInitializedZombieAnimatedSprite(downzombie, defaultX, defaultY), player);
+				getInitializedAnimatedSprite(downzombie), player);
+		getZombie.setX(defaultX);
+		getZombie.setY(defaultY);
 		zombies.add(getZombie);
 	}
 	
 	public void addZombie2() {
 		Zombie1 getZombie = new Zombie1("New", "Moving",
-				getInitializedZombieAnimatedSprite(upzombie, defaultX, defaultY),
-				getInitializedZombieAnimatedSprite(downzombie, defaultX, defaultY),
-				getInitializedZombieAnimatedSprite(leftzombie, defaultX, defaultY),
-				getInitializedZombieAnimatedSprite(rightzombie, defaultX, defaultY),player);
+				getInitializedAnimatedSprite(upzombie),
+				getInitializedAnimatedSprite(downzombie),
+				getInitializedAnimatedSprite(leftzombie),
+				getInitializedAnimatedSprite(rightzombie),player);
+		getZombie.setX(100);
+		getZombie.setY(100);
 		zombies.add(getZombie);
 	}
 
-	private AnimatedSprite getInitializedShooterAnimatedSprite(BufferedImage[] images) {
+	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
-		initializeAnimatedSprite(sprite,100);
+		initializeAnimatedSprite(sprite,300);
 		return sprite;
 	}
 
-	private AnimatedSprite getInitializedZombieAnimatedSprite(BufferedImage[] images,
-			double x, double y) {
-		AnimatedSprite sprite = new AnimatedSprite(images, x, y);
-		initializeAnimatedSprite(sprite,500);
+	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images,
+			long delay) {
+		AnimatedSprite sprite = new AnimatedSprite(images);
+		initializeAnimatedSprite(sprite,delay);
 		return sprite;
 	}
 
