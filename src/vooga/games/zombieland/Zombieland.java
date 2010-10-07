@@ -23,6 +23,7 @@ public class Zombieland extends Game {
 	private Shooter player;
 	
 	private SpriteGroup zombies;
+	private SpriteGroup players;
 	private SpriteGroup bullets;
 	
 	private PlayField playfield;
@@ -39,13 +40,18 @@ public class Zombieland extends Game {
 	private BufferedImage[] zombieLeftImage;
 	private BufferedImage[] zombieRightImage;
 	
+	private BufferedImage[] zombieAttackFromAboveImage;
+	private BufferedImage[] zombieAttackFromBelowImage;
+	private BufferedImage[] zombieAttackFromLeftImage;
+	private BufferedImage[] zombieAttackFromRightImage;
+	
 	private BufferedImage bulletImage;
 
 	private double defaultX = 100;
 	private double defaultY = 100;
 
 	private ZZCollisionManager zombieZombieManager;
-	
+	private HZCollisionManager humanZombieManager;
 
 	
 	public void initResources() {
@@ -88,6 +94,23 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
 
+		zombieAttackFromAboveImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromAbove1.png"),
+				getImage("resources/ZombieAttackFromAbove2.png"),
+				getImage("resources/ZombieAttackFromAbove3.png") };
+		zombieAttackFromBelowImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromBelow1.png"),
+				getImage("resources/ZombieAttackFromBelow2.png"),
+				getImage("resources/ZombieAttackFromBelow3.png") };
+		zombieAttackFromLeftImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromLeft1.png"),
+				getImage("resources/ZombieAttackFromLeft2.png"),
+				getImage("resources/ZombieAttackFromLeft3.png") };
+		zombieAttackFromRightImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromRight1.png"),
+				getImage("resources/ZombieAttackFromRight2.png"),
+				getImage("resources/ZombieAttackFromRight3.png") };
+		
 		bulletImage = getImage("resources/bullet.png");
 		
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
@@ -97,6 +120,8 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
+		
+		
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
 		
@@ -111,10 +136,14 @@ public class Zombieland extends Game {
 		playfield.setBackground(background);
 		setListeners();
 		
-		//Here's the manager in use.
-//		zombieZombieManager = new ZZCollisionManager();
-//		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
-		
+		//Here's are the managers in use.
+		zombieZombieManager = new ZZCollisionManager();
+		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
+
+		humanZombieManager = new HZCollisionManager();
+		players = new SpriteGroup("Players");
+		players.add(player);
+		playfield.addCollisionGroup(players , zombies, humanZombieManager);
 	}
 
 	public void update(long elapsedTime) {
@@ -137,6 +166,16 @@ public class Zombieland extends Game {
 				getInitializedAnimatedSprite(zombieUpImage), 
 				getInitializedAnimatedSprite(zombieLeftImage), 
 				getInitializedAnimatedSprite(zombieRightImage), player);
+		
+		newZombie.mapNameToSprite("AttackFromLeft" , 
+									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
+		newZombie.mapNameToSprite("AttackFromRight" ,
+									getInitializedAnimatedSprite(zombieAttackFromRightImage));
+		newZombie.mapNameToSprite("AttackFromAbove" ,
+									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
+		newZombie.mapNameToSprite("AttackFromBelow" , 
+									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
+		
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
 		zombies.add(newZombie);

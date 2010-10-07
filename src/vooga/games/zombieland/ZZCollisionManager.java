@@ -36,10 +36,14 @@ public class ZZCollisionManager extends PreciseCollisionGroup{
 			rightLeftCollision(z1, z2);
 	}
 	
+	/*
+	 * This is really messing me up. Can you find an algorithm online that prevents 
+	 * overstacking
+	 */
 	private void revert()
 	{
-		revertPosition1();
-		revertPosition2();
+		//revertPosition1();
+		//revertPosition2();
 	}
 	
 	
