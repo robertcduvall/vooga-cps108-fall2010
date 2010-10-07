@@ -61,6 +61,16 @@ public abstract class GameEntitySprite extends Sprite {
 	public void mapNameToSprite(String state, Sprite sp) {
 		mySprites.put(state, sp);
 	}
+	
+	/**
+	 * This method returns my currentSprite. Beware that the currentSprite may change
+	 * @return Sprite
+	 */
+	
+	public Sprite getCurrentSprite()
+	{
+		return myCurrentSprite;
+	}
 
 	/**
 	 * 

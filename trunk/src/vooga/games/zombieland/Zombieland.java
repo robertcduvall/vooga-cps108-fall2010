@@ -39,6 +39,7 @@ public class Zombieland extends Game {
 	private double defaultY=100;
 
 	public void initResources() {
+		
 		downplayer = new BufferedImage[] { getImage("resources/Down1.png"),
 				getImage("resources/Down2.png"),
 				getImage("resources/Down3.png"),
