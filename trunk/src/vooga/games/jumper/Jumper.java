@@ -40,7 +40,7 @@ public class Jumper extends vooga.engine.core.Game {
 
         private final static int GAME_WIDTH = 600;
         private final static int GAME_HEIGHT = 480;
-        private final double BLOCK_FREQUENCY = 0.1;
+        private final double BLOCK_FREQUENCY = 0.01;
         
         private String jumperDirectory;
                
@@ -80,12 +80,18 @@ public class Jumper extends vooga.engine.core.Game {
     public static int getGameHeight() {
         return GAME_HEIGHT;
     }
-    
+
+	//TODO:refactor the hell out of this method
     public void createNewBlocks(){
-    	Random myRandom = new Random(1);
-    	//if (ran < BLOCK_FREQUENCY){
-        //	myBlocks.add(new MovingSprite(ResourceHandler.getImage("crop"), new Point ((getWidth() / 2), 400), new Point(0, -3)));
-    	//}
+    	Random myRandom = new Random();
+    	double randomBlockOccurance = myRandom.nextDouble();
+    	double randomXLocation = myRandom.nextDouble();
+    	double randomXVelocity = myRandom.nextDouble();
+    	double randomYVelocity = myRandom.nextDouble();
+    	
+    	if (randomBlockOccurance < BLOCK_FREQUENCY){
+        	myBlocks.add(new MovingSprite(ResourceHandler.getImage("crop"), new Point ((int) ( getWidth() * randomXLocation), GAME_HEIGHT - 100), new Point((int) ((randomXVelocity * 5) - 5), (int)(randomYVelocity - 0.5)*5)));
+    	}
     }
 
     public void update(long elapsedTime) {
