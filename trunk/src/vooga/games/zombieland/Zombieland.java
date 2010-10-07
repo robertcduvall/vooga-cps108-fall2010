@@ -38,6 +38,8 @@ public class Zombieland extends Game {
 	private double defaultX = 100;
 	private double defaultY = 100;
 
+	private ZZCollisionManager zombieZombieManager;
+	
 	public void initResources() {
 
 		playerDownImage = new BufferedImage[] {
@@ -95,6 +97,10 @@ public class Zombieland extends Game {
 		playfield.addGroup(zombies);
 		playfield.setBackground(background);
 		setListeners();
+		
+		//Here's the manager in use.
+		zombieZombieManager = new ZZCollisionManager();
+		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
 	}
 
 	public void update(long elapsedTime) {
