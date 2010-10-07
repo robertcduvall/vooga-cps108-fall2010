@@ -22,6 +22,7 @@ import com.golden.gamedev.object.collision.*;
 import com.golden.gamedev.object.sprite.*;
 
 import vooga.engine.overlay.*;
+import vooga.games.grandius.collisions.PlayerEnemyCollision;
 
 public class Grandius extends Game{
 
@@ -36,6 +37,7 @@ public class Grandius extends Game{
 	private SpriteGroup PLAYER_GROUP;
 	private SpriteGroup PROJECTILE_GROUP;
 	private SpriteGroup ENEMY_GROUP;
+	private SpriteGroup BOSS_GROUP;
 
 	private Sprite shipsprite;
 	private PlayerSprite playersprite;
@@ -44,7 +46,7 @@ public class Grandius extends Game{
 	
 //	private ShipSprite myShip;
 	
-	private ProjectileEnemyCollision2 collision;
+	private PlayerEnemyCollision collision;
 	
 	private OverlayPanel myOverlayPanel;
 	private OverlayStatImage livesIcon;
@@ -53,6 +55,8 @@ public class Grandius extends Game{
 	private Stat<Integer> myCash;
 	
 	private GameFont font;
+	private double playerInitialX;
+	private double playerInitialY;
 	
 	/**
 	 * Initializes the lives, score, and
@@ -69,6 +73,9 @@ public class Grandius extends Game{
 	
 	public void initResources() { 
 		Resources.setGame(this);
+		//TODO : assign appropriate values to playerInitialY and playerInitialX
+		playerInitialX = 5;
+		playerInitialY = 5;
 		//Load the resourcelist.txt file to initialize resource mappings.
 		try {
         	Resources.loadFile("src/vooga/games/grandius/resources/resourcelist.txt");
@@ -112,6 +119,7 @@ public class Grandius extends Game{
 		PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
 		PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
 		ENEMY_GROUP = myPlayfield.addGroup(new SpriteGroup("Enemy"));
+		BOSS_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
 
 		PLAYER_GROUP.add(playersprite);
 
@@ -141,9 +149,9 @@ public class Grandius extends Game{
 
 
 		// register collision
-		collision = new ProjectileEnemyCollision2(this);
+		collision = new PlayerEnemyCollision(this);
 		// register collision to playfield
-		myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, collision);
+		myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
 
 
 //		font = fontManager.getFont(getImages("resources/font.png", 20, 3),
@@ -169,7 +177,7 @@ public class Grandius extends Game{
 
 	@Override
 	public void update(long elapsedTime) {
-		
+		updatePlayerSpeed();
 		for(Overlay overlay : myOverlayPanel.getOverlays())
 		{
 			overlay.update(elapsedTime);
@@ -222,6 +230,24 @@ public class Grandius extends Game{
 //		myBackground.setToCenter(myShip.getSprite());
 	}
 	
+	private void updatePlayerSpeed() {
+		// TODO avoid repeated code here
+		playersprite.setHorizontalSpeed(0);
+		playersprite.setVerticalSpeed(0);
+		if (keyDown(KeyEvent.VK_LEFT)){
+			playersprite.setHorizontalSpeed(-0.1);
+		}
+		if (keyDown(KeyEvent.VK_RIGHT)){
+			playersprite.setHorizontalSpeed(0.1);
+		}
+		if (keyDown(KeyEvent.VK_DOWN)){
+			playersprite.setVerticalSpeed(0.1);
+		}
+		if (keyDown(KeyEvent.VK_UP)){
+			playersprite.setVerticalSpeed(-0.1);
+		}
+	}
+
 	/**
 	 * Method for adding a value (including negative ones)
 	 * to any Stat<Integer>, primarily for the lives, cash,
@@ -241,7 +267,9 @@ public class Grandius extends Game{
 	public void updatePlayerLives(){
 		int playerLives = playersprite.getLives();
 		if(playerLives>1){
-			playersprite.setLives(playerLives-1);			
+			playersprite.setLocation(playerInitialX, playerInitialY);
+			playersprite.setLives(playerLives-1);
+			System.out.println("lives left: "+playersprite.getLives());
 		}
 		else{
 			playersprite.setActive(false);
