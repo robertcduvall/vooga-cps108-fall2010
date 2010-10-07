@@ -10,6 +10,7 @@ import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 
 public class Zombieland extends Game {
@@ -53,6 +54,9 @@ public class Zombieland extends Game {
 	private ZZCollisionManager zombieZombieManager;
 	private HZCollisionManager humanZombieManager;
 
+	private Stat<Integer> myStat;
+	private OverlayBar scoreBar;
+	private OverlayString scoreString;
 	
 	public void initResources() {
 
@@ -94,22 +98,22 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
 
-		zombieAttackFromAboveImage = new BufferedImage[] {
-				getImage("resources/ZombieAttackFromAbove1.png"),
-				getImage("resources/ZombieAttackFromAbove2.png"),
-				getImage("resources/ZombieAttackFromAbove3.png") };
-		zombieAttackFromBelowImage = new BufferedImage[] {
-				getImage("resources/ZombieAttackFromBelow1.png"),
-				getImage("resources/ZombieAttackFromBelow2.png"),
-				getImage("resources/ZombieAttackFromBelow3.png") };
-		zombieAttackFromLeftImage = new BufferedImage[] {
-				getImage("resources/ZombieAttackFromLeft1.png"),
-				getImage("resources/ZombieAttackFromLeft2.png"),
-				getImage("resources/ZombieAttackFromLeft3.png") };
-		zombieAttackFromRightImage = new BufferedImage[] {
-				getImage("resources/ZombieAttackFromRight1.png"),
-				getImage("resources/ZombieAttackFromRight2.png"),
-				getImage("resources/ZombieAttackFromRight3.png") };
+//		zombieAttackFromAboveImage = new BufferedImage[] {
+//				getImage("resources/ZombieAttackFromAbove1.png"),
+//				getImage("resources/ZombieAttackFromAbove2.png"),
+//				getImage("resources/ZombieAttackFromAbove3.png") };
+//		zombieAttackFromBelowImage = new BufferedImage[] {
+//				getImage("resources/ZombieAttackFromBelow1.png"),
+//				getImage("resources/ZombieAttackFromBelow2.png"),
+//				getImage("resources/ZombieAttackFromBelow3.png") };
+//		zombieAttackFromLeftImage = new BufferedImage[] {
+//				getImage("resources/ZombieAttackFromLeft1.png"),
+//				getImage("resources/ZombieAttackFromLeft2.png"),
+//				getImage("resources/ZombieAttackFromLeft3.png") };
+//		zombieAttackFromRightImage = new BufferedImage[] {
+//				getImage("resources/ZombieAttackFromRight1.png"),
+//				getImage("resources/ZombieAttackFromRight2.png"),
+//				getImage("resources/ZombieAttackFromRight3.png") };
 		
 		bulletImage = getImage("resources/bullet.png");
 		
@@ -120,7 +124,11 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
-		
+		myStat = new Stat<Integer>(player.getHealth());
+		scoreString = new OverlayString("Health: ", Color.BLUE);
+		scoreBar = new OverlayBar(myStat,100);
+		scoreBar.setColor(Color.BLUE);
+		scoreBar.setLocation(75, 10);
 		
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
@@ -151,7 +159,8 @@ public class Zombieland extends Game {
 		playfield.update(elapsedTime);
 		control.update();
 		player.update(elapsedTime);
-		
+		scoreBar.update(elapsedTime);
+		scoreString.update(elapsedTime);
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
 		
@@ -168,14 +177,14 @@ public class Zombieland extends Game {
 				getInitializedAnimatedSprite(zombieLeftImage), 
 				getInitializedAnimatedSprite(zombieRightImage), player);
 		
-		newZombie.mapNameToSprite("AttackFromLeft" , 
-									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
-		newZombie.mapNameToSprite("AttackFromRight" ,
-									getInitializedAnimatedSprite(zombieAttackFromRightImage));
-		newZombie.mapNameToSprite("AttackFromAbove" ,
-									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
-		newZombie.mapNameToSprite("AttackFromBelow" , 
-									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
+//		newZombie.mapNameToSprite("AttackFromLeft" , 
+//									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
+//		newZombie.mapNameToSprite("AttackFromRight" ,
+//									getInitializedAnimatedSprite(zombieAttackFromRightImage));
+//		newZombie.mapNameToSprite("AttackFromAbove" ,
+//									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
+//		newZombie.mapNameToSprite("AttackFromBelow" , 
+//									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
 		
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
@@ -217,6 +226,8 @@ public class Zombieland extends Game {
 
 	public void render(Graphics2D g) {
 		playfield.render(g);
+		scoreBar.render(g);
+		scoreString.render(g);
 	}
 
 	public static void main(String[] args) {
