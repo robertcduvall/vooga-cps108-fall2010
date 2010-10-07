@@ -12,7 +12,8 @@ import com.golden.gamedev.object.Sprite;
 import vooga.engine.player.control.PlayerSprite;
 
 public class DoodleSprite extends PlayerSprite {
-	PlayerSprite ball;
+	private BallSprite ball;
+	private boolean ballMade = false;
 	
 	public DoodleSprite(String name, String stateName, Sprite s) {
 		super(name, stateName, s);
@@ -51,6 +52,10 @@ public class DoodleSprite extends PlayerSprite {
 		super.update(elapsedTime);
 		if (getVerticalSpeed() < 0.5)
 			setVerticalSpeed(getVerticalSpeed() + 0.01);
+		
+		if(ballMade) {
+			ball.update(elapsedTime);
+		}
 	}
 	
 	public void shoot() {
@@ -58,7 +63,8 @@ public class DoodleSprite extends PlayerSprite {
 			BufferedImage image = ImageIO.read(new File("src/vooga/games/doodlejump/images/doodle_up.png"));
 			setNewImage(image);
 			BufferedImage ballImage = ImageIO.read(new File("src/vooga/games/doodlejump/images/ball.png")); 
-			ball = new PlayerSprite("ball", "flying", new Sprite(ballImage, getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY() - ballImage.getHeight()));
+			ball = new BallSprite("ball", "flying", new Sprite(ballImage, getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY() - ballImage.getHeight()));
+			ballMade = true;
 			ball.setVerticalSpeed(0.7);
 		}
 		catch(Exception e){
