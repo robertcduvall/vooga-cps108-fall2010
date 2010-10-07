@@ -157,8 +157,7 @@ public class Zombieland extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new Zombieland(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
-				false);
+		game.setup(new Zombieland(), new Dimension(GAME_WIDTH, GAME_HEIGHT),false);
 		game.start();
 	}
 
