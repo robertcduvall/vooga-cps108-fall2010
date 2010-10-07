@@ -1,6 +1,6 @@
 package vooga.games.marioclone.tiles;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 import vooga.engine.collision.Collidable;
 
@@ -10,9 +10,7 @@ public abstract class Tile implements Collidable {
 	private State state;
 	public enum State {active,inactive,removed};
 	
-	public Tile() {
-		
-	}
+	public Tile() {}
 	
 	public Tile(double x, double y) {
 		this(x,y,State.active);
@@ -34,7 +32,7 @@ public abstract class Tile implements Collidable {
 		return y;
 	}
 	
-	public abstract BufferedImage getImage();
+	public abstract Image getImage();
 
 	public abstract void actOnCollision(Collidable object);
 	
