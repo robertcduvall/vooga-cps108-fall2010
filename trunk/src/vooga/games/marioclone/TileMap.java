@@ -1,6 +1,6 @@
 package vooga.games.marioclone;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,7 +77,7 @@ public class TileMap {
 					tiles.add(new BreakTile(j,k,ResourceHandler.getImage("Break")));
 					break;	
 				case('C'):
-					List<Image> changingImages = new ArrayList<Image>();
+					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
 					changingImages.add(ResourceHandler.getImage("Changing1"));
 					changingImages.add(ResourceHandler.getImage("Changing2"));
 					changingImages.add(ResourceHandler.getImage("Changing3"));

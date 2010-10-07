@@ -1,37 +1,42 @@
 package vooga.games.marioclone.tiles;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import vooga.engine.collision.Collidable;
 
 public class ChangingTile extends Tile {
 	
-	private List<Image> images;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8391351573132210005L;
+	private List<BufferedImage> images;
 	private int curImage;
 	
-	public ChangingTile(double x, double y, Image image) {
+	public ChangingTile(double x, double y, BufferedImage image) {
 		super(x,y);
 		init();
 		this.addImage(image);
 	}
 	
-	public ChangingTile(double x, double y, List<Image> images) {
+	public ChangingTile(double x, double y, List<BufferedImage> images) {
 		super(x,y);
 		init();
 		this.images = images;
 	}
 
 	private void init() {
-		images = new ArrayList<Image>();
+		images = new ArrayList<BufferedImage>();
 	}
 	
-	public void addImage(Image image) {
+	public void addImage(BufferedImage image) {
 		images.add(image);
 	}
 	
-	public void addImages(List<Image> images) {
+	public void addImages(Collection<BufferedImage> images) {
 		this.images.addAll(images);
 	}
 
@@ -41,7 +46,7 @@ public class ChangingTile extends Tile {
 	}
 
 	@Override
-	public Image getImage() {
+	public BufferedImage getImage() {
 		return images.get(curImage);
 	}
 
