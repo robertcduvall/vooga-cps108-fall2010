@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 //VOOGA
 //import vooga.engine.core.Sprite;
@@ -39,11 +40,13 @@ public class Jumper extends vooga.engine.core.Game {
 
         private final static int GAME_WIDTH = 600;
         private final static int GAME_HEIGHT = 480;
+        private final double BLOCK_FREQUENCY = 0.1;
+        
         private String jumperDirectory;
                
         private PlayField myPlayfield;
         
-        private SpriteGroup myBlocks;
+        private SpriteGroup myBlocks = new SpriteGroup("blocks");
         
        /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
@@ -67,6 +70,7 @@ public class Jumper extends vooga.engine.core.Game {
     	myPlayers.add(player1);
     	
     	myPlayfield.addGroup(myPlayers);
+    	myPlayfield.addGroup(myBlocks);
     }
 
     public static int getGameWidth() {
@@ -78,7 +82,10 @@ public class Jumper extends vooga.engine.core.Game {
     }
     
     public void createNewBlocks(){
-//    	myBlocks.add(new MovingSprite(ResourceHandler.getImage("crop"), null, null);)
+    	Random myRandom = new Random(1);
+    	//if (ran < BLOCK_FREQUENCY){
+        //	myBlocks.add(new MovingSprite(ResourceHandler.getImage("crop"), new Point ((getWidth() / 2), 400), new Point(0, -3)));
+    	//}
     }
 
     public void update(long elapsedTime) {
