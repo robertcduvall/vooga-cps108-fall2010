@@ -16,10 +16,7 @@ public class ZZCollisionManager extends PreciseCollisionGroup{
 
 	
 	public void collided(Sprite zombie1, Sprite zombie2) {
-		
-		zombie1 = (Zombie) zombie1;
-		zombie2 = (Zombie) zombie2;
-		
+				
 		actOnCollision(zombie1, zombie2);
 	}
 	
@@ -56,12 +53,12 @@ public class ZZCollisionManager extends PreciseCollisionGroup{
 		((Zombie) left).setToCurrentSprite("Right");
 		double leftVelocity = left.getHorizontalSpeed();
 		leftVelocity = -leftVelocity ;
-		left.move(-leftVelocity, 0);
+		left.move(leftVelocity, 0);
 		
 		((Zombie) right).setToCurrentSprite("Left");
 		double rightVelocity = right.getHorizontalSpeed();
 		rightVelocity = -rightVelocity ;
-		right.move(-rightVelocity, 0);
+		right.move(rightVelocity, 0);
 		
 	}
 	
@@ -72,12 +69,12 @@ public class ZZCollisionManager extends PreciseCollisionGroup{
 		((Zombie) left).setToCurrentSprite("Right");
 		double leftVelocity = left.getHorizontalSpeed();
 		leftVelocity = -leftVelocity ;
-		left.move(-leftVelocity, 0);
+		left.move(leftVelocity, 0);
 		
 		((Zombie) right).setToCurrentSprite("Left");
 		double rightVelocity = right.getHorizontalSpeed();
 		rightVelocity = -rightVelocity ;
-		right.move(-rightVelocity, 0);
+		right.move(rightVelocity, 0);
 			
 	}
 	
