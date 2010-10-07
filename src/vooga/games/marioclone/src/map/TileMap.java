@@ -1,6 +1,6 @@
-package vooga.games.marioclone;
+package vooga.games.marioclone.src.map;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.resource.ResourceHandler;
-import vooga.games.marioclone.tiles.BreakTile;
-import vooga.games.marioclone.tiles.ChangingTile;
-import vooga.games.marioclone.tiles.IndestructibleTile;
-import vooga.games.marioclone.tiles.Tile;
-import vooga.games.marioclone.tiles.Tile.State;
+import vooga.games.marioclone.src.map.tiles.BreakTile;
+import vooga.games.marioclone.src.map.tiles.ChangingTile;
+import vooga.games.marioclone.src.map.tiles.IndestructibleTile;
+import vooga.games.marioclone.src.map.tiles.Tile;
+import vooga.games.marioclone.src.map.tiles.Tile.State;
 
 public class TileMap {
 	List<Tile> tiles;
@@ -71,16 +71,16 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
-					tiles.add(new IndestructibleTile(j,k,(BufferedImage) ResourceHandler.getMapping("Indestructible")));
+					tiles.add(new IndestructibleTile(j,k,(Image) ResourceHandler.getMapping("Indestructible")));
 					break;
 				case('B'):
-					tiles.add(new BreakTile(j,k,(BufferedImage) ResourceHandler.getMapping("Break")));
+					tiles.add(new BreakTile(j,k,(Image) ResourceHandler.getMapping("Break")));
 					break;	
 				case('C'):
-					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
-					changingImages.add((BufferedImage) ResourceHandler.getMapping("Changing1"));
-					changingImages.add((BufferedImage) ResourceHandler.getMapping("Changing2"));
-					changingImages.add((BufferedImage) ResourceHandler.getMapping("Changing3"));
+					List<Image> changingImages = new ArrayList<Image>();
+					changingImages.add((Image) ResourceHandler.getMapping("Changing1"));
+					changingImages.add((Image) ResourceHandler.getMapping("Changing2"));
+					changingImages.add((Image) ResourceHandler.getMapping("Changing3"));
 					tiles.add(new ChangingTile(j,k,changingImages));
 					break;
 				}
