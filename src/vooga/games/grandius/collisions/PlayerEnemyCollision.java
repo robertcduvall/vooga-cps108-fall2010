@@ -1,15 +1,7 @@
 package vooga.games.grandius.collisions;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
-import vooga.engine.player.control.PlayerSprite;
-import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
-import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.collision.BasicCollisionGroup;
-import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**
  * This class takes care of collisions between the player
@@ -20,25 +12,19 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  * and an enemy every time the playfield is updated.
  * @author bhawana
  */
-public class PlayerEnemyCollision extends BasicCollisionGroup {
+public class PlayerEnemyCollision extends BasicCollision{
 
 	private Grandius grandius;
 	
 	public PlayerEnemyCollision(Grandius grandius) {
-		super();
+		super(grandius);
 		this.grandius = grandius;
 	}
 	
 	@Override
 	public void collided(Sprite playerSprite, Sprite commonEnemy) {
-		PlayerSprite player = (PlayerSprite) playerSprite;
+		super.collided(playerSprite, commonEnemy);
 		grandius.updatePlayerLives();
-
-		//TODO - add an explosion sound
-		// make the explosion image stay longer
-		BufferedImage[] images = Resources.getAnimation("Explosion");
-		AnimatedSprite explosion = new VolatileSprite(images, player.getX(), player.getY());
-		grandius.getPlayfield().add(explosion);
 	}
 
 	

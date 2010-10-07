@@ -20,6 +20,7 @@ import com.golden.gamedev.object.sprite.*;
 
 import vooga.engine.overlay.*;
 import vooga.games.grandius.collisions.PlayerEnemyCollision;
+import vooga.games.grandius.collisions.ProjectileEnemyCollision;
 
 public class Grandius extends Game{
 
@@ -27,6 +28,8 @@ public class Grandius extends Game{
 	private static final int INITIAL_PLAYER_RANK = 1;
 	private static final int INITIAL_PLAYER_LIVES = 3;
 	private static final int INITIAL_ZERO = 0;
+	private static final double bulletSpeed = 0.2;
+	private static final double playerSpeed = 0.1;
 	
 	private PlayField myPlayfield;
 	private Background myBackground;
@@ -44,6 +47,7 @@ public class Grandius extends Game{
 //	private ShipSprite myShip;
 	
 	private PlayerEnemyCollision collision;
+	private ProjectileEnemyCollision projectileCollision;
 	
 	private OverlayPanel myOverlayPanel;
 	private OverlayStatImage livesIcon;
@@ -148,8 +152,10 @@ public class Grandius extends Game{
 
 		// register collision
 		collision = new PlayerEnemyCollision(this);
+		projectileCollision = new ProjectileEnemyCollision(this);
 		// register collision to playfield
 		myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
+		myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileCollision);
 
 
 //		font = fontManager.getFont(getImages("resources/font.png", 20, 3),
@@ -176,6 +182,7 @@ public class Grandius extends Game{
 	@Override
 	public void update(long elapsedTime) {
 		updatePlayerSpeed();
+		shootEnemy();
 		for(Overlay overlay : myOverlayPanel.getOverlays())
 		{
 			overlay.update(elapsedTime);
@@ -197,52 +204,64 @@ public class Grandius extends Game{
 //			}
 //		}
 
-		// control the sprite with arrow key
-		double speedY = 0;
-		if (keyDown(KeyEvent.VK_UP))   speedY = -0.3;
-		if (keyDown(KeyEvent.VK_DOWN))  speedY = 0.3;
-//		myShip.getSprite().setVerticalSpeed(speedY);
 
 
-		// firing!!
-		if (keyPressed(KeyEvent.VK_CONTROL)) {
-			// create projectile sprite
-			Sprite projectile = new Sprite(Resources.getImage("Projectile"));
-//			projectile.setLocation(myShip.getSprite().getX()+myShip.getSprite().getWidth(), myShip.getSprite().getY());
-			projectile.setHorizontalSpeed(0.2);
 
-			// add it to PROJECTILE_GROUP
-			PROJECTILE_GROUP.add(projectile);
+//		// firing!!
+//		if (keyPressed(KeyEvent.VK_CONTROL)) {
+//			// create projectile sprite
+//			Sprite projectile = new Sprite(Resources.getImage("Projectile"));
+////			projectile.setLocation(myShip.getSprite().getX()+myShip.getSprite().getWidth(), myShip.getSprite().getY());
+//			projectile.setHorizontalSpeed(0.2);
+//
+//			// add it to PROJECTILE_GROUP
+//			PROJECTILE_GROUP.add(projectile);
+//
+//			// play laser sound
+//			//playSound(Resources.getMapping("Laser"));
+//		}
 
-			// play laser sound
-			//playSound(Resources.getMapping("Laser"));
-		}
 
-
-		// toggle ppc
-		if (keyPressed(KeyEvent.VK_ENTER)) {
-			collision.pixelPerfectCollision = !collision.pixelPerfectCollision;
-		}
+//		// toggle ppc
+//		if (keyPressed(KeyEvent.VK_ENTER)) {
+//			collision.pixelPerfectCollision = !collision.pixelPerfectCollision;
+//		}
 
 
 //		myBackground.setToCenter(myShip.getSprite());
 	}
 	
+	/**
+	 * Use CTRL key to fire a bullet
+	 */
+	private void shootEnemy() {
+		//TODO - add sound
+		if (keyPressed(KeyEvent.VK_CONTROL)) {
+			Sprite projectile = new Sprite(Resources.getImage("Projectile"),playersprite.getX(),playersprite.getY());
+			projectile.setHorizontalSpeed(bulletSpeed);
+			PROJECTILE_GROUP.add(projectile);
+
+			// play laser sound
+			//playSound(Resources.getMapping("Laser"));
+		}
+		
+	}
+
 	private void updatePlayerSpeed() {
 		// TODO avoid repeated code here
 		playersprite.setHorizontalSpeed(0);
 		playersprite.setVerticalSpeed(0);
 		if (keyDown(KeyEvent.VK_LEFT)){
-			playersprite.setHorizontalSpeed(-0.1);
+			playersprite.setHorizontalSpeed(-1*playerSpeed);
 		}
 		if (keyDown(KeyEvent.VK_RIGHT)){
-			playersprite.setHorizontalSpeed(0.1);
+			playersprite.setHorizontalSpeed(playerSpeed);
 		}
 		if (keyDown(KeyEvent.VK_DOWN)){
-			playersprite.setVerticalSpeed(0.1);
+			playersprite.setVerticalSpeed(playerSpeed);
 		}
 		if (keyDown(KeyEvent.VK_UP)){
-			playersprite.setVerticalSpeed(-0.1);
+			playersprite.setVerticalSpeed(-1*playerSpeed);
 		}
 	}
 
@@ -280,6 +299,11 @@ public class Grandius extends Game{
 		GameLoader game = new GameLoader();
 		game.setup(new Grandius(), new Dimension(640,480), false);
 		game.start();
+	}
+
+	public void updateScoreOnCollision() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
