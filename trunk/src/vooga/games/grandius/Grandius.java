@@ -25,8 +25,10 @@ import vooga.engine.overlay.*;
 
 public class Grandius extends Game{
 
-	private static final int INIT_PLAYER_HEALTH = 50;
-	private static final int INIT_PLAYER_RANK = 1;
+	private static final int INITIAL_PLAYER_HEALTH = 50;
+	private static final int INITIAL_PLAYER_RANK = 1;
+	private static final int INITIAL_PLAYER_LIVES = 3;
+	private static final int INITIAL_ZERO = 0;
 	
 	private PlayField myPlayfield;
 	private Background myBackground;
@@ -59,9 +61,9 @@ public class Grandius extends Game{
 	public Grandius()
 	{
 		myOverlayPanel = new OverlayPanel(this, true);
-		myLives = new Stat<Integer>(new Integer(3));
-		myScore = new Stat<Integer>(new Integer(0));
-		myCash = new Stat<Integer>(new Integer(50));
+		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
+		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 	}
 	
 	public void initResources() {
@@ -96,9 +98,10 @@ public class Grandius extends Game{
 		 * that Golden-T is built around, for things like collision detection and being
 		 * able to be added to SpriteGroups, but can also use multiple sprites (and
 		 * different kind of sprites) to represent the entity.
-		 */		//playersprite = new AnimatedSprite(getImages(ResourceHandler.getMapping("PlayerShip"), 3, 1), 0, 300);
+		 */	
+		//playersprite = new AnimatedSprite(getImages(ResourceHandler.getMapping("PlayerShip"), 3, 1), 0, 300);
 		shipsprite = new Sprite(getImage(ResourceHandler.getMapping("PlayerShipSingle")));
-		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INIT_PLAYER_HEALTH, INIT_PLAYER_RANK);
+		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
 		//playersprite.setAnimate(true);
 		//playersprite.setLoopAnim(true);
 		
@@ -108,7 +111,7 @@ public class Grandius extends Game{
 		PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
 		ENEMY_GROUP = myPlayfield.addGroup(new SpriteGroup("Enemy"));
 
-//		PLAYER_GROUP.add(myShip.getSprite());
+		PLAYER_GROUP.add(playersprite);
 
 		Sprite zipster = new AnimatedSprite(getImages(ResourceHandler.getMapping("Zipster"), 2, 1), 400, 400);
 		Sprite boomer = new AnimatedSprite(getImages(ResourceHandler.getMapping("Boomer"), 2, 1), 200, 200);
