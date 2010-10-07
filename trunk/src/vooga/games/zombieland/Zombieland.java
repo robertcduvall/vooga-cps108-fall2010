@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
+import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
 import vooga.engine.player.control.*;
@@ -20,7 +21,10 @@ public class Zombieland extends Game {
 	private AnimatedSprite shooterImage;
 	private Background background;
 	private Shooter player;
+	
 	private SpriteGroup zombies;
+	private SpriteGroup bullets;
+	
 	private PlayField playfield;
 	private Timer counter;
 	private KeyboardControl control;
@@ -34,6 +38,8 @@ public class Zombieland extends Game {
 	private BufferedImage[] zombieDownImage;
 	private BufferedImage[] zombieLeftImage;
 	private BufferedImage[] zombieRightImage;
+	
+	private BufferedImage bulletImage;
 
 	private double defaultX = 100;
 	private double defaultY = 100;
@@ -82,15 +88,18 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
 
+		bulletImage = getImage("resources/bullet.png");
+		
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
-		player = new Shooter("Hero", "Down", shooterImage, 100, 0);
+		player = new Shooter("Hero", "Down", shooterImage, 100, 0,this);
 		player.mapNameToSprite("Up",getInitializedAnimatedSprite(playerUpImage));
 		player.mapNameToSprite("Left",getInitializedAnimatedSprite(playerLeftImage));
 		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
 		zombies = new SpriteGroup("Zombies");
-	
+		bullets = new SpriteGroup("Bullets");
+		
 		playfield = new PlayField();
 		control = new KeyboardControl(player, this);
 		background = new ColorBackground(Color.white);
@@ -98,19 +107,24 @@ public class Zombieland extends Game {
 
 		playfield.add(player);
 		playfield.addGroup(zombies);
+		playfield.addGroup(bullets);
 		playfield.setBackground(background);
 		setListeners();
 		
 		//Here's the manager in use.
-		zombieZombieManager = new ZZCollisionManager();
-		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
+//		zombieZombieManager = new ZZCollisionManager();
+//		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
+		
 	}
 
 	public void update(long elapsedTime) {
 		playfield.update(elapsedTime);
 		control.update();
 		player.update(elapsedTime);
+		
 		zombies.update(elapsedTime);
+		bullets.update(elapsedTime);
+		
 		if (counter.action(elapsedTime)) {
 			addZombie();
 		}
@@ -127,7 +141,12 @@ public class Zombieland extends Game {
 		newZombie.setY(defaultY);
 		zombies.add(newZombie);
 	}
-
+	
+	public void addBullet(Bullet b, double angle) {
+		b.getCurrentSprite().setImage(ImageUtil.rotate(bulletImage, (int) angle));
+		b.setActive(true);
+		bullets.add(b);
+	}
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		initializeAnimatedSprite(sprite, 300);
@@ -153,6 +172,7 @@ public class Zombieland extends Game {
 		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
 	}
 
 	public void render(Graphics2D g) {
