@@ -38,7 +38,7 @@ public class Zombie extends PlayerSprite {
 		}
 	}
 
-	@Override
+	
 	public void update(long elapsedTime) {
 		double direction = getDirection();
 		if (targetDirection.equals("X")) {
@@ -60,4 +60,17 @@ public class Zombie extends PlayerSprite {
 		}
 		super.update(elapsedTime);
 	}
+	
+	public void attackFrom(String fromSide)
+	{
+		setToCurrentSprite(fromSide);
+		
+		//how do you add a timer here?
+		
+	}
+	
+	
+	
+	
+	
 }
