@@ -1,0 +1,27 @@
+package vooga.games.zombieland;
+
+import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.collision.CollisionBounds;
+
+/*
+ * This is the general manager to keep GameEntity inside the game
+ * Author: Jimmy Mu, Aaron Choi, Yang Su
+ */
+
+public class WallBoundManager extends CollisionBounds{
+
+	public WallBoundManager(Background bg) {
+		super(bg);
+
+	}
+	
+	
+
+	@Override
+	public void collided(Sprite arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

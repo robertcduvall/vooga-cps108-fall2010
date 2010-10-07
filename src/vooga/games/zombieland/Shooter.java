@@ -6,6 +6,7 @@ import com.golden.gamedev.Game.*;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
 
+
 public class Shooter extends PlayerSprite {
 
 	private AnimatedSprite currentSprite;
