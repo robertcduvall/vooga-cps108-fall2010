@@ -52,13 +52,4 @@ public class Zombies extends PlayerSprite {
 			}
 		}
 	}
-	
-	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images){
-		AnimatedSprite sprite = new AnimatedSprite(images);
-		sprite.getAnimationTimer().setDelay(100);
-		sprite.setAnimationFrame(0, images.length-1);
-		sprite.setAnimate(true);
-		sprite.setLoopAnim(true);
-		return sprite;
-	}
 }

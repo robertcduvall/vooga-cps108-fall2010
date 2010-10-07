@@ -16,7 +16,6 @@ public class Shooter extends PlayerSprite {
 		super(name, stateName, s, playerHealth, playerRank);
 		currentSprite = s;
 		speed = -1;
-		initiazlizeAnimation(s);
 	}
 
 	private void initiazlizeAnimation(AnimatedSprite s) {
@@ -56,7 +55,13 @@ public class Shooter extends PlayerSprite {
 	}
 
 	private void animateSprite() {
-		currentSprite.setFrame(currentSprite.getStartAnimationFrame());
+		System.out.println(currentSprite.getFrame()+":"+currentSprite.getStartAnimationFrame() +"-" +currentSprite.getFinishAnimationFrame());
+//		if(currentSprite.getFrame()>=currentSprite.getFinishAnimationFrame()) {
+			currentSprite.setFrame(currentSprite.getFrame()+1);
+//		}
+		
+//		currentSprite.setAnimate(true);
+//		currentSprite.setLoopAnim(true);
 	}
 
 }
