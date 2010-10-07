@@ -1,9 +1,7 @@
 package vooga.games.galaxyinvaders;
 
-import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
-
 import vooga.engine.player.control.GameEntitySprite;
 
 public class EnemySprite extends GameEntitySprite {
