@@ -154,6 +154,7 @@ public class Resources {
 		}
 	}
 
+
 	/**
 	 * Adds a new mapping to myMap.
 	 * @param key The String key to add.
@@ -189,4 +190,73 @@ public class Resources {
         return ResourceHandler.class.getClassLoader().
             getResourceAsStream(filename);
     }
+    
+    
+    // alternate loadFile code:
+    
+//	public static void loadFile(URL url) throws IOException {
+//		addDirectory(url.toString());
+//		ArrayList<String> lines = new ArrayList<String>();
+//		int size = 0;
+//		StringTokenizer st;
+//		
+//		System.out.println(url);
+//		if (url == null) {
+//			throw new IOException("No such directory: " + url.toString());
+//		}
+//		BufferedReader reader = new BufferedReader(
+//				new InputStreamReader(url.openStream()));
+//		while (true) {
+//			String line = reader.readLine();
+//			if (line == null) {
+//				reader.close();
+//				break;
+//			}
+//			if (!line.equals("") && !line.startsWith("#")) {
+//				lines.add(line);
+//			}
+//		}
+//		size = lines.size();
+//		for (int y=0; y<size; y++) {
+//			String line = (String)lines.get(y);
+//			line = lines.get(y);
+//			st = new StringTokenizer(line, ",");
+//			String name = st.nextToken();
+//			String filepath = st.nextToken();
+//			ArrayList<String> pathList = new ArrayList<String>();
+//			if (filepath.equals("")) {
+//				System.out.println("Name " + name + "has no filepath associated with it.");
+//			} else {
+//				while(!filepath.equals("")) {
+//					pathList.add(filepath);
+//					if (st.hasMoreTokens())
+//						filepath = st.nextToken();
+//					else
+//						break;
+//				}
+//			}
+//			String[] pathArray = new String[pathList.size()];
+//			for (int i = 0; i < pathList.size(); i++) {
+//				pathArray[i] = pathList.get(i);
+//				System.out.print(pathList.get(i));
+//			}
+//			System.out.println();
+//			loadAnimation(name, pathArray);
+//		}
+//	}
+//	/**
+//	 * Loads a file from a directory string. Adds the directory string to myDirectories,
+//	 * and puts the filepath->Object mappings into myMap. This method handles both
+//	 * Images and "Animations".
+//	 * @param directory The location of the file to load.
+//	 * @throws IOException
+//	 */
+//	public static void loadFile(String directory) throws IOException {
+//		URL url = Resources.class.getClassLoader().getResource(directory);
+//		url = new File(directory).toURI().toURL();
+//		loadFile(url);
+//	}
+//    
+    
+    
 }

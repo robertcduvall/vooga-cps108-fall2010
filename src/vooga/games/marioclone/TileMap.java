@@ -5,10 +5,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.games.marioclone.tiles.BreakTile;
 import vooga.games.marioclone.tiles.ChangingTile;
 import vooga.games.marioclone.tiles.IndestructibleTile;
@@ -18,9 +20,9 @@ import vooga.games.marioclone.tiles.Tile.State;
 public class TileMap {
 	List<Tile> tiles;
 	
-	public TileMap(String filename) throws IOException {
+	public TileMap(URL url) throws IOException {
 		tiles = new ArrayList<Tile>();
-		loadTiles(filename);
+		loadTiles(url);
 	}
 	
 	public List<Tile> getTiles() {
@@ -33,18 +35,18 @@ public class TileMap {
 		}
 	}
 	
-	public void loadTiles(String filename) throws IOException {
+	public void loadTiles(URL url) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		int width = 0;
 		int height = 0;
 		
-		InputStream is = ResourceHandler.getResourceAsStream(filename);
 		
-		if (is == null) {
-			throw new IOException("No such map: " + filename);
+		if (url == null) {
+			throw new IOException("No such map: " + url.toString());
 		}
 		
 		// read every line in the text file into the list
+		InputStream is = url.openStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 				
 		while (true) {
@@ -71,16 +73,16 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
-					tiles.add(new IndestructibleTile(j,k,ResourceHandler.getImage("Indestructible")));
+					tiles.add(new IndestructibleTile(j,k,Resources.getImage("Indestructible")));
 					break;
 				case('B'):
-					tiles.add(new BreakTile(j,k,ResourceHandler.getImage("Break")));
+					tiles.add(new BreakTile(j,k,Resources.getImage("Break")));
 					break;	
 				case('C'):
 					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
-					changingImages.add(ResourceHandler.getImage("Changing1"));
-					changingImages.add(ResourceHandler.getImage("Changing2"));
-					changingImages.add(ResourceHandler.getImage("Changing3"));
+					changingImages.add(Resources.getImage("Changing1"));
+					changingImages.add(Resources.getImage("Changing2"));
+					changingImages.add(Resources.getImage("Changing3"));
 					tiles.add(new ChangingTile(j,k,changingImages));
 					break;
 				}

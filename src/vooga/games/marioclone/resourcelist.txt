@@ -1,5 +1,4 @@
-$Images
-BreakTile,images/BreakTile.png
+Break,images/BreakTile.png
 Indestructible,images/IndestructibleTile.png  
 Changing1,images/ChangingTile1.png
 Changing2,images/ChangingTile2.png
