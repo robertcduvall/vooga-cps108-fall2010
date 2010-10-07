@@ -14,10 +14,11 @@ public class Zombies extends PlayerSprite {
 	private double yTarget;
 	private String targetDirection;
 	private double speed;
-
-	public Zombies(String name, String stateName, Sprite s, Shooter hero) {
+	private AnimatedSprite image;
+	public Zombies(String name, String stateName, AnimatedSprite s, Shooter hero) {
 		super(name, stateName, s);
 		target = hero;
+		image=s;
 		targetDirection = "X";
 		speed = -0.25;
 	}
@@ -51,5 +52,6 @@ public class Zombies extends PlayerSprite {
 				moveY(Math.abs(speed));
 			}
 		}
+		image.update(elapsedTime);
 	}
 }
