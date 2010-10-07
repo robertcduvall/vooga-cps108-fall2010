@@ -73,7 +73,7 @@ public class Zombieland extends Game{
 	public void update(long elapsedTime) {
 		playfield.update(elapsedTime);
 		control.update();
-		zombies.update(elapsedTime);
+		//zombies.update(elapsedTime);
 		if (counter.action(elapsedTime))
 		{
 			addZombie();
@@ -92,18 +92,18 @@ public class Zombieland extends Game{
 	    zombieImage.getAnimationTimer().setDelay(100);
 
 	    // set animation frame starting from the first image to the third image
-	    zombieImage.setAnimationFrame(0, 3);
+	    zombieImage.setAnimationFrame(0, 2);
 
 	    // animate the sprite, and perform continous animation
 	    zombieImage.setAnimate(true);
-	    zombieImage.setLoopAnim(true);
+//	    zombieImage.setLoopAnim(true);
 	}
 	
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images){
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		sprite.getAnimationTimer().setDelay(100);
-		sprite.setAnimationFrame(0, images.length-1);
-		sprite.setAnimate(true);
+		sprite.setAnimationFrame(0, 3);
+		//sprite.setAnimate(true);
 		sprite.setLoopAnim(true);
 		return sprite;
 	}
