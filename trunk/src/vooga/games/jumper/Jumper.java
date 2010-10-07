@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
+import vooga.engine.*;
 
 // GTGE
 import com.golden.gamedev.Game;
@@ -32,6 +33,7 @@ public class Jumper extends Game {
 
 	private final static int GAME_WIDTH = 600;
 	private final static int GAME_HEIGHT = 480;
+	private String jumperDirectory;
 		
 	private GameStateManager myManager;
  /****************************************************************************/
@@ -40,6 +42,7 @@ public class Jumper extends Game {
 
     public void initResources() {
     	myManager = new GameStateManager();
+    	addDirectory(jumperDirectory);
     	
     	GameState playGameState = new PlayGameState();
     	
