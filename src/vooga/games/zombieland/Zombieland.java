@@ -54,7 +54,6 @@ public class Zombieland extends Game {
 	private ZZCollisionManager zombieZombieManager;
 	private HZCollisionManager humanZombieManager;
 
-	private Stat<Integer> myStat;
 	private OverlayBar scoreBar;
 	private OverlayString scoreString;
 	
@@ -124,10 +123,9 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
-		myStat = new Stat<Integer>(player.getHealth());
 		scoreString = new OverlayString("Health: ", Color.BLUE);
-		scoreBar = new OverlayBar(myStat,100);
-		scoreBar.setColor(Color.BLUE);
+		scoreBar = new OverlayBar(player.getHealthStat(),100);
+		scoreBar.setColor(Color.GREEN);
 		scoreBar.setLocation(75, 10);
 		
 		zombies = new SpriteGroup("Zombies");
