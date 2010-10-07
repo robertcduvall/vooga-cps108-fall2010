@@ -1,13 +1,15 @@
 package vooga.games.marioclone.tiles;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import vooga.engine.collision.Collidable;
 
 public class IndestructibleTile extends Tile {
-	private Image image;
+
+	private static final long serialVersionUID = 6795081937775545837L;
+	private BufferedImage image;
 	
-	public IndestructibleTile(double x, double y, Image image) {
+	public IndestructibleTile(double x, double y, BufferedImage image) {
 		super(x,y);
 		this.image = image;
 	}
@@ -19,7 +21,7 @@ public class IndestructibleTile extends Tile {
 	}
 
 	@Override
-	public Image getImage() {
+	public BufferedImage getImage() {
 		return image;
 	}
 

@@ -2,6 +2,7 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import vooga.engine.core.Game;
@@ -19,7 +20,7 @@ public class MarioClone {
 		game.bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
 
 		System.out.println(game.bsLoader.getBaseIO().getRootPath(BaseIO.CLASS_URL));
-		
+		URL a = game.bsLoader.getBaseIO().getURL("resourcelist.txt");
 		ResourceHandler.loadFile("resourcelist.txt");
 		System.out.println("loaded resource list");
 		TileMap m = new TileMap("testmap.txt");

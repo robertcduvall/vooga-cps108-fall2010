@@ -1,13 +1,15 @@
 package vooga.games.marioclone.tiles;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import vooga.engine.collision.Collidable;
 
 public class BreakTile extends Tile {	
-	private Image image;
+
+	private static final long serialVersionUID = -6084850476897563619L;
+	private BufferedImage image;
 	
-	public BreakTile(double x, double y, Image image) {
+	public BreakTile(double x, double y, BufferedImage image) {
 		super(x,y);
 		this.image = image;
 	}
@@ -18,7 +20,7 @@ public class BreakTile extends Tile {
 	}
 
 	@Override
-	public Image getImage() {
+	public BufferedImage getImage() {
 		return image;
 	}
 
