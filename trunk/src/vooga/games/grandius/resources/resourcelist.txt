@@ -27,4 +27,5 @@ resources/explosion.png,Explosion
 resources/projectile.png,Projectile
 resources/projectile-blue.png,Laser
 resources/playersingle.png,PlayerShipSingle
+resources/orange-circle.png,SideKick
 resources/laser.wav,Laser
