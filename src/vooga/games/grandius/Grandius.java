@@ -1,5 +1,6 @@
 package vooga.games.grandius;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -64,7 +65,8 @@ public class Grandius extends Game{
 
 	
 	private OverlayStatImage livesIcon;
-	private OverlayString gameOver = new OverlayString("Game Over", java.awt.Color.RED);
+	private OverlayString gameOver = new OverlayString("GAME OVER",
+			new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
 	private Stat<Integer> myLives;
 	private Stat<Integer> myScore;
 	private Stat<Integer> myCash;
@@ -109,20 +111,9 @@ public class Grandius extends Game{
 		 }
 
 		 livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
-		 OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
-		 livesCounter.setLocation(5, 5);
-		 OverlayStat scoreCounter = new OverlayStat("Score", myScore);
-		 scoreCounter.setLocation(screen.getWidth() - 150, 5);
-		 OverlayStat cashCounter = new OverlayStat("Cash", myCash);
-		 cashCounter.setLocation(screen.getWidth()/2, 5);
-
-		 OVERLAYS_GROUP.add(livesCounter);
-		 OVERLAYS_GROUP.add(scoreCounter);
-		 OVERLAYS_GROUP.add(cashCounter);
 
 		 myPlayfield = new PlayField();
-
-		 myPlayfield.addGroup(OVERLAYS_GROUP);
+		 addOverlays();
 		 
 		 //TODO Scrolling background
 		 myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
@@ -267,9 +258,9 @@ public class Grandius extends Game{
 			 ArrayList<ArrayList<Sprite>> nextLevel = levelManager.nextLevel();
 			 PLAYER_GROUP.add(playersprite);
 			 myPlayfield.addGroup(PLAYER_GROUP);
-			 myPlayfield.addGroup(OVERLAYS_GROUP);
 			 createComets();
 			 initLevel(nextLevel.get(0), nextLevel.get(1));
+			 addOverlays();
 			 gameState = GAME_PLAY;
 		 }
 	 }
@@ -289,7 +280,7 @@ public class Grandius extends Game{
 	 }
 
 	/**
-	  * Use CTRL key to fire a bullet
+	  * Use ALT key to fire a bullet
 	  */
 	 private void shootEnemy() {
 		 // TODO - avoid repeated code
@@ -426,12 +417,11 @@ public class Grandius extends Game{
 	 }
 
 	 public void updatePlayerLives(){
-		 int playerLives = playersprite.getLives();
-		 
-		 if(playerLives>1){
+		 int playerLives = (myLives.getStat()).intValue();
+		 if(playerLives > 0){
+			 updateStat(myLives, (-1));
 			 playersprite.setLocation(playerInitialX, playerInitialY);
-			 playersprite.setLives(playerLives-1);
-			 System.out.println("Lives left: "+playersprite.getLives());
+//			 System.out.println("Lives left: "+playersprite.getLives());
 		 }
 		 else{
 			 playersprite.setActive(false);
@@ -441,7 +431,7 @@ public class Grandius extends Game{
 			 myPlayfield.add(gameOver);
 //			 this.stop();
 		 }
-		 updateStat(myLives, (-1));
+		 
 	 }
 
 	 public static void main(String[] args) {
@@ -458,4 +448,18 @@ public class Grandius extends Game{
 		 updateStat(myCash, cash);
 	 }
 
+	 public void addOverlays() {
+		 OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
+		 livesCounter.setLocation(5, 5);
+		 OverlayStat scoreCounter = new OverlayStat("Score", myScore);
+		 scoreCounter.setLocation(screen.getWidth() - 150, 5);
+		 OverlayStat cashCounter = new OverlayStat("Cash", myCash);
+		 cashCounter.setLocation(screen.getWidth()/2, 5);
+
+		 OVERLAYS_GROUP.add(livesCounter);
+		 OVERLAYS_GROUP.add(scoreCounter);
+		 OVERLAYS_GROUP.add(cashCounter);
+		 
+		 myPlayfield.addGroup(OVERLAYS_GROUP);
+	 }
 }
