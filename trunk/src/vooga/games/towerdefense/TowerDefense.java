@@ -1,6 +1,7 @@
 package vooga.games.towerdefense;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +21,7 @@ import vooga.engine.overlay.OverlayBar;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
+import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.MouseControl;
 import vooga.engine.resource.Resources;
 
@@ -31,6 +33,7 @@ public class TowerDefense extends Game{
 	
 	private PlayerCursor player;
 	private PlayerCursorControl playerCursorControl;
+	private KeyboardControl playerKeyboardControl;
 	private Sprite pathSprite;
 	private Background background;
 	private PlayField playfield;
@@ -81,6 +84,7 @@ public class TowerDefense extends Game{
 		Resources.loadImage("path1", "src/vooga/games/towerdefense/resources/images/path1.png");
 		Resources.loadImage("towerPreview", "src/vooga/games/towerdefense/resources/images/towerPreview.png");
 		Resources.loadImage("sniperTower", "src/vooga/games/towerdefense/resources/images/sniperTower.png");
+		Resources.loadImage("fastTower", "src/vooga/games/towerdefense/resources/images/fastTower.png");
 	}
 	
 	
@@ -131,7 +135,12 @@ public class TowerDefense extends Game{
 		player.addCredits(20000);
 		playerGroup.add(player);
 		playerCursorControl = new PlayerCursorControl(player, this);
+		playerKeyboardControl = new KeyboardControl(player, this);
 		playerCursorControl.addInput(MouseEvent.BUTTON1, "buildTower", "vooga.games.towerdefense.PlayerCursor");
+		playerKeyboardControl.setParams(new Class[]{String.class});
+		playerKeyboardControl.addInput(KeyEvent.VK_1, "changeTowerType", "vooga.games.towerdefense.PlayerCursor", "FastTower");
+		playerKeyboardControl.setParams(new Class[]{String.class});
+		playerKeyboardControl.addInput(KeyEvent.VK_2, "changeTowerType", "vooga.games.towerdefense.PlayerCursor", "SniperTower");
 	}
 	
 	private void initBackground(){
@@ -147,6 +156,7 @@ public class TowerDefense extends Game{
 		}
 		playfield.update(elapsedTime);
 		playerCursorControl.update();
+		playerKeyboardControl.update();
 		enemyGroup.update(elapsedTime);
     }
 

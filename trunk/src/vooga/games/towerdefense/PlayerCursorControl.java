@@ -98,5 +98,6 @@ public class PlayerCursorControl extends Control implements Controller{
                 System.err.println(e);
             }
         }
+        
 	}
 }

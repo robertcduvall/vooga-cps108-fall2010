@@ -22,7 +22,9 @@ public class PlayerCursor extends PlayerSprite {
 	private TowerDefense myGame;
 	private double creditBalance;
 	private double creditsPerMillisecond;
-	private String currentTowerType;
+	private double towerCost;
+	private String towerType;
+	private Class towerDefinition;
 
 	public PlayerCursor(String name, String stateName, Sprite s,
 			SpriteGroup towerGroup, TowerDefense game) {
@@ -30,15 +32,24 @@ public class PlayerCursor extends PlayerSprite {
 		this.towerGroup = towerGroup;
 		myGame = game;
 		creditsPerMillisecond = 2;
-		currentTowerType = "SniperTower";
-		//setPreviewImage();
+		changeTowerType("FastTower");
 	}
-	
-	private void setPreviewImage(){
+
+	public void changeTowerType(String newTowerType) {
+		towerType = newTowerType;
+		updateTowerType();
+	}
+
+	private void updateTowerType() {
 		try {
-			Field field = Class.forName("vooga.games.towerdefense." + currentTowerType).getDeclaredField("PREVIEW");
-			BufferedImage image = (BufferedImage) field.get(new Object());
-			this.setImage(image);
+			towerDefinition = Class.forName("vooga.games.towerdefense."
+					+ towerType);
+			Field field = towerDefinition.getDeclaredField("PREVIEW");
+			BufferedImage image = (BufferedImage) field.get(null);
+			setNewImage(image);
+			field = towerDefinition.getDeclaredField("COST");
+			towerCost = field.getDouble(null);
+
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,28 +67,27 @@ public class PlayerCursor extends PlayerSprite {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public void buildTower() {
-		try {
-			Class towerDefinition = Class.forName("vooga.games.towerdefense." + currentTowerType);
-			Class[] argsClass = new Class[] { double.class, double.class,
-					TowerDefense.class };
-			Object[] args = new Object[] { getX(), getY(), myGame };
-			Constructor argsConstructor = towerDefinition.getConstructor(argsClass);
-			Tower tower = (Tower) createTower(argsConstructor, args);
-			towerGroup.add(tower);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (creditBalance >= towerCost) {
+			try {
+				Class[] argsClass = new Class[] { double.class, double.class,
+						TowerDefense.class };
+				Object[] args = new Object[] { getX(), getY(), myGame };
+				Constructor argsConstructor = towerDefinition
+						.getConstructor(argsClass);
+				Tower tower = (Tower) createTower(argsConstructor, args);
+				towerGroup.add(tower);
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			creditBalance -= towerCost;
 		}
-		
+
 		// Method perform = this.getClass().getMethod("build" +
 		// currentTowerType);
 		// perform.invoke(this);
