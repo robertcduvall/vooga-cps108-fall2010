@@ -20,6 +20,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.util.ImageUtil;
 
 public class Zombieland extends Game {
@@ -29,7 +30,7 @@ public class Zombieland extends Game {
 	private static final int GAME_HEIGHT = 500;
 
 	private AnimatedSprite shooterImage;
-	private Background background;
+	private ImageBackground background;
 	private Shooter player;
 
 	private SpriteGroup zombies;
@@ -136,7 +137,9 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieDeath2.png"),
 				getImage("resources/ZombieDeath3.png")};
 
-
+		BufferedImage sandbg = getImage("resources/sandbackground.png");
+		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
+		
 		bulletImage = getImage("resources/bullet.png");
 		shotgunImage = getImage("resources/shotgun.png");;
 		assaultRifleImage= getImage("resources/assaultRifle.png");
@@ -159,7 +162,6 @@ public class Zombieland extends Game {
 		items = new SpriteGroup("Items");
 		playfield = new PlayField();
 		control = new KeyboardControl(player, this);
-		background = new ColorBackground(Color.white);
 		counter = new Timer(1000);
 
 		playfield.add(player);
@@ -296,6 +298,7 @@ public class Zombieland extends Game {
 	}
 
 	public void render(Graphics2D g) {
+		background.render(g);
 		playfield.render(g);
 		scoreBar.render(g);
 		scoreString.render(g);
