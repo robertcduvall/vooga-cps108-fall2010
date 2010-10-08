@@ -38,12 +38,14 @@ public class DoodleGame extends Game {
 	private AnimatedSprite brown_platform1;
 
 	// monsters
-	private FlyingMonster blue_flying_monster;
+	private JigglingFlyingMonster blue_flying_monster;
 	private MovingMonster blue_monster;
-	private PlayerSprite green_flying_monster;
-	private PlayerSprite green_monster;
+	private FlyingMonster green_flying_monster;
+	private JigglingMonster green_monster;
+	private JigglingMonster big_blue_monster;
 	private JigglingMonster purple_monster;
 	private JigglingMonster red_monster;
+	private JumpingMonster green_jumping_monster;
 
 	// Enhanced Platforms
 	private AnimatedSprite spring;
@@ -124,25 +126,28 @@ public class DoodleGame extends Game {
 		blue_flying_images[2] = getImage("images/blue_flying_monster_3.png");
 		blue_flying_images[3] = getImage("images/blue_flying_monster_4.png");
 		blue_flying_images[4] = getImage("images/blue_flying_monster_5.png");
-		blue_flying_monster = new FlyingMonster(blue_flying_images, 50, 100);
+		blue_flying_monster = new JigglingFlyingMonster(blue_flying_images, 50, 100);
 		MonsterGroup.add(blue_flying_monster);
-		blue_monster = new MovingMonster(
-				getImage("images/blue_monster_left.png"), 70, 500);
+		blue_monster = new MovingMonster(getImage("images/blue_monster_left.png"), 70, 500);
 		MonsterGroup.add(blue_monster);
-		green_flying_monster = new PlayerSprite(
-				"green_flying_monster",
-				"gfm",
-				new Sprite(getImage("images/green_flying_monster.png"), 320, 70));
+		BufferedImage[] green_flying_images = new BufferedImage[5];
+		green_flying_images[0] = getImage("images/green_flying_monster_1.png");
+		green_flying_images[1] = getImage("images/green_flying_monster_2.png");
+		green_flying_images[2] = getImage("images/green_flying_monster_3.png");
+		green_flying_images[3] = getImage("images/green_flying_monster_4.png");
+		green_flying_images[4] = getImage("images/green_flying_monster_5.png");
+		green_flying_monster = new FlyingMonster(green_flying_images, 1, 800);
 		MonsterGroup.add(green_flying_monster);
-		green_monster = new PlayerSprite("green_monster", "gm", new Sprite(
-				getImage("images/green_monster.png"), 50, 200));
+		green_monster = new JigglingMonster(getImage("images/green_monster.png"), 50, 200);
 		MonsterGroup.add(green_monster);
-		purple_monster = new JigglingMonster(
-				getImage("images/purple_monster.png"), 50, 425);
+		big_blue_monster = new JigglingMonster(getImage("images/big_blue_monster.png"), 200, 200);
+		MonsterGroup.add(big_blue_monster);
+		purple_monster = new JigglingMonster(getImage("images/purple_monster.png"), 50, 425);
 		MonsterGroup.add(purple_monster);
-		red_monster = new JigglingMonster(getImage("images/red_monster.png"),
-				500, 550);
+		red_monster = new JigglingMonster(getImage("images/red_monster.png"), 500, 550);
 		MonsterGroup.add(red_monster);
+		green_jumping_monster = new JumpingMonster(getImage("images/green_jumping_monster.png"), 150, 100);
+		MonsterGroup.add(green_jumping_monster);
 
 		// enhanced platforms
 		BufferedImage[] spring_images = new BufferedImage[2];
