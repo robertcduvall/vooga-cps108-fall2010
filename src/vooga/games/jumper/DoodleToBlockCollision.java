@@ -10,11 +10,13 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	public DoodleToBlockCollision(){
 		pixelPerfectCollision = true;
 	}
-	
+
 	@Override
 	public void collided(Sprite doodle, Sprite block) {
-		//if (getCollisionSide() == BOTTOM_TOP_COLLISION)
-		doodle.setVerticalSpeed(block.getVerticalSpeed());
-	}
+		//if (getCollisionSide() == BOTTOM_TOP_COLLISION){
+			doodle.setY(block.getY() - doodle.getHeight());
+			doodle.setVerticalSpeed(block.getVerticalSpeed());
 
+			//}
+	}
 }
