@@ -49,7 +49,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
-	private double myBlockFrequency = 0.1;
+	private double myBlockFrequency = 0.05;
 	
 	
 	private PlayField myPlayfield;
@@ -148,7 +148,8 @@ public class Jumper extends vooga.engine.core.Game {
 
 		if (randomBlockOccurance < myBlockFrequency){
 			Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
-			block.setSpeed(randomXVelocity, randomYVelocity);
+			//TODO: default X velocity is zero.  Add a special color block that has xVel= randonXvelocity
+			block.setSpeed(0, randomYVelocity);
 			myBlocks.add(block);
 		}
 	}
