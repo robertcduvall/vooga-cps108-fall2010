@@ -25,6 +25,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.MouseControl;
+import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
@@ -35,29 +36,29 @@ public class TowerDefense extends Game {
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
 
-	private PlayerCursor player;
 	private PlayerCursorControl playerCursorControl;
+	private PlayerCursorControl menuPlayerCursorControl;
 	private KeyboardControl playerKeyboardControl;
-	private Background background;
-	private PlayField playfield;
+	protected Background[] background;
 	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
-			pauseGroup, playerGroup;
+			pauseGroup, playerGroup, gameOverGroup, menuGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
 	private Stat<Integer> selfEsteem;
 	private Stat<Integer> score;
 	private Stat<Integer> money;
 	private NonSetGameStateManager stateManager;
-	private State startMenu;
-	private State play;
-	private State pause;
-	private State gameOver;
+	protected State startMenu;
+	protected State play;
+	protected State pause;
+	protected State gameOver;
+	private int difficulty;
 
 	@Override
 	public void initResources() {
 		Resources.setGame(this);
 		loadImages();
-		initBackground();
+		initBackgrounds();
 
 		stateManager = new NonSetGameStateManager();
 		startMenu = new State();
@@ -70,9 +71,7 @@ public class TowerDefense extends Game {
 		stateManager.addGameState(pause);
 		stateManager.addGameState(gameOver);
 
-		stateManager.switchTo(play);
-
-		playfield = new PlayField(background);
+		stateManager.switchTo(startMenu);
 
 		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
@@ -87,8 +86,14 @@ public class TowerDefense extends Game {
 		pause.addGroup(overlayGroup);
 		
 		Sprite gameOverSprite = new Sprite(ImageUtil.resize(Resources.getImage("gameOver"), WIDTH, HEIGHT));
-		SpriteGroup gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Pause Group"));
+		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
 		gameOverGroup.add(gameOverSprite);
+		
+		Sprite menuSprite = new Sprite(ImageUtil.resize(Resources.getImage("menu"), WIDTH, HEIGHT));
+		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
+		menuGroup.add(menuSprite);
+		
+		
 		
 		
 
@@ -146,6 +151,9 @@ public class TowerDefense extends Game {
 		Resources
 		.loadImage("gameOver",
 				"src/vooga/games/towerdefense/resources/images/gameOver.gif");
+		Resources
+		.loadImage("menu",
+				"src/vooga/games/towerdefense/resources/images/menu.gif");
 
 
 	}
@@ -163,7 +171,7 @@ public class TowerDefense extends Game {
 				"src/vooga/games/towerdefense/resources/images/fontGreen.png",
 				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
 				+ "HIJKLMNOPQRSTUVWXYZ ");
-		OverlayString temp = new OverlayString("Selfestem".toUpperCase(),
+		OverlayString temp = new OverlayString("Selfesteem".toUpperCase(),
 				fontRed);
 		temp.setLocation(800, 50);
 		OverlayBar bar = new OverlayBar(selfEsteem, 100);
@@ -230,6 +238,18 @@ public class TowerDefense extends Game {
 		overlayGroup.add(sniperCost);
 		overlayGroup.add(sniperTower);
 		
+		
+		OverlayString gameOver = new OverlayString("SelfEsteem depleted".toUpperCase());
+		gameOver.setFont(fontGreen);
+		gameOver.setLocation(((WIDTH/2) - gameOver.getWidth()/2), 220 );
+		
+		OverlayStat overlayScoreEnd = new OverlayStat("SCORE : ", score);
+		overlayScoreEnd.setFont(fontOrange);
+		overlayScoreEnd.setLocation(((WIDTH/2) - overlayScoreEnd.getWidth()/2), 250 );
+		
+		gameOverGroup.add(gameOver);
+		gameOverGroup.add(overlayScoreEnd);
+		
 
 	}
 
@@ -256,8 +276,8 @@ public class TowerDefense extends Game {
 
 	private void initPlayer() {
 
-		player = new PlayerCursor("player", "playerCursor", new Sprite(
-				Resources.getImage("towerPreview")), towerGroup, this, money);
+		PlayerSprite player = new PlayerCursor("player", "playerCursor", new Sprite(
+				Resources.getImage("towerPreview")), towerGroup, this, money, stateManager);
 		playerGroup.add(player);
 		playerCursorControl = (PlayerCursorControl) play
 				.addControl(new PlayerCursorControl(player, this));
@@ -274,11 +294,34 @@ public class TowerDefense extends Game {
 		playerKeyboardControl.setParams(new Class[] { String.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_3, "changeTowerType",
 				"vooga.games.towerdefense.PlayerCursor", "SniperTower");
+		
+		/*PlayerSprite menuPlayer = new PlayerCursor("playerMenu", "playerCursorMenu", new Sprite(), towerGroup, this, money, stateManager);
+		menuGroup.add(menuPlayer);
+		menuPlayerCursorControl = (PlayerCursorControl) startMenu
+		.addControl(new PlayerCursorControl(menuPlayer, this));
+		menuPlayerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
+		"vooga.games.towerdefense.PlayerCursor");*/
+		
+		menuGroup.add(player);
+		menuPlayerCursorControl = (PlayerCursorControl) startMenu
+		.addControl(new PlayerCursorControl(player, this));
+		menuPlayerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
+		"vooga.games.towerdefense.PlayerCursor");
+		
+		
+		
 	}
 
-	private void initBackground() {
-		background = new ImageBackground(ImageUtil
+	private void initBackgrounds() {
+		background = new Background[3];
+		background[0] = new ImageBackground(ImageUtil
 				.resize(getImage("resources/images/EasyLevel.png"),
+						WIDTH, HEIGHT), WIDTH, HEIGHT);
+		background[1] = new ImageBackground(ImageUtil
+				.resize(getImage("resources/images/MediumLevel.png"),
+						WIDTH, HEIGHT), WIDTH, HEIGHT);
+		background[2] = new ImageBackground(ImageUtil
+				.resize(getImage("resources/images/HardLevel.png"),
 						WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
 
@@ -303,19 +346,17 @@ public class TowerDefense extends Game {
 						Utility.getRandom(1, 3), selfEsteem, score, money));
 				totalTime = 0;
 			}
-			if (totalTime > 5000) {
-				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
+			if (totalTime > 1000) {
+				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(200, 300),
 						selfEsteem, score, money, enemyGroup));
 				totalTime = 0;
 			}
 		}
-
-		playfield.update(elapsedTime);
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		playfield.render(g);
+		background[difficulty].render(g);
 		stateManager.render(g);
 	}
 

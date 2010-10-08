@@ -26,16 +26,20 @@ public class PlayerCursor extends PlayerSprite {
 	private int towerCost;
 	private String towerType;
 	private Class towerDefinition;
+	private NonSetGameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
+	private boolean build;
 
 	public PlayerCursor(String name, String stateName, Sprite s,
-			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance) {
+			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance,NonSetGameStateManager states) {
 		super(name, stateName, s);
 		this.towerGroup = towerGroup;
 		myGame = game;
 		creditBalance = balance;
 		changeTowerType("NormalTower");
+		stateManager = states;
+		build = false;
 	}
 
 	public void changeTowerType(String newTowerType) {
@@ -72,11 +76,43 @@ public class PlayerCursor extends PlayerSprite {
 	}
 
 	public void onClick() {
-		buildTower();
-		switchTower();
+		if(myGame.play.isActive()){
+			if(build){
+				buildTower();
+			}else{
+				build = true;
+			}
+			switchTower();
+		}else if(myGame.startMenu.isActive()){
+			menuAction();
+		}
+	}
+	
+	private void menuAction(){
+		if(checkButtons(107,314,241,385)){
+			stateManager.switchTo(myGame.play);
+		}
+		else if(checkButtons(400,311,577,391)){
+			stateManager.switchTo(myGame.play);
+		}
+		else if(checkButtons(724,304,881,398)){
+			stateManager.switchTo(myGame.play);
+		}
+		
 	}
 
 	
+	private boolean checkButtons(int x1, int y1, int x2, int y2){
+		int myX = myGame.getMouseX();
+		int myY = myGame.getMouseY();
+		
+		if(myX >= x1 && myX <= x2){
+			if(myY >= y1 && myY <= y2){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	private void switchTower(){
 		int mouseX = myGame.getMouseX();
@@ -157,7 +193,7 @@ public class PlayerCursor extends PlayerSprite {
 	}
 	
 	public void render(Graphics2D g) {
-		if(inPlayArea()){
+		if(inPlayArea() && myGame.play.isActive()){
 			getCurrentSprite().forceX(getX()-getCurrentSprite().getWidth()/2+7);
 			getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2+7);
 			getCurrentSprite().render(g);

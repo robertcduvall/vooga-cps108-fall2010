@@ -57,7 +57,7 @@ public class TowerPathTracer extends Game{
 	}
 	
 	private void initBackground(){
-		background = new ImageBackground(ImageUtil.resize(getImage("resources/images/grassBackground.png"),WIDTH, HEIGHT), WIDTH, HEIGHT);
+		background = new ImageBackground(ImageUtil.resize(getImage("resources/images/gameOver.gif"),WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
 	
 	public void update(long elapsedTime) {
