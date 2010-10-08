@@ -13,6 +13,8 @@ public class Shooter extends PlayerSprite {
 	private int weaponChoice;
 	private Weapon[] weapons;
 	private Stat<Integer> health;
+	private final int BULLET_DELAY;
+	private int bulletCount;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
@@ -31,6 +33,8 @@ public class Shooter extends PlayerSprite {
 //		weapons[3] = new Other(this,0);
 
 		health = new Stat<Integer>(playerHealth);
+		BULLET_DELAY = 10;
+		bulletCount = 0;
 	}
 
 	public void goLeft() {
@@ -71,7 +75,6 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void switchWeapons(int choice){
-		System.out.println(choice);
 		if(choice<=3)
 			weaponChoice=choice;
 	}
@@ -86,7 +89,15 @@ public class Shooter extends PlayerSprite {
 
 		setToCurrentSprite("Shoot");
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
-		fireBullets();
+		
+		if (bulletCount < BULLET_DELAY){
+			bulletCount++;
+		}
+		else{
+			bulletCount = 0;
+			fireBullets();
+		}
+		
 	}
 	
 	public Stat<Integer> getStatHealth(){
