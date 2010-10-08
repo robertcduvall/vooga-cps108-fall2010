@@ -10,9 +10,7 @@ public class DoodleSprite extends Sprite {
 	
 	private double X_ACCELERATION = 5;
 	private double X_DECCELERATION = 1;
-		
 	private double GRAVITY = 1;
-	
 	private long ACCELERATION_TIME = 1;
 	private double MAX_SPEED = 10;
 		
@@ -33,7 +31,7 @@ public class DoodleSprite extends Sprite {
     
     public void maintainFloor(){
     	int gameHeight = Jumper.getGameHeight();
-    	if (getY() +  mySpriteHeight > gameHeight){
+    	if (getY() + mySpriteHeight > gameHeight){
     		setY(gameHeight - mySpriteHeight);
     	}
     }
