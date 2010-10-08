@@ -7,9 +7,11 @@ public abstract class Item extends GameEntitySprite {
 	
 	private Shooter player;
 	
-	public Item(Shooter s, double x, double y){
-		super("Item", "Weapon", new Sprite(x,y));
-		player=s;
+	public Item(Shooter shooter, Sprite s, double x, double y){
+		super("Item", "Weapon", s);
+		setX(x);
+		setY(y);
+		player=shooter;
 	}
 	public Shooter getPlayer(){
 		return player;

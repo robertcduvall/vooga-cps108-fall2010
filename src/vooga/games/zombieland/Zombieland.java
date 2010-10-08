@@ -16,6 +16,7 @@ import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
@@ -30,11 +31,12 @@ public class Zombieland extends Game {
 	private AnimatedSprite shooterImage;
 	private Background background;
 	private Shooter player;
-	
+
 	private SpriteGroup zombies;
 	private SpriteGroup players;
 	private SpriteGroup bullets;
-	
+	private SpriteGroup items;
+
 	private PlayField playfield;
 	private Timer counter;
 	private KeyboardControl control;
@@ -48,16 +50,19 @@ public class Zombieland extends Game {
 	private BufferedImage[] zombieDownImage;
 	private BufferedImage[] zombieLeftImage;
 	private BufferedImage[] zombieRightImage;
-	
+
 	private BufferedImage[] zombieAttackFromAboveImage;
 	private BufferedImage[] zombieAttackFromBelowImage;
 	private BufferedImage[] zombieAttackFromLeftImage;
 	private BufferedImage[] zombieAttackFromRightImage;
-	
+
 	private BufferedImage[] zombieDeath;
-	
-	
+
+
 	private BufferedImage bulletImage;
+	private BufferedImage shotgunImage;
+	private BufferedImage assaultRifleImage;
+	private BufferedImage healthImage;
 
 	private double defaultX = 100;
 	private double defaultY = 100;
@@ -68,7 +73,7 @@ public class Zombieland extends Game {
 
 	private OverlayBar scoreBar;
 	private OverlayString scoreString;
-	
+
 	public void initResources() {
 
 		playerDownImage = new BufferedImage[] {
@@ -109,31 +114,34 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
 
-//		zombieAttackFromAboveImage = new BufferedImage[] {
-//				getImage("resources/ZombieAttackFromAbove1.png"),
-//				getImage("resources/ZombieAttackFromAbove2.png"),
-//				getImage("resources/ZombieAttackFromAbove3.png") };
-//		zombieAttackFromBelowImage = new BufferedImage[] {
-//				getImage("resources/ZombieAttackFromBelow1.png"),
-//				getImage("resources/ZombieAttackFromBelow2.png"),
-//				getImage("resources/ZombieAttackFromBelow3.png") };
-//		zombieAttackFromLeftImage = new BufferedImage[] {
-//				getImage("resources/ZombieAttackFromLeft1.png"),
-//				getImage("resources/ZombieAttackFromLeft2.png"),
-//				getImage("resources/ZombieAttackFromLeft3.png") };
-//		zombieAttackFromRightImage = new BufferedImage[] {
-//				getImage("resources/ZombieAttackFromRight1.png"),
-//				getImage("resources/ZombieAttackFromRight2.png"),
-//				getImage("resources/ZombieAttackFromRight3.png") };
-		
+		//		zombieAttackFromAboveImage = new BufferedImage[] {
+		//				getImage("resources/ZombieAttackFromAbove1.png"),
+		//				getImage("resources/ZombieAttackFromAbove2.png"),
+		//				getImage("resources/ZombieAttackFromAbove3.png") };
+		//		zombieAttackFromBelowImage = new BufferedImage[] {
+		//				getImage("resources/ZombieAttackFromBelow1.png"),
+		//				getImage("resources/ZombieAttackFromBelow2.png"),
+		//				getImage("resources/ZombieAttackFromBelow3.png") };
+		//		zombieAttackFromLeftImage = new BufferedImage[] {
+		//				getImage("resources/ZombieAttackFromLeft1.png"),
+		//				getImage("resources/ZombieAttackFromLeft2.png"),
+		//				getImage("resources/ZombieAttackFromLeft3.png") };
+		//		zombieAttackFromRightImage = new BufferedImage[] {
+		//				getImage("resources/ZombieAttackFromRight1.png"),
+		//				getImage("resources/ZombieAttackFromRight2.png"),
+		//				getImage("resources/ZombieAttackFromRight3.png") };
+
 		zombieDeath = new BufferedImage[] {
 				getImage("resources/ZombieDeath1.png"),
 				getImage("resources/ZombieDeath2.png"),
 				getImage("resources/ZombieDeath3.png")};
-		
-		
+
+
 		bulletImage = getImage("resources/bullet.png");
-		
+		shotgunImage = getImage("resources/shotgun.png");;
+		assaultRifleImage= getImage("resources/assaultRifle.png");
+		healthImage= getImage("resources/Health.png");
+
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
 		player = new Shooter("Hero", "Down", shooterImage, 100, 0,this);
 		player.mapNameToSprite("Up",getInitializedAnimatedSprite(playerUpImage));
@@ -145,10 +153,10 @@ public class Zombieland extends Game {
 		scoreBar = new OverlayBar(player.getStatHealth(),100);
 		scoreBar.setColor(Color.GREEN);
 		scoreBar.setLocation(75, 10);
-		
+
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
-		
+		items = new SpriteGroup("Items");
 		playfield = new PlayField();
 		control = new KeyboardControl(player, this);
 		background = new ColorBackground(Color.white);
@@ -159,20 +167,20 @@ public class Zombieland extends Game {
 		playfield.addGroup(bullets);
 		playfield.setBackground(background);
 		setListeners();
-		
-		
+
+
 		//Here's are the managers in use.
 		zombieZombieManager = new ZZCollisionManager();
-		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
+		//playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
 
 		humanZombieManager = new HZCollisionManager();
 		players = new SpriteGroup("Players");
 		players.add(player);
 		playfield.addCollisionGroup(players , zombies, humanZombieManager);
-		
+
 		bulletZombieManager = new BZCollisionManager();
 		playfield.addCollisionGroup(bullets, zombies, bulletZombieManager);
-		
+
 	}
 
 	public void update(long elapsedTime) {
@@ -183,11 +191,13 @@ public class Zombieland extends Game {
 		scoreString.update(elapsedTime);
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
-		
+		items.update(elapsedTime);
+
 		if (counter.action(elapsedTime)) {
 			addZombie();
+			addRandomItem();
 		}
-	
+
 	}
 
 	public void addZombie() {
@@ -196,24 +206,24 @@ public class Zombieland extends Game {
 				getInitializedAnimatedSprite(zombieUpImage), 
 				getInitializedAnimatedSprite(zombieLeftImage), 
 				getInitializedAnimatedSprite(zombieRightImage), player);
-		
-//		newZombie.mapNameToSprite("AttackFromLeft" , 
-//									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
-//		newZombie.mapNameToSprite("AttackFromRight" ,
-//									getInitializedAnimatedSprite(zombieAttackFromRightImage));
-//		newZombie.mapNameToSprite("AttackFromAbove" ,
-//									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
-//		newZombie.mapNameToSprite("AttackFromBelow" , 
-//									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
-		
+
+		//		newZombie.mapNameToSprite("AttackFromLeft" , 
+		//									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
+		//		newZombie.mapNameToSprite("AttackFromRight" ,
+		//									getInitializedAnimatedSprite(zombieAttackFromRightImage));
+		//		newZombie.mapNameToSprite("AttackFromAbove" ,
+		//									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
+		//		newZombie.mapNameToSprite("AttackFromBelow" , 
+		//									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
+
 		newZombie.mapNameToSprite("ZombieDeath", 
-									getInitializedAnimatedSprite(zombieDeath));
-		
+				getInitializedAnimatedSprite(zombieDeath));
+
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
 		zombies.add(newZombie);
 	}
-	
+
 	/**
 	 * Load the image for a bullet with the correct orientation with respect to the 
 	 * shooter and add it to the screen
@@ -225,8 +235,32 @@ public class Zombieland extends Game {
 		bullet.setActive(true);
 		bullets.add(bullet);
 	}
-	
-	
+
+	public void addRandomItem() {
+//		double x=Math.random()*GAME_WIDTH;
+//		double y=Math.random()*GAME_HEIGHT;
+		double x=100;
+		double y=100;
+		int choice=(int) (Math.random()*3);
+		Item item;
+		switch(choice){
+		case 0: 
+			item=new WeaponItem(player,new Sprite(assaultRifleImage),1,x,y);
+			break;
+		case 1: 
+			item=new WeaponItem(player,new Sprite(shotgunImage),2,x,y);
+			break;
+		case 2: 
+			item=new HealthItem(player,new Sprite(healthImage),100,x,y);
+			break;
+		default:
+			item=null;
+		}
+		item.getCurrentSprite().setImage(healthImage);
+		item.setActive(true);
+		items.add(item);
+	}
+
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		initializeAnimatedSprite(sprite, 300);
