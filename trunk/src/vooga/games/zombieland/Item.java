@@ -5,16 +5,16 @@ import com.golden.gamedev.object.Sprite;
 
 public abstract class Item extends GameEntitySprite {
 	
-	private Shooter player;
+	private Shooter myPlayer;
 	
 	public Item(Shooter shooter, Sprite s, double x, double y){
 		super("Item", "Weapon", s);
 		setX(x);
 		setY(y);
-		player=shooter;
+		myPlayer= shooter;
 	}
 	public Shooter getPlayer(){
-		return player;
+		return myPlayer;
 	}
 	public abstract void act();
 }

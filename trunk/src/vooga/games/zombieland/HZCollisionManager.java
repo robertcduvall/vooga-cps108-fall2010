@@ -13,13 +13,11 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 
 
 	public void collided(Sprite human, Sprite zombie) {
-
 		actOnCollision(human, zombie);
 
 	}
 
-	private void actOnCollision(Sprite human, Sprite zombie)
-	{
+	private void actOnCollision(Sprite human, Sprite zombie){
 		Zombie currentZombie = (Zombie) zombie;
 		Shooter currentPlayer = (Shooter) human;
 
@@ -42,7 +40,6 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 
 	private void collisionSideEffect(int collisionSide, Zombie currentZombie,
 			Shooter currentPlayer) {
-
 		int zombiedamage = - currentZombie.getDamage();
 		currentPlayer.updateStatHealth(zombiedamage);
 		
