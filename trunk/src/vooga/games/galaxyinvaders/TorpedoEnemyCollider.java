@@ -6,8 +6,11 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	
-	public TorpedoEnemyCollider() {
+	private GalaxyInvaders g;
+	
+	public TorpedoEnemyCollider(GalaxyInvaders game) {
 		super();
+		g = game;
 		pixelPerfectCollision = true;
 	}
 
@@ -15,7 +18,7 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
 		((EnemySprite) s2).decrementHitPoints();
-		
+		g.increasePlayerScore();
 	}
 	
 
