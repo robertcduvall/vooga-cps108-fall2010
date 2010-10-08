@@ -46,16 +46,14 @@ public class Zombie extends PlayerSprite {
 		}
 	}
 
-	public void dead(){
-		target.updateScore(1);
-	}
 
 	public void update(long elapsedTime) {
 		
 		if (healthIsZero()){
-			System.out.println("go");
 			if (timer.action(elapsedTime)){
 				setActive(false);
+
+				target.updateScore(1);
 			}
 		}
 		else{
