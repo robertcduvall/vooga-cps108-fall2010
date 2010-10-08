@@ -7,130 +7,146 @@ import vooga.engine.player.control.PlayerSprite;
 
 public class Zombie extends PlayerSprite {
 
-	private Shooter target;
-	private double xTarget;
-	private double yTarget;
-	private String targetDirection;
-	private double speed;
-	private Timer timer;
-	private int damage;
-	private static int attackDelay = 20;
-	private int attackDelayStep;
+	private Shooter myTarget;
+	private double myTargetX;
+	private double myTargetY;
+	private String myDirectionToMove;
+	private double mySpeed;
+	private Timer myTimer;
+	private int myDamage;
+	private static int myAtttackDelay = 20;
+	private int myAttackDelayStep;
 
 	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
-			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
+			AnimatedSprite left, AnimatedSprite right, Shooter hero) {
 		super(name, stateName, down);
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
 		mapNameToSprite("Right", right);
 		mapNameToSprite("Down", down);
-		
-		target = hero;
-		targetDirection = "X";
-		speed = -0.25;
+
+		setHumanTarget(hero);
+		myDirectionToMove = "X";
+		mySpeed = -0.25;
+
 		setHealth(25);
-		
 		setDamage(5);
-		timer = new Timer(1000);
 		resetAttackDelayStep();
-	}
-	
-	public void resetAttackDelayStep() {
-		
-		attackDelayStep= 0;
-	}
-	
-	public void updateAttactStep()
-	{
-		attackDelayStep++;
+		myTimer = new Timer(1000);
 	}
 
-	private void setDamage(int hit)
-	{
-		damage = hit;
+	/**
+	 * If at some point we have more than one human target
+	 * @param hero
+	 */
+	private void setHumanTarget(Shooter hero) {
+		myTarget = hero;
 	}
-	
-	public int getDamage()
-	{
-		return damage;
+
+
+	public void resetAttackDelayStep() {
+		myAttackDelayStep= 0;
+	}
+
+	public void updateAttactStep(){
+		myAttackDelayStep++;
+	}
+
+	private void setDamage(int hit){
+		myDamage = hit;
+	}
+
+	public int getDamage(){
+		return myDamage;
 	}
 
 	private double getDirection() {
-		
-		
-		xTarget = target.getX();
-		yTarget = target.getY();
+		myTargetX = myTarget.getX();
+		myTargetY = myTarget.getY();
 
-		if (Math.abs(getX() - xTarget) >= Math.abs(getY() - yTarget)) {
-			targetDirection = "X";
-			return xTarget - getX();
-
-		} else {
-			targetDirection = "Y";
-			return yTarget - getY();
+		if (iAmCloserInXDirection()) {
+			myDirectionToMove = "X";
+			return myTargetX - getX();
 		}
+
+		//Else is assumed here. Implicitly calls on iAmCloserInYDirection()
+		myDirectionToMove = "Y";
+		return myTargetY - getY();
+
+	}
+
+	private boolean iAmCloserInXDirection() {
+		return Math.abs(getX() - myTargetX) >= Math.abs(getY() - myTargetY);
 	}
 
 
-	public void update(long elapsedTime) {
-		
+	public void update(long elapsedTime) {		
 		if (healthIsZero()){
-			if (timer.action(elapsedTime)){
+			if (myTimer.action(elapsedTime)){
 				setActive(false);
-
-				target.updateScore(1);
+				myTarget.updateScore(1);
 			}
+			return;
 		}
-		else{
+
 		double direction = getDirection();
-		if (targetDirection.equals("X")) {
+
+		if (myDirectionToMove.equals("X")) {
 			if (direction < 0) {
-				moveX(speed);
+				moveX(mySpeed);
 				setToCurrentSprite("Left");
 			} else {
-				moveX(Math.abs(speed));
+				moveX(Math.abs(mySpeed));
 				setToCurrentSprite("Right");
 			}
-		} else {
+
+			return;
+		} 
+
+		if(myDirectionToMove.equals("Y"))
+		{
 			if (direction < 0) {
-				moveY(speed);
+				moveY(mySpeed);
 				setToCurrentSprite("Up");
+				return; 
 			} else {
-				moveY(Math.abs(speed));
+				moveY(Math.abs(mySpeed));
 				setToCurrentSprite("Down");
 			}
-		}
-		}
-		
-	}
-	
-	public void attackFrom(String fromSide)
-	{
-		setToCurrentSprite(fromSide);
-		
-		//how do you add a timer here?
-		
-	}
-	
-	
-	public void calculateDamage(double damage)
-	{
-		updateHealth((int) damage);
-		
-	
-	}
-	
-	public boolean healthIsZero()
-	{
-		return (getHealth() <= 0);
+			return;
+		}		
 	}
 
-	
-	public boolean isAbleToAttack()
-	{
-		return attackDelayStep == attackDelay;
-	}
-		
-	
-	
+
+
+
+public void attackFrom(String fromSide)
+{
+	setToCurrentSprite(fromSide);
+
+	//how do you add a timer here?
+
+}
+
+
+public void calculateDamage(double damage)
+{
+	updateHealth((int) damage);
+
+
+}
+
+public boolean healthIsZero()
+{
+	return (getHealth() <= 0);
+}
+
+
+public boolean isAbleToAttack()
+{
+	return myAttackDelayStep == myAtttackDelay;
+}
+
+
+
 }
