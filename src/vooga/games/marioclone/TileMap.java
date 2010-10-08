@@ -84,7 +84,7 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
-					tiles.add(new IndestructibleTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("Indestructible")));
+					tiles.add(new IndestructibleTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("ITile")));
 					break;
 				case('B'):
 					tiles.add(new BreakTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("Break")));
