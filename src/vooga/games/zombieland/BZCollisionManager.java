@@ -1,6 +1,8 @@
 package vooga.games.zombieland;
 
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 /*
@@ -11,7 +13,6 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 public class BZCollisionManager extends PreciseCollisionGroup{
 
-	
 	public void collided(Sprite bullet, Sprite zombie) {
 		
 		actOnCollision(bullet, zombie);	
@@ -27,23 +28,15 @@ public class BZCollisionManager extends PreciseCollisionGroup{
 		
 		currentZombie.updateHealth(damage);
 		
-		
 		if(currentZombie.healthIsZero())
 		{
 			currentZombie.setHealth(0);
 			currentZombie.setToCurrentSprite("ZombieDeath");
+			((AnimatedSprite) currentZombie.getCurrentSprite()).setAnimate(true);
+			currentZombie.dead();
+			
 		}
 		
 		currentBullet.setActive(false);
 	}
-	
-
-	
-	
-	
-	
-
-	
-	
-	
 }
