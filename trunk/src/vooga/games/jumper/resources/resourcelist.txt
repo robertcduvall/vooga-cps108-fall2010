@@ -1,5 +1,6 @@
 resources/ball.png,ball
-resources/doodle_crop.png,crop
+resources/doodle_left.png,leftDoodle
+resources/doodle_right.png,rightDoodle
 resources/yellow_platform.png,platformYellow
 resources/trampoline_up,trampolineUp
 resources/trampoline_platform,platformTrampoline
