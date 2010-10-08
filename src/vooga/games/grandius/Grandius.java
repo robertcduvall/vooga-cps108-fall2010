@@ -3,7 +3,6 @@ package vooga.games.grandius;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,16 +14,17 @@ import vooga.engine.level.ScrollerLevel;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.*;
+import vooga.engine.resource.GameClock;
+import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
-import com.golden.gamedev.object.collision.*;
-import com.golden.gamedev.object.sprite.*;
 
 import vooga.engine.overlay.*;
 import vooga.games.grandius.collisions.PlayerEnemyCollision;
+import vooga.games.grandius.collisions.PlayerZipsterLaserCollision;
 import vooga.games.grandius.collisions.ProjectileBossPartCollision;
 import vooga.games.grandius.collisions.ProjectileEnemyCollision;
 import vooga.games.grandius.enemy.boss.BossPart;
@@ -42,12 +42,14 @@ public class Grandius extends Game{
 	private static final int GAME_PLAY = 1;
 	private static final int LEVEL_COMPLETE = 2;
 	private static final int START_NEW_LEVEL = 3;
+	private static final int GAME_COMPLETE = 4;
 
 	private PlayField myPlayfield;
 	private Background myBackground;
 
 	private SpriteGroup PLAYER_GROUP;
 	private SpriteGroup PROJECTILE_GROUP;
+	private SpriteGroup ZIPSTER_LASER_GROUP;
 	private SpriteGroup ENEMY_GROUP;
 	private SpriteGroup BOSS_PART_GROUP;
 	private SpriteGroup OVERLAYS_GROUP;
@@ -58,6 +60,7 @@ public class Grandius extends Game{
 	private PlayerEnemyCollision collision;
 	private ProjectileEnemyCollision projectileEnemyCollision;
 	private ProjectileBossPartCollision projectileBossPartCollision;
+	private PlayerZipsterLaserCollision playerZipsterLaserCollision;
 
 	
 	private OverlayStatImage livesIcon;
@@ -94,7 +97,6 @@ public class Grandius extends Game{
 	 @Override
 	 public void initResources() { 
 		 Resources.setGame(this);
-		 //TODO : assign appropriate values to playerInitialY and playerInitialX
 		 gameState = 0;
 		 screen = new Dimension(640,480);
 		 playerInitialX = 0;
@@ -132,6 +134,7 @@ public class Grandius extends Game{
 		 
 		 PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
 		 PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
+		 ZIPSTER_LASER_GROUP = myPlayfield.addGroup(new SpriteGroup("ZipsterLaser"));
 		 ENEMY_GROUP = myPlayfield.addGroup(new SpriteGroup("Enemy"));
 		 BOSS_PART_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
 		 PLAYER_GROUP.add(playersprite);
@@ -150,11 +153,13 @@ public class Grandius extends Game{
 		 collision = new PlayerEnemyCollision(this);
 		 projectileEnemyCollision = new ProjectileEnemyCollision(this);
 		 projectileBossPartCollision = new ProjectileBossPartCollision(this);
+		 playerZipsterLaserCollision = new PlayerZipsterLaserCollision(this);
 		 // register collisions to playfield
 		 myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
 		 myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileEnemyCollision);
 		 myPlayfield.addCollisionGroup(PROJECTILE_GROUP, BOSS_PART_GROUP, projectileBossPartCollision);
-
+		 myPlayfield.addCollisionGroup(PLAYER_GROUP, ZIPSTER_LASER_GROUP, playerZipsterLaserCollision);
+		 
 		 				//TODO - 
 		               font = fontManager.getFont(getImages("resources/font.png", 20, 3),
 		                               " !            .,0123" +
@@ -194,13 +199,25 @@ public class Grandius extends Game{
 		if ( gameState == LEVEL_COMPLETE){
 			myPlayfield.clearPlayField();
 			myPlayfield.render(g);
-				font.drawString(g, "LEVEL " + levelManager.getMyCurrentLevel() + " COMPLETE",
-						(int) screen.getWidth() / 3,
-						(int) (screen.getHeight() / 2.5));
-				font.drawString(g, "CLICK TO PLAY",
-						(int) screen.getWidth() / 3,
-						(int) screen.getHeight() / 2);
-			}
+			font.drawString(g, "LEVEL " + levelManager.getMyCurrentLevel() + " COMPLETE",
+					(int) screen.getWidth() / 3,
+					(int) (screen.getHeight() / 2.5));
+			font.drawString(g, "CLICK TO PLAY",
+					(int) screen.getWidth() / 3,
+					(int) screen.getHeight() / 2);
+		}
+		
+		if (gameState == GAME_COMPLETE) {
+			myPlayfield.clearPlayField();
+			myPlayfield.render(g);
+			font.drawString(g, "GAME COMPLETE",
+					(int) screen.getWidth() / 3,
+					(int) (screen.getHeight() / 2.5));
+			font.drawString(g, "YOU WIN",
+					(int) screen.getWidth() / 3,
+					(int) screen.getHeight() / 2);
+			this.stop();
+		}
 				
 
 	 }
@@ -211,6 +228,12 @@ public class Grandius extends Game{
 		 if ( gameState == MENU){
 			 if(click()){
 				 gameState = GAME_PLAY;
+				 try {
+						GameClock.start();
+					} catch (GameClockException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			 }
 		 }
 		 if ( gameState == GAME_PLAY){	 
@@ -218,20 +241,16 @@ public class Grandius extends Game{
 			 updateScreenSprites();
 			 updatePlayerSpeed();
 			 if (checkCleared()) {
-				 //TODO-
 				 gameState=LEVEL_COMPLETE;
-				 //initLevel(levelManager.nextLevel());
-				 //myCurrentLevel++;
 			 }
 			 
 			 // playfield updates all things and checks for collisions
 			 myPlayfield.update(elapsedTime);
 		 }
-		 
-		 //TODO-
+		
 		 if ( gameState == LEVEL_COMPLETE){
 			 if(levelManager.getMyCurrentLevel()==3){
-				 this.stop();
+				 gameState = GAME_COMPLETE;
 			 }
 			 else if(click()){
 				 gameState = START_NEW_LEVEL;
@@ -239,6 +258,12 @@ public class Grandius extends Game{
 		 }
 		 
 		 if ( gameState == START_NEW_LEVEL){
+			 try {
+				GameClock.reset();
+			} catch (GameClockException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			 ArrayList<ArrayList<Sprite>> nextLevel = levelManager.nextLevel();
 			 PLAYER_GROUP.add(playersprite);
 			 myPlayfield.addGroup(PLAYER_GROUP);
@@ -293,13 +318,20 @@ public class Grandius extends Game{
 			 if (as == null) 
 				 break;
 			 if (as instanceof Zipster) {
-				 if (as.getY() > playersprite.getY())
-					 ((Zipster)(as)).setDirection(Zipster.MOVING_NW);
-				 else if (as.getY() < playersprite.getY())
-					 ((Zipster)(as)).setDirection(Zipster.MOVING_SW);
-				 else 
-					 ((Zipster)(as)).setDirection(Zipster.MOVING_W);
+				 if (((Zipster)(as)).willFire(playersprite)) {
+					 ZIPSTER_LASER_GROUP.add(((Zipster)(as)).fireLaser());
+					// play laser sound
+					playSound(Resources.getMapping("LaserSound"));
+				 }
 			 }
+//			 if (as instanceof Zipster) {
+//				 if (as.getY() > playersprite.getY())
+//					 ((Zipster)(as)).setDirection(Zipster.MOVING_NW);
+//				 else if (as.getY() < playersprite.getY())
+//					 ((Zipster)(as)).setDirection(Zipster.MOVING_SW);
+//				 else 
+//					 ((Zipster)(as)).setDirection(Zipster.MOVING_W);
+//			 }
 			 as.setHorizontalSpeed(-0.03);
 		 }
 		 for (Sprite bp: BOSS_PART_GROUP.getSprites()) {
