@@ -105,9 +105,9 @@ public class Grandius extends Game{
 		 OverlayStat scoreCounter = new OverlayStat("Score", myScore);
 		 OverlayStat cashCounter = new OverlayStat("Cash", myCash);
 
-		 myOverlayPanel.addOverlay(livesCounter, 0, 0);
-		 myOverlayPanel.addOverlay(scoreCounter, 0, 0);
-		 myOverlayPanel.addOverlay(cashCounter, 0, 0);
+		 myOverlayPanel.addOverlay(livesCounter, 0, 200);
+		 myOverlayPanel.addOverlay(scoreCounter, 0, 300);
+		 myOverlayPanel.addOverlay(cashCounter, 0, 500);
 
 		 myOverlayPanel.initialize();
 

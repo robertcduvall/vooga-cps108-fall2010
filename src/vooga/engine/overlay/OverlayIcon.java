@@ -5,6 +5,8 @@ package vooga.engine.overlay;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -154,6 +156,11 @@ public class OverlayIcon extends Overlay {
 	
 	public void setColor(Color color){
 		myText.setColor(color);
+	}
+	
+	public BufferedImage getImage()
+	{
+		return myImage.getImage();
 	}
 
 }
