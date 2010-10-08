@@ -26,7 +26,7 @@ public class MarioClone extends Game {
 
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 768;
-	PlayField playfield;
+	MarioPlayField playfield;
 	KeyboardControl myControl;
 	SpriteGroup marioGroup, tileGroup;
 	
@@ -42,33 +42,28 @@ public class MarioClone extends Game {
 	public void initResources() {
 		Resources.setGame(this);
 		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
-		TileMap m = null;
+		TileMap map = null;
 		try {
 			Resources.loadFile("src/vooga/games/marioclone/resourcelist.txt");
 			System.out.println("loaded resource list");
-			m = new TileMap(bsLoader.getBaseIO().getURL("testmap.txt"));
+			map = new TileMap(bsLoader.getBaseIO().getURL("testmap.txt"));
 			System.out.println("loaded tiles");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		List<Tile> tiles = m.getTiles();
-		
+		}		
 		Background marioBackground = new ColorBackground(Color.cyan);
 		marioBackground.setClip(0, 0, WIDTH, HEIGHT);
-		playfield = new PlayField();
+		playfield = new MarioPlayField();
 		playfield.setBackground(marioBackground);
 		tileGroup = new SpriteGroup("Tile Group");
-		for(Tile t : tiles) {
-			tileGroup.add(t);
-		}
-		playfield.addGroup(tileGroup);
-		
+
+		playfield.addTileMap(map);
 		
 		
 		marioGroup = new SpriteGroup("Mario Group");
 		MarioSprite mario = new MarioSprite("mario","regular",new Sprite(getImage("images/mario.png")));
-		mario.setLocation(40, 500);
+		mario.setLocation(40, 400);
 		marioGroup.add(mario);
 		playfield.addGroup(marioGroup);
 		
@@ -78,7 +73,7 @@ public class MarioClone extends Game {
 		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite");
 		myControl.addInput(KeyEvent.VK_S, "crouch", "vooga.games.marioclone.MarioSprite");
 		
-		playfield.addCollisionGroup(marioGroup, tileGroup, new MarioToTileCollision());
+		playfield.addCollisionGroup(marioGroup, playfield.getTileMap().getTileGroup(), new MarioToTileCollision());
 	}
 	
 	@Override

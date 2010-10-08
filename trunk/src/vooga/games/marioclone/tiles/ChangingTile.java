@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.golden.gamedev.object.Sprite;
+
 import vooga.engine.collision.Collidable;
 
 @SuppressWarnings("serial")
@@ -32,8 +34,9 @@ public class ChangingTile extends Tile {
 	}
 
 	@Override
-	public void actOnCollision(Collidable object) {
+	public void actOnCollision(Sprite sprite) {
 		curImage = (curImage+1)%images.size();
 		setImage(images.get(curImage));
 	}
+
 }

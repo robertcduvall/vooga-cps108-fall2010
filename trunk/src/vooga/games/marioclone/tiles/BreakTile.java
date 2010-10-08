@@ -2,7 +2,7 @@ package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.collision.Collidable;
+import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
 public class BreakTile extends Tile {	
@@ -12,8 +12,8 @@ public class BreakTile extends Tile {
 	}
 	
 	@Override
-	public void actOnCollision(Collidable object) {
-		this.setState(State.removed);
+	public void actOnCollision(Sprite sprite) {
+		setState(State.removed);
 	}
 
 

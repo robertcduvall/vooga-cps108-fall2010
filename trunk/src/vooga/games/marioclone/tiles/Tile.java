@@ -7,7 +7,7 @@ import vooga.engine.collision.Collidable;
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public abstract class Tile extends Sprite implements Collidable {
+public abstract class Tile extends Sprite {
 
 
 	private State state;
@@ -19,8 +19,7 @@ public abstract class Tile extends Sprite implements Collidable {
 	}
 
 	
-	@Override
-	public abstract void actOnCollision(Collidable object);
+	public abstract void actOnCollision(Sprite sprite);
 	
 	protected void setState(State state) {
 		this.state = state;
@@ -33,21 +32,21 @@ public abstract class Tile extends Sprite implements Collidable {
 
 	// Unused velocity methods:
 
-	@Override
-	public void setVelocity(double vx, double vy) {
-		// does not apply		
-	}
-
-	@Override
-	public double getXVelocity() {
-		return 0;
-	}
-
-
-
-	@Override
-	public double getYVelocity() {
-		return 0;
-	}
+//	@Override
+//	public void setVelocity(double vx, double vy) {
+//		// does not apply		
+//	}
+//
+//	@Override
+//	public double getXVelocity() {
+//		return 0;
+//	}
+//
+//
+//
+//	@Override
+//	public double getYVelocity() {
+//		return 0;
+//	}
 	
 }

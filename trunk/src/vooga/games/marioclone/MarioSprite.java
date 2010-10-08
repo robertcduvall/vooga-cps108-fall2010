@@ -1,11 +1,7 @@
 package vooga.games.marioclone;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
-
-import vooga.engine.player.control.*;
-import vooga.games.doodlejump.BallSprite;
+import vooga.engine.player.control.PlayerSprite;
+import vooga.games.marioclone.tiles.Tile;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -14,58 +10,74 @@ import com.golden.gamedev.object.Sprite;
  */
 
 @SuppressWarnings("serial")
-public class MarioSprite extends PlayerSprite{
-	
-	double gravity = 0.0001;
-	
-	
-	public MarioSprite(String name, String stateName, Sprite s){
-		super(name,stateName,s);
+public class MarioSprite extends PlayerSprite {
+
+	double gravity = .005;
+	double friction = .05;
+	double speed = .5;
+	double jumpSpeed = 1;
+
+	boolean onGround;
+
+	public MarioSprite(String name, String stateName, Sprite s) {
+		super(name, stateName, s);
 	}
 
-	public void moveRight(){
+	public void moveRight() {
 		if (isOnScreen()) {
-			setX(getX() + 5);
+			setHorizontalSpeed(speed);
 		} else {
 			setX(0);
 		}
 	}
-	
-	public void moveLeft(){
+
+	public void moveLeft() {
 		if (isOnScreen()) {
-			setX(getX() - 5);
+			setHorizontalSpeed(-speed);
 		} else {
 			setX(0);
 		}
 	}
-	
-	public void jump(){
+
+	public void jump() {
 		if (isOnScreen()) {
-			//setVerticalSpeed(-0.5);
-			setY(getY() - 5);
+			if (onGround) {
+				setVerticalSpeed(-jumpSpeed);
+				onGround = false;
+			}
 		} else {
 			setY(0);
 		}
 	}
-	
-	public void crouch(){
+
+	public void crouch() {
 		if (isOnScreen()) {
-			//setVerticalSpeed(-0.5);
-			setY(getY() + 5);
+			// //setVerticalSpeed(-0.5);
+			// setY(getY() + 5);
 		} else {
 			setY(0);
 		}
 	}
-	
+
+	public void setOnGround(boolean b) {
+		onGround = b;
+	}
+
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+		onGround = false;
+		setVerticalSpeed(getVerticalSpeed() + gravity * elapsedTime);
+		setHorizontalSpeed(getHorizontalSpeed()
+				- Math.signum(getHorizontalSpeed())
+				* Math.min(Math.abs(friction * getHorizontalSpeed()), Math
+						.abs(getHorizontalSpeed())));
+
 		/*
-		double yVelocity = getVerticalSpeed();
-		double newYVelocity = yVelocity + gravity*elapsedTime;
-		setVerticalSpeed(newYVelocity);
-		*/
-		
+		 * double yVelocity = getVerticalSpeed(); double newYVelocity =
+		 * yVelocity + gravity*elapsedTime; setVerticalSpeed(newYVelocity);
+		 */
+
 	}
 
 }
