@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
 
+/**
+ * The JigglingMonster class extends Sprite and defines a JigglingMonster
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class JigglingMonster extends Sprite{
 	private int jiggleTimer;
 	

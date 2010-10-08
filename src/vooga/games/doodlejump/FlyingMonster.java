@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
+/**
+ * The FlyingMonster class extends AnimatedSprite and defines a FlyingMonster 
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class FlyingMonster extends AnimatedSprite{
 	
 	public FlyingMonster(BufferedImage[] images, double x, double y){
