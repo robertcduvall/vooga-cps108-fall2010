@@ -1,12 +1,16 @@
 package vooga.games.zombieland;
+
 /**
+ * The default weapon. Low damage, medium firing delay, and low bullet speed.
  * 
- * @author Yang
- * The default type of weapon.  
+ * @author Jimmy Mu, Aaron Choi, Yang Su
  */
 public class Pistol extends Weapon {
 	public Pistol(Shooter shooter, int ammo) {
-		super(shooter, ammo, 5, 15);
+		super(shooter, ammo);
+		setDamage(5);
+		setFiringDelay(15);
+		setBulletSpeed(3);
 	}
 
 	public void fireBullets() {
