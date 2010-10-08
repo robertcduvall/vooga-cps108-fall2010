@@ -62,7 +62,7 @@ public class MarioClone extends Game {
 		
 		
 		marioGroup = new SpriteGroup("Mario Group");
-		MarioSprite mario = new MarioSprite("mario","regular",new Sprite(getImage("images/mario.png")));
+		MarioSprite mario = new MarioSprite("mario","regular",Resources.getImage("MarioR"),Resources.getImage("MarioL"));
 		mario.setLocation(40, 400);
 		marioGroup.add(mario);
 		playfield.addGroup(marioGroup);
