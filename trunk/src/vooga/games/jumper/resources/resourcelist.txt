@@ -10,6 +10,7 @@ resources/red_platform.png,platformRed
 resources/red_monster.png,monsterRed
 resources/purple_monster.png,monsterPurple
 resources/light_blue_platform.png,platformLightBlue
+resources/light_blue_platform_wide.png,platformLightBlueWide
 resources/green_platform.png,platformGreen
 resources/green_monster.png,monsterGreen
 resources/green_flying_monster.png,monsterGreenFlying
