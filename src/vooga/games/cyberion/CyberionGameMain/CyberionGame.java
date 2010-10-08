@@ -62,12 +62,12 @@ public class CyberionGame extends Game {
 
 	// initializes sprites from images
 	private void setSprites() {
-		BufferedImage starImage = getImage("Resources/star.png");
-		BufferedImage playerShotImage = getImage("Resources/playerShot.png");
-		BufferedImage enemyShotImage = getImage("Resources/enemyShot.png");
-		BufferedImage playerImage = getImage("Resources/playerShip.png");
-		BufferedImage enemyImage = getImage("Resources/enemyShip.png");
-		BufferedImage bonusImage = getImage("Resources/bonus.png");
+		BufferedImage starImage = getImage("vooga/games/cyberion/Resources/star.png");
+		BufferedImage playerShotImage = getImage("vooga/games/cyberion/Resources/playerShot.png");
+		BufferedImage enemyShotImage = getImage("vooga/games/cyberion/Resources/enemyShot.png");
+		BufferedImage playerImage = getImage("vooga/games/cyberion/Resources/playerShip.png");
+		BufferedImage enemyImage = getImage("vooga/games/cyberion/Resources/enemyShip.png");
+		BufferedImage bonusImage = getImage("vooga/games/cyberion/Resources/bonus.png");
 
 		star = new StarGroup("StarGroup", starImage);
 		playerGroup = new SpriteGroup("PlayerGroup");
@@ -132,7 +132,7 @@ public class CyberionGame extends Game {
 
 		eventManager = new EventManager();
 
-		BufferedImage gameBg = getImage("Resources/bg.png");
+		BufferedImage gameBg = getImage("vooga/games/cyberion/Resources/bg.png");
 		bg = new ImageBackground(gameBg, 640, 480);
 
 		setSprites();
@@ -141,7 +141,7 @@ public class CyberionGame extends Game {
 
 		startEventManager();
 
-		playMusic("Resources/missionimpossible.mid");
+		playMusic("vooga/games/cyberion/Resources/missionimpossible.mid");
 
 	}
 

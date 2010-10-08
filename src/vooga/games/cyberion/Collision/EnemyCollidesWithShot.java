@@ -24,7 +24,7 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 	public void collided(Sprite playershot, EnemyShip enemy) {
 		enemy.setLife(enemy.getLife() - 1);
 		playershot.setActive(false);
-		bsSound.play("Resources/explosion.wav");
+		bsSound.play("vooga/games/cyberion/Resources/explosion.wav");
 	}
 
 }
