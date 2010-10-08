@@ -1,8 +1,11 @@
 package vooga.games.towerdefense;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,16 +17,17 @@ import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.StatInt;
+import vooga.engine.player.control.MouseControl;
 import vooga.engine.resource.Resources;
 
 
 public class TowerDefense extends Game{
 	
-	public static final int WIDTH = 800;
+	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 600;
 	
 	private PlayerCursor playerCursor;
-	private PlayerCursorControl playerCursorControl;
+	private MouseControl playerCursorControl;
 	private Background background;
 	private PlayField playfield;
 	private SpriteGroup towerGroup, enemyGroup, towerShotGroup;
@@ -78,12 +82,12 @@ public class TowerDefense extends Game{
 		Resources.loadImage("duvallFace", "src/vooga/games/towerdefense/resources/images/duvallFace.png");
 		Resources.loadImage("duvallFaceRed", "src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
 		Resources.loadImage("duvallFaceBlue", "src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
-		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
+		//Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
 		//temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
 		//enemyGroup.add(temp);
-		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, towerGroup);
-		playerCursorControl = new PlayerCursorControl(playerCursor, this);
-		playerCursorControl.addInput("1", "buildTower", "vooga.games.towerdefense.PlayerCursor");
+		playerCursor = new PlayerCursor("player", "playerCursor", new Sprite(), towerGroup, this);
+		playerCursorControl = new MouseControl(playerCursor, this);
+		playerCursorControl.addInput(MouseEvent.BUTTON1, "buildTower", "vooga.games.towerdefense.PlayerCursor");
 	}
 	
 	private void initBackground(){
@@ -105,8 +109,7 @@ public class TowerDefense extends Game{
 	@Override
 	public void render(Graphics2D g) {
 		playfield.render(g);
-		playerCursor.render(g);
-		enemyGroup.render(g);
+		//playerCursor.render(g);
     }
 	
 	public static void main(String[] args) {
@@ -118,7 +121,7 @@ public class TowerDefense extends Game{
 	protected ArrayList<PathPoint> getPath() {
 		return path;
 	}
-		
+			
 	
 	
 	
