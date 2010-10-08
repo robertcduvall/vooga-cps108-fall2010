@@ -95,6 +95,7 @@ public class OverlayString extends Overlay {
 	 */
 	public void setFont(Font font){
 		if(myRealFont != null){
+			myRealFont = font;
 			myFont = myFontManager.getFont(font, myColor);
 		}
 	}
@@ -112,7 +113,7 @@ public class OverlayString extends Overlay {
 	public void setColor(Color color){
 		if(myRealFont != null){
 			myColor = color;
-			myFont = myFontManager.getFont(myRealFont, myColor);
+			myFont = myFontManager.getFont(myRealFont, color);
 		}
 		
 	}
@@ -128,7 +129,7 @@ public class OverlayString extends Overlay {
 	
 	private void createImage(String str, Graphics2D g) {
 	
-		myWidth = getTextWidth(str) + 1;
+		myWidth = getTextWidth(str);
 		myHeight = getTextHeight();
 		myFont.drawString(g,str,(int)getX() , (int)getY());
 		
@@ -164,7 +165,7 @@ public class OverlayString extends Overlay {
 	 */
 	@Override
 	public int getWidth(){
-		return myWidth;
+		return getTextWidth(myString);
 	}
 	
 	/**
@@ -172,7 +173,7 @@ public class OverlayString extends Overlay {
 	 */
 	@Override
 	public int getHeight(){
-		return myHeight;
+		return getTextHeight();
 		
 	}
 	
