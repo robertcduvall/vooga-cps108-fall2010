@@ -137,8 +137,8 @@ public class PlayerCursor extends PlayerSprite {
 	
 	public void render(Graphics2D g) {
 		if(inPlayArea()){
-			getCurrentSprite().forceX(getX()-getCurrentSprite().getWidth()/2);
-			getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2);
+			getCurrentSprite().forceX(getX()-getCurrentSprite().getWidth()/2+7);
+			getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2+7);
 			getCurrentSprite().render(g);
 		}
 	}
