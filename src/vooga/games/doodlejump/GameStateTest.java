@@ -71,11 +71,11 @@ public class GameStateTest extends Game {
 		if (keyPressed(KeyEvent.VK_P) && !start_menu.isActive()
 				&& game_play.isActive()) {
 
-			System.out.println("switch to pause menu");
-			System.out.println("start_menu: " + start_menu.isActive());
-			System.out.println("game_play: " + game_play.isActive());
-			System.out.println("pause_menu: " + pause_menu.isActive());
-			System.out.println();
+//			System.out.println("switch to pause menu");
+//			System.out.println("start_menu: " + start_menu.isActive());
+//			System.out.println("game_play: " + game_play.isActive());
+//			System.out.println("pause_menu: " + pause_menu.isActive());
+//			System.out.println();
 
 			game_state_manager.switchTo(pause_menu);
 			game_play.deactivate();
@@ -85,11 +85,11 @@ public class GameStateTest extends Game {
 		else if (keyPressed(KeyEvent.VK_P) && !start_menu.isActive()
 				&& pause_menu.isActive()) {
 
-			System.out.println("switch to game play");
-			System.out.println("start_menu: " + start_menu.isActive());
-			System.out.println("game_play: " + game_play.isActive());
-			System.out.println("pause_menu: " + pause_menu.isActive());
-			System.out.println();
+//			System.out.println("switch to game play");
+//			System.out.println("start_menu: " + start_menu.isActive());
+//			System.out.println("game_play: " + game_play.isActive());
+//			System.out.println("pause_menu: " + pause_menu.isActive());
+//			System.out.println();
 
 			game_state_manager.switchTo(game_play);
 			pause_menu.deactivate();
@@ -109,10 +109,10 @@ public class GameStateTest extends Game {
 		// }
 		if (start_menu.isActive()) {
 
-			System.out.println("start_menu: " + start_menu.isActive());
-			System.out.println("game_play: " + game_play.isActive());
-			System.out.println("pause_menu: " + pause_menu.isActive());
-			System.out.println();
+//			System.out.println("start_menu: " + start_menu.isActive());
+//			System.out.println("game_play: " + game_play.isActive());
+//			System.out.println("pause_menu: " + pause_menu.isActive());
+//			System.out.println();
 
 			if (keyPressed(KeyEvent.VK_1)) {
 				game_state_manager.switchTo(game_play);
