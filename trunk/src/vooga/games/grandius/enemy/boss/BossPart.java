@@ -2,6 +2,8 @@ package vooga.games.grandius.enemy.boss;
 
 import java.awt.image.BufferedImage;
 
+import vooga.games.grandius.enemy.common.Enemy;
+
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
@@ -12,19 +14,20 @@ import com.golden.gamedev.object.Sprite;
  *
  */
 @SuppressWarnings("serial")
-public class BossPart extends Sprite {
+public class BossPart extends Enemy {
 	private int myHealth;
 	private int myShields;
 	private int[] myBreakpoints; //0=green done, 1=yellow done
 	private BufferedImage[] myImages; //0=shielded, 1=green, 2=yellow, 3=red
-	
+	private final int SCORE_VALUE = 200;
 	
 	public BossPart(BufferedImage[] images, int[] breakpoints, double x, double y, int health, int shields) {
-		super(images[0], x, y);
+		super(new BufferedImage[]{images[0]}, x, y);
 		this.myImages = images;
 		this.myBreakpoints = breakpoints;
 		this.myHealth = health;
 		this.myShields = shields;
+		myScore = SCORE_VALUE;
 	}
 	
 	public boolean deplete(int depleteAmount) {
@@ -45,6 +48,12 @@ public class BossPart extends Sprite {
 		}
 		return false;
 		
+	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 250;
 	}
 	
 }

@@ -48,6 +48,7 @@ public class OverlayIcon extends Overlay {
 		myNumOfIcons = 0;
 		myPreviousNumOfIcons = 0;
 		myIconGroup = new SpriteGroup("Icons");
+		setImage(myImage.getImage());
 	}
 	
 		
@@ -156,11 +157,6 @@ public class OverlayIcon extends Overlay {
 	
 	public void setColor(Color color){
 		myText.setColor(color);
-	}
-	
-	public BufferedImage getImage()
-	{
-		return myImage.getImage();
 	}
 
 }

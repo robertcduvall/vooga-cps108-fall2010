@@ -11,7 +11,7 @@ import com.golden.gamedev.object.*;
  *
  */
 @SuppressWarnings("serial")
-public class Zipster extends AnimatedSprite {
+public class Zipster extends Enemy {
 	
 	public static final int MOVING_W = 0;
 	public static final int MOVING_NW = 1;
@@ -23,6 +23,7 @@ public class Zipster extends AnimatedSprite {
 	public Zipster(BufferedImage[] images, double x, double y) {
 		super(images, x, y);
 		myDirection = MOVING_W;
+		myScore = SCORE_VALUE;
 	}
 	
 	public int getDirection() {
