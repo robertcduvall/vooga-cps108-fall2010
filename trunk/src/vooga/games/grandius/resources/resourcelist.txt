@@ -27,6 +27,7 @@ PlayerShip,resources/player.png
 Explosion,resources/explosion.png
 EyeExplosion,resources/eye_explosion_1.png,resources/eye_explosion_2.png
 Projectile,resources/projectile.png
+ProjectileVertical,resources/bullet.jpg
 PlayerShipSingle,resources/playersingle.png
 Laser,resources/projectile-blue.png
 SideKick,resources/orange-circle.png
