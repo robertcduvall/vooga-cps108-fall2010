@@ -230,7 +230,6 @@ public class TowerDefense extends Game {
 			totalTime = 0;
 		}
 		if (totalTime > 5000) {
-			System.out.println('a');
 			enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80), selfEsteem, score, money, enemyGroup));
 			totalTime = 0;
 		}
