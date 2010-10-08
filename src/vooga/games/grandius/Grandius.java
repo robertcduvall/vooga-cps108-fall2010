@@ -439,7 +439,7 @@ public class Grandius extends Game{
 			 myPlayfield.clearPlayField();
 			 gameOver.setLocation(screen.getWidth()/2, screen.getHeight()/2);
 			 myPlayfield.add(gameOver);
-			 this.stop();
+//			 this.stop();
 		 }
 		 updateStat(myLives, (-1));
 	 }
