@@ -248,6 +248,12 @@ public class Zombieland extends Game {
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
+		control.setParams(new Class[]{int.class});
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
+		control.setParams(new Class[]{int.class});
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
+		control.setParams(new Class[]{int.class});
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
 	}
 
 	public void render(Graphics2D g) {

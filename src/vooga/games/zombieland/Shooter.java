@@ -71,6 +71,7 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void switchWeapons(int choice){
+		System.out.println(choice);
 		if(choice<=3)
 			weaponChoice=choice;
 	}
