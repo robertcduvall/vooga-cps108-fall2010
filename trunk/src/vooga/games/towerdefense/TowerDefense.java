@@ -29,11 +29,12 @@ public class TowerDefense extends Game{
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 600;
 	
-	private PlayerCursor playerCursor;
-	private MouseControl playerCursorControl;
+	private PlayerCursor player;
+	private PlayerCursorControl playerCursorControl;
+	private Sprite pathSprite;
 	private Background background;
 	private PlayField playfield;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup;
+	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup, pathGroup, playerGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
 	private Stat<Integer> selfEstem;
@@ -43,13 +44,17 @@ public class TowerDefense extends Game{
 	@Override
 	public void initResources(){
 		Resources.setGame(this);
+		loadImages();
 		initBackground();
 		
 		playfield = new PlayField(background);
+		pathGroup = playfield.addGroup(new SpriteGroup("Path Group"));
 		towerGroup = playfield.addGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
+		playerGroup = playfield.addGroup(new SpriteGroup("Player Group"));
 		overlayGroup = playfield.addGroup(new SpriteGroup("Overlay Group"));
+		
 		selfEstem = new Stat<Integer>(75);
 		score = new StatInt(0);
 		money = new StatInt(0);
@@ -58,9 +63,27 @@ public class TowerDefense extends Game{
 		initOverlays();
 		
 		
-		playfield.addCollisionGroup(towerShotGroup, enemyGroup, new TowerShotEnemyCollision());
+		//playfield.addCollisionGroup(towerShotGroup, enemyGroup, new TowerShotEnemyCollision());
 		
 	}
+	
+	private void buildPath(){
+		pathSprite = new Sprite(ImageUtil.resize(Resources.getImage("path1"), WIDTH, HEIGHT), 0, 0);
+		pathGroup.add(pathSprite);
+	}
+	
+	private void loadImages(){
+		Resources.loadImage("duvallFace", "src/vooga/games/towerdefense/resources/images/duvallFace.png");
+		Resources.loadImage("duvallFaceRed", "src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
+		Resources.loadImage("duvallFaceBlue", "src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
+		Resources.loadImage("tower", "src/vooga/games/towerdefense/resources/images/tower.png");
+		Resources.loadImage("towerShot", "src/vooga/games/towerdefense/resources/images/purpleShot.png");
+		Resources.loadImage("path1", "src/vooga/games/towerdefense/resources/images/path1.png");
+		Resources.loadImage("towerPreview", "src/vooga/games/towerdefense/resources/images/towerPreview.png");
+		Resources.loadImage("sniperTower", "src/vooga/games/towerdefense/resources/images/sniperTower.png");
+	}
+	
+	
 	
 	private void initOverlays() {
 		GameFont font = fontManager.getFont(getImages("src/vooga/games/towerdefense/resources/images/font.png", 20, 3),
@@ -78,6 +101,7 @@ public class TowerDefense extends Game{
 	}
 
 	private void initPath() {
+		buildPath();
 		path = new ArrayList<PathPoint>();
 		File thisLevel = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
 		try {
@@ -99,14 +123,14 @@ public class TowerDefense extends Game{
 	}
 
 	private void initPlayer(){
-		Resources.loadImage("duvallFace", "src/vooga/games/towerdefense/resources/images/duvallFace.png");
-		Resources.loadImage("duvallFaceRed", "src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
-		Resources.loadImage("duvallFaceBlue", "src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
-		//Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
+		
+		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
 		//temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
 		//enemyGroup.add(temp);
-		playerCursor = new PlayerCursor("player", "playerCursor", new Sprite(), towerGroup, this);
-		playerCursorControl = new MouseControl(playerCursor, this);
+		player = new PlayerCursor("player", "playerCursor", new Sprite(Resources.getImage("towerPreview")), towerGroup, this);
+		player.addCredits(20000);
+		playerGroup.add(player);
+		playerCursorControl = new PlayerCursorControl(player, this);
 		playerCursorControl.addInput(MouseEvent.BUTTON1, "buildTower", "vooga.games.towerdefense.PlayerCursor");
 	}
 	
@@ -117,7 +141,7 @@ public class TowerDefense extends Game{
 	@Override
 	public void update(long elapsedTime) {
 		totalTime += elapsedTime;
-		if(totalTime > 2000){
+		if(totalTime > Utility.getRandom(500, 2000)){
 			enemyGroup.add(new Enemy(path, Utility.getRandom(20,80),Utility.getRandom(1,3) , selfEstem, score, money));
 			totalTime = 0;
 		}
@@ -144,6 +168,10 @@ public class TowerDefense extends Game{
 			
 	public SpriteGroup getEnemyGroup(){
 		return this.enemyGroup;
+	}
+	
+	public SpriteGroup getTowerShotGroup(){
+		return this.towerShotGroup;
 	}
 	
 	

@@ -1,40 +1,131 @@
 package vooga.games.towerdefense;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.awt.image.BufferedImage;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
-import vooga.engine.core.Game;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.Resources;
 
-public class PlayerCursor extends PlayerSprite{
-	
+public class PlayerCursor extends PlayerSprite {
+
 	private static final long serialVersionUID = -8174656868252384431L;
-	SpriteGroup towerGroup;
-	TowerDefense myGame;
+	private SpriteGroup towerGroup;
+	private TowerDefense myGame;
+	private double creditBalance;
+	private double creditsPerMillisecond;
+	private String currentTowerType;
 
-	public PlayerCursor(String name, String stateName, Sprite s, SpriteGroup towerGroup, TowerDefense game) {
+	public PlayerCursor(String name, String stateName, Sprite s,
+			SpriteGroup towerGroup, TowerDefense game) {
 		super(name, stateName, s);
 		this.towerGroup = towerGroup;
 		myGame = game;
+		creditsPerMillisecond = 2;
+		currentTowerType = "SniperTower";
+		//setPreviewImage();
 	}
 	
-	public void buildTower() throws MalformedURLException{
+	private void setPreviewImage(){
 		try {
-			File file = new File("src/vooga/games/towerdefense/resources/images/tower.png");
-			URL imageURL = file.toURI().toURL();
-			Tower image = new Tower(ImageUtil.getImage(imageURL), myGame.getMouseX(), myGame.getMouseY(), 40, 1000);
-			image.setTargetGroup(myGame.getEnemyGroup());
-			towerGroup.add(image);
-		} catch (MalformedURLException e) {
+			Field field = Class.forName("vooga.games.towerdefense." + currentTowerType).getDeclaredField("PREVIEW");
+			BufferedImage image = (BufferedImage) field.get(new Object());
+			this.setImage(image);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	
+
+	public void buildTower() {
+		try {
+			Class towerDefinition = Class.forName("vooga.games.towerdefense." + currentTowerType);
+			Class[] argsClass = new Class[] { double.class, double.class,
+					TowerDefense.class };
+			Object[] args = new Object[] { getX(), getY(), myGame };
+			Constructor argsConstructor = towerDefinition.getConstructor(argsClass);
+			Tower tower = (Tower) createTower(argsConstructor, args);
+			towerGroup.add(tower);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Method perform = this.getClass().getMethod("build" +
+		// currentTowerType);
+		// perform.invoke(this);
+	}
+
+	public static Object createTower(Constructor constructor, Object[] arguments) {
+
+		Object object = null;
+
+		try {
+			object = constructor.newInstance(arguments);
+			return object;
+		} catch (InstantiationException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		return object;
+	}
+
+	public void buildSniperTower() {
+		Tower tower = new SniperTower(getX(), getY(), myGame);
+		towerGroup.add(tower);
+	}
+
+	public void buildFastTower() {
+		Tower tower = new FastTower(getX(), getY(), myGame);
+		towerGroup.add(tower);
+	}
+
+	public void setCredits(double credits) {
+		creditBalance = credits;
+	}
+
+	public void addCredits(double credits) {
+		creditBalance += credits;
+	}
+
+	public void update(long elaspedTime) {
+		creditBalance += creditsPerMillisecond * elaspedTime;
+	}
 
 }

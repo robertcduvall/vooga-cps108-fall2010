@@ -3,12 +3,14 @@ package vooga.games.towerdefense;
 import java.awt.image.BufferedImage;
 import java.util.Set;
 
+import vooga.engine.resource.Resources;
+
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-public class Tower extends Sprite{
+public abstract class Tower extends Sprite{
 
 	private long shotDelay;
 	private long timeSinceShot;
@@ -16,20 +18,16 @@ public class Tower extends Sprite{
 	private Enemy target;
 	private double range;
 	private SpriteGroup potentialTargets;
+	private SpriteGroup shotGroup;
 	
-	public Tower(BufferedImage image, double x, double y, double range){
-		this(image, x, y, range, 0);
-	}
 	
-	public Tower(BufferedImage image, double x, double y, double range, long shotDelay){
+	public Tower(BufferedImage image, double x, double y, double range, long shotDelay, TowerDefense game){
 		super(image, x, y);
 		this.shotDelay = shotDelay;
 		this.range = range;
 		this.armed=true;
-	}
-	
-	public void setTargetGroup(SpriteGroup potentialTargets){
-		this.potentialTargets = potentialTargets;
+		this.potentialTargets = game.getEnemyGroup();
+		this.shotGroup = game.getTowerShotGroup();
 	}
 	
 	public void update(long elapsedTime){
@@ -48,6 +46,8 @@ public class Tower extends Sprite{
 		if(target!=null){
 			target.gotHit();
 			timeSinceShot=0;
+			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), 1);
+			shotGroup.add(shot);
 		}
 		
 	}
@@ -58,7 +58,7 @@ public class Tower extends Sprite{
 	
 	private Sprite findTarget(){		
 		for(Sprite sprite: potentialTargets.getSprites()){
-			if(sprite!=null && isInRange(sprite)){
+			if(isValidTarget(sprite)){
 				return sprite;
 			}
 		}
