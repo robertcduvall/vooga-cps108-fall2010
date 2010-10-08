@@ -31,12 +31,12 @@ public class DoodleGame extends Game {
 	private AnimatedSprite brown_platform1;
 
 	// monsters
-	private PlayerSprite blue_flying_monster;
-	private PlayerSprite blue_monster;
+	private FlyingMonster blue_flying_monster;
+	private MovingMonster blue_monster;
 	private PlayerSprite green_flying_monster;
 	private PlayerSprite green_monster;
-	private PlayerSprite purple_monster;
-	private PlayerSprite red_monster;
+	private JigglingMonster purple_monster;
+	private JigglingMonster red_monster;
 	
 	// Enhanced Platforms
 	private AnimatedSprite spring;
@@ -80,12 +80,10 @@ public class DoodleGame extends Game {
 		dark_blue_platform = new Sprite(getImage("images/dark_blue_platform.png"), 400, 400);
 		PlatformGroup.add(dark_blue_platform);
 		gray_platform = new GrayPlatform(getImage("images/gray_platform.png"), 200, 400);
-		gray_platform.setVerticalSpeed(-0.1);
 		PlatformGroup.add(gray_platform);
 		green_platform = new Sprite(getImage("images/green_platform.png"), 325, 700);
 		PlatformGroup.add(green_platform);
 		light_blue_platform = new LightBluePlatform(getImage("images/light_blue_platform.png"), 200, 100);
-		light_blue_platform.setHorizontalSpeed(-0.1);
 		PlatformGroup.add(light_blue_platform);
 		
 		white_platform = new Sprite(getImage("images/white_platform.png"), 300, 500);
@@ -100,17 +98,23 @@ public class DoodleGame extends Game {
 		BrownPlatformGroup.add(brown_platform1);
 				
 		// create monsters
-		blue_flying_monster = new PlayerSprite("blue_flying_monster", "bfm", new Sprite(getImage("images/blue_flying_monster.png"),50,100));
+		BufferedImage[] blue_flying_images = new BufferedImage[5];
+		blue_flying_images[0] = getImage("images/blue_flying_monster_1.png");
+		blue_flying_images[1] = getImage("images/blue_flying_monster_2.png");
+		blue_flying_images[2] = getImage("images/blue_flying_monster_3.png");
+		blue_flying_images[3] = getImage("images/blue_flying_monster_4.png");
+		blue_flying_images[4] = getImage("images/blue_flying_monster_5.png");
+		blue_flying_monster = new FlyingMonster(blue_flying_images, 50, 100);
 		MonsterGroup.add(blue_flying_monster);
-		blue_monster = new PlayerSprite("blue_monster", "bm", new Sprite(getImage("images/blue_monster.png"),70,500));
+		blue_monster = new MovingMonster(getImage("images/blue_monster_left.png"), 70, 500);
 		MonsterGroup.add(blue_monster);
 		green_flying_monster = new PlayerSprite("green_flying_monster", "gfm", new Sprite(getImage("images/green_flying_monster.png"),320,70));
 		MonsterGroup.add(green_flying_monster);
 		green_monster = new PlayerSprite("green_monster", "gm", new Sprite(getImage("images/green_monster.png"),50,200));
 		MonsterGroup.add(green_monster);
-		purple_monster = new PlayerSprite("purple_monster", "pm", new Sprite(getImage("images/purple_monster.png"),50,425));
+		purple_monster = new JigglingMonster(getImage("images/purple_monster.png"), 50, 425);
 		MonsterGroup.add(purple_monster);
-		red_monster = new PlayerSprite("red_monster", "rm", new Sprite(getImage("images/red_monster.png"),500,550));
+		red_monster = new JigglingMonster(getImage("images/red_monster.png"), 500, 550);
 		MonsterGroup.add(red_monster);
 		
 		// enhanced platforms

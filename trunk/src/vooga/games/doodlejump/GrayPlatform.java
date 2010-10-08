@@ -5,9 +5,11 @@ import com.golden.gamedev.object.Sprite;
 
 public class GrayPlatform extends Sprite{
 	private int changeDirection;
+	
 	public GrayPlatform(BufferedImage image, double x, double y){
 		super(image, x, y);
 		changeDirection = 300;
+		setVerticalSpeed(-0.1);
 	}
 	
 	@Override
