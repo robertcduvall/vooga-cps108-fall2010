@@ -14,6 +14,7 @@ public class Shooter extends PlayerSprite {
 	private Weapon[] weapons;
 	private Stat<Integer> health;
 	private Stat<Integer> score;
+	private Stat<Integer> ammo;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
@@ -31,6 +32,7 @@ public class Shooter extends PlayerSprite {
 
 		health = new Stat<Integer>(playerHealth);
 		score = new Stat<Integer>(0);
+		ammo = new Stat<Integer>(getAmmo());
 	}
 
 	public void goLeft() {
@@ -73,6 +75,7 @@ public class Shooter extends PlayerSprite {
 	public void switchWeapons(int choice){
 		if(choice<=3)
 			weaponChoice=choice;
+		ammo.setStat(weapons[weaponChoice].getAmmo());
 	}
 	/**
 	 * Initiate the shooting animation and fire bullets according to weapon
@@ -91,6 +94,7 @@ public class Shooter extends PlayerSprite {
 	
 	private void fireBullets() {
 		weapons[weaponChoice].fire();
+		ammo.setStat(weapons[weaponChoice].getAmmo());
 	}
 
 	public void addBulletToGame(Bullet bullet, double angle) {
@@ -131,6 +135,10 @@ public class Shooter extends PlayerSprite {
 		return weapons[weaponChoice].getAmmo();
 	}
 
+	public Stat<Integer> getStatAmmo(){
+		return ammo;
+	}
+	
 	public void addAmmo(int weapon, int amount){
 		weapons[weapon].addAmmo(amount);
 	}
