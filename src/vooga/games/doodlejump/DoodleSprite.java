@@ -25,6 +25,7 @@ public class DoodleSprite extends PlayerSprite {
 
 	public DoodleSprite(String name, String stateName, Sprite s, DoodleGame game) {
 		super(name, stateName, s);
+		//setLayer(1);
 		balls = new ArrayList<BallSprite>();
 		this.game = game;
 	}
@@ -71,7 +72,13 @@ public class DoodleSprite extends PlayerSprite {
 		for (BallSprite ball : balls) {
 			ball.update(elapsedTime);
 		}
+		
 		bulletDelay--;
+		
+		if (getY() > 850) {
+			setX(325);
+			setY(550);
+		}
 	}
 
 	public void shoot() {
