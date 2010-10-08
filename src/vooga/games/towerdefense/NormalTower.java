@@ -14,7 +14,7 @@ public class NormalTower extends Tower{
 	public final static BufferedImage PREVIEW = Resources.getImage("normalTowerPreview");
 	public final static long SHOT_DELAY = 1000;
 	public final static double RANGE = 150;
-	public final static int COST = 10;
+	public final static int COST = 40;
 	public final static double SHOT_SPEED = 1;
 	
 	public NormalTower(double x, double y, TowerDefense game){

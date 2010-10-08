@@ -72,7 +72,7 @@ public abstract class Tower extends Sprite{
 	}
 	
 	private double findDistance(Sprite other){
-		return Math.sqrt((this.getX()-other.getX())*(this.getX()-other.getX()) + (this.getY()-other.getY())*(this.getY()-other.getY()));
+		return Math.sqrt((getX()+getWidth()/2-other.getX())*(getX()+getWidth()/2-other.getX()) + (getY()+getHeight()/2-other.getY())*(this.getY()+getHeight()/2-other.getY()));
 	}
 
 }
