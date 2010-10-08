@@ -14,7 +14,8 @@ public class Boomer extends Enemy {
 	public static final int BOOMER_BLUE = 0;
 	public static final int BOOMER_YELLOW = 1;
 	public static final int BOOMER_RED = 2;
-	public static final int SCORE_VALUE = 50;
+	private static final int SCORE_VALUE = 50;
+	private static final int CASH_VALUE = 5;
 	
 	private int myColor;
 	
@@ -23,6 +24,7 @@ public class Boomer extends Enemy {
 		this.myColor = BOOMER_BLUE;
 		this.setHorizontalSpeed(-0.04);
 		myScore = SCORE_VALUE;
+		myCash = CASH_VALUE;
 	}
 	
 	public int getColor() {
@@ -35,15 +37,6 @@ public class Boomer extends Enemy {
 		} else {
 			this.myColor++;
 		}
-	}
-	
-	/**
-	 * Returns the point value of this enemy.
-	 * @return
-	 */
-	public int getScoreValue()
-	{
-		return SCORE_VALUE;
 	}
 	
 	

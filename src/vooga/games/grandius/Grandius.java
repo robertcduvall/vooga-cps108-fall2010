@@ -50,6 +50,7 @@ public class Grandius extends Game{
 	private SpriteGroup PROJECTILE_GROUP;
 	private SpriteGroup ENEMY_GROUP;
 	private SpriteGroup BOSS_PART_GROUP;
+	private SpriteGroup OVERLAYS_GROUP;
 
 	private Sprite shipsprite;
 	private PlayerSprite playersprite;
@@ -58,8 +59,9 @@ public class Grandius extends Game{
 	private ProjectileEnemyCollision projectileEnemyCollision;
 	private ProjectileBossPartCollision projectileBossPartCollision;
 
-	private SpriteGroup myOverlays;
+	
 	private OverlayStatImage livesIcon;
+	private OverlayString gameOver = new OverlayString("Game Over", java.awt.Color.RED);
 	private Stat<Integer> myLives;
 	private Stat<Integer> myScore;
 	private Stat<Integer> myCash;
@@ -83,7 +85,7 @@ public class Grandius extends Game{
 	 */
 	 public Grandius()
 	{
-		myOverlays = new SpriteGroup("overlays");
+		OVERLAYS_GROUP = new SpriteGroup("overlays");
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
@@ -112,13 +114,13 @@ public class Grandius extends Game{
 		 OverlayStat cashCounter = new OverlayStat("Cash", myCash);
 		 cashCounter.setLocation(screen.getWidth()/2, 5);
 
-		 myOverlays.add(livesCounter);
-		 myOverlays.add(scoreCounter);
-		 myOverlays.add(cashCounter);
+		 OVERLAYS_GROUP.add(livesCounter);
+		 OVERLAYS_GROUP.add(scoreCounter);
+		 OVERLAYS_GROUP.add(cashCounter);
 
 		 myPlayfield = new PlayField();
 
-		 myPlayfield.addGroup(myOverlays);
+		 myPlayfield.addGroup(OVERLAYS_GROUP);
 		 
 		 //TODO Scrolling background
 		 myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
@@ -222,8 +224,6 @@ public class Grandius extends Game{
 				 //myCurrentLevel++;
 			 }
 			 
-			 myOverlays.update(elapsedTime);
-			 
 			 // playfield updates all things and checks for collisions
 			 myPlayfield.update(elapsedTime);
 		 }
@@ -242,6 +242,7 @@ public class Grandius extends Game{
 			 ArrayList<ArrayList<Sprite>> nextLevel = levelManager.nextLevel();
 			 PLAYER_GROUP.add(playersprite);
 			 myPlayfield.addGroup(PLAYER_GROUP);
+			 myPlayfield.addGroup(OVERLAYS_GROUP);
 			 createComets();
 			 initLevel(nextLevel.get(0), nextLevel.get(1));
 			 gameState = GAME_PLAY;
@@ -380,7 +381,12 @@ public class Grandius extends Game{
 	  */
 	 public void updateStat(Stat<Integer> stat, int addedValue)
 	 {
-		 stat.setStat(new Integer(stat.getStat().intValue()+addedValue));
+		 int myCurrentStat = stat.getStat();
+		 //Can't go below 0
+		 if(myCurrentStat + addedValue > 0)
+			 stat.setStat(new Integer(stat.getStat().intValue()+addedValue));
+		 else
+			 stat.setStat(new Integer(0));
 	 }
 
 	 public PlayField getPlayfield() {
@@ -389,7 +395,7 @@ public class Grandius extends Game{
 
 	 public void updatePlayerLives(){
 		 int playerLives = playersprite.getLives();
-		 updateStat(myLives, (-1));
+		 
 		 if(playerLives>1){
 			 playersprite.setLocation(playerInitialX, playerInitialY);
 			 playersprite.setLives(playerLives-1);
@@ -398,8 +404,12 @@ public class Grandius extends Game{
 		 else{
 			 playersprite.setActive(false);
 			 //TODO - modify this - add an`` end game screen, etc
+			 myPlayfield.clearPlayField();
+			 gameOver.setLocation(screen.getWidth()/2, screen.getHeight()/2);
+			 myPlayfield.add(gameOver);
 			 this.stop();
 		 }
+		 updateStat(myLives, (-1));
 	 }
 
 	 public static void main(String[] args) {
@@ -410,7 +420,10 @@ public class Grandius extends Game{
 
 	 public void updateScoreOnCollision(int points) {
 		 updateStat(myScore, points);
-
+	 }
+	 
+	 public void updateCashOnCollision(int cash) {
+		 updateStat(myCash, cash);
 	 }
 
 }
