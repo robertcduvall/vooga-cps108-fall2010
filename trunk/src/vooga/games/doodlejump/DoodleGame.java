@@ -80,7 +80,7 @@ public class DoodleGame extends Game {
 		light_blue_platform = new Sprite(getImage("images/light_blue_platform.png"), 200, 100);
 		PlatformGroup.add(light_blue_platform);
 		
-		white_platform = new Sprite(getImage("images/white_platform.png"), 100, 550);
+		white_platform = new Sprite(getImage("images/white_platform.png"), 300, 500);
 		WhitePlatformGroup.add(white_platform);
 		
 		BufferedImage[] breaking_brown_images = new BufferedImage[4];
