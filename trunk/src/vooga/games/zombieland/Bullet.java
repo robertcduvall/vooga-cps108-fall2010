@@ -12,22 +12,38 @@ import com.golden.gamedev.object.Sprite;
  */
 public class Bullet extends GameEntitySprite {
 
-	private double damage;
-	private double velocity;
-	private double orientation;
-	private double playerX;
-	private double playerY;
+	private double myDamage;
+	private double myVelocity;
+	private double myAngle;
+	private double myUserX;
+	private double myUserY;
 
 	public Bullet(double x, double y, double angle, double bulletDamage,
 			double bulletSpeed) {
 		super("Bullet", "Moving", new Sprite());
-		orientation = angle;
-		playerX = x;
-		playerY = y;
-		damage = bulletDamage;
-		velocity = bulletSpeed;
-
+		
+		setAngle(angle);
+		setUserLocation(x,y);
+		setDamage(bulletDamage);
+		setVelocity(bulletSpeed);
 		correctPositionOffset();
+	}
+
+	private void setAngle(double angle) {
+		myAngle = angle;
+	}
+
+	private void setVelocity(double bulletSpeed) {
+		myVelocity = bulletSpeed;
+	}
+
+	private void setDamage(double bulletDamage) {
+		myDamage = bulletDamage;
+	}
+	
+	private void setUserLocation(double x, double y)
+	{	myUserX =x;
+		myUserY =y;
 	}
 
 	/**
@@ -35,16 +51,39 @@ public class Bullet extends GameEntitySprite {
 	 * the player so the bullet is spawned in front of the player and next to
 	 * the gun.
 	 */
+	
 	private void correctPositionOffset() {
-		if (orientation > -45 && orientation < 45)
-			setOffset(30, 25);
-		else if (orientation > 45 && orientation < 135)
-			setOffset(-15, 50);
-		else if (orientation > 135 && orientation < 225)
-			setOffset(-25, 10);
-		else
-			setOffset(5, 0);
+		if (angleFacingLeft())
+		{	correctBulletPlacement(30, 25);
+			return;
+		}
+	
+		if (angleFacingUp())
+		{	correctBulletPlacement(-15, 50);
+			return;
+		}
+		
+		if (angleFacingRight())
+		{	correctBulletPlacement(-25, 10);
+			return;
+		}
+		
+		correctBulletPlacement(5, 0);
 	}
+
+	private boolean angleFacingRight() {
+		return myAngle > 135 && myAngle < 225;
+	}
+
+	private boolean angleFacingUp() {
+		return myAngle > 45 && myAngle < 135;
+	}
+
+	private boolean angleFacingLeft() {
+		return myAngle > -45 && myAngle < 45;
+	}
+	
+	
 
 	/**
 	 * Offset the position of the bullet relative to the position of the player
@@ -54,9 +93,9 @@ public class Bullet extends GameEntitySprite {
 	 * @param y
 	 *            y offset
 	 */
-	private void setOffset(double x, double y) {
-		setX(playerX + x);
-		setY(playerY + y);
+	private void correctBulletPlacement(double x, double y) {
+		setX(myUserX + x);
+		setY(myUserY + y);
 	}
 
 	/**
@@ -64,16 +103,18 @@ public class Bullet extends GameEntitySprite {
 	 * @return damage of the current bullet
 	 */
 	public double getDamage() {
-		return damage;
+		return myDamage;
 	}
 
 	/**
 	 * Update the location of this bullet. Used for animation
 	 */
 	public void update(long elapsedTime) {
-
-		moveX(Math.cos(orientation / 360.0 * Math.PI * 2) * velocity);
-		moveY(Math.sin(orientation / 360.0 * Math.PI * 2) * velocity);
+		double newXAmountFromAngle = Math.cos(myAngle / 360.0 * Math.PI * 2) * myVelocity;
+		moveX(newXAmountFromAngle);
+		
+		double newYAmountFromAngle = Math.sin(myAngle / 360.0 * Math.PI * 2) * myVelocity;
+		moveY(newYAmountFromAngle);
 
 	}
 }
