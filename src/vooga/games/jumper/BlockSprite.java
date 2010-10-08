@@ -1,19 +1,18 @@
 package vooga.games.jumper;
 
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
 
-public class MovingSprite extends Sprite {
+public class BlockSprite extends Sprite {
 
     private double myXSpeed;
     private double myYSpeed;
 
-    public MovingSprite(BufferedImage image, Point location, Point velocity) {
+    public BlockSprite(BufferedImage image, Point location) {
         super(image, location.x, location.y);
-        setMyXSpeed(velocity.x);
-        setMyYSpeed(velocity.y);
     }
 
     public void setMyXSpeed(int myXSpeed) {
@@ -33,7 +32,15 @@ public class MovingSprite extends Sprite {
     }
     
     public void update(long elapsedTime){
-    	move(myXSpeed, myYSpeed);
-    	//setSpeed(myXSpeed, myYSpeed);
+    	move(this.getHorizontalSpeed(), this.getVerticalSpeed());
+    	bounceOnWall();
+    	
+    }
+
+    
+    public void bounceOnWall(){
+    	if (this.getX() + this.getWidth() > Jumper.getGameWidth() || this.getX() < 0){
+    		this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
+    	}
     }
 }
