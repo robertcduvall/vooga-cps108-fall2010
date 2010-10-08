@@ -35,11 +35,12 @@ public class TowerDefense extends Game {
 	public static final int HEIGHT = 600;
 
 	private PlayerCursor player;
+	private Sprite pauseScreen;
 	private PlayerCursorControl playerCursorControl;
 	private KeyboardControl playerKeyboardControl;
 	private Background background;
 	private PlayField playfield;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup, playerGroup;
+	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup, pauseGroup, playerGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
 	private Stat<Integer> selfEsteem;
@@ -78,6 +79,10 @@ public class TowerDefense extends Game {
 				"Tower Shot Group"));
 		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
 		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
+		
+		pauseScreen = new Sprite(Resources.getImage("pause"));
+		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
+		pauseGroup.add(pauseScreen);
 
 		selfEsteem = new Stat<Integer>(75);
 		score = new Stat<Integer>(0);
@@ -125,6 +130,8 @@ public class TowerDefense extends Game {
 		"src/vooga/games/towerdefense/resources/images/normalTower.png");
 		Resources.loadImage("normalTowerPreview",
 		"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
+		Resources.loadImage("pause",
+		"src/vooga/games/towerdefense/resources/images/pauseScreen.png");
 		
 		
 	}
@@ -235,6 +242,7 @@ public class TowerDefense extends Game {
 			enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80), selfEsteem, score, money, enemyGroup));
 			totalTime = 0;
 		}
+		
 		playfield.update(elapsedTime);
 	}
 
