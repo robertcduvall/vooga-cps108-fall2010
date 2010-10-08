@@ -12,6 +12,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
+import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 
@@ -20,18 +21,17 @@ public class PlayerCursor extends PlayerSprite {
 	private static final long serialVersionUID = -8174656868252384431L;
 	private SpriteGroup towerGroup;
 	private TowerDefense myGame;
-	private double creditBalance;
-	private double creditsPerMillisecond;
-	private double towerCost;
+	private Stat<Integer> creditBalance;
+	private int towerCost;
 	private String towerType;
 	private Class towerDefinition;
 
 	public PlayerCursor(String name, String stateName, Sprite s,
-			SpriteGroup towerGroup, TowerDefense game) {
+			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance) {
 		super(name, stateName, s);
 		this.towerGroup = towerGroup;
 		myGame = game;
-		creditsPerMillisecond = 2;
+		creditBalance = balance;
 		changeTowerType("FastTower");
 	}
 
@@ -48,7 +48,7 @@ public class PlayerCursor extends PlayerSprite {
 			BufferedImage image = (BufferedImage) field.get(null);
 			setNewImage(image);
 			field = towerDefinition.getDeclaredField("COST");
-			towerCost = field.getDouble(null);
+			towerCost = field.getInt(null);
 
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -69,7 +69,9 @@ public class PlayerCursor extends PlayerSprite {
 	}
 
 	public void buildTower() {
-		if (creditBalance >= towerCost) {
+		System.out.println('b');
+		System.out.println(creditBalance.getStat() + " : " + towerCost);
+		if (creditBalance.getStat() >= towerCost) {
 			try {
 				Class[] argsClass = new Class[] { double.class, double.class,
 						TowerDefense.class };
@@ -78,6 +80,7 @@ public class PlayerCursor extends PlayerSprite {
 						.getConstructor(argsClass);
 				Tower tower = (Tower) createTower(argsConstructor, args);
 				towerGroup.add(tower);
+				creditBalance.setStat(creditBalance.getStat() - towerCost);
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -85,7 +88,6 @@ public class PlayerCursor extends PlayerSprite {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			creditBalance -= towerCost;
 		}
 
 		// Method perform = this.getClass().getMethod("build" +
@@ -124,18 +126,6 @@ public class PlayerCursor extends PlayerSprite {
 	public void buildFastTower() {
 		Tower tower = new FastTower(getX(), getY(), myGame);
 		towerGroup.add(tower);
-	}
-
-	public void setCredits(double credits) {
-		creditBalance = credits;
-	}
-
-	public void addCredits(double credits) {
-		creditBalance += credits;
-	}
-
-	public void update(long elaspedTime) {
-		creditBalance += creditsPerMillisecond * elaspedTime;
 	}
 
 }

@@ -51,7 +51,7 @@ public class TowerPathTracer extends Game{
 		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
 		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
 		temp = new Sprite(getImage("resources/images/duvallFace.png"));
-		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, null, null);
+		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, null, null, null);
 		playerCursorControl = new PathTracer(playerCursor, this);
 		//playerCursorControl.addInput("1", "buildTower", "vooga.games.towerdefense.PlayerCursor");
 	}

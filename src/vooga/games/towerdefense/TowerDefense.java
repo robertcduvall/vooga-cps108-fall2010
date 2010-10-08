@@ -83,7 +83,7 @@ public class TowerDefense extends Game {
 
 		selfEsteem = new Stat<Integer>(75);
 		score = new Stat<Integer>(0);
-		money = new Stat<Integer>(0);
+		money = new Stat<Integer>(100);
 		initPath();
 		initPlayer();
 		initOverlays();
@@ -168,8 +168,7 @@ public class TowerDefense extends Game {
 	private void initPlayer() {
 
 		player = new PlayerCursor("player", "playerCursor", new Sprite(
-				Resources.getImage("towerPreview")), towerGroup, this);
-		player.addCredits(20000);
+				Resources.getImage("towerPreview")), towerGroup, this, money);
 		playerGroup.add(player);
 		playerCursorControl = (PlayerCursorControl) play
 				.addControl(new PlayerCursorControl(player, this));
