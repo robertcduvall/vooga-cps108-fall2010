@@ -5,15 +5,18 @@ public abstract class Weapon {
 	private Shooter player;
 	private int ammoCount;
 	private double damage;
-
+	private int frameCount;
+	private int firingDelay;
 	public Weapon(Shooter s, int ammo) {
-		this(s, ammo, 0);
+		this(s, ammo, 0,0);
 	}
 
-	public Weapon(Shooter s, int ammo, double damage) {
+	public Weapon(Shooter s, int ammo, double damage, int delay) {
 		player = s;
 		ammoCount = ammo;
 		this.damage = damage;
+		frameCount=0;
+		this.firingDelay=delay;
 	}
 
 	/**
@@ -59,9 +62,17 @@ public abstract class Weapon {
 	 * ammoCount
 	 */
 	public void fire() {
-		if (ammoCount > 0)
-			fireBullets();
-		ammoCount--;
+		if (ammoCount > 0){
+			if (frameCount < firingDelay){
+				frameCount++;
+			}
+			else{
+				frameCount = 0;
+				fireBullets();
+				ammoCount--;
+			}
+		}
+		
 	}
 
 	/**

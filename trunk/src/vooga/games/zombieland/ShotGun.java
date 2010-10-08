@@ -8,7 +8,7 @@ public class ShotGun extends Weapon {
 	private static int numberOfShots=3; 
 	
 	public ShotGun(Shooter s, int ammo) {
-		super(s, ammo, 25);
+		super(s, ammo, 25, 20);
 	}
 	
 	/**
