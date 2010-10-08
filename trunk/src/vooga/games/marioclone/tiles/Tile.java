@@ -22,7 +22,7 @@ public abstract class Tile extends GameEntitySprite implements Collidable {
 	}
 	
 	public Tile(double x, double y, State state) {
-		super("Tile",state.toString(),null);
+		super("Tile",state.toString(),new com.golden.gamedev.object.Sprite(null));
 		this.x = x;
 		this.y = y;
 		this.state = state;
