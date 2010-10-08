@@ -6,7 +6,6 @@ import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
 import vooga.games.grandius.enemy.boss.BossPart;
 import vooga.games.grandius.enemy.common.Enemy;
-import vooga.games.grandius.enemy.common.IEnemy;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -31,6 +30,6 @@ public class ProjectileBossPartCollision extends BasicCollision {
 			AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 			grandius.getPlayfield().add(explosion);
 		}
-		grandius.updateScoreOnCollision((Enemy)enemy.getScore());
+		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());
 	}
 }
