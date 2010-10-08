@@ -44,8 +44,8 @@ public class TowerDefense extends Game {
 	private ArrayList<PathPoint> path;
 	private long totalTime;
 	private Stat<Integer> selfEsteem;
-	private StatInt score;
-	private StatInt money;
+	private Stat<Integer> score;
+	private Stat<Integer> money;
 	private NonSetGameStateManager stateManager;
 	private State startMenu;
 	private State play;
@@ -82,8 +82,8 @@ public class TowerDefense extends Game {
 		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
 
 		selfEsteem = new Stat<Integer>(75);
-		score = new StatInt(0);
-		money = new StatInt(0);
+		score = new Stat<Integer>(0);
+		money = new Stat<Integer>(0);
 		initPath();
 		initPlayer();
 		initOverlays();
@@ -105,6 +105,9 @@ public class TowerDefense extends Game {
 		Resources
 				.loadImage("duvallFaceBlue",
 						"src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
+		Resources
+		.loadImage("duvallFaceYellow",
+				"src/vooga/games/towerdefense/resources/images/duvallFaceYellow.png");
 		Resources.loadImage("tower",
 				"src/vooga/games/towerdefense/resources/images/tower.png");
 		Resources.loadImage("towerShot",
@@ -192,9 +195,14 @@ public class TowerDefense extends Game {
 	public void update(long elapsedTime) {
 		stateManager.update(elapsedTime);
 		totalTime += elapsedTime;
-		if (totalTime > Utility.getRandom(500, 2000)) {
+		if (totalTime > 20000) {
 			enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80), Utility
 					.getRandom(1, 3), selfEsteem, score, money));
+			totalTime = 0;
+		}
+		if (totalTime > 5000) {
+			System.out.println('a');
+			enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80), selfEsteem, score, money, enemyGroup));
 			totalTime = 0;
 		}
 		playfield.update(elapsedTime);

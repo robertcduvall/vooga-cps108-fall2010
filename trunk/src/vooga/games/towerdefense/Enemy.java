@@ -12,21 +12,20 @@ import vooga.engine.resource.Resources;
 
 public class Enemy extends Sprite {
 	
-	private ArrayList<PathPoint> myPath;
-	ArrayList<PathPoint> myCurrentPath;
+	protected ArrayList<PathPoint> myPath;
+	private ArrayList<PathPoint> myCurrentPath;
 	private int mySpeed;
-	private int myLoc;
+	protected int myLoc;
 	private long myTotalTime;
 	private int myFreq;
 	private int myTempLoc;
 	private boolean myRestart;
-	private Stat<Integer> mySelfEstem;
-	private StatInt myScore;
-	private StatInt myMoney;
+	protected Stat<Integer> mySelfEstem;
+	protected Stat<Integer> myScore;
+	protected Stat<Integer> myMoney;
 	private int myLives;
-	private Game myGame;
 
-	public Enemy(ArrayList<PathPoint> path, int speed, int lives, Stat<Integer> selfEstem, StatInt score, StatInt money) {
+	public Enemy(ArrayList<PathPoint> path, int speed, int lives, Stat<Integer> selfEstem, Stat<Integer> score, Stat<Integer> money) {
 		myPath = path; 
 		mySpeed = speed;
 		myLoc = 0;
@@ -41,7 +40,7 @@ public class Enemy extends Sprite {
 		setImage();
 	}
 	
-	private void setImage() {
+	protected void setImage() {
 	
 		if(myLives == 3){
 			setImage(Resources.getImage("duvallFaceRed"));
@@ -96,14 +95,14 @@ public class Enemy extends Sprite {
 	
 	private void finish() {
 		setActive(false);
-		mySelfEstem.setStat(mySelfEstem.getStat() - 1);
+		mySelfEstem.setStat(mySelfEstem.getStat() - myLives);
 	}
 	
 	protected void gotHit(){
-		myScore.addTo(10);
-		myMoney.addTo(1);
+		myScore.setStat(myScore.getStat() + 10);
+		myMoney.setStat(myScore.getStat() + 1);
 		if(myLives == 1){
-			myMoney.addTo(1);
+			myMoney.setStat(myScore.getStat() + 1);
 			setActive(false);
 		}
 		myLives--;
