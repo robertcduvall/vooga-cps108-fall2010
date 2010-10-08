@@ -19,13 +19,15 @@ public class Shooter extends PlayerSprite {
 			int playerHealth, int playerRank, Zombieland zombieland) {
 		super(name, stateName, s, playerHealth, playerRank);
 		game=zombieland;
-		weapons=new Weapon[5];
+		weapons=new Weapon[3];
 		
 		//DEFAULT values
 		speed = -1;
 		orientation=90;
-		weaponChoice=0;
-		weapons[weaponChoice]=new Pistol(this,99999);
+		weaponChoice=2;
+		weapons[0]=new Pistol(this,99999);
+		weapons[1]=new AssaultRifle(this, 100);
+		weapons[2]=new ShotGun(this, 40);
 
 		health = new Stat<Integer>(playerHealth);
 	}
