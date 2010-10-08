@@ -144,8 +144,8 @@ public class Jumper extends vooga.engine.core.Game {
         double randomBlockOccurance = myRandom.nextDouble();
         int randomXLocation = myRandom.nextInt(GAME_WIDTH);
         double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
-        //double randomYVelocity = myRandom.nextDouble() * (myMaxBlockYVelocity) - myMaxBlockYVelocity;
         double YVelocity = -2.4;
+        //double randomYVelocity = myRandom.nextDouble() * (myMaxBlockYVelocity) - myMaxBlockYVelocity;
 
         
         if (randomBlockOccurance < myBlockFrequency){
