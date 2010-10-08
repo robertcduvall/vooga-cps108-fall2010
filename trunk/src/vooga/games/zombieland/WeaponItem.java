@@ -9,7 +9,7 @@ public class WeaponItem extends Item{
 		super(s,x,y);
 	}
 	public void act() {
-		
+		getPlayer().addAmmo(weaponID, bonusAmmo);
 	}
 
 }
