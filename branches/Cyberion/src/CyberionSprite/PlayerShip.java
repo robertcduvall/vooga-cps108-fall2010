@@ -17,6 +17,14 @@ public class PlayerShip extends Sprite {
 
 	private int life;
 	private int weaponPower;
+	public int getWeaponPower() {
+		return weaponPower;
+	}
+
+	public void setWeaponPower(int weaponPower) {
+		this.weaponPower = weaponPower;
+	}
+
 	private EventManager eventManager;
 	private BaseInput bsInput;
 

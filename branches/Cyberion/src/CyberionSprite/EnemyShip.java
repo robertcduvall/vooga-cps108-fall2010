@@ -32,7 +32,7 @@ public class EnemyShip extends Sprite{
 		if (life <= 0)
 			this.setActive(false);
 		
-		if(rnd.nextInt(1000)>996){
+		if(rnd.nextInt(1000)>994){
 			eventManager.fireEvent("EnemyFireEvent", new EnemyFireEvent(this,
 					"EnemyFireEvent", getX(), getY()));
 		}

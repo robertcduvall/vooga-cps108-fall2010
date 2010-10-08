@@ -18,6 +18,12 @@ public class PlayerCollidesEnemy extends BasicCollisionGroup{
 	public void collided(PlayerShip player, EnemyShip enemy) {
 		
 		player.setLife(player.getLife()-1);
+		if(player.getWeaponPower()>1){
+			player.setWeaponPower(player.getWeaponPower()-1);
+		}
+		else{
+			player.setWeaponPower(1);
+		}
 		player.forceX(320);
 		player.forceY(440);
 		

@@ -7,7 +7,9 @@ import java.util.Random;
 import Collision.EnemyCollidesWithShot;
 import Collision.PlayerCollidesEnemy;
 import Collision.PlayerCollidesWall;
+import Collision.PlayerCollidesWithBonus;
 import Collision.PlayerCollidesWithShot;
+import CyberionSprite.Bonus;
 import CyberionSprite.EnemyShip;
 import CyberionSprite.EnemyShot;
 import CyberionSprite.PlayerShip;
@@ -38,11 +40,13 @@ public class CyberionGame extends Game {
 	private SpriteGroup playerGroup;
 	private EnemyShip enemy;
 	private SpriteGroup enemyGroup;
+	private SpriteGroup bonusGroup;
 	private EnemyShot enemyShot;
 
 	private CollisionManager playerCollidesWithEnemy;
 	private CollisionManager playerCollidesWithWall;
 	private CollisionManager enemyCollidesWithShot;
+	private PlayerCollidesWithBonus playerCollidesWithBonus;
 
 	private CollisionManager playerCollidesWithShot;
 
@@ -56,6 +60,8 @@ public class CyberionGame extends Game {
 	private static double SHIP_SPEED = 0.1;
 
 	private EventManager eventManager;
+
+	private int NUM_BONUS = 10;
 
 	private void setImages() {
 		starImage = getImage("Resources/star.png");
@@ -76,6 +82,7 @@ public class CyberionGame extends Game {
 		BufferedImage enemyShotImage = getImage("Resources/enemyShot.png");
 		BufferedImage playerImage = getImage("Resources/playerShip.png");
 		BufferedImage enemyImage = getImage("Resources/enemyShip.png");
+		BufferedImage bonusImage = getImage("Resources/bonus.png");
 
 		// resize images
 
@@ -96,6 +103,15 @@ public class CyberionGame extends Game {
 			enemyGroup.add(newShip);
 		}
 
+
+		bonusGroup = new SpriteGroup("BonusGroup");
+		for (int i = 0; i < NUM_BONUS; i++) {
+			Random random = new Random();
+			Bonus newBonus = new Bonus(bonusImage, random.nextInt(640), -random.nextInt(10000));
+			newBonus.setVerticalSpeed(SHIP_SPEED);
+			bonusGroup.add(newBonus);
+		}
+
 		playerShot = new PlayerShot("PlayerShot", 0, 0, 480, 640,
 				playerShotImage);
 		enemyShot = new EnemyShot("EnemyShot", enemyShotImage);
@@ -110,6 +126,8 @@ public class CyberionGame extends Game {
 		playerCollidesWithWall.setCollisionGroup(playerGroup, playerGroup);
 		playerCollidesWithShot = new PlayerCollidesWithShot();
 		playerCollidesWithShot.setCollisionGroup(playerGroup, enemyShot);
+		playerCollidesWithBonus = new PlayerCollidesWithBonus();
+		playerCollidesWithBonus.setCollisionGroup(playerGroup, bonusGroup);
 	}
 
 	private void startEventManager() {
@@ -149,9 +167,11 @@ public class CyberionGame extends Game {
 		playerCollidesWithWall.checkCollision();
 		playerCollidesWithEnemy.checkCollision();
 		playerCollidesWithShot.checkCollision();
+		playerCollidesWithBonus.checkCollision();
 		enemyCollidesWithShot.checkCollision();
 		enemyGroup.update(elapsedTime);
 		enemyShot.update(elapsedTime);
+		bonusGroup.update(elapsedTime);
 	}
 
 	public void render(Graphics2D g) {
@@ -164,6 +184,7 @@ public class CyberionGame extends Game {
 		playerShot.render(g);
 		enemyGroup.render(g);
 		enemyShot.render(g);
+		bonusGroup.render(g);
 	}
 
 	public static void main(String[] args) {
