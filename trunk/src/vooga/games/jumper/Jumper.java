@@ -75,6 +75,9 @@ public class Jumper extends vooga.engine.core.Game {
      */
     public void initResources() {
 
+    	this.showLogo();
+    	this.hideCursor();
+    	
         //setting up resource handler
         ResourceHandler.setGame(this);
         try{
@@ -159,7 +162,6 @@ public class Jumper extends vooga.engine.core.Game {
                 block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(0, YVelocity);
                 myGreenBlockCounter++;
-                System.out.println("else " +myGreenBlockCounter);
             }
             
             myBlocks.add(block);
@@ -256,5 +258,4 @@ public class Jumper extends vooga.engine.core.Game {
         game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
         game.start();
     }
-
 }
