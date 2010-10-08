@@ -37,15 +37,18 @@ public class DoodleGame extends Game {
 	private PlayerSprite green_monster;
 	private PlayerSprite purple_monster;
 	private PlayerSprite red_monster;
+	
+	// Enhanced Platforms
+	private AnimatedSprite spring;
 
 	// Doodle (main player)
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
 	
-	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup, WhitePlatformGroup;
+	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup, WhitePlatformGroup, SpringGroup;
 	
 	// Collision Manager
-	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform;
+	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform, doodleToSpring;
 	
 	@Override
 	public void initResources() {
@@ -63,6 +66,7 @@ public class DoodleGame extends Game {
 		BallGroup = playField.addGroup(new SpriteGroup("Ball Group"));
 		BrownPlatformGroup = playField.addGroup(new SpriteGroup("Brown Platform Group"));
 		WhitePlatformGroup = playField.addGroup(new SpriteGroup("White Platform Group"));
+		SpringGroup = playField.addGroup(new SpriteGroup("Spring Group"));
 
 		// platforms
 		brown_platform = new Sprite(getImage("images/brown_platform.png"), 500, 500);
@@ -101,6 +105,13 @@ public class DoodleGame extends Game {
 		red_monster = new PlayerSprite("red_monster", "rm", new Sprite(getImage("images/red_monster.png"),500,550));
 		MonsterGroup.add(red_monster);
 		
+		// enhanced platforms
+		BufferedImage[] spring_images = new BufferedImage[2];
+		spring_images[0] = getImage("images/spring_compressed.png");
+		spring_images[1] = getImage("images/spring_full.png");
+		spring = new AnimatedSprite(spring_images, 325, 680);
+		SpringGroup.add(spring);
+		
 		// doodle (main player)
 		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("images/doodle_right.png")), this);
 		doodle.setLocation(325,550);
@@ -119,12 +130,14 @@ public class DoodleGame extends Game {
 		ballToMonster = new BallToMonsterCollision();
 		doodleToBrownPlatform = new DoodleToBrownPlatformCollision();
 		doodleToWhitePlatform = new DoodleToWhitePlatformCollision();
+		doodleToSpring = new DoodleToSpringCollision();
 		
 		playField.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
 		playField.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
 		playField.addCollisionGroup(BallGroup, MonsterGroup, ballToMonster);
 		playField.addCollisionGroup(DoodleGroup, BrownPlatformGroup, doodleToBrownPlatform);
 		playField.addCollisionGroup(DoodleGroup, WhitePlatformGroup, doodleToWhitePlatform);
+		playField.addCollisionGroup(DoodleGroup, SpringGroup, doodleToSpring);
 		setFPS(100);
 	}
 	
