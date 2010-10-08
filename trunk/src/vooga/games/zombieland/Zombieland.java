@@ -123,10 +123,10 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
-		scoreString = new OverlayString("Health: ", Color.BLUE);
-		scoreBar = new OverlayBar(player.getHealthStat(),100);
-		scoreBar.setColor(Color.GREEN);
-		scoreBar.setLocation(75, 10);
+		//scoreString = new OverlayString("Health: ", Color.BLUE);
+		//scoreBar = new OverlayBar(player.getHealth(),100);
+		//scoreBar.setColor(Color.GREEN);
+		//scoreBar.setLocation(75, 10);
 		
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
@@ -157,8 +157,8 @@ public class Zombieland extends Game {
 		playfield.update(elapsedTime);
 		control.update();
 		player.update(elapsedTime);
-		scoreBar.update(elapsedTime);
-		scoreString.update(elapsedTime);
+		//scoreBar.update(elapsedTime);
+		//scoreString.update(elapsedTime);
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
 		
@@ -224,8 +224,8 @@ public class Zombieland extends Game {
 
 	public void render(Graphics2D g) {
 		playfield.render(g);
-		scoreBar.render(g);
-		scoreString.render(g);
+		//scoreBar.render(g);
+		//scoreString.render(g);
 	}
 
 	public static void main(String[] args) {

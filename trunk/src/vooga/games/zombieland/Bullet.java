@@ -3,6 +3,7 @@ package vooga.games.zombieland;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.player.control.ItemSprite;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -28,15 +29,27 @@ public class Bullet extends GameEntitySprite {
 		else
 			setOffset(5,0);
 
-		damage = velocity=5;
+		setDamage(damage);
+		velocity= 5;
 	}
 	public void setOffset(double x, double y) {
 		setX(player.getX()+x);
 		setY(player.getY()+y);
 	}
+	
+	public double getDamage()
+	{
+		return damage;
+	}
+	
+	private void setDamage(double hit)
+	{
+		damage = hit;
+	}
+	
 	public void update(long elapsedTime) {
-		this.moveX(Math.cos(angle/360.0*Math.PI*2) * velocity);
-		this.moveY(Math.sin(angle/360.0*Math.PI*2) * velocity);
-		//		super.update(elapsedTime);
+		moveX(Math.cos(angle/360.0*Math.PI*2) * velocity);
+		moveY(Math.sin(angle/360.0*Math.PI*2) * velocity);
+		
 	}
 }

@@ -22,9 +22,12 @@ public class Zombie extends PlayerSprite {
 		target = hero;
 		targetDirection = "X";
 		speed = -0.25;
+		setHealth(25);
 	}
 
 	private double getDirection() {
+		
+		
 		xTarget = target.getX();
 		yTarget = target.getY();
 
@@ -40,6 +43,9 @@ public class Zombie extends PlayerSprite {
 
 	
 	public void update(long elapsedTime) {
+		
+		if(healthIsZero()) return;
+		
 		double direction = getDirection();
 		if (targetDirection.equals("X")) {
 			if (direction < 0) {
@@ -70,7 +76,20 @@ public class Zombie extends PlayerSprite {
 	}
 	
 	
+	public void calculateDamage(double damage)
+	{
+		updateHealth((int) damage);
+		
 	
+	}
+	
+	public boolean healthIsZero()
+	{
+		return (getHealth() <= 0);
+	}
+
+
+		
 	
 	
 }
