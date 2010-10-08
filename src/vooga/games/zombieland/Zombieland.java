@@ -46,6 +46,9 @@ public class Zombieland extends Game {
 	private BufferedImage[] zombieAttackFromLeftImage;
 	private BufferedImage[] zombieAttackFromRightImage;
 	
+	private BufferedImage[] zombieDeath;
+	
+	
 	private BufferedImage bulletImage;
 
 	private double defaultX = 100;
@@ -113,6 +116,12 @@ public class Zombieland extends Game {
 //				getImage("resources/ZombieAttackFromRight1.png"),
 //				getImage("resources/ZombieAttackFromRight2.png"),
 //				getImage("resources/ZombieAttackFromRight3.png") };
+		
+		zombieDeath = new BufferedImage[] {
+				getImage("resources/ZombieDeath1.png"),
+				getImage("resources/ZombieDeath2.png"),
+				getImage("resources/ZombieDeath3.png")};
+		
 		
 		bulletImage = getImage("resources/bullet.png");
 		
@@ -183,6 +192,9 @@ public class Zombieland extends Game {
 //									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
 //		newZombie.mapNameToSprite("AttackFromBelow" , 
 //									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
+		
+		newZombie.mapNameToSprite("ZombieDeath", 
+									getInitializedAnimatedSprite(zombieDeath));
 		
 		newZombie.setX(defaultX);
 		newZombie.setY(defaultY);
