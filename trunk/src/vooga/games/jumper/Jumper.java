@@ -4,6 +4,7 @@ package vooga.games.jumper;
 
 
 // JFC
+
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -41,11 +42,11 @@ public class Jumper extends vooga.engine.core.Game {
         private PlayField myPlayfield;
     
         private SpriteGroup myBlocks = new SpriteGroup("blocks");
-        
-        private DoodleSprite myPlayer;
-        
+        private SpriteGroup myPlayers = new SpriteGroup("players");
+                
         private DoodleToBlockCollision myCollision;
         
+        private Background myBackground;
        /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
@@ -61,16 +62,19 @@ public class Jumper extends vooga.engine.core.Game {
     	}
     	
     	
-    	myPlayer = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
-
-    	myPlayer.setSpeed(0, 0);
+    	DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
+    	myPlayers.add(player1);
     	
     	myPlayfield = new PlayField();
+    	myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
+		myPlayfield.setBackground(myBackground);
+
     	
-    	myPlayfield.add(myPlayer);
+    	myPlayfield.addGroup(myPlayers);
     	myPlayfield.addGroup(myBlocks);
     	
-    	//myCollision = new DoodleToBlockCollision(myPlayer, myBlocks);
+    	myCollision = new DoodleToBlockCollision();
+    	myCollision.setCollisionGroup(myPlayers, myBlocks);
     }
 
     public static int getGameWidth() {
@@ -98,18 +102,28 @@ public class Jumper extends vooga.engine.core.Game {
 
     public void update(long elapsedTime) {
         createNewBlocks();
-        checkForKeyPress();
+       // checkForKeyPress();
     	myPlayfield.update(elapsedTime);
     }
     
-    public void checkForKeyPress(){
-    	if (keyDown(KeyEvent.VK_RIGHT)){
-    		myPlayer.goRight();
-    	}
-    	if (keyDown(KeyEvent.VK_LEFT)){
-    		myPlayer.goLeft();
-    	}
-    }
+//    public void checkForKeyPress(){
+//    	Sprite[] sprites = myPlayers.getSprites();
+//        int size = myPlayers.getSize();
+//
+//        // iterate the sprite one by one
+//        for (int i=0;i < size;i++) {
+//           if (sprites[i].isActive()) {
+//           	if (keyDown(KeyEvent.VK_RIGHT)){
+//        			sprites[i].goRight();
+//        	}
+//        	if (keyDown(KeyEvent.VK_LEFT)){
+//        		sprites[i].goLeft();
+//        	}
+//
+//           }
+//        }
+//
+//    }
     
 
     public void render(Graphics2D g) {
