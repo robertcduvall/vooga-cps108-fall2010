@@ -256,7 +256,7 @@ public class TowerDefense extends Game {
 				.addControl(new PlayerCursorControl(player, this));
 		playerKeyboardControl = (KeyboardControl) play
 				.addControl(new KeyboardControl(player, this));
-		playerCursorControl.addInput(MouseEvent.BUTTON1, "buildTower",
+		playerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
 				"vooga.games.towerdefense.PlayerCursor");
 		playerKeyboardControl.setParams(new Class[] { String.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_1, "changeTowerType",

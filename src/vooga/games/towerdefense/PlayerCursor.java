@@ -71,9 +71,34 @@ public class PlayerCursor extends PlayerSprite {
 		}
 	}
 
-	public void buildTower() {
-		System.out.println('b');
-		System.out.println(creditBalance.getStat() + " : " + towerCost);
+	public void onClick() {
+		buildTower();
+		switchTower();
+	}
+
+	
+	
+	private void switchTower(){
+		int mouseX = myGame.getMouseX();
+		int mouseY = myGame.getMouseY();
+		
+		if(mouseY>215 && mouseY<500){
+			if(mouseX > 760 && mouseX<1000){
+				if(mouseY<300){
+					changeTowerType("NormalTower");
+				}
+				if(mouseY>315 && mouseY<400){
+					changeTowerType("FastTower");
+				}
+				if(mouseY>415){
+					changeTowerType("SniperTower");
+				}
+				
+			}
+		}
+	}
+	
+	private void buildTower(){
 		if (creditBalance.getStat() >= towerCost && offPath() && inPlayArea()) {
 			try {
 				Class[] argsClass = new Class[] { double.class, double.class,
@@ -92,10 +117,6 @@ public class PlayerCursor extends PlayerSprite {
 				e.printStackTrace();
 			}
 		}
-
-		// Method perform = this.getClass().getMethod("build" +
-		// currentTowerType);
-		// perform.invoke(this);
 	}
 	
 	public boolean offPath(){
