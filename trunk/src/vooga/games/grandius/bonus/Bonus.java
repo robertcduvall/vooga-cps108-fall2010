@@ -6,38 +6,55 @@ public class Bonus {
 	private int boomersKilled;
 	private int zipstersKilled;
 	
-	private int bonusValue;
+	private int bonusCash;
 	
 	public Bonus()
 	{
 		
 	}
 	
+	/**
+	 * Increase count for Zipsters killed.
+	 */
 	public void killedZipster()
 	{
 		zipstersKilled++;
 		enemiesKilled++;
 	}
 	
+	/**
+	 * Increase count for Boomers killed.
+	 */
 	public void killedBoomer()
 	{
 		boomersKilled++;
 		enemiesKilled++;
 	}
 	
+	/**
+	 * Called at the end of a level to display the
+	 * bonuses earned in the level. It also updates
+	 * the current bonus total.
+	 */
 	public void displayBonuses()
 	{
 		//TODO add graphical display
 		if(enemiesKilled > 30);
-			bonusValue += 50;
+			bonusCash += 50;
 		if(zipstersKilled > 20);
-			bonusValue += 100;
+			bonusCash += 100;
 		if(boomersKilled > 20);
-		 	bonusValue += 150;
+		 	bonusCash += 150;
 	}
 	
+	/**
+	 * Returns the current bonus total. Extra
+	 * cash is only added at the end of the 
+	 * level.
+	 * @return
+	 */
 	public int getBonusValue()
 	{
-		return bonusValue;
+		return bonusCash;
 	}
 }
