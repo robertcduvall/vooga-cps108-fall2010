@@ -30,10 +30,8 @@ import com.golden.gamedev.object.SpriteGroup;
 
 
 /**
- * This is an example game we are working on to demonstrate the VOOGA game engine.
- * Skeleton for this class was taken from GTGE Tutorial 5
- * More details to come...
- * @author BrianSimel
+ * This is an example game called Jumper that we created to demonstrate the VOOGA Game Engine
+ * @author BrianSimel & CodyKolodziejzyk & DevonTownsend
  */
 
 public class Jumper extends vooga.engine.core.Game {
@@ -41,15 +39,13 @@ public class Jumper extends vooga.engine.core.Game {
     private final static int GAME_WIDTH = 500;
     private final static int GAME_HEIGHT = 800;
     private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
-    private double BLOCK_XVELOCITY_INCREASE_RATE = 0.001;
+    private double BLOCK_XVELOCITY_INCREASE_RATE = 0;
     private double BLOCK_YVELOCITY_INCREASE_RATE = 0.001;
-    private double blockYVelocity = -2.0;
-
+    private double myBlockYVelocity = -2.0;
 
     private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
-    private double myMaxBlockXVelocity = 6;    
-    private double myMaxBlockYVelocity = 2;
+    private double myMaxBlockXVelocity = 0.4;    
     private double myBlockFrequency = 0.05;
     
     private PlayField myPlayfield;
@@ -149,29 +145,28 @@ public class Jumper extends vooga.engine.core.Game {
         double randomBlockOccurance = myRandom.nextDouble();
         int randomXLocation = myRandom.nextInt(GAME_WIDTH);
         double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
-
         
         if (randomBlockOccurance < myBlockFrequency){
             Sprite block;
         	if (myBlockCounter == 4){
                 block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, GAME_HEIGHT));
-                block.setSpeed(randomXVelocity, blockYVelocity);
+                block.setSpeed(randomXVelocity, myBlockYVelocity);
                 myBlockCounter = 6;
 
             } else if(myBlockCounter == 9){
             	block = new BlockSprite(ResourceHandler.getImage("platformRed"), new Point(randomXLocation, GAME_HEIGHT));
-                block.setSpeed(0, blockYVelocity*2);
+                block.setSpeed(randomXVelocity, myBlockYVelocity*2);
                 myBlockCounter = 11;
             	
             } else if(myBlockCounter == 12){
             	block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), new Point(randomXLocation, GAME_HEIGHT));
-                block.setSpeed(0, blockYVelocity*2);
+                block.setSpeed(0, myBlockYVelocity*2);
                 myBlockCounter = 0;
             	
             }
         	else {
                 block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, GAME_HEIGHT));
-                block.setSpeed(0, blockYVelocity);
+                block.setSpeed(randomXVelocity, myBlockYVelocity);
                 myBlockCounter++;
             }
             
@@ -190,7 +185,7 @@ public class Jumper extends vooga.engine.core.Game {
         
         myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
         myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
-        blockYVelocity -= BLOCK_YVELOCITY_INCREASE_RATE;
+        myBlockYVelocity -= BLOCK_YVELOCITY_INCREASE_RATE;
     }
     
     /**
