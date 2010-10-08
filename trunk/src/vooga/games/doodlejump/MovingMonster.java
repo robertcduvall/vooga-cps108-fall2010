@@ -8,6 +8,12 @@ import javax.imageio.ImageIO;
 
 import com.golden.gamedev.object.Sprite;
 
+/**
+ * The MovingMonster class extends Sprite and defines a MovingMonster
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class MovingMonster extends Sprite{
 	
 	public MovingMonster(BufferedImage image, double x, double y){

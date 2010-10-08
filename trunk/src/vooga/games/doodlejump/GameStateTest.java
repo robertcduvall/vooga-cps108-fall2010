@@ -19,6 +19,15 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
+/**
+ * The GameStateTest class is a class to test the functionality of the
+ * GameStateManager class and the GameState class. Once the basics of these
+ * classes are understood and implemented they will be integrated with
+ * DoodleGame to switch through several game states
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ * 
+ */
 public class GameStateTest extends Game {
 
 	private GameStateManager game_state_manager;
@@ -54,13 +63,13 @@ public class GameStateTest extends Game {
 
 		if (keyPressed(KeyEvent.VK_P) && !start_menu.isActive()
 				&& game_play.isActive()) {
-			
+
 			System.out.println("switch to pause menu");
 			System.out.println("start_menu: " + start_menu.isActive());
 			System.out.println("game_play: " + game_play.isActive());
 			System.out.println("pause_menu: " + pause_menu.isActive());
 			System.out.println();
-			
+
 			game_state_manager.switchTo(pause_menu);
 			game_play.deactivate();
 			playfield.setBackground(pause_background);
@@ -68,13 +77,13 @@ public class GameStateTest extends Game {
 
 		else if (keyPressed(KeyEvent.VK_P) && !start_menu.isActive()
 				&& pause_menu.isActive()) {
-			
+
 			System.out.println("switch to game play");
 			System.out.println("start_menu: " + start_menu.isActive());
 			System.out.println("game_play: " + game_play.isActive());
 			System.out.println("pause_menu: " + pause_menu.isActive());
 			System.out.println();
-			
+
 			game_state_manager.switchTo(game_play);
 			pause_menu.deactivate();
 			playfield.setBackground(game_background);

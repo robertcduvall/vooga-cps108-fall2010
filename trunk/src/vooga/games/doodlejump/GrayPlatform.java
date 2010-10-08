@@ -3,6 +3,12 @@ package vooga.games.doodlejump;
 import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;
 
+/**
+ * The GrayPlatform class extends Sprite and defines a GrayPlatform
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class GrayPlatform extends Sprite{
 	private int changeDirection;
 	
