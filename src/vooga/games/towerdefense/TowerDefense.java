@@ -37,11 +37,9 @@ public class TowerDefense extends Game {
 	private PlayerCursor player;
 	private PlayerCursorControl playerCursorControl;
 	private KeyboardControl playerKeyboardControl;
-	private Sprite pathSprite;
 	private Background background;
 	private PlayField playfield;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
-			pathGroup, playerGroup;
+	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup, playerGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
 	private Stat<Integer> selfEsteem;
@@ -74,7 +72,6 @@ public class TowerDefense extends Game {
 
 		playfield = new PlayField(background);
 
-		pathGroup = play.addAndReturnGroup(new SpriteGroup("Path Group"));
 		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = play.addAndReturnGroup(new SpriteGroup(
@@ -89,12 +86,6 @@ public class TowerDefense extends Game {
 		initPlayer();
 		initOverlays();
 
-	}
-
-	private void buildPath() {
-		pathSprite = new Sprite(ImageUtil.resize(Resources.getImage("path1"),
-				WIDTH, HEIGHT), 0, 0);
-		pathGroup.add(pathSprite);
 	}
 
 	private void loadImages() {
@@ -183,7 +174,6 @@ public class TowerDefense extends Game {
 	}
 
 	private void initPath() {
-		buildPath();
 		path = new ArrayList<PathPoint>();
 		File thisLevel = new File(
 				"src/vooga/games/towerdefense/resources/levels/level1.txt");
