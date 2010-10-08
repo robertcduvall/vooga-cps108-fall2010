@@ -6,6 +6,13 @@ import java.net.URL;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
+/**
+ * The DoodleToSpringCollision class extends BasicCollisionGroup and
+ * defines what happens when Doodle collides with a Spring
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class DoodleToSpringCollision extends BasicCollisionGroup {
 
 	public DoodleToSpringCollision() {

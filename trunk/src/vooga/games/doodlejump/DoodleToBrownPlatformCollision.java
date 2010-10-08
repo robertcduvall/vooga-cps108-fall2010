@@ -3,6 +3,13 @@ package vooga.games.doodlejump;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
+/**
+ * The DoodleToBrownPlatformCollision class extends BasicCollisionGroup and
+ * defines what happens when Doodle collides with a Brown Platform
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class DoodleToBrownPlatformCollision extends BasicCollisionGroup {
 
 	public DoodleToBrownPlatformCollision() {
