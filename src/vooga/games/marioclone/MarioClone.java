@@ -1,7 +1,6 @@
 package vooga.games.marioclone;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -9,21 +8,19 @@ import java.io.IOException;
 import java.util.List;
 
 import vooga.engine.core.Game;
+import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.games.marioclone.tiles.Tile;
-import vooga.games.marioclone.*;
 
-import com.golden.gamedev.*;
-import com.golden.gamedev.object.*;
-
-import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
+import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
-import vooga.engine.player.control.KeyboardControl;
 
 public class MarioClone extends Game {
 
@@ -67,17 +64,19 @@ public class MarioClone extends Game {
 		}
 		playfield.addGroup(tileGroup);
 		
+		
+		
 		marioGroup = new SpriteGroup("Mario Group");
 		MarioSprite mario = new MarioSprite("mario","regular",new Sprite(getImage("images/mario.png")));
-		mario.setLocation(0, 515);
+		mario.setLocation(40, 500);
 		marioGroup.add(mario);
 		playfield.addGroup(marioGroup);
 		
 		myControl = new KeyboardControl(mario,this);
-		myControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.marioclone.MarioSprite", null);
-		myControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.marioclone.MarioSprite", null);
-		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite", null);
-		myControl.addInput(KeyEvent.VK_S, "crouch", "vooga.games.marioclone.MarioSprite", null);
+		myControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.marioclone.MarioSprite");
+		myControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.marioclone.MarioSprite");
+		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite");
+		myControl.addInput(KeyEvent.VK_S, "crouch", "vooga.games.marioclone.MarioSprite");
 		
 		playfield.addCollisionGroup(marioGroup, tileGroup, new MarioToTileCollision());
 	}
@@ -87,6 +86,12 @@ public class MarioClone extends Game {
 		myControl.update();
 
 		playfield.update(elapsedTime);
+		
+		
+		Sprite[] mg = marioGroup.getSprites();
+		Sprite[] tg = tileGroup.getSprites();
+		
+
 	}
 	
 	@Override

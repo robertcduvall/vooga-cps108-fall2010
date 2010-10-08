@@ -9,8 +9,7 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public abstract class Tile extends Sprite implements Collidable {
 
-	private double x;
-	private double y;
+
 	private State state;
 	public enum State {active,inactive,removed};
 	
@@ -19,15 +18,6 @@ public abstract class Tile extends Sprite implements Collidable {
 		super(image,x,y);
 	}
 
-	@Override
-	public double getX() {
-		return x;
-	}
-	
-	@Override
-	public double getY() {
-		return y;
-	}
 	
 	@Override
 	public abstract void actOnCollision(Collidable object);
@@ -42,13 +32,6 @@ public abstract class Tile extends Sprite implements Collidable {
 
 
 	// Unused velocity methods:
-
-	@Override
-	public void setLocation(double x, double y) {
-		System.out.println("setting location "+x+" "+y);
-		this.x = x;
-		this.y = y;
-	}
 
 	@Override
 	public void setVelocity(double vx, double vy) {

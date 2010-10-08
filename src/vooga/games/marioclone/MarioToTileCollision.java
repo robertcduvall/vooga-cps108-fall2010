@@ -13,6 +13,7 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 		System.out.println(tile+" "+tile.getX()+" "+tile.getY());
 		System.out.println("Collision! Yay!");
 		mario.setSpeed(0, 0);
+		mario.setLocation(mario.getX()-mario.getHorizontalSpeed(),mario.getY()-mario.getVerticalSpeed());
 	}
 
 }
