@@ -22,5 +22,5 @@ resources/brown_platform_breaking_1.png,platformBreak1
 resources/brown_platform.png,platformBreak
 resources/blue_monster.png,monsterBlue
 resources/blue_flying_monster.png,monsterBlueFlying
-resources/background.ong/backgroundImg,backgroundImage
+resources/background.png,backgroundImage
 resources/white_platform.png/platformWhite,platformWhite
