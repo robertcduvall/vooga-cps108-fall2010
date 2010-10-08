@@ -153,13 +153,18 @@ public class Jumper extends vooga.engine.core.Game {
         
         if (randomBlockOccurance < myBlockFrequency){
             Sprite block;
-        	if (myBlockCounter == 5){
+        	if (myBlockCounter == 4){
                 block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(randomXVelocity, blockYVelocity);
                 myBlockCounter = 6;
 
-            } else if(myBlockCounter == 10){
+            } else if(myBlockCounter == 9){
             	block = new BlockSprite(ResourceHandler.getImage("platformRed"), new Point(randomXLocation, GAME_HEIGHT));
+                block.setSpeed(0, blockYVelocity*2);
+                myBlockCounter = 11;
+            	
+            } else if(myBlockCounter == 12){
+            	block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(0, blockYVelocity*2);
                 myBlockCounter = 0;
             	
