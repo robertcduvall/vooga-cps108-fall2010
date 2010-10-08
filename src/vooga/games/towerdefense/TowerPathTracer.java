@@ -23,7 +23,7 @@ import vooga.engine.resource.Resources;
 
 public class TowerPathTracer extends Game{
 	
-	public static final int WIDTH = 800;
+	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 600;
 	
 	private PlayerCursor playerCursor;

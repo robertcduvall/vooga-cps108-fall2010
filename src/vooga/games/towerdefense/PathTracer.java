@@ -113,7 +113,7 @@ public class PathTracer extends Control implements Controller{
         player.forceY(myGame.bsInput.getMouseY());
        
         // Code only used for level creation
-       if(myTime < 40000){
+       if(myTime < 45000){
                 if(myGame.bsInput.isMouseDown(MouseEvent.BUTTON1)){
                                 int x = myGame.bsInput.getMouseX();
                                 int y = myGame.bsInput.getMouseY();

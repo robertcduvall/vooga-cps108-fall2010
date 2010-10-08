@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
@@ -19,13 +20,13 @@ public class Enemy extends Sprite {
 	private int myFreq;
 	private int myTempLoc;
 	private boolean myRestart;
-	private StatInt mySelfEstem;
+	private Stat<Integer> mySelfEstem;
 	private StatInt myScore;
 	private StatInt myMoney;
 	private int myLives;
 	private Game myGame;
 
-	public Enemy(ArrayList<PathPoint> path, int speed, int lives, StatInt selfEstem, StatInt score, StatInt money) {
+	public Enemy(ArrayList<PathPoint> path, int speed, int lives, Stat<Integer> selfEstem, StatInt score, StatInt money) {
 		myPath = path; 
 		mySpeed = speed;
 		myLoc = 0;
@@ -44,13 +45,10 @@ public class Enemy extends Sprite {
 	
 		if(myLives == 3){
 			setImage(Resources.getImage("duvallFaceRed"));
-			System.out.println('3');
 		}else if(myLives == 2){
 			setImage(Resources.getImage("duvallFaceBlue"));
-			System.out.println('2');
 		}else if(myLives == 1){
 			setImage(Resources.getImage("duvallFace"));
-			System.out.println('1');
 		}
 		
 	}
@@ -98,7 +96,7 @@ public class Enemy extends Sprite {
 	
 	private void finish() {
 		setActive(false);
-		mySelfEstem.subtractFrom(1);
+		mySelfEstem.setStat(mySelfEstem.getStat() - 1);
 	}
 	
 	protected void gotHit(){

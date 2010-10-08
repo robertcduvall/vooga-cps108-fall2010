@@ -16,6 +16,9 @@ import com.golden.gamedev.util.ImageUtil;
 import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.OverlayBar;
+import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.MouseControl;
 import vooga.engine.resource.Resources;
@@ -30,10 +33,10 @@ public class TowerDefense extends Game{
 	private MouseControl playerCursorControl;
 	private Background background;
 	private PlayField playfield;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup;
+	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
-	private StatInt selfEstem;
+	private Stat<Integer> selfEstem;
 	private StatInt score;
 	private StatInt money;
 	
@@ -46,17 +49,34 @@ public class TowerDefense extends Game{
 		towerGroup = playfield.addGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
-		selfEstem = new StatInt(100);
+		overlayGroup = playfield.addGroup(new SpriteGroup("Overlay Group"));
+		selfEstem = new Stat<Integer>(75);
 		score = new StatInt(0);
 		money = new StatInt(0);
 		initPath();
 		initPlayer();
+		initOverlays();
 		
 		
 		playfield.addCollisionGroup(towerShotGroup, enemyGroup, new TowerShotEnemyCollision());
 		
 	}
 	
+	private void initOverlays() {
+		GameFont font = fontManager.getFont(getImages("src/vooga/games/towerdefense/resources/images/font.png", 20, 3),
+				" !            .,0123" + "456789:   -? ABCDEFG"
+						+ "HIJKLMNOPQRSTUVWXYZ ");
+		OverlayString temp = new OverlayString("Selfestem".toUpperCase(), font);
+		temp.setLocation(800, 50);
+		OverlayBar bar = new OverlayBar(selfEstem, 100);
+		bar.setMaxLength(200);
+		bar.setLocation(775, 70);
+		
+		overlayGroup.add(temp);
+		overlayGroup.add(bar);
+		
+	}
+
 	private void initPath() {
 		path = new ArrayList<PathPoint>();
 		File thisLevel = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
