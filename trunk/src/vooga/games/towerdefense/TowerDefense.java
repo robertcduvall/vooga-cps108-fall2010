@@ -11,6 +11,7 @@ import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.ImageUtil;
+import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
@@ -29,8 +30,7 @@ public class TowerDefense extends Game{
 	private SpriteGroup towerGroup, enemyGroup, towerShotGroup;
 	private ArrayList<PathPoint> path;
 	private Enemy temp;
-	int i = 0;
-	int j = 0;
+	private long totalTime;
 	
 	@Override
 	public void initResources(){
@@ -73,8 +73,8 @@ public class TowerDefense extends Game{
 	private void initPlayer(){
 		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
 		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
-		temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
-		enemyGroup.add(temp);
+		//temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
+		//enemyGroup.add(temp);
 		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, towerGroup);
 		playerCursorControl = new PlayerCursorControl(playerCursor, this);
 		playerCursorControl.addInput("1", "buildTower", "vooga.games.towerdefense.PlayerCursor");
@@ -86,6 +86,11 @@ public class TowerDefense extends Game{
 	
 	@Override
 	public void update(long elapsedTime) {
+		totalTime += elapsedTime;
+		if(totalTime > 2000){
+			enemyGroup.add(new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, Utility.getRandom(20,80)));
+			totalTime = 0;
+		}
 		playfield.update(elapsedTime);
 		playerCursorControl.update();
 		enemyGroup.update(elapsedTime);
