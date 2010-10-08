@@ -19,6 +19,7 @@ import com.golden.gamedev.util.Utility;
 import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayBar;
 import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.OverlayStatImage;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
@@ -172,14 +173,40 @@ public class TowerDefense extends Game {
 
 		OverlayString towers = new OverlayString("TOWERS");
 		towers.setFont(new Font("random", Font.ITALIC, 26));
-		towers.setLocation(820, 180);
+		towers.setLocation(830, 180);
 
 		OverlayString normal = new OverlayString("NORMAL TOWER");
-		OverlayString normalCost = new OverlayString("COST 10 DOLLARS");
+		OverlayString normalCost = new OverlayString("COST 40 DOLLARS");
 		normal.setFont(fontOrange);
-		normal.setLocation(800, 210);
+		normal.setLocation(800, 220);
 		normalCost.setFont(fontOrange);
-		normalCost.setLocation(800, 230);
+		normalCost.setLocation(770, 240);
+		
+		OverlayStatImage normalTower = new OverlayStatImage(Resources.getImage("normalTower"));
+		normalTower.setLocation(880, 260);
+		
+		OverlayString fast = new OverlayString("FAST TOWER");
+		OverlayString fastCost = new OverlayString("COST 200 DOLLARS");
+		fast.setFont(fontGreen);
+		fast.setLocation(800, 320);
+		fastCost.setFont(fontGreen);
+		fastCost.setLocation(770, 340);
+		
+		OverlayStatImage fastTower = new OverlayStatImage(Resources.getImage("fastTower"));
+		fastTower.setLocation(880, 360);
+		
+		OverlayString sniper = new OverlayString("SNIPER TOWER");
+		OverlayString sniperCost = new OverlayString("COST 80 DOLLARS");
+		sniper.setFont(fontRed);
+		sniper.setLocation(800, 420);
+		sniperCost.setFont(fontRed);
+		sniperCost.setLocation(770, 440);
+		
+		OverlayStatImage sniperTower = new OverlayStatImage(Resources.getImage("sniperTower"));
+		sniperTower.setLocation(880, 460);
+		
+		
+
 
 		overlayGroup.add(temp);
 		overlayGroup.add(bar);
@@ -188,6 +215,14 @@ public class TowerDefense extends Game {
 		overlayGroup.add(towers);
 		overlayGroup.add(normal);
 		overlayGroup.add(normalCost);
+		overlayGroup.add(normalTower);
+		overlayGroup.add(fast);
+		overlayGroup.add(fastCost);
+		overlayGroup.add(fastTower);
+		overlayGroup.add(sniper);
+		overlayGroup.add(sniperCost);
+		overlayGroup.add(sniperTower);
+		
 
 	}
 
@@ -236,7 +271,7 @@ public class TowerDefense extends Game {
 
 	private void initBackground() {
 		background = new ImageBackground(ImageUtil
-				.resize(getImage("resources/images/grassBackground.png"),
+				.resize(getImage("resources/images/easyLevel.png"),
 						WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
 
