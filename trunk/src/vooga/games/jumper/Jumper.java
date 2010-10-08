@@ -101,6 +101,9 @@ public class Jumper extends vooga.engine.core.Game {
     	if (keyDown(KeyEvent.VK_RIGHT)){
     		myPlayer.goRight();
     	}
+    	if (keyDown(KeyEvent.VK_LEFT)){
+    		myPlayer.goLeft();
+    	}
     }
     
 
