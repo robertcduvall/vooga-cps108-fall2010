@@ -23,8 +23,8 @@ public class Levels {
    
     public void createLevels() throws FileNotFoundException{
         files.add(new File("C:/Users/dhs9/workspace cs108/vooga/src/vooga/games/galaxyinvaders/img/level1.txt"));
-        //files.add(new File("src/level2"));
-        //files.add((new File("src/level3"));
+        files.add(new File("C:/Users/dhs9/workspace cs108/vooga/src/vooga/games/galaxyinvaders/img/level2.txt"));
+        files.add(new File("C:/Users/dhs9/workspace cs108/vooga/src/vooga/games/galaxyinvaders/img/level3.txt"));
         makeMap();
     }
    

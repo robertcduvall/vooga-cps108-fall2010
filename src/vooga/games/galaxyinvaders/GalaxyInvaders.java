@@ -26,6 +26,9 @@ import com.golden.gamedev.object.background.ColorBackground;
 public class GalaxyInvaders extends Game {
 	
 	private static final int LIVES = 5;
+	
+	private static final int PLAY = 1;
+	private static final int LOST = 2;
 
 	private Background bg;
 	private PlayerSprite ship;
@@ -38,25 +41,33 @@ public class GalaxyInvaders extends Game {
 	private CollisionManager torpedoCollider;
 	private CollisionManager torpedoPlayerCollider;
 	private StatInt scoreStat;
-	private StatInt livesStat;
-	private OverlayManager overlayManager;
+	private int state;
+//	private StatInt livesStat;
+//	private OverlayManager overlayManager;
 	private OverlayStatColors scoreOverlay;
-	private OverlayStat livesOverlay;
+	//	private OverlayStat livesOverlay;
 	
+    private GameFontManager gameFontManager;
+    private GameFont myFont;
+
 	public void initResources() {
+		gameFontManager = new GameFontManager();
+		Font f = new Font("sansserif", Font.BOLD, 20);
+		myFont = gameFontManager.getFont(f);
+		state = PLAY;
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(getImage("img/ship.gif"), getWidth()/2, getHeight()-100));
 		ship.setLives(LIVES);
 		torpedos = new SpriteGroup("shots");
 		enemies = new SpriteGroup("enemies");
 		players = new SpriteGroup("players");
-		overlayManager = new OverlayManager(this, 20, 20);
+		//		overlayManager = new OverlayManager(this, 20, 20);
 		scoreStat = new StatInt(0);
-		livesStat = new StatInt(5);
+		//		livesStat = new StatInt(5);
 		scoreOverlay = new OverlayStatColors("Score", scoreStat,  new Font("mine", Font.PLAIN, 22), Color.RED);
-	//	livesOverlay = new OverlayStat("Lives", livesStat);
-//		overlayManager.addOverlay(scoreOverlay, 20, 20);
-//		overlayManager.addOverlay(livesOverlay, 80, 20);
+		//		livesOverlay = new OverlayStat("Lives", livesStat);
+		//		overlayManager.addOverlay(scoreOverlay, 20, 20);
+		//		overlayManager.addOverlay(livesOverlay, 80, 20);
 		levels = new Levels();
 		try {
 			levels.createLevels();
@@ -83,56 +94,85 @@ public class GalaxyInvaders extends Game {
 	}
 
 	public void render(Graphics2D g) {
-		bg.render(g);
-		ship.render(g);
-		enemies.render(g);
-		torpedos.render(g);
-		enemyTorpedos.render(g);
-		scoreOverlay.render(g);
-//		livesOverlay.render(g);
+		if(state == PLAY) {
+			bg.render(g);
+			ship.render(g);
+			enemies.render(g);
+			torpedos.render(g);
+			enemyTorpedos.render(g);
+			scoreOverlay.render(g);
+			
+	        myFont.drawString(g, " Lives: " + ship.getLives(),  getWidth() - 200, 8);
+//			livesOverlay.render(g);
+//			overlayManager.render(g);
+		}
+
+		if(state == LOST) {
+			bg.render(g);
+			ship.render(g);
+			enemies.render(g);
+			scoreOverlay.render(g);
+			myFont.drawString(g, " Lives: " + ship.getLives(),  getWidth() - 200, 8);
+			myFont.drawString(g, "YOU LOST!             CLICK TO PLAY AGAIN",  getWidth()/4-50, getHeight()/2);
+		}
 	}
 
 	public void update(long time) {
-		
-		int bombSeed;
-		try {
-			bombSeed = Randomizer.nextInt(1000);
-		} catch (RandomizerException e) {
-			e.printStackTrace();
-			bombSeed = 0;
-		}
-		
-		if(bombSeed>994) {
-			spawnEnemyBomb();
-		}
-		
-		bg.update(time);
-		ship.update(time);
-		enemies.update(time);
-		torpedos.update(time);
-		enemyTorpedos.update(time);
-		scoreOverlay.update(time);
-	//	livesOverlay.update(time);
-		
-		torpedoCollider.checkCollision();
-		torpedoPlayerCollider.checkCollision();
+		if(state == PLAY) {
+			int bombSeed;
+			try {
+				bombSeed = Randomizer.nextInt(1000);
+			} catch (RandomizerException e) {
+				e.printStackTrace();
+				bombSeed = 0;
+			}
 
-		if(keyDown(KeyEvent.VK_LEFT)) {
-			if(ship.getX()>0-15)  moveLeft();
-		}
-		if(keyDown(KeyEvent.VK_RIGHT)) {
-			if(ship.getX()<getWidth()-45)   moveRight();
-		}
-		if(keyPressed(KeyEvent.VK_SPACE)) {
-			fire();
-		}
-		
-		
-        if (enemies.getSize()==0) {
-            levels.nextLevel();
-            initEnemies();
-        }
+			if(bombSeed>994) {
+				spawnEnemyBomb();
+			}
 
+			bg.update(time);
+			ship.update(time);
+			enemies.update(time);
+			torpedos.update(time);
+			enemyTorpedos.update(time);
+			scoreOverlay.update(time);
+			//		livesOverlay.update(time);
+
+			//		overlayManager.update(time);
+
+			torpedoCollider.checkCollision();
+			torpedoPlayerCollider.checkCollision();
+
+			if(keyDown(KeyEvent.VK_LEFT)) {
+				if(ship.getX()>0-15)  moveLeft();
+			}
+			if(keyDown(KeyEvent.VK_RIGHT)) {
+				if(ship.getX()<getWidth()-45)   moveRight();
+			}
+			if(keyPressed(KeyEvent.VK_SPACE)) {
+				fire();
+			}
+
+
+			if(enemies.getSize()==0) {
+				levels.nextLevel();
+				initEnemies();
+			}
+
+			if(ship.getLives()<=0) {
+				state = LOST;
+			}
+		}
+
+		if(state == LOST) {
+			bg.update(time);
+			ship.update(time);
+			scoreOverlay.update(time);
+			if(click()) {
+				state = PLAY;
+			}
+		}
 	}
 	
 	private void spawnEnemyBomb() {
