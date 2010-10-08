@@ -18,6 +18,7 @@ import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayBar;
+import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
@@ -125,21 +126,46 @@ public class TowerDefense extends Game {
 	}
 
 	private void initOverlays() {
-		GameFont font = fontManager
+		GameFont fontRed = fontManager
 				.getFont(
 						getImages(
-								"src/vooga/games/towerdefense/resources/images/font.png",
+								"src/vooga/games/towerdefense/resources/images/fontRed.png",
 								20, 3), " !            .,0123"
 								+ "456789:   -? ABCDEFG"
 								+ "HIJKLMNOPQRSTUVWXYZ ");
-		OverlayString temp = new OverlayString("Selfestem".toUpperCase(), font);
+		GameFont fontOrange = fontManager
+		.getFont(
+				getImages(
+						"src/vooga/games/towerdefense/resources/images/fontOrange.png",
+						20, 3), " !            .,0123"
+						+ "456789:   -? ABCDEFG"
+						+ "HIJKLMNOPQRSTUVWXYZ ");
+		GameFont fontGreen = fontManager
+		.getFont(
+				getImages(
+						"src/vooga/games/towerdefense/resources/images/fontGreen.png",
+						20, 3), " !            .,0123"
+						+ "456789:   -? ABCDEFG"
+						+ "HIJKLMNOPQRSTUVWXYZ ");
+		OverlayString temp = new OverlayString("Selfestem".toUpperCase(), fontRed);
 		temp.setLocation(800, 50);
 		OverlayBar bar = new OverlayBar(selfEsteem, 100);
 		bar.setMaxLength(200);
 		bar.setLocation(775, 70);
 
+		OverlayStat overlayMoney = new OverlayStat("MONEY : ", money);
+		overlayMoney.setFont(fontGreen);
+		overlayMoney.setLocation(800, 100);
+		
+		OverlayStat overlayScore = new OverlayStat("SCORE : ", score);
+		overlayScore.setFont(fontGreen);
+		overlayScore.setLocation(800, 130);
+		
+		
 		overlayGroup.add(temp);
 		overlayGroup.add(bar);
+		overlayGroup.add(overlayMoney);
+		overlayGroup.add(overlayScore);
 
 	}
 
