@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import com.golden.gamedev.object.Sprite;
 
+import vooga.engine.core.Game;
+import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.Resources;
 
-public class Enemy extends PlayerSprite {
+public class Enemy extends Sprite {
 	
 	private ArrayList<PathPoint> myPath;
 	ArrayList<PathPoint> myCurrentPath;
@@ -15,23 +18,47 @@ public class Enemy extends PlayerSprite {
 	private long myTotalTime;
 	private int myFreq;
 	private int myTempLoc;
-	private boolean restart;
+	private boolean myRestart;
+	private StatInt mySelfEstem;
+	private StatInt myScore;
+	private StatInt myMoney;
+	private int myLives;
+	private Game myGame;
 
-	public Enemy(String name, String stateName, Sprite s, ArrayList<PathPoint> path, int speed) {
-		super(name, stateName, s);
+	public Enemy(ArrayList<PathPoint> path, int speed, int lives, StatInt selfEstem, StatInt score, StatInt money) {
 		myPath = path; 
 		mySpeed = speed;
 		myLoc = 0;
 		myTotalTime = 0;
 		myFreq = 0;
 		myTempLoc = 0;
-		restart = true;
+		myRestart = true;
+		mySelfEstem = selfEstem;
+		myScore = score;
+		myMoney = money;
+		myLives = lives;
+		setImage();
 	}
 	
+	private void setImage() {
+	
+		if(myLives == 3){
+			setImage(Resources.getImage("duvallFaceRed"));
+			System.out.println('3');
+		}else if(myLives == 2){
+			setImage(Resources.getImage("duvallFaceBlue"));
+			System.out.println('2');
+		}else if(myLives == 1){
+			setImage(Resources.getImage("duvallFace"));
+			System.out.println('1');
+		}
+		
+	}
+
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if(restart){
+		if(myRestart){
 			int[] dist = getDistance();
 			//System.out.println(dist[0]);
 			createPath(dist[0], (int) ((((double)dist[0])/mySpeed) * 50) , myLoc, dist[1]);
@@ -44,10 +71,10 @@ public class Enemy extends PlayerSprite {
 			//System.out.println(myPath.size());
 			//myTempLoc++;
 			myTotalTime = 0;
-			restart = false;
+			myRestart = false;
 			//System.out.println(myLoc + " : " +  myPath.size());
 			if(myLoc >= myPath.size() - 1){
-				setActive(false);
+				finish();
 			}
 			myLoc = dist[1];
 			//System.out.println(myLoc + " : " +  myPath.size() + "a");
@@ -58,7 +85,7 @@ public class Enemy extends PlayerSprite {
 				PathPoint point = myCurrentPath.get(myTempLoc);
 				setLocation(point.getX(), point.getY());
 				if(myTempLoc == myCurrentPath.size()-1){
-					restart = true;
+					myRestart = true;
 					myTempLoc = 0;
 				}else{
 					myTempLoc++;
@@ -69,6 +96,22 @@ public class Enemy extends PlayerSprite {
 	}
 	
 	
+	private void finish() {
+		setActive(false);
+		mySelfEstem.subtractFrom(1);
+	}
+	
+	protected void gotHit(){
+		myScore.addTo(10);
+		myMoney.addTo(1);
+		if(myLives == 1){
+			myMoney.addTo(1);
+			setActive(false);
+		}
+		myLives--;
+		setImage();
+	}
+
 	private int[] getDistance(){
 		PathPoint current = myPath.get(myLoc);
 		PathPoint end;
