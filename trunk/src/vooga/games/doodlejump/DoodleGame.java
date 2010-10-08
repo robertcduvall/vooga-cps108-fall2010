@@ -26,7 +26,7 @@ public class DoodleGame extends Game {
 	private Sprite dark_blue_platform;
 	private Sprite gray_platform;
 	private Sprite green_platform;
-	private Sprite light_blue_platform;
+	private LightBluePlatform light_blue_platform;
 	private Sprite white_platform;
 	private AnimatedSprite brown_platform1;
 
@@ -40,15 +40,19 @@ public class DoodleGame extends Game {
 	
 	// Enhanced Platforms
 	private AnimatedSprite spring;
-
+	private AnimatedSprite trampoline;
+	
+	// items
+	private Sprite jetpack;
+	
 	// Doodle (main player)
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
 	
-	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup, WhitePlatformGroup, SpringGroup;
+	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup, WhitePlatformGroup, SpringGroup, TrampolineGroup, JetpackGroup;
 	
 	// Collision Manager
-	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform, doodleToSpring;
+	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform, doodleToSpring, doodleToTrampoline, doodleToJetpack;
 	
 	@Override
 	public void initResources() {
@@ -67,6 +71,8 @@ public class DoodleGame extends Game {
 		BrownPlatformGroup = playField.addGroup(new SpriteGroup("Brown Platform Group"));
 		WhitePlatformGroup = playField.addGroup(new SpriteGroup("White Platform Group"));
 		SpringGroup = playField.addGroup(new SpriteGroup("Spring Group"));
+		TrampolineGroup = playField.addGroup(new SpriteGroup("Trampoline Group"));
+		JetpackGroup = playField.addGroup(new SpriteGroup("Jetpack Group"));
 
 		// platforms
 		brown_platform = new Sprite(getImage("images/brown_platform.png"), 500, 500);
@@ -77,7 +83,8 @@ public class DoodleGame extends Game {
 		PlatformGroup.add(gray_platform);
 		green_platform = new Sprite(getImage("images/green_platform.png"), 325, 700);
 		PlatformGroup.add(green_platform);
-		light_blue_platform = new Sprite(getImage("images/light_blue_platform.png"), 200, 100);
+		light_blue_platform = new LightBluePlatform(getImage("images/light_blue_platform.png"), 200, 100);
+		light_blue_platform.setHorizontalSpeed(-0.2);
 		PlatformGroup.add(light_blue_platform);
 		
 		white_platform = new Sprite(getImage("images/white_platform.png"), 300, 500);
@@ -111,6 +118,14 @@ public class DoodleGame extends Game {
 		spring_images[1] = getImage("images/spring_full.png");
 		spring = new AnimatedSprite(spring_images, 325, 680);
 		SpringGroup.add(spring);
+		BufferedImage[] trampoline_images = new BufferedImage[2];
+		trampoline_images[0] = getImage("images/trampoline.png");
+		trampoline_images[1] = getImage("images/trampoline_down.png");
+		trampoline = new AnimatedSprite(trampoline_images, 100, 530);
+		TrampolineGroup.add(trampoline);
+		
+		// items (eventually ItemSprites)
+		jetpack = new Sprite(getImage("images/jetpack.png"));
 		
 		// doodle (main player)
 		doodle = new DoodleSprite("doodle", "normal", new Sprite(getImage("images/doodle_right.png")), this);
@@ -131,6 +146,7 @@ public class DoodleGame extends Game {
 		doodleToBrownPlatform = new DoodleToBrownPlatformCollision();
 		doodleToWhitePlatform = new DoodleToWhitePlatformCollision();
 		doodleToSpring = new DoodleToSpringCollision();
+		doodleToTrampoline = new DoodleToTrampolineCollision();
 		
 		playField.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
 		playField.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
@@ -138,6 +154,7 @@ public class DoodleGame extends Game {
 		playField.addCollisionGroup(DoodleGroup, BrownPlatformGroup, doodleToBrownPlatform);
 		playField.addCollisionGroup(DoodleGroup, WhitePlatformGroup, doodleToWhitePlatform);
 		playField.addCollisionGroup(DoodleGroup, SpringGroup, doodleToSpring);
+		playField.addCollisionGroup(DoodleGroup, TrampolineGroup, doodleToTrampoline);
 		setFPS(100);
 	}
 	

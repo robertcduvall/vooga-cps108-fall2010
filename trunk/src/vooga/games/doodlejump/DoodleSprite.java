@@ -14,7 +14,7 @@ import vooga.engine.player.control.PlayerSprite;
 public class DoodleSprite extends PlayerSprite {
 	private ArrayList<BallSprite> balls;
 	private DoodleGame game;
-	private int bulletDelay = 50;
+	private int bulletDelay = 20;
 	
 	public DoodleSprite(String name, String stateName, Sprite s, DoodleGame game) {
 		super(name, stateName, s);
@@ -84,7 +84,7 @@ public class DoodleSprite extends PlayerSprite {
 	            System.out.println(e);
 	            System.exit(0);
 	    	}
-			bulletDelay = 50;
+			bulletDelay = 20;
 		}
 	}
 	
