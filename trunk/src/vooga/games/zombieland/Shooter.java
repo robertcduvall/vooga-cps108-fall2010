@@ -12,6 +12,7 @@ public class Shooter extends PlayerSprite {
 	private double orientation;
 	private int weaponChoice;
 	private Weapon[] weapons;
+	private Stat<Integer> health;
 	
 	
 	public Shooter(String name, String stateName, AnimatedSprite s,
@@ -25,8 +26,8 @@ public class Shooter extends PlayerSprite {
 		orientation=90;
 		weaponChoice=0;
 		weapons[weaponChoice]=new Pistol(this,99999);
-		
-		setHealth(100);
+
+		health = new Stat<Integer>(playerHealth);
 	}
 
 	
@@ -75,6 +76,9 @@ public class Shooter extends PlayerSprite {
 		fireBullets();
 	}
 	
+	public Stat<Integer> getHealth(int placeholder){
+		return health;
+	}
 	
 	private void fireBullets() {
 		weapons[weaponChoice].fire();
@@ -86,6 +90,11 @@ public class Shooter extends PlayerSprite {
 	
 	public double getOrientation(){
 		return orientation;
+	}
+	
+	public void setHealth(int i) {
+        super.setHealth(i);
+        health.setStat(getHealth());
 	}
 	
 	public void update(long elapsedTime) {
