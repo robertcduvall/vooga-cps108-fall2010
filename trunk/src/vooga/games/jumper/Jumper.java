@@ -3,7 +3,6 @@ package vooga.games.jumper;
 
 
 // JFC 
-
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -13,7 +12,6 @@ import java.util.Random;
 
 //VOOGA
 import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
@@ -22,7 +20,6 @@ import vooga.engine.resource.ResourceHandler;
 // GTGE
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
@@ -69,7 +66,7 @@ public class Jumper extends vooga.engine.core.Game {
 
     
     /**
-     *  Initialize all of the game instance variable
+     *  Initialize all of the game instance variables
      */
     public void initResources() {
 
@@ -84,10 +81,9 @@ public class Jumper extends vooga.engine.core.Game {
             e.printStackTrace();
         }
 
-        
-        DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
         createNewBlocks();
         
+        DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
         myPlayers.add(player1);
 
         myPlayfield = new PlayField();
@@ -206,12 +202,11 @@ public class Jumper extends vooga.engine.core.Game {
             myPlayfield.removeGroup(myBlocks);
             myPlayfield.removeGroup(myOverlay);
            
-            int fontWidth = GAME_WIDTH / 3;
-            int fontHeight = GAME_HEIGHT / 20;            
             Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+            Point fontSize = new Point (GAME_WIDTH / 3, GAME_HEIGHT / 20);
             
-            myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
-            myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
+            myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontSize.x / 2), middle.y - (fontSize.y/2),  fontSize.x);
+            myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontSize.x / 2), middle.y + (fontSize.y / 2), fontSize.x);
     }
 
     /**
