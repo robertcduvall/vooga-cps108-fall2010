@@ -201,7 +201,6 @@ public class Zombieland extends Game {
 
 		if (counter.action(elapsedTime)) {
 			addZombie();
-			addRandomItem();
 		}
 
 	}
@@ -247,11 +246,9 @@ public class Zombieland extends Game {
 		bullets.add(bullet);
 	}
 
-	public void addRandomItem() {
+	public void addRandomItem(int x, int y) {
 //		double x=Math.random()*GAME_WIDTH;
 //		double y=Math.random()*GAME_HEIGHT;
-		double x=100;
-		double y=100;
 		int choice=(int) (Math.random()*3);
 		Item item;
 		switch(choice){
