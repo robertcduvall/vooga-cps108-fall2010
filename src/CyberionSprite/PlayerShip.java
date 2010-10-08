@@ -9,7 +9,9 @@ import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.object.Sprite;
 
 import engine.event.EventManager;
-
+//main player class. extends sprite and includes relevant
+// player information such as life and weapon power. creates fire event
+// when the F key is pressed. also updates position based on wasd commands.
 public class PlayerShip extends Sprite {
 
 	private int life;

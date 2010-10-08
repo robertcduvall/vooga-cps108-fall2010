@@ -19,7 +19,7 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 		collided(playershot, (EnemyShip) enemy);
 
 	}
-
+//when a playershot collides with an enemy, enemy's life decreases, shot disappears, and a sound is played
 	public void collided(Sprite playershot, EnemyShip enemy) {
 		enemy.setLife(enemy.getLife() - 1);
 		playershot.setActive(false);

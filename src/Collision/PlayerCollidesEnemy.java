@@ -13,7 +13,8 @@ public class PlayerCollidesEnemy extends BasicCollisionGroup {
 		collided((PlayerShip) player, (EnemyShip) enemy);
 
 	}
-
+//when player collides with enemy, player' life and weapon power decrease by 1. 
+//player is forced back to its initial position
 	public void collided(PlayerShip player, EnemyShip enemy) {
 
 		player.setLife(player.getLife() - 1);

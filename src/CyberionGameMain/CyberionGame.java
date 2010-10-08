@@ -28,9 +28,9 @@ import com.golden.gamedev.object.background.ImageBackground;
 import engine.event.EventManager;
 
 public class CyberionGame extends Game {
-
+	//creates image background
 	ImageBackground bg;
-
+	//creates image variables
 	private SpriteGroup star;
 	private PlayerShip playerShip;
 	private PlayerShot playerShot;
@@ -38,20 +38,20 @@ public class CyberionGame extends Game {
 	private SpriteGroup enemyGroup;
 	private EnemyShot enemyShot;
 	private SpriteGroup bonusGroup;
-
+	//creates necessary collision managers
 	private CollisionManager playerCollidesWithEnemy;
 	private CollisionManager playerCollidesWithWall;
 	private CollisionManager playerCollidesWithBonus;
 	private CollisionManager playerCollidesWithShot;
 	private CollisionManager enemyCollidesWithShot;
-
+	//initializes constants
 	private static final int NUM_SHIPS = 1000;
 	private static final int NUM_BONUS = 10;
-
 	private static double SHIP_SPEED = 0.1;
-
+	//creates event manager
 	private EventManager eventManager;
-
+	
+	//initializes sprites from images
 	private void setSprites() {
 		BufferedImage starImage = getImage("Resources/star.png");
 		BufferedImage playerShotImage = getImage("Resources/playerShot.png");
@@ -67,6 +67,7 @@ public class CyberionGame extends Game {
 		playerGroup.add(playerShip);
 
 		enemyGroup = new SpriteGroup("EnemyGroup");
+		//randomly generates enemy ships
 		for (int i = 0; i < NUM_SHIPS; i++) {
 			Random random = new Random();
 			Sprite newShip = new EnemyShip(enemyImage, random.nextInt(640),
@@ -74,8 +75,9 @@ public class CyberionGame extends Game {
 			newShip.setVerticalSpeed(SHIP_SPEED);
 			enemyGroup.add(newShip);
 		}
-
+	
 		bonusGroup = new SpriteGroup("BonusGroup");
+		//randomly generates bonuses 
 		for (int i = 0; i < NUM_BONUS; i++) {
 			Random random = new Random();
 			Bonus newBonus = new Bonus(bonusImage, random.nextInt(640),
@@ -88,8 +90,9 @@ public class CyberionGame extends Game {
 				playerShotImage);
 		enemyShot = new EnemyShot("EnemyShot", enemyShotImage);
 	}
-
+	//initializes collision managers
 	private void setCollisionDetection() {
+	
 		enemyCollidesWithShot = new EnemyCollidesWithShot(bsSound);
 		enemyCollidesWithShot.setCollisionGroup(playerShot, enemyGroup);
 		playerCollidesWithEnemy = new PlayerCollidesEnemy();
@@ -101,13 +104,14 @@ public class CyberionGame extends Game {
 		playerCollidesWithBonus = new PlayerCollidesWithBonus();
 		playerCollidesWithBonus.setCollisionGroup(playerGroup, bonusGroup);
 	}
-
+	//intializes event manager
 	private void startEventManager() {
+		
 		eventManager.addEventListener("PlayerMoveEvent", enemyShot);
 		eventManager.addEventListener("PlayerFireEvent", playerShot);
 		eventManager.addEventListener("EnemyFireEvent", enemyShot);
 	}
-
+	//calls other methods and initializes all remaining variables
 	public void initResources() {
 
 		bsInput.setMouseVisible(false);
@@ -126,7 +130,7 @@ public class CyberionGame extends Game {
 
 		playMusic("Resources/missionimpossible.mid");
 	}
-
+	//updates sprite groups and checks for collisions
 	public void update(long elapsedTime) {
 		star.update(elapsedTime);
 		playerGroup.update(elapsedTime);
@@ -141,7 +145,7 @@ public class CyberionGame extends Game {
 		playerCollidesWithBonus.checkCollision();
 		enemyCollidesWithShot.checkCollision();
 	}
-
+	//renders active sprites
 	public void render(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());

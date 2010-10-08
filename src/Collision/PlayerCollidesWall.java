@@ -12,7 +12,7 @@ public class PlayerCollidesWall extends CollisionBounds {
 		super(bg);
 		this.bg = bg;
 	}
-
+	//prevents player from going off the screen
 	@Override
 	public void collided(Sprite player) {
 		if (isCollisionSide(BOTTOM_COLLISION)) {
