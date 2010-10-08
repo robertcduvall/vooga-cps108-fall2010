@@ -204,7 +204,8 @@ public class Jumper extends vooga.engine.core.Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new Jumper(), new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
+		Jumper jump = new Jumper();
+		game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
 		game.start();
 	}
 
