@@ -42,6 +42,8 @@ public class Jumper extends vooga.engine.core.Game {
         
         private SpriteGroup myBlocks = new SpriteGroup("blocks");
         
+        private DoodleSprite myPlayer;
+        
        /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
@@ -66,8 +68,6 @@ public class Jumper extends vooga.engine.core.Game {
 
     	myPlayfield = new PlayField();
 		// associate the playfield with a background
-		myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
-		myPlayfield.setBackground(myBackground);
 		
     	
     	myPlayfield.addGroup(myPlayers);
