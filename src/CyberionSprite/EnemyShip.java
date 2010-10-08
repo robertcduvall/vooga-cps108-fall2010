@@ -4,19 +4,18 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import GameEvent.EnemyFireEvent;
-import GameEvent.PlayerFireEvent;
 
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 
 import engine.event.EventManager;
 
-public class EnemyShip extends Sprite{
+public class EnemyShip extends Sprite {
 	private int life;
 	private Random rnd;
 	private EventManager eventManager;
 
-	public EnemyShip(BufferedImage image, double x, double y, int life, EventManager eventManager) {
+	public EnemyShip(BufferedImage image, double x, double y, int life,
+			EventManager eventManager) {
 
 		super(image, x, y);
 		setLife(life);
@@ -26,13 +25,13 @@ public class EnemyShip extends Sprite{
 	}
 
 	public void update(long elapsedTime) {
-		
+
 		super.update(elapsedTime);
-		
+
 		if (life <= 0)
 			this.setActive(false);
-		
-		if(rnd.nextInt(1000)>994){
+
+		if (rnd.nextInt(1000) > 995) {
 			eventManager.fireEvent("EnemyFireEvent", new EnemyFireEvent(this,
 					"EnemyFireEvent", getX(), getY()));
 		}

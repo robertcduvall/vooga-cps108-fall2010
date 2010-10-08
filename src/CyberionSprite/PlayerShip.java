@@ -1,14 +1,11 @@
 package CyberionSprite;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import GameEvent.PlayerFireEvent;
 import GameEvent.PlayerMoveEvent;
 
 import com.golden.gamedev.engine.BaseInput;
-import com.golden.gamedev.engine.input.AWTInput;
 import com.golden.gamedev.object.Sprite;
 
 import engine.event.EventManager;
@@ -17,6 +14,7 @@ public class PlayerShip extends Sprite {
 
 	private int life;
 	private int weaponPower;
+
 	public int getWeaponPower() {
 		return weaponPower;
 	}
@@ -66,8 +64,6 @@ public class PlayerShip extends Sprite {
 			eventManager.fireEvent("PlayerFireEvent", new PlayerFireEvent(this,
 					"PlayerFireEvent", getX(), getY(), weaponPower));
 	}
-
-
 
 	public boolean isAlive() {
 		return getLife() > 0 ? true : false;

@@ -2,7 +2,7 @@ package GameEvent;
 
 import engine.event.IEvent;
 
-public class PlayerMoveEvent implements IEvent{
+public class PlayerMoveEvent implements IEvent {
 	private Object obj;
 	private String eventName;
 	private double x;

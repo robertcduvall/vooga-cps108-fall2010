@@ -1,8 +1,6 @@
 package Collision;
 
 import CyberionSprite.EnemyShip;
-import CyberionSprite.PlayerShip;
-import CyberionSprite.PlayerShot;
 
 import com.golden.gamedev.engine.BaseAudio;
 import com.golden.gamedev.object.Sprite;
@@ -11,6 +9,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 public class EnemyCollidesWithShot extends BasicCollisionGroup {
 
 	private BaseAudio bsSound;
+
 	public EnemyCollidesWithShot(BaseAudio bsSound) {
 		this.bsSound = bsSound;
 	}
