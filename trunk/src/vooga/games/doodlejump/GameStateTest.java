@@ -33,7 +33,8 @@ public class GameStateTest extends Game {
 	private GameStateManager game_state_manager;
 	private GameState start_menu, game_play, pause_menu;
 	private PlayField playfield;
-	private Background start_background, game_background, pause_background;
+	private Background start_background, game_background, pause_background,
+			regular_background, soccer_background, space_background;
 
 	@Override
 	public void initResources() {
@@ -52,6 +53,12 @@ public class GameStateTest extends Game {
 		start_background = new ImageBackground(
 				getImage("images/default-play.png"));
 		game_background = new ImageBackground(getImage("images/background.png"));
+		regular_background = new ImageBackground(
+				getImage("images/background.png"));
+		soccer_background = new ImageBackground(
+				getImage("images/soccer-background.png"));
+		space_background = new ImageBackground(
+				getImage("images/space-background.png"));
 		pause_background = new ImageBackground(
 				getImage("images/pause-cover-resume.png"));
 
@@ -89,16 +96,39 @@ public class GameStateTest extends Game {
 			playfield.setBackground(game_background);
 		}
 
-		if (keyPressed(KeyEvent.VK_P) && start_menu.isActive()) {
+		// if (keyPressed(KeyEvent.VK_P) && start_menu.isActive()) {
+		//
+		// System.out.println("start_menu: " + start_menu.isActive());
+		// System.out.println("game_play: " + game_play.isActive());
+		// System.out.println("pause_menu: " + pause_menu.isActive());
+		// System.out.println();
+		//
+		// game_state_manager.switchTo(game_play);
+		//
+		// playfield.setBackground(game_background);
+		// }
+		if (start_menu.isActive()) {
 
 			System.out.println("start_menu: " + start_menu.isActive());
 			System.out.println("game_play: " + game_play.isActive());
 			System.out.println("pause_menu: " + pause_menu.isActive());
 			System.out.println();
 
-			game_state_manager.switchTo(game_play);
-
-			playfield.setBackground(game_background);
+			if (keyPressed(KeyEvent.VK_1)) {
+				game_state_manager.switchTo(game_play);
+				game_background = regular_background;
+				playfield.setBackground(game_background);
+			}
+			else if (keyPressed(KeyEvent.VK_2)) {
+				game_state_manager.switchTo(game_play);
+				game_background = soccer_background;
+				playfield.setBackground(game_background);
+			}
+			else if (keyPressed(KeyEvent.VK_3)) {
+				game_state_manager.switchTo(game_play);
+				game_background = space_background;
+				playfield.setBackground(game_background);
+			}
 		}
 
 		playfield.update(elapsedTime);
