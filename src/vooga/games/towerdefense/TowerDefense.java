@@ -259,5 +259,9 @@ public class TowerDefense extends Game {
 	public SpriteGroup getTowerShotGroup() {
 		return this.towerShotGroup;
 	}
+	
+	public ArrayList<PathPoint> getPathPoints() {
+		return this.path;
+	}
 
 }
