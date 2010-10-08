@@ -7,6 +7,7 @@ package vooga.games.jumper;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Random;
 
@@ -92,9 +93,16 @@ public class Jumper extends vooga.engine.core.Game {
 
     public void update(long elapsedTime) {
         createNewBlocks();
-
+        checkForKeyPress();
     	myPlayfield.update(elapsedTime);
     }
+    
+    public void checkForKeyPress(){
+    	if (keyDown(KeyEvent.VK_RIGHT)){
+    		myPlayer.goRight();
+    	}
+    }
+    
 
     public void render(Graphics2D g) {
         myPlayfield.render(g);
