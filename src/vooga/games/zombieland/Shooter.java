@@ -7,100 +7,87 @@ import vooga.engine.player.control.PlayerSprite;
 
 public class Shooter extends PlayerSprite {
 
-	private int speed;
-	private double angle;
 	private Zombieland game;
-	private int weapon;
+	private int speed;
+	private double orientation;
+	private int weaponChoice;
+	private Weapon[] weapons;
+	
 	
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
 		super(name, stateName, s, playerHealth, playerRank);
 		game=zombieland;
+		weapons=new Weapon[5];
+		
+		//DEFAULT values
 		speed = -1;
-		angle=90;
-		weapon=1;
+		orientation=90;
+		weaponChoice=0;
+		weapons[weaponChoice]=new Pistol(this,99999);
 		
 		setHealth(100);
 	}
 
 	
 	public void goLeft() {
+		orientation=180;
 		
 		if(healthIsZero()) return;
-		
-		angle=180;
 		setToCurrentSprite("Left");
 		moveX(speed);
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
 
 	public void goRight() {
-		
+		orientation=0;
 		if(healthIsZero()) return;
-		
-		angle=0;
 		setToCurrentSprite("Right");
 		moveX(Math.abs(speed));
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
 
 	public void goUp() {
-		
+		orientation=270;
 		if(healthIsZero()) return;
-		
-		angle=270;
 		setToCurrentSprite("Up");
 		moveY(speed);
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
 
 	public void goDown() {
-		
 		if(healthIsZero()) return;
-		
-		angle=90;
+		orientation=90;
 		setToCurrentSprite("Down");
 		moveY(Math.abs(speed));
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
-
+	
+	/**
+	 * Initiate the shooting animation and fire bullets according to weapon choice
+	 */
 	public void shoot() {
 		
 		if(healthIsZero()) return;
 		
 		setToCurrentSprite("Shoot");
-		fire();
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
+		fireBullets();
 	}
 	
-	private void fire() {
-		switch(weapon) {
-		case 1:
-			spawnBullets(weapon);
-			break;
-		default:
-			spawnBullets(weapon);
-			break;
-		}
-	}
-
-	private void spawnBullets(int weaponChoice) {
-		switch(weaponChoice) {
-		case 1:
-			makeBullet(angle);
-			makeBullet(angle+10);
-			makeBullet(angle-10);
-			break;
-		default:
-			makeBullet(angle);
-			break;
-		}
+	
+	private void fireBullets() {
+		weapons[weaponChoice].fire();
 	}
 	
-	private void makeBullet(double theta) {
-		Bullet b=new Bullet(this, theta);
-		game.addBullet(b,theta);
+	public void addBulletToGame(Bullet bullet, double angle){
+		game.addBullet(bullet,angle);
 	}
+	
+	public double getOrientation(){
+		return orientation;
+	}
+	
 	public void update(long elapsedTime) {
 		AnimatedSprite sprite=(AnimatedSprite) getCurrentSprite();
 		super.update(elapsedTime);
