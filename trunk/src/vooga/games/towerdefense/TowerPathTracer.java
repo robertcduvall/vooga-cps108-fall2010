@@ -23,7 +23,7 @@ import vooga.engine.resource.Resources;
 
 public class TowerPathTracer extends Game{
 	
-	public static final int WIDTH = 1000;
+	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
 	
 	private PlayerCursor playerCursor;
@@ -51,8 +51,8 @@ public class TowerPathTracer extends Game{
 		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
 		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
 		temp = new Sprite(getImage("resources/images/duvallFace.png"));
-		playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, null, null, null);
-		playerCursorControl = new PathTracer(playerCursor, this);
+		//playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, null, null, null);
+		playerCursorControl = new PathTracer(new PlayerSprite("a","b", new Sprite()), this);
 		//playerCursorControl.addInput("1", "buildTower", "vooga.games.towerdefense.PlayerCursor");
 	}
 	
@@ -75,8 +75,8 @@ public class TowerPathTracer extends Game{
 
 	public void render(Graphics2D g) {
 		playfield.render(g);
-		playerCursor.render(g);
-		temp.render(g);
+		//playerCursor.render(g);
+		//temp.render(g);
     }
 	
 	public static void main(String[] args) {

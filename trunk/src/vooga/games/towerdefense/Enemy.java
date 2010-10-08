@@ -104,7 +104,7 @@ public class Enemy extends Sprite {
 		myScore.setStat(myScore.getStat() + 10);
 		myMoney.setStat(myScore.getStat() + 1);
 		if (myLives == 1) {
-			myMoney.setStat(myScore.getStat() + 1);
+			myMoney.setStat(myMoney.getStat() + 1);
 			setActive(false);
 		}
 		myLives--;
