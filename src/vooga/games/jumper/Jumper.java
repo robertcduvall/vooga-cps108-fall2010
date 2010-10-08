@@ -66,6 +66,9 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private SpriteGroup myOverlay;
 	
+	/**
+	 *  Initialize resources.
+	 */
 	public void initResources() {
 
 		//setting up resource handler
@@ -113,15 +116,26 @@ public class Jumper extends vooga.engine.core.Game {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static int getGameWidth() {
 		return GAME_WIDTH;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static int getGameHeight() {
 		return GAME_HEIGHT;
 	}
 
 	//TODO:refactor the hell out of this method
+	/**
+	 * 
+	 */
 	public void createNewBlocks(){
 		Random myRandom = new Random();
 		double randomBlockOccurance = myRandom.nextDouble();
@@ -136,6 +150,9 @@ public class Jumper extends vooga.engine.core.Game {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void update(long elapsedTime) {
 		createNewBlocks();
 		checkForKeyPress();
@@ -144,6 +161,10 @@ public class Jumper extends vooga.engine.core.Game {
 		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
 	}
 	
+	/**
+	 * 
+	 * @param g
+	 */
     public void endGame(Graphics2D g) {
 
         	//stop clock if game is over
@@ -166,10 +187,17 @@ public class Jumper extends vooga.engine.core.Game {
 			myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
     }
 
+    /**
+     * 
+     * @param g
+     */
 	public void updateScore(Graphics2D g){
 		myScore.setStat(myClock.getTime());
 	}
     
+	/**
+	 * 
+	 */
 	public void checkForKeyPress(){
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();   	
 
