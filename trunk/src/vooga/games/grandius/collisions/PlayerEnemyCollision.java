@@ -17,14 +17,15 @@ public class PlayerEnemyCollision extends BasicCollision{
 
 	private Grandius grandius;
 	
+	
 	public PlayerEnemyCollision(Grandius grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
 	
 	@Override
-	public void collided(Sprite playerSprite, Sprite commonEnemy) {
-		super.collided(playerSprite, commonEnemy);
+	public void collided(Sprite playerSprite, Sprite enemy) {
+		super.collided(playerSprite, enemy);
 		grandius.updatePlayerLives();
 	}
 

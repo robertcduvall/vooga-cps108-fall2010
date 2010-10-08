@@ -19,6 +19,7 @@
 # *filepath2*,*resource2 name*
 # ...
 
+Commet,resources/commet.jpg
 BG,resources/background.png
 Zipster,resources/zipster1.png,resources/zipster2.png
 Boomer,resources/boomer1.png,resources/boomer2.png
