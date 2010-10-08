@@ -1,14 +1,24 @@
 package vooga.engine.level;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+
+import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.collision.CollisionManager;
 import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 /**
@@ -37,16 +47,21 @@ import vooga.engine.state.GameState;
  */
 
 public class Level {
-	private Collection<Sprite> mySpritesList; 
+	private Collection<AnimatedSprite> mySpritesList; 
 	private CollisionManager collisionManager;
 	private EventManager eventManager;
 	private GameState gameState;
 	private ResourceHandler resourceHandler;
 	
-	public Level(Scanner fileToBeRead)
+	public Level(String fileToBeRead)
 	{
-		loadSprites(fileToBeRead);
-		mySpritesList = new ArrayList<Sprite>();
+		mySpritesList = new ArrayList<AnimatedSprite>();
+		try {
+			loadSprites(fileToBeRead);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -55,29 +70,80 @@ public class Level {
 	 * initialized with the text file for that level.
 	 * 
 	 * @param Scanner which scans from the level initialization file.
+	 * @throws IOException 
 	 */
 	
-	public void loadSprites(Scanner fileToBeRead) {
-		
-        while (fileToBeRead.hasNextLine()) {
-            String spriteDetails = fileToBeRead.nextLine();
-            Scanner details = new Scanner(spriteDetails);
-            details.useDelimiter(", *");
-            String imageName = details.next();
-            BufferedImage image = ResourceHandler.getImage(imageName);
-            
-            double xPosition = details.nextDouble();
-            double yPosition = details.nextDouble();
-            Sprite sprite = new Sprite(image, xPosition, yPosition);
-            mySpritesList.add(sprite);
-        }
+	public void loadSprites(String fileToBeRead) throws IOException {
+
+		//while (fileToBeRead.hasNextLine()) {
+		//            String spriteDetails = fileToBeRead.nextLine();
+		//            Scanner details = new Scanner(spriteDetails);
+		//            details.useDelimiter(", *");
+		//            String imageName = details.next();
+		//            BufferedImage image = ResourceHandler.getImage(imageName);
+		//            
+		//            double xPosition = details.nextDouble();
+		//            double yPosition = details.nextDouble();
+		//            Sprite sprite = new Sprite(image, xPosition, yPosition);
+		//            mySpritesList.add(sprite);
+
+		ArrayList<String> lines = new ArrayList<String>();
+		int size = 0;
+		StringTokenizer st;
+		URL url = Resources.class.getClassLoader().getResource(fileToBeRead);
+		try {
+			url = new File(fileToBeRead).toURI().toURL();
+		} catch (MalformedURLException e) {
+			System.out.println("Malformed URL");
+		}
+		System.out.println(url);
+		if (url == null) {
+			throw new IOException("No such directory: " + fileToBeRead);
+		}
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(url.openStream()));
+		while (true) {
+			String line = reader.readLine();
+			if (line == null) {
+				reader.close();
+				break;
+			}
+			if (!line.equals("") && !line.startsWith("#")) {
+				lines.add(line);
+			}
+		}
+		size = lines.size();
+		for (int y=0; y<size; y++) {
+			String line = lines.get(y);
+//			if (line.equals("$Sprites")) {
+//				animatedSpriteMode = false;
+//				y++;
+//				line = lines.get(y);
+//			}
+//			if (line.equals("$AnimatedSprites")) {
+//				animatedSpriteMode = true;
+//				y++;
+//				line = lines.get(y);
+//			}
+			st = new StringTokenizer(line, ",");
+			String spriteName = st.nextToken();
+			double xPosition = Double.parseDouble(st.nextToken());
+			double yPosition = Double.parseDouble(st.nextToken());
+//			if (animatedSpriteMode) {
+			AnimatedSprite newAnimatedSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
+			mySpritesList.add(newAnimatedSprite);
+//			} else {
+//				AnimatedSprite newSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
+//			
+//			}
+		}
 	}
 	
 	/**
 	 * @return A Collection of Sprites to be used by the Game.
 	 */
 	
-	public Collection<Sprite> getSpritesList()
+	public Collection<AnimatedSprite> getSpritesList()
 	{
 		return mySpritesList;
 	}

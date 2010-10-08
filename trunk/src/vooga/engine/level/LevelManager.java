@@ -3,6 +3,8 @@ package vooga.engine.level;
 import java.io.*;
 import java.util.*;
 
+import com.golden.gamedev.object.AnimatedSprite;
+
 import vooga.engine.collision.CollisionManager;
 import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
@@ -40,6 +42,7 @@ import vooga.engine.state.GameState;
  * }
  * }
  * </pre>
+ * 
  */
 
 public class LevelManager {
@@ -52,7 +55,7 @@ public class LevelManager {
 
 	public LevelManager() {
 		myLayout = new ArrayList<Level>();
-		myCurrentLevel = 0;
+		myCurrentLevel = 1;
 	}
 	
 	/**
@@ -61,8 +64,8 @@ public class LevelManager {
 	 * end all files with ".txt".
 	 * @throws FileNotFoundException
 	 */
-	public void addLevels() throws FileNotFoundException {
-		String path = ".";
+	public void addLevels(String path) throws FileNotFoundException {
+//		String path = ".";
 		String files;
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
@@ -72,7 +75,8 @@ public class LevelManager {
 				files = listOfFiles[i].getName();
 				if (files.startsWith("level") && 
 						(files.endsWith(".txt") || files.endsWith(".TXT"))) {
-					myLayout.add(new Level(new Scanner(listOfFiles[i])));
+					myLayout.add(new Level(path+"/"+files));
+					System.out.println("files="+files);
 				}
 			}
 		}
@@ -94,9 +98,9 @@ public class LevelManager {
 	 * @return the Collection of Sprites that constitutes the selected Level.
 	 */
 
-	public Collection<Sprite> skipToLevel(int levelIndex) {
-		myCurrentLevel = levelIndex - 1; 
-		return myLayout.get(myCurrentLevel).getSpritesList();
+	public Collection<AnimatedSprite> skipToLevel(int levelIndex) {
+		myCurrentLevel = levelIndex; 
+		return myLayout.get(myCurrentLevel-1).getSpritesList();
 	}
 	
 	/**
@@ -104,9 +108,14 @@ public class LevelManager {
 	 * @return The Collection of Sprites that constitutes the next Level in the folder.
 	 */
 	
-	public Collection<Sprite> nextLevel() {
-		myCurrentLevel++;
-		return skipToLevel(myCurrentLevel);
+	public Collection<AnimatedSprite> nextLevel() {
+		myCurrentLevel+=1;
+		return currentLevel();
+	}
+	
+	public Collection<AnimatedSprite> currentLevel() {
+		//array index compensation of -1 (if myCurrentLevel = 1, we want the 0th entry of the list)
+		return myLayout.get(myCurrentLevel-1).getSpritesList(); 
 	}
 	
 	public void setPersistentCollisionManager(CollisionManager cm){
