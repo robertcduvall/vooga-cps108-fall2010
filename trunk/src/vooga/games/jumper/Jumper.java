@@ -44,7 +44,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
 	private SpriteGroup myPlayers = new SpriteGroup("players");
-
+	
 	private DoodleToBlockCollision myCollision;
 	
 	private Background myBackground;

@@ -7,10 +7,13 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class DoodleToBlockCollision extends BasicCollisionGroup {
 
+	public DoodleToBlockCollision(){
+		pixelPerfectCollision = true;
+	}
+	
 	@Override
 	public void collided(Sprite doodle, Sprite block) {
 		doodle.setVerticalSpeed(block.getVerticalSpeed());
-		System.out.println("collision");
 	}
 
 }
