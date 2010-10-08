@@ -10,10 +10,9 @@ public class DoodleSprite extends Sprite {
         super(image, location.x, location.y);
     }
 
-    public void update(long elapsedTime){
+    public void update(long elapsedTime){        
     	move(this.getHorizontalSpeed(), this.getVerticalSpeed());
     	moveThroughWall();
-    	
     }
 
     

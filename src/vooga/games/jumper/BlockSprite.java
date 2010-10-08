@@ -13,7 +13,7 @@ public class BlockSprite extends Sprite {
     public void update(long elapsedTime){
     	move(this.getHorizontalSpeed(), this.getVerticalSpeed());
     	bounceOnWall();
-    	
+
     }
 
     public void bounceOnWall(){
