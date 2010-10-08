@@ -11,6 +11,8 @@ public class DoodleSprite extends Sprite {
 	private double X_ACCELERATION = 5;
 	private double X_DECCELERATION = 1;
 		
+	private double GRAVITY = 0.1;
+	
 	private long ACCELERATION_TIME = 1;
 	private double MAX_SPEED = 10;
 		
@@ -21,9 +23,14 @@ public class DoodleSprite extends Sprite {
         }
 
     public void update(long elapsedTime){        
-    	move(this.getHorizontalSpeed(), this.getVerticalSpeed());
+    	move(getHorizontalSpeed(), getVerticalSpeed());
     	moveThroughWall();
     	deccelerate();
+    	applyGravity();
+    }
+    
+    public void applyGravity(){
+    	addVerticalSpeed(ACCELERATION_TIME, GRAVITY, MAX_SPEED);
     }
 
     public void deccelerate(){

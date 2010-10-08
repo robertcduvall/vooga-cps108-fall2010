@@ -44,6 +44,8 @@ public class Jumper extends vooga.engine.core.Game {
         
         private DoodleSprite myPlayer;
         
+        private DoodleToBlockCollision myCollision;
+        
        /****************************************************************************/
  /**************************** GAME SKELETON *********************************/
  /****************************************************************************/
@@ -67,6 +69,8 @@ public class Jumper extends vooga.engine.core.Game {
     	
     	myPlayfield.add(myPlayer);
     	myPlayfield.addGroup(myBlocks);
+    	
+    	//myCollision = new DoodleToBlockCollision(myPlayer, myBlocks);
     }
 
     public static int getGameWidth() {

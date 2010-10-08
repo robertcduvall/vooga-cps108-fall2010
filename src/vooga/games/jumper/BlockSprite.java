@@ -12,7 +12,7 @@ public class BlockSprite extends Sprite {
     }
 
     public void update(long elapsedTime){
-    	super.update(elapsedTime);
+    	move(getHorizontalSpeed(), getVerticalSpeed());
     	bounceOnWall();
 
     }
@@ -21,9 +21,5 @@ public class BlockSprite extends Sprite {
     	if (this.getX() + this.getWidth() > Jumper.getGameWidth() || this.getX() < 0){
     		this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
     	}
-    }
-    
-    public void render(Graphics2D g){
-    	super.render(g);
     }
 }
