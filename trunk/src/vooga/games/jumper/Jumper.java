@@ -4,26 +4,18 @@ package vooga.games.jumper;
 
 
 // JFC
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
 //VOOGA
-//import vooga.engine.core.Sprite;
-import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.ResourceHandler;
-import vooga.engine.state.GameState;
-import vooga.engine.state.GameStateManager;
-import vooga.engine.core.*;
-import vooga.engine.*;
 
 // GTGE
-import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
+import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -38,13 +30,15 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends vooga.engine.core.Game {
 
-        private final static int GAME_WIDTH = 600;
-        private final static int GAME_HEIGHT = 480;
-        private final double BLOCK_FREQUENCY = 0.01;
+        private static final int MAX_BLOCK_Y_VELOCITY = 2;
+		private static final int MAX_BLOCK_X_VELOCITY = 6;
+		private final static int GAME_WIDTH = 600;
+        private final static int GAME_HEIGHT = 800;
+        private final double BLOCK_FREQUENCY = 0.1;
         
-        private String jumperDirectory;
-               
         private PlayField myPlayfield;
+        
+        private Background myBackground;
         
         private SpriteGroup myBlocks = new SpriteGroup("blocks");
         
@@ -62,13 +56,19 @@ public class Jumper extends vooga.engine.core.Game {
     		e.printStackTrace();
     	}
     	
-    	myPlayfield = new PlayField();
     	
-    	Sprite player1 = new MovingSprite(ResourceHandler.getImage("crop"), new Point(getWidth() / 2, 100), new Point(0, 1));
+    	Sprite player1 = new Sprite(ResourceHandler.getImage("crop"), getWidth() / 2, 100);
+    	player1.setSpeed(0, 1);
     	
     	SpriteGroup myPlayers = new SpriteGroup("good_guys");
     	
     	myPlayers.add(player1);
+
+    	myPlayfield = new PlayField();
+		// associate the playfield with a background
+		myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
+		myPlayfield.setBackground(myBackground);
+		
     	
     	myPlayfield.addGroup(myPlayers);
     	myPlayfield.addGroup(myBlocks);
@@ -87,17 +87,20 @@ public class Jumper extends vooga.engine.core.Game {
     	Random myRandom = new Random();
     	double randomBlockOccurance = myRandom.nextDouble();
     	int randomXLocation = myRandom.nextInt(GAME_WIDTH);
-    	int randomXVelocity = myRandom.nextInt(6) - 3;
-    	int randomYVelocity = myRandom.nextInt(3) - 3;
+    	int randomXVelocity = myRandom.nextInt(MAX_BLOCK_X_VELOCITY) - (MAX_BLOCK_X_VELOCITY / 2);
+    	int randomYVelocity = myRandom.nextInt(MAX_BLOCK_Y_VELOCITY) - MAX_BLOCK_Y_VELOCITY;
     	
     	if (randomBlockOccurance < BLOCK_FREQUENCY){
-        	myBlocks.add(new MovingSprite(ResourceHandler.getImage("platformGreen"), new Point (randomXLocation, GAME_HEIGHT), new Point(randomXVelocity, randomYVelocity)));
+        	Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
+    		block.setSpeed(randomXVelocity, randomYVelocity);
+        	myBlocks.add(block);
     	}
     }
 
     public void update(long elapsedTime) {
-        myPlayfield.update(elapsedTime);
         createNewBlocks();
+
+    	myPlayfield.update(elapsedTime);
     }
 
     public void render(Graphics2D g) {
