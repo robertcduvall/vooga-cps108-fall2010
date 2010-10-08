@@ -109,19 +109,22 @@ public class Shooter extends PlayerSprite {
 	public boolean healthIsZero() {
 		return (getHealth() <= 0);
 	}
-
-	public double getOrientation() {
-		return orientation;
-	}
 	public void updateStatHealth(int i) {
         updateHealth(i);
         health.setStat(getHealth());
+	}
+
+	public double getOrientation() {
+		return orientation;
 	}
 
 	public int getAmmo() {
 		return weapons[weaponChoice].getAmmo();
 	}
 
+	public void addAmmo(int weapon, int amount){
+		weapons[weapon].addAmmo(amount);
+	}
 	public void update(long elapsedTime) {
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		super.update(elapsedTime);
