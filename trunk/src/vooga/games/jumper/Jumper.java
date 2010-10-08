@@ -148,19 +148,20 @@ public class Jumper extends vooga.engine.core.Game {
 
         
         if (randomBlockOccurance < myBlockFrequency){
-            if (myGreenBlockCounter > 10){
-                Sprite block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, 800));
+            Sprite block;
+        	if (myGreenBlockCounter > 10){
+                block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(randomXVelocity, randomYVelocity);
-                myBlocks.add(block); //Repetitive code within if tree, can we condense this command?
                 myGreenBlockCounter = 0;
 
             } else {
-                Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
+                block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(0, randomYVelocity);
                 myGreenBlockCounter++;
                 System.out.println("else " +myGreenBlockCounter);
-                myBlocks.add(block); //Other repetitive command
             }
+            
+            myBlocks.add(block);
         }
     }
 
