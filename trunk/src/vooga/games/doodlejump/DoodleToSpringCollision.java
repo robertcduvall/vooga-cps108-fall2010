@@ -1,5 +1,8 @@
 package vooga.games.doodlejump;
 
+import java.applet.AudioClip;
+import java.net.URL;
+
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
@@ -19,6 +22,9 @@ public class DoodleToSpringCollision extends BasicCollisionGroup {
 			((AnimatedSprite) spring).setAnimate(true);
 			((AnimatedSprite) spring).setAnimationFrame(1, 1);
 			doodle.setVerticalSpeed(-1.5);
+			URL jump_url = getClass().getResource("sounds/spring_sound.wav");
+	        AudioClip clip = java.applet.Applet.newAudioClip(jump_url);
+	        clip.play();
 		}
 	}
 }
