@@ -37,12 +37,12 @@ public class Enemy extends PlayerSprite {
 			createPath(dist[0], (int) ((((double)dist[0])/mySpeed) * 50) , myLoc, dist[1]);
 			//System.out.println(myCurrentPath.size());
 			//System.out.println(myTempLoc);
-			PathPoint point = myCurrentPath.get(myTempLoc);
+			//PathPoint point = myCurrentPath.get(myTempLoc);
 			myFreq = 20;
-			setLocation(point.getX(), point.getY());
+			//setLocation(point.getX(), point.getY());
 			//System.out.println(dist[1]);
 			//System.out.println(myPath.size());
-			myTempLoc++;
+			//myTempLoc++;
 			myTotalTime = 0;
 			restart = false;
 			//System.out.println(myLoc + " : " +  myPath.size());
