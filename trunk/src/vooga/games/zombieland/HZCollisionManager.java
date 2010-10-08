@@ -15,6 +15,11 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 	private final static int DELAY= 20;
 	private int attacktime = 0;
 	
+	public HZCollisionManager()
+	{
+		
+	}
+	
 	public void collided(Sprite human, Sprite zombie) {
 		
 		actOnCollision(human, zombie);

@@ -16,16 +16,11 @@ public class WallBoundManager extends CollisionBounds{
 
 	}
 	
-	public void collided(Sprite gameobject) {
+	public void collided(Sprite gameObject) {
 		
-		if(isCollisionSide(BOTTOM_COLLISION));
-		
-		if(isCollisionSide(TOP_COLLISION));
-		
-		if(isCollisionSide(LEFT_COLLISION));
-		
-		if(isCollisionSide(RIGHT_COLLISION));
-		
+		revertPosition1();
 	}
+	
+	
 
 }
