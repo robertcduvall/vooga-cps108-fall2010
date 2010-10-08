@@ -163,6 +163,7 @@ public class TowerDefense extends Game {
 		OverlayBar bar = new OverlayBar(selfEsteem, 100);
 		bar.setMaxLength(200);
 		bar.setLocation(775, 70);
+			
 
 		OverlayStat overlayMoney = new OverlayStat("MONEY : ", money);
 		overlayMoney.setFont(fontGreen);
@@ -172,11 +173,25 @@ public class TowerDefense extends Game {
 		overlayScore.setFont(fontGreen);
 		overlayScore.setLocation(800, 130);
 		
+		OverlayString towers = new OverlayString("TOWERS");
+		towers.setFont(new Font("random", Font.ITALIC, 26));
+		towers.setLocation(820, 180);
+		
+		OverlayString normal = new OverlayString("NORMAL TOWER");
+		OverlayString normalCost = new OverlayString("COST 10 DOLLARS");
+		normal.setFont(fontOrange);
+		normal.setLocation(800, 210);
+		normalCost.setFont(fontOrange);
+		normalCost.setLocation(800, 230);
+		
 		
 		overlayGroup.add(temp);
 		overlayGroup.add(bar);
 		overlayGroup.add(overlayMoney);
 		overlayGroup.add(overlayScore);
+		overlayGroup.add(towers);
+		overlayGroup.add(normal);
+		overlayGroup.add(normalCost);
 
 	}
 
