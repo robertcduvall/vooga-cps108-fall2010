@@ -6,10 +6,10 @@ resources/trampoline_platform,platformTrampoline
 resources/trampoline.png,trampoline
 resources/spring_platform.png,platformSpring
 resources/shield.png,specialShield
-resources/red_platform,platformRed
+resources/red_platform.png,platformRed
 resources/red_monster.png,monsterRed
 resources/purple_monster.png,monsterPurple
-resources/light_blue_platform,platformLightBlue
+resources/light_blue_platform.png,platformLightBlue
 resources/green_platform.png,platformGreen
 resources/green_monster.png,monsterGreen
 resources/green_flying_monster.png,monsterGreenFlying
