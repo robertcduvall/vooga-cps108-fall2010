@@ -6,33 +6,34 @@ import com.golden.gamedev.object.Sprite;
 
 public class DoodleSprite extends Sprite {
 
-		private double myXLocation;
-		private double myYLocation;
 	
-		private double myXSpeed;
-		private double myYSpeed;
+	private double X_ACCELERATION = 5;
+	private double X_DECCELERATION = 1;
 		
-		private double X_ACCELERATION = 3;
-		private double X_DECCELERATION = 1;
+	private long ACCELERATION_TIME = 1;
+	private double MAX_SPEED = 10;
 		
-		private long ACCELERATION_TIME = 1;
-		private double MAX_SPEED = 10;
+	private int mySpriteWidth = this.getWidth();
 		
-		private int mySpriteWidth = this.getWidth();
-		
-        public DoodleSprite(BufferedImage image, Point location) {
-        super(image, location.x, location.y);
-//        myXSpeed = this.getHorizontalSpeed();
-//        myYSpeed = this.getVerticalSpeed();
-    }
+	public DoodleSprite(BufferedImage image, Point location) {
+        super(image, location.x, location.y);      
+        }
 
     public void update(long elapsedTime){        
     	move(this.getHorizontalSpeed(), this.getVerticalSpeed());
+
     	moveThroughWall();
-    	if (getHorizontalSpeed() > 0)
-    		setHorizontalSpeed(getHorizontalSpeed() - X_DECCELERATION);
+    	deccelerate();
     }
 
+    public void deccelerate(){
+    	if (getHorizontalSpeed() > 0)
+    		setHorizontalSpeed(getHorizontalSpeed() - X_DECCELERATION);
+    	if (getHorizontalSpeed() < 0)
+    		setHorizontalSpeed(getHorizontalSpeed() + X_DECCELERATION);
+    	if (getHorizontalSpeed() > -1 || getHorizontalSpeed() < 1)
+    		setHorizontalSpeed(0);
+    }
     
     public void moveThroughWall(){
     	int gameWidth = Jumper.getGameWidth();
@@ -47,6 +48,10 @@ public class DoodleSprite extends Sprite {
     }
     
     public void goRight(){
-    	this.addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
+    	addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
+    }
+    
+    public void goLeft(){
+    	addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
     }
 }
