@@ -73,7 +73,7 @@ public class PlayerCursor extends PlayerSprite {
 	public void buildTower() {
 		System.out.println('b');
 		System.out.println(creditBalance.getStat() + " : " + towerCost);
-		if (creditBalance.getStat() >= towerCost) {
+		if (creditBalance.getStat() >= towerCost && offPath()) {
 			try {
 				Class[] argsClass = new Class[] { double.class, double.class,
 						TowerDefense.class };
@@ -95,6 +95,20 @@ public class PlayerCursor extends PlayerSprite {
 		// Method perform = this.getClass().getMethod("build" +
 		// currentTowerType);
 		// perform.invoke(this);
+	}
+	
+	public boolean offPath(){
+		for(PathPoint point : myGame.getPathPoints())
+		{
+			if(getDistance(point.getX(), point.getY(), getX()+TOWER_EDGE/2, getY()+TOWER_EDGE/2)<2*TOWER_EDGE){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private double getDistance(double x1, double y1, double x2, double y2){
+		return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 	}
 
 	public static Object createTower(Constructor constructor, Object[] arguments) {
