@@ -42,10 +42,10 @@ public class DoodleGame extends Game {
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
 	
-	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup;
+	protected SpriteGroup PlatformGroup, MonsterGroup, DoodleGroup, BallGroup, BrownPlatformGroup, WhitePlatformGroup;
 	
 	// Collision Manager
-	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform;
+	protected CollisionManager doodleToGreenPlatform, doodleToMonster, ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform;
 	
 	@Override
 	public void initResources() {
@@ -62,6 +62,7 @@ public class DoodleGame extends Game {
 		DoodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
 		BallGroup = playField.addGroup(new SpriteGroup("Ball Group"));
 		BrownPlatformGroup = playField.addGroup(new SpriteGroup("Brown Platform Group"));
+		WhitePlatformGroup = playField.addGroup(new SpriteGroup("White Platform Group"));
 
 		// platforms
 		brown_platform = new Sprite(getImage("images/brown_platform.png"), 500, 500);
@@ -74,8 +75,10 @@ public class DoodleGame extends Game {
 		PlatformGroup.add(green_platform);
 		light_blue_platform = new Sprite(getImage("images/light_blue_platform.png"), 200, 100);
 		PlatformGroup.add(light_blue_platform);
-		white_platform = new Sprite(getImage("images/white_platform.png"), 525, 300);
-		PlatformGroup.add(white_platform);
+		
+		white_platform = new Sprite(getImage("images/white_platform.png"), 100, 550);
+		WhitePlatformGroup.add(white_platform);
+		
 		BufferedImage[] breaking_brown_images = new BufferedImage[4];
 		breaking_brown_images[0] = getImage("images/brown_platform.png");
 		breaking_brown_images[1] = getImage("images/brown_platform_breaking_1.png");
@@ -115,12 +118,13 @@ public class DoodleGame extends Game {
 		doodleToMonster = new DoodleToMonsterCollision();
 		ballToMonster = new BallToMonsterCollision();
 		doodleToBrownPlatform = new DoodleToBrownPlatformCollision();
+		doodleToWhitePlatform = new DoodleToWhitePlatformCollision();
 		
 		playField.addCollisionGroup(DoodleGroup, PlatformGroup, doodleToGreenPlatform);
 		playField.addCollisionGroup(DoodleGroup, MonsterGroup, doodleToMonster);
 		playField.addCollisionGroup(BallGroup, MonsterGroup, ballToMonster);
 		playField.addCollisionGroup(DoodleGroup, BrownPlatformGroup, doodleToBrownPlatform);
-		
+		playField.addCollisionGroup(DoodleGroup, WhitePlatformGroup, doodleToWhitePlatform);
 		setFPS(100);
 	}
 	
