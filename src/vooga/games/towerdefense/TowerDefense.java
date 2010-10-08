@@ -271,7 +271,7 @@ public class TowerDefense extends Game {
 
 	private void initBackground() {
 		background = new ImageBackground(ImageUtil
-				.resize(getImage("resources/images/easyLevel.png"),
+				.resize(getImage("resources/images/EasyLevel.png"),
 						WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
 
