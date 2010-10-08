@@ -13,14 +13,16 @@ import com.golden.gamedev.object.Sprite;
  * @author Andrew Brown
  */
 
+@SuppressWarnings("serial")
 public class MarioSprite extends PlayerSprite{
 	
 	double gravity = 0.0001;
 	
+	
 	public MarioSprite(String name, String stateName, Sprite s){
 		super(name,stateName,s);
 	}
-	
+
 	public void moveRight(){
 		if (isOnScreen()) {
 			setX(getX() + 5);
@@ -33,7 +35,7 @@ public class MarioSprite extends PlayerSprite{
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
-			setX(500);
+			setX(0);
 		}
 	}
 	
