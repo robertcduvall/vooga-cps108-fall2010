@@ -41,7 +41,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private double myMaxBlockXVelocity = 6;	
 	private double myMaxBlockYVelocity = 2;
-	private final static int GAME_WIDTH = 1000;
+	private final static int GAME_WIDTH = 500;
 	private final static int GAME_HEIGHT = 800;
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
 	private double BLOCK_XVELOCITY_INCREASE_RATE = 0.001;
