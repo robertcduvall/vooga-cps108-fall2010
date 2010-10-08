@@ -180,7 +180,7 @@ public class Zombieland extends Game {
 		bullets.update(elapsedTime);
 		
 		if (counter.action(elapsedTime)) {
-			addZombie();
+//			addZombie();
 		}
 	
 	}
