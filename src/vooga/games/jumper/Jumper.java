@@ -60,7 +60,7 @@ public class Jumper extends vooga.engine.core.Game {
     	
     	
     	myPlayer = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
-    	myPlayer.setSpeed(1, 0);
+    	myPlayer.setSpeed(0, 0);
     	
     	myPlayfield = new PlayField();
     	
