@@ -7,29 +7,20 @@ import java.util.List;
 
 import vooga.engine.collision.Collidable;
 
+@SuppressWarnings("serial")
 public class ChangingTile extends Tile {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8391351573132210005L;
-	private List<BufferedImage> images;
+	private List<BufferedImage> images = new ArrayList<BufferedImage>();
 	private int curImage;
 	
 	public ChangingTile(double x, double y, BufferedImage image) {
-		super(x,y);
-		init();
+		super(image,x,y);
 		this.addImage(image);
 	}
 	
 	public ChangingTile(double x, double y, List<BufferedImage> images) {
-		super(x,y);
-		init();
+		super(images.get(0),x,y);
 		this.images = images;
-	}
-
-	private void init() {
-		images = new ArrayList<BufferedImage>();
 	}
 	
 	public void addImage(BufferedImage image) {
@@ -43,11 +34,6 @@ public class ChangingTile extends Tile {
 	@Override
 	public void actOnCollision(Collidable object) {
 		curImage = (curImage+1)%images.size();
+		setImage(images.get(curImage));
 	}
-
-	@Override
-	public BufferedImage getImage() {
-		return images.get(curImage);
-	}
-
 }

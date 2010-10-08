@@ -18,6 +18,9 @@ import vooga.games.marioclone.tiles.Tile;
 import vooga.games.marioclone.tiles.Tile.State;
 
 public class TileMap {
+	
+	private static double TILE_SIZE = 32;
+	
 	List<Tile> tiles;
 	
 	public TileMap(URL url) throws IOException {
@@ -33,6 +36,14 @@ public class TileMap {
 		for(Tile t : tiles) {
 			if(t.getState()==State.removed) tiles.remove(t);
 		}
+	}
+	
+	private double tilesToPixels(int coord) {
+		return coord*TILE_SIZE;
+	}
+	
+	private double pixelsToTiles(int coord) {
+		return coord/TILE_SIZE;
 	}
 	
 	public void loadTiles(URL url) throws IOException {
@@ -73,17 +84,17 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
-					tiles.add(new IndestructibleTile(j,k,Resources.getImage("Indestructible")));
+					tiles.add(new IndestructibleTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("Indestructible")));
 					break;
 				case('B'):
-					tiles.add(new BreakTile(j,k,Resources.getImage("Break")));
+					tiles.add(new BreakTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("Break")));
 					break;	
 				case('C'):
 					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
 					changingImages.add(Resources.getImage("Changing1"));
 					changingImages.add(Resources.getImage("Changing2"));
 					changingImages.add(Resources.getImage("Changing3"));
-					tiles.add(new ChangingTile(j,k,changingImages));
+					tiles.add(new ChangingTile(tilesToPixels(j),tilesToPixels(k),changingImages));
 					break;
 				}
 			}
