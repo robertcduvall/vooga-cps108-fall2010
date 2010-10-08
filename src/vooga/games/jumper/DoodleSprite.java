@@ -4,7 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;
-
+/**
+ * This class represents the Doodle which is the main character of the game
+ * @author Brian
+ *
+ */
 public class DoodleSprite extends Sprite {
 
 	
@@ -21,6 +25,10 @@ public class DoodleSprite extends Sprite {
         super(image, location.x, location.y);      
         }
 
+	/**
+	 * Update the doodle
+	 * @param  elapsedTime long time elapsed from last update
+	 */
     public void update(long elapsedTime){        
     	move(getHorizontalSpeed(), getVerticalSpeed());
     	moveThroughWall();
@@ -29,17 +37,25 @@ public class DoodleSprite extends Sprite {
     	maintainFloor();
     }
     
+    /**
+     * Make sure the doodle doesn't fall out of the screen from below
+     */
     public void maintainFloor(){
     	int gameHeight = Jumper.getGameHeight();
     	if (getY() + mySpriteHeight > gameHeight){
     		setY(gameHeight - mySpriteHeight);
     	}
     }
-    
+    /**
+     * Apply gravity to the doodle
+     */
     public void applyGravity(){
     	addVerticalSpeed(ACCELERATION_TIME, GRAVITY, MAX_SPEED);
     }
 
+    /**
+     * Slow doodle down by a fixed amount so that it decelerates when no key is pressed
+     */
     public void deccelerate(){
     	if (getHorizontalSpeed() > 0)
     		setHorizontalSpeed(getHorizontalSpeed() - X_DECCELERATION);
@@ -49,6 +65,9 @@ public class DoodleSprite extends Sprite {
     		setHorizontalSpeed(0);
     }
     
+    /**
+     * Allow doodle to move through wall to the other side
+     */
     public void moveThroughWall(){
     	int gameWidth = Jumper.getGameWidth();
     	
@@ -60,16 +79,18 @@ public class DoodleSprite extends Sprite {
     	}
     }
     
+    /**
+     * Accelerate doodle to the right
+     */
     public void goRight(){
     	addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
     }
-    
+
+    /**
+     * Accelerate doodle to the left
+     */
     public void goLeft(){
     	addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
     }
     
-    public void render(Graphics2D g){
-    	super.render(g);
-    	
-    }
 }
