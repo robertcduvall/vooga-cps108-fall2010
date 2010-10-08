@@ -52,7 +52,6 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 		if( collisionSide == RIGHT_LEFT_COLLISION)
 			currentZombie.attackFrom("AttackFromLeft");
 			
-
 		if( collisionSide == TOP_BOTTOM_COLLISION) 
 			currentZombie.attackFrom("AttackFromBelow");
 		
