@@ -35,6 +35,8 @@ public class Grandius extends Game{
 	private static final int INITIAL_ZERO = 0;
 	private static final double bulletSpeed = 0.2;
 	private static final double playerSpeed = 0.1;
+	private static final int MENU = 0;
+	private static final int GAME_PLAY = 1;
 
 	private PlayField myPlayfield;
 	private Background myBackground;
@@ -60,9 +62,11 @@ public class Grandius extends Game{
 	private LevelManager levelManager;
 //	private int myCurrentLevel;
 
-	//private GameFont font;
+	private GameFont font;
 	private double playerInitialX;
 	private double playerInitialY;
+	private int gameState;
+	private Dimension screenDimension;
 
 	/**
 	 * Initializes the lives, score, and
@@ -81,8 +85,10 @@ public class Grandius extends Game{
 	 public void initResources() { 
 		 Resources.setGame(this);
 		 //TODO : assign appropriate values to playerInitialY and playerInitialX
+		 gameState = 0;
 		 playerInitialX = 5;
 		 playerInitialY = 5;
+		 screenDimension = new Dimension(640,480);
 		 //Load the resourcelist.txt file to initialize resource mappings.
 		 try {
 			 Resources.loadFile("src/vooga/games/grandius/resources/resourcelist.txt");
@@ -156,44 +162,63 @@ public class Grandius extends Game{
 		 // register collisions to playfield
 		 myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
 		 myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileEnemyCollision);
+		 
+		 //TODO - 
 		 myPlayfield.addCollisionGroup(PROJECTILE_GROUP, BOSS_PART_GROUP, projectileBossPartCollision);
 
 
-		 //              font = fontManager.getFont(getImages("resources/font.png", 20, 3),
-		 //                              " !            .,0123" +
-		 //                              "456789:   -? ABCDEFG" +
-		 //              "HIJKLMNOPQRSTUVWXYZ ");
+		               font = fontManager.getFont(getImages("resources/font.png", 20, 3),
+		                               " !            .,0123" +
+		                               "456789:   -? ABCDEFG" +
+		               "HIJKLMNOPQRSTUVWXYZ ");
 
 	 }
 
 	 @Override
 	 public void render(Graphics2D g) {
-		 myPlayfield.render(g);
+		 
+		if (gameState == MENU) {
+			// TODO - draw info text
+			font.drawString(g, "ARROW KEY : MOVE",
+					(int) screenDimension.getWidth()/3,
+					(int) screenDimension.getHeight() / 3);
+			font.drawString(g, "CONTROL   : FIRE",
+					(int) screenDimension.getWidth()/3,
+					(int) (screenDimension.getHeight() / 2.5));
+			font.drawString(g, "CLICK TO PLAY",
+					(int) screenDimension.getWidth() / 3,
+					(int) screenDimension.getHeight() / 2);
+		}
+		if (gameState == GAME_PLAY) {
+			myPlayfield.render(g);
+		}
 
-		 // draw info text
-		 //              font.drawString(g, "ARROW KEY : MOVE", 10, 10);
-		 //              font.drawString(g, "CONTROL   : FIRE", 10, 30);
-		 //              font.drawString(g, "ENTER     : TOGGLE PPC", 10, 50);
-		 //
-		 //              if (collision.pixelPerfectCollision) {
-		 //                      font.drawString(g, " USE PIXEL PERFECT COLLISION ", GameFont.RIGHT, 0, 460, getWidth());
-		 //              }
+		
+
 	 }
 
 	 @Override
 	 public void update(long elapsedTime) {
-		 updatePlayerSpeed();
-		 shootEnemy();
-		 if (checkCleared()) {
-			 initLevel(levelManager.nextLevel());
-			 //myCurrentLevel++;
+		 if ( gameState == MENU){
+			 if(click()){
+				 gameState = GAME_PLAY;
+			 }
 		 }
-		 for(Overlay overlay : myOverlayPanel.getOverlays())
-		 {
-			 overlay.update(elapsedTime);
+		 if ( gameState == GAME_PLAY){
+			 
+			 updatePlayerSpeed();
+			 shootEnemy();
+			 if (checkCleared()) {
+				 initLevel(levelManager.nextLevel());
+				 //myCurrentLevel++;
+			 }
+			 for(Overlay overlay : myOverlayPanel.getOverlays())
+			 {
+				 overlay.update(elapsedTime);
+			 }
+			 // playfield updates all things and checks for collisions
+			 myPlayfield.update(elapsedTime);
 		 }
-		 // playfield updates all things and checks for collisions
-		 myPlayfield.update(elapsedTime);
 	 }
 
 	 /**
