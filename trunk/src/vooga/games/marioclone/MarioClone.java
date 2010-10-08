@@ -13,6 +13,10 @@ import vooga.engine.resource.Resources;
 import vooga.games.marioclone.tiles.Tile;
 import vooga.games.marioclone.*;
 
+import com.golden.gamedev.*;
+import com.golden.gamedev.object.*;
+
+import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
@@ -21,13 +25,13 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ColorBackground;
 import vooga.engine.player.control.KeyboardControl;
 
-
 public class MarioClone extends Game {
 
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 768;
 	PlayField playfield;
-	KeyboardControl myControl; 
+	KeyboardControl myControl;
+	SpriteGroup marioGroup, tileGroup;
 	
 	public static void main(String[] args)  throws IOException {
 		GameLoader gl = new GameLoader();
@@ -53,19 +57,29 @@ public class MarioClone extends Game {
 		}
 		List<Tile> tiles = m.getTiles();
 		
+		Background marioBackground = new ColorBackground(Color.cyan);
+		marioBackground.setClip(0, 0, WIDTH, HEIGHT);
 		playfield = new PlayField();
-		playfield.setBackground(new ColorBackground(Color.cyan));
+		playfield.setBackground(marioBackground);
+		tileGroup = new SpriteGroup("Tile Group");
 		for(Tile t : tiles) {
-			playfield.add(t);
+			tileGroup.add(t);
 		}
+		playfield.addGroup(tileGroup);
 		
-		Sprite marioImg = new Sprite(getImage("images/mario.png"));
+		marioGroup = new SpriteGroup("Mario Group");
 		MarioSprite mario = new MarioSprite("mario","regular",new Sprite(getImage("images/mario.png")));
 		mario.setLocation(0, 515);
+		marioGroup.add(mario);
+		playfield.addGroup(marioGroup);
+		
 		myControl = new KeyboardControl(mario,this);
 		myControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.marioclone.MarioSprite", null);
 		myControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.marioclone.MarioSprite", null);
-		playfield.add(mario);
+		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite", null);
+		myControl.addInput(KeyEvent.VK_S, "crouch", "vooga.games.marioclone.MarioSprite", null);
+		
+		playfield.addCollisionGroup(marioGroup, tileGroup, new MarioToTileCollision());
 	}
 	
 	@Override
@@ -80,12 +94,4 @@ public class MarioClone extends Game {
 		playfield.render(g);
 	}
 	
-	
-//	public static void main(String[] args) throws IOException {
-//		ResourceHandler.loadFile("resourcelist.txt");
-//		System.out.println("loaded resource list");
-//		TileMap m = new TileMap("testmap.txt");
-//		System.out.println("loaded tiles");
-//		List<Tile> tiles = m.getTiles();
-//	}
 }

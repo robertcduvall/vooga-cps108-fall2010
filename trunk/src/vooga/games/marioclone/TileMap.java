@@ -21,7 +21,8 @@ public class TileMap {
 	
 	private static double TILE_SIZE = 32;
 	
-	List<Tile> tiles;
+	private List<Tile> tiles;
+	private List<IndestructibleTile> indestructibleTiles;
 	
 	public TileMap(URL url) throws IOException {
 		tiles = new ArrayList<Tile>();
@@ -84,6 +85,7 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
+					System.out.println("Tile position x: "+tilesToPixels(j)+" y: "+tilesToPixels(k));
 					tiles.add(new IndestructibleTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("ITile")));
 					break;
 				case('B'):

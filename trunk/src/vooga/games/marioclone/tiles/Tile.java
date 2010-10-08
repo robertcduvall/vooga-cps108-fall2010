@@ -45,6 +45,7 @@ public abstract class Tile extends Sprite implements Collidable {
 
 	@Override
 	public void setLocation(double x, double y) {
+		System.out.println("setting location "+x+" "+y);
 		this.x = x;
 		this.y = y;
 	}
