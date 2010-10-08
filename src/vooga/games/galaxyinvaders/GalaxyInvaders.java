@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import vooga.engine.event.*;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.*;
@@ -20,7 +21,7 @@ import com.golden.gamedev.object.background.ColorBackground;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class GalaxyInvaders extends Game {
+public class GalaxyInvaders extends Game implements IEventListener {
 	
 	private static final int LIVES = 5;
 
@@ -31,13 +32,11 @@ public class GalaxyInvaders extends Game {
 	private SpriteGroup enemyTorpedos;
 	private SpriteGroup enemies;
 	private SpriteGroup players;
-//	private ResourceHandler resources;
-//	private KeyboardControl kb;
+	private EventManager event;
 	private CollisionManager torpedoCollider;
 	private CollisionManager torpedoPlayerCollider;
 	
 	public void initResources() {
-//		resources = new ResourceHandler();
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(getImage("img/ship.gif"), getWidth()/2, getHeight()-100));
 		ship.setLives(LIVES);
@@ -45,24 +44,22 @@ public class GalaxyInvaders extends Game {
 		enemies = new SpriteGroup("enemies");
 		players = new SpriteGroup("players");
 		initEnemies();
+		event = new EventManager();
 		players.add(ship);
 		enemyTorpedos = new SpriteGroup("enemyTorpedos");
 		torpedoCollider = new TorpedoEnemyCollider();
 		torpedoCollider.setCollisionGroup(torpedos, enemies);
 		torpedoPlayerCollider = new TorpedoPlayerCollider(this);
 		torpedoPlayerCollider.setCollisionGroup(enemyTorpedos, players);
-//		kb = new KeyboardControl(ship, this);
-//		kb.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.galaxyinvaders.GalaxyInvaders", null);
 	}
 	
-	public void initEnemies() {
-		
+	public void initEnemies() {	
 		for(int k=0; k<getHeight()/4; k+=60) {
 			for(int j=60; j<getWidth()-60; j+=80) {
 				GameEntitySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), j, k));
 				Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
 				e.mapNameToSprite("damaged", damaged);
-				e.setSpeed(-.05, .005);
+				e.setSpeed(-.05, .02);
 				enemies.add(e);
 			}
 		}
@@ -73,18 +70,32 @@ public class GalaxyInvaders extends Game {
 		ship.render(g);
 		enemies.render(g);
 		torpedos.render(g);
+		enemyTorpedos.render(g);
 	}
 
 	public void update(long time) {
+		
+		int bombSeed;
+		try {
+			bombSeed = Randomizer.nextInt(1000);
+		} catch (RandomizerException e) {
+			e.printStackTrace();
+			bombSeed = 0;
+		}
+		
+		if(bombSeed>994) {
+			spawnEnemyBomb();
+		}
+		
 		bg.update(time);
 		ship.update(time);
 		enemies.update(time);
 		torpedos.update(time);
+		enemyTorpedos.update(time);
 		
 		torpedoCollider.checkCollision();
 		torpedoPlayerCollider.checkCollision();
 
-//		kb.update();
 		if(keyDown(KeyEvent.VK_LEFT)) {
 			if(ship.getX()>0-15)  moveLeft();
 		}
@@ -108,6 +119,13 @@ public class GalaxyInvaders extends Game {
 
 	}
 	
+	private void spawnEnemyBomb() {
+		int enemySeed;
+		Sprite temp = new Sprite(getImage("img/torpedo.png"), getWidth()/2, getHeight()/2);
+		temp.setSpeed(0, .5);
+		enemyTorpedos.add(temp);
+	}
+
 	public void moveLeft() {
 		ship.move(-5, 0);
 	}
@@ -130,11 +148,18 @@ public class GalaxyInvaders extends Game {
 		}
 	}
 	
+	@Override
+	public void actionPerformed(IEvent e) {
+		ship.updateScore(1);
+	}
+	
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
 		game.setup(new GalaxyInvaders(), new Dimension(700,800), false);
 		game.start();
 	}
+
+
 
 	
 }
