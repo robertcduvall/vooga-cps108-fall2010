@@ -4,9 +4,9 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
-/*
+/**
  * This is the basic collision class for player and zombie 
- * Author: Jimmy Mu, Aaron Choi, Yang Su
+ * @Author Jimmy Mu, Aaron Choi, Yang Su
  */
 
 public class HZCollisionManager extends PreciseCollisionGroup{
