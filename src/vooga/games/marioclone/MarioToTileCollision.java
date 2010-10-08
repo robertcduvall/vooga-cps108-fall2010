@@ -15,7 +15,7 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 		System.out.println(tile+" "+tile.getX()+" "+tile.getY());
 		System.out.println("Collision! Yay!");
 		if(mario.getVerticalSpeed()>0) {
-			mario.setY(tile.getY()-mario.getHeight()-1);
+//			mario.setY(tile.getY()-mario.getHeight()-1);
 			((MarioSprite) mario).setOnGround(true);
 			mario.setVerticalSpeed(0);
 		}
