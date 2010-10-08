@@ -39,6 +39,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends vooga.engine.core.Game {
 
+	
 	private static final double MAX_BLOCK_Y_VELOCITY = 2;
 	private static final double MAX_BLOCK_X_VELOCITY = 6;
 	private final static int GAME_WIDTH = 1000;
@@ -97,15 +98,11 @@ public class Jumper extends vooga.engine.core.Game {
 						+ "HIJKLMNOPQRSTUVWXYZ ");
 
 		myOverlay = new SpriteGroup("overlay");
-		myPlayfield.addGroup(myOverlay);
-		/*OverlayString os = new OverlayString("BLAH", myFont);
-		os.setLocation(0, 0);
-		myOverlay.add(os);*/
 		myScore = new Stat<Long>((long) 0);
 		OverlayStat os = new OverlayStat("SCORE : ", myScore);
 		os.setFont(myFont);
 		myOverlay.add(os);
-		
+		myPlayfield.addGroup(myOverlay);
 		
 		myClock = new GameClock();
 		try {
@@ -159,19 +156,18 @@ public class Jumper extends vooga.engine.core.Game {
             }
             myPlayfield.removeGroup(myPlayers);
             myPlayfield.removeGroup(myBlocks);
+            myPlayfield.removeGroup(myOverlay);
            
             int fontWidth = GAME_WIDTH / 3;
             int fontHeight = GAME_HEIGHT / 20;            
             Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
             
-			myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
+            myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
 			myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
     }
 
-	public void printScore(Graphics2D g){
-    	//myScore = myClock.getTime();
+	public void updateScore(Graphics2D g){
 		myScore.setStat(myClock.getTime());
-		//myFont.drawString(g, "SCORE: " + myScore, myFont.JUSTIFY, 0,0, 100);
 	}
     
 	public void checkForKeyPress(){
@@ -192,11 +188,12 @@ public class Jumper extends vooga.engine.core.Game {
 		myPlayfield.render(g);
 
         DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
+
         if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0){
         	endGame(g);
         }
         else{
-        	printScore(g);
+        	updateScore(g);
         }
 	}
 
