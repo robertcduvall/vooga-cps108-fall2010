@@ -105,7 +105,18 @@ public class Jumper extends vooga.engine.core.Game {
 		createNewBlocks();
 		checkForKeyPress();
 		myPlayfield.update(elapsedTime);
+		didYouLose();
 	}
+	
+    public void didYouLose() {
+        DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
+        if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0) {
+            myPlayfield.removeGroup(myPlayers);
+            myPlayfield.removeGroup(myBlocks);
+           
+        }
+    }
+
 
 	public void checkForKeyPress(){
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();   	
