@@ -24,3 +24,4 @@ resources/blue_monster.png,monsterBlue
 resources/blue_flying_monster.png,monsterBlueFlying
 resources/Background.png,backgroundImage
 resources/white_platform.png/platformWhite,platformWhite
+resources/font.png,font

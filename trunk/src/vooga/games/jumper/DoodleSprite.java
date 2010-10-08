@@ -16,7 +16,8 @@ public class DoodleSprite extends Sprite {
 	private long ACCELERATION_TIME = 1;
 	private double MAX_SPEED = 10;
 		
-	private int mySpriteWidth = this.getWidth();
+	private int mySpriteWidth = getWidth();
+	private int mySpriteHeight = getHeight();
 		
 	public DoodleSprite(BufferedImage image, Point location) {
         super(image, location.x, location.y);      
@@ -27,7 +28,14 @@ public class DoodleSprite extends Sprite {
     	moveThroughWall();
     	deccelerate();
     	applyGravity();
-    	
+    	maintainFloor();
+    }
+    
+    public void maintainFloor(){
+    	int gameHeight = Jumper.getGameHeight();
+    	if (getY() +  mySpriteHeight > gameHeight){
+    		setY(gameHeight - mySpriteHeight);
+    	}
     }
     
     public void applyGravity(){
