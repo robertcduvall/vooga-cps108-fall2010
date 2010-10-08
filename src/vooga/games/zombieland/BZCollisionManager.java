@@ -15,6 +15,7 @@ public class BZCollisionManager extends PreciseCollisionGroup{
 		
 		actOnCollision(bullet, zombie);	
 	}
+	
 	/**
 	 * 
 	 * @param bullet Bullet and 
@@ -24,9 +25,9 @@ public class BZCollisionManager extends PreciseCollisionGroup{
 		Zombie currentZombie = (Zombie) zombie;
 		Bullet currentBullet = (Bullet) bullet;
 		
-		int damage = (int) currentBullet.getDamage(); 
+		int damage = - (int) currentBullet.getDamage(); 
 		
-		currentZombie.updateHealth(-damage);
+		currentZombie.updateHealth(damage);
 		
 		if(currentZombie.healthIsZero())
 		{

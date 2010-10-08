@@ -69,6 +69,7 @@ public class Zombieland extends Game {
 	private ZZCollisionManager zombieZombieManager;
 	private HZCollisionManager humanZombieManager;
 	private BZCollisionManager bulletZombieManager;
+	private WallBoundManager entityWallManager;
 
 	private OverlayBar healthBar;
 	private OverlayString healthString;
@@ -177,8 +178,6 @@ public class Zombieland extends Game {
 		playfield.setBackground(background);
 		setListeners();
 
-
-		//Here's are the managers in use.
 		zombieZombieManager = new ZZCollisionManager();
 		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
 
@@ -187,9 +186,16 @@ public class Zombieland extends Game {
 		players.add(player);
 		playfield.addCollisionGroup(players , zombies, humanZombieManager);
 
+		entityWallManager = new WallBoundManager(background);
+		playfield.addCollisionGroup(players, players, entityWallManager);
+		playfield.addCollisionGroup(zombies, zombies, entityWallManager);
+		
+		
 		bulletZombieManager = new BZCollisionManager();
 		playfield.addCollisionGroup(bullets, zombies, bulletZombieManager);
 
+		
+		
 	}
 
 	public void update(long elapsedTime) {
