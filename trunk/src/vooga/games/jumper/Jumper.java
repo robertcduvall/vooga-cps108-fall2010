@@ -35,11 +35,10 @@ public class Jumper extends vooga.engine.core.Game {
 		private final static int GAME_WIDTH = 600;
         private final static int GAME_HEIGHT = 800;
         private final double BLOCK_FREQUENCY = 0.1;
+        private Point DOODLE_START = new Point (GAME_WIDTH / 2, 100);
         
         private PlayField myPlayfield;
-        
-        private Background myBackground;
-        
+    
         private SpriteGroup myBlocks = new SpriteGroup("blocks");
         
         private DoodleSprite myPlayer;
@@ -59,18 +58,12 @@ public class Jumper extends vooga.engine.core.Game {
     	}
     	
     	
-    	Sprite player1 = new Sprite(ResourceHandler.getImage("crop"), getWidth() / 2, 100);
-    	player1.setSpeed(0, 1);
+    	myPlayer = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
+    	myPlayer.setSpeed(1, 0);
     	
-    	SpriteGroup myPlayers = new SpriteGroup("good_guys");
-    	
-    	myPlayers.add(player1);
-
     	myPlayfield = new PlayField();
-		// associate the playfield with a background
-		
     	
-    	myPlayfield.addGroup(myPlayers);
+    	myPlayfield.add(myPlayer);
     	myPlayfield.addGroup(myBlocks);
     }
 
