@@ -31,7 +31,7 @@ import vooga.games.doodlejump.DoodleState;
 
 public class TowerDefense extends Game {
 
-	public static final int WIDTH = 1000;
+	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
 
 	private PlayerCursor player;
@@ -131,7 +131,7 @@ public class TowerDefense extends Game {
 		Resources.loadImage("normalTowerPreview",
 		"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
 		Resources.loadImage("pause",
-		"src/vooga/games/towerdefense/resources/images/pauseScreen.png");
+		"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
 		
 		
 	}
@@ -183,6 +183,7 @@ public class TowerDefense extends Game {
 		normal.setLocation(800, 210);
 		normalCost.setFont(fontOrange);
 		normalCost.setLocation(800, 230);
+		
 		
 		
 		overlayGroup.add(temp);
