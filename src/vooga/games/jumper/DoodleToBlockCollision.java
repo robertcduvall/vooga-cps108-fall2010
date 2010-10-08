@@ -10,7 +10,10 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  *
  */
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
-	
+
+	/**
+	 * Create new Collision constructor
+	 */
 	public DoodleToBlockCollision(){
 		pixelPerfectCollision = true;
 	}
