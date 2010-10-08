@@ -10,7 +10,7 @@ public class SniperTower extends Tower{
 	public final static BufferedImage PREVIEW = Resources.getImage("sniperTowerPreview");
 	public final static long SHOT_DELAY = 2000;
 	public final static double RANGE = 300;
-	public final static int COST = 50;
+	public final static int COST = 80;
 	public final static double SHOT_SPEED = 2;
 	
 	public SniperTower(double x, double y, TowerDefense game){

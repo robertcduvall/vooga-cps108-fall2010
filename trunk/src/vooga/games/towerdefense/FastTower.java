@@ -14,7 +14,7 @@ public class FastTower extends Tower{
 	public final static BufferedImage PREVIEW = Resources.getImage("fastTowerPreview");
 	public final static long SHOT_DELAY = 100;
 	public final static double RANGE = 50;
-	public final static int COST = 100;
+	public final static int COST = 200;
 	public final static double SHOT_SPEED = .6;
 	
 	public FastTower(double x, double y, TowerDefense game){

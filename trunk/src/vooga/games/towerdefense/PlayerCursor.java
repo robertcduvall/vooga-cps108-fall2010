@@ -35,7 +35,7 @@ public class PlayerCursor extends PlayerSprite {
 		this.towerGroup = towerGroup;
 		myGame = game;
 		creditBalance = balance;
-		changeTowerType("FastTower");
+		changeTowerType("NormalTower");
 	}
 
 	public void changeTowerType(String newTowerType) {
