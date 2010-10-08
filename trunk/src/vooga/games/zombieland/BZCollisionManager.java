@@ -31,21 +31,13 @@ public class BZCollisionManager extends PreciseCollisionGroup{
 		if(currentZombie.healthIsZero())
 		{
 			currentZombie.setHealth(0);
-			getZombieDeathFromBullet(currentZombie, currentBullet);
+			currentZombie.setToCurrentSprite("ZombieDeath");
 		}
 	}
 	
-	/*
-	 * Yang Su: How does the direction of your bullet class work?
-	 * 
-	 */
+
 	
-	private void getZombieDeathFromBullet(Zombie currentZombie, Bullet currentBullet)
-	{
-		
-		
-		
-	}
+	
 	
 	
 
