@@ -10,7 +10,6 @@ public class BallToMonsterCollision extends BasicCollisionGroup{
 	
 	@Override
 	public void collided(Sprite ball, Sprite monster) {
-		System.out.println("hit");
 		ball.setActive(false);
 		monster.setActive(false);
 	}
