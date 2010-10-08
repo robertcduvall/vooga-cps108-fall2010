@@ -18,6 +18,7 @@ import vooga.engine.resource.ResourceHandler;
 // GTGE
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -32,113 +33,108 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends vooga.engine.core.Game {
 
-        private static final int MAX_BLOCK_Y_VELOCITY = 2;
-		private static final int MAX_BLOCK_X_VELOCITY = 6;
-		private final static int GAME_WIDTH = 600;
-        private final static int GAME_HEIGHT = 800;
-        private final double BLOCK_FREQUENCY = 0.1;
-        private Point DOODLE_START = new Point (GAME_WIDTH / 2, 100);
-        
-        private PlayField myPlayfield;
-    
-        private SpriteGroup myBlocks = new SpriteGroup("blocks");
-        private SpriteGroup myPlayers = new SpriteGroup("players");
-                
-        private DoodleToBlockCollision myCollision;
-        
-        private Background myBackground;
-       /****************************************************************************/
- /**************************** GAME SKELETON *********************************/
- /****************************************************************************/
+	private static final double MAX_BLOCK_Y_VELOCITY = 1;
+	private static final double MAX_BLOCK_X_VELOCITY = 6;
+	private final static int GAME_WIDTH = 600;
+	private final static int GAME_HEIGHT = 800;
+	private final double BLOCK_FREQUENCY = 0.03;
+	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
-    public void initResources() {
-    	
-    	//setting up resource handler
-    	ResourceHandler.setGame(this);
-    	try{
-    		ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
-    	} catch (IOException e){
-    		e.printStackTrace();
-    	}
-    	
-    	
-    	DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
-    	myPlayers.add(player1);
-    	
-    	myPlayfield = new PlayField();
-    	myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
+	private PlayField myPlayfield;
+
+	private SpriteGroup myBlocks = new SpriteGroup("blocks");
+	private SpriteGroup myPlayers = new SpriteGroup("players");
+
+	private DoodleToBlockCollision myCollision;
+	
+	private Background myBackground;
+	
+	
+	public void initResources() {
+
+		//setting up resource handler
+		ResourceHandler.setGame(this);
+		try{
+			ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+
+
+		DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
+		createNewBlocks();
+		
+		myPlayers.add(player1);
+
+		myPlayfield = new PlayField();
+		myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
 		myPlayfield.setBackground(myBackground);
 
-    	
-    	myPlayfield.addGroup(myPlayers);
-    	myPlayfield.addGroup(myBlocks);
-    	
-    	myCollision = new DoodleToBlockCollision();
-    	myCollision.setCollisionGroup(myPlayers, myBlocks);
-    }
 
-    public static int getGameWidth() {
-        return GAME_WIDTH;
-    }
+		myPlayfield.addGroup(myPlayers);
+		myPlayfield.addGroup(myBlocks);
 
-    public static int getGameHeight() {
-        return GAME_HEIGHT;
-    }
+		myCollision = new DoodleToBlockCollision();
+		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myCollision);
+	}
+
+	public static int getGameWidth() {
+		return GAME_WIDTH;
+	}
+
+	public static int getGameHeight() {
+		return GAME_HEIGHT;
+	}
 
 	//TODO:refactor the hell out of this method
-    public void createNewBlocks(){
-    	Random myRandom = new Random();
-    	double randomBlockOccurance = myRandom.nextDouble();
-    	int randomXLocation = myRandom.nextInt(GAME_WIDTH);
-    	int randomXVelocity = myRandom.nextInt(MAX_BLOCK_X_VELOCITY) - (MAX_BLOCK_X_VELOCITY / 2);
-    	int randomYVelocity = myRandom.nextInt(MAX_BLOCK_Y_VELOCITY) - MAX_BLOCK_Y_VELOCITY;
-    	
-    	if (randomBlockOccurance < BLOCK_FREQUENCY){
-        	Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
-    		block.setSpeed(randomXVelocity, randomYVelocity);
-        	myBlocks.add(block);
-    	}
-    }
+	public void createNewBlocks(){
+		Random myRandom = new Random();
+		double randomBlockOccurance = myRandom.nextDouble();
+		int randomXLocation = myRandom.nextInt(GAME_WIDTH);
+		double randomXVelocity = myRandom.nextDouble() * (MAX_BLOCK_X_VELOCITY) - (MAX_BLOCK_X_VELOCITY / 2);
+		double randomYVelocity = myRandom.nextDouble() * (MAX_BLOCK_Y_VELOCITY) - MAX_BLOCK_Y_VELOCITY;
 
-    public void update(long elapsedTime) {
-        createNewBlocks();
-       // checkForKeyPress();
-    	myPlayfield.update(elapsedTime);
-    }
-    
-//    public void checkForKeyPress(){
-//    	Sprite[] sprites = myPlayers.getSprites();
-//        int size = myPlayers.getSize();
-//
-//        // iterate the sprite one by one
-//        for (int i=0;i < size;i++) {
-//           if (sprites[i].isActive()) {
-//           	if (keyDown(KeyEvent.VK_RIGHT)){
-//        			sprites[i].goRight();
-//        	}
-//        	if (keyDown(KeyEvent.VK_LEFT)){
-//        		sprites[i].goLeft();
-//        	}
-//
-//           }
-//        }
-//
-//    }
-    
+		if (randomBlockOccurance < BLOCK_FREQUENCY){
+			Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
+			block.setSpeed(randomXVelocity, randomYVelocity);
+			myBlocks.add(block);
+		}
+	}
 
-    public void render(Graphics2D g) {
-        myPlayfield.render(g);
-    }
+	public void update(long elapsedTime) {
+		createNewBlocks();
+		checkForKeyPress();
+		myPlayfield.update(elapsedTime);
+	}
+
+	public void checkForKeyPress(){
+		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();   	
+
+		if (keyDown(KeyEvent.VK_RIGHT)){
+			player.goRight();
+		}
+		if (keyDown(KeyEvent.VK_LEFT)){
+			player.goLeft();
+		}
 
 
- /****************************************************************************/
- /***************************** START-POINT **********************************/
- /****************************************************************************/
 
-    public static void main(String[] args) {
-        GameLoader game = new GameLoader();
-        game.setup(new Jumper(), new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
-        game.start();
-    }
-   
+	}
+
+
+	public void render(Graphics2D g) {
+		myPlayfield.render(g);
+	}
+
+
+	/****************************************************************************/
+	/***************************** START-POINT **********************************/
+	/****************************************************************************/
+
+	public static void main(String[] args) {
+		GameLoader game = new GameLoader();
+		game.setup(new Jumper(), new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
+		game.start();
+	}
+
 }
