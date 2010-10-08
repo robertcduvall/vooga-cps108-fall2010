@@ -27,6 +27,7 @@ public class PlayerCursor extends PlayerSprite {
 	private String towerType;
 	private Class towerDefinition;
 	public final int TOWER_EDGE = 16;
+	public final double PLAY_AREA_WIDTH = 745;
 
 	public PlayerCursor(String name, String stateName, Sprite s,
 			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance) {
@@ -73,7 +74,7 @@ public class PlayerCursor extends PlayerSprite {
 	public void buildTower() {
 		System.out.println('b');
 		System.out.println(creditBalance.getStat() + " : " + towerCost);
-		if (creditBalance.getStat() >= towerCost && offPath()) {
+		if (creditBalance.getStat() >= towerCost && offPath() && inPlayArea()) {
 			try {
 				Class[] argsClass = new Class[] { double.class, double.class,
 						TowerDefense.class };
@@ -135,14 +136,20 @@ public class PlayerCursor extends PlayerSprite {
 	}
 	
 	public void render(Graphics2D g) {
-		getCurrentSprite().forceX(getX()-getCurrentSprite().getWidth()/2);
-		getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2);
-		getCurrentSprite().render(g);
+		if(inPlayArea()){
+			getCurrentSprite().forceX(getX()-getCurrentSprite().getWidth()/2);
+			getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2);
+			getCurrentSprite().render(g);
+		}
 	}
 	
 	public void buildNormalTower() {
 		Tower tower = new NormalTower(getX(), getY(), myGame);
 		towerGroup.add(tower);
+	}
+	
+	private boolean inPlayArea(){
+		return getX()<PLAY_AREA_WIDTH;
 	}
 
 }
