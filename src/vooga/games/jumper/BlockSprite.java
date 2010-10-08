@@ -4,6 +4,11 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;
 
+/**
+ * This class represents the Blocks which push the Doodle
+ * @author Brian
+ *
+ */
 public class BlockSprite extends Sprite {
 
         public BlockSprite(BufferedImage image, Point location) {
