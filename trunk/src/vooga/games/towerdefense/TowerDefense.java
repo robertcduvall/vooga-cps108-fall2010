@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.golden.gamedev.GameLoader;
-import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.ImageUtil;
 import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.StatInt;
 import vooga.engine.resource.Resources;
 
 
@@ -24,13 +24,14 @@ public class TowerDefense extends Game{
 	
 	private PlayerCursor playerCursor;
 	private PlayerCursorControl playerCursorControl;
-	private Sprite duvall;
 	private Background background;
 	private PlayField playfield;
 	private SpriteGroup towerGroup, enemyGroup, towerShotGroup;
 	private ArrayList<PathPoint> path;
-	private Enemy temp;
 	private long totalTime;
+	private StatInt selfEstem;
+	private StatInt score;
+	private StatInt money;
 	
 	@Override
 	public void initResources(){
@@ -41,6 +42,9 @@ public class TowerDefense extends Game{
 		towerGroup = playfield.addGroup(new SpriteGroup("Tower Group"));
 		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
 		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
+		selfEstem = new StatInt(100);
+		score = new StatInt(0);
+		money = new StatInt(0);
 		initPath();
 		initPlayer();
 		
@@ -71,7 +75,9 @@ public class TowerDefense extends Game{
 	}
 
 	private void initPlayer(){
-		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
+		Resources.loadImage("duvallFace", "src/vooga/games/towerdefense/resources/images/duvallFace.png");
+		Resources.loadImage("duvallFaceRed", "src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
+		Resources.loadImage("duvallFaceBlue", "src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
 		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
 		//temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
 		//enemyGroup.add(temp);
@@ -88,7 +94,7 @@ public class TowerDefense extends Game{
 	public void update(long elapsedTime) {
 		totalTime += elapsedTime;
 		if(totalTime > 2000){
-			enemyGroup.add(new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, Utility.getRandom(20,80)));
+			enemyGroup.add(new Enemy(path, Utility.getRandom(20,80),Utility.getRandom(1,3) , selfEstem, score, money));
 			totalTime = 0;
 		}
 		playfield.update(elapsedTime);
@@ -112,7 +118,7 @@ public class TowerDefense extends Game{
 	protected ArrayList<PathPoint> getPath() {
 		return path;
 	}
-	
+		
 	
 	
 	
