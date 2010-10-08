@@ -3,10 +3,10 @@ package vooga.engine.level;
 import java.io.*;
 import java.util.*;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.collision.CollisionManager;
-import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
@@ -75,11 +75,16 @@ public class LevelManager {
 				files = listOfFiles[i].getName();
 				if (files.startsWith("level") && 
 						(files.endsWith(".txt") || files.endsWith(".TXT"))) {
-					myLayout.add(new Level(path+"/"+files));
+					System.out.println("created a new ScrollerLevel");
+					myLayout.add(new ScrollerLevel(path+"/"+files));
 					System.out.println("files="+files);
 				}
 			}
 		}
+	}
+	
+	public int getMyCurrentLevel() {
+		return myCurrentLevel;
 	}
 
 	/**
@@ -98,7 +103,7 @@ public class LevelManager {
 	 * @return the Collection of Sprites that constitutes the selected Level.
 	 */
 
-	public Collection<AnimatedSprite> skipToLevel(int levelIndex) {
+	public ArrayList<ArrayList<Sprite>> skipToLevel(int levelIndex) {
 		myCurrentLevel = levelIndex; 
 		return myLayout.get(myCurrentLevel-1).getSpritesList();
 	}
@@ -108,14 +113,20 @@ public class LevelManager {
 	 * @return The Collection of Sprites that constitutes the next Level in the folder.
 	 */
 	
-	public Collection<AnimatedSprite> nextLevel() {
+	public ArrayList<ArrayList<Sprite>> nextLevel() {
 		myCurrentLevel+=1;
 		return currentLevel();
 	}
 	
-	public Collection<AnimatedSprite> currentLevel() {
+	public ArrayList<ArrayList<Sprite>> currentLevel() {
+		ArrayList<ArrayList<Sprite>> returnCollection = new ArrayList<ArrayList<Sprite>>();
 		//array index compensation of -1 (if myCurrentLevel = 1, we want the 0th entry of the list)
-		return myLayout.get(myCurrentLevel-1).getSpritesList(); 
+			returnCollection = (( (ScrollerLevel)(myLayout.get(myCurrentLevel-1)) ).getScrollerSpritesList());
+		return returnCollection;
+	}
+	
+	public Level getCurrentLevel() {
+		return myLayout.get(myCurrentLevel-1);
 	}
 	
 	public void setPersistentCollisionManager(CollisionManager cm){

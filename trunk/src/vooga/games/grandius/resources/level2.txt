@@ -1,19 +1,31 @@
-#$AnimatedSprites
+#Level 2
+
+#Screen Dimension
+640,480
+#GameSpace Dimension
+3000,480
 
 Zipster,300,150
 Zipster,300,250
 Zipster,300,350
 Zipster,300,200
-Zipster,300,300
-Zipster,500,150
-Zipster,500,250
-Zipster,500,350
-Zipster,500,200
-Zipster,500,300
-Boomer,100,400
-Boomer,200,400
-Boomer,300,400
-Boomer,400,400
 Boomer,100,100
 Boomer,100,200
 Boomer,100,300
+Zipster,200,150
+Zipster,200,250
+Zipster,200,350
+Zipster,200,200
+Boomer,300,100
+Boomer,300,200
+Boomer,300,300
+
+$Bosses
+ReacherEye
+120,60
+500,180
+200,100
+ReacherEye
+120,60
+500,300
+200,100
