@@ -10,8 +10,8 @@ public class NormalTower extends Tower{
 	 * 
 	 */
 	private static final long serialVersionUID = -3736751382675453712L;
-	public final static BufferedImage IMAGE = Resources.getImage("fastTower");
-	public final static BufferedImage PREVIEW = Resources.getImage("fastTower");
+	public final static BufferedImage IMAGE = Resources.getImage("normalTower");
+	public final static BufferedImage PREVIEW = Resources.getImage("normalTowerPreview");
 	public final static long SHOT_DELAY = 1000;
 	public final static double RANGE = 150;
 	public final static int COST = 10;
