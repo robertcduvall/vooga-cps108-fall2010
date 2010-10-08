@@ -24,7 +24,7 @@ public class DoodleGame extends Game {
 	// Platforms
 	private Sprite brown_platform;
 	private Sprite dark_blue_platform;
-	private Sprite gray_platform;
+	private GrayPlatform gray_platform;
 	private Sprite green_platform;
 	private LightBluePlatform light_blue_platform;
 	private Sprite white_platform;
@@ -79,12 +79,13 @@ public class DoodleGame extends Game {
 		PlatformGroup.add(brown_platform);
 		dark_blue_platform = new Sprite(getImage("images/dark_blue_platform.png"), 400, 400);
 		PlatformGroup.add(dark_blue_platform);
-		gray_platform = new Sprite(getImage("images/gray_platform.png"), 200, 400);
+		gray_platform = new GrayPlatform(getImage("images/gray_platform.png"), 200, 400);
+		gray_platform.setVerticalSpeed(-0.1);
 		PlatformGroup.add(gray_platform);
 		green_platform = new Sprite(getImage("images/green_platform.png"), 325, 700);
 		PlatformGroup.add(green_platform);
 		light_blue_platform = new LightBluePlatform(getImage("images/light_blue_platform.png"), 200, 100);
-		light_blue_platform.setHorizontalSpeed(-0.2);
+		light_blue_platform.setHorizontalSpeed(-0.1);
 		PlatformGroup.add(light_blue_platform);
 		
 		white_platform = new Sprite(getImage("images/white_platform.png"), 300, 500);
