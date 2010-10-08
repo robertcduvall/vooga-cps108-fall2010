@@ -12,6 +12,7 @@ public class Zombie extends PlayerSprite {
 	private double yTarget;
 	private String targetDirection;
 	private double speed;
+	private Timer timer;
 
 	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
 			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
@@ -25,6 +26,8 @@ public class Zombie extends PlayerSprite {
 		targetDirection = "X";
 		speed = -0.25;
 		setHealth(25);
+		
+		timer = new Timer(1000);
 	}
 
 	private double getDirection() {
@@ -44,14 +47,18 @@ public class Zombie extends PlayerSprite {
 	}
 
 	public void dead(){
-//		setActive(false);
 		target.updateScore(1);
 	}
 
 	public void update(long elapsedTime) {
 		
-		if(healthIsZero()) return;
-		
+		if (healthIsZero()){
+			System.out.println("go");
+			if (timer.action(elapsedTime)){
+				setActive(false);
+			}
+		}
+		else{
 		double direction = getDirection();
 		if (targetDirection.equals("X")) {
 			if (direction < 0) {
@@ -70,8 +77,8 @@ public class Zombie extends PlayerSprite {
 				setToCurrentSprite("Down");
 			}
 		}
+		}
 		
-		super.update(elapsedTime);
 	}
 	
 	public void attackFrom(String fromSide)
