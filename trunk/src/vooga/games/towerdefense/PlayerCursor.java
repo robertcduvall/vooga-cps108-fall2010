@@ -29,6 +29,7 @@ public class PlayerCursor extends PlayerSprite{
 			URL imageURL = file.toURI().toURL();
 			Sprite image = new Sprite(ImageUtil.getImage(imageURL), myGame.getMouseX(), myGame.getMouseY());
 			towerGroup.add(image);
+			System.out.println( myGame.getMouseX() + " , " + myGame.getMouseY());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
