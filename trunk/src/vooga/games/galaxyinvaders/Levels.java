@@ -22,7 +22,7 @@ public class Levels {
     }
    
     public void createLevels() throws FileNotFoundException{
-        files.add(new File("level1.txt"));
+        files.add(new File("img/level1.txt"));
         //files.add(new File("src/level2"));
         //files.add((new File("src/level3"));
         makeMap();
