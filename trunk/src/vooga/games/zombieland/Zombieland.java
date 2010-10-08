@@ -64,6 +64,7 @@ public class Zombieland extends Game {
 
 	private ZZCollisionManager zombieZombieManager;
 	private HZCollisionManager humanZombieManager;
+	private BZCollisionManager bulletZombieManager;
 
 	private OverlayBar scoreBar;
 	private OverlayString scoreString;
@@ -168,6 +169,10 @@ public class Zombieland extends Game {
 		players = new SpriteGroup("Players");
 		players.add(player);
 		playfield.addCollisionGroup(players , zombies, humanZombieManager);
+		
+		bulletZombieManager = new BZCollisionManager();
+		playfield.addCollisionGroup(bullets, zombies, bulletZombieManager);
+		
 	}
 
 	public void update(long elapsedTime) {
@@ -180,7 +185,7 @@ public class Zombieland extends Game {
 		bullets.update(elapsedTime);
 		
 		if (counter.action(elapsedTime)) {
-//			addZombie();
+			addZombie();
 		}
 	
 	}

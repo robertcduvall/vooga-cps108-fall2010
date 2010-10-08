@@ -1,6 +1,8 @@
 package vooga.games.zombieland;
 
 import com.golden.gamedev.object.AnimatedSprite;
+import com.golden.gamedev.object.Timer;
+
 import vooga.engine.player.control.PlayerSprite;
 
 public class Zombie extends PlayerSprite {
@@ -41,7 +43,10 @@ public class Zombie extends PlayerSprite {
 		}
 	}
 
-	
+	public void dead(){
+		setActive(false);
+	}
+
 	public void update(long elapsedTime) {
 		
 		if(healthIsZero()) return;
