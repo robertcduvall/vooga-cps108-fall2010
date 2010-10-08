@@ -1,4 +1,9 @@
-#$AnimatedSprites
+#Level 3
+
+#Screen Dimension
+640,480
+#GameSpace Dimension
+4000,480
 
 Zipster,300,150
 Zipster,300,250

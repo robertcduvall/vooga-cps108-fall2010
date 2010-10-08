@@ -12,10 +12,11 @@ import java.util.Collection;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.collision.CollisionManager;
-import vooga.engine.core.Sprite;
+//import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourceHandler;
 import vooga.engine.resource.Resources;
@@ -47,20 +48,24 @@ import vooga.engine.state.GameState;
  */
 
 public class Level {
-	private Collection<AnimatedSprite> mySpritesList; 
+	protected ArrayList<Sprite> mySpritesList; 
 	private CollisionManager collisionManager;
 	private EventManager eventManager;
 	private GameState gameState;
 	private ResourceHandler resourceHandler;
 	
-	public Level(String fileToBeRead)
+	public Level(String fileToBeRead, boolean isScroller)
 	{
-		mySpritesList = new ArrayList<AnimatedSprite>();
-		try {
-			loadSprites(fileToBeRead);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println("reached Level constructor");
+		mySpritesList = new ArrayList<Sprite>();
+		if (!isScroller) {
+			try {
+				System.out.println("trying try block in Level constrcutor");
+				loadLevel(fileToBeRead);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -73,7 +78,7 @@ public class Level {
 	 * @throws IOException 
 	 */
 	
-	public void loadSprites(String fileToBeRead) throws IOException {
+	public void loadLevel(String fileToBeRead) throws IOException {
 
 		//while (fileToBeRead.hasNextLine()) {
 		//            String spriteDetails = fileToBeRead.nextLine();
@@ -130,7 +135,7 @@ public class Level {
 			double xPosition = Double.parseDouble(st.nextToken());
 			double yPosition = Double.parseDouble(st.nextToken());
 //			if (animatedSpriteMode) {
-			AnimatedSprite newAnimatedSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
+			Sprite newAnimatedSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
 			mySpritesList.add(newAnimatedSprite);
 //			} else {
 //				AnimatedSprite newSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
@@ -143,9 +148,11 @@ public class Level {
 	 * @return A Collection of Sprites to be used by the Game.
 	 */
 	
-	public Collection<AnimatedSprite> getSpritesList()
+	public ArrayList<ArrayList<Sprite>> getSpritesList()
 	{
-		return mySpritesList;
+		ArrayList<ArrayList<Sprite>> returnCollection = new ArrayList<ArrayList<Sprite>>();
+		returnCollection.add(mySpritesList);
+		return returnCollection;
 	}
 	
 	/** 
