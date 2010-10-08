@@ -16,6 +16,12 @@ public class PlayerCollidesWithShot extends BasicCollisionGroup {
 		playerShip.setLife(playerShip.getLife() - 1);
 		playerShip.forceX(320);
 		playerShip.forceY(440);
+		if(playerShip.getWeaponPower()>1){
+			playerShip.setWeaponPower(playerShip.getWeaponPower()-1);
+		}
+		else{
+			playerShip.setWeaponPower(1);
+		}
 		enemyShot.setActive(false);
 	}
 }
