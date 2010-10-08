@@ -3,7 +3,7 @@ package CyberionSprite;
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.SpriteGroup;
-
+//extends SpriteGroups and adds different stars in order to be rendered in the background.
 public class StarGroup extends SpriteGroup {
 
 	private BufferedImage image;

@@ -8,7 +8,7 @@ import GameEvent.EnemyFireEvent;
 import com.golden.gamedev.object.Sprite;
 
 import engine.event.EventManager;
-
+//enemy class that handles enemy' life, and when they fire.
 public class EnemyShip extends Sprite {
 	private int life;
 	private Random rnd;
@@ -30,8 +30,8 @@ public class EnemyShip extends Sprite {
 
 		if (life <= 0)
 			this.setActive(false);
-
-		if (rnd.nextInt(1000) > 995) {
+		//enemies fire randomly with a chance of 1/1000 for every update call
+		if (rnd.nextInt(1000) > 999) {
 			eventManager.fireEvent("EnemyFireEvent", new EnemyFireEvent(this,
 					"EnemyFireEvent", getX(), getY()));
 		}

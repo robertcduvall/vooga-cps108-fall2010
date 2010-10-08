@@ -11,7 +11,8 @@ import com.golden.gamedev.object.AdvanceSpriteGroup;
 import com.golden.gamedev.object.Sprite;
 
 import engine.event.IEvent;
-
+//similar to PlayerShot in concept, except shots are fired randomly and 
+//with a derection determined by the position of th player.
 public class EnemyShot extends AdvanceSpriteGroup implements EnemyFireListener,
 		PlayerMoveListener {
 	private BufferedImage image;
@@ -37,6 +38,7 @@ public class EnemyShot extends AdvanceSpriteGroup implements EnemyFireListener,
 	}
 
 	@Override
+	//takes player position and fires in that direction
 	public void fireAction(EnemyFireEvent e) {
 		dist = Math.pow((playerX - e.getX()) * (playerX - e.getX())
 				+ (playerY - e.getY()) * (playerY - e.getY()), 0.5);

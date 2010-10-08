@@ -9,7 +9,7 @@ import com.golden.gamedev.object.AdvanceSpriteGroup;
 import com.golden.gamedev.object.Sprite;
 
 import engine.event.IEvent;
-
+//player shot class handles adding new sprites to screen upon fire command.
 public class PlayerShot extends AdvanceSpriteGroup implements
 		PlayerFireListener {
 
@@ -21,14 +21,15 @@ public class PlayerShot extends AdvanceSpriteGroup implements
 		this.image = image;
 
 	}
-
+	//when the fire event is performed, calls fireAction()
 	@Override
 	public void actionPerformed(IEvent e) {
 		if (e.getName().matches("PlayerFireEvent")) {
 			fireAction((PlayerFireEvent) e);
 		}
 	}
-
+	//adds a new sprite with the appropriate velocity and quantity to the sprite group so it can
+	//be updated and rendered
 	@Override
 	public void fireAction(PlayerFireEvent e) {
 		if (e.getWeaponPower() == 1) {
