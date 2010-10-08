@@ -5,15 +5,25 @@
 #GameSpace Dimension
 2000,480
 
-Zipster,300,150
-Zipster,300,250
-Zipster,300,350
-Boomer,100,200
-Boomer,100,300
-Boomer,100,400
+Zipster,100,50
+Zipster,100,150
+Zipster,100,250
+Zipster,100,350
+Boomer,75,100
+Boomer,75,200
+Boomer,75,300
+Boomer,75,400
+Zipster,200,50
+Zipster,200,150
+Zipster,200,250
+Zipster,200,350
+Boomer,175,100
+Boomer,175,200
+Boomer,175,300
+Boomer,175,400
 
 $Bosses
 ReacherEye
 60,30
-300,240
+400,240
 100,50

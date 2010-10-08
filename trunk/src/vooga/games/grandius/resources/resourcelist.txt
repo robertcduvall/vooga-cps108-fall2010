@@ -30,6 +30,7 @@ Projectile,resources/projectile.png
 ProjectileVertical,resources/bullet.jpg
 PlayerShipSingle,resources/playersingle.png
 Laser,resources/projectile-blue.png
+ZipsterLaser,resources/zipster_laser.png
 SideKick,resources/orange-circle.png
 ReacherEye,resources/reacher_eye_shielded.png,resources/reacher_eye_green.png,resources/reacher_eye_yellow.png,resources/reacher_eye_red.png
 
