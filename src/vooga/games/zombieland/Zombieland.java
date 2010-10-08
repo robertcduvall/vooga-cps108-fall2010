@@ -137,7 +137,7 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieDeath2.jpg"),
 				getImage("resources/ZombieDeath3.jpg")};
 
-		BufferedImage sandbg = getImage("resources/sandbackground.png");
+		BufferedImage sandbg = getImage("resources/redbackground.jpg");
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 		
 		bulletImage = getImage("resources/bullet.jpg");
@@ -176,7 +176,7 @@ public class Zombieland extends Game {
 
 		//Here's are the managers in use.
 		zombieZombieManager = new ZZCollisionManager();
-		//playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
+		playfield.addCollisionGroup(zombies, zombies, zombieZombieManager);
 
 		humanZombieManager = new HZCollisionManager();
 		players = new SpriteGroup("Players");
@@ -207,8 +207,8 @@ public class Zombieland extends Game {
 	}
 	
 	public void endGame(){
-		stop();
 		gameOver = new OverlayString("GAME OVER\nFinal Score: " + player.getScore(), Color.BLACK);
+		stop();
 	}
 
 	public void addZombie() {
@@ -312,6 +312,7 @@ public class Zombieland extends Game {
 		healthBar.render(g);
 		healthString.render(g);
 		scoreString.render(g);
+		
 		if (!player.isActive()){
 			gameOver = new OverlayString("GAME OVER", Color.BLACK);
 			gameOver.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
@@ -319,6 +320,8 @@ public class Zombieland extends Game {
 			endGame();
 		}
 	}
+
+
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
