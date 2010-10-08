@@ -7,6 +7,8 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 
+	private boolean isAdjusted = false;
+	
 	public DoodleToBlockCollision(){
 		pixelPerfectCollision = true;
 	}
@@ -14,9 +16,16 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	@Override
 	public void collided(Sprite doodle, Sprite block) {
 		//if (getCollisionSide() == BOTTOM_TOP_COLLISION){
-			doodle.setY(block.getY() - doodle.getHeight());
+			adjustDoodle(doodle, block);
 			doodle.setVerticalSpeed(block.getVerticalSpeed());
 
 			//}
+	}
+	
+	public void adjustDoodle(Sprite doodle, Sprite block){
+		if(!isAdjusted){
+			doodle.setY(block.getY() - doodle.getHeight());
+			isAdjusted = true;
+		}
 	}
 }
