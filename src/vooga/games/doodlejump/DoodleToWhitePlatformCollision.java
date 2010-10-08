@@ -3,6 +3,13 @@ package vooga.games.doodlejump;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
+/**
+ * The DoodleToWhitePlatformCollision class extends BasicCollisionGroup and
+ * defines what happens when Doodle collides with a White Platform
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ *
+ */
 public class DoodleToWhitePlatformCollision extends BasicCollisionGroup {
 
 	public DoodleToWhitePlatformCollision() {
