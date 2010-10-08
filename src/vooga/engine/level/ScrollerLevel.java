@@ -46,7 +46,7 @@ public class ScrollerLevel extends Level {
 	 * @param gameSpace
 	 *            - Dimension of the gameSpace
 	 */
-	public ScrollerLevel(Scanner fileToBeRead, Dimension screenSize,
+	public ScrollerLevel(String fileToBeRead, Dimension screenSize,
 			Dimension gameSpace) {
 		super(fileToBeRead);
 		myScreenSize = screenSize;
