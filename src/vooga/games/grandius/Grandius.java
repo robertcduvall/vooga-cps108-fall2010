@@ -39,6 +39,8 @@ public class Grandius extends Game{
 	private static final double playerSpeed = 0.1;
 	private static final int MENU = 0;
 	private static final int GAME_PLAY = 1;
+	private static final int LEVEL_COMPLETE = 2;
+	private static final int START_NEW_LEVEL = 3;
 
 	private PlayField myPlayfield;
 	private Background myBackground;
@@ -67,7 +69,7 @@ public class Grandius extends Game{
 	private double playerInitialX;
 	private double playerInitialY;
 	private int gameState;
-	private Dimension screenDimension;
+	private Dimension screen;
 
 	/**
 	 * Initializes the lives, score, and
@@ -87,9 +89,9 @@ public class Grandius extends Game{
 		 Resources.setGame(this);
 		 //TODO : assign appropriate values to playerInitialY and playerInitialX
 		 gameState = 0;
-		 playerInitialX = 50;
-		 playerInitialY = 240;
-		 screenDimension = new Dimension(640,480);
+		 screen = new Dimension(640,480);
+		 playerInitialX = 0;
+		 playerInitialY = screen.getHeight()/2;
 		 //Load the resourcelist.txt file to initialize resource mappings.
 		 try {
 			 Resources.loadFile("src/vooga/games/grandius/resources/resourcelist.txt");
@@ -114,10 +116,8 @@ public class Grandius extends Game{
 		 myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
 		 myPlayfield.setBackground(myBackground);
 
-		 shipsprite = new Sprite(Resources.getImage("PlayerShipSingle"));
+		 shipsprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
 		 playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
-		 playersprite.setX(playerInitialX);
-		 playersprite.setY(playerInitialY);
 		 for (int j = 0; j < 200; j++) { // create 200 background sprites
 			 Random valX = new Random();
 			 Random valY = new Random();
@@ -152,38 +152,46 @@ public class Grandius extends Game{
 		 // register collisions to playfield
 		 myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
 		 myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileEnemyCollision);
-		 
-		 //TODO - 
 		 myPlayfield.addCollisionGroup(PROJECTILE_GROUP, BOSS_PART_GROUP, projectileBossPartCollision);
 
+		 				//TODO - 
+		               font = fontManager.getFont(getImages("resources/font.png", 20, 3),
+		                               " !            .,0123" +
+		                               "456789:   -? ABCDEFG" +
+		               "HIJKLMNOPQRSTUVWXYZ ");
 
-		 font = fontManager.getFont(getImages("resources/font.png", 20, 3),
-				 " !            .,0123" +
-				 "456789:   -? ABCDEFG" +
-		 "HIJKLMNOPQRSTUVWXYZ ");
 	 }
 
 	 @Override
 	 public void render(Graphics2D g) {
+		 
 		if (gameState == MENU) {
-			// TODO - draw info text
-			font.drawString(g, "ARROW KEY : MOVE",
-					(int) screenDimension.getWidth()/3,
-					(int) screenDimension.getHeight() / 3);
-			font.drawString(g, "CONTROL   : FIRE",
-					(int) screenDimension.getWidth()/3,
-					(int) (screenDimension.getHeight() / 2.5));
-			font.drawString(g, "CLICK TO PLAY",
-					(int) screenDimension.getWidth() / 3,
-					(int) screenDimension.getHeight() / 2);
+			// TODO - replace Magic numbers
+			font.drawString(g, "ARROW KEY : MOVE", (int) screen.getWidth() / 4, 150);
+			font.drawString(g, "ALT   : FIRE HORIZONTALLY",(int) screen.getWidth() / 4, 200);
+			font.drawString(g, "SPACE   : FIRE VERTICALLY",(int) screen.getWidth() / 4, 250);
+			font.drawString(g, "CLICK TO PLAY", (int) screen.getWidth() / 4, 300);
 		}
+		
 		if (gameState == GAME_PLAY) {
 			myPlayfield.render(g);
 		}
+		
+		if ( gameState == LEVEL_COMPLETE){
+				font.drawString(g, "LEVEL " + levelManager.getMyCurrentLevel() + " COMPLETE",
+						(int) screen.getWidth() / 3,
+						(int) (screen.getHeight() / 2.5));
+				font.drawString(g, "CLICK TO PLAY",
+						(int) screen.getWidth() / 3,
+						(int) screen.getHeight() / 2);
+			}
+				
+
 	 }
 
 	 @Override
 	 public void update(long elapsedTime) {
+		 
 		 if ( gameState == MENU){
 			 if(click()){
 				 gameState = GAME_PLAY;
@@ -194,9 +202,12 @@ public class Grandius extends Game{
 			 updateScreenSprites();
 			 updatePlayerSpeed();
 			 if (checkCleared()) {
-				 ArrayList<ArrayList<Sprite>> newLevel = levelManager.nextLevel();
-				 initLevel(newLevel.get(0), newLevel.get(1));
+				 //TODO-
+				 gameState=LEVEL_COMPLETE;
+				 //initLevel(levelManager.nextLevel());
+				 //myCurrentLevel++;
 			 }
+			 
 			 for(Overlay overlay : myOverlayPanel.getOverlays())
 			 {
 				 overlay.update(elapsedTime);
@@ -204,32 +215,54 @@ public class Grandius extends Game{
 			 // playfield updates all things and checks for collisions
 			 myPlayfield.update(elapsedTime);
 		 }
+		 
+		 //TODO-
+		 if ( gameState == LEVEL_COMPLETE){
+			 if(levelManager.getMyCurrentLevel()==3){
+				 this.stop();
+			 }
+			 else if(click()){
+				 gameState = START_NEW_LEVEL;
+			 }
+		 }
+		 
+		 if ( gameState == START_NEW_LEVEL){
+			 ArrayList<ArrayList<Sprite>> nextLevel = levelManager.nextLevel();
+			 initLevel(nextLevel.get(0), nextLevel.get(1));
+			 gameState = GAME_PLAY;
+		 }
 	 }
 
 	 private void updateScreenSprites() {
 		 ENEMY_GROUP.clear();
 		 Collection<Sprite> screenSprites = ( (ScrollerLevel)(levelManager.getCurrentLevel()) ).getCurrentScreenSprites(levelManager.currentLevel().get(0), playersprite.getX(), playersprite.getY());
 		 for (Sprite s: screenSprites) {
-			 System.out.println("a enemy:" + s);
 			 ENEMY_GROUP.add(s);
 		 }
-		 System.out.println(levelManager.currentLevel().get(1));
 		 BOSS_PART_GROUP.clear();
 		 Collection<Sprite> screenBosses = ( (ScrollerLevel)(levelManager.getCurrentLevel()) ).getCurrentScreenSprites(levelManager.currentLevel().get(1), playersprite.getX(), playersprite.getY());
-		 //System.out.println(screenBosses);
 		 for (Sprite s: screenBosses) {
-			 System.out.println("a boss:" + s);
 			 BOSS_PART_GROUP.add(s);
 		 }
-	}
+		 
+	 }
 
 	/**
 	  * Use CTRL key to fire a bullet
 	  */
 	 private void shootEnemy() {
-		 if (keyPressed(KeyEvent.VK_CONTROL)) {
+		 // TODO - avoid repeated code
+		 if (keyPressed(KeyEvent.VK_ALT)) {		
 			 Sprite projectile = new Sprite(Resources.getImage("Projectile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
 			 projectile.setHorizontalSpeed(bulletSpeed);
+			 PROJECTILE_GROUP.add(projectile);
+			 // play laser sound
+			 playSound(Resources.getMapping("LaserSound"));
+
+		 }
+		 if (keyPressed(KeyEvent.VK_SPACE)){
+			 Sprite projectile = new Sprite(Resources.getImage("ProjectileVertical"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
+			 projectile.setVerticalSpeed(bulletSpeed);
 			 PROJECTILE_GROUP.add(projectile);
 			 // play laser sound
 			 playSound(Resources.getMapping("LaserSound"));

@@ -60,7 +60,6 @@ public class Level {
 		mySpritesList = new ArrayList<Sprite>();
 		if (!isScroller) {
 			try {
-				System.out.println("trying try block in Level constrcutor");
 				loadLevel(fileToBeRead);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
