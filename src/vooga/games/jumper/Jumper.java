@@ -67,7 +67,7 @@ public class Jumper extends vooga.engine.core.Game {
 
     private SpriteGroup myOverlay;
     
-    int greenBlockCounter = 0;
+    private int myGreenBlockCounter = 0;
 
     
     /**
@@ -115,7 +115,6 @@ public class Jumper extends vooga.engine.core.Game {
         try {
             myClock.start();
         } catch (GameClockException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -149,17 +148,17 @@ public class Jumper extends vooga.engine.core.Game {
 
         
         if (randomBlockOccurance < myBlockFrequency){
-            if (greenBlockCounter > 10){
+            if (myGreenBlockCounter > 10){
                 Sprite block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, 800));
                 block.setSpeed(randomXVelocity, randomYVelocity);
                 myBlocks.add(block); //Repetitive code within if tree, can we condense this command?
-                greenBlockCounter = 0;
+                myGreenBlockCounter = 0;
 
             } else {
                 Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
                 block.setSpeed(0, randomYVelocity);
-                greenBlockCounter++;
-                System.out.println("else " +greenBlockCounter);
+                myGreenBlockCounter++;
+                System.out.println("else " +myGreenBlockCounter);
                 myBlocks.add(block); //Other repetitive command
             }
         }
@@ -225,8 +224,6 @@ public class Jumper extends vooga.engine.core.Game {
             player.goLeft();
         }
 
-
-
     }
     /**
      * Render playfield sprites to the screen
@@ -250,8 +247,7 @@ public class Jumper extends vooga.engine.core.Game {
     /**
      * Main method which loads the game
      * @param args String[] of arguments from the command line
-     */
-    
+     */    
     public static void main(String[] args) {
         GameLoader game = new GameLoader();
         Jumper jump = new Jumper();
