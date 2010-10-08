@@ -125,5 +125,10 @@ public class PlayerCursor extends PlayerSprite {
 		getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2);
 		getCurrentSprite().render(g);
 	}
+	
+	public void buildNormalTower() {
+		Tower tower = new NormalTower(getX(), getY(), myGame);
+		towerGroup.add(tower);
+	}
 
 }
