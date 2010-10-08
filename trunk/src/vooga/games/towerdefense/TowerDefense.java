@@ -36,7 +36,6 @@ public class TowerDefense extends Game {
 	public static final int HEIGHT = 600;
 
 	private PlayerCursor player;
-	private Sprite pauseScreen;
 	private PlayerCursorControl playerCursorControl;
 	private KeyboardControl playerKeyboardControl;
 	private Background background;
@@ -82,12 +81,18 @@ public class TowerDefense extends Game {
 		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
 		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
 
-		pauseScreen = new Sprite(Resources.getImage("pause"));
+		Sprite pauseScreen = new Sprite(Resources.getImage("pause"));
 		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
 		pauseGroup.add(pauseScreen);
 		pause.addGroup(overlayGroup);
+		
+		Sprite gameOverSprite = new Sprite(ImageUtil.resize(Resources.getImage("gameOver"), WIDTH, HEIGHT));
+		SpriteGroup gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Pause Group"));
+		gameOverGroup.add(gameOverSprite);
+		
+		
 
-		selfEsteem = new Stat<Integer>(75);
+		selfEsteem = new Stat<Integer>(100);
 		score = new Stat<Integer>(0);
 		money = new Stat<Integer>(100);
 		initPath();
@@ -138,6 +143,10 @@ public class TowerDefense extends Game {
 		Resources
 				.loadImage("pause",
 						"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
+		Resources
+		.loadImage("gameOver",
+				"src/vooga/games/towerdefense/resources/images/gameOver.gif");
+
 
 	}
 
@@ -282,6 +291,10 @@ public class TowerDefense extends Game {
 				stateManager.switchTo(play);
 		}
 		stateManager.update(elapsedTime);
+		
+		if(selfEsteem.getStat() <= 0 && !gameOver.isActive()){
+			stateManager.switchTo(gameOver);
+		}
 
 		if (play.isActive()) {
 			totalTime += elapsedTime;
@@ -290,8 +303,8 @@ public class TowerDefense extends Game {
 						Utility.getRandom(1, 3), selfEsteem, score, money));
 				totalTime = 0;
 			}
-			if (totalTime > 5000) {
-				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
+			if (totalTime > 1000) {
+				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(80, 200),
 						selfEsteem, score, money, enemyGroup));
 				totalTime = 0;
 			}
