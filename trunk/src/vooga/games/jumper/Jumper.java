@@ -54,6 +54,7 @@ public class Jumper extends vooga.engine.core.Game {
 
     public void initResources() {
     	
+    	//setting up resource handler
     	ResourceHandler.setGame(this);
     	try{
     		ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
@@ -63,9 +64,9 @@ public class Jumper extends vooga.engine.core.Game {
     	
     	myPlayfield = new PlayField();
     	
-    	Sprite player1 = new MovingSprite(ResourceHandler.getImage("crop"), new Point(getWidth() / 2, 100), new Point(0, 4));
+    	Sprite player1 = new MovingSprite(ResourceHandler.getImage("crop"), new Point(getWidth() / 2, 100), new Point(0, 1));
     	
-    	SpriteGroup myPlayers = new SpriteGroup("good guys");
+    	SpriteGroup myPlayers = new SpriteGroup("good_guys");
     	
     	myPlayers.add(player1);
     	
@@ -85,12 +86,12 @@ public class Jumper extends vooga.engine.core.Game {
     public void createNewBlocks(){
     	Random myRandom = new Random();
     	double randomBlockOccurance = myRandom.nextDouble();
-    	double randomXLocation = myRandom.nextDouble();
-    	double randomXVelocity = myRandom.nextDouble();
-    	double randomYVelocity = myRandom.nextDouble();
+    	int randomXLocation = myRandom.nextInt(GAME_WIDTH);
+    	int randomXVelocity = myRandom.nextInt(6) - 3;
+    	int randomYVelocity = myRandom.nextInt(3) - 3;
     	
     	if (randomBlockOccurance < BLOCK_FREQUENCY){
-        	myBlocks.add(new MovingSprite(ResourceHandler.getImage("platformGreen"), new Point ((int) ( getWidth() * randomXLocation), GAME_HEIGHT), new Point((int) ((randomXVelocity * 5)-2.5), (int)(randomYVelocity *-5))));
+        	myBlocks.add(new MovingSprite(ResourceHandler.getImage("platformGreen"), new Point (randomXLocation, GAME_HEIGHT), new Point(randomXVelocity, randomYVelocity)));
     	}
     }
 
