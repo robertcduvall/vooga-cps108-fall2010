@@ -15,9 +15,10 @@ public class FastTower extends Tower{
 	public final static long SHOT_DELAY = 100;
 	public final static double RANGE = 50;
 	public final static double COST = 10000;
+	public final static double SHOT_SPEED = .6;
 	
 	public FastTower(double x, double y, TowerDefense game){
-		super(IMAGE, x, y, RANGE, SHOT_DELAY, game);
+		super(IMAGE, x, y, RANGE, SHOT_DELAY, SHOT_SPEED, game);
 	}
 
 }

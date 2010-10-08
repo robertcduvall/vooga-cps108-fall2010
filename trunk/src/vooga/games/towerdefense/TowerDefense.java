@@ -24,165 +24,204 @@ import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.MouseControl;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
+import vooga.engine.state.GameStateManager;
+import vooga.games.doodlejump.DoodleState;
 
+public class TowerDefense extends Game {
 
-public class TowerDefense extends Game{
-	
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 600;
-	
+
 	private PlayerCursor player;
 	private PlayerCursorControl playerCursorControl;
 	private KeyboardControl playerKeyboardControl;
 	private Sprite pathSprite;
 	private Background background;
 	private PlayField playfield;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup, pathGroup, playerGroup;
+	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
+			pathGroup, playerGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
-	private Stat<Integer> selfEstem;
+	private Stat<Integer> selfEsteem;
 	private StatInt score;
 	private StatInt money;
-	
+	private NonSetGameStateManager stateManager;
+	private State startMenu;
+	private State play;
+	private State pause;
+	private State gameOver;
+
 	@Override
-	public void initResources(){
+	public void initResources() {
 		Resources.setGame(this);
 		loadImages();
 		initBackground();
-		
+
+		stateManager = new NonSetGameStateManager();
+		startMenu = new State();
+		play = new State();
+		pause = new State();
+		gameOver = new State();
+
+		stateManager.addGameState(startMenu);
+		stateManager.addGameState(play);
+		stateManager.addGameState(pause);
+		stateManager.addGameState(gameOver);
+
+		stateManager.switchTo(play);
+
 		playfield = new PlayField(background);
-		pathGroup = playfield.addGroup(new SpriteGroup("Path Group"));
-		towerGroup = playfield.addGroup(new SpriteGroup("Tower Group"));
-		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy Group"));
-		towerShotGroup = playfield.addGroup(new SpriteGroup("Tower Shot Group"));
-		playerGroup = playfield.addGroup(new SpriteGroup("Player Group"));
-		overlayGroup = playfield.addGroup(new SpriteGroup("Overlay Group"));
-		
-		selfEstem = new Stat<Integer>(75);
+
+		pathGroup = play.addAndReturnGroup(new SpriteGroup("Path Group"));
+		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
+		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
+		towerShotGroup = play.addAndReturnGroup(new SpriteGroup(
+				"Tower Shot Group"));
+		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
+		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
+
+		selfEsteem = new Stat<Integer>(75);
 		score = new StatInt(0);
 		money = new StatInt(0);
 		initPath();
 		initPlayer();
 		initOverlays();
-		
-		
-		//playfield.addCollisionGroup(towerShotGroup, enemyGroup, new TowerShotEnemyCollision());
-		
+
 	}
-	
-	private void buildPath(){
-		pathSprite = new Sprite(ImageUtil.resize(Resources.getImage("path1"), WIDTH, HEIGHT), 0, 0);
+
+	private void buildPath() {
+		pathSprite = new Sprite(ImageUtil.resize(Resources.getImage("path1"),
+				WIDTH, HEIGHT), 0, 0);
 		pathGroup.add(pathSprite);
 	}
-	
-	private void loadImages(){
-		Resources.loadImage("duvallFace", "src/vooga/games/towerdefense/resources/images/duvallFace.png");
-		Resources.loadImage("duvallFaceRed", "src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
-		Resources.loadImage("duvallFaceBlue", "src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
-		Resources.loadImage("tower", "src/vooga/games/towerdefense/resources/images/tower.png");
-		Resources.loadImage("towerShot", "src/vooga/games/towerdefense/resources/images/purpleShot.png");
-		Resources.loadImage("path1", "src/vooga/games/towerdefense/resources/images/path1.png");
-		Resources.loadImage("towerPreview", "src/vooga/games/towerdefense/resources/images/towerPreview.png");
-		Resources.loadImage("sniperTower", "src/vooga/games/towerdefense/resources/images/sniperTower.png");
-		Resources.loadImage("fastTower", "src/vooga/games/towerdefense/resources/images/fastTower.png");
+
+	private void loadImages() {
+		Resources.loadImage("duvallFace",
+				"src/vooga/games/towerdefense/resources/images/duvallFace.png");
+		Resources
+				.loadImage("duvallFaceRed",
+						"src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
+		Resources
+				.loadImage("duvallFaceBlue",
+						"src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
+		Resources.loadImage("tower",
+				"src/vooga/games/towerdefense/resources/images/tower.png");
+		Resources.loadImage("towerShot",
+				"src/vooga/games/towerdefense/resources/images/purpleShot.png");
+		Resources.loadImage("path1",
+				"src/vooga/games/towerdefense/resources/images/path1.png");
+		Resources
+				.loadImage("towerPreview",
+						"src/vooga/games/towerdefense/resources/images/towerPreview.png");
+		Resources
+				.loadImage("sniperTower",
+						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
+		Resources.loadImage("fastTower",
+				"src/vooga/games/towerdefense/resources/images/fastTower.png");
 	}
-	
-	
-	
+
 	private void initOverlays() {
-		GameFont font = fontManager.getFont(getImages("src/vooga/games/towerdefense/resources/images/font.png", 20, 3),
-				" !            .,0123" + "456789:   -? ABCDEFG"
-						+ "HIJKLMNOPQRSTUVWXYZ ");
+		GameFont font = fontManager
+				.getFont(
+						getImages(
+								"src/vooga/games/towerdefense/resources/images/font.png",
+								20, 3), " !            .,0123"
+								+ "456789:   -? ABCDEFG"
+								+ "HIJKLMNOPQRSTUVWXYZ ");
 		OverlayString temp = new OverlayString("Selfestem".toUpperCase(), font);
 		temp.setLocation(800, 50);
-		OverlayBar bar = new OverlayBar(selfEstem, 100);
+		OverlayBar bar = new OverlayBar(selfEsteem, 100);
 		bar.setMaxLength(200);
 		bar.setLocation(775, 70);
-		
+
 		overlayGroup.add(temp);
 		overlayGroup.add(bar);
-		
+
 	}
 
 	private void initPath() {
 		buildPath();
 		path = new ArrayList<PathPoint>();
-		File thisLevel = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
+		File thisLevel = new File(
+				"src/vooga/games/towerdefense/resources/levels/level1.txt");
 		try {
 			Scanner sc = new Scanner(thisLevel);
-			while(sc.hasNextInt()){
+			while (sc.hasNextInt()) {
 				int x = sc.nextInt();
-				if(sc.hasNextInt()){
+				if (sc.hasNextInt()) {
 					int y = sc.nextInt();
-					path.add(new PathPoint(x,y));
+					path.add(new PathPoint(x, y));
 				}
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("failed to implement scanner");
 			System.exit(0);
-		};
-		
-		
-		
+		}
+		;
+
 	}
 
-	private void initPlayer(){
-		
-		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
-		//temp = new Enemy("enemy1", "enemy", new Sprite(getImage("resources/images/duvallFace.png")), path, 50);
-		//enemyGroup.add(temp);
-		player = new PlayerCursor("player", "playerCursor", new Sprite(Resources.getImage("towerPreview")), towerGroup, this);
+	private void initPlayer() {
+
+		player = new PlayerCursor("player", "playerCursor", new Sprite(
+				Resources.getImage("towerPreview")), towerGroup, this);
 		player.addCredits(20000);
 		playerGroup.add(player);
-		playerCursorControl = new PlayerCursorControl(player, this);
-		playerKeyboardControl = new KeyboardControl(player, this);
-		playerCursorControl.addInput(MouseEvent.BUTTON1, "buildTower", "vooga.games.towerdefense.PlayerCursor");
-		playerKeyboardControl.setParams(new Class[]{String.class});
-		playerKeyboardControl.addInput(KeyEvent.VK_1, "changeTowerType", "vooga.games.towerdefense.PlayerCursor", "FastTower");
-		playerKeyboardControl.setParams(new Class[]{String.class});
-		playerKeyboardControl.addInput(KeyEvent.VK_2, "changeTowerType", "vooga.games.towerdefense.PlayerCursor", "SniperTower");
+		playerCursorControl = (PlayerCursorControl) play
+				.addControl(new PlayerCursorControl(player, this));
+		playerKeyboardControl = (KeyboardControl) play
+				.addControl(new KeyboardControl(player, this));
+		playerCursorControl.addInput(MouseEvent.BUTTON1, "buildTower",
+				"vooga.games.towerdefense.PlayerCursor");
+		playerKeyboardControl.setParams(new Class[] { String.class });
+		playerKeyboardControl.addInput(KeyEvent.VK_1, "changeTowerType",
+				"vooga.games.towerdefense.PlayerCursor", "FastTower");
+		playerKeyboardControl.setParams(new Class[] { String.class });
+		playerKeyboardControl.addInput(KeyEvent.VK_2, "changeTowerType",
+				"vooga.games.towerdefense.PlayerCursor", "SniperTower");
 	}
-	
-	private void initBackground(){
-		background = new ImageBackground(ImageUtil.resize(getImage("resources/images/grassBackground.png"),WIDTH, HEIGHT), WIDTH, HEIGHT);
+
+	private void initBackground() {
+		background = new ImageBackground(ImageUtil
+				.resize(getImage("resources/images/grassBackground.png"),
+						WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
-	
+
 	@Override
 	public void update(long elapsedTime) {
+		stateManager.update(elapsedTime);
 		totalTime += elapsedTime;
-		if(totalTime > Utility.getRandom(500, 2000)){
-			enemyGroup.add(new Enemy(path, Utility.getRandom(20,80),Utility.getRandom(1,3) , selfEstem, score, money));
+		if (totalTime > Utility.getRandom(500, 2000)) {
+			enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80), Utility
+					.getRandom(1, 3), selfEsteem, score, money));
 			totalTime = 0;
 		}
 		playfield.update(elapsedTime);
-		playerCursorControl.update();
-		playerKeyboardControl.update();
-		enemyGroup.update(elapsedTime);
-    }
+	}
 
 	@Override
 	public void render(Graphics2D g) {
 		playfield.render(g);
-		//playerCursor.render(g);
-    }
-	
+		stateManager.render(g);
+	}
+
 	public static void main(String[] args) {
-        GameLoader game = new GameLoader();
-        game.setup(new TowerDefense(), new Dimension(WIDTH,HEIGHT), false);
-        game.start();
-    }
-	
+		GameLoader game = new GameLoader();
+		game.setup(new TowerDefense(), new Dimension(WIDTH, HEIGHT), false);
+		game.start();
+	}
+
 	protected ArrayList<PathPoint> getPath() {
 		return path;
 	}
-			
-	public SpriteGroup getEnemyGroup(){
+
+	public SpriteGroup getEnemyGroup() {
 		return this.enemyGroup;
 	}
-	
-	public SpriteGroup getTowerShotGroup(){
+
+	public SpriteGroup getTowerShotGroup() {
 		return this.towerShotGroup;
 	}
-	
-	
+
 }
