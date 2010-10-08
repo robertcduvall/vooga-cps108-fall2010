@@ -23,7 +23,7 @@ public class PathTracer extends Control implements Controller{
         private Map<Integer, Object[]> mouseParamMap;
         private Object[] parametervalues;
         FileWriter fstream;
-    BufferedWriter out;
+        BufferedWriter out;
     // Code only used for level creation
     long myTime;
     long myStartTime;
@@ -34,7 +34,7 @@ public class PathTracer extends Control implements Controller{
                 super(initialPlayer, game);
                 initializeMappings();
                  // Code only used for level creation
-                File file = new File("src/vooga/games/towerdefense/resources/levels/level1.txt");
+               /* File file = new File("src/vooga/games/towerdefense/resources/levels/hard.txt");
                 try {
                         fstream = new FileWriter(file);
                 } catch (IOException e) {
@@ -42,7 +42,7 @@ public class PathTracer extends Control implements Controller{
                         e.printStackTrace();
                 }
                 out = new BufferedWriter(fstream);
-                myStartTime = System.currentTimeMillis();
+                myStartTime = System.currentTimeMillis();*/
         }
        
         public void initializeMappings(){
@@ -113,6 +113,7 @@ public class PathTracer extends Control implements Controller{
         player.forceY(myGame.bsInput.getMouseY());
        
         // Code only used for level creation
+        myTime = 0;
        if(myTime < 45000){
                 if(myGame.bsInput.isMouseDown(MouseEvent.BUTTON1)){
                                 int x = myGame.bsInput.getMouseX();
@@ -120,8 +121,8 @@ public class PathTracer extends Control implements Controller{
                                 //if((x != myX) && (y != myY)){
                                         myX = x;
                                         myY = y;
-                                        out.write(myX+ " ");
-                                        out.write(myY+ " ");
+                                       // out.write(myX+ " ");
+                                      //  out.write(myY+ " ");
                                         System.out.println(myX + " : " + myY);
                                // }
                         }
