@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
+import vooga.games.grandius.enemy.boss.BossPart;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -27,12 +28,9 @@ public class BasicCollision extends BasicCollisionGroup {
 	
 	@Override
 	public void collided(Sprite playerSideSprite, Sprite commonEnemy) {
-		//TODO - add an explosion sound
+		//TODO - add an explosion sound (done)
+		grandius.playSound(Resources.getMapping("ExplosionSound"));
 		// make the explosion image stay longer
-		BufferedImage[] images = Resources.getAnimation("Explosion");
-		AnimatedSprite explosion = new VolatileSprite(images, commonEnemy.getX(), commonEnemy.getY());
-		grandius.getPlayfield().add(explosion);
 	}
-
 	
 }

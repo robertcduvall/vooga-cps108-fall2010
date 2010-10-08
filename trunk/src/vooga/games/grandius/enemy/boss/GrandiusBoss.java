@@ -13,7 +13,7 @@ import com.golden.gamedev.object.AnimatedSprite;
  *
  */
 @SuppressWarnings("serial")
-public abstract class GradiusBoss extends AnimatedSprite {
+public abstract class GrandiusBoss extends AnimatedSprite {
 	
 	public static final int NOT_MOVING = 0;
 	public static final int MOVING_N = 1;
@@ -22,7 +22,7 @@ public abstract class GradiusBoss extends AnimatedSprite {
 	private int myDirection;
 	private List<BossPart> myParts;
 	
-	public GradiusBoss(BufferedImage[] images, double x, double y, 
+	public GrandiusBoss(BufferedImage[] images, double x, double y, 
 				       int direction, List<BossPart> parts) {
 		this.myDirection = direction;
 		this.myParts = parts;

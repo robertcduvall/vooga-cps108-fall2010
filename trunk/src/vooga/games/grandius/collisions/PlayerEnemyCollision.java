@@ -1,5 +1,6 @@
 package vooga.games.grandius.collisions;
 
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
 import com.golden.gamedev.object.Sprite;
 

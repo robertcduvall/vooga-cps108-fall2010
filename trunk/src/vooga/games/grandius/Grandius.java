@@ -20,7 +20,9 @@ import com.golden.gamedev.object.sprite.*;
 
 import vooga.engine.overlay.*;
 import vooga.games.grandius.collisions.PlayerEnemyCollision;
+import vooga.games.grandius.collisions.ProjectileBossPartCollision;
 import vooga.games.grandius.collisions.ProjectileEnemyCollision;
+import vooga.games.grandius.enemy.boss.BossPart;
 
 public class Grandius extends Game{
 
@@ -37,17 +39,18 @@ public class Grandius extends Game{
 	private SpriteGroup PLAYER_GROUP;
 	private SpriteGroup PROJECTILE_GROUP;
 	private SpriteGroup ENEMY_GROUP;
-	private SpriteGroup BOSS_GROUP;
+	private SpriteGroup BOSS_PART_GROUP;
 
 	private Sprite shipsprite;
 	private PlayerSprite playersprite;
-	private AnimatedSprite zipster;
-	private AnimatedSprite boomer;
+	//private AnimatedSprite zipster;
+	//private AnimatedSprite boomer;
 	
 //	private ShipSprite myShip;
 	
 	private PlayerEnemyCollision collision;
-	private ProjectileEnemyCollision projectileCollision;
+	private ProjectileEnemyCollision projectileEnemyCollision;
+	private ProjectileBossPartCollision projectileBossPartCollision;
 	
 	private OverlayPanel myOverlayPanel;
 	private OverlayStatImage livesIcon;
@@ -102,40 +105,58 @@ public class Grandius extends Game{
 		myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
 		myPlayfield.setBackground(myBackground);
 
-		//Does PlayerSprite support animations? It extends GameEntitySprite, which extends the regular Sprite (not AnimatedSprite).
-		//Confused about GameEntitySprite's documentation:
-		/* It supports having
-		 * multiple images (implemented as sprites) to represent a single GameEntity.
-		 * This class extends Sprite so that it can act as a sprite, which is the unit
-		 * that Golden-T is built around, for things like collision detection and being
-		 * able to be added to SpriteGroups, but can also use multiple sprites (and
-		 * different kind of sprites) to represent the entity.
-		 */	
 		shipsprite = new Sprite(Resources.getImage("PlayerShipSingle"));
 		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
-		//playersprite.setAnimate(true);
-		//playersprite.setLoopAnim(true);
 		
 //		myShip = new ShipSprite(playersprite);
 
 		PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
 		PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
 		ENEMY_GROUP = myPlayfield.addGroup(new SpriteGroup("Enemy"));
-		BOSS_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
+		BOSS_PART_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
 
 		PLAYER_GROUP.add(playersprite);
 
-		AnimatedSprite zipster = new AnimatedSprite(Resources.getAnimation("Zipster"), 400, 400);
-		AnimatedSprite boomer = new AnimatedSprite(Resources.getAnimation("Boomer"), 200, 200);
-		zipster.setAnimate(true);
-		zipster.setLoopAnim(true);
-		boomer.setAnimate(true);
-		boomer.setLoopAnim(true);
+		AnimatedSprite zipster1 = new AnimatedSprite(Resources.getAnimation("Zipster"), 300, 150);
+		AnimatedSprite zipster2 = new AnimatedSprite(Resources.getAnimation("Zipster"), 300, 250);
+		AnimatedSprite zipster3 = new AnimatedSprite(Resources.getAnimation("Zipster"), 300, 350);
+		AnimatedSprite boomer1 = new AnimatedSprite(Resources.getAnimation("Boomer"), 100, 200);
+		AnimatedSprite boomer2 = new AnimatedSprite(Resources.getAnimation("Boomer"), 100, 300);
+		AnimatedSprite boomer3 = new AnimatedSprite(Resources.getAnimation("Boomer"), 100, 400);
+		zipster1.setAnimate(true);
+		zipster1.setLoopAnim(true);
+		zipster2.setAnimate(true);
+		zipster2.setLoopAnim(true);
+		zipster3.setAnimate(true);
+		zipster3.setLoopAnim(true);
+		boomer1.setAnimate(true);
+		boomer1.setLoopAnim(true);
+		boomer2.setAnimate(true);
+		boomer2.setLoopAnim(true);
+		boomer3.setAnimate(true);
+		boomer3.setLoopAnim(true);
+		int[] reacherEyeBreakpoints = new int[2];
+		reacherEyeBreakpoints[0] = 60;
+		reacherEyeBreakpoints[1] = 30;
+		Sprite reacherEye1 = new BossPart(Resources.getAnimation("ReacherEye"), reacherEyeBreakpoints, 400, 100, 100, 50);
+		Sprite reacherEye2 = new BossPart(Resources.getAnimation("ReacherEye"), reacherEyeBreakpoints, 400, 300, 100, 50);
 		
-		zipster.setHorizontalSpeed(-0.08);
-		boomer.setHorizontalSpeed(-0.03);
-		ENEMY_GROUP.add(zipster);
-		ENEMY_GROUP.add(boomer);
+		zipster1.setHorizontalSpeed(-0.03);
+		zipster2.setHorizontalSpeed(-0.03);
+		zipster3.setHorizontalSpeed(-0.03);
+		boomer1.setHorizontalSpeed(-0.01);
+		boomer2.setHorizontalSpeed(-0.01);
+		boomer3.setHorizontalSpeed(-0.01);
+		
+		ENEMY_GROUP.add(zipster1);
+		ENEMY_GROUP.add(zipster2);
+		ENEMY_GROUP.add(zipster3);
+		ENEMY_GROUP.add(boomer1);
+		ENEMY_GROUP.add(boomer2);
+		ENEMY_GROUP.add(boomer3);
+		
+		BOSS_PART_GROUP.add(reacherEye1);
+		BOSS_PART_GROUP.add(reacherEye2);
 		//int startX = 10, startY = 30;     // starting coordinate
 		//for (int j=0;j < 4;j++) {         // 4 rows
 		//	for (int i=0;i < 7;i++) {     // 7 sprites in a row
@@ -152,10 +173,12 @@ public class Grandius extends Game{
 
 		// register collision
 		collision = new PlayerEnemyCollision(this);
-		projectileCollision = new ProjectileEnemyCollision(this);
+		projectileEnemyCollision = new ProjectileEnemyCollision(this);
+		projectileBossPartCollision = new ProjectileBossPartCollision(this);
 		// register collision to playfield
 		myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
-		myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileCollision);
+		myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileEnemyCollision);
+		myPlayfield.addCollisionGroup(PROJECTILE_GROUP, BOSS_PART_GROUP, projectileBossPartCollision);
 
 
 //		font = fontManager.getFont(getImages("resources/font.png", 20, 3),
@@ -235,14 +258,13 @@ public class Grandius extends Game{
 	 * Use CTRL key to fire a bullet
 	 */
 	private void shootEnemy() {
-		//TODO - add sound
 		if (keyPressed(KeyEvent.VK_CONTROL)) {
-			Sprite projectile = new Sprite(Resources.getImage("Projectile"),playersprite.getX(),playersprite.getY());
+			Sprite projectile = new Sprite(Resources.getImage("Projectile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
 			projectile.setHorizontalSpeed(bulletSpeed);
 			PROJECTILE_GROUP.add(projectile);
 
 			// play laser sound
-			//playSound(Resources.getMapping("Laser"));
+			playSound(Resources.getMapping("LaserSound"));
 		}
 		
 	}
