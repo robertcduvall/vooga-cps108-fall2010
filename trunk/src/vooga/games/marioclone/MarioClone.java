@@ -14,12 +14,12 @@ import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.background.ImageBackground;
+import com.golden.gamedev.object.background.ColorBackground;
 
 public class MarioClone extends Game {
 
-	private static final int WIDTH = 800;
-	private static final int HEIGHT = 600;
+	private static final int WIDTH = 1024;
+	private static final int HEIGHT = 768;
 	PlayField playfield;
 	
 	public static void main(String[] args)  throws IOException {
@@ -47,7 +47,7 @@ public class MarioClone extends Game {
 		List<Tile> tiles = m.getTiles();
 		
 		playfield = new PlayField();
-		playfield.setBackground(new ImageBackground(Resources.getImage("Background")));
+		playfield.setBackground(new ColorBackground(Color.cyan));
 		for(Tile t : tiles) {
 			playfield.add(t);
 		}
