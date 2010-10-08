@@ -66,6 +66,8 @@ public class Control{
      * 
      * @param parameterTypes The types of parameters that need to be used. 
      * Need to be implemented in the form setParams(new Class[]{Class cls})
+     * 
+     * eg. player.setParams(new Class[]{int.class, double.class})
      */
     public void setParams(Class<?>... parameterTypes) {
         paramTypes = parameterTypes;
