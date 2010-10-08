@@ -201,11 +201,19 @@ public class Zombieland extends Game {
 		zombies.add(newZombie);
 	}
 	
-	public void addBullet(Bullet b, double angle) {
-		b.getCurrentSprite().setImage(ImageUtil.rotate(bulletImage, (int) angle));
-		b.setActive(true);
-		bullets.add(b);
+	/**
+	 * Load the image for a bullet with the correct orientation with respect to the 
+	 * shooter and add it to the screen
+	 * @param bullet a bullet instantiated by the shooter
+	 * @param angle the orientation of the bullet (in degrees)
+	 */
+	public void addBullet(Bullet bullet, double angle) {
+		bullet.getCurrentSprite().setImage(ImageUtil.rotate(bulletImage, (int) angle));
+		bullet.setActive(true);
+		bullets.add(bullet);
 	}
+	
+	
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		initializeAnimatedSprite(sprite, 300);
