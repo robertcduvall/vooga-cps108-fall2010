@@ -15,9 +15,9 @@ public class PlayerCursor extends PlayerSprite{
 	
 	private static final long serialVersionUID = -8174656868252384431L;
 	SpriteGroup towerGroup;
-	Game myGame;
+	TowerDefense myGame;
 
-	public PlayerCursor(String name, String stateName, Sprite s, SpriteGroup towerGroup, Game game) {
+	public PlayerCursor(String name, String stateName, Sprite s, SpriteGroup towerGroup, TowerDefense game) {
 		super(name, stateName, s);
 		this.towerGroup = towerGroup;
 		myGame = game;
@@ -27,9 +27,9 @@ public class PlayerCursor extends PlayerSprite{
 		try {
 			File file = new File("src/vooga/games/towerdefense/resources/images/tower.png");
 			URL imageURL = file.toURI().toURL();
-			Sprite image = new Sprite(ImageUtil.getImage(imageURL), myGame.getMouseX(), myGame.getMouseY());
+			Tower image = new Tower(ImageUtil.getImage(imageURL), myGame.getMouseX(), myGame.getMouseY(), 40, 1000);
+			image.setTargetGroup(myGame.getEnemyGroup());
 			towerGroup.add(image);
-			System.out.println( myGame.getMouseX() + " , " + myGame.getMouseY());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

@@ -142,7 +142,9 @@ public class TowerDefense extends Game{
 		return path;
 	}
 			
-	
+	public SpriteGroup getEnemyGroup(){
+		return this.enemyGroup;
+	}
 	
 	
 }
