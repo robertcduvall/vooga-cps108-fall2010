@@ -23,6 +23,8 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 	
 	private void actOnCollision(Sprite human, Sprite zombie)
 	{
+		if(((Zombie) zombie).healthIsZero()) return;
+		
 		if (attacktime < DELAY){
 			attacktime++;
 		}
@@ -54,23 +56,27 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 
 	private void zombieAttackFromBelow(Sprite human, Sprite zombie) {
 		
+			
 			( (Zombie) zombie).attackFrom("AttackFromBelow");
 			((Shooter) human).updateStatHealth(-1);
 	}
 
 	private void zombieAttackFromAbove(Sprite human, Sprite zombie) {
 		
+			
 			( (Zombie) zombie).attackFrom("AttackFromAbove");
 			((Shooter) human).updateStatHealth(-1);
 	}
 
 	private void zombieAttackFromLeft(Sprite human, Sprite zombie) {
 	
+	
 			( (Zombie) zombie).attackFrom("AttackFromLeft");
 			((Shooter) human).updateStatHealth(-1);
 	}
 
 	private void zombieAttackFromRight(Sprite human, Sprite zombie) {
+		
 		
 			( (Zombie) zombie).attackFrom("AttackFromRight");
 			((Shooter) human).updateStatHealth(-1);
