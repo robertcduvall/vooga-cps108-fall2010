@@ -27,6 +27,7 @@ public class DoodleSprite extends Sprite {
     	moveThroughWall();
     	deccelerate();
     	applyGravity();
+    	
     }
     
     public void applyGravity(){
