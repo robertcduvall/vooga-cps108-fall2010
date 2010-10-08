@@ -44,7 +44,7 @@ public class Zombie extends PlayerSprite {
 	}
 
 	public void dead(){
-		setActive(false);
+//		setActive(false);
 		target.updateScore(1);
 	}
 
@@ -70,6 +70,7 @@ public class Zombie extends PlayerSprite {
 				setToCurrentSprite("Down");
 			}
 		}
+		
 		super.update(elapsedTime);
 	}
 	
