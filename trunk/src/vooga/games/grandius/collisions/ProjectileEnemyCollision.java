@@ -37,6 +37,7 @@ public class ProjectileEnemyCollision extends BasicCollision{
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		grandius.getPlayfield().add(explosion);
 		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());
+		grandius.updateCashOnCollision(((Enemy)enemy).getCashValue());
 	}
 
 	

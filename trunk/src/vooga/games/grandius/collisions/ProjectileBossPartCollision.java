@@ -31,5 +31,6 @@ public class ProjectileBossPartCollision extends BasicCollision {
 			grandius.getPlayfield().add(explosion);
 		}
 		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());
+		grandius.updateCashOnCollision(((Enemy)enemy).getCashValue());
 	}
 }

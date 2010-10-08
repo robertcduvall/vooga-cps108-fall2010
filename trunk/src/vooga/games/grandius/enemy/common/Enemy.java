@@ -11,6 +11,7 @@ public abstract class Enemy extends AnimatedSprite {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected int myScore;
+	protected int myCash;
 	
 	public Enemy(BufferedImage[] images, double x, double y)
 	{
@@ -20,5 +21,10 @@ public abstract class Enemy extends AnimatedSprite {
 	public int getScore()
 	{
 		return myScore;
+	}
+	
+	public int getCashValue()
+	{
+		return myCash;
 	}
 }

@@ -16,7 +16,8 @@ public class Zipster extends Enemy {
 	public static final int MOVING_W = 0;
 	public static final int MOVING_NW = 1;
 	public static final int MOVING_SW = 2;
-	public static final int SCORE_VALUE = 100;
+	private static final int SCORE_VALUE = 100;
+	private static final int CASH_VALUE = 10;
 	
 	private int myDirection;
 	
@@ -24,6 +25,7 @@ public class Zipster extends Enemy {
 		super(images, x, y);
 		myDirection = MOVING_W;
 		myScore = SCORE_VALUE;
+		myCash = CASH_VALUE;
 	}
 	
 	public int getDirection() {
