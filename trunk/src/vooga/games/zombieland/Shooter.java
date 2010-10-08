@@ -28,8 +28,6 @@ public class Shooter extends PlayerSprite {
 		weapons[0] = new Pistol(this, 99999);
 		weapons[1] = new AssaultRifle(this, 100);
 		weapons[2] = new ShotGun(this, 40);
-		//other weapons?
-//		weapons[3] = new Other(this,0);
 
 		health = new Stat<Integer>(playerHealth);
 		score = new Stat<Integer>(0);

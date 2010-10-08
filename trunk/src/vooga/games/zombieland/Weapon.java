@@ -1,23 +1,25 @@
 package vooga.games.zombieland;
 
+/**
+ * Weapon class. Sets up the basic functions of a weapon and allows for
+ * customization in how a weapon produces bullets.
+ * 
+ * @author Jimmy Mu, Aaron Choi, Yang Su
+ * 
+ */
 public abstract class Weapon {
 
 	private Shooter player;
 	private int ammoCount;
 	private double damage;
+	private double bulletSpeed;
 	private int frameCount;
 	private int firingDelay;
-	
-	public Weapon(Shooter s, int ammo) {
-		this(s, ammo, 0,0);
-	}
 
-	public Weapon(Shooter s, int ammo, double damage, int delay) {
-		player = s;
+	public Weapon(Shooter shooter, int ammo) {
+		player = shooter;
 		ammoCount = ammo;
-		this.damage = damage;
-		frameCount=0;
-		this.firingDelay=delay;
+		frameCount = 0;
 	}
 
 	/**
@@ -37,6 +39,33 @@ public abstract class Weapon {
 	 */
 	public int getAmmo() {
 		return ammoCount;
+	}
+
+	/**
+	 * Set weapon damage
+	 * 
+	 * @param weaponDamage
+	 */
+	public void setDamage(double weaponDamage) {
+		damage = weaponDamage;
+	}
+
+	/**
+	 * Set firing delay
+	 * 
+	 * @param delay
+	 */
+	public void setFiringDelay(int delay) {
+		firingDelay = delay;
+	}
+
+	/**
+	 * Set bullet speed
+	 * 
+	 * @param speed
+	 */
+	public void setBulletSpeed(double speed) {
+		bulletSpeed = speed;
 	}
 
 	/**
@@ -63,17 +92,15 @@ public abstract class Weapon {
 	 * ammoCount
 	 */
 	public void fire() {
-		if (ammoCount > 0){
-			if (frameCount < firingDelay){
+		if (ammoCount > 0) {
+			if (frameCount < firingDelay) {
 				frameCount++;
-			}
-			else{
+			} else {
 				frameCount = 0;
 				fireBullets();
 				ammoCount--;
 			}
 		}
-		
 	}
 
 	/**
@@ -89,7 +116,7 @@ public abstract class Weapon {
 	 *            orientation of the bullet to be created
 	 */
 	protected void makeBullet(double angle) {
-		player.addBulletToGame(new Bullet(player.getX(), player.getY(), angle),
-				angle);
+		player.addBulletToGame(new Bullet(player.getX(), player.getY(), angle,
+				damage, bulletSpeed), angle);
 	}
 }
