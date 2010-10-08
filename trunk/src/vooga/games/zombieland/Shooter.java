@@ -87,8 +87,8 @@ public class Shooter extends PlayerSprite {
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 		fireBullets();
 	}
-
-	public Stat<Integer> getHealth(int placeholder) {
+	
+	public Stat<Integer> getStatHealth(){
 		return health;
 	}
 
@@ -111,6 +111,10 @@ public class Shooter extends PlayerSprite {
 
 	public double getOrientation() {
 		return orientation;
+	}
+	public void updateStatHealth(int i) {
+        updateHealth(i);
+        health.setStat(getHealth());
 	}
 
 	public int getAmmo() {

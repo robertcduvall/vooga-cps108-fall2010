@@ -141,7 +141,7 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
 		scoreString = new OverlayString("Health: ", Color.BLUE);
-		scoreBar = new OverlayBar(player.getHealth(1),100);
+		scoreBar = new OverlayBar(player.getStatHealth(),100);
 		scoreBar.setColor(Color.GREEN);
 		scoreBar.setLocation(75, 10);
 		
