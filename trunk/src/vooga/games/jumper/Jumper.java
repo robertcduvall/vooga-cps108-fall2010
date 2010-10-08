@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Random;
 
 //VOOGA
+import vooga.engine.resource.GameClock;
+import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.ResourceHandler;
 
 // GTGE
@@ -38,9 +40,11 @@ public class Jumper extends vooga.engine.core.Game {
 	private static final double MAX_BLOCK_X_VELOCITY = 6;
 	private final static int GAME_WIDTH = 1000;
 	private final static int GAME_HEIGHT = 800;
-	private final double BLOCK_FREQUENCY = 0.03;
+	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.00001;	
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
+	private double myBlockFrequency = 0.01;
+	
 	private PlayField myPlayfield;
 
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
@@ -52,7 +56,9 @@ public class Jumper extends vooga.engine.core.Game {
 	
 	private GameFont myFont;
 	
-	private int myScore;
+	private GameClock myClock;
+	
+	private long myScore;
 	
 	public void initResources() {
 
@@ -85,6 +91,13 @@ public class Jumper extends vooga.engine.core.Game {
 				" !            .,0123" + "456789:   -? ABCDEFG"
 						+ "HIJKLMNOPQRSTUVWXYZ ");
 
+		myClock = new GameClock();
+		try {
+			myClock.start();
+		} catch (GameClockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static int getGameWidth() {
@@ -103,7 +116,7 @@ public class Jumper extends vooga.engine.core.Game {
 		double randomXVelocity = myRandom.nextDouble() * (MAX_BLOCK_X_VELOCITY) - (MAX_BLOCK_X_VELOCITY / 2);
 		double randomYVelocity = myRandom.nextDouble() * (MAX_BLOCK_Y_VELOCITY) - MAX_BLOCK_Y_VELOCITY;
 
-		if (randomBlockOccurance < BLOCK_FREQUENCY){
+		if (randomBlockOccurance < myBlockFrequency){
 			Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
 			block.setSpeed(randomXVelocity, randomYVelocity);
 			myBlocks.add(block);
@@ -114,26 +127,36 @@ public class Jumper extends vooga.engine.core.Game {
 		createNewBlocks();
 		checkForKeyPress();
 		myPlayfield.update(elapsedTime);
-
+		
+		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
 	}
 	
-    public void didYouLose(Graphics2D g) {
-        DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
-        if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0) {
+    public void endGame(Graphics2D g) {
+
+        	//stop clock if game is over
+            if (myClock.isRunning()){
+            	try {
+					myClock.pause();
+				} catch (GameClockException e) {
+					e.printStackTrace();
+				}
+            }
             myPlayfield.removeGroup(myPlayers);
             myPlayfield.removeGroup(myBlocks);
            
             int fontWidth = GAME_WIDTH / 3;
-            int fontHeight = GAME_HEIGHT / 20;
-            
+            int fontHeight = GAME_HEIGHT / 20;            
             Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+            
 			myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
 			myFont.drawString(g, "FINAL SCORE: " + myScore, myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
-
-        }
     }
 
-
+	public void printScore(Graphics2D g){
+    	myScore = myClock.getTime();
+		myFont.drawString(g, "SCORE: " + myScore, myFont.JUSTIFY, 0,0, 100);
+	}
+    
 	public void checkForKeyPress(){
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();   	
 
@@ -147,11 +170,17 @@ public class Jumper extends vooga.engine.core.Game {
 
 
 	}
-
-
+	
 	public void render(Graphics2D g) {
 		myPlayfield.render(g);
-		didYouLose(g);
+
+        DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
+        if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0){
+        	endGame(g);
+        }
+        else{
+        	printScore(g);
+        }
 	}
 
 
