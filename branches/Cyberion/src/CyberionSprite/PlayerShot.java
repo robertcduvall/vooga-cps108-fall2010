@@ -19,10 +19,8 @@ public class PlayerShot extends AdvanceSpriteGroup implements
 			int bottomOffset, int rightOffset, BufferedImage image) {
 		super(groupName, topOffset, leftOffset, bottomOffset, rightOffset);
 		this.image = image;
-		
+
 	}
-
-
 
 	@Override
 	public void actionPerformed(IEvent e) {

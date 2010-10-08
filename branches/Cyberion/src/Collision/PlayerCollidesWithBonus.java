@@ -1,10 +1,8 @@
 package Collision;
 
-import CyberionSprite.EnemyShip;
 import CyberionSprite.PlayerShip;
 
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class PlayerCollidesWithBonus extends BasicCollisionGroup {

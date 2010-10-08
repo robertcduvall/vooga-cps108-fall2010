@@ -9,13 +9,11 @@ import GameEvent.PlayerMoveListener;
 
 import com.golden.gamedev.object.AdvanceSpriteGroup;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 
 import engine.event.IEvent;
 
 public class EnemyShot extends AdvanceSpriteGroup implements EnemyFireListener,
 		PlayerMoveListener {
-	private String name;
 	private BufferedImage image;
 	private double playerX;
 	private double playerY;
@@ -40,7 +38,8 @@ public class EnemyShot extends AdvanceSpriteGroup implements EnemyFireListener,
 
 	@Override
 	public void fireAction(EnemyFireEvent e) {
-		dist = Math.pow((playerX-e.getX())*(playerX-e.getX()) + (playerY-e.getY())*(playerY-e.getY()), 0.5);
+		dist = Math.pow((playerX - e.getX()) * (playerX - e.getX())
+				+ (playerY - e.getY()) * (playerY - e.getY()), 0.5);
 		Sprite shot = new Sprite(image, e.getX(), e.getY());
 		shot.setHorizontalSpeed(speed * (playerX - e.getX()) / dist);
 		shot.setVerticalSpeed(speed * (playerY - e.getY()) / dist);

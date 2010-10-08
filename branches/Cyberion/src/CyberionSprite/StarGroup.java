@@ -2,7 +2,6 @@ package CyberionSprite;
 
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class StarGroup extends SpriteGroup {
