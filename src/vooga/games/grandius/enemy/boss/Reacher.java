@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 @SuppressWarnings("serial")
-public class Reacher extends GradiusBoss {
+public class Reacher extends GrandiusBoss {
 
 	
 	public Reacher(BufferedImage[] images, double x, double y, List<BossPart> parts) {

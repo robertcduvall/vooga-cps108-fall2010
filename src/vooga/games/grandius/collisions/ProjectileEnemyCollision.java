@@ -1,7 +1,13 @@
 package vooga.games.grandius.collisions;
 
+import java.awt.image.BufferedImage;
+
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
+
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**
  * This class takes care of collisions between a bullet
@@ -26,6 +32,9 @@ public class ProjectileEnemyCollision extends BasicCollision{
 		super.collided(bullet, enemy);
 		bullet.setActive(false);
 		enemy.setActive(false);
+		BufferedImage[] images = Resources.getAnimation("Explosion");
+		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
+		grandius.getPlayfield().add(explosion);
 		grandius.updateScoreOnCollision();
 	}
 

@@ -24,8 +24,13 @@ Zipster,resources/zipster1.png,resources/zipster2.png
 Boomer,resources/boomer1.png,resources/boomer2.png
 PlayerShip,resources/player.png
 Explosion,resources/explosion.png
+EyeExplosion,resources/eye_explosion_1.png,resources/eye_explosion_2.png
 Projectile,resources/projectile.png
 PlayerShipSingle,resources/playersingle.png
 Laser,resources/projectile-blue.png
 SideKick,resources/orange-circle.png
-#LaserSound,resources/laser.wav
+ReacherEye,resources/reacher_eye_shielded.png,resources/reacher_eye_green.png,resources/reacher_eye_yellow.png,resources/reacher_eye_red.png
+
+$Sounds
+LaserSound,resources/laser.wav
+ExplosionSound,resources/explosion.wav
