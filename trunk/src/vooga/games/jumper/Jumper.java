@@ -69,7 +69,7 @@ public class Jumper extends vooga.engine.core.Game {
 
     private SpriteGroup myOverlay;
     
-    private int myGreenBlockCounter = 0;
+    private int myBlockCounter = 0;
 
     
     /**
@@ -153,15 +153,21 @@ public class Jumper extends vooga.engine.core.Game {
         
         if (randomBlockOccurance < myBlockFrequency){
             Sprite block;
-        	if (myGreenBlockCounter > 10){
+        	if (myBlockCounter == 5){
                 block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(randomXVelocity, blockYVelocity);
-                myGreenBlockCounter = 0;
+                myBlockCounter = 6;
 
-            } else {
+            } else if(myBlockCounter == 10){
+            	block = new BlockSprite(ResourceHandler.getImage("platformRed"), new Point(randomXLocation, GAME_HEIGHT));
+                block.setSpeed(0, blockYVelocity*2);
+                myBlockCounter = 0;
+            	
+            }
+        	else {
                 block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, GAME_HEIGHT));
                 block.setSpeed(0, blockYVelocity);
-                myGreenBlockCounter++;
+                myBlockCounter++;
             }
             
             myBlocks.add(block);
