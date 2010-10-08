@@ -12,6 +12,9 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 public class HZCollisionManager extends PreciseCollisionGroup{
 
 
+	private final static int DELAY= 20;
+	private int attacktime = 0;
+	
 	public void collided(Sprite human, Sprite zombie) {
 		
 		actOnCollision(human, zombie);
@@ -20,6 +23,11 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 	
 	private void actOnCollision(Sprite human, Sprite zombie)
 	{
+		if (attacktime < DELAY){
+			attacktime++;
+		}
+		else{
+			attacktime = 0;
 		int collisionSide = getCollisionSide();
 		
 		if( collisionSide == LEFT_RIGHT_COLLISION)
@@ -33,6 +41,7 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 		
 		if( collisionSide == BOTTOM_TOP_COLLISION)
 			zombieAttackFromAbove(human, zombie);
+		}
 	}
 	
 	/**
