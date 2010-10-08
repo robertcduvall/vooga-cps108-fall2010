@@ -11,7 +11,7 @@ public class Shooter extends PlayerSprite {
 	private double angle;
 	private Zombieland game;
 	private int weapon;
-	private Stat<Integer> health;
+	
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
 		super(name, stateName, s, playerHealth, playerRank);
@@ -19,14 +19,15 @@ public class Shooter extends PlayerSprite {
 		speed = -1;
 		angle=90;
 		weapon=1;
-		health = new Stat<Integer>(playerHealth);
+		
+		setHealth(100);
 	}
 
-	public Stat<Integer> getHealthStat(){
-		return health;
-	}
 	
 	public void goLeft() {
+		
+		if(healthIsZero()) return;
+		
 		angle=180;
 		setToCurrentSprite("Left");
 		moveX(speed);
@@ -34,6 +35,9 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void goRight() {
+		
+		if(healthIsZero()) return;
+		
 		angle=0;
 		setToCurrentSprite("Right");
 		moveX(Math.abs(speed));
@@ -41,6 +45,9 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void goUp() {
+		
+		if(healthIsZero()) return;
+		
 		angle=270;
 		setToCurrentSprite("Up");
 		moveY(speed);
@@ -48,6 +55,9 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void goDown() {
+		
+		if(healthIsZero()) return;
+		
 		angle=90;
 		setToCurrentSprite("Down");
 		moveY(Math.abs(speed));
@@ -55,16 +65,12 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void shoot() {
+		
+		if(healthIsZero()) return;
+		
 		setToCurrentSprite("Shoot");
 		fire();
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
-	}
-	/**
-	 * @overwrite
-	 */
-	public void setHealth(int i) {
-		super.setHealth(i);
-		health.setStat(getHealth());
 	}
 	
 	private void fire() {
@@ -102,4 +108,11 @@ public class Shooter extends PlayerSprite {
 		sprite.setAnimate(false);
 		//		sprite.setFrame(0);
 	}
+	
+	public boolean healthIsZero()
+	{
+		return (getHealth() <= 0);
+	}
+
+	
 }
