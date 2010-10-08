@@ -19,6 +19,7 @@ import vooga.engine.resource.ResourceHandler;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.CollisionManager;
+import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -35,7 +36,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private static final double MAX_BLOCK_Y_VELOCITY = 1;
 	private static final double MAX_BLOCK_X_VELOCITY = 6;
-	private final static int GAME_WIDTH = 600;
+	private final static int GAME_WIDTH = 1000;
 	private final static int GAME_HEIGHT = 800;
 	private final double BLOCK_FREQUENCY = 0.03;
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
@@ -49,6 +50,9 @@ public class Jumper extends vooga.engine.core.Game {
 	
 	private Background myBackground;
 	
+	private GameFont myFont;
+	
+	private int myScore;
 	
 	public void initResources() {
 
@@ -76,6 +80,11 @@ public class Jumper extends vooga.engine.core.Game {
 
 		myCollision = new DoodleToBlockCollision();
 		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myCollision);
+		
+		myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),
+				" !            .,0123" + "456789:   -? ABCDEFG"
+						+ "HIJKLMNOPQRSTUVWXYZ ");
+
 	}
 
 	public static int getGameWidth() {
@@ -105,15 +114,22 @@ public class Jumper extends vooga.engine.core.Game {
 		createNewBlocks();
 		checkForKeyPress();
 		myPlayfield.update(elapsedTime);
-		didYouLose();
+
 	}
 	
-    public void didYouLose() {
+    public void didYouLose(Graphics2D g) {
         DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
         if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0) {
             myPlayfield.removeGroup(myPlayers);
             myPlayfield.removeGroup(myBlocks);
            
+            int fontWidth = GAME_WIDTH / 3;
+            int fontHeight = GAME_HEIGHT / 20;
+            
+            Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+			myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
+			myFont.drawString(g, "FINAL SCORE: " + myScore, myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
+
         }
     }
 
@@ -135,6 +151,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	public void render(Graphics2D g) {
 		myPlayfield.render(g);
+		didYouLose(g);
 	}
 
 
