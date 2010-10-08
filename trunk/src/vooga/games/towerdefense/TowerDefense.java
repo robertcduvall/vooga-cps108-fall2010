@@ -121,12 +121,16 @@ public class TowerDefense extends Game {
 		Resources
 				.loadImage("sniperTower",
 						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
+		Resources
+		.loadImage("normalTower",
+				"src/vooga/games/towerdefense/resources/images/normalTower.png");
 		Resources.loadImage("fastTower",
 				"src/vooga/games/towerdefense/resources/images/fastTower.png");
 		Resources.loadImage("fastTowerPreview",
 		"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
 		Resources.loadImage("sniperTowerPreview",
 		"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
+		
 	}
 
 	private void initOverlays() {
@@ -212,6 +216,9 @@ public class TowerDefense extends Game {
 		playerKeyboardControl.setParams(new Class[] { String.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_2, "changeTowerType",
 				"vooga.games.towerdefense.PlayerCursor", "SniperTower");
+		playerKeyboardControl.setParams(new Class[] { String.class });
+		playerKeyboardControl.addInput(KeyEvent.VK_3, "changeTowerType",
+				"vooga.games.towerdefense.PlayerCursor", "NormalTower");
 	}
 
 	private void initBackground() {
