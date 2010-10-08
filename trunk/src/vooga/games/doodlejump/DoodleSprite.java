@@ -76,9 +76,14 @@ public class DoodleSprite extends PlayerSprite {
 		bulletDelay--;
 		
 		if (getY() > 850) {
-			setX(325);
-			setY(550);
+			resetAtStart();
 		}
+	}
+	
+	public void resetAtStart() {
+		setX(325);
+		setY(550);
+		setVerticalSpeed(0);
 	}
 
 	public void shoot() {
