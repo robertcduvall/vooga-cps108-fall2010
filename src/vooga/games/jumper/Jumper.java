@@ -143,29 +143,29 @@ public class Jumper extends vooga.engine.core.Game {
         Random myRandom = new Random();
         
         double randomBlockOccurance = myRandom.nextDouble();
-        int randomXLocation = myRandom.nextInt(GAME_WIDTH);
+        Point randomLocation = new Point(myRandom.nextInt(GAME_WIDTH), GAME_HEIGHT);
         double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
         
+        //make the correct type of block
         if (randomBlockOccurance < myBlockFrequency){
             Sprite block;
         	if (myBlockCounter == 4){
-                block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, GAME_HEIGHT));
+                block = new BlockSprite(ResourceHandler.getImage("platformGray"), randomLocation);
                 block.setSpeed(randomXVelocity, myBlockYVelocity);
                 myBlockCounter = 6;
 
             } else if(myBlockCounter == 9){
-            	block = new BlockSprite(ResourceHandler.getImage("platformRed"), new Point(randomXLocation, GAME_HEIGHT));
+            	block = new BlockSprite(ResourceHandler.getImage("platformRed"), randomLocation);
                 block.setSpeed(randomXVelocity, myBlockYVelocity*2);
                 myBlockCounter = 11;
             	
             } else if(myBlockCounter == 12){
-            	block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), new Point(randomXLocation, GAME_HEIGHT));
+            	block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), randomLocation);
                 block.setSpeed(0, myBlockYVelocity*2);
                 myBlockCounter = 0;
-            	
             }
         	else {
-                block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, GAME_HEIGHT));
+                block = new BlockSprite(ResourceHandler.getImage("platformGreen"), randomLocation);
                 block.setSpeed(randomXVelocity, myBlockYVelocity);
                 myBlockCounter++;
             }
