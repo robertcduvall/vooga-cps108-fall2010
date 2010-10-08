@@ -11,7 +11,7 @@ public class FastTower extends Tower{
 	 */
 	private static final long serialVersionUID = -3736751382675453712L;
 	public final static BufferedImage IMAGE = Resources.getImage("fastTower");
-	public final static BufferedImage PREVIEW = Resources.getImage("fastTower");
+	public final static BufferedImage PREVIEW = Resources.getImage("fastTowerPreview");
 	public final static long SHOT_DELAY = 100;
 	public final static double RANGE = 50;
 	public final static int COST = 100;
