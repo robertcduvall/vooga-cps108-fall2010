@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
 import vooga.engine.level.LevelManager;
 import vooga.engine.level.ScrollerLevel;
 import vooga.engine.overlay.OverlayStat;
@@ -82,6 +85,10 @@ public class Grandius extends Game{
 	//Cheat options
 	private boolean isInvincible = false;
 	private boolean skipLevel = false;
+	private final static String INVINCIBILITY = "superman";
+	private final static String EXTRA_POINTS = "highscore";
+	private final static String EXTRA_CASH = "showmethemoney";
+	private final static String SKIP_LEVEL = "getmeouttahere";
 
 	/**
 	 * Initializes the lives, score, and
@@ -231,6 +238,7 @@ public class Grandius extends Game{
 			 shootEnemy();
 			 updateScreenSprites();
 			 updatePlayerSpeed();
+			 checkCheats();
 			 if (checkCleared()) {
 				 gameState=LEVEL_COMPLETE;
 			 }
@@ -462,4 +470,22 @@ public class Grandius extends Game{
 		 
 		 myPlayfield.addGroup(OVERLAYS_GROUP);
 	 }
+	 
+	 public void checkCheats() {
+		 if(keyPressed(KeyEvent.VK_ENTER))
+		 {
+			 JFrame frame = new JFrame();
+			 String userInput = (String)JOptionPane.showInputDialog(frame,
+					 "Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
+			 if(userInput.equals(INVINCIBILITY))
+				 isInvincible = true;
+			 else if(userInput.equals(SKIP_LEVEL))
+				 skipLevel = true;
+			 else if(userInput.equals(EXTRA_POINTS))
+				 updateStat(myScore, 1000000);
+			 else if(userInput.equals(EXTRA_CASH))
+				 updateStat(myCash, 5000);
+		 }
+	 }
+
 }
