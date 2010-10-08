@@ -1,6 +1,6 @@
 package vooga.games.grandius.enemy.common;
-import java.awt.image.BufferedImage;
 
+import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**
@@ -9,7 +9,7 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  *
  */
 @SuppressWarnings("serial")
-public class Boomer extends VolatileSprite {
+public class Boomer extends Enemy {
 
 	public static final int BOOMER_BLUE = 0;
 	public static final int BOOMER_YELLOW = 1;
@@ -22,6 +22,7 @@ public class Boomer extends VolatileSprite {
 		super(images, x, y);
 		this.myColor = BOOMER_BLUE;
 		this.setHorizontalSpeed(-0.04);
+		myScore = SCORE_VALUE;
 	}
 	
 	public int getColor() {

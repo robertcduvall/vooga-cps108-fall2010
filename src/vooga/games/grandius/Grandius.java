@@ -58,7 +58,7 @@ public class Grandius extends Game{
 	private ProjectileEnemyCollision projectileEnemyCollision;
 	private ProjectileBossPartCollision projectileBossPartCollision;
 
-	private OverlayPanel myOverlayPanel;
+	private SpriteGroup myOverlays;
 	private OverlayStatImage livesIcon;
 	private Stat<Integer> myLives;
 	private Stat<Integer> myScore;
@@ -71,6 +71,10 @@ public class Grandius extends Game{
 	private double playerInitialY;
 	private int gameState;
 	private Dimension screen;
+	
+	//Cheat options
+	private boolean isInvincible = false;
+	private boolean skipLevel = false;
 
 	/**
 	 * Initializes the lives, score, and
@@ -79,7 +83,7 @@ public class Grandius extends Game{
 	 */
 	 public Grandius()
 	{
-		myOverlayPanel = new OverlayPanel(this, true);
+		myOverlays = new SpriteGroup("overlays");
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
@@ -102,17 +106,20 @@ public class Grandius extends Game{
 
 		 livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
 		 OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
+		 livesCounter.setLocation(5, 5);
 		 OverlayStat scoreCounter = new OverlayStat("Score", myScore);
+		 scoreCounter.setLocation(screen.getWidth() - 150, 5);
 		 OverlayStat cashCounter = new OverlayStat("Cash", myCash);
+		 cashCounter.setLocation(screen.getWidth()/2, 5);
 
-		 myOverlayPanel.addOverlay(livesCounter, 0, 200);
-		 myOverlayPanel.addOverlay(scoreCounter, 0, 300);
-		 myOverlayPanel.addOverlay(cashCounter, 0, 500);
-
-		 myOverlayPanel.initialize();
+		 myOverlays.add(livesCounter);
+		 myOverlays.add(scoreCounter);
+		 myOverlays.add(cashCounter);
 
 		 myPlayfield = new PlayField();
 
+		 myPlayfield.addGroup(myOverlays);
+		 
 		 //TODO Scrolling background
 		 myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
 		 myPlayfield.setBackground(myBackground);
@@ -215,10 +222,8 @@ public class Grandius extends Game{
 				 //myCurrentLevel++;
 			 }
 			 
-			 for(Overlay overlay : myOverlayPanel.getOverlays())
-			 {
-				 overlay.update(elapsedTime);
-			 }
+			 myOverlays.update(elapsedTime);
+			 
 			 // playfield updates all things and checks for collisions
 			 myPlayfield.update(elapsedTime);
 		 }
@@ -337,6 +342,11 @@ public class Grandius extends Game{
 	 }
 	 
 	 private boolean checkCleared() {
+		 if(skipLevel)
+		 {
+			 skipLevel = false;
+			 return true;
+		 }
 		 for (int i = 0; i < 2; i++) {
 			 for (Sprite s: levelManager.currentLevel().get(i)) {
 				 if (s.isActive()) {
@@ -379,6 +389,7 @@ public class Grandius extends Game{
 
 	 public void updatePlayerLives(){
 		 int playerLives = playersprite.getLives();
+		 updateStat(myLives, (-1));
 		 if(playerLives>1){
 			 playersprite.setLocation(playerInitialX, playerInitialY);
 			 playersprite.setLives(playerLives-1);
@@ -397,8 +408,8 @@ public class Grandius extends Game{
 		 game.start();
 	 }
 
-	 public void updateScoreOnCollision() {
-		 // TODO Auto-generated method stub
+	 public void updateScoreOnCollision(int points) {
+		 updateStat(myScore, points);
 
 	 }
 
