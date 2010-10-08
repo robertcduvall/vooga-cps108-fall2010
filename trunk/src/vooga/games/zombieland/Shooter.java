@@ -101,16 +101,16 @@ public class Shooter extends PlayerSprite {
 		return health;
 	}
 
-	public void setHealth(int i) {
-		super.setHealth(i);
+	public void setHealth(int number) {
+		super.setHealth(number);
 		health.setStat(getHealth());
 	}
 
 	public boolean healthIsZero() {
 		return (getHealth() <= 0);
 	}
-	public void updateStatHealth(int i) {
-        updateHealth(i);
+	public void updateStatHealth(int number) {
+        updateHealth(number);
         health.setStat(getHealth());
 	}
 
@@ -125,6 +125,7 @@ public class Shooter extends PlayerSprite {
 	public void addAmmo(int weapon, int amount){
 		weapons[weapon].addAmmo(amount);
 	}
+	
 	public void update(long elapsedTime) {
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		super.update(elapsedTime);
