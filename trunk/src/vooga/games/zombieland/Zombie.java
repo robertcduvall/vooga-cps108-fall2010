@@ -13,6 +13,9 @@ public class Zombie extends PlayerSprite {
 	private String targetDirection;
 	private double speed;
 	private Timer timer;
+	private int damage;
+	private static int attackDelay = 20;
+	private int attackDelayStep;
 
 	public Zombie(String name, String stateName, AnimatedSprite down, AnimatedSprite up,
 			 AnimatedSprite left, AnimatedSprite right, Shooter hero) {
@@ -27,7 +30,29 @@ public class Zombie extends PlayerSprite {
 		speed = -0.25;
 		setHealth(25);
 		
+		setDamage(5);
 		timer = new Timer(1000);
+		resetAttackDelayStep();
+	}
+	
+	public void resetAttackDelayStep() {
+		
+		attackDelayStep= 0;
+	}
+	
+	public void updateAttactStep()
+	{
+		attackDelayStep++;
+	}
+
+	private void setDamage(int hit)
+	{
+		damage = hit;
+	}
+	
+	public int getDamage()
+	{
+		return damage;
 	}
 
 	private double getDirection() {
@@ -100,7 +125,11 @@ public class Zombie extends PlayerSprite {
 		return (getHealth() <= 0);
 	}
 
-
+	
+	public boolean isAbleToAttack()
+	{
+		return attackDelayStep == attackDelay;
+	}
 		
 	
 	

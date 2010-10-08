@@ -188,7 +188,7 @@ public class Zombieland extends Game {
 
 		entityWallManager = new WallBoundManager(background);
 		playfield.addCollisionGroup(players, players, entityWallManager);
-		playfield.addCollisionGroup(zombies, zombies, entityWallManager);
+		//playfield.addCollisionGroup(zombies, zombies, entityWallManager);
 		
 		
 		bulletZombieManager = new BZCollisionManager();

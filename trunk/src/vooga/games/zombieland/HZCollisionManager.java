@@ -12,82 +12,62 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 public class HZCollisionManager extends PreciseCollisionGroup{
 
 
-	private final static int DELAY= 20;
-	private int attacktime = 0;
-	
-	public HZCollisionManager()
-	{
-		
-	}
-	
 	public void collided(Sprite human, Sprite zombie) {
-		
+
 		actOnCollision(human, zombie);
-		
+
 	}
-	
+
 	private void actOnCollision(Sprite human, Sprite zombie)
 	{
-		if(((Zombie) zombie).healthIsZero()) return;
-		
-		if (attacktime < DELAY){
-			attacktime++;
+		Zombie currentZombie = (Zombie) zombie;
+		Shooter currentPlayer = (Shooter) human;
+
+		if(currentZombie.healthIsZero()) return;
+
+		if(!currentZombie.isAbleToAttack())
+		{
+			currentZombie.updateAttactStep();
+			return;
 		}
-		else{
-			attacktime = 0;
+
+		currentZombie.resetAttackDelayStep();
+
 		int collisionSide = getCollisionSide();
+
+		collisionSideEffect(collisionSide, currentZombie, currentPlayer);
+
+	}
+
+
+	private void collisionSideEffect(int collisionSide, Zombie currentZombie,
+			Shooter currentPlayer) {
+
+		int zombiedamage = - currentZombie.getDamage();
+		currentPlayer.updateStatHealth(zombiedamage);
 		
 		if( collisionSide == LEFT_RIGHT_COLLISION)
-			zombieAttackFromRight(human, zombie);
-		
+			currentZombie.attackFrom("AttackFromRight");
+			
 		if( collisionSide == RIGHT_LEFT_COLLISION)
-			zombieAttackFromLeft(human, zombie);
-		
+			currentZombie.attackFrom("AttackFromLeft");
+			
+
 		if( collisionSide == TOP_BOTTOM_COLLISION) 
-			zombieAttackFromBelow(human, zombie);
+			currentZombie.attackFrom("AttackFromBelow");
 		
 		if( collisionSide == BOTTOM_TOP_COLLISION)
-			zombieAttackFromAbove(human, zombie);
-		}
-	}
-	
-	/**
-	 * check the directions of zombie attacking relative to the player
-	 * still need to add how the players are affected by this.
-	 * @param collisionSide
-	 * @param human
-	 * @param zombie
-	 */
-
-	private void zombieAttackFromBelow(Sprite human, Sprite zombie) {
+			currentZombie.attackFrom("AttackFromAbove");
 		
-			
-			( (Zombie) zombie).attackFrom("AttackFromBelow");
-			((Shooter) human).updateStatHealth(-1);
 	}
 
-	private void zombieAttackFromAbove(Sprite human, Sprite zombie) {
-		
-			
-			( (Zombie) zombie).attackFrom("AttackFromAbove");
-			((Shooter) human).updateStatHealth(-1);
-	}
 
-	private void zombieAttackFromLeft(Sprite human, Sprite zombie) {
-	
-	
-			( (Zombie) zombie).attackFrom("AttackFromLeft");
-			((Shooter) human).updateStatHealth(-1);
-	}
 
-	private void zombieAttackFromRight(Sprite human, Sprite zombie) {
-		
-		
-			( (Zombie) zombie).attackFrom("AttackFromRight");
-			((Shooter) human).updateStatHealth(-1);
-			
-	}
-	
-	
-	
+
+
+
+
+
+
+
 }
