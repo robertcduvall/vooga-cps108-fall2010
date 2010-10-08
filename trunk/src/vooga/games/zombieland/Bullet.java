@@ -1,40 +1,55 @@
 package vooga.games.zombieland;
 
-import java.awt.image.BufferedImage;
-
 import vooga.engine.player.control.GameEntitySprite;
-import vooga.engine.player.control.ItemSprite;
-
 import com.golden.gamedev.object.Sprite;
 
 public class Bullet extends GameEntitySprite {
 
-	private Shooter player;
-
 	private double damage;
 	private double velocity;
-	private int angle;
+	private double orientation;
+	private double playerX;
+	private double playerY;
 
-	public Bullet(Shooter s, double theta) {
-		super("Bullet","Moving",new Sprite());
-		player = s;
-		angle=(int) theta;
-
-		if(angle>-45&&angle<45)
-			setOffset(30,25);
-		else if(angle>45&&angle<135)
-			setOffset(-15,50);
-		else if(angle>135&&angle<225)
-			setOffset(-25,10);
+	public Bullet(double x, double y, double angle) {
+		super("Bullet", "Moving", new Sprite());
+		orientation = angle;
+		playerX=x;
+		playerY=y;
+		
+		damage = 10;
+		velocity = 5;
+		
+		correctPositionOffset();
+	}
+	
+	/**
+	 * Correct the position offset of the bullet in relation to the position 
+	 * of the player so the bullet is spawned in front of the player and next to the
+	 * gun.
+	 */
+	private void correctPositionOffset(){
+		if (orientation > -45 && orientation < 45)
+			setOffset(30, 25);
+		else if (orientation > 45 && orientation < 135)
+			setOffset(-15, 50);
+		else if (orientation > 135 && orientation < 225)
+			setOffset(-25, 10);
 		else
 			setOffset(5,0);
 
 		setDamage(damage);
 		velocity= 5;
 	}
-	public void setOffset(double x, double y) {
-		setX(player.getX()+x);
-		setY(player.getY()+y);
+	
+	/**
+	 * Offset the position of the bullet relative to the position of the player
+	 * @param x x offset
+	 * @param y y offset
+	 */
+	private void setOffset(double x, double y) {
+		setX(playerX + x);
+		setY(playerY + y);
 	}
 	
 	public double getDamage()
@@ -48,8 +63,9 @@ public class Bullet extends GameEntitySprite {
 	}
 	
 	public void update(long elapsedTime) {
-		moveX(Math.cos(angle/360.0*Math.PI*2) * velocity);
-		moveY(Math.sin(angle/360.0*Math.PI*2) * velocity);
+	
+		moveX(Math.cos(orientation/360.0*Math.PI*2) * velocity);
+		moveY(Math.sin(orientation/360.0*Math.PI*2) * velocity);
 		
 	}
 }
