@@ -1,13 +1,13 @@
 package vooga.games.towerdefense;
 
 import java.util.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.*;
 
+import vooga.engine.player.control.Control;
+import vooga.engine.player.control.Controller;
+import vooga.engine.player.control.PlayerSprite;
+
 import com.golden.gamedev.Game;
-import vooga.engine.player.control.*;
 
 /**
  * Built-in example of how to extend Control class properly. Also a usable mouse
@@ -20,12 +20,24 @@ public class PlayerCursorControl extends Control implements Controller{
 	private Map<Integer, Method> mouseMethodMap;
 	private Map<Integer, Object[]> mouseParamMap;
 	private Object[] parametervalues;
-	FileWriter fstream;
-    BufferedWriter out;
-  
+	
+	public PlayerCursorControl(){
+		super();
+		initializeMappings();
+	}
+	
+	public PlayerCursorControl(Game game){
+		super(game);
+		initializeMappings();
+	}
 	
 	public PlayerCursorControl(PlayerSprite initialPlayer, Game game){
-		super(initialPlayer, game);		
+		super(initialPlayer, game);
+		initializeMappings();
+	}
+	
+	public PlayerCursorControl(ArrayList<PlayerSprite> initialPlayers, Game game){
+		super(initialPlayers, game);
 		initializeMappings();
 	}
 	
@@ -38,41 +50,38 @@ public class PlayerCursorControl extends Control implements Controller{
 	/**
      * Create keyset to map input to method. Can be overwritten to create new control scheme  
      * 
-     * @param listen Use a String version of what to listen to (eg. "a"
-     * for "KEYBOARD" or "1" for "MOUSE")
+     * @param listen Use the Java.awt.event.MouseEvent constant values to determine which button to listen for.
+     * Need to import java.awt.event.MouseEvent
      * 
      * @param method Name of method to map to (do not include brackets)
      * 
      * @param classname Name of class that wants to use this (eg.
-     * "Player" or "Game")
+     * "Player" or "Game") NOTE: You must put the class's fully qualified name (including its package)
+     * For example: if a class is called Test and is in the package cps108.games.example then the
+     * String here must be "cps108.games.example.Test"
      * 
      * @param paramVals Value of the parameters that the method has
      */
-	public void addInput(String listen, String method,
+	@Override
+	public void addInput(int listen, String method,
             String classname, Object... paramVals) {
         try{
     		Class myClass = Class.forName(classname);
             Method perform = myClass.getMethod(method,paramTypes);
-        	int key = Integer.parseInt(listen);
+        	int key = listen;
             mouseMethodMap.put(key, perform);
             mouseParamMap.put(key, paramVals);
             paramTypes = null;
         } catch (Throwable e) {
             System.err.println(e);
-            e.printStackTrace();
         }
     }
 	
 	@Override
 	public void update(){
 		for (int i = 0; i < players.size(); i++)
-        {
-				try {
-					moveToCursor(players.get(i));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+        {				
+				players.get(i).setLocation(myGame.bsInput.getMouseX(), myGame.bsInput.getMouseY());
         }
 		int key = myGame.bsInput.getMousePressed();
         if (mouseMethodMap.containsKey(key))
@@ -80,10 +89,9 @@ public class PlayerCursorControl extends Control implements Controller{
             try{
                 for (int i = 0; i < players.size(); i++)
                 {
-                	System.out.println("Invoking");
                      Method perform = mouseMethodMap.get(key);
                      Object[] paramVals = mouseParamMap.get(key);
-                     perform.invoke((PlayerCursor) players.get(i), paramVals);
+                     perform.invoke(players.get(i), paramVals);
                 }
             }
             catch (Throwable e){
@@ -91,11 +99,4 @@ public class PlayerCursorControl extends Control implements Controller{
             }
         }
 	}
-	
-	private void moveToCursor(PlayerSprite player) throws IOException{
-		player.forceX(myGame.bsInput.getMouseX());
-        player.forceY(myGame.bsInput.getMouseY());
-	}
-	
-	
 }
