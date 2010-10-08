@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.BossPart;
+import vooga.games.grandius.enemy.common.Boomer;
+import vooga.games.grandius.enemy.common.Zipster;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -170,8 +172,15 @@ public class ScrollerLevel extends Level {
 				String spriteName = st.nextToken();
 				double xPosition = Double.parseDouble(st.nextToken());
 				double yPosition = Double.parseDouble(st.nextToken());
-				AnimatedSprite newAnimatedSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
-				mySpritesList.add(newAnimatedSprite);
+				if (spriteName.equals("Zipster")) {
+					Zipster newZipster = new Zipster(Resources.getAnimation(spriteName), xPosition, yPosition);
+					mySpritesList.add(newZipster);
+				}
+				if (spriteName.equals("Boomer")) {
+					Boomer newBoomer = new Boomer(Resources.getAnimation(spriteName), xPosition, yPosition);
+					mySpritesList.add(newBoomer);
+				}
+				//AnimatedSprite newAnimatedSprite = new AnimatedSprite(Resources.getAnimation(spriteName), xPosition, yPosition);
 			}
 		}
 	}
