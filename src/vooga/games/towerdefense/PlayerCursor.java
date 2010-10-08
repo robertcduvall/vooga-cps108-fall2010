@@ -1,5 +1,6 @@
 package vooga.games.towerdefense;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -25,6 +26,7 @@ public class PlayerCursor extends PlayerSprite {
 	private int towerCost;
 	private String towerType;
 	private Class towerDefinition;
+	public final int TOWER_EDGE = 16;
 
 	public PlayerCursor(String name, String stateName, Sprite s,
 			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance) {
@@ -75,7 +77,7 @@ public class PlayerCursor extends PlayerSprite {
 			try {
 				Class[] argsClass = new Class[] { double.class, double.class,
 						TowerDefense.class };
-				Object[] args = new Object[] { getX(), getY(), myGame };
+				Object[] args = new Object[] { getX()-TOWER_EDGE/2, getY()-TOWER_EDGE/2, myGame };
 				Constructor argsConstructor = towerDefinition
 						.getConstructor(argsClass);
 				Tower tower = (Tower) createTower(argsConstructor, args);
@@ -117,15 +119,11 @@ public class PlayerCursor extends PlayerSprite {
 		}
 		return object;
 	}
-
-	public void buildSniperTower() {
-		Tower tower = new SniperTower(getX(), getY(), myGame);
-		towerGroup.add(tower);
-	}
-
-	public void buildFastTower() {
-		Tower tower = new FastTower(getX(), getY(), myGame);
-		towerGroup.add(tower);
+	
+	public void render(Graphics2D g) {
+		getCurrentSprite().forceX(getX()-getCurrentSprite().getWidth()/2);
+		getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2);
+		getCurrentSprite().render(g);
 	}
 
 }

@@ -123,6 +123,10 @@ public class TowerDefense extends Game {
 						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
 		Resources.loadImage("fastTower",
 				"src/vooga/games/towerdefense/resources/images/fastTower.png");
+		Resources.loadImage("fastTowerPreview",
+		"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
+		Resources.loadImage("sniperTowerPreview",
+		"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
 	}
 
 	private void initOverlays() {
