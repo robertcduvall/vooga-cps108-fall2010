@@ -1,17 +1,25 @@
 package vooga.games.zombieland;
 
-import java.awt.*;
+import vooga.games.zombieland.resources.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.GameLoader;
-import com.golden.gamedev.object.*;
-import com.golden.gamedev.object.background.*;
-import com.golden.gamedev.util.ImageUtil;
-
 import vooga.engine.core.Game;
-import vooga.engine.overlay.*;
-import vooga.engine.player.control.*;
+import vooga.engine.overlay.OverlayBar;
+import vooga.engine.overlay.OverlayString;
+import vooga.engine.player.control.KeyboardControl;
+
+import com.golden.gamedev.GameLoader;
+import com.golden.gamedev.object.AnimatedSprite;
+import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.Timer;
+import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.util.ImageUtil;
 
 public class Zombieland extends Game {
 

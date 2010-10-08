@@ -33,6 +33,8 @@ public class BZCollisionManager extends PreciseCollisionGroup{
 			currentZombie.setHealth(0);
 			currentZombie.setToCurrentSprite("ZombieDeath");
 		}
+		
+		currentBullet.setActive(false);
 	}
 	
 

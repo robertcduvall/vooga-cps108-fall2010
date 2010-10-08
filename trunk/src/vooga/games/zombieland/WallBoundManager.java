@@ -18,9 +18,13 @@ public class WallBoundManager extends CollisionBounds{
 	
 	
 
-	@Override
-	public void collided(Sprite arg0) {
-		// TODO Auto-generated method stub
+	
+	public void collided(Sprite gameobject) {
+	
+		
+		
+		
+		
 		
 	}
 
