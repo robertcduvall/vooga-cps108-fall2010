@@ -236,7 +236,7 @@ public class TowerDefense extends Game {
 	private void initPath() {
 		path = new ArrayList<PathPoint>();
 		File thisLevel = new File(
-				"src/vooga/games/towerdefense/resources/levels/level1.txt");
+				"src/vooga/games/towerdefense/resources/levels/easy.txt");
 		try {
 			Scanner sc = new Scanner(thisLevel);
 			while (sc.hasNextInt()) {
@@ -303,8 +303,8 @@ public class TowerDefense extends Game {
 						Utility.getRandom(1, 3), selfEsteem, score, money));
 				totalTime = 0;
 			}
-			if (totalTime > 1000) {
-				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(80, 200),
+			if (totalTime > 5000) {
+				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
 						selfEsteem, score, money, enemyGroup));
 				totalTime = 0;
 			}
