@@ -19,15 +19,17 @@ public abstract class Tower extends Sprite{
 	private double range;
 	private SpriteGroup potentialTargets;
 	private SpriteGroup shotGroup;
+	private double shotSpeed;
 	
 	
-	public Tower(BufferedImage image, double x, double y, double range, long shotDelay, TowerDefense game){
+	public Tower(BufferedImage image, double x, double y, double range, long shotDelay, double shotSpeed, TowerDefense game){
 		super(image, x, y);
 		this.shotDelay = shotDelay;
 		this.range = range;
 		this.armed=true;
 		this.potentialTargets = game.getEnemyGroup();
 		this.shotGroup = game.getTowerShotGroup();
+		this.shotSpeed = shotSpeed;
 	}
 	
 	public void update(long elapsedTime){
@@ -46,7 +48,7 @@ public abstract class Tower extends Sprite{
 		if(target!=null){
 			target.gotHit();
 			timeSinceShot=0;
-			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), 1);
+			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
 			shotGroup.add(shot);
 		}
 		
