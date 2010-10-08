@@ -5,8 +5,10 @@ package vooga.games.jumper;
 // JFC 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
@@ -43,7 +45,7 @@ public class Jumper extends vooga.engine.core.Game {
     private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
     private double myMaxBlockXVelocity = 0.4;    
-    private double myBlockFrequency = 0.05;
+    private double myBlockFrequency = 0.025;
     
     private PlayField myPlayfield;
 
@@ -63,6 +65,9 @@ public class Jumper extends vooga.engine.core.Game {
     private SpriteGroup myOverlay;
     
     private int myBlockCounter = 0;
+    
+    private BufferedImage myLeftDoodle;
+    private BufferedImage myRightDoodle;
 
     
     /**
@@ -83,7 +88,11 @@ public class Jumper extends vooga.engine.core.Game {
 
         createNewBlocks();
         
-        DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
+        myLeftDoodle = ResourceHandler.getImage("leftDoodle");
+        myRightDoodle = ResourceHandler.getImage("rightDoodle");
+        
+        
+        DoodleSprite player1 = new DoodleSprite(myLeftDoodle, DOODLE_START);
         myPlayers.add(player1);
 
         myPlayfield = new PlayField();
@@ -223,9 +232,11 @@ public class Jumper extends vooga.engine.core.Game {
         DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();       
 
         if (keyDown(KeyEvent.VK_RIGHT)){
+        	player.setImage(myRightDoodle);
             player.goRight();
         }
         if (keyDown(KeyEvent.VK_LEFT)){
+        	player.setImage(myLeftDoodle);
             player.goLeft();
         }
 
