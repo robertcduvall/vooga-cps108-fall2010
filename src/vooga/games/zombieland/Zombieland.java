@@ -78,71 +78,71 @@ public class Zombieland extends Game {
 	public void initResources() {
 
 		playerDownImage = new BufferedImage[] {
-				getImage("resources/Down1.png"),
-				getImage("resources/Down2.png"),
-				getImage("resources/Down3.png"),
-				getImage("resources/Down4.png") };
+				getImage("resources/Down1.jpg"),
+				getImage("resources/Down2.jpg"),
+				getImage("resources/Down3.jpg"),
+				getImage("resources/Down4.jpg") };
 		playerUpImage = new BufferedImage[] { 
-				getImage("resources/up1.png"),
-				getImage("resources/up2.png"), 
-				getImage("resources/up3.png"),
-				getImage("resources/up4.png") };
+				getImage("resources/up1.jpg"),
+				getImage("resources/up2.jpg"), 
+				getImage("resources/up3.jpg"),
+				getImage("resources/up4.jpg") };
 		playerLeftImage = new BufferedImage[] {
-				getImage("resources/left1.png"),
-				getImage("resources/left2.png"),
-				getImage("resources/left3.png"),
-				getImage("resources/left4.png") };
+				getImage("resources/left1.jpg"),
+				getImage("resources/left2.jpg"),
+				getImage("resources/left3.jpg"),
+				getImage("resources/left4.jpg") };
 		playerRightImage = new BufferedImage[] {
-				getImage("resources/right1.png"),
-				getImage("resources/right2.png"),
-				getImage("resources/right3.png"),
-				getImage("resources/right4.png") };
+				getImage("resources/right1.jpg"),
+				getImage("resources/right2.jpg"),
+				getImage("resources/right3.jpg"),
+				getImage("resources/right4.jpg") };
 
 		zombieDownImage = new BufferedImage[] {
-				getImage("resources/ZombieDown1.png"),
-				getImage("resources/ZombieDown2.png"),
-				getImage("resources/ZombieDown3.png") };
+				getImage("resources/ZombieDown1.jpg"),
+				getImage("resources/ZombieDown2.jpg"),
+				getImage("resources/ZombieDown3.jpg") };
 		zombieUpImage = new BufferedImage[] {
-				getImage("resources/ZombieUp1.png"),
-				getImage("resources/ZombieUp2.png"),
-				getImage("resources/ZombieUp3.png") };
+				getImage("resources/ZombieUp1.jpg"),
+				getImage("resources/ZombieUp2.jpg"),
+				getImage("resources/ZombieUp3.jpg") };
 		zombieLeftImage = new BufferedImage[] {
-				getImage("resources/ZombieLeft1.png"),
-				getImage("resources/ZombieLeft2.png"),
-				getImage("resources/ZombieLeft3.png") };
+				getImage("resources/ZombieLeft1.jpg"),
+				getImage("resources/ZombieLeft2.jpg"),
+				getImage("resources/ZombieLeft3.jpg") };
 		zombieRightImage = new BufferedImage[] {
-				getImage("resources/ZombieRight1.png"),
-				getImage("resources/ZombieRight2.png"),
-				getImage("resources/ZombieRight3.png") };
+				getImage("resources/ZombieRight1.jpg"),
+				getImage("resources/ZombieRight2.jpg"),
+				getImage("resources/ZombieRight3.jpg") };
 
-		//		zombieAttackFromAboveImage = new BufferedImage[] {
-		//				getImage("resources/ZombieAttackFromAbove1.png"),
-		//				getImage("resources/ZombieAttackFromAbove2.png"),
-		//				getImage("resources/ZombieAttackFromAbove3.png") };
-		//		zombieAttackFromBelowImage = new BufferedImage[] {
-		//				getImage("resources/ZombieAttackFromBelow1.png"),
-		//				getImage("resources/ZombieAttackFromBelow2.png"),
-		//				getImage("resources/ZombieAttackFromBelow3.png") };
-		//		zombieAttackFromLeftImage = new BufferedImage[] {
-		//				getImage("resources/ZombieAttackFromLeft1.png"),
-		//				getImage("resources/ZombieAttackFromLeft2.png"),
-		//				getImage("resources/ZombieAttackFromLeft3.png") };
-		//		zombieAttackFromRightImage = new BufferedImage[] {
-		//				getImage("resources/ZombieAttackFromRight1.png"),
-		//				getImage("resources/ZombieAttackFromRight2.png"),
-		//				getImage("resources/ZombieAttackFromRight3.png") };
+		zombieAttackFromAboveImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromAbove1.jpg"),
+				getImage("resources/ZombieAttackFromAbove2.jpg"),
+				getImage("resources/ZombieAttackFromAbove3.jpg") };
+		zombieAttackFromBelowImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromBelow1.jpg"),
+				getImage("resources/ZombieAttackFromBelow2.jpg"),
+				getImage("resources/ZombieAttackFromBelow3.jpg") };
+		zombieAttackFromLeftImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromLeft1.jpg"),
+				getImage("resources/ZombieAttackFromLeft2.jpg"),
+				getImage("resources/ZombieAttackFromLeft3.jpg") };
+		zombieAttackFromRightImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackFromRight1.jpg"),
+				getImage("resources/ZombieAttackFromRight2.jpg"),
+				getImage("resources/ZombieAttackFromRight3.jpg") };
 
 		zombieDeath = new BufferedImage[] {
-				getImage("resources/ZombieDeath1.png"),
-				getImage("resources/ZombieDeath2.png"),
-				getImage("resources/ZombieDeath3.png")};
+				getImage("resources/ZombieDeath1.jpg"),
+				getImage("resources/ZombieDeath2.jpg"),
+				getImage("resources/ZombieDeath3.jpg")};
 
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 		
-		bulletImage = getImage("resources/bullet.png");
-		shotgunImage = getImage("resources/shotgun.png");;
-		assaultRifleImage= getImage("resources/assaultRifle.png");
+		bulletImage = getImage("resources/bullet.jpg");
+		shotgunImage = getImage("resources/shotgun.jpg");;
+		assaultRifleImage= getImage("resources/assaultRifle.jpg");
 		healthImage= getImage("resources/Health.png");
 
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
@@ -218,14 +218,14 @@ public class Zombieland extends Game {
 				getInitializedAnimatedSprite(zombieLeftImage), 
 				getInitializedAnimatedSprite(zombieRightImage), player);
 
-		//		newZombie.mapNameToSprite("AttackFromLeft" , 
-		//									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
-		//		newZombie.mapNameToSprite("AttackFromRight" ,
-		//									getInitializedAnimatedSprite(zombieAttackFromRightImage));
-		//		newZombie.mapNameToSprite("AttackFromAbove" ,
-		//									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
-		//		newZombie.mapNameToSprite("AttackFromBelow" , 
-		//									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
+		newZombie.mapNameToSprite("AttackFromLeft" , 
+									getInitializedAnimatedSprite(zombieAttackFromLeftImage));
+		newZombie.mapNameToSprite("AttackFromRight" ,
+									getInitializedAnimatedSprite(zombieAttackFromRightImage));
+		newZombie.mapNameToSprite("AttackFromAbove" ,
+									getInitializedAnimatedSprite(zombieAttackFromAboveImage));
+		newZombie.mapNameToSprite("AttackFromBelow" , 
+									getInitializedAnimatedSprite(zombieAttackFromBelowImage));
 
 		newZombie.mapNameToSprite("ZombieDeath", 
 				getInitializedAnimatedSprite(zombieDeath));
