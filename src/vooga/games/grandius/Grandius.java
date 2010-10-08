@@ -28,6 +28,7 @@ import vooga.games.grandius.collisions.PlayerEnemyCollision;
 import vooga.games.grandius.collisions.ProjectileBossPartCollision;
 import vooga.games.grandius.collisions.ProjectileEnemyCollision;
 import vooga.games.grandius.enemy.boss.BossPart;
+import vooga.games.grandius.enemy.common.Zipster;
 
 public class Grandius extends Game{
 
@@ -118,16 +119,7 @@ public class Grandius extends Game{
 
 		 shipsprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
 		 playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
-		 for (int j = 0; j < 200; j++) { // create 200 background sprites
-			 Random valX = new Random();
-			 Random valY = new Random();
-			 double x = valX.nextDouble();
-			 double y = valY.nextDouble();
-			 Sprite backgroundSprite = new Sprite(Resources.getImage("Commet"),
-					 (x * 3000), (y * 480));
-			 backgroundSprite.setHorizontalSpeed(-0.09);
-			 myPlayfield.add(backgroundSprite);
-		 }
+		 createComets();
 		 
 		 PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
 		 PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
@@ -162,6 +154,19 @@ public class Grandius extends Game{
 
 	 }
 
+	private void createComets() {
+		for (int j = 0; j < 200; j++) { // create 200 background sprites
+			 Random valX = new Random();
+			 Random valY = new Random();
+			 double x = valX.nextDouble();
+			 double y = valY.nextDouble();
+			 Sprite backgroundSprite = new Sprite(Resources.getImage("Commet"),
+					 (x * 3000), (y * 480));
+			 backgroundSprite.setHorizontalSpeed(-0.09);
+			 myPlayfield.add(backgroundSprite);
+		 }
+	}
+
 	 @Override
 	 public void render(Graphics2D g) {
 		 
@@ -178,6 +183,8 @@ public class Grandius extends Game{
 		}
 		
 		if ( gameState == LEVEL_COMPLETE){
+			myPlayfield.clearPlayField();
+			myPlayfield.render(g);
 				font.drawString(g, "LEVEL " + levelManager.getMyCurrentLevel() + " COMPLETE",
 						(int) screen.getWidth() / 3,
 						(int) (screen.getHeight() / 2.5));
@@ -228,6 +235,9 @@ public class Grandius extends Game{
 		 
 		 if ( gameState == START_NEW_LEVEL){
 			 ArrayList<ArrayList<Sprite>> nextLevel = levelManager.nextLevel();
+			 PLAYER_GROUP.add(playersprite);
+			 myPlayfield.addGroup(PLAYER_GROUP);
+			 createComets();
 			 initLevel(nextLevel.get(0), nextLevel.get(1));
 			 gameState = GAME_PLAY;
 		 }
@@ -276,6 +286,14 @@ public class Grandius extends Game{
 		 for (Sprite as: ENEMY_GROUP.getSprites()) {
 			 if (as == null) 
 				 break;
+			 if (as instanceof Zipster) {
+				 if (as.getY() > playersprite.getY())
+					 ((Zipster)(as)).setDirection(Zipster.MOVING_NW);
+				 else if (as.getY() < playersprite.getY())
+					 ((Zipster)(as)).setDirection(Zipster.MOVING_SW);
+				 else 
+					 ((Zipster)(as)).setDirection(Zipster.MOVING_W);
+			 }
 			 as.setHorizontalSpeed(-0.03);
 		 }
 		 for (Sprite bp: BOSS_PART_GROUP.getSprites()) {

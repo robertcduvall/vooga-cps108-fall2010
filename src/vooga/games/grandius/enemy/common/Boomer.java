@@ -21,7 +21,7 @@ public class Boomer extends VolatileSprite {
 	public Boomer(BufferedImage[] images, double x, double y) {
 		super(images, x, y);
 		this.myColor = BOOMER_BLUE;
-		this.setHorizontalSpeed(-4);
+		this.setHorizontalSpeed(-0.04);
 	}
 	
 	public int getColor() {
