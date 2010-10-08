@@ -69,6 +69,9 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private SpriteGroup myOverlay;
 	
+	int greenBlockCounter = 0;
+
+	
 	/**
 	 *  Initialize resources.
 	 */
@@ -146,11 +149,21 @@ public class Jumper extends vooga.engine.core.Game {
 		double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
 		double randomYVelocity = myRandom.nextDouble() * (myMaxBlockYVelocity) - myMaxBlockYVelocity;
 
+		
 		if (randomBlockOccurance < myBlockFrequency){
-			Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
-			//TODO: default X velocity is zero.  Add a special color block that has xVel= randonXvelocity
-			block.setSpeed(0, randomYVelocity);
-			myBlocks.add(block);
+			if (greenBlockCounter > 10){
+				Sprite block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, 800));
+				block.setSpeed(randomXVelocity, randomYVelocity);
+				myBlocks.add(block); //Repetitive code within if tree, can we condense this command?
+				greenBlockCounter = 0;
+
+			} else {
+				Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
+				block.setSpeed(0, randomYVelocity);
+				greenBlockCounter++;
+				System.out.println("else " +greenBlockCounter);
+				myBlocks.add(block); //Other repetitive command
+			}
 		}
 	}
 
