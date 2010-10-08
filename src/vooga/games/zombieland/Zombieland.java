@@ -74,6 +74,7 @@ public class Zombieland extends Game {
 	private OverlayString healthString;
 	private OverlayStat scoreString;
 	private OverlayString gameOver;
+	private OverlayStat ammoString;
 	
 	public void initResources() {
 
@@ -153,12 +154,15 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
 		healthString = new OverlayString("Health: ", Color.BLUE);
-		healthString.setLocation(0, 10);
+		healthString.setLocation(5, 10);
 		healthBar = new OverlayBar(player.getStatHealth(),100);
 		healthBar.setColor(Color.GREEN);
-		healthBar.setLocation(75, 18);
+		healthBar.setLocation(80, 18);
 		scoreString = new OverlayStat("Kills: ", player.getStatScore());
-		scoreString.setLocation(380, 12);
+		scoreString.setLocation(385, 12);
+		ammoString = new OverlayStat("Ammo: ", player.getStatAmmo());
+		ammoString.setColor(Color.BLUE);
+		ammoString.setLocation(470, 12);
 
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
@@ -195,6 +199,7 @@ public class Zombieland extends Game {
 		healthBar.update(elapsedTime);
 		healthString.update(elapsedTime);
 		scoreString.update(elapsedTime);
+		ammoString.update(elapsedTime);
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
 		items.update(elapsedTime);
@@ -309,6 +314,7 @@ public class Zombieland extends Game {
 		healthBar.render(g);
 		healthString.render(g);
 		scoreString.render(g);
+		ammoString.render(g);
 		
 		if (!player.isActive()){
 			gameOver = new OverlayString("GAME OVER", Color.BLACK);
