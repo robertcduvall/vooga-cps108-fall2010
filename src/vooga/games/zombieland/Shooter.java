@@ -13,6 +13,7 @@ public class Shooter extends PlayerSprite {
 	private int weaponChoice;
 	private Weapon[] weapons;
 	private Stat<Integer> health;
+	private Stat<Integer> score;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
@@ -31,6 +32,7 @@ public class Shooter extends PlayerSprite {
 //		weapons[3] = new Other(this,0);
 
 		health = new Stat<Integer>(playerHealth);
+		score = new Stat<Integer>(0);
 	}
 
 	public void goLeft() {
@@ -101,6 +103,15 @@ public class Shooter extends PlayerSprite {
 		return health;
 	}
 
+	public Stat<Integer> getStatScore(){
+		return score;
+	}
+	
+	public void updateScore(int number){
+		super.updateScore(number);
+		score.setStat(getScore());
+	}
+	
 	public void setHealth(int number) {
 		super.setHealth(number);
 		health.setStat(getHealth());
@@ -131,6 +142,10 @@ public class Shooter extends PlayerSprite {
 		super.update(elapsedTime);
 
 		sprite.setAnimate(false);
+		
+		if (healthIsZero()){
+			setActive(false);
+		}
 		// sprite.setFrame(0);
 	}
 

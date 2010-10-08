@@ -1,6 +1,5 @@
 package vooga.games.zombieland;
 
-import vooga.games.zombieland.resources.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -8,8 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
-import vooga.engine.overlay.OverlayBar;
-import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.*;
 import vooga.engine.player.control.KeyboardControl;
 
 import com.golden.gamedev.GameLoader;
@@ -72,9 +70,11 @@ public class Zombieland extends Game {
 	private HZCollisionManager humanZombieManager;
 	private BZCollisionManager bulletZombieManager;
 
-	private OverlayBar scoreBar;
-	private OverlayString scoreString;
-
+	private OverlayBar healthBar;
+	private OverlayString healthString;
+	private OverlayStat scoreString;
+	private OverlayString gameOver;
+	
 	public void initResources() {
 
 		playerDownImage = new BufferedImage[] {
@@ -152,17 +152,20 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Right",getInitializedAnimatedSprite(playerRightImage));
 		player.mapNameToSprite("Down",getInitializedAnimatedSprite(playerDownImage));
 
-		scoreString = new OverlayString("Health: ", Color.BLUE);
-		scoreBar = new OverlayBar(player.getStatHealth(),100);
-		scoreBar.setColor(Color.GREEN);
-		scoreBar.setLocation(75, 10);
+		healthString = new OverlayString("Health: ", Color.BLUE);
+		healthString.setLocation(0, 10);
+		healthBar = new OverlayBar(player.getStatHealth(),100);
+		healthBar.setColor(Color.GREEN);
+		healthBar.setLocation(75, 18);
+		scoreString = new OverlayStat("Kills: ", player.getStatScore());
+		scoreString.setLocation(380, 12);
 
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
 		items = new SpriteGroup("Items");
 		playfield = new PlayField();
 		control = new KeyboardControl(player, this);
-		counter = new Timer(1000);
+		counter = new Timer(400);
 
 		playfield.add(player);
 		playfield.addGroup(zombies);
@@ -189,7 +192,8 @@ public class Zombieland extends Game {
 		playfield.update(elapsedTime);
 		control.update();
 		player.update(elapsedTime);
-		scoreBar.update(elapsedTime);
+		healthBar.update(elapsedTime);
+		healthString.update(elapsedTime);
 		scoreString.update(elapsedTime);
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
@@ -200,6 +204,11 @@ public class Zombieland extends Game {
 			addRandomItem();
 		}
 
+	}
+	
+	public void endGame(){
+		stop();
+		gameOver = new OverlayString("GAME OVER\nFinal Score: " + player.getScore(), Color.BLACK);
 	}
 
 	public void addZombie() {
@@ -300,8 +309,15 @@ public class Zombieland extends Game {
 	public void render(Graphics2D g) {
 		background.render(g);
 		playfield.render(g);
-		scoreBar.render(g);
+		healthBar.render(g);
+		healthString.render(g);
 		scoreString.render(g);
+		if (!player.isActive()){
+			gameOver = new OverlayString("GAME OVER", Color.BLACK);
+			gameOver.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
+			gameOver.render(g);
+			endGame();
+		}
 	}
 
 	public static void main(String[] args) {
