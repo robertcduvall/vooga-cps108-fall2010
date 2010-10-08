@@ -1,4 +1,4 @@
-package engine.event;
+package vooga.games.cyberion.engine.event;
 
 /**
  * Provides interface for dealing with different types of events fired within a

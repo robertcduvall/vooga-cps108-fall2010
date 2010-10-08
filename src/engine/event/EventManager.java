@@ -1,7 +1,8 @@
-package engine.event;
+package vooga.games.cyberion.engine.event;
+
 
 import java.util.*;
-
+import vooga.games.cyberion.*;
 
 /**
  * This class manages the behavior of game events. Its main purpose is to manage
