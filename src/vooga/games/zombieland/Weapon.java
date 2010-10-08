@@ -7,6 +7,7 @@ public abstract class Weapon {
 	private double damage;
 	private int frameCount;
 	private int firingDelay;
+	
 	public Weapon(Shooter s, int ammo) {
 		this(s, ammo, 0,0);
 	}
