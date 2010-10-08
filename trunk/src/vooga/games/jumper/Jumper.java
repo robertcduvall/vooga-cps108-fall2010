@@ -39,15 +39,18 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends vooga.engine.core.Game {
 
-	
-	private static final double MAX_BLOCK_Y_VELOCITY = 2;
-	private static final double MAX_BLOCK_X_VELOCITY = 6;
+	private double myMaxBlockXVelocity = 6;	
+	private double myMaxBlockYVelocity = 2;
 	private final static int GAME_WIDTH = 1000;
 	private final static int GAME_HEIGHT = 800;
-	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.00001;	
+	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
+	private double BLOCK_XVELOCITY_INCREASE_RATE = 0.001;
+	private double BLOCK_YVELOCITY_INCREASE_RATE = 0.001;
+
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
-	private double myBlockFrequency = 0.01;
+	private double myBlockFrequency = 0.1;
+	
 	
 	private PlayField myPlayfield;
 
@@ -140,8 +143,8 @@ public class Jumper extends vooga.engine.core.Game {
 		Random myRandom = new Random();
 		double randomBlockOccurance = myRandom.nextDouble();
 		int randomXLocation = myRandom.nextInt(GAME_WIDTH);
-		double randomXVelocity = myRandom.nextDouble() * (MAX_BLOCK_X_VELOCITY) - (MAX_BLOCK_X_VELOCITY / 2);
-		double randomYVelocity = myRandom.nextDouble() * (MAX_BLOCK_Y_VELOCITY) - MAX_BLOCK_Y_VELOCITY;
+		double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
+		double randomYVelocity = myRandom.nextDouble() * (myMaxBlockYVelocity) - myMaxBlockYVelocity;
 
 		if (randomBlockOccurance < myBlockFrequency){
 			Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
@@ -159,6 +162,8 @@ public class Jumper extends vooga.engine.core.Game {
 		myPlayfield.update(elapsedTime);
 		
 		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
+		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
+		myMaxBlockYVelocity += BLOCK_YVELOCITY_INCREASE_RATE;
 	}
 	
 	/**
