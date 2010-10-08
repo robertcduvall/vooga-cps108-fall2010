@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.Random;
 
 //VOOGA
+import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.ResourceHandler;
@@ -36,7 +39,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends vooga.engine.core.Game {
 
-	private static final double MAX_BLOCK_Y_VELOCITY = 1;
+	private static final double MAX_BLOCK_Y_VELOCITY = 2;
 	private static final double MAX_BLOCK_X_VELOCITY = 6;
 	private final static int GAME_WIDTH = 1000;
 	private final static int GAME_HEIGHT = 800;
@@ -58,7 +61,9 @@ public class Jumper extends vooga.engine.core.Game {
 	
 	private GameClock myClock;
 	
-	private long myScore;
+	private Stat<Long> myScore;
+
+	private SpriteGroup myOverlay;
 	
 	public void initResources() {
 
@@ -70,7 +75,7 @@ public class Jumper extends vooga.engine.core.Game {
 			e.printStackTrace();
 		}
 
-
+		
 		DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
 		createNewBlocks();
 		
@@ -91,6 +96,17 @@ public class Jumper extends vooga.engine.core.Game {
 				" !            .,0123" + "456789:   -? ABCDEFG"
 						+ "HIJKLMNOPQRSTUVWXYZ ");
 
+		myOverlay = new SpriteGroup("overlay");
+		myPlayfield.addGroup(myOverlay);
+		/*OverlayString os = new OverlayString("BLAH", myFont);
+		os.setLocation(0, 0);
+		myOverlay.add(os);*/
+		myScore = new Stat<Long>((long) 0);
+		OverlayStat os = new OverlayStat("SCORE : ", myScore);
+		os.setFont(myFont);
+		myOverlay.add(os);
+		
+		
 		myClock = new GameClock();
 		try {
 			myClock.start();
@@ -149,12 +165,13 @@ public class Jumper extends vooga.engine.core.Game {
             Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
             
 			myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
-			myFont.drawString(g, "FINAL SCORE: " + myScore, myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
+			myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
     }
 
 	public void printScore(Graphics2D g){
-    	myScore = myClock.getTime();
-		myFont.drawString(g, "SCORE: " + myScore, myFont.JUSTIFY, 0,0, 100);
+    	//myScore = myClock.getTime();
+		myScore.setStat(myClock.getTime());
+		//myFont.drawString(g, "SCORE: " + myScore, myFont.JUSTIFY, 0,0, 100);
 	}
     
 	public void checkForKeyPress(){
