@@ -1,33 +1,24 @@
 package vooga.games.marioclone.tiles;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.collision.Collidable;
-import vooga.engine.core.Sprite;
-import vooga.engine.player.control.GameEntitySprite;
 
-public abstract class Tile extends GameEntitySprite implements Collidable {
+import com.golden.gamedev.object.Sprite;
+
+@SuppressWarnings("serial")
+public abstract class Tile extends Sprite implements Collidable {
+
 	private double x;
 	private double y;
 	private State state;
 	public enum State {active,inactive,removed};
 	
-	public Tile() {
-		super("Tile",State.active.toString(),null);
-	}
 	
-	public Tile(double x, double y) {
-		this(x,y,State.active);
+	public Tile(BufferedImage image, double x, double y) {
+		super(image,x,y);
 	}
-	
-	public Tile(double x, double y, State state) {
-		super("Tile",state.toString(),new com.golden.gamedev.object.Sprite(null));
-		this.x = x;
-		this.y = y;
-		this.state = state;
-	}
-	
+
 	@Override
 	public double getX() {
 		return x;
@@ -38,8 +29,6 @@ public abstract class Tile extends GameEntitySprite implements Collidable {
 		return y;
 	}
 	
-	public abstract BufferedImage getImage();
-
 	@Override
 	public abstract void actOnCollision(Collidable object);
 	

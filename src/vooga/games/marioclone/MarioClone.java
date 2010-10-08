@@ -2,6 +2,7 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import vooga.games.marioclone.tiles.Tile;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
-import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.background.ImageBackground;
 
@@ -48,7 +48,13 @@ public class MarioClone extends Game {
 		
 		playfield = new PlayField();
 		playfield.setBackground(new ImageBackground(Resources.getImage("Background")));
-		playfield.add(tiles.get(0));
+		for(Tile t : tiles) {
+			playfield.add(t);
+		}
+	}
+	
+	public void render(Graphics2D g) {
+		playfield.render(g);
 	}
 	
 	

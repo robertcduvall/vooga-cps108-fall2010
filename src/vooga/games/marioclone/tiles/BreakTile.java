@@ -4,14 +4,11 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.collision.Collidable;
 
+@SuppressWarnings("serial")
 public class BreakTile extends Tile {	
-
-	private static final long serialVersionUID = -6084850476897563619L;
-	private BufferedImage image;
 	
 	public BreakTile(double x, double y, BufferedImage image) {
-		super(x,y);
-		this.image = image;
+		super(image,x,y);		
 	}
 	
 	@Override
@@ -19,9 +16,5 @@ public class BreakTile extends Tile {
 		this.setState(State.removed);
 	}
 
-	@Override
-	public BufferedImage getImage() {
-		return image;
-	}
 
 }
