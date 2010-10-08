@@ -40,7 +40,8 @@ public class TowerDefense extends Game {
 	private KeyboardControl playerKeyboardControl;
 	private Background background;
 	private PlayField playfield;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup, pauseGroup, playerGroup;
+	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
+			pauseGroup, playerGroup;
 	private ArrayList<PathPoint> path;
 	private long totalTime;
 	private Stat<Integer> selfEsteem;
@@ -79,10 +80,11 @@ public class TowerDefense extends Game {
 				"Tower Shot Group"));
 		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
 		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
-		
+
 		pauseScreen = new Sprite(Resources.getImage("pause"));
 		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
 		pauseGroup.add(pauseScreen);
+		pause.addGroup(overlayGroup);
 
 		selfEsteem = new Stat<Integer>(75);
 		score = new Stat<Integer>(0);
@@ -103,8 +105,8 @@ public class TowerDefense extends Game {
 				.loadImage("duvallFaceBlue",
 						"src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
 		Resources
-		.loadImage("duvallFaceYellow",
-				"src/vooga/games/towerdefense/resources/images/duvallFaceYellow.png");
+				.loadImage("duvallFaceYellow",
+						"src/vooga/games/towerdefense/resources/images/duvallFaceYellow.png");
 		Resources.loadImage("tower",
 				"src/vooga/games/towerdefense/resources/images/tower.png");
 		Resources.loadImage("towerShot",
@@ -118,74 +120,67 @@ public class TowerDefense extends Game {
 				.loadImage("sniperTower",
 						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
 		Resources
-		.loadImage("normalTower",
-				"src/vooga/games/towerdefense/resources/images/normalTower.png");
+				.loadImage("normalTower",
+						"src/vooga/games/towerdefense/resources/images/normalTower.png");
 		Resources.loadImage("fastTower",
 				"src/vooga/games/towerdefense/resources/images/fastTower.png");
-		Resources.loadImage("fastTowerPreview",
-		"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
-		Resources.loadImage("sniperTowerPreview",
-		"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
-		Resources.loadImage("normalTower",
-		"src/vooga/games/towerdefense/resources/images/normalTower.png");
-		Resources.loadImage("normalTowerPreview",
-		"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
-		Resources.loadImage("pause",
-		"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
-		
-		
+		Resources
+				.loadImage("fastTowerPreview",
+						"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
+		Resources
+				.loadImage("sniperTowerPreview",
+						"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
+		Resources
+				.loadImage("normalTower",
+						"src/vooga/games/towerdefense/resources/images/normalTower.png");
+		Resources
+				.loadImage("normalTowerPreview",
+						"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
+		Resources
+				.loadImage("pause",
+						"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
+
 	}
 
 	private void initOverlays() {
-		GameFont fontRed = fontManager
-				.getFont(
-						getImages(
-								"src/vooga/games/towerdefense/resources/images/fontRed.png",
-								20, 3), " !            .,0123"
-								+ "456789:   -? ABCDEFG"
-								+ "HIJKLMNOPQRSTUVWXYZ ");
-		GameFont fontOrange = fontManager
-		.getFont(
-				getImages(
-						"src/vooga/games/towerdefense/resources/images/fontOrange.png",
-						20, 3), " !            .,0123"
-						+ "456789:   -? ABCDEFG"
-						+ "HIJKLMNOPQRSTUVWXYZ ");
-		GameFont fontGreen = fontManager
-		.getFont(
-				getImages(
-						"src/vooga/games/towerdefense/resources/images/fontGreen.png",
-						20, 3), " !            .,0123"
-						+ "456789:   -? ABCDEFG"
-						+ "HIJKLMNOPQRSTUVWXYZ ");
-		OverlayString temp = new OverlayString("Selfestem".toUpperCase(), fontRed);
+		GameFont fontRed = fontManager.getFont(getImages(
+				"src/vooga/games/towerdefense/resources/images/fontRed.png",
+				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
+				+ "HIJKLMNOPQRSTUVWXYZ ");
+		GameFont fontOrange = fontManager.getFont(getImages(
+				"src/vooga/games/towerdefense/resources/images/fontOrange.png",
+				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
+				+ "HIJKLMNOPQRSTUVWXYZ ");
+		GameFont fontGreen = fontManager.getFont(getImages(
+				"src/vooga/games/towerdefense/resources/images/fontGreen.png",
+				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
+				+ "HIJKLMNOPQRSTUVWXYZ ");
+		OverlayString temp = new OverlayString("Selfestem".toUpperCase(),
+				fontRed);
 		temp.setLocation(800, 50);
 		OverlayBar bar = new OverlayBar(selfEsteem, 100);
 		bar.setMaxLength(200);
 		bar.setLocation(775, 70);
-			
 
 		OverlayStat overlayMoney = new OverlayStat("MONEY : ", money);
 		overlayMoney.setFont(fontGreen);
 		overlayMoney.setLocation(800, 100);
-		
+
 		OverlayStat overlayScore = new OverlayStat("SCORE : ", score);
 		overlayScore.setFont(fontGreen);
 		overlayScore.setLocation(800, 130);
-		
+
 		OverlayString towers = new OverlayString("TOWERS");
 		towers.setFont(new Font("random", Font.ITALIC, 26));
 		towers.setLocation(820, 180);
-		
+
 		OverlayString normal = new OverlayString("NORMAL TOWER");
 		OverlayString normalCost = new OverlayString("COST 10 DOLLARS");
 		normal.setFont(fontOrange);
 		normal.setLocation(800, 210);
 		normalCost.setFont(fontOrange);
 		normalCost.setLocation(800, 230);
-		
-		
-		
+
 		overlayGroup.add(temp);
 		overlayGroup.add(bar);
 		overlayGroup.add(overlayMoney);
@@ -247,18 +242,28 @@ public class TowerDefense extends Game {
 
 	@Override
 	public void update(long elapsedTime) {
+		if (keyPressed(KeyEvent.VK_P)) {
+			if (play.isActive())
+				stateManager.switchTo(pause);
+			else if (pause.isActive())
+				stateManager.switchTo(play);
+		}
 		stateManager.update(elapsedTime);
-		totalTime += elapsedTime;
-		if (totalTime > 20000) {
-			enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80), Utility
-					.getRandom(1, 3), selfEsteem, score, money));
-			totalTime = 0;
+
+		if (play.isActive()) {
+			totalTime += elapsedTime;
+			if (totalTime > 20000) {
+				enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80),
+						Utility.getRandom(1, 3), selfEsteem, score, money));
+				totalTime = 0;
+			}
+			if (totalTime > 5000) {
+				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
+						selfEsteem, score, money, enemyGroup));
+				totalTime = 0;
+			}
 		}
-		if (totalTime > 5000) {
-			enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80), selfEsteem, score, money, enemyGroup));
-			totalTime = 0;
-		}
-		
+
 		playfield.update(elapsedTime);
 	}
 
@@ -285,7 +290,7 @@ public class TowerDefense extends Game {
 	public SpriteGroup getTowerShotGroup() {
 		return this.towerShotGroup;
 	}
-	
+
 	public ArrayList<PathPoint> getPathPoints() {
 		return this.path;
 	}
