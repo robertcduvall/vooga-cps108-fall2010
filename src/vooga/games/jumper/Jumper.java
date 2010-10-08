@@ -1,5 +1,4 @@
 
-
 package vooga.games.jumper;
 
 
@@ -39,160 +38,160 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class Jumper extends vooga.engine.core.Game {
 
-	private double myMaxBlockXVelocity = 6;	
-	private double myMaxBlockYVelocity = 2;
-	private final static int GAME_WIDTH = 500;
-	private final static int GAME_HEIGHT = 800;
-	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
-	private double BLOCK_XVELOCITY_INCREASE_RATE = 0.001;
-	private double BLOCK_YVELOCITY_INCREASE_RATE = 0.001;
+    private final static int GAME_WIDTH = 500;
+    private final static int GAME_HEIGHT = 800;
+    private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
+    private double BLOCK_XVELOCITY_INCREASE_RATE = 0.001;
+    private double BLOCK_YVELOCITY_INCREASE_RATE = 0.001;
 
-	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
+    private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
-	private double myBlockFrequency = 0.05;
-	
-	
-	private PlayField myPlayfield;
+    private double myMaxBlockXVelocity = 6;    
+    private double myMaxBlockYVelocity = 2;
+    private double myBlockFrequency = 0.05;
+    
+    private PlayField myPlayfield;
 
-	private SpriteGroup myBlocks = new SpriteGroup("blocks");
-	private SpriteGroup myPlayers = new SpriteGroup("players");
-	
-	private DoodleToBlockCollision myCollision;
-	
-	private Background myBackground;
-	
-	private GameFont myFont;
-	
-	private GameClock myClock;
-	
-	private Stat<Long> myScore;
+    private SpriteGroup myBlocks = new SpriteGroup("blocks");
+    private SpriteGroup myPlayers = new SpriteGroup("players");
+    
+    private DoodleToBlockCollision myCollision;
+    
+    private Background myBackground;
+    
+    private GameFont myFont;
+    
+    private GameClock myClock;
+    
+    private Stat<Long> myScore;
 
-	private SpriteGroup myOverlay;
-	
-	int greenBlockCounter = 0;
+    private SpriteGroup myOverlay;
+    
+    int greenBlockCounter = 0;
 
-	
-	/**
-	 *  Initialize resources.
-	 */
-	public void initResources() {
+    
+    /**
+     *  Initialize all of the game instance variable
+     */
+    public void initResources() {
 
-		//setting up resource handler
-		ResourceHandler.setGame(this);
-		try{
-			ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
-		} catch (IOException e){
-			e.printStackTrace();
-		}
+        //setting up resource handler
+        ResourceHandler.setGame(this);
+        try{
+            ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
-		
-		DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
-		createNewBlocks();
-		
-		myPlayers.add(player1);
+        
+        DoodleSprite player1 = new DoodleSprite(ResourceHandler.getImage("crop"), DOODLE_START);
+        createNewBlocks();
+        
+        myPlayers.add(player1);
 
-		myPlayfield = new PlayField();
-		myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
-		myPlayfield.setBackground(myBackground);
+        myPlayfield = new PlayField();
+        myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
+        myPlayfield.setBackground(myBackground);
 
 
-		myPlayfield.addGroup(myPlayers);
-		myPlayfield.addGroup(myBlocks);
+        myPlayfield.addGroup(myPlayers);
+        myPlayfield.addGroup(myBlocks);
 
-		myCollision = new DoodleToBlockCollision();
-		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myCollision);
-		
-		myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),
-				" !            .,0123" + "456789:   -? ABCDEFG"
-						+ "HIJKLMNOPQRSTUVWXYZ ");
+        myCollision = new DoodleToBlockCollision();
+        myPlayfield.addCollisionGroup(myPlayers, myBlocks, myCollision);
+        
+        myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),
+                " !            .,0123" + "456789:   -? ABCDEFG"
+                        + "HIJKLMNOPQRSTUVWXYZ ");
 
-		myOverlay = new SpriteGroup("overlay");
-		myScore = new Stat<Long>((long) 0);
-		OverlayStat os = new OverlayStat("SCORE : ", myScore);
-		os.setFont(myFont);
-		myOverlay.add(os);
-		myPlayfield.addGroup(myOverlay);
-		
-		myClock = new GameClock();
-		try {
-			myClock.start();
-		} catch (GameClockException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        myOverlay = new SpriteGroup("overlay");
+        myScore = new Stat<Long>((long) 0);
+        OverlayStat os = new OverlayStat("SCORE : ", myScore);
+        os.setFont(myFont);
+        myOverlay.add(os);
+        myPlayfield.addGroup(myOverlay);
+        
+        myClock = new GameClock();
+        try {
+            myClock.start();
+        } catch (GameClockException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static int getGameWidth() {
-		return GAME_WIDTH;
-	}
+    /**
+     * Returns the width of the Game
+     * @return int GameWidth
+     */
+    public static int getGameWidth() {
+        return GAME_WIDTH;
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static int getGameHeight() {
-		return GAME_HEIGHT;
-	}
+    /**
+     * Returns the height of the Game
+     * @return in GameHeight
+     */
+    public static int getGameHeight() {
+        return GAME_HEIGHT;
+    }
 
-	//TODO:refactor the hell out of this method
-	/**
-	 * 
-	 */
-	public void createNewBlocks(){
-		Random myRandom = new Random();
-		double randomBlockOccurance = myRandom.nextDouble();
-		int randomXLocation = myRandom.nextInt(GAME_WIDTH);
-		double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
-		double randomYVelocity = myRandom.nextDouble() * (myMaxBlockYVelocity) - myMaxBlockYVelocity;
+    /**
+     * Populate the BlockGroup with new BlockSprites
+     */
+    public void createNewBlocks(){
+        Random myRandom = new Random();
+        
+        double randomBlockOccurance = myRandom.nextDouble();
+        int randomXLocation = myRandom.nextInt(GAME_WIDTH);
+        double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
+        double randomYVelocity = myRandom.nextDouble() * (myMaxBlockYVelocity) - myMaxBlockYVelocity;
 
-		
-		if (randomBlockOccurance < myBlockFrequency){
-			if (greenBlockCounter > 10){
-				Sprite block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, 800));
-				block.setSpeed(randomXVelocity, randomYVelocity);
-				myBlocks.add(block); //Repetitive code within if tree, can we condense this command?
-				greenBlockCounter = 0;
+        
+        if (randomBlockOccurance < myBlockFrequency){
+            if (greenBlockCounter > 10){
+                Sprite block = new BlockSprite(ResourceHandler.getImage("platformGray"), new Point(randomXLocation, 800));
+                block.setSpeed(randomXVelocity, randomYVelocity);
+                myBlocks.add(block); //Repetitive code within if tree, can we condense this command?
+                greenBlockCounter = 0;
 
-			} else {
-				Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
-				block.setSpeed(0, randomYVelocity);
-				greenBlockCounter++;
-				System.out.println("else " +greenBlockCounter);
-				myBlocks.add(block); //Other repetitive command
-			}
-		}
-	}
+            } else {
+                Sprite block = new BlockSprite(ResourceHandler.getImage("platformGreen"), new Point(randomXLocation, 800));
+                block.setSpeed(0, randomYVelocity);
+                greenBlockCounter++;
+                System.out.println("else " +greenBlockCounter);
+                myBlocks.add(block); //Other repetitive command
+            }
+        }
+    }
 
-	/**
-	 * 
-	 */
-	public void update(long elapsedTime) {
-		createNewBlocks();
-		checkForKeyPress();
-		myPlayfield.update(elapsedTime);
-		
-		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
-		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
-		myMaxBlockYVelocity += BLOCK_YVELOCITY_INCREASE_RATE;
-	}
-	
-	/**
-	 * 
-	 * @param g
-	 */
-    public void endGame(Graphics2D g) {
+    /**
+     * Updates game values
+     * @param elapsedTime long time elapsed from last update
+     */
+    public void update(long elapsedTime) {
+        createNewBlocks();
+        checkForKeyPress();
+        myPlayfield.update(elapsedTime);
+        
+        myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
+        myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
+        myMaxBlockYVelocity += BLOCK_YVELOCITY_INCREASE_RATE;
+    }
+    
+    /**
+     * Ends game by clearing playfield and displaying final score message
+     * @param g Graphics2D on which to render messages
+     */
+     public void endGame(Graphics2D g) {
 
-        	//stop clock if game is over
+            //stop clock if game is over
             if (myClock.isRunning()){
-            	try {
-					myClock.pause();
-				} catch (GameClockException e) {
-					e.printStackTrace();
-				}
+                try {
+                    myClock.pause();
+                } catch (GameClockException e) {
+                    e.printStackTrace();
+                }
             }
             myPlayfield.removeGroup(myPlayers);
             myPlayfield.removeGroup(myBlocks);
@@ -203,57 +202,61 @@ public class Jumper extends vooga.engine.core.Game {
             Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
             
             myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontWidth / 2), middle.y - (fontHeight/2),  fontWidth);
-			myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
+            myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontWidth / 2), middle.y + (fontHeight / 2), fontWidth);
     }
 
     /**
-     * 
-     * @param g
+     * Updates score based on time survived
      */
-	public void updateScore(Graphics2D g){
-		myScore.setStat(myClock.getTime());
-	}
+    public void updateScore(){
+        myScore.setStat(myClock.getTime());
+    }
     
-	/**
-	 * 
-	 */
-	public void checkForKeyPress(){
-		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();   	
+    /**
+     * Listen for key presses to update player's location
+     */
+    public void checkForKeyPress(){
+        DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();       
 
-		if (keyDown(KeyEvent.VK_RIGHT)){
-			player.goRight();
-		}
-		if (keyDown(KeyEvent.VK_LEFT)){
-			player.goLeft();
-		}
+        if (keyDown(KeyEvent.VK_RIGHT)){
+            player.goRight();
+        }
+        if (keyDown(KeyEvent.VK_LEFT)){
+            player.goLeft();
+        }
 
 
 
-	}
-	
-	public void render(Graphics2D g) {
-		myPlayfield.render(g);
+    }
+    /**
+     * Render playfield sprites to the screen
+     * @param g Graphics2D on which to render images 
+     */
+    
+    public void render(Graphics2D g) {
+        myPlayfield.render(g);
 
         DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
 
         if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0){
-        	endGame(g);
+            endGame(g);
         }
         else{
-        	updateScore(g);
+            updateScore();
         }
-	}
+    }
 
 
-	/****************************************************************************/
-	/***************************** START-POINT **********************************/
-	/****************************************************************************/
-
-	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		Jumper jump = new Jumper();
-		game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
-		game.start();
-	}
+    /**
+     * Main method which loads the game
+     * @param args String[] of arguments from the command line
+     */
+    
+    public static void main(String[] args) {
+        GameLoader game = new GameLoader();
+        Jumper jump = new Jumper();
+        game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
+        game.start();
+    }
 
 }
