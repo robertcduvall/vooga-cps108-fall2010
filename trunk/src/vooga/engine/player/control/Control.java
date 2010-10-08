@@ -64,7 +64,8 @@ public class Control{
     /**
      * Sets the parameter types that need to be used for the next method
      * 
-     * @param parameterTypes The types of parameters that need to be used. Need to be implemented in the form setParams(new Class[]{Class cls})
+     * @param parameterTypes The types of parameters that need to be used. 
+     * Need to be implemented in the form setParams(new Class[]{Class cls})
      */
     public void setParams(Class<?>... parameterTypes) {
         paramTypes = parameterTypes;
@@ -90,7 +91,8 @@ public class Control{
      * For example: if a class is called Test and is in the package cps108.games.example then the
      * String here must be "cps108.games.example.Test"
      * 
-     * @param paramVals Value of the parameters that the method has
+     * @param paramVals Value of the parameters that the method has NOTE: If you want to use this
+     * parameter with something other than 'null', you must use setParams first.
      */
     public void addInput(int listen, String method, String classname, Object... paramVals) {
     //should be overridden in subclasses

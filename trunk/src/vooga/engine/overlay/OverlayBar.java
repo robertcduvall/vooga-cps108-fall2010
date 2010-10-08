@@ -46,12 +46,16 @@ public class OverlayBar extends Overlay {
 	/**
 	 * Constructs an OverlayBar with the given Stat<Integer> and maxScore.
 	 * 
-	 * @param i
+	 * @param stat
 	 *            The statistic that the OverlayBar should represent.
 	 * @param maxScore
 	 *            The maximum value the statistic can reach.
 	 */
-
+	public OverlayBar(Stat<Integer> stat, int maxScore) {
+		myStat = stat;
+		myMaxScore = maxScore;
+	}
+	
 	/**
 	 * Prints the bar on the screen by calling drawBar().
 	 */
