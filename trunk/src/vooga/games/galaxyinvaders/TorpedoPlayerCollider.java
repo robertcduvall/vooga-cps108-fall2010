@@ -5,6 +5,13 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.*;
 import vooga.engine.player.control.*;
 
+/**
+ * This class is an extension of BasicCollisionGroup, it handles collisions 
+ * between torpedoes and players.
+ * 
+ * @author Drew Sternesky, Kate Yang, Nick Hawthorne
+ *
+ */
 public class TorpedoPlayerCollider extends BasicCollisionGroup {
 
 	private Game g;

@@ -19,6 +19,9 @@ import com.golden.gamedev.object.background.ColorBackground;
 
 
 /**
+ * The GalaxyInvaders class is the main Game class for Galaxy Invaders. It keeps track of the sprites, 
+ * and has update called every turn by GoldenT, from which it calls update methods on all its sprite
+ * groups. There are no command line arguments to run GalaxyInvaders.
  * 
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
@@ -29,6 +32,9 @@ public class GalaxyInvaders extends Game {
 	
 	private static final int PLAY = 1;
 	private static final int LOST = 2;
+
+	private static int ITEM_FREQUENCY = 7;
+	private static int BOMB_FREQUENCY = 10;
 
 	private Background bg;
 	private PlayerSprite ship;
@@ -54,6 +60,9 @@ public class GalaxyInvaders extends Game {
     private GameFontManager gameFontManager;
     private GameFont myFont;
 
+    /**
+     * Method inherited from Game. Initializes the game state and all the sprites in the game.
+     */
 	public void initResources() {
 		gameFontManager = new GameFontManager();
 		Font f = new Font("sansserif", Font.BOLD, 20);
@@ -95,7 +104,7 @@ public class GalaxyInvaders extends Game {
 		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
 	}
 	
-	public void initEnemies() {	
+	private void initEnemies() {	
 		for (int i=0; i<12; i++){
             EnemySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), (i%4)*50, ((int)(i/4))*50), levels.getLevelPath());
             Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
@@ -104,12 +113,18 @@ public class GalaxyInvaders extends Game {
         }    
 	}
 
-	public void initBlocks() {
+	
+	private void initBlocks() {
 		for(int i = 100; i<getWidth(); i+=200) {
 			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(getImage("img/barrier.png"), i, 600));
 			blockades.add(b);
 		}
 	}
+	
+	/**
+	 * Rendering method for GoldenT
+	 * 
+	 */
 	public void render(Graphics2D g) {
 		if(state == PLAY) {
 			bg.render(g);
@@ -136,8 +151,17 @@ public class GalaxyInvaders extends Game {
 		}
 	}
 
+	/**
+	 * This method is called every turn by the game engine. It determines whether
+	 * bombs or powerups should be dropped, and updates all the sprite groups. It
+	 * also checks to see if the game is over, and ends it if it is.
+	 */
 	public void update(long time) {
 		if(state == PLAY) {
+			
+			//this randomly determines whether a bomb will be dropped on this turn.
+			//the constant BOMB_FREQUENCY can be changed to change the rate of
+			//bombs dropped
 			int bombSeed;
 			try {
 				bombSeed = Randomizer.nextInt(1000);
@@ -145,20 +169,22 @@ public class GalaxyInvaders extends Game {
 				e.printStackTrace();
 				bombSeed = 0;
 			}
-
-			if(bombSeed>994) {
+			if(bombSeed<BOMB_FREQUENCY) {
 				spawnEnemyBomb();
 			}
 			
+			//this randomly determines whether a health powerup will be dropped
+			//on this turn. the constant ITEM_FREQUENCY can be changed to change 
+			//the rate of powerups dropped
 			int itemSeed;
 			try {
-				itemSeed = Randomizer.nextInt(1000);
+				itemSeed = Randomizer.nextInt(10000);
 			} catch (RandomizerException e) {
 				e.printStackTrace();
 				itemSeed = 0;
 			}
 
-			if(itemSeed>997) {
+			if(itemSeed<ITEM_FREQUENCY) {
 				spawnHealth();
 			}
 
@@ -204,6 +230,7 @@ public class GalaxyInvaders extends Game {
 				state = LOST;
 			}
 			
+			// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
 			if(keyPressed(KeyEvent.VK_T)) {
 				enemies.clear();
 			}
@@ -250,25 +277,30 @@ public class GalaxyInvaders extends Game {
 		}
 	}
 
-	public void moveLeft() {
+	private void moveLeft() {
 		ship.move(-5, 0);
 	}
 	
-	public void moveRight() {
+	private void moveRight() {
 		ship.move(5, 0);
 	}
 	
-	public void fire() {
+	private void fire() {
 		Sprite temp = new Sprite(getImage("img/torpedo.png"), ship.getX()+25, ship.getY()-35);
 		temp.setSpeed(0, -.8);
 		torpedos.add(temp);
 	}
-	
-	public void increasePlayerScore() {
-		scoreStat.addTo(1);
+	/**
+	 * This method increases the player's score by a certain amount
+	 * 
+	 * @param score the amount by which to increase the score
+	 */
+	public void increasePlayerScore(int score) {
+		scoreStat.addTo(score);
 	}
 	
-	public void reverseVelocity(Sprite[] enemySprites) {
+	
+	private void reverseVelocity(Sprite[] enemySprites) {
 		for(Sprite s : enemySprites) {
 			if(s!=null) {
 				s.setHorizontalSpeed(s.getHorizontalSpeed()*-1);
@@ -276,7 +308,11 @@ public class GalaxyInvaders extends Game {
 		}
 	}
 	
-
+	/**
+	 * Java main method
+	 * 
+	 * @param args do nothing
+	 */
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
 		game.setup(new GalaxyInvaders(), new Dimension(700,800), false);
