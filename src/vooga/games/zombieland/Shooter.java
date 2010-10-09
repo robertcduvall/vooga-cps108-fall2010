@@ -210,16 +210,23 @@ public class Shooter extends PlayerSprite {
 	/**
 	 * Get the score stat object
 	 * 
-	 * @return score stat objec
+	 * @return score stat object
 	 */
 	public Stat<Integer> getStatScore() {
 		return score;
 	}
 	
+	/**
+	 * Resets the score so that it can start counting new level's score from 0.
+	 */
 	public void resetLevelScore(){
 		levelScore = 0;
 	}
 	
+	/**
+	 * Get the player's score for the current level.
+	 * @return levelScore The current level's score
+	 */
 	public int getLevelScore(){
 		return levelScore;
 	}
