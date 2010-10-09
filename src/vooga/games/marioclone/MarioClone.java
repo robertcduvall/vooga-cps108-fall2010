@@ -16,6 +16,8 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.resource.Randomizer;
+import vooga.engine.resource.RandomizerException;
 import vooga.engine.resource.Resources;
 import vooga.games.marioclone.tiles.Tile;
 
@@ -39,6 +41,7 @@ public class MarioClone extends Game {
     private static final int GAME_PLAY = 1;
     private static final int GAME_OVER = 2;
     private static final int INITIAL_HP = 100;
+	private static final int NUM_ENEMIES = 5;
     private int myGameState;
     private boolean isGameOver;
     
@@ -84,7 +87,7 @@ public class MarioClone extends Game {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
-		marioBackground = new ColorBackground(Color.cyan);
+		marioBackground = new ColorBackground(Color.white);
 		marioBackground.setClip(0, 0, WIDTH, HEIGHT);
 		mainMenu = new ImageBackground(Resources.getImage("MenuBG"));
 		gameOver = new ImageBackground(Resources.getImage("GameOverBG"));
@@ -108,15 +111,21 @@ public class MarioClone extends Game {
 		playfield.addGroup(marioGroup);
 		
 		enemyGroup = new SpriteGroup("Enemy Group");
-		Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
-		enemy.setLocation(700, 290);
-		enemyGroup.add(enemy);
+		for(int j = 0; j < NUM_ENEMIES; j++) {
+			Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
+			try {
+				enemy.setLocation(Randomizer.nextDouble(0,WIDTH), Randomizer.nextDouble(0,HEIGHT));
+			} catch (RandomizerException e) {
+				e.printStackTrace();
+			}
+			enemyGroup.add(enemy);
+		}	
 		playfield.addGroup(enemyGroup);
 		
 		myControl = new KeyboardControl(mario,this);
 		myControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.marioclone.MarioSprite");
 		myControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.marioclone.MarioSprite");
-		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite");
+		myControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.marioclone.MarioSprite");
 		
 		playfield.addCollisionGroup(marioGroup, playfield.getTileMap().getTileGroup(), new MarioToTileCollision());
 		playfield.addCollisionGroup(enemyGroup, playfield.getTileMap().getTileGroup(), new EnemyToTileCollision());
