@@ -27,7 +27,7 @@ public class DoodleToSpringCollision extends BasicCollisionGroup {
 			((AnimatedSprite) spring).setLoopAnim(false);
 			((AnimatedSprite) spring).setAnimate(true);
 			((AnimatedSprite) spring).setAnimationFrame(1, 1);
-			doodle.setVerticalSpeed(-2);
+			doodle.setVerticalSpeed(-1.7);
 			URL spring_url = getClass().getResource("sounds/spring_sound.wav");
 	        AudioClip clip = java.applet.Applet.newAudioClip(spring_url);
 	        clip.play();

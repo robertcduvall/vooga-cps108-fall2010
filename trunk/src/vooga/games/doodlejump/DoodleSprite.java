@@ -1,5 +1,6 @@
 package vooga.games.doodlejump;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.golden.gamedev.object.Sprite;
 
+import vooga.engine.overlay.OverlayString;
 import vooga.engine.player.control.PlayerSprite;
 
 /**
@@ -19,13 +21,15 @@ import vooga.engine.player.control.PlayerSprite;
  * 
  */
 public class DoodleSprite extends PlayerSprite {
+	private boolean died;
 	private ArrayList<BallSprite> balls;
 	private DoodleGame game;
 	private int bulletDelay = 20;
+	private OverlayString gameOverString;
 
 	public DoodleSprite(String name, String stateName, Sprite s, DoodleGame game) {
 		super(name, stateName, s);
-		//setLayer(1);
+		died = false;
 		balls = new ArrayList<BallSprite>();
 		this.game = game;
 	}
@@ -75,15 +79,11 @@ public class DoodleSprite extends PlayerSprite {
 		
 		bulletDelay--;
 		
-		if (getY() > 850) {
-			resetAtStart();
+		if (getY() > 850 || died) {
+			gameOverString = new OverlayString("Game over!", new Font("SansSerif", Font.BOLD, 48));
+			gameOverString.setX(game.getWidth() / 2 - gameOverString.getWidth() / 2);
+			gameOverString.setY(game.getHeight() / 2 - gameOverString.getHeight() / 2);
 		}
-	}
-	
-	public void resetAtStart() {
-		setX(325);
-		setY(550);
-		setVerticalSpeed(0);
 	}
 
 	public void shoot() {
@@ -99,6 +99,8 @@ public class DoodleSprite extends PlayerSprite {
 								- ballImage.getWidth() / 2, getY()
 								- ballImage.getHeight()));
 				ball.setVerticalSpeed(-0.7);
+				if(getVerticalSpeed() < 0)
+					ball.setVerticalSpeed(-1.5);
 				balls.add(ball);
 				game.BallGroup.add(ball);
 			} catch (Exception e) {
@@ -109,10 +111,17 @@ public class DoodleSprite extends PlayerSprite {
 		}
 	}
 
+	public void setDied(boolean b){
+		died = b;
+	}
 	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
 		for (BallSprite ball : balls)
 			ball.render(g);
+		if(gameOverString != null || (died && gameOverString != null)){
+			gameOverString.render(g);
+			game.stop();
+		}
 	}
 }
