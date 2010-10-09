@@ -14,6 +14,7 @@ public class MarioSprite extends CharacterSprite {
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
 		super(name, stateName, left, right);
+		setHealth(100);
 	}
 	
 	public void moveRight() {
@@ -23,6 +24,7 @@ public class MarioSprite extends CharacterSprite {
 			setX(0);
 		}
 		setNewImage(rightImage);
+		
 	}
 
 	public void moveLeft() {
@@ -52,6 +54,14 @@ public class MarioSprite extends CharacterSprite {
 
 	public void setOnGround(boolean b) {
 		onGround = b;
+	}
+	
+	@Override
+	public void update(long elapsedTime) {
+		if(getHealth() <= 0)
+			setActive(false);
+		
+		super.update(elapsedTime);
 	}
 
 

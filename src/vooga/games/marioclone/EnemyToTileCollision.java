@@ -10,10 +10,9 @@ public class EnemyToTileCollision extends PreciseCollisionGroup {
 	@Override
 	public void collided(Sprite enemy, Sprite tile) {
 		revertPosition1();
-		enemy.setHorizontalSpeed(-enemy.getHorizontalSpeed());
 		
 		enemy.setVerticalSpeed(0);
-		
+		revertPosition1();
 
 	}
 
