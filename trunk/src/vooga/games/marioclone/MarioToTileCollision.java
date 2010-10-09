@@ -12,8 +12,8 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 	
 	@Override
 	public void collided(Sprite mario, Sprite tile) {
-		System.out.println(tile+" "+tile.getX()+" "+tile.getY());
-		System.out.println("Collision! Yay!");
+//		System.out.println(tile+" "+tile.getX()+" "+tile.getY());
+//		System.out.println("Collision! Yay!");
 		if(mario.getVerticalSpeed()>0) {
 //			mario.setY(tile.getY()-mario.getHeight()-1);
 			((MarioSprite) mario).setOnGround(true);
