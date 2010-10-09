@@ -86,9 +86,6 @@ public class Shooter extends PlayerSprite {
 		if (healthIsZero())
 			return;
 
-		setToCurrentSprite("Shoot");
-		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
-
 		fireBullets();
 	}
 	
