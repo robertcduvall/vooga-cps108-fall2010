@@ -147,7 +147,7 @@ public class GalaxyInvaders extends Game {
 			enemies.render(g);
 			scoreOverlay.render(g);
 			myFont.drawString(g, " Lives: " + ship.getLives(),  getWidth() - 200, 8);
-			myFont.drawString(g, "GAME OVER!      CLICK TO PLAY AGAIN",  getWidth()/4-50, getHeight()/2);
+			myFont.drawString(g, "GAME OVER!",  getWidth()/2-50, getHeight()/2);
 		}
 	}
 
@@ -196,14 +196,20 @@ public class GalaxyInvaders extends Game {
 			blockades.update(time);
 			enemyTorpedos.update(time);
 			scoreOverlay.update(time);
-			//		livesOverlay.update(time);
-
-			//		overlayManager.update(time);
 
 			torpedoCollider.checkCollision();
 			torpedoPlayerCollider.checkCollision();
 			itemPlayerCollider.checkCollision();
 			torpedoBlockCollider.checkCollision();
+
+			for(Sprite enemy: enemies.getSprites()) {
+				if(enemy!=null) {
+					if (isAtBorder(enemy)) {
+						state = LOST;
+						break;
+					}
+				}
+			}
 
 			if(keyDown(KeyEvent.VK_LEFT)) {
 				if(ship.getX()>0-15)  moveLeft();
@@ -299,13 +305,8 @@ public class GalaxyInvaders extends Game {
 		scoreStat.addTo(score);
 	}
 	
-	
-	private void reverseVelocity(Sprite[] enemySprites) {
-		for(Sprite s : enemySprites) {
-			if(s!=null) {
-				s.setHorizontalSpeed(s.getHorizontalSpeed()*-1);
-			}
-		}
+	private boolean isAtBorder(Sprite enemy){
+        return enemy.getY() >=  700;
 	}
 	
 	/**
