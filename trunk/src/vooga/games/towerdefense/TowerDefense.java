@@ -35,6 +35,7 @@ public class TowerDefense extends Game {
 
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
+	private static final int SECOND = 1000;
 
 	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl , gameOverPlayerCursorControl;
 	private KeyboardControl playerKeyboardControl;
@@ -54,6 +55,12 @@ public class TowerDefense extends Game {
 	private int difficulty;
 	private boolean go;
 	private Counter counter;
+	Timer hit1;
+	Timer hit2;
+	Timer hit3;
+	Timer spawn;
+	Timer gameTimer;
+	private int spawnSpeed;
 
 
 
@@ -303,12 +310,6 @@ public class TowerDefense extends Game {
 		playerKeyboardControl.addInput(KeyEvent.VK_3, "changeTowerType",
 				"vooga.games.towerdefense.PlayerCursor", "SniperTower");
 		
-		/*PlayerSprite menuPlayer = new PlayerCursor("playerMenu", "playerCursorMenu", new Sprite(), towerGroup, this, money, stateManager);
-		menuGroup.add(menuPlayer);
-		menuPlayerCursorControl = (PlayerCursorControl) startMenu
-		.addControl(new PlayerCursorControl(menuPlayer, this));
-		menuPlayerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
-		"vooga.games.towerdefense.PlayerCursor");*/
 		
 		menuGroup.add(player);
 		menuPlayerCursorControl = (PlayerCursorControl) startMenu
@@ -358,7 +359,7 @@ public class TowerDefense extends Game {
 		}
 
 		if (go) {
-			totalTime += elapsedTime;
+			/*totalTime += elapsedTime;
 			if (totalTime > 20000) {
 				enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80),
 						Utility.getRandom(1, 3), selfEsteem, score, money));
@@ -368,13 +369,57 @@ public class TowerDefense extends Game {
 				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
 						selfEsteem, score, money, enemyGroup));
 				totalTime = 0;
-			}
+			}*/
+			createEnemies(elapsedTime);
+			
+			
+			
+			
+			
+			
+			
+			
 		}else if(totalTime < 12000){
 			totalTime+=elapsedTime;
 		}else{
 			go = true;
 			playerGroup.remove(counter);
 		}
+	}
+
+	private void createEnemies(long elapsedTime) {
+		if(hit1.action(elapsedTime)){
+			enemyGroup.add(new Enemy(path, 50,
+					1, selfEsteem, score, money));
+		}
+		if(hit2.action(elapsedTime)){
+			enemyGroup.add(new Enemy(path, 80,
+					2, selfEsteem, score, money));
+		}
+		if(hit3.action(elapsedTime)){
+			enemyGroup.add(new Enemy(path, 40,
+					3, selfEsteem, score, money));
+		}if(spawn.action(elapsedTime)){
+			enemyGroup.add(new EnemySpawn(path, spawnSpeed,
+					selfEsteem, score, money, enemyGroup));
+		}if(gameTimer.action(elapsedTime)){
+			long delay = spawn.getDelay()/2;
+			if(delay<500){
+				spawn.setDelay(SECOND/2);
+			}else{
+				spawn.setDelay(delay);
+			}
+			if(delay > 5000){
+				spawnSpeed-=10;
+			}else if(delay > 2500){
+				spawnSpeed = spawnSpeed;
+			}else if(delay >501){
+				spawnSpeed+=10;
+			}else{
+				spawnSpeed-=10;
+			}
+		}
+		
 	}
 
 	@Override
@@ -445,6 +490,13 @@ public class TowerDefense extends Game {
 		Sprite menuSprite = new Sprite(ImageUtil.resize(Resources.getImage("menu"), WIDTH, HEIGHT));
 		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
 		menuGroup.add(menuSprite);
+		
+		hit1 = new Timer(SECOND * 5);
+		hit2 = new Timer(SECOND * 6);
+		hit3 = new Timer(SECOND * 7);
+		spawn = new Timer(SECOND*45);
+		gameTimer = new Timer(SECOND * 45);
+		spawnSpeed = 80;
 		
 		
 		
