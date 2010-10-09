@@ -26,17 +26,18 @@ public class Shooter extends PlayerSprite {
 		super(name, stateName, s, playerHealth, playerRank);
 		game = zombieland;
 		weapons = new Weapon[3];
+		
+		setupWeapons();	
+		
+		//Setup displays
 		health = new Stat<Integer>(playerHealth);
 		score = new Stat<Integer>(0);
 		ammo = new Stat<Integer>(getAmmo());
-		
-		setupWeapons();		
 		
 		// DEFAULT attributes
 		speed = -1;
 		orientation = 90;
 		weaponChoice = 0;
-		
 		
 	}
 	
@@ -158,7 +159,11 @@ public class Shooter extends PlayerSprite {
 	public double getOrientation() {
 		return orientation;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean healthIsZero() {
 		return (getHealth() <= 0);
 	}
