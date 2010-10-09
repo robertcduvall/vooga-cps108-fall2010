@@ -20,6 +20,9 @@
 # ...
 
 Commet,resources/commet.jpg
+Missile,resources/missile.jpg
+BG2,resources/bg2.jpg
+BUY,resources/buyMissile.jpg
 BG,resources/background.png
 Zipster,resources/zipster1.png,resources/zipster2.png
 Boomer,resources/boomer1.png,resources/boomer2.png
