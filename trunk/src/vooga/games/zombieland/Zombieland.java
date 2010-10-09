@@ -75,7 +75,7 @@ public class Zombieland extends Game {
 	private BufferedImage myHealthImage;
 
 	private ZZCollisionManager myZombieZombieManager;
-	private HZCollisionManager myHumanZombieManager;
+	private PZCollisionManager myHumanZombieManager;
 	private BZCollisionManager myBulletZombieManager;
 	private WallBoundManager myEntityWallManager;
 	private HICollisionManager myHumanItemManager;
@@ -191,7 +191,7 @@ public class Zombieland extends Game {
 //		myZombieZombieManager = new ZZCollisionManager();
 //		myPlayField.addCollisionGroup(myZombies, myZombies, myZombieZombieManager);
 
-		myHumanZombieManager = new HZCollisionManager();
+		myHumanZombieManager = new PZCollisionManager();
 		myPlayers = new SpriteGroup("Players");
 		myPlayers.add(myPlayer);
 		myPlayField.addCollisionGroup(myPlayers , myZombies, myHumanZombieManager);

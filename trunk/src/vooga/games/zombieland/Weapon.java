@@ -78,13 +78,12 @@ public abstract class Weapon {
 	}
 
 	/**
-	 * Get the weapon damage. Used for damage calculations in the game. Returns
-	 * a random damage within 10% of the weapon damage
+	 * Get the weapon damage. Used for damage calculations in the game. 
 	 * 
 	 * @return weapon damage
 	 */
 	public double getDamage() {
-		return (1 + (Math.random() * 2 - 1) * 0.1) * damage;
+		return damage;
 	}
 
 	/**
