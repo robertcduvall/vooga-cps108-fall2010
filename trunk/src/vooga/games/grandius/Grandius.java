@@ -482,7 +482,9 @@ public class Grandius extends Game{
 			 JFrame frame = new JFrame();
 			 String userInput = (String)JOptionPane.showInputDialog(frame,
 					 "Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
-			 if(userInput.equals(INVINCIBILITY))
+			 if(userInput == null)
+				 JOptionPane.showMessageDialog(frame, "Nothing Entered");
+			 else if(userInput.equals(INVINCIBILITY))
 				 infiniteLives = true;
 			 else if(userInput.equals(SKIP_LEVEL))
 				 skipLevel = true;
@@ -490,6 +492,8 @@ public class Grandius extends Game{
 				 updateStat(myScore, 1000000);
 			 else if(userInput.equals(EXTRA_CASH))
 				 updateStat(myCash, 5000);
+			 else
+				 JOptionPane.showMessageDialog(frame, "Invalid Cheat Code");
 		 }
 	 }
 
