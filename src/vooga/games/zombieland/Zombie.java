@@ -56,23 +56,26 @@ public class Zombie extends PlayerSprite {
 	}
 
 	/**
-	 * Tests to see if this zombie is closer to its target in the X direction. Used
-	 * to control movement of this zombies
+	 * Tests to see if this zombie is closer to its target in the X direction.
+	 * Used to control movement of this zombie
 	 * 
-	 * @return true if the 
+	 * @return true if the this zombie is closer to its target in the x
+	 *         direction
 	 */
 	private boolean isCloserInXDirection() {
 		return Math.abs(getX() - myTargetX) >= Math.abs(getY() - myTargetY);
 	}
-	
+
 	/**
-	 * Tests whether the zombie has a health of 0. Used to keep track of and remove zombies when they have been killed
+	 * Tests whether the zombie has a health of 0. Used to keep track of and
+	 * remove zombies when they have been killed
+	 * 
 	 * @return
 	 */
 	public boolean isHealthZero() {
 		return (getHealth() <= 0);
 	}
-	
+
 	/**
 	 * Tests to see if the myAttackDelayStep has reached the threshold defined
 	 * by myAtttackDelay. If so, the zombie is able to attack and vice versa.
@@ -83,11 +86,23 @@ public class Zombie extends PlayerSprite {
 	public boolean isAbleToAttack() {
 		return myAttackDelayStep == myAtttackDelay;
 	}
-	
+
+	/**
+	 * Get the damage of the zombie
+	 * 
+	 * @return damage of the zombie
+	 */
 	public int getDamage() {
 		return myDamage;
 	}
 
+	/**
+	 * Returns the attack direction of the zombie. Here the returned values are
+	 * predefined to be 0, 1, 2, or 3, representing Right, Up, Left, Bottom
+	 * respectively.
+	 * 
+	 * @return
+	 */
 	public int getAttackDirection() {
 		if (isCloserInXDirection()) {
 			return ((myTargetX - getX()) > 0) ? 0 : 2;
