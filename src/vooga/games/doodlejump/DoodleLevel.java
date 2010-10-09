@@ -15,9 +15,11 @@ import com.golden.gamedev.object.background.ImageBackground;
 public class DoodleLevel{
 	private ImageBackground background;
 	
-	protected SpriteGroup platformGroup, monsterGroup,
+	private SpriteGroup platformGroup, monsterGroup,
 	brownPlatformGroup, whitePlatformGroup, springGroup,
 	trampolineGroup, jetpackGroup, propellorGroup;
+	
+	private int score, nextLevel;
 
 	public DoodleLevel(Scanner fileToBeRead) {
 		platformGroup = new SpriteGroup("Platform Group");
@@ -90,7 +92,14 @@ public class DoodleLevel{
 				BufferedImage[] trampoline_images = new BufferedImage[2];
 				trampoline_images[0] = getImage("images/trampoline.png");
 				trampoline_images[1] = getImage("images/trampoline_down.png");
-				trampolineGroup.add(new AnimatedSprite(trampoline_images, 100, 530));
+				trampolineGroup.add(new AnimatedSprite(trampoline_images, x, y));
+			}
+			else if(spriteName.equals("finish_line")){
+				platformGroup.add(new Sprite(getImage("images/finish_line.png"), x, y));
+			}
+			else if(spriteName.equals("score")){
+				score = (int) x;
+				nextLevel = (int) y;
 			}
 		}
 	}
@@ -139,5 +148,13 @@ public class DoodleLevel{
 
 	public SpriteGroup getPropellorGroup() {
 		return propellorGroup;
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public int getNextLevel(){
+		return nextLevel;
 	}
 }
