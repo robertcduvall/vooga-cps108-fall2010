@@ -3,32 +3,24 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.List;
 
 import vooga.engine.core.Game;
-import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
-import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Randomizer;
 import vooga.engine.resource.RandomizerException;
 import vooga.engine.resource.Resources;
-import vooga.games.marioclone.tiles.Tile;
 
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
@@ -40,18 +32,19 @@ public class MarioClone extends Game {
 	private static final int MAIN_MENU = 0;
     private static final int GAME_PLAY = 1;
     private static final int GAME_OVER = 2;
+    private static final int GAME_WIN = 3;
     private static final int INITIAL_HP = 100;
 	private static final int NUM_ENEMIES = 5;
     private int myGameState;
-    private boolean isGameOver;
+
     
-    Background marioBackground, mainMenu, gameOver;
+    Background marioBackground, mainMenu, gameOver, gameWin;
     GameFont myGameFont;
 	KeyboardControl myControl;
 	MarioPlayField playfield;
 	MarioSprite mario;
 	OverlayStat myEnemyOverlay;
-	PlayField menu, end, paused;
+	PlayField menu, end, win;
 	SpriteGroup marioGroup, tileGroup, enemyGroup;
 	Stat<Integer> myEnemiesRemaining;
 	Stat<Integer> myHealth;
@@ -91,15 +84,16 @@ public class MarioClone extends Game {
 		marioBackground.setClip(0, 0, WIDTH, HEIGHT);
 		mainMenu = new ImageBackground(Resources.getImage("MenuBG"));
 		gameOver = new ImageBackground(Resources.getImage("GameOverBG"));
+		gameWin = new ImageBackground(Resources.getImage("GameWIN"));
 		
 		playfield = new MarioPlayField();
 		menu = new PlayField();
 		end = new PlayField();
-		paused = new PlayField();
+		win = new PlayField();
 		
 		menu.setBackground(mainMenu);
 		end.setBackground(gameOver);
-		paused.setBackground(marioBackground);
+		win.setBackground(gameWin);
 		
 		tileGroup = new SpriteGroup("Tile Group");
 		playfield.addTileMap(map);
@@ -145,10 +139,14 @@ public class MarioClone extends Game {
 	
 	@Override
 	public void update(long elapsedTime) {
-		System.out.println(myGameState);
-		mario.stop();
-		enemyGroup.removeInactiveSprites();
-		myEnemiesRemaining =  new Stat<Integer>(enemyGroup.getSize()); 
+		
+		
+		if (myEnemiesRemaining.getStat() == 0)
+			myGameState = GAME_WIN;
+		
+		if (mario.getHealth() == 0)
+			myGameState = GAME_OVER;
+		
 		if(!mario.isActive()) myGameState = GAME_OVER;
 		
 		if (myGameState == MAIN_MENU){
@@ -159,14 +157,11 @@ public class MarioClone extends Game {
     	if (myGameState == GAME_PLAY){
     		myControl.update();
         	playfield.update(elapsedTime);
-        	if (isGameOver)
-        		myGameState = GAME_OVER;
+        	mario.stop();
+    		enemyGroup.removeInactiveSprites();
+    		myEnemiesRemaining =  new Stat<Integer>(enemyGroup.getSize()); 
     	}  
 
-    	
-    	if (myGameState == GAME_OVER)
-    		if (keyPressed(KeyEvent.VK_SPACE))
-    			myGameState = MAIN_MENU;
 		
 	}
 	
@@ -187,6 +182,10 @@ public class MarioClone extends Game {
 		
 		if (myGameState == GAME_OVER){
 			end.render(g);
+		}
+		
+		if (myGameState == GAME_WIN){
+			win.render(g);
 		}
 		}
 	

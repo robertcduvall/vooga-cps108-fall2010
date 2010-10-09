@@ -6,6 +6,7 @@ Changing3,images/ChangingTile3.png
 Background,images/Background.png
 MenuBG,images/mariomenu.jpg
 GameOverBG,images/mariogameover.jpg
+GameWIN,images/youwin.jpg
 MarioR,images/mario-R.png
 MarioL,images/mario-L.png
 GameFont,images/font.png
