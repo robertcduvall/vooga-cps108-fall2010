@@ -29,7 +29,10 @@ import com.golden.gamedev.object.SpriteGroup;
 
 
 /**
- * This is an example game called Jumper that we created to demonstrate the VOOGA Game Engine
+ * This is an example game called Jumper that we created to demonstrate the VOOGA Game Engine.
+ * The purpose of the game is to move your "Doodle" around to avoid getting carried out of the top
+ * of the screen for as long as possible by using the left and right arrow keys to avoid blocks.
+ * CHEAT CODE: press "C" to automatically move your "Doodle" to the bottom of the screen
  * @author BrianSimel & CodyKolodziejzyk & DevonTownsend
  */
 
@@ -105,9 +108,9 @@ public class Jumper extends vooga.engine.core.Game {
 
 		myOverlay = new SpriteGroup("overlay");
 		myScore = new Stat<Long>((long) 0);
-		OverlayStat os = new OverlayStat("SCORE : ", myScore);
-		os.setFont(myFont);
-		myOverlay.add(os);
+		OverlayStat score = new OverlayStat("SCORE : ", myScore);
+		score.setFont(myFont);
+		myOverlay.add(score);
 		myPlayfield.addGroup(myOverlay);
 
 		myClock = new GameClock();
@@ -179,7 +182,7 @@ public class Jumper extends vooga.engine.core.Game {
 		createNewBlocks();
 		checkForKeyPress();
 		myPlayfield.update(elapsedTime);
-
+		
 		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
 		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
 		myBlockYVelocity -= BLOCK_YVELOCITY_INCREASE_RATE;
@@ -228,6 +231,10 @@ public class Jumper extends vooga.engine.core.Game {
 		}
 		if (keyDown(KeyEvent.VK_LEFT)){
 			player.goLeft();
+		}
+		
+		if (keyDown(KeyEvent.VK_C)){
+			player.setY(GAME_HEIGHT - player.getHeight());
 		}
 
 	}

@@ -108,5 +108,4 @@ public class DoodleSprite extends Sprite {
 		setImage(myLeftImage);
 		addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
 	}
-
 }
