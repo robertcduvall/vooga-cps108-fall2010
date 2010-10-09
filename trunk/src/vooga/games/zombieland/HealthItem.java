@@ -15,7 +15,8 @@ public class HealthItem extends Item {
 	}
 
 	public void act() {
-		getPlayer().updateHealth(bonusHealth);
+		getPlayer().updateStatHealth(bonusHealth);
+		
 	}
 
 }

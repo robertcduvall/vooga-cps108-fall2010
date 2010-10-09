@@ -25,7 +25,7 @@ public class Zombie extends PlayerSprite {
 
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-			Shooter hero, Zombieland zombieland) {
+			Shooter hero, Zombieland zombieland, int health, int damage) {
 		super(name, stateName, down);
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
@@ -36,8 +36,8 @@ public class Zombie extends PlayerSprite {
 		directionToMove = "X";
 		speed = -0.25;
 
-		setHealth(25);
-		setDamage(5);
+		setHealth(health);
+		setDamage(damage);
 		resetAttackDelayStep();
 
 		game = zombieland;

@@ -31,6 +31,7 @@ public class WeaponItem extends Item {
 	 */
 	public void act() {
 		getPlayer().addAmmo(weaponID, bonusAmmo);
+		getPlayer().setAmmo();
 	}
 
 }

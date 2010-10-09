@@ -21,6 +21,7 @@ public class Shooter extends PlayerSprite {
 	private Stat<Integer> health;
 	private Stat<Integer> score;
 	private Stat<Integer> ammo;
+	private int levelScore;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
@@ -39,6 +40,7 @@ public class Shooter extends PlayerSprite {
 		speed = -1;
 		orientation = 90;
 		weaponChoice = 0;
+		levelScore = 0;
 
 	}
 
@@ -107,7 +109,7 @@ public class Shooter extends PlayerSprite {
 	public void switchWeapons(int choice) {
 		if (choice <= 3)
 			weaponChoice = choice;
-		ammo.setStat(weapons[weaponChoice].getAmmo());
+		setAmmo();
 	}
 
 	/**
@@ -125,6 +127,10 @@ public class Shooter extends PlayerSprite {
 	 */
 	private void fireWeapon() {
 		weapons[weaponChoice].fire();
+		setAmmo();
+	}
+
+	public void setAmmo() {
 		ammo.setStat(weapons[weaponChoice].getAmmo());
 	}
 
@@ -209,12 +215,21 @@ public class Shooter extends PlayerSprite {
 	public Stat<Integer> getStatScore() {
 		return score;
 	}
-
+	
+	public void resetLevelScore(){
+		levelScore = 0;
+	}
+	
+	public int getLevelScore(){
+		return levelScore;
+	}
+	
 	/**
 	 * update score
 	 */
 	public void updateScore(int number) {
 		super.updateScore(number);
+		levelScore+=number;
 		score.setStat(getScore());
 	}
 
