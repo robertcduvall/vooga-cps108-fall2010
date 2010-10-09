@@ -27,6 +27,7 @@ import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 
 import vooga.engine.overlay.*;
+import vooga.games.grandius.collisions.MissileBossCollision;
 import vooga.games.grandius.collisions.MissileEnemyCollision;
 import vooga.games.grandius.collisions.PlayerEnemyCollision;
 import vooga.games.grandius.collisions.PlayerZipsterLaserCollision;
@@ -69,6 +70,7 @@ public class Grandius extends Game{
         private ProjectileBossPartCollision projectileBossPartCollision;
         private PlayerZipsterLaserCollision playerZipsterLaserCollision;
         private MissileEnemyCollision missileEnemyCollision;
+        private MissileBossCollision missileBossCollision;
 
         
         private OverlayStatImage livesIcon;
@@ -127,7 +129,7 @@ public class Grandius extends Game{
                  myPlayfield = new PlayField();
                  addOverlays();
                  
-                 //TODO Scrolling background
+                 
                  myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
                  myPlayfield.setBackground(myBackground);
 
@@ -160,15 +162,16 @@ public class Grandius extends Game{
                  projectileBossPartCollision = new ProjectileBossPartCollision(this);
                  playerZipsterLaserCollision = new PlayerZipsterLaserCollision(this);
                  missileEnemyCollision = new MissileEnemyCollision(this);
+                 missileBossCollision = new MissileBossCollision(this);
                  // register collisions to playfield
                  myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, collision);
                  myPlayfield.addCollisionGroup(PROJECTILE_GROUP, ENEMY_GROUP, projectileEnemyCollision);
                  myPlayfield.addCollisionGroup(PROJECTILE_GROUP, BOSS_PART_GROUP, projectileBossPartCollision);
                  myPlayfield.addCollisionGroup(PLAYER_GROUP, ZIPSTER_LASER_GROUP, playerZipsterLaserCollision);
                  myPlayfield.addCollisionGroup(MISSILE_GROUP, ENEMY_GROUP, missileEnemyCollision);
-                 //myPlayfield.addCollisionGroup(MISSILE_GROUP, BOSS_PART_GROUP, missileBossCollision);
+                 myPlayfield.addCollisionGroup(MISSILE_GROUP, BOSS_PART_GROUP, missileBossCollision);
                               
-                 //TODO - 
+                 
                                font = fontManager.getFont(getImages("resources/font.png", 20, 3),
                                                " !            .,0123" +
                                                "456789:   -? ABCDEFG" +
@@ -253,7 +256,6 @@ public class Grandius extends Game{
                                  try {
                                                 GameClock.start();
                                         } catch (GameClockException e) {
-                                                // TODO Auto-generated catch block
                                                 e.printStackTrace();
                                         }
                          }
@@ -303,7 +305,6 @@ public class Grandius extends Game{
                          try {
                                 GameClock.reset();
                         } catch (GameClockException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                         }
                          ArrayList<ArrayList<Sprite>> nextLevel = levelManager.nextLevel();
@@ -357,7 +358,6 @@ public class Grandius extends Game{
          }
 
          private void updatePlayerSpeed() {
-                 // TODO avoid repeated code here
                  playersprite.setHorizontalSpeed(0);
                  playersprite.setVerticalSpeed(0);
                  for (Sprite as: ENEMY_GROUP.getSprites()) {
