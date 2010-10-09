@@ -10,7 +10,6 @@ public class HealthItem extends Item {
 	}
 	public void act() {
 		getPlayer().updateHealth(bonusHealth);
-//		this.setActive(false);
 	}
 
 }
