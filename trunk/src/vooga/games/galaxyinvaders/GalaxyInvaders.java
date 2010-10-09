@@ -203,6 +203,10 @@ public class GalaxyInvaders extends Game {
 			if(ship.getLives()<=0) {
 				state = LOST;
 			}
+			
+			if(keyPressed(KeyEvent.VK_T)) {
+				enemies.clear();
+			}
 		}
 
 		if(state == LOST) {
