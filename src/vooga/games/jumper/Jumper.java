@@ -32,7 +32,7 @@ import com.golden.gamedev.object.SpriteGroup;
  * This is an example game called Jumper that we created to demonstrate the VOOGA Game Engine.
  * The purpose of the game is to move your "Doodle" around to avoid getting carried out of the top
  * of the screen for as long as possible by using the left and right arrow keys to avoid blocks.
- * CHEAT CODE: press "C" to automatically move your "Doodle" to the bottom of the screen
+ * CHEAT CODE: press "C" to move your "Doodle" to the bottom of the screen
  * @author BrianSimel & CodyKolodziejzyk & DevonTownsend
  */
 
