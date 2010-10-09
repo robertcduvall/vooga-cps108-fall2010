@@ -100,6 +100,10 @@ public class OverlayString extends Overlay {
 		}
 	}
 	
+	public void setString(String str){
+		myString = str;
+	}
+	
 	public void setFont(GameFont font){
 		myFont = font;
 		myRealFont = null;

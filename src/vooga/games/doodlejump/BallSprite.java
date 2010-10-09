@@ -20,5 +20,7 @@ public class BallSprite extends GameEntitySprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+		if(getY() < 0)
+			setActive(false);
 	}
 }
