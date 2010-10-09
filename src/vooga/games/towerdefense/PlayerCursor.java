@@ -29,7 +29,6 @@ public class PlayerCursor extends PlayerSprite {
 	private NonSetGameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
-	private boolean build;
 
 	public PlayerCursor(String name, String stateName, Sprite s,
 			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance,NonSetGameStateManager states) {
@@ -39,7 +38,6 @@ public class PlayerCursor extends PlayerSprite {
 		creditBalance = balance;
 		changeTowerType("NormalTower");
 		stateManager = states;
-		build = false;
 	}
 
 	public void changeTowerType(String newTowerType) {
@@ -77,25 +75,38 @@ public class PlayerCursor extends PlayerSprite {
 
 	public void onClick() {
 		if(myGame.play.isActive()){
-			if(build){
-				buildTower();
-			}else{
-				build = true;
-			}
+			buildTower();
 			switchTower();
 		}else if(myGame.startMenu.isActive()){
 			menuAction();
+		}else if(myGame.gameOver.isActive()){
+			gameOverActions();
 		}
 	}
 	
+	private void gameOverActions() {
+		if(checkButtons(129,370,283,432)){
+			stateManager.switchTo(myGame.startMenu);
+		}
+		else if(checkButtons(585,367,707,431)){
+			myGame.finish();
+		}
+	}
+
 	private void menuAction(){
 		if(checkButtons(107,314,241,385)){
+			myGame.setDifficulty(0);
+			myGame.begin();
 			stateManager.switchTo(myGame.play);
 		}
 		else if(checkButtons(400,311,577,391)){
+			myGame.setDifficulty(1);
+			myGame.begin();
 			stateManager.switchTo(myGame.play);
 		}
 		else if(checkButtons(724,304,881,398)){
+			myGame.setDifficulty(2);
+			myGame.begin();
 			stateManager.switchTo(myGame.play);
 		}
 		
@@ -208,5 +219,6 @@ public class PlayerCursor extends PlayerSprite {
 	private boolean inPlayArea(){
 		return getX()<PLAY_AREA_WIDTH;
 	}
+	
 
 }
