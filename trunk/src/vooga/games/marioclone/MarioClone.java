@@ -47,10 +47,10 @@ public class MarioClone extends Game {
 	KeyboardControl myControl;
 	MarioPlayField playfield;
 	MarioSprite mario;
-	OverlayStat myScoreOverlay;
+	OverlayStat myEnemyOverlay;
 	PlayField menu, end, paused;
 	SpriteGroup marioGroup, tileGroup, enemyGroup;
-	Stat<Integer> myScore;
+	Stat<Integer> myEnemiesRemaining;
 	Stat<Integer> myHealth;
 	
 	public static void main(String[] args)  throws IOException {
@@ -66,12 +66,7 @@ public class MarioClone extends Game {
 
 		 
 		myGameState = MAIN_MENU;
-		myHealth = new Stat<Integer>(new Integer(INITIAL_HP));
-		myScore = new Stat<Integer>(new Integer(0));
-
-		myScoreOverlay = new OverlayStat("Score", myScore);
-		myScoreOverlay.setLocation(WIDTH - 1000, 5);
-
+		
 	
 		
 		// Code and image lovingly borrowed from Grandius group - thanks guys!
@@ -127,14 +122,24 @@ public class MarioClone extends Game {
 		playfield.addCollisionGroup(enemyGroup, playfield.getTileMap().getTileGroup(), new EnemyToTileCollision());
 		playfield.addCollisionGroup(marioGroup, enemyGroup, new MarioToEnemyCollision());
 		
-		playfield.add(myScoreOverlay);
+		
+		myHealth = new Stat<Integer>(new Integer(INITIAL_HP));
+		myEnemiesRemaining = new Stat<Integer>(new Integer(enemyGroup.getSize()));
+
+		myEnemyOverlay = new OverlayStat("Enemies Remaining: ", myEnemiesRemaining);
+		myEnemyOverlay.setLocation(WIDTH - 1000, 5);
+
+		playfield.add(myEnemyOverlay);
 	}
+	
 	
 	
 	@Override
 	public void update(long elapsedTime) {
 		System.out.println(myGameState);
 		mario.stop();
+		enemyGroup.removeInactiveSprites();
+		myEnemiesRemaining =  new Stat<Integer>(enemyGroup.getSize()); 
 		if(!mario.isActive()) myGameState = GAME_OVER;
 		
 		if (myGameState == MAIN_MENU){
