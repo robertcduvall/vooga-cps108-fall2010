@@ -29,7 +29,7 @@ public class BZCollisionManager extends PreciseCollisionGroup{
 		
 		currentZombie.updateHealth(damage);
 		
-		if(currentZombie.healthIsZero())
+		if(currentZombie.isHealthZero())
 		{
 			currentZombie.setHealth(0);
 			currentZombie.setToCurrentSprite("ZombieDeath");
