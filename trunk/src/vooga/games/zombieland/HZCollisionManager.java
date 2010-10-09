@@ -1,6 +1,5 @@
 package vooga.games.zombieland;
 
-import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
@@ -21,17 +20,16 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 		Zombie currentZombie = (Zombie) zombie;
 		Shooter currentPlayer = (Shooter) human;
 
-		if(currentZombie.healthIsZero()) return;
-
-		if(!currentZombie.isAbleToAttack())
+		if(currentZombie.isAbleToAttack())
 		{
-			currentZombie.updateAttactStep();
-			return;
+			currentZombie.resetAttackDelayStep();
+			currentPlayer.updateStatHealth(-currentZombie.getDamage());
 		}
+		else
+			currentZombie.updateAttactStep();
+		
 
-		currentZombie.resetAttackDelayStep();
-
-		int collisionSide = getCollisionSide();
+		int collisionSide= (int) (((Zombie)zombie).getAttackDirection());
 
 		collisionSideEffect(collisionSide, currentZombie, currentPlayer);
 
@@ -41,20 +39,17 @@ public class HZCollisionManager extends PreciseCollisionGroup{
 	private void collisionSideEffect(int collisionSide, Zombie currentZombie,
 			Shooter currentPlayer) {
 		int zombiedamage = - currentZombie.getDamage();
-		currentPlayer.updateStatHealth(zombiedamage);
-		
-		if( collisionSide == LEFT_RIGHT_COLLISION)
-			currentZombie.attackFrom("AttackFromRight");
-			
-		if( collisionSide == RIGHT_LEFT_COLLISION)
-			currentZombie.attackFrom("AttackFromLeft");
-			
-		if( collisionSide == TOP_BOTTOM_COLLISION) 
-			currentZombie.attackFrom("AttackFromBelow");
-		
-		if( collisionSide == BOTTOM_TOP_COLLISION)
-			currentZombie.attackFrom("AttackFromAbove");
-		
+
+		switch (collisionSide) {
+		case 0:
+			currentZombie.attackFrom("AttackRight");break;
+		case 1:
+			currentZombie.attackFrom("AttackUp");break;
+		case 2:
+			currentZombie.attackFrom("AttackLeft");break;
+		case 3:
+			currentZombie.attackFrom("AttackDown");break;
+		}
 	}
 
 
