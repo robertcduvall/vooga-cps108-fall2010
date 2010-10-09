@@ -99,11 +99,11 @@ public class Bullet extends GameEntitySprite {
 	}
 
 	/**
-	 * 
+	 * Get the damage of this bullet. Returns a random damage within 10% of the weapon damage
 	 * @return damage of the current bullet
 	 */
 	public double getDamage() {
-		return myDamage;
+		return (1 + (Math.random() * 2 - 1) * 0.1) * myDamage;
 	}
 
 	/**
