@@ -30,7 +30,13 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.doodlejump.DoodleState;
-
+/**
+ * This is the main class of the game.  It creates the different states of the games, and loads all the sprites used in the game.
+ * 
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
 public class TowerDefense extends Game {
 
 	public static final int WIDTH = 1050;
@@ -205,7 +211,7 @@ public class TowerDefense extends Game {
 		normalTower.setLocation(880, 260);
 		
 		OverlayString fast = new OverlayString("FAST TOWER");
-		OverlayString fastCost = new OverlayString("COST 300 DOLLARS");
+		OverlayString fastCost = new OverlayString("COST 250 DOLLARS");
 		fast.setFont(fontGreen);
 		fast.setLocation(800, 320);
 		fastCost.setFont(fontGreen);
