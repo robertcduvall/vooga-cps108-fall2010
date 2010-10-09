@@ -90,7 +90,14 @@ public class Zombieland extends Game {
 	private OverlayStat overlayScoreString;
 	private OverlayString overlayGameOverString;
 	private OverlayStat overlayAmmoString;
-
+	private OverlayStat overlayLevelString;
+	
+	private Stat<Integer> statLevel;
+	private int level;
+	private int zombiesAppeared;
+	private final static int ZOMBIES_PER_LEVEL = 25;
+	private int playerLevelScore;
+	
 	public void initResources() {
 		// RESOURCES
 
@@ -161,7 +168,7 @@ public class Zombieland extends Game {
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
-		player = new Shooter("Hero", "Down", shooterImage, 100, 0, this);
+		player = new Shooter("Hero", "Down", shooterImage, 1000, 0, this);
 		player.mapNameToSprite("Up",
 				getInitializedAnimatedSprite(playerUpImage));
 		player.mapNameToSprite("Left",
@@ -171,6 +178,8 @@ public class Zombieland extends Game {
 		player.mapNameToSprite("Down",
 				getInitializedAnimatedSprite(playerDownImage));
 
+		statLevel = new Stat<Integer>(level);		
+		
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(5, 10);
 		overlayHealthBar = new OverlayBar(player.getStatHealth(), 100);
@@ -181,6 +190,9 @@ public class Zombieland extends Game {
 		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
 		overlayAmmoString.setLocation(470, 12);
+		overlayLevelString = new OverlayStat("Level ", statLevel);
+		overlayLevelString.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
+		overlayLevelString.setActive(false);
 
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
@@ -193,6 +205,7 @@ public class Zombieland extends Game {
 		playField.addGroup(zombies);
 		playField.addGroup(bullets);
 		playField.addGroup(items);
+		playField.add(overlayLevelString);
 		playField.setBackground(background);
 		setListeners();
 
@@ -214,6 +227,8 @@ public class Zombieland extends Game {
 		humanItemManager = new HICollisionManager();
 		playField.addCollisionGroup(players, items, humanItemManager);
 
+		level = 1;
+		zombiesAppeared = 0;
 	}
 
 	/**
@@ -230,22 +245,54 @@ public class Zombieland extends Game {
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
 		items.update(elapsedTime);
-
-		if (timer.action(elapsedTime)) {
-			addZombie();
+		if (zombiesAppeared < ZOMBIES_PER_LEVEL*level*0.8){
+			if (timer.action(elapsedTime)) {
+				addZombie();
+			}
 		}
-
+		else if (player.getLevelScore() == zombiesAppeared){
+			statLevel.setStat(level+1);
+			overlayLevelString.update(elapsedTime);
+			overlayLevelString.setActive(true);
+			playField.update(elapsedTime);
+			if (timer.action(elapsedTime)){
+				zombiesAppeared = 0;
+				level++;
+				player.resetLevelScore();
+				overlayLevelString.setActive(false);
+			}
+		}
 	}
 
 	/**
 	 * Add a zombie to the world. The position is randomly picked.
 	 */
 	public void addZombie() {
+		
+		int health = 0;
+		int damage = 0;
+		if (level < 5){
+			health = 25;
+			damage = 5;
+		}
+		else if (level < 10) {
+			health = 50;
+			damage = 6;
+		}
+		else if (level < 15) {
+			health = 75;
+			damage = 7;
+		}
+		else{
+			health = 100;
+			damage = 10;
+		}
+
 		Zombie newZombie = new Zombie("New", "Moving",
 				getInitializedAnimatedSprite(zombieDownImage),
 				getInitializedAnimatedSprite(zombieUpImage),
 				getInitializedAnimatedSprite(zombieLeftImage),
-				getInitializedAnimatedSprite(zombieRightImage), player, this);
+				getInitializedAnimatedSprite(zombieRightImage), player, this, health, damage);
 
 		newZombie.mapNameToSprite("AttackLeft",
 				getInitializedAnimatedSprite(zombieAttackLeftImage));
@@ -262,7 +309,9 @@ public class Zombieland extends Game {
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
 
+		zombiesAppeared++;
 		zombies.add(newZombie);
+		
 	}
 
 	/**
@@ -393,6 +442,9 @@ public class Zombieland extends Game {
 		overlayScoreString.render(g);
 		overlayAmmoString.render(g);
 
+		if (overlayLevelString.isActive()){
+			overlayLevelString.render(g);
+		}
 		if (gameOver()) {
 			renderGameOver(g);
 		}
