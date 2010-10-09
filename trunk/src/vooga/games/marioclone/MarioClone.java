@@ -40,16 +40,17 @@ public class MarioClone extends Game {
     private int myGameState;
 
     
-    Background marioBackground, mainMenu, gameOver, gameWin;
-    GameFont myGameFont;
-	KeyboardControl myControl;
-	MarioPlayField playfield;
-	MarioSprite mario;
-	OverlayStat myEnemyOverlay;
-	PlayField menu, end, win;
-	SpriteGroup marioGroup, tileGroup, enemyGroup;
-	Stat<Integer> myEnemiesRemaining;
-	Stat<Integer> myHealth;
+    private Background marioBackground, mainMenu, gameOver, gameWin;
+    private GameFont myGameFont;
+	private KeyboardControl myControl;
+	private MarioPlayField playfield;
+	private MarioSprite mario;
+	private OverlayStat myEnemyOverlay;
+	private PlayField menu, end, win;
+	private SpriteGroup marioGroup, tileGroup, enemyGroup;
+	private Stat<Integer> myEnemiesRemaining;
+	private Stat<Integer> myHealth;
+	private Timer timer;
 	
 	
 	public static void main(String[] args)  throws IOException {
