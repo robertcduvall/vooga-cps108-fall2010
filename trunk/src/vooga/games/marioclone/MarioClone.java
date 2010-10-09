@@ -90,7 +90,7 @@ public class MarioClone extends Game {
 		
 		marioGroup = new SpriteGroup("Mario Group");
 		mario = new MarioSprite("mario","regular",Resources.getImage("MarioR"),Resources.getImage("MarioL"));
-		mario.setLocation(40, 400);
+		mario.setLocation(150, 290);
 		marioGroup.add(mario);
 		playfield.addGroup(marioGroup);
 		
@@ -106,6 +106,7 @@ public class MarioClone extends Game {
 	@Override
 	public void update(long elapsedTime) {
 		System.out.println(myGameState);
+		mario.stop();
 		
 		// Start of the game - main menu screen
 		if (myGameState == MAIN_MENU){

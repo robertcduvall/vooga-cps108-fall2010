@@ -17,6 +17,7 @@ public class MarioSprite extends PlayerSprite {
 	double friction = .05;
 	double dX = 5;
 	double jumpSpeed = 1;
+	double speed=.5;
 
 	boolean onGround;
 	
@@ -32,7 +33,7 @@ public class MarioSprite extends PlayerSprite {
 
 	public void moveRight() {
 		if (isOnScreen()) {
-			setX(getX()+dX);
+			setHorizontalSpeed(speed);
 		} else {
 			setX(0);
 		}
@@ -41,7 +42,7 @@ public class MarioSprite extends PlayerSprite {
 
 	public void moveLeft() {
 		if (isOnScreen()) {
-			setX(getX()-dX);
+			setHorizontalSpeed(-speed);
 		} else {
 			setX(0);
 		}
@@ -66,6 +67,10 @@ public class MarioSprite extends PlayerSprite {
 		} else {
 			setY(0);
 		}
+	}
+	
+	public void stop() {
+		setHorizontalSpeed(0);
 	}
 
 	public void setOnGround(boolean b) {
