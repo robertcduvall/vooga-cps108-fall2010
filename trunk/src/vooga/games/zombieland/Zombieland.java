@@ -13,12 +13,10 @@ import vooga.engine.player.control.KeyboardControl;
 
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
-import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
-import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.util.ImageUtil;
 
@@ -40,8 +38,6 @@ public class Zombieland extends Game {
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
-	private static double defaultX = 100;
-	private static double defaultY = 100;
 	private static long defaultAnimationDelay = 300;
 
 	private AnimatedSprite shooterImage;
@@ -79,7 +75,7 @@ public class Zombieland extends Game {
 	private BufferedImage assaultRifleImage;
 	private BufferedImage healthImage;
 
-	private ZZCollisionManager zombieZombieManager;
+//	private ZZCollisionManager zombieZombieManager;
 	private PZCollisionManager playerZombieManager;
 	private BZCollisionManager bulletZombieManager;
 	private WallBoundManager entityWallManager;
@@ -96,7 +92,8 @@ public class Zombieland extends Game {
 	private int level;
 	private int zombiesAppeared;
 	private final static int ZOMBIES_PER_LEVEL = 25;
-	private int playerLevelScore;
+	private int zombieHealth;
+	private int zombieDamage;
 	
 	public void initResources() {
 		// RESOURCES
@@ -229,6 +226,8 @@ public class Zombieland extends Game {
 
 		level = 1;
 		zombiesAppeared = 0;
+		zombieHealth = 25;
+		zombieDamage = 5;
 	}
 
 	/**
@@ -245,7 +244,7 @@ public class Zombieland extends Game {
 		zombies.update(elapsedTime);
 		bullets.update(elapsedTime);
 		items.update(elapsedTime);
-		if (zombiesAppeared < ZOMBIES_PER_LEVEL*level*0.8){
+		if (zombiesAppeared < ZOMBIES_PER_LEVEL*level*0.5){
 			if (timer.action(elapsedTime)) {
 				addZombie();
 			}
@@ -256,6 +255,9 @@ public class Zombieland extends Game {
 			overlayLevelString.setActive(true);
 			playField.update(elapsedTime);
 			if (timer.action(elapsedTime)){
+				timer.setDelay((long) (2000/level*1.5));
+				zombieHealth = (int) (zombieHealth*level/1.5);
+				zombieDamage = (int) (zombieDamage+level/1.5);
 				zombiesAppeared = 0;
 				level++;
 				player.resetLevelScore();
@@ -265,34 +267,16 @@ public class Zombieland extends Game {
 	}
 
 	/**
-	 * Add a zombie to the world. The position is randomly picked.
+	 * Add a zombie to the world. The position is randomly picked. The health and damage
+	 * will increase every level.
 	 */
 	public void addZombie() {
 		
-		int health = 0;
-		int damage = 0;
-		if (level < 5){
-			health = 25;
-			damage = 5;
-		}
-		else if (level < 10) {
-			health = 50;
-			damage = 6;
-		}
-		else if (level < 15) {
-			health = 75;
-			damage = 7;
-		}
-		else{
-			health = 100;
-			damage = 10;
-		}
-
 		Zombie newZombie = new Zombie("New", "Moving",
 				getInitializedAnimatedSprite(zombieDownImage),
 				getInitializedAnimatedSprite(zombieUpImage),
 				getInitializedAnimatedSprite(zombieLeftImage),
-				getInitializedAnimatedSprite(zombieRightImage), player, this, health, damage);
+				getInitializedAnimatedSprite(zombieRightImage), player, this, zombieHealth, zombieDamage);
 
 		newZombie.mapNameToSprite("AttackLeft",
 				getInitializedAnimatedSprite(zombieAttackLeftImage));

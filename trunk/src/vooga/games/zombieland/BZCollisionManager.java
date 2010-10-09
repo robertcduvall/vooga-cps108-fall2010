@@ -2,7 +2,6 @@ package vooga.games.zombieland;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 /**
