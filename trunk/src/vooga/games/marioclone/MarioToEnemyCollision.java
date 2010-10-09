@@ -14,13 +14,14 @@ public class MarioToEnemyCollision extends PreciseCollisionGroup {
 		long thiscollision = System.currentTimeMillis();
 		if(thiscollision-lastcollision > 200) {
 			if(getCollisionSide() == BOTTOM_TOP_COLLISION || mario.getVerticalSpeed()>0){
-				((PlayerSprite) enemy).setHealth(((PlayerSprite) enemy).getHealth()-10);
-				((MarioSprite) mario).jump();
+				((PlayerSprite) enemy).setHealth(((PlayerSprite) enemy).getHealth()-40);
+				((MarioSprite) mario).jump(true);
 			}
 			else {
 				((PlayerSprite) mario).setHealth(((PlayerSprite) mario).getHealth()-10);
 				((Enemy) enemy).bounce();
 			}
+			mario.setHorizontalSpeed(0);
 			lastcollision = thiscollision;
 		}
 	}

@@ -36,15 +36,19 @@ public class MarioSprite extends CharacterSprite {
 		setNewImage(leftImage);
 	}
 
-	public void jump() {
+	public void jump(boolean force) {
 		if (isOnScreen()) {
-			if (onGround) {
+			if (onGround || force) {
 				setVerticalSpeed(-jumpSpeed);
 				onGround = false;
 			}
 		} else {
 			setY(0);
 		}
+	}
+	
+	public void jumpCmd() {
+		jump(false);
 	}
 
 	
@@ -62,6 +66,10 @@ public class MarioSprite extends CharacterSprite {
 			setActive(false);
 		
 		super.update(elapsedTime);
+		
+		if(getX()<0) {
+			setX(0);
+		}
 	}
 
 
