@@ -35,7 +35,7 @@ public class MarioClone extends Game {
     private static final int GAME_OVER = 2;
     private static final int GAME_WIN = 3;
     private static final int INITIAL_HP = 100;
-	private static final int FREQ_ENEMIES = 10000;  //frequency of enemy appearance in ms
+	private static final int FREQ_ENEMIES = 5000;  //frequency of enemy appearance in ms
 	private static final int NUM_ENEMIES = 1; //number of new enemies appearing at a time
     private int myGameState;
 
@@ -157,8 +157,7 @@ public class MarioClone extends Game {
 			myGameState = GAME_OVER;
 		}
 		
-		myEnemyOverlay.update(elapsedTime);
-		System.out.println(enemyGroup.getSize());
+		if(!mario.isActive()) myGameState = GAME_OVER;
 		
 		if (myGameState == MAIN_MENU){
 			if (keyPressed(KeyEvent.VK_SPACE))
@@ -170,7 +169,7 @@ public class MarioClone extends Game {
         	playfield.update(elapsedTime);
         	mario.stop();
     		enemyGroup.removeInactiveSprites();
-    		myEnemiesRemaining =  new Stat<Integer>(enemyGroup.getSize()); 
+    		myEnemiesRemaining.setStat(enemyGroup.getSize()); 
     	}  
 
     	
