@@ -21,7 +21,7 @@ overwhelmed, they are given the option to quit or go back to main menu
 and play again.
 
 API Use:
-Tower Defense makes use of the Resource, Game State, Player Contol, and Static 
+Tower Defense makes use of the Resource, Game State, Player Contol, and
 Overlay APIs. 
 
 The Resource API simplifies the loading of images. Formerly, only 
@@ -44,7 +44,7 @@ controller classes which control the player in our game would be merged into one
 However due to time contraints we simply used two predefined controllers which is 
 fucntional.
 
-The Static Overlay API is used for automating the display of critical information to 
+The Overlay API is used for automating the display of critical information to 
 the user. It capabilities were extended to also allow for static overlays which are 
 themselves interactable, in this case clickable overlays for each available tower.
 

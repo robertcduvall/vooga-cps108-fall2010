@@ -32,7 +32,7 @@ import vooga.games.doodlejump.DoodleState;
 /**
  * Tester class for testing modifications of the actual main class TowerDefense.
  * Not to be used during actual gameplay.
- * @author Justin Goldsmith
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class TowerDefenseTemp extends Game {

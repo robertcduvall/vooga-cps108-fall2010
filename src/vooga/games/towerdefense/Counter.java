@@ -11,7 +11,7 @@ import com.golden.gamedev.util.ImageUtil;
 /**
  * Counter displays the images for a countdown to the start of the game
  * 
- * @author Derek Zhou
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  */
 
 public class Counter extends Sprite{
