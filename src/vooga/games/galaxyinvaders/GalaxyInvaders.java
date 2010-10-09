@@ -37,9 +37,13 @@ public class GalaxyInvaders extends Game {
 	private SpriteGroup enemyTorpedos;
 	private SpriteGroup enemies;
 	private SpriteGroup players;
+	private SpriteGroup items;
+	private SpriteGroup blockades;
 	private EventManager event;
 	private CollisionManager torpedoCollider;
 	private CollisionManager torpedoPlayerCollider;
+	private CollisionManager itemPlayerCollider;
+	private CollisionManager torpedoBlockCollider;
 	private StatInt scoreStat;
 	private int state;
 //	private StatInt livesStat;
@@ -58,9 +62,11 @@ public class GalaxyInvaders extends Game {
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(getImage("img/ship.gif"), getWidth()/2, getHeight()-100));
 		ship.setLives(LIVES);
+		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
 		enemies = new SpriteGroup("enemies");
 		players = new SpriteGroup("players");
+		blockades = new SpriteGroup("blockades");
 		//		overlayManager = new OverlayManager(this, 20, 20);
 		scoreStat = new StatInt(0);
 		//		livesStat = new StatInt(5);
@@ -75,6 +81,7 @@ public class GalaxyInvaders extends Game {
 			e.printStackTrace();
 		}
 		initEnemies();
+		initBlocks();
 		event = new EventManager();
 		players.add(ship);
 		enemyTorpedos = new SpriteGroup("enemyTorpedos");
@@ -82,6 +89,10 @@ public class GalaxyInvaders extends Game {
 		torpedoCollider.setCollisionGroup(torpedos, enemies);
 		torpedoPlayerCollider = new TorpedoPlayerCollider(this);
 		torpedoPlayerCollider.setCollisionGroup(enemyTorpedos, players);
+		itemPlayerCollider = new ItemPlayerCollider();
+		itemPlayerCollider.setCollisionGroup(items, players);
+		torpedoBlockCollider = new TorpedoBlockCollider();
+		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
 	}
 	
 	public void initEnemies() {	
@@ -93,14 +104,22 @@ public class GalaxyInvaders extends Game {
         }    
 	}
 
+	public void initBlocks() {
+		for(int i = 100; i<getWidth(); i+=200) {
+			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(getImage("img/barrier.png"), i, 600));
+			blockades.add(b);
+		}
+	}
 	public void render(Graphics2D g) {
 		if(state == PLAY) {
 			bg.render(g);
 			ship.render(g);
 			enemies.render(g);
+			items.render(g);
 			torpedos.render(g);
 			enemyTorpedos.render(g);
 			scoreOverlay.render(g);
+			blockades.render(g);
 			
 	        myFont.drawString(g, " Lives: " + ship.getLives(),  getWidth() - 200, 8);
 //			livesOverlay.render(g);
@@ -113,7 +132,7 @@ public class GalaxyInvaders extends Game {
 			enemies.render(g);
 			scoreOverlay.render(g);
 			myFont.drawString(g, " Lives: " + ship.getLives(),  getWidth() - 200, 8);
-			myFont.drawString(g, "YOU LOST!             CLICK TO PLAY AGAIN",  getWidth()/4-50, getHeight()/2);
+			myFont.drawString(g, "GAME OVER!      CLICK TO PLAY AGAIN",  getWidth()/4-50, getHeight()/2);
 		}
 	}
 
@@ -130,11 +149,25 @@ public class GalaxyInvaders extends Game {
 			if(bombSeed>994) {
 				spawnEnemyBomb();
 			}
+			
+			int itemSeed;
+			try {
+				itemSeed = Randomizer.nextInt(1000);
+			} catch (RandomizerException e) {
+				e.printStackTrace();
+				itemSeed = 0;
+			}
+
+			if(itemSeed>997) {
+				spawnHealth();
+			}
 
 			bg.update(time);
 			ship.update(time);
 			enemies.update(time);
 			torpedos.update(time);
+			items.update(time);
+			blockades.update(time);
 			enemyTorpedos.update(time);
 			scoreOverlay.update(time);
 			//		livesOverlay.update(time);
@@ -143,6 +176,8 @@ public class GalaxyInvaders extends Game {
 
 			torpedoCollider.checkCollision();
 			torpedoPlayerCollider.checkCollision();
+			itemPlayerCollider.checkCollision();
+			torpedoBlockCollider.checkCollision();
 
 			if(keyDown(KeyEvent.VK_LEFT)) {
 				if(ship.getX()>0-15)  moveLeft();
@@ -156,8 +191,13 @@ public class GalaxyInvaders extends Game {
 
 
 			if(enemies.getSize()==0) {
-				levels.nextLevel();
-				initEnemies();
+				if(levels.getLevel()<3) {
+					levels.nextLevel();
+					initEnemies();
+				}
+				else {
+					state = LOST;
+				}
 			}
 
 			if(ship.getLives()<=0) {
@@ -173,6 +213,12 @@ public class GalaxyInvaders extends Game {
 				state = PLAY;
 			}
 		}
+	}
+	
+	private void spawnHealth() {
+		Sprite temp = new Sprite(getImage("img/health.png"), getWidth()/2, 0);
+		temp.setVerticalSpeed(.1);
+		items.add(temp);
 	}
 	
 	private void spawnEnemyBomb() {
