@@ -10,11 +10,14 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 
 public class HICollisionManager extends BasicCollisionGroup{
-
+	
+	/**
+	 * processes the collision
+	 */
 	public void collided(Sprite human, Sprite item) {
 
 		Item currentItem = (Item) item;
-		
+
 		currentItem.act();
 		currentItem.setActive(false);
 	}

@@ -7,8 +7,9 @@ import vooga.engine.player.control.PlayerSprite;
 
 /**
  * Player class. Contains all properties and abilities of the player
+ * 
  * @author Jimmy Mu, Aaron Choi, Yang Su
- *
+ * 
  */
 public class Shooter extends PlayerSprite {
 
@@ -26,21 +27,21 @@ public class Shooter extends PlayerSprite {
 		super(name, stateName, s, playerHealth, playerRank);
 		game = zombieland;
 		weapons = new Weapon[3];
-		
-		setupWeapons();	
-		
-		//Setup displays
+
+		setupWeapons();
+
+		// Setup displays
 		health = new Stat<Integer>(playerHealth);
 		score = new Stat<Integer>(0);
 		ammo = new Stat<Integer>(getAmmo());
-		
+
 		// DEFAULT attributes
 		speed = -1;
 		orientation = 90;
 		weaponChoice = 0;
-		
+
 	}
-	
+
 	/**
 	 * Creates weapon objects with default ammo
 	 */
@@ -49,58 +50,57 @@ public class Shooter extends PlayerSprite {
 		weapons[1] = new AssaultRifle(this, 100);
 		weapons[2] = new ShotGun(this, 40);
 	}
-	
+
 	/**
 	 * Add a bullet sprite to the game world. Used by weapons to create bullets
-	 * @param bullet a bullet
-	 * @param angle the angle of the bullet's trajectory
+	 * 
+	 * @param bullet
+	 *            a bullet
+	 * @param angle
+	 *            the angle of the bullet's trajectory
 	 */
 	public void addBulletToGame(Bullet bullet, double angle) {
 		game.addBullet(bullet, angle);
+	}
+
+	private void showAnimation(String direction) {
+		setToCurrentSprite(direction);
+		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
 
 	/**
 	 * Move the shooter left and play the corresponding animation.
 	 */
 	public void goLeft() {
-		if (healthIsZero())
-			return;
 		orientation = 180;
-		setToCurrentSprite("Left");
-		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
+		showAnimation("Left");
 		moveX(speed);
 	}
+
 	/**
 	 * Move the shooter right and play the corresponding animation.
 	 */
 	public void goRight() {
-		if (healthIsZero())
-			return;
 		orientation = 0;
-		setToCurrentSprite("Right");
-		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
+		showAnimation("Right");
 		moveX(Math.abs(speed));
 	}
+
 	/**
 	 * Move the shooter up and play the corresponding animation.
 	 */
 	public void goUp() {
-		if (healthIsZero())
-			return;
 		orientation = 270;
-		setToCurrentSprite("Up");
-		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
+		showAnimation("Up");
 		moveY(speed);
 	}
+
 	/**
 	 * Move the shooter down and play the corresponding animation.
 	 */
 	public void goDown() {
-		if (healthIsZero())
-			return;
 		orientation = 90;
-		setToCurrentSprite("Down");
-		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
+		showAnimation("Down");
 		moveY(Math.abs(speed));
 	}
 
@@ -115,10 +115,11 @@ public class Shooter extends PlayerSprite {
 	 * choice
 	 */
 	public void shoot() {
-		if (healthIsZero())		return;
+		if (healthIsZero())
+			return;
 		fireWeapon();
 	}
-	
+
 	/**
 	 * Fires the current weapon
 	 */
@@ -126,10 +127,11 @@ public class Shooter extends PlayerSprite {
 		weapons[weaponChoice].fire();
 		ammo.setStat(weapons[weaponChoice].getAmmo());
 	}
-	
+
 	/**
 	 * Gets the remaining ammo count on the current weapon
-	 * @return remaining ammo count 
+	 * 
+	 * @return remaining ammo count
 	 */
 	public int getAmmo() {
 		return weapons[weaponChoice].getAmmo();
@@ -137,60 +139,90 @@ public class Shooter extends PlayerSprite {
 
 	/**
 	 * Add ammo to a weapon
+	 * 
 	 * @param weapon
 	 * @param amount
 	 */
 	public void addAmmo(int weapon, int amount) {
 		weapons[weapon].addAmmo(amount);
 	}
-	
+
 	/**
+	 * Get the ammo as an object that's able to be displayed using overlays
 	 * 
-	 * @return
+	 * @return ammo stat object
 	 */
 	public Stat<Integer> getStatAmmo() {
 		return ammo;
 	}
-	
+
 	/**
-	 * get the direction the player is facing (in degrees)
+	 * Get the direction the player is facing (in degrees)
+	 * 
 	 * @return player orientation
 	 */
 	public double getOrientation() {
 		return orientation;
 	}
-	
+
 	/**
+	 * Checks the player's health to see if he's still alive
 	 * 
-	 * @return
+	 * @return true if the player's health is 0
 	 */
 	public boolean healthIsZero() {
 		return (getHealth() <= 0);
 	}
 
+	/**
+	 * Set health of the shooter
+	 */
 	public void setHealth(int number) {
 		super.setHealth(number);
 		health.setStat(getHealth());
 	}
 
+	/**
+	 * update the health of the shooter
+	 * 
+	 * @param number
+	 */
 	public void updateStatHealth(int number) {
 		updateHealth(number);
 		health.setStat(getHealth());
 	}
 
+	/**
+	 * Get the health stat object
+	 * 
+	 * @return health stat objec
+	 */
 	public Stat<Integer> getStatHealth() {
 		return health;
 	}
 
+	/**
+	 * Get the score stat object
+	 * 
+	 * @return score stat objec
+	 */
 	public Stat<Integer> getStatScore() {
 		return score;
 	}
 
+	/**
+	 * update score
+	 */
 	public void updateScore(int number) {
 		super.updateScore(number);
 		score.setStat(getScore());
 	}
 
+	/**
+	 * Update the shooter's image. Update movement and then stand still so the
+	 * player is not walking in place. Also checks the player's health for the
+	 * end game condition, which is when the player's health reaches 0
+	 */
 	public void update(long elapsedTime) {
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		super.update(elapsedTime);
@@ -200,7 +232,6 @@ public class Shooter extends PlayerSprite {
 		if (healthIsZero()) {
 			setActive(false);
 		}
-		// sprite.setFrame(0);
 	}
 
 }

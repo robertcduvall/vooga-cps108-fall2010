@@ -64,16 +64,16 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 			Zombie currentZombie) {
 		switch (attackDirection) {
 		case 0:
-			currentZombie.attackFrom("AttackRight");
+			currentZombie.setAttackAnimation("AttackRight");
 			break;
 		case 1:
-			currentZombie.attackFrom("AttackUp");
+			currentZombie.setAttackAnimation("AttackUp");
 			break;
 		case 2:
-			currentZombie.attackFrom("AttackLeft");
+			currentZombie.setAttackAnimation("AttackLeft");
 			break;
 		case 3:
-			currentZombie.attackFrom("AttackDown");
+			currentZombie.setAttackAnimation("AttackDown");
 			break;
 		}
 	}

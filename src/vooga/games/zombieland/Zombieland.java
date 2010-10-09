@@ -23,11 +23,16 @@ import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.util.ImageUtil;
 
 /**
- * @date 8-8-10
+ * @date 10-8-10
  * @author Aaron Choi, Jimmy Mu, Yang Su
- * @description: The Zombieland game is 
- *	
- *
+ * @description: The Zombieland game is a game in which the player controls a
+ *               shooter that has access to a few different types of weapons
+ *               with limited ammo. The objective is to stay alive and kill as
+ *               many zombies as you can. Zombies are spawned regularly. When a
+ *               zombie is killed, there's a chance that an bonus item will be
+ *               dropped.
+ * 
+ * 
  */
 
 public class Zombieland extends Game {
@@ -37,333 +42,398 @@ public class Zombieland extends Game {
 	private static final int GAME_HEIGHT = 500;
 	private static double defaultX = 100;
 	private static double defaultY = 100;
-	private static long defaultAnimationDelay=300;
-	
-	private AnimatedSprite myShooterImage;
-	private ImageBackground myBackground;
-	private Shooter myPlayer;
+	private static long defaultAnimationDelay = 300;
 
-	private SpriteGroup myZombies;
-	private SpriteGroup myPlayers;
-	private SpriteGroup myBullets;
-	private SpriteGroup myItems;
+	private AnimatedSprite shooterImage;
+	private ImageBackground background;
+	private Shooter player;
 
-	private PlayField myPlayField;
-	private Timer myTimerTick;
-	private KeyboardControl myControl;
+	private SpriteGroup zombies;
+	private SpriteGroup players;
+	private SpriteGroup bullets;
+	private SpriteGroup items;
 
-	private BufferedImage[] myPlayerUpImage;
-	private BufferedImage[] myPlayerDownImage;
-	private BufferedImage[] myPlayerLeftImage;
-	private BufferedImage[] myPlayerRightImage;
+	private PlayField playField;
+	private Timer timer;
+	private KeyboardControl control;
 
-	private BufferedImage[] myZombieUpImage;
-	private BufferedImage[] myZombieDownImage;
-	private BufferedImage[] myZombieLeftImage;
-	private BufferedImage[] myZombieRightImage;
+	private BufferedImage[] playerUpImage;
+	private BufferedImage[] playerDownImage;
+	private BufferedImage[] playerLeftImage;
+	private BufferedImage[] playerRightImage;
 
-	private BufferedImage[] myZombieAttackUpImage;
-	private BufferedImage[] myZombieAttackDownImage;
-	private BufferedImage[] myZombieAttackLeftImage;
-	private BufferedImage[] myZombieAttackRightImage;
+	private BufferedImage[] zombieUpImage;
+	private BufferedImage[] zombieDownImage;
+	private BufferedImage[] zombieLeftImage;
+	private BufferedImage[] zombieRightImage;
 
-	private BufferedImage[] myZombieDeath;
+	private BufferedImage[] zombieAttackUpImage;
+	private BufferedImage[] zombieAttackDownImage;
+	private BufferedImage[] zombieAttackLeftImage;
+	private BufferedImage[] zombieAttackRightImage;
 
-	private BufferedImage myBulletImage;
-	private BufferedImage myShotGunImage;
-	private BufferedImage myAssaultRifleImage;
-	private BufferedImage myHealthImage;
+	private BufferedImage[] zombieDeath;
 
-	private ZZCollisionManager myZombieZombieManager;
-	private PZCollisionManager myHumanZombieManager;
-	private BZCollisionManager myBulletZombieManager;
-	private WallBoundManager myEntityWallManager;
-	private HICollisionManager myHumanItemManager;
+	private BufferedImage bulletImage;
+	private BufferedImage shotGunImage;
+	private BufferedImage assaultRifleImage;
+	private BufferedImage healthImage;
 
-	private OverlayBar myOverlayHealthBar;
-	private OverlayString myOverlayHealthString;
-	private OverlayStat myOverlayScoreString;
-	private OverlayString myOverlayGameOverString;
-	private OverlayStat myOverlayAmmoString;
-	
+	private ZZCollisionManager zombieZombieManager;
+	private PZCollisionManager playerZombieManager;
+	private BZCollisionManager bulletZombieManager;
+	private WallBoundManager entityWallManager;
+	private HICollisionManager humanItemManager;
+
+	private OverlayBar overlayHealthBar;
+	private OverlayString overlayHealthString;
+	private OverlayStat overlayScoreString;
+	private OverlayString overlayGameOverString;
+	private OverlayStat overlayAmmoString;
+
 	public void initResources() {
+		// RESOURCES
 
-		myPlayerDownImage = new BufferedImage[] {
+		// Player animations
+		playerDownImage = new BufferedImage[] {
 				getImage("resources/Down1.png"),
 				getImage("resources/Down2.png"),
 				getImage("resources/Down3.png"),
 				getImage("resources/Down4.png") };
-		myPlayerUpImage = new BufferedImage[] { 
-				getImage("resources/up1.png"),
-				getImage("resources/up2.png"), 
-				getImage("resources/up3.png"),
+		playerUpImage = new BufferedImage[] { getImage("resources/up1.png"),
+				getImage("resources/up2.png"), getImage("resources/up3.png"),
 				getImage("resources/up4.png") };
-		myPlayerLeftImage = new BufferedImage[] {
+		playerLeftImage = new BufferedImage[] {
 				getImage("resources/left1.png"),
 				getImage("resources/left2.png"),
 				getImage("resources/left3.png"),
 				getImage("resources/left4.png") };
-		myPlayerRightImage = new BufferedImage[] {
+		playerRightImage = new BufferedImage[] {
 				getImage("resources/right1.png"),
 				getImage("resources/right2.png"),
 				getImage("resources/right3.png"),
 				getImage("resources/right4.png") };
-
-		myZombieDownImage = new BufferedImage[] {
+		// Zombie animations
+		zombieDownImage = new BufferedImage[] {
 				getImage("resources/ZombieDown1.png"),
 				getImage("resources/ZombieDown2.png"),
 				getImage("resources/ZombieDown3.png") };
-		myZombieUpImage = new BufferedImage[] {
+		zombieUpImage = new BufferedImage[] {
 				getImage("resources/ZombieUp1.png"),
 				getImage("resources/ZombieUp2.png"),
 				getImage("resources/ZombieUp3.png") };
-		myZombieLeftImage = new BufferedImage[] {
+		zombieLeftImage = new BufferedImage[] {
 				getImage("resources/ZombieLeft1.png"),
 				getImage("resources/ZombieLeft2.png"),
 				getImage("resources/ZombieLeft3.png") };
-		myZombieRightImage = new BufferedImage[] {
+		zombieRightImage = new BufferedImage[] {
 				getImage("resources/ZombieRight1.png"),
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
-
-		myZombieAttackUpImage = new BufferedImage[] {
+		zombieAttackUpImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackUp1.png"),
 				getImage("resources/ZombieAttackUp2.png"),
 				getImage("resources/ZombieAttackUp3.png") };
-		myZombieAttackDownImage = new BufferedImage[] {
+		zombieAttackDownImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackDown1.png"),
 				getImage("resources/ZombieAttackDown2.png"),
 				getImage("resources/ZombieAttackDown3.png") };
-		myZombieAttackLeftImage = new BufferedImage[] {
+		zombieAttackLeftImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackLeft1.png"),
 				getImage("resources/ZombieAttackLeft2.png"),
 				getImage("resources/ZombieAttackLeft3.png") };
-		myZombieAttackRightImage = new BufferedImage[] {
+		zombieAttackRightImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackRight1.png"),
 				getImage("resources/ZombieAttackRight2.png"),
 				getImage("resources/ZombieAttackRight3.png") };
-
-		myZombieDeath = new BufferedImage[] {
+		zombieDeath = new BufferedImage[] {
 				getImage("resources/ZombieDeath1.png"),
 				getImage("resources/ZombieDeath2.png"),
-				getImage("resources/ZombieDeath3.png")};
+				getImage("resources/ZombieDeath3.png") };
 
+		bulletImage = getImage("resources/bullet.png");
+		shotGunImage = getImage("resources/shotgun.png");
+		assaultRifleImage = getImage("resources/assaultRifle.png");
+		healthImage = getImage("resources/Health.png");
+
+		// INITIALIZATIONS
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
-		myBackground = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
-		
-		myBulletImage = getImage("resources/bullet.png");
-		myShotGunImage = getImage("resources/shotgun.png");;
-		myAssaultRifleImage= getImage("resources/assaultRifle.png");
-		myHealthImage= getImage("resources/Health.png");
+		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
-		myShooterImage = new AnimatedSprite(myPlayerDownImage, 350, 250);
-		myPlayer = new Shooter("Hero", "Down", myShooterImage, 100, 0,this);
-		myPlayer.mapNameToSprite("Up",getInitializedAnimatedSprite(myPlayerUpImage));
-		myPlayer.mapNameToSprite("Left",getInitializedAnimatedSprite(myPlayerLeftImage));
-		myPlayer.mapNameToSprite("Right",getInitializedAnimatedSprite(myPlayerRightImage));
-		myPlayer.mapNameToSprite("Down",getInitializedAnimatedSprite(myPlayerDownImage));
+		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
+		player = new Shooter("Hero", "Down", shooterImage, 100, 0, this);
+		player.mapNameToSprite("Up",
+				getInitializedAnimatedSprite(playerUpImage));
+		player.mapNameToSprite("Left",
+				getInitializedAnimatedSprite(playerLeftImage));
+		player.mapNameToSprite("Right",
+				getInitializedAnimatedSprite(playerRightImage));
+		player.mapNameToSprite("Down",
+				getInitializedAnimatedSprite(playerDownImage));
 
-		myOverlayHealthString = new OverlayString("Health: ", Color.BLUE);
-		myOverlayHealthString.setLocation(5, 10);
-		myOverlayHealthBar = new OverlayBar(myPlayer.getStatHealth(),100);
-		myOverlayHealthBar.setColor(Color.GREEN);
-		myOverlayHealthBar.setLocation(80, 18);
-		myOverlayScoreString = new OverlayStat("Kills: ", myPlayer.getStatScore());
-		myOverlayScoreString.setLocation(385, 12);
-		myOverlayAmmoString = new OverlayStat("Ammo: ", myPlayer.getStatAmmo());
-		myOverlayAmmoString.setColor(Color.BLUE);
-		myOverlayAmmoString.setLocation(470, 12);
+		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
+		overlayHealthString.setLocation(5, 10);
+		overlayHealthBar = new OverlayBar(player.getStatHealth(), 100);
+		overlayHealthBar.setColor(Color.GREEN);
+		overlayHealthBar.setLocation(80, 18);
+		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
+		overlayScoreString.setLocation(385, 12);
+		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
+		overlayAmmoString.setColor(Color.BLUE);
+		overlayAmmoString.setLocation(470, 12);
 
-		myZombies = new SpriteGroup("Zombies");
-		myBullets = new SpriteGroup("Bullets");
-		myItems = new SpriteGroup("Items");
-		myPlayField = new PlayField();
-		myControl = new KeyboardControl(myPlayer, this);
-		myTimerTick = new Timer(2000);
+		zombies = new SpriteGroup("Zombies");
+		bullets = new SpriteGroup("Bullets");
+		items = new SpriteGroup("Items");
+		playField = new PlayField();
+		control = new KeyboardControl(player, this);
+		timer = new Timer(2000);
 
-		myPlayField.add(myPlayer);
-		myPlayField.addGroup(myZombies);
-		myPlayField.addGroup(myBullets);
-		myPlayField.addGroup(myItems);
-		myPlayField.setBackground(myBackground);
+		playField.add(player);
+		playField.addGroup(zombies);
+		playField.addGroup(bullets);
+		playField.addGroup(items);
+		playField.setBackground(background);
 		setListeners();
 
-//		myZombieZombieManager = new ZZCollisionManager();
-//		myPlayField.addCollisionGroup(myZombies, myZombies, myZombieZombieManager);
+		// zombieZombieManager = new ZZCollisionManager();
+		// playField.addCollisionGroup(zombies, zombies,
+		// zombieZombieManager);
 
-		myHumanZombieManager = new PZCollisionManager();
-		myPlayers = new SpriteGroup("Players");
-		myPlayers.add(myPlayer);
-		myPlayField.addCollisionGroup(myPlayers , myZombies, myHumanZombieManager);
+		playerZombieManager = new PZCollisionManager();
+		players = new SpriteGroup("Players");
+		players.add(player);
+		playField.addCollisionGroup(players, zombies, playerZombieManager);
 
-		myEntityWallManager = new WallBoundManager(myBackground);
-		myPlayField.addCollisionGroup(myPlayers, myPlayers, myEntityWallManager);
-		
-		myBulletZombieManager = new BZCollisionManager();
-		myPlayField.addCollisionGroup(myBullets, myZombies, myBulletZombieManager);
-		
-		myHumanItemManager = new HICollisionManager();
-		myPlayField.addCollisionGroup(myPlayers, myItems, myHumanItemManager);
-		
+		entityWallManager = new WallBoundManager(background);
+		playField.addCollisionGroup(players, players, entityWallManager);
+
+		bulletZombieManager = new BZCollisionManager();
+		playField.addCollisionGroup(bullets, zombies, bulletZombieManager);
+
+		humanItemManager = new HICollisionManager();
+		playField.addCollisionGroup(players, items, humanItemManager);
+
 	}
 
+	/**
+	 * update all components of the game
+	 */
 	public void update(long elapsedTime) {
-		myPlayField.update(elapsedTime);
-		myControl.update();
-		myPlayer.update(elapsedTime);
-		myOverlayHealthBar.update(elapsedTime);
-		myOverlayHealthString.update(elapsedTime);
-		myOverlayScoreString.update(elapsedTime);
-		myOverlayAmmoString.update(elapsedTime);
-		myZombies.update(elapsedTime);
-		myBullets.update(elapsedTime);
-		myItems.update(elapsedTime);
+		playField.update(elapsedTime);
+		control.update();
+		player.update(elapsedTime);
+		overlayHealthBar.update(elapsedTime);
+		overlayHealthString.update(elapsedTime);
+		overlayScoreString.update(elapsedTime);
+		overlayAmmoString.update(elapsedTime);
+		zombies.update(elapsedTime);
+		bullets.update(elapsedTime);
+		items.update(elapsedTime);
 
-		if (myTimerTick.action(elapsedTime)) {
+		if (timer.action(elapsedTime)) {
 			addZombie();
 		}
 
 	}
-	
 
+	/**
+	 * Add a zombie to the world. The position is randomly picked.
+	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", "Moving", 
-				getInitializedAnimatedSprite(myZombieDownImage), 
-				getInitializedAnimatedSprite(myZombieUpImage), 
-				getInitializedAnimatedSprite(myZombieLeftImage), 
-				getInitializedAnimatedSprite(myZombieRightImage), myPlayer, this);
+		Zombie newZombie = new Zombie("New", "Moving",
+				getInitializedAnimatedSprite(zombieDownImage),
+				getInitializedAnimatedSprite(zombieUpImage),
+				getInitializedAnimatedSprite(zombieLeftImage),
+				getInitializedAnimatedSprite(zombieRightImage), player, this);
 
-		newZombie.mapNameToSprite("AttackLeft" , 
-									getInitializedAnimatedSprite(myZombieAttackLeftImage));
-		newZombie.mapNameToSprite("AttackRight" ,
-									getInitializedAnimatedSprite(myZombieAttackRightImage));
-		newZombie.mapNameToSprite("AttackUp" ,
-									getInitializedAnimatedSprite(myZombieAttackUpImage));
-		newZombie.mapNameToSprite("AttackDown" , 
-									getInitializedAnimatedSprite(myZombieAttackDownImage));
+		newZombie.mapNameToSprite("AttackLeft",
+				getInitializedAnimatedSprite(zombieAttackLeftImage));
+		newZombie.mapNameToSprite("AttackRight",
+				getInitializedAnimatedSprite(zombieAttackRightImage));
+		newZombie.mapNameToSprite("AttackUp",
+				getInitializedAnimatedSprite(zombieAttackUpImage));
+		newZombie.mapNameToSprite("AttackDown",
+				getInitializedAnimatedSprite(zombieAttackDownImage));
 
-		newZombie.mapNameToSprite("ZombieDeath", 
-				getInitializedAnimatedSprite(myZombieDeath,500, false));
+		newZombie.mapNameToSprite("ZombieDeath",
+				getInitializedAnimatedSprite(zombieDeath, 500, false));
 
-		newZombie.setX(Math.random()*GAME_WIDTH);
-		newZombie.setY(Math.random()*GAME_HEIGHT);
-		
-		myZombies.add(newZombie);
+		newZombie.setX(Math.random() * GAME_WIDTH);
+		newZombie.setY(Math.random() * GAME_HEIGHT);
+
+		zombies.add(newZombie);
 	}
 
 	/**
-	 * Load the image for a bullet with the correct orientation with respect to the 
-	 * shooter and add it to the screen
-	 * @param bullet a bullet instantiated by the shooter
-	 * @param angle the orientation of the bullet (in degrees)
+	 * Load the image for a bullet with the correct orientation with respect to
+	 * the shooter and add it to the screen
+	 * 
+	 * @param bullet
+	 *            a bullet instantiated by the shooter
+	 * @param angle
+	 *            the orientation of the bullet (in degrees)
 	 */
 	public void addBullet(Bullet bullet, double angle) {
-		bullet.getCurrentSprite().setImage(ImageUtil.rotate(myBulletImage, (int) angle));
+		bullet.getCurrentSprite().setImage(
+				ImageUtil.rotate(bulletImage, (int) angle));
 		bullet.setActive(true);
-		myBullets.add(bullet);
+		bullets.add(bullet);
 	}
 
-	
+	/**
+	 * Spawn a random item at position (x,y)
+	 * 
+	 * @param x
+	 *            x coordinate
+	 * @param y
+	 *            y coordinate
+	 */
 	public void addRandomItem(double x, double y) {
-		
+
 		Random random = new Random();
 		int choice = random.nextInt(3);
-		
+
 		Item item;
-		
-		switch(choice){
-		case 0: 
-			item= new WeaponItem(myPlayer,new Sprite(myAssaultRifleImage),1,x,y);
+
+		switch (choice) {
+		case 0:
+			item = new WeaponItem(player, new Sprite(assaultRifleImage), 1, x,
+					y);
 			break;
-		case 1: 
-			item= new WeaponItem(myPlayer,new Sprite(myShotGunImage),2,x,y);
+		case 1:
+			item = new WeaponItem(player, new Sprite(shotGunImage), 2, x, y);
 			break;
-		case 2: 
-			item= new HealthItem(myPlayer,new Sprite(myHealthImage),100,x,y);
+		case 2:
+			item = new HealthItem(player, new Sprite(healthImage), 100, x, y);
 			break;
-			
+
 		default:
-			item=null;
+			item = null;
 		}
 		item.setActive(true);
-		myItems.add(item);
+		items.add(item);
 	}
 
+	/**
+	 * Initialize a set of images to be animated.
+	 * 
+	 * @param images
+	 *            a set of images to be made into an animated sprite
+	 * @return initialized animated sprite
+	 */
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		initializeAnimatedSprite(sprite, defaultAnimationDelay, true);
 		return sprite;
 	}
 
+	/**
+	 * 
+	 * Initialize a set of images to be animated.
+	 * 
+	 * @param images
+	 *            a set of images to be made into an animated sprite
+	 * @param delay
+	 *            animation delay
+	 * @param loop
+	 *            loop the animation
+	 * @return initialized animated sprite
+	 */
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images,
-			long delay) {
+			long delay, boolean loop) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
-		initializeAnimatedSprite(sprite, delay, true);
-		return sprite;
-	}
-	
-	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images, long delay,
-			boolean loop) {
-		AnimatedSprite sprite = new AnimatedSprite(images);
-		initializeAnimatedSprite(sprite, delay,  loop);
+		initializeAnimatedSprite(sprite, delay, loop);
 		return sprite;
 	}
 
-	private void initializeAnimatedSprite(AnimatedSprite sprite, long delay, boolean loop) {
+	/**
+	 * Set the attributes for an animated sprite
+	 * 
+	 * @param sprite
+	 *            animated sprite object
+	 * @param delay
+	 *            animation delay
+	 * @param loop
+	 *            loop animation
+	 */
+	private void initializeAnimatedSprite(AnimatedSprite sprite, long delay,
+			boolean loop) {
 		sprite.getAnimationTimer().setDelay(delay);
 		sprite.setAnimationFrame(0, sprite.getImages().length - 1);
 		sprite.setAnimate(true);
 		sprite.setLoopAnim(loop);
 	}
 
+	/**
+	 * set up listeners for keyboard controls
+	 */
 	public void setListeners() {
-		myControl.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
-		myControl.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
-		myControl.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
-		myControl.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
-		myControl.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
-		myControl.setParams(new Class[]{int.class});
-		myControl.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
-		myControl.setParams(new Class[]{int.class});
-		myControl.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
-		myControl.setParams(new Class[]{int.class});
-		myControl.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
+		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
+		control.setParams(new Class[] { int.class });
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
+		control.setParams(new Class[] { int.class });
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
+		control.setParams(new Class[] { int.class });
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
 	}
 
+	/**
+	 * render the game
+	 */
 	public void render(Graphics2D g) {
-		myBackground.render(g);
-		myPlayField.render(g);
-		myOverlayHealthBar.render(g);
-		myOverlayHealthString.render(g);
-		myOverlayScoreString.render(g);
-		myOverlayAmmoString.render(g);
-		
-		if (gameOver()){
+		background.render(g);
+		playField.render(g);
+		overlayHealthBar.render(g);
+		overlayHealthString.render(g);
+		overlayScoreString.render(g);
+		overlayAmmoString.render(g);
+
+		if (gameOver()) {
 			renderGameOver(g);
 		}
 	}
 
-	private boolean gameOver()
-	{
-		return !(myPlayer.isActive());
+	/**
+	 * Test if the the player is still active. If no, that means the end game
+	 * conditions have been met
+	 * 
+	 * @return true if the end game conditions have been met
+	 */
+	private boolean gameOver() {
+		return !(player.isActive());
 	}
-	
-	private void renderGameOver(Graphics2D g)
-	{
-		myOverlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
-		myOverlayGameOverString.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
-		myOverlayGameOverString.render(g);
+
+	/**
+	 * Render game over screen
+	 * 
+	 * @param g
+	 */
+	private void renderGameOver(Graphics2D g) {
+		overlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
+		overlayGameOverString.setLocation(GAME_WIDTH / 2 - 60,
+				GAME_HEIGHT / 2 - 10);
+		overlayGameOverString.render(g);
 		endGame();
 	}
-	
-	private void endGame(){
-		myOverlayGameOverString = new OverlayString("GAME OVER\nFinal Score: " + myPlayer.getScore(), Color.BLACK);
+
+	/**
+	 * Stop the game altogether
+	 */
+	private void endGame() {
+		overlayGameOverString = new OverlayString("GAME OVER\nFinal Score: "
+				+ player.getScore(), Color.BLACK);
 		stop();
 	}
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new Zombieland(), new Dimension(GAME_WIDTH, GAME_HEIGHT),false);
+		game.setup(new Zombieland(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
+				false);
 		game.start();
 	}
 
