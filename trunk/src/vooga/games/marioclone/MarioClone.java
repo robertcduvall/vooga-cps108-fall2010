@@ -42,7 +42,7 @@ public class MarioClone extends Game {
 	MarioSprite mario;
 	PlayField menu, end, paused;
 	KeyboardControl myControl;
-	SpriteGroup marioGroup, tileGroup;
+	SpriteGroup marioGroup, tileGroup, enemyGroup;
 	
 	public static void main(String[] args)  throws IOException {
 		GameLoader gl = new GameLoader();
@@ -87,18 +87,21 @@ public class MarioClone extends Game {
 		tileGroup = new SpriteGroup("Tile Group");
 		playfield.addTileMap(map);
 		
-		
 		marioGroup = new SpriteGroup("Mario Group");
 		mario = new MarioSprite("mario","regular",Resources.getImage("MarioR"),Resources.getImage("MarioL"));
 		mario.setLocation(150, 290);
 		marioGroup.add(mario);
 		playfield.addGroup(marioGroup);
 		
+		enemyGroup = new SpriteGroup("Enemy Group");
+		Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
+		enemy.setLocation(150, 600);
+		enemyGroup.add(enemy);
+		
 		myControl = new KeyboardControl(mario,this);
 		myControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.marioclone.MarioSprite");
 		myControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.marioclone.MarioSprite");
 		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite");
-		myControl.addInput(KeyEvent.VK_S, "crouch", "vooga.games.marioclone.MarioSprite");
 		
 		playfield.addCollisionGroup(marioGroup, playfield.getTileMap().getTileGroup(), new MarioToTileCollision());
 	}

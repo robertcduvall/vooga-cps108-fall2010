@@ -9,3 +9,5 @@ GameOverBG,images/mariogameover.jpg
 MarioR,images/mario-R.png
 MarioL,images/mario-L.png
 GameFont,images/font.png
+EnemyR,images/enemy-R.png
+EnemyL,images/enemy-L.png
