@@ -22,6 +22,7 @@ import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
 
@@ -34,7 +35,8 @@ public class MarioClone extends Game {
     private static final int GAME_OVER = 2;
     private static final int GAME_WIN = 3;
     private static final int INITIAL_HP = 100;
-	private static final int NUM_ENEMIES = 5;
+	private static final int FREQ_ENEMIES = 10000;  //frequency of enemy appearance in ms
+	private static final int NUM_ENEMIES = 1; //number of new enemies appearing at a time
     private int myGameState;
 
     
@@ -48,6 +50,7 @@ public class MarioClone extends Game {
 	SpriteGroup marioGroup, tileGroup, enemyGroup;
 	Stat<Integer> myEnemiesRemaining;
 	Stat<Integer> myHealth;
+	
 	
 	public static void main(String[] args)  throws IOException {
 		GameLoader gl = new GameLoader();
@@ -133,6 +136,8 @@ public class MarioClone extends Game {
 		myEnemyOverlay.setLocation(WIDTH - 1000, 5);
 
 		playfield.add(myEnemyOverlay);
+		
+		timer = new Timer(FREQ_ENEMIES);
 	}
 	
 	
@@ -147,6 +152,9 @@ public class MarioClone extends Game {
 		if (mario.getHealth() == 0)
 			myGameState = GAME_OVER;
 		
+		myEnemyOverlay.update(elapsedTime);
+		System.out.println(enemyGroup.getSize());
+
 		if(!mario.isActive()) myGameState = GAME_OVER;
 		
 		if (myGameState == MAIN_MENU){
@@ -162,6 +170,18 @@ public class MarioClone extends Game {
     		myEnemiesRemaining =  new Stat<Integer>(enemyGroup.getSize()); 
     	}  
 
+    	
+    	if(timer.action(elapsedTime)) {
+			for(int j = 0; j < NUM_ENEMIES; j++) {
+				Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
+				try {
+					enemy.setLocation(Randomizer.nextDouble(0,WIDTH), Randomizer.nextDouble(0,HEIGHT));
+				} catch (RandomizerException e) {
+					e.printStackTrace();
+				}
+				enemyGroup.add(enemy);
+			}	
+    	}
 		
 	}
 	
