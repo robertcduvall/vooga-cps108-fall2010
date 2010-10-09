@@ -205,7 +205,7 @@ public class TowerDefense extends Game {
 		normalTower.setLocation(880, 260);
 		
 		OverlayString fast = new OverlayString("FAST TOWER");
-		OverlayString fastCost = new OverlayString("COST 200 DOLLARS");
+		OverlayString fastCost = new OverlayString("COST 300 DOLLARS");
 		fast.setFont(fontGreen);
 		fast.setLocation(800, 320);
 		fastCost.setFont(fontGreen);
@@ -411,12 +411,10 @@ public class TowerDefense extends Game {
 			}
 			if(delay > 5000){
 				spawnSpeed-=10;
-			}else if(delay > 2500){
+			}else if(delay > 501){
 				spawnSpeed = spawnSpeed;
-			}else if(delay >501){
-				spawnSpeed+=10;
 			}else{
-				spawnSpeed-=10;
+				spawnSpeed+=10;
 			}
 		}
 		
