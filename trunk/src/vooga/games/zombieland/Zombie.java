@@ -4,6 +4,8 @@ import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.player.control.PlayerSprite;
 
+import java.util.*;
+
 public class Zombie extends PlayerSprite {
 
 	private Shooter myTarget;
@@ -15,10 +17,13 @@ public class Zombie extends PlayerSprite {
 	private static int myAtttackDelay = 30;
 	private int myAttackDelayStep;
 	private String currentAttackAnimation = "";
-
+	private Zombieland game;
+	private Random random;
+	private final static int ITEM_CHANCE = 20;
+	
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-			Shooter hero) {
+			Shooter hero, Zombieland zombieland) {
 		super(name, stateName, down);
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
@@ -32,6 +37,10 @@ public class Zombie extends PlayerSprite {
 		setHealth(25);
 		setDamage(5);
 		resetAttackDelayStep();
+		
+		game = zombieland;
+		
+		random = new Random();
 	}
 
 	/**
@@ -146,9 +155,14 @@ public class Zombie extends PlayerSprite {
 		if (isHealthZero()) {
 			setToCurrentSprite("ZombieDeath");
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
+			int item = random.nextInt(100);
 			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
 				setActive(false);
 				myTarget.updateScore(1);
+				
+				if (item < ITEM_CHANCE){
+					game.addRandomItem(getX(), getY());
+				}
 			}
 			return;
 		}

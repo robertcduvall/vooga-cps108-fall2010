@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.*;
@@ -77,6 +78,7 @@ public class Zombieland extends Game {
 	private HZCollisionManager myHumanZombieManager;
 	private BZCollisionManager myBulletZombieManager;
 	private WallBoundManager myEntityWallManager;
+	private HICollisionManager myHumanItemManager;
 
 	private OverlayBar myOverlayHealthBar;
 	private OverlayString myOverlayHealthString;
@@ -182,6 +184,7 @@ public class Zombieland extends Game {
 		myPlayField.add(myPlayer);
 		myPlayField.addGroup(myZombies);
 		myPlayField.addGroup(myBullets);
+		myPlayField.addGroup(myItems);
 		myPlayField.setBackground(myBackground);
 		setListeners();
 
@@ -198,6 +201,9 @@ public class Zombieland extends Game {
 		
 		myBulletZombieManager = new BZCollisionManager();
 		myPlayField.addCollisionGroup(myBullets, myZombies, myBulletZombieManager);
+		
+		myHumanItemManager = new HICollisionManager();
+		myPlayField.addCollisionGroup(myPlayers, myItems, myHumanItemManager);
 		
 	}
 
@@ -225,7 +231,7 @@ public class Zombieland extends Game {
 				getInitializedAnimatedSprite(myZombieDownImage), 
 				getInitializedAnimatedSprite(myZombieUpImage), 
 				getInitializedAnimatedSprite(myZombieLeftImage), 
-				getInitializedAnimatedSprite(myZombieRightImage), myPlayer);
+				getInitializedAnimatedSprite(myZombieRightImage), myPlayer, this);
 
 		newZombie.mapNameToSprite("AttackLeft" , 
 									getInitializedAnimatedSprite(myZombieAttackLeftImage));
@@ -257,30 +263,31 @@ public class Zombieland extends Game {
 		myBullets.add(bullet);
 	}
 
-//	public void addRandomItem(int x, int y) {
-////		double x=Math.random()*GAME_WIDTH;
-////		double y=Math.random()*GAME_HEIGHT;
-//		int choice= (int) (Math.random()*3);
-//		
-//		Item item;
-//		switch(choice){
-//		case 0: 
-//			item= new WeaponItem(myPlayer,new Sprite(myAssaultRifleImage),1,x,y);
-//			break;
-//		case 1: 
-//			item= new WeaponItem(myPlayer,new Sprite(myShotGunImage),2,x,y);
-//			break;
-//		case 2: 
-//			item= new HealthItem(myPlayer,new Sprite(myHealthImage),100,x,y);
-//			break;
-//			
-//		default:
-//			item=null;
-//		}
-//		item.getCurrentSprite().setImage(myHealthImage);
-//		item.setActive(true);
-//		myItems.add(item);
-//	}
+	
+	public void addRandomItem(double x, double y) {
+		
+		Random random = new Random();
+		int choice = random.nextInt(3);
+		
+		Item item;
+		
+		switch(choice){
+		case 0: 
+			item= new WeaponItem(myPlayer,new Sprite(myAssaultRifleImage),1,x,y);
+			break;
+		case 1: 
+			item= new WeaponItem(myPlayer,new Sprite(myShotGunImage),2,x,y);
+			break;
+		case 2: 
+			item= new HealthItem(myPlayer,new Sprite(myHealthImage),100,x,y);
+			break;
+			
+		default:
+			item=null;
+		}
+		item.setActive(true);
+		myItems.add(item);
+	}
 
 	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
