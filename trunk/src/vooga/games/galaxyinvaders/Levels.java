@@ -47,6 +47,10 @@ public class Levels {
     public void nextLevel(){
         levelNum++;
     }
+    
+    public int getLevel() {
+    	return levelNum;
+    }
    
     public ArrayList<Point> getLevelPath(){
         return map.get(levelNum);
