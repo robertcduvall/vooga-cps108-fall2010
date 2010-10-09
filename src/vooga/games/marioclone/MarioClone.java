@@ -3,12 +3,18 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.OverlayIcon;
+import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.Stat;
+import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.games.marioclone.tiles.Tile;
@@ -31,18 +37,21 @@ public class MarioClone extends Game {
 	private static final int HEIGHT = 768;
 	private static final int MAIN_MENU = 0;
     private static final int GAME_PLAY = 1;
-    private static final int GAME_PAUSED = 2;
-    private static final int GAME_OVER = 3;
+    private static final int GAME_OVER = 2;
+    private static final int INITIAL_HP = 100;
     private int myGameState;
     private boolean isGameOver;
     
-    GameFont myGameFont;
     Background marioBackground, mainMenu, gameOver;
+    GameFont myGameFont;
+	KeyboardControl myControl;
 	MarioPlayField playfield;
 	MarioSprite mario;
+	OverlayStat myScoreOverlay;
 	PlayField menu, end, paused;
-	KeyboardControl myControl;
 	SpriteGroup marioGroup, tileGroup, enemyGroup;
+	Stat<Integer> myScore;
+	Stat<Integer> myHealth;
 	
 	public static void main(String[] args)  throws IOException {
 		GameLoader gl = new GameLoader();
@@ -53,7 +62,17 @@ public class MarioClone extends Game {
 	
 	
 	public void initResources() {
+		
+
+		 
 		myGameState = MAIN_MENU;
+		myHealth = new Stat<Integer>(new Integer(INITIAL_HP));
+		myScore = new Stat<Integer>(new Integer(0));
+
+		myScoreOverlay = new OverlayStat("Score", myScore);
+		myScoreOverlay.setLocation(WIDTH - 1000, 5);
+
+	
 		
 		// Code and image lovingly borrowed from Grandius group - thanks guys!
         myGameFont = fontManager.getFont(getImages("images/font.png", 20, 3), " !            .,0123" +
@@ -107,7 +126,10 @@ public class MarioClone extends Game {
 		playfield.addCollisionGroup(marioGroup, playfield.getTileMap().getTileGroup(), new MarioToTileCollision());
 		playfield.addCollisionGroup(enemyGroup, playfield.getTileMap().getTileGroup(), new EnemyToTileCollision());
 		playfield.addCollisionGroup(marioGroup, enemyGroup, new MarioToEnemyCollision());
+		
+		playfield.add(myScoreOverlay);
 	}
+	
 	
 	@Override
 	public void update(long elapsedTime) {
@@ -115,34 +137,19 @@ public class MarioClone extends Game {
 		mario.stop();
 		if(!mario.isActive()) myGameState = GAME_OVER;
 		
-		// Start of the game - main menu screen
 		if (myGameState == MAIN_MENU){
 			if (keyPressed(KeyEvent.VK_SPACE))
 				myGameState = GAME_PLAY;
 		}
     	
-		// Game in progress state and transitions
     	if (myGameState == GAME_PLAY){
     		myControl.update();
         	playfield.update(elapsedTime);
         	if (isGameOver)
         		myGameState = GAME_OVER;
-        	if (keyPressed(KeyEvent.VK_P)){
-        		myGameState = GAME_PAUSED;
-        	}
     	}  
+
     	
-    	// Paused game state
-    	if (myGameState == GAME_PAUSED){
-    		System.out.println("In the paused state.");
-    		mario.setActive(false);
-    		if (keyPressed(KeyEvent.VK_P)){
-    			mario.setActive(true);
-    			myGameState = GAME_PLAY;
-    		}
-    	}
-    	
-    	// Game over state
     	if (myGameState == GAME_OVER)
     		if (keyPressed(KeyEvent.VK_SPACE))
     			myGameState = MAIN_MENU;
@@ -162,11 +169,6 @@ public class MarioClone extends Game {
 		if (myGameState == GAME_PLAY) {
             playfield.setBackground(marioBackground);
 			playfield.render(g);
-		}
-		
-		if (myGameState == GAME_PAUSED){
-			paused.render(g);
-			myGameFont.drawString(g, "GAME PAUSED - PRESS SPACE TO RESUME", WIDTH / 4, HEIGHT / 2);
 		}
 		
 		if (myGameState == GAME_OVER){
