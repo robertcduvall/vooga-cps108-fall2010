@@ -95,8 +95,9 @@ public class MarioClone extends Game {
 		
 		enemyGroup = new SpriteGroup("Enemy Group");
 		Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
-		enemy.setLocation(150, 600);
+		enemy.setLocation(700, 290);
 		enemyGroup.add(enemy);
+		playfield.addGroup(enemyGroup);
 		
 		myControl = new KeyboardControl(mario,this);
 		myControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.marioclone.MarioSprite");
@@ -104,12 +105,15 @@ public class MarioClone extends Game {
 		myControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.marioclone.MarioSprite");
 		
 		playfield.addCollisionGroup(marioGroup, playfield.getTileMap().getTileGroup(), new MarioToTileCollision());
+		playfield.addCollisionGroup(enemyGroup, playfield.getTileMap().getTileGroup(), new EnemyToTileCollision());
+		playfield.addCollisionGroup(marioGroup, enemyGroup, new MarioToEnemyCollision());
 	}
 	
 	@Override
 	public void update(long elapsedTime) {
 		System.out.println(myGameState);
 		mario.stop();
+		if(!mario.isActive()) myGameState = GAME_OVER;
 		
 		// Start of the game - main menu screen
 		if (myGameState == MAIN_MENU){

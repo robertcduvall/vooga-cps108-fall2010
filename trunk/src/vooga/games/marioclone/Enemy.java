@@ -15,13 +15,24 @@ public class Enemy extends CharacterSprite {
 			BufferedImage right) {
 		super(name, stateName, left, right);
 		setHorizontalSpeed(speed*Math.signum(Math.random()-.5));
+		setHealth(100);
+	}
+	
+	public void bounce() {
+		setHorizontalSpeed(-getHorizontalSpeed());
 	}
 	
 	@Override
 	public void update(long elapsedTime) {
-		if(getHorizontalSpeed()<0) setImage(leftImage);
-		else if(getHorizontalSpeed()>0) setImage(rightImage);
+		if(getHealth() <= 0)
+			setActive(false);
+		
 		super.update(elapsedTime);
+		
+		if(!isOnScreen()) bounce();
+		if(getHorizontalSpeed()<0) setNewImage(leftImage);
+		else if(getHorizontalSpeed()>0) setNewImage(rightImage);
+		
 	}
 
 
