@@ -9,6 +9,13 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.resource.Resources;
 
+/**
+ * Controls the enemy spawn speeds, path, speed of travel, and the amount of hit points 
+ * each enemy has. It also detects whether or not it is hit and adjusts the score and health.
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ */
+
 public class EnemySpawn extends Enemy {
 	
 	SpriteGroup myEnemyGroup;

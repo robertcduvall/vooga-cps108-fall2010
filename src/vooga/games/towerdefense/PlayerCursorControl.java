@@ -14,7 +14,7 @@ import com.golden.gamedev.Game;
  * moves the controlled PlayerSprite to the location of the 
  * mouse.
  * 
- * @author Daniel Koverman
+  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  */
 
 public class PlayerCursorControl extends Control implements Controller{
