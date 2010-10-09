@@ -97,7 +97,7 @@ public class GalaxyInvaders extends Game {
 	
 	public void initEnemies() {	
 		for (int i=0; i<12; i++){
-            EnemySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.gif"), (i%4)*50, ((int)(i/4))*50), levels.getLevelPath());
+            EnemySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), (i%4)*50, ((int)(i/4))*50), levels.getLevelPath());
             Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
 			e.mapNameToSprite("damaged", damaged);
             enemies.add(e);
