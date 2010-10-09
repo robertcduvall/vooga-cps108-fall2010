@@ -22,7 +22,7 @@ import com.golden.gamedev.object.collision.CollisionGroup;
 
 public class TileMap {
 	
-	private static double TILE_SIZE = 32;
+	private static double TILE_SIZE = 64;
 	
 	private List<Tile> tiles;
 	private SpriteGroup tileGroup;
