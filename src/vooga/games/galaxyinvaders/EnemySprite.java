@@ -8,6 +8,13 @@ import com.golden.gamedev.object.Sprite;
 import vooga.engine.player.control.GameEntitySprite;
 import com.golden.gamedev.object.Timer;
 
+/**
+ * The EnemySprite class represents each invader on the screen. The 
+ * GalaxyInvaders class creates a sprite group of them.
+ * 
+ * @author Drew Sternesky, Kate Yang, Nick Hawthorne
+ *
+ */
 public class EnemySprite extends GameEntitySprite {
 
 	private static final int DEFAULT_HP = 2;
@@ -19,6 +26,15 @@ public class EnemySprite extends GameEntitySprite {
 	
 	private int hitPoints;
 	
+	/**
+	 * This is the constructor for the EnemySprite class. It is similar to GameEntitySprite's 
+	 * constructor, but with an extra field which determines the path it will travel.
+	 * 
+	 * @param s see GameEntitySprite
+	 * @param name see GameEntitySprite
+	 * @param spr see GameEntitySprite
+	 * @param list the path which this enemy is going to follow
+	 */
 	public EnemySprite(String s, String name, Sprite spr, ArrayList<Point> list) {
 		super(s, name, spr);
 		hitPoints = DEFAULT_HP;
@@ -27,6 +43,10 @@ public class EnemySprite extends GameEntitySprite {
 		path = list;
 	}
 	
+	/**
+	 * Called every turn by the Game, this method moves the enemy, changes 
+	 * its color if it is damaged, and removes it if it is destroyed.
+	 */
 	public void update(long time) {
 		super.update(time);
 		if(hitPoints < 2) {
@@ -38,6 +58,10 @@ public class EnemySprite extends GameEntitySprite {
         if (timer.action(time))   move();
 	}
 	
+    /**
+     * Moves the enemy along its path
+     * 
+     */
     public void move(){
         if (pathNum>=path.size())
             return;
@@ -45,8 +69,13 @@ public class EnemySprite extends GameEntitySprite {
         pathNum++;
     }
 	
-	public void decrementHitPoints() {
-		hitPoints--;
+	/**
+	 * Decreases hitPoints by a certain amount
+	 * 
+	 * @param dmg amount to decrease by
+	 */
+	public void decrementHitPoints(int dmg) {
+		hitPoints = hitPoints - dmg;
 	}
 	
 
