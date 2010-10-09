@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 
+/**
+ * An inexpensive tower with a moderate range and rate of fire.
+ * @author Derek Zhou
+ *
+ */
 public class NormalTower extends Tower{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3736751382675453712L;
+
+	static final long serialVersionUID = -3736751382675453712L;
 	public final static BufferedImage IMAGE = Resources.getImage("normalTower");
 	public final static BufferedImage PREVIEW = Resources.getImage("normalTowerPreview");
 	public final static long SHOT_DELAY = 1000;

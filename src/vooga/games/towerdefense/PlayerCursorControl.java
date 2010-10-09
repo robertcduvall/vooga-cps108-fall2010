@@ -10,10 +10,11 @@ import vooga.engine.player.control.PlayerSprite;
 import com.golden.gamedev.Game;
 
 /**
- * Built-in example of how to extend Control class properly. Also a usable mouse
- * Controller creator.
- * @author Choi, Cue, Hawthorne
- * @version 1.0
+ * Modification of the example MouseControl class which also
+ * moves the controlled PlayerSprite to the location of the 
+ * mouse.
+ * 
+ * @author Daniel Koverman
  */
 
 public class PlayerCursorControl extends Control implements Controller{

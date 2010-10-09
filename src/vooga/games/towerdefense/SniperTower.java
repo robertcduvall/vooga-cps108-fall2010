@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 
+/**
+ * A moderately expensive tower with a slow rate of fire 
+ * and a long range.
+ * @author Daniel Koverman
+ *
+ */
 public class SniperTower extends Tower{
 	
 	public final static BufferedImage IMAGE = Resources.getImage("sniperTower");

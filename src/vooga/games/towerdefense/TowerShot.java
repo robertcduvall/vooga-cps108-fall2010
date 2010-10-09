@@ -7,6 +7,14 @@ import vooga.engine.collision.OverlapChecker;
 
 import com.golden.gamedev.object.Sprite;
 
+/**
+ * Represents a shot taken by a Tower at an enemy. Moves at a
+ * constant speed to a target destination where enemy was then 
+ * disappears.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class TowerShot extends Sprite{
 	
 	private Point2D.Double destination;

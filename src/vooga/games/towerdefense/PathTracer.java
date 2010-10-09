@@ -12,10 +12,10 @@ import com.golden.gamedev.engine.BaseInput;
 import vooga.engine.player.control.*;
 
 /**
- * Built-in example of how to extend Control class properly. Also a usable mouse
- * Controller creator.
- * @author Choi, Cue, Hawthorne
- * @version 1.0
+ * Controller designed for assisting in tracing paths for making routes 
+ * in new levels. It is a modification of the example MouseControl class.
+ * Not to be used in actual gameplay.
+ * @author Justin Goldsmith
  */
 
 public class PathTracer extends Control implements Controller{

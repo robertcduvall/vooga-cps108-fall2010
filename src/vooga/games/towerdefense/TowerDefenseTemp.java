@@ -29,6 +29,12 @@ import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.doodlejump.DoodleState;
 
+/**
+ * Tester class for testing modifications of the actual main class TowerDefense.
+ * Not to be used during actual gameplay.
+ * @author Justin Goldsmith
+ *
+ */
 public class TowerDefenseTemp extends Game {
 
 	public static final int WIDTH = 1050;

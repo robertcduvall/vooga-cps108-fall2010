@@ -17,6 +17,14 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 
+/**
+ * Since the player does not have a physical representation, the cursor 
+ * is effectively the player in the game. This cursor has the capability 
+ * to build Towers and update itself according to what kind of Tower 
+ * is going to built next using Reflection
+ * @author Daniel Koverman
+ *
+ */
 public class PlayerCursor extends PlayerSprite {
 
 	private static final long serialVersionUID = -8174656868252384431L;
