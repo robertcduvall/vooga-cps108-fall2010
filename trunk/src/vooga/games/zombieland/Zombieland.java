@@ -43,6 +43,7 @@ public class Zombieland extends Game {
 	private AnimatedSprite shooterImage;
 	private ImageBackground background;
 	private Shooter player;
+	private int maxHealth;
 
 	private SpriteGroup zombies;
 	private SpriteGroup players;
@@ -164,8 +165,9 @@ public class Zombieland extends Game {
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
+		maxHealth = 200;
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
-		player = new Shooter("Hero", "Down", shooterImage, 1000, 0, this);
+		player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0, this);
 		player.mapNameToSprite("Up",
 				getInitializedAnimatedSprite(playerUpImage));
 		player.mapNameToSprite("Left",
@@ -179,7 +181,7 @@ public class Zombieland extends Game {
 		
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(5, 10);
-		overlayHealthBar = new OverlayBar(player.getStatHealth(), 100);
+		overlayHealthBar = new OverlayBar(player.getStatHealth(), maxHealth);
 		overlayHealthBar.setColor(Color.GREEN);
 		overlayHealthBar.setLocation(80, 18);
 		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
