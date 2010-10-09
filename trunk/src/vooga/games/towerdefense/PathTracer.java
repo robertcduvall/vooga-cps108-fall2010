@@ -15,7 +15,7 @@ import vooga.engine.player.control.*;
  * Controller designed for assisting in tracing paths for making routes 
  * in new levels. It is a modification of the example MouseControl class.
  * Not to be used in actual gameplay.
- * @author Justin Goldsmith
+  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  */
 
 public class PathTracer extends Control implements Controller{

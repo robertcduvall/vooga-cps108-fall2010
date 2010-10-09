@@ -12,7 +12,7 @@ import com.golden.gamedev.object.Sprite;
  * constant speed to a target destination where enemy was then 
  * disappears.
  * 
- * @author Daniel Koverman
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class TowerShot extends Sprite{

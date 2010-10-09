@@ -11,7 +11,7 @@ import vooga.engine.state.GameState;
  * bugs which occurred using the regular GameStateManager 
  * class.
  * 
- * @author Daniel Koverman
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  * 
  */
 public class NonSetGameStateManager {

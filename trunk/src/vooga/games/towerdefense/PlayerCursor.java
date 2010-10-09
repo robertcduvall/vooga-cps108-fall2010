@@ -22,7 +22,7 @@ import vooga.engine.resource.Resources;
  * is effectively the player in the game. This cursor has the capability 
  * to build Towers and update itself according to what kind of Tower 
  * is going to built next using Reflection
- * @author Daniel Koverman
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class PlayerCursor extends PlayerSprite {

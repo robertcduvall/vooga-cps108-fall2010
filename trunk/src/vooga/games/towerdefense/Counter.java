@@ -8,6 +8,12 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.util.ImageUtil;
 
+/**
+ * Counter displays the images for a countdown to the start of the game
+ * 
+ * @author Derek Zhou
+ */
+
 public class Counter extends Sprite{
 	
 	private Timer timer;

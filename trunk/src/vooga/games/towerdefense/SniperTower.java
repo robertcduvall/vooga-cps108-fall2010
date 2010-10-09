@@ -7,7 +7,7 @@ import vooga.engine.resource.Resources;
 /**
  * A moderately expensive tower with a slow rate of fire 
  * and a long range.
- * @author Daniel Koverman
+  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class SniperTower extends Tower{

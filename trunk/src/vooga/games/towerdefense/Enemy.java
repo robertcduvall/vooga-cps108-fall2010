@@ -10,6 +10,13 @@ import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 
+/**
+ * The enemy sprite class which is defined by a speed, a path, a location, and 
+ * health for each enemy.
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ */
+
 public class Enemy extends Sprite {
 
 	protected ArrayList<PathPoint> myPath;
@@ -42,6 +49,9 @@ public class Enemy extends Sprite {
 		setImage();
 	}
 
+	/**
+	 * sets the image based on the number of lives
+	 */
 	protected void setImage() {
 
 		if (myLives == 3) {
@@ -54,7 +64,9 @@ public class Enemy extends Sprite {
 
 	}
 
-	@Override
+	/**
+	 * updates the parameters of the sprite based on the time
+	 */
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		if (myRestart) {
@@ -100,6 +112,9 @@ public class Enemy extends Sprite {
 		mySelfEstem.setStat(mySelfEstem.getStat() - myLives);
 	}
 
+	/**
+	 * displays whether or not an enemy is hit
+	 */
 	protected void gotHit() {
 		myScore.setStat(myScore.getStat() + 10);
 		myMoney.setStat(myMoney.getStat() + 1);
@@ -135,6 +150,9 @@ public class Enemy extends Sprite {
 
 	}
 
+	/**
+	 * generates the path to follow
+	 */
 	private void createPath(double totalDistance, int segments, int start,
 			int end) {
 		int current = start + 1;

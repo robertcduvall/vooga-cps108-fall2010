@@ -23,7 +23,7 @@ import vooga.engine.resource.Resources;
 /**
  * Helper program for rapidly tracing a path on a background. Used 
  * only for making new levels, not during actual game play.
- * @author Justin Goldsmith
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class TowerPathTracer extends Game{

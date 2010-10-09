@@ -12,7 +12,7 @@ import vooga.engine.state.GameState;
  * SpriteGroups while also returning the SpriteGroup to mimick the 
  * capability of a Playgroup. Also manages Controls in addition to 
  * Playgroups
- * @author Daniel Koverman
+  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class State extends GameState{

@@ -6,7 +6,7 @@ import vooga.engine.resource.Resources;
 
 /**
  * An inexpensive tower with a moderate range and rate of fire.
- * @author Derek Zhou
+  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
 public class NormalTower extends Tower{
