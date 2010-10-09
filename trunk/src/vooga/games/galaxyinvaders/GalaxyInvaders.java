@@ -104,13 +104,13 @@ public class GalaxyInvaders extends Game {
 		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
 	}
 	
-	private void initEnemies() {	
-		for (int i=0; i<12; i++){
-            EnemySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), (i%4)*50, ((int)(i/4))*50), levels.getLevelPath());
-            Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
+	public void initEnemies() {     
+		for (int i=0; i<levels.getEnemySize(); i++){
+			EnemySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), (i%4)*50, ((int)(i/4))*50), levels);
+			Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
 			e.mapNameToSprite("damaged", damaged);
-            enemies.add(e);
-        }    
+			enemies.add(e);
+		}    
 	}
 
 	
