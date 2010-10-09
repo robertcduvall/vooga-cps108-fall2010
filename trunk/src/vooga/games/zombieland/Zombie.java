@@ -5,22 +5,24 @@ import com.golden.gamedev.object.AnimatedSprite;
 import vooga.engine.player.control.PlayerSprite;
 
 import java.util.*;
-
+/**
+ * Zombie Class. Contains all behavior and controls for zombies in the game
+ * @author Jimmy Mu, Aaron Choi, Yang Su
+ *
+ */
 public class Zombie extends PlayerSprite {
 
-	private Shooter myTarget;
-	private double myTargetX;
-	private double myTargetY;
-	private String myDirectionToMove;
-	private double mySpeed;
-	private int myDamage;
-	private static int myAtttackDelay = 30;
-	private int myAttackDelayStep;
+	private Shooter target;
+	private String directionToMove;
+	private double speed;
+	private int damage;
+	private static int attackDelay = 30;
+	private int attackDelayStep;
 	private String currentAttackAnimation = "";
 	private Zombieland game;
 	private Random random;
 	private final static int ITEM_CHANCE = 20;
-	
+
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
 			Shooter hero, Zombieland zombieland) {
@@ -31,15 +33,15 @@ public class Zombie extends PlayerSprite {
 		mapNameToSprite("Down", down);
 
 		setHumanTarget(hero);
-		myDirectionToMove = "X";
-		mySpeed = -0.25;
+		directionToMove = "X";
+		speed = -0.25;
 
 		setHealth(25);
 		setDamage(5);
 		resetAttackDelayStep();
-		
+
 		game = zombieland;
-		
+
 		random = new Random();
 	}
 
@@ -51,7 +53,7 @@ public class Zombie extends PlayerSprite {
 	 *            Target shooter
 	 */
 	private void setHumanTarget(Shooter hero) {
-		myTarget = hero;
+		target = hero;
 	}
 
 	/**
@@ -61,7 +63,7 @@ public class Zombie extends PlayerSprite {
 	 *            damage of the zombie
 	 */
 	private void setDamage(int hit) {
-		myDamage = hit;
+		damage = hit;
 	}
 
 	/**
@@ -72,7 +74,8 @@ public class Zombie extends PlayerSprite {
 	 *         direction
 	 */
 	private boolean isCloserInXDirection() {
-		return Math.abs(getX() - myTargetX) >= Math.abs(getY() - myTargetY);
+		return Math.abs(getX() - target.getX()) >= Math.abs(getY()
+				- target.getY());
 	}
 
 	/**
@@ -86,14 +89,14 @@ public class Zombie extends PlayerSprite {
 	}
 
 	/**
-	 * Tests to see if the myAttackDelayStep has reached the threshold defined
-	 * by myAtttackDelay. If so, the zombie is able to attack and vice versa.
-	 * Used to restrict the number of attacks for a single zombie
+	 * Tests to see if the AttackDelayStep has reached the threshold defined by
+	 * AtttackDelay. If so, the zombie is able to attack and vice versa. Used to
+	 * restrict the number of attacks for a single zombie
 	 * 
 	 * @return true if the zombie is ready for the next attack
 	 */
 	public boolean isAbleToAttack() {
-		return myAttackDelayStep == myAtttackDelay;
+		return attackDelayStep == attackDelay;
 	}
 
 	/**
@@ -102,71 +105,101 @@ public class Zombie extends PlayerSprite {
 	 * @return damage of the zombie
 	 */
 	public int getDamage() {
-		return myDamage;
+		return damage;
 	}
 
 	/**
 	 * Returns the attack direction of the zombie. Here the returned values are
 	 * predefined to be 0, 1, 2, or 3, representing Right, Up, Left, Bottom
-	 * respectively.
+	 * respectively. Used to initiate attack animations
 	 * 
-	 * @return
+	 * @return attack direction
 	 */
 	public int getAttackDirection() {
 		if (isCloserInXDirection()) {
-			return ((myTargetX - getX()) > 0) ? 0 : 2;
+			return ((target.getX() - getX()) > 0) ? 0 : 2;
 		} else
-			return ((myTargetY - getY()) > 0) ? 3 : 1;
+			return ((target.getY() - getY()) > 0) ? 3 : 1;
 	}
 
+	/**
+	 * Get movement directions
+	 * 
+	 * @return direction
+	 */
 	public double getDirection() {
-		myTargetX = myTarget.getX();
-		myTargetY = myTarget.getY();
-
 		if (isCloserInXDirection()) {
-			myDirectionToMove = "X";
-			return (myTargetX - getX()) / Math.abs(myTargetX - getX());
+			directionToMove = "X";
+			return (target.getX() - getX()) / Math.abs(target.getX() - getX());
 		}
 
 		// Else is assumed here. Implicitly calls on iAmCloserInYDirection()
-		myDirectionToMove = "Y";
-		return (myTargetY - getY()) / Math.abs(myTargetY - getY());
+		directionToMove = "Y";
+		return (target.getY() - getY()) / Math.abs(target.getY() - getY());
 
 	}
 
+	/**
+	 * Update the zombie's health according to the damage taken
+	 * 
+	 * @param damage
+	 *            damage taken by the zombie
+	 */
 	public void calculateDamage(double damage) {
 		updateHealth((int) damage);
 	}
 
+	/**
+	 * Update attack step. Used to force intervals between attacks
+	 */
 	public void updateAttactStep() {
-		myAttackDelayStep++;
+		attackDelayStep++;
 	}
 
+	/**
+	 * reset attack step
+	 */
 	public void resetAttackDelayStep() {
-		myAttackDelayStep = 0;
+		attackDelayStep = 0;
 	}
 
-	public void attackFrom(String fromSide) {
-		currentAttackAnimation = fromSide;
+	/**
+	 * Set the label for the current attack animation so it corresponds to the
+	 * attack direction of the zombie
+	 * 
+	 * @param side
+	 *            attack direction
+	 */
+	public void setAttackAnimation(String side) {
+		currentAttackAnimation = side;
 	}
 
+	/**
+	 * Keep track of heath and controls animation, movement, and item drop
+	 */
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+
 		if (isHealthZero()) {
 			setToCurrentSprite("ZombieDeath");
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 			int item = random.nextInt(100);
+			// When the death animation is finished
 			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
+				// Kill zombie
 				setActive(false);
-				myTarget.updateScore(1);
-				
-				if (item < ITEM_CHANCE){
+				// Update score
+				target.updateScore(1);
+
+				if (item < ITEM_CHANCE) {
+					//Drop item
 					game.addRandomItem(getX(), getY());
 				}
 			}
 			return;
 		}
-
+		
+		//Attack animation
 		if (!currentAttackAnimation.isEmpty()) {
 			setToCurrentSprite(currentAttackAnimation);
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
@@ -176,23 +209,24 @@ public class Zombie extends PlayerSprite {
 			return;
 		}
 
+		// Movement control
 		double direction = getDirection();
-		if (myDirectionToMove.equals("X")) {
+		if (directionToMove.equals("X")) {
 			if (direction < 0) {
-				moveX(mySpeed);
+				moveX(speed);
 				setToCurrentSprite("Left");
 			} else {
-				moveX(Math.abs(mySpeed));
+				moveX(Math.abs(speed));
 				setToCurrentSprite("Right");
 			}
 		}
 
-		if (myDirectionToMove.equals("Y")) {
+		if (directionToMove.equals("Y")) {
 			if (direction < 0) {
-				moveY(mySpeed);
+				moveY(speed);
 				setToCurrentSprite("Up");
 			} else {
-				moveY(Math.abs(mySpeed));
+				moveY(Math.abs(speed));
 				setToCurrentSprite("Down");
 			}
 		}
