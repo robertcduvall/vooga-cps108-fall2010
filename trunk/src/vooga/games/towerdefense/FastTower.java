@@ -7,7 +7,10 @@ import vooga.engine.resource.Resources;
 public class FastTower extends Tower{
 	
 	/**
+	 * An expensive tower with a very short range and an
+	 * extremely high rate of fire.
 	 * 
+	 * @author Daniel Koverman
 	 */
 	private static final long serialVersionUID = -3736751382675453712L;
 	public final static BufferedImage IMAGE = Resources.getImage("fastTower");

@@ -10,6 +10,13 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
+/**
+ * Represents a Tower object placed by the player on the map. Towers 
+ * have the capability to have different base statistics such as range 
+ * and firing rate and can also be extended to fire bullets differently.
+ * @author Daniel Koverman
+ *
+ */
 public abstract class Tower extends Sprite{
 
 	private long shotDelay;

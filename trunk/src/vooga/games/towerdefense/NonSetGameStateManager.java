@@ -6,14 +6,13 @@ import java.util.*;
 import vooga.engine.state.GameState;
 
 /**
- * GameStateManager manages the behavior of GameState for overarching classes like Game. At its heart,
- * GameStateManager is a collection of GameStates with a number of useful methods for toggling, activating, and 
- * deactivating specific states. Otherwise, its main purpose is to sort and iterate over GameStates, rendering and
- * updating the active ones.
+ * A replacement of GameStateManager which uses a list 
+ * of game states instead of a set of game states. Fixed 
+ * bugs which occurred using the regular GameStateManager 
+ * class.
  * 
- * @author VitorOlivier & BrianSimel & sort of BrentSodman
+ * @author Daniel Koverman
  * 
- * Special thanks to UTA Ben Getson for helping with refactoring
  */
 public class NonSetGameStateManager {
 

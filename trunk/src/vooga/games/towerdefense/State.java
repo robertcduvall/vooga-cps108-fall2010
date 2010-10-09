@@ -7,6 +7,14 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.player.control.Control;
 import vooga.engine.state.GameState;
 
+/**
+ * State is a GameState extension which adds the capability to add
+ * SpriteGroups while also returning the SpriteGroup to mimick the 
+ * capability of a Playgroup. Also manages Controls in addition to 
+ * Playgroups
+ * @author Daniel Koverman
+ *
+ */
 public class State extends GameState{
 	
 	private Collection<Control> controls = new ArrayList<Control>();
