@@ -36,8 +36,7 @@ public class TowerDefense extends Game {
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
 
-	private PlayerCursorControl playerCursorControl;
-	private PlayerCursorControl menuPlayerCursorControl;
+	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl , gameOverPlayerCursorControl;
 	private KeyboardControl playerKeyboardControl;
 	protected Background[] background;
 	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
@@ -53,56 +52,20 @@ public class TowerDefense extends Game {
 	protected State pause;
 	protected State gameOver;
 	private int difficulty;
+	private boolean go;
+	private Counter counter;
+
+
 
 	@Override
 	public void initResources() {
 		Resources.setGame(this);
 		loadImages();
 		initBackgrounds();
-
-		stateManager = new NonSetGameStateManager();
-		startMenu = new State();
-		play = new State();
-		pause = new State();
-		gameOver = new State();
-
-		stateManager.addGameState(startMenu);
-		stateManager.addGameState(play);
-		stateManager.addGameState(pause);
-		stateManager.addGameState(gameOver);
-
+		
+		begin();
+		
 		stateManager.switchTo(startMenu);
-
-		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
-		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
-		towerShotGroup = play.addAndReturnGroup(new SpriteGroup(
-				"Tower Shot Group"));
-		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
-		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
-
-		Sprite pauseScreen = new Sprite(Resources.getImage("pause"));
-		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
-		pauseGroup.add(pauseScreen);
-		pause.addGroup(overlayGroup);
-		
-		Sprite gameOverSprite = new Sprite(ImageUtil.resize(Resources.getImage("gameOver"), WIDTH, HEIGHT));
-		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
-		gameOverGroup.add(gameOverSprite);
-		
-		Sprite menuSprite = new Sprite(ImageUtil.resize(Resources.getImage("menu"), WIDTH, HEIGHT));
-		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
-		menuGroup.add(menuSprite);
-		
-		
-		
-		
-
-		selfEsteem = new Stat<Integer>(100);
-		score = new Stat<Integer>(0);
-		money = new Stat<Integer>(100);
-		initPath();
-		initPlayer();
-		initOverlays();
 
 	}
 
@@ -154,6 +117,40 @@ public class TowerDefense extends Game {
 		Resources
 		.loadImage("menu",
 				"src/vooga/games/towerdefense/resources/images/menu.gif");
+		Resources
+		.loadImage("1",
+				"src/vooga/games/towerdefense/resources/images/number1.png");
+		Resources
+		.loadImage("2",
+				"src/vooga/games/towerdefense/resources/images/number2.png");
+		Resources
+		.loadImage("3",
+				"src/vooga/games/towerdefense/resources/images/number3.png");
+		Resources
+		.loadImage("4",
+				"src/vooga/games/towerdefense/resources/images/number4.png");
+		Resources
+		.loadImage("5",
+				"src/vooga/games/towerdefense/resources/images/number5.png");
+		Resources
+		.loadImage("6",
+				"src/vooga/games/towerdefense/resources/images/number6.png");
+		Resources
+		.loadImage("7",
+				"src/vooga/games/towerdefense/resources/images/number7.png");
+		Resources
+		.loadImage("8",
+				"src/vooga/games/towerdefense/resources/images/number8.png");
+		Resources
+		.loadImage("9",
+				"src/vooga/games/towerdefense/resources/images/number9.png");
+		Resources
+		.loadImage("10",
+				"src/vooga/games/towerdefense/resources/images/number10.png");
+		Resources
+		.loadImage("go",
+				"src/vooga/games/towerdefense/resources/images/go.gif");
+
 
 
 	}
@@ -253,11 +250,20 @@ public class TowerDefense extends Game {
 
 	}
 
-	private void initPath() {
+	private void createPath() {
 		path = new ArrayList<PathPoint>();
-		File thisLevel = new File(
-				"src/vooga/games/towerdefense/resources/levels/easy.txt");
 		try {
+			File thisLevel;
+			if(difficulty == 0){
+				thisLevel = new File(
+				"src/vooga/games/towerdefense/resources/levels/easy.txt");
+			}else if(difficulty == 1){
+				thisLevel = new File(
+				"src/vooga/games/towerdefense/resources/levels/medium.txt");
+			}else{
+				thisLevel = new File(
+				"src/vooga/games/towerdefense/resources/levels/hard.txt");
+			}
 			Scanner sc = new Scanner(thisLevel);
 			while (sc.hasNextInt()) {
 				int x = sc.nextInt();
@@ -275,9 +281,11 @@ public class TowerDefense extends Game {
 	}
 
 	private void initPlayer() {
-
+		
 		PlayerSprite player = new PlayerCursor("player", "playerCursor", new Sprite(
 				Resources.getImage("towerPreview")), towerGroup, this, money, stateManager);
+		
+
 		playerGroup.add(player);
 		playerCursorControl = (PlayerCursorControl) play
 				.addControl(new PlayerCursorControl(player, this));
@@ -308,6 +316,16 @@ public class TowerDefense extends Game {
 		menuPlayerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
 		"vooga.games.towerdefense.PlayerCursor");
 		
+		gameOverGroup.add(player);
+		gameOverPlayerCursorControl = (PlayerCursorControl) gameOver
+		.addControl(new PlayerCursorControl(player, this));
+		gameOverPlayerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
+		"vooga.games.towerdefense.PlayerCursor");
+		
+		counter = new Counter();
+		counter.setLocation(350, HEIGHT/2-75);
+		playerGroup.add(counter);
+			
 		
 		
 	}
@@ -335,11 +353,11 @@ public class TowerDefense extends Game {
 		}
 		stateManager.update(elapsedTime);
 		
-		if(selfEsteem.getStat() <= 0 && !gameOver.isActive()){
+		if(play.isActive() && selfEsteem.getStat() <= 0){
 			stateManager.switchTo(gameOver);
 		}
 
-		if (play.isActive()) {
+		if (go) {
 			totalTime += elapsedTime;
 			if (totalTime > 20000) {
 				enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80),
@@ -347,10 +365,15 @@ public class TowerDefense extends Game {
 				totalTime = 0;
 			}
 			if (totalTime > 1000) {
-				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(200, 300),
+				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
 						selfEsteem, score, money, enemyGroup));
 				totalTime = 0;
 			}
+		}else if(totalTime < 12000){
+			totalTime+=elapsedTime;
+		}else{
+			go = true;
+			playerGroup.remove(counter);
 		}
 	}
 
@@ -381,5 +404,59 @@ public class TowerDefense extends Game {
 	public ArrayList<PathPoint> getPathPoints() {
 		return this.path;
 	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+	
+	protected void begin(){		
+		stateManager = new NonSetGameStateManager();
+		startMenu = new State();
+		play = new State();
+		pause = new State();
+		gameOver = new State();
+
+		stateManager.addGameState(startMenu);
+		stateManager.addGameState(play);
+		stateManager.addGameState(pause);
+		stateManager.addGameState(gameOver);
+
+		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
+		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
+		towerShotGroup = play.addAndReturnGroup(new SpriteGroup(
+				"Tower Shot Group"));
+		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
+		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
+		
+
+		Sprite pauseScreen = new Sprite(Resources.getImage("pause"));
+		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
+		pauseGroup.add(pauseScreen);
+		pause.addGroup(overlayGroup);
+		
+		Sprite gameOverSprite = new Sprite(ImageUtil.resize(Resources.getImage("gameOver"), WIDTH, HEIGHT));
+		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
+		gameOverGroup.add(gameOverSprite);
+		
+		Sprite menuSprite = new Sprite(ImageUtil.resize(Resources.getImage("menu"), WIDTH, HEIGHT));
+		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
+		menuGroup.add(menuSprite);
+		
+		
+		
+
+		selfEsteem = new Stat<Integer>(100);
+		score = new Stat<Integer>(0);
+		money = new Stat<Integer>(100);
+		initOverlays();
+		createPath();
+		initPlayer();
+		go = false;
+	}
+	
 
 }
