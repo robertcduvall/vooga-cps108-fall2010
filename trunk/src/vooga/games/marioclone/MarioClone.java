@@ -60,9 +60,10 @@ public class MarioClone extends Game {
 		gl.start();
 	}	
 	
-	
+	{distribute = true;}
+
 	public void initResources() {
-		
+
 
 		 
 		myGameState = MAIN_MENU;
@@ -96,8 +97,9 @@ public class MarioClone extends Game {
 		win = new PlayField();
 		
 		menu.setBackground(mainMenu);
-		end.setBackground(gameOver);
 		win.setBackground(gameWin);
+		end.setBackground(gameOver);
+
 		
 		tileGroup = new SpriteGroup("Tile Group");
 		playfield.addTileMap(map);
@@ -147,16 +149,16 @@ public class MarioClone extends Game {
 	public void update(long elapsedTime) {
 		
 		
-		if (myEnemiesRemaining.getStat() == 0)
+		if (myEnemiesRemaining.getStat() == 0){
 			myGameState = GAME_WIN;
+		}
 		
-		if (mario.getHealth() == 0)
+		if(!mario.isActive()){
 			myGameState = GAME_OVER;
+		}
 		
 		myEnemyOverlay.update(elapsedTime);
 		System.out.println(enemyGroup.getSize());
-
-		if(!mario.isActive()) myGameState = GAME_OVER;
 		
 		if (myGameState == MAIN_MENU){
 			if (keyPressed(KeyEvent.VK_SPACE))
