@@ -72,12 +72,14 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 				breakTimeElapsed = GameClock.getTime()-startBreakTime;
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
 			}
+			/**
+			 * if collision with jetpack, needs work. --devon
+			 */
 			else if(block.getID()==4){
 				doodle.setVerticalSpeed(block.getVerticalSpeed()*0.5);
 				changeSpriteImage(doodle, "doodleJet");			
 				doodle.setHorizontalSpeed(0);
-				changeSpriteImage(block, "jetpackInvisible");
-				
+				changeSpriteImage(block, "jetpackInvisible");				
 			} 
 
 			
