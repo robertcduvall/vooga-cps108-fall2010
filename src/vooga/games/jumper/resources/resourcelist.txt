@@ -19,6 +19,9 @@ resources/green_flying_monster.png,monsterGreenFlying
 resources/gray_platform.png,platformGray
 resources/doodle_right.png,doodleRight
 resources/doodle_left.png,doodleLeft
+resources/doodleJet.png,doodleJet
+resources/jetpack.png, jetpack
+resources/jetpackInvisible.png/jetpackInvisible
 resources/brown_platform_breaking_3.png,platformBreak3
 resources/brown_platform_breaking_2.png,platformBreak2
 resources/brown_platform_breaking_1.png,platformBreak1
