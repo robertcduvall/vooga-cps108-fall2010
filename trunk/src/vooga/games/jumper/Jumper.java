@@ -59,7 +59,8 @@ public class Jumper extends vooga.engine.core.Game {
 	private int blockTypeNormal     = 1;
 	private int blockTypeSpring     = 2;
 	private int blockTypeNotBroken  = 3;
-	private int blockTypeBroken     = 4;
+	private int blockTypeJetpack    = 4;
+	
 
 	private DoodleToBlockCollision myNormalCollision;
 
@@ -74,6 +75,7 @@ public class Jumper extends vooga.engine.core.Game {
 	private SpriteGroup myOverlay;
 
 	private int myBlockCounter = 0;
+	private int myBlockCounterIncrement = 4;
 
 	/**
 	 *  Initialize all of the game instance variables
@@ -161,30 +163,34 @@ public class Jumper extends vooga.engine.core.Game {
 		//make the correct type of block
 		if (randomBlockOccurance < myBlockFrequency){
 			Sprite block;
-			if (myBlockCounter == 3){
+			if (myBlockCounter == myBlockCounterIncrement){
 				//Point velocity = new Point();  << what is this? --Devon
 				block = new BlockSprite(ResourceHandler.getImage("platformGray"), randomLocation, myBlockVelocity, myBlockVelocity);
 				block.setID(blockTypeNormal);
 				myBlockCounter++;
 
-			} else if(myBlockCounter == 7){
+			} else if(myBlockCounter == 2*myBlockCounterIncrement){
 				block = new BlockSprite(ResourceHandler.getImage("platformRed"), randomLocation, 0, myBlockVelocity*fastBlockSpeedMultiplier);
 				block.setID(blockTypeNormal);
 
 				myBlockCounter++;
 
-			} else if(myBlockCounter == 11){
+			} else if(myBlockCounter == 3*myBlockCounterIncrement){
 				block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), randomLocation, 0, myBlockVelocity);
 				block.setID(blockTypeNormal);
 				myBlockCounter++;
-			} else if(myBlockCounter == 15){
+			} else if(myBlockCounter == 4*myBlockCounterIncrement){
 				block = new BlockSprite(ResourceHandler.getImage("platformBreak"), randomLocation, 0, myBlockVelocity);
 				block.setID(blockTypeNotBroken);
 				myBlockCounter++;
-			} else if(myBlockCounter == 19){
+			} else if(myBlockCounter == 5*myBlockCounterIncrement){
 				block = new BlockSprite(ResourceHandler.getImage("platformSpringDouble"), randomLocation, 0, myBlockVelocity);
 				block.setID(blockTypeSpring);
-				myBlockCounter = 0; //18
+				myBlockCounter++;
+			} else if(myBlockCounter == 6*myBlockCounterIncrement){
+				block = new BlockSprite(ResourceHandler.getImage("jetpack"), randomLocation, 0, myBlockVelocity);
+				block.setID(blockTypeJetpack);
+				myBlockCounter = 0;
 			} else {
 				block = new BlockSprite(ResourceHandler.getImage("platformGreen"), randomLocation, 0, myBlockVelocity);
 				block.setID(blockTypeNormal);
