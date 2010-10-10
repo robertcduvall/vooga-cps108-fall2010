@@ -61,18 +61,26 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 				if(startBreakTime == 0){
 					startBreakTime = GameClock.getTime();
 				}else if(Math.abs(breakTimeElapsed-breakTimerRate*1)<10){
-					changeBlockImage(block, "platformBreak1");
+					changeSpriteImage(block, "platformBreak1");
 				}else if(Math.abs(breakTimeElapsed-breakTimerRate*2)<10){
-					changeBlockImage(block, "platformBreak2");
+					changeSpriteImage(block, "platformBreak2");
 				}else if(Math.abs(breakTimeElapsed-breakTimerRate*3)<10){
-					changeBlockImage(block, "platformBreak3");
+					changeSpriteImage(block, "platformBreak3");
 					startBreakTime = 0;
 					block.setID(0);
 				}
 				breakTimeElapsed = GameClock.getTime()-startBreakTime;
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
-
 			}
+			else if(block.getID()==4){
+				doodle.setVerticalSpeed(block.getVerticalSpeed()*0.5);
+				changeSpriteImage(doodle, "doodleJet");			
+				doodle.setHorizontalSpeed(0);
+				changeSpriteImage(block, "jetpackInvisible");
+				
+			} 
+
+			
 
 				
 
@@ -88,7 +96,7 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	}
 	
 	
-	public void changeBlockImage(Sprite spr, String str){
+	public void changeSpriteImage(Sprite spr, String str){
 		spr.setImage(ResourceHandler.getImage(str));
 	}
 }
