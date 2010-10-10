@@ -43,7 +43,7 @@ public class Jumper extends vooga.engine.core.Game {
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
 	private double BLOCK_XVELOCITY_INCREASE_RATE = 0;
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
-	private double myBlockVelocity = -0.3;
+	private double myBlockVelocity = -2.0;
 
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
