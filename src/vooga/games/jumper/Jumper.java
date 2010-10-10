@@ -27,7 +27,6 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-//testedit: oct 9 2:06pm
 
 /**
  * This is an example game called Jumper that we created to demonstrate the VOOGA Game Engine.
@@ -44,7 +43,7 @@ public class Jumper extends vooga.engine.core.Game {
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
 	private double BLOCK_XVELOCITY_INCREASE_RATE = 0;
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
-	private double myBlockVelocity = -2.0;
+	private double myBlockVelocity = -0.3;
 
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
@@ -122,6 +121,7 @@ public class Jumper extends vooga.engine.core.Game {
 		}
 	}
 
+	
 
 	/**
 	 * Returns the width of the Game
@@ -183,6 +183,8 @@ public class Jumper extends vooga.engine.core.Game {
 	 * @param elapsedTime long time elapsed from last update
 	 */
 	public void update(long elapsedTime) {
+		//Sprite myPlayerTest = myPlayfield.getGroup(myPlayers);
+
 		createNewBlocks();
 		checkForKeyPress();
 		myPlayfield.update(elapsedTime);

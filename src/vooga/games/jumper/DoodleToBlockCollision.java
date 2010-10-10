@@ -25,6 +25,20 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	 */
 	@Override
 	public void collided(Sprite doodle, Sprite block) {
+
+		System.out.println(super.getCollisionSide());
+		if(super.getCollisionSide() == 8){
 		doodle.setVerticalSpeed(block.getVerticalSpeed());
+		}
+		//How to disallow horizontally walking through blocks?  Btw, is there a more elegant way to
+		//allow different actions based on different vals of getCollisionSide()?
+		/* else if(super.getCollisionSide() == 2){
+			doodle.setHorizontalSpeed(1);
+		} else if(super.getCollisionSide() == 4){
+			doodle.setHorizontalSpeed(-1);
+		}
+		*/
 	}
+	
+	
 }
