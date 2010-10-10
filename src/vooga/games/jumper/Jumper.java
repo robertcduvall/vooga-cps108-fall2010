@@ -141,7 +141,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	/**
 	 * Returns the height of the Game
-	 * @return in GameHeight
+	 * @return int GameHeight
 	 */
 	public static int getGameHeight() {
 		return GAME_HEIGHT;
