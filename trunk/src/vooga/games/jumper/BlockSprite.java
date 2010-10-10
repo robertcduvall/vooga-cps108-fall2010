@@ -11,6 +11,9 @@ import com.golden.gamedev.object.Sprite;
  */
 public class BlockSprite extends Sprite {
 
+
+	
+
 	/**
 	 * Create new BlockSprite
 	 * @param image Sprite Image
@@ -21,6 +24,7 @@ public class BlockSprite extends Sprite {
 	public BlockSprite(BufferedImage image, Point location, double velocityX, double velocityY) {
 		super(image, location.x, location.y);
 		setSpeed(velocityX, velocityY);
+		
 	}
 
 	/**
@@ -40,4 +44,11 @@ public class BlockSprite extends Sprite {
 			this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
 		}
 	}
+	
+	/*
+	public void setBlockType(String bt){
+		String blocktype = bt;
+	}
+	*/
+	
 }

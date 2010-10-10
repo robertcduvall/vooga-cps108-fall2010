@@ -54,8 +54,11 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
 	private SpriteGroup myPlayers = new SpriteGroup("players");
+	
+	private int blockTypeNormal = 1;
+	private int blockTypeSpring = 2;
 
-	private DoodleToBlockCollision myCollision;
+	private DoodleToBlockCollision myNormalCollision;
 
 	private Background myBackground;
 
@@ -99,8 +102,8 @@ public class Jumper extends vooga.engine.core.Game {
 		myPlayfield.addGroup(myPlayers);
 		myPlayfield.addGroup(myBlocks);
 
-		myCollision = new DoodleToBlockCollision();
-		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myCollision);
+		myNormalCollision = new DoodleToBlockCollision();
+		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
 
 		myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),
 				" !            .,0123" + "456789:   -? ABCDEFG"
@@ -156,21 +159,33 @@ public class Jumper extends vooga.engine.core.Game {
 		if (randomBlockOccurance < myBlockFrequency){
 			Sprite block;
 			if (myBlockCounter == 4){
-				Point velocity = new Point();
+				//Point velocity = new Point();  << what is this? --Devon
 				block = new BlockSprite(ResourceHandler.getImage("platformGray"), randomLocation, myBlockVelocity, myBlockVelocity);
-				//  block.setSpeed();
+				block.setID(blockTypeNormal);
 				myBlockCounter = 6;
 
 			} else if(myBlockCounter == 9){
 				block = new BlockSprite(ResourceHandler.getImage("platformRed"), randomLocation, 0, myBlockVelocity*2);
+				block.setID(blockTypeNormal);
+
 				myBlockCounter = 11;
 
 			} else if(myBlockCounter == 12){
 				block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), randomLocation, 0, myBlockVelocity);
+				block.setID(blockTypeNormal);
+				myBlockCounter = 13;
+			} else if(myBlockCounter == 17){
+				block = new BlockSprite(ResourceHandler.getImage("platformSpringDouble"), randomLocation, 0, myBlockVelocity*.5);
+				block.setID(blockTypeSpring);
 				myBlockCounter = 0;
+			} else if(myBlockCounter == 3){
+				block = new BlockSprite(ResourceHandler.getImage("platformSpringDouble"), randomLocation, 0, myBlockVelocity*.5);
+				block.setID(blockTypeSpring);
+				myBlockCounter = 4;
 			}
 			else {
 				block = new BlockSprite(ResourceHandler.getImage("platformGreen"), randomLocation, 0, myBlockVelocity);
+				block.setID(blockTypeNormal);
 				myBlockCounter++;
 			}
 
