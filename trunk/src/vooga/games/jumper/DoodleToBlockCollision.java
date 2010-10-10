@@ -6,6 +6,7 @@ import vooga.engine.resource.GameClock;
 import vooga.engine.resource.ResourceHandler;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 /**
@@ -16,8 +17,9 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	private double springVelocityMultiplier = 5.0;
 	private long breakTimer = 0;
-	private long breakTimerRate = 1000;
-	
+	private long breakTimerRate = 100;
+	private long startBreakTime = 0;	
+	private long breakTimeElapsed;
 	/**
 	 * Create new Collision constructor
 	 */
@@ -36,59 +38,44 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	@Override
 	public void collided(Sprite doodle, Sprite block) {
 
+		/**
+		 * if the player's bottom (feet) touches block
+		 */
 		if(super.getCollisionSide() == 8){ //if collision = doodle feet to block...
-			
-			if (block.getID()==1){ //if collision with normal block....
+			/**
+			 * if collision with normal block
+			 */
+			if (block.getID()==1){ 
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //stand on block
-			} else if(block.getID()==2){ //if collision with springBlock...
+			} 
+			/**
+			 * if collision with spring block
+			 */
+			else if(block.getID()==2){
 				doodle.setVerticalSpeed(block.getVerticalSpeed()*springVelocityMultiplier); //bounce
-			} else if(block.getID()==3){ //if collision with breakingBlock...
+			} 
+			/**
+			 * if collision with breaking block
+			 */
+			else if(block.getID()==3){
+				if(startBreakTime == 0){
+					startBreakTime = GameClock.getTime();
+				}else if(Math.abs(breakTimeElapsed-breakTimerRate*1)<10){
+					changeBlockImage(block, "platformBreak1");
+				}else if(Math.abs(breakTimeElapsed-breakTimerRate*2)<10){
+					changeBlockImage(block, "platformBreak2");
+				}else if(Math.abs(breakTimeElapsed-breakTimerRate*3)<10){
+					changeBlockImage(block, "platformBreak3");
+					startBreakTime = 0;
+					block.setID(0);
+				}
+				breakTimeElapsed = GameClock.getTime()-startBreakTime;
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
-				System.out.println("id = 3");
-				/*GameClock.createMarker("breakTimeMarker");
-				while(GameClock.getMarkerAge("breakTimeMarker")<breakTimerRate*4){
-					if(GameClock.getMarkerAge("breakTimeMarker")==breakTimerRate*1){
-						block.setImage(ResourceHandler.getImage("platformBreak1"));
-						breakTimer++;
-						System.out.println("first imagechange");
-					}else if(GameClock.getMarkerAge("breakTimeMarker")==breakTimerRate*2){
-						block.setImage(ResourceHandler.getImage("platformBreak1"));
-						breakTimer++;
-						System.out.println("first imagechange");
-					}
-
-					
-				}*/
-				/*
-				if(breakTimer==breakTimerRate*1){
-					block.setImage(ResourceHandler.getImage("platformBreak1"));
-					breakTimer++;
-					System.out.println("first imagechange");
-
-				}else if(breakTimer==breakTimerRate*2){
-					block.setImage(ResourceHandler.getImage("platformBreak2"));
-					breakTimer++;
-					System.out.println("second image change");
-
-				}else if(breakTimer==breakTimerRate*3){
-					block.setImage(ResourceHandler.getImage("platformBreak3"));
-					block.setID(4);
-					breakTimer++;
-					System.out.println("third image change,id = 4");
-
-				}else{
-					doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
-					breakTimer++;
-					System.out.println("chillin on broken block" + breakTimer);
-
-				}*/
-				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
-				block.setImage(ResourceHandler.getImage("platformBreak1"));
-				block.setImage(ResourceHandler.getImage("platformBreak2"));
-				block.setImage(ResourceHandler.getImage("platformBreak3"));
-				block.setID(4); //broken block
 
 			}
+
+				
+
 		}
 		//How to disallow horizontally walking through blocks?  Btw, is there a more elegant way to
 		//allow different actions based on different vals of getCollisionSide()? --devon
@@ -101,5 +88,7 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	}
 	
 	
-	
+	public void changeBlockImage(Sprite spr, String str){
+		spr.setImage(ResourceHandler.getImage(str));
+	}
 }
