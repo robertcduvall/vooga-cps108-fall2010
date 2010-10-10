@@ -1,6 +1,10 @@
 package vooga.games.jumper;
 
 
+import sun.org.mozilla.javascript.internal.Node.Jump;
+import vooga.engine.resource.GameClock;
+import vooga.engine.resource.ResourceHandler;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
@@ -10,7 +14,9 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  *
  */
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
-	private double springVelocityMultiplier = 15.0;
+	private double springVelocityMultiplier = 5.0;
+	private long breakTimer = 0;
+	private long breakTimerRate = 1000;
 	
 	/**
 	 * Create new Collision constructor
@@ -36,9 +42,53 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //stand on block
 			} else if(block.getID()==2){ //if collision with springBlock...
 				doodle.setVerticalSpeed(block.getVerticalSpeed()*springVelocityMultiplier); //bounce
-			} /*else if(block.getID()==3){ //if collision with breakingBlock...
+			} else if(block.getID()==3){ //if collision with breakingBlock...
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
-			}*/
+				System.out.println("id = 3");
+				/*GameClock.createMarker("breakTimeMarker");
+				while(GameClock.getMarkerAge("breakTimeMarker")<breakTimerRate*4){
+					if(GameClock.getMarkerAge("breakTimeMarker")==breakTimerRate*1){
+						block.setImage(ResourceHandler.getImage("platformBreak1"));
+						breakTimer++;
+						System.out.println("first imagechange");
+					}else if(GameClock.getMarkerAge("breakTimeMarker")==breakTimerRate*2){
+						block.setImage(ResourceHandler.getImage("platformBreak1"));
+						breakTimer++;
+						System.out.println("first imagechange");
+					}
+
+					
+				}*/
+				/*
+				if(breakTimer==breakTimerRate*1){
+					block.setImage(ResourceHandler.getImage("platformBreak1"));
+					breakTimer++;
+					System.out.println("first imagechange");
+
+				}else if(breakTimer==breakTimerRate*2){
+					block.setImage(ResourceHandler.getImage("platformBreak2"));
+					breakTimer++;
+					System.out.println("second image change");
+
+				}else if(breakTimer==breakTimerRate*3){
+					block.setImage(ResourceHandler.getImage("platformBreak3"));
+					block.setID(4);
+					breakTimer++;
+					System.out.println("third image change,id = 4");
+
+				}else{
+					doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
+					breakTimer++;
+					System.out.println("chillin on broken block" + breakTimer);
+
+				}*/
+				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
+				block.setImage(ResourceHandler.getImage("platformBreak1"));
+				block.setImage(ResourceHandler.getImage("platformBreak2"));
+				block.setImage(ResourceHandler.getImage("platformBreak3"));
+				block.setID(4); //broken block
+
+			}
 		}
 		//How to disallow horizontally walking through blocks?  Btw, is there a more elegant way to
 		//allow different actions based on different vals of getCollisionSide()? --devon
