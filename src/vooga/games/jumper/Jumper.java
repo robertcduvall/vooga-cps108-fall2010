@@ -18,6 +18,8 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.ResourceHandler;
+import vooga.engine.state.GameState;
+import vooga.engine.state.GameStateManager;
 
 // GTGE
 import com.golden.gamedev.GameLoader;
@@ -70,6 +72,15 @@ public class Jumper extends vooga.engine.core.Game {
 	private int blockTypeNotBroken  = 3;
 	private int blockTypeJetpack    = 4;
 	
+	private GameState normalGameState;
+	private GameState jetpackGameState;
+	private GameStateManager myGameStateManager;
+	private static boolean jetpackOn = false;
+	
+	private final int normalGameStateType = 1;
+	private final int jetpackGameStateType = 2;
+
+
 
 	private DoodleToBlockCollision myNormalCollision;
 
@@ -112,6 +123,14 @@ public class Jumper extends vooga.engine.core.Game {
 		myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
 		myPlayfield.setBackground(myBackground);
 
+		
+		myGameStateManager = new GameStateManager();
+
+		jetpackGameState = new JumperGameState(myPlayers, jetpackGameStateType);
+		myGameStateManager.addGameState(jetpackGameState);
+		//myGameStateManager.addGameState(normalGameState);
+		myGameStateManager.activateOnly(jetpackGameState);
+		
 
 		myPlayfield.addGroup(myPlayers);
 		myPlayfield.addGroup(myBlocks);
@@ -157,7 +176,19 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 * Populate the BlockGroup with new BlockSprites
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	public void createNewBlocks(){
 		Random myRandom = new Random();
@@ -211,8 +242,17 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
+	 * 
 	 * Updates game values
 	 * @param elapsedTime long time elapsed from last update
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	public void update(long elapsedTime) {
 		//Sprite myPlayerTest = myPlayfield.getGroup(myPlayers);
@@ -227,8 +267,16 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
 	 * Ends game by clearing playfield and displaying final score message
 	 * @param g Graphics2D on which to render messages
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	public void endGame(Graphics2D g) {
 
@@ -252,7 +300,17 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 * Updates score based on time survived
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	public void updateScore(){
 		myScore.setStat(myClock.getTime());
@@ -263,7 +321,14 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
 	 * Listen for key presses to update player's location
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	public void checkForKeyPress(){
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite(); 
@@ -291,15 +356,19 @@ public class Jumper extends vooga.engine.core.Game {
 
 	}
 	
-	public DoodleSprite getDoodle(){
-		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();  
-		return(player);
+	public static void setJetpackOn(boolean jetpackOn) {
+		Jumper.jetpackOn = jetpackOn;
 	}
+
+	public static boolean isJetpackOn() {
+		return jetpackOn;
+	}
+
+	
 	/**
 	 * Render playfield sprites to the screen
 	 * @param g Graphics2D on which to render images 
 	 */
-
 	public void render(Graphics2D g) {
 		myPlayfield.render(g);
 
@@ -325,3 +394,4 @@ public class Jumper extends vooga.engine.core.Game {
 		game.start();
 	}
 }
+
