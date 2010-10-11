@@ -23,8 +23,10 @@ public class DoodleSprite extends Sprite {
 	private int mySpriteWidth = getWidth();
 	private int mySpriteHeight = getHeight();
 
-	private BufferedImage myLeftImage;
-	private BufferedImage myRightImage;
+	private BufferedImage doodleLeftImage;
+	private BufferedImage doodleRightImage;
+	private BufferedImage doodleLeftImageJetpack;
+	private BufferedImage doodleRightImageJetpack;
 
 	/**
 	 * Create new DoodleSprite
@@ -35,8 +37,11 @@ public class DoodleSprite extends Sprite {
 	 */
 	public DoodleSprite(BufferedImage image, Point location, BufferedImage left, BufferedImage right) {
 		super(image, location.x, location.y);  
-		myLeftImage = left;
-		myRightImage = right;
+		doodleLeftImage = left;
+		doodleRightImage = right;
+		doodleLeftImageJetpack = ResourceHandler.getImage("leftJetpackDoodle");
+		doodleRightImageJetpack= ResourceHandler.getImage("rightJetpackDoodle");
+
 	}
 
 	/**
@@ -97,14 +102,17 @@ public class DoodleSprite extends Sprite {
 	 * Accelerate doodle to the right
 	 */
 	public void goRight(){
-		setImage(myRightImage);
 		if(Jumper.isJetpackOn()){
+			setImage(doodleRightImageJetpack);
+			System.out.println("gorightpack   on");
 			addHorizontalSpeed(	ACCELERATION_TIME, 
 								jetpackMultiplier*X_ACCELERATION, 
 								jetpackMultiplier*MAX_SPEED
 								);
 		} else{
-		addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
+			System.out.println("gorightpack   off");
+			setImage(doodleRightImage);
+			addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
 		}
 	}
 
@@ -112,14 +120,18 @@ public class DoodleSprite extends Sprite {
 	 * Accelerate doodle to the left
 	 */
 	public void goLeft(){
-		setImage(myLeftImage);
 		if(Jumper.isJetpackOn()){
+			setImage(doodleLeftImageJetpack);
 			addHorizontalSpeed(	ACCELERATION_TIME, 
 								jetpackMultiplier*(-X_ACCELERATION), 
 								jetpackMultiplier*(-MAX_SPEED)
 								);
+			System.out.println("goleft jetpack on");
 		} else{
-		addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
+			setImage(doodleLeftImage);
+			addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
+			System.out.println("goleft jetpack off");
+
 		}
 	}
 }

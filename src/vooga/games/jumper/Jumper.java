@@ -28,6 +28,7 @@ import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.background.ImageBackground;
 
 
 /**
@@ -64,7 +65,7 @@ public class Jumper extends vooga.engine.core.Game {
 	private PlayField myPlayfield;
 
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
-	private static SpriteGroup myPlayers = new SpriteGroup("players");
+	private SpriteGroup myPlayers = new SpriteGroup("players");
 	
 	private int blockTypeNormal     = 1;
 	private int blockTypeSpring     = 2;
@@ -74,10 +75,14 @@ public class Jumper extends vooga.engine.core.Game {
 	private GameState normalGameState;
 	private GameState jetpackGameState;
 	private GameStateManager myGameStateManager;
-	private static boolean jetpackOn = false;
-	
 	private final int normalGameStateType = 1;
 	private final int jetpackGameStateType = 2;
+	
+	private static boolean jetpackOn = false;
+	private static long jetpackStartTime = 0;
+	private long totalJetpackTime = 3000;
+
+	
 
 
 
@@ -87,7 +92,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 	private GameFont myFont;
 
-	private GameClock myClock;
+	private static GameClock myClock;
 
 	private Stat<Long> myScore;
 
@@ -119,20 +124,20 @@ public class Jumper extends vooga.engine.core.Game {
 		myPlayers.add(player1);
 
 		myPlayfield = new PlayField();
-		myBackground = new com.golden.gamedev.object.background.ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
+		myBackground = new ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
 		myPlayfield.setBackground(myBackground);
 
 		
-		myGameStateManager = new GameStateManager();
+		/*myGameStateManager = new GameStateManager();
 
 		jetpackGameState = new JumperGameState(myPlayers, jetpackGameStateType);
 		myGameStateManager.addGameState(jetpackGameState);
 		//myGameStateManager.addGameState(normalGameState);
 		myGameStateManager.activateOnly(jetpackGameState);
-		
+		*/
 
-		myPlayfield.addGroup(myPlayers);
 		myPlayfield.addGroup(myBlocks);
+		myPlayfield.addGroup(myPlayers);
 
 		myNormalCollision = new DoodleToBlockCollision();
 		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
@@ -256,9 +261,13 @@ public class Jumper extends vooga.engine.core.Game {
 	public void update(long elapsedTime) {
 		//Sprite myPlayerTest = myPlayfield.getGroup(myPlayers);
 
+		if((myClock.getTime()-jetpackStartTime)>totalJetpackTime & jetpackStartTime!=0){
+			setJetpackOn(false);
+		}
 		createNewBlocks();
 		checkForKeyPress();
 		myPlayfield.update(elapsedTime);
+		//myGameStateManager.update(elapsedTime);
 		
 		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
 		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
@@ -358,6 +367,9 @@ public class Jumper extends vooga.engine.core.Game {
 	
 	public static void setJetpackOn(boolean jetpackOn) {
 		Jumper.jetpackOn = jetpackOn;
+		if(jetpackOn == true){
+			Jumper.jetpackStartTime = Jumper.myClock.getTime();
+		}
 	}
 
 	public static boolean isJetpackOn() {
@@ -371,9 +383,11 @@ public class Jumper extends vooga.engine.core.Game {
 	 */
 	public void render(Graphics2D g) {
 		myPlayfield.render(g);
+		//myGameStateManager.render(g);
 
+		
+		
 		DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
-
 		if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0){
 			endGame(g);
 		}
