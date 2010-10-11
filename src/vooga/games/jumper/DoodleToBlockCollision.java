@@ -4,7 +4,7 @@ package vooga.games.jumper;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import sun.org.mozilla.javascript.internal.Node.Jump;
+
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.ResourceHandler;
 
@@ -15,6 +15,7 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 /**
  * Collision detection for Player landing on blocks
  * @author Brian
+ * 
  *
  */
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
