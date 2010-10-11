@@ -22,7 +22,7 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	private double springVelocityMultiplier = 5.0;
 	private long breakTimer = 0;
 	private long breakTimerRate = 100;
-	private long startBreakTime = 0;	
+	private long startBreakTime = 0;
 	private long breakTimeElapsed;
 	KeyListener myKeyListener;
 	/**
@@ -82,10 +82,8 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 			 * if collision with jetpack, needs work. --devon
 			 */
 			else if(block.getID()==4){
-				doodle.setVerticalSpeed(block.getVerticalSpeed()*0.5);
-				changeSpriteImage(doodle, "doodleJet");			
-				doodle.setHorizontalSpeed(0);
-				changeSpriteImage(block, "jetpackInvisible");				
+				changeSpriteImage(block, "jetpackInvisible");
+				Jumper.setJetpackOn(true);
 			} 
 
 			
