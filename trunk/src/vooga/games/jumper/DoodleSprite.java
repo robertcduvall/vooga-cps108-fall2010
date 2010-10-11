@@ -18,6 +18,7 @@ public class DoodleSprite extends Sprite {
 	private double GRAVITY = 1;
 	private long ACCELERATION_TIME = 1;
 	private double MAX_SPEED = 10;
+	private double jetpackMultiplier = 3;
 
 	private int mySpriteWidth = getWidth();
 	private int mySpriteHeight = getHeight();
@@ -97,7 +98,14 @@ public class DoodleSprite extends Sprite {
 	 */
 	public void goRight(){
 		setImage(myRightImage);
+		if(Jumper.isJetpackOn()){
+			addHorizontalSpeed(	ACCELERATION_TIME, 
+								jetpackMultiplier*X_ACCELERATION, 
+								jetpackMultiplier*MAX_SPEED
+								);
+		} else{
 		addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
+		}
 	}
 
 	/**
@@ -105,6 +113,13 @@ public class DoodleSprite extends Sprite {
 	 */
 	public void goLeft(){
 		setImage(myLeftImage);
+		if(Jumper.isJetpackOn()){
+			addHorizontalSpeed(	ACCELERATION_TIME, 
+								jetpackMultiplier*(-X_ACCELERATION), 
+								jetpackMultiplier*(-MAX_SPEED)
+								);
+		} else{
 		addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
+		}
 	}
 }
