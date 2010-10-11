@@ -81,10 +81,9 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 			/**
 			 * if collision with jetpack, needs work. --devon
 			 */
-			else if(block.getID()==4){
-				changeSpriteImage(block, "jetpackInvisible");
-				Jumper.setJetpackOn(true);
-			} 
+			} else if(block.getID()==4){
+			changeSpriteImage(block, "jetpackInvisible");
+			Jumper.setJetpackOn(true);
 
 			
 
