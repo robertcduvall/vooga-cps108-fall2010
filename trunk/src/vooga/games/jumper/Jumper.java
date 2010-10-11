@@ -55,7 +55,6 @@ public class Jumper extends vooga.engine.core.Game {
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
 	private double myBlockVelocity = -2.0;
 	private double fastBlockSpeedMultiplier = 2.0;
-	private double jumpHeight = -10.0;
 
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
@@ -331,13 +330,14 @@ public class Jumper extends vooga.engine.core.Game {
 	 * 
 	 */
 	public void checkForKeyPress(){
+		double jumpHeight = -15.0;
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite(); 
-		int myTestCollGroup = myNormalCollision.getCollisionSide();
+		int collisionNumber = myNormalCollision.getCollisionSide();
 		
 		/**
 		 * If the doodle is standing on a block & the user presses up on the D-Pad...
 		 */
-		if (myTestCollGroup == 8 & keyDown(KeyEvent.VK_UP)){
+		if (collisionNumber == 8 & keyPressed(KeyEvent.VK_UP)){
 			player.setVerticalSpeed(jumpHeight);
 		}
 		
