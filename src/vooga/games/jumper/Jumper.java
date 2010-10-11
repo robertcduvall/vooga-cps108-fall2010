@@ -36,6 +36,8 @@ import com.golden.gamedev.object.SpriteGroup;
  * @author BrianSimel & CodyKolodziejzyk & DevonTownsend
  */
 
+
+//TODO: try making it so that the blocks come in waves.  Add side jetpack thrusters.  Add jump capability.
 public class Jumper extends vooga.engine.core.Game {
 
 	private final static int GAME_WIDTH = 500;
