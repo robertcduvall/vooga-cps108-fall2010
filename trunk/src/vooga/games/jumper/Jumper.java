@@ -375,6 +375,7 @@ public class Jumper extends vooga.engine.core.Game {
 	public static boolean isJetpackOn() {
 		return jetpackOn;
 	}
+	
 
 	
 	/**
