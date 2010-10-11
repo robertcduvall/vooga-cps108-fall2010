@@ -36,8 +36,14 @@ import com.golden.gamedev.object.SpriteGroup;
  * @author BrianSimel & CodyKolodziejzyk & DevonTownsend
  */
 
+/**
+ * it seems like the first time you play, only the first brown block will break.  After that they
+ * behave as normal blocks and you can only stand on them.
+ */
+
 
 //TODO: try making it so that the blocks come in waves.  Add side jetpack thrusters.  Add jump capability.
+
 public class Jumper extends vooga.engine.core.Game {
 
 	private final static int GAME_WIDTH = 500;
@@ -47,6 +53,7 @@ public class Jumper extends vooga.engine.core.Game {
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
 	private double myBlockVelocity = -2.0;
 	private double fastBlockSpeedMultiplier = 2.0;
+	private double jumpHeight = -10.0;
 
 	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
 
@@ -56,7 +63,7 @@ public class Jumper extends vooga.engine.core.Game {
 	private PlayField myPlayfield;
 
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
-	private SpriteGroup myPlayers = new SpriteGroup("players");
+	private static SpriteGroup myPlayers = new SpriteGroup("players");
 	
 	private int blockTypeNormal     = 1;
 	private int blockTypeSpring     = 2;
@@ -259,19 +266,34 @@ public class Jumper extends vooga.engine.core.Game {
 	 * Listen for key presses to update player's location
 	 */
 	public void checkForKeyPress(){
-		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();       
-
+		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite(); 
+		int myTestCollGroup = myNormalCollision.getCollisionSide();
+		
+		/**
+		 * If the doodle is standing on a block & the user presses up on the D-Pad...
+		 */
+		if (myTestCollGroup == 8 & keyDown(KeyEvent.VK_UP)){
+			player.setVerticalSpeed(jumpHeight);
+		}
+		
+		/**
+		 * Allow the user to walk to the Doodle left and right...
+		 */
 		if (keyDown(KeyEvent.VK_RIGHT)){
 			player.goRight();
 		}
 		if (keyDown(KeyEvent.VK_LEFT)){
 			player.goLeft();
 		}
-		
 		if (keyDown(KeyEvent.VK_C)){
 			player.setY(GAME_HEIGHT - player.getHeight());
 		}
 
+	}
+	
+	public DoodleSprite getDoodle(){
+		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite();  
+		return(player);
 	}
 	/**
 	 * Render playfield sprites to the screen
