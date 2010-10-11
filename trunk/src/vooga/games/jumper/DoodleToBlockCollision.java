@@ -1,6 +1,9 @@
 package vooga.games.jumper;
 
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import sun.org.mozilla.javascript.internal.Node.Jump;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.ResourceHandler;
@@ -20,6 +23,7 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	private long breakTimerRate = 100;
 	private long startBreakTime = 0;	
 	private long breakTimeElapsed;
+	KeyListener myKeyListener;
 	/**
 	 * Create new Collision constructor
 	 */
@@ -29,15 +33,16 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 		String myAction = new String("stand");
 	}
 	
-
 	/**
 	 * React if there is a collision between player and block
 	 * @param doodle DoodleSprite in SpriteGroup
 	 * @param block BlockSprite in SpriteGroup
 	 */
+
+	
 	@Override
 	public void collided(Sprite doodle, Sprite block) {
-
+		
 		/**
 		 * if the player's bottom (feet) touches block
 		 */
