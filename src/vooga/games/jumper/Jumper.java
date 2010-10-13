@@ -180,19 +180,7 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * Populate the BlockGroup with new BlockSprites
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 */
 	public void createNewBlocks(){
 		Random myRandom = new Random();
@@ -246,17 +234,8 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
-	 * 
 	 * Updates game values
 	 * @param elapsedTime long time elapsed from last update
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 */
 	public void update(long elapsedTime) {
 		//Sprite myPlayerTest = myPlayfield.getGroup(myPlayers);
@@ -275,16 +254,8 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
 	 * Ends game by clearing playfield and displaying final score message
 	 * @param g Graphics2D on which to render messages
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 */
 	public void endGame(Graphics2D g) {
 
@@ -308,17 +279,7 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * Updates score based on time survived
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 */
 	public void updateScore(){
 		myScore.setStat(myClock.getTime());
@@ -329,14 +290,7 @@ public class Jumper extends vooga.engine.core.Game {
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
 	 * Listen for key presses to update player's location
-	 * 
-	 * 
-	 * 
-	 * 
 	 */
 	public void checkForKeyPress(){
 		double jumpHeight = -15.0;
