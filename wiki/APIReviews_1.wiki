@@ -2,7 +2,7 @@
 
 = Introduction =
 
-For each API listed below each game team, as users of the API, should add comments about its effectiveness, how it should be used, or if it should be merged with other APIs. If you did not use an specific API, try to explain your decision.
+For each API listed below, there should be nine reviews: one from each game team. As users of the API, should comment about its effectiveness, how it should be used, or if it should be merged with other APIs in an effort to build a consensus API that can be used to build more complex games. If your team did not use an specific API, try to explain your decision.
 
 
 == Level ==
