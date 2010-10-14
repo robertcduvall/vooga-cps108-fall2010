@@ -1,4 +1,4 @@
-#summary Discuss each API in context of trying to create a coherent design.
+#summary Discuss each Game in context of trying to create a coherent design.
 
 = Introduction =
 
