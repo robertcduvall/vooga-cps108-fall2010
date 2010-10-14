@@ -3,7 +3,6 @@ package vooga.games.towerdefense;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
-import vooga.engine.collision.OverlapChecker;
 
 import com.golden.gamedev.object.Sprite;
 
