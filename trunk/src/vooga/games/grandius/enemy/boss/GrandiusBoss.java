@@ -3,40 +3,43 @@ package vooga.games.grandius.enemy.boss;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import com.golden.gamedev.object.AnimatedSprite;
+import com.golden.gamedev.object.Sprite;
+
+import vooga.games.grandius.enemy.common.Enemy;
 
 /**
- * A GradiusBoss is the final enemy in a Gradius Level. It is composed of many
+ * A GrandiusBoss is the final enemy in a Grandius Level. It is composed of many
  * BossParts, which must be individually destroyed before the boss can be 
  * killed.
  * @author jtk11
  *
  */
 @SuppressWarnings("serial")
-public abstract class GrandiusBoss extends AnimatedSprite {
+public abstract class GrandiusBoss extends Enemy {
 	
-	public static final int NOT_MOVING = 0;
-	public static final int MOVING_N = 1;
-	public static final int MOVING_S = 2;
+	protected int myHealth;
+	protected int[] myBreakpoints; //0=green done, 1=yellow done
+	protected BufferedImage[] myImages; //0=shielded_3, 1=shielded_2, 2=shielded_1, 3=green, 4=yellow, 5=red
+	private List<Sprite> myParts;
+	private boolean vulnerable;
 	
-	private int myDirection;
-	private List<BossPart> myParts;
-	
-	public GrandiusBoss(BufferedImage[] images, double x, double y, 
-				       int direction, List<BossPart> parts) {
-		this.myDirection = direction;
+	public GrandiusBoss(BufferedImage[] images, int[] breakpoints, double x, double y, int health, 
+				       List<Sprite> parts) {
+		super(images, x, y);
+		this.myBreakpoints = breakpoints;
+		this.myHealth = health;
 		this.myParts = parts;
 	}
 	
-	public void setDirection(int newDirection) {
-		this.myDirection = newDirection;
+	public boolean isVulnerable() {
+		return this.vulnerable;
 	}
 	
-	public boolean isDead() {
-		return myParts.isEmpty();
+	public void setVulnerable(boolean vulnerable) {
+		this.vulnerable = vulnerable;
 	}
 	
-	public void setParts(List<BossPart> parts) {
+	public void setParts(List<Sprite> parts) {
 		this.myParts = parts;
 	}
 	
@@ -48,19 +51,9 @@ public abstract class GrandiusBoss extends AnimatedSprite {
 		this.myParts.remove(part);
 	}
 	
-	
 	@Override
 	public void update(long elapsedTime) {
-		if (this.myDirection == NOT_MOVING) {
-			this.setHorizontalSpeed(0);
-			this.setVerticalSpeed(0);
-		} else if (this.myDirection == MOVING_N) {
-			this.setHorizontalSpeed(0);
-			this.setVerticalSpeed(-2);
-		} else if (this.myDirection == MOVING_S) {
-			this.setHorizontalSpeed(0);
-			this.setVerticalSpeed(2);
-		}
+
 		this.updateMovement(elapsedTime);
 	}
 	

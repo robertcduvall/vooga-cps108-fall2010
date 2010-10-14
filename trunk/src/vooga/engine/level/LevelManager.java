@@ -10,6 +10,7 @@ import vooga.engine.collision.CollisionManager;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
+import vooga.games.grandius.GrandiusLevel;
 
 /**
  * We changed our design when porting towards the golden T engine. Originally the focus was on the portability of the
@@ -65,7 +66,7 @@ public class LevelManager {
 	 * @throws FileNotFoundException
 	 */
 	public void addLevels(String path) throws FileNotFoundException {
-//		String path = ".";
+		//String path = ".";
 		String files;
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
@@ -75,8 +76,7 @@ public class LevelManager {
 				files = listOfFiles[i].getName();
 				if (files.startsWith("level") && 
 						(files.endsWith(".txt") || files.endsWith(".TXT"))) {
-					System.out.println("created a new ScrollerLevel");
-					myLayout.add(new ScrollerLevel(path+"/"+files));
+					myLayout.add(new Level(path+"/"+files));
 					System.out.println("files="+files);
 				}
 			}
@@ -121,12 +121,20 @@ public class LevelManager {
 	public ArrayList<ArrayList<Sprite>> currentLevel() {
 		ArrayList<ArrayList<Sprite>> returnCollection = new ArrayList<ArrayList<Sprite>>();
 		//array index compensation of -1 (if myCurrentLevel = 1, we want the 0th entry of the list)
-			returnCollection = (( (ScrollerLevel)(myLayout.get(myCurrentLevel-1)) ).getScrollerSpritesList());
+			returnCollection = myLayout.get(myCurrentLevel-1).getSpritesList();
 		return returnCollection;
 	}
 	
 	public Level getCurrentLevel() {
 		return myLayout.get(myCurrentLevel-1);
+	}
+	
+	public List<Level> getLayout() {
+		return myLayout;
+	}
+	
+	public void setMyCurrentLevel(int newMyCurrentLevel) {
+		myCurrentLevel = newMyCurrentLevel;
 	}
 	
 	public void setPersistentCollisionManager(CollisionManager cm){

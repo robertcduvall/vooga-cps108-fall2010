@@ -1,0 +1,64 @@
+#Level 1
+
+#Boss Format:
+#Health Breakpoints
+#Coordinates
+#Health
+
+#BossPart Format:
+#Health Breakpoints
+#Coordinates
+#Health,Shields
+
+#Screen Dimension
+640,480
+#GameSpace Dimension
+2000,480
+
+Zipster,350,50
+Zipster,350,150
+Zipster,350,250
+Zipster,350,350
+
+Zipster,400,75
+Zipster,400,175
+Zipster,400,275
+Zipster,400,375
+
+Zipster,450,50
+Zipster,450,150
+Zipster,450,250
+Zipster,450,350
+
+Zipster,500,75
+Zipster,500,175
+Zipster,500,275
+Zipster,500,375
+
+$Bosses
+Reacher
+600,300
+700,110
+1000
+
+$Parts
+ReacherEye
+60,30
+600,0
+100,50
+ReacherEye
+60,30
+600,200
+100,50
+ReacherEye
+60,30
+600,400
+100,50
+ReacherEye
+60,30
+700,0
+100,50
+ReacherEye
+60,30
+700,400
+100,50

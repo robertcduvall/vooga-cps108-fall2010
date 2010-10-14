@@ -77,7 +77,7 @@ public class ScrollerLevel extends Level {
 //	}
 	
 	public ScrollerLevel(String fileToBeRead) {
-		super(fileToBeRead, true);
+		super(fileToBeRead);
 		myBossPartList = new ArrayList<Sprite>();
 		//System.out.println("back in the ScrollerLevel constructor");
 		try {
@@ -164,9 +164,9 @@ public class ScrollerLevel extends Level {
 				line = lines.get(++y);
 				st = new StringTokenizer(line, ",");
 				int health = Integer.parseInt(st.nextToken());
-				int shields = Integer.parseInt(st.nextToken());
-				BossPart newBossPart = new BossPart(Resources.getAnimation(bossName), breakpoints, xPosition, yPosition, health, shields);
-				myBossPartList.add(newBossPart);
+				//int shields = Integer.parseInt(st.nextToken());
+//				BossPart newBossPart = new BossPart(Resources.getAnimation(bossName), breakpoints, xPosition, yPosition, health, shields);
+//				myBossPartList.add(newBossPart);
 			} else {
 				st = new StringTokenizer(line, ",");
 				String spriteName = st.nextToken();

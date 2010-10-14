@@ -4,23 +4,19 @@ import java.awt.image.BufferedImage;
 
 import vooga.games.grandius.enemy.common.Enemy;
 
-import com.golden.gamedev.object.AnimatedSprite;
-import com.golden.gamedev.object.Sprite;
-
 /**
  * A BossPart is a component of a GradiusBoss that must be destroyed to ultimately
  * kill the boss.
  * @author jtk11
- *
  */
 @SuppressWarnings("serial")
-public class BossPart extends Enemy {
-	private int myHealth;
-	private int myShields;
-	private int[] myBreakpoints; //0=green done, 1=yellow done
-	private BufferedImage[] myImages; //0=shielded, 1=green, 2=yellow, 3=red
-	private final int SCORE_VALUE = 200;
-	private final int CASH_VALUE = 10;
+public abstract class BossPart extends Enemy {
+	protected int myHealth;
+	protected int myShields;
+	protected int[] myBreakpoints; //0=green done, 1=yellow done
+	protected BufferedImage[] myImages; //0=shielded, 1=green, 2=yellow, 3=red
+//	private final int SCORE_VALUE = 200;
+//	private final int CASH_VALUE = 10;
 	
 	public BossPart(BufferedImage[] images, int[] breakpoints, double x, double y, int health, int shields) {
 		super(new BufferedImage[]{images[0]}, x, y);
@@ -28,34 +24,18 @@ public class BossPart extends Enemy {
 		this.myBreakpoints = breakpoints;
 		this.myHealth = health;
 		this.myShields = shields;
-		myScore = SCORE_VALUE;
-		myCash = CASH_VALUE;
-	}
-	
-	public boolean deplete(int depleteAmount) {
-		if (myShields <= 0) {
-			this.myHealth -= depleteAmount;
-			if (myHealth <= 0) {
-				return true;
-				
-			} else if (myHealth >= myBreakpoints[0]) {
-				this.setImages(new BufferedImage[]{myImages[1]});
-			} else if (myHealth >= myBreakpoints[1]) {
-				this.setImages(new BufferedImage[]{myImages[2]});
-			} else {
-				this.setImages(new BufferedImage[]{myImages[3]});
-			} 
-		} else {
-			this.myShields -= depleteAmount;
-		}
-		return false;
-		
+//		myScore = SCORE_VALUE;
+//		myCash = CASH_VALUE;
 	}
 
 	@Override
 	public int getScore() {
 		// TODO Auto-generated method stub
 		return 250;
+	}
+	
+	public BufferedImage[] getImages() {
+		return this.myImages;
 	}
 	
 }

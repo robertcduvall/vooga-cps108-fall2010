@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
 import vooga.games.grandius.enemy.boss.BossPart;
+import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.enemy.common.Enemy;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -21,16 +22,17 @@ public class ProjectileBossPartCollision extends BasicCollision {
 	}
 	
 	
-	public void collided(Sprite bullet, Sprite enemy) {
-		super.collided(bullet, enemy);
-		bullet.setActive(false);
-		if (((BossPart) enemy).deplete(10)) {
-			enemy.setActive(false);
+	public void collided(Sprite projectile, Sprite bosspart) {
+		super.collided(projectile, bosspart);
+		projectile.setActive(false);
+		if (bosspart instanceof ReacherEye && ((ReacherEye) bosspart).deplete(10)) {
+			bosspart.setActive(false);
+			grandius.playSound(Resources.getMapping("LargeExplosionSound"));
 			BufferedImage[] images = Resources.getAnimation("EyeExplosion");
-			AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
+			AnimatedSprite explosion = new VolatileSprite(images, bosspart.getX(), bosspart.getY());
 			grandius.getPlayfield().add(explosion);
 		}
-		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());
-		grandius.updateCashOnCollision(((Enemy)enemy).getCashValue());
+		grandius.updateScoreOnCollision(((Enemy)bosspart).getScore());
+		grandius.updateCashOnCollision(((Enemy)bosspart).getCashValue());
 	}
 }
