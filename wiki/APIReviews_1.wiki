@@ -1,13 +1,27 @@
-#summary One-sentence summary of this page.
+#summary Discuss each API in context of trying to create a coherent design.
 
 = Introduction =
 
-Add your content here.
+For each API listed below each game team, as users of the API, should add comments about its effectiveness, how it should be used, or if it should be merged with other APIs. If you did not use an specific API, try to explain your decision.
 
 
-= Details =
+== Level ==
+ * I do not think that a Level should be responsible for game state, resources, collisions, etc. I believe that is the role of the Game class. I think that the Level package should be responsible for traversing between the levels and initializing levels from files. I think that right now the initialization process should involve loading relevant images and sounds (through the Resources API) and initializing the Sprites and SpriteGroups to be passed back to the Game. In the future when a rules API is created, it could also pass relevant rules used to distinguish Gameplay between levels back to the game. --Daniel Koverman
+ 
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+== Player ==
+ * The Control class and subclasses are effective at minimizing the effort required to set up a custom control scheme for a single player. The most general type of player control for a non networked game uses both the mouse and the keyboard so a MouseAndKeyboardControl class should be created which accepts input from both the mouse and keyboard to control the players. --Daniel Koverman
+
+== States ==
+ * States made it easy to create a main menu/pause/play/game over state and the fact that sprite groups can be shared between states was particularly convenient. I do not understand why GameState is an abstract class requiring an override of the initialize() method. Doodle created the DoodleState class which simply made initialize() an empty method and it would have been easier for them to use the GameState class. In Tower Defense, I create the State class which added new features to the GameState class but left initialize empty so I am unsure why the initialize() method requires an override. It would also be convenient for State to accept single Sprites in addition to Sprite groups because I don't think it will be very uncommon to have a game state such as a menu which is only a single sprite and it removes a little bit of the overhead in manually creating a sprite group which holds on sprite. States should also natively handle backgrounds because manually changing a Playfield to go along with game state changes is a pain. Though it was easy to create my own subclass to work with controls from the Player Control API, GameState or subclass in the state package should do this automatically as well in the interest of making things easier for the developer and better integrating the APIs. --Daniel Koverman
+
+== Resources ==
+ * The Resources class needs to be consistent where the path starts from loading images and from loading files. A way to specify a directory once and then load from there needs to be added. Sounds needs to work more similarly to images. The usefulness of GameClock is significantly reduced given that Golden T handles time between updates behind the scenes and the State API effectively handles pausing. Overall, the Resources class made it easier to load images than using the native Golden T image handling because images can now be loaded and used anywhere without requiring a pointed to an instance of Game. --Daniel Koverman
+
+== Events ==
+
+== Overlay ==
+
+== Collisions ==
+ * The Collisions API seems to have a lot of overhead to use (implementing Collidable for every object in question) without significantly reducing the amount of work required. Since we are are now dealing with Golden T and Sprites, I think CollisionManager or a subclass of CollisionManager inside the engine.collision package should work with Sprites automatically.  It also seems to me like the Collidable interface was created with the intention of creating a collision manager which would use the information Collidable requires to prevent the CollisionManager from having to loop through every possible Collidable object. Since this is not the case, Collidable seems unnecessary to me until such a CollisionManger is produced. I do not think that the Collisions API should be abandoned in deference to the collision managers in Golden T because those collision managers are built on the premise that they will be called every update and are a pain to set up if you only want to check for collisions occasionally (for instance making sure there is no overlap when placing a new Sprite in the game). --Daniel Koverman
