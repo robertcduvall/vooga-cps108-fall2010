@@ -2,7 +2,7 @@
 
 = Introduction =
 
-For each API listed below add your comments about its effectiveness, how it should be used, or if it should be merged with other APIs.
+For each API listed below each game team, as users of the API, should add comments about its effectiveness, how it should be used, or if it should be merged with other APIs. If you did not use an specific API, try to explain your decision.
 
 
 == Level ==
