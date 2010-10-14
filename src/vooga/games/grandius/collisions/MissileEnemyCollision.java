@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.Grandius;
-import vooga.games.grandius.Missile;
 import vooga.games.grandius.enemy.boss.BossPart;
 import vooga.games.grandius.enemy.common.Enemy;
+import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;

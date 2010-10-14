@@ -1,7 +1,6 @@
 package vooga.games.grandius.enemy.common;
 
 import java.awt.image.BufferedImage;
-import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**
  * A Boomer is a common Gradius enemy that may only move west, but can explode.

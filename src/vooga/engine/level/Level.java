@@ -54,18 +54,9 @@ public class Level {
 	private GameState gameState;
 	private ResourceHandler resourceHandler;
 	
-	public Level(String fileToBeRead, boolean isScroller)
+	public Level(String fileToBeRead)
 	{
-		System.out.println("reached Level constructor");
 		mySpritesList = new ArrayList<Sprite>();
-		if (!isScroller) {
-			try {
-				loadLevel(fileToBeRead);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	/**
