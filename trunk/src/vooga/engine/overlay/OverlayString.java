@@ -28,17 +28,13 @@ public class OverlayString extends Overlay {
 	
 	private final static Color DEFAULT_COLOR = Color.black;
 	private final static Font DEFAULT_FONT = new Font("mine", Font.PLAIN, 22);
-	private final static BufferedImage BUFFERED_IMAGE = new BufferedImage(10, 10,BufferedImage.TYPE_USHORT_GRAY);
-	private final static Graphics2D GRAPHIC = BUFFERED_IMAGE.createGraphics();
+
 	
 	
 	private String myString;
 	private GameFont myFont;
 	private Color myColor;
 	private Font myRealFont;
-	private GameFontManager myFontManager;
-	private int myWidth;
-	private int myHeight;
 	
 	/**
 	 * Creats a String to be displayed as an image
@@ -65,9 +61,9 @@ public class OverlayString extends Overlay {
 	public OverlayString(String str, Font font, Color color){
 		myString = str;
 		myColor = color;
-		myFontManager = new GameFontManager();
+		GameFontManager fontManager = new GameFontManager();
 		myRealFont = font;
-		myFont = myFontManager.getFont(myRealFont, myColor);
+		myFont = fontManager.getFont(myRealFont, myColor);
 	}
 	/**
 	 * 
@@ -96,7 +92,8 @@ public class OverlayString extends Overlay {
 	public void setFont(Font font){
 		if(myRealFont != null){
 			myRealFont = font;
-			myFont = myFontManager.getFont(font, myColor);
+			GameFontManager fontManager = new GameFontManager();
+			myFont = fontManager.getFont(font, myColor);
 		}
 	}
 	
@@ -117,7 +114,8 @@ public class OverlayString extends Overlay {
 	public void setColor(Color color){
 		if(myRealFont != null){
 			myColor = color;
-			myFont = myFontManager.getFont(myRealFont, color);
+			GameFontManager fontManager = new GameFontManager();
+			myFont = fontManager.getFont(myRealFont, color);
 		}
 		
 	}
@@ -132,12 +130,7 @@ public class OverlayString extends Overlay {
 	
 	
 	private void createImage(String str, Graphics2D g) {
-	
-		myWidth = getTextWidth(str);
-		myHeight = getTextHeight();
-		myFont.drawString(g,str,(int)getX() , (int)getY());
-		
-		
+		myFont.drawString(g,str,(int)getX() , (int)getY());		
 		}
 
 	/**
