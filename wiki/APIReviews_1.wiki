@@ -65,6 +65,8 @@ For each API listed below, there should be nine reviews: one from each game team
 
  * The Zombieland group did not use the state system in the game. The only state that we did employ was the gameOver state, which utilizes the game method pause() provided by GoldenT rather than the abstract state system . (Zombieland)
 
+ * For MarioClone, we did not utilize the GameState API.  Instead, we hard-coded different items to render and behaviors to perform in each state in the render() and update() in the game core class, MarioClone.  For this Sunday, we plan to use the API to separate game states and organize the game more effectively.  -- David Herzka (MarioClone)
+
 == Resources ==
  * The Resources class needs to be consistent where the path starts from loading images and from loading files. A way to specify a directory once and then load from there needs to be added. Sounds needs to work more similarly to images. The usefulness of GameClock is significantly reduced given that Golden T handles time between updates behind the scenes and the State API effectively handles pausing. Overall, the Resources class made it easier to load images than using the native Golden T image handling because images can now be loaded and used anywhere without requiring a pointed to an instance of Game. --Daniel Koverman (Tower Defense)
 
