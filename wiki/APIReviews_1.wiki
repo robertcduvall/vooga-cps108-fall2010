@@ -22,6 +22,10 @@ For each API listed below, there should be nine reviews: one from each game team
 
  * We did not use the vooga level system because it’s designed to make creating a number of sprites with predefined location information from a level file very easy. We simply did not see the benefit for utilizing such a system because our levels involved spawning a number of zombies and possibly modifying the properties of the zombies being spawned for each level. The level system in vooga right now is very specific and does not provide a flexible way for processing the information received from a formatted file. It creates a sprite with an image and locations and does not provide any support for creating different types of objects and adding information other than the locations. (Zombieland)
 
+* My conception of a level is as something of a substate of a game state.  A developer would use game states at very highest level, where entirely different game behaviors are in play.  For instance, a main menu screen should behave entirely differently from the gameplay itself.  On the other hand, a level contains only resources, sprites, etc. that differ from other levels.  Every level within a game state should expect the same behavior to be carried out in the game loop.  
+
+As others have said, a good way to enable this different behavior is to allow files containing level configurations to be imported.  This would lend us flexibility that is not afforded by the current VOOGA level API. --David Herzka (MarioClone)
+
 == Player ==
 
  * The Control class and subclasses are effective at minimizing the effort required to set up a custom control scheme for a single player. The most general type of player control for a non networked game uses both the mouse and the keyboard so a MouseAndKeyboardControl class should be created which accepts input from both the mouse and keyboard to control the players. --Daniel Koverman (Tower Defense)
