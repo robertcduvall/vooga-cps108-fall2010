@@ -10,8 +10,7 @@ For each API listed below, there should be nine reviews: one from each game team
 
   * I agree with Daniel about the collisions and game states being independent of the Levels system. However, it is hard for us to examine the API thoroughly as our game did not involve multiple levels and so the use of the API was unnecessary. (Cody Kolodziejzyk, Jumper) 
 
- * Although the Level API has many useful methods, the format didn’t seem to benefit the level system required by our game, leading us to create our own (which implemented some of the functionality of the VOOGA Level).  Since each of our levels needs a different speed and path for the enemy sprites, we would have to override loadLevel() to read and take in coordinates for the path instead of each sprite’s initial location.
-In our refactoring, we plan to create a new class that extends Level and then overrides loadLevel(), so we can avoid the duplicate code in our game from the API. --GalaxyInvaders team
+ * Although the Level API has many useful methods, the format didn’t seem to benefit the level system required by our game, leading us to create our own (which implemented some of the functionality of the VOOGA Level).  Since each of our levels needs a different speed and path for the enemy sprites, we would have to override loadLevel() to read and take in coordinates for the path instead of each sprite’s initial location. In our refactoring, we plan to create a new class that extends Level and then overrides loadLevel(), so we can avoid the duplicate code in our game from the API. --GalaxyInvaders team
 
 
 == Player ==
