@@ -29,9 +29,12 @@ For each game listed below, your team should review its own game and the next ga
 == Tron ==
 
 Our game is called TRON in which multiple players try to kill each other by blocking the others’ path. The players can turn around and proceed like in the Snake game, except that they leave walls  behind them wherever they go. A player is dead whenever it hits the wall built by other players or itself, or when it hits the boundary of the game space. The players can either be controlled by human or by a computer.
+
 Our design flow was to implement the game first and then port it to the VOOGA APIs. 
 So right now it relies on GTGE to handle collision, player, resources and level. Our game makes use of the Collision Manager that GoldenT provides to handle the collisions, routinely update the player’s positions and determine the end of the game. Our game generates “random” levels with random-numbered, random-sized blocks. A new random level is generated whenever a level is finished (regardless of which player wins). Separate player objects are created for each player. The computer-controlled players implement the AI algorithms that controls their movement.
+
 For the APIs in Vooga, the game only used the userInputEvent in event system to handle user input such as down, up ,right and left. The userInputEvent could be improved by allowing game developer to customize their keys. Using Overlay is also important because the game might allow player to choose whether it is one player or two player game. Since the game didn't use that much outside resouces such as pictures and sounds, it might not be necessary to use resources API.
+
 Our next natural step would be to utilize more API’s to improve the succinctness and functionality of the game. Right now we are only using the event system, and we plan to at least make use of the player system, the level system and the collision manager. We will also improve our AI, probably creating different levels of AI for the computer-controlled player. We would also like to improve the graphics of the game. In the end, if we have time, we would implement a networked game where different human players can play from different computers vi networks. We would also need to add something like overlay or GUI in order for the player to choose game mode such as player vs PC and player vs player. 
 
 
