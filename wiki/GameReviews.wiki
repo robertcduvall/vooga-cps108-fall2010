@@ -62,7 +62,7 @@ The game play is pretty simple and easy to figure out.  Perhaps a short screen w
 
 == Mario Clone ==
 
-When playing the game MarioClone, I was never really clear what the objective or progression of the game.  It seemed as if this was a cool idea for a game that never truly materialized.
+When playing MarioClone, I was never really clear about the objective or progression of the game.  It seemed as if this was a cool idea for a game that never truly materialized.
 
 In terms of the actual code, I am curious as to why this group used conventional Playfields for its “menu”, “end”, and “win” fields.  This seems like the perfect scenario for GameStates, because this would allow an easier—and cleaner—transition from state to state.  This change could cut down on a ton of repeated code, particularly in the initResources() method.  Also, this would eliminate the need for a “myGameState” variable as well as the “MAIN_MENU”, “GAME_PLAY”, “GAME_OVER”, and “GAME_WIN” constants, which all serve as messy constants that the State system was designed to eliminate.
 
