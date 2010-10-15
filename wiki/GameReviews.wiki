@@ -49,8 +49,16 @@ Possible ideas to consider:
 
 --GalaxyInvaders team
 
-== Jumper ==
+The game itself is quite simple, though a little difficult to get used to in the beginning.  The movement of the screen relative to the player takes some getting used to, but other than that, it’s a pretty challenging, yet very playable game.  Also, the shopping round in between levels is a fun concept.
+    The Collisions package in Grandius does not utilize the VOOGA collision API, and it also treats each combination of collision differently using different classes of collisions.  There’s a decent amount of repeated code within each of these collision classes, and though handling the various types of collisions is quite complex, perhaps the different collision classes could have been combined more efficiently.
+    Grandius makes pretty good use of some of the other API’s available in VOOGA and even creates a custom Level class for Grandius (which almost makes the Level API’s value questionable).  It maybe could have used more of the tools in VOOGA since it only used 4 of the packages (Level, overlay, player, and resource).  The overall look and playability of the game is appealing and fun.
+--Grandius team
 
+== Jumper ==
+The game play is pretty simple and easy to figure out.  Perhaps a short screen with instructions and game objectives at the beginning would be useful for those not familiar with this type of game.  But that’s not a huge issue since it’s quite simple, and it’s a pretty fun game.  However, the game can get pretty mindless and repetitive after about a minute of playing it.
+    Jumper uses a few of the VOOGA API’s, but it follows the same trends as some other groups in choosing which API’s to actually use (such as resource and overlay).  It does create a JumperGameState class which is never used (or at least, it’s been commented out).
+    There are some segments of repeated code.  For instance, the createNewBlocks() method in the main class has a huge if-tree with a lot of lines that look similar.  I think this could have been reduced by a lot.  As mentioned in class, a lot of the hard-coded String values, especially the repeated ones, could have been stored as private constant variables.
+--Grandius team
 
 == Mario Clone ==
 
