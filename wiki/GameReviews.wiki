@@ -27,14 +27,20 @@ For each game listed below, your team should review its own game and the next ga
  
 
 == Tron ==
-  Overall, the Tron doesn't utilize many APIs in Vooga while it relies on GTGE to handle collision, player, resources and level. For the APIs in Vooga, the game only used the userInputEvent in event system to handle user input such as down, up ,right and left. The userInputEvent could be improved by allowing game developer to customize their keys. Using Overlay is also important because the game might allow player to choose whether it is one player or two player game. Since the game didn't use that much outside resouces such as pictures and sounds, it might not be necessary to use resources API.
-  * combine level system to handle level.
-  * add something like overlay or GUI in order for the player to choose game mode such as player vs PC and player vs player. 
+
+    Our game is called TRON in which multiple players try to kill each other by blocking the others’ path. The players can turn around and proceed like in the Snake game, except that they leave walls  behind them wherever they go. A player is dead whenever it hits the wall built by other players or itself, or when it hits the boundary of the game space. The players can either be controlled by human or by a computer.
+    Our design flow was to implement the game first and then port it to the VOOGA APIs. 
+So right now it relies on GTGE to handle collision, player, resources and level. Our game makes use of the Collision Manager that GoldenT provides to handle the collisions, routinely update the player’s positions and determine the end of the game. Our game generates “random” levels with random-numbered, random-sized blocks. A new random level is generated whenever a level is finished (regardless of which player wins). Separate player objects are created for each player. The computer-controlled players implement the AI algorithms that controls their movement.
+    For the APIs in Vooga, the game only used the userInputEvent in event system to handle user input such as down, up ,right and left. The userInputEvent could be improved by allowing game developer to customize their keys. Using Overlay is also important because the game might allow player to choose whether it is one player or two player game. Since the game didn't use that much outside resouces such as pictures and sounds, it might not be necessary to use resources API.
+    Our next natural step would be to utilize more API’s to improve the succinctness and functionality of the game. Right now we are only using the event system, and we plan to at least make use of the player system, the level system and the collision manager. We will also improve our AI, probably creating different levels of AI for the computer-controlled player. We would also like to improve the graphics of the game. In the end, if we have time, we would implement a networked game where different human players can play from different computers vi networks. We would also need to add something like overlay or GUI in order for the player to choose game mode such as player vs PC and player vs player. 
+
+
 --Meng Li,Brent Sodman,Jiaqi Yan Tron Game
 
 == Zombieland ==
 
 Overall the Zombieland game is nicely designed and it has pretty graphics and animations. However right now it is not using any of the API's. Therefore potentially it can integrate the game with more API's. Since this game already has a lot of pictures, it can put them in the resource manager. Also the level manager and player managers can be properly added. Another issue right now is that the zombies come towards the player in all directions, while the player can only shoot at straight up/down/left/right directions, which makes it very hard to actually shoot any zombies coming at the player. Hence it would be nice if the player could be able to turn around in any angle and shoot the zombies. 
+
 --Meng Li,Brent Sodman,Jiaqi Yan
 
  
