@@ -10,11 +10,12 @@ For each API listed below, there should be nine reviews: one from each game team
 
   * I agree with Daniel about the collisions and game states being independent of the Levels system. However, it is hard for us to examine the API thoroughly as our game did not involve multiple levels and so the use of the API was unnecessary. (Cody Kolodziejzyk, Jumper) 
 
-  * Although the Level API has many useful methods, the format didn’t seem to benefit the level system required by our game, leading us to create our own (which implemented some of the functionality of the VOOGA Level).  Since each of our levels needs a different speed and path for the enemy sprites, we would have to override loadLevel() to read and take in coordinates for the path instead of each sprite’s initial location.
+ * Although the Level API has many useful methods, the format didn’t seem to benefit the level system required by our game, leading us to create our own (which implemented some of the functionality of the VOOGA Level).  Since each of our levels needs a different speed and path for the enemy sprites, we would have to override loadLevel() to read and take in coordinates for the path instead of each sprite’s initial location.
 In our refactoring, we plan to create a new class that extends Level and then overrides loadLevel(), so we can avoid the duplicate code in our game from the API. --GalaxyInvaders team
 
 
 == Player ==
+
  * The Control class and subclasses are effective at minimizing the effort required to set up a custom control scheme for a single player. The most general type of player control for a non networked game uses both the mouse and the keyboard so a MouseAndKeyboardControl class should be created which accepts input from both the mouse and keyboard to control the players. --Daniel Koverman (Tower Defense)
 
  * This API was developed well.  I like how playerSprite extends gameEntitySprite and gameEntitySprite extends GTGE's sprite class.  Being able to utilize the GTGE's sprite class is greatly helpful.  We were able to do everything we need to with out player sprite with this API.  --Devon (Jumper)
