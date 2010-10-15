@@ -121,6 +121,18 @@ Some javadoc comments before methods and classes might have been helpful.
 
 
 == Tower Defense ==
+
+The Tower Defense game has the basic premise of killing the enemies before they finish the path.  Our twist on the game was that you could never win.  The goal was to obtain a high score before your self-esteem was inevitably destroyed.  
+
+I think we used the api’s fairly well.  We used  all of the api’s except the Levels, Events and Collisions.  There is some functionality that we would like to add that the collision api might be useful.  Mostly tight now you can build towers on top of towers.  If there was a way to test collisions for one action it would be useful.  
+
+The api’s we did use definitely made our game better and easier to write.  The state system was very useful for the menu screen and pause screen, though some fixes should be made which are included in our blurb in the API wiki.  
+
+One fix I would like to make to our game is that currently the levels are to easy.  I would like to make a more dynamic way to control the occurrence of enemies.  Also possibly make different types of enemies to make the game more difficult.
+
+While our game did do many good things, such as have a way to restart without exiting the game, much could be improved as far as the quality of the code is concerned.  We worked up until the deadline so some coding conventions might be ignored.  Also there are very limited comments within the code to describe how the game works.  
+-- Tower Defense Team
+
  
 
 == Tron ==
