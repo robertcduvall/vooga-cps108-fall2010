@@ -70,7 +70,9 @@ The game play is pretty simple and easy to figure out.  Perhaps a short screen w
 
 == MarioClone ==
 
-     The design of our game began as a platformer similar to Mario.  It would have levels that consist of tiles that have different traits.  The player would walk in one dimension and have the ability to jump and crouch as well.  Most enemies would attack the player as he or she progresses through the level by either touching the player from the top, bottom, or side, or by firing a projectile.  The player could kill an enemy by jumping on it.  A boss battle would begin upon the completion of one or more levels.  A boss would be a special type of enemy that requires a different strategy to defeat than merely jumping on top of it.
+The design of our game began as a platformer similar to Mario.  It would have levels that consist of tiles that have different traits.  The player would walk in one dimension and have the ability to jump and crouch as well.  Most enemies would attack the player as he or she progresses through the level by either touching the player from the top, bottom, or side, or by firing a projectile.  The player could kill an enemy by jumping on it.  A boss battle would begin upon the completion of one or more levels.  A boss would be a special type of enemy that requires a different strategy to defeat than merely jumping on top of it.
+
+By the time the game was due, not all of these features were able to be implemented.  Means to create a level's map were created via the TileMap class.  A TileMap consists of a list of Tile objects, each of which contains a position, an image or images, and a behavior.  Tiles are subclasses of Golden T's Sprite class, so they implement Collidable and are, therefore, able to interact with other sprites.  Three different types of Tile were implemented so far, an indestructible tile that does nothing on collisions, a breakable one that disappears after being hit from below by the player, and a mutating one that cycles between images on these upward collisions.
 --MarioClone team
 
 
