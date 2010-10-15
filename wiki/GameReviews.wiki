@@ -68,7 +68,12 @@ The game play is pretty simple and easy to figure out.  Perhaps a short screen w
     There are some segments of repeated code.  For instance, the createNewBlocks() method in the main class has a huge if-tree with a lot of lines that look similar.  I think this could have been reduced by a lot.  As mentioned in class, a lot of the hard-coded String values, especially the repeated ones, could have been stored as private constant variables.
 --Grandius team
 
-== Mario Clone ==
+== MarioClone ==
+
+     The design of our game began as a platformer similar to Mario.  It would have levels that consist of tiles that have different traits.  The player would walk in one dimension and have the ability to jump and crouch as well.  Most enemies would attack the player as he or she progresses through the level by either touching the player from the top, bottom, or side, or by firing a projectile.  The player could kill an enemy by jumping on it.  A boss battle would begin upon the completion of one or more levels.  A boss would be a special type of enemy that requires a different strategy to defeat than merely jumping on top of it.
+--MarioClone team
+
+
 
 When playing MarioClone, I was never really clear about the objective or progression of the game.  It seemed as if this was a cool idea for a game that never truly materialized.
 
