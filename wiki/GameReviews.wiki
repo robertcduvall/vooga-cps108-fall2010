@@ -72,14 +72,20 @@ Possible ideas to consider:
 --GalaxyInvaders team
 
 The game itself is quite simple, though a little difficult to get used to in the beginning.  The movement of the screen relative to the player takes some getting used to, but other than that, it’s a pretty challenging, yet very playable game.  Also, the shopping round in between levels is a fun concept.
-    The Collisions package in Grandius does not utilize the VOOGA collision API, and it also treats each combination of collision differently using different classes of collisions.  There’s a decent amount of repeated code within each of these collision classes, and though handling the various types of collisions is quite complex, perhaps the different collision classes could have been combined more efficiently.
-    Grandius makes pretty good use of some of the other API’s available in VOOGA and even creates a custom Level class for Grandius (which almost makes the Level API’s value questionable).  It maybe could have used more of the tools in VOOGA since it only used 4 of the packages (Level, overlay, player, and resource).  The overall look and playability of the game is appealing and fun.
+
+The Collisions package in Grandius does not utilize the VOOGA collision API, and it also treats each combination of collision differently using different classes of collisions.  There’s a decent amount of repeated code within each of these collision classes, and though handling the various types of collisions is quite complex, perhaps the different collision classes could have been combined more efficiently.
+
+Grandius makes pretty good use of some of the other API’s available in VOOGA and even creates a custom Level class for Grandius (which almost makes the Level API’s value questionable).  It maybe could have used more of the tools in VOOGA since it only used 4 of the packages (Level, overlay, player, and resource).  The overall look and playability of the game is appealing and fun.
 --Grandius team
 
 == Jumper ==
 The game play is pretty simple and easy to figure out.  Perhaps a short screen with instructions and game objectives at the beginning would be useful for those not familiar with this type of game.  But that’s not a huge issue since it’s quite simple, and it’s a pretty fun game.  However, the game can get pretty mindless and repetitive after about a minute of playing it.
-    Jumper uses a few of the VOOGA API’s, but it follows the same trends as some other groups in choosing which API’s to actually use (such as resource and overlay).  It does create a JumperGameState class which is never used (or at least, it’s been commented out).
-    There are some segments of repeated code.  For instance, the createNewBlocks() method in the main class has a huge if-tree with a lot of lines that look similar.  I think this could have been reduced by a lot.  As mentioned in class, a lot of the hard-coded String values, especially the repeated ones, could have been stored as private constant variables.
+
+Jumper uses a few of the VOOGA API’s, but it follows the same trends as some other groups in choosing which API’s to actually use (such as resource and overlay).  It does create a JumperGameState class which is never used (or at least, it’s been commented out).
+
+There are some segments of repeated code.  For instance, the createNewBlocks() method in the main class has a huge if-tree with a lot of lines that look similar.  I think this could have been reduced by a lot.  As mentioned in class, a lot of the hard-coded String values, especially the repeated ones, could have been stored as private constant variables.Another instance of repeated code is the goRight and goLeft methods of DoodleSprite class. Every line in these methods is exactly the same, so these could have been combined into one method, and the parameter passed to this method would decide whether to accelerate the Doodle to the right or to the left.
+
+Even though Block Id’s have been created for each type of block (normal, spring, not broken and jetpack), when writing the DoodleToBlockCollision class, these id’s are not used. Instead, the numbers assigned to these blocks are used as such. Using these hard-coded numbers would be something we want to avoid. We would also like to change these block id’s to be constants as opposed to variables since the id associated with a particular block type will never change.
 --Grandius team
 
 == MarioClone ==
@@ -90,9 +96,7 @@ By the time the game was due, not all of these features were able to be implemen
 
 Much of the time spent developing MarioClone went into sorting out collision detection bugs that have still not been resolved.  At some point, it was necessary to use the elements we had already created to yield a playable game.  As we hadn't dealt with issues like adding multiple levels, having levels that scroll (i.e., levels can be larger than one screen), and (most majorly) having collisions with the sides of tiles work, we made a single-screen game in which a player aims to kill enemies as they are generated at some time interval.  Each enemy and the player begin with a health of 100.  Each time the player jumps on an enemy, he or she deals the enemy 50 damage, and each time an enemy runs into a player, the player is dealt 10 damage.  The game is won if no enemies remain.  The player loses if he or she dies.
 
-On its own, this type of game can be very fun if implemented correctly.  Obviously, it is necessary for collisions to work well before the game can function.  Other improvements would be adding health indicators for the player and for the enemies.  Multiple stages can be added to add variety.  Currently, tile behavior does not have an effect on gameplay. Relying of this behavior to complete the game would be a good use of the TileMap infrastructure.  Also, more user instructions must be provided to make gameplay less confusing.
-
-In terms of development, some major overhauls will be needed in the management of states and levels in order to facilitate extensibility.  Instead of having state/level's properties embedded in the core game class MarioClone, each level and each state should exist in its own class with only one state and perhaps one level active at a given time.
+On its own, this type of game can be very fun if implemented correctly.  Obviously, it is necessary for collisions to work well before the game can function.  Other improvements would be adding health indicators for the player and for the enemies.  Multiple stages can be added to add variety.  Currently, tile behavior does not have an effect on gameplay. Relying of this behavior to complete the game would be a good use of our TileMap infrastructure.
 
 --MarioClone team
 
