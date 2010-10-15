@@ -511,6 +511,7 @@ public class TowerDefense extends Game {
 		initOverlays();
 		createPath();
 		initPlayer();
+		totalTime = 0;
 		go = false;
 	}
 	
