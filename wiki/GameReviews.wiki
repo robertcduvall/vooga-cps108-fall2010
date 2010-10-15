@@ -31,7 +31,7 @@ Our code is still somewhat rough. The proprietary level system currently has fil
 
 --GalaxyInvaders team
 
-* Can’t run game.  Even changing the input for level11.txt, etc. generates an error as those files are not in the vooga repository.  This group needs to add the proper resources correctly (level files, images, etc.) and then fix whatever hard coded file names they have in their code.  -- (DoodleJump)
+Can’t run game.  Even changing the input for level11.txt, etc. generates an error as those files are not in the vooga repository.  This group needs to add the proper resources correctly (level files, images, etc.) and then fix whatever hard coded file names they have in their code.  -- (DoodleJump)
 
 == Grandius ==
 
