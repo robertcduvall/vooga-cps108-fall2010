@@ -47,7 +47,11 @@ Our code is still somewhat rough. The proprietary level system currently has fil
 
 --GalaxyInvaders team
 
-Can’t run game.  Even changing the input for level11.txt, etc. generates an error as those files are not in the vooga repository.  This group needs to add the proper resources correctly (level files, images, etc.) and then fix whatever hard coded file names they have in their code.  -- (DoodleJump)
+Can’t run game.  Even changing the input for level11.txt, etc. generates an error as those files are not in the vooga repository.  This group needs to add the proper resources correctly (level files, images, etc.) and then fix whatever hard coded file names they have in their code.  -- (Doodle Jump)
+
+After changing the hardcoded pathname for level1.txt, level2.txt and level3.txt the game correctly ran on each of our computers. This is a fun game that accurately emulates the classic Galaxy Invaders. The items that added health were unique, it would be a nice addition to have power ups that altered the shots coming from the ship. Also it was nice that as the level increased the difficulty of the aliens and the number of aliens changed. Something other than a black background would be something to add, maybe even different backgrounds for different levels.
+
+In your code it was clever to separate the initialization of enemies and blocks into two different methods. This adds to the readability of the code and if you ever need to add new enemies/blocks it will be a simple fix. We would suggest that you try to utilize Golden T’s PlayField class, and attach each Background, Sprite and SpriteGroup to it so that you can simplify your update and render methods to “playfield.update()/playfield.render()”. Also the moveLeft and moveRight methods should really be moved into the PlayerSprite class for your ship to take full advantage of that API. The StatInt was a good choice for keeping track of your players score. -- (Doodle Jump)
 
 == Grandius ==
 
