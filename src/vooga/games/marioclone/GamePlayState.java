@@ -125,10 +125,9 @@ public class GamePlayState extends GameState {
 	
 	@Override
 	public void render(Graphics2D g) {
+		super.render(g);
         playfield.setBackground(marioBackground);
 		playfield.render(g);
-		super.render(g);
-
 	}
 
 }

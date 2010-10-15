@@ -8,13 +8,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
-import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.Randomizer;
-import vooga.engine.resource.RandomizerException;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.GameLoader;
@@ -23,9 +18,6 @@ import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.Timer;
-import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
 
 public class MarioClone extends Game {
