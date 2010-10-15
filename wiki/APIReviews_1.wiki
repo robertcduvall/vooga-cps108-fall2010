@@ -24,7 +24,7 @@ For each API listed below, there should be nine reviews: one from each game team
 
  * My conception of a level is as something of a substate of a game state.  A developer would use game states at very highest level, where entirely different game behaviors are in play.  For instance, a main menu screen should behave entirely differently from the gameplay itself.  On the other hand, a level contains only resources, sprites, etc. that differ from other levels.  Every level within a game state should expect the same behavior to be carried out in the game loop.  
 
-   As others have said, a good way to enable this different behavior is to allow files containing level configurations to be imported.  This would lend us flexibility that is not afforded by the current VOOGA level API.  So far, our game is not making use of the level API, but we will explore it in the next several days.   --David Herzka (MarioClone)
+   As others have said, a good way to enable this different behavior is to allow files containing level configurations to be imported.  This would lend us flexibility that is not afforded by the current VOOGA level API.  So far, our game is not making use of the level API, but we will explore it in the next several days.  We are using a TileMap class to create a map that is composed of a number of tiles.  This TileMap, a set of enemy sprites, and a background image are essentially the only thing that will differ from level to level, so it would not be very difficult in our case to simply create our own level as a container for these resources.   --David Herzka (MarioClone)
 
 == Player ==
 
