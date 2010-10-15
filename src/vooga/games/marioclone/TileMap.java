@@ -2,6 +2,8 @@ package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +20,6 @@ import vooga.games.marioclone.tiles.Tile;
 import vooga.games.marioclone.tiles.Tile.State;
 
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.collision.CollisionGroup;
 
 public class TileMap {
 	
@@ -27,10 +28,10 @@ public class TileMap {
 	private List<Tile> tiles;
 	private SpriteGroup tileGroup;
 	
-	public TileMap(URL url) throws IOException {
+	public TileMap(File file) throws IOException {
 		tiles = new CopyOnWriteArrayList<Tile>();
 		tileGroup = new SpriteGroup("Tile Group");
-		loadTiles(url);
+		loadTiles(file);
 	}
 	
 	public List<Tile> getTiles() {
@@ -69,19 +70,18 @@ public class TileMap {
 		return coord/TILE_SIZE;
 	}
 	
-	public void loadTiles(URL url) throws IOException {
+	public void loadTiles(File file) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		int width = 0;
 		int height = 0;
 		
-		if (url == null) {
+		if (file == null) {
 			throw new IOException("No such map!");
 		}
 		
 		// read every line in the text file into the list
-		InputStream is = url.openStream();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-				
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		
 		while (true) {
 			String line = reader.readLine();
 			// no more lines to read

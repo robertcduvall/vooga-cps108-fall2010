@@ -14,7 +14,7 @@ public class MarioSprite extends CharacterSprite {
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
 		super(name, stateName, left, right);
-		setHealth(100);
+		setHealth(100000);
 	}
 	
 	public void moveRight() {

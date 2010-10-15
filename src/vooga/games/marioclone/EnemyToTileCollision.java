@@ -12,7 +12,6 @@ public class EnemyToTileCollision extends PreciseCollisionGroup {
 		revertPosition1();
 		
 		enemy.setVerticalSpeed(0);
-		revertPosition1();
 
 	}
 
