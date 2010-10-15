@@ -19,8 +19,7 @@ For each API listed below, there should be nine reviews: one from each game team
  * While we included levels as part of our game, we didn’t actually use the Level API.  While our implementation was similar, the Level API wasn’t flexible enough to allow much differentiation in the way the file is read.  For example, we wanted the first line to be the image that will be the background of the screen and the last line to be the score the user needs to reach to make the next level and then the number of the next level.  The Level API’s insistence on reading everything as an image, location, and velocity (which also was kind of overkill since most of the objects in our game didn’t need a velocity) made it impossible to implement this sort of functionality.
 	These issues can mostly be resolved if we as a class decide to take background stuff and logic about navigating between levels out of the level files.  However, the one thing that really hampered us from using the Level API was it using Sprites and Animated Sprites instead of our own GameEntitySprite extensions.  For example, when we read in a white platform we want it to create a WhitePlatform object not a Sprite.  This occurred for almost every part of our game and made using the Level API simply not a good decision. --Adam Cue (DoodleJump)
 
- *  We agree with Daniel K - we think the Level package should be, possibly among other things, responsible for loading levels from files. A decision must be made as to what sorts of level files can be accepted - their formatting, data, etc. 
---Grandius team
+ *  We agree with Daniel K - we think the Level package should be, possibly among other things, responsible for loading levels from files. A decision must be made as to what sorts of level files can be accepted - their formatting, data, etc. --Grandius team
 
 == Player ==
 
