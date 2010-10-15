@@ -2,7 +2,6 @@ package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.collision.Collidable;
 
 import com.golden.gamedev.object.Sprite;
 

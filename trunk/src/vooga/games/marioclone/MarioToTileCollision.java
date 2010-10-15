@@ -22,8 +22,19 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 			((Tile) tile).actOnCollision(mario);
 		}
 		
+		switch(getCollisionSide()) {
+		case(LEFT_RIGHT_COLLISION):
+			mario.setHorizontalSpeed(0);
+			break;
+		case(RIGHT_LEFT_COLLISION):
+			mario.setHorizontalSpeed(0);
+			break;
+		}
 		
-//		revertPosition1();
+		printCollisionSide();
+			
+		
+		revertPosition1();
 //		revertPosition2();
 				
 	}
