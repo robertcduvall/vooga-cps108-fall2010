@@ -17,6 +17,9 @@ One thing we can improve on is making the code more dynamic.  For example, we ha
 
 == Doodle Jump ==
 
+We would review Doodle Jump very similarly to our game (Cyberion).  It is a good game with the same general principals of initialization and collision detection.  Also, just like ours, they need to worry about making the code more dynamic and removing repetitive code and method calls.  They did use more APIs than us, but could still probably incorporate more, especially once they are improved.
+
+-Cyberion Team
 
 == Galaxy Invaders ==
 
