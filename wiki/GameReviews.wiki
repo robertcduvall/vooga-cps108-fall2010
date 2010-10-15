@@ -134,9 +134,11 @@ While our game did do many good things, such as have a way to restart without ex
 -- Tower Defense Team
 
 
-I was very impressed with TowerDefense on the initial play-thru. I thought the game was entertaining, engaging, mostly bug-free, and humorous (You’ve got to love defending against Duvall’s incessant attacks against our self-esteem). I did, however encounter a bug with the ranges of some of the towers. I built a tower on the corner, and it only shot at things in the left/upper most portion of its radius, but wouldn’t hit targets to the right (even though they were still in range). In order to make the code more efficient, the group should focus on removing the hard-coding of file names in references of both images and fonts. There is also quite a bit of repetition in many different methods in the code. I think the team could use loops more effectively, as well as pass in certain arguments in order to get the desired result, other than hard coding each situation. Take a look at initOverlays, initPlayer, createPath, createEnemies, and begin. Each of these methods have some form of repeated code that could get refactored. Also, JavaDoc comments would be nice. Other than that, you guys have a very solid game – well done. 
+I was very impressed with TowerDefense on the initial play-thru. I thought the game was entertaining, engaging, mostly bug-free, and humorous (You’ve got to love defending against Duvall’s incessant attacks against our self-esteem). I did, however encounter a bug with the ranges of some of the towers. I built a tower on the corner, and it only shot at things in the left/upper most portion of its radius, but wouldn’t hit targets to the right (even though they were still in range). In order to make the code more efficient, the group should focus on removing the hard-coding of file names in references of both images and fonts. There is also quite a bit of repetition in many different methods in the code. I think the team could use loops more effectively, as well as pass in certain arguments in order to get the desired result, other than hard coding each situation. Take a look at initOverlays, initPlayer, createPath, createEnemies, and begin. Each of these methods have some form of repeated code that could get refactored. Also, JavaDoc comments would be nice. Other than that, you guys have a very solid game – well done.
 
-–Cameron (MarioClone) 
+In particular, TowerDefense seems to make good use of the Overlay, Player, Resource, and Gamestate VOOGA APIs. However, it seems to ignore most of the others. For example the Level API in particular could be used to improve the complexity and length of the game. 
+
+–Cameron and Andrew (MarioClone) 
 
 
 == Tron ==
