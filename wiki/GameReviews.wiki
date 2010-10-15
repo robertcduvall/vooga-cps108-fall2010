@@ -23,9 +23,26 @@ We would review Doodle Jump very similarly to our game (Cyberion).  It is a good
 
 == Galaxy Invaders ==
 
+Our game, GalaxyInvaders, initially did not use many of the APIs from VOOGA, as we found it simpler (and faster) to implement their functionalities ourselves. We are going to change this in refactoring, and replace our custom-built Level class, for example, with an extension of the Levels API. The APIs we did use, however, we found to be quite useful, including the Player and Overlay groups’, which fit in with our game pretty well. Clearly, our next step is to replace our code with as much API code as possible, including using the Events API more extensively, and the Resources API to handle all of our images and possibly our level files.
+
+One of the APIs we do not really envision a need for is the Collisions API, as collisions are handled automatically by the GTGE. We, along with most groups, implemented them directly via GoldenT and they worked quite well. While we understand that this API could in theory provide easier functionality, in its current state it seems to require even more code (such as extending Collidable) than the GTGE built-in detection.
+
+Our code is still somewhat rough. The proprietary level system currently has file paths hard-coded in, which is not extensible at all. We had some difficulties with the Overlay API; first, I had to extend OverlayStat to change its color, and second, I wasn’t able to get the OverlayManager working properly so it was impossible to position each Overlay on the screen. This is why there is an OverlayStat for the player score but just a regular drawString() for the player lives. Finally, we need to make greater use of resources. Some of our int variables are constants, but nearly all of our Strings are not, which makes their modification more difficult than it should be. 
+
+--GalaxyInvaders team
 
 == Grandius ==
 
+Possible ideas to consider:
+-remove constructor in main Game class
+-remove repetition in updateScreenSprites(): make SpriteGroup and int (number in the sprite list of the level) parameters instead.
+-in updateEnemies(), split some of the for loops into separate methods.
+    for the keyevents, make a method that calls in the SpriteGroup and a double to add to the     speed. that way it will take away the repetitive for-loops. have a different method for each        arrow key.
+-separate loadGrandiusLevel() into different methods
+-BlackHole and Missile could extend ItemSprites, by using the act() method whenever they swallow enemies or make a hit and passing the max hits constants into the constructor.
+-the game state control is implemented with an integer switch; seems like using the GameState API could simplify this
+
+--GalaxyInvaders team
 
 == Jumper ==
 
