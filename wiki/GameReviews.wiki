@@ -6,9 +6,13 @@ For each game listed below, your team should review its own game and the next ga
 
 
 == Cyberion ==
- Our game, Cyberion, is a very simple and fun game in which you control a ship that tries to stay alive by either shooting the enemy ships down or simply avoiding the enemy ships and their "bullets".  There are bonuses you can recieve to increase your firepower to make it easier to shoot the enemy ships.
+
+Our game, Cyberion, is a very simple and fun game in which you control a ship that tries to stay alive by either shooting the enemy ships down or simply avoiding the enemy ships and their "bullets".  There are bonuses you can recieve to increase your firepower to make it easier to shoot the enemy ships.
+
 Our main method (other than update and render) in the main game class is initResources.  This method then calls various other methods which set sprites, collision detection, and event managers.  We created a collision group and manager for each possible collision using Golden T's built-in collision manager.
+
 One thing we can improve on is making the code more dynamic.  For example, we hard-code each image file path.  In general, we have many sections with almost identical code, such as creating a collision manager for each collision type.  Another thing is using more of the Vooga API.  Right now we are only using the Event Manager API.
+
 -Cyberion Team
 
 == Doodle Jump ==
