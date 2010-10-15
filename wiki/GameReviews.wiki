@@ -34,5 +34,7 @@ For each game listed below, your team should review its own game and the next ga
 
 == Zombieland ==
 
+Overall the Zombieland game is nicely designed and it has pretty graphics and animations. However right now it is not using any of the API's. Therefore potentially it can integrate the game with more API's. Since this game already has a lot of pictures, it can put them in the resource manager. Also the level manager and player managers can be properly added. Another issue right now is that the zombies come towards the player in all directions, while the player can only shoot at straight up/down/left/right directions, which makes it very hard to actually shoot any zombies coming at the player. Hence it would be nice if the player could be able to turn around in any angle and shoot the zombies. 
+--Meng Li,Brent Sodman,Jiaqi Yan
 
  
