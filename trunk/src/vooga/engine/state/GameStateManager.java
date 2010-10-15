@@ -1,7 +1,8 @@
 package vooga.engine.state;
 
 import java.awt.Graphics2D;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * GameStateManager manages the behavior of GameState for overarching classes like Game. At its heart,
@@ -15,13 +16,13 @@ import java.util.TreeSet;
  */
 public class GameStateManager {
 
-	private TreeSet<GameState> currentGameStates;
+	private Collection<GameState> currentGameStates;
 
 	/**
 	 * Constructs a new GameStateManager.
 	 */
 	public GameStateManager() {
-		currentGameStates = new TreeSet<GameState>();
+		currentGameStates = new ArrayList<GameState>();
 	}
 
 	/**
