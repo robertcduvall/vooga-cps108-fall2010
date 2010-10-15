@@ -7,6 +7,8 @@ For each API listed below, there should be nine reviews: one from each game team
 
 == Level ==
  * I do not think that a Level should be responsible for game state, resources, collisions, etc. I believe that is the role of the Game class. I think that the Level package should be responsible for traversing between the levels and initializing levels from files. I think that right now the initialization process should involve loading relevant images and sounds (through the Resources API) and initializing the Sprites and SpriteGroups to be passed back to the Game. In the future when a rules API is created, it could also pass relevant rules used to distinguish Gameplay between levels back to the game. --Daniel Koverman (Tower Defense)
+
+  * I agree with Daniel about the collisions and game states being independent of the Levels system. However, it is hard for us to examine the API thoroughly as our game did not involve multiple levels and so the use of the API was unnecessary. (Cody Kolodziejzyk, Jumper) 
  
 
 
