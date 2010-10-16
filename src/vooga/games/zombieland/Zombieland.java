@@ -5,11 +5,19 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Properties;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
@@ -54,27 +62,6 @@ public class Zombieland extends Game {
 	private Timer timer;
 	private KeyboardControl control;
 
-	private BufferedImage[] playerUpImage;
-	private BufferedImage[] playerDownImage;
-	private BufferedImage[] playerLeftImage;
-	private BufferedImage[] playerRightImage;
-
-	private BufferedImage[] zombieUpImage;
-	private BufferedImage[] zombieDownImage;
-	private BufferedImage[] zombieLeftImage;
-	private BufferedImage[] zombieRightImage;
-
-	private BufferedImage[] zombieAttackUpImage;
-	private BufferedImage[] zombieAttackDownImage;
-	private BufferedImage[] zombieAttackLeftImage;
-	private BufferedImage[] zombieAttackRightImage;
-
-	private BufferedImage[] zombieDeath;
-
-	private BufferedImage bulletImage;
-	private BufferedImage shotGunImage;
-	private BufferedImage assaultRifleImage;
-	private BufferedImage healthImage;
 
 //	private ZZCollisionManager zombieZombieManager;
 	private PZCollisionManager playerZombieManager;
@@ -96,70 +83,94 @@ public class Zombieland extends Game {
 	private int zombieHealth;
 	private int zombieDamage;
 	
+	private BufferedImage[] getBufferedImageArray(ResourceBundle rb, String keyword)
+	{
+		String[] list = rb.getStringArray(keyword);
+		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+		
+		for(int i =0; i < list.length; i++)
+		{
+			String filepath = rb.getString(list[i]);
+			BufferedImage currImage = getImage(filepath);
+			images.add(currImage);
+		}
+		
+		return (BufferedImage[]) images.toArray();
+	}
+	
 	public void initResources() {
 		// RESOURCES
-
+		
+		
 		// Player animations
-		playerDownImage = new BufferedImage[] {
-				getImage("resources/Down1.png"),
-				getImage("resources/Down2.png"),
-				getImage("resources/Down3.png"),
-				getImage("resources/Down4.png") };
-		playerUpImage = new BufferedImage[] { getImage("resources/up1.png"),
-				getImage("resources/up2.png"), getImage("resources/up3.png"),
+		String[] names = {"Down", "Up", "Left", "Right"};
+		ResourceBundle playerProperties = ResourceBundle.getBundle("PlayerSpriteResource");
+		
+		BufferedImage[] playerDownImage = getBufferedImageArray(playerProperties, "Down");
+		
+		//resources
+//		BufferedImage[] playerDownImage = new BufferedImage[] {
+//				getImage("resources/Down1.png"),
+//				getImage("resources/Down2.png"),
+//				getImage("resources/Down3.png"),
+//				getImage("resources/Down4.png") };
+		BufferedImage[] playerUpImage = new BufferedImage[] { 
+				getImage("resources/up1.png"),
+				getImage("resources/up2.png"), 
+				getImage("resources/up3.png"),
 				getImage("resources/up4.png") };
-		playerLeftImage = new BufferedImage[] {
+		BufferedImage[] playerLeftImage = new BufferedImage[] {
 				getImage("resources/left1.png"),
 				getImage("resources/left2.png"),
 				getImage("resources/left3.png"),
 				getImage("resources/left4.png") };
-		playerRightImage = new BufferedImage[] {
+		BufferedImage[] playerRightImage = new BufferedImage[] {
 				getImage("resources/right1.png"),
 				getImage("resources/right2.png"),
 				getImage("resources/right3.png"),
 				getImage("resources/right4.png") };
 		// Zombie animations
-		zombieDownImage = new BufferedImage[] {
+		BufferedImage[] zombieDownImage = new BufferedImage[] {
 				getImage("resources/ZombieDown1.png"),
 				getImage("resources/ZombieDown2.png"),
 				getImage("resources/ZombieDown3.png") };
-		zombieUpImage = new BufferedImage[] {
+		BufferedImage[] zombieUpImage = new BufferedImage[] {
 				getImage("resources/ZombieUp1.png"),
 				getImage("resources/ZombieUp2.png"),
 				getImage("resources/ZombieUp3.png") };
-		zombieLeftImage = new BufferedImage[] {
+		BufferedImage[] zombieLeftImage = new BufferedImage[] {
 				getImage("resources/ZombieLeft1.png"),
 				getImage("resources/ZombieLeft2.png"),
 				getImage("resources/ZombieLeft3.png") };
-		zombieRightImage = new BufferedImage[] {
+		BufferedImage[] zombieRightImage = new BufferedImage[] {
 				getImage("resources/ZombieRight1.png"),
 				getImage("resources/ZombieRight2.png"),
 				getImage("resources/ZombieRight3.png") };
-		zombieAttackUpImage = new BufferedImage[] {
+		BufferedImage[] zombieAttackUpImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackUp1.png"),
 				getImage("resources/ZombieAttackUp2.png"),
 				getImage("resources/ZombieAttackUp3.png") };
-		zombieAttackDownImage = new BufferedImage[] {
+		BufferedImage[] zombieAttackDownImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackDown1.png"),
 				getImage("resources/ZombieAttackDown2.png"),
 				getImage("resources/ZombieAttackDown3.png") };
-		zombieAttackLeftImage = new BufferedImage[] {
+		BufferedImage[] zombieAttackLeftImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackLeft1.png"),
 				getImage("resources/ZombieAttackLeft2.png"),
 				getImage("resources/ZombieAttackLeft3.png") };
-		zombieAttackRightImage = new BufferedImage[] {
+		BufferedImage[] zombieAttackRightImage = new BufferedImage[] {
 				getImage("resources/ZombieAttackRight1.png"),
 				getImage("resources/ZombieAttackRight2.png"),
 				getImage("resources/ZombieAttackRight3.png") };
-		zombieDeath = new BufferedImage[] {
+		BufferedImage[] zombieDeath = new BufferedImage[] {
 				getImage("resources/ZombieDeath1.png"),
 				getImage("resources/ZombieDeath2.png"),
 				getImage("resources/ZombieDeath3.png") };
 
-		bulletImage = getImage("resources/bullet.png");
-		shotGunImage = getImage("resources/shotgun.png");
-		assaultRifleImage = getImage("resources/assaultRifle.png");
-		healthImage = getImage("resources/Health.png");
+		BufferedImage bulletImage = getImage("resources/bullet.png");
+		BufferedImage shotGunImage = getImage("resources/shotgun.png");
+		BufferedImage assaultRifleImage = getImage("resources/assaultRifle.png");
+		BufferedImage healthImage = getImage("resources/Health.png");
 
 		// INITIALIZATIONS
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
@@ -226,12 +237,30 @@ public class Zombieland extends Game {
 		humanItemManager = new HICollisionManager();
 		playField.addCollisionGroup(players, items, humanItemManager);
 
+		try {
+			Properties mainProperties = getProperties("MainResources.properties");
+			
+			level = (Integer) mainProperties.get("startLevel");
+			zombiesAppeared = (Integer) mainProperties.get("startZombieNumber");
+			zombieDamage = (Integer) mainProperties.get("startZombieDamage");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		level = 1;
 		zombiesAppeared = 0;
 		zombieHealth = 25;
 		zombieDamage = 5;
 	}
-
+	
+	public Properties getProperties(String filepath) throws IOException
+	{
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(filepath);
+		prop.load(fis);
+		return prop;
+	}
 	/**
 	 * update all components of the game
 	 */
@@ -274,6 +303,44 @@ public class Zombieland extends Game {
 	 */
 	public void addZombie() {
 		
+		BufferedImage[] zombieDownImage = new BufferedImage[] {
+				getImage("resources/ZombieDown1.png"),
+				getImage("resources/ZombieDown2.png"),
+				getImage("resources/ZombieDown3.png") };
+		BufferedImage[] zombieUpImage = new BufferedImage[] {
+				getImage("resources/ZombieUp1.png"),
+				getImage("resources/ZombieUp2.png"),
+				getImage("resources/ZombieUp3.png") };
+		BufferedImage[] zombieLeftImage = new BufferedImage[] {
+				getImage("resources/ZombieLeft1.png"),
+				getImage("resources/ZombieLeft2.png"),
+				getImage("resources/ZombieLeft3.png") };
+		BufferedImage[] zombieRightImage = new BufferedImage[] {
+				getImage("resources/ZombieRight1.png"),
+				getImage("resources/ZombieRight2.png"),
+				getImage("resources/ZombieRight3.png") };
+		BufferedImage[] zombieAttackUpImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackUp1.png"),
+				getImage("resources/ZombieAttackUp2.png"),
+				getImage("resources/ZombieAttackUp3.png") };
+		BufferedImage[] zombieAttackDownImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackDown1.png"),
+				getImage("resources/ZombieAttackDown2.png"),
+				getImage("resources/ZombieAttackDown3.png") };
+		BufferedImage[] zombieAttackLeftImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackLeft1.png"),
+				getImage("resources/ZombieAttackLeft2.png"),
+				getImage("resources/ZombieAttackLeft3.png") };
+		BufferedImage[] zombieAttackRightImage = new BufferedImage[] {
+				getImage("resources/ZombieAttackRight1.png"),
+				getImage("resources/ZombieAttackRight2.png"),
+				getImage("resources/ZombieAttackRight3.png") };
+		BufferedImage[] zombieDeath = new BufferedImage[] {
+				getImage("resources/ZombieDeath1.png"),
+				getImage("resources/ZombieDeath2.png"),
+				getImage("resources/ZombieDeath3.png") };
+		
+		
 		Zombie newZombie = new Zombie("New", "Moving",
 				getInitializedAnimatedSprite(zombieDownImage),
 				getInitializedAnimatedSprite(zombieUpImage),
@@ -311,7 +378,7 @@ public class Zombieland extends Game {
 	 */
 	public void addBullet(Bullet bullet, double angle) {
 		bullet.getCurrentSprite().setImage(
-				ImageUtil.rotate(bulletImage, (int) angle));
+				ImageUtil.rotate(bullet.getImage(), (int) angle));
 		bullet.setActive(true);
 		bullets.add(bullet);
 	}
@@ -329,6 +396,11 @@ public class Zombieland extends Game {
 		Random random = new Random();
 		int choice = random.nextInt(3);
 
+		BufferedImage bulletImage = getImage("resources/bullet.png");
+		BufferedImage shotGunImage = getImage("resources/shotgun.png");
+		BufferedImage assaultRifleImage = getImage("resources/assaultRifle.png");
+		BufferedImage healthImage = getImage("resources/Health.png");
+		
 		Item item;
 
 		switch (choice) {
@@ -409,6 +481,7 @@ public class Zombieland extends Game {
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
+		
 		control.setParams(new Class[] { int.class });
 		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
 		control.setParams(new Class[] { int.class });
