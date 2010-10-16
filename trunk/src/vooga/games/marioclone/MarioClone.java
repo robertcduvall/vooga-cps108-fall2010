@@ -17,17 +17,27 @@ import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.background.ColorBackground;
 
+/**
+ * 
+ * @author David Herzka, Cameron McCallie, Andrew Brown
+ * 
+ * Our game takes after the popular Mario game series, but with a twist! In our version, the user controls a monster,
+ * who attempts to rid the world of all marios by jumping on them. This project was written and developed with the 
+ * VOOGA game engined, in Duke University's Computer Science 108 class.
+ *
+ */
+
 public class MarioClone extends Game {
 
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 768;
 
 	private KeyboardControl myControl;
-	private MarioSprite mario;
-	private GameStateManager gsm;
-	private GamePlayState gamePlayState;
-	private MainMenuState menuState;
-	private GameEndState loseState, winState;
+	private MarioSprite myMario;
+	private GameStateManager myGameStateManager;
+	private GamePlayState myGamePlayState;
+	private MainMenuState myMenuState;
+	private GameEndState myLoseState, myWinState;
 
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
@@ -38,47 +48,37 @@ public class MarioClone extends Game {
 
 
 	public void initResources() {
-
-		// Code and image lovingly borrowed from Grandius group - thanks guys!
-		GameFont myGameFont = fontManager.getFont(getImages("images/font.png",
-				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
-				+ "HIJKLMNOPQRSTUVWXYZ ");
-
 		Resources.setGame(this);
+		GameFont myGameFont = fontManager.getFont(getImages("images/font.png", 20, 3), " !.,0123" + "456789:   -? ABCDEFG" + "HIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
 
 		try {
 			Resources.loadFile("src/vooga/games/marioclone/resourcelist.txt");
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error - could not load file.");
 		}
 
-		gsm = new GameStateManager();
+		myGameStateManager = new GameStateManager();
 
-		mario = new MarioSprite("mario", "regular", Resources
-				.getImage("MarioR"), Resources.getImage("MarioL"));
-		gamePlayState = new GamePlayState(mario, WIDTH, HEIGHT);
+		myMario = new MarioSprite("mario", "regular", Resources.getImage("MarioR"), Resources.getImage("MarioL"));
+		myGamePlayState = new GamePlayState(myMario, WIDTH, HEIGHT);
 
-//		GameFont font = fontManager.getFont(new Font(Font.SANS_SERIF,
-//				Font.PLAIN, 48));
+
 		fontManager.putFont("GAMEOVER", myGameFont);
 		fontManager.putFont("MENU", myGameFont);
 
-		menuState = new MainMenuState(WIDTH, HEIGHT, fontManager);
+		myMenuState = new MainMenuState(WIDTH, HEIGHT, fontManager);
+		myLoseState = new GameEndState(new ColorBackground(Color.red), "LOSE", fontManager);
+		myWinState = new GameEndState(new ColorBackground(Color.blue), "WIN", fontManager);
 
-		loseState = new GameEndState(new ColorBackground(Color.red), "LOSE",
-				fontManager);
-		winState = new GameEndState(new ColorBackground(Color.blue), "WIN",
-				fontManager);
+		myGameStateManager.addGameState(myMenuState);
+		myGameStateManager.addGameState(myGamePlayState);
+		myGameStateManager.addGameState(myLoseState);
+		myGameStateManager.addGameState(myWinState);
 
-		gsm.addGameState(menuState);
-		gsm.addGameState(gamePlayState);
-		gsm.addGameState(loseState);
-		gsm.addGameState(winState);
+		myGameStateManager.switchTo(myMenuState);
 
-		gsm.switchTo(menuState);
-
-		myControl = new KeyboardControl(mario, this);
+		myControl = new KeyboardControl(myMario, this);
 
 		myControl.addInput(KeyEvent.VK_D, "moveRight",
 				"vooga.games.marioclone.MarioSprite");
@@ -92,34 +92,35 @@ public class MarioClone extends Game {
 	@Override
 	public void update(long elapsedTime) {
 		myControl.update();
-		gsm.update(elapsedTime);
+		myGameStateManager.update(elapsedTime);
+		System.out.println("hey");
 
 		GamePlayState.State nextState;
 		
-		if(gamePlayState.isActive()) {
-			nextState = gamePlayState.nextState();
+		if(myGamePlayState.isActive()) {
+			nextState = myGamePlayState.nextState();
 			
 			switch(nextState) {
 			case Win:
-				gsm.switchTo(winState);
+				myGameStateManager.switchTo(myWinState);
 				break;
 			case Lose:
-				gsm.switchTo(loseState);
+				myGameStateManager.switchTo(myLoseState);
 				break;
 			}
 		}
 
-		if (menuState.isActive()) {
+		if (myMenuState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE))
-				gsm.switchTo(gamePlayState);
+				myGameStateManager.switchTo(myGamePlayState);
 		}
 
-		if (winState.isActive() || loseState.isActive()) {
+		if (myWinState.isActive() || myLoseState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
-				mario.setHealth(MarioSprite.DEFAULT_HEALTH);
-				mario.setActive(true);
-				gamePlayState.init();
-				gsm.switchTo(gamePlayState);
+				myMario.setHealth(MarioSprite.DEFAULT_HEALTH);
+				myMario.setActive(true);
+				myGamePlayState.init();
+				myGameStateManager.switchTo(myGamePlayState);
 			}
 		}
 
@@ -127,7 +128,7 @@ public class MarioClone extends Game {
 
 	@Override
 	public void render(Graphics2D g) {
-		gsm.render(g);
+		myGameStateManager.render(g);
 	}
 
 }
