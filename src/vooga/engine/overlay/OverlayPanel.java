@@ -1,6 +1,9 @@
 package vooga.engine.overlay;
 
 import com.golden.gamedev.*;
+import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.SpriteGroup;
+
 import java.util.ArrayList;
 
 /**
@@ -17,7 +20,7 @@ import java.util.ArrayList;
  */
 public class OverlayPanel extends OverlayManager{
 
-//	private Collection<Overlay> myOverlays;
+	private SpriteGroup myOverlaysGroup;
 	private boolean isOnTop;
 	
 	/**
@@ -26,11 +29,11 @@ public class OverlayPanel extends OverlayManager{
 	 * @param thisWorld
 	 * @param topOrBottom
 	 */
-	public OverlayPanel(Game thisGame, boolean topOrBottom)
+	public OverlayPanel(Game game, boolean topOrBottom)
 	{
-		super(thisGame,0,0);
+		super(game, 0, 0);
 		isOnTop = topOrBottom;
-		myOverlays = new ArrayList<Overlay>();
+		myOverlaysGroup = new SpriteGroup("Overlays");
 	}
 	
 	/**
@@ -49,7 +52,7 @@ public class OverlayPanel extends OverlayManager{
 	public void initialize()
 	{
 		int numberOfOverlays = myOverlays.size();
-		int[] xCoordinates = setXCoordinates();
+		int[] xCoordinates = setXCoordinates(numberOfOverlays);
 		int distanceFromEdge = getGame().getHeight()/50;
 		int yCoordinate = distanceFromEdge;
 		int yOffset = 0;	//The offsets are for in case the Overlay would run
@@ -75,12 +78,12 @@ public class OverlayPanel extends OverlayManager{
 			yOffset = 0;
 			
 			i++;
+			myOverlaysGroup.add(overlay);
 		}
 	}
 	
-	private int[] setXCoordinates()
+	private int[] setXCoordinates(int numberOfOverlays)
 	{
-		int numberOfOverlays = myOverlays.size();
 		int[] xCoordinates = new int[numberOfOverlays];
 		if(numberOfOverlays == 1)
 			xCoordinates[0] = getGame().getWidth()/2;
@@ -93,6 +96,11 @@ public class OverlayPanel extends OverlayManager{
 			}
 		}
 		return xCoordinates;
+	}
+	
+	public SpriteGroup getOverlayGroup()
+	{
+		return myOverlaysGroup;
 	}
 	
 }
