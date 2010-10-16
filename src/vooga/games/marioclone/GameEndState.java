@@ -7,6 +7,7 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.resource.HighScoreHandler;
 import vooga.engine.state.GameState;
 
+import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFontManager;
 
@@ -41,12 +42,12 @@ public class GameEndState extends GameState {
 	
 	@Override
 	public void initialize() {
-		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File("highscores"));
-//		try {
-//			myHighScores.updateScores("Test",1000l);
-//		} catch (SQLiteException e) {
-//			e.printStackTrace();
-//		}
+		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File("src/vooga/games/marioclone/highscores.db"));
+		try {
+			myHighScores.updateScores("Test",(long) (100000 * Math.random()));
+		} catch (SQLiteException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
