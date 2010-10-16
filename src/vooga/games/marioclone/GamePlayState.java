@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Randomizer;
 import vooga.engine.resource.RandomizerException;
 import vooga.engine.resource.Resources;
@@ -21,15 +20,12 @@ public class GamePlayState extends GameState {
 
 	private ColorBackground marioBackground;
 	private MarioPlayField playfield;
-	private SpriteGroup tileGroup;
 	private SpriteGroup marioGroup;
 	private TileMap map;
 	private MarioSprite mario;
 	private SpriteGroup enemyGroup;
 	private int width;
 	private int height;
-	private KeyboardControl myControl;
-	private Stat<Integer> myHealth;
 	private Stat<Integer> myEnemiesRemaining;
 	private OverlayStat myEnemyOverlay;
 	private Timer timer;
@@ -73,7 +69,7 @@ public class GamePlayState extends GameState {
 		marioBackground = new ColorBackground(Color.white);
 		marioBackground.setClip(0, 0, width, height);
 		playfield = new MarioPlayField();
-		tileGroup = new SpriteGroup("Tile Group");
+		SpriteGroup tileGroup = new SpriteGroup("Tile Group");
 		
 		marioGroup = new SpriteGroup("Mario Group");
 		mario.setLocation(150, 290);
@@ -100,7 +96,6 @@ public class GamePlayState extends GameState {
 		}
 		playfield.addTileMap(map);
 		
-		myHealth = new Stat<Integer>(new Integer(INITIAL_HP));
 		myEnemiesRemaining = new Stat<Integer>(new Integer(enemyGroup.getSize()));
 
 		myEnemyOverlay = new OverlayStat("Enemies Remaining: ", myEnemiesRemaining);

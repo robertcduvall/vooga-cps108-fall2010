@@ -5,11 +5,9 @@ import java.awt.image.BufferedImage;
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
 
-	double friction = .05;
-	double dX = 5;
-	double jumpSpeed = 1;
-	double speed=.5;
-	boolean onGround = false;
+	private double jumpSpeed = 1;
+	private double speed=.5;
+	private boolean onGround = false;
 	
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
@@ -60,6 +58,7 @@ public class MarioSprite extends CharacterSprite {
 		onGround = b;
 	}
 	
+		
 	@Override
 	public void update(long elapsedTime) {
 		if(getHealth() <= 0)
@@ -71,6 +70,4 @@ public class MarioSprite extends CharacterSprite {
 			setX(0);
 		}
 	}
-
-
 }
