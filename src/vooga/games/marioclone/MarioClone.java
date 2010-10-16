@@ -68,7 +68,7 @@ public class MarioClone extends Game {
 
 		loseState = new GameEndState(new ColorBackground(Color.red), "LOSE",
 				fontManager);
-		winState = new GameWonState(new ColorBackground(Color.blue), "WIN",
+		winState = new GameEndState(new ColorBackground(Color.blue), "WIN",
 				fontManager);
 
 		gsm.addGameState(menuState);
@@ -93,15 +93,20 @@ public class MarioClone extends Game {
 	public void update(long elapsedTime) {
 		myControl.update();
 		gsm.update(elapsedTime);
-		if (gamePlayState.isActive()) {
-			if (!mario.isActive()) {
-				gsm.switchTo(loseState);
-			}
 
-			if (gamePlayState.getEnemiesRemaining() == 0) {
+		GamePlayState.State nextState;
+		
+		if(gamePlayState.isActive()) {
+			nextState = gamePlayState.nextState();
+			
+			switch(nextState) {
+			case Win:
 				gsm.switchTo(winState);
+				break;
+			case Lose:
+				gsm.switchTo(loseState);
+				break;
 			}
-
 		}
 
 		if (menuState.isActive()) {

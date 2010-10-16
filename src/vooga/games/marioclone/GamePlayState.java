@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
@@ -29,10 +31,13 @@ public class GamePlayState extends GameState {
 	private Stat<Integer> myEnemiesRemaining;
 	private OverlayStat myEnemyOverlay;
 	private Timer timer;
+	private List<MarioLevel> levels;
+	private int myLevel;
 	
 	private static final int FREQ_ENEMIES = 5000;
-	private static final int INITIAL_HP = 100;
 	private static final int NUM_ENEMIES = 1;
+	
+	public enum State { Win, Lose, Continue };
 	
 	public GamePlayState(MarioSprite mario, int width, int height) {
 		this.mario = mario;
@@ -40,7 +45,22 @@ public class GamePlayState extends GameState {
 		this.height = height;
 		init();
 	}
-	
+
+	public State nextState() {
+		if (!mario.isActive()) {
+			return State.Lose;
+		} else if (getEnemiesRemaining() == 0) {
+			if(myLevel >= levels.size())
+				return State.Win;
+			else
+			{
+				myLevel++;
+				return State.Continue;
+			}
+		} else
+			return State.Continue;
+	}
+
 	@Override
 	public void update(long t) {
 		super.update(t);
@@ -119,7 +139,7 @@ public class GamePlayState extends GameState {
 	// Initialization is not very useful if it is called before the constructor assigns the fields.
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
+		levels = new ArrayList<MarioLevel>();
 	}
 	
 	@Override
