@@ -7,7 +7,7 @@ import vooga.games.marioclone.tiles.Tile;
 import com.golden.gamedev.object.PlayField;
 
 public class MarioPlayField extends PlayField {
-	TileMap myTileMap;
+	private TileMap myTileMap;
 	
 	public void addTileMap(TileMap tileMap) {
 		myTileMap = tileMap;

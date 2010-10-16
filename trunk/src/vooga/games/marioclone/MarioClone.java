@@ -2,6 +2,7 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -15,19 +16,19 @@ import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.GameFont;
+import com.golden.gamedev.object.background.ColorBackground;
 
 public class MarioClone extends Game {
 
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 768;
 
-	private GameFont myGameFont;
 	private KeyboardControl myControl;
 	private MarioSprite mario;
 	private GameStateManager gsm;
 	private GamePlayState gamePlayState;
 	private MainMenuState menuState;
-	private GameLostState loseState;
+	private GameEndState loseState;
 	private GameWonState winState;
 
 	public static void main(String[] args) throws IOException {
@@ -44,9 +45,11 @@ public class MarioClone extends Game {
 	public void initResources() {
 
 		// Code and image lovingly borrowed from Grandius group - thanks guys!
-		myGameFont = fontManager.getFont(getImages("images/font.png", 20, 3),
+		GameFont myGameFont = fontManager.getFont(getImages("images/font.png", 20, 3),
 				" !            .,0123" + "456789:   -? ABCDEFG"
 						+ "HIJKLMNOPQRSTUVWXYZ ");
+		
+		
 
 		Resources.setGame(this);
 		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
@@ -59,14 +62,19 @@ public class MarioClone extends Game {
 
 		gsm = new GameStateManager();
 
-		menuState = new MainMenuState(myGameFont, WIDTH, HEIGHT);
 
 		mario = new MarioSprite("mario", "regular", Resources
 				.getImage("MarioR"), Resources.getImage("MarioL"));
 		gamePlayState = new GamePlayState(mario, WIDTH, HEIGHT);
 
-		loseState = new GameLostState(Resources.getImage("GameOverBG"), "LOSE", myGameFont);
-		winState = new GameWonState(Resources.getImage("GameWIN"), "WIN", myGameFont);
+		GameFont font = fontManager.getFont(new Font(Font.SANS_SERIF,Font.PLAIN,48));
+		fontManager.putFont("GAMEOVER", myGameFont);
+		fontManager.putFont("MENU", myGameFont);
+		
+		menuState = new MainMenuState(WIDTH, HEIGHT, fontManager);
+		
+		loseState = new GameEndState(new ColorBackground(Color.red), "LOSE", fontManager);
+		winState = new GameWonState(new ColorBackground(Color.blue), "WIN", fontManager);
 
 		gsm.addGameState(menuState);
 		gsm.addGameState(gamePlayState);
