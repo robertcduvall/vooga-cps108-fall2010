@@ -56,6 +56,7 @@ public class Enemy extends CharacterSprite {
 		super.update(elapsedTime);
 		
 		if(!isOnScreen()) bounce();
+		
 		if(getHorizontalSpeed()<0) setNewImage(leftImage);
 		else if(getHorizontalSpeed()>0) setNewImage(rightImage);
 		

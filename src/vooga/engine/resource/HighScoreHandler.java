@@ -77,7 +77,7 @@ public class HighScoreHandler {
 		SQLiteStatement st = db.prepare("CREATE TABLE " + tableName
 				+ "(ind INTEGER PRIMARY KEY, PLAYER, SCORE, TIME)");
 		st.step();
-
+		st.dispose();
 		for (int j = 0; j < maxScores; j++)
 			addEntry("anon", 0l, 0l);
 		
@@ -90,6 +90,7 @@ public class HighScoreHandler {
 		System.out.println(q);
 		SQLiteStatement st = db.prepare(q);
 		st.step();
+		st.dispose();
 	}
 
 	private SQLiteStatement getLowestScore() throws SQLiteException {
@@ -114,11 +115,13 @@ public class HighScoreHandler {
 	public void updateScores(String name, Long score, Long time)
 			throws SQLiteException {
 		SQLiteStatement i = getLowestScore();
-		if (score >= i.columnInt(2)) {
-			removeIndex(i.columnInt(0));
+		long lowScore = i.columnLong(2);
+		int lowScoreKey = i.columnInt(0);
+		i.dispose();
+		if (score >= lowScore) {
+			removeIndex(lowScoreKey);
 			addEntry(name, score, time);
 		}
-
 		populateLists();
 	}
 
@@ -155,6 +158,7 @@ public class HighScoreHandler {
 			scores[j] = st.columnLong(2);
 			names[j] = st.columnString(1);
 		}
+		st.dispose();
 	}
 
 	/**

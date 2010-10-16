@@ -24,7 +24,7 @@ import com.golden.gamedev.object.background.ColorBackground;
  *         Our game takes after the popular Mario game series, but with a twist!
  *         In our version, the user controls a monster, who attempts to rid the
  *         world of all marios by jumping on them. This project was written and
- *         developed with the VOOGA game engined, in Duke University's Computer
+ *         developed with the VOOGA game engine, in Duke University's Computer
  *         Science 108 class.
  * 
  */
@@ -98,7 +98,7 @@ public class MarioClone extends Game {
 	public void update(long elapsedTime) {
 		myControl.update();
 		myGameStateManager.update(elapsedTime);
-		System.out.println("hey");
+//		System.out.println("hey");
 
 		GamePlayState.State nextState;
 
