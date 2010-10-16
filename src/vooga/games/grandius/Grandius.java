@@ -75,7 +75,6 @@ public class Grandius extends Game {
 	private SpriteGroup BOSS_PART_GROUP;
 	private SpriteGroup BOSS_GROUP;
 	private SpriteGroup MISSILE_GROUP;
-	private SpriteGroup OVERLAYS_GROUP;
 	private SpriteGroup BLACK_HOLE_GROUP;
 
 	private Sprite shipsprite;
@@ -93,6 +92,7 @@ public class Grandius extends Game {
 	private MissileBossCollision missileBossCollision;
 	private BlackHoleEnemyCollision blackHoleEnemyCollision;
 
+	private OverlayPanel myPanel;
 	private OverlayStatImage livesIcon;
 	private OverlayString gameOver = new OverlayString("GAME OVER",
 			new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
@@ -127,7 +127,8 @@ public class Grandius extends Game {
 	 */
 	public Grandius()
 	{
-		OVERLAYS_GROUP = new SpriteGroup("overlays");
+		myPanel = new OverlayPanel(this, true);
+//		OVERLAYS_GROUP = new SpriteGroup("overlays");
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
@@ -706,17 +707,16 @@ public class Grandius extends Game {
 
 	public void addOverlays() {
 		OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
-		livesCounter.setLocation(5, 5);
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
-		scoreCounter.setLocation(screen.getWidth() - 150, 5);
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
-		cashCounter.setLocation(screen.getWidth()/2, 5);
 
-		OVERLAYS_GROUP.add(livesCounter);
-		OVERLAYS_GROUP.add(scoreCounter);
-		OVERLAYS_GROUP.add(cashCounter);
+		myPanel.addOverlay(livesCounter);
+		myPanel.addOverlay(scoreCounter);
+		myPanel.addOverlay(cashCounter);
+		
+		myPanel.initialize();
 
-		myPlayfield.addGroup(OVERLAYS_GROUP);
+		myPlayfield.addGroup(myPanel.getOverlayGroup());
 	}
 
 	public void checkCheats() {
