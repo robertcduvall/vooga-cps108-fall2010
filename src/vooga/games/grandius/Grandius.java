@@ -15,8 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
 import vooga.engine.level.LevelManager;
-import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.Stat;
+import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
@@ -26,7 +25,6 @@ import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 
-import vooga.engine.overlay.*;
 import vooga.games.grandius.collisions.BlackHoleEnemyCollision;
 import vooga.games.grandius.collisions.MissileBossCollision;
 import vooga.games.grandius.collisions.MissileBossPartCollision;
@@ -711,11 +709,10 @@ public class Grandius extends Game {
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
 
 		myPanel.addOverlay(livesCounter);
+//		myPanel.addOverlay(cashCounter);		
 		myPanel.addOverlay(scoreCounter);
-		myPanel.addOverlay(cashCounter);
-		
 		myPanel.initialize();
-
+		
 		myPlayfield.addGroup(myPanel.getOverlayGroup());
 	}
 
