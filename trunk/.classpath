@@ -7,6 +7,11 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/vooga/GTGE-0.2.3-doc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="sqlite4java.jar"/>
+	<classpathentry kind="lib" path="sqlite4java-201/libsqlite4java-osx-10.4.jnilib"/>
+	<classpathentry kind="lib" path="sqlite4java-201/libsqlite4java-osx-ppc.jnilib"/>
+	<classpathentry kind="lib" path="sqlite4java-201/libsqlite4java-osx.jnilib"/>
+	<classpathentry kind="lib" path="sqlite4java-201/sqlite4java-win32-x64.dll"/>
+	<classpathentry kind="lib" path="sqlite4java-201/sqlite4java-win32-x86.dll"/>
+	<classpathentry kind="lib" path="sqlite4java-201/sqlite4java.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

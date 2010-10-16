@@ -1,7 +1,10 @@
 package vooga.engine.resource;
 
 import java.io.File;
-import com.almworks.sqlite4java.*;
+
+import com.almworks.sqlite4java.SQLiteConnection;
+import com.almworks.sqlite4java.SQLiteException;
+import com.almworks.sqlite4java.SQLiteStatement;
 
 /**
  * This class handles storing and retrieving a high score list of arbitrary
@@ -39,13 +42,13 @@ public class HighScoreHandler {
 		} catch (SQLiteException e) {
 			System.out
 					.println("Error initializing database or database already exists.");
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 		try {
 			populateLists();
 		} catch (SQLiteException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 
@@ -74,9 +77,10 @@ public class HighScoreHandler {
 		SQLiteStatement st = db.prepare("CREATE TABLE " + tableName
 				+ "(ind INTEGER PRIMARY KEY, PLAYER, SCORE, TIME)");
 		st.step();
-		db.open(false);
+
 		for (int j = 0; j < maxScores; j++)
-			addEntry("anonymous", 0l, 0l);
+			addEntry("anon", 0l, 0l);
+		
 	}
 
 	private void addEntry(String name, Long score, Long time)
@@ -128,7 +132,7 @@ public class HighScoreHandler {
 	 *            Long representing entry score.
 	 */
 	public void updateScores(String name, Long score) throws SQLiteException {
-		updateScores(name, score, null);
+		updateScores(name, score, 0l);
 	}
 
 	/**
@@ -139,7 +143,7 @@ public class HighScoreHandler {
 	 *            Long representing entry score.
 	 */
 	public void updateScores(Long score) throws SQLiteException {
-		updateScores(null, score, null);
+		updateScores("anon", score, 0l);
 	}
 
 	private void populateLists() throws SQLiteException {
