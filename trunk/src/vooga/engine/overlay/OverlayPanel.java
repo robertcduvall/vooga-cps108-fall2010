@@ -1,21 +1,19 @@
 package vooga.engine.overlay;
 
 import com.golden.gamedev.*;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
-
-import java.util.ArrayList;
 
 /**
  * The OverlayPanel provides a convenient way for users
  * to evenly place up to 5 overlays across the top or
  * bottom of the screen.
  * 
- * OverlayPanel panel = new Overlay(someWorld, true);
- * panel.add(overlay1);
- * panel.add(overlay2);
- * panel.add(overlay3);
+ * OverlayPanel panel = new Overlay(someGame, true);
+ * panel.addOverlay(overlay1);
+ * panel.addOverlay(overlay2);
+ * panel.addOverlay(overlay3);
  * panel.initialize();
+ * playField.addGroup(panel.getOverlayGroup());
  * @author Se-Gil Feldsott & Andrew Brown
  */
 public class OverlayPanel extends OverlayManager{
@@ -26,7 +24,7 @@ public class OverlayPanel extends OverlayManager{
 	/**
 	 * Constructs the initial panel with a given world,
 	 * and establishing its position on the top or bottom.
-	 * @param thisWorld
+	 * @param game
 	 * @param topOrBottom
 	 */
 	public OverlayPanel(Game game, boolean topOrBottom)
@@ -47,7 +45,8 @@ public class OverlayPanel extends OverlayManager{
 	/**
 	 * This calculates important values in the OverlayPanel
 	 * regarding spacing of the Overlays and it also places
-	 * the OverlayPanel into the world.
+	 * the OverlayPanel into the world.  It also builds the
+	 * Overlay SpriteGroup.
 	 */
 	public void initialize()
 	{
@@ -98,6 +97,11 @@ public class OverlayPanel extends OverlayManager{
 		return xCoordinates;
 	}
 	
+	/**
+	 * Returns the SpriteGroup of overlays contained
+	 * in this OverlayPanel
+	 * @return
+	 */
 	public SpriteGroup getOverlayGroup()
 	{
 		return myOverlaysGroup;
