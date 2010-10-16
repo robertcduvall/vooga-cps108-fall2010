@@ -42,14 +42,14 @@ public class GamePlayState extends GameState {
 		this.mario = mario;
 		this.width = width;
 		this.height = height;
-		initialize1();
+		init();
 	}
 	
 	@Override
 	public void update(long t) {
 		super.update(t);
 		
-		myControl.update();
+
     	playfield.update(t);
     	mario.stop();
 		enemyGroup.removeInactiveSprites();
@@ -69,7 +69,7 @@ public class GamePlayState extends GameState {
 	}
 	
 //	@Override
-	public void initialize1() {
+	public void init() {
 		marioBackground = new ColorBackground(Color.white);
 		marioBackground.setClip(0, 0, width, height);
 		playfield = new MarioPlayField();
@@ -116,11 +116,15 @@ public class GamePlayState extends GameState {
 		
 		
 	}
+	
+	public int getEnemiesRemaining() {
+		return enemyGroup.getSize();
+	}
 
+	// Initialization is not very useful if it is called before the constructor assigns the fields.
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
