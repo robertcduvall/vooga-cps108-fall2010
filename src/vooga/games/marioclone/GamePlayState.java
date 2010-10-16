@@ -18,135 +18,173 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 
+/**
+ * 
+ * @author David Herzka, Cameron McCallie, Andrew Brown
+ * 
+ * This extension of GameState represents the playing or action state of the MarioClone game.
+ * The methods within this class are responsible for running, updating, and rendering all things pertinent
+ * to the playing state.
+ *
+ */
+
 public class GamePlayState extends GameState {
 
-	private ColorBackground marioBackground;
-	private MarioPlayField playfield;
-	private SpriteGroup marioGroup;
-	private TileMap map;
-	private MarioSprite mario;
-	private SpriteGroup enemyGroup;
-	private int width;
-	private int height;
+	private ColorBackground myMarioBackground;
+	private MarioPlayField myPlayfield;
+	private SpriteGroup myMarioGroup;
+	private TileMap myMap;
+	private MarioSprite myMario;
+	private SpriteGroup myEnemyGroup;
+	private int myWidth;
+	private int myHeight;
 	private Stat<Integer> myEnemiesRemaining;
 	private OverlayStat myEnemyOverlay;
-	private Timer timer;
-	private List<MarioLevel> levels;
-	private int myLevel;
+	private Timer myTimer;
+	private List<MarioLevel> myLevels;
+	private int myCurrentLevel;
 	
 	private static final int FREQ_ENEMIES = 5000;
 	private static final int NUM_ENEMIES = 1;
 	
 	public enum State { Win, Lose, Continue };
 	
+	/**
+	 * This constructs a GamePlayState by initializing the player as well as the game dimensions.
+	 * 
+	 * @param mario is a MarioSprite, which represents the user controlled sprite.
+	 * @param width is the desired width of the game window
+	 * @param height is the desired height of the game window
+	 */
+	
 	public GamePlayState(MarioSprite mario, int width, int height) {
-		this.mario = mario;
-		this.width = width;
-		this.height = height;
+		this.myMario = mario;
+		this.myWidth = width;
+		this.myHeight = height;
 		init();
 	}
 
+	/**
+	 * This method is called in the MarioClone update method in order to check if any state transitions need to happen.
+	 * 
+	 * @return
+	 * This method returns one of three state types: win, loss, or continue, depending on the given game conditions.
+	 */
+	
 	public State nextState() {
-		if (!mario.isActive()) {
+		if (!myMario.isActive()) {
 			return State.Lose;
 		} else if (getEnemiesRemaining() == 0) {
-			if(myLevel >= levels.size())
+			if(myCurrentLevel >= myLevels.size())
 				return State.Win;
 			else
 			{
-				myLevel++;
+				myCurrentLevel++;
 				return State.Continue;
 			}
 		} else
 			return State.Continue;
 	}
-
-	@Override
-	public void update(long t) {
-		super.update(t);
-		
-
-    	playfield.update(t);
-    	mario.stop();
-		enemyGroup.removeInactiveSprites();
-		myEnemiesRemaining.setStat(enemyGroup.getSize()); 
-		
-    	if(timer.action(t)) {
+	
+	/**
+	 * This method is responsible for spawning enemies at random locations on the map.
+	 * 
+	 */
+	
+	public void spawnEnemies(){
 			for(int j = 0; j < NUM_ENEMIES; j++) {
 				Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
 				try {
-					enemy.setLocation(Randomizer.nextDouble(0,width), Randomizer.nextDouble(0,height));
+					enemy.setLocation(Randomizer.nextDouble(0,myWidth), Randomizer.nextDouble(0,myHeight));
 				} catch (RandomizerException e) {
-					e.printStackTrace();
+					System.out.println("Error - randomizer fail");
 				}
-				enemyGroup.add(enemy);
+				myEnemyGroup.add(enemy);
 			}
-    	}
 	}
 	
-//	@Override
+
+	/**
+	 * This method is responsible for updating the main game playfield, which contains all of the game sprites.
+	 * 
+	 * @param t - the time constant that the engine uses for updating.
+	 */
+	
+	public void update(long t) {
+		super.update(t);
+    	myPlayfield.update(t);
+    	myMario.stop();
+		myEnemyGroup.removeInactiveSprites();
+		spawnEnemies();
+		myEnemiesRemaining.setStat(myEnemyGroup.getSize()); 	
+	}
+	
+	
+	/**
+	 * This method initializes all necessary variables, such as playfields, backgrounds, enemies, and tiles for
+	 * the start of the game.
+	 */
+	
 	public void init() {
-		marioBackground = new ColorBackground(Color.white);
-		marioBackground.setClip(0, 0, width, height);
-		playfield = new MarioPlayField();
-		SpriteGroup tileGroup = new SpriteGroup("Tile Group");
-		
-		marioGroup = new SpriteGroup("Mario Group");
-		mario.setLocation(150, 290);
-		marioGroup.add(mario);
-		playfield.addGroup(marioGroup);
-		
-		
-		enemyGroup = new SpriteGroup("Enemy Group");
-		for(int j = 0; j < NUM_ENEMIES; j++) {
-			Enemy enemy = new Enemy("enemy1","regular",Resources.getImage("EnemyR"),Resources.getImage("EnemyL"));
-			try {
-				enemy.setLocation(Randomizer.nextDouble(0,width), Randomizer.nextDouble(0,height));
-			} catch (RandomizerException e) {
-				e.printStackTrace();
-			}
-			enemyGroup.add(enemy);
-		}	
-		playfield.addGroup(enemyGroup);
+		myMarioBackground = new ColorBackground(Color.white);
+		myMarioBackground.setClip(0, 0, myWidth, myHeight);
+		myPlayfield = new MarioPlayField();		
+		myMarioGroup = new SpriteGroup("Mario Group");
+		myMario.setLocation(150, 290);
+		myMarioGroup.add(myMario);
+		myPlayfield.addGroup(myMarioGroup);
+		myEnemyGroup = new SpriteGroup("Enemy Group");
+		spawnEnemies();
+		myPlayfield.addGroup(myEnemyGroup);
 		
 		try {
-			map = new TileMap(new File("src/vooga/games/marioclone/testmap.txt"));
+			myMap = new TileMap(new File("src/vooga/games/marioclone/testmap.txt"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error with myMap");
 		}
-		playfield.addTileMap(map);
+		myPlayfield.addTileMap(myMap);
 		
-		myEnemiesRemaining = new Stat<Integer>(new Integer(enemyGroup.getSize()));
+		myEnemiesRemaining = new Stat<Integer>(new Integer(myEnemyGroup.getSize()));
 
 		myEnemyOverlay = new OverlayStat("Enemies Remaining: ", myEnemiesRemaining);
-		myEnemyOverlay.setLocation(width - 1000, 5);
+		myEnemyOverlay.setLocation(myWidth - 1000, 5);
 
-		playfield.add(myEnemyOverlay);
+		myPlayfield.add(myEnemyOverlay);
+		myPlayfield.addCollisionGroup(myMarioGroup, myPlayfield.getTileMap().getTileGroup(), new MarioToTileCollision());
+		myPlayfield.addCollisionGroup(myEnemyGroup, myPlayfield.getTileMap().getTileGroup(), new EnemyToTileCollision());
+		myPlayfield.addCollisionGroup(myMarioGroup, myEnemyGroup, new MarioToEnemyCollision());
 		
-		playfield.addCollisionGroup(marioGroup, playfield.getTileMap().getTileGroup(), new MarioToTileCollision());
-		playfield.addCollisionGroup(enemyGroup, playfield.getTileMap().getTileGroup(), new EnemyToTileCollision());
-		playfield.addCollisionGroup(marioGroup, enemyGroup, new MarioToEnemyCollision());
-		
-		timer = new Timer(FREQ_ENEMIES);
+		myTimer = new Timer(FREQ_ENEMIES);
 		
 		
 	}
+	/**
+	 * 
+	 * @return - an int representing the number of active enemies remaining.
+	 */
 	
 	public int getEnemiesRemaining() {
-		return enemyGroup.getSize();
+		return myEnemyGroup.getSize();
 	}
 
-	// Initialization is not very useful if it is called before the constructor assigns the fields.
-	@Override
+	/**
+	 * Method extended from GameState class used to initialize Levels.
+	 * 
+	 */
+	
 	public void initialize() {
-		levels = new ArrayList<MarioLevel>();
+		myLevels = new ArrayList<MarioLevel>();
 	}
 	
-	@Override
+	/**
+	 * Main render method that renders the backgrounds and playfield.
+	 * 
+	 */
+	
 	public void render(Graphics2D g) {
 		super.render(g);
-        playfield.setBackground(marioBackground);
-		playfield.render(g);
+        myPlayfield.setBackground(myMarioBackground);
+		myPlayfield.render(g);
 	}
 
 }
