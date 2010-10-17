@@ -72,7 +72,9 @@ public class OverlayPanel extends OverlayManager{
 			else if(i==numberOfOverlays-1)
 				xOffset = ((overlay.getWidth()*3)/5)*(-1);
 //			overlay.setLocation(xCoordinates[i]+xOffset, yCoordinate+yOffset);
-			overlay.render(overlay.getImage().createGraphics(), xCoordinates[i]+xOffset, yCoordinate+yOffset);
+//			overlay.render(overlay.getImage().createGraphics(), xCoordinates[i]+xOffset, yCoordinate+yOffset);
+			overlay.setX(xCoordinates[i]+xOffset);
+			overlay.setY(yCoordinate+yOffset);
 			xOffset = 0;
 			yOffset = 0;
 			
