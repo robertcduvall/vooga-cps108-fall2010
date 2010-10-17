@@ -31,7 +31,7 @@ public abstract class GameState implements Comparable<GameState> {
 
 	
 	/**
-	 * Constructs a new GameState 
+	 * Constructs a new GameState play
 	 */
 	public GameState() {
 		this.initialize();

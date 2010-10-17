@@ -1,7 +1,5 @@
 package vooga.games.zombieland;
 
-
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -45,12 +43,12 @@ import com.golden.gamedev.util.ImageUtil;
 public class Zombieland extends Game {
 
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
-	private static final String MAIN_RESOURCES_PATH="vooga.games.zombieland.MainResources";
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
 	private static long defaultAnimationDelay = 300;
 	private final static int ZOMBIES_PER_LEVEL = 25;
-	
+
 	private int level;
 	private Random random;
 	private Shooter player;
@@ -59,48 +57,46 @@ public class Zombieland extends Game {
 	private PlayField playField;
 	private ImageBackground background;
 	private Stat<Integer> statLevel;
-	
+
 	private OverlayBar overlayHealthBar;
 	private OverlayString overlayHealthString;
 	private OverlayStat overlayScoreString;
 	private OverlayString overlayGameOverString;
 	private OverlayStat overlayAmmoString;
 	private OverlayStat overlayLevelString;
-		
+
 	public void initResources() {
 		// RESOURCES
-		
-//		ResourceBundle bundle = ResourceBundle.getBundle("vooga.games.zombieland.PlayerSpriteResource");
-//		//make this global variable
-		
+
 		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
-		
 		String delim = bundle.getString("delim");
-		
+
 		String Down = bundle.getString("Down");
-		BufferedImage[] playerDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "Down", delim);
-		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
-		
+		BufferedImage[] playerDownImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "Down", delim);
+		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, 350,
+				250);
+
 		player = new Shooter("Hero", "Down", shooterImage, 200, 0, this);
-	
+
 		// Player animations
-		String[] list = {"Down" , "Up" , "Left" , "Right"};	
-		for(int i = 0; i < list.length; i++)
-		{
+		String[] list = { "Down", "Up", "Left", "Right" };
+		for (int i = 0; i < list.length; i++) {
 			String value = bundle.getString(list[i]);
-			BufferedImage[] currentImage = getBufferedImageArray(MAIN_RESOURCES_PATH, list[i], delim);
+			BufferedImage[] currentImage = getBufferedImageArray(
+					MAIN_RESOURCES_PATH, list[i], delim);
 			AnimatedSprite animation = getInitializedAnimatedSprite(currentImage);
 			player.mapNameToSprite(list[i], animation);
 		}
-	
+
 		// INITIALIZATIONS
 		resetInitialValues();
 		resetOverlay();
 		setListeners();
-		
+
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
-		
+
 		SpriteGroup zombies = new SpriteGroup("Zombies");
 		SpriteGroup bullets = new SpriteGroup("Bullets");
 		SpriteGroup items = new SpriteGroup("Items");
@@ -114,23 +110,35 @@ public class Zombieland extends Game {
 		playField.addGroup(items);
 		playField.add(overlayLevelString);
 		playField.setBackground(background);
-	
+
 		PZCollisionManager playerZombieManager = new PZCollisionManager();
 		WallBoundManager entityWallManager = new WallBoundManager(background);
 		BZCollisionManager bulletZombieManager = new BZCollisionManager();
 		HICollisionManager humanItemManager = new HICollisionManager();
-	
+
 		playField.addCollisionGroup(players, items, humanItemManager);
 		playField.addCollisionGroup(bullets, zombies, bulletZombieManager);
 		playField.addCollisionGroup(players, players, entityWallManager);
 		playField.addCollisionGroup(players, zombies, playerZombieManager);
 	}
 
+	private Double parseDouble(String keyName) {
+		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		String string = bundle.getString(keyName);
+		return Double.parseDouble(string);
+	}
+
+	private Integer parseInt(String keyName) {
+		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		String string = bundle.getString(keyName);
+		return Integer.parseInt(string);
+	}
 
 	private void resetOverlay() {
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(5, 10);
-		overlayHealthBar = new OverlayBar(player.getStatHealth(), player.getHealth());
+		overlayHealthBar = new OverlayBar(player.getStatHealth(),
+				player.getHealth());
 		overlayHealthBar.setColor(Color.GREEN);
 		overlayHealthBar.setLocation(80, 18);
 		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
@@ -139,7 +147,8 @@ public class Zombieland extends Game {
 		overlayAmmoString.setColor(Color.BLUE);
 		overlayAmmoString.setLocation(470, 12);
 		overlayLevelString = new OverlayStat("Level ", statLevel);
-		overlayLevelString.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
+		overlayLevelString.setLocation(GAME_WIDTH / 2 - 60,
+				GAME_HEIGHT / 2 - 10);
 		overlayLevelString.setActive(false);
 	}
 
@@ -148,13 +157,13 @@ public class Zombieland extends Game {
 	 */
 	public void setListeners() {
 		control = new KeyboardControl(player, this);
-		
+
 		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
-		
+
 		control.setParams(new Class[] { int.class });
 		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
 		control.setParams(new Class[] { int.class });
@@ -162,7 +171,6 @@ public class Zombieland extends Game {
 		control.setParams(new Class[] { int.class });
 		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
 	}
-	
 
 	private void resetInitialValues() {
 		level = 1;
@@ -171,7 +179,7 @@ public class Zombieland extends Game {
 		statLevel = new Stat<Integer>(level);
 		random = new Random();
 	}
-	
+
 	/**
 	 * update all components of the game
 	 */
@@ -184,81 +192,98 @@ public class Zombieland extends Game {
 		overlayScoreString.update(elapsedTime);
 		overlayAmmoString.update(elapsedTime);
 
-		if (Zombie.getZombieCount() < ZOMBIES_PER_LEVEL*level*0.5){
+		if (moreZombieCanBeAdded()) {
 			if (timer.action(elapsedTime)) {
 				addZombie();
 			}
-		}
-		else if (player.getLevelScore() == Zombie.getZombieCount()){
-			statLevel.setStat(level+1);
+		} else if (levelFinished()) {
+			statLevel.setStat(level + 1);
 			overlayLevelString.update(elapsedTime);
 			overlayLevelString.setActive(true);
 			playField.update(elapsedTime);
-			if (timer.action(elapsedTime)){
-				timer.setDelay((long) (2000/level*1.5));
-				
+			if (timer.action(elapsedTime)) {
+
+				updateDelay(level);
 				Zombie.updateStats(level);
 				Zombie.resetZombieCount();
-				
+
 				level++;
-				
 				player.resetLevelScore();
 				overlayLevelString.setActive(false);
-				
+
 			}
 		}
 	}
-	
-	private BufferedImage[] getBufferedImageArray(String bundleURL, String key, String delim)
-	{
+
+	private boolean moreZombieCanBeAdded() {
+		return Zombie.getZombieCount() < ZOMBIES_PER_LEVEL * level * 0.5;
+	}
+
+	private boolean levelFinished() {
+		return player.getLevelScore() == Zombie.getZombieCount();
+	}
+
+	private void updateDelay(int currentLevel) {
+		long newDelay = (long) ((2000 / currentLevel) * 1.5);
+		timer.setDelay(newDelay);
+	}
+
+	private BufferedImage[] getBufferedImageArray(String bundleURL, String key,
+			String delim) {
 		ResourceBundle bundle = ResourceBundle.getBundle(bundleURL);
-	
+
 		String value = bundle.getString(key);
 		String[] list = value.split(delim);
-		
 		BufferedImage[] images = new BufferedImage[list.length];
-		
-		for(int i=0; i < list.length; i++)
-		{
+
+		for (int i = 0; i < list.length; i++) {
 			String imageLocation = bundle.getString(list[i]);
 			images[i] = getImage(imageLocation);
 		}
-		
+
 		return images;
 	}
-	
-
 
 	/**
-	 * Add a zombie to the world. The position is randomly picked. The health and damage
-	 * will increase every level.
+	 * Add a zombie to the world. The position is randomly picked. The health
+	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		
+
 		// Zombie animations
 		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
-		
+
 		String delim = bundle.getString("delim");
-		
-		BufferedImage[] zombieDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDown" , delim);
-		BufferedImage[] zombieUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieUp" , delim);
-		BufferedImage[] zombieLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieLeft" , delim);
-		BufferedImage[] zombieRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieRight", delim);
-		
-		BufferedImage[] zombieAttackUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackUp", delim);
-		BufferedImage[] zombieAttackDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackDown", delim);
-		BufferedImage[] zombieAttackLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackLeft", delim);
-		BufferedImage[] zombieAttackRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackRight", delim);
-		BufferedImage[] zombieDeath = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDeath", delim);
-		
+
+		BufferedImage[] zombieDownImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieDown", delim);
+		BufferedImage[] zombieUpImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieUp", delim);
+		BufferedImage[] zombieLeftImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieLeft", delim);
+		BufferedImage[] zombieRightImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieRight", delim);
+
+		BufferedImage[] zombieAttackUpImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieAttackUp", delim);
+		BufferedImage[] zombieAttackDownImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieAttackDown", delim);
+		BufferedImage[] zombieAttackLeftImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieAttackLeft", delim);
+		BufferedImage[] zombieAttackRightImage = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieAttackRight", delim);
+		BufferedImage[] zombieDeath = getBufferedImageArray(
+				MAIN_RESOURCES_PATH, "ZombieDeath", delim);
+
 		int zombieHealth = 25;
 		int zombieDamage = 5;
-		
+
 		Zombie newZombie = new Zombie("New", "Moving",
 				getInitializedAnimatedSprite(zombieDownImage),
 				getInitializedAnimatedSprite(zombieUpImage),
 				getInitializedAnimatedSprite(zombieLeftImage),
-				getInitializedAnimatedSprite(zombieRightImage), player, this, zombieHealth, zombieDamage);
+				getInitializedAnimatedSprite(zombieRightImage), player, this,
+				zombieHealth, zombieDamage);
 
 		newZombie.mapNameToSprite("AttackLeft",
 				getInitializedAnimatedSprite(zombieAttackLeftImage));
@@ -276,10 +301,10 @@ public class Zombieland extends Game {
 		newZombie.setY(Math.random() * GAME_HEIGHT);
 
 		Zombie.updateZombieCount();
-		
+
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
-		
+
 	}
 
 	/**
@@ -315,7 +340,7 @@ public class Zombieland extends Game {
 		BufferedImage shotGunImage = getImage("resources/shotgun.png");
 		BufferedImage assaultRifleImage = getImage("resources/assaultRifle.png");
 		BufferedImage healthImage = getImage("resources/Health.png");
-		
+
 		Item item;
 
 		switch (choice) {
@@ -388,8 +413,6 @@ public class Zombieland extends Game {
 		sprite.setLoopAnim(loop);
 	}
 
-
-
 	/**
 	 * render the game
 	 */
@@ -401,7 +424,7 @@ public class Zombieland extends Game {
 		overlayScoreString.render(g);
 		overlayAmmoString.render(g);
 
-		if (overlayLevelString.isActive()){
+		if (overlayLevelString.isActive()) {
 			overlayLevelString.render(g);
 		}
 		if (gameOver()) {
@@ -443,7 +466,7 @@ public class Zombieland extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-	
+
 		game.setup(new Zombieland(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
 				false);
 		game.start();
