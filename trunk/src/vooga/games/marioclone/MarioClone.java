@@ -98,7 +98,6 @@ public class MarioClone extends Game {
 	public void update(long elapsedTime) {
 		myControl.update();
 		myGameStateManager.update(elapsedTime);
-//		System.out.println("hey");
 
 		GamePlayState.State nextState;
 

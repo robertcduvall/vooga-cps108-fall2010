@@ -17,20 +17,21 @@ public class MarioSprite extends CharacterSprite {
 	}
 	
 	public void moveRight() {
-		if (isOnScreen()) {
-			setHorizontalSpeed(speed);
+		System.out.println("X: "+getX()+" Background: "+getBackground().getClip().getCenterX()+getBackground().getWidth()/2);
+		if (getX() == getBackground().getWidth()) {
+			this.setX(getBackground().getClip().getMaxX());
 		} else {
-			setX(0);
+			setHorizontalSpeed(speed);
 		}
 		setNewImage(rightImage);
 		
 	}
 
 	public void moveLeft() {
-		if (isOnScreen()) {
-			setHorizontalSpeed(-speed);
+		if (getX() == getBackground().getClip().getMinX()) {
+			this.setX(getBackground().getClip().getMinX());
 		} else {
-			setX(0);
+			setHorizontalSpeed(-speed);
 		}
 		setNewImage(leftImage);
 	}

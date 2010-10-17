@@ -31,7 +31,7 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 			break;
 		}
 		
-		printCollisionSide();
+		//printCollisionSide();
 			
 		
 //		revertPosition1();
