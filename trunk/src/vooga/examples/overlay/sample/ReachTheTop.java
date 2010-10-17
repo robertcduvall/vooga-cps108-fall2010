@@ -68,7 +68,7 @@ public class ReachTheTop extends Game {
 		
 		
 		OverlayCreator.setGame(this);
-		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/games/random/resources/myOverlays.xml");
+		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
 		myLives = track.getStats().get(2);
 		myScore = track.getStats().get(3);
 
