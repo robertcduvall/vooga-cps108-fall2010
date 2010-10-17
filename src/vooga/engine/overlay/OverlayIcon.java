@@ -46,7 +46,7 @@ public class OverlayIcon extends Overlay {
 		myText = new OverlayString(label);
 		myStatKeeper = stat;
 		myImage = newIcon;
-		myNumOfIcons = 0;
+		myNumOfIcons = stat.getStat();
 		myPreviousNumOfIcons = 0;
 		myIconGroup = new SpriteGroup("Icons");
 		setImage(myImage.getImage());
@@ -65,9 +65,10 @@ public class OverlayIcon extends Overlay {
 		myText = new OverlayString(label);
 		myStatKeeperGen = stat;
 		myImage = newIcon;
-		myNumOfIcons = 0;
+		myNumOfIcons = stat.getStat().intValue();
 		myPreviousNumOfIcons = 0;
 		myIconGroup = new SpriteGroup("Icons");
+		updateIcon();
 	}
 	
 		
@@ -144,6 +145,7 @@ public class OverlayIcon extends Overlay {
 	@Override
 	public int getWidth(){
 		int begLocOfString = (int)myText.getX();
+		System.out.println(myIconGroup.getSize());
 		int locOfLastIcon = (int)myIconGroup.getSprites()[(myIconGroup.getSize() - 1)].getX();
 		int endLocOfLastIcon = locOfLastIcon + myIconGroup.getActiveSprite().getImage().getWidth();
 		return endLocOfLastIcon - begLocOfString;
