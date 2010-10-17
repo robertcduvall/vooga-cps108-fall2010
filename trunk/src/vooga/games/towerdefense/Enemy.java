@@ -9,6 +9,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 /**
  * The enemy sprite class which is defined by a speed, a path, a location, and 
@@ -55,11 +56,11 @@ public class Enemy extends Sprite {
 	protected void setImage() {
 
 		if (myLives == 3) {
-			setImage(Resources.getImage("duvallFaceRed"));
+			setImage(ResourcesBeta.getImage("duvallFaceRed"));
 		} else if (myLives == 2) {
-			setImage(Resources.getImage("duvallFaceBlue"));
+			setImage(ResourcesBeta.getImage("duvallFaceBlue"));
 		} else if (myLives == 1) {
-			setImage(Resources.getImage("duvallFace"));
+			setImage(ResourcesBeta.getImage("duvallFace"));
 		}
 
 	}

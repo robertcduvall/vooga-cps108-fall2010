@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.MouseControl;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.doodlejump.DoodleState;
@@ -72,7 +74,7 @@ public class TowerDefense extends Game {
 
 	@Override
 	public void initResources() {
-		Resources.setGame(this);
+		ResourcesBeta.setGame(this);
 		loadImages();
 		initBackgrounds();
 		
@@ -82,90 +84,99 @@ public class TowerDefense extends Game {
 
 	}
 
-	private void loadImages() {
-		Resources.loadImage("duvallFace",
-				"src/vooga/games/towerdefense/resources/images/duvallFace.png");
-		Resources
-				.loadImage("duvallFaceRed",
-						"src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
-		Resources
-				.loadImage("duvallFaceBlue",
-						"src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
-		Resources
-				.loadImage("duvallFaceYellow",
-						"src/vooga/games/towerdefense/resources/images/duvallFaceYellow.png");
-		Resources.loadImage("tower",
-				"src/vooga/games/towerdefense/resources/images/tower.png");
-		Resources.loadImage("towerShot",
-				"src/vooga/games/towerdefense/resources/images/purpleShot.png");
-		Resources
-				.loadImage("towerPreview",
-						"src/vooga/games/towerdefense/resources/images/towerPreview.png");
-		Resources
-				.loadImage("sniperTower",
-						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
-		Resources
-				.loadImage("normalTower",
-						"src/vooga/games/towerdefense/resources/images/normalTower.png");
-		Resources.loadImage("fastTower",
-				"src/vooga/games/towerdefense/resources/images/fastTower.png");
-		Resources
-				.loadImage("fastTowerPreview",
-						"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
-		Resources
-				.loadImage("sniperTowerPreview",
-						"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
-		Resources
-				.loadImage("normalTower",
-						"src/vooga/games/towerdefense/resources/images/normalTower.png");
-		Resources
-				.loadImage("normalTowerPreview",
-						"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
-		Resources
-				.loadImage("pause",
-						"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
-		Resources
-		.loadImage("gameOver",
-				"src/vooga/games/towerdefense/resources/images/gameOver.gif");
-		Resources
-		.loadImage("menu",
-				"src/vooga/games/towerdefense/resources/images/menu.gif");
-		Resources
-		.loadImage("1",
-				"src/vooga/games/towerdefense/resources/images/number1.png");
-		Resources
-		.loadImage("2",
-				"src/vooga/games/towerdefense/resources/images/number2.png");
-		Resources
-		.loadImage("3",
-				"src/vooga/games/towerdefense/resources/images/number3.png");
-		Resources
-		.loadImage("4",
-				"src/vooga/games/towerdefense/resources/images/number4.png");
-		Resources
-		.loadImage("5",
-				"src/vooga/games/towerdefense/resources/images/number5.png");
-		Resources
-		.loadImage("6",
-				"src/vooga/games/towerdefense/resources/images/number6.png");
-		Resources
-		.loadImage("7",
-				"src/vooga/games/towerdefense/resources/images/number7.png");
-		Resources
-		.loadImage("8",
-				"src/vooga/games/towerdefense/resources/images/number8.png");
-		Resources
-		.loadImage("9",
-				"src/vooga/games/towerdefense/resources/images/number9.png");
-		Resources
-		.loadImage("10",
-				"src/vooga/games/towerdefense/resources/images/number10.png");
-		Resources
-		.loadImage("go",
-				"src/vooga/games/towerdefense/resources/images/go.gif");
-
-
-
+//	private void loadImages() {
+//		Resources.loadImage("duvallFace",
+//				"src/vooga/games/towerdefense/resources/images/duvallFace.png");
+//		Resources
+//				.loadImage("duvallFaceRed",
+//						"src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
+//		Resources
+//				.loadImage("duvallFaceBlue",
+//						"src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
+//		Resources
+//				.loadImage("duvallFaceYellow",
+//						"src/vooga/games/towerdefense/resources/images/duvallFaceYellow.png");
+//		Resources.loadImage("tower",
+//				"src/vooga/games/towerdefense/resources/images/tower.png");
+//		Resources.loadImage("towerShot",
+//				"src/vooga/games/towerdefense/resources/images/purpleShot.png");
+//		Resources
+//				.loadImage("towerPreview",
+//						"src/vooga/games/towerdefense/resources/images/towerPreview.png");
+//		Resources
+//				.loadImage("sniperTower",
+//						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
+//		Resources
+//				.loadImage("normalTower",
+//						"src/vooga/games/towerdefense/resources/images/normalTower.png");
+//		Resources.loadImage("fastTower",
+//				"src/vooga/games/towerdefense/resources/images/fastTower.png");
+//		Resources
+//				.loadImage("fastTowerPreview",
+//						"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
+//		Resources
+//				.loadImage("sniperTowerPreview",
+//						"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
+//		Resources
+//				.loadImage("normalTower",
+//						"src/vooga/games/towerdefense/resources/images/normalTower.png");
+//		Resources
+//				.loadImage("normalTowerPreview",
+//						"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
+//		Resources
+//				.loadImage("pause",
+//						"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
+//		Resources
+//		.loadImage("gameOver",
+//				"src/vooga/games/towerdefense/resources/images/gameOver.gif");
+//		Resources
+//		.loadImage("menu",
+//				"src/vooga/games/towerdefense/resources/images/menu.gif");
+//		Resources
+//		.loadImage("1",
+//				"src/vooga/games/towerdefense/resources/images/number1.png");
+//		Resources
+//		.loadImage("2",
+//				"src/vooga/games/towerdefense/resources/images/number2.png");
+//		Resources
+//		.loadImage("3",
+//				"src/vooga/games/towerdefense/resources/images/number3.png");
+//		Resources
+//		.loadImage("4",
+//				"src/vooga/games/towerdefense/resources/images/number4.png");
+//		Resources
+//		.loadImage("5",
+//				"src/vooga/games/towerdefense/resources/images/number5.png");
+//		Resources
+//		.loadImage("6",
+//				"src/vooga/games/towerdefense/resources/images/number6.png");
+//		Resources
+//		.loadImage("7",
+//				"src/vooga/games/towerdefense/resources/images/number7.png");
+//		Resources
+//		.loadImage("8",
+//				"src/vooga/games/towerdefense/resources/images/number8.png");
+//		Resources
+//		.loadImage("9",
+//				"src/vooga/games/towerdefense/resources/images/number9.png");
+//		Resources
+//		.loadImage("10",
+//				"src/vooga/games/towerdefense/resources/images/number10.png");
+//		Resources
+//		.loadImage("go",
+//				"src/vooga/games/towerdefense/resources/images/go.gif");
+//
+//
+//
+//	}
+	
+	private void loadImages(){
+		try {
+			ResourcesBeta.loadImageFile("src/vooga/games/towerdefense/resources/images/imageList.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void initOverlays() {
@@ -207,7 +218,7 @@ public class TowerDefense extends Game {
 		normalCost.setFont(fontOrange);
 		normalCost.setLocation(770, 240);
 		
-		OverlayStatImage normalTower = new OverlayStatImage(Resources.getImage("normalTower"));
+		OverlayStatImage normalTower = new OverlayStatImage(ResourcesBeta.getImage("normalTower"));
 		normalTower.setLocation(880, 260);
 		
 		OverlayString fast = new OverlayString("FAST TOWER");
@@ -217,7 +228,7 @@ public class TowerDefense extends Game {
 		fastCost.setFont(fontGreen);
 		fastCost.setLocation(770, 340);
 		
-		OverlayStatImage fastTower = new OverlayStatImage(Resources.getImage("fastTower"));
+		OverlayStatImage fastTower = new OverlayStatImage(ResourcesBeta.getImage("fastTower"));
 		fastTower.setLocation(880, 360);
 		
 		OverlayString sniper = new OverlayString("SNIPER TOWER");
@@ -227,7 +238,7 @@ public class TowerDefense extends Game {
 		sniperCost.setFont(fontRed);
 		sniperCost.setLocation(770, 440);
 		
-		OverlayStatImage sniperTower = new OverlayStatImage(Resources.getImage("sniperTower"));
+		OverlayStatImage sniperTower = new OverlayStatImage(ResourcesBeta.getImage("sniperTower"));
 		sniperTower.setLocation(880, 460);
 		
 		
@@ -296,7 +307,7 @@ public class TowerDefense extends Game {
 	private void initPlayer() {
 		
 		PlayerSprite player = new PlayerCursor("player", "playerCursor", new Sprite(
-				Resources.getImage("towerPreview")), towerGroup, this, money, stateManager);
+				ResourcesBeta.getImage("towerPreview")), towerGroup, this, money, stateManager);
 		
 
 		playerGroup.add(player);
@@ -482,16 +493,16 @@ public class TowerDefense extends Game {
 		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
 		
 
-		Sprite pauseScreen = new Sprite(Resources.getImage("pause"));
+		Sprite pauseScreen = new Sprite(ResourcesBeta.getImage("pause"));
 		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
 		pauseGroup.add(pauseScreen);
 		pause.addGroup(overlayGroup);
 		
-		Sprite gameOverSprite = new Sprite(ImageUtil.resize(Resources.getImage("gameOver"), WIDTH, HEIGHT));
+		Sprite gameOverSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("gameOver"), WIDTH, HEIGHT));
 		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
 		gameOverGroup.add(gameOverSprite);
 		
-		Sprite menuSprite = new Sprite(ImageUtil.resize(Resources.getImage("menu"), WIDTH, HEIGHT));
+		Sprite menuSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("menu"), WIDTH, HEIGHT));
 		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
 		menuGroup.add(menuSprite);
 		

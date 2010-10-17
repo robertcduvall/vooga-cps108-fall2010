@@ -19,6 +19,7 @@ import vooga.engine.player.control.Control;
 import vooga.engine.player.control.ItemSprite;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 /**
  * Helper program for rapidly tracing a path on a background. Used 
@@ -41,7 +42,7 @@ public class TowerPathTracer extends Game{
 	int j = 0;
 	
 	public void initResources(){
-		Resources.setGame(this);
+		ResourcesBeta.setGame(this);
 		initBackground();
 		initPlayer();
 		
@@ -53,8 +54,8 @@ public class TowerPathTracer extends Game{
 	
 
 	private void initPlayer(){
-		Resources.loadImage("duvallFace", "resources/images/duvallFace.png");
-		Sprite playerSprite =  new Sprite(Resources.getImage("duvallFace"), 20, 50);
+		ResourcesBeta.loadImage("duvallFace", "resources/images/duvallFace.png");
+		Sprite playerSprite =  new Sprite(ResourcesBeta.getImage("duvallFace"), 20, 50);
 		temp = new Sprite(getImage("resources/images/duvallFace.png"));
 		//playerCursor = new PlayerCursor("player", "playerCursor", playerSprite, null, null, null);
 		playerCursorControl = new PathTracer(new PlayerSprite("a","b", new Sprite()), this);
