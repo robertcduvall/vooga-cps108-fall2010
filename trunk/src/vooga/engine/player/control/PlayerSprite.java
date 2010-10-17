@@ -73,7 +73,7 @@ public class PlayerSprite extends GameEntitySprite {
 	public PlayerSprite(String name, String stateName, Sprite s,
 			int playerHealth, int playerRank) {
 		this(name, stateName, s);
-		updateHealth(playerHealth);
+		setHealth(playerHealth);
 		updateRank(playerRank);
 	}
 
