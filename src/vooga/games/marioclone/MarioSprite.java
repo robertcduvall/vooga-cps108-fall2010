@@ -17,9 +17,9 @@ public class MarioSprite extends CharacterSprite {
 	}
 	
 	public void moveRight() {
-		System.out.println("X: "+getX()+" Background: "+getBackground().getClip().getCenterX()+getBackground().getWidth()/2);
-		if (getX() == getBackground().getWidth()) {
-			this.setX(getBackground().getClip().getMaxX());
+		if (!isOnScreen()) {
+			System.out.println("off screen");
+			setHorizontalSpeed(0);
 		} else {
 			setHorizontalSpeed(speed);
 		}
@@ -28,8 +28,10 @@ public class MarioSprite extends CharacterSprite {
 	}
 
 	public void moveLeft() {
-		if (getX() == getBackground().getClip().getMinX()) {
-			this.setX(getBackground().getClip().getMinX());
+		if (!isOnScreen()) {
+			System.out.println("off screen");
+			setHorizontalSpeed(0);
+			setX(0);
 		} else {
 			setHorizontalSpeed(-speed);
 		}
@@ -68,7 +70,7 @@ public class MarioSprite extends CharacterSprite {
 		
 		super.update(elapsedTime);
 		
-		if(getX()<0) {
+		if(getX()<=0) {
 			setX(0);
 		}
 	}

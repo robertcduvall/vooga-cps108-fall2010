@@ -134,9 +134,7 @@ public class GamePlayState extends GameState {
 	}
 	
 	private void scrollLevel(){
-		if(myMario.getX() > myPlayfield.getBackground().getX()){
-			myPlayfield.getBackground().setToCenter((int)myMario.getX(),(int) myPlayfield.getBackground().getY(), 1024, 768);
-		}
+			myPlayfield.getBackground().setToCenter(myMario);
 	}
 
 	/**
