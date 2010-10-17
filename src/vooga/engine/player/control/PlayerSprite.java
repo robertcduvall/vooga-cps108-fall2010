@@ -1,7 +1,12 @@
 package vooga.engine.player.control;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import vooga.engine.overlay.Stat;
+import vooga.engine.overlay.StatInt;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -23,10 +28,13 @@ public class PlayerSprite extends GameEntitySprite {
 
 	// general instance variables
 	private List<ItemSprite> myItemList;
-	private int myScore;
-	private int myLives;
-	private int myHealth;
-	private int myRank;
+	
+	private Map<String, Stat<?>> myStatMap;
+	
+//	private StatInt myScore;
+//	private int myLives;
+//	private int myHealth;
+//	private int myRank;
 
 	// constants
 	private final int DEFAULT_RANK = 1;
@@ -50,31 +58,7 @@ public class PlayerSprite extends GameEntitySprite {
 	public PlayerSprite(String name, String stateName, Sprite s) {
 		super(name, stateName, s);
 		myItemList = new ArrayList<ItemSprite>();
-		resetAllStatistics();
-	}
-
-	/**
-	 * 
-	 * @param name
-	 *            is any name you'd like to associate with a player.
-	 * @param stateName
-	 *            is the name that will be associated with the Sprite parameter
-	 *            (to switch to it).
-	 * @param s
-	 *            is a Sprite that will represent this player.
-	 * @param control
-	 *            is a class that implements the IPlayerController interface
-	 *            (for controlling player speed and movement).
-	 * @param playerHealth
-	 *            is the player's initial health.
-	 * @param playerRank
-	 *            is the player's initial rank.
-	 */
-	public PlayerSprite(String name, String stateName, Sprite s,
-			int playerHealth, int playerRank) {
-		this(name, stateName, s);
-		updateHealth(playerHealth);
-		updateRank(playerRank);
+		myStatMap = new HashMap<String, Stat<?>>();
 	}
 
 	/**
@@ -96,28 +80,29 @@ public class PlayerSprite extends GameEntitySprite {
 	 * Sets rank to DEFAULT_RANK, health to DEFAULT_HEALTH, score to
 	 * DEFAULT_SCORE, lives to DEFAULT_LIVES
 	 */
-	public void resetAllStatistics() {
-		resetRank();
-		resetHealth();
-		resetScore();
-		resetLives();
-	}
+	
+//	public void resetAllStatistics() {
+//		resetRank();
+//		resetHealth();
+//		resetScore();
+//		resetLives();
+//	}
 
-	public void resetRank() {
-		myRank = DEFAULT_RANK;
-	}
-
-	public void resetHealth() {
-		myHealth = DEFAULT_HEALTH;
-	}
-
-	public void resetLives() {
-		myLives = DEFAULT_LIVES;
-	}
-
-	public void resetScore() {
-		myScore = DEFAULT_SCORE;
-	}
+//	public void resetRank() {
+//		myRank = DEFAULT_RANK;
+//	}
+//
+//	public void resetHealth() {
+//		myHealth = DEFAULT_HEALTH;
+//	}
+//
+//	public void resetLives() {
+//		myLives = DEFAULT_LIVES;
+//	}
+//
+//	public void resetScore() {
+//		myScore = DEFAULT_SCORE;
+//	}
 
 	/**
 	 * Causes the act method of an item to be executed and the item to be
@@ -144,54 +129,62 @@ public class PlayerSprite extends GameEntitySprite {
 	public void addItemsToList(List<ItemSprite> list) {
 		myItemList.addAll(list);
 	}
-
-	public int getScore() {
-		return myScore;
+	
+	public void addStat(String statName, Stat<?> stat) {
+		myStatMap.put(statName, stat);
+	}
+	
+	public Stat<?> getStat(String statName) {
+		return myStatMap.get(statName);
 	}
 
-	public void updateScore(int i) {
-		myScore += i;
-	}
-
-	public void setScore(int i) {
-		myScore = i;
-
-	}
-
-	public int getHealth() {
-		return myHealth;
-	}
-
-	public void updateHealth(double d) {
-		myHealth += d;
-	}
-
-	public void setHealth(int i) {
-		myHealth = i;
-	}
-
-	public int getLives() {
-		return myLives;
-	}
-
-	public void updateLives(int i) {
-		myLives += i;
-	}
-
-	public void setLives(int i) {
-		myLives = i;
-	}
-
-	public int getRank() {
-		return myRank;
-	}
-
-	public void updateRank(int i) {
-		myRank += i;
-	}
-
-	public void setRank(int k) {
-		myRank = k;
-	}
+//	public int getScore() {
+//		return myScore;
+//	}
+//
+//	public void updateScore(int i) {
+//		myScore += i;
+//	}
+//
+//	public void setScore(int i) {
+//		myScore = i;
+//
+//	}
+//
+//	public int getHealth() {
+//		return myHealth;
+//	}
+//
+//	public void updateHealth(double d) {
+//		myHealth += d;
+//	}
+//
+//	public void setHealth(int i) {
+//		myHealth = i;
+//	}
+//
+//	public int getLives() {
+//		return myLives;
+//	}
+//
+//	public void updateLives(int i) {
+//		myLives += i;
+//	}
+//
+//	public void setLives(int i) {
+//		myLives = i;
+//	}
+//
+//	public int getRank() {
+//		return myRank;
+//	}
+//
+//	public void updateRank(int i) {
+//		myRank += i;
+//	}
+//
+//	public void setRank(int k) {
+//		myRank = k;
+//	}
 
 }

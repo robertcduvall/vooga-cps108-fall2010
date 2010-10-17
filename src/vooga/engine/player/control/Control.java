@@ -18,7 +18,7 @@ import com.golden.gamedev.Game;
  * @version 1.0
  */
 public class Control{
-    protected List<PlayerSprite> players;
+    protected List<GameEntitySprite> entities;
     protected Class[] paramTypes;
     protected Game myGame;
     
@@ -26,7 +26,7 @@ public class Control{
      * Default Control Constructor
      */
     public Control() {
-        players = new ArrayList<PlayerSprite>();
+        entities = new ArrayList<GameEntitySprite>();
     }
     
     /**
@@ -45,9 +45,9 @@ public class Control{
      * @param initialPlayer First player to add to use this control scheme
      * @param game The game which this Control object is a part of
      */
-    public Control(PlayerSprite initialPlayer, Game game) {
+    public Control(GameEntitySprite initialPlayer, Game game) {
         this(game);
-        players.add(initialPlayer);
+        entities.add(initialPlayer);
     }
 
     /**
@@ -56,9 +56,9 @@ public class Control{
      * @param players Initial players to use this scheme
      * @param game The game which this Control object is a part of
      */
-    public Control(ArrayList<PlayerSprite> players, Game game) {
+    public Control(ArrayList<GameEntitySprite> players, Game game) {
         this(game);
-        this.players = players;
+        this.entities = players;
     }
 
     /**

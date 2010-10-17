@@ -27,13 +27,13 @@ public class KeyboardControl extends Control implements Controller{
 		initializeMappings();
 	}
 	
-	public KeyboardControl(PlayerSprite player, Game game){
-		super(player, game);
+	public KeyboardControl(GameEntitySprite entity, Game game){
+		super(entity, game);
 		initializeMappings();
 	}
 	
-	public KeyboardControl(ArrayList<PlayerSprite> players, Game game){
-		super(players, game);
+	public KeyboardControl(ArrayList<GameEntitySprite> entities, Game game){
+		super(entities, game);
 		initializeMappings();
 	}
 	
@@ -86,10 +86,10 @@ public class KeyboardControl extends Control implements Controller{
         }
         if (keyMethodMap.containsKey(key)) {
             try {
-                for (int i = 0; i < players.size(); i++) {
+                for (int i = 0; i < entities.size(); i++) {
                     Method perform = keyMethodMap.get(key);
                     Object[] paramVals = keyParamMap.get(key);
-                    perform.invoke(players.get(i), paramVals);
+                    perform.invoke(entities.get(i), paramVals);
                 }
             } catch (Throwable e) {
                 System.err.println(e);
