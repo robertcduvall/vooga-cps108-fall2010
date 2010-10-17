@@ -25,9 +25,89 @@ import vooga.engine.resource.Resources;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.GameFontManager;
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
+/**
+ * This class is used for creating overlays from an xml file instead of in the code itself.
+ * @author Justin Goldsmith
+ * 
+ * <p>example</p>
+ * <p>OverlayCreator.setGame(this);  //This is assuming you are in the game class</p>
+ * <p>//Also this does not need to be done if you are using normal fonts.  If you use any of the three
+ * //provided GameFont's then you must set the game.  Eventually the GameFont's should be in Resources 
+ * //so you should not have to set the game</p>
+ * <p>OverlayTracker track = OverlayCreator.createOverlays(String xmlFileLocation);</p>
+ * <p>// the String xmlFileLocation must be path from the root of the project</p>
+ * <p> Stat<Integer> myLives = track.getStats().get(2);</p>
+ * <p> Stat<Integer> myScore = track.getStats().get(3);</p> *
+ *		<p>PlayField myPlayfield = new PlayField();</p>
+ *		<p>myPlayfield.addGroup(track.getOverlayGroups().get(0));</p>
+ *		<p>myPlayfield.addGroup(track.getOverlayGroups().get(1));</p>
+ *		<p>myPlayfield.addGroup(track.getOverlayGroups().get(2));</p>
+ *<p>// Playfield can also be replaced with States from the GameState API</p>
+ *
+ *<A HREF="OverlayExample.xml">Click here to view xml file example</A> *	
+ *<p>Here are all the attributes for all of the different overlays/p>
+ *<ul>
+ *<li>Stat
+ *<ul>
+ *<li>type - must be "Integer" or "String".  This will ideally change soon so it can be of any type.</li>
+ *<li>value - initial value</li>
+ *</ul>
+ *</li>
+ *<li> All Overlays
+ *<ul>
+ *<li>xLoc - x location of the overlay</li>
+ *<li>yLoc - y location of the overlay</li>
+ *</ul>
+ *<li>OverlayString
+ *<ul>
+ *<li>label - String to be displayed</li>
+ *<li>fontName - any String representing a font, for example "Times New Roman", or "gameFontGreen"</li>
+ *<li>fontSize - point size of the font, must be an integer</li>
+ *<li>fontStyle - style of the font, for example "ITALIC"</li>
+ *<li>color - color of the font, for example "green".  It can also be a octal or hexidecimal representation of the color</li>
+ *<li> And all attributes in all Overlays</li>
+ *</ul>
+ *</li>
+ *<li>OverlayStat
+ *<ul>
+ *<li>stat - The stat to be displayed.  It must be an integer representing the order in which the stat was made.
+ *if it was the first one made it would be "0".</li>
+ *<li>All attributes in OverlayString</li>
+ *</ul>
+ *</li>
+ *<li>OverlayStatImage
+ *<ul>
+ *<li>image - String the image is saved as in the Resources API</li>
+ *<li>width - scale the size of the image to this width</li>
+ *<li>height - scale the size of the image to this height.  In order to scale thw width and height must be set</li>
+ *<li>  All of the attributes in all Overlays</li>
+ *</ul>
+ *</li>
+ *<li>OverlayIcon
+ *<ul>
+ *<li>stat - The stat to be used to display icons.  Must be a Stat of type Integer.  It must be an integer representing the order in which the stat was made.
+ *if it was the first one made it would be "0".</li>
+ *<li>icon - The icon to be displayed.  It must be an integer representing the order in which the OverlayStatImage was made.
+ *if it was the first one made it would be "0".</li>
+ *<li>All attributes in OverlayString</li>
+ *</ul>
+ *</li>
+ *<li>OverlayBar
+ *<ul>
+ *<li>stat - The stat to be displayed on bar.  Must be a Stat of type Integer.  It must be an integer representing the order in which the stat was made.
+ *if it was the first one made it would be "0".</li>
+ *<li>max - the max value of the bar.  For example if the max is 100 and the stat is at 50 the bar will be half full</li>
+ *<li>color - The color of the value of the bar.  By default red.  Same format as the color in OverlayString</li>
+ *<li>backColor - The color of the background of the bar.  By default black.  Same format as the color in OverlayString</li>
+ *</ul>
+ *</li>
+ *</ul>
+ * 
+ */
 public class OverlayCreator {
 	
 	private static OverlayTracker myOverlayTracker;	
@@ -35,10 +115,16 @@ public class OverlayCreator {
 	private static SpriteGroup tempGroup;
 	private static Game myGame;
 	
-	public static OverlayTracker createOverlays(String loc){
+	
+	/**
+	 * 
+	 * @param xmlFileLocation - the XML File Location. String xmlFileLocation must be path from the root of the project
+	 * @return OverlayTracker containing all stats and overlays.
+	 */
+	public static OverlayTracker createOverlays(String xmlFileLocation){
 		myOverlayTracker = new OverlayTracker();
 		try {
-		File file = new File(loc);
+		File file = new File(xmlFileLocation);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db;
 		db = dbf.newDocumentBuilder();
