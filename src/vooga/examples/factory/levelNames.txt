@@ -1,0 +1,10 @@
+# There are 3 levels
+
+#Level1
+easyLevel.txt
+
+#Level2
+shoppingLevel.txt
+
+#Level3
+finalLevel.txt

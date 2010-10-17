@@ -1,0 +1,8 @@
+#This is the 2nd level
+
+#Background
+Blue Backgroud,640,480
+
+#Sprites
+Spaceship, 100, 200
+Spaceship, 300, 100

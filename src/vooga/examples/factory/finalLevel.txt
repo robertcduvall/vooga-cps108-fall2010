@@ -1,0 +1,10 @@
+#This is the 3rd level - the final level
+
+#Background
+Space Backgroud,640,480
+
+#Sprites
+Spaceship, 100, 200
+Spaceship, 300, 100
+Explosion, 50, 150
+Explosion, 200, 400
