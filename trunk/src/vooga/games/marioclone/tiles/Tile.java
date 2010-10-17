@@ -2,6 +2,8 @@ package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 
+import vooga.games.marioclone.items.Item;
+
 
 import com.golden.gamedev.object.Sprite;
 
@@ -28,24 +30,9 @@ public abstract class Tile extends Sprite {
 		return state;
 	}
 
-
-	// Unused velocity methods:
-
-//	@Override
-//	public void setVelocity(double vx, double vy) {
-//		// does not apply		
-//	}
-//
-//	@Override
-//	public double getXVelocity() {
-//		return 0;
-//	}
-//
-//
-//
-//	@Override
-//	public double getYVelocity() {
-//		return 0;
-//	}
+	// override to spawn items
+	public Item checkNewItems() {
+		return null;
+	}
 	
 }
