@@ -17,6 +17,7 @@ import vooga.engine.state.GameState;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.PlayField;
 
 /**
  * 
@@ -123,12 +124,19 @@ public class GamePlayState extends GameState {
 
 	public void update(long t) {
 		super.update(t);
+		scrollLevel();
 		myPlayfield.update(t);
 		myMario.stop();
 		myEnemyGroup.removeInactiveSprites();
 		if (myTimer.action(t))
 			spawnEnemies();
 		myEnemiesRemaining.setStat(myEnemyGroup.getSize());
+	}
+	
+	private void scrollLevel(){
+		if(myMario.getX() > myPlayfield.getBackground().getX()){
+			myPlayfield.getBackground().setToCenter((int)myMario.getX(),(int) myPlayfield.getBackground().getY(), 1024, 768);
+		}
 	}
 
 	/**
@@ -137,8 +145,7 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-		myMarioBackground = new ColorBackground(Color.white);
-		myMarioBackground.setClip(0, 0, myWidth, myHeight);
+		
 		myPlayfield = new MarioPlayField();
 		myMarioGroup = new SpriteGroup("Mario Group");
 		myMario.setLocation(150, 290);
@@ -154,8 +161,12 @@ public class GamePlayState extends GameState {
 		} catch (IOException e) {
 			System.out.println("Error with myMap");
 		}
+		System.out.println("Width: "+myMap.width*myMap.TILE_SIZE+" HEIGHT: "+myMap.height*myMap.TILE_SIZE);
+		myMarioBackground = new ColorBackground(Color.blue, myMap.width*myMap.TILE_SIZE, myMap.height*myMap.TILE_SIZE);
+		myMarioBackground.setClip(0, 0, myWidth, myHeight);
+		myPlayfield.setBackground(myMarioBackground);
 		myPlayfield.addTileMap(myMap);
-
+		myPlayfield.addGroup(myMap.getTileGroup());
 		myEnemiesRemaining = new Stat<Integer>(new Integer(myEnemyGroup
 				.getSize()));
 
@@ -200,7 +211,6 @@ public class GamePlayState extends GameState {
 
 	public void render(Graphics2D g) {
 		super.render(g);
-		myPlayfield.setBackground(myMarioBackground);
 		myPlayfield.render(g);
 	}
 

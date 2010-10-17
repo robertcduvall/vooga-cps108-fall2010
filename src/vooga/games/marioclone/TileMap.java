@@ -23,10 +23,12 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class TileMap {
 	
-	private static double TILE_SIZE = 64;
+	public int TILE_SIZE = 64;
 	
 	private List<Tile> tiles;
 	private SpriteGroup tileGroup;
+	public int width;
+	public int height;
 	
 	public TileMap(File file) throws IOException {
 		tiles = new CopyOnWriteArrayList<Tile>();
@@ -72,8 +74,8 @@ public class TileMap {
 	
 	public void loadTiles(File file) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
-		int width = 0;
-		int height = 0;
+		width = 0;
+		height = 0;
 		
 		if (file == null) {
 			throw new IOException("No such map!");
@@ -106,7 +108,6 @@ public class TileMap {
 				case(' '):
 					break;
 				case('I'):
-					System.out.println("Tile position x: "+tilesToPixels(j)+" y: "+tilesToPixels(k));
 					addTile(new IndestructibleTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("ITile")));
 					break;
 				case('B'):
