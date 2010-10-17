@@ -159,6 +159,14 @@ public class Menu {
 		menuDisplay.setActive(state);
 	}
 	
+	/**
+	 * This method returns the current game that the menu belows to
+	 */
+	public Game getCurrentGame()
+	{
+		return currentGame;
+	}
+	
 	/****************************************************************************
 	 * METHODS FOR UPDATING, RENDERING, AND LISTENING
 	 ****************************************************************************/
@@ -177,7 +185,8 @@ public class Menu {
 	 * This method checks whether a particular key is pressed for all the keys the user
 	 * associated with the keytoMenu map. If so, this method calls on actOnKeyPressed(key).
 	 */
-	private void listenforKeyPresses() {
+	private void listenforKeyPresses() 
+	{
 		for(Integer key: keyToMenu.keySet())
 		{
 			if(currentGame.keyPressed(key))

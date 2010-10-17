@@ -2,7 +2,8 @@
  * 
  * @author: Yijia Mu
  * @date: 10-17-10 
- * @description:
+ * @description: This the MouseMenu interface that provides additional complexity the menu design for users with fancy tastes. A menu class, a pause class, and a restart pause can
+ * use this class to their advantages. Please add to the code. 
  */
 
 package vooga.engine.state;
