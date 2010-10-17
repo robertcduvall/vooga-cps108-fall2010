@@ -40,19 +40,19 @@ import com.golden.gamedev.util.ImageUtil;
  *               many zombies as you can. Zombies are spawned regularly. When a
  *               zombie is killed, there's a chance that an bonus item will be
  *               dropped.
- * 
- * 
  */
 
 public class Zombieland extends Game {
 
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
+	private static final String MAIN_RESOURCES_PATH="vooga.games.zombieland.MainResources";
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
 	private static long defaultAnimationDelay = 300;
 	private final static int ZOMBIES_PER_LEVEL = 25;
 	
 	private int level;
+	private Random random;
 	private Shooter player;
 	private Timer timer;
 	private KeyboardControl control;
@@ -70,25 +70,30 @@ public class Zombieland extends Game {
 	public void initResources() {
 		// RESOURCES
 		
-		ResourceBundle bundle = ResourceBundle.getBundle("vooga.games.zombieland.PlayerSpriteResource");
+//		ResourceBundle bundle = ResourceBundle.getBundle("vooga.games.zombieland.PlayerSpriteResource");
+//		//make this global variable
 		
-		int maxHealth = 200;
-		BufferedImage[] playerDownImage = getBufferedImageArray(bundle, "Down", 4);
+		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		
+		String delim = bundle.getString("delim");
+		
+		String Down = bundle.getString("Down");
+		BufferedImage[] playerDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "Down", delim);
 		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
 		
-		player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0, this);
+		player = new Shooter("Hero", "Down", shooterImage, 200, 0, this);
 	
 		// Player animations
 		String[] list = {"Down" , "Up" , "Left" , "Right"};	
 		for(int i = 0; i < list.length; i++)
 		{
-			BufferedImage[] currentImage = getBufferedImageArray(bundle, list[i], 4);
+			String value = bundle.getString(list[i]);
+			BufferedImage[] currentImage = getBufferedImageArray(MAIN_RESOURCES_PATH, list[i], delim);
 			AnimatedSprite animation = getInitializedAnimatedSprite(currentImage);
 			player.mapNameToSprite(list[i], animation);
 		}
 	
 		// INITIALIZATIONS
-		
 		resetInitialValues();
 		resetOverlay();
 		setListeners();
@@ -163,7 +168,8 @@ public class Zombieland extends Game {
 		level = 1;
 		Zombie.resetZombieCount();
 		timer = new Timer(2000);
-		statLevel = new Stat<Integer>(level);	
+		statLevel = new Stat<Integer>(level);
+		random = new Random();
 	}
 	
 	/**
@@ -203,16 +209,21 @@ public class Zombieland extends Game {
 		}
 	}
 	
-	private BufferedImage[] getBufferedImageArray(ResourceBundle rb, String keyword, int variations)
+	private BufferedImage[] getBufferedImageArray(String bundleURL, String key, String delim)
 	{
-		BufferedImage[] images = new BufferedImage[variations];
+		ResourceBundle bundle = ResourceBundle.getBundle(bundleURL);
+	
+		String value = bundle.getString(key);
+		String[] list = value.split(delim);
 		
-		for(int i = 0; i < variations; i++)
+		BufferedImage[] images = new BufferedImage[list.length];
+		
+		for(int i=0; i < list.length; i++)
 		{
-			int currentcounter = i+1;
-			String filepath = rb.getString(keyword + currentcounter);
-			images[i] =  getImage(filepath);
+			String imageLocation = bundle.getString(list[i]);
+			images[i] = getImage(imageLocation);
 		}
+		
 		return images;
 	}
 	
@@ -225,18 +236,20 @@ public class Zombieland extends Game {
 	public void addZombie() {
 		
 		// Zombie animations
-		ResourceBundle bundle = ResourceBundle.getBundle("vooga.games.zombieland.ZombieSpriteResource");
+		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 		
-		BufferedImage[] zombieDownImage = getBufferedImageArray(bundle, "ZombieDown" , 3);
-		BufferedImage[] zombieUpImage = getBufferedImageArray(bundle, "ZombieUp" , 3);
-		BufferedImage[] zombieLeftImage = getBufferedImageArray(bundle, "ZombieLeft" , 3);
-		BufferedImage[] zombieRightImage = getBufferedImageArray(bundle, "ZombieRight", 3);
+		String delim = bundle.getString("delim");
 		
-		BufferedImage[] zombieAttackUpImage = getBufferedImageArray(bundle, "ZombieAttackUp", 3);
-		BufferedImage[] zombieAttackDownImage = getBufferedImageArray(bundle, "ZombieAttackDown", 3);
-		BufferedImage[] zombieAttackLeftImage = getBufferedImageArray(bundle, "ZombieAttackLeft", 3);
-		BufferedImage[] zombieAttackRightImage = getBufferedImageArray(bundle, "ZombieAttackRight", 3);
-		BufferedImage[] zombieDeath = getBufferedImageArray(bundle, "ZombieDeath", 3);
+		BufferedImage[] zombieDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDown" , delim);
+		BufferedImage[] zombieUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieUp" , delim);
+		BufferedImage[] zombieLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieLeft" , delim);
+		BufferedImage[] zombieRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieRight", delim);
+		
+		BufferedImage[] zombieAttackUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackUp", delim);
+		BufferedImage[] zombieAttackDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackDown", delim);
+		BufferedImage[] zombieAttackLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackLeft", delim);
+		BufferedImage[] zombieAttackRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackRight", delim);
+		BufferedImage[] zombieDeath = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDeath", delim);
 		
 		int zombieHealth = 25;
 		int zombieDamage = 5;
@@ -296,7 +309,6 @@ public class Zombieland extends Game {
 	 */
 	public void addRandomItem(double x, double y) {
 
-		Random random = new Random();
 		int choice = random.nextInt(3);
 
 		BufferedImage bulletImage = getImage("resources/bullet.png");
