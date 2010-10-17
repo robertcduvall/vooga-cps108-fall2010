@@ -4,7 +4,13 @@ package vooga.engine.overlay;
 import java.util.ArrayList;
 
 import com.golden.gamedev.object.SpriteGroup;
-
+/**
+ * Class used to track overlays and Stats.
+ * 
+ * 
+ * @author Justin Goldsmith
+ *
+ */
 public class OverlayTracker {
 	
 	private ArrayList<SpriteGroup> overlayGroups;
