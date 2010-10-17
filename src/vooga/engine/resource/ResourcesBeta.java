@@ -52,6 +52,7 @@ public class ResourcesBeta {
 	public static void loadAnimation(String key, String[] filePaths) {
 		BufferedImage[] animation = new BufferedImage[filePaths.length];
 		for (int i = 0; i < animation.length; i++) {
+			System.out.println("loading " + defaultPath + filePaths[i]);
 			animation[i] = myGame.getImage(defaultPath + filePaths[i]);
 		}
 		imageMap.put(key, animation);
@@ -99,34 +100,84 @@ public class ResourcesBeta {
 		return soundMap.get(key);
 	}
 
-	public static void loadImageFile(String imageListFile) throws IOException {
+//	public static void loadImageFile(String imageListFile) throws IOException {
+//		StringTokenizer st;
+//		List<String> lines = getLinesFromFile(imageListFile);
+//		for (int y = 0; y < lines.size(); y++) {
+//			String line = lines.get(y);
+//			st = new StringTokenizer(line, ",");
+//			String name = st.nextToken();
+//			String filepath = st.nextToken();
+//			ArrayList<String> pathList = new ArrayList<String>();
+//			if (filepath.equals("")) {
+//				System.out.println("Name " + name
+//						+ "has no filepath associated with it.");
+//			} else {
+//				while (!filepath.equals("")) {
+//					pathList.add(filepath);
+//					if (st.hasMoreTokens())
+//						filepath = st.nextToken();
+//					else
+//						break;
+//				}
+//			}
+//			String[] pathArray = new String[pathList.size()];
+//			for (int i = 0; i < pathList.size(); i++) {
+//				pathArray[i] = pathList.get(i);
+//				System.out.print(pathList.get(i));
+//			}
+//			System.out.println();
+//			loadAnimation(name, pathArray);
+//		}
+//	}
+	
+	public static void loadImageFile(String directory) throws IOException {
+		ArrayList<String> lines = new ArrayList<String>();
+		int size = 0;
 		StringTokenizer st;
-		List<String> lines = getLinesFromFile(imageListFile);
-		for (int y = 0; y < lines.size(); y++) {
+		URL url = Resources.class.getClassLoader().getResource(directory);
+		url = new File(directory).toURI().toURL();
+		System.out.println(url);
+		if (url == null) {
+			throw new IOException("No such directory: " + directory);
+		}
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(url.openStream()));
+		while (true) {
+			String line = reader.readLine();
+			if (line == null) {
+				reader.close();
+				break;
+			}
+			if (!line.equals("") && !line.startsWith("#")) {
+				lines.add(line);
+			}
+		}
+		size = lines.size();
+		for (int y=0; y<size; y++) {
 			String line = lines.get(y);
-			st = new StringTokenizer(line, ",");
-			String name = st.nextToken();
-			String filepath = st.nextToken();
-			ArrayList<String> pathList = new ArrayList<String>();
-			if (filepath.equals("")) {
-				System.out.println("Name " + name
-						+ "has no filepath associated with it.");
-			} else {
-				while (!filepath.equals("")) {
-					pathList.add(filepath);
-					if (st.hasMoreTokens())
-						filepath = st.nextToken();
-					else
-						break;
+				st = new StringTokenizer(line, ",");
+				String name = st.nextToken();
+				String filepath = st.nextToken();
+				ArrayList<String> pathList = new ArrayList<String>();
+				if (filepath.equals("")) {
+					System.out.println("Name " + name + "has no filepath associated with it.");
+				} else {
+					while(!filepath.equals("")) {
+						pathList.add(filepath);
+						if (st.hasMoreTokens())
+							filepath = st.nextToken();
+						else
+							break;
+					}
 				}
-			}
-			String[] pathArray = new String[pathList.size()];
-			for (int i = 0; i < pathList.size(); i++) {
-				pathArray[i] = pathList.get(i);
-				System.out.print(pathList.get(i));
-			}
-			System.out.println();
-			loadAnimation(name, pathArray);
+				String[] pathArray = new String[pathList.size()];
+				for (int i = 0; i < pathList.size(); i++) {
+					pathArray[i] = pathList.get(i);
+					System.out.print(pathList.get(i));
+				}
+				System.out.println();
+				loadAnimation(name, pathArray);
 		}
 	}
 

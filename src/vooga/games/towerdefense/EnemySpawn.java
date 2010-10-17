@@ -8,6 +8,7 @@ import com.golden.gamedev.util.Utility;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 /**
  * Controls the enemy spawn speeds, path, speed of travel, and the amount of hit points 
@@ -29,7 +30,7 @@ public class EnemySpawn extends Enemy {
 	
 	@Override
 	protected void setImage() {
-		setImage(Resources.getImage("duvallFaceYellow"));
+		setImage(ResourcesBeta.getImage("duvallFaceYellow"));
 	}
 	
 	@Override

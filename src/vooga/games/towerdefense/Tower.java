@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.Set;
 
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
@@ -55,7 +56,7 @@ public abstract class Tower extends Sprite{
 		if(target!=null){
 			target.gotHit();
 			timeSinceShot=0;
-			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
+			TowerShot shot = new TowerShot(ResourcesBeta.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
 			shotGroup.add(shot);
 		}
 		

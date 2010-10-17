@@ -3,6 +3,7 @@ package vooga.games.towerdefense;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 /**
  * An inexpensive tower with a moderate range and rate of fire.
@@ -12,8 +13,8 @@ import vooga.engine.resource.Resources;
 public class NormalTower extends Tower{
 
 	static final long serialVersionUID = -3736751382675453712L;
-	public final static BufferedImage IMAGE = Resources.getImage("normalTower");
-	public final static BufferedImage PREVIEW = Resources.getImage("normalTowerPreview");
+	public final static BufferedImage IMAGE = ResourcesBeta.getImage("normalTower");
+	public final static BufferedImage PREVIEW = ResourcesBeta.getImage("normalTowerPreview");
 	public final static long SHOT_DELAY = 1000;
 	public final static double RANGE = 150;
 	public final static int COST = 40;
