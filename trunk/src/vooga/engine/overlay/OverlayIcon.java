@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -79,7 +80,6 @@ public class OverlayIcon extends Overlay {
 		myText.setLocation(getX(), getY());
 		myText.print(myText.getString(), g);
 		myIconGroup.render(g);
-		System.out.println(myIconGroup.getSize());
 	}
 	
 	
@@ -155,8 +155,16 @@ public class OverlayIcon extends Overlay {
 		myText.setFont(font);
 	}
 	
+	public void setFont(GameFont font){
+		myText.setFont(font);
+	}
+	
 	public void setColor(Color color){
 		myText.setColor(color);
+	}
+	
+	protected OverlayString getOverlayString(){
+		return myText;
 	}
 
 }
