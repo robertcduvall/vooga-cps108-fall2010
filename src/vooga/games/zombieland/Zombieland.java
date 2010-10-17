@@ -66,8 +66,19 @@ public class Zombieland extends Game {
 	private OverlayStat overlayLevelString;
 
 	public void initResources() {
+		
 		// RESOURCES
+		initializePlayer();
+		resetStartingResources();
+		resetOverlay();
+		setListeners();
+		initializePlayField();
+	}
 
+	/**
+	 * This method initializes the images that are associated with the player and creates the shooter person
+	 */
+	private void initializePlayer() {
 		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 		String delim = bundle.getString("delim");
 
@@ -77,11 +88,13 @@ public class Zombieland extends Game {
 		
 		double playerImageHeight = parseDouble("playerImageHeight");
 		double playerImageWidth = parseDouble("playerImageWidth");
+		int maxHealth = parseInt("maxHealth");
+		int playerRank = parseInt("playerRank");
 		
-		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, 350,
-				250);
+		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, playerImageHeight,
+				playerImageWidth);
 
-		player = new Shooter("Hero", "Down", shooterImage, 200, 0, this);
+		player = new Shooter("Hero", "Down", shooterImage, maxHealth, playerRank, this);
 
 		// Player animations
 		String[] list = { "Down", "Up", "Left", "Right" };
@@ -92,15 +105,89 @@ public class Zombieland extends Game {
 			AnimatedSprite animation = getInitializedAnimatedSprite(currentImage);
 			player.mapNameToSprite(list[i], animation);
 		}
+	}
 
-		// INITIALIZATIONS
-		resetInitialValues();
-		resetOverlay();
-		setListeners();
+	private Double parseDouble(String keyName) {
+		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		String string = bundle.getString(keyName);
+		return Double.parseDouble(string);
+	}
 
+	private Integer parseInt(String keyName) {
+		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		String string = bundle.getString(keyName);
+		return Integer.parseInt(string);
+	}
+
+	public void resetOverlay() {
+		resetOverlayHealthString();
+		resetOverlayHealthBar();
+		resetOverlayScoreString();
+		resetOverlayAmmoString();
+		resetOverlayLevelString();
+	}
+
+	private void resetOverlayLevelString() {
+		overlayLevelString = new OverlayStat("Level ", statLevel);
+		overlayLevelString.setLocation(GAME_WIDTH / 2 - 60,
+				GAME_HEIGHT / 2 - 10);
+		overlayLevelString.setActive(false);
+	}
+
+	private void resetOverlayAmmoString() {
+		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
+		overlayAmmoString.setColor(Color.BLUE);
+		overlayAmmoString.setLocation(470, 12);
+	}
+
+	private void resetOverlayScoreString() {
+		overlayScoreString = new OverlayStat("Kills: ", player.getScore());
+		overlayScoreString.setLocation(385, 12);
+	}
+
+	private void resetOverlayHealthBar() {
+		overlayHealthBar = new OverlayBar(player.getHealth(),
+				player.getHealth().getStat());
+		overlayHealthBar.setColor(Color.GREEN);
+		overlayHealthBar.setLocation(80, 18);
+	}
+
+	private void resetOverlayHealthString() {
+		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
+		overlayHealthString.setLocation(5, 10);
+	}
+
+	/**
+	 * set up listeners for keyboard controls
+	 */
+	public void setListeners() {
+		control = new KeyboardControl(player, this);
+
+		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
+
+		control.setParams(new Class[] { int.class });
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
+		control.setParams(new Class[] { int.class });
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
+		control.setParams(new Class[] { int.class });
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
+	}
+
+	private void resetStartingResources() {
+		level = 1;
+		Zombie.resetZombieCount();
+		timer = new Timer(2000);
+		statLevel = new Stat<Integer>(level);
+		random = new Random();
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
+	}
 
+	private void initializePlayField() {
 		SpriteGroup zombies = new SpriteGroup("Zombies");
 		SpriteGroup bullets = new SpriteGroup("Bullets");
 		SpriteGroup items = new SpriteGroup("Items");
@@ -126,64 +213,7 @@ public class Zombieland extends Game {
 		playField.addCollisionGroup(players, zombies, playerZombieManager);
 	}
 
-	private Double parseDouble(String keyName) {
-		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
-		String string = bundle.getString(keyName);
-		return Double.parseDouble(string);
-	}
-
-	private Integer parseInt(String keyName) {
-		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
-		String string = bundle.getString(keyName);
-		return Integer.parseInt(string);
-	}
-
-	private void resetOverlay() {
-		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
-		overlayHealthString.setLocation(5, 10);
-		overlayHealthBar = new OverlayBar(player.getHealth(),
-				player.getHealth().getStat());
-		overlayHealthBar.setColor(Color.GREEN);
-		overlayHealthBar.setLocation(80, 18);
-		overlayScoreString = new OverlayStat("Kills: ", player.getScore());
-		overlayScoreString.setLocation(385, 12);
-		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
-		overlayAmmoString.setColor(Color.BLUE);
-		overlayAmmoString.setLocation(470, 12);
-		overlayLevelString = new OverlayStat("Level ", statLevel);
-		overlayLevelString.setLocation(GAME_WIDTH / 2 - 60,
-				GAME_HEIGHT / 2 - 10);
-		overlayLevelString.setActive(false);
-	}
-
-	/**
-	 * set up listeners for keyboard controls
-	 */
-	public void setListeners() {
-		control = new KeyboardControl(player, this);
-
-		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
-
-		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
-		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
-		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
-	}
-
-	private void resetInitialValues() {
-		level = 1;
-		Zombie.resetZombieCount();
-		timer = new Timer(2000);
-		statLevel = new Stat<Integer>(level);
-		random = new Random();
-	}
-
+	
 	/**
 	 * update all components of the game
 	 */
@@ -279,15 +309,15 @@ public class Zombieland extends Game {
 		BufferedImage[] zombieDeath = getBufferedImageArray(
 				MAIN_RESOURCES_PATH, "ZombieDeath", delim);
 
-		int zombieHealth = 25;
-		int zombieDamage = 5;
+		int startZombieHealth = parseInt("startZombieHealth");
+		int startZombieDamage = parseInt("startZombieDamage");
 
 		Zombie newZombie = new Zombie("New", "Moving",
 				getInitializedAnimatedSprite(zombieDownImage),
 				getInitializedAnimatedSprite(zombieUpImage),
 				getInitializedAnimatedSprite(zombieLeftImage),
 				getInitializedAnimatedSprite(zombieRightImage), player, this,
-				zombieHealth, zombieDamage);
+				startZombieHealth, startZombieDamage);
 
 		newZombie.mapNameToSprite("AttackLeft",
 				getInitializedAnimatedSprite(zombieAttackLeftImage));
@@ -298,8 +328,9 @@ public class Zombieland extends Game {
 		newZombie.mapNameToSprite("AttackDown",
 				getInitializedAnimatedSprite(zombieAttackDownImage));
 
+		int startZombieDelay = parseInt("startZombieDelay");
 		newZombie.mapNameToSprite("ZombieDeath",
-				getInitializedAnimatedSprite(zombieDeath, 500, false));
+				getInitializedAnimatedSprite(zombieDeath, startZombieDelay, false));
 
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
