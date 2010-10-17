@@ -1,5 +1,6 @@
 package vooga.games.cyberion.CyberionSprite;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import vooga.games.cyberion.GameEvent.PlayerFireEvent;
@@ -9,10 +10,20 @@ import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.event.EventManager;
+import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.player.control.PlayerSprite;
 //main player class. extends sprite and includes relevant
 // player information such as life and weapon power. creates fire event
 // when the F key is pressed. also updates position based on wasd commands.
-public class PlayerShip extends Sprite {
+
+public class PlayerShip extends PlayerSprite {
+	KeyboardControl keyboardControl;
+
+	public PlayerShip(String name, String stateName, Sprite s) {
+		
+		super(name, stateName, s);
+		
+	}
 
 	private int life;
 	private int weaponPower;
@@ -26,45 +37,70 @@ public class PlayerShip extends Sprite {
 	}
 
 	private EventManager eventManager;
-	private BaseInput bsInput;
 
-	public PlayerShip(BufferedImage image, double x, double y, int life,
-			int weaponPower, EventManager eventManager, BaseInput bsInput) {
-		super(image, x, y);
-		this.setLife(life);
-		this.weaponPower = weaponPower;
-		this.eventManager = eventManager;
-		this.bsInput = bsInput;
+	public void setEventManager(EventManager em) {
+		eventManager = em;
 	}
+
+	public KeyboardControl setKeyboardControl(KeyboardControl kb) {
+		keyboardControl = kb;
+		keyboardControl.addInput(KeyEvent.VK_LEFT, "moveLeft",
+				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+		keyboardControl.addInput(KeyEvent.VK_RIGHT, "moveRight",
+				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+		keyboardControl.addInput(KeyEvent.VK_DOWN, "moveDown",
+				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+		keyboardControl.addInput(KeyEvent.VK_UP, "moveUp",
+				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+		keyboardControl.addInput(KeyEvent.VK_SPACE, "fire",
+				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+		return keyboardControl;
+	}
+
+	// private BaseInput bsInput;
+
+	// public PlayerShip(BufferedImage image, double x, double y, int life,
+	// int weaponPower, EventManager eventManager, BaseInput bsInput) {
+	// super(image, x, y);
+	// this.setLife(life);
+	// this.weaponPower = weaponPower;
+	// this.eventManager = eventManager;
+	// this.bsInput = bsInput;
+	// }
 
 	public void update(long elapsedTime) {
 
-		move();
-		fire();
+		listen();
 
 	}
 
-	public void move() {
-		if (bsInput.isKeyDown(java.awt.event.KeyEvent.VK_RIGHT)) {
-			setX(getX() + 5);
-		}
-		if (bsInput.isKeyDown(java.awt.event.KeyEvent.VK_LEFT)) {
-			setX(getX() - 5);
-		}
-		if (bsInput.isKeyDown(java.awt.event.KeyEvent.VK_UP)) {
-			setY(getY() - 5);
-		}
-		if (bsInput.isKeyDown(java.awt.event.KeyEvent.VK_DOWN)) {
-			setY(getY() + 5);
-		}
+	public void moveRight() {
+		setX(getX() + 5);
+	}
+
+	public void moveLeft() {
+
+		setX(getX() - 5);
+	}
+
+	public void moveUp() {
+		setY(getY() - 5);
+	}
+
+	public void moveDown() {
+
+		setY(getY() + 5);
+	}
+
+	public void listen() {
 		eventManager.fireEvent("PlayerMoveEvent", new PlayerMoveEvent(this,
 				"PlayerMoveEvent", getX(), getY()));
 	}
 
 	public void fire() {
-		if (bsInput.isKeyPressed(java.awt.event.KeyEvent.VK_F))
-			eventManager.fireEvent("PlayerFireEvent", new PlayerFireEvent(this,
-					"PlayerFireEvent", getX(), getY(), weaponPower));
+
+		eventManager.fireEvent("PlayerFireEvent", new PlayerFireEvent(this,
+				"PlayerFireEvent", getX(), getY(), weaponPower));
 	}
 
 	public boolean isAlive() {
