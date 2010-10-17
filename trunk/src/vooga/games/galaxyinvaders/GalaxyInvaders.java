@@ -48,19 +48,17 @@ public class GalaxyInvaders extends Game {
 	private SpriteGroup players;
 	private SpriteGroup items;
 	private SpriteGroup blockades;
+	private SpriteGroup pauseMenu;
+	private SpriteGroup gameOverMenu;
 	private CollisionManager torpedoCollider;
 	private CollisionManager torpedoPlayerCollider;
 	private CollisionManager itemPlayerCollider;
 	private CollisionManager torpedoBlockCollider;
 	private GameState play;
 	private GameState pause;
-	private GameState menu;
+	private GameState gameOver;
 	private GameStateManager gameStateManager;
-	private StatInt livesStat;
-	private OverlayManager overlayManager;
-	private OverlayStatColors scoreOverlay;
-	private OverlayStat livesOverlay;
-
+	private OverlayTracker overlayTracker;
 
 	/**
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
@@ -82,6 +80,9 @@ public class GalaxyInvaders extends Game {
 		players = new SpriteGroup("players");
 		blockades = new SpriteGroup("blockades");
 		enemyTorpedos = new SpriteGroup("enemyTorpedos");
+		pauseMenu = new SpriteGroup("pauseMenu");
+		gameOverMenu = new SpriteGroup("gameOverMenu");
+		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/galaxyinvaders/resources/overlays.xml");
 		gameStateManager = new GameStateManager();
 		play = new PlayGameState();
 		play.addGroup(items);
@@ -92,12 +93,12 @@ public class GalaxyInvaders extends Game {
 		play.addGroup(enemyTorpedos);
 		gameStateManager.addGameState(play);
 		pause = new PauseGameState();
-		pause.addRenderGroup(items);
-		pause.addRenderGroup(torpedos);
-		pause.addRenderGroup(enemies);
-		pause.addRenderGroup(blockades);
+		pause.addGroup(pauseMenu);
 		gameStateManager.addGameState(pause);
-		gameStateManager.switchTo(play);
+		gameOver = new GameOverGameState();
+		gameOver.addGroup(gameOverMenu);
+		gameStateManager.addGameState(gameOver);
+		gameStateManager.switchTo(pause);
 //		livesOverlay = new OverlayStat("Lives", livesStat);
 //		scoreOverlay = new OverlayStatColors("Score", scoreStat,  new Font("mine", Font.PLAIN, 22), Color.RED);
 		levels = new Levels();
@@ -108,6 +109,8 @@ public class GalaxyInvaders extends Game {
 		}
 		initEnemies();
 		initBlocks();
+		initPause();
+		initGameOver();
 		players.add(ship);
 		torpedoCollider = new TorpedoEnemyCollider(this);
 		torpedoCollider.setCollisionGroup(torpedos, enemies);
@@ -135,6 +138,30 @@ public class GalaxyInvaders extends Game {
 			blockades.add(b);
 		}
 	}
+	
+	private void initPause() {
+			SpriteGroup strings = overlayTracker.getOverlayGroups().get(0);
+			Sprite[] lines = strings.getSprites();
+			int size = strings.getSize();
+			for (int i = 0; i<size; i++)
+			{
+				OverlayString oString = (OverlayString) lines[i];
+				oString.setColor(Color.WHITE);
+				pauseMenu.add(oString);
+			}			
+	}
+
+	private void initGameOver() {
+			SpriteGroup strings = overlayTracker.getOverlayGroups().get(1);
+			Sprite[] lines = strings.getSprites();
+			int size = strings.getSize();
+			for (int i = 0; i<size; i++)
+			{
+				OverlayString oString = (OverlayString) lines[i];
+				oString.setColor(Color.WHITE);
+				gameOverMenu.add(oString);
+			}			
+	}
 
 	/**
 	 * Rendering method for GoldenT
@@ -155,7 +182,6 @@ public class GalaxyInvaders extends Game {
 
 		gameStateManager.update(time);
 		bg.update(time);
-		scoreOverlay.update(time);
 
 		torpedoCollider.checkCollision();
 		torpedoPlayerCollider.checkCollision();
@@ -192,7 +218,7 @@ public class GalaxyInvaders extends Game {
 		for(Sprite enemy: enemies.getSprites()) {
 			if(enemy!=null) {
 				if (isAtBorder(enemy)) {
-					gameStateManager.switchTo(pause);
+					gameStateManager.switchTo(gameOver);
 					break;
 				}
 			}
@@ -215,12 +241,12 @@ public class GalaxyInvaders extends Game {
 				initEnemies();
 			}
 			else {
-				gameStateManager.switchTo(pause);
+				gameStateManager.switchTo(gameOver);
 			}
 		}
 
 		if((Integer)ship.getStat("lives").getStat()<=0) {
-			gameStateManager.switchTo(pause);
+			gameStateManager.switchTo(gameOver);
 		}
 
 		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
@@ -229,7 +255,13 @@ public class GalaxyInvaders extends Game {
 		}
 
 		if(keyPressed(KeyEvent.VK_P)) {
-			gameStateManager.switchTo(pause);
+			gameStateManager.toggle(pause);
+			gameStateManager.toggle(play);
+		}
+		
+		if(keyPressed(KeyEvent.VK_R)) {
+			this.finish();
+			GalaxyInvaders.main(null);
 		}
 
 	}

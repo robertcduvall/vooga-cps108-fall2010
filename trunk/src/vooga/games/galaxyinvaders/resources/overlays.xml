@@ -1,0 +1,15 @@
+<Overlay>
+
+<OverlayGroup>
+<OverlayString xLoc="150" yLoc="200" fontName="Times New Roman" label="Welcome to GalaxyInvaders! " fontSize="24"></OverlayString>
+<OverlayString xLoc="150" yLoc="250" fontName="Times New Roman" label="To move, use the left and right arrow keys" fontSize="24"></OverlayString>
+<OverlayString xLoc="150" yLoc="300" fontName="Times New Roman" label="To fire, use the space bar " fontSize="24"></OverlayString>
+<OverlayString xLoc="150" yLoc="350" fontName="Times New Roman" label="To play, or pause and return to the menu, press P " fontSize="24"></OverlayString>
+</OverlayGroup>
+
+<OverlayGroup>
+<OverlayString xLoc="150" yLoc="200" fontName="Times New Roman" label="Game Over! " fontSize="32"></OverlayString>
+<OverlayString xLoc="150" yLoc="350" fontName="Times New Roman" label="To restart the game, press R " fontSize="24"></OverlayString>
+</OverlayGroup>
+
+</Overlay>
