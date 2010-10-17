@@ -29,7 +29,7 @@ public class PlayerSprite extends GameEntitySprite {
 	// general instance variables
 	private List<ItemSprite> myItemList;
 	
-	private Map<String, StatInt> myStatMap;
+	private Map<String, Stat<?>> myStatMap;
 	
 //	private StatInt myScore;
 //	private int myLives;
@@ -58,7 +58,7 @@ public class PlayerSprite extends GameEntitySprite {
 	public PlayerSprite(String name, String stateName, Sprite s) {
 		super(name, stateName, s);
 		myItemList = new ArrayList<ItemSprite>();
-		myStatMap = new HashMap<String, StatInt>();
+		myStatMap = new HashMap<String, Stat<?>>();
 	}
 
 	/**
@@ -130,11 +130,11 @@ public class PlayerSprite extends GameEntitySprite {
 		myItemList.addAll(list);
 	}
 	
-	public void addStat(String statName, StatInt stat) {
+	public void addStat(String statName, Stat<?> stat) {
 		myStatMap.put(statName, stat);
 	}
 	
-	public StatInt getStat(String statName) {
+	public Stat<?> getStat(String statName) {
 		return myStatMap.get(statName);
 	}
 
