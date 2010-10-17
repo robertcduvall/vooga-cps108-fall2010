@@ -46,7 +46,7 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 	private void processDamage(Zombie currentZombie, Shooter currentPlayer) {
 		if (currentZombie.isAbleToAttack()) {
 			currentZombie.resetAttackDelayStep();
-			currentPlayer.updateStatHealth(-currentZombie.getDamage());
+			currentPlayer.updateHealth(-currentZombie.getDamage());
 		} else
 			currentZombie.updateAttactStep();
 	}

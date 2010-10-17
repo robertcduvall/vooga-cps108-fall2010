@@ -141,11 +141,11 @@ public class Zombieland extends Game {
 	private void resetOverlay() {
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(5, 10);
-		overlayHealthBar = new OverlayBar(player.getStatHealth(),
-				player.getHealth());
+		overlayHealthBar = new OverlayBar(player.getHealth(),
+				player.getHealth().getStat());
 		overlayHealthBar.setColor(Color.GREEN);
 		overlayHealthBar.setLocation(80, 18);
-		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
+		overlayScoreString = new OverlayStat("Kills: ", player.getScore());
 		overlayScoreString.setLocation(385, 12);
 		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
