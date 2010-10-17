@@ -21,7 +21,7 @@ public class ItemPlayerCollider extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		((PlayerSprite)s2).updateLives(2);
+		((PlayerSprite) s2).getStat("lives").addTo(1);
 		
 	}
 	
