@@ -16,10 +16,10 @@ public class ResourcesBetaTester extends Game{
 	@Override
 	public void initResources() {
 		ResourcesBeta.initialize(this);
-		ResourcesBeta.loadImage("red", "red.png");
-		ResourcesBeta.loadSound("red", "red.wav");
+		ResourcesBeta.loadImage("red", "red.png"); //looks in the same package as the extension of Game
+		ResourcesBeta.loadSound("red", "red.wav"); //looks in the top level folder (VOOGA)
 		try {
-			ResourcesBeta.loadImageFile("red.txt");
+			ResourcesBeta.loadImageFile("red.txt"); //looks in the top level folder
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
