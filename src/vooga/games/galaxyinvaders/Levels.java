@@ -22,7 +22,7 @@ import java.util.Scanner;
  *
  */
 
-public class Levels {
+public class Levels{
 
 	private static final int LEVELS = 3;
 
@@ -53,9 +53,9 @@ public class Levels {
 	 * @throws FileNotFoundException if file is not found
 	 */
 	public void createLevels() throws FileNotFoundException{
-		files.add(new File("C:/Users/dhs9/workspace cs108/vooga/src/vooga/games/galaxyinvaders/img/level1.txt"));
-		files.add(new File("C:/Users/dhs9/workspace cs108/vooga/src/vooga/games/galaxyinvaders/img/level2.txt"));
-		files.add(new File("C:/Users/dhs9/workspace cs108/vooga/src/vooga/games/galaxyinvaders/img/level3.txt"));
+		files.add(new File("src/vooga/games/galaxyinvaders/resources/level1.txt"));
+		files.add(new File("src/vooga/games/galaxyinvaders/resources/level2.txt"));
+		files.add(new File("src/vooga/games/galaxyinvaders/resources/level3.txt"));
 		makeMap();
 	}
 

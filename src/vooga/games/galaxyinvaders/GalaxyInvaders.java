@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import vooga.engine.event.*;
 import vooga.engine.overlay.*;
@@ -64,12 +65,18 @@ public class GalaxyInvaders extends Game {
      * Method inherited from Game. Initializes the game state and all the sprites in the game.
      */
 	public void initResources() {
+		ResourceHandler.setGame(this);
+		try {
+			ResourceHandler.loadFile("vooga/games/galaxyinvaders/resources/resourcelist.txt");
+		} catch (IOException e1) {
+			System.out.print("File cannot be found.");
+		}
 		gameFontManager = new GameFontManager();
 		Font f = new Font("sansserif", Font.BOLD, 20);
 		myFont = gameFontManager.getFont(f);
 		state = PLAY;
 		bg = new ColorBackground(Color.BLACK, 700, 800);
-		ship = new PlayerSprite("p1", "default", new Sprite(getImage("img/ship.gif"), getWidth()/2, getHeight()-100));
+		ship = new PlayerSprite("p1", "default", new Sprite(ResourceHandler.getImage("ship"), getWidth()/2, getHeight()-100));
 		ship.setLives(LIVES);
 		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
@@ -106,8 +113,8 @@ public class GalaxyInvaders extends Game {
 	
 	public void initEnemies() {     
 		for (int i=0; i<levels.getEnemySize(); i++){
-			EnemySprite e = new EnemySprite("", "default", new Sprite(getImage("img/enemy1.png"), (i%4)*50, ((int)(i/4))*50), levels);
-			Sprite damaged = new Sprite(getImage("img/enemy1damage.png"));
+			EnemySprite e = new EnemySprite("", "default", new Sprite(ResourceHandler.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), levels);
+			Sprite damaged = new Sprite(ResourceHandler.getImage("enemy1damage"));
 			e.mapNameToSprite("damaged", damaged);
 			enemies.add(e);
 		}    
@@ -116,7 +123,7 @@ public class GalaxyInvaders extends Game {
 	
 	private void initBlocks() {
 		for(int i = 100; i<getWidth(); i+=200) {
-			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(getImage("img/barrier.png"), i, 600));
+			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(ResourceHandler.getImage("barrier"), i, 600));
 			blockades.add(b);
 		}
 	}
@@ -253,7 +260,7 @@ public class GalaxyInvaders extends Game {
 	}
 	
 	private void spawnHealth() {
-		Sprite temp = new Sprite(getImage("img/health.png"), getWidth()/2, 0);
+		Sprite temp = new Sprite(ResourceHandler.getImage("health"), getWidth()/2, 0);
 		temp.setVerticalSpeed(.1);
 		items.add(temp);
 	}
@@ -277,7 +284,7 @@ public class GalaxyInvaders extends Game {
 				enemySeed = 0;
 			}
 			EnemySprite enemy = (EnemySprite) enemySprites[enemySeed];
-			Sprite temp = new Sprite(getImage("img/torpedo.png"), enemy.getX()+25, enemy.getY()+30);
+			Sprite temp = new Sprite(ResourceHandler.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
 			temp.setSpeed(0, .5);
 			enemyTorpedos.add(temp);
 		}
@@ -292,7 +299,7 @@ public class GalaxyInvaders extends Game {
 	}
 	
 	private void fire() {
-		Sprite temp = new Sprite(getImage("img/torpedo.png"), ship.getX()+25, ship.getY()-35);
+		Sprite temp = new Sprite(ResourceHandler.getImage("torpedo"), ship.getX()+25, ship.getY()-35);
 		temp.setSpeed(0, -.8);
 		torpedos.add(temp);
 	}
