@@ -162,8 +162,8 @@ public class PlayerSprite extends GameEntitySprite {
 		return myHealth;
 	}
 
-	public void updateHealth(int i) {
-		myHealth += i;
+	public void updateHealth(double d) {
+		myHealth += d;
 	}
 
 	public void setHealth(int i) {

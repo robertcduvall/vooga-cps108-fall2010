@@ -50,27 +50,15 @@ public class Zombieland extends Game {
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
 	private static long defaultAnimationDelay = 300;
-
-	private AnimatedSprite shooterImage;
-	private ImageBackground background;
+	private final static int ZOMBIES_PER_LEVEL = 25;
+	
+	private int level;
 	private Shooter player;
-
-	private SpriteGroup zombies;
-	private SpriteGroup players;
-	private SpriteGroup bullets;
-	private SpriteGroup items;
-
-	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
-
-
-//	private ZZCollisionManager zombieZombieManager;
-	private PZCollisionManager playerZombieManager;
-	private BZCollisionManager bulletZombieManager;
-	private WallBoundManager entityWallManager;
-	private HICollisionManager humanItemManager;
-
+	private PlayField playField;
+	private ImageBackground background;
+	
 	private OverlayBar overlayHealthBar;
 	private OverlayString overlayHealthString;
 	private OverlayStat overlayScoreString;
@@ -79,11 +67,7 @@ public class Zombieland extends Game {
 	private OverlayStat overlayLevelString;
 	
 	private Stat<Integer> statLevel;
-	private int level;
-	private int zombiesAppeared;
-	private final static int ZOMBIES_PER_LEVEL = 25;
-	private int zombieHealth;
-	private int zombieDamage;
+	
 	
 	private BufferedImage[] getBufferedImageArray(ResourceBundle rb, String keyword, int variations)
 	{
@@ -115,7 +99,7 @@ public class Zombieland extends Game {
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
 		int maxHealth = 200;
-		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
+		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
 		player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0, this);
 		player.mapNameToSprite("Up",
 				getInitializedAnimatedSprite(playerUpImage));
@@ -153,9 +137,9 @@ public class Zombieland extends Game {
 		resetInitialValues();
 		resetOverlay();
 
-		zombies = new SpriteGroup("Zombies");
-		bullets = new SpriteGroup("Bullets");
-		items = new SpriteGroup("Items");
+		SpriteGroup zombies = new SpriteGroup("Zombies");
+		SpriteGroup bullets = new SpriteGroup("Bullets");
+		SpriteGroup items = new SpriteGroup("Items");
 		playField = new PlayField();
 		control = new KeyboardControl(player, this);
 
@@ -171,18 +155,18 @@ public class Zombieland extends Game {
 		// playField.addCollisionGroup(zombies, zombies,
 		// zombieZombieManager);
 
-		playerZombieManager = new PZCollisionManager();
-		players = new SpriteGroup("Players");
+		PZCollisionManager playerZombieManager = new PZCollisionManager();
+		SpriteGroup players = new SpriteGroup("Players");
 		players.add(player);
 		playField.addCollisionGroup(players, zombies, playerZombieManager);
 
-		entityWallManager = new WallBoundManager(background);
+		WallBoundManager entityWallManager = new WallBoundManager(background);
 		playField.addCollisionGroup(players, players, entityWallManager);
 
-		bulletZombieManager = new BZCollisionManager();
+		BZCollisionManager bulletZombieManager = new BZCollisionManager();
 		playField.addCollisionGroup(bullets, zombies, bulletZombieManager);
 
-		humanItemManager = new HICollisionManager();
+		HICollisionManager humanItemManager = new HICollisionManager();
 		playField.addCollisionGroup(players, items, humanItemManager);
 
 		
@@ -193,8 +177,8 @@ public class Zombieland extends Game {
 	private void resetOverlay() {
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(5, 10);
-		System.out.println(player.getHealth());
-		overlayHealthBar = new OverlayBar(player.getStatHealth(), 200);
+		
+		overlayHealthBar = new OverlayBar(player.getStatHealth(), player.getHealth());
 		overlayHealthBar.setColor(Color.GREEN);
 		overlayHealthBar.setLocation(80, 18);
 		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
@@ -210,20 +194,11 @@ public class Zombieland extends Game {
 
 	private void resetInitialValues() {
 		level = 1;
-		zombiesAppeared = 0;
-		zombieHealth = 25;
-		zombieDamage = 5;
+		Zombie.resetZombieCount();
 		timer = new Timer(2000);
 		statLevel = new Stat<Integer>(level);		
 	}
 	
-	public Properties getProperties(String filepath) throws IOException
-	{
-		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream(filepath+".properties");
-		prop.load(fis);
-		return prop;
-	}
 	/**
 	 * update all components of the game
 	 */
@@ -235,30 +210,33 @@ public class Zombieland extends Game {
 		overlayHealthString.update(elapsedTime);
 		overlayScoreString.update(elapsedTime);
 		overlayAmmoString.update(elapsedTime);
-		zombies.update(elapsedTime);
-		bullets.update(elapsedTime);
-		items.update(elapsedTime);
-		if (zombiesAppeared < ZOMBIES_PER_LEVEL*level*0.5){
+
+		if (Zombie.getZombieCount() < ZOMBIES_PER_LEVEL*level*0.5){
 			if (timer.action(elapsedTime)) {
 				addZombie();
 			}
 		}
-		else if (player.getLevelScore() == zombiesAppeared){
+		else if (player.getLevelScore() == Zombie.getZombieCount()){
 			statLevel.setStat(level+1);
 			overlayLevelString.update(elapsedTime);
 			overlayLevelString.setActive(true);
 			playField.update(elapsedTime);
 			if (timer.action(elapsedTime)){
 				timer.setDelay((long) (2000/level*1.5));
-				zombieHealth = (int) (zombieHealth*level/1.5);
-				zombieDamage = (int) (zombieDamage+level/1.5);
-				zombiesAppeared = 0;
+				
+				Zombie.updateStats(level);
+				Zombie.resetZombieCount();
+				
 				level++;
+				
 				player.resetLevelScore();
 				overlayLevelString.setActive(false);
+				
 			}
 		}
 	}
+	
+
 
 	/**
 	 * Add a zombie to the world. The position is randomly picked. The health and damage
@@ -303,6 +281,8 @@ public class Zombieland extends Game {
 				getImage("resources/ZombieDeath2.png"),
 				getImage("resources/ZombieDeath3.png") };
 		
+		int zombieHealth = 25;
+		int zombieDamage = 5;
 		
 		Zombie newZombie = new Zombie("New", "Moving",
 				getInitializedAnimatedSprite(zombieDownImage),
@@ -325,7 +305,9 @@ public class Zombieland extends Game {
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
 
-		zombiesAppeared++;
+		Zombie.updateZombieCount();
+		
+		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
 		
 	}
@@ -343,6 +325,7 @@ public class Zombieland extends Game {
 		bullet.getCurrentSprite().setImage(
 				ImageUtil.rotate(bullet.getImage(), (int) angle));
 		bullet.setActive(true);
+		SpriteGroup bullets = playField.getGroup("Bullets");
 		bullets.add(bullet);
 	}
 
@@ -382,6 +365,7 @@ public class Zombieland extends Game {
 			item = null;
 		}
 		item.setActive(true);
+		SpriteGroup items = playField.getGroup("Item");
 		items.add(item);
 	}
 

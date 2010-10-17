@@ -2,6 +2,7 @@ package vooga.games.zombieland;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
+import vooga.engine.player.control.GameEntitySprite;
 import vooga.engine.player.control.PlayerSprite;
 
 import java.util.*;
@@ -10,18 +11,23 @@ import java.util.*;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  *
  */
-public class Zombie extends PlayerSprite {
+public class Zombie extends GameEntitySprite {
 
+	private final static int ITEM_CHANCE = 20;
+	private static int attackDelay = 30;
+	private static int zombieAppeared =0;
+	private static double zombieDamage = 0;
+	private static double zombieHealth = 0;
+	
 	private Shooter target;
 	private String directionToMove;
 	private double speed;
-	private int damage;
-	private static int attackDelay = 30;
+
 	private int attackDelayStep;
 	private String currentAttackAnimation = "";
 	private Zombieland game;
 	private Random random;
-	private final static int ITEM_CHANCE = 20;
+	
 
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
@@ -35,15 +41,52 @@ public class Zombie extends PlayerSprite {
 		setHumanTarget(hero);
 		directionToMove = "X";
 		speed = -0.25;
-
+		
+		resetZombieCount();
 		setHealth(health);
 		setDamage(damage);
 		resetAttackDelayStep();
 
 		game = zombieland;
-
 		random = new Random();
 	}
+	
+	public static void updateZombieCount()
+	{
+		zombieAppeared++;
+	}
+	
+	public static void resetZombieCount()
+	{
+		zombieAppeared =0;
+	}
+	
+	public static int getZombieCount()
+	{
+		return zombieAppeared;
+	}
+	
+	public static void setHealth(int health)
+	{
+		zombieHealth = health;
+	}
+	
+	public static void updateHealth(int update)
+	{
+		zombieHealth+=update;
+	}
+	
+	public static void updateStats(int level)
+	{
+		zombieHealth*=level /1.5;
+		zombieDamage = zombieHealth;
+	}
+	
+	public static double getHealth()
+	{
+		return zombieHealth;
+	}
+	
 
 	/**
 	 * Sets the target for the current zombie. Can be used if at some point we
@@ -63,7 +106,7 @@ public class Zombie extends PlayerSprite {
 	 *            damage of the zombie
 	 */
 	private void setDamage(int hit) {
-		damage = hit;
+		zombieDamage = hit;
 	}
 
 	/**
@@ -104,8 +147,8 @@ public class Zombie extends PlayerSprite {
 	 * 
 	 * @return damage of the zombie
 	 */
-	public int getDamage() {
-		return damage;
+	public double getDamage() {
+		return zombieDamage;
 	}
 
 	/**
