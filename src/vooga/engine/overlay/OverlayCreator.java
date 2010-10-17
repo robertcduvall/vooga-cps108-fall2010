@@ -321,7 +321,7 @@ public class OverlayCreator {
 		  }
 		  if(there && myGame != null){
 			  GameFontManager fontManager = new GameFontManager();
-			  return fontManager.getFont(myGame.getImages("resources/font" + str.toLowerCase() + ".png", 20, 3),
+			  return fontManager.getFont(myGame.getImages("./src/vooga/engine/overlay/fontImages/font" + str.toLowerCase() + ".png", 20, 3),
 						" !            .,0123" + "456789:   -? ABCDEFG"
 								+ "HIJKLMNOPQRSTUVWXYZ ");
 		  }else{
