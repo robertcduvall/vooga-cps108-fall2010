@@ -54,7 +54,6 @@ public class Zombieland extends Game {
 	private AnimatedSprite shooterImage;
 	private ImageBackground background;
 	private Shooter player;
-	private int maxHealth;
 
 	private SpriteGroup zombies;
 	private SpriteGroup players;
@@ -107,7 +106,6 @@ public class Zombieland extends Game {
 		// Player animations
 		ResourceBundle bundle = ResourceBundle.getBundle("vooga.games.zombieland.PlayerSpriteResource");
 		
-		
 		BufferedImage[] playerDownImage = getBufferedImageArray(bundle, "Down", 4);
 		BufferedImage[] playerUpImage = getBufferedImageArray(bundle, "Up", 4);
 		BufferedImage[] playerLeftImage = getBufferedImageArray(bundle, "Left", 4);
@@ -116,7 +114,7 @@ public class Zombieland extends Game {
 		BufferedImage sandbg = getImage("resources/sandbackground.png");
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
-		maxHealth = 200;
+		int maxHealth = 200;
 		shooterImage = new AnimatedSprite(playerDownImage, 350, 250);
 		player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0, this);
 		player.mapNameToSprite("Up",
@@ -152,29 +150,14 @@ public class Zombieland extends Game {
 		
 		// INITIALIZATIONS
 		
-
-		statLevel = new Stat<Integer>(level);		
-		
-		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
-		overlayHealthString.setLocation(5, 10);
-		overlayHealthBar = new OverlayBar(player.getStatHealth(), maxHealth);
-		overlayHealthBar.setColor(Color.GREEN);
-		overlayHealthBar.setLocation(80, 18);
-		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
-		overlayScoreString.setLocation(385, 12);
-		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
-		overlayAmmoString.setColor(Color.BLUE);
-		overlayAmmoString.setLocation(470, 12);
-		overlayLevelString = new OverlayStat("Level ", statLevel);
-		overlayLevelString.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
-		overlayLevelString.setActive(false);
+		resetInitialValues();
+		resetOverlay();
 
 		zombies = new SpriteGroup("Zombies");
 		bullets = new SpriteGroup("Bullets");
 		items = new SpriteGroup("Items");
 		playField = new PlayField();
 		control = new KeyboardControl(player, this);
-		timer = new Timer(2000);
 
 		playField.add(player);
 		playField.addGroup(zombies);
@@ -203,10 +186,35 @@ public class Zombieland extends Game {
 		playField.addCollisionGroup(players, items, humanItemManager);
 
 		
+		
+	}
+
+
+	private void resetOverlay() {
+		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
+		overlayHealthString.setLocation(5, 10);
+		System.out.println(player.getHealth());
+		overlayHealthBar = new OverlayBar(player.getStatHealth(), 200);
+		overlayHealthBar.setColor(Color.GREEN);
+		overlayHealthBar.setLocation(80, 18);
+		overlayScoreString = new OverlayStat("Kills: ", player.getStatScore());
+		overlayScoreString.setLocation(385, 12);
+		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
+		overlayAmmoString.setColor(Color.BLUE);
+		overlayAmmoString.setLocation(470, 12);
+		overlayLevelString = new OverlayStat("Level ", statLevel);
+		overlayLevelString.setLocation(GAME_WIDTH/2-60, GAME_HEIGHT/2-10);
+		overlayLevelString.setActive(false);
+	}
+
+
+	private void resetInitialValues() {
 		level = 1;
 		zombiesAppeared = 0;
 		zombieHealth = 25;
 		zombieDamage = 5;
+		timer = new Timer(2000);
+		statLevel = new Stat<Integer>(level);		
 	}
 	
 	public Properties getProperties(String filepath) throws IOException

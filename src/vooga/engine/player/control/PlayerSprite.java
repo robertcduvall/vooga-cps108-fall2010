@@ -31,7 +31,7 @@ public class PlayerSprite extends GameEntitySprite {
 	// constants
 	private final int DEFAULT_RANK = 1;
 	private final int DEFAULT_SCORE = 0;
-	private final int DEFAULT_HEALTH = 10;
+	private final int DEFAULT_HEALTH = 0;
 	private final int DEFAULT_LIVES = 5;
 
 	/**
@@ -73,7 +73,7 @@ public class PlayerSprite extends GameEntitySprite {
 	public PlayerSprite(String name, String stateName, Sprite s,
 			int playerHealth, int playerRank) {
 		this(name, stateName, s);
-		setHealth(playerHealth);
+		updateHealth(playerHealth);
 		updateRank(playerRank);
 	}
 
