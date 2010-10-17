@@ -3,6 +3,7 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.*;
 
 import vooga.engine.overlay.Stat;
+import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
 
 /**
@@ -25,7 +26,7 @@ public class Shooter extends PlayerSprite {
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
-		super(name, stateName, s, playerHealth, playerRank);
+		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];
 
@@ -33,9 +34,12 @@ public class Shooter extends PlayerSprite {
 
 		// Setup displays
 		health = new Stat<Integer>(playerHealth);
+		addStat("health", health);
 		score = new Stat<Integer>(0);
+		addStat("score", score);
 		ammo = new Stat<Integer>(getAmmo());
-
+		addStat("ammo", ammo);
+		
 		// DEFAULT attributes
 		speed = -1;
 		orientation = 90;
@@ -177,15 +181,14 @@ public class Shooter extends PlayerSprite {
 	 * @return true if the player's health is 0
 	 */
 	public boolean healthIsZero() {
-		return (getHealth() <= 0);
+		return (health.getStat() <= 0);
 	}
 
 	/**
 	 * Set health of the shooter
 	 */
 	public void setHealth(int number) {
-		super.setHealth(number);
-		health.setStat(getHealth());
+		health.setStat(number);
 	}
 
 	/**
@@ -193,11 +196,11 @@ public class Shooter extends PlayerSprite {
 	 * 
 	 * @param d
 	 */
-	public void updateStatHealth(double d) {
-		updateHealth(d);
-		if (getHealth()>200)
+	public void updateHealth(double d) {
+		health.setStat((int) (health.getStat()+d));
+		if (health.getStat()>200)
 			setHealth(200);
-		health.setStat(getHealth());
+		health.setStat(health.getStat());
 	}
 
 	/**
@@ -205,7 +208,7 @@ public class Shooter extends PlayerSprite {
 	 * 
 	 * @return health stat objec
 	 */
-	public Stat<Integer> getStatHealth() {
+	public Stat<Integer> getHealth() {
 		return health;
 	}
 
@@ -214,7 +217,7 @@ public class Shooter extends PlayerSprite {
 	 * 
 	 * @return score stat object
 	 */
-	public Stat<Integer> getStatScore() {
+	public Stat<Integer> getScore() {
 		return score;
 	}
 	
@@ -237,9 +240,8 @@ public class Shooter extends PlayerSprite {
 	 * update score
 	 */
 	public void updateScore(int number) {
-		super.updateScore(number);
+		score.setStat(score.getStat()+number);
 		levelScore+=number;
-		score.setStat(getScore());
 	}
 
 	/**
