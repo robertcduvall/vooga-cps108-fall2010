@@ -75,11 +75,11 @@ public class Zombieland extends Game {
 		BufferedImage[] playerDownImage = getBufferedImageArray(
 				MAIN_RESOURCES_PATH, "Down", delim);
 		
-		double playerImageHeight = parseDouble(bundle.getString("playerImageHeight"));
-		double playerImageWidth = parseDouble(bundle.getString("playerImageWidth"));
+		double playerImageHeight = parseDouble("playerImageHeight");
+		double playerImageWidth = parseDouble("playerImageWidth");
 		
-		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, playerImageHeight,
-				playerImageWidth);
+		AnimatedSprite shooterImage = new AnimatedSprite(playerDownImage, 350,
+				250);
 
 		player = new Shooter("Hero", "Down", shooterImage, 200, 0, this);
 
