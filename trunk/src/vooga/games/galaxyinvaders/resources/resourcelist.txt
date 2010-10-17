@@ -1,0 +1,7 @@
+#filepath, name
+resources/ship.gif,ship
+resources/enemy1.png,enemy1
+resources/enemy1damage.png,enemy1damage
+resources/barrier.png,barrier
+resources/health.png,health
+resources/torpedo.png,torpedo
