@@ -26,13 +26,13 @@ public class MouseControl extends Control implements Controller{
 		initializeMappings();
 	}
 	
-	public MouseControl(PlayerSprite initialPlayer, Game game){
-		super(initialPlayer, game);
+	public MouseControl(GameEntitySprite initialEntity, Game game){
+		super(initialEntity, game);
 		initializeMappings();
 	}
 	
-	public MouseControl(ArrayList<PlayerSprite> initialPlayers, Game game){
-		super(initialPlayers, game);
+	public MouseControl(ArrayList<GameEntitySprite> initialEntities, Game game){
+		super(initialEntities, game);
 		initializeMappings();
 	}
 	
@@ -78,11 +78,11 @@ public class MouseControl extends Control implements Controller{
         if (mouseMethodMap.containsKey(key))
         {
             try{
-                for (int i = 0; i < players.size(); i++)
+                for (int i = 0; i < entities.size(); i++)
                 {
                      Method perform = mouseMethodMap.get(key);
                      Object[] paramVals = mouseParamMap.get(key);
-                     perform.invoke(players.get(i), paramVals);
+                     perform.invoke(entities.get(i), paramVals);
                 }
             }
             catch (Throwable e){
