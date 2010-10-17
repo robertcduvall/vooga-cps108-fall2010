@@ -14,7 +14,9 @@ import com.golden.gamedev.object.Sprite;
 public interface MouseMenu {
 
 	public void actOnMouseClicked(double x, double y);
+	public void actOnRightMouseClicked(double x, double y);
 	public void actOnMouseClicked(Sprite sprite);
+	public void actOnRightMouseClicked(Sprite sprite);
 	public void actOnMouseHover(Sprite sprite);
 		
 }
