@@ -191,10 +191,10 @@ public class Shooter extends PlayerSprite {
 	/**
 	 * update the health of the shooter
 	 * 
-	 * @param number
+	 * @param d
 	 */
-	public void updateStatHealth(int number) {
-		updateHealth(number);
+	public void updateStatHealth(double d) {
+		updateHealth(d);
 		if (getHealth()>200)
 			setHealth(200);
 		health.setStat(getHealth());
