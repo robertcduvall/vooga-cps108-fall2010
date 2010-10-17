@@ -143,6 +143,7 @@ public class Zombieland extends Game {
 	 */
 	public void setListeners() {
 		control = new KeyboardControl(player, this);
+		
 		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
