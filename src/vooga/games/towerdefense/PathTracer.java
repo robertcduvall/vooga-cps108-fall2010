@@ -78,10 +78,10 @@ public class PathTracer extends Control implements Controller{
     }
        
         public void update(){
-                for (int i = 0; i < players.size(); i++)
+                for (int i = 0; i < entities.size(); i++)
         {
              try {
-                                moveToCursor(players.get(i));
+                                moveToCursor(entities.get(i));
                         } catch (IOException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
@@ -91,11 +91,11 @@ public class PathTracer extends Control implements Controller{
         if (mouseMethodMap.containsKey(key))
         {
             try{
-                for (int i = 0; i < players.size(); i++)
+                for (int i = 0; i < entities.size(); i++)
                 {
                      Method perform = mouseMethodMap.get(key);
                      Object[] paramVals = mouseParamMap.get(key);
-                     perform.invoke(players.get(i), paramVals);
+                     perform.invoke(entities.get(i), paramVals);
                 }
             }
             catch (Throwable e){
@@ -108,7 +108,7 @@ public class PathTracer extends Control implements Controller{
        
         }
        
-        private void moveToCursor(PlayerSprite player) throws IOException{
+        private void moveToCursor(GameEntitySprite player) throws IOException{
                 player.forceX(myGame.bsInput.getMouseX());
         player.forceY(myGame.bsInput.getMouseY());
        

@@ -38,7 +38,7 @@ public class PlayerCursorControl extends Control implements Controller{
 	}
 	
 	public PlayerCursorControl(ArrayList<PlayerSprite> initialPlayers, Game game){
-		super(initialPlayers, game);
+		super(game);
 		initializeMappings();
 	}
 	
@@ -80,19 +80,19 @@ public class PlayerCursorControl extends Control implements Controller{
 	
 	@Override
 	public void update(){
-		for (int i = 0; i < players.size(); i++)
+		for (int i = 0; i < entities.size(); i++)
         {				
-				players.get(i).setLocation(myGame.bsInput.getMouseX(), myGame.bsInput.getMouseY());
+				entities.get(i).setLocation(myGame.bsInput.getMouseX(), myGame.bsInput.getMouseY());
         }
 		int key = myGame.bsInput.getMousePressed();
         if (mouseMethodMap.containsKey(key))
         {
             try{
-                for (int i = 0; i < players.size(); i++)
+                for (int i = 0; i < entities.size(); i++)
                 {
                      Method perform = mouseMethodMap.get(key);
                      Object[] paramVals = mouseParamMap.get(key);
-                     perform.invoke(players.get(i), paramVals);
+                     perform.invoke(entities.get(i), paramVals);
                 }
             }
             catch (Throwable e){
