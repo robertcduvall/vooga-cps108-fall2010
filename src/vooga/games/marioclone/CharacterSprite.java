@@ -2,6 +2,7 @@ package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
 
 import com.golden.gamedev.object.Sprite;
@@ -11,11 +12,9 @@ import com.golden.gamedev.object.Sprite;
  */
 
 @SuppressWarnings("serial")
-public class CharacterSprite extends PlayerSprite {
+public abstract class CharacterSprite extends PlayerSprite {
 
 	double gravity = .0025 ;
-
-
 	
 	BufferedImage rightImage;
 	BufferedImage leftImage;
@@ -24,8 +23,18 @@ public class CharacterSprite extends PlayerSprite {
 		super(name, stateName, new Sprite(right));
 		leftImage = left;
 		rightImage = right;
+		addStat("Health", new StatInt(getMaxHealth()));
 	}
 	
+	public abstract Integer getMaxHealth();
+	
+	public void setHealth(int health) {
+		getStat("Health").setStat(health);
+	}
+	
+	public int getHealth() {
+		return getStat("Health").getStat();
+	}
 
 	@Override
 	public void update(long elapsedTime) {

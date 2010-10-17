@@ -16,7 +16,8 @@ import vooga.engine.player.control.PlayerSprite;
 
 public class Enemy extends CharacterSprite {
 
-	double mySpeed = .25;
+	private static final double mySpeed = .25;
+	private static final Integer myMaxHealth = 100;
 	
 	/**
 	 * Constructs an enemy sprite out of the parameters listed below:
@@ -31,7 +32,6 @@ public class Enemy extends CharacterSprite {
 			BufferedImage right) {
 		super(name, stateName, left, right);
 		setHorizontalSpeed(mySpeed*Math.signum(Math.random()-.5));
-		setHealth(100);
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class Enemy extends CharacterSprite {
 	 * 
 	 */
 	public void update(long elapsedTime) {
-		if(getHealth() <= 0)
+		if(getStat("Health").getStat() <= 0)
 			setActive(false);
 		
 		super.update(elapsedTime);
@@ -60,6 +60,11 @@ public class Enemy extends CharacterSprite {
 		if(getHorizontalSpeed()<0) setNewImage(leftImage);
 		else if(getHorizontalSpeed()>0) setNewImage(rightImage);
 		
+	}
+
+	@Override
+	public Integer getMaxHealth() {
+		return myMaxHealth;
 	}
 
 

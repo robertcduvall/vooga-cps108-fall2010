@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
 
-	static final int DEFAULT_HEALTH = 100;
+	private static final int myMaxHealth = 100;
 	private double jumpSpeed = 1;
 	private double speed=.5;
 	private boolean onGround = false;
@@ -13,7 +13,6 @@ public class MarioSprite extends CharacterSprite {
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
 		super(name, stateName, left, right);
-		setHealth(DEFAULT_HEALTH);
 	}
 	
 	public void moveRight() {
@@ -73,5 +72,10 @@ public class MarioSprite extends CharacterSprite {
 		if(getX()<=0) {
 			setX(0);
 		}
+	}
+
+	@Override
+	public Integer getMaxHealth() {
+		return myMaxHealth;
 	}
 }

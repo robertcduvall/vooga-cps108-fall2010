@@ -121,7 +121,7 @@ public class MarioClone extends Game {
 
 		if (myWinState.isActive() || myLoseState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
-				myMario.setHealth(MarioSprite.DEFAULT_HEALTH);
+				myMario.setHealth(myMario.getMaxHealth());
 				myMario.setActive(true);
 				myGamePlayState.init();
 				myGameStateManager.switchTo(myGamePlayState);
