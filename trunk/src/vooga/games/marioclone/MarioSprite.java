@@ -73,6 +73,7 @@ public class MarioSprite extends CharacterSprite {
 			setX(0);
 		}
 	}
+	
 
 	@Override
 	public Integer getMaxHealth() {

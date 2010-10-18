@@ -30,25 +30,30 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 		
 //		The following is what should make collisions work, but doesn't.
 		
-		
-		if(mario.getHorizontalSpeed() > 0  && mario.getX()+mario.getWidth() <= tile.getX())
-			side = Side.RL;
-		else if(mario.getHorizontalSpeed() < 0  && mario.getX() >= tile.getX()+tile.getWidth())
-			side = Side.LR;
+		if(mario.getHorizontalSpeed() < 0  && mario.getX() >= tile.getX())
+			collisionSide = LEFT_RIGHT_COLLISION;
+		if(mario.getVerticalSpeed() < 0  && mario.getY() >= tile.getY())
+			collisionSide = TOP_BOTTOM_COLLISION;
 		
 		switch(getCollisionSide()) {
-//		case(LEFT_RIGHT_COLLISION):
-//			mario.setHorizontalSpeed(0);
-//			break;
-//		case(RIGHT_LEFT_COLLISION):
-//			mario.setHorizontalSpeed(0);
-//			break;
+		case(LEFT_RIGHT_COLLISION):
+			mario.setHorizontalSpeed(0);
+			mario.setX(tile.getX()+tile.getWidth());
+			break;
+		case(RIGHT_LEFT_COLLISION):
+			mario.setHorizontalSpeed(0);
+			mario.setX(tile.getX()-mario.getWidth()+1);
+			break;
 		case(TOP_BOTTOM_COLLISION):
 			((Tile) tile).actOnCollision(mario);
 			mario.setVerticalSpeed(0);
+			mario.setY(tile.getY()+tile.getHeight());
+			break;
 		case(BOTTOM_TOP_COLLISION):
 			((MarioSprite) mario).setOnGround(true);
 			mario.setVerticalSpeed(0);
+			mario.setY(tile.getY()-mario.getHeight()+1);
+			break;
 		}
 		
 		switch(side) {
@@ -63,8 +68,8 @@ public class MarioToTileCollision extends AdvanceCollisionGroup{
 		printCollisionSide();
 			
 		
-		revertPosition1();
+//		revertPosition1();
 				
 	}
-
+	
 }
