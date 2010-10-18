@@ -1,15 +1,11 @@
 package vooga.games.grandius.collisions;
 
-import java.awt.image.BufferedImage;
-
-import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.games.grandius.Grandius;
-import vooga.games.grandius.enemy.boss.BossPart;
 
-import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
-import com.golden.gamedev.object.sprite.VolatileSprite;
+
 
 /**
  * This class takes care of collisions between a player-side
@@ -29,7 +25,7 @@ public class BasicCollision extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite playerSideSprite, Sprite commonEnemy) {
 		//TODO - add an explosion sound (done)
-		grandius.playSound(Resources.getMapping("ExplosionSound"));
+		grandius.playSound(ResourcesBeta.getSound("ExplosionSound"));
 		// make the explosion image stay longer
 	}
 	

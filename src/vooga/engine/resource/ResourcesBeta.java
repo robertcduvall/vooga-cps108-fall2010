@@ -5,14 +5,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.io.InputStream;
 
 import com.golden.gamedev.*;
 
@@ -49,20 +47,25 @@ public class ResourcesBeta {
 		loadImage(key, new File(defaultPath + filePath));
 	}
 
-	public static void loadAnimation(String key, String[] filePaths) {
-		BufferedImage[] animation = new BufferedImage[filePaths.length];
-		for (int i = 0; i < animation.length; i++) {
-			animation[i] = myGame.getImage(defaultPath + filePaths[i]);
-		}
-		imageMap.put(key, animation);
-	}
-
 	public static void loadAnimation(String key, File[] files) {
 		BufferedImage[] animation = new BufferedImage[files.length];
 		for (int i = 0; i < animation.length; i++) {
 			animation[i] = myGame.getImage(files[i].getPath());
 		}
 		imageMap.put(key, animation);
+	}
+	
+	public static void loadAnimation(String key, String[] filePaths) {
+		File[] files = new File[filePaths.length];
+		for (int i = 0; i < filePaths.length; i++) {
+			files[i] = new File(defaultPath + filePaths[i]);
+		}
+		loadAnimation(key, files);
+//		BufferedImage[] animation = new BufferedImage[filePaths.length];
+//		for (int i = 0; i < animation.length; i++) {
+//			animation[i] = myGame.getImage(defaultPath + filePaths[i]);
+//		}
+//		imageMap.put(key, animation);
 	}
 
 	/**
@@ -100,13 +103,13 @@ public class ResourcesBeta {
 	}
 
 	public static void loadImageFile(String imageListFile) throws IOException {
-		StringTokenizer st;
-		List<String> lines = getLinesFromFile(imageListFile);
+		List<String> lines = getLinesFromFile(defaultPath + imageListFile);
 		for (int y = 0; y < lines.size(); y++) {
-			String line = lines.get(y);
-			st = new StringTokenizer(line, ",");
-			String name = st.nextToken();
-			String filepath = st.nextToken();
+			String[] tokens = getTokensFromLine(lines.get(y));
+			System.out.println("tokens="+tokens.length);
+			String name = tokens[0];
+			String filepath = tokens[1];
+			int counter = 1;
 			ArrayList<String> pathList = new ArrayList<String>();
 			if (filepath.equals("")) {
 				System.out.println("Name " + name
@@ -114,8 +117,10 @@ public class ResourcesBeta {
 			} else {
 				while (!filepath.equals("")) {
 					pathList.add(filepath);
-					if (st.hasMoreTokens())
-						filepath = st.nextToken();
+					if (counter < tokens.length) {
+						filepath = tokens[counter];
+						counter++;
+					}
 					else
 						break;
 				}
@@ -131,13 +136,11 @@ public class ResourcesBeta {
 	}
 
 	public static void loadSoundFile(String soundListFile) throws IOException {
-		StringTokenizer st;
-		List<String> lines = getLinesFromFile(soundListFile);
+		List<String> lines = getLinesFromFile(defaultPath+soundListFile);
 		for (int y = 0; y < lines.size(); y++) {
-			String line = lines.get(y);
-			st = new StringTokenizer(line, ",");
-			String name = st.nextToken();
-			String filepath = st.nextToken();
+			String[] tokens = getTokensFromLine(lines.get(y));
+			String name = tokens[0];
+			String filepath = tokens[1];
 			loadSound(name, filepath);
 		}
 	}
@@ -166,23 +169,12 @@ public class ResourcesBeta {
 	}
 	
 	private static String[] getTokensFromLine(String line){
-		//Placeholder. Will reduce redundancy in loading images vs sounds
-		return null;
+		StringTokenizer st = new StringTokenizer(line, ",");
+		int totalTokens = st.countTokens();
+		String[] tokens = new String[totalTokens];
+		for (int i = 0; i < totalTokens; i++) {
+			tokens[i] = st.nextToken();
+		}
+		return tokens;
 	}
-
-	/**
-	 * Returns as an InputStream the file specified by filename.
-	 * 
-	 * @param filename
-	 *            The String representation of the filename.
-	 * @return
-	 */
-	public static InputStream getResourceAsStream(String filename) {
-		return ResourceHandler.class.getClassLoader().getResourceAsStream(
-				filename);
-	}
-
-	
-	
-
 }

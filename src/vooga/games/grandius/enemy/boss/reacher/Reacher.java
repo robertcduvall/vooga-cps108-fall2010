@@ -3,7 +3,7 @@ package vooga.games.grandius.enemy.boss.reacher;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.games.grandius.enemy.boss.GrandiusBoss;
 
 import com.golden.gamedev.object.Sprite;
@@ -70,7 +70,7 @@ public class Reacher extends GrandiusBoss {
 	}
 
 	public Sprite fireTopBeam() {
-		Sprite beam = new Sprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+this.getHeight()/7);
+		Sprite beam = new Sprite(ResourcesBeta.getImage("ReacherBeam"),this.getX(),this.getY()+this.getHeight()/7);
 		beam.setHorizontalSpeed(-REACHER_BEAM_SPEED);
 		fireTopBeamTimer = new Timer(REACHER_BEAM_RELOAD_TIME);
 		topBeamReloaded = false;
@@ -78,7 +78,7 @@ public class Reacher extends GrandiusBoss {
 	}
 
 	public Sprite fireBottomBeam() {
-		Sprite beam = new Sprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+5*this.getHeight()/7);
+		Sprite beam = new Sprite(ResourcesBeta.getImage("ReacherBeam"),this.getX(),this.getY()+5*this.getHeight()/7);
 		beam.setHorizontalSpeed(-REACHER_BEAM_SPEED);
 		fireBottomBeamTimer = new Timer(REACHER_BEAM_RELOAD_TIME);
 		bottomBeamReloaded = false;
@@ -86,7 +86,7 @@ public class Reacher extends GrandiusBoss {
 	}
 
 	public Sprite fireRedRay() {
-		Sprite redray = new Sprite(Resources.getImage("ReacherRedRay"),this.getX()+this.getWidth()/4,this.getY()+3*this.getHeight()/7);
+		Sprite redray = new Sprite(ResourcesBeta.getImage("ReacherRedRay"),this.getX()+this.getWidth()/4,this.getY()+3*this.getHeight()/7);
 		redray.setHorizontalSpeed(-REACHER_REDRAY_SPEED);
 		fireRedRayTimer = new Timer(REACHER_REDRAY_RELOAD_TIME);
 		redRayReloaded = false;
@@ -107,11 +107,11 @@ public class Reacher extends GrandiusBoss {
 		if (myHealth <= 0) {
 			return true;
 		} else if (myHealth >= myBreakpoints[0]) {
-			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[3]});
+			this.setImages(new BufferedImage[]{ResourcesBeta.getAnimation("Reacher")[3]});
 		} else if (myHealth >= myBreakpoints[1]) {
-			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[4]});
+			this.setImages(new BufferedImage[]{ResourcesBeta.getAnimation("Reacher")[4]});
 		} else {
-			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[5]});
+			this.setImages(new BufferedImage[]{ResourcesBeta.getAnimation("Reacher")[5]});
 		} 
 		return false;
 	}

@@ -19,7 +19,7 @@ import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
-import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
@@ -118,23 +118,18 @@ public class Grandius extends Game {
 	private static final String SKIP_LEVEL = "getmeouttahere";
 	private static final String ACTIVATE_MISSILE = "missiletime";
 
-	/**
-	 * Initializes the lives, score, and
-	 * cash trackers as well as the
-	 * overlay panel.
-	 */
-	public Grandius()
-	{
+	@Override
+	public void initResources() {
+		
+		//From old constructor
 		myPanel = new OverlayPanel(this, true);
 //		OVERLAYS_GROUP = new SpriteGroup("overlays");
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
-	}
-
-	@Override
-	public void initResources() { 
-		Resources.setGame(this);
+		
+		ResourcesBeta.setDefaultPath("src/vooga/games/grandius/resources/");
+		ResourcesBeta.setGame(this);
 		gameState = 0;
 		screen = new Dimension(640,480);
 		playerInitialX = PLAYER_INITIAL_X;
@@ -143,21 +138,23 @@ public class Grandius extends Game {
 		//Load the resourcelist.txt file to initialize resource mappings.
 		try {
 			//TODO Modify resources file so resources/images doesn't need to be typed every time
-			Resources.loadFile("src/vooga/games/grandius/resources/resourcelist.txt");
+			ResourcesBeta.loadImageFile("imagelist.txt");
+			ResourcesBeta.loadSoundFile("soundlist.txt");
 		} catch (IOException e) {
-			System.out.println("failed to load resource file");
+			System.out.println("failed to load resource files");
 		}
 
-		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
+		livesIcon = new OverlayStatImage(ResourcesBeta.getImage("PlayerShipSingle"));
 
 		myPlayfield = new PlayField();
 		addOverlays();
 
-		myBackground = new ImageBackground(Resources.getImage("BG"), 640, 480);
+		myBackground = new ImageBackground(ResourcesBeta.getImage("BG"), 640, 480);
 		myPlayfield.setBackground(myBackground);
 
-		shipsprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
-		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
+		shipsprite = new Sprite(ResourcesBeta.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
+		//playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
+		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite);
 		createComets();
 
 		PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
@@ -208,7 +205,7 @@ public class Grandius extends Game {
 		myPlayfield.addCollisionGroup(MISSILE_GROUP, BOSS_GROUP, missileBossCollision);
 		myPlayfield.addCollisionGroup(BLACK_HOLE_GROUP, ENEMY_GROUP, blackHoleEnemyCollision);
 
-		//TODO - change to work with Resources class
+		//TODO - change to work with ResourcesBeta class
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" +
 				"456789:   -? ABCDEFG" +
@@ -281,8 +278,8 @@ public class Grandius extends Game {
 		if (gameState == MENU){
 			if(click()){
 				gameState = GAME_PLAY;
-				playSound(Resources.getMapping("WatchThisSound"));
-				playSound(Resources.getMapping("StartLevelSound"));
+				playSound(ResourcesBeta.getSound("WatchThisSound"));
+				playSound(ResourcesBeta.getSound("StartLevelSound"));
 				try {
 					//TODO Understand GameClock's role
 					GameClock.start();
@@ -351,7 +348,7 @@ public class Grandius extends Game {
 			createComets();
 			initLevel(nextLevel.get(0), nextLevel.get(1), nextLevel.get(2));
 			addOverlays();
-			playSound(Resources.getMapping("StartLevelSound"));
+			playSound(ResourcesBeta.getSound("StartLevelSound"));
 			gameState = GAME_PLAY;
 		}
 	}
@@ -391,27 +388,27 @@ public class Grandius extends Game {
 	 */
 	private void fireWeapon() {
 		if (keyPressed(KeyEvent.VK_ALT)) {             
-			Sprite projectile = new Sprite(Resources.getImage("Projectile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
+			Sprite projectile = new Sprite(ResourcesBeta.getImage("Projectile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
 			projectile.setHorizontalSpeed(BULLET_SPEED);
 			PROJECTILE_GROUP.add(projectile);
-			playSound(Resources.getMapping("LaserSound"));
+			playSound(ResourcesBeta.getSound("LaserSound"));
 		}
 		if (keyPressed(KeyEvent.VK_SPACE)){
-			Sprite projectile = new Sprite(Resources.getImage("ProjectileVertical"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
+			Sprite projectile = new Sprite(ResourcesBeta.getImage("ProjectileVertical"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
 			projectile.setVerticalSpeed(BULLET_SPEED);
 			PROJECTILE_GROUP.add(projectile);
-			playSound(Resources.getMapping("LaserSound"));
+			playSound(ResourcesBeta.getSound("LaserSound"));
 		}
 		if (keyPressed(KeyEvent.VK_M) && missileActive) {  
-			Missile missile = new Missile(Resources.getImage("Missile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
+			Missile missile = new Missile(ResourcesBeta.getImage("Missile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
 			missile.setHorizontalSpeed(BULLET_SPEED);
 			MISSILE_GROUP.add(missile);
-			playSound(Resources.getMapping("MissileSound"));
+			playSound(ResourcesBeta.getSound("MissileSound"));
 		}
 		if (keyPressed(KeyEvent.VK_B) && blackHoleActive) {  
-			BlackHole blackHole = new BlackHole(Resources.getImage("BlackHole"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
+			BlackHole blackHole = new BlackHole(ResourcesBeta.getImage("BlackHole"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
 			BLACK_HOLE_GROUP.add(blackHole);
-			playSound(Resources.getMapping("MissileSound"));
+			playSound(ResourcesBeta.getSound("MissileSound"));
 		}
 
 	}
@@ -428,11 +425,11 @@ public class Grandius extends Game {
 			if (as instanceof Zipster) {
 				if (((Zipster)(as)).willFire(playersprite)) {
 					ENEMY_PROJECTILE_GROUP.add(((Zipster)(as)).fireLaser());
-					playSound(Resources.getMapping("ZipsterLaserSound"));
+					playSound(ResourcesBeta.getSound("ZipsterLaserSound"));
 				}
 				as.setHorizontalSpeed(-((Zipster)(as)).getSpeed());
 				//((Zipster) as).setSpin(0);
-				((Zipster) as).setImages(new BufferedImage[]{Resources.getAnimation("SpinningZipster")[((Zipster) as).getSpin()]});
+				((Zipster) as).setImages(new BufferedImage[]{ResourcesBeta.getAnimation("SpinningZipster")[((Zipster) as).getSpin()]});
 				if (!((Zipster) as).isProximateToBlackHole())
 					((Zipster) as).setSpin(0);
 				((Zipster)as).setProximateToBlackHole(false);
@@ -444,7 +441,7 @@ public class Grandius extends Game {
 			if (bp instanceof ReacherEye) {
 				if (((ReacherEye)(bp)).willFire(playersprite)) {
 					ENEMY_PROJECTILE_GROUP.add(((ReacherEye)(bp)).fireBeam());
-					playSound(Resources.getMapping("ReacherEyeBeamSound"));
+					playSound(ResourcesBeta.getSound("ReacherEyeBeamSound"));
 				} 
 				bp.setHorizontalSpeed(-((ReacherEye)(bp)).getSpeed());
 			}
@@ -455,15 +452,15 @@ public class Grandius extends Game {
 			if (b instanceof Reacher) {
 				if (((Reacher)(b)).topBeamWillFire(playersprite)) {
 					ENEMY_PROJECTILE_GROUP.add(((Reacher)(b)).fireTopBeam());
-					playSound(Resources.getMapping("ReacherBeamSound"));
+					playSound(ResourcesBeta.getSound("ReacherBeamSound"));
 				}
 				if (((Reacher)(b)).bottomBeamWillFire(playersprite)) {
 					ENEMY_PROJECTILE_GROUP.add(((Reacher)(b)).fireBottomBeam());
-					playSound(Resources.getMapping("ReacherBeamSound"));
+					playSound(ResourcesBeta.getSound("ReacherBeamSound"));
 				} 
 				if (((Reacher)(b)).redRayWillFire(playersprite)) {
 					ENEMY_PROJECTILE_GROUP.add(((Reacher)(b)).fireRedRay());
-					playSound(Resources.getMapping("ReacherRedRaySound"));
+					playSound(ResourcesBeta.getSound("ReacherRedRaySound"));
 				} 
 				b.setHorizontalSpeed(-((Reacher)(b)).getSpeed());
 			}
@@ -583,13 +580,13 @@ public class Grandius extends Game {
 					reacherEyesDestroyed++;
 			}
 			if (reacherEyesDestroyed == 1) {
-				((Reacher)(reacherSprite)).setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[1]});
+				((Reacher)(reacherSprite)).setImages(new BufferedImage[]{ResourcesBeta.getAnimation("Reacher")[1]});
 			} else if (reacherEyesDestroyed == 3) {
-				((Reacher)(reacherSprite)).setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[2]}); 
+				((Reacher)(reacherSprite)).setImages(new BufferedImage[]{ResourcesBeta.getAnimation("Reacher")[2]}); 
 			} else if (reacherEyesDestroyed == 5 && !reacherShieldsDepleted) {
 				//Deplete shields, but do not reset to the "depleted shields" image more than once (the next
 				//images should be of the Reacher's status becoming yellow, then red)
-				((Reacher)(reacherSprite)).setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[3]});
+				((Reacher)(reacherSprite)).setImages(new BufferedImage[]{ResourcesBeta.getAnimation("Reacher")[3]});
 				reacherShieldsDepleted = true;
 				((Reacher)(reacherSprite)).setVulnerable(true);
 			}
@@ -666,7 +663,7 @@ public class Grandius extends Game {
 			myPlayfield.clearPlayField();
 			gameOver.setLocation(screen.getWidth() / 3, screen.getHeight() / 2);
 			myPlayfield.add(gameOver);
-			playSound(Resources.getMapping("OhManSound"));
+			playSound(ResourcesBeta.getSound("OhManSound"));
 		}
 
 	}
@@ -696,7 +693,7 @@ public class Grandius extends Game {
 			Random valY = new Random();
 			double x = valX.nextDouble();
 			double y = valY.nextDouble();
-			Sprite backgroundSprite = new Sprite(Resources.getImage("Comet"),
+			Sprite backgroundSprite = new Sprite(ResourcesBeta.getImage("Comet"),
 					(x * 10000), (y * 480));
 			backgroundSprite.setHorizontalSpeed(-0.18);
 			myPlayfield.add(backgroundSprite);

@@ -1,7 +1,7 @@
 package vooga.games.grandius.enemy.common;
 import java.awt.image.BufferedImage;
 
-import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 import com.golden.gamedev.object.*;
 
@@ -50,7 +50,7 @@ public class Zipster extends Enemy {
 	 * @return The laser sprite to add to the game field.
 	 */
 	public Sprite fireLaser() {
-		Sprite laser = new Sprite(Resources.getImage("ZipsterLaser"),this.getX()-this.getWidth(),this.getY());
+		Sprite laser = new Sprite(ResourcesBeta.getImage("ZipsterLaser"),this.getX()-this.getWidth(),this.getY());
 		laser.setHorizontalSpeed(-ZIPSTER_LASER_SPEED);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
 		reloaded = false;
