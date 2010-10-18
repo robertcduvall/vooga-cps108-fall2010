@@ -17,5 +17,9 @@ public class Normal extends ShootingTower{
 	public Normal(double x, double y, EventManager eventManager) {
 		super(IMAGE, x, y, PREVIEW_IMAGE, COST, eventManager, RANGE, SHOT_SPEED, SHOT_DELAY);
 	}
+	
+	public Tower clone(){
+		return new Normal(getX(), getY(), getEventManager());
+	}
 
 }

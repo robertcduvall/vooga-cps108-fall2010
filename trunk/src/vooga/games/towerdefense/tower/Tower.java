@@ -38,4 +38,7 @@ public abstract class Tower extends Sprite{
 
 	
 	public abstract void update(long elapsedTime);
+	
+	@Override
+	public abstract Tower clone();
 }

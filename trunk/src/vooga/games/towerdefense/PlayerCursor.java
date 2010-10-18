@@ -127,9 +127,11 @@ public class PlayerCursor extends PlayerSprite {
 	
 	private void buildTower(){
 		
-		if (creditBalance.getStat() >= towerCost && offPath() && inPlayArea()) {
+		if (creditBalance.getStat() >= currentTower.getCost() && offPath() && inPlayArea()) {
 			eventManager.fireEvent("BuildTowerEvent", new BuildTowerEvent(this, "BuildTowerEvent", currentTower,  getX(), getY()));
-			creditBalance.setStat(creditBalance.getStat() - towerCost);
+			creditBalance.setStat(creditBalance.getStat() - currentTower.getCost());
+			changeTowerType(currentTower.clone());
+			
 		}
 	}
 	
