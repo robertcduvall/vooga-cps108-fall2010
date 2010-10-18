@@ -33,7 +33,7 @@ import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.doodlejump.DoodleState;
-import vooga.games.towerdefense.tower.TowerBuilder;
+import vooga.games.towerdefense.tower.*;
 /**
  * This is the main class of the game.  It creates the different states of the games, and loads all the sprites used in the game.
  * 
@@ -73,6 +73,7 @@ public class TowerDefense extends Game {
 	private int spawnSpeed;
 	private EventManager eventManager;
 	private TowerBuilder towerBuilder;
+	private TowerTargetFinder towerTargetFinder;
 
 
 
@@ -84,7 +85,10 @@ public class TowerDefense extends Game {
 		eventManager = new EventManager();
 		towerBuilder = new TowerBuilder();
 		towerBuilder.setGame(this);
+		towerTargetFinder = new TowerTargetFinder();
+		towerTargetFinder.setGame(this);
 		eventManager.addEventListener("BuildTowerEvent", towerBuilder);
+		eventManager.addEventListener("NeedsTargetsEvent", towerTargetFinder);
 		begin();
 		
 		stateManager.switchTo(startMenu);
@@ -238,15 +242,15 @@ public class TowerDefense extends Game {
 				.addControl(new KeyboardControl(player, this));
 		playerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
 				"vooga.games.towerdefense.PlayerCursor");
-		playerKeyboardControl.setParams(new Class[] { String.class });
+		playerKeyboardControl.setParams(new Class[] { Tower.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_1, "changeTowerType",
-				"vooga.games.towerdefense.PlayerCursor", "NormalTower");
-		playerKeyboardControl.setParams(new Class[] { String.class });
+				"vooga.games.towerdefense.PlayerCursor", new Normal(0,0, eventManager));
+		playerKeyboardControl.setParams(new Class[] { Tower.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_2, "changeTowerType",
-				"vooga.games.towerdefense.PlayerCursor", "FastTower");
-		playerKeyboardControl.setParams(new Class[] { String.class });
+				"vooga.games.towerdefense.PlayerCursor", new Fast(0,0, eventManager));
+		playerKeyboardControl.setParams(new Class[] { Tower.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_3, "changeTowerType",
-				"vooga.games.towerdefense.PlayerCursor", "SniperTower");
+				"vooga.games.towerdefense.PlayerCursor", new Sniper(0, 0, eventManager));
 		
 		
 		menuGroup.add(player);

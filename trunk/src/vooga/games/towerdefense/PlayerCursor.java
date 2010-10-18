@@ -18,6 +18,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.events.BuildTowerEvent;
+import vooga.games.towerdefense.tower.*;
 
 /**
  * Since the player does not have a physical representation, the cursor 
@@ -33,50 +34,25 @@ public class PlayerCursor extends PlayerSprite {
 	private TowerDefense myGame;
 	private Stat<Integer> creditBalance;
 	private int towerCost;
-	private String towerType;
-	private Class towerDefinition;
 	private NonSetGameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
 	private EventManager eventManager;
+	private Tower currentTower;
 
 	public PlayerCursor(String name, String stateName, Sprite s, TowerDefense game, Stat<Integer> balance,NonSetGameStateManager states, EventManager eventManager) {
 		super(name, stateName, s);
 		myGame = game;
 		creditBalance = balance;
-		changeTowerType("NormalTower");
+		changeTowerType(new Normal(0,0, eventManager));
 		stateManager = states;
 		this.eventManager = eventManager;
 	}
-
-	public void changeTowerType(String newTowerType) {
-		towerType = newTowerType;
-		updateTowerType();
+	
+	public void changeTowerType(Tower newTower){
+		currentTower = newTower;
+		setNewImage(currentTower.getPreviewImage());
 	}
-
-	private void updateTowerType() {
-		try {
-			towerDefinition = Class.forName("vooga.games.towerdefense."
-					+ towerType);
-			Field field = towerDefinition.getDeclaredField("PREVIEW");
-			BufferedImage image = (BufferedImage) field.get(null);
-			setNewImage(image);
-			field = towerDefinition.getDeclaredField("COST");
-			towerCost = field.getInt(null);
-
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void onClick() {
 		if(myGame.play.isActive()){
 			buildTower();
@@ -136,13 +112,13 @@ public class PlayerCursor extends PlayerSprite {
 		if(mouseY>215 && mouseY<500){
 			if(mouseX > 760 && mouseX<1000){
 				if(mouseY<300){
-					changeTowerType("NormalTower");
+					changeTowerType(new Normal(0,0, eventManager));
 				}
 				if(mouseY>315 && mouseY<400){
-					changeTowerType("FastTower");
+					changeTowerType(new Fast(0,0, eventManager));
 				}
 				if(mouseY>415){
-					changeTowerType("SniperTower");
+					changeTowerType(new Sniper(0,0, eventManager));
 				}
 				
 			}
@@ -152,7 +128,7 @@ public class PlayerCursor extends PlayerSprite {
 	private void buildTower(){
 		
 		if (creditBalance.getStat() >= towerCost && offPath() && inPlayArea()) {
-			eventManager.fireEvent("BuildTowerEvent", new BuildTowerEvent(this, "BuildTowerEvent", towerType,  getX(), getY()));
+			eventManager.fireEvent("BuildTowerEvent", new BuildTowerEvent(this, "BuildTowerEvent", currentTower,  getX(), getY()));
 			creditBalance.setStat(creditBalance.getStat() - towerCost);
 		}
 	}
@@ -171,28 +147,6 @@ public class PlayerCursor extends PlayerSprite {
 		return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 	}
 
-	public static Object createTower(Constructor constructor, Object[] arguments) {
-
-		Object object = null;
-
-		try {
-			object = constructor.newInstance(arguments);
-			return object;
-		} catch (InstantiationException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		}
-		return object;
-	}
 	
 	public void render(Graphics2D g) {
 		if(inPlayArea() && myGame.play.isActive()){
