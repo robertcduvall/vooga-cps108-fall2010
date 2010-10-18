@@ -9,6 +9,7 @@ public class MarioSprite extends CharacterSprite {
 	private double jumpSpeed = 1;
 	private double speed=.5;
 	private boolean onGround = false;
+	private double lastX;
 	
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
@@ -16,24 +17,14 @@ public class MarioSprite extends CharacterSprite {
 	}
 	
 	public void moveRight() {
-		if (!isOnScreen()) {
-			System.out.println("off screen");
-			setHorizontalSpeed(0);
-		} else {
-			setHorizontalSpeed(speed);
-		}
+		lastX = getX();
+		setHorizontalSpeed(speed);
 		setNewImage(rightImage);
 		
 	}
-
 	public void moveLeft() {
-		if (!isOnScreen()) {
-			System.out.println("off screen");
-			setHorizontalSpeed(0);
-			setX(0);
-		} else {
-			setHorizontalSpeed(-speed);
-		}
+		lastX = getX();
+		setHorizontalSpeed(-speed);
 		setNewImage(leftImage);
 	}
 
