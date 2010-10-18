@@ -55,17 +55,17 @@ public class Zombieland extends Game {
 	private Timer timer;
 	private KeyboardControl control;
 
-	private AnimatedSprite zombieUpImage;
-	private AnimatedSprite zombieDownImage;
-	private AnimatedSprite zombieLeftImage;
-	private AnimatedSprite zombieRightImage;
+	private BufferedImage[] zombieUpImage;
+	private BufferedImage[] zombieDownImage;
+	private BufferedImage[] zombieLeftImage;
+	private BufferedImage[] zombieRightImage;
 
-	private AnimatedSprite zombieAttackUpImage;
-	private AnimatedSprite zombieAttackDownImage;
-	private AnimatedSprite zombieAttackLeftImage;
-	private AnimatedSprite zombieAttackRightImage;
+	private BufferedImage[] zombieAttackUpImage;
+	private BufferedImage[] zombieAttackDownImage;
+	private BufferedImage[] zombieAttackLeftImage;
+	private BufferedImage[] zombieAttackRightImage;
 
-	private AnimatedSprite zombieDeathImage;
+	private BufferedImage[] zombieDeathImage;
 
 	private int startZombieHealth;
 	private int startZombieDamage;
@@ -118,8 +118,8 @@ public class Zombieland extends Game {
 
 	private void resetOverlayLevelString() {
 
-		int overlayLevelStringX = parseInt( "overlayLevelStringX");
-		int overlayLevelStringY = parseInt( "overlayLevelStringY");
+		int overlayLevelStringX = parseInt("overlayLevelStringX");
+		int overlayLevelStringY = parseInt("overlayLevelStringY");
 
 		overlayLevelString = new OverlayStat("Level ", statLevel);
 		overlayLevelString
@@ -129,8 +129,8 @@ public class Zombieland extends Game {
 
 	private void resetOverlayAmmoString() {
 
-		int overlayAmmoStringX = parseInt( "overlayAmmoStringX");
-		int overlayAmmoStringY = parseInt( "overlayAmmoStringY");
+		int overlayAmmoStringX = parseInt("overlayAmmoStringX");
+		int overlayAmmoStringY = parseInt("overlayAmmoStringY");
 		String overlayAmmoStringMessage = bundle
 				.getString("overlayAmmoStringMessage");
 
@@ -141,8 +141,8 @@ public class Zombieland extends Game {
 	}
 
 	private void resetOverlayScoreString() {
-		int overlayScoreStringX = parseInt( "overlayScoreStringX");
-		int overlayScoreStringY = parseInt( "overlayScoreStringY");
+		int overlayScoreStringX = parseInt("overlayScoreStringX");
+		int overlayScoreStringY = parseInt("overlayScoreStringY");
 		String overlayAmmoStringMessage = bundle
 				.getString("overlayScoreStringMessage");
 
@@ -165,8 +165,8 @@ public class Zombieland extends Game {
 
 	private void resetOverlayHealthString() {
 
-		int overlayHealthStringX = parseInt( "overlayHealthStringX");
-		int overlayHeatlhStringY = parseInt( "overlayHealthStringY");
+		int overlayHealthStringX = parseInt("overlayHealthStringX");
+		int overlayHeatlhStringY = parseInt("overlayHealthStringY");
 
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(overlayHealthStringX,
@@ -223,10 +223,10 @@ public class Zombieland extends Game {
 	}
 
 	private void initializePlayer() {
-		double playerDefaultX = parseDouble( "playerDefaultX");
-		double playerDefaultY = parseDouble( "playerDefaultY");
-		int maxHealth = parseInt( "maxHealth");
-		int playerRank = parseInt( "playerRank");
+		double playerDefaultX = parseDouble("playerDefaultX");
+		double playerDefaultY = parseDouble("playerDefaultY");
+		int maxHealth = parseInt("maxHealth");
+		int playerRank = parseInt("playerRank");
 
 		BufferedImage[] defaultImage = getBufferedImageArray(
 				MAIN_RESOURCES_PATH, "Down", delim);
@@ -247,30 +247,30 @@ public class Zombieland extends Game {
 
 	public void initializeZombie() {
 
-		startZombieHealth = parseInt( "startZombieHealth");
-		startZombieDamage = parseInt( "startZombieDamage");
-		startZombieDelay = parseInt( "startZombieDelay");
+		startZombieHealth = parseInt("startZombieHealth");
+		startZombieDamage = parseInt("startZombieDamage");
+		startZombieDelay = parseInt("startZombieDelay");
 
 		// Zombie animations
 		String delim = bundle.getString("delim");
-		zombieDownImage = getInitializedAnimatedSprite(MAIN_RESOURCES_PATH,
+		zombieDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
 				"ZombieDown", delim);
-		zombieUpImage = getInitializedAnimatedSprite(MAIN_RESOURCES_PATH,
-				"ZombieUp", delim);
-		zombieLeftImage = getInitializedAnimatedSprite(MAIN_RESOURCES_PATH,
+		zombieUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieUp",
+				delim);
+		zombieLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
 				"ZombieLeft", delim);
-		zombieRightImage = getInitializedAnimatedSprite(MAIN_RESOURCES_PATH,
+		zombieRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
 				"ZombieRight", delim);
-		zombieAttackDownImage = getInitializedAnimatedSprite(
-				MAIN_RESOURCES_PATH, "ZombieAttackDown", delim);
-		zombieAttackUpImage = getInitializedAnimatedSprite(MAIN_RESOURCES_PATH,
+		zombieAttackDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
+				"ZombieAttackDown", delim);
+		zombieAttackUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
 				"ZombieAttackUp", delim);
-		zombieAttackLeftImage = getInitializedAnimatedSprite(
-				MAIN_RESOURCES_PATH, "ZombieAttackLeft", delim);
-		zombieAttackRightImage = getInitializedAnimatedSprite(
-				MAIN_RESOURCES_PATH, "ZombieAttackRight", delim);
-		zombieDeathImage = getInitializedAnimatedSprite(MAIN_RESOURCES_PATH,
-				"ZombieDeath", delim, startZombieDelay, false);
+		zombieAttackLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
+				"ZombieAttackLeft", delim);
+		zombieAttackRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
+				"ZombieAttackRight", delim);
+		zombieDeathImage = getBufferedImageArray(MAIN_RESOURCES_PATH,
+				"ZombieDeath", delim);
 	}
 
 	private BufferedImage[] getBufferedImageArray(String bundleURL, String key,
@@ -287,37 +287,35 @@ public class Zombieland extends Game {
 		return images;
 	}
 
-	// /**
-	// * Initialize a set of images to be animated.
-	// *
-	// * @param images
-	// * a set of images to be made into an animated sprite
-	// * @return initialized animated sprite
-	// */
-	// private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[]
-	// images) {
-	// return getInitializedAnimatedSprite(images, defaultAnimationDelay, true);
-	// }
-	//
-	// /**
-	// *
-	// * Initialize a set of images to be animated.
-	// *
-	// * @param images
-	// * a set of images to be made into an animated sprite
-	// * @param delay
-	// * animation delay
-	// * @param loop
-	// * loop the animation
-	// * @return initialized animated sprite
-	// */
-	// private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[]
-	// images,
-	// long delay, boolean loop) {
-	// AnimatedSprite sprite = new AnimatedSprite(images);
-	// initializeAnimatedSprite(sprite, delay, loop);
-	// return sprite;
-	// }
+	/**
+	 * Initialize a set of images to be animated.
+	 * 
+	 * @param images
+	 *            a set of images to be made into an animated sprite
+	 * @return initialized animated sprite
+	 */
+	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
+		return getInitializedAnimatedSprite(images, defaultAnimationDelay, true);
+	}
+
+	/**
+	 * 
+	 * Initialize a set of images to be animated.
+	 * 
+	 * @param images
+	 *            a set of images to be made into an animated sprite
+	 * @param delay
+	 *            animation delay
+	 * @param loop
+	 *            loop the animation
+	 * @return initialized animated sprite
+	 */
+	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images,
+			long delay, boolean loop) {
+		AnimatedSprite sprite = new AnimatedSprite(images);
+		initializeAnimatedSprite(sprite, delay, loop);
+		return sprite;
+	}
 
 	private AnimatedSprite getInitializedAnimatedSprite(String bundleURL,
 			String key, String delim) {
@@ -360,6 +358,7 @@ public class Zombieland extends Game {
 		String string = bundle.getString(keyName);
 		return Integer.parseInt(string);
 	}
+
 	public String getData(String key) {
 		return bundle.getString(key);
 	}
@@ -378,7 +377,6 @@ public class Zombieland extends Game {
 
 		if (moreZombieCanBeAdded()) {
 			if (timer.action(elapsedTime)) {
-				System.out.print(zombiesAppeared);
 				addZombie();
 				zombiesAppeared++;
 			}
@@ -411,12 +409,18 @@ public class Zombieland extends Game {
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", "Moving", zombieDownImage,
-				zombieUpImage, zombieLeftImage, zombieRightImage,
-				zombieAttackDownImage, zombieAttackUpImage,
-				zombieAttackLeftImage, zombieAttackRightImage,
-				zombieDeathImage, startZombieHealth, startZombieDamage, player,
-				this);
+		Zombie newZombie = new Zombie("New", "Moving",
+				getInitializedAnimatedSprite(zombieDownImage),
+				getInitializedAnimatedSprite(zombieUpImage),
+				getInitializedAnimatedSprite(zombieLeftImage),
+				getInitializedAnimatedSprite(zombieRightImage),
+				getInitializedAnimatedSprite(zombieAttackDownImage),
+				getInitializedAnimatedSprite(zombieAttackUpImage),
+				getInitializedAnimatedSprite(zombieAttackLeftImage),
+				getInitializedAnimatedSprite(zombieAttackRightImage),
+				getInitializedAnimatedSprite(zombieDeathImage,
+						startZombieDelay, false), startZombieHealth,
+				startZombieDamage, player, this);
 
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
@@ -493,9 +497,9 @@ public class Zombieland extends Game {
 		control.addInput(KeyEvent.VK_DOWN, VK_DOWN_METHOD, PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
 
-		int VK_1_INT = parseInt( "VK_1");
-		int VK_2_INT = parseInt( "VK_2");
-		int VK_3_INT = parseInt( "VK_3");
+		int VK_1_INT = parseInt("VK_1");
+		int VK_2_INT = parseInt("VK_2");
+		int VK_3_INT = parseInt("VK_3");
 
 		control.setParams(new Class[] { int.class });
 		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, VK_1_INT);
