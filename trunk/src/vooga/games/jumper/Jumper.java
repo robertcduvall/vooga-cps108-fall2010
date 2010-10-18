@@ -67,10 +67,10 @@ public class Jumper extends vooga.engine.core.Game {
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
 	private SpriteGroup myPlayers = new SpriteGroup("players");
 	
-	private int blockTypeNormal     = 1;
-	private int blockTypeSpring     = 2;
-	private int blockTypeNotBroken  = 3;
-	private int blockTypeJetpack    = 4;
+	private final int blockTypeNormal     = 1;
+	private final int blockTypeSpring     = 2;
+	private final int blockTypeNotBroken  = 3;
+	private final int blockTypeJetpack    = 4;
 	
 	private GameState normalGameState;
 	private GameState jetpackGameState;
@@ -191,40 +191,44 @@ public class Jumper extends vooga.engine.core.Game {
 		 * randomXVelocity is currently not used by any blocks. (oct. 9 2:16pm -- devon)
 		 */
 		double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
-
+		
 		//make the correct type of block
 		if (randomBlockOccurance < myBlockFrequency){
-			Sprite block;
+			Sprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
 			if (myBlockCounter == myBlockCounterIncrement){
 				//Point velocity = new Point();  << what is this? --Devon
-				block = new BlockSprite(ResourceHandler.getImage("platformGray"), randomLocation, myBlockVelocity, myBlockVelocity);
+				block.setImage(ResourceHandler.getImage("platformGray"));
+				block.setVerticalSpeed(myBlockVelocity);
+//				block = new BlockSprite(ResourceHandler.getImage("platformGray"), randomLocation, myBlockVelocity, myBlockVelocity);
 				block.setID(blockTypeNormal);
 				myBlockCounter++;
 
 			} else if(myBlockCounter == 2*myBlockCounterIncrement){
-				block = new BlockSprite(ResourceHandler.getImage("platformRed"), randomLocation, 0, myBlockVelocity*fastBlockSpeedMultiplier);
+				block.setImage(ResourceHandler.getImage("platformRed"));
+				block.setVerticalSpeed(myBlockVelocity*fastBlockSpeedMultiplier);
+//				block = new BlockSprite(ResourceHandler.getImage("platformRed"), randomLocation, 0, myBlockVelocity*fastBlockSpeedMultiplier);
 				block.setID(blockTypeNormal);
 
 				myBlockCounter++;
 
 			} else if(myBlockCounter == 3*myBlockCounterIncrement){
-				block = new BlockSprite(ResourceHandler.getImage("platformLightBlueWide"), randomLocation, 0, myBlockVelocity);
+				block.setImage(ResourceHandler.getImage("platformLightBlueWide"));
 				block.setID(blockTypeNormal);
 				myBlockCounter++;
 			} else if(myBlockCounter == 4*myBlockCounterIncrement){
-				block = new BlockSprite(ResourceHandler.getImage("platformBreak"), randomLocation, 0, myBlockVelocity);
+				block.setImage(ResourceHandler.getImage("platformBreak"));
 				block.setID(blockTypeNotBroken);
 				myBlockCounter++;
 			} else if(myBlockCounter == 5*myBlockCounterIncrement){
-				block = new BlockSprite(ResourceHandler.getImage("platformSpringDouble"), randomLocation, 0, myBlockVelocity);
+				block.setImage(ResourceHandler.getImage("platformSpringDouble"));
 				block.setID(blockTypeSpring);
 				myBlockCounter++;
 			} else if(myBlockCounter == 6*myBlockCounterIncrement){
-				block = new BlockSprite(ResourceHandler.getImage("jetpack"), randomLocation, 0, myBlockVelocity);
+				block.setImage(ResourceHandler.getImage("jetpack"));
 				block.setID(blockTypeJetpack);
 				myBlockCounter = 0;
 			} else {
-				block = new BlockSprite(ResourceHandler.getImage("platformGreen"), randomLocation, 0, myBlockVelocity);
+				block.setImage(ResourceHandler.getImage("platformGreen"));
 				block.setID(blockTypeNormal);
 				myBlockCounter++;
 			}
