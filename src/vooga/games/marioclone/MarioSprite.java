@@ -1,6 +1,7 @@
 package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
+import com.golden.gamedev.object.Background;
 
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
@@ -9,7 +10,7 @@ public class MarioSprite extends CharacterSprite {
 	private double jumpSpeed = 1;
 	private double speed=.5;
 	private boolean onGround = false;
-	private double lastX;
+	private double myMaxX;
 	
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
@@ -17,13 +18,11 @@ public class MarioSprite extends CharacterSprite {
 	}
 	
 	public void moveRight() {
-		lastX = getX();
 		setHorizontalSpeed(speed);
 		setNewImage(rightImage);
 		
 	}
 	public void moveLeft() {
-		lastX = getX();
 		setHorizontalSpeed(-speed);
 		setNewImage(leftImage);
 	}
@@ -55,6 +54,10 @@ public class MarioSprite extends CharacterSprite {
 		
 	@Override
 	public void update(long elapsedTime) {
+		double x = getX(); 
+		if(x > myMaxX){
+			myMaxX = x;
+		}
 		if(getHealth() <= 0)
 			setActive(false);
 		
@@ -63,8 +66,16 @@ public class MarioSprite extends CharacterSprite {
 		if(getX()<=0) {
 			setX(0);
 		}
+		int halfScreen = getBackground().getWidth()/2; 
+		if((myMaxX-halfScreen) >= getX()){
+			setX(myMaxX-halfScreen);
+		}
 	}
 	
+
+	public double getMaxX() {
+		return myMaxX;
+	}
 
 	@Override
 	public Integer getMaxHealth() {
