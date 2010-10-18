@@ -2,7 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.games.grandius.Grandius;
 import vooga.games.grandius.enemy.common.Enemy;
 
@@ -33,7 +33,7 @@ public class ProjectileEnemyCollision extends BasicCollision{
 		super.collided(bullet, enemy);
 		bullet.setActive(false);
 		enemy.setActive(false);
-		BufferedImage[] images = Resources.getAnimation("Explosion");
+		BufferedImage[] images = ResourcesBeta.getAnimation("Explosion");
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		grandius.getPlayfield().add(explosion);
 		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());

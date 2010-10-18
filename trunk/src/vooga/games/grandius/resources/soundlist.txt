@@ -1,0 +1,11 @@
+LaserSound,sounds/laser.wav
+MissileSound,sounds/missile.wav
+ZipsterLaserSound,sounds/zipster_laser.wav
+ExplosionSound,sounds/explosion.wav
+LargeExplosionSound,sounds/large_explosion.wav
+OhManSound,sounds/oh_man.wav
+ReacherBeamSound,sounds/reacher_beam.wav
+ReacherEyeBeamSound,sounds/reacher_eye_beam.wav
+ReacherRedRaySound,sounds/reacher_redray.wav
+StartLevelSound,sounds/start_level.wav
+WatchThisSound,sounds/watch_this.wav
