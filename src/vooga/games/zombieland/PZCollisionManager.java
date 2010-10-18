@@ -48,7 +48,7 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 			currentZombie.resetAttackDelayStep();
 			currentPlayer.updateHealth(-currentZombie.getDamage());
 		} else
-			currentZombie.updateAttactStep();
+			currentZombie.updateAttackStep();
 	}
 
 	/**
@@ -62,19 +62,21 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 	 */
 	private void initiateAttackAnimation(int attackDirection,
 			Zombie currentZombie) {
+		String direction = "";
 		switch (attackDirection) {
 		case 0:
-			currentZombie.setAttackAnimation("AttackRight");
+			direction = "AttackRight";
 			break;
 		case 1:
-			currentZombie.setAttackAnimation("AttackUp");
+			direction = "AttackUp";
 			break;
 		case 2:
-			currentZombie.setAttackAnimation("AttackLeft");
+			direction = "AttackLeft";
 			break;
 		case 3:
-			currentZombie.setAttackAnimation("AttackDown");
+			direction = "AttackDown";
 			break;
 		}
+		currentZombie.setAttackAnimation(direction);
 	}
 }

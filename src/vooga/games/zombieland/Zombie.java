@@ -33,6 +33,7 @@ public class Zombie extends GameEntitySprite {
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
 			Shooter hero, Zombieland zombieland, int health, int damage) {
+
 		super(name, stateName, down);
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
@@ -40,39 +41,6 @@ public class Zombie extends GameEntitySprite {
 		mapNameToSprite("Down", down);
 
 		setHumanTarget(hero);
-		directionToMove = "X";
-		speed = -0.25;
-
-		// resetZombieCount();
-		setHealth(health);
-		setDamage(damage);
-		resetAttackDelayStep();
-
-		game = zombieland;
-		random = new Random();
-	}
-
-	public Zombie(String name, String stateName, AnimatedSprite down,
-			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-			AnimatedSprite attackDown, AnimatedSprite attackUp,
-			AnimatedSprite attackLeft, AnimatedSprite attackRight,
-			AnimatedSprite death, int health, int damage, Shooter player,
-			Zombieland zombieland) {
-		super(name, stateName, down);
-
-		mapNameToSprite("Down", down);
-		mapNameToSprite("Up", up);
-		mapNameToSprite("Left", left);
-		mapNameToSprite("Right", right);
-
-		mapNameToSprite("AttackDown", attackDown);
-		mapNameToSprite("AttackUp", attackUp);
-		mapNameToSprite("AttackLeft", attackLeft);
-		mapNameToSprite("AttackRight", attackRight);
-
-		mapNameToSprite("ZombieDeath", death);
-
-		setHumanTarget(player);
 		directionToMove = "X";
 		speed = -0.25;
 
@@ -91,43 +59,12 @@ public class Zombie extends GameEntitySprite {
 	public void resetZombieCount() {
 		zombieAppeared = 0;
 	}
-
+		
 	public int getZombieCount() {
 		return zombieAppeared;
 	}
 
-	// public Zombie(String name, String stateName, AnimatedSprite down,
-	// AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-	// AnimatedSprite attackDown, AnimatedSprite attackUp,
-	// AnimatedSprite attackLeft, AnimatedSprite attackRight,
-	// AnimatedSprite death, int health, int damage, Shooter player,
-	// Zombieland zombieland) {
-	// super(name, stateName, down);
-	//
-	// mapNameToSprite("Down", down);
-	// mapNameToSprite("Up", up);
-	// mapNameToSprite("Left", left);
-	// mapNameToSprite("Right", right);
-	//
-	// mapNameToSprite("AttackDown", attackDown);
-	// mapNameToSprite("AttackUp", attackUp);
-	// mapNameToSprite("AttackLeft", attackLeft);
-	// mapNameToSprite("AttackRight", attackRight);
-	//
-	// mapNameToSprite("ZombieDeath", death);
-	//
-	// setHumanTarget(player);
-	// directionToMove = "X";
-	// speed = -0.25;
-	//
-	// setHealth(health);
-	// setDamage(damage);
-	// resetAttackDelayStep();
-	//
-	// game = zombieland;
-	// random = new Random();
-	// }
-
+		
 	public void setHealth(int health) {
 		zombieHealth = health;
 	}
@@ -138,7 +75,7 @@ public class Zombie extends GameEntitySprite {
 
 	public void updateStats(int level) {
 		zombieHealth *= level / 1.5;
-		zombieDamage *= level;
+		setDamage(level);
 	}
 
 	public double getHealth() {
@@ -163,7 +100,7 @@ public class Zombie extends GameEntitySprite {
 	 *            damage of the zombie
 	 */
 	private void setDamage(int hit) {
-		zombieDamage = hit;
+		zombieDamage += hit;
 	}
 
 	/**
@@ -252,7 +189,7 @@ public class Zombie extends GameEntitySprite {
 	/**
 	 * Update attack step. Used to force intervals between attacks
 	 */
-	public void updateAttactStep() {
+	public void updateAttackStep() {
 		attackDelayStep++;
 	}
 
@@ -274,42 +211,7 @@ public class Zombie extends GameEntitySprite {
 		currentAttackAnimation = side;
 	}
 
-	/**
-	 * Keep track of heath and controls animation, movement, and item drop
-	 */
-	public void update(long elapsedTime) {
-		super.update(elapsedTime);
-
-		if (isHealthZero()) {
-			setToCurrentSprite("ZombieDeath");
-			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
-			// When the death animation is finished
-			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
-				// Kill zombie
-				setActive(false);
-				// Update score
-				target.updateScore(1);
-				
-				int item = random.nextInt(100);
-				if (item < ITEM_CHANCE) {
-					// Drop item
-					game.addRandomItem(getX(), getY());
-				}
-			}
-			return;
-		}
-
-		// Attack animation
-		if (!currentAttackAnimation.isEmpty()) {
-			setToCurrentSprite(currentAttackAnimation);
-			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
-			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
-				currentAttackAnimation = "";
-			}
-			return;
-		}
-
-		// Movement control
+	private void moveZombie() {
 		double direction = getDirection();
 		if (directionToMove.equals("X")) {
 			if (direction < 0) {
@@ -332,4 +234,48 @@ public class Zombie extends GameEntitySprite {
 		}
 	}
 
+	private void attackAnimation() {
+		setToCurrentSprite(currentAttackAnimation);
+		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
+		if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
+			currentAttackAnimation = "";
+		}
+		return;
+	}
+
+	private void zombieDeath() {
+		setToCurrentSprite("ZombieDeath");
+		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
+		// When the death animation is finished
+		if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
+			// Kill zombie
+			setActive(false);
+			// Update score
+			target.updateScore(1);
+			int item = random.nextInt(100);
+			if (item < ITEM_CHANCE) {
+				// Drop item
+				game.addRandomItem(getX(), getY());
+			}
+		}
+		return;
+	}
+
+	/**
+	 * Keep track of heath and controls animation, movement, and item drop
+	 */
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+
+		if (isHealthZero()) {
+			zombieDeath();
+			return;
+		}
+
+		if (!currentAttackAnimation.isEmpty()) {
+			attackAnimation();
+			return;
+		}
+		moveZombie();
+	}
 }

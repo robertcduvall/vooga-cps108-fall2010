@@ -17,6 +17,7 @@ public class Shooter extends PlayerSprite {
 	private static final int shotgunAmmo = 40;
 	private static final int rifleAmmo = 100;
 	private static final int pistalAmmo = 99999;
+	private int maxHealth;
 	private Zombieland game;
 	private int speed;
 	private double orientation;
@@ -32,6 +33,7 @@ public class Shooter extends PlayerSprite {
 		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];
+		maxHealth = playerHealth;
 
 		setupWeapons();
 
@@ -201,8 +203,8 @@ public class Shooter extends PlayerSprite {
 	 */
 	public void updateHealth(double d) {
 		health.setStat((int) (health.getStat()+d));
-		if (health.getStat()>200)
-			setHealth(200);
+		if (health.getStat()>maxHealth)
+			setHealth(maxHealth);
 		health.setStat(health.getStat());
 	}
 
@@ -262,5 +264,4 @@ public class Shooter extends PlayerSprite {
 			setActive(false);
 		}
 	}
-
 }

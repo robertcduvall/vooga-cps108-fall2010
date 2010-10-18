@@ -17,6 +17,7 @@ public class Bullet extends GameEntitySprite {
 	private double angle;
 	private double userX;
 	private double userY;
+	private double adjustment;
 
 	public Bullet(double x, double y, double bulletAngle, double bulletDamage,
 			double bulletSpeed) {
@@ -27,6 +28,7 @@ public class Bullet extends GameEntitySprite {
 		angle = bulletAngle;
 		velocity = bulletSpeed;
 		correctPositionOffset();
+		adjustment = angle / 360.0 * Math.PI * 2;
 	}
 
 	/**
@@ -101,12 +103,10 @@ public class Bullet extends GameEntitySprite {
 	 * Update the location of this bullet. Used for animation
 	 */
 	public void update(long elapsedTime) {
-		double newXAmountFromAngle = Math.cos(angle / 360.0 * Math.PI * 2)
-				* velocity;
+		double newXAmountFromAngle = Math.cos(adjustment)* velocity;
 		moveX(newXAmountFromAngle);
 
-		double newYAmountFromAngle = Math.sin(angle / 360.0 * Math.PI * 2)
-				* velocity;
+		double newYAmountFromAngle = Math.sin(adjustment)* velocity;
 		moveY(newYAmountFromAngle);
 
 	}

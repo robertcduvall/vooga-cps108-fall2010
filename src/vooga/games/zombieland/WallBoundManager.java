@@ -14,11 +14,9 @@ public class WallBoundManager extends CollisionBounds {
 
 	public WallBoundManager(Background bg) {
 		super(bg);
-
 	}
 
 	public void collided(Sprite gameObject) {
-
 		revertPosition1();
 	}
 }
