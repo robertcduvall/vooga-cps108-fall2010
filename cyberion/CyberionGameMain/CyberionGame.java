@@ -150,7 +150,10 @@ public class CyberionGame extends Game {
 		loadImages();
 		
 		playGameState.initialize();
+		playGameState.setGame(this);
+		playGameState.activate();
 		gameStateManager.addGameState(playGameState);
+		
 		//
 		// bsInput.setMouseVisible(false);
 		// bsSound.setVolume(0.1f);
