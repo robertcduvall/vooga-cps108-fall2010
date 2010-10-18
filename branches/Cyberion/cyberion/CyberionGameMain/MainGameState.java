@@ -1,15 +1,9 @@
-//VERY CLOSE TO ACTUALLY MAKING THIS WORK ... ugh. we have to fix how images are loaded. it's about time we use a resourceBundle. For REAL!
-
 package vooga.games.cyberion.CyberionGameMain;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Random;
 
-import com.golden.gamedev.engine.BaseAudio;
-import com.golden.gamedev.engine.BaseInput;
-import com.golden.gamedev.engine.BaseLoader;
-import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -18,7 +12,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 import vooga.engine.event.EventManager;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.ResourcesBeta;
+
 import vooga.engine.state.GameState;
 import vooga.games.cyberion.Collision.EnemyCollidesWithShot;
 import vooga.games.cyberion.Collision.PlayerCollidesEnemy;
@@ -33,8 +27,7 @@ import vooga.games.cyberion.CyberionSprite.PlayerShot;
 import vooga.games.cyberion.CyberionSprite.StarGroup;
 
 public class MainGameState extends GameState {
-	BaseInput bsInput;
-	BaseAudio bsSound;
+
 	// creates image background
 	ImageBackground bg;
 	// creates image variables
@@ -60,6 +53,7 @@ public class MainGameState extends GameState {
 	// creates keyboard control
 	private KeyboardControl keyboardControl;
 	private Resources resources;
+
 	//
 	@Override
 	public void initialize() {
@@ -68,20 +62,22 @@ public class MainGameState extends GameState {
 
 	// initializes sprites from images
 	private void setSprites() {
-//TODO: MAKE THIS WORK:
-//		Resources.loadImage("starImage", 
-//				"vooga/games/cyberion/Resources/star.png");
-//		Resources.loadImage("playerShot",
-//				"/vooga/src/vooga/games/cyberion/Resources/playerShot.png");
-//		Resources.loadImage("enemyShot",
-//				"/vooga/src/vooga/games/cyberion/Resources/enemyShot.png");
-//		Resources.loadImage("playerShip",
-//				"/vooga/src/vooga/games/cyberion/Resources/playerShip.png");
-//		Resources.loadImage("enemyShip",
-//				"/vooga/src/vooga/games/cyberion/Resources/enemyShip.png");
-//		Resources
-//				.loadImage("bonus", "/vooga/src/vooga/games/cyberion/Resources/bonus.png");
-//		Resources.loadImage("bg", "/vooga/src/vooga/games/cyberion/Resources/bg.png");
+		// TODO: MAKE THIS WORK:
+		// Resources.loadImage("starImage",
+		// "vooga/games/cyberion/Resources/star.png");
+		// Resources.loadImage("playerShot",
+		// "/vooga/src/vooga/games/cyberion/Resources/playerShot.png");
+		// Resources.loadImage("enemyShot",
+		// "/vooga/src/vooga/games/cyberion/Resources/enemyShot.png");
+		// Resources.loadImage("playerShip",
+		// "/vooga/src/vooga/games/cyberion/Resources/playerShip.png");
+		// Resources.loadImage("enemyShip",
+		// "/vooga/src/vooga/games/cyberion/Resources/enemyShip.png");
+		// Resources
+		// .loadImage("bonus",
+		// "/vooga/src/vooga/games/cyberion/Resources/bonus.png");
+		// Resources.loadImage("bg",
+		// "/vooga/src/vooga/games/cyberion/Resources/bg.png");
 
 		BufferedImage playerShotImage = Resources.getImage("playerShot");
 		BufferedImage enemyShotImage = Resources.getImage("enemyShot");
@@ -94,8 +90,7 @@ public class MainGameState extends GameState {
 		playerGroup = new SpriteGroup("PlayerGroup");
 		playerShip = new PlayerShip("playerShip", "normal", new Sprite(
 				playerImage));
-		
-		
+
 		playerShip.setEventManager(eventManager);
 		keyboardControl = new KeyboardControl();
 		keyboardControl = playerShip.setKeyboardControl(keyboardControl);
@@ -124,7 +119,7 @@ public class MainGameState extends GameState {
 		playerShot = new PlayerShot("PlayerShot", 0, 0, 480, 640,
 				playerShotImage);
 		enemyShot = new EnemyShot("EnemyShot", enemyShotImage);
-		
+
 		this.addGroup(star);
 		this.addGroup(playerGroup);
 		this.addGroup(enemyGroup);
@@ -133,13 +128,39 @@ public class MainGameState extends GameState {
 		this.addGroup(playerShot);
 
 	}
+
+	@Override
+	public void update(long elapsedTime) {
+//		star.update(elapsedTime);
+//		playerGroup.update(elapsedTime);
+//		playerShot.update(elapsedTime);
+//		enemyGroup.update(elapsedTime);
+//		enemyShot.update(elapsedTime);
+//		bonusGroup.update(elapsedTime);
+		keyboardControl.update();
+
+		playerCollidesWithWall.checkCollision();
+		playerCollidesWithEnemy.checkCollision();
+		playerCollidesWithShot.checkCollision();
+		playerCollidesWithBonus.checkCollision();
+		enemyCollidesWithShot.checkCollision();
+	}
 	
+	public void render(Graphics2D g){
+//		 bg.render(g);
+//		 star.render(g);
+//		 playerGroup.render(g);
+//		 playerShot.render(g);
+//		 enemyGroup.render(g);
+//		 enemyShot.render(g);
+//		 bonusGroup.render(g);
+	}
 
 	// initializes collision managers
 	private void setCollisionDetection() {
 
-		enemyCollidesWithShot = new EnemyCollidesWithShot(bsSound);
-		enemyCollidesWithShot.setCollisionGroup(playerShot, enemyGroup);
+		// enemyCollidesWithShot = new EnemyCollidesWithShot(bsSound);
+		// enemyCollidesWithShot.setCollisionGroup(playerShot, enemyGroup);
 		playerCollidesWithEnemy = new PlayerCollidesEnemy();
 		playerCollidesWithEnemy.setCollisionGroup(playerGroup, enemyGroup);
 		playerCollidesWithWall = new PlayerCollidesWall(bg);
@@ -167,25 +188,10 @@ public class MainGameState extends GameState {
 		BufferedImage gameBg = Resources.getImage("bg");
 		bg = new ImageBackground(gameBg, 640, 480);
 
-		
-
 		setCollisionDetection();
 
 		startEventManager();
 
 	}
 
-	public void setBaseInput(BaseInput bi) {
-		bsInput = bi;
-	}
-
-	public void setBaseAudio(BaseAudio ba) {
-		bsSound = ba;
-	}
-
-	public void setResources(Resources r) {
-		resources = r;
-
-	}
-
- }
+}
