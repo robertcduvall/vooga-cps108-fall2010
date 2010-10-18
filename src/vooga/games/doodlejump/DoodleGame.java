@@ -194,6 +194,14 @@ public class DoodleGame extends Game {
 	@Override
 	public void render(Graphics2D g) {
 		playField.render(g);
+		
+		if (menuInt == 1) {
+			playField.getBackground().render(g);
+		}
+		else if (menuInt %2 != 0) {
+			playField.getBackground().render(g);
+		}
+		
 		scoreString.render(g);
 	}
 
