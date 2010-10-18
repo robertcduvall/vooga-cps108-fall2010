@@ -21,13 +21,9 @@ public class MainMenuState extends GameState {
 	public MainMenuState(int width, int height, GameFontManager fontManager) {
 		super();
 		menuFont = fontManager.getFont("MENU");
+		mainMenu = new ImageBackground(Resources.getImage("MenuBG"));
 		WIDTH = width;
 		HEIGHT = height;
-	}
-	
-	@Override
-	public void initialize() {
-		mainMenu = new ImageBackground(Resources.getImage("MenuBG"));
 	}
 	
 	@Override

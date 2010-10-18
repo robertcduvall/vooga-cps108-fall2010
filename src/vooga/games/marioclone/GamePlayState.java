@@ -101,6 +101,7 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
+		myLevels = new ArrayList<MarioLevel>();
 		myEnemiesKilled = new Stat<Integer>(new Integer(0));
 		myScoreOverlay = new OverlayStat("Score: ",
 				myEnemiesKilled);
@@ -119,14 +120,6 @@ public class GamePlayState extends GameState {
 		myLevels.add(level);
 	}
 
-	/**
-	 * Method extended from GameState class used to initialize Levels.
-	 * 
-	 */
-
-	public void initialize() {
-		myLevels = new ArrayList<MarioLevel>();
-	}
 
 	/**
 	 * Main render method that renders the backgrounds and playfield.

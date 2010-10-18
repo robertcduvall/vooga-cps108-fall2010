@@ -10,18 +10,16 @@ import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.Randomizer;
-import vooga.engine.resource.RandomizerException;
 import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 
 public class MarioLevel {
-	
+
 	private Game myGame;
 	private KeyboardControl myControl;
 	private MarioPlayField myPlayField;
@@ -38,14 +36,14 @@ public class MarioLevel {
 	private int myBackgroundWidth;
 	private int myBackgroundHeight;
 	private boolean myLevelFinished;
-	
+
 	public MarioLevel(File mapFile, int width, int height, Game game, OverlayStat scoreOverlay, Stat<Integer> enemiesKilled, 
 			OverlayStat livesOverlay, Stat<Integer> livesLeft) {
 		myScoreOverlay = scoreOverlay;
 		myEnemiesKilled = enemiesKilled;
 		myLives = livesLeft;
 		myLivesOverlay = livesOverlay;
-		myLevelFinished = false; 
+		myLevelFinished = false;
 		myGame = game;
 		TileMap map = null;
 		try {
@@ -55,8 +53,8 @@ public class MarioLevel {
 		}
 		myWidth = width;
 		myHeight = height;
-		myBackgroundWidth = map.width*map.TILE_SIZE;
-		myBackgroundHeight = map.height*map.TILE_SIZE;
+		myBackgroundWidth = map.width * map.TILE_SIZE;
+		myBackgroundHeight = map.height * map.TILE_SIZE;
 		myPlayField = new MarioPlayField(map);
 		myPlayField.addGroup(map.getTileGroup());
 		myScoreOverlay.setLocation(myWidth - 1000, 5);
@@ -64,8 +62,8 @@ public class MarioLevel {
 
 		getPlayField().add(myScoreOverlay);
 		getPlayField().add(myLivesOverlay);
-		
-		Background marioBackground = new ColorBackground(Color.blue,myBackgroundWidth, myBackgroundHeight);
+		Background marioBackground = new ColorBackground(new Color(139, 201,
+				240), myBackgroundWidth, myBackgroundHeight);
 		marioBackground.setClip(0, 0, myWidth, myHeight);
 		myMario = new MarioSprite("mario", "regular", Resources
 				.getImage("MarioR"), Resources.getImage("MarioL"));
@@ -76,7 +74,7 @@ public class MarioLevel {
 		getPlayField().setBackground(marioBackground);
 		myTimer = new Timer(FREQ_ENEMIES);
 	}
-	
+
 	public MarioSprite getMario() {
 		return myMario;
 	}
@@ -99,10 +97,10 @@ public class MarioLevel {
 
 	public void update(long elapsedTime) {
 		myControl.update();
-		if(myMario.getX() >= (myBackgroundWidth-200)){
+		if (myMario.getX() >= (myBackgroundWidth - 200)) {
 			myLevelFinished = true;
 		}
-		if(myMario.getX() > myMario.getMaxX()){
+		if (myMario.getX() > myMario.getMaxX()) {
 			scrollLevel();
 		}
 		getPlayField().update(elapsedTime);
@@ -112,13 +110,13 @@ public class MarioLevel {
 		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()+numKilled);
 		myLives.setStat(myMario.getHealth());
 	}
-	
-	private int removeKilled(){
+
+	private int removeKilled() {
 		SpriteGroup group = getPlayField().getGroup("Enemy Group");
 		Sprite[] sprites = group.getSprites();
 		int num = 0;
-		for(int i=0; i<group.getSize(); i++){
-			if(!sprites[i].isActive()){
+		for (int i = 0; i < group.getSize(); i++) {
+			if (!sprites[i].isActive()) {
 				System.out.println("removing sprite");
 				num++;
 				group.remove(i);
@@ -126,18 +124,19 @@ public class MarioLevel {
 		}
 		return num;
 	}
+
 	public boolean getLevelFinished() {
 		return myLevelFinished;
 	}
 
-	public void render(Graphics2D g){
+	public void render(Graphics2D g) {
 		myPlayField.render(g);
 	}
-	
+
 	private void scrollLevel() {
 		getPlayField().getBackground().setToCenter(myMario);
 	}
-	
+
 	/**
 	 * This method is responsible for spawning enemies at random locations on
 	 * the map.
@@ -153,8 +152,8 @@ public class MarioLevel {
         }
 		myTimer = new Timer(FREQ_ENEMIES);
 }
-	
-	private void setUpKeyboard(){
+
+	private void setUpKeyboard() {
 		myControl = new KeyboardControl(myMario, myGame);
 
 		myControl.addInput(KeyEvent.VK_D, "moveRight",
@@ -166,6 +165,5 @@ public class MarioLevel {
 		myMario.setHealth(myMario.getMaxHealth());
 		myMario.setActive(true);
 	}
-	
-	
+
 }
