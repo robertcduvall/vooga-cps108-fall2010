@@ -77,12 +77,6 @@ public class Zombieland extends Game {
 	private BufferedImage assaultRifleImage;
 	private BufferedImage healthImage;
 
-	// private ZZCollisionManager zombieZombieManager;
-	private PZCollisionManager playerZombieManager;
-	private BZCollisionManager bulletZombieManager;
-	private WallBoundManager entityWallManager;
-	private HICollisionManager humanItemManager;
-
 	private OverlayBar overlayHealthBar;
 	private OverlayString overlayHealthString;
 	private OverlayStat overlayScoreString;
@@ -94,8 +88,8 @@ public class Zombieland extends Game {
 	private int level;
 	private int zombiesAppeared;
 	private final static int ZOMBIES_PER_LEVEL = 25;
-	private int zombieHealth;
-	private int zombieDamage;
+//	private int zombieHealth;
+//	private int zombieDamage;
 
 	private String delim;
 	private ResourceBundle bundle;
@@ -388,7 +382,7 @@ public class Zombieland extends Game {
 				addZombie();
 				zombiesAppeared++;
 			}
-		} else {
+		} else if (player.getLevelScore()==zombiesAppeared){
 			statLevel.setStat(level + 1);
 			overlayLevelString.update(elapsedTime);
 			overlayLevelString.setActive(true);
@@ -417,8 +411,11 @@ public class Zombieland extends Game {
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		 Zombie newZombie = new Zombie("New", "Moving",zombieDownImage,zombieUpImage,
-                 zombieLeftImage,zombieRightImage, player, this, zombieHealth, zombieDamage);
+		Zombie newZombie = new Zombie("New", "Moving", zombieDownImage,
+				zombieUpImage, zombieLeftImage, zombieRightImage,
+				zombieAttackDownImage, zombieAttackUpImage, zombieAttackLeftImage,
+				zombieAttackRightImage, zombieDeathImage, startZombieHealth,
+				startZombieDamage, player, this);
 
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
