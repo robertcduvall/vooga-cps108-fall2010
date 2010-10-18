@@ -34,20 +34,17 @@ public class DoodleGame extends Game {
 	
 	private OverlayString scoreString;
 	private Stat<Integer> score;
-	private int level;
+	private int currentLevel;
 	private int passScore;
 	private int nextLevel;
 	
 	{distribute = true;}
 
-	// items
-	private Sprite jetpack;
-
 	// Doodle (main player)
 	private DoodleSprite doodle;
 	private KeyboardControl doodle_keyboard_control;
 
-	protected SpriteGroup DoodleGroup, BallGroup;
+	protected SpriteGroup doodleGroup, ballGroup;
 
 	// Collision Manager
 	protected CollisionManager doodleToGreenPlatform, doodleToMonster,
@@ -60,7 +57,7 @@ public class DoodleGame extends Game {
 	
 	public DoodleGame(){
 		super();
-		level = 1;
+		currentLevel = 1;
 		score = new Stat<Integer>(0);
 		scoreString = new OverlayString("0");
 		scoreString.setX(450);
@@ -69,44 +66,26 @@ public class DoodleGame extends Game {
 
 	@Override
 	public void initResources() {
+		DoodleLevel level = new DoodleLevel();
 		
-		Scanner levelScanner = null;
-		try {
-			levelScanner = new Scanner(new File("src/vooga/games/doodlejump/levels/level" + Integer.toString(level) + ".txt"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		DoodleLevel level = new DoodleLevel(levelScanner);
+		// playfield
+		playField = level.getPlayfield(new File("src/vooga/games/doodlejump/levels/level" + Integer.toString(currentLevel) + ".txt"));
 		
 		// background
 		background = level.getBackground();
 		
-		passScore = level.getScore();
+		passScore += level.getScore();
 		nextLevel = level.getNextLevel();
 
-		// playfield
-		playField = new PlayField(background);
-
 		// spritegroups
-		playField.addGroup(level.getPlatformGroup());
-		playField.addGroup(level.getMonsterGroup());
-		BallGroup = playField.addGroup(new SpriteGroup("Ball Group"));
-		playField.addGroup(level.getBrownPlatformGroup());
-		playField.addGroup(level.getWhitePlatformGroup());
-		playField.addGroup(level.getSpringGroup());
-		playField.addGroup(level.getTrampolineGroup());
-		playField.addGroup(level.getJetpackGroup());
-		DoodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
-
-		// items (eventually ItemSprites)
-		jetpack = new Sprite(getImage("images/jetpack.png"));
+		ballGroup = playField.addGroup(new SpriteGroup("Ball Group"));
+		doodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
 
 		// doodle (main player)
 		doodle = new DoodleSprite("doodle", "normal", new Sprite(
 				getImage("images/doodle_right.png"), 325, 550), this);
 		doodle.setVerticalSpeed(0.5);
-		DoodleGroup.add(doodle);
+		doodleGroup.add(doodle);
 		doodle_keyboard_control = new KeyboardControl(doodle, this);
 		doodle_keyboard_control.addInput(KeyEvent.VK_LEFT, "moveLeft",
 				"vooga.games.doodlejump.DoodleSprite", null);
@@ -124,16 +103,16 @@ public class DoodleGame extends Game {
 		doodleToSpring = new DoodleToSpringCollision();
 		doodleToTrampoline = new DoodleToTrampolineCollision();
 
-		playField.addCollisionGroup(DoodleGroup, level.getPlatformGroup(),
+		playField.addCollisionGroup(doodleGroup, level.getPlatformGroup(),
 				doodleToGreenPlatform);
-		playField.addCollisionGroup(DoodleGroup, level.getMonsterGroup(), doodleToMonster);
-		playField.addCollisionGroup(BallGroup, level.getMonsterGroup(), ballToMonster);
-		playField.addCollisionGroup(DoodleGroup, level.getBrownPlatformGroup(),
+		playField.addCollisionGroup(doodleGroup, level.getMonsterGroup(), doodleToMonster);
+		playField.addCollisionGroup(ballGroup, level.getMonsterGroup(), ballToMonster);
+		playField.addCollisionGroup(doodleGroup, level.getBrownPlatformGroup(),
 				doodleToBrownPlatform);
-		playField.addCollisionGroup(DoodleGroup, level.getWhitePlatformGroup(),
+		playField.addCollisionGroup(doodleGroup, level.getWhitePlatformGroup(),
 				doodleToWhitePlatform);
-		playField.addCollisionGroup(DoodleGroup, level.getSpringGroup(), doodleToSpring);
-		playField.addCollisionGroup(DoodleGroup, level.getTrampolineGroup(),
+		playField.addCollisionGroup(doodleGroup, level.getSpringGroup(), doodleToSpring);
+		playField.addCollisionGroup(doodleGroup, level.getTrampolineGroup(),
 				doodleToTrampoline);
 		
 		//game state
@@ -169,7 +148,7 @@ public class DoodleGame extends Game {
 			scoreString.setString(Integer.toString(score.getStat()));
 			if(Integer.parseInt(scoreString.getString()) >= passScore){
 				if(nextLevel != 0){
-					level = nextLevel;
+					currentLevel = nextLevel;
 					initResources();
 				}
 				else{
