@@ -1,0 +1,7 @@
+starImage,src/vooga/games/cyberion/Resources/star.png
+playerShot,src/vooga/games/cyberion/Resources/playerShot.png
+enemyShot,src/vooga/games/cyberion/Resources/enemyShot.png
+playerShip,src/vooga/games/cyberion/Resources/playerShip.png
+enemyShip,src/vooga/games/cyberion/Resources/enemyShip.png
+bonus,src/vooga/games/cyberion/Resources/bonus.png
+bg,src/vooga/games/cyberion/Resources/bg.png
