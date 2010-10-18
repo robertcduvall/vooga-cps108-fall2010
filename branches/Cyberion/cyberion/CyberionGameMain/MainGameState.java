@@ -66,9 +66,10 @@ public class MainGameState extends GameState {
 
 	// initializes sprites from images
 	private void setSprites() {
+//TODO: MAKE THIS WORK:
 		resources.loadImage("starImage", new File(
 				"vooga/games/cyberion/Resources/star.png"));
-		resources.loadImage("playerShot",
+		Resources.loadImage("playerShot",
 				"vooga/games/cyberion/Resources/playerShot.png");
 		resources.loadImage("enemyShot",
 				"vooga/games/cyberion/Resources/enemyShot.png");
@@ -78,18 +79,13 @@ public class MainGameState extends GameState {
 				"vooga/games/cyberion/Resources/enemyShip.png");
 		resources
 				.loadImage("bonus", "vooga/games/cyberion/Resources/bonus.png");
-		resources.loadImage("bg", "vooga/games/cyberion/Resources/bg.png");
+		Resources.loadImage("bg", "vooga/games/cyberion/Resources/bg.png");
 
-		BufferedImage playerShotImage = resources
-				.getImage("playerShot");
-		BufferedImage enemyShotImage = resources
-				.getImage("enemyShot");
-		BufferedImage playerImage = resources
-				.getImage("playerShip");
-		BufferedImage enemyImage = resources
-				.getImage("enemyShip");
-		BufferedImage bonusImage = resources
-				.getImage("bonus");
+		BufferedImage playerShotImage = resources.getImage("playerShot");
+		BufferedImage enemyShotImage = resources.getImage("enemyShot");
+		BufferedImage playerImage = resources.getImage("playerShip");
+		BufferedImage enemyImage = resources.getImage("enemyShip");
+		BufferedImage bonusImage = resources.getImage("bonus");
 
 		BufferedImage starImage = resources.getImage("starImage");
 
@@ -128,6 +124,10 @@ public class MainGameState extends GameState {
 
 	}
 
+	public void update() {
+
+	}
+
 	// initializes collision managers
 	private void setCollisionDetection() {
 
@@ -153,8 +153,8 @@ public class MainGameState extends GameState {
 
 	// calls other methods and initializes all remaining variables
 	public void initResources() {
-//		bsInput.setMouseVisible(false);
-//		bsSound.setVolume(0.1f);
+		// bsInput.setMouseVisible(false);
+		// bsSound.setVolume(0.1f);
 		eventManager = new EventManager();
 
 		BufferedImage gameBg = resources.getImage("bg");
@@ -165,14 +165,20 @@ public class MainGameState extends GameState {
 		setCollisionDetection();
 
 		startEventManager();
-	
 
 	}
-	public void setBaseInput(BaseInput bi){
+
+	public void setBaseInput(BaseInput bi) {
 		bsInput = bi;
 	}
-	public void setBaseAudio(BaseAudio ba){
+
+	public void setBaseAudio(BaseAudio ba) {
 		bsSound = ba;
+	}
+
+	public void setResources(Resources r) {
+		resources = r;
+
 	}
 
 }
