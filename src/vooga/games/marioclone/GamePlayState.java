@@ -179,6 +179,7 @@ public class GamePlayState extends GameState {
 				.getTileGroup(), new EnemyToTileCollision());
 		myPlayfield.addCollisionGroup(myMarioGroup, myEnemyGroup,
 				new MarioToEnemyCollision());
+		
 
 		myTimer = new Timer(FREQ_ENEMIES);
 
