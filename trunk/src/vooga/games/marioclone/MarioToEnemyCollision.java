@@ -6,7 +6,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
-public class MarioToEnemyCollision extends PreciseCollisionGroup {
+public class MarioToEnemyCollision extends BetterCollisionGroup {
 	long lastcollision;
 
 	@Override
@@ -23,6 +23,8 @@ public class MarioToEnemyCollision extends PreciseCollisionGroup {
 			}
 			mario.setHorizontalSpeed(0);
 			lastcollision = thiscollision;
+			revertPosition1(mario, enemy);
+			revertPosition1(enemy, mario);
 		}
 	}
 }
