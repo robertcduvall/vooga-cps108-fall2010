@@ -8,34 +8,42 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import com.golden.gamedev.object.AnimatedSprite;
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
+import vooga.engine.factory.*;
 
-public class DoodleLevel{
+public class DoodleLevel implements LevelFactory{
 	private ImageBackground background;
 	
 	private SpriteGroup platformGroup, monsterGroup,
 	brownPlatformGroup, whitePlatformGroup, springGroup,
-	trampolineGroup, jetpackGroup, propellorGroup;
+	trampolineGroup;
 	
 	private int score, nextLevel;
 
-	public DoodleLevel(Scanner fileToBeRead) {
+	public DoodleLevel(){
 		platformGroup = new SpriteGroup("Platform Group");
 		monsterGroup = new SpriteGroup("Monster Group");
 		brownPlatformGroup = new SpriteGroup("Brown Platform Group");
 		whitePlatformGroup = new SpriteGroup("White Platform Group");
 		springGroup = new SpriteGroup("Spring Group");
 		trampolineGroup = new SpriteGroup("Trampoline Group");
-		jetpackGroup = new SpriteGroup("Jetpack Group");
-		propellorGroup = new SpriteGroup("Propellor Group");
-		readFile(fileToBeRead);
 	}
 	
-	public void readFile(Scanner levelFile){
+	@Override
+	public PlayField getPlayfield(File levelFactoryFile) {
+		Scanner levelFile = null;
+		try{
+			levelFile = new Scanner(levelFactoryFile);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		String backgroundPath = levelFile.nextLine();
 		background = new ImageBackground(getImage(backgroundPath));
+		PlayField playField = new PlayField(background);
 		while(levelFile.hasNextLine()){
 			String sprite = levelFile.nextLine();
 			String spriteName = sprite.substring(0, sprite.indexOf(","));
@@ -102,6 +110,13 @@ public class DoodleLevel{
 				nextLevel = (int) y;
 			}
 		}
+		playField.addGroup(brownPlatformGroup);
+		playField.addGroup(whitePlatformGroup);
+		playField.addGroup(trampolineGroup);
+		playField.addGroup(platformGroup);
+		playField.addGroup(monsterGroup);
+		playField.addGroup(springGroup);
+		return playField;
 	}
 	
 	private BufferedImage getImage(String imagePath) {
@@ -140,14 +155,6 @@ public class DoodleLevel{
 
 	public SpriteGroup getTrampolineGroup() {
 		return trampolineGroup;
-	}
-
-	public SpriteGroup getJetpackGroup() {
-		return jetpackGroup;
-	}
-
-	public SpriteGroup getPropellorGroup() {
-		return propellorGroup;
 	}
 	
 	public int getScore(){
