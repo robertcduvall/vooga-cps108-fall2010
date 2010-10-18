@@ -34,7 +34,7 @@ public class GameState implements Comparable<GameState> {
 	 * Constructs a new GameState play
 	 */
 	public GameState() {
-		this.initialize();
+		
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class GameState implements Comparable<GameState> {
 	 * @param gamestate
 	 */
 	public GameState(GameState gamestate) {
-		this();
+		
 		this.addState(gamestate);
 		// this.initialize();
 	}
@@ -54,7 +54,7 @@ public class GameState implements Comparable<GameState> {
 	 * @param spritegroup
 	 */
 	public GameState(SpriteGroup sprites) {
-		this();
+	
 		this.addGroup(sprites);
 
 	}
@@ -65,7 +65,7 @@ public class GameState implements Comparable<GameState> {
 	 * @param layer
 	 */
 	public GameState(int layer) {
-		this();
+	
 		this.setLayer(layer);
 	}
 
