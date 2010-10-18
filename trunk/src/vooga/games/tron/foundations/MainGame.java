@@ -88,6 +88,11 @@ public class MainGame extends Game {
 
 		gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
 
+		player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
+		player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+		
+		
+		
 		createRandomLevel();
 
 		playMusic("src/vooga/games/tron/resources/music.mid");
@@ -104,8 +109,10 @@ public class MainGame extends Game {
 		bonusGroup=new SpriteGroup("bonus");
 		bonusGroup.clear();
 		tronPlayerList=new ArrayList<TronPlayer>();
-		player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
-		player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+		
+		player1.resetPosition();
+		player2.resetPosition();
+		
 		tronPlayerList.add(player1);
 		tronPlayerList.add(player2);
 		
@@ -120,11 +127,10 @@ public class MainGame extends Game {
 		tronPlayerBlocksList=new ArrayList<Sprite[][]>();
 		player1Blocks=new Sprite[GRID_WIDTH+2][GRID_HEIGHT+2];
 		player2Blocks=new Sprite[GRID_WIDTH+2][GRID_HEIGHT+2];
+		
 		tronPlayerBlocksList.add(player1Blocks);
 		tronPlayerBlocksList.add(player2Blocks);
 		
-		//levelBlocks = new Sprite[GRID_WIDTH+2][GRID_HEIGHT+2];
-
 		bonusList=new LinkedList<speedBonus>();
 
 		playerGroup1.add(player1);
@@ -167,6 +173,8 @@ public class MainGame extends Game {
 	 */
 	public void initializeBlocks(){
 		int count=0;
+		
+		
 		for(TronPlayer player:tronPlayerList){	
 			for(int i=0;i<player.blocks.length;i++){
 				for(int j=0;j<player.blocks[0].length;j++){
@@ -188,6 +196,9 @@ public class MainGame extends Game {
 			int randomCol = (int)Math.floor(Math.random()*col);
 			int randomWidth = (int)Math.ceil(Math.random()*RANDOM_BLOCK_SIZE);
 			int randomHeight = (int)Math.ceil(Math.random()*RANDOM_BLOCK_SIZE);
+			   
+			
+			
 			randomHeight = (randomRow+randomHeight>=row)? row-randomRow:randomHeight;
 			randomWidth = (randomCol+randomWidth>=col)? col-randomCol:randomWidth;
 			for(int index1=0;index1<randomHeight;index1++){

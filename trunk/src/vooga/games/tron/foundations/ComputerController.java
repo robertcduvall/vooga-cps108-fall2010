@@ -14,7 +14,7 @@ public class ComputerController extends UserInputEventAdaptor{
 	TronPlayer myPlayer;
 	
 	int counter = 0;
-	int preventRange = 10;
+	int preventRange = 1;
 	
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
@@ -37,15 +37,19 @@ public class ComputerController extends UserInputEventAdaptor{
 		//counter++;
 		int row = myPlayer.blocks.length;
 		int col = myPlayer.blocks[0].length;
+		
 		boolean[][] blocksTaken = new boolean[row][col];
+		
 		for(int i=0;i<blocksTaken.length;i++){
 			Arrays.fill(blocksTaken[i],false);
 		}
+		
 		for(int i=0;i<row;i++){
 			for(int j=0;j<col;j++){
 				if(levelBlocks[i][j]) blocksTaken[i][j]=true;
 			}
 		}
+		
 		for(TronPlayer player: tronPlayerList){
 			for(int i=0;i<row;i++){
 				for(int j=0;j<col;j++){
@@ -120,7 +124,7 @@ public class ComputerController extends UserInputEventAdaptor{
 		}
 	}
 	/**
-	 * This methods handles the upcoming left/right turn by taking into account the previuos turns.  
+	 * This methods handles the upcoming left/right turn by taking into account the previous turns.  
 	 */
 	public void handleLeftRight(){
 		if (leftRightCounter==1){
