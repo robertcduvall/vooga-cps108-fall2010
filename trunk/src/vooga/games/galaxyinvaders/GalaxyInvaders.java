@@ -59,6 +59,9 @@ public class GalaxyInvaders extends Game {
 	private GameState gameOver;
 	private GameStateManager gameStateManager;
 	private OverlayTracker overlayTracker;
+	
+	protected Stat<Integer> myScore;
+	protected Stat<Integer> myLives;
 
 	/**
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
@@ -72,8 +75,8 @@ public class GalaxyInvaders extends Game {
 		}
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(ResourceHandler.getImage("ship"), getWidth()/2, getHeight()-100));
-		ship.addStat("lives", new StatInt(LIVES));
-		ship.addStat("score", new StatInt(0));
+		ship.addStat("lives", new Stat<Integer>(LIVES));
+		ship.addStat("score", new Stat<Integer>(0));
 		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
 		enemies = new SpriteGroup("enemies");
@@ -83,6 +86,8 @@ public class GalaxyInvaders extends Game {
 		pauseMenu = new SpriteGroup("pauseMenu");
 		gameOverMenu = new SpriteGroup("gameOverMenu");
 		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/galaxyinvaders/resources/overlays.xml");
+		myLives = overlayTracker.getStats().get(0);
+		myScore = overlayTracker.getStats().get(1);
 		gameStateManager = new GameStateManager();
 		play = new PlayGameState();
 		play.addGroup(items);
@@ -91,6 +96,7 @@ public class GalaxyInvaders extends Game {
 		play.addGroup(blockades);
 		play.addGroup(players);
 		play.addGroup(enemyTorpedos);
+		play.addGroup(overlayTracker.getOverlayGroups().get(2));
 		gameStateManager.addGameState(play);
 		pause = new PauseGameState();
 		pause.addGroup(pauseMenu);
@@ -99,7 +105,7 @@ public class GalaxyInvaders extends Game {
 		gameOver.addGroup(gameOverMenu);
 		gameStateManager.addGameState(gameOver);
 		gameStateManager.switchTo(pause);
-//		livesOverlay = new OverlayStat("Lives", livesStat);
+//		livesOverlay = new OverlayStat("Lives", ship.getStat("LIVES"));
 //		scoreOverlay = new OverlayStatColors("Score", scoreStat,  new Font("mine", Font.PLAIN, 22), Color.RED);
 		levels = new Levels();
 		try {
@@ -116,7 +122,7 @@ public class GalaxyInvaders extends Game {
 		torpedoCollider.setCollisionGroup(torpedos, enemies);
 		torpedoPlayerCollider = new TorpedoPlayerCollider(this);
 		torpedoPlayerCollider.setCollisionGroup(enemyTorpedos, players);
-		itemPlayerCollider = new ItemPlayerCollider();
+		itemPlayerCollider = new ItemPlayerCollider(this);
 		itemPlayerCollider.setCollisionGroup(items, players);
 		torpedoBlockCollider = new TorpedoBlockCollider();
 		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
@@ -245,7 +251,7 @@ public class GalaxyInvaders extends Game {
 			}
 		}
 
-		if((Integer)ship.getStat("lives").getStat()<=0) {
+		if(myLives.getStat()<=0) {
 			gameStateManager.switchTo(gameOver);
 		}
 
@@ -315,7 +321,7 @@ public class GalaxyInvaders extends Game {
 	 * @param score the amount by which to increase the score
 	 */
 	public void increasePlayerScore(int score) {
-		ship.getStat("score").addTo(score);
+		myScore.setStat(myScore.getStat() + score);
 	}
 
 	private boolean isAtBorder(Sprite enemy){
