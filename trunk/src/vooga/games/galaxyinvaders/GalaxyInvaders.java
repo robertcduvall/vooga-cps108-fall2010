@@ -89,7 +89,7 @@ public class GalaxyInvaders extends Game {
 		myLives = overlayTracker.getStats().get(0);
 		myScore = overlayTracker.getStats().get(1);
 		gameStateManager = new GameStateManager();
-		play = new PlayGameState();
+		play = new GameState();
 		play.addGroup(items);
 		play.addGroup(torpedos);
 		play.addGroup(enemies);
@@ -98,10 +98,10 @@ public class GalaxyInvaders extends Game {
 		play.addGroup(enemyTorpedos);
 		play.addGroup(overlayTracker.getOverlayGroups().get(2));
 		gameStateManager.addGameState(play);
-		pause = new PauseGameState();
+		pause = new GameState();
 		pause.addGroup(pauseMenu);
 		gameStateManager.addGameState(pause);
-		gameOver = new GameOverGameState();
+		gameOver = new GameState();
 		gameOver.addGroup(gameOverMenu);
 		gameStateManager.addGameState(gameOver);
 		gameStateManager.switchTo(pause);
