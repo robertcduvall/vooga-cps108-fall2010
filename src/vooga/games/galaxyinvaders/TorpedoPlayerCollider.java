@@ -14,16 +14,16 @@ import vooga.engine.player.control.*;
  */
 public class TorpedoPlayerCollider extends BasicCollisionGroup {
 
-	private Game g;
+	private GalaxyInvaders g;
 	
-	public TorpedoPlayerCollider(Game game) {
+	public TorpedoPlayerCollider(GalaxyInvaders game) {
 		g = game;
 		pixelPerfectCollision = true;
 	}
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		((PlayerSprite) s2).getStat("lives").addTo(-1);
+		g.myLives.setStat(g.myLives.getStat()-1);
 		s2.setX(g.getWidth()/2);
 	}
 
