@@ -14,7 +14,7 @@ public class ComputerController extends UserInputEventAdaptor{
 	TronPlayer myPlayer;
 	
 	int counter = 0;
-	int preventRange = 1;
+	int preventRange = 10;
 	
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
