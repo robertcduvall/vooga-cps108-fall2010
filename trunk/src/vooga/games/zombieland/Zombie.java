@@ -6,19 +6,21 @@ import vooga.engine.player.control.GameEntitySprite;
 import vooga.engine.player.control.PlayerSprite;
 
 import java.util.*;
+
 /**
  * Zombie Class. Contains all behavior and controls for zombies in the game
+ * 
  * @author Jimmy Mu, Aaron Choi, Yang Su
- *
+ * 
  */
 public class Zombie extends GameEntitySprite {
 
 	private final static int ITEM_CHANCE = 20;
-	private static int attackDelay = 30;
-	private static int zombieAppeared =0;
-	private static double zombieDamage = 0;
-	private static double zombieHealth = 0;
-	
+	private int attackDelay = 30;
+	private int zombieAppeared = 0;
+	private double zombieDamage = 0;
+	private double zombieHealth = 0;
+
 	private Shooter target;
 	private String directionToMove;
 	private double speed;
@@ -27,22 +29,68 @@ public class Zombie extends GameEntitySprite {
 	private String currentAttackAnimation = "";
 	private Zombieland game;
 	private Random random;
-	
+
+//	public Zombie(String name, String stateName, AnimatedSprite down,
+//			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
+//			Shooter hero, Zombieland zombieland, int health, int damage) {
+//		super(name, stateName, down);
+//		mapNameToSprite("Up", up);
+//		mapNameToSprite("Left", left);
+//		mapNameToSprite("Right", right);
+//		mapNameToSprite("Down", down);
+//
+//		setHumanTarget(hero);
+//		directionToMove = "X";
+//		speed = -0.25;
+//
+//		// resetZombieCount();
+//		setHealth(health);
+//		setDamage(damage);
+//		resetAttackDelayStep();
+//
+//		game = zombieland;
+//		random = new Random();
+//	}
+
+	// public void updateZombieCount()
+	// {
+	// zombieAppeared++;
+	// }
+	//
+	// public void resetZombieCount()
+	// {
+	// zombieAppeared =0;
+	// }
+	//
+	// public int getZombieCount()
+	// {
+	// return zombieAppeared;
+	// }
 
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-			Shooter hero, Zombieland zombieland, int health, int damage) {
+			AnimatedSprite attackDown, AnimatedSprite attackUp,
+			AnimatedSprite attackLeft, AnimatedSprite attackRight,
+			AnimatedSprite death, int health, int damage, Shooter player,
+			Zombieland zombieland) {
 		super(name, stateName, down);
+		
+		mapNameToSprite("Down", down);
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
 		mapNameToSprite("Right", right);
-		mapNameToSprite("Down", down);
+		
+		mapNameToSprite("AttackDown", attackDown);
+		mapNameToSprite("AttackUp", attackUp);
+		mapNameToSprite("AttackLeft", attackLeft);
+		mapNameToSprite("AttackRight", attackRight);
+		
+		mapNameToSprite("ZombieDeath", death);
 
-		setHumanTarget(hero);
+		setHumanTarget(player);
 		directionToMove = "X";
 		speed = -0.25;
-		
-		resetZombieCount();
+
 		setHealth(health);
 		setDamage(damage);
 		resetAttackDelayStep();
@@ -50,43 +98,23 @@ public class Zombie extends GameEntitySprite {
 		game = zombieland;
 		random = new Random();
 	}
-	
-	public static void updateZombieCount()
-	{
-		zombieAppeared++;
-	}
-	
-	public static void resetZombieCount()
-	{
-		zombieAppeared =0;
-	}
-	
-	public static int getZombieCount()
-	{
-		return zombieAppeared;
-	}
-	
-	public static void setHealth(int health)
-	{
+
+	public void setHealth(int health) {
 		zombieHealth = health;
 	}
-	
-	public static void updateHealth(int update)
-	{
-		zombieHealth+=update;
+
+	public void updateHealth(int update) {
+		zombieHealth += update;
 	}
-	
-	public static void updateStats(int level)
-	{
-		zombieHealth*=level /1.5;
-		zombieDamage = zombieHealth;
+
+	public void updateStats(int level) {
+		zombieHealth *= level / 1.5;
+		zombieDamage *= level;
 	}
-	
-	public static double getHealth()
-	{
+
+	public double getHealth() {
 		return zombieHealth;
 	}
-	
 
 	/**
 	 * Sets the target for the current zombie. Can be used if at some point we
@@ -235,14 +263,14 @@ public class Zombie extends GameEntitySprite {
 				target.updateScore(1);
 
 				if (item < ITEM_CHANCE) {
-					//Drop item
+					// Drop item
 					game.addRandomItem(getX(), getY());
 				}
 			}
 			return;
 		}
-		
-		//Attack animation
+
+		// Attack animation
 		if (!currentAttackAnimation.isEmpty()) {
 			setToCurrentSprite(currentAttackAnimation);
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
