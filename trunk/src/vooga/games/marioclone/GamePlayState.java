@@ -17,7 +17,6 @@ import vooga.engine.state.GameState;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
-import com.golden.gamedev.object.PlayField;
 
 /**
  * 
@@ -124,7 +123,9 @@ public class GamePlayState extends GameState {
 
 	public void update(long t) {
 		super.update(t);
-		scrollLevel();
+		if(myMario.getX() > myMario.getMaxX()){
+			scrollLevel();
+		}
 		myPlayfield.update(t);
 		myMario.stop();
 		myEnemyGroup.removeInactiveSprites();
