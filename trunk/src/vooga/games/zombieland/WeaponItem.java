@@ -15,7 +15,6 @@ public class WeaponItem extends Item {
 	public WeaponItem(Shooter shooter, Sprite s, int weapon, double x, double y) {
 		super(shooter, s, x, y);
 		weaponID = weapon;
-
 		switch (weapon) {
 		case 1:
 			bonusAmmo = 100;

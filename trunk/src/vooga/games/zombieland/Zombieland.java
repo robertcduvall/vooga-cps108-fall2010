@@ -418,12 +418,8 @@ public class Zombieland extends Game {
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", "Moving", zombieDownImage,
-				zombieUpImage, zombieLeftImage, zombieRightImage,
-				zombieAttackDownImage, zombieAttackUpImage,
-				zombieAttackLeftImage, zombieAttackRightImage,
-				zombieDeathImage, startZombieHealth, startZombieDamage, player,
-				this);
+		 Zombie newZombie = new Zombie("New", "Moving",zombieDownImage,zombieUpImage,
+                 zombieLeftImage,zombieRightImage, player, this, zombieHealth, zombieDamage);
 
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);

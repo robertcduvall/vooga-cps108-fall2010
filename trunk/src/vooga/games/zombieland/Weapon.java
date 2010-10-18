@@ -16,10 +16,13 @@ public abstract class Weapon {
 	private int frameCount;
 	private int firingDelay;
 
-	public Weapon(Shooter shooter, int ammo) {
+	public Weapon(Shooter shooter, int ammo, double dmg, double speed, int delay) {
 		player = shooter;
 		ammoCount = ammo;
 		frameCount = 0;
+		damage = dmg;
+		bulletSpeed = speed;
+		firingDelay = delay;
 	}
 
 	/**

@@ -7,10 +7,7 @@ package vooga.games.zombieland;
  */
 public class Pistol extends Weapon {
 	public Pistol(Shooter shooter, int ammo) {
-		super(shooter, ammo);
-		setDamage(5);
-		setFiringDelay(15);
-		setBulletSpeed(3);
+		super(shooter, ammo, 5, 3, 15);
 	}
 
 	public void fireBullets() {

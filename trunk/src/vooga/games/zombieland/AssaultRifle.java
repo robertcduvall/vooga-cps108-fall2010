@@ -10,10 +10,7 @@ package vooga.games.zombieland;
 public class AssaultRifle extends Weapon {
 
 	public AssaultRifle(Shooter shooter, int ammo) {
-		super(shooter, ammo);
-		setDamage(10);
-		setFiringDelay(8);
-		setBulletSpeed(5);
+		super(shooter, ammo, 10, 5, 8);
 	}
 
 	protected void fireBullets() {
