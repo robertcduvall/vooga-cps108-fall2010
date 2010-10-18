@@ -3,31 +3,33 @@ package vooga.engine.overlay;
 import java.awt.Graphics2D;
 import java.util.*;
 import com.golden.gamedev.*;
+import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.Sprite;
 
 /**
- * The OverlayManager class lets you create a group of Overlays, which can then
- * be manipulated. You translate all the overlays, absolutely position them, or
- * remove them all at once.
+ * The OverlayManager extends SpriteGroup. It lets you create a group of Overlays and provides convenience methods for manipulating the Overlays,
+ * relative to each other. For example, you can translate all the overlays or reposition them all at once.
  * 
- * This example creates an OverlayManager class and bases it at point (0,0).
- * Two Overlays are then added to the manager. 
  * 
+ * This example creates an OverlayManager class and bases it at point (50,10). Two
+ * overlays are then added to the manager. The overlays will be rendered offset from their given location by (50,10).
+ * We then translate both overlays 10 pixels to the right.
+ * 
+ * </br> <code>
  * </br>
- * <code>
+ * OverlayManager scoreGroup = new OverlayManager("scoreGroup",50,10);
  * </br>
- * OverlayManger manager = new OverlayManger(this,0,0);
+ * scoreGroup.add(someOverlay);
  * </br>
- * manager.addOverlay(someOverlay,10,10);
+ * scoreGroup.add(anotherOverlay);
  * </br>
- * manager.addOverlay(anotherOverlay,20,20);
+ * scoreGroup.translateOverlays(10,0);
  * </code>
  * 
  * @author Andrew Brown
  */
-public class OverlayManager {
+public class OverlayManager extends SpriteGroup{
 
-	protected Collection<Overlay> myOverlays;
-	private Game myGame;
 	private double myX;
 	private double myY;
 
@@ -35,131 +37,61 @@ public class OverlayManager {
 	 * Constructs an OverlayManager that uses the given x and y coordinate as
 	 * the offset for all its Overlays.
 	 * 
-	 * @param world
-	 *            The world the OverlayManager will draw the Overlays in.
+	 * @param name
+	 *            The name of the OverlayManager.
 	 * @param x
-	 *            The x offset of all the Overlays (you can think of it as the x
-	 *            coordinate of the top-left corner of the OverlayManager).
+	 *            The x-coordinate of the OverlayManager.
 	 * @param y
-	 *            The y offset of all the Overlays (you can think of it as the y
-	 *            coordinate of the top-left corner of the OverlayManager).
+	 *            The y-coordinate of the OverlayManager.
 	 */
-	public OverlayManager(Game game, double x, double y) {
-		myGame = game;
+	public OverlayManager(String name, double x, double y) {
+		super(name);
 		myX = x;
 		myY = y;
-		myOverlays = new HashSet<Overlay>();
 	}
 
 	/**
-	 * Add the given Overlay to OverlayManager's group. The x and y coordinates
-	 * are the offset from the x and y coordinates of the OverlayManager.
+	 * Calls render on the SpriteGroup contained in the manager.
 	 * 
-	 * @param overlay
-	 *            The overlay to add to the OverlayManager's group.
-	 * @param x
-	 *            The x coordinate of the overlay relative to the x coordinate
-	 *            of the OverlayManager. Must be greater than 0.
-	 * @param y
-	 *            The y coordinate of the overlay relative to the y coordinate
-	 *            of the OverlayManager. Must be greater than 0.
-	 */
-	public void addOverlay(Overlay overlay, int x, int y) {
-		if (overlay != null && x > 0 && y > 0) {
-			myOverlays.add(overlay);
-			overlay.render(overlay.getImage().createGraphics(), (int)(myX + x), (int)(myY + y));
-		}
-	}
-	/**
-	 * Calls update on each of the Overlays contained in the manager.
-	 * @param elapsedTime
-	 */
-	public void update(long elapsedTime){
-		for(Overlay o : myOverlays){
-			o.update(elapsedTime);
-		}
-	}
-	
-	/**
-	 * Calls render on each of the Overlays contained in the manager.
 	 * @param g
 	 */
-	public void render(Graphics2D g){
-		for(Overlay o : myOverlays){
-			o.render(g);
+	public void render(Graphics2D g) {
+		for(Sprite s : getSprites()){
+			if(s.isActive()){
+				int newX = (int)(s.getX()+myX);
+				int newY = (int)(s.getY()+myY);
+				s.render(g, newX, newY);
+			}
 		}
 	}
 
 	/**
-	 * Translates all the Overlays in the OverlayManager by the x and y amounts
-	 * given. If the given translation tries to move the Overlay out of the
-	 * Game the Overlay simply stops at the edge of the Game.
+	 * Translates the OverlayManager by the x and y amounts
+	 * given.
 	 * 
 	 * @param x
-	 *            The amount to translate the Overlays on the x axis.
+	 *            The amount to translate the OverlayManager on the x axis.
 	 * @param y
-	 *            The amount to translate the Overlays on the y axis.
+	 *            The amount to translate the OverlayManager on the y axis.
 	 */
 	public void translateOverlays(int x, int y) {
-		for (Overlay o : myOverlays) {
-			double newX = o.getX() + x;
-			double newY = o.getY() + y;
-			if (newX < 0)
-				newX = 0;
-			if (newX > (myGame.getWidth() - 1))
-				newX = myGame.getWidth() - 1;
-			if (newY < 0)
-				newY = 0;
-			if (newY > (myGame.getHeight() - 1))
-				newY = myGame.getHeight() - 1;
-			o.setLocation(newX, newY);
-		}
+		myX += x;
+		myY += y;
 	}
 
 	/**
-	 * Absolutely positions all the Overlays in the OverlayManager relative to
-	 * the given x,y point.
+	 * Changes the position of the OverlayManager.
 	 * 
 	 * @param x
-	 *            The x coordinate at which to anchor the OverlayManager. Must
-	 *            be within the boundaries of the Game.
+	 *            The x coordinate of the OverlayManager.
 	 * @param y
-	 *            The y coordinate at which to anchor the OverlayManager. Must
-	 *            be within the boundaries of the Game.
+	 *            The y coordinate of the OverlayManager.
 	 */
 	public void setOverlayPosition(int x, int y) {
-		if (x >= 0 && x <= (myGame.getWidth() - 1) && y >= 0
-				&& y <= (myGame.getHeight() - 1)) {
+		if (x >= 0 && y >= 0) {
 			myX = x;
 			myY = y;
 		}
-	}
-
-	/**
-	 * Removes all the Overlays in the OverlayManager from the Game by setting them to not-active.
-	 */
-	public void removeOverlays() {
-		for (Overlay o : myOverlays) {
-			o.setActive(false);
-		}
-	}
-
-	/**
-	 * Returns all the Overlays in the OverlayManager.
-	 * 
-	 * @return Returns the Set of Overlays in the OverlayManager.
-	 */
-	public Collection<Overlay> getOverlays() {
-		return myOverlays;
-	}
-
-	/**
-	 * Returns the Game the OverlayManager draws the Overlays in.
-	 * 
-	 * @return The Game that the OverlayManager draws the Overlays in.
-	 */
-	public Game getGame() {
-		return myGame;
 	}
 
 }
