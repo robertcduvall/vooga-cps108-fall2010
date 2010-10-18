@@ -26,8 +26,9 @@ public class MarioLevel {
 	private KeyboardControl myControl;
 	private MarioPlayField myPlayField;
 	private MarioSprite myMario;
-	private Stat<Integer> myEnemiesKilled;
 	private OverlayStat myScoreOverlay;
+	private Stat<Integer> myEnemiesKilled;
+	private Stat<Integer> myLives;
 	private OverlayStat myLivesOverlay;
 	private Timer myTimer;
 	private static final int FREQ_ENEMIES = 5000;
@@ -38,7 +39,12 @@ public class MarioLevel {
 	private int myBackgroundHeight;
 	private boolean myLevelFinished;
 	
-	public MarioLevel(File mapFile, int width, int height, Game game) {
+	public MarioLevel(File mapFile, int width, int height, Game game, OverlayStat scoreOverlay, Stat<Integer> enemiesKilled, 
+			OverlayStat livesOverlay, Stat<Integer> livesLeft) {
+		myScoreOverlay = scoreOverlay;
+		myEnemiesKilled = enemiesKilled;
+		myLives = livesLeft;
+		myLivesOverlay = livesOverlay;
 		myLevelFinished = false; 
 		myGame = game;
 		TileMap map = null;
@@ -53,12 +59,11 @@ public class MarioLevel {
 		myBackgroundHeight = map.height*map.TILE_SIZE;
 		myPlayField = new MarioPlayField(map);
 		myPlayField.addGroup(map.getTileGroup());
-		myEnemiesKilled = new Stat<Integer>(new Integer(0));
-		myScoreOverlay = new OverlayStat("Score: ",
-				myEnemiesKilled);
 		myScoreOverlay.setLocation(myWidth - 1000, 5);
+		myLivesOverlay.setLocation(myWidth - 400, 5);
 
 		getPlayField().add(myScoreOverlay);
+		getPlayField().add(myLivesOverlay);
 		
 		Background marioBackground = new ColorBackground(Color.blue,myBackgroundWidth, myBackgroundHeight);
 		marioBackground.setClip(0, 0, myWidth, myHeight);
@@ -104,9 +109,8 @@ public class MarioLevel {
 		int numKilled = removeKilled();
 		if (myTimer.action(elapsedTime))
 			spawnEnemies();
-//		System.out.println(numKilled);
 		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()+numKilled);
-		myTimer = new Timer(FREQ_ENEMIES);
+		myLives.setStat(myMario.getHealth());
 	}
 	
 	private int removeKilled(){
@@ -141,14 +145,14 @@ public class MarioLevel {
 	 */
 
 	public void spawnEnemies() {
-		System.out.println("enemies spawned");
-		for (int j = 0; j < NUM_ENEMIES; j++) {
-			Enemy enemy = new Enemy("enemy1", "regular", Resources
-					.getImage("EnemyR"), Resources.getImage("EnemyL"));
-			enemy.setLocation(400,200);
-			getPlayField().getGroup("Enemy Group").add(enemy);
-		}
-	}
+        for (int j = 0; j < NUM_ENEMIES; j++) {
+                Enemy enemy = new Enemy("enemy1", "regular", Resources
+                                .getImage("EnemyR"), Resources.getImage("EnemyL"));
+                enemy.setLocation(400,200);
+                getPlayField().getGroup("Enemy Group").add(enemy);
+        }
+		myTimer = new Timer(FREQ_ENEMIES);
+}
 	
 	private void setUpKeyboard(){
 		myControl = new KeyboardControl(myMario, myGame);
