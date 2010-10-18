@@ -37,7 +37,6 @@ public class BZCollisionManager extends PreciseCollisionGroup {
 		int damage = -(int) currentBullet.getDamage();
 
 		currentZombie.updateHealth(damage);
-
 		if (currentZombie.isHealthZero()) {
 			currentZombie.setToCurrentSprite("ZombieDeath");
 			((AnimatedSprite) currentZombie.getCurrentSprite())
