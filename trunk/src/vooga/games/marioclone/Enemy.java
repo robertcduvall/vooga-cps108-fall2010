@@ -57,12 +57,14 @@ public class Enemy extends CharacterSprite {
 		
 		if(!isOnScreen()) bounce();
 		
-		if(getHorizontalSpeed()<0) setNewImage(leftImage);
-		else if(getHorizontalSpeed()>0) setNewImage(rightImage);
+		if(getHorizontalSpeed()<0) setNewImage(myLeftImage);
+		else if(getHorizontalSpeed()>0) setNewImage(myRightImage);
 		
 	}
 
-	@Override
+	/**
+	 * Returns the current integer value of health for a given Enemy
+	 */
 	public Integer getMaxHealth() {
 		return myMaxHealth;
 	}
