@@ -130,7 +130,6 @@ public class Zombieland extends Game {
 
 	private void resetOverlayLevelString(ResourceBundle bundle) {
 		
-		
 		int overlayLevelStringX = parseInt(bundle, "overlayLevelStringX");
 		int overlayLevelStringY = parseInt(bundle, "overlayLevelStringY");
 		
@@ -142,48 +141,72 @@ public class Zombieland extends Game {
 
 	private void resetOverlayAmmoString(ResourceBundle bundle) {
 		
+		int overlayAmmoStringX = parseInt(bundle, "overlayAmmoStringX");
+		int overlayAmmoStringY = parseInt(bundle, "overlayAmmoStringY");
+		String overlayAmmoStringMessage = bundle.getString("overlayAmmoStringMessage");
 		
-		
-		overlayAmmoString = new OverlayStat("Ammo: ", player.getStatAmmo());
+		overlayAmmoString = new OverlayStat(overlayAmmoStringMessage, player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
-		overlayAmmoString.setLocation(470, 12);
+		overlayAmmoString.setLocation(overlayAmmoStringX, overlayAmmoStringY);
 	}
 
 	private void resetOverlayScoreString(ResourceBundle bundle) {
-		overlayScoreString = new OverlayStat("Kills: ", player.getScore());
-		overlayScoreString.setLocation(385, 12);
+		int overlayScoreStringX = parseInt(bundle, "overlayScoreStringX");
+		int overlayScoreStringY = parseInt(bundle, "overlayScoreStringY");
+		String overlayAmmoStringMessage = bundle.getString("overlayScoreStringMessage");
+		
+		overlayScoreString = new OverlayStat(overlayAmmoStringMessage, player.getScore());
+		overlayScoreString.setLocation(overlayScoreStringX, overlayScoreStringY);
 	}
 
 	private void resetOverlayHealthBar(ResourceBundle bundle) {
+		
+		int overlayHealthBarX = parseInt(bundle, "overlayHealthBarX");
+		int overlayHealthBarY = parseInt(bundle, "overlayHealthBarY");
+		
 		overlayHealthBar = new OverlayBar(player.getHealth(),
 				player.getHealth().getStat());
 		overlayHealthBar.setColor(Color.GREEN);
-		overlayHealthBar.setLocation(80, 18);
+		overlayHealthBar.setLocation(overlayHealthBarX, overlayHealthBarY);
 	}
 
 	private void resetOverlayHealthString(ResourceBundle bundle) {
+		
+		int overlayHealthStringX = parseInt(bundle, "overlayHealthStringX");
+		int overlayHeatlhStringY = parseInt(bundle, "overlayHealthStringY");
+		
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
-		overlayHealthString.setLocation(5, 10);
+		overlayHealthString.setLocation(overlayHealthStringX, overlayHeatlhStringY);
 	}
 
 	/**
-	 * set up listeners for keyboard controls
+	 * set up listeners for keyboard controls using the keyBoardControl reflection.
 	 */
 	public void setListeners(ResourceBundle bundle) {
 		control = new KeyboardControl(player, this);
 
-		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
+		String VK_LEFT_METHOD = bundle.getString("VK_LEFT");
+		String VK_RIGHT_METHOD = bundle.getString("VK_RIGHT");
+		String VK_UP_METHOD = bundle.getString("VK_UP");
+		String VK_DOWN_METHOD = bundle.getString("VK_DOWN");
+		String VK_SPACE_METHOD = bundle.getString("VK_SPACE");
+		
+		control.addInput(KeyEvent.VK_LEFT, VK_LEFT_METHOD, PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_RIGHT, VK_RIGHT_METHOD, PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_UP, VK_UP_METHOD, PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_DOWN, VK_DOWN_METHOD, PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_SPACE, VK_SPACE_METHOD, PLAYER_CLASS, null);
 
+		int VK_1_INT = parseInt(bundle, "VK_1");
+		int VK_2_INT = parseInt(bundle, "VK_2");
+		int VK_3_INT = parseInt(bundle, "VK_3");
+		
 		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, VK_1_INT);
 		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, VK_2_INT);
 		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, VK_3_INT);
 	}
 
 	private void resetStartingResources(ResourceBundle bundle) {
