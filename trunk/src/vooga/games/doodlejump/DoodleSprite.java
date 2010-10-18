@@ -43,7 +43,6 @@ public class DoodleSprite extends PlayerSprite {
 			System.out.println(e);
 			System.exit(0);
 		}
-		System.out.println(isOnScreen());
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
