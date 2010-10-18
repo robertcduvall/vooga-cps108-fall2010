@@ -144,9 +144,7 @@ public class DoodleGame extends Game {
 
 	@Override
 	public void update(long elapsedTime) {
-		
-		System.out.println(level);
-		
+				
 		doodle_keyboard_control.update();
 		if (menuInt ==1){
 			if(keyPressed(KeyEvent.VK_ENTER)){
