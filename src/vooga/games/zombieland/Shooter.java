@@ -14,6 +14,9 @@ import vooga.engine.player.control.PlayerSprite;
  */
 public class Shooter extends PlayerSprite {
 
+	private static final int shotgunAmmo = 40;
+	private static final int rifleAmmo = 100;
+	private static final int pistalAmmo = 99999;
 	private Zombieland game;
 	private int speed;
 	private double orientation;
@@ -52,9 +55,9 @@ public class Shooter extends PlayerSprite {
 	 * Creates weapon objects with default ammo
 	 */
 	private void setupWeapons() {
-		weapons[0] = new Pistol(this, 99999);
-		weapons[1] = new AssaultRifle(this, 100);
-		weapons[2] = new ShotGun(this, 40);
+		weapons[0] = new Pistol(this, pistalAmmo);
+		weapons[1] = new AssaultRifle(this, rifleAmmo);
+		weapons[2] = new ShotGun(this, shotgunAmmo);
 	}
 
 	/**

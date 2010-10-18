@@ -30,67 +30,20 @@ public class Zombie extends GameEntitySprite {
 	private Zombieland game;
 	private Random random;
 
-//	public Zombie(String name, String stateName, AnimatedSprite down,
-//			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-//			Shooter hero, Zombieland zombieland, int health, int damage) {
-//		super(name, stateName, down);
-//		mapNameToSprite("Up", up);
-//		mapNameToSprite("Left", left);
-//		mapNameToSprite("Right", right);
-//		mapNameToSprite("Down", down);
-//
-//		setHumanTarget(hero);
-//		directionToMove = "X";
-//		speed = -0.25;
-//
-//		// resetZombieCount();
-//		setHealth(health);
-//		setDamage(damage);
-//		resetAttackDelayStep();
-//
-//		game = zombieland;
-//		random = new Random();
-//	}
-
-	// public void updateZombieCount()
-	// {
-	// zombieAppeared++;
-	// }
-	//
-	// public void resetZombieCount()
-	// {
-	// zombieAppeared =0;
-	// }
-	//
-	// public int getZombieCount()
-	// {
-	// return zombieAppeared;
-	// }
-
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-			AnimatedSprite attackDown, AnimatedSprite attackUp,
-			AnimatedSprite attackLeft, AnimatedSprite attackRight,
-			AnimatedSprite death, int health, int damage, Shooter player,
-			Zombieland zombieland) {
+			Shooter hero, Zombieland zombieland, int health, int damage) {
 		super(name, stateName, down);
-		
-		mapNameToSprite("Down", down);
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
 		mapNameToSprite("Right", right);
-		
-		mapNameToSprite("AttackDown", attackDown);
-		mapNameToSprite("AttackUp", attackUp);
-		mapNameToSprite("AttackLeft", attackLeft);
-		mapNameToSprite("AttackRight", attackRight);
-		
-		mapNameToSprite("ZombieDeath", death);
+		mapNameToSprite("Down", down);
 
-		setHumanTarget(player);
+		setHumanTarget(hero);
 		directionToMove = "X";
 		speed = -0.25;
 
+		// resetZombieCount();
 		setHealth(health);
 		setDamage(damage);
 		resetAttackDelayStep();
@@ -98,6 +51,53 @@ public class Zombie extends GameEntitySprite {
 		game = zombieland;
 		random = new Random();
 	}
+
+	 public void updateZombieCount()
+	 {
+	 zombieAppeared++;
+	 }
+	
+	 public void resetZombieCount()
+	 {
+	 zombieAppeared =0;
+	 }
+	
+	 public int getZombieCount()
+	 {
+	 return zombieAppeared;
+	 }
+
+//	public Zombie(String name, String stateName, AnimatedSprite down,
+//			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
+//			AnimatedSprite attackDown, AnimatedSprite attackUp,
+//			AnimatedSprite attackLeft, AnimatedSprite attackRight,
+//			AnimatedSprite death, int health, int damage, Shooter player,
+//			Zombieland zombieland) {
+//		super(name, stateName, down);
+//		
+//		mapNameToSprite("Down", down);
+//		mapNameToSprite("Up", up);
+//		mapNameToSprite("Left", left);
+//		mapNameToSprite("Right", right);
+//		
+//		mapNameToSprite("AttackDown", attackDown);
+//		mapNameToSprite("AttackUp", attackUp);
+//		mapNameToSprite("AttackLeft", attackLeft);
+//		mapNameToSprite("AttackRight", attackRight);
+//		
+//		mapNameToSprite("ZombieDeath", death);
+//
+//		setHumanTarget(player);
+//		directionToMove = "X";
+//		speed = -0.25;
+//
+//		setHealth(health);
+//		setDamage(damage);
+//		resetAttackDelayStep();
+//
+//		game = zombieland;
+//		random = new Random();
+//	}
 
 	public void setHealth(int health) {
 		zombieHealth = health;
