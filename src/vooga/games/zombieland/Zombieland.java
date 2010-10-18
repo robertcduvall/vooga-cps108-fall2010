@@ -444,11 +444,8 @@ public class Zombieland extends Game {
 	/**
 	 * Load the image for a bullet with the correct orientation with respect to
 	 * the shooter and add it to the screen
-	 * 
-	 * @param bullet
-	 *            a bullet instantiated by the shooter
-	 * @param angle
-	 *            the orientation of the bullet (in degrees)
+	 * @param bullet a bullet instantiated by the shooter
+	 * @param angle the orientation of the bullet (in degrees)
 	 */
 	public void addBullet(Bullet bullet, double angle) {
 		bullet.getCurrentSprite().setImage(
