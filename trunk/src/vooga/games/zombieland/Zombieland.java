@@ -319,7 +319,7 @@ public class Zombieland extends Game {
 	private boolean moreZombieCanBeAdded() {
 
 		ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
-		int zombieDiminishingFactor = parseInt(bundle,
+		double zombieDiminishingFactor = parseDouble(bundle,
 				"zombieDiminishingFactor");
 
 		return Zombie.getZombieCount() < ZOMBIES_PER_LEVEL * level
