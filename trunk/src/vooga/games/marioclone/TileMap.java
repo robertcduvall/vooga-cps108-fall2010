@@ -78,10 +78,6 @@ public class TileMap {
 		return coord*TILE_SIZE;
 	}
 	
-	private double pixelsToTiles(int coord) {
-		return coord/TILE_SIZE;
-	}
-	
 	public void loadTiles(File file) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		width = 0;

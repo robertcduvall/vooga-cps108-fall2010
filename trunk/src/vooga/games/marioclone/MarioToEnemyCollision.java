@@ -14,11 +14,11 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 		long thiscollision = System.currentTimeMillis();
 		if(thiscollision-lastcollision > 200) {
 			if(getCollisionSide() == BOTTOM_TOP_COLLISION || mario.getVerticalSpeed()>0){
-				((CharacterSprite) enemy).setHealth(((CharacterSprite) enemy).getHealth()-50);
+				((CharacterSprite) enemy).setHealth(((CharacterSprite) enemy).getHealth()-100);
 				((MarioSprite) mario).jump(true);
 			}
 			else {
-				((CharacterSprite) mario).setHealth(((CharacterSprite) mario).getHealth()-10);
+				((CharacterSprite) mario).setHealth(((CharacterSprite) mario).getHealth()-1);
 				((Enemy) enemy).bounce();
 			}
 			mario.setHorizontalSpeed(0);
