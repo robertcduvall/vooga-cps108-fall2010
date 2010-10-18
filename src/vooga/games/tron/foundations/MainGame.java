@@ -88,8 +88,8 @@ public class MainGame extends Game {
 
 		gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
 
-		player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
-		player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+	//	player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
+	//	player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
 		
 		
 		
@@ -110,8 +110,9 @@ public class MainGame extends Game {
 		bonusGroup.clear();
 		tronPlayerList=new ArrayList<TronPlayer>();
 		
-		player1.resetPosition();
-		player2.resetPosition();
+		player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
+		player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+	
 		
 		tronPlayerList.add(player1);
 		tronPlayerList.add(player2);
