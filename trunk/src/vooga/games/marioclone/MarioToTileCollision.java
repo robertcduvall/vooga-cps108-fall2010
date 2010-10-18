@@ -10,7 +10,15 @@ public class MarioToTileCollision extends BetterCollisionGroup{
 	@Override
 	public void collided(Sprite mario, Sprite tile) {
 		
-		switch(getCollisionSide(mario,tile)) {
+		int side = getCollisionSide(mario,tile);
+		
+//		printCollisionSide(mario,tile);
+
+		
+		revertPosition1(mario, tile);
+
+		
+		switch(side) {
 		case(LEFT_RIGHT_COLLISION):
 			mario.setHorizontalSpeed(0);
 			break;
@@ -27,7 +35,6 @@ public class MarioToTileCollision extends BetterCollisionGroup{
 			break;
 		}	
 		
-		revertPosition1(mario, tile);
 	}
 
 	

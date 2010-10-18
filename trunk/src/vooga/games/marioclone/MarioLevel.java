@@ -104,7 +104,7 @@ public class MarioLevel {
 		int numKilled = removeKilled();
 		if (myTimer.action(elapsedTime))
 			spawnEnemies();
-		System.out.println(numKilled);
+//		System.out.println(numKilled);
 		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()+numKilled);
 		myTimer = new Timer(FREQ_ENEMIES);
 	}
@@ -141,15 +141,11 @@ public class MarioLevel {
 	 */
 
 	public void spawnEnemies() {
+		System.out.println("enemies spawned");
 		for (int j = 0; j < NUM_ENEMIES; j++) {
 			Enemy enemy = new Enemy("enemy1", "regular", Resources
 					.getImage("EnemyR"), Resources.getImage("EnemyL"));
-			try {
-				enemy.setLocation(Randomizer.nextDouble(0, myWidth), Randomizer
-						.nextDouble(0, myHeight));
-			} catch (RandomizerException e) {
-				System.out.println("Error - randomizer fail");
-			}
+			enemy.setLocation(400,200);
 			getPlayField().getGroup("Enemy Group").add(enemy);
 		}
 	}
