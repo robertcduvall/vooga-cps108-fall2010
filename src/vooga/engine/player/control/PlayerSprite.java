@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import vooga.engine.overlay.Stat;
-import vooga.engine.overlay.StatInt;
 
 import com.golden.gamedev.object.Sprite;
 
