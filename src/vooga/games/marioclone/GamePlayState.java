@@ -109,7 +109,7 @@ public class GamePlayState extends GameState {
 			} catch (RandomizerException e) {
 				System.out.println("Error - randomizer fail");
 			}
-			myEnemyGroup.add(enemy);
+			myPlayfield.getGroup("Enemy Group").add(enemy);
 		}
 	}
 
@@ -127,15 +127,15 @@ public class GamePlayState extends GameState {
 			scrollLevel();
 		}
 		myPlayfield.update(t);
-		myMario.stop();
-		myEnemyGroup.removeInactiveSprites();
+//		myMario.stop();
+		myPlayfield.getGroup("Enemy Group").removeInactiveSprites();
 		if (myTimer.action(t))
 			spawnEnemies();
-		myEnemiesRemaining.setStat(myEnemyGroup.getSize());
+		myEnemiesRemaining.setStat(myPlayfield.getGroup("Enemy Group").getSize());
 	}
-	
-	private void scrollLevel(){
-			myPlayfield.getBackground().setToCenter(myMario);
+
+	private void scrollLevel() {
+		myPlayfield.getBackground().setToCenter(myMario);
 	}
 
 	/**
@@ -144,15 +144,6 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-		
-		myPlayfield = new MarioPlayField();
-		myMarioGroup = new SpriteGroup("Mario Group");
-		myMario.setLocation(150, 290);
-		myMarioGroup.add(myMario);
-		myPlayfield.addGroup(myMarioGroup);
-		myEnemyGroup = new SpriteGroup("Enemy Group");
-		spawnEnemies();
-		myPlayfield.addGroup(myEnemyGroup);
 
 		try {
 			myMap = new TileMap(new File(
@@ -160,27 +151,28 @@ public class GamePlayState extends GameState {
 		} catch (IOException e) {
 			System.out.println("Error with myMap");
 		}
-		System.out.println("Width: "+myMap.width*myMap.TILE_SIZE+" HEIGHT: "+myMap.height*myMap.TILE_SIZE);
-		myMarioBackground = new ColorBackground(Color.blue, myMap.width*myMap.TILE_SIZE, myMap.height*myMap.TILE_SIZE);
+		System.out.println("Width: " + myMap.width * myMap.TILE_SIZE
+				+ " HEIGHT: " + myMap.height * myMap.TILE_SIZE);
+		myMarioBackground = new ColorBackground(Color.blue, myMap.width
+				* myMap.TILE_SIZE, myMap.height * myMap.TILE_SIZE);
 		myMarioBackground.setClip(0, 0, myWidth, myHeight);
+
+		myPlayfield = new MarioPlayField(myMap);
+		myMario.setLocation(150, 290);
+		myPlayfield.getGroup("Mario Group").add(myMario);
+		spawnEnemies();
+
 		myPlayfield.setBackground(myMarioBackground);
 		myPlayfield.addTileMap(myMap);
 		myPlayfield.addGroup(myMap.getTileGroup());
-		myEnemiesRemaining = new Stat<Integer>(new Integer(myEnemyGroup
-				.getSize()));
+		myEnemiesRemaining = new Stat<Integer>(new Integer(myPlayfield
+				.getGroup("Enemy Group").getSize()));
 
 		myEnemyOverlay = new OverlayStat("Enemies Remaining: ",
 				myEnemiesRemaining);
 		myEnemyOverlay.setLocation(myWidth - 1000, 5);
 
 		myPlayfield.add(myEnemyOverlay);
-		myPlayfield.addCollisionGroup(myMarioGroup, myPlayfield.getTileMap()
-				.getTileGroup(), new MarioToTileCollision());
-		myPlayfield.addCollisionGroup(myEnemyGroup, myPlayfield.getTileMap()
-				.getTileGroup(), new EnemyToTileCollision());
-		myPlayfield.addCollisionGroup(myMarioGroup, myEnemyGroup,
-				new MarioToEnemyCollision());
-		
 
 		myTimer = new Timer(FREQ_ENEMIES);
 
@@ -192,7 +184,7 @@ public class GamePlayState extends GameState {
 	 */
 
 	public int getEnemiesRemaining() {
-		return myEnemyGroup.getSize();
+		return myPlayfield.getGroup("Enemy Group").getSize();
 	}
 
 	/**

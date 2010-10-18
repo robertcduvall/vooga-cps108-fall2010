@@ -14,15 +14,16 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public abstract class CharacterSprite extends PlayerSprite {
 
-	double gravity = .0025 ;
+	private static final double GRAVITY = .0025;
+	private double myGravityCoef = 1;
 	
-	BufferedImage rightImage;
-	BufferedImage leftImage;
+	BufferedImage myRightImage;
+	BufferedImage myLeftImage;
 
 	public CharacterSprite(String name, String stateName, BufferedImage left, BufferedImage right) {
 		super(name, stateName, new Sprite(right));
-		leftImage = left;
-		rightImage = right;
+		myLeftImage = left;
+		myRightImage = right;
 		addStat("Health", new Stat<Integer>(getMaxHealth()));
 	}
 	
@@ -39,13 +40,21 @@ public abstract class CharacterSprite extends PlayerSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		setVerticalSpeed(getVerticalSpeed() + gravity * elapsedTime);
+		setVerticalSpeed(getVerticalSpeed() + getGravityCoef() * GRAVITY * elapsedTime);
 
 		/*
 		 * double yVelocity = getVerticalSpeed(); double newYVelocity =
 		 * yVelocity + gravity*elapsedTime; setVerticalSpeed(newYVelocity);
 		 */
 
+	}
+
+	protected void setGravityCoef(double myGravityCoef) {
+		this.myGravityCoef = myGravityCoef;
+	}
+
+	protected double getGravityCoef() {
+		return myGravityCoef;
 	}
 
 }

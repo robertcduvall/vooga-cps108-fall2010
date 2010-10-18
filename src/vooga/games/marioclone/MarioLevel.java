@@ -12,14 +12,13 @@ public class MarioLevel {
 	private Background myBackground;
 	
 	public MarioLevel(File mapFile) {
-		myPlayField = new MarioPlayField();
 		TileMap map = null;
 		try {
 			map = new TileMap(new File("src/vooga/games/marioclone/testmap.txt"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		myPlayField.addTileMap(map);
+		myPlayField = new MarioPlayField(map);
 	}
 	
 	public void update(long elapsedtime) {

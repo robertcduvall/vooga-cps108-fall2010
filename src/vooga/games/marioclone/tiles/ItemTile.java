@@ -21,8 +21,11 @@ public class ItemTile extends ChangingTile {
 
 	@Override
 	public void actOnCollision(Sprite sprite) {
-		super.actOnCollision(sprite);
-		releaseItem = true;
+		if(!isLocked()) {
+			super.actOnCollision(sprite);
+			releaseItem = true;
+			lock();
+		}
 	}
 
 	@Override

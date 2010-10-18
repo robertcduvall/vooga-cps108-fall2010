@@ -12,3 +12,6 @@ MarioL,images/mario-L.png
 GameFont,images/font.png
 EnemyR,images/enemy-R.png
 EnemyL,images/enemy-L.png
+ItemTile1,images/ItemTile1.png
+ItemTile2,images/ItemTile2.png
+GravityItem,images/GravityItem.png
