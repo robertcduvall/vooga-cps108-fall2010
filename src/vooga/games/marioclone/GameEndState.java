@@ -1,5 +1,6 @@
 package vooga.games.marioclone;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 
@@ -10,6 +11,19 @@ import vooga.engine.state.GameState;
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFontManager;
+import com.golden.gamedev.object.background.ColorBackground;
+
+/**
+ * 
+ * @author David Herzka, Cameron McCallie, Andrew Brown
+ *
+ * GameState that toggles when the game is won or lost.
+ * Example code that creates and switches to this state, which displays "LOSE" over a red background:
+ * 
+ *  myLoseState = new GameEndState(new ColorBackground(Color.red), "LOSE", fontManager);
+ *  myGameStateManager.addGameState(myLoseState);
+ *  myGameStateManager.switchTo(myLoseState);\
+ */
 
 public class GameEndState extends GameState {
 	private Background myBackground;
@@ -17,8 +31,20 @@ public class GameEndState extends GameState {
 	private HighScoreHandler myHighScores;
 	private GameFontManager myFontManager;
 	private OverlayString[] myHighScoreOverlays;
+	
 	private static final int NUM_SCORES = 5;
+	private int xScoreOverlay = 300;
+	private int yScoreOverlay = 600;
 
+	/**
+	 * This constructor creates a GameEndState with a background, string of text, and a fontManager used to
+	 * write the string
+	 * 
+	 * @param background - can be colored or an image
+	 * @param messageString - text displayed
+	 * @param fontManager - resource used to write text
+	 */
+	
 	public GameEndState(Background background, String messageString,
 			GameFontManager fontManager) {
 		myFontManager = fontManager;
@@ -31,48 +57,66 @@ public class GameEndState extends GameState {
 		myBackground = background;
 	}
 
+	/**
+	 * This method is used to update the high scores that are displayed in the state.
+	 * This should be called in the activate method of the state it is declared in, so that
+	 * scores will update constantly as the state updates.
+	 * 
+	 */
+	
 	private void onEnter() {
 		try {
 			long score = (long) (Math.random() * 100000l);
-			myHighScores
-					.updateScores("Test", score, System.currentTimeMillis());
+			myHighScores.updateScores("Test", score, System.currentTimeMillis());
 			System.out.println(score);
 		} catch (SQLiteException e) {
-			e.printStackTrace();
+			System.out.println("Error with scoring");
 		}
 
-		createHighScoreOverlay();
+		createHighScoreOverlay(xScoreOverlay, yScoreOverlay);
 	}
 
-	private void createHighScoreOverlay() {
-		
-		double currentY = 600;
-		double x = 300;
+	/**
+	 * This creates a high score overlay at a user-specified point. 
+	 * @param x: x coordinate for overlay
+	 * @paramy y: y coordinate for overlay
+	 */
+	
+	private void createHighScoreOverlay(int x, int y) {
 		myHighScoreOverlays[0] = new OverlayString("High Scores:");
-		myHighScoreOverlays[0].setLocation(x, currentY);
+		myHighScoreOverlays[0].setLocation(x, y);
 		for (int j = 0; j < myHighScores.getNames().length; j++) {
-			currentY += 20;
+			y += 20;
 			myHighScoreOverlays[j + 1] = new OverlayString(String.format(
 					"%d. %s......%d......%tc", j + 1,
 					myHighScores.getNames()[j], myHighScores.getScores()[j],
 					myHighScores.getTimes()[j]));
-			myHighScoreOverlays[j + 1].setLocation(x, currentY);
+			myHighScoreOverlays[j + 1].setLocation(x, y);
 		}
 	}
 
-	@Override
+	/**
+	 * Used to update the game state. In this particular instance, the high scores 
+	 * are updated with the game state.
+	 */
+	
 	public void activate() {
 		onEnter();
 		super.activate();
 	};
 
-	@Override
+	/**
+	 * Creates a high score handler from a file. 
+	 */
+	
 	public void initialize() {
-		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File(
-				"src/vooga/games/marioclone/highscores.db"));
+		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File("src/vooga/games/marioclone/highscores.db"));
 	}
 
-	@Override
+	/**
+	 * Renders the background, message, and overlay within the game state.
+	 */
+	
 	public void render(Graphics2D g) {
 		myBackground.render(g);
 		myMessage.render(g);
