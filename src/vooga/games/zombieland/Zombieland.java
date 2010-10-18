@@ -114,7 +114,7 @@ public class Zombieland extends Game {
 
 		initializePlayer();
 		initializeZombie();
-		
+
 		initializeGameEnvironment();
 		resetOverlay();
 		setListeners();
@@ -137,7 +137,7 @@ public class Zombieland extends Game {
 
 		overlayLevelString = new OverlayStat("Level ", statLevel);
 		overlayLevelString
-		.setLocation(overlayLevelStringX, overlayLevelStringY);
+				.setLocation(overlayLevelStringX, overlayLevelStringY);
 		overlayLevelString.setActive(false);
 	}
 
@@ -146,7 +146,7 @@ public class Zombieland extends Game {
 		int overlayAmmoStringX = parseInt(bundle, "overlayAmmoStringX");
 		int overlayAmmoStringY = parseInt(bundle, "overlayAmmoStringY");
 		String overlayAmmoStringMessage = bundle
-		.getString("overlayAmmoStringMessage");
+				.getString("overlayAmmoStringMessage");
 
 		overlayAmmoString = new OverlayStat(overlayAmmoStringMessage,
 				player.getStatAmmo());
@@ -158,12 +158,12 @@ public class Zombieland extends Game {
 		int overlayScoreStringX = parseInt(bundle, "overlayScoreStringX");
 		int overlayScoreStringY = parseInt(bundle, "overlayScoreStringY");
 		String overlayAmmoStringMessage = bundle
-		.getString("overlayScoreStringMessage");
+				.getString("overlayScoreStringMessage");
 
 		overlayScoreString = new OverlayStat(overlayAmmoStringMessage,
 				player.getScore());
 		overlayScoreString
-		.setLocation(overlayScoreStringX, overlayScoreStringY);
+				.setLocation(overlayScoreStringX, overlayScoreStringY);
 	}
 
 	private void resetOverlayHealthBar(ResourceBundle bundle) {
@@ -388,19 +388,18 @@ public class Zombieland extends Game {
 				addZombie();
 				zombiesAppeared++;
 			}
-		} else 
+		} else {
 			statLevel.setStat(level + 1);
 			overlayLevelString.update(elapsedTime);
 			overlayLevelString.setActive(true);
 			playField.update(elapsedTime);
 			if (timer.action(elapsedTime)) {
-
 				updateDelay(level);
 				zombiesAppeared = 0;
 				level++;
 				player.resetLevelScore();
 				overlayLevelString.setActive(false);
-
+			}
 		}
 	}
 
@@ -521,7 +520,6 @@ public class Zombieland extends Game {
 		overlayHealthString.render(g);
 		overlayScoreString.render(g);
 		overlayAmmoString.render(g);
-
 		if (overlayLevelString.isActive()) {
 			overlayLevelString.render(g);
 		}
