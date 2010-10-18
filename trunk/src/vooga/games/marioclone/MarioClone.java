@@ -54,7 +54,7 @@ public class MarioClone extends Game {
 				20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
-
+		
 		try {
 			Resources.loadFile("src/vooga/games/marioclone/resourcelist.txt");
 		} catch (IOException e) {

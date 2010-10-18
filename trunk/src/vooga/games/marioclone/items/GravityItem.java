@@ -1,10 +1,25 @@
 package vooga.games.marioclone.items;
 
+import com.golden.gamedev.object.Sprite;
 
-public class GravityItem extends Item {
+import vooga.engine.player.control.ItemSprite;
 
-	public GravityItem(double d) {
-		// TODO Auto-generated constructor stub
+@SuppressWarnings("serial")
+public class GravityItem extends ItemSprite {
+
+	private double myGravity;
+
+	public GravityItem(Sprite s, double gravity) {
+		super(s);
+		myGravity = gravity;
 	}
 
+	public double getGravity() {
+		return myGravity;
+	}
+
+	public void setGravity(double myGravity) {
+		this.myGravity = myGravity;
+	}
+	
 }
