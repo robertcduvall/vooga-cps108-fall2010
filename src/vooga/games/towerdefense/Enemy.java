@@ -116,7 +116,7 @@ public class Enemy extends Sprite {
 	/**
 	 * displays whether or not an enemy is hit
 	 */
-	protected void gotHit() {
+	public void gotHit() {
 		myScore.setStat(myScore.getStat() + 10);
 		myMoney.setStat(myMoney.getStat() + 1);
 		if (myLives == 1) {

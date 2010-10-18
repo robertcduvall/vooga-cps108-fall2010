@@ -34,7 +34,7 @@ public class EnemySpawn extends Enemy {
 	}
 	
 	@Override
-	protected void gotHit() {
+	public void gotHit() {
 		setActive(false);
 		for(int i = 0; i< 5; i++){
 			Enemy temp = new Enemy(myPath, Utility.getRandom(20, 80), Utility

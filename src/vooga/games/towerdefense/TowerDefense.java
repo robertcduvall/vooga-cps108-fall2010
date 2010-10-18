@@ -18,6 +18,7 @@ import com.golden.gamedev.util.ImageUtil;
 import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
+import vooga.engine.event.EventManager;
 import vooga.engine.overlay.OverlayBar;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayStatImage;
@@ -32,6 +33,7 @@ import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.doodlejump.DoodleState;
+import vooga.games.towerdefense.tower.TowerBuilder;
 /**
  * This is the main class of the game.  It creates the different states of the games, and loads all the sprites used in the game.
  * 
@@ -69,6 +71,8 @@ public class TowerDefense extends Game {
 	Timer spawn;
 	Timer gameTimer;
 	private int spawnSpeed;
+	private EventManager eventManager;
+	private TowerBuilder towerBuilder;
 
 
 
@@ -77,98 +81,15 @@ public class TowerDefense extends Game {
 		ResourcesBeta.setGame(this);
 		loadImages();
 		initBackgrounds();
-		
+		eventManager = new EventManager();
+		towerBuilder = new TowerBuilder();
+		towerBuilder.setGame(this);
+		eventManager.addEventListener("BuildTowerEvent", towerBuilder);
 		begin();
 		
 		stateManager.switchTo(startMenu);
 
 	}
-
-//	private void loadImages() {
-//		Resources.loadImage("duvallFace",
-//				"src/vooga/games/towerdefense/resources/images/duvallFace.png");
-//		Resources
-//				.loadImage("duvallFaceRed",
-//						"src/vooga/games/towerdefense/resources/images/duvallFaceRed.png");
-//		Resources
-//				.loadImage("duvallFaceBlue",
-//						"src/vooga/games/towerdefense/resources/images/duvallFaceBlue.png");
-//		Resources
-//				.loadImage("duvallFaceYellow",
-//						"src/vooga/games/towerdefense/resources/images/duvallFaceYellow.png");
-//		Resources.loadImage("tower",
-//				"src/vooga/games/towerdefense/resources/images/tower.png");
-//		Resources.loadImage("towerShot",
-//				"src/vooga/games/towerdefense/resources/images/purpleShot.png");
-//		Resources
-//				.loadImage("towerPreview",
-//						"src/vooga/games/towerdefense/resources/images/towerPreview.png");
-//		Resources
-//				.loadImage("sniperTower",
-//						"src/vooga/games/towerdefense/resources/images/sniperTower.png");
-//		Resources
-//				.loadImage("normalTower",
-//						"src/vooga/games/towerdefense/resources/images/normalTower.png");
-//		Resources.loadImage("fastTower",
-//				"src/vooga/games/towerdefense/resources/images/fastTower.png");
-//		Resources
-//				.loadImage("fastTowerPreview",
-//						"src/vooga/games/towerdefense/resources/images/fastTowerPreview.png");
-//		Resources
-//				.loadImage("sniperTowerPreview",
-//						"src/vooga/games/towerdefense/resources/images/sniperTowerPreview.png");
-//		Resources
-//				.loadImage("normalTower",
-//						"src/vooga/games/towerdefense/resources/images/normalTower.png");
-//		Resources
-//				.loadImage("normalTowerPreview",
-//						"src/vooga/games/towerdefense/resources/images/normalTowerPreview.png");
-//		Resources
-//				.loadImage("pause",
-//						"src/vooga/games/towerdefense/resources/images/pauseScreen.gif");
-//		Resources
-//		.loadImage("gameOver",
-//				"src/vooga/games/towerdefense/resources/images/gameOver.gif");
-//		Resources
-//		.loadImage("menu",
-//				"src/vooga/games/towerdefense/resources/images/menu.gif");
-//		Resources
-//		.loadImage("1",
-//				"src/vooga/games/towerdefense/resources/images/number1.png");
-//		Resources
-//		.loadImage("2",
-//				"src/vooga/games/towerdefense/resources/images/number2.png");
-//		Resources
-//		.loadImage("3",
-//				"src/vooga/games/towerdefense/resources/images/number3.png");
-//		Resources
-//		.loadImage("4",
-//				"src/vooga/games/towerdefense/resources/images/number4.png");
-//		Resources
-//		.loadImage("5",
-//				"src/vooga/games/towerdefense/resources/images/number5.png");
-//		Resources
-//		.loadImage("6",
-//				"src/vooga/games/towerdefense/resources/images/number6.png");
-//		Resources
-//		.loadImage("7",
-//				"src/vooga/games/towerdefense/resources/images/number7.png");
-//		Resources
-//		.loadImage("8",
-//				"src/vooga/games/towerdefense/resources/images/number8.png");
-//		Resources
-//		.loadImage("9",
-//				"src/vooga/games/towerdefense/resources/images/number9.png");
-//		Resources
-//		.loadImage("10",
-//				"src/vooga/games/towerdefense/resources/images/number10.png");
-//		Resources
-//		.loadImage("go",
-//				"src/vooga/games/towerdefense/resources/images/go.gif");
-//
-//
-//
-//	}
 	
 	private void loadImages(){
 		try {
@@ -307,7 +228,7 @@ public class TowerDefense extends Game {
 	private void initPlayer() {
 		
 		PlayerSprite player = new PlayerCursor("player", "playerCursor", new Sprite(
-				ResourcesBeta.getImage("towerPreview")), towerGroup, this, money, stateManager);
+				ResourcesBeta.getImage("towerPreview")), this, money, stateManager, eventManager);
 		
 
 		playerGroup.add(player);
@@ -376,26 +297,7 @@ public class TowerDefense extends Game {
 		}
 
 		if (go) {
-			/*totalTime += elapsedTime;
-			if (totalTime > 20000) {
-				enemyGroup.add(new Enemy(path, Utility.getRandom(20, 80),
-						Utility.getRandom(1, 3), selfEsteem, score, money));
-				totalTime = 0;
-			}
-			if (totalTime > 1000) {
-				enemyGroup.add(new EnemySpawn(path, Utility.getRandom(20, 80),
-						selfEsteem, score, money, enemyGroup));
-				totalTime = 0;
-			}*/
-			createEnemies(elapsedTime);
-			
-			
-			
-			
-			
-			
-			
-			
+			createEnemies(elapsedTime);			
 		}else if(totalTime < 12000){
 			totalTime+=elapsedTime;
 		}else{
@@ -455,6 +357,10 @@ public class TowerDefense extends Game {
 
 	public SpriteGroup getEnemyGroup() {
 		return this.enemyGroup;
+	}
+	
+	public SpriteGroup getTowerGroup() {
+		return this.towerGroup;
 	}
 
 	public SpriteGroup getTowerShotGroup() {

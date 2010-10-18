@@ -13,9 +13,11 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
+import vooga.engine.event.EventManager;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.events.BuildTowerEvent;
 
 /**
  * Since the player does not have a physical representation, the cursor 
@@ -28,7 +30,6 @@ import vooga.engine.resource.Resources;
 public class PlayerCursor extends PlayerSprite {
 
 	private static final long serialVersionUID = -8174656868252384431L;
-	private SpriteGroup towerGroup;
 	private TowerDefense myGame;
 	private Stat<Integer> creditBalance;
 	private int towerCost;
@@ -37,15 +38,15 @@ public class PlayerCursor extends PlayerSprite {
 	private NonSetGameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
+	private EventManager eventManager;
 
-	public PlayerCursor(String name, String stateName, Sprite s,
-			SpriteGroup towerGroup, TowerDefense game, Stat<Integer> balance,NonSetGameStateManager states) {
+	public PlayerCursor(String name, String stateName, Sprite s, TowerDefense game, Stat<Integer> balance,NonSetGameStateManager states, EventManager eventManager) {
 		super(name, stateName, s);
-		this.towerGroup = towerGroup;
 		myGame = game;
 		creditBalance = balance;
 		changeTowerType("NormalTower");
 		stateManager = states;
+		this.eventManager = eventManager;
 	}
 
 	public void changeTowerType(String newTowerType) {
@@ -64,19 +65,14 @@ public class PlayerCursor extends PlayerSprite {
 			towerCost = field.getInt(null);
 
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -154,23 +150,10 @@ public class PlayerCursor extends PlayerSprite {
 	}
 	
 	private void buildTower(){
+		
 		if (creditBalance.getStat() >= towerCost && offPath() && inPlayArea()) {
-			try {
-				Class[] argsClass = new Class[] { double.class, double.class,
-						TowerDefense.class };
-				Object[] args = new Object[] { getX()-TOWER_EDGE/2, getY()-TOWER_EDGE/2, myGame };
-				Constructor argsConstructor = towerDefinition
-						.getConstructor(argsClass);
-				Tower tower = (Tower) createTower(argsConstructor, args);
-				towerGroup.add(tower);
-				creditBalance.setStat(creditBalance.getStat() - towerCost);
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			eventManager.fireEvent("BuildTowerEvent", new BuildTowerEvent(this, "BuildTowerEvent", towerType,  getX(), getY()));
+			creditBalance.setStat(creditBalance.getStat() - towerCost);
 		}
 	}
 	
@@ -217,11 +200,6 @@ public class PlayerCursor extends PlayerSprite {
 			getCurrentSprite().forceY(getY()-getCurrentSprite().getHeight()/2+7);
 			getCurrentSprite().render(g);
 		}
-	}
-	
-	public void buildNormalTower() {
-		Tower tower = new NormalTower(getX(), getY(), myGame);
-		towerGroup.add(tower);
 	}
 	
 	private boolean inPlayArea(){
