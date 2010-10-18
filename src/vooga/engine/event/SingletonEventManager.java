@@ -3,7 +3,14 @@ package vooga.engine.event;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * This is a singleton pattern for the EventManager class. Actually, game developers don't actually 
+ * event use the instance of this class. All the methods and instance variable are static, so developers
+ * don't need to pass EventManager around the game. You can just use the static method whatever you want.
+ * And it is singleton, so no one can instantiate more than 1 object of this class.
+ * @author Meng Li
+ *
+ */
 public class SingletonEventManager {
 	private static Map<String, ArrayList<IEventListener>> listenerRepository = new HashMap<String, ArrayList<IEventListener>>();
 	private static ArrayList<IEventListener> eventList;
