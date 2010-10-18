@@ -9,12 +9,12 @@ import com.golden.gamedev.object.Sprite;
  * to evenly place up to 5 overlays across the top or
  * bottom of the screen.
  * 
- * OverlayPanel panel = new Overlay(someGame, true);
- * panel.addOverlay(overlay1);
- * panel.addOverlay(overlay2);
- * panel.addOverlay(overlay3);
+ * OverlayPanel panel = new Overlay("Overlays", someGame, true);
+ * panel.add(overlay1);
+ * panel.add(overlay2);
+ * panel.add(overlay3);
  * panel.initialize();
- * playField.addGroup(panel.getOverlayGroup());
+ * playField.add(panel);
  * @author Se-Gil Feldsott & Andrew Brown
  */
 public class OverlayPanel extends OverlayManager{
@@ -54,8 +54,14 @@ public class OverlayPanel extends OverlayManager{
 		if(!isOnTop)
 			yCoordinate = screenHeight - distanceFromEdge;
 		int i=0;
-		for(Overlay overlay : (Overlay[])this.getSprites())
+		for(Sprite overlay : this.getSprites())
 		{
+			if(overlay == null)
+			{
+				i++;
+				this.remove(overlay);
+				continue;
+			}
 			xOffset = (-1)*overlay.getWidth()/2;
 			
 			if(overlay.getHeight()/2 > distanceFromEdge)
@@ -63,20 +69,17 @@ public class OverlayPanel extends OverlayManager{
 			if(!isOnTop)
 				yOffset*=(-1);
 			if(i==0 && numberOfOverlays > 1)
-//				xOffset = (overlay.getWidth()*3)/5;
 				xOffset = 0;
 			else if(i==numberOfOverlays-1 && numberOfOverlays > 1)
-//				xOffset = ((overlay.getWidth()*3)/5)*(-1);
-				xOffset += overlay.getWidth()/2;
-//			overlay.setLocation(xCoordinates[i]+xOffset, yCoordinate+yOffset);
-//			overlay.render(overlay.getImage().createGraphics(), xCoordinates[i]+xOffset, yCoordinate+yOffset);
-			overlay.setX(xCoordinates[i]+xOffset);
-			overlay.setY(yCoordinate+yOffset);
+				xOffset -= overlay.getWidth()*1.7;
+			System.out.println("X: "+(xCoordinates[i]+xOffset)+" Y: "+(yCoordinate+yOffset));
+			overlay.setLocation(xCoordinates[i]+xOffset, yCoordinate+yOffset);
 			xOffset = 0;
 			yOffset = 0;
 			
 			i++;
 		}
+		System.out.println("Sprites: "+this.getSprites().length);
 	}
 	
 	private int[] setXCoordinates(int numberOfOverlays)
