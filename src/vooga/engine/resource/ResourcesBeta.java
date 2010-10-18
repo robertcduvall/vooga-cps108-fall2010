@@ -14,39 +14,106 @@ import java.util.StringTokenizer;
 
 import com.golden.gamedev.*;
 
-
+/**
+ * The ResourcesBeta class manages the Images, Animations, and Sounds which will be
+ * needed in the game. It maintains two maps:
+ * imageMap maps String labels to BufferedImage[] animations.
+ * soundMap maps String labels to String filepaths.
+ * 
+ * Golden T has quite strong Image and Animation management, and so the ResourcesBeta
+ * class has been simplified in this most recent version. In Golden T, one should place the following code
+ * in their main class' initResources() method:
+ * 
+ * ResourcesBeta.initialize(this);
+ * ResourcesBeta.setDefaultPath("pathname"); [If a default path is desired]
+ * ResourcesBeta.loadImageFile("imagelist.txt");
+ * ResourcesBeta.loadSoundFile("soundlist.txt");
+ * These calls will initialize the ResourcesBeta maps.
+ * 
+ * Then, one can retrieve an image:
+ * ResourcesBeta.getImage("name");
+ * an animation:
+ * ResourcesBeta.getAnimation("name");
+ * or a sound:
+ * ResourcesBeta.getSound("name");
+ * 
+ * Example text file format:
+ * #Resources are put into the ResourceHandler.myMap field as follows:
+ * #(Lines preceded by a '#' sign are considered comments)
+ * *resource1 name*,*resource1 filepath*
+ * *resource2 name*,*resource2 filepath*
+ * ...
+ * 
+ * @author John Kline, Daniel Koverman
+ *
+ */
 public class ResourcesBeta {
 	private static String defaultPath = "";
 	private static Game myGame;
 	private static Map<String, BufferedImage[]> imageMap = new HashMap<String, BufferedImage[]>();
 	private static Map<String, String> soundMap = new HashMap<String, String>();
 
+	/**
+	 * Sets the Game of this ResourcesBeta and sets the default path to be a blank string.
+	 * @param game
+	 */
 	public static void initialize(Game game) {
 		initialize(game, "");
 	}
 
+	/**
+	 * Sets the game of this ResourcesBeta and sets the default path.
+	 * @param game
+	 * @param defaultFilePath
+	 */
 	public static void initialize(Game game, String defaultFilePath) {
 		setGame(game);
 		setDefaultPath(defaultFilePath);
 	}
 	
+	/**
+	 * Changes the Game of this ResourcesBeta.
+	 * @param game
+	 */
 	public static void setGame(Game game) {
 		myGame = game;
 	}
 
+	/**
+	 * Changes the default path of this ResourcesBeta.
+	 * @param path
+	 */
 	public static void setDefaultPath(String path) {
 		defaultPath = path;
 	}
 	
+	/**
+	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key and a BufferedImage[] value. 
+	 * This method is used when a single image is being put into the map.
+	 * @param key
+	 * @param file
+	 */
 	public static void loadImage(String key, File file) {
 		imageMap.put(key,
 				new BufferedImage[] { myGame.getImage(file.getPath()) });
 	}
-
+	
+	/**
+	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key and a BufferedImage[] value. 
+	 * This method is used when a single image is being put into the map.
+	 * @param key
+	 * @param filePath
+	 */
 	public static void loadImage(String key, String filePath) {
 		loadImage(key, new File(defaultPath + filePath));
 	}
 
+	/**
+	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key and a BufferedImage[] value. 
+	 * This method is used when multiple images are being put into the map as an animation.
+	 * @param key
+	 * @param files
+	 */
 	public static void loadAnimation(String key, File[] files) {
 		BufferedImage[] animation = new BufferedImage[files.length];
 		for (int i = 0; i < animation.length; i++) {
@@ -55,22 +122,22 @@ public class ResourcesBeta {
 		imageMap.put(key, animation);
 	}
 	
+	/**
+	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key and a BufferedImage[] value. 
+	 * This method is used when multiple images are being put into the map as an animation.
+	 * @param key
+	 * @param files
+	 */
 	public static void loadAnimation(String key, String[] filePaths) {
 		File[] files = new File[filePaths.length];
 		for (int i = 0; i < filePaths.length; i++) {
 			files[i] = new File(defaultPath + filePaths[i]);
 		}
 		loadAnimation(key, files);
-//		BufferedImage[] animation = new BufferedImage[filePaths.length];
-//		for (int i = 0; i < animation.length; i++) {
-//			animation[i] = myGame.getImage(defaultPath + filePaths[i]);
-//		}
-//		imageMap.put(key, animation);
 	}
 
 	/**
 	 * Returns the BufferedImage associated with the given label.
-	 * 
 	 * @param key
 	 *            The label of the image in the map.
 	 * @return The BufferedImage.
@@ -81,7 +148,6 @@ public class ResourcesBeta {
 
 	/**
 	 * Returns the BufferedImage[] associated with the given label.
-	 * 
 	 * @param key
 	 *            The label of the image in the map.
 	 * @return The BufferedImage[].
@@ -90,18 +156,39 @@ public class ResourcesBeta {
 		return imageMap.get(key);
 	}
 	
+	/**
+	 * Puts a new entry into this ResourcesBeta's soundMap, with a String key and a String value. 
+	 * @param key
+	 * @param file
+	 */
 	public static void loadSound(String key, File file) {
 		soundMap.put(key, file.getPath());
 	}
 
+	/**
+	 * Puts a new entry into this ResourcesBeta's soundMap, with a String key and a String value. 
+	 * @param key
+	 * @param filePath
+	 */
 	public static void loadSound(String key, String filePath) {
 		loadSound(key, new File(defaultPath + filePath));
 	}
 
+	/**
+	 * Returns the String associated with the given sound label.
+	 * @param key
+	 *            The label of the sound in the map.
+	 * @return The String filepath.
+	 */
 	public static String getSound(String key) {
 		return soundMap.get(key);
 	}
 
+	/**
+	 * Reads an imageListFile and initializes the ResourcesBeta's imageMap.
+	 * @param imageListFile
+	 * @throws IOException
+	 */
 	public static void loadImageFile(String imageListFile) throws IOException {
 		List<String> lines = getLinesFromFile(defaultPath + imageListFile);
 		for (int y = 0; y < lines.size(); y++) {
@@ -135,6 +222,11 @@ public class ResourcesBeta {
 		}
 	}
 
+	/**
+	 * Reads an soundListFile and initializes the ResourcesBeta's soundMap.
+	 * @param soundListFile
+	 * @throws IOException
+	 */
 	public static void loadSoundFile(String soundListFile) throws IOException {
 		List<String> lines = getLinesFromFile(defaultPath+soundListFile);
 		for (int y = 0; y < lines.size(); y++) {
@@ -145,6 +237,13 @@ public class ResourcesBeta {
 		}
 	}
 	
+	/**
+	 * Utility method for the loadImageFile and loadSoundFile methods. This method returns
+	 * the lines in a given file as a List.
+	 * @param filePath
+	 * @return The list of lines.
+	 * @throws IOException
+	 */
 	private static List<String> getLinesFromFile(String filePath) throws IOException{
 		List<String> lines = new ArrayList<String>();
 		URL url = Resources.class.getClassLoader().getResource(filePath);
@@ -168,6 +267,12 @@ public class ResourcesBeta {
 		return lines;
 	}
 	
+	/**
+	 * Utility method for the loadImageFile and loadSoundFile methods. This method returns
+	 * a String[] of tokens in a given line.
+	 * @param line
+	 * @return The String[] of tokens.
+	 */
 	private static String[] getTokensFromLine(String line){
 		StringTokenizer st = new StringTokenizer(line, ",");
 		int totalTokens = st.countTokens();
