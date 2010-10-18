@@ -9,12 +9,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
-import vooga.engine.level.LevelManager;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.GameClock;
@@ -42,24 +43,35 @@ import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.weapons.BlackHole;
 import vooga.games.grandius.weapons.Missile;
 
+/**
+ * Grandius is a side-scrolling space shooter. The object of each level is to destroy all enemies. The player is the red ship on the
+ * left side of the screen, and he or she can use various weapons to destroy enemies. The "boss" of each level can only be destroyed once
+ * all 5 "mini-bosses" have been destroyed.
+ * @author Se-Gil Feldsott, John Kline, Bhawana Singh 
+ * @version 2.0
+ */
 public class Grandius extends Game {
 
 	private static final int PLAYER_INITIAL_X = 15;
-	private static final int INITIAL_PLAYER_HEALTH = 50;
-	private static final int INITIAL_PLAYER_RANK = 1;
 	private static final int INITIAL_PLAYER_LIVES = 3;
 	private static final int INITIAL_ZERO = 0;
+	
 	private static final int MENU = 0;
 	private static final int GAME_PLAY = 1;
 	private static final int LEVEL_COMPLETE = 2;
 	private static final int START_NEW_LEVEL = 3;
 	private static final int GAME_COMPLETE = 4;
 	private static final int SHOPPING_LEVEL = 5;
+	
 	private static final int LAST_LEVEL = 3;
 	private static final int NUM_COMETS = 1500;
 	
-	private static final double BULLET_SPEED = 0.2;
+	//TODO Make these part of actual enemy, boss, etc. classes?
+	private static final double PROJECTILE_SPEED = 0.15;
 	private static final double PLAYER_SPEED = 0.1;
+	private static final double ENEMY_SPEED = 0.015;
+	private static final double BOSS_PART_SPEED = 0.01;
+	private static final double BOSS_SPEED = 0.005;
 	
 	private PlayField myPlayfield;
 	private Background myBackground;
@@ -74,6 +86,8 @@ public class Grandius extends Game {
 	private SpriteGroup BOSS_GROUP;
 	private SpriteGroup MISSILE_GROUP;
 	private SpriteGroup BLACK_HOLE_GROUP;
+	
+	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
 
 	private Sprite shipsprite;
 	private PlayerSprite playersprite;
@@ -105,6 +119,7 @@ public class Grandius extends Game {
 	private double playerInitialY;
 	private int gameState;
 	private Dimension screen;
+	
 	//TODO: Good practice here? Use Missile/BlackHole classes?
 	private boolean missileActive = false;
 	private boolean blackHoleActive = false;
@@ -120,9 +135,7 @@ public class Grandius extends Game {
 
 	@Override
 	public void initResources() {
-		
-		//From old constructor
-		myPanel = new OverlayPanel(this, true);
+		myPanel = new OverlayPanel("GrandiusOverlay", this, true);
 //		OVERLAYS_GROUP = new SpriteGroup("overlays");
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
@@ -130,18 +143,16 @@ public class Grandius extends Game {
 		
 		ResourcesBeta.setDefaultPath("src/vooga/games/grandius/resources/");
 		ResourcesBeta.setGame(this);
-		gameState = 0;
+		gameState = MENU;
 		screen = new Dimension(640,480);
 		playerInitialX = PLAYER_INITIAL_X;
 		playerInitialY = screen.getHeight()/2;
 
-		//Load the resourcelist.txt file to initialize resource mappings.
 		try {
-			//TODO Modify resources file so resources/images doesn't need to be typed every time
 			ResourcesBeta.loadImageFile("imagelist.txt");
 			ResourcesBeta.loadSoundFile("soundlist.txt");
 		} catch (IOException e) {
-			System.out.println("failed to load resource files");
+			System.out.println("Failed to load resource files.");
 		}
 
 		livesIcon = new OverlayStatImage(ResourcesBeta.getImage("PlayerShipSingle"));
@@ -157,14 +168,7 @@ public class Grandius extends Game {
 		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite);
 		createComets();
 
-		PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
-		PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
-		ENEMY_PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("EnemyProjectile"));
-		ENEMY_GROUP = myPlayfield.addGroup(new SpriteGroup("Enemy"));
-		BOSS_PART_GROUP = myPlayfield.addGroup(new SpriteGroup("BossPart"));
-		BOSS_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
-		MISSILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Missile"));
-		BLACK_HOLE_GROUP = myPlayfield.addGroup(new SpriteGroup("BlackHole"));
+		createSpriteGroups();
 		PLAYER_GROUP.add(playersprite);
 
 		grandiusLevelManager = new GrandiusLevelManager();
@@ -179,7 +183,20 @@ public class Grandius extends Game {
 		//Initialize the first level.
 		initLevel(grandiusLevelManager.currentLevel().get(0), grandiusLevelManager.currentLevel().get(1), grandiusLevelManager.currentLevel().get(2));
 
-		//register collisions
+		//create collisions and register them to the playfield
+		createCollisions();
+
+		//TODO - change to work with ResourcesBeta class (or overlay?)
+		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
+				" !            .,0123" +
+				"456789:   -? ABCDEFG" +
+		"HIJKLMNOPQRSTUVWXYZ ");
+	}
+
+	/**
+	 * Creates different types of collisions and registers them to the playfield.
+	 */
+	private void createCollisions() {
 		playerEnemyCollision = new PlayerEnemyCollision(this);
 		playerBossPartCollision = new PlayerBossPartCollision(this);
 		playerBossCollision = new PlayerBossCollision(this);
@@ -192,7 +209,6 @@ public class Grandius extends Game {
 		missileBossCollision = new MissileBossCollision(this); 
 		blackHoleEnemyCollision = new BlackHoleEnemyCollision(this);
 
-		//register collisions to playfield
 		myPlayfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, playerEnemyCollision);
 		myPlayfield.addCollisionGroup(PLAYER_GROUP, BOSS_PART_GROUP, playerBossPartCollision);
 		myPlayfield.addCollisionGroup(PLAYER_GROUP, BOSS_GROUP, playerBossCollision);
@@ -204,12 +220,29 @@ public class Grandius extends Game {
 		myPlayfield.addCollisionGroup(MISSILE_GROUP, BOSS_PART_GROUP, missileBossPartCollision);
 		myPlayfield.addCollisionGroup(MISSILE_GROUP, BOSS_GROUP, missileBossCollision);
 		myPlayfield.addCollisionGroup(BLACK_HOLE_GROUP, ENEMY_GROUP, blackHoleEnemyCollision);
+	}
 
-		//TODO - change to work with ResourcesBeta class
-		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
-				" !            .,0123" +
-				"456789:   -? ABCDEFG" +
-		"HIJKLMNOPQRSTUVWXYZ ");
+	/**
+	 * Creates the different SpriteGroups and registers them to the playfield. Also adds the necessary SpriteGroups to the
+	 * spriteGroupSpeedMap.
+	 */
+	private void createSpriteGroups() {
+		PLAYER_GROUP = myPlayfield.addGroup(new SpriteGroup("Player"));
+		PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Projectile"));
+		ENEMY_PROJECTILE_GROUP = myPlayfield.addGroup(new SpriteGroup("EnemyProjectile"));
+		ENEMY_GROUP = myPlayfield.addGroup(new SpriteGroup("Enemy"));
+		BOSS_PART_GROUP = myPlayfield.addGroup(new SpriteGroup("BossPart"));
+		BOSS_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
+		MISSILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Missile"));
+		BLACK_HOLE_GROUP = myPlayfield.addGroup(new SpriteGroup("BlackHole"));
+		
+		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
+		spriteGroupSpeedMap.put(PROJECTILE_GROUP, new Double(PROJECTILE_SPEED));
+		spriteGroupSpeedMap.put(ENEMY_PROJECTILE_GROUP, new Double(-PROJECTILE_SPEED));
+		spriteGroupSpeedMap.put(ENEMY_GROUP, new Double(-ENEMY_SPEED));
+		spriteGroupSpeedMap.put(BOSS_PART_GROUP, new Double(-BOSS_PART_SPEED));
+		spriteGroupSpeedMap.put(BOSS_GROUP, new Double(-BOSS_SPEED));
+		spriteGroupSpeedMap.put(MISSILE_GROUP, new Double(PROJECTILE_SPEED));
 	}
 
 	@Override
@@ -281,7 +314,6 @@ public class Grandius extends Game {
 				playSound(ResourcesBeta.getSound("WatchThisSound"));
 				playSound(ResourcesBeta.getSound("StartLevelSound"));
 				try {
-					//TODO Understand GameClock's role
 					GameClock.start();
 				} catch (GameClockException e) {
 					e.printStackTrace();
@@ -291,14 +323,12 @@ public class Grandius extends Game {
 
 		if (gameState == GAME_PLAY){	 
 			fireWeapon();
-			updateScreenSprites();
-			updateEnemies();
+			updateEntities();
 			checkCheats();
 			checkBossParts();
-			if (checkCleared()) {
+			if (checkLevelComplete()) {
 				gameState=LEVEL_COMPLETE;
 			}
-			// Playfield updates all things and checks for collisions
 			myPlayfield.update(elapsedTime);
 		}
 
@@ -337,7 +367,6 @@ public class Grandius extends Game {
 
 		if (gameState == START_NEW_LEVEL){
 			try {
-				//TODO Understand GameClock's role
 				GameClock.reset();
 			} catch (GameClockException e) {
 				e.printStackTrace();
@@ -353,30 +382,36 @@ public class Grandius extends Game {
 		}
 	}
 
-	//TODO Modify Level.getCurrentScreenSprites() to actually determine which sprites should be visible?
+	/**
+	 * Updates the various enemies that are on screen.
+	 */
 	private void updateScreenSprites() {
-		ENEMY_GROUP.clear();
-		Collection<Sprite> screenSprites = ( (GrandiusLevel)(grandiusLevelManager.getCurrentLevel()) ).getCurrentScreenSprites(grandiusLevelManager.currentLevel().get(0), playersprite.getX(), playersprite.getY());
+		GrandiusLevel currentLevel = grandiusLevelManager.getCurrentLevel();
+		ArrayList<ArrayList<Sprite>> currentSprites = grandiusLevelManager.currentLevel();
+		double playerX = playersprite.getX();
+		double playerY = playersprite.getY();
+		updateSpriteGroup(ENEMY_GROUP, currentLevel, currentSprites, playerX, playerY, 0);
+		updateSpriteGroup(BOSS_PART_GROUP, currentLevel, currentSprites, playerX, playerY, 1);
+		updateSpriteGroup(BOSS_GROUP, currentLevel, currentSprites, playerX, playerY, 2);
+	}
+	
+	/**
+	 * Utility method used in updateScreenSprites().
+	 * @param spriteGroup
+	 * @param currentLevel
+	 * @param currentSprites
+	 * @param playerX
+	 * @param playerY
+	 * @param index
+	 */
+	private void updateSpriteGroup(SpriteGroup spriteGroup, GrandiusLevel currentLevel, ArrayList<ArrayList<Sprite>> currentSprites, double playerX, double playerY, int index) {
+		spriteGroup.clear();
+		Collection<Sprite> screenSprites = currentLevel.getCurrentScreenSprites(currentSprites.get(index), playerX, playerY);
 		for (Sprite s: screenSprites) {
 			if (s==null) 
 				break;
-			ENEMY_GROUP.add(s);
+			spriteGroup.add(s);
 		}
-		BOSS_PART_GROUP.clear();
-		Collection<Sprite> screenBossParts = ( (GrandiusLevel)(grandiusLevelManager.getCurrentLevel()) ).getCurrentScreenSprites(grandiusLevelManager.currentLevel().get(1), playersprite.getX(), playersprite.getY());
-		for (Sprite s: screenBossParts) {
-			if (s==null) 
-				break;
-			BOSS_PART_GROUP.add(s);
-		}
-		BOSS_GROUP.clear();
-		Collection<Sprite> screenBosses = ( (GrandiusLevel)(grandiusLevelManager.getCurrentLevel()) ).getCurrentScreenSprites(grandiusLevelManager.currentLevel().get(2), playersprite.getX(), playersprite.getY());
-		for (Sprite s: screenBosses) {
-			if (s==null) 
-				break;
-			BOSS_GROUP.add(s);
-		}
-
 	}
 
 	/**
@@ -389,19 +424,19 @@ public class Grandius extends Game {
 	private void fireWeapon() {
 		if (keyPressed(KeyEvent.VK_ALT)) {             
 			Sprite projectile = new Sprite(ResourcesBeta.getImage("Projectile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
-			projectile.setHorizontalSpeed(BULLET_SPEED);
+			projectile.setHorizontalSpeed(PROJECTILE_SPEED);
 			PROJECTILE_GROUP.add(projectile);
 			playSound(ResourcesBeta.getSound("LaserSound"));
 		}
 		if (keyPressed(KeyEvent.VK_SPACE)){
 			Sprite projectile = new Sprite(ResourcesBeta.getImage("ProjectileVertical"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
-			projectile.setVerticalSpeed(BULLET_SPEED);
+			projectile.setVerticalSpeed(PROJECTILE_SPEED);
 			PROJECTILE_GROUP.add(projectile);
 			playSound(ResourcesBeta.getSound("LaserSound"));
 		}
 		if (keyPressed(KeyEvent.VK_M) && missileActive) {  
 			Missile missile = new Missile(ResourcesBeta.getImage("Missile"),playersprite.getX()+playersprite.getWidth(),playersprite.getY());
-			missile.setHorizontalSpeed(BULLET_SPEED);
+			missile.setHorizontalSpeed(PROJECTILE_SPEED);
 			MISSILE_GROUP.add(missile);
 			playSound(ResourcesBeta.getSound("MissileSound"));
 		}
@@ -413,11 +448,8 @@ public class Grandius extends Game {
 
 	}
 
-	//TODO Rename method? Or split into multiple methods?
-	private void updateEnemies() {
-		//TODO Make kamikaze weapon; sacrifice life to use
-		// TODO avoid repeated code here
-		//playersprite.setHorizontalSpeed(0);
+	private void updateEntities() {
+		updateScreenSprites();
 		playersprite.setVerticalSpeed(0);
 		for (Sprite as: ENEMY_GROUP.getSprites()) {
 			if (as == null) 
@@ -428,7 +460,6 @@ public class Grandius extends Game {
 					playSound(ResourcesBeta.getSound("ZipsterLaserSound"));
 				}
 				as.setHorizontalSpeed(-((Zipster)(as)).getSpeed());
-				//((Zipster) as).setSpin(0);
 				((Zipster) as).setImages(new BufferedImage[]{ResourcesBeta.getAnimation("SpinningZipster")[((Zipster) as).getSpin()]});
 				if (!((Zipster) as).isProximateToBlackHole())
 					((Zipster) as).setSpin(0);
@@ -465,21 +496,13 @@ public class Grandius extends Game {
 				b.setHorizontalSpeed(-((Reacher)(b)).getSpeed());
 			}
 		}
-		for (Sprite p: PROJECTILE_GROUP.getSprites()) {
-			if (p == null)
-				break;
-			p.setHorizontalSpeed(0.15);
-		}
-
-		for (Sprite ep: ENEMY_PROJECTILE_GROUP.getSprites()) {
-			if (ep == null)
-				break;
-			ep.setHorizontalSpeed(-0.15);
-		}
-
+		resetSpriteSpeed(PROJECTILE_GROUP, 0.15);
+		resetSpriteSpeed(ENEMY_PROJECTILE_GROUP, -0.15);
+		resetSpriteSpeed(MISSILE_GROUP, 0.15);
+		
 		for (Sprite h: BLACK_HOLE_GROUP.getSprites()) {
 			if (h == null) 
-				break; //Should this actually be a "continue"?
+				break;
 			if (h.isActive()) {
 				((BlackHole)h).suckEnemies(ENEMY_GROUP);
 				((BlackHole)h).setPlayerCompensationSpeed(0);
@@ -487,77 +510,23 @@ public class Grandius extends Game {
 		}
 
 		if (keyDown(KeyEvent.VK_LEFT)){
-			for (Sprite as: ENEMY_GROUP.getSprites()) {
-				if (as == null) 
-					break;
-				as.setHorizontalSpeed(1*PLAYER_SPEED-0.015);
-			}
-			for (Sprite bp: BOSS_PART_GROUP.getSprites()) {
-				if (bp == null) 
-					break;
-				bp.setHorizontalSpeed(1*PLAYER_SPEED-0.01);
-			}
-			for (Sprite b: BOSS_GROUP.getSprites()) {
-				if (b == null) 
-					break;
-				b.setHorizontalSpeed(1*PLAYER_SPEED-0.005);
-			}
-			for (Sprite p: PROJECTILE_GROUP.getSprites()) {
-				if (p == null)
-					break;
-				p.setHorizontalSpeed(1*PLAYER_SPEED+0.15);
-			}
-			for (Sprite m: MISSILE_GROUP.getSprites()) {
-				if (m == null)
-					break;
-				m.setHorizontalSpeed(1*PLAYER_SPEED+0.15);
+			for (SpriteGroup sg: spriteGroupSpeedMap.keySet()) {
+				moveSpriteGroup(sg, "right", spriteGroupSpeedMap.get(sg));
 			}
 			for (Sprite h: BLACK_HOLE_GROUP.getSprites()) {
 				if (h == null)
 					break;
 				((BlackHole)h).setPlayerCompensationSpeed(1*PLAYER_SPEED);
 			}
-			for (Sprite ep: ENEMY_PROJECTILE_GROUP.getSprites()) {
-				if (ep == null)
-					break;
-				ep.setHorizontalSpeed(1*PLAYER_SPEED-0.15);
-			}
 		}
 		if (keyDown(KeyEvent.VK_RIGHT)){
-			for (Sprite as: ENEMY_GROUP.getSprites()) {
-				if (as == null) 
-					break;
-				as.setHorizontalSpeed(-1*PLAYER_SPEED-0.015);
-			}
-			for (Sprite bp: BOSS_PART_GROUP.getSprites()) {
-				if (bp == null) 
-					break;
-				bp.setHorizontalSpeed(-1*PLAYER_SPEED-0.01);
-			}
-			for (Sprite b: BOSS_GROUP.getSprites()) {
-				if (b == null) 
-					break;
-				b.setHorizontalSpeed(-1*PLAYER_SPEED-0.005);
-			}
-			for (Sprite p: PROJECTILE_GROUP.getSprites()) {
-				if (p == null)
-					break;
-				p.setHorizontalSpeed(-1*PLAYER_SPEED+0.15);
-			}
-			for (Sprite m: MISSILE_GROUP.getSprites()) {
-				if (m == null)
-					break;
-				m.setHorizontalSpeed(-1*PLAYER_SPEED+0.15);
+			for (SpriteGroup sg: spriteGroupSpeedMap.keySet()) {
+				moveSpriteGroup(sg, "left", spriteGroupSpeedMap.get(sg));
 			}
 			for (Sprite h: BLACK_HOLE_GROUP.getSprites()) {
 				if (h == null)
 					break;
 				((BlackHole)h).setPlayerCompensationSpeed(-1*PLAYER_SPEED);
-			}
-			for (Sprite ep: ENEMY_PROJECTILE_GROUP.getSprites()) {
-				if (ep == null)
-					break;
-				ep.setHorizontalSpeed(-1*PLAYER_SPEED-0.15);
 			}
 		}
 		if (keyDown(KeyEvent.VK_DOWN)){
@@ -565,6 +534,36 @@ public class Grandius extends Game {
 		}
 		if (keyDown(KeyEvent.VK_UP)){
 			playersprite.setVerticalSpeed(-1*PLAYER_SPEED);
+		}
+	}
+
+	private void resetSpriteSpeed(SpriteGroup spriteGroup, double newSpeed) {
+		for (Sprite s: spriteGroup.getSprites()) {
+			if (s == null)
+				break;
+			s.setHorizontalSpeed(newSpeed);
+		}
+	}
+
+	/**
+	 * Utility method used in updateEntities().
+	 * @param spriteGroup
+	 * @param direction
+	 * @param offset
+	 */
+	private void moveSpriteGroup(SpriteGroup spriteGroup, String direction, double offset) {
+		if (direction.equals("right")) {
+			for (Sprite s: spriteGroup.getSprites()) {
+				if (s == null) 
+					break;
+				s.setHorizontalSpeed(1*PLAYER_SPEED+offset);
+			}
+		} else if (direction.equals("left")) {
+			for (Sprite s: spriteGroup.getSprites()) {
+				if (s == null) 
+					break;
+				s.setHorizontalSpeed(-1*PLAYER_SPEED+offset);
+			}
 		}
 	}
 
@@ -593,7 +592,12 @@ public class Grandius extends Game {
 		}
 	}
 	
-	private boolean checkCleared() {
+	/**
+	 * Checks to see if a level has been completed (all the enemies have been cleared, or the user has used the
+	 * skip level cheat code.
+	 * @return Whether or not the level is complete.
+	 */
+	private boolean checkLevelComplete() {
 		if(skipLevel)
 		{
 			skipLevel = false;
@@ -610,7 +614,6 @@ public class Grandius extends Game {
 	}
 
 	private void initLevel(Collection<Sprite> sprites, Collection<Sprite> bossparts, Collection<Sprite> bosses) {
-		System.out.println("initializing next level");
 		ENEMY_GROUP.clear();
 		BOSS_PART_GROUP.clear();
 		BOSS_GROUP.clear();
@@ -705,8 +708,8 @@ public class Grandius extends Game {
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
 
-		myPanel.addOverlay(livesCounter);
-		myPanel.addOverlay(cashCounter);		
+	    myPanel.addOverlay(livesCounter);
+	    myPanel.addOverlay(cashCounter);		
 		myPanel.addOverlay(scoreCounter);
 		myPanel.initialize();
 		

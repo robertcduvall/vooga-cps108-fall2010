@@ -81,7 +81,7 @@ public class GrandiusLevelManager extends LevelManager {
 	}
 	
 	@Override
-	public Level getCurrentLevel() {
+	public GrandiusLevel getCurrentLevel() {
 		return myGrandiusLayout.get(getMyCurrentLevel()-1);
 	}
 	
