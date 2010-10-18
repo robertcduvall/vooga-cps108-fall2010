@@ -15,7 +15,12 @@ public class ShotGun extends Weapon {
 	private static int numberOfShots = 3;
 
 	public ShotGun(Shooter shooter, int ammo) {
-		super(shooter, ammo, 25, 7, 20);
+		super(shooter, ammo);
+		setDamage(getInt("shotgunDamage"));
+		setBulletSpeed(getInt("shotgunSpeed"));
+		setFiringDelay(getInt("shotgunDelay"));
+		angleRange=getInt("shotgunAngleRange");
+		numberOfShots=getInt("shotgunNumberOfShots");
 	}
 
 	/**

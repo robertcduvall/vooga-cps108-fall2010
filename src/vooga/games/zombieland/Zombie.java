@@ -3,7 +3,6 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.player.control.GameEntitySprite;
-import vooga.engine.player.control.PlayerSprite;
 
 import java.util.*;
 
@@ -15,8 +14,8 @@ import java.util.*;
  */
 public class Zombie extends GameEntitySprite {
 
-	private final static int ITEM_CHANCE = 20;
-	private int attackDelay = 30;
+	private static int ITEM_CHANCE;
+	private int attackDelay;
 	private double zombieDamage;
 	private double zombieHealth;
 
@@ -28,6 +27,8 @@ public class Zombie extends GameEntitySprite {
 	private String currentAttackAnimation = "";
 	private Zombieland game;
 	private Random random;
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
@@ -51,14 +52,17 @@ public class Zombie extends GameEntitySprite {
 
 		setHumanTarget(player);
 		directionToMove = "X";
-		speed = -0.25;
-
+		speed = Double.parseDouble(bundle.getString("zombieSpeed"));
+		attackDelay = Integer.parseInt(bundle.getString("zombieAttackDelay"));
+		ITEM_CHANCE = Integer.parseInt(bundle.getString("ITEM_CHANCE"));
 		setHealth(health);
 		setDamage(damage);
 		resetAttackDelayStep();
 
 		game = zombieland;
 		random = new Random();
+
+		this.setActive(true);
 	}
 
 	public void setHealth(int health) {
@@ -221,7 +225,7 @@ public class Zombie extends GameEntitySprite {
 				setActive(false);
 				// Update score
 				target.updateScore(1);
-				
+
 				int item = random.nextInt(100);
 				if (item < ITEM_CHANCE) {
 					// Drop item

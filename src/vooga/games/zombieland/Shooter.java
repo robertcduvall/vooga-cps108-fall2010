@@ -1,5 +1,7 @@
 package vooga.games.zombieland;
 
+import java.util.ResourceBundle;
+
 import com.golden.gamedev.object.*;
 
 import vooga.engine.overlay.Stat;
@@ -14,9 +16,9 @@ import vooga.engine.player.control.PlayerSprite;
  */
 public class Shooter extends PlayerSprite {
 
-	private static final int shotgunAmmo = 40;
-	private static final int rifleAmmo = 100;
-	private static final int pistalAmmo = 99999;
+	private static int shotgunAmmo;
+	private static int rifleAmmo;
+	private static int pistolAmmo;
 	private int maxHealth;
 	private Zombieland game;
 	private int speed;
@@ -28,13 +30,24 @@ public class Shooter extends PlayerSprite {
 	private Stat<Integer> ammo;
 	private int levelScore;
 
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, Zombieland zombieland) {
 		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];
 		maxHealth = playerHealth;
-
+		// DEFAULT attributes
+		speed = getInt("speed");
+		orientation = getInt("orientation");
+		weaponChoice = getInt("weaponChoice");
+		levelScore = getInt("levelScore");
+		shotgunAmmo = getInt("shotgunAmmo");
+		rifleAmmo = getInt("rifleAmmo");
+		pistolAmmo = getInt("pistolAmmo");
+		
 		setupWeapons();
 
 		// Setup displays
@@ -44,20 +57,19 @@ public class Shooter extends PlayerSprite {
 		addStat("score", score);
 		ammo = new Stat<Integer>(getAmmo());
 		addStat("ammo", ammo);
-		
-		// DEFAULT attributes
-		speed = -1;
-		orientation = 90;
-		weaponChoice = 0;
-		levelScore = 0;
 
+
+	}
+
+	private int getInt(String key) {
+		return Integer.parseInt(bundle.getString(key));
 	}
 
 	/**
 	 * Creates weapon objects with default ammo
 	 */
 	private void setupWeapons() {
-		weapons[0] = new Pistol(this, pistalAmmo);
+		weapons[0] = new Pistol(this, pistolAmmo);
 		weapons[1] = new AssaultRifle(this, rifleAmmo);
 		weapons[2] = new ShotGun(this, shotgunAmmo);
 	}
@@ -116,7 +128,7 @@ public class Shooter extends PlayerSprite {
 	}
 
 	public void switchWeapons(int choice) {
-		if (choice <= 3)
+		if (choice <= weapons.length)
 			weaponChoice = choice;
 		setAmmo();
 	}
@@ -202,8 +214,8 @@ public class Shooter extends PlayerSprite {
 	 * @param d
 	 */
 	public void updateHealth(double d) {
-		health.setStat((int) (health.getStat()+d));
-		if (health.getStat()>maxHealth)
+		health.setStat((int) (health.getStat() + d));
+		if (health.getStat() > maxHealth)
 			setHealth(maxHealth);
 		health.setStat(health.getStat());
 	}
@@ -225,28 +237,29 @@ public class Shooter extends PlayerSprite {
 	public Stat<Integer> getScore() {
 		return score;
 	}
-	
+
 	/**
 	 * Resets the score so that it can start counting new level's score from 0.
 	 */
-	public void resetLevelScore(){
+	public void resetLevelScore() {
 		levelScore = 0;
 	}
-	
+
 	/**
 	 * Get the player's score for the current level.
+	 * 
 	 * @return levelScore The current level's score
 	 */
-	public int getLevelScore(){
+	public int getLevelScore() {
 		return levelScore;
 	}
-	
+
 	/**
 	 * update score
 	 */
 	public void updateScore(int number) {
-		score.setStat(score.getStat()+number);
-		levelScore+=number;
+		score.setStat(score.getStat() + number);
+		levelScore += number;
 	}
 
 	/**

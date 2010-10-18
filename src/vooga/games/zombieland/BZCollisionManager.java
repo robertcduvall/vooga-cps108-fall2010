@@ -15,7 +15,6 @@ public class BZCollisionManager extends PreciseCollisionGroup {
 	 * Initiates post-collision behavior for the zombie and the bullet
 	 */
 	public void collided(Sprite bullet, Sprite zombie) {
-
 		actOnCollision(bullet, zombie);
 	}
 

@@ -1,5 +1,7 @@
 package vooga.games.zombieland;
 
+import java.util.ResourceBundle;
+
 /**
  * Weapon class. Sets up the basic functions of a weapon and allows for
  * customization in how a weapon produces bullets.
@@ -16,6 +18,14 @@ public abstract class Weapon {
 	private int frameCount;
 	private int firingDelay;
 
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+	
+	public Weapon(Shooter shooter, int ammo) {
+		player = shooter;
+		ammoCount = ammo;
+		frameCount = 0;
+	}
 	public Weapon(Shooter shooter, int ammo, double dmg, double speed, int delay) {
 		player = shooter;
 		ammoCount = ammo;
@@ -23,6 +33,10 @@ public abstract class Weapon {
 		damage = dmg;
 		bulletSpeed = speed;
 		firingDelay = delay;
+	}
+	
+	protected int getInt(String key) {
+		return Integer.parseInt(bundle.getString(key));
 	}
 
 	/**
