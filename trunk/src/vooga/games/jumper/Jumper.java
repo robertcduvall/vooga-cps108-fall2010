@@ -182,47 +182,34 @@ public class Jumper extends vooga.engine.core.Game {
 	/**
 	 * Populate the BlockGroup with new BlockSprites
 	 */
-	public void createNewBlocks(){
+	private void createNewBlocks(){
 		Random myRandom = new Random();
 
 		double randomBlockOccurance = myRandom.nextDouble();
 		Point randomLocation = new Point(myRandom.nextInt(GAME_WIDTH), GAME_HEIGHT);
-		/*
-		 * randomXVelocity is currently not used by any blocks. (oct. 9 2:16pm -- devon)
-		 */
-		double randomXVelocity = myRandom.nextDouble() * (myMaxBlockXVelocity) - (myMaxBlockXVelocity / 2);
-		
+
 		//make the correct type of block
 		if (randomBlockOccurance < myBlockFrequency){
 			Sprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
 			if (myBlockCounter == myBlockCounterIncrement){
-				//Point velocity = new Point();  << what is this? --Devon
 				block.setImage(ResourceHandler.getImage("platformGray"));
 				block.setVerticalSpeed(myBlockVelocity);
-//				block = new BlockSprite(ResourceHandler.getImage("platformGray"), randomLocation, myBlockVelocity, myBlockVelocity);
 				block.setID(blockTypeNormal);
-				myBlockCounter++;
 
 			} else if(myBlockCounter == 2*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformRed"));
 				block.setVerticalSpeed(myBlockVelocity*fastBlockSpeedMultiplier);
-//				block = new BlockSprite(ResourceHandler.getImage("platformRed"), randomLocation, 0, myBlockVelocity*fastBlockSpeedMultiplier);
 				block.setID(blockTypeNormal);
-
-				myBlockCounter++;
 
 			} else if(myBlockCounter == 3*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformLightBlueWide"));
 				block.setID(blockTypeNormal);
-				myBlockCounter++;
 			} else if(myBlockCounter == 4*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformBreak"));
 				block.setID(blockTypeNotBroken);
-				myBlockCounter++;
 			} else if(myBlockCounter == 5*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformSpringDouble"));
 				block.setID(blockTypeSpring);
-				myBlockCounter++;
 			} else if(myBlockCounter == 6*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("jetpack"));
 				block.setID(blockTypeJetpack);
@@ -230,9 +217,9 @@ public class Jumper extends vooga.engine.core.Game {
 			} else {
 				block.setImage(ResourceHandler.getImage("platformGreen"));
 				block.setID(blockTypeNormal);
-				myBlockCounter++;
 			}
 
+			myBlockCounter++;
 			myBlocks.add(block);
 		}
 	}
@@ -261,7 +248,7 @@ public class Jumper extends vooga.engine.core.Game {
 	 * Ends game by clearing playfield and displaying final score message
 	 * @param g Graphics2D on which to render messages
 	 */
-	public void endGame(Graphics2D g) {
+	private void endGame(Graphics2D g) {
 
 		//stop clock if game is over
 		if (myClock.isRunning()){
@@ -285,18 +272,18 @@ public class Jumper extends vooga.engine.core.Game {
 	/**
 	 * Updates score based on time survived
 	 */
-	public void updateScore(){
+	private void updateScore(){
 		myScore.setStat(myClock.getTime());
 	}
 	
-	public Long getClockTime(){
+	private Long getClockTime(){
 		return(myClock.getTime());
 	}
 
 	/**
 	 * Listen for key presses to update player's location
 	 */
-	public void checkForKeyPress(){
+	private void checkForKeyPress(){
 		double jumpHeight = -15.0;
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite(); 
 		int collisionNumber = myNormalCollision.getCollisionSide();
