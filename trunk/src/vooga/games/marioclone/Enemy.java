@@ -50,7 +50,7 @@ public class Enemy extends CharacterSprite {
 	 * 
 	 */
 	public void update(long elapsedTime) {
-		if(getStat("Health").getStat() <= 0)
+		if((Integer) (getStat("Health").getStat()) <= 0)
 			setActive(false);
 		
 		super.update(elapsedTime);
