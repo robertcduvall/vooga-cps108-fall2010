@@ -21,7 +21,7 @@ import com.golden.gamedev.object.SpriteGroup;
  * 
  * @author VitorOlivier & BrentSodman & BrianSimel
  */
-public abstract class GameState implements Comparable<GameState> {
+public class GameState implements Comparable<GameState> {
 
 	private boolean myIsActive = false;
 	private ArrayList<SpriteGroup> myRenderGroups = new ArrayList<SpriteGroup>();
@@ -115,7 +115,9 @@ public abstract class GameState implements Comparable<GameState> {
 	 * rather than anything broadly required for all GameStates.
 	 * 
 	 */
-	public abstract void initialize();
+	public void initialize(){
+		
+	}
 
 	/**
 	 * Returns the boolean value of the GameState's active variable.
