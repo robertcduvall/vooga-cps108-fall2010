@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
-import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
@@ -32,10 +31,8 @@ import com.golden.gamedev.object.background.ColorBackground;
 public class MarioClone extends Game {
 
 	private static final int WIDTH = 1024;
-	private static final int HEIGHT = 768;
+	private static int HEIGHT = 768;
 
-	private KeyboardControl myControl;
-	private MarioSprite myMario;
 	private GameStateManager myGameStateManager;
 	private GamePlayState myGamePlayState;
 	private MainMenuState myMenuState;
@@ -63,9 +60,7 @@ public class MarioClone extends Game {
 
 		myGameStateManager = new GameStateManager();
 
-		myMario = new MarioSprite("mario", "regular", Resources
-				.getImage("MarioR"), Resources.getImage("MarioL"));
-		myGamePlayState = new GamePlayState(myMario, WIDTH, HEIGHT);
+		myGamePlayState = new GamePlayState(WIDTH, HEIGHT, this);
 
 		fontManager.putFont("GAMEOVER", myGameFont);
 		fontManager.putFont("MENU", myGameFont);
@@ -82,21 +77,10 @@ public class MarioClone extends Game {
 		myGameStateManager.addGameState(myWinState);
 
 		myGameStateManager.switchTo(myMenuState);
-
-		myControl = new KeyboardControl(myMario, this);
-
-		myControl.addInput(KeyEvent.VK_D, "moveRight",
-				"vooga.games.marioclone.MarioSprite");
-		myControl.addInput(KeyEvent.VK_A, "moveLeft",
-				"vooga.games.marioclone.MarioSprite");
-		myControl.addInput(KeyEvent.VK_W, "jumpCmd",
-				"vooga.games.marioclone.MarioSprite");
-
 	}
 
 	@Override
 	public void update(long elapsedTime) {
-		myControl.update();
 		myGameStateManager.update(elapsedTime);
 
 		GamePlayState.State nextState;
@@ -121,8 +105,6 @@ public class MarioClone extends Game {
 
 		if (myWinState.isActive() || myLoseState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
-				myMario.setHealth(myMario.getMaxHealth());
-				myMario.setActive(true);
 				myGamePlayState.init();
 				myGameStateManager.switchTo(myGamePlayState);
 			}

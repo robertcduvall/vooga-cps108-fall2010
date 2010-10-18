@@ -1,7 +1,6 @@
 package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
-import com.golden.gamedev.object.Background;
 
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.items.GravityItem;
@@ -9,7 +8,7 @@ import vooga.games.marioclone.items.GravityItem;
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
 
-	private static final int myMaxHealth = 100;
+	private static final int myMaxHealth = 3;
 	private double jumpSpeed = 1;
 	private double speed = .5;
 	private boolean onGround = false;
@@ -22,25 +21,12 @@ public class MarioSprite extends CharacterSprite {
 
 	public void moveRight() {
 		setHorizontalSpeed(speed);
-		if (getX() < 0) {  // also need condition for off right side of background
-			// System.out.println("off screen");
-			setHorizontalSpeed(0);
-		} else {
-			setHorizontalSpeed(speed);
-		}
 		setNewImage(myRightImage);
 
 	}
 
 	public void moveLeft() {
 		setHorizontalSpeed(-speed);
-		if (getX() < 0) { // also need condition for off right side of background
-			// System.out.println("off screen");
-			setHorizontalSpeed(0);
-			setX(0);
-		} else {
-			setHorizontalSpeed(-speed);
-		}
 		setNewImage(myLeftImage);
 	}
 
