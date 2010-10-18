@@ -32,7 +32,8 @@ public class DoodleGame extends Game {
 	// Playfield
 	protected PlayField playField;
 	
-	private OverlayString score;
+	private OverlayString scoreString;
+	private Stat<Integer> score;
 	private int level;
 	private int passScore;
 	private int nextLevel;
@@ -60,9 +61,10 @@ public class DoodleGame extends Game {
 	public DoodleGame(){
 		super();
 		level = 1;
-		score = new OverlayString("0");
-		score.setX(450);
-		score.setY(50);
+		score = new Stat<Integer>(0);
+		scoreString = new OverlayString("0");
+		scoreString.setX(450);
+		scoreString.setY(50);
 	}
 
 	@Override
@@ -142,6 +144,9 @@ public class DoodleGame extends Game {
 
 	@Override
 	public void update(long elapsedTime) {
+		
+		System.out.println(level);
+		
 		doodle_keyboard_control.update();
 		if (menuInt ==1){
 			if(keyPressed(KeyEvent.VK_ENTER)){
@@ -157,14 +162,14 @@ public class DoodleGame extends Game {
 				for(Sprite sprite : group.getSprites()){
 					if(doodle.getY() < 400 && sprite != null){
 						if(group.getName().equals("Doodle Group"))
-							doodle.setScore(doodle.getScore() + 5);
+							score.setStat(score.getStat()+5);
 						sprite.moveY(400 - doodle.getY());
 					}
 				}
 			}
 			playField.update(elapsedTime);
-			score.setString(Integer.toString(doodle.getScore()));
-			if(Integer.parseInt(score.getString()) >= passScore){
+			scoreString.setString(Integer.toString(score.getStat()));
+			if(Integer.parseInt(scoreString.getString()) >= passScore){
 				if(nextLevel != 0){
 					level = nextLevel;
 					initResources();
@@ -191,7 +196,7 @@ public class DoodleGame extends Game {
 	@Override
 	public void render(Graphics2D g) {
 		playField.render(g);
-		score.render(g);
+		scoreString.render(g);
 	}
 
 	public static void main(String[] args) {
