@@ -2,6 +2,7 @@ package vooga.engine.overlay;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.Sprite;
 
 /**
  * The OverlayPanel provides a convenient way for users
@@ -18,8 +19,9 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class OverlayPanel extends OverlayManager{
 
-	private SpriteGroup myOverlaysGroup;
 	private boolean isOnTop;
+	private int screenHeight;
+	private int screenWidth;
 	
 	/**
 	 * Constructs the initial panel with a given world,
@@ -27,19 +29,12 @@ public class OverlayPanel extends OverlayManager{
 	 * @param game
 	 * @param topOrBottom
 	 */
-	public OverlayPanel(Game game, boolean topOrBottom)
+	public OverlayPanel(String name, Game game, boolean topOrBottom)
 	{
-		super(game, 0, 0);
+		super(name, 0, 0);
 		isOnTop = topOrBottom;
-		myOverlaysGroup = new SpriteGroup("Overlays");
-	}
-	
-	/**
-	 * Adds an overlay to the panel.
-	 * @param overlay
-	 */
-	public void addOverlay(Overlay overlay){
-        myOverlays.add(overlay);
+		screenWidth = game.getWidth();
+		screenHeight = game.getHeight();
 	}
 	
 	/**
@@ -50,27 +45,29 @@ public class OverlayPanel extends OverlayManager{
 	 */
 	public void initialize()
 	{
-		int numberOfOverlays = myOverlays.size();
+		int numberOfOverlays = this.getSize();
 		int[] xCoordinates = setXCoordinates(numberOfOverlays);
-		int distanceFromEdge = getGame().getHeight()/50;
+		int distanceFromEdge = screenHeight/50;
 		int yCoordinate = distanceFromEdge;
 		int yOffset = 0;	//The offsets are for in case the Overlay would run
 		int xOffset = 0;	//off the screen.
 		if(!isOnTop)
-			yCoordinate = getGame().getHeight() - distanceFromEdge;
+			yCoordinate = screenHeight - distanceFromEdge;
 		int i=0;
-		for(Overlay overlay : myOverlays)
+		for(Overlay overlay : (Overlay[])this.getSprites())
 		{
-			
+			xOffset = (-1)*overlay.getWidth()/2;
 			
 			if(overlay.getHeight()/2 > distanceFromEdge)
 				yOffset = overlay.getHeight()/2 - distanceFromEdge + 1;
 			if(!isOnTop)
 				yOffset*=(-1);
-			if(i==0)
-				xOffset = (overlay.getWidth()*3)/5;
-			else if(i==numberOfOverlays-1)
-				xOffset = ((overlay.getWidth()*3)/5)*(-1);
+			if(i==0 && numberOfOverlays > 1)
+//				xOffset = (overlay.getWidth()*3)/5;
+				xOffset = 0;
+			else if(i==numberOfOverlays-1 && numberOfOverlays > 1)
+//				xOffset = ((overlay.getWidth()*3)/5)*(-1);
+				xOffset += overlay.getWidth()/2;
 //			overlay.setLocation(xCoordinates[i]+xOffset, yCoordinate+yOffset);
 //			overlay.render(overlay.getImage().createGraphics(), xCoordinates[i]+xOffset, yCoordinate+yOffset);
 			overlay.setX(xCoordinates[i]+xOffset);
@@ -79,7 +76,6 @@ public class OverlayPanel extends OverlayManager{
 			yOffset = 0;
 			
 			i++;
-			myOverlaysGroup.add(overlay);
 		}
 	}
 	
@@ -87,26 +83,16 @@ public class OverlayPanel extends OverlayManager{
 	{
 		int[] xCoordinates = new int[numberOfOverlays];
 		if(numberOfOverlays == 1)
-			xCoordinates[0] = getGame().getWidth()/2;
+			xCoordinates[0] = screenWidth/2;
 		else
 		{
-			int xIncrement = getGame().getWidth() / (numberOfOverlays-1);
+			int xIncrement = screenWidth / (numberOfOverlays-1);
 			for(int i=0; i < numberOfOverlays; i++)
 			{
 				xCoordinates[i] = xIncrement * i;		//x-coordinates for the overlays
 			}
 		}
 		return xCoordinates;
-	}
-	
-	/**
-	 * Returns the SpriteGroup of overlays contained
-	 * in this OverlayPanel
-	 * @return
-	 */
-	public SpriteGroup getOverlayGroup()
-	{
-		return myOverlaysGroup;
 	}
 	
 }
