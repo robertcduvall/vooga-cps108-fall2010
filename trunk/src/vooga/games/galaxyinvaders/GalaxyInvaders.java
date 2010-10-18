@@ -105,8 +105,6 @@ public class GalaxyInvaders extends Game {
 		gameOver.addGroup(gameOverMenu);
 		gameStateManager.addGameState(gameOver);
 		gameStateManager.switchTo(pause);
-//		livesOverlay = new OverlayStat("Lives", ship.getStat("LIVES"));
-//		scoreOverlay = new OverlayStatColors("Score", scoreStat,  new Font("mine", Font.PLAIN, 22), Color.RED);
 		levels = new Levels();
 		try {
 			levels.createLevels();
