@@ -49,8 +49,8 @@ public abstract class CharacterSprite extends PlayerSprite {
 
 	}
 
-	protected void setGravityCoef(double myGravityCoef) {
-		this.myGravityCoef = myGravityCoef;
+	protected void setGravityCoef(double gravityCoef) {
+		this.myGravityCoef = gravityCoef;
 	}
 
 	protected double getGravityCoef() {

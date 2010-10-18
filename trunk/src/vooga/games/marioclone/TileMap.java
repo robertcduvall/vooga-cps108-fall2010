@@ -115,8 +115,11 @@ public class TileMap {
 				switch(curChar) {
 				case(' '):
 					break;
-				case('I'):
-					addTile(new IndestructibleTile(x,y,Resources.getImage("ITile")));
+				case('F'):
+					addTile(new IndestructibleTile(x,y,Resources.getImage("GrassTile")));
+					break;
+				case('D'):
+					addTile(new IndestructibleTile(x,y,Resources.getImage("DirtTile")));
 					break;
 				case('B'):
 					addTile(new BreakTile(x,y,Resources.getImage("Break")));
@@ -126,6 +129,7 @@ public class TileMap {
 					changingImages.add(Resources.getImage("Changing1"));
 					changingImages.add(Resources.getImage("Changing2"));
 					changingImages.add(Resources.getImage("Changing3"));
+					changingImages.add(Resources.getImage("Changing4"));
 					addTile(new ChangingTile(x,y,changingImages));
 					break;
 				case('G'):

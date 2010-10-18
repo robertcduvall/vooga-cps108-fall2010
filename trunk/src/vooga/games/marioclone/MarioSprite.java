@@ -38,6 +38,15 @@ public class MarioSprite extends CharacterSprite {
 			}
 		}
 	}
+	
+	@Override
+    public void setY(double y) {
+        // check if falling
+        if (Math.round(y) > Math.round(getY())) {
+            onGround = false;
+        }
+        super.setY(y);
+    }
 
 	public void jumpCmd() {
 		jump(false);

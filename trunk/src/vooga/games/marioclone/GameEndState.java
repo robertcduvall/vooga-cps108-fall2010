@@ -51,6 +51,8 @@ public class GameEndState extends GameState {
 		myMessage = new OverlayString(messageString);
 		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
 		myMessage.setLocation(400, 400);
+		
+		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File("src/vooga/games/marioclone/highscores.db"));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
 
@@ -105,14 +107,7 @@ public class GameEndState extends GameState {
 		super.activate();
 	};
 
-	/**
-	 * Creates a high score handler from a file. 
-	 */
 	
-	public void initialize() {
-		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File("src/vooga/games/marioclone/highscores.db"));
-	}
-
 	/**
 	 * Renders the background, message, and overlay within the game state.
 	 */
