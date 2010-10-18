@@ -69,6 +69,7 @@ public class CyberionGame extends Game {
 	// private KeyboardControl keyboardControl;
 	MainGameState playGameState = new MainGameState();
 	GameStateManager gameStateManager = new GameStateManager();
+	
 
 	// initializes sprites from images
 	// private void setSprites() {
@@ -147,8 +148,7 @@ public class CyberionGame extends Game {
 	public void initResources() {
 		Resources.setGame(this);
 		loadImages();
-		playGameState.setBaseAudio(bsSound);
-		playGameState.setBaseInput(bsInput);
+		
 		playGameState.initialize();
 		gameStateManager.addGameState(playGameState);
 		//
