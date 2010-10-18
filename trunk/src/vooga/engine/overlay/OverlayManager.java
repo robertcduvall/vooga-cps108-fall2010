@@ -55,15 +55,16 @@ public class OverlayManager extends SpriteGroup{
 	 * 
 	 * @param g
 	 */
-	public void render(Graphics2D g) {
-		for(Sprite s : getSprites()){
-			if(s.isActive()){
-				int newX = (int)(s.getX()+myX);
-				int newY = (int)(s.getY()+myY);
-				s.render(g, newX, newY);
-			}
-		}
-	}
+//	@Override
+//	public void render(Graphics2D g) {
+//		for(Sprite s : getSprites()){
+//			if(s != null){
+//				int newX = (int)(s.getX()+myX);
+//				int newY = (int)(s.getY()+myY);
+//				s.render(g, newX, newY);
+//			}
+//		}
+//	}
 
 	/**
 	 * Translates the OverlayManager by the x and y amounts
