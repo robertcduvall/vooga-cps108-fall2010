@@ -2,9 +2,11 @@ package vooga.games.towerdefense.tower;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourcesBeta;
 import vooga.games.towerdefense.Enemy;
 import vooga.games.towerdefense.TowerShot;
+import vooga.games.towerdefense.events.NeedsTargetsEvent;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -20,8 +22,8 @@ public abstract class ShootingTower extends Tower{
 	private double range;
 	private double shotSpeed;
 
-	public ShootingTower(BufferedImage image, double x, double y, BufferedImage previewImage, int cost, double range,  double shotSpeed, long shotDelay){
-		super(image, x, y, previewImage, cost);
+	public ShootingTower(BufferedImage image, double x, double y, BufferedImage previewImage, int cost, EventManager eventManager, double range,  double shotSpeed, long shotDelay){
+		super(image, x, y, previewImage, cost, eventManager);
 		this.range = range;
 		this.shotSpeed = shotSpeed;
 		this.shotDelay = shotDelay;
@@ -38,18 +40,18 @@ public abstract class ShootingTower extends Tower{
 	
 	private void shoot(){
 		if(!isValidTarget(target)){
-			target = (Enemy) findTarget();
+			getEventManager().fireEvent("NeedsTargetsEvent", new NeedsTargetsEvent(this, "NeedsTargetsEvent", this));
 		}
 		if(target!=null){
 			target.gotHit();
 			timeSinceShot=0;
 			TowerShot shot = new TowerShot(ResourcesBeta.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
-			shotGroup.add(shot);
+			//shotGroup.add(shot);
 		}
 		
 	}
 	
-	private boolean isValidTarget(Sprite target){
+	public boolean isValidTarget(Sprite target){
 		return target!=null && target.isActive() && isInRange(target);
 	}
 	
@@ -68,6 +70,14 @@ public abstract class ShootingTower extends Tower{
 	
 	private double findDistance(Sprite other){
 		return Math.sqrt((getX()+getWidth()/2-other.getX())*(getX()+getWidth()/2-other.getX()) + (getY()+getHeight()/2-other.getY())*(this.getY()+getHeight()/2-other.getY()));
+	}
+	
+	public double getRange(){
+		return range;
+	}
+	
+	public void setTarget(Enemy newTarget){
+		target = newTarget;
 	}
 
 }

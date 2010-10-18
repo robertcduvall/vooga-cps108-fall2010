@@ -2,6 +2,7 @@ package vooga.games.towerdefense.tower;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourcesBeta;
 
 public class Normal extends ShootingTower{
@@ -13,8 +14,8 @@ public class Normal extends ShootingTower{
 	public final static double RANGE = 150;
 	public final static double SHOT_SPEED = 1;
 	
-	public Normal(double x, double y) {
-		super(IMAGE, x, y, PREVIEW_IMAGE, COST, RANGE, SHOT_SPEED, SHOT_DELAY);
+	public Normal(double x, double y, EventManager eventManager) {
+		super(IMAGE, x, y, PREVIEW_IMAGE, COST, eventManager, RANGE, SHOT_SPEED, SHOT_DELAY);
 	}
 
 }

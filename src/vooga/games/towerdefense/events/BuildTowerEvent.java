@@ -1,19 +1,22 @@
 package vooga.games.towerdefense.events;
 
 import vooga.engine.event.IEvent;
+import vooga.games.towerdefense.tower.Tower;
 
 public class BuildTowerEvent implements IEvent{
 
 	private Object obj;
 	private String eventName;
-	private String towerType;
+	private Tower tower;
 	private double x;
 	private double y;
 
-	public BuildTowerEvent(Object source, String eventName, String towerType, double x, double y) {
+	public BuildTowerEvent(Object source, String eventName, Tower tower, double x, double y) {
 		obj = source;
 		this.eventName = eventName;
-		this.towerType = towerType;
+		this.tower = tower;
+		this.tower.forceX(x);
+		this.tower.forceY(y);
 		this.x = x;
 		this.y = y;
 	}
@@ -44,8 +47,8 @@ public class BuildTowerEvent implements IEvent{
 		this.y = y;
 	}
 	
-	public String getTowerType(){
-		return towerType;
+	public Tower getTower(){
+		return tower;
 	}
 
 }

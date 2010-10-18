@@ -2,6 +2,7 @@ package vooga.games.towerdefense.tower;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourcesBeta;
 
 public class Fast extends ShootingTower{
@@ -14,7 +15,7 @@ public class Fast extends ShootingTower{
 	public final static int COST = 250;
 	public final static double SHOT_SPEED = .6;
 	
-	public Fast(double x, double y) {
-		super(IMAGE, x, y, PREVIEW_IMAGE, COST, RANGE, SHOT_SPEED, SHOT_DELAY);
+	public Fast(double x, double y, EventManager eventManager) {
+		super(IMAGE, x, y, PREVIEW_IMAGE, COST, eventManager, RANGE, SHOT_SPEED, SHOT_DELAY);
 	}
 }
