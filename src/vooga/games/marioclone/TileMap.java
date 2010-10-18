@@ -5,20 +5,21 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import vooga.engine.player.control.ItemSprite;
 import vooga.engine.resource.Resources;
+import vooga.games.marioclone.items.GravityItem;
 import vooga.games.marioclone.tiles.BreakTile;
 import vooga.games.marioclone.tiles.ChangingTile;
 import vooga.games.marioclone.tiles.IndestructibleTile;
+import vooga.games.marioclone.tiles.ItemTile;
 import vooga.games.marioclone.tiles.Tile;
 import vooga.games.marioclone.tiles.Tile.State;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class TileMap {
@@ -34,6 +35,15 @@ public class TileMap {
 		tiles = new CopyOnWriteArrayList<Tile>();
 		tileGroup = new SpriteGroup("Tile Group");
 		loadTiles(file);
+	}
+	
+	public List<ItemSprite> getNewItems() {
+		List<ItemSprite> list = new ArrayList<ItemSprite>();
+		for(Tile t : tiles) {
+			ItemSprite item = t.checkItem();
+			if(item != null) list.add(item);
+		}
+		return list;
 	}
 	
 	public List<Tile> getTiles() {
@@ -103,22 +113,32 @@ public class TileMap {
 		height = lines.size();
 		for(int j = 0; j < width; j++) {
 			for(int k = 0; k < height; k++) {
+				double x = tilesToPixels(j);
+				double y = tilesToPixels(k);
 				curChar = (j < lines.get(k).length()) ? lines.get(k).charAt(j) : ' ';
 				switch(curChar) {
 				case(' '):
 					break;
 				case('I'):
-					addTile(new IndestructibleTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("ITile")));
+					addTile(new IndestructibleTile(x,y,Resources.getImage("ITile")));
 					break;
 				case('B'):
-					addTile(new BreakTile(tilesToPixels(j),tilesToPixels(k),Resources.getImage("Break")));
+					addTile(new BreakTile(x,y,Resources.getImage("Break")));
 					break;	
 				case('C'):
 					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
 					changingImages.add(Resources.getImage("Changing1"));
 					changingImages.add(Resources.getImage("Changing2"));
 					changingImages.add(Resources.getImage("Changing3"));
-					addTile(new ChangingTile(tilesToPixels(j),tilesToPixels(k),changingImages));
+					addTile(new ChangingTile(x,y,changingImages));
+					break;
+				case('G'):
+					List<BufferedImage> itemTileImages = new ArrayList<BufferedImage>();
+					itemTileImages.add(Resources.getImage("ItemTile1"));
+					itemTileImages.add(Resources.getImage("ItemTile2"));
+					GravityItem gravityItem = new GravityItem(new Sprite(Resources.getImage("GravityItem")),.5);
+					gravityItem.setLocation(x,y-gravityItem.getHeight());
+					addTile(new ItemTile(x,y,itemTileImages,gravityItem));
 					break;
 				}
 			}

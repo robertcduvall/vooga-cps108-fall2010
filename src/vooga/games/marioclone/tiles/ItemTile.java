@@ -3,29 +3,35 @@ package vooga.games.marioclone.tiles;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import vooga.games.marioclone.items.GravityItem;
-import vooga.games.marioclone.items.Item;
+import vooga.engine.player.control.ItemSprite;
 
 import com.golden.gamedev.object.Sprite;
 
+@SuppressWarnings("serial")
 public class ItemTile extends ChangingTile {
-	
-	private Item myItem;
 
-	public ItemTile(double x, double y, List<BufferedImage> images) {
+	private ItemSprite myItem;
+	private boolean releaseItem;
+
+	public ItemTile(double x, double y, List<BufferedImage> images,
+			ItemSprite item) {
 		super(x, y, images);
-		myItem = new GravityItem(.5);
+		myItem = item;
 	}
 
 	@Override
 	public void actOnCollision(Sprite sprite) {
 		super.actOnCollision(sprite);
-		
+		releaseItem = true;
 	}
-	
+
 	@Override
-	public Item checkNewItems() {
-		return super.checkNewItems();
+	public ItemSprite checkItem() {
+		if(releaseItem) {
+			releaseItem = false;
+			return myItem;
+		}
+		return null;
 	}
 
 }

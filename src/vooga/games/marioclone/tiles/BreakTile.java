@@ -2,8 +2,6 @@ package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 
-import vooga.games.marioclone.items.Item;
-
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")

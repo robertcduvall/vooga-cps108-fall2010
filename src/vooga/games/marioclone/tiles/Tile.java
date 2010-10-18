@@ -2,8 +2,7 @@ package vooga.games.marioclone.tiles;
 
 import java.awt.image.BufferedImage;
 
-import vooga.games.marioclone.items.Item;
-
+import vooga.engine.player.control.ItemSprite;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -31,7 +30,7 @@ public abstract class Tile extends Sprite {
 	}
 
 	// override to spawn items
-	public Item checkNewItems() {
+	public ItemSprite checkItem() {
 		return null;
 	}
 	

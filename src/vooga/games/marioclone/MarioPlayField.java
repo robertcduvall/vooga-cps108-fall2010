@@ -20,6 +20,7 @@ public class MarioPlayField extends PlayField {
 	@Override
 	public void update(long elapsedTime) {
 		myTileMap.updateTiles();
+		myTileMap.getNewItems();
 		super.update(elapsedTime);
 	}
 	
