@@ -1,5 +1,7 @@
 package vooga.examples.event.demo;
-import vooga.examples.event.event.EventManager;
+
+
+import vooga.examples.event.event.SingletonEventManager;
 
 /**
  * This demo shows how our event system works. In this demo, we only set
@@ -16,18 +18,18 @@ import vooga.examples.event.event.EventManager;
 public class Demo {
 	public static void main(String[] args) {
 		// Initialize event manager
-		EventManager event = new EventManager();
-
+	//	EventManager event = new EventManager();
+		SingletonEventManager eventManager=SingletonEventManager.getEventManagerInstance();
 		// Initliaze pacman and ghost
 		System.out.println("Pacman initiated!");
-		Pacman p = new Pacman(0, 0, event);
-
+		//Pacman p = new Pacman(0, 0, event);
+		Pacman p = new Pacman(0, 0);
 		System.out.println("Ghost initiated!");
 		Ghost g = new Ghost(0, 0);
 
 		// Make ghost listen to pacman's movement
 		System.out.println("Ghost is listening to Pacman's movement!");
-		event.addEventListener("PacmanMoveEvent", g);
+		SingletonEventManager.addEventListener("PacmanMoveEvent", g);
 
 		System.out.println();
 		System.out.println("Pacman's current position:  (" + p.getX() + ", "
@@ -54,7 +56,7 @@ public class Demo {
 		// Remove Ghost's listener on Pacman's movement
 		System.out.println();
 		System.out.println("Ghost stops listening on pacman's movement!");
-		event.removeEventListener("PacmanMoveEvent", g);
+		SingletonEventManager.removeEventListener("PacmanMoveEvent", g);
 
 		p.setY(300);
 		System.out.println();
