@@ -109,6 +109,7 @@ public class Zombieland extends Game {
 
 		// Player animations
 		String[] list = { "Down", "Up", "Left", "Right" };
+		
 		for (int i = 0; i < list.length; i++) {
 			String value = bundle.getString(list[i]);
 			BufferedImage[] currentImage = getBufferedImageArray(
@@ -131,6 +132,10 @@ public class Zombieland extends Game {
 		resetOverlayLevelString(bundle);
 	}
 
+	/**
+	 * This method resets the Level String to 0 on the screen.
+	 * @param bundle
+	 */
 	private void resetOverlayLevelString(ResourceBundle bundle) {
 
 		int overlayLevelStringX = parseInt(bundle, "overlayLevelStringX");
@@ -141,7 +146,11 @@ public class Zombieland extends Game {
 				.setLocation(overlayLevelStringX, overlayLevelStringY);
 		overlayLevelString.setActive(false);
 	}
-
+	
+	/**
+	 * This method resets the Ammo Integer displayed on the screen.	 
+	 * @param bundle
+	 */
 	private void resetOverlayAmmoString(ResourceBundle bundle) {
 
 		int overlayAmmoStringX = parseInt(bundle, "overlayAmmoStringX");
@@ -155,6 +164,10 @@ public class Zombieland extends Game {
 		overlayAmmoString.setLocation(overlayAmmoStringX, overlayAmmoStringY);
 	}
 
+	/**
+	 * This method sets the location for the overlayScoreString.
+	 * @param bundle
+	 */
 	private void resetOverlayScoreString(ResourceBundle bundle) {
 		int overlayScoreStringX = parseInt(bundle, "overlayScoreStringX");
 		int overlayScoreStringY = parseInt(bundle, "overlayScoreStringY");
@@ -167,6 +180,10 @@ public class Zombieland extends Game {
 				.setLocation(overlayScoreStringX, overlayScoreStringY);
 	}
 
+	/**
+	 * This method resets the location of the health bar and its color
+	 * @param bundle
+	 */
 	private void resetOverlayHealthBar(ResourceBundle bundle) {
 
 		int overlayHealthBarX = parseInt(bundle, "overlayHealthBarX");
@@ -178,6 +195,10 @@ public class Zombieland extends Game {
 		overlayHealthBar.setLocation(overlayHealthBarX, overlayHealthBarY);
 	}
 
+	/**
+	 * This method resets the location for the health bar string and also its color
+	 * @param bundle
+	 */
 	private void resetOverlayHealthString(ResourceBundle bundle) {
 
 		int overlayHealthStringX = parseInt(bundle, "overlayHealthStringX");
@@ -219,6 +240,10 @@ public class Zombieland extends Game {
 		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, VK_3_INT);
 	}
 
+	/**
+	 * This method restarts the initial variables used in the ZombieLand game
+	 * @param bundle
+	 */
 	private void resetStartingResources(ResourceBundle bundle) {
 
 		level = parseInt(bundle, "startLevel");
@@ -235,6 +260,10 @@ public class Zombieland extends Game {
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 	}
 
+	/**
+	 * This method initializes the playfield, adds the spriteGroups to the playfield, and
+	 * set up the collisionmanagers.
+	 */
 	private void initializePlayField() {
 		SpriteGroup zombies = new SpriteGroup("Zombies");
 		SpriteGroup bullets = new SpriteGroup("Bullets");
@@ -261,11 +290,25 @@ public class Zombieland extends Game {
 		playField.addCollisionGroup(players, zombies, playerZombieManager);
 	}
 
+	/**
+	 * This method takes a resource bundle and a string to parse the value of the string 
+	 * into double
+	 * @param bundle
+	 * @param keyName
+	 * @return
+	 */
 	private Double parseDouble(ResourceBundle bundle, String keyName) {
 		String string = bundle.getString(keyName);
 		return Double.parseDouble(string);
 	}
 
+	/**
+	 * This method takes a resource bundle and a string to parse the value of the string
+	 * into integer
+	 * @param bundle
+	 * @param keyName
+	 * @return
+	 */
 	private Integer parseInt(ResourceBundle bundle, String keyName) {
 		String string = bundle.getString(keyName);
 		return Integer.parseInt(string);
