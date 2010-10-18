@@ -20,9 +20,9 @@ public class PlayerShip extends PlayerSprite {
 	KeyboardControl keyboardControl;
 
 	public PlayerShip(String name, String stateName, Sprite s) {
-		
+
 		super(name, stateName, s);
-		
+
 	}
 
 	private int life;
