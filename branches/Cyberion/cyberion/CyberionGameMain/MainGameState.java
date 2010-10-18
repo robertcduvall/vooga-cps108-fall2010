@@ -9,6 +9,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
+import vooga.engine.core.Game;
 import vooga.engine.event.EventManager;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
@@ -53,6 +54,7 @@ public class MainGameState extends GameState {
 	// creates keyboard control
 	private KeyboardControl keyboardControl;
 	private Resources resources;
+	private CyberionGame myGame;
 
 	//
 	@Override
@@ -92,7 +94,7 @@ public class MainGameState extends GameState {
 				playerImage));
 
 		playerShip.setEventManager(eventManager);
-		keyboardControl = new KeyboardControl();
+		keyboardControl = new KeyboardControl(playerShip, myGame);
 		keyboardControl = playerShip.setKeyboardControl(keyboardControl);
 		playerGroup.add(playerShip);
 
@@ -137,13 +139,13 @@ public class MainGameState extends GameState {
 //		enemyGroup.update(elapsedTime);
 //		enemyShot.update(elapsedTime);
 //		bonusGroup.update(elapsedTime);
-		keyboardControl.update();
+//		keyboardControl.update();
 
 		playerCollidesWithWall.checkCollision();
 		playerCollidesWithEnemy.checkCollision();
 		playerCollidesWithShot.checkCollision();
 		playerCollidesWithBonus.checkCollision();
-		enemyCollidesWithShot.checkCollision();
+//		enemyCollidesWithShot.checkCollision();
 	}
 	
 	public void render(Graphics2D g){
@@ -192,6 +194,10 @@ public class MainGameState extends GameState {
 
 		startEventManager();
 
+	}
+	
+	public void setGame(CyberionGame cyberionGame){
+		myGame = cyberionGame;
 	}
 
 }
