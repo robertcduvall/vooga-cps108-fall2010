@@ -41,6 +41,7 @@ public class Enemy extends CharacterSprite {
 	 */
 	
 	public void bounce() {
+		System.out.println("bouncing enemy");
 		setHorizontalSpeed(-getHorizontalSpeed());
 	}
 	
@@ -50,9 +51,6 @@ public class Enemy extends CharacterSprite {
 	 * 
 	 */
 	public void update(long elapsedTime) {
-		if((Integer) (getStat("Health").getStat()) <= 0)
-			setActive(false);
-		
 		super.update(elapsedTime);
 		
 		if(!isOnScreen()) bounce();

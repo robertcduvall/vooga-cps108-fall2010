@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
 
 
@@ -26,6 +28,11 @@ public class GamePlayState extends GameState {
 	private int myWidth;
 	private int myHeight;
 	private List<MarioLevel> myLevels;
+	private Stat<Integer> myEnemiesKilled;
+	private OverlayStat myScoreOverlay;
+	private Stat<Integer> myLives;
+	private OverlayStat myLivesOverlay;
+
 	private int myCurrentLevel;
 
 	public enum State {
@@ -94,6 +101,12 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
+		myEnemiesKilled = new Stat<Integer>(new Integer(0));
+		myScoreOverlay = new OverlayStat("Score: ",
+				myEnemiesKilled);
+		myLives = new Stat<Integer>(new Integer(0));
+		myLivesOverlay = new OverlayStat("Lives: ",
+				myLives);
 		for(int i=0; i<3; i++){
 			makeLevel(i, myGame);
 		}
@@ -101,7 +114,8 @@ public class GamePlayState extends GameState {
 	
 	private void makeLevel(int i, Game game){
 		MarioLevel level = new MarioLevel(new File(
-		"src/vooga/games/marioclone/map"+Integer.toString(i)+".txt"), myWidth, myHeight, game);
+		"src/vooga/games/marioclone/map"+Integer.toString(i)+".txt"), myWidth, myHeight, game, myScoreOverlay, myEnemiesKilled, 
+		myLivesOverlay, myLives);
 		myLevels.add(level);
 	}
 
