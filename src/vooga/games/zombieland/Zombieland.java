@@ -210,12 +210,18 @@ public class Zombieland extends Game {
 	}
 
 	private void resetStartingResources(ResourceBundle bundle) {
-		level = 1;
+		
+		level = parseInt(bundle, "startLevel");
 		Zombie.resetZombieCount();
-		timer = new Timer(2000);
+		
+		int delay = parseInt(bundle, "timer");
+		timer = new Timer(delay);
+		
 		statLevel = new Stat<Integer>(level);
 		random = new Random();
-		BufferedImage sandbg = getImage("resources/sandbackground.png");
+		
+		String sandbackgroundpath = bundle.getString("sandbg");
+		BufferedImage sandbg = getImage(sandbackgroundpath);
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 	}
 
