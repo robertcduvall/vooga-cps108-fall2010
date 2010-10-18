@@ -101,7 +101,7 @@ public class GamePlayState extends GameState {
 	
 	private void makeLevel(int i, Game game){
 		MarioLevel level = new MarioLevel(new File(
-		"src/vooga/games/marioclone/testmap"+Integer.toString(i)+".txt"), myWidth, myHeight, game);
+		"src/vooga/games/marioclone/map"+Integer.toString(i)+".txt"), myWidth, myHeight, game);
 		myLevels.add(level);
 	}
 
