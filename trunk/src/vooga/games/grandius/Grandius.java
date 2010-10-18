@@ -18,9 +18,9 @@ import javax.swing.JFrame;
 
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
-import vooga.engine.resource.GameClock;
-import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.state.GameState;
+import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
@@ -56,12 +56,15 @@ public class Grandius extends Game {
 	private static final int INITIAL_PLAYER_LIVES = 3;
 	private static final int INITIAL_ZERO = 0;
 	
-	private static final int MENU = 0;
-	private static final int GAME_PLAY = 1;
-	private static final int LEVEL_COMPLETE = 2;
-	private static final int START_NEW_LEVEL = 3;
-	private static final int GAME_COMPLETE = 4;
-	private static final int SHOPPING_LEVEL = 5;
+	private GameState menuState;
+	private GameState playState;
+	private GameState levelCompleteState;
+	private GameState shoppingLevelState;
+	private GameState startNewLevelState;
+	private GameState gameCompleteState;
+	private GameState gameOverState;
+	
+	private GameStateManager gameStateManager;
 	
 	private static final int LAST_LEVEL = 3;
 	private static final int NUM_COMETS = 1500;
@@ -86,6 +89,11 @@ public class Grandius extends Game {
 	private SpriteGroup BOSS_GROUP;
 	private SpriteGroup MISSILE_GROUP;
 	private SpriteGroup BLACK_HOLE_GROUP;
+	private SpriteGroup MENU_GROUP;
+	private SpriteGroup LEVEL_COMPLETE_GROUP;
+	private SpriteGroup SHOPPING_LEVEL_GROUP;
+	private SpriteGroup GAME_COMPLETE_GROUP;
+	private SpriteGroup GAME_OVER_GROUP;
 	
 	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
 
@@ -106,18 +114,15 @@ public class Grandius extends Game {
 
 	private OverlayPanel myPanel;
 	private OverlayStatImage livesIcon;
-	private OverlayString gameOver = new OverlayString("GAME OVER",
-			new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
 	private Stat<Integer> myLives;
 	private Stat<Integer> myScore;
 	private Stat<Integer> myCash;
 
 	private GrandiusLevelManager grandiusLevelManager;
-
 	private GameFont font;
 	private double playerInitialX;
 	private double playerInitialY;
-	private int gameState;
+
 	private Dimension screen;
 	
 	//TODO: Good practice here? Use Missile/BlackHole classes?
@@ -136,14 +141,12 @@ public class Grandius extends Game {
 	@Override
 	public void initResources() {
 		myPanel = new OverlayPanel("GrandiusOverlay", this, true);
-//		OVERLAYS_GROUP = new SpriteGroup("overlays");
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		
 		ResourcesBeta.setDefaultPath("src/vooga/games/grandius/resources/");
 		ResourcesBeta.setGame(this);
-		gameState = MENU;
 		screen = new Dimension(640,480);
 		playerInitialX = PLAYER_INITIAL_X;
 		playerInitialY = screen.getHeight()/2;
@@ -158,7 +161,6 @@ public class Grandius extends Game {
 		livesIcon = new OverlayStatImage(ResourcesBeta.getImage("PlayerShipSingle"));
 
 		myPlayfield = new PlayField();
-		addOverlays();
 
 		myBackground = new ImageBackground(ResourcesBeta.getImage("BG"), 640, 480);
 		myPlayfield.setBackground(myBackground);
@@ -183,9 +185,64 @@ public class Grandius extends Game {
 		//Initialize the first level.
 		initLevel(grandiusLevelManager.currentLevel().get(0), grandiusLevelManager.currentLevel().get(1), grandiusLevelManager.currentLevel().get(2));
 
+		gameStateManager = new GameStateManager();
+		playState = new GameState();
+		playState.addRenderGroup(PLAYER_GROUP);
+		playState.addRenderGroup(PROJECTILE_GROUP);
+		playState.addRenderGroup(ENEMY_PROJECTILE_GROUP);
+		playState.addRenderGroup(ENEMY_GROUP);
+		playState.addRenderGroup(BOSS_PART_GROUP);
+		playState.addRenderGroup(BOSS_GROUP);
+		playState.addRenderGroup(MISSILE_GROUP);
+		playState.addRenderGroup(BLACK_HOLE_GROUP);
+		
+		playState.addUpdateGroups(PLAYER_GROUP);
+		playState.addUpdateGroups(PROJECTILE_GROUP);
+		playState.addUpdateGroups(ENEMY_PROJECTILE_GROUP);
+		playState.addUpdateGroups(ENEMY_GROUP);
+		playState.addUpdateGroups(BOSS_PART_GROUP);
+		playState.addUpdateGroups(BOSS_GROUP);
+		playState.addUpdateGroups(MISSILE_GROUP);
+		playState.addUpdateGroups(BLACK_HOLE_GROUP);
+		
+		levelCompleteState = new GameState();
+		LEVEL_COMPLETE_GROUP.add(new OverlayString("LEVEL COMPLETE"));
+		levelCompleteState.addRenderGroup(LEVEL_COMPLETE_GROUP);
+		
+		gameCompleteState = new GameState();
+		GAME_COMPLETE_GROUP.add(new OverlayString("Game complete"));
+		gameCompleteState.addRenderGroup(GAME_COMPLETE_GROUP);
+		
+		shoppingLevelState = new GameState();
+		SHOPPING_LEVEL_GROUP.add(new OverlayString("Shopping level"));
+		shoppingLevelState.addRenderGroup(SHOPPING_LEVEL_GROUP);
+		
+		startNewLevelState = new GameState();
+		
+		menuState = new GameState();
+		MENU_GROUP.add(new OverlayString("Welcome to Grandius"));
+		menuState.addRenderGroup(MENU_GROUP);
+		
+		gameOverState = new GameState();
+		GAME_OVER_GROUP.add(new OverlayString("GAME OVER",
+				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED));
+		gameOverState.addRenderGroup(GAME_OVER_GROUP);
+		
+		gameStateManager.addGameState(menuState);
+		gameStateManager.addGameState(playState);
+		gameStateManager.addGameState(levelCompleteState);
+		gameStateManager.addGameState(shoppingLevelState);
+		gameStateManager.addGameState(startNewLevelState);
+		gameStateManager.addGameState(gameCompleteState);
+		gameStateManager.addGameState(gameOverState);
+		gameStateManager.deactivateAll();
+		
+		gameStateManager.switchTo(menuState);
+		
 		//create collisions and register them to the playfield
 		createCollisions();
-
+		addOverlays();
+		
 		//TODO - change to work with ResourcesBeta class (or overlay?)
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" +
@@ -235,6 +292,11 @@ public class Grandius extends Game {
 		BOSS_GROUP = myPlayfield.addGroup(new SpriteGroup("Boss"));
 		MISSILE_GROUP = myPlayfield.addGroup(new SpriteGroup("Missile"));
 		BLACK_HOLE_GROUP = myPlayfield.addGroup(new SpriteGroup("BlackHole"));
+		MENU_GROUP = new SpriteGroup("MenuGroup");
+		LEVEL_COMPLETE_GROUP = new SpriteGroup("LevelCompleteGroup");
+		SHOPPING_LEVEL_GROUP = new SpriteGroup("ShoppingLevelGroup");
+		GAME_COMPLETE_GROUP = new SpriteGroup("GameCompleteGroup");
+		GAME_OVER_GROUP = new SpriteGroup("GameOverGroup");
 		
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		spriteGroupSpeedMap.put(PROJECTILE_GROUP, new Double(PROJECTILE_SPEED));
@@ -247,101 +309,105 @@ public class Grandius extends Game {
 
 	@Override
 	public void render(Graphics2D g) {
-
-		if (gameState == MENU) {
+		if (menuState.isActive()) {
 			// TODO - replace Magic numbers
-			font.drawString(g, "WELCOME TO THE GRANDIUS GALAXY", (int) screen.getWidth() / 7, 50);
-			font.drawString(g, "YOUR MISSION: DESTROY ALL ENEMIES", (int) screen.getWidth() / 7, 100);
-			font.drawString(g, "ARROW KEY : MOVE", (int) screen.getWidth() / 4, 150);
-			font.drawString(g, "ALT   : FIRE HORIZONTALLY",(int) screen.getWidth() / 4, 200);
-			font.drawString(g, "SPACE   : FIRE VERTICALLY",(int) screen.getWidth() / 4, 250);
-			font.drawString(g, "M: FIRE MISSILE - ONCE PURCHASED",(int) screen.getWidth() / 8, 300);
-			font.drawString(g, "B: CREATE BLACK HOLE - ONCE PURCHASED",(int) screen.getWidth() / 13, 350);
-			font.drawString(g, "CLICK TO PLAY", (int) screen.getWidth() / 4, 400);
+//			font.drawString(g, "WELCOME TO THE GRANDIUS GALAXY", (int) screen.getWidth() / 7, 50);
+//			font.drawString(g, "YOUR MISSION: DESTROY ALL ENEMIES", (int) screen.getWidth() / 7, 100);
+//			font.drawString(g, "ARROW KEY : MOVE", (int) screen.getWidth() / 4, 150);
+//			font.drawString(g, "ALT   : FIRE HORIZONTALLY",(int) screen.getWidth() / 4, 200);
+//			font.drawString(g, "SPACE   : FIRE VERTICALLY",(int) screen.getWidth() / 4, 250);
+//			font.drawString(g, "M: FIRE MISSILE - ONCE PURCHASED",(int) screen.getWidth() / 8, 300);
+//			font.drawString(g, "B: CREATE BLACK HOLE - ONCE PURCHASED",(int) screen.getWidth() / 13, 350);
+//			font.drawString(g, "CLICK TO PLAY", (int) screen.getWidth() / 4, 400);
 		}
 
-		if (gameState == GAME_PLAY) {
+		if (playState.isActive()) {
 			myPlayfield.render(g);
 		}
 
-		if (gameState == LEVEL_COMPLETE){
-			myPlayfield.clearPlayField();
-			myPlayfield.render(g);
-			font.drawString(g, "LEVEL " + grandiusLevelManager.getMyCurrentLevel() + " COMPLETE",
-					(int) screen.getWidth() / 3,
-					(int) (screen.getHeight() / 2.5));
-			font.drawString(g, "CLICK FOR SHOPPING LEVEL",
-					(int) screen.getWidth() / 3,
-					(int) screen.getHeight() / 2);
+		if (levelCompleteState.isActive()){
+//			myPlayfield.clearPlayField();
+//			myPlayfield.render(g);
+//			font.drawString(g, "LEVEL " + grandiusLevelManager.getMyCurrentLevel() + " COMPLETE",
+//					(int) screen.getWidth() / 3,
+//					(int) (screen.getHeight() / 2.5));
+//			font.drawString(g, "CLICK FOR SHOPPING LEVEL",
+//					(int) screen.getWidth() / 3,
+//					(int) screen.getHeight() / 2);
 		}
-		if (gameState == SHOPPING_LEVEL){
-			myPlayfield.clearPlayField();
-			myPlayfield.render(g);
-			font.drawString(g, "CASH: " + myCash.getStat().intValue(),
-					(int) screen.getWidth()/3,
-					(int) (screen.getHeight()/5));
-			font.drawString(g, "CLICK HERE TO BUY MISSILE - 500",
-					(int) screen.getWidth()/10,
-					(int) screen.getHeight()/4);
-			font.drawString(g, "CLICK HERE TO BUY BLACK HOLE - 1000",
-					(int) screen.getWidth()/10,
-					(int) screen.getHeight()/3);
-			font.drawString(g, "OR HIT SPACEBAR FOR NEXT LEVEL",
-					(int) screen.getWidth()/6,
-					(int) screen.getHeight()/2);
+		if (shoppingLevelState.isActive()){
+//			myPlayfield.clearPlayField();
+//			myPlayfield.render(g);
+//			font.drawString(g, "CASH: " + myCash.getStat().intValue(),
+//					(int) screen.getWidth()/3,
+//					(int) (screen.getHeight()/5));
+//			font.drawString(g, "CLICK HERE TO BUY MISSILE - 500",
+//					(int) screen.getWidth()/10,
+//					(int) screen.getHeight()/4);
+//			font.drawString(g, "CLICK HERE TO BUY BLACK HOLE - 1000",
+//					(int) screen.getWidth()/10,
+//					(int) screen.getHeight()/3);
+//			font.drawString(g, "OR HIT SPACEBAR FOR NEXT LEVEL",
+//					(int) screen.getWidth()/6,
+//					(int) screen.getHeight()/2);
 		}
 
-		if (gameState == GAME_COMPLETE) {
-			myPlayfield.clearPlayField();
-			myPlayfield.render(g);
-			font.drawString(g, "GAME COMPLETE",
-					(int) screen.getWidth() / 3,
-					(int) (screen.getHeight() / 2.5));
-			font.drawString(g, "YOU WIN",
-					(int) screen.getWidth() / 3,
-					(int) screen.getHeight() / 2);
-			this.stop();
+		if (gameCompleteState.isActive()) {
+//			myPlayfield.clearPlayField();
+//			myPlayfield.render(g);
+//			font.drawString(g, "GAME COMPLETE",
+//					(int) screen.getWidth() / 3,
+//					(int) (screen.getHeight() / 2.5));
+//			font.drawString(g, "YOU WIN",
+//					(int) screen.getWidth() / 3,
+//					(int) screen.getHeight() / 2);
+//			this.stop();
 		}
+		gameStateManager.render(g);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 
 		//TODO Utilize VOOGA State API
-		if (gameState == MENU){
+		if (menuState.isActive()){
 			if(click()){
-				gameState = GAME_PLAY;
+				gameStateManager.switchTo(playState);
 				playSound(ResourcesBeta.getSound("WatchThisSound"));
 				playSound(ResourcesBeta.getSound("StartLevelSound"));
-				try {
-					GameClock.start();
-				} catch (GameClockException e) {
-					e.printStackTrace();
-				}
 			}
 		}
 
-		if (gameState == GAME_PLAY){	 
+		if (playState.isActive()) {
 			fireWeapon();
 			updateEntities();
 			checkCheats();
 			checkBossParts();
 			if (checkLevelComplete()) {
-				gameState=LEVEL_COMPLETE;
+
+				gameStateManager.switchTo(levelCompleteState);
+				myPlayfield.clearPlayField();
 			}
 			myPlayfield.update(elapsedTime);
+			if (myLives.getStat().intValue() <= 0) {
+				myPlayfield.clearPlayField();
+				gameStateManager.switchTo(gameOverState);
+			}
 		}
-
-		if (gameState == LEVEL_COMPLETE){
+		
+		if (levelCompleteState.isActive()){
 			if(grandiusLevelManager.getMyCurrentLevel()==LAST_LEVEL){
-				gameState = GAME_COMPLETE;
+				myPlayfield.clearPlayField();
+				gameStateManager.switchTo(gameCompleteState);
 			}
 			else if(click()){
-				gameState = SHOPPING_LEVEL;
+				myPlayfield.clearPlayField();
+				gameStateManager.switchTo(shoppingLevelState);
 			}
 		}
 
-		if (gameState == SHOPPING_LEVEL){
+		if (shoppingLevelState.isActive()){
+			//TODO factor out switch to out of if statement
 			if(click()){
 				if((this.getMouseX()>screen.getWidth()/3) &&
 						(this.getMouseX()<screen.getWidth()-100)){
@@ -349,37 +415,35 @@ public class Grandius extends Game {
 							(this.getMouseY()<screen.getHeight()/3)){
 						missileActive = true;
 						updateStat(myCash,-500);
-						gameState = START_NEW_LEVEL;
+						myPlayfield.clearPlayField();
+						gameStateManager.switchTo(startNewLevelState);
 					}
 					if((this.getMouseY()>screen.getHeight()/3) &&
 							(this.getMouseY()<screen.getHeight()/2)){
 						blackHoleActive = true;
 						updateStat(myCash,-1000);
-						gameState = START_NEW_LEVEL;
+						myPlayfield.clearPlayField();
+						gameStateManager.switchTo(startNewLevelState);
 					}
 				}
 
 			}
 			if (keyPressed(KeyEvent.VK_SPACE)){
-				gameState = START_NEW_LEVEL;
+				gameStateManager.switchTo(startNewLevelState);
 			}
 		}
 
-		if (gameState == START_NEW_LEVEL){
-			try {
-				GameClock.reset();
-			} catch (GameClockException e) {
-				e.printStackTrace();
-			}
+		if (startNewLevelState.isActive()){
 			ArrayList<ArrayList<Sprite>> nextLevel = grandiusLevelManager.nextLevel();
 			PLAYER_GROUP.add(playersprite);
-			myPlayfield.addGroup(PLAYER_GROUP);
+			//myPlayfield.addGroup(PLAYER_GROUP);
 			createComets();
 			initLevel(nextLevel.get(0), nextLevel.get(1), nextLevel.get(2));
 			addOverlays();
 			playSound(ResourcesBeta.getSound("StartLevelSound"));
-			gameState = GAME_PLAY;
+			gameStateManager.switchTo(playState);
 		}
+		gameStateManager.update(elapsedTime);
 	}
 
 	/**
@@ -656,18 +720,19 @@ public class Grandius extends Game {
 			playersprite.setLocation(playerInitialX, playerInitialY);
 		}
 		//TODO: switch this to a game state?
-		else if (playerLives==0){ //Game over.
-			PLAYER_GROUP.setActive(false);
-			PROJECTILE_GROUP.setActive(false);
-			ENEMY_PROJECTILE_GROUP.setActive(false);
-			ENEMY_GROUP.setActive(false);
-			BOSS_PART_GROUP.setActive(false);
-			MISSILE_GROUP.setActive(false);
-			myPlayfield.clearPlayField();
-			gameOver.setLocation(screen.getWidth() / 3, screen.getHeight() / 2);
-			myPlayfield.add(gameOver);
-			playSound(ResourcesBeta.getSound("OhManSound"));
-		}
+//		else if (playerLives==0){ //Game over.
+//			gameStateManager.switchTo(gameOverState);
+////			PLAYER_GROUP.setActive(false);
+////			PROJECTILE_GROUP.setActive(false);
+////			ENEMY_PROJECTILE_GROUP.setActive(false);
+////			ENEMY_GROUP.setActive(false);
+////			BOSS_PART_GROUP.setActive(false);
+////			MISSILE_GROUP.setActive(false);
+//			//myPlayfield.clearPlayField();
+//			//gameOver.setLocation(screen.getWidth() / 3, screen.getHeight() / 2);
+//			//myPlayfield.add(gameOver);
+//			playSound(ResourcesBeta.getSound("OhManSound"));
+//		}
 
 	}
 
@@ -708,12 +773,12 @@ public class Grandius extends Game {
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
 		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
 
-	    myPanel.addOverlay(livesCounter);
-	    myPanel.addOverlay(cashCounter);		
-		myPanel.addOverlay(scoreCounter);
+	    myPanel.add(livesCounter);
+	    myPanel.add(cashCounter);		
+		myPanel.add(scoreCounter);
 		myPanel.initialize();
 		
-		myPlayfield.addGroup(myPanel.getOverlayGroup());
+		myPlayfield.addGroup(myPanel);
 	}
 
 	public void checkCheats() {
