@@ -3,28 +3,45 @@ package vooga.games.marioclone;
 import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Background;
 
+import vooga.engine.player.control.ItemSprite;
+import vooga.games.marioclone.items.GravityItem;
+
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
 
 	private static final int myMaxHealth = 100;
 	private double jumpSpeed = 1;
-	private double speed=.5;
+	private double speed = .5;
 	private boolean onGround = false;
 	private double myMaxX;
-	
+
 	public MarioSprite(String name, String stateName, BufferedImage left,
 			BufferedImage right) {
 		super(name, stateName, left, right);
 	}
-	
+
 	public void moveRight() {
 		setHorizontalSpeed(speed);
-		setNewImage(rightImage);
-		
+		if (getX() < 0) {  // also need condition for off right side of background
+			// System.out.println("off screen");
+			setHorizontalSpeed(0);
+		} else {
+			setHorizontalSpeed(speed);
+		}
+		setNewImage(myRightImage);
+
 	}
+
 	public void moveLeft() {
 		setHorizontalSpeed(-speed);
-		setNewImage(leftImage);
+		if (getX() < 0) { // also need condition for off right side of background
+			// System.out.println("off screen");
+			setHorizontalSpeed(0);
+			setX(0);
+		} else {
+			setHorizontalSpeed(-speed);
+		}
+		setNewImage(myLeftImage);
 	}
 
 	public void jump(boolean force) {
@@ -33,16 +50,13 @@ public class MarioSprite extends CharacterSprite {
 				setVerticalSpeed(-jumpSpeed);
 				onGround = false;
 			}
-		} else {
-			setY(0);
 		}
 	}
-	
+
 	public void jumpCmd() {
 		jump(false);
 	}
 
-	
 	public void stop() {
 		setHorizontalSpeed(0);
 	}
@@ -50,8 +64,7 @@ public class MarioSprite extends CharacterSprite {
 	public void setOnGround(boolean b) {
 		onGround = b;
 	}
-	
-		
+
 	@Override
 	public void update(long elapsedTime) {
 		double x = getX(); 
@@ -60,10 +73,9 @@ public class MarioSprite extends CharacterSprite {
 		}
 		if(getHealth() <= 0)
 			setActive(false);
-		
 		super.update(elapsedTime);
-		
-		if(getX()<=0) {
+		stop();
+		if (getX() <= 0) {
 			setX(0);
 		}
 		int halfScreen = getBackground().getWidth()/2; 
@@ -71,7 +83,6 @@ public class MarioSprite extends CharacterSprite {
 			setX(myMaxX-halfScreen);
 		}
 	}
-	
 
 	public double getMaxX() {
 		return myMaxX;
@@ -80,5 +91,11 @@ public class MarioSprite extends CharacterSprite {
 	@Override
 	public Integer getMaxHealth() {
 		return myMaxHealth;
+	}
+
+	public void actOnItem(ItemSprite item) {
+		if (item.getClass().equals(GravityItem.class)) {
+			setGravityCoef(((GravityItem) item).getGravity());
+		}
 	}
 }
