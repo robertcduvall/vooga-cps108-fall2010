@@ -20,6 +20,7 @@ import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
+import vooga.engine.state.Pause;
 
 // GTGE
 import com.golden.gamedev.GameLoader;
@@ -72,11 +73,10 @@ public class Jumper extends vooga.engine.core.Game {
 	private final int blockTypeNotBroken  = 3;
 	private final int blockTypeJetpack    = 4;
 	
-	private GameState normalGameState;
-	private GameState jetpackGameState;
+	
+//	private GameState playGameState;
+//	private GameState pauseGameState;
 	private GameStateManager myGameStateManager;
-	private final int normalGameStateType = 1;
-	private final int jetpackGameStateType = 2;
 	
 	private static boolean jetpackOn = false;
 	private static long jetpackStartTime = 0;
@@ -127,9 +127,7 @@ public class Jumper extends vooga.engine.core.Game {
 		myBackground = new ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
 		myPlayfield.setBackground(myBackground);
 
-		
-		/*myGameStateManager = new GameStateManager();
-
+		/*
 		jetpackGameState = new JumperGameState(myPlayers, jetpackGameStateType);
 		myGameStateManager.addGameState(jetpackGameState);
 		//myGameStateManager.addGameState(normalGameState);
@@ -138,7 +136,7 @@ public class Jumper extends vooga.engine.core.Game {
 
 		myPlayfield.addGroup(myBlocks);
 		myPlayfield.addGroup(myPlayers);
-
+		
 		myNormalCollision = new DoodleToBlockCollision();
 		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
 
