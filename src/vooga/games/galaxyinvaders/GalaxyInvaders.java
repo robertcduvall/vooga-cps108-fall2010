@@ -33,9 +33,6 @@ public class GalaxyInvaders extends Game {
 
 	private static final int LIVES = 5;
 
-	private static final int PLAY = 1;
-	private static final int LOST = 2;
-
 	private static int ITEM_FREQUENCY = 7;
 	private static int BOMB_FREQUENCY = 10;
 
@@ -75,8 +72,6 @@ public class GalaxyInvaders extends Game {
 		}
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(ResourceHandler.getImage("ship"), getWidth()/2, getHeight()-100));
-		ship.addStat("lives", new Stat<Integer>(LIVES));
-		ship.addStat("score", new Stat<Integer>(0));
 		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
 		enemies = new SpriteGroup("enemies");
