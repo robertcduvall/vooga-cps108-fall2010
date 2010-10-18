@@ -16,13 +16,14 @@ import com.golden.gamedev.object.background.ColorBackground;
 /**
  * 
  * @author David Herzka, Cameron McCallie, Andrew Brown
- *
- * GameState that toggles when the game is won or lost.
- * Example code that creates and switches to this state, which displays "LOSE" over a red background:
  * 
- *  myLoseState = new GameEndState(new ColorBackground(Color.red), "LOSE", fontManager);
- *  myGameStateManager.addGameState(myLoseState);
- *  myGameStateManager.switchTo(myLoseState);\
+ *         GameState that toggles when the game is won or lost. Example code
+ *         that creates and switches to this state, which displays "LOSE" over a
+ *         red background:
+ * 
+ *         myLoseState = new GameEndState(new ColorBackground(Color.red),
+ *         "LOSE", fontManager); myGameStateManager.addGameState(myLoseState);
+ *         myGameStateManager.switchTo(myLoseState);\
  */
 
 public class GameEndState extends GameState {
@@ -31,28 +32,32 @@ public class GameEndState extends GameState {
 	private HighScoreHandler myHighScores;
 	private GameFontManager myFontManager;
 	private OverlayString[] myHighScoreOverlays;
-	
+
 	private static final int NUM_SCORES = 5;
 	private int xScoreOverlay = 300;
 	private int yScoreOverlay = 600;
 
 	/**
-	 * This constructor creates a GameEndState with a background, string of text, and a fontManager used to
-	 * write the string
+	 * This constructor creates a GameEndState with a background, string of
+	 * text, and a fontManager used to write the string
 	 * 
-	 * @param background - can be colored or an image
-	 * @param messageString - text displayed
-	 * @param fontManager - resource used to write text
+	 * @param background
+	 *            - can be colored or an image
+	 * @param messageString
+	 *            - text displayed
+	 * @param fontManager
+	 *            - resource used to write text
 	 */
-	
+
 	public GameEndState(Background background, String messageString,
 			GameFontManager fontManager) {
 		myFontManager = fontManager;
 		myMessage = new OverlayString(messageString);
 		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
-		myMessage.setLocation(400, 400);
-		
-		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File("src/vooga/games/marioclone/highscores.db"));
+		myMessage.setLocation(512 - myMessage.getWidth() / 2, 100);
+
+		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File(
+				"src/vooga/games/marioclone/highscores.db"));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
 
@@ -60,16 +65,16 @@ public class GameEndState extends GameState {
 	}
 
 	/**
-	 * This method is used to update the high scores that are displayed in the state.
-	 * This should be called in the activate method of the state it is declared in, so that
-	 * scores will update constantly as the state updates.
+	 * This method is used to update the high scores that are displayed in the
+	 * state. This should be called in the activate method of the state it is
+	 * declared in, so that scores will update constantly as the state updates.
 	 * 
 	 */
-	
+
 	private void onEnter() {
 		try {
 			long score = (long) (Math.random() * 100000l);
-			myHighScores.updateScores("Test", score, System.currentTimeMillis());
+			myHighScores.updateScores(score, System.currentTimeMillis());
 			System.out.println(score);
 		} catch (SQLiteException e) {
 			System.out.println("Error with scoring");
@@ -79,46 +84,47 @@ public class GameEndState extends GameState {
 	}
 
 	/**
-	 * This creates a high score overlay at a user-specified point. 
-	 * @param x: x coordinate for overlay
+	 * This creates a high score overlay at a user-specified point.
+	 * 
+	 * @param x
+	 *            : x coordinate for overlay
 	 * @paramy y: y coordinate for overlay
 	 */
-	
+
 	private void createHighScoreOverlay(int x, int y) {
 		myHighScoreOverlays[0] = new OverlayString("High Scores:");
 		myHighScoreOverlays[0].setLocation(x, y);
 		for (int j = 0; j < myHighScores.getNames().length; j++) {
 			y += 20;
 			myHighScoreOverlays[j + 1] = new OverlayString(String.format(
-					"%d. %s......%d......%tc", j + 1,
-					myHighScores.getNames()[j], myHighScores.getScores()[j],
-					myHighScores.getTimes()[j]));
+					"%d. %d (set on %tD at %tr)", j + 1, myHighScores.getScores()[j],
+					myHighScores.getTimes()[j],myHighScores.getTimes()[j]));
 			myHighScoreOverlays[j + 1].setLocation(x, y);
 		}
 	}
 
 	/**
-	 * Used to update the game state. In this particular instance, the high scores 
-	 * are updated with the game state.
+	 * Used to update the game state. In this particular instance, the high
+	 * scores are updated with the game state.
 	 */
-	
+
 	public void activate() {
 		onEnter();
 		super.activate();
 	};
 
-	
 	/**
 	 * Renders the background, message, and overlay within the game state.
 	 */
-	
+
 	public void render(Graphics2D g) {
 		myBackground.render(g);
-		myMessage.render(g);
 		for (OverlayString os : myHighScoreOverlays) {
 			os.render(g);
 		}
 		super.render(g);
+		myMessage.render(g);
+
 	}
 
 }

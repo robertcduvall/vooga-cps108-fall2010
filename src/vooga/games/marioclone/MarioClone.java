@@ -2,6 +2,7 @@ package vooga.games.marioclone;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.font.SystemFont;
 
 /**
  * 
@@ -47,11 +49,11 @@ public class MarioClone extends Game {
 
 	public void initResources() {
 		Resources.setGame(this);
-		GameFont myGameFont = fontManager.getFont(getImages("images/font.png",
+		GameFont menuFont = fontManager.getFont(getImages("images/font.png",
 				20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
-		
+
 		try {
 			Resources.loadFile("src/vooga/games/marioclone/resourcelist.txt");
 		} catch (IOException e) {
@@ -62,13 +64,16 @@ public class MarioClone extends Game {
 
 		myGamePlayState = new GamePlayState(WIDTH, HEIGHT, this);
 
-		fontManager.putFont("GAMEOVER", myGameFont);
-		fontManager.putFont("MENU", myGameFont);
+		GameFont gameOverFont = new SystemFont(new Font(Font.SANS_SERIF,
+				Font.BOLD, 200));
+
+		fontManager.putFont("GAMEOVER", gameOverFont);
+		fontManager.putFont("MENU", menuFont);
 
 		myMenuState = new MainMenuState(WIDTH, HEIGHT, fontManager);
-		myLoseState = new GameEndState(new ColorBackground(Color.red), "LOSE",
+		myLoseState = new GameEndState(new ColorBackground(Color.red), "FAIL!",
 				fontManager);
-		myWinState = new GameEndState(new ColorBackground(Color.blue), "WIN",
+		myWinState = new GameEndState(new ColorBackground(Color.blue), "YOU WIN!",
 				fontManager);
 
 		myGameStateManager.addGameState(myMenuState);

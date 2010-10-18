@@ -148,6 +148,20 @@ public class HighScoreHandler {
 	public void updateScores(Long score) throws SQLiteException {
 		updateScores("anon", score, 0l);
 	}
+	
+	/**
+	 * If the input score belongs on list, adds a new score entry and drops the
+	 * prior lowest score.
+	 * 
+	 * @param score
+	 *            Long representing entry score.
+	 * @param time
+	 *            Time at which score was set (typically milliseconds since
+	 *            midnight, January 1, 1970 UTC).
+	 */
+	public void updateScores(long score, long time) throws SQLiteException {
+		updateScores("anon",score,time);
+	}
 
 	private void populateLists() throws SQLiteException {
 		SQLiteStatement st = db.prepare("SELECT * FROM " + tableName
@@ -184,4 +198,6 @@ public class HighScoreHandler {
 	public Long[] getTimes() {
 		return times;
 	}
+
+
 }
