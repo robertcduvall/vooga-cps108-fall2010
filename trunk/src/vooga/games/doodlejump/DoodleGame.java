@@ -62,14 +62,14 @@ public class DoodleGame extends Game {
 		currentLevel = 1;
 		showStart = true;
 		score = new Stat<Integer>(0);
-		scoreString = new OverlayString("0");
+		scoreString = new OverlayString("Score: " + 0);
 		startString = new OverlayString("Press Enter to Start!", new Font("SansSerif", Font.BOLD,40));
 		startString.setX(532 / 2 - startString.getWidth() / 2);
 		startString.setY(550 / 2 - startString.getHeight() / 2);
 		winString = new OverlayString("You Win! Enter to Restart.", new Font("SansSerif", Font.BOLD, 35));
 		winString.setX(532 / 2 - startString.getWidth() / 2);
 		winString.setY(200 - startString.getHeight() / 2);
-		scoreString.setX(450);
+		scoreString.setX(400);
 		scoreString.setY(50);
 	}
 
@@ -169,8 +169,8 @@ public class DoodleGame extends Game {
 				}
 			}
 			playField.update(elapsedTime);
-			scoreString.setString(Integer.toString(score.getStat()));
-			if(Integer.parseInt(scoreString.getString()) >= passScore){
+			scoreString.setString("Score: " + Integer.toString(score.getStat()));
+			if(score.getStat() >= passScore){
 				if(nextLevel == 0) {
 					win.activate();
 					if(keyPressed(KeyEvent.VK_ENTER)){
