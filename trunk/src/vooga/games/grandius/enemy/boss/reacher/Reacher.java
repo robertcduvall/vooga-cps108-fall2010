@@ -31,7 +31,7 @@ public class Reacher extends GrandiusBoss {
 	private static final int REACHER_BEAM_RELOAD_TIME = 4000;
 	private static final int REACHER_REDRAY_RELOAD_TIME = 6000;
 	private static final int SCORE_VALUE = 1000;
-	private static final int CASH_VALUE = 500;
+	private static final int CASH_VALUE = 100;
 
 	public Reacher(BufferedImage[] images, int[] breakpoints, double x, double y, int health, List<Sprite> parts) {
 		super(images, breakpoints, x, y, health, parts);
