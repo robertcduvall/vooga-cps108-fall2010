@@ -22,6 +22,7 @@ import vooga.games.grandius.enemy.common.Zipster;
 
 public class GrandiusLevelFactory implements LevelFactory{
 	private PlayField playfield;	
+	private Background background;
 	private ArrayList<Sprite> myBossPartList;
 	private ArrayList<Sprite> myBossList;
 	private ArrayList<Sprite> mySpritesList;
@@ -53,9 +54,9 @@ public class GrandiusLevelFactory implements LevelFactory{
 					String image = details.next();
 					int width = details.nextInt();
 					int height = details.nextInt();
-					Background background = new ImageBackground(ResourcesBeta.getImage(image));
+					background = new ImageBackground(ResourcesBeta.getImage(image));
 					background.setSize(width, height);
-					playfield.setBackground(background);
+					//playfield.setBackground(background);
 				}
 				else if (line.equals("") || line.startsWith("#")){
 					continue;
@@ -164,4 +165,7 @@ public class GrandiusLevelFactory implements LevelFactory{
 		return returnCollection;
 	}
 	
+	public Background getBackground(){
+		return background;
+	}
 }
