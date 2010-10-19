@@ -47,7 +47,7 @@ public class TowerDefense extends Game {
 
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
-	private static final int SECOND = 10;
+	private static final int SECOND = 1000;
 
 	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl , gameOverPlayerCursorControl;
 	private KeyboardControl playerKeyboardControl;
@@ -113,7 +113,7 @@ public class TowerDefense extends Game {
 		Sprite pauseScreen = new Sprite(ResourcesBeta.getImage("pause"));
 		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
 		pauseGroup.add(pauseScreen);
-		pause.addGroup(overlayGroup);
+		
 		
 		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
 		
@@ -126,6 +126,7 @@ public class TowerDefense extends Game {
 		initOverlays();
 		play.addGroup(overlayGroup);
 		gameOver.addGroup(gameOverGroup);
+		pause.addGroup(overlayGroup);
 		
 		
 		initPlayer();
