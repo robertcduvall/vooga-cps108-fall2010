@@ -21,10 +21,7 @@ public class EnemySprite extends GameEntitySprite {
     private static final int LEVEL1_TIMER = 700;
     private int pathNum;
     private Timer timer;
-   // private Graphics2D graphics;
-    private ArrayList<Point> path;
-    private Levels level;
-    
+    private ArrayList<Point> path;    
 	private int hitPoints;
 	
 	/**
@@ -36,13 +33,12 @@ public class EnemySprite extends GameEntitySprite {
 	 * @param spr see GameEntitySprite
 	 * @param list the path which this enemy is going to follow
 	 */
-	public EnemySprite(String s, String name, Sprite spr, Levels l) {
+	public EnemySprite(String s, String name, Sprite spr, ArrayList<Point> pathmap, int timerNum) {
 		super(s, name, spr);
 		hitPoints = DEFAULT_HP;
-		level = l;
-		timer = new Timer(level.getTimer());
+		timer = new Timer(timerNum);
 		pathNum = 0;
-		path = l.getLevelPath();
+		path = pathmap;
 	}
 	
 	/**

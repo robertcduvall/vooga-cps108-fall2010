@@ -2,13 +2,14 @@ package vooga.games.galaxyinvaders;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
-import vooga.engine.event.*;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.*;
@@ -32,13 +33,14 @@ import com.golden.gamedev.object.background.ColorBackground;
 public class GalaxyInvaders extends Game {
 
 	private static final int LIVES = 5;
+	private static final int TOTAL_LEVELS = 3;
 
 	private static int ITEM_FREQUENCY = 7;
 	private static int BOMB_FREQUENCY = 10;
 
 	private Background bg;
 	private PlayerSprite ship;
-	private Levels levels;
+	private LevelManager levelManager;
 	private SpriteGroup torpedos;
 	private SpriteGroup enemyTorpedos;
 	private SpriteGroup enemies;
@@ -100,13 +102,20 @@ public class GalaxyInvaders extends Game {
 		gameOver.addGroup(gameOverMenu);
 		gameStateManager.addGameState(gameOver);
 		gameStateManager.switchTo(pause);
-		levels = new Levels();
+		
+		Properties propertiesFile = new Properties();
 		try {
-			levels.createLevels();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			propertiesFile.load(new FileInputStream("src/vooga/games/galaxyinvaders/resources/Directories.properties"));
 		}
-		initEnemies();
+		catch(IOException e)
+		{
+			System.out.println(".properties file not found!");
+		}
+		
+		String levelFilesDirectory = propertiesFile.getProperty("levelFilesDirectory");
+		String levelNamesFile = propertiesFile.getProperty("levelNamesFile");
+		levelManager = new GalaxyLevelManager();
+		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
 		initBlocks();
 		initPause();
 		initGameOver();
@@ -119,15 +128,6 @@ public class GalaxyInvaders extends Game {
 		itemPlayerCollider.setCollisionGroup(items, players);
 		torpedoBlockCollider = new TorpedoBlockCollider();
 		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
-	}
-
-	public void initEnemies() {     
-		for (int i=0; i<levels.getEnemySize(); i++){
-			EnemySprite e = new EnemySprite("", "default", new Sprite(ResourceHandler.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), levels);
-			Sprite damaged = new Sprite(ResourceHandler.getImage("enemy1damage"));
-			e.mapNameToSprite("damaged", damaged);
-			enemies.add(e);
-		}    
 	}
 
 
@@ -169,7 +169,6 @@ public class GalaxyInvaders extends Game {
 	public void render(Graphics2D g) {
 		bg.render(g);
 		gameStateManager.render(g);
-	
 	}
 
 	/**
@@ -181,6 +180,35 @@ public class GalaxyInvaders extends Game {
 
 		gameStateManager.update(time);
 		bg.update(time);
+		
+		if(levelManager.getCurrentLevel()==0){
+			SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
+			for(Sprite s : temp.getSprites()) {
+				if(s!=null) {
+					enemies.add(s);
+				}
+			}
+		}
+		
+		for(Sprite e : enemies.getSprites()) {
+			if(e.isActive()) {
+				break;
+			}
+			else {
+				if(levelManager.getCurrentLevel()<TOTAL_LEVELS) {
+					enemies.clear();
+					SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
+					for(Sprite s : temp.getSprites()) {
+						if(s!=null) {
+							enemies.add(s);
+						}
+					}
+				}
+				else {
+					gameStateManager.switchTo(gameOver);
+				}
+			}
+		}
 
 		torpedoCollider.checkCollision();
 		torpedoPlayerCollider.checkCollision();
@@ -233,17 +261,7 @@ public class GalaxyInvaders extends Game {
 			fire();
 		}
 
-
-		if(enemies.getSize()==0) {
-			if(levels.getLevel()<3) {
-				levels.nextLevel();
-				initEnemies();
-			}
-			else {
-				gameStateManager.switchTo(gameOver);
-			}
-		}
-
+		
 		if(myLives.getStat()<=0) {
 			gameStateManager.switchTo(gameOver);
 		}
