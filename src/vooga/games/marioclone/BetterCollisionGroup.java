@@ -61,7 +61,7 @@ public abstract class BetterCollisionGroup extends AdvanceCollisionGroup {
 			sideString = "Can't tell";
 			break;
 		}
-		System.out.println(String.format("Collision Side -> %s",sideString));
+//		System.out.println(String.format("Collision Side -> %s",sideString));
 	}
 
 }

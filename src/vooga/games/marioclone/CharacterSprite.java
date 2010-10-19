@@ -57,15 +57,15 @@ public abstract class CharacterSprite extends PlayerSprite {
 		((AnimatedSprite) getCurrentSprite())
 				.setAnimate(!(getHorizontalSpeed() == 0));
 
-		System.out.println(isActive());
+//		System.out.println(isActive());
 
 		
 		if (getHealth() <= 0) {
-			System.out.println("set false");
+//			System.out.println("set false");
 			setActive(false);
 		}
 		
-		System.out.println(isActive());
+//		System.out.println(isActive());
 		/*
 		 * double yVelocity = getVerticalSpeed(); double newYVelocity =
 		 * yVelocity + gravity*elapsedTime; setVerticalSpeed(newYVelocity);
