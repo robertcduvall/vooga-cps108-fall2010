@@ -21,7 +21,7 @@ public class ReacherEye extends BossPart{
 	private static final double REACHER_EYE_BEAM_SPEED = 0.10;
 	private static final double REACHER_EYE_SPEED = 0.01;
 	private static final int SCORE_VALUE = 200;
-	private static final int CASH_VALUE = 50;
+	private static final int CASH_VALUE = 4;
 	private static final int REACHER_EYE_BEAM_RELOAD_TIME = 3000;
 	
 	public ReacherEye(BufferedImage[] images, int[] breakpoints, double x,
