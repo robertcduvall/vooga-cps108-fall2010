@@ -38,25 +38,25 @@ import com.golden.gamedev.util.ImageUtil;
 public class Zombieland extends Game {
 
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
 	private static long defaultAnimationDelay = 300;
-	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+	private static final int ZOMBIES_PER_LEVEL = 25;
 
 	private AnimatedSprite shooterImage;
 	private ImageBackground background;
 	private Shooter player;
-
-	private SpriteGroup zombies;
-	private SpriteGroup players;
-	private SpriteGroup bullets;
-	private SpriteGroup items;
-	private SpriteGroup overlays;
-
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
 
+	/**
+	 * We choose to jave BufferedImage[] files as private variables because
+	 * we have a method called addZombie(). If we try to get the images 
+	 * every time from the resource bundle (i.e. making these variables local),
+	 * we run into the problem of clogging the performance of the game. 
+	 */
 	private BufferedImage[] playerDefaultImage;
 
 	private BufferedImage[] zombieUpImage;
@@ -76,11 +76,6 @@ public class Zombieland extends Game {
 	private BufferedImage assaultRifleImage;
 	private BufferedImage healthImage;
 
-	private PZCollisionManager playerZombieManager;
-	private BZCollisionManager bulletZombieManager;
-	private WallBoundManager entityWallManager;
-	private HICollisionManager humanItemManager;
-
 	private OverlayBar overlayHealthBar;
 	private OverlayString overlayHealthString;
 	private OverlayStat overlayScoreString;
@@ -96,13 +91,17 @@ public class Zombieland extends Game {
 	private Stat<Integer> statLevel;
 	private int level;
 	private int zombiesAppeared;
-	private final static int ZOMBIES_PER_LEVEL = 25;
 	private int zombieHealth;
 	private int zombieDamage;
 
 	private String delim;
 	private ResourceBundle bundle;
 
+	/**
+	 * This method initializes all the resources in the game:
+	 * set up the Image files, initializes collections and establishes
+	 * stats for the game
+	 */
 	public void initResources() {
 
 		bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
@@ -110,49 +109,60 @@ public class Zombieland extends Game {
 
 		initImages();
 		initPlayer();
-		initOverlays();
 		initEnvironment();
+		initOverlays();
+
 
 		setListeners();
-		initCollisionManagers();
 		initZombies();
 		stateManager.activateOnly(play);
 
 	}
 
+	/**
+	 * This method initializes zombie health, zombie damage and starting number zombies
+	 */
 	private void initZombies() {
 		zombiesAppeared = 0;
 		zombieHealth = parseInt("startZombieHealth");
 		zombieDamage = parseInt("startZombieDamage");
 	}
 
-	private void initCollisionManagers() {
-		playerZombieManager = new PZCollisionManager();
-		players.add(player);
-		playField.addCollisionGroup(players, zombies, playerZombieManager);
-
-		entityWallManager = new WallBoundManager(background);
-		playField.addCollisionGroup(players, players, entityWallManager);
-
-		bulletZombieManager = new BZCollisionManager();
-		playField.addCollisionGroup(bullets, zombies, bulletZombieManager);
-
-		humanItemManager = new HICollisionManager();
-		playField.addCollisionGroup(players, items, humanItemManager);
-	}
-
 	private void initEnvironment() {
+	
+		playField = new PlayField();
+		
 		String sandbackgroundpath = bundle.getString("sandbg");
 		BufferedImage sandbg = getImage(sandbackgroundpath);
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
+		SpriteGroup zombies = new SpriteGroup("Zombies");
+		SpriteGroup bullets = new SpriteGroup("Bullets");
+		SpriteGroup items = new SpriteGroup("Items");
+		SpriteGroup players = new SpriteGroup("Players");
+		SpriteGroup overlays = new SpriteGroup("Overlays");
+		
+		playField.addGroup(zombies);
+		playField.addGroup(bullets);
+		playField.addGroup(items);
+		playField.addGroup(players);
+		playField.addGroup(overlays);
+		
+		
+		PZCollisionManager playerZombieManager = new PZCollisionManager();
+		players.add(player);
+		
+		playField.addCollisionGroup(players, zombies, playerZombieManager);
 
-		zombies = new SpriteGroup("Zombies");
-		bullets = new SpriteGroup("Bullets");
-		items = new SpriteGroup("Items");
-		players = new SpriteGroup("Players");
-		playField = new PlayField();
+		WallBoundManager entityWallManager = new WallBoundManager(background);
+		playField.addCollisionGroup(players, players, entityWallManager);
 
+		BZCollisionManager bulletZombieManager = new BZCollisionManager();
+		playField.addCollisionGroup(bullets, zombies, bulletZombieManager);
+
+		HICollisionManager humanItemManager = new HICollisionManager();
+		playField.addCollisionGroup(players, items, humanItemManager);
+		
 		int delay = parseInt("timer");
 		timer = new Timer(delay);
 
@@ -167,15 +177,14 @@ public class Zombieland extends Game {
 		play.addGroup(zombies);
 		play.addGroup(bullets);
 		play.addGroup(items);
-		playField.addGroup(overlays);
+		
+		
 		playField.setBackground(background);
 
-		level = parseInt("startLevel");
-		
+		level = parseInt("startLevel");	
 	}
 
 	public void initOverlays() {
-		overlays = new SpriteGroup("Overlays");
 		initOverlayHealthString();
 		initOverlayHealthBar();
 		initOverlayScoreString();
@@ -189,6 +198,8 @@ public class Zombieland extends Game {
 		overlayPauseString.setLocation(GAME_WIDTH / 2 - 60,
 				GAME_HEIGHT / 2 - 10);
 		overlayPauseString.setActive(false);
+		
+		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays.add(overlayPauseString);
 	}
 	
@@ -202,6 +213,8 @@ public class Zombieland extends Game {
 		overlayLevelString
 		.setLocation(overlayLevelStringX, overlayLevelStringY);
 		overlayLevelString.setActive(false);
+		
+		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays.add(overlayLevelString);
 	}
 
@@ -216,6 +229,8 @@ public class Zombieland extends Game {
 				player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
 		overlayAmmoString.setLocation(overlayAmmoStringX, overlayAmmoStringY);
+		
+		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays.add(overlayAmmoString);
 	}
 
@@ -229,6 +244,8 @@ public class Zombieland extends Game {
 				player.getScore());
 		overlayScoreString
 		.setLocation(overlayScoreStringX, overlayScoreStringY);
+		
+		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays.add(overlayScoreString);
 	}
 
@@ -241,6 +258,8 @@ public class Zombieland extends Game {
 				.getHealth().getStat());
 		overlayHealthBar.setColor(Color.GREEN);
 		overlayHealthBar.setLocation(overlayHealthBarX, overlayHealthBarY);
+		
+		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays.add(overlayHealthBar);
 	}
 
@@ -251,13 +270,17 @@ public class Zombieland extends Game {
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(overlayHealthStringX,
 				overlayHeatlhStringY);
+		
+		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays.add(overlayHealthString);
 	}
 
 	private void initPlayer() {
 		double playerDefaultX = parseDouble("playerDefaultX");
 		double playerDefaultY = parseDouble("playerDefaultY");
+		
 		int maxHealth = parseInt("maxHealth");
+		
 		playerDefaultImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "Down", delim);
 		shooterImage = new AnimatedSprite(playerDefaultImage, playerDefaultX, playerDefaultY);
 		player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0, this);
@@ -273,6 +296,16 @@ public class Zombieland extends Game {
 
 	private void initImages() {
 		// Zombie animations
+		initZombie();
+		bulletImage = getImage(bundle.getString("bulletImage"));
+		shotGunImage = getImage(bundle.getString("shotGunImage"));
+		assaultRifleImage = getImage(bundle.getString("assaultRifleImage"));
+		healthImage = getImage(bundle.getString("healthImage"));
+		
+		
+	}
+
+	private void initZombie() {
 		zombieDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDown", delim);
 		zombieUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieUp", delim);
 		zombieLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieLeft", delim);
@@ -282,10 +315,6 @@ public class Zombieland extends Game {
 		zombieAttackLeftImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackLeft", delim);
 		zombieAttackRightImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieAttackRight", delim);
 		zombieDeathImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDeath", delim);
-		bulletImage = getImage(bundle.getString("bulletImage"));
-		shotGunImage = getImage(bundle.getString("shotGunImage"));
-		assaultRifleImage = getImage(bundle.getString("assaultRifleImage"));
-		healthImage = getImage(bundle.getString("healthImage"));
 	}
 
 	public double parseDouble(String keyName) {
@@ -389,6 +418,8 @@ public class Zombieland extends Game {
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
 		zombiesAppeared++;
+		
+		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
 
 	}
@@ -406,6 +437,8 @@ public class Zombieland extends Game {
 		bullet.getCurrentSprite().setImage(
 				ImageUtil.rotate(bulletImage, (int) angle));
 		bullet.setActive(true);
+		
+		SpriteGroup bullets = playField.getGroup("Bullets");
 		bullets.add(bullet);
 	}
 	/**
@@ -438,6 +471,8 @@ public class Zombieland extends Game {
 			item = null;
 		}
 		item.setActive(true);
+		
+		SpriteGroup items = playField.getGroup("Items");
 		items.add(item);
 	}
 
@@ -512,7 +547,7 @@ public class Zombieland extends Game {
 	}
 
 	/**
-	 * render the game
+	 * render the graphics component in the game
 	 */
 	public void render(Graphics2D g) {
 		background.render(g);
