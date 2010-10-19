@@ -45,7 +45,7 @@ public class TowerDefense extends Game {
 
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
-	private static final int SECOND = 1000;
+	private static final int SECOND = 10;
 
 	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl , gameOverPlayerCursorControl;
 	private KeyboardControl playerKeyboardControl;
@@ -89,7 +89,55 @@ public class TowerDefense extends Game {
 		towerTargetFinder.setGame(this);
 		eventManager.addEventListener("BuildTowerEvent", towerBuilder);
 		eventManager.addEventListener("NeedsTargetsEvent", towerTargetFinder);
-		begin();
+		
+		
+		stateManager = new NonSetGameStateManager();
+		startMenu = new State();
+		play = new State();
+		pause = new State();
+		gameOver = new State();
+
+		stateManager.addGameState(startMenu);
+		stateManager.addGameState(play);
+		stateManager.addGameState(pause);
+		stateManager.addGameState(gameOver);
+
+		
+		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
+		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
+		
+
+		Sprite pauseScreen = new Sprite(ResourcesBeta.getImage("pause"));
+		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
+		pauseGroup.add(pauseScreen);
+		pause.addGroup(overlayGroup);
+		
+		Sprite gameOverSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("gameOver"), WIDTH, HEIGHT));
+		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
+		gameOverGroup.add(gameOverSprite);
+		
+		Sprite menuSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("menu"), WIDTH, HEIGHT));
+		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
+		menuGroup.add(menuSprite);
+		
+		hit1 = new Timer(SECOND * 5);
+		hit2 = new Timer(SECOND * 6);
+		hit3 = new Timer(SECOND * 7);
+		spawn = new Timer(SECOND*45);
+		gameTimer = new Timer(SECOND * 45);
+		spawnSpeed = 80;
+		
+		
+		
+
+		selfEsteem = new Stat<Integer>(100);
+		score = new Stat<Integer>(0);
+		money = new Stat<Integer>(100);
+		initOverlays();
+		initPlayer();
+		
+		
+		
 		
 		stateManager.switchTo(startMenu);
 
@@ -264,10 +312,6 @@ public class TowerDefense extends Game {
 		.addControl(new PlayerCursorControl(player, this));
 		gameOverPlayerCursorControl.addInput(MouseEvent.BUTTON1, "onClick",
 		"vooga.games.towerdefense.PlayerCursor");
-		
-		counter = new Counter();
-		counter.setLocation(350, HEIGHT/2-75);
-		playerGroup.add(counter);
 			
 		
 		
@@ -384,37 +428,7 @@ public class TowerDefense extends Game {
 	}
 	
 	protected void begin(){		
-		stateManager = new NonSetGameStateManager();
-		startMenu = new State();
-		play = new State();
-		pause = new State();
-		gameOver = new State();
-
-		stateManager.addGameState(startMenu);
-		stateManager.addGameState(play);
-		stateManager.addGameState(pause);
-		stateManager.addGameState(gameOver);
-
-		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
-		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
-		towerShotGroup = play.addAndReturnGroup(new SpriteGroup(
-				"Tower Shot Group"));
-		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
-		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
 		
-
-		Sprite pauseScreen = new Sprite(ResourcesBeta.getImage("pause"));
-		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
-		pauseGroup.add(pauseScreen);
-		pause.addGroup(overlayGroup);
-		
-		Sprite gameOverSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("gameOver"), WIDTH, HEIGHT));
-		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
-		gameOverGroup.add(gameOverSprite);
-		
-		Sprite menuSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("menu"), WIDTH, HEIGHT));
-		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
-		menuGroup.add(menuSprite);
 		
 		hit1 = new Timer(SECOND * 5);
 		hit2 = new Timer(SECOND * 6);
@@ -423,17 +437,28 @@ public class TowerDefense extends Game {
 		gameTimer = new Timer(SECOND * 45);
 		spawnSpeed = 80;
 		
+		play.removeGroup(enemyGroup);
+		enemyGroup = play.addAndReturnGroup(new SpriteGroup("Enemy Group"));
 		
+		play.removeGroup(towerGroup);
+		towerGroup = play.addAndReturnGroup(new SpriteGroup("Tower Group"));
 		
+		play.removeGroup(towerShotGroup);
+		towerShotGroup = play.addAndReturnGroup(new SpriteGroup("Tower Shot Group"));
 
-		selfEsteem = new Stat<Integer>(100);
-		score = new Stat<Integer>(0);
-		money = new Stat<Integer>(100);
-		initOverlays();
+		selfEsteem.setStat(100);
+		score.setStat(0);
+		money.setStat(100);
+		
 		createPath();
-		initPlayer();
 		totalTime = 0;
 		go = false;
+		
+		counter = new Counter();
+		counter.setLocation(350, HEIGHT/2-75);
+		playerGroup.add(counter);
+		
+		stateManager.switchTo(play);
 	}
 	
 
