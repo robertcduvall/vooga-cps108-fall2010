@@ -100,7 +100,7 @@ public class Zombieland extends Game {
 	/**
 	 * This method initializes all the resources in the game:
 	 * set up the Image files, initializes collections and establishes
-	 * stats for the game
+	 * stats for the game.
 	 */
 	public void initResources() {
 		bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
@@ -119,7 +119,7 @@ public class Zombieland extends Game {
 	}
 
 	/**
-	 * This method initializes zombie health, zombie damage and starting number zombies
+	 * This method initializes zombie health, zombie damage and starting number zombies.
 	 */
 	private void initZombies() {
 		resetZombiesCount();
@@ -127,6 +127,11 @@ public class Zombieland extends Game {
 		zombieDamage = parseInt("startZombieDamage");
 	}
 
+	/**
+	 * This method initializes the zombies, bullets, players, overlays SpriteGroup,
+	 * set them up with their respective collision managers, and associate these managers
+	 * with playField.
+	 */
 	private void initEnvironment() {
 		playField = new PlayField();
 		
@@ -181,6 +186,11 @@ public class Zombieland extends Game {
 		level = parseInt("startLevel");	
 	}
 
+	/**
+	 * This method initializes the overlay system: the overlayHealthString,
+	 * the OverlayHealthBar, the OverlayScoreString, the overlayAmmoString,
+	 * the OverlayLevelString, overllayPauseString.
+	 */
 	public void initOverlays() {
 		initOverlayHealthString();
 		initOverlayHealthBar();
@@ -190,6 +200,10 @@ public class Zombieland extends Game {
 		initOverlayPauseString();
 	}
 
+	/**
+	 * This method initalizes the PauseString, which is displayed
+	 * when the game is paused.
+	 */
 	private void initOverlayPauseString(){
 		
 		int overlayPauseStringX = parseInt("overlayPauseStringX");
@@ -204,6 +218,10 @@ public class Zombieland extends Game {
 		overlays.add(overlayPauseString);
 	}
 	
+	/**
+	 * This methd is responsible for displaying the level string 
+	 * while the game is playing.
+	 */
 	private void initOverlayLevelString() {
 
 		int overlayLevelStringX = parseInt("overlayLevelStringX");
@@ -219,6 +237,10 @@ public class Zombieland extends Game {
 		overlays.add(overlayLevelString);
 	}
 
+	/**
+	 * This method is responsible for initializing the Ammo string
+	 * that is displayed during game play.
+	 */
 	private void initOverlayAmmoString() {
 
 		int overlayAmmoStringX = parseInt("overlayAmmoStringX");
@@ -235,6 +257,10 @@ public class Zombieland extends Game {
 		overlays.add(overlayAmmoString);
 	}
 
+	/**
+	 * This method is responsible for initializing the Score String 
+	 * as an increasing number during the game play.
+	 */
 	private void initOverlayScoreString() {
 		int overlayScoreStringX = parseInt("overlayScoreStringX");
 		int overlayScoreStringY = parseInt("overlayScoreStringY");
@@ -250,6 +276,10 @@ public class Zombieland extends Game {
 		overlays.add(overlayScoreString);
 	}
 
+	/**
+	 * This method is responsible for initializing the health bar 
+	 * that is displayed during game play.
+	 */
 	private void initOverlayHealthBar() {
 
 		int overlayHealthBarX = parseInt("overlayHealthBarX");
@@ -264,11 +294,16 @@ public class Zombieland extends Game {
 		overlays.add(overlayHealthBar);
 	}
 
+	/**
+	 * This method is responsible for initializing the message
+	 * "Health: " on the screen during game play 
+	 */
 	private void initOverlayHealthString() {
 		int overlayHealthStringX = parseInt("overlayHealthStringX");
 		int overlayHeatlhStringY = parseInt("overlayHealthStringY");
-
-		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
+		String overlayHealthStringMsg= bundle.getString("overlayHealthStringMsg");
+		
+		overlayHealthString = new OverlayString(overlayHealthStringMsg, Color.BLUE);
 		overlayHealthString.setLocation(overlayHealthStringX,
 				overlayHeatlhStringY);
 		
@@ -276,6 +311,9 @@ public class Zombieland extends Game {
 		overlays.add(overlayHealthString);
 	}
 
+	/**
+	 * This method is responsible for initializing the player and all of its animated images.
+	 */
 	private void initPlayer() {
 		double playerDefaultX = parseDouble("playerDefaultX");
 		double playerDefaultY = parseDouble("playerDefaultY");
@@ -294,7 +332,10 @@ public class Zombieland extends Game {
 		}
 	}
 
-
+	/**
+	 * This method is responsible for initializing the pictures associated with
+	 * bulletImage, shotGunImage, assaultRifleImage, and healthImage
+	 */
 	private void initImages() {
 		// Zombie animations
 		initZombie();
@@ -306,6 +347,9 @@ public class Zombieland extends Game {
 		
 	}
 
+	/**
+	 * This method initializes all of the animated sprite images for a zombie.
+	 */
 	private void initZombie() {
 		zombieDownImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDown", delim);
 		zombieUpImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieUp", delim);
@@ -318,15 +362,40 @@ public class Zombieland extends Game {
 		zombieDeathImage = getBufferedImageArray(MAIN_RESOURCES_PATH, "ZombieDeath", delim);
 	}
 
+	/**
+	 * This method allows the user to parse the value associated with the keyName to
+	 * a double. Specifically, this method does this by drawing the value associated
+	 * with the keyName from the global ResourceBundle bundle. 
+	 * @param keyName
+	 * @return
+	 */
 	public double parseDouble(String keyName) {
 		String string = bundle.getString(keyName);
 		return Double.parseDouble(string);
 	}
+	
+	/**
+	 * This method allows the user to parse the value associated with the keyName to
+	 * an integer. Specifically, this method does this by drawing the value associated
+	 * with the keyName from the global ResourceBundle bundle. 
+	 * @param keyName
+	 * @return
+	 */
 	public int parseInt(String keyName) {
 		String string = bundle.getString(keyName);
 		return Integer.parseInt(string);
 	}
 
+	/**
+	 * This method allows the user to read in the String associated with
+	 * a key value and then split the value base on the regular expression
+	 * delim to get different frames of the same animation associated 
+	 * with one animated sprite.
+	 * @param bundleURL
+	 * @param key
+	 * @param delim
+	 * @return
+	 */
 	private BufferedImage[] getBufferedImageArray(String bundleURL, String key,
 			String delim) {
 		String value = bundle.getString(key);
@@ -354,7 +423,9 @@ public class Zombieland extends Game {
 		return sprite;
 	}
 	/**
-	 * update all components of the game
+	 * update all components of the ZombieLand game. This method checks 
+	 * to see if more zombies can be added or if the level has been
+	 * completed.
 	 */
 	public void update(long elapsedTime) {
 		if (bsInput.getKeyPressed() == KeyEvent.VK_P){
@@ -398,6 +469,9 @@ public class Zombieland extends Game {
 		return player.getLevelScore() == zombiesAppeared;
 	}
 
+	/**
+	 * This method sets the new Delay Time
+	 */
 	private void setNewDelay() {
 		
 		int timeInterval = parseInt("timeInterval");
@@ -406,10 +480,16 @@ public class Zombieland extends Game {
 		timer.setDelay((long) (timeInterval/level* delayFactor));
 	}
 
+	/**
+	 * Make the zombieCount start back from zero.
+	 */
 	private void resetZombiesCount() {
 		zombiesAppeared = 0;
 	}
 
+	/**
+	 * Increase the zombie's health and damage.
+	 */
 	private void updateZombieStats() {
 		
 		double zombieStatMultiplier = parseDouble("zombieStatMultiplier");
