@@ -9,6 +9,13 @@ import vooga.engine.event.IEvent;
 import vooga.games.towerdefense.TowerDefense;
 import vooga.games.towerdefense.events.*;
 
+/**
+ * This class is a listener to build a new tower when needed
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class TowerBuilder implements BuildTowerListener{
 	
 	private TowerDefense game;
