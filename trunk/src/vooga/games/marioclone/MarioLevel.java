@@ -116,8 +116,9 @@ public class MarioLevel {
 			scrollLevel();
 		}
 		getPlayField().update(elapsedTime);
-		int numKilled = 0;//removeKilled();
-		getPlayField().getGroup("Enemy Group").removeInactiveSprites();
+		int numKilled = 0;
+		removeKilled();
+		//getPlayField().getGroup("Enemy Group").removeInactiveSprites();
 
 		
 //		if (myTimer.action(elapsedTime))
@@ -125,13 +126,14 @@ public class MarioLevel {
 		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()
 				+ numKilled);
 		myLives.setStat(myMario.getHealth());
-		
+		/*
 		SpriteGroup group = getPlayField().getGroup("Enemy Group");
 		System.out.println(((CharacterSprite) group.getSprites()[0])
 				.getHealth()
 				+ " : "
 				+ ((CharacterSprite) group.getSprites()[0]).isActive()
 				+ " : " + group.getSprites()[0].isActive());
+				*/
 	}
 
 	private int removeKilled() {
