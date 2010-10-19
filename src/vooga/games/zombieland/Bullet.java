@@ -1,5 +1,7 @@
 package vooga.games.zombieland;
 
+import java.util.ResourceBundle;
+
 import vooga.engine.player.control.GameEntitySprite;
 import com.golden.gamedev.object.Sprite;
 
@@ -12,23 +14,37 @@ import com.golden.gamedev.object.Sprite;
  */
 public class Bullet extends GameEntitySprite {
 
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+	
 	private double damage;
 	private double velocity;
 	private double angle;
 	private double userX;
 	private double userY;
 	private double adjustment;
+	private ResourceBundle bundle;
 
 	public Bullet(double x, double y, double bulletAngle, double bulletDamage,
 			double bulletSpeed) {
 		super("Bullet", "Moving", new Sprite());
+		
+		bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		
 		userX = x;
 		userY = y;
 		damage = bulletDamage;
 		angle = bulletAngle;
 		velocity = bulletSpeed;
+		
 		correctPositionOffset();
-		adjustment = angle / 360.0 * Math.PI * 2;
+		convertToRadian();
+	}
+
+	/**
+	 * This method sets the bullet angle to radians
+	 */
+	private void convertToRadian() {
+		angle = angle / 360.0 * Math.PI * 2;
 	}
 
 	/**
