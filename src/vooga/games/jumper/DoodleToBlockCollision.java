@@ -41,8 +41,9 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	 */
 
 	
-	@Override
 	public void collided(Sprite doodle, Sprite block) {
+		
+		
 		
 		/**
 		 * if the player's bottom (feet) touches block
@@ -51,37 +52,45 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 			/**
 			 * if collision with normal block
 			 */
-			if (block.getID()==1){ 
+			if (((BlockSprite)block).getBlockType().equals("blockTypeNormal")){ 
 				doodle.setVerticalSpeed(block.getVerticalSpeed()); //stand on block
 			} 
 			/**
 			 * if collision with spring block
 			 */
-			else if(block.getID()==2){
+			else if(((BlockSprite)block).getBlockType().equals("blockTypeSpring")){
 				doodle.setVerticalSpeed(block.getVerticalSpeed()*springVelocityMultiplier); //bounce
 			} 
 			/**
 			 * if collision with breaking block
 			 */
-			else if(block.getID()==3){
+			else if(((BlockSprite)block).getBlockType().equals("blockTypeNotBroken")){
+				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
 				if(startBreakTime == 0){
 					startBreakTime = GameClock.getTime();
+					
 				}else if(Math.abs(breakTimeElapsed-breakTimerRate*1)<10){
 					changeSpriteImage(block, "platformBreak1");
+					
 				}else if(Math.abs(breakTimeElapsed-breakTimerRate*2)<10){
 					changeSpriteImage(block, "platformBreak2");
+					
+					
 				}else if(Math.abs(breakTimeElapsed-breakTimerRate*3)<10){
 					changeSpriteImage(block, "platformBreak3");
+					
 					startBreakTime = 0;
-					block.setID(0);
+					((BlockSprite)block).setBlockType("blockTypeNormal");
+					
 				}
+				doodle.setVerticalSpeed(1.0);
 				breakTimeElapsed = GameClock.getTime()-startBreakTime;
-				doodle.setVerticalSpeed(block.getVerticalSpeed()); //doodlespeed = speed of block
+				
 			}
 			/**
 			 * if collision with jetpack, needs work. --devon
 			 */
-			} else if(block.getID()==4){
+			} else if(((BlockSprite)block).getBlockType().equals("blockTypeJetpack")){
 			changeSpriteImage(block, "jetpackInvisible");
 			Jumper.setJetpackOn(true);
 
