@@ -12,7 +12,7 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 	@Override
 	public void collided(Sprite mario, Sprite enemy) {
 		long thiscollision = System.currentTimeMillis();
-		if(thiscollision-lastcollision > 200) {
+		if(thiscollision-lastcollision > 100) {
 			int side = getCollisionSide(mario,enemy);
 			if(side == BOTTOM_TOP_COLLISION){
 				System.out.println("Mario wins");
@@ -32,12 +32,11 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 			}
 			else {
 				thisMario.setHealth(thisMario.getHealth()-1);
-				((Enemy) enemy).bounce();
+				thisEnemy.bounce();
 			}
-			mario.setHorizontalSpeed(0);
+//			mario.setHorizontalSpeed(0);
 			lastcollision = thiscollision;
 //			revertPosition1(mario, enemy);
-			//revertPosition1(enemy, mario);
 		}
 	}
 }

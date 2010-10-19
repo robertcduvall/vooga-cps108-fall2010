@@ -16,7 +16,7 @@ public abstract class CharacterSprite extends PlayerSprite {
 
 	private static final double GRAVITY = .0025;
 	private double myGravityCoef = 1;
-	private boolean active;
+//	private boolean active;
 
 	public CharacterSprite(String name, String stateName,
 			BufferedImage[] right, BufferedImage[] left) {
@@ -33,7 +33,7 @@ public abstract class CharacterSprite extends PlayerSprite {
 
 		addStat("Health", new Stat<Integer>(getMaxHealth()));
 		
-		active = true;
+//		active = true;
 	}
 
 	public abstract Integer getMaxHealth();
@@ -62,7 +62,7 @@ public abstract class CharacterSprite extends PlayerSprite {
 		
 		if (getHealth() <= 0) {
 			System.out.println("set false");
-			active = false;
+			setActive(false);
 		}
 		
 		System.out.println(isActive());
@@ -81,14 +81,14 @@ public abstract class CharacterSprite extends PlayerSprite {
 		return myGravityCoef;
 	}
 	
-	@Override
-	public boolean isActive() {
-		return active;
-	}
-	
-	@Override
-	public void setActive(boolean b) {
-		active = b;
-	}
+//	@Override
+//	public boolean isActive() {
+//		return active;
+//	}
+//	
+//	@Override
+//	public void setActive(boolean b) {
+//		active = b;
+//	}
 
 }
