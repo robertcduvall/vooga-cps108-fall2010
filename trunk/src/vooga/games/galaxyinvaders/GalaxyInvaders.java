@@ -41,6 +41,7 @@ public class GalaxyInvaders extends Game {
 	private Background bg;
 	private PlayerSprite ship;
 	private LevelManager levelManager;
+	
 	private SpriteGroup torpedos;
 	private SpriteGroup enemyTorpedos;
 	private SpriteGroup enemies;
@@ -49,16 +50,18 @@ public class GalaxyInvaders extends Game {
 	private SpriteGroup blockades;
 	private SpriteGroup pauseMenu;
 	private SpriteGroup gameOverMenu;
+	
 	private CollisionManager torpedoCollider;
 	private CollisionManager torpedoPlayerCollider;
 	private CollisionManager itemPlayerCollider;
 	private CollisionManager torpedoBlockCollider;
+	
 	private GameState play;
 	private GameState pause;
 	private GameState gameOver;
 	private GameStateManager gameStateManager;
-	private OverlayTracker overlayTracker;
 	
+	private OverlayTracker overlayTracker;
 	protected Stat<Integer> myScore;
 	protected Stat<Integer> myLives;
 
@@ -74,92 +77,16 @@ public class GalaxyInvaders extends Game {
 		}
 		bg = new ColorBackground(Color.BLACK, 700, 800);
 		ship = new PlayerSprite("p1", "default", new Sprite(ResourceHandler.getImage("ship"), getWidth()/2, getHeight()-100));
-		items = new SpriteGroup("items");
-		torpedos = new SpriteGroup("shots");
-		enemies = new SpriteGroup("enemies");
-		players = new SpriteGroup("players");
-		blockades = new SpriteGroup("blockades");
-		enemyTorpedos = new SpriteGroup("enemyTorpedos");
-		pauseMenu = new SpriteGroup("pauseMenu");
-		gameOverMenu = new SpriteGroup("gameOverMenu");
-		overlayTracker = OverlayCreator.createOverlays(ResourceHandler.getMapping("overlays"));
-		myLives = overlayTracker.getStats().get(0);
-		myScore = overlayTracker.getStats().get(1);
-		gameStateManager = new GameStateManager();
-		play = new GameState();
-		play.addGroup(items);
-		play.addGroup(torpedos);
-		play.addGroup(enemies);
-		play.addGroup(blockades);
-		play.addGroup(players);
-		play.addGroup(enemyTorpedos);
-		play.addGroup(overlayTracker.getOverlayGroups().get(2));
-		gameStateManager.addGameState(play);
-		pause = new GameState();
-		pause.addGroup(pauseMenu);
-		gameStateManager.addGameState(pause);
-		gameOver = new GameState();
-		gameOver.addGroup(gameOverMenu);
-		gameStateManager.addGameState(gameOver);
+		
+		initializeSpriteGroups();
+		initializeOverlays();
+		initializeBlocks();
+		initializeLevels();
+		initializeColliders();
+		initializeGameStates();
 		gameStateManager.switchTo(pause);
-		
-		Properties propertiesFile = new Properties();
-		try {
-			propertiesFile.load(new FileInputStream("src/vooga/games/galaxyinvaders/resources/Directories.properties"));
-		}
-		catch(IOException e)
-		{
-			System.out.println(".properties file not found!");
-		}
-		
-		String levelFilesDirectory = propertiesFile.getProperty("levelFilesDirectory");
-		String levelNamesFile = propertiesFile.getProperty("levelNamesFile");
-		levelManager = new GalaxyLevelManager();
-		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
-		initBlocks();
-		initPause();
-		initGameOver();
+
 		players.add(ship);
-		torpedoCollider = new TorpedoEnemyCollider(this);
-		torpedoCollider.setCollisionGroup(torpedos, enemies);
-		torpedoPlayerCollider = new TorpedoPlayerCollider(this);
-		torpedoPlayerCollider.setCollisionGroup(enemyTorpedos, players);
-		itemPlayerCollider = new ItemPlayerCollider(this);
-		itemPlayerCollider.setCollisionGroup(items, players);
-		torpedoBlockCollider = new TorpedoBlockCollider();
-		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
-	}
-
-
-	private void initBlocks() {
-		for(int i = 100; i<getWidth(); i+=200) {
-			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(ResourceHandler.getImage("barrier"), i, 600));
-			blockades.add(b);
-		}
-	}
-	
-	private void initPause() {
-			SpriteGroup strings = overlayTracker.getOverlayGroups().get(0);
-			Sprite[] lines = strings.getSprites();
-			int size = strings.getSize();
-			for (int i = 0; i<size; i++)
-			{
-				OverlayString oString = (OverlayString) lines[i];
-				oString.setColor(Color.WHITE);
-				pauseMenu.add(oString);
-			}			
-	}
-
-	private void initGameOver() {
-			SpriteGroup strings = overlayTracker.getOverlayGroups().get(1);
-			Sprite[] lines = strings.getSprites();
-			int size = strings.getSize();
-			for (int i = 0; i<size; i++)
-			{
-				OverlayString oString = (OverlayString) lines[i];
-				oString.setColor(Color.WHITE);
-				gameOverMenu.add(oString);
-			}			
 	}
 
 	/**
@@ -181,6 +108,145 @@ public class GalaxyInvaders extends Game {
 		gameStateManager.update(time);
 		bg.update(time);
 		
+		checkLevel();
+		checkCollisions();
+		
+		spawnBombs();
+		spawnPowerUps();
+
+		checkDefeat();
+		checkButtons();
+
+	}
+	
+	/**
+	 * This method increases the player's score by a certain amount
+	 * 
+	 * @param score the amount by which to increase the score
+	 */
+	public void increasePlayerScore(int score) {
+		myScore.setStat(myScore.getStat() + score);
+	}
+
+	/**
+	 * Java main method
+	 * 
+	 * @param args do nothing
+	 */
+	public static void main(String[] args) {
+		GameLoader game = new GameLoader();
+		game.setup(new GalaxyInvaders(), new Dimension(700,800), false);
+		game.start();
+	}
+
+	
+	
+	private void initializeSpriteGroups() {
+		items = new SpriteGroup("items");
+		torpedos = new SpriteGroup("shots");
+		enemies = new SpriteGroup("enemies");
+		players = new SpriteGroup("players");
+		blockades = new SpriteGroup("blockades");
+		enemyTorpedos = new SpriteGroup("enemyTorpedos");
+		pauseMenu = new SpriteGroup("pauseMenu");
+		gameOverMenu = new SpriteGroup("gameOverMenu");
+	}
+
+	private void initializeOverlays() {
+		overlayTracker = OverlayCreator.createOverlays(ResourceHandler.getMapping("overlays"));
+		myLives = overlayTracker.getStats().get(0);
+		myScore = overlayTracker.getStats().get(1);
+	}
+
+	private void initializeBlocks() {
+		for(int i = 100; i<getWidth(); i+=200) {
+			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(ResourceHandler.getImage("barrier"), i, 600));
+			blockades.add(b);
+		}
+	}
+
+	private void initializeLevels() {
+		Properties propertiesFile = new Properties();
+		try {
+			propertiesFile.load(new FileInputStream("src/vooga/games/galaxyinvaders/resources/Directories.properties"));
+		}
+		catch(IOException e)
+		{
+			System.out.println(".properties file not found!");
+		}
+		
+		String levelFilesDirectory = propertiesFile.getProperty("levelFilesDirectory");
+		String levelNamesFile = propertiesFile.getProperty("levelNamesFile");
+		levelManager = new GalaxyLevelManager();
+		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
+	}
+
+	private void initializeColliders() {
+		torpedoCollider = new TorpedoEnemyCollider(this);
+		torpedoCollider.setCollisionGroup(torpedos, enemies);
+		torpedoPlayerCollider = new TorpedoPlayerCollider(this);
+		torpedoPlayerCollider.setCollisionGroup(enemyTorpedos, players);
+		itemPlayerCollider = new ItemPlayerCollider(this);
+		itemPlayerCollider.setCollisionGroup(items, players);
+		torpedoBlockCollider = new TorpedoBlockCollider();
+		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
+	}
+
+	private void initializeGameStates() {
+		gameStateManager = new GameStateManager();
+		play = new GameState();
+		play.addGroup(items);
+		play.addGroup(torpedos);
+		play.addGroup(enemies);
+		play.addGroup(blockades);
+		play.addGroup(players);
+		play.addGroup(enemyTorpedos);
+		play.addGroup(overlayTracker.getOverlayGroups().get(2));
+		gameStateManager.addGameState(play);
+		pause = new GameState();
+		pause.addGroup(pauseMenu);
+		gameStateManager.addGameState(pause);
+		gameOver = new GameState();
+		gameOver.addGroup(gameOverMenu);
+		gameStateManager.addGameState(gameOver);
+		initializePause();
+		initializeGameOver();
+	}
+	
+	private void initializePause() {
+			SpriteGroup strings = overlayTracker.getOverlayGroups().get(0);
+			Sprite[] lines = strings.getSprites();
+			int size = strings.getSize();
+			for (int i = 0; i<size; i++)
+			{
+				OverlayString oString = (OverlayString) lines[i];
+				oString.setColor(Color.WHITE);
+				pauseMenu.add(oString);
+			}			
+	}
+
+	private void initializeGameOver() {
+			SpriteGroup strings = overlayTracker.getOverlayGroups().get(1);
+			Sprite[] lines = strings.getSprites();
+			int size = strings.getSize();
+			for (int i = 0; i<size; i++)
+			{
+				OverlayString oString = (OverlayString) lines[i];
+				oString.setColor(Color.WHITE);
+				gameOverMenu.add(oString);
+			}			
+	}
+
+	
+	
+	private void checkCollisions() {
+		torpedoCollider.checkCollision();
+		torpedoPlayerCollider.checkCollision();
+		itemPlayerCollider.checkCollision();
+		torpedoBlockCollider.checkCollision();
+	}
+
+	private void checkLevel() {
 		if(levelManager.getCurrentLevel()==0){
 			SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
 			for(Sprite s : temp.getSprites()) {
@@ -209,23 +275,24 @@ public class GalaxyInvaders extends Game {
 				}
 			}
 		}
-
-		torpedoCollider.checkCollision();
-		torpedoPlayerCollider.checkCollision();
-		itemPlayerCollider.checkCollision();
-		torpedoBlockCollider.checkCollision();
-		
-		int bombSeed;
-		try {
-			bombSeed = Randomizer.nextInt(1000);
-		} catch (RandomizerException e) {
-			e.printStackTrace();
-			bombSeed = 0;
+	}
+	
+	private void checkDefeat() {
+		for(Sprite enemy: enemies.getSprites()) {
+			if(enemy!=null) {
+				if (isAtBorder(enemy)) {
+					gameStateManager.switchTo(gameOver);
+					break;
+				}
+			}
 		}
-		if(bombSeed<BOMB_FREQUENCY) {
-			spawnEnemyBomb();
+		if(myLives.getStat()<=0) {
+			gameStateManager.switchTo(gameOver);
 		}
 
+	}
+
+	private void spawnPowerUps() {
 		//this randomly determines whether a health powerup will be dropped
 		//on this turn. the constant ITEM_FREQUENCY can be changed to change 
 		//the rate of powerups dropped
@@ -240,47 +307,19 @@ public class GalaxyInvaders extends Game {
 		if(itemSeed<ITEM_FREQUENCY) {
 			spawnHealth();
 		}
+	}
 
-
-		for(Sprite enemy: enemies.getSprites()) {
-			if(enemy!=null) {
-				if (isAtBorder(enemy)) {
-					gameStateManager.switchTo(gameOver);
-					break;
-				}
-			}
+	private void spawnBombs() {
+		int bombSeed;
+		try {
+			bombSeed = Randomizer.nextInt(1000);
+		} catch (RandomizerException e) {
+			e.printStackTrace();
+			bombSeed = 0;
 		}
-
-		if(keyDown(KeyEvent.VK_LEFT)) {
-			if(ship.getX()>0-15)  moveLeft();
+		if(bombSeed<BOMB_FREQUENCY) {
+			spawnEnemyBomb();
 		}
-		if(keyDown(KeyEvent.VK_RIGHT)) {
-			if(ship.getX()<getWidth()-45)   moveRight();
-		}
-		if(keyPressed(KeyEvent.VK_SPACE)) {
-			fire();
-		}
-
-		
-		if(myLives.getStat()<=0) {
-			gameStateManager.switchTo(gameOver);
-		}
-
-		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
-		if(keyPressed(KeyEvent.VK_T)) {
-			enemies.clear();
-		}
-
-		if(keyPressed(KeyEvent.VK_P)) {
-			gameStateManager.toggle(pause);
-			gameStateManager.toggle(play);
-		}
-		
-		if(keyPressed(KeyEvent.VK_R)) {
-			this.finish();
-			GalaxyInvaders.main(null);
-		}
-
 	}
 
 	private void spawnHealth() {
@@ -312,7 +351,35 @@ public class GalaxyInvaders extends Game {
 			enemyTorpedos.add(temp);
 		}
 	}
+	
+	private void checkButtons() {
+		if(keyDown(KeyEvent.VK_LEFT)) {
+			if(ship.getX()>0-15)  moveLeft();
+		}
+		if(keyDown(KeyEvent.VK_RIGHT)) {
+			if(ship.getX()<getWidth()-45)   moveRight();
+		}
+		if(keyPressed(KeyEvent.VK_SPACE)) {
+			fire();
+		}
 
+		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
+		if(keyPressed(KeyEvent.VK_T)) {
+			enemies.clear();
+		}
+
+		if(keyPressed(KeyEvent.VK_P)) {
+			gameStateManager.toggle(pause);
+			gameStateManager.toggle(play);
+		}
+		
+		if(keyPressed(KeyEvent.VK_R)) {
+			this.finish();
+			GalaxyInvaders.main(null);
+		}
+	}
+
+	
 	private void moveLeft() {
 		ship.move(-5, 0);
 	}
@@ -326,29 +393,9 @@ public class GalaxyInvaders extends Game {
 		temp.setSpeed(0, -.8);
 		torpedos.add(temp);
 	}
-	/**
-	 * This method increases the player's score by a certain amount
-	 * 
-	 * @param score the amount by which to increase the score
-	 */
-	public void increasePlayerScore(int score) {
-		myScore.setStat(myScore.getStat() + score);
-	}
 
 	private boolean isAtBorder(Sprite enemy){
 		return enemy.getY() >=  700;
 	}
-
-	/**
-	 * Java main method
-	 * 
-	 * @param args do nothing
-	 */
-	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new GalaxyInvaders(), new Dimension(700,800), false);
-		game.start();
-	}
-
 
 }
