@@ -5,6 +5,7 @@ package vooga.games.tron.foundations;
  * This is the main class that implements the main body of the game.
  */
 
+import vooga.engine.state.GameState;
 import vooga.games.tron.Bonus.speedBonus;
 import vooga.games.tron.Players.TronPlayer;
 
@@ -22,6 +23,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +48,9 @@ public class MainGame extends Game {
 
 	ImageBackground imageBack;
 	public ColorBackground backGround;
+	
+	GameState startMenu,pause,play;
+	boolean showStartMenu;
 	
 	TronLevelManager levelManager;
 
@@ -87,12 +92,17 @@ public class MainGame extends Game {
 	/**
 	 * Initializing the resources, initializing the game
 	 */
-	public void initResources() {
-		setFPS(FRAME_RATE); 	
-		backGround=new ColorBackground(Color.WHITE,WIDTH,HEIGHT);
-
-		gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
-
+	public void initResources() {	
+			setFPS(FRAME_RATE); 	
+			backGround=new ColorBackground(Color.WHITE,WIDTH,HEIGHT);
+			gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
+			showStartMenu=true;
+			startMenu = new GameState();
+			play=new GameState();
+			pause=new GameState();
+			if(showStartMenu){
+				startMenu.activate();
+			}
 	//	player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
 	//	player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
 		
@@ -273,8 +283,34 @@ public class MainGame extends Game {
 	/**
 	 * Update the frames
 	 */
+	
+	
 	public void update(long elapsedTime) {
-		PlayerAndBoundariesCollision2.checkCollision();
+		if(startMenu.isActive()){
+		playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamestart.png")));
+		if(keyPressed(KeyEvent.VK_ENTER)){
+			startMenu.deactivate();
+			play.activate();
+			pause.deactivate();
+			//gameOver.deactivate();
+		}
+		}
+		
+		else if(pause.isActive()){
+			playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamepause.png")));
+			if(keyPressed(KeyEvent.VK_P)){
+				play.activate();
+				pause.deactivate();
+			}
+		}
+		
+		else if(play.isActive()){
+			if(keyPressed(KeyEvent.VK_P)){
+				play.deactivate();
+				pause.activate();
+			}
+			else{
+	    PlayerAndBoundariesCollision2.checkCollision();
 		PlayerAndBoundariesCollision.checkCollision();
 		PlayerAndEnemyCollision.checkCollision();
 		PlayerAndEnemyCollision2.checkCollision();
@@ -301,7 +337,9 @@ public class MainGame extends Game {
 			player1.setLocation(player1.routineUpdatePlayerX(),player1.routineUpdatePlayerY());//running without user control   	
 			player2.setLocation(player2.routineUpdatePlayerX(),player2.routineUpdatePlayerY());//running without user control  
 
-		}   
+		} 
+		}
+		}
 
 	}
 
@@ -338,9 +376,19 @@ public class MainGame extends Game {
 	 * render the graphics
 	 */
 	public void render(Graphics2D g) {
-		backGround.render(g);   		
-		playfield.render(g);
+		if (startMenu.isActive()) {
+			playfield.getBackground().render(g);
+		}
+		else if(play.isActive()){
+			playfield.setBackground(backGround);
+			backGround.render(g);
+			playfield.render(g);
+		}	
+		else if(pause.isActive()){
+			playfield.getBackground().render(g);
+		}
 	}
+	
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
 		game.setup(new MainGame(), new Dimension(WIDTH,HEIGHT), false);
