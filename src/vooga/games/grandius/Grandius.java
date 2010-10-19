@@ -247,8 +247,12 @@ public class Grandius extends Game {
 		shoppingLevel3.setLocation((int) screen.getWidth()/10, (int) screen.getHeight()/3);
 		OverlayString shoppingLevel4 = new OverlayString("OR HIT SPACEBAR FOR NEXT LEVEL", font);
 		shoppingLevel4.setLocation((int) screen.getWidth()/6, (int) screen.getHeight()/2);
-		SHOPPING_LEVEL_GROUP.add(new OverlayString("Shopping level"));
+		SHOPPING_LEVEL_GROUP.add(shoppingLevel1);
+		SHOPPING_LEVEL_GROUP.add(shoppingLevel2);
+		SHOPPING_LEVEL_GROUP.add(shoppingLevel3);
+		SHOPPING_LEVEL_GROUP.add(shoppingLevel4);
 		shoppingLevelState.addRenderGroup(SHOPPING_LEVEL_GROUP);
+		shoppingLevelState.addUpdateGroups(SHOPPING_LEVEL_GROUP);
 	}
 
 	private void buildLevelCompleteState() {
@@ -385,12 +389,12 @@ public class Grandius extends Game {
 
 		if (levelCompleteState.isActive()){
 //			myPlayfield.clearPlayField();
-//			myPlayfield.render(g);
+			myPlayfield.render(g);
 
 		}
 		if (shoppingLevelState.isActive()){
 //			myPlayfield.clearPlayField();
-//			myPlayfield.render(g);
+			myPlayfield.render(g);
 //			font.drawString(g, "CASH: " + myCash.getStat().intValue(),
 //					(int) screen.getWidth()/3,
 //					(int) (screen.getHeight()/5));
@@ -407,7 +411,7 @@ public class Grandius extends Game {
 
 		if (gameCompleteState.isActive()) {
 //			myPlayfield.clearPlayField();
-//			myPlayfield.render(g);
+			myPlayfield.render(g);
 //			font.drawString(g, "GAME COMPLETE",
 //					(int) screen.getWidth() / 3,
 //					(int) (screen.getHeight() / 2.5));
@@ -459,6 +463,7 @@ public class Grandius extends Game {
 			if (myLives.getStat().intValue() <= 0) {
 				myPlayfield.clearPlayField();
 				gameStateManager.switchTo(gameOverState);
+				playSound(ResourcesBeta.getSound("OhManSound"));
 			}
 		}
 		
@@ -483,17 +488,15 @@ public class Grandius extends Game {
 						missileActive = true;
 						updateStat(myCash,-500);
 						myPlayfield.clearPlayField();
-						gameStateManager.switchTo(startNewLevelState);
 					}
-					if((this.getMouseY()>screen.getHeight()/3) &&
+					else if((this.getMouseY()>screen.getHeight()/3) &&
 							(this.getMouseY()<screen.getHeight()/2)){
 						blackHoleActive = true;
 						updateStat(myCash,-1000);
 						myPlayfield.clearPlayField();
-						gameStateManager.switchTo(startNewLevelState);
 					}
+					gameStateManager.switchTo(startNewLevelState);
 				}
-
 			}
 			if (keyPressed(KeyEvent.VK_SPACE)){
 				gameStateManager.switchTo(startNewLevelState);
