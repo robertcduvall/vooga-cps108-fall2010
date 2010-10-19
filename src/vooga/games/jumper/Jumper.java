@@ -350,7 +350,7 @@ public class Jumper extends vooga.engine.core.Game {
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
 		Jumper jump = new Jumper();
-		myPause = new Pause(jump, KeyEvent.VK_P, KeyEvent.VK_P);
+		//myPause = new Pause(jump, KeyEvent.VK_P, KeyEvent.VK_P);
 		game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
 		game.start();
 	}
