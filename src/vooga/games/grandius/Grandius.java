@@ -199,8 +199,9 @@ public class Grandius extends Game {
 		createSpriteGroups();
 		PLAYER_GROUP.add(playersprite);
 
-		
 		reacherShieldsDepleted = false;
+		
+		//Start building the game states and state manager
 		gameStateManager = new GameStateManager();
 		
 		buildPlayState();
@@ -217,8 +218,10 @@ public class Grandius extends Game {
 		buildMenuState();
 		
 		gameOverState = new GameState();
-		GAME_OVER_GROUP.add(new OverlayString("GAME OVER",
-				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED));
+		OverlayString gameOver = new OverlayString("GAME OVER",
+				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
+		gameOver.setLocation(screenWidth/2 - gameOver.getWidth()/2, screenHeight/2);
+		GAME_OVER_GROUP.add(gameOver);
 		gameOverState.addRenderGroup(GAME_OVER_GROUP);
 		
 		gameStates = new ArrayList<GameState>();
@@ -248,7 +251,8 @@ public class Grandius extends Game {
 		int displayX = Integer.parseInt(stringsFile.getProperty("shoppingLevelX"));
 		int displayY = Integer.parseInt(stringsFile.getProperty("shoppingLevelY"));
 		
-		OverlayString shoppingLevel1 = new OverlayString("CASH: " + myCash.getStat().intValue(), font);
+		OverlayStat shoppingLevel1 = new OverlayStat("CASH: ", myCash);
+		shoppingLevel1.setFont(font);
 		shoppingLevel1.setLocation(displayX,displayY);
 		SHOPPING_LEVEL_GROUP.add(shoppingLevel1);
 		
@@ -267,11 +271,11 @@ public class Grandius extends Game {
 		int displayX = Integer.parseInt(stringsFile.getProperty("levelCompleteX"));
 		int displayY = Integer.parseInt(stringsFile.getProperty("levelCompleteY"));
 		
-		OverlayString levelComplete1 = new OverlayString("LEVEL " + levelManager.getCurrentLevel() + " COMPLETE", font);
+		OverlayString levelComplete1 = new OverlayString("LEVEL " + (levelManager.getCurrentLevel()+1) + " COMPLETE", font);
 		levelComplete1.setLocation(displayX,displayY);
 		OverlayString levelComplete2 = new OverlayString(stringsFile.getProperty("levelCompleteMessage"), font);
 		levelComplete2.setLocation(displayX,2*displayY);
-		
+
 		LEVEL_COMPLETE_GROUP.add(levelComplete1);
 		LEVEL_COMPLETE_GROUP.add(levelComplete2);
 		levelCompleteState.addRenderGroup(LEVEL_COMPLETE_GROUP);
@@ -428,23 +432,26 @@ public class Grandius extends Game {
 
 		if (shoppingLevelState.isActive()){
 			//TODO factor out switch to out of if statement
+//			SHOPPING_LEVEL_GROUP.update(elapsedTime);
 			int displayX = Integer.parseInt(stringsFile.getProperty("shoppingLevelX"));
 			int displayY = Integer.parseInt(stringsFile.getProperty("shoppingLevelY"));
 			if(click()){
+			System.out.println("Made it here");
 				if((this.getMouseX()>displayX)){
 					if((this.getMouseY()>displayY*2) &&
 							(this.getMouseY()<displayY*3)){
 						missileActive = true;
 						updateStat(myCash,-500);
 						myPlayfield.clearPlayField();
+						gameStateManager.switchTo(startNewLevelState);
 					}
 					else if((this.getMouseY()>displayY*3) &&
 							(this.getMouseY()<displayY*4)){
 						blackHoleActive = true;
 						updateStat(myCash,-1000);
 						myPlayfield.clearPlayField();
+						gameStateManager.switchTo(startNewLevelState);
 					}
-					gameStateManager.switchTo(startNewLevelState);
 				}
 			}
 			if (keyPressed(KeyEvent.VK_SPACE)){
@@ -460,7 +467,7 @@ public class Grandius extends Game {
 			}
 			PLAYER_GROUP.add(playersprite);
 			createComets();
-			addOverlays();
+			myPlayfield.addGroup(myPanel);
 			playSound(ResourcesBeta.getSound("StartLevelSound"));
 			gameStateManager.switchTo(playState);
 		}
