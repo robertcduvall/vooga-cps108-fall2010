@@ -81,15 +81,7 @@ public class DoodleGame extends Game {
 	public void initResources() {
 		DoodleLevel level = new DoodleLevel();
 
-		startMenu = new GameState();
-		play = new GameState();
-		pauseMenu = new GameState();
-		gameOver = new GameState();
-		win = new GameState();
-		if (showStart)
-			startMenu.activate();
-		else
-			play.activate();
+		initStates();
 
 		// playfield
 		playField = level.getPlayfield(new File(
@@ -101,11 +93,35 @@ public class DoodleGame extends Game {
 
 		passScore += level.getScore();
 		nextLevel = level.getNextLevel();
+		
+		initSpriteGroups();
 
+		initDoodle();
+
+		initCollisions(level);
+
+		setFPS(100);
+	}
+
+	public void initStates() {
+		startMenu = new GameState();
+		play = new GameState();
+		pauseMenu = new GameState();
+		gameOver = new GameState();
+		win = new GameState();
+		if (showStart)
+			startMenu.activate();
+		else
+			play.activate();
+	}
+
+	public void initSpriteGroups() {
 		// spritegroups
 		ballGroup = playField.addGroup(new SpriteGroup("Ball Group"));
 		doodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
+	}
 
+	public void initDoodle() {
 		// doodle (main player)
 		doodle = new DoodleSprite("doodle", "normal", new Sprite(
 				getImage("images/doodle_right.png"), 325, 550), this);
@@ -118,7 +134,9 @@ public class DoodleGame extends Game {
 				"vooga.games.doodlejump.DoodleSprite", null);
 		doodle_keyboard_control.addInput(KeyEvent.VK_SPACE, "shoot",
 				"vooga.games.doodlejump.DoodleSprite", null);
+	}
 
+	public void initCollisions(DoodleLevel level) {
 		// Collision
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
 		doodleToMonster = new DoodleToMonsterCollision();
@@ -142,8 +160,6 @@ public class DoodleGame extends Game {
 				doodleToSpring);
 		playField.addCollisionGroup(doodleGroup, level.getTrampolineGroup(),
 				doodleToTrampoline);
-
-		setFPS(100);
 	}
 
 	@Override
