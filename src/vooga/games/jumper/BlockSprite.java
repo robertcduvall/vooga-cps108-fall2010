@@ -10,6 +10,8 @@ import com.golden.gamedev.object.Sprite;
  *
  */
 public class BlockSprite extends Sprite {
+	
+	private String myBlockType;
 
 
 	
@@ -25,6 +27,14 @@ public class BlockSprite extends Sprite {
 		super(image, location.x, location.y);
 		setSpeed(velocityX, velocityY);
 		
+	}
+	
+	public void setBlockType(String blockType) {
+		myBlockType = blockType;
+	}
+	
+	public String getBlockType() {
+		return myBlockType;
 	}
 
 	/**
