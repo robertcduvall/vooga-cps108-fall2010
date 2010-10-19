@@ -179,31 +179,6 @@ public class GrandiusLevel extends Level {
 	public Collection<Sprite> getCurrentScreenSprites(
 			Collection<Sprite> allSprites, double heroX, double heroY) {
 
-//		double screenWidth = myScreenSize.getWidth();
-////		System.out.println("Screenwidth = "+screenWidth);
-//		double screenHeight = myScreenSize.getHeight();
-//		System.out.println("Screenheight = "+screenHeight);
-//		double xMin = getMin(heroX, screenWidth, myGameSpace.getWidth());
-//		double yMin = getMin(heroY, screenHeight, myGameSpace.getHeight());
-//		double xMax = xMin + screenWidth;
-//		double yMax = yMin + screenHeight;
-		
-//		double xMin = getMin(heroX-myScreenSize.getWidth()/2, 0, myGameSpace.getWidth());
-//		double xMin = Math.max(heroX-screenWidth/2, 0);
-////		System.out.println("xmin="+xMin);
-//		//double yMin = getMax(heroY, 0, myGameSpace.getHeight());
-//		double xMax = Math.min(xMin + screenWidth, myGameSpace.getWidth());
-////		System.out.println("xmax="+xMax);
-//		Collection<Sprite> currentSpritesList = new ArrayList<Sprite>();
-//		for (Sprite sprite : allSprites) {
-////			System.out.println("spritex ="+sprite.getX());
-//			//if (isInRange(sprite.getX(), xMin, xMax)) {
-////				System.out.println(sprite+"is in range");
-//					//&& isInRange(sprite.getY(), yMin, yMax)) {
-//				currentSpritesList.add(sprite);
-//			//}
-//		}
-//		return currentSpritesList;
 		return allSprites;
 	}
 

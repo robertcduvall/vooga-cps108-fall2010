@@ -6,11 +6,14 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -118,7 +121,7 @@ public class Grandius extends Game {
 	private Stat<Integer> myScore;
 	private Stat<Integer> myCash;
 
-	private GrandiusLevelManager grandiusLevelManager;
+	private GrandiusLevelManager levelManager;
 	private GameFont font;
 	private double playerInitialX;
 	private double playerInitialY;
@@ -150,8 +153,23 @@ public class Grandius extends Game {
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		levelManager = new GrandiusLevelManager();
 		
-		ResourcesBeta.setDefaultPath("src/vooga/games/grandius/resources/");
+		Properties propertiesFile = new Properties();
+		try {
+			propertiesFile.load(new FileInputStream("src/vooga/games/grandius/Directories.properties"));
+		}
+		catch(IOException e)
+		{
+			System.out.println(".properties file not found!");
+		}
+		
+		
+		String levelFilesDirectory = propertiesFile.getProperty("levelFilesDirectory");
+		String levelNamesFile = propertiesFile.getProperty("levelNamesFile");
+		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
+		
+		ResourcesBeta.setDefaultPath(propertiesFile.getProperty("resourcesPath"));
 		ResourcesBeta.setGame(this);
 		screen = new Dimension(640,480);
 		playerInitialX = PLAYER_INITIAL_X;
@@ -179,17 +197,9 @@ public class Grandius extends Game {
 		createSpriteGroups();
 		PLAYER_GROUP.add(playersprite);
 
-		grandiusLevelManager = new GrandiusLevelManager();
+		
 		reacherShieldsDepleted = false;
 
-		try {
-			grandiusLevelManager.addLevels("src/vooga/games/grandius/resources/levels");
-		} catch (IOException e) {
-			System.out.println("Levels not loaded correctly");
-		}
-
-		//Initialize the first level.
-		initLevel(grandiusLevelManager.currentLevel().get(0), grandiusLevelManager.currentLevel().get(1), grandiusLevelManager.currentLevel().get(2));
 
 		gameStateManager = new GameStateManager();
 		
@@ -244,7 +254,7 @@ public class Grandius extends Game {
 	private void buildLevelCompleteState() {
 		levelCompleteState = new GameState();
 		OverlayString levelComplete1 = new OverlayString("LEVEL " +
-				grandiusLevelManager.getMyCurrentLevel() + " COMPLETE", font);
+				levelManager.getCurrentLevel() + " COMPLETE", font);
 		levelComplete1.setLocation((int) screen.getWidth() / 3,(int) (screen.getHeight() / 2.5));
 		OverlayString levelComplete2 = new OverlayString("CLICK FOR SHOPPING LEVEL", font);
 		levelComplete2.setLocation((int) screen.getWidth() / 3, (int) screen.getHeight() / 2);
@@ -411,6 +421,20 @@ public class Grandius extends Game {
 
 	@Override
 	public void update(long elapsedTime) {
+		//myPlayfield.
+		if(levelManager.getCurrentLevel()==0){
+			PlayField playfield=levelManager.loadNextLevel();
+			for(SpriteGroup group: playfield.getGroups()){
+				myPlayfield.addGroup(group);
+			}
+		}
+		
+		//playfield.update(elapsedTime);
+		
+//		if(levelcomplete condition){
+//			playfield.clearPlayField();
+//			playfield=levelManager.loadNextLevel();
+//		}
 
 		//TODO Utilize VOOGA State API
 		if (menuState.isActive()){
@@ -439,7 +463,7 @@ public class Grandius extends Game {
 		}
 		
 		if (levelCompleteState.isActive()){
-			if(grandiusLevelManager.getMyCurrentLevel()==LAST_LEVEL){
+			if(levelManager.getCurrentLevel()==LAST_LEVEL){
 				myPlayfield.clearPlayField();
 				gameStateManager.switchTo(gameCompleteState);
 			}
@@ -477,11 +501,15 @@ public class Grandius extends Game {
 		}
 
 		if (startNewLevelState.isActive()){
-			ArrayList<ArrayList<Sprite>> nextLevel = grandiusLevelManager.nextLevel();
+			PlayField playfield=levelManager.loadNextLevel();
+			for(SpriteGroup group: playfield.getGroups()){
+				myPlayfield.addGroup(group);
+			}
+			//ArrayList<ArrayList<Sprite>> currentLevel = levelManager.currentLevel();
 			PLAYER_GROUP.add(playersprite);
 			//myPlayfield.addGroup(PLAYER_GROUP);
 			createComets();
-			initLevel(nextLevel.get(0), nextLevel.get(1), nextLevel.get(2));
+			//initLevel(currentLevel.get(0), currentLevel.get(1), currentLevel.get(2));
 			addOverlays();
 			playSound(ResourcesBeta.getSound("StartLevelSound"));
 			gameStateManager.switchTo(playState);
@@ -493,13 +521,10 @@ public class Grandius extends Game {
 	 * Updates the various enemies that are on screen.
 	 */
 	private void updateScreenSprites() {
-		GrandiusLevel currentLevel = grandiusLevelManager.getCurrentLevel();
-		ArrayList<ArrayList<Sprite>> currentSprites = grandiusLevelManager.currentLevel();
-		double playerX = playersprite.getX();
-		double playerY = playersprite.getY();
-		updateSpriteGroup(ENEMY_GROUP, currentLevel, currentSprites, playerX, playerY, 0);
-		updateSpriteGroup(BOSS_PART_GROUP, currentLevel, currentSprites, playerX, playerY, 1);
-		updateSpriteGroup(BOSS_GROUP, currentLevel, currentSprites, playerX, playerY, 2);
+		ArrayList<ArrayList<Sprite>> currentSprites = levelManager.currentLevel();
+		updateSpriteGroup(ENEMY_GROUP, currentSprites,0);
+		updateSpriteGroup(BOSS_PART_GROUP, currentSprites, 1);
+		updateSpriteGroup(BOSS_GROUP, currentSprites, 2);
 	}
 	
 	/**
@@ -511,9 +536,9 @@ public class Grandius extends Game {
 	 * @param playerY
 	 * @param index
 	 */
-	private void updateSpriteGroup(SpriteGroup spriteGroup, GrandiusLevel currentLevel, ArrayList<ArrayList<Sprite>> currentSprites, double playerX, double playerY, int index) {
+	private void updateSpriteGroup(SpriteGroup spriteGroup, ArrayList<ArrayList<Sprite>> currentSprites,  int index) {
 		spriteGroup.clear();
-		Collection<Sprite> screenSprites = currentLevel.getCurrentScreenSprites(currentSprites.get(index), playerX, playerY);
+		Collection<Sprite> screenSprites = currentSprites.get(index);
 		for (Sprite s: screenSprites) {
 			if (s==null) 
 				break;
@@ -711,7 +736,7 @@ public class Grandius extends Game {
 			return true;
 		}
 		for (int i = 0; i < 3; i++) {
-			for (Sprite s: grandiusLevelManager.currentLevel().get(i)) {
+			for (Sprite s: levelManager.currentLevel().get(i)) {
 				if (s.isActive()) {
 					return false;
 				}
@@ -720,24 +745,24 @@ public class Grandius extends Game {
 		return true;
 	}
 
-	private void initLevel(Collection<Sprite> sprites, Collection<Sprite> bossparts, Collection<Sprite> bosses) {
-		ENEMY_GROUP.clear();
-		BOSS_PART_GROUP.clear();
-		BOSS_GROUP.clear();
-		for (Sprite s: sprites) {
-			AnimatedSprite as = (AnimatedSprite)s;
-			as.setAnimate(true);
-			as.setLoopAnim(true);
-			ENEMY_GROUP.add(as);
-		}
-		for (Sprite s: bossparts) {
-			BOSS_PART_GROUP.add(s);
-		}
-		for (Sprite s: bosses) {
-			BOSS_GROUP.add(s);
-		}
-		reacherShieldsDepleted = false;
-	}
+//	private void initLevel(Collection<Sprite> sprites, Collection<Sprite> bossparts, Collection<Sprite> bosses) {
+//		ENEMY_GROUP.clear();
+//		BOSS_PART_GROUP.clear();
+//		BOSS_GROUP.clear();
+//		for (Sprite s: sprites) {
+//			AnimatedSprite as = (AnimatedSprite)s;
+//			as.setAnimate(true);
+//			as.setLoopAnim(true);
+//			ENEMY_GROUP.add(as);
+//		}
+//		for (Sprite s: bossparts) {
+//			BOSS_PART_GROUP.add(s);
+//		}
+//		for (Sprite s: bosses) {
+//			BOSS_GROUP.add(s);
+//		}
+//		reacherShieldsDepleted = false;
+//	}
 
 	/**
 	 * Method for adding a value (including negative ones)
