@@ -75,13 +75,16 @@ public class DoodleSprite extends PlayerSprite {
 		for (BallSprite ball : balls) {
 			ball.update(elapsedTime);
 		}
-		
+
 		bulletDelay--;
-		
+
 		if (getY() > 850 || died) {
-			gameOverString = new OverlayString("Game over! Enter to Restart.", new Font("SansSerif", Font.BOLD, 36));
-			gameOverString.setX(game.getWidth() / 2 - gameOverString.getWidth() / 2);
-			gameOverString.setY(game.getHeight() / 2 - gameOverString.getHeight() / 2);
+			gameOverString = new OverlayString("Game over! Enter to Restart.",
+					new Font("SansSerif", Font.BOLD, 36));
+			gameOverString.setX(game.getWidth() / 2 - gameOverString.getWidth()
+					/ 2);
+			gameOverString.setY(game.getHeight() / 2
+					- gameOverString.getHeight() / 2);
 		}
 	}
 
@@ -98,7 +101,7 @@ public class DoodleSprite extends PlayerSprite {
 								- ballImage.getWidth() / 2, getY()
 								- ballImage.getHeight()));
 				ball.setVerticalSpeed(-0.7);
-				if(getVerticalSpeed() < 0)
+				if (getVerticalSpeed() < 0)
 					ball.setVerticalSpeed(-1.5);
 				balls.add(ball);
 				game.ballGroup.add(ball);
@@ -110,15 +113,16 @@ public class DoodleSprite extends PlayerSprite {
 		}
 	}
 
-	public void setDied(boolean b){
+	public void setDied(boolean b) {
 		died = b;
 	}
+
 	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
 		for (BallSprite ball : balls)
 			ball.render(g);
-		if(gameOverString != null || (died && gameOverString != null)){
+		if (gameOverString != null || (died && gameOverString != null)) {
 			gameOverString.render(g);
 			game.gameOver();
 		}

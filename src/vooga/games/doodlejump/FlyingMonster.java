@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.AnimatedSprite;
 
 /**
- * The FlyingMonster class extends AnimatedSprite and defines a FlyingMonster 
+ * The FlyingMonster class extends AnimatedSprite and defines a FlyingMonster
  * 
  * @author Adam Cue, Marcus Molchany, Nick Straub
- *
+ * 
  */
-public class FlyingMonster extends AnimatedSprite{
-	
-	public FlyingMonster(BufferedImage[] images, double x, double y){
+public class FlyingMonster extends AnimatedSprite {
+
+	public FlyingMonster(BufferedImage[] images, double x, double y) {
 		super(images, x, y);
 		setHorizontalSpeed(-0.2);
 		setVerticalSpeed(-0.1);
@@ -20,11 +20,11 @@ public class FlyingMonster extends AnimatedSprite{
 		setLoopAnim(true);
 		setAnimate(true);
 	}
-	
+
 	@Override
-	public void update(long elapsedTime){
+	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if(getX() < 0 || getX() > 532 - getWidth()){
+		if (getX() < 0 || getX() > 532 - getWidth()) {
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 		}
 	}
