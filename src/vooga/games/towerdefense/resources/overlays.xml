@@ -1,0 +1,32 @@
+<Overlay>
+<Stat type="Integer" value="100"></Stat>
+<Stat type="Integer" value="0"></Stat>
+<Stat type="Integer" value="100"></Stat>
+
+<OverlayGroup>
+<OverlayString label="SELFESTEEM" fontName="gameFontRed" xLoc="800" yLoc="50"></OverlayString>
+<OverlayBar stat="0" max="100" xLoc="775" yLoc="70"></OverlayBar>
+<OverlayStat label="MONEY : " stat="2" fontName="gameFontGreen" xLoc="800" yLoc="100"></OverlayStat>
+<OverlayStat label="SCORE : " stat="1" fontName="gameFontGreen" xLoc="800" yLoc="130"></OverlayStat>
+<OverlayString label="TOWERS" fontName="Times New Roman" fontStyle="ITALIC" fontSize="26" xLoc="830" yLoc="180"></OverlayString>
+
+<OverlayString label="NORMAL TOWER" fontName="gameFontOrange" xLoc="800" yLoc="220"></OverlayString>
+<OverlayString label="COST 40 DOLLARS" fontName="gameFontOrange" xLoc="770" yLoc="240"></OverlayString>
+<OverlayStatImage image="normalTower" xLoc="880" yLoc="260"></OverlayStatImage>
+
+<OverlayString label="FAST TOWER" fontName="gameFontGreen" xLoc="800" yLoc="320"></OverlayString>
+<OverlayString label="COST 250 DOLLARS" fontName="gameFontGreen" xLoc="770" yLoc="340"></OverlayString>
+<OverlayStatImage image="fastTower" xLoc="880" yLoc="360"></OverlayStatImage>
+
+<OverlayString label="SNIPER TOWER" fontName="gameFontRed" xLoc="800" yLoc="420"></OverlayString>
+<OverlayString label="COST 80 DOLLARS" fontName="gameFontRed" xLoc="770" yLoc="440"></OverlayString>
+<OverlayStatImage image="sniperTower" xLoc="880" yLoc="460"></OverlayStatImage>
+</OverlayGroup>
+
+<OverlayGroup>
+<OverlayString label="SELFSETEEM DEPLETED" fontName="gameFontGreen" xLoc="500" yLoc="220"></OverlayString>
+<OverlayStat label="SCORE : " stat="1" fontName="gameFontOrange" xLoc="515" yLoc="250"></OverlayStat>
+</OverlayGroup>
+
+
+</Overlay>

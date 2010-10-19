@@ -77,17 +77,14 @@ public class PlayerCursor extends PlayerSprite {
 		if(checkButtons(107,314,241,385)){
 			myGame.setDifficulty(0);
 			myGame.begin();
-			stateManager.switchTo(myGame.play);
 		}
 		else if(checkButtons(400,311,577,391)){
 			myGame.setDifficulty(1);
 			myGame.begin();
-			stateManager.switchTo(myGame.play);
 		}
 		else if(checkButtons(724,304,881,398)){
 			myGame.setDifficulty(2);
 			myGame.begin();
-			stateManager.switchTo(myGame.play);
 		}
 		
 	}
