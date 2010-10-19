@@ -43,27 +43,7 @@ public class Enemy extends CharacterSprite {
 	 */
 
 	public void bounce() {
-//		System.out.println("bouncing enemy");
 		setHorizontalSpeed(-getHorizontalSpeed());
-	}
-
-	/**
-	 * This method will remove the said enemy if its health reaches 0, as well
-	 * as cause the enemies to bounce off the walls so they don't run off the
-	 * screen.
-	 * 
-	 */
-	@Override
-	public void update(long elapsedTime) {
-		super.update(elapsedTime);
-
-		// if(!isOnScreen()) bounce();
-
-		if (getHorizontalSpeed() < 0)
-			setToCurrentSprite("Left");
-		else if (getHorizontalSpeed() > 0)
-			setToCurrentSprite("Right");
-
 	}
 
 

@@ -7,8 +7,12 @@ import vooga.engine.player.control.PlayerSprite;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
-/*
- * @author Andrew Brown
+/**
+ * @author Andrew Brown, David Herzka, Cameron McCallie
+ * 
+ *         A PlayerSprite that is subjected to gravity, has a health statistic
+ *         associated with it, and has two different animated sprites it can
+ *         display based on its direction of motion.
  */
 
 @SuppressWarnings("serial")
@@ -39,7 +43,7 @@ public class CharacterSprite extends PlayerSprite {
 	public Integer getMaxHealth() {
 		return myMaxHealth;
 	}
-	
+
 	protected void setMaxHealth(Integer health) {
 		myMaxHealth = health;
 	}
@@ -57,6 +61,11 @@ public class CharacterSprite extends PlayerSprite {
 
 	@Override
 	public void update(long elapsedTime) {
+
+		if (getHorizontalSpeed() > 0)
+			setToCurrentSprite("Right");
+		else if (getHorizontalSpeed() < 0)
+			setToCurrentSprite("Left");
 
 		super.update(elapsedTime);
 		setVerticalSpeed(getVerticalSpeed() + getGravityCoef() * GRAVITY
