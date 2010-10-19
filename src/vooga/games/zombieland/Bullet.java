@@ -1,5 +1,7 @@
 package vooga.games.zombieland;
 
+import java.util.ResourceBundle;
+
 import vooga.engine.player.control.GameEntitySprite;
 import com.golden.gamedev.object.Sprite;
 
@@ -12,23 +14,34 @@ import com.golden.gamedev.object.Sprite;
  */
 public class Bullet extends GameEntitySprite {
 
+	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+	
 	private double damage;
 	private double velocity;
 	private double angle;
 	private double userX;
 	private double userY;
 	private double adjustment;
+	private ResourceBundle bundle;
 
 	public Bullet(double x, double y, double bulletAngle, double bulletDamage,
 			double bulletSpeed) {
 		super("Bullet", "Moving", new Sprite());
+		
+		bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
+		
 		userX = x;
 		userY = y;
 		damage = bulletDamage;
 		angle = bulletAngle;
 		velocity = bulletSpeed;
+		
 		correctPositionOffset();
-		adjustment = angle / 360.0 * Math.PI * 2;
+		adjustment = getRadianAdjustment();
+	}
+
+	private double getRadianAdjustment() {
+		return angle / 360.0 * Math.PI * 2;
 	}
 
 	/**
@@ -48,32 +61,48 @@ public class Bullet extends GameEntitySprite {
 	 * Correct bullets facing right
 	 */
 	private void correctRightFacingBullet() {
+		
+		int bulletsCorrectRightX = parseInt("bulletsCorrectRightX");
+		int bulletsCorrectRightY = parseInt("bulletsCorrectRightY");
+		
 		if (angle > 135 && angle < 225)
-			correctBulletPlacement(-25, 10);
+			correctBulletPlacement(bulletsCorrectRightX, bulletsCorrectRightY);
 	}
 
 	/**
 	 * correct bullets facing up
 	 */
 	private void correctUpFacingBullet() {
+		
+		int bulletsCorrectUpX = parseInt("bulletsCorrectUpX");
+		int bulletsCorrectUpY = parseInt("bulletsCorrectUpY");
+		
 		if (angle > 45 && angle < 135)
-			correctBulletPlacement(-15, 50);
+			correctBulletPlacement(bulletsCorrectUpX, bulletsCorrectUpY);
 	}
 
 	/**
 	 * correct bullets facing left
 	 */
 	private void correctLeftFacingBullet() {
+		
+		int bulletsCorrectLeftX = parseInt("bulletsCorrectLeftX");
+		int bulletsCorrectLeftY = parseInt("bulletsCorrectLeftY");
+		
 		if (angle > -45 && angle < 45)
-			correctBulletPlacement(30, 25);
+			correctBulletPlacement(bulletsCorrectLeftX, bulletsCorrectLeftY);
 	}
 
 	/**
 	 * correct bullets facing down
 	 */
 	private void correctDownFacingBullet() {
+		
+		int bulletsCorrectDownX = parseInt("bulletsCorrectDownX");
+		int bulletsCorrectDownY = parseInt("bulletsCorrectDownY");
+		
 		if (angle > 225 && angle < 315)
-			correctBulletPlacement(5, 0);
+			correctBulletPlacement(bulletsCorrectDownX, bulletsCorrectDownY);
 	}
 
 	/**
@@ -110,4 +139,32 @@ public class Bullet extends GameEntitySprite {
 		moveY(newYAmountFromAngle);
 
 	}
+	/**
+	 * (This method does not really belong here but the Resource group does not yet
+	 * have any  classes to deal with literals).
+	 * This method allows the user to parse the value associated with the keyName to
+	 * a double. Specifically, this method does this by drawing the value associated
+	 * with the keyName from the global ResourceBundle bundle. 
+	 * @param keyName
+	 * @return
+	 */
+	public double parseDouble(String keyName) {
+		String string = bundle.getString(keyName);
+		return Double.parseDouble(string);
+	}
+
+	/**
+	 * (This method does not really belong here but the Resource group does not yet 
+	 * have any classes to deal with literals).
+	 * This method allows the user to parse the value associated with the keyName to
+	 * an integer. Specifically, this method does this by drawing the value associated
+	 * with the keyName from the global ResourceBundle bundle. 
+	 * @param keyName
+	 * @return
+	 */
+	public int parseInt(String keyName) {
+		String string = bundle.getString(keyName);
+		return Integer.parseInt(string);
+	}
 }
+
