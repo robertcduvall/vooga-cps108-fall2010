@@ -16,7 +16,6 @@ import vooga.engine.player.control.PlayerSprite;
 public class Enemy extends CharacterSprite {
 
 	private static final double mySpeed = .25;
-	private static final Integer myMaxHealth = 100;
 
 	/**
 	 * Constructs an enemy sprite out of the parameters listed below:
@@ -67,11 +66,5 @@ public class Enemy extends CharacterSprite {
 
 	}
 
-	/**
-	 * Returns the current integer value of health for a given Enemy
-	 */
-	public Integer getMaxHealth() {
-		return myMaxHealth;
-	}
 
 }
