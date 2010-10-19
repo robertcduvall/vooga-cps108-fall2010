@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public abstract class Weapon {
+public abstract class Weapon implements IZombielandConstants {
 
 	private Shooter player;
 	private int ammoCount;
@@ -17,9 +17,6 @@ public abstract class Weapon {
 	private double bulletSpeed;
 	private int frameCount;
 	private int firingDelay;
-
-	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
-	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 	
 	public Weapon(Shooter shooter, int ammo) {
 		player = shooter;
