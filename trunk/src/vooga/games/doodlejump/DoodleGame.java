@@ -26,23 +26,25 @@ import java.util.Scanner;
  * 
  */
 public class DoodleGame extends Game {
-	
+
 	// GameStates
 	GameState startMenu, play, pauseMenu, gameOver, win;
-	
+
 	// Background
 	private Background background;
 
 	// Playfield
 	protected PlayField playField;
-	
+
 	private OverlayString scoreString, startString, winString;
 	private Stat<Integer> score;
 	private int currentLevel;
 	private int passScore;
 	private int nextLevel;
-	
-	{distribute = true;}
+
+	{
+		distribute = true;
+	}
 
 	// Doodle (main player)
 	private DoodleSprite doodle;
@@ -54,19 +56,21 @@ public class DoodleGame extends Game {
 	protected CollisionManager doodleToGreenPlatform, doodleToMonster,
 			ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform,
 			doodleToSpring, doodleToTrampoline, doodleToJetpack;
-	
+
 	private boolean showStart;
-	
-	public DoodleGame(){
+
+	public DoodleGame() {
 		super();
-		currentLevel = 3;
+		currentLevel = 1;
 		showStart = true;
 		score = new Stat<Integer>(0);
 		scoreString = new OverlayString("Score: " + 0);
-		startString = new OverlayString("Press Enter to Start!", new Font("SansSerif", Font.BOLD,40));
+		startString = new OverlayString("Press Enter to Start!", new Font(
+				"SansSerif", Font.BOLD, 40));
 		startString.setX(532 / 2 - startString.getWidth() / 2);
 		startString.setY(550 / 2 - startString.getHeight() / 2);
-		winString = new OverlayString("You Win! Enter to Restart.", new Font("SansSerif", Font.BOLD, 35));
+		winString = new OverlayString("You Win! Enter to Restart.", new Font(
+				"SansSerif", Font.BOLD, 35));
 		winString.setX(532 / 2 - startString.getWidth() / 2);
 		winString.setY(200 - startString.getHeight() / 2);
 		scoreString.setX(400);
@@ -76,23 +80,25 @@ public class DoodleGame extends Game {
 	@Override
 	public void initResources() {
 		DoodleLevel level = new DoodleLevel();
-		
+
 		startMenu = new GameState();
 		play = new GameState();
 		pauseMenu = new GameState();
 		gameOver = new GameState();
 		win = new GameState();
-		if(showStart)
+		if (showStart)
 			startMenu.activate();
 		else
 			play.activate();
-		
+
 		// playfield
-		playField = level.getPlayfield(new File("src/vooga/games/doodlejump/levels/level" + Integer.toString(currentLevel) + ".txt"));
-		
+		playField = level.getPlayfield(new File(
+				"src/vooga/games/doodlejump/levels/level"
+						+ Integer.toString(currentLevel) + ".txt"));
+
 		// background
 		background = level.getBackground();
-		
+
 		passScore += level.getScore();
 		nextLevel = level.getNextLevel();
 
@@ -112,7 +118,7 @@ public class DoodleGame extends Game {
 				"vooga.games.doodlejump.DoodleSprite", null);
 		doodle_keyboard_control.addInput(KeyEvent.VK_SPACE, "shoot",
 				"vooga.games.doodlejump.DoodleSprite", null);
-		
+
 		// Collision
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
 		doodleToMonster = new DoodleToMonsterCollision();
@@ -124,32 +130,34 @@ public class DoodleGame extends Game {
 
 		playField.addCollisionGroup(doodleGroup, level.getPlatformGroup(),
 				doodleToGreenPlatform);
-		playField.addCollisionGroup(doodleGroup, level.getMonsterGroup(), doodleToMonster);
-		playField.addCollisionGroup(ballGroup, level.getMonsterGroup(), ballToMonster);
+		playField.addCollisionGroup(doodleGroup, level.getMonsterGroup(),
+				doodleToMonster);
+		playField.addCollisionGroup(ballGroup, level.getMonsterGroup(),
+				ballToMonster);
 		playField.addCollisionGroup(doodleGroup, level.getBrownPlatformGroup(),
 				doodleToBrownPlatform);
 		playField.addCollisionGroup(doodleGroup, level.getWhitePlatformGroup(),
 				doodleToWhitePlatform);
-		playField.addCollisionGroup(doodleGroup, level.getSpringGroup(), doodleToSpring);
+		playField.addCollisionGroup(doodleGroup, level.getSpringGroup(),
+				doodleToSpring);
 		playField.addCollisionGroup(doodleGroup, level.getTrampolineGroup(),
 				doodleToTrampoline);
-		
+
 		setFPS(100);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 		doodle_keyboard_control.update();
-		
-		if(gameOver.isActive()) {
-			if(keyPressed(KeyEvent.VK_ENTER)){
+
+		if (gameOver.isActive()) {
+			if (keyPressed(KeyEvent.VK_ENTER)) {
 				currentLevel = 1;
 				score.setStat(0);
 				initResources();
 			}
-		}
-		else if (startMenu.isActive()){
-			if(keyPressed(KeyEvent.VK_ENTER)){
+		} else if (startMenu.isActive()) {
+			if (keyPressed(KeyEvent.VK_ENTER)) {
 				startMenu.deactivate();
 				play.activate();
 				pauseMenu.deactivate();
@@ -157,23 +165,23 @@ public class DoodleGame extends Game {
 			}
 			playField.setBackground(new ImageBackground(
 					getImage("images/default-play.png")));
-		}
-		else if(play.isActive()){
-			for(SpriteGroup group : playField.getGroups()){
-				for(Sprite sprite : group.getSprites()){
-					if(doodle.getY() < 400 && sprite != null){
-						if(group.getName().equals("Doodle Group"))
-							score.setStat(score.getStat()+5);
+		} else if (play.isActive()) {
+			for (SpriteGroup group : playField.getGroups()) {
+				for (Sprite sprite : group.getSprites()) {
+					if (doodle.getY() < 400 && sprite != null) {
+						if (group.getName().equals("Doodle Group"))
+							score.setStat(score.getStat() + 5);
 						sprite.moveY(400 - doodle.getY());
 					}
 				}
 			}
 			playField.update(elapsedTime);
-			scoreString.setString("Score: " + Integer.toString(score.getStat()));
-			if(score.getStat() >= passScore){
-				if(nextLevel == 0) {
+			scoreString
+					.setString("Score: " + Integer.toString(score.getStat()));
+			if (score.getStat() >= passScore) {
+				if (nextLevel == 0) {
 					win.activate();
-					if(keyPressed(KeyEvent.VK_ENTER)){
+					if (keyPressed(KeyEvent.VK_ENTER)) {
 						startMenu.deactivate();
 						play.deactivate();
 						pauseMenu.deactivate();
@@ -181,26 +189,24 @@ public class DoodleGame extends Game {
 						win.deactivate();
 					}
 				}
-				if(nextLevel != 0){
+				if (nextLevel != 0) {
 					currentLevel = nextLevel;
 					showStart = false;
 					initResources();
-				}
-				else{
+				} else {
 					gameOver();
 				}
 			}
-			if(keyPressed(KeyEvent.VK_P)){
+			if (keyPressed(KeyEvent.VK_P)) {
 				play.deactivate();
 				pauseMenu.activate();
 				startMenu.deactivate();
 				gameOver.deactivate();
 			}
-		}
-		else {
-			if(keyPressed(KeyEvent.VK_P)){
+		} else {
+			if (keyPressed(KeyEvent.VK_P)) {
 				play.activate();
-				pauseMenu.deactivate();	
+				pauseMenu.deactivate();
 				startMenu.deactivate();
 				gameOver.deactivate();
 			}
@@ -209,29 +215,26 @@ public class DoodleGame extends Game {
 		}
 	}
 
-	public void gameOver(){
+	public void gameOver() {
 		play.deactivate();
 		pauseMenu.deactivate();
 		startMenu.deactivate();
 		gameOver.activate();
 	}
-	
+
 	@Override
 	public void render(Graphics2D g) {
-		if(play.isActive()){
+		if (play.isActive()) {
 			playField.setBackground(background);
 			playField.render(g);
 			scoreString.render(g);
-		}
-		else if (startMenu.isActive()) {
+		} else if (startMenu.isActive()) {
 			playField.getBackground().render(g);
 			startString.render(g);
-		}
-		else if (pauseMenu.isActive()) {
+		} else if (pauseMenu.isActive()) {
 			playField.getBackground().render(g);
-			//scoreString.render(g);
-		}
-		else if (win.isActive()) {
+			// scoreString.render(g);
+		} else if (win.isActive()) {
 			winString.render(g);
 		}
 	}

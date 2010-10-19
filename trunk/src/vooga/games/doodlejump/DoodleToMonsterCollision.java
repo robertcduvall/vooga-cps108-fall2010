@@ -4,11 +4,11 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 /**
- * The DoodleToMonsterCollision class extends BasicCollisionGroup and
- * defines what happens when Doodle collides with a Monster
+ * The DoodleToMonsterCollision class extends BasicCollisionGroup and defines
+ * what happens when Doodle collides with a Monster
  * 
  * @author Adam Cue, Marcus Molchany, Nick Straub
- *
+ * 
  */
 public class DoodleToMonsterCollision extends BasicCollisionGroup {
 
@@ -18,11 +18,10 @@ public class DoodleToMonsterCollision extends BasicCollisionGroup {
 
 	@Override
 	public void collided(Sprite doodle, Sprite monster) {
-		if(doodle.getVerticalSpeed() < 0){
+		if (doodle.getVerticalSpeed() < 0) {
 			((DoodleSprite) doodle).setDied(true);
 			monster.setActive(false);
-		}
-		else{
+		} else {
 			doodle.setVerticalSpeed(-0.5);
 			monster.setActive(false);
 		}
