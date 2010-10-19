@@ -16,10 +16,16 @@ public class MarioSprite extends CharacterSprite {
 	private double speed = .5;
 	private boolean onGround = false;
 	private double myMaxX;
+	private Stat<Integer> myEnemiesKilled;
+
+	public Stat<Integer> getEnemiesKilled() {
+		return myEnemiesKilled;
+	}
 
 	public MarioSprite(String name, String stateName, BufferedImage[] left,
-			BufferedImage[] right) {
+			BufferedImage[] right, Stat<Integer> enemiesKilled) {
 		super(name, stateName, left, right);
+		myEnemiesKilled = enemiesKilled;
 	}
 
 	public void moveRight() {
