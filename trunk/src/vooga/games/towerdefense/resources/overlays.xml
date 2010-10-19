@@ -5,7 +5,7 @@
 
 <OverlayGroup>
 <OverlayString label="SELFESTEEM" fontName="gameFontRed" xLoc="800" yLoc="50"></OverlayString>
-<OverlayBar stat="0" max="100" xLoc="775" yLoc="70"></OverlayBar>
+<OverlayBar stat="0" max="100" xLoc="775" yLoc="70" length="200"></OverlayBar>
 <OverlayStat label="MONEY : " stat="2" fontName="gameFontGreen" xLoc="800" yLoc="100"></OverlayStat>
 <OverlayStat label="SCORE : " stat="1" fontName="gameFontGreen" xLoc="800" yLoc="130"></OverlayStat>
 <OverlayString label="TOWERS" fontName="Times New Roman" fontStyle="ITALIC" fontSize="26" xLoc="830" yLoc="180"></OverlayString>

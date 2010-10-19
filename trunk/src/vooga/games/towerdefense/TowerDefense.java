@@ -20,9 +20,11 @@ import com.golden.gamedev.util.Utility;
 import vooga.engine.core.Game;
 import vooga.engine.event.EventManager;
 import vooga.engine.overlay.OverlayBar;
+import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayStatImage;
 import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.KeyboardControl;
@@ -80,6 +82,7 @@ public class TowerDefense extends Game {
 	@Override
 	public void initResources() {
 		ResourcesBeta.setGame(this);
+		Resources.setGame(this);
 		loadImages();
 		initBackgrounds();
 		eventManager = new EventManager();
@@ -104,7 +107,7 @@ public class TowerDefense extends Game {
 
 		
 		playerGroup = play.addAndReturnGroup(new SpriteGroup("Player Group"));
-		overlayGroup = play.addAndReturnGroup(new SpriteGroup("Overlay Group"));
+		
 		
 
 		Sprite pauseScreen = new Sprite(ResourcesBeta.getImage("pause"));
@@ -112,28 +115,19 @@ public class TowerDefense extends Game {
 		pauseGroup.add(pauseScreen);
 		pause.addGroup(overlayGroup);
 		
-		Sprite gameOverSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("gameOver"), WIDTH, HEIGHT));
 		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
-		gameOverGroup.add(gameOverSprite);
 		
 		Sprite menuSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("menu"), WIDTH, HEIGHT));
 		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
-		menuGroup.add(menuSprite);
-		
-		hit1 = new Timer(SECOND * 5);
-		hit2 = new Timer(SECOND * 6);
-		hit3 = new Timer(SECOND * 7);
-		spawn = new Timer(SECOND*45);
-		gameTimer = new Timer(SECOND * 45);
-		spawnSpeed = 80;
-		
-		
+		menuGroup.add(menuSprite);		
 		
 
-		selfEsteem = new Stat<Integer>(100);
-		score = new Stat<Integer>(0);
-		money = new Stat<Integer>(100);
+	
 		initOverlays();
+		play.addGroup(overlayGroup);
+		gameOver.addGroup(gameOverGroup);
+		
+		
 		initPlayer();
 		
 		
@@ -146,6 +140,10 @@ public class TowerDefense extends Game {
 	private void loadImages(){
 		try {
 			ResourcesBeta.loadImageFile("src/vooga/games/towerdefense/resources/images/imageList.txt");
+			Resources.loadImage("sniperTower","resources/images/sniperTower.png");
+			Resources.loadImage("normalTower","resources/images/normalTower.png");
+			Resources.loadImage("fastTower","resources/images/fastTower.png");
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,19 +151,16 @@ public class TowerDefense extends Game {
 	}
 
 	private void initOverlays() {
-		GameFont fontRed = fontManager.getFont(getImages(
-				"src/vooga/games/towerdefense/resources/images/fontRed.png",
-				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
-				+ "HIJKLMNOPQRSTUVWXYZ ");
-		GameFont fontOrange = fontManager.getFont(getImages(
-				"src/vooga/games/towerdefense/resources/images/fontOrange.png",
-				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
-				+ "HIJKLMNOPQRSTUVWXYZ ");
-		GameFont fontGreen = fontManager.getFont(getImages(
-				"src/vooga/games/towerdefense/resources/images/fontGreen.png",
-				20, 3), " !            .,0123" + "456789:   -? ABCDEFG"
-				+ "HIJKLMNOPQRSTUVWXYZ ");
-		OverlayString temp = new OverlayString("Selfesteem".toUpperCase(),
+		OverlayCreator.setGame(this);
+		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/games/towerdefense/resources/overlays.xml");
+		overlayGroup = track.getOverlayGroups().get(0);
+		gameOverGroup = track.getOverlayGroups().get(1);
+		gameOverGroup.add(0, new Sprite(ImageUtil.resize(ResourcesBeta.getImage("gameOver"), WIDTH, HEIGHT)));
+		selfEsteem = track.getStats().get(0);
+		score = track.getStats().get(1);
+		money = track.getStats().get(2);
+		
+		/*OverlayString temp = new OverlayString("Selfesteem".toUpperCase(),
 				fontRed);
 		temp.setLocation(800, 50);
 		OverlayBar bar = new OverlayBar(selfEsteem, 100);
@@ -243,7 +238,7 @@ public class TowerDefense extends Game {
 		
 		gameOverGroup.add(gameOver);
 		gameOverGroup.add(overlayScoreEnd);
-		
+		*/
 
 	}
 
