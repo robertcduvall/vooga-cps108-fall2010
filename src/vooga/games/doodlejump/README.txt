@@ -16,6 +16,6 @@ CONTROLS
 
 The controls for DoodleGame are simple. First, press enter to start the game.  Then, to move left press the left arrow, to move right press the right arrow and to shoot a ball press the spacebar.
 
-From the main menu press 1, 2 or 3 to select which level you would like to play.
+From the main menu press enter to start the game.
 
 During game play, to pause the game press P. If the game is paused press P to resume.
