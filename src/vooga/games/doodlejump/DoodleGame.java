@@ -28,7 +28,7 @@ import java.util.Scanner;
 public class DoodleGame extends Game {
 	
 	// GameStates
-	GameState startMenu, play, pauseMenu, gameOver;
+	GameState startMenu, play, pauseMenu, gameOver, win;
 	
 	// Background
 	private Background background;
@@ -36,7 +36,7 @@ public class DoodleGame extends Game {
 	// Playfield
 	protected PlayField playField;
 	
-	private OverlayString scoreString;
+	private OverlayString scoreString, startString, winString;
 	private Stat<Integer> score;
 	private int currentLevel;
 	private int passScore;
@@ -63,6 +63,12 @@ public class DoodleGame extends Game {
 		showStart = true;
 		score = new Stat<Integer>(0);
 		scoreString = new OverlayString("0");
+		startString = new OverlayString("Press Enter to Start!", new Font("SansSerif", Font.BOLD,40));
+		startString.setX(532 / 2 - startString.getWidth() / 2);
+		startString.setY(550 / 2 - startString.getHeight() / 2);
+		winString = new OverlayString("You Win! Enter to Restart.", new Font("SansSerif", Font.BOLD, 35));
+		winString.setX(532 / 2 - startString.getWidth() / 2);
+		winString.setY(200 - startString.getHeight() / 2);
 		scoreString.setX(450);
 		scoreString.setY(50);
 	}
@@ -75,6 +81,7 @@ public class DoodleGame extends Game {
 		play = new GameState();
 		pauseMenu = new GameState();
 		gameOver = new GameState();
+		win = new GameState();
 		if(showStart)
 			startMenu.activate();
 		else
@@ -164,6 +171,16 @@ public class DoodleGame extends Game {
 			playField.update(elapsedTime);
 			scoreString.setString(Integer.toString(score.getStat()));
 			if(Integer.parseInt(scoreString.getString()) >= passScore){
+				if(nextLevel == 0) {
+					win.activate();
+					if(keyPressed(KeyEvent.VK_ENTER)){
+						startMenu.deactivate();
+						play.deactivate();
+						pauseMenu.deactivate();
+						gameOver.activate();
+						win.deactivate();
+					}
+				}
 				if(nextLevel != 0){
 					currentLevel = nextLevel;
 					showStart = false;
@@ -207,9 +224,13 @@ public class DoodleGame extends Game {
 		}
 		else if (startMenu.isActive()) {
 			playField.getBackground().render(g);
+			startString.render(g);
 		}
 		else if (pauseMenu.isActive()) {
 			playField.getBackground().render(g);
+		}
+		else if (win.isActive()) {
+			winString.render(g);
 		}
 		
 		scoreString.render(g);
