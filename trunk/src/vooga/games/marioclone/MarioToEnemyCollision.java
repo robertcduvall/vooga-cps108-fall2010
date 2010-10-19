@@ -14,16 +14,6 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 		long thiscollision = System.currentTimeMillis();
 		if(thiscollision-lastcollision > 100) {
 			int side = getCollisionSide(mario,enemy);
-			if(side == BOTTOM_TOP_COLLISION){
-				System.out.println("Mario wins");
-			}
-			else if(side == RIGHT_LEFT_COLLISION){
-				System.out.println("Mario hit from left");
-			}
-			else{
-				System.out.println("Mario loses");
-			}
-			System.out.println(getCollisionSide());
 			MarioSprite thisMario = (MarioSprite) mario;
 			Enemy thisEnemy = (Enemy) enemy; 
 			if(side == BOTTOM_TOP_COLLISION){
