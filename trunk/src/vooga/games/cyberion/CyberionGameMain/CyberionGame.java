@@ -146,11 +146,11 @@ public class CyberionGame extends Game {
 
 	// calls other methods and initializes all remaining variables
 	public void initResources() {
+
 		Resources.setGame(this);
 		loadImages();
-		
-		playGameState.initialize();
 		playGameState.setGame(this);
+		playGameState.initialize();
 		playGameState.activate();
 		gameStateManager.addGameState(playGameState);
 		
@@ -177,7 +177,7 @@ public class CyberionGame extends Game {
 	private void loadImages() {
 		try {
 			Resources
-					.loadFile("src/vooga/games/cyberion/Resources/imageList.txt");
+					.loadFile("trunk/src/vooga/games/cyberion/Resources/imageList.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -187,6 +187,7 @@ public class CyberionGame extends Game {
 	// updates sprite groups and checks for collisions
 	public void update(long elapsedTime) {
 		gameStateManager.update(elapsedTime);
+
 		// star.update(elapsedTime);
 		// playerGroup.update(elapsedTime);
 		// playerShot.update(elapsedTime);

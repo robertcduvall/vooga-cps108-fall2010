@@ -11,8 +11,8 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 
 	private BaseAudio bsSound;
 
-	public EnemyCollidesWithShot(BaseAudio bsSound) {
-		this.bsSound = bsSound;
+	public EnemyCollidesWithShot() {
+//		this.bsSound = bsSound;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 	public void collided(Sprite playershot, EnemyShip enemy) {
 		enemy.setLife(enemy.getLife() - 1);
 		playershot.setActive(false);
-		bsSound.play("vooga/games/cyberion/Resources/explosion.wav");
+//		bsSound.play("vooga/games/cyberion/Resources/explosion.wav");
 	}
 
 }

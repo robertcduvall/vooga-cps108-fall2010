@@ -69,9 +69,7 @@ public class PlayerShip extends PlayerSprite {
 	// }
 
 	public void update(long elapsedTime) {
-
 		listen();
-
 	}
 
 	public void moveRight() {
