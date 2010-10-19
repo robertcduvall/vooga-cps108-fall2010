@@ -9,6 +9,13 @@ import vooga.games.towerdefense.TowerDefense;
 import vooga.games.towerdefense.events.NeedsTargetsEvent;
 import vooga.games.towerdefense.events.NeedsTargetsListener;
 
+/**
+ * This class works with the Event API to make each tower locate the enemy to fire upon.
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class TowerTargetFinder implements NeedsTargetsListener{
 	TowerDefense game;
 	
