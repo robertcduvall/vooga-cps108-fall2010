@@ -93,35 +93,35 @@ public class GrandiusLevelFactory implements LevelFactory{
 					if (lines.get(++y).equals("$Parts")) {
 						System.out.println("Parts mode");
 						line = lines.get(++y);
-						System.out.println(line);
+						//System.out.println(line);
 						while(!line.isEmpty()) {
-							System.out.println(line);
+							//System.out.println(line);
 							st = new StringTokenizer(line, ",");
 							String bossPartName = st.nextToken();
 							line = lines.get(++y);
-							System.out.println(line);
+							//System.out.println(line);
 							st = new StringTokenizer(line, ",");
 							int[] breakpoints = new int[2];
 							breakpoints[0] = Integer.parseInt(st.nextToken());
 							breakpoints[1] = Integer.parseInt(st.nextToken());
 							line = lines.get(++y);
-							System.out.println(line);
+							//System.out.println(line);
 							st = new StringTokenizer(line, ",");
 							double xPosition = Double.parseDouble(st.nextToken());
 							double yPosition = Double.parseDouble(st.nextToken());
 							line = lines.get(++y);
-							System.out.println(line);
+							//System.out.println(line);
 							st = new StringTokenizer(line, ",");
 							int health = Integer.parseInt(st.nextToken());
 							int shields = Integer.parseInt(st.nextToken());
 							BossPart newBossPart = null;
 							if (bossPartName.equals("ReacherEye")) {
-								System.out.println("making new ReacherEye");
+								//System.out.println("making new ReacherEye");
 								newBossPart = new ReacherEye(ResourcesBeta.getAnimation(bossPartName), breakpoints, xPosition, yPosition, health, shields);
 							}
 							myBossPartList.add(newBossPart);
-							System.out.println("y="+y);
-							System.out.println("size="+lines.size());
+							//System.out.println("y="+y);
+							//System.out.println("size="+lines.size());
 							if ((y+1)==lines.size())
 								break;
 							line = lines.get(++y);

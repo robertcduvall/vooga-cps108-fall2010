@@ -140,6 +140,9 @@ public class Grandius extends Game {
 	private static final String EXTRA_CASH = "showmethemoney";
 	private static final String SKIP_LEVEL = "getmeouttahere";
 	private static final String ACTIVATE_MISSILE = "missiletime";
+	
+	private Properties directoriesFile;
+	private Properties stringsFile;
 
 	@Override
 	public void initResources() {
@@ -155,9 +158,12 @@ public class Grandius extends Game {
 		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		levelManager = new GrandiusLevelManager();
 		
-		Properties propertiesFile = new Properties();
+		directoriesFile = new Properties();
+		stringsFile = new Properties();
 		try {
-			propertiesFile.load(new FileInputStream("src/vooga/games/grandius/Directories.properties"));
+			directoriesFile.load(new FileInputStream("src/vooga/games/grandius/Directories.properties"));
+			stringsFile.load(new FileInputStream("src/vooga/games/grandius/Strings.properties"));
+			//System.out.println(stringsFile.getProperty("menu1")+"\n\n");
 		}
 		catch(IOException e)
 		{
@@ -165,11 +171,11 @@ public class Grandius extends Game {
 		}
 		
 		
-		String levelFilesDirectory = propertiesFile.getProperty("levelFilesDirectory");
-		String levelNamesFile = propertiesFile.getProperty("levelNamesFile");
+		String levelFilesDirectory = directoriesFile.getProperty("levelFilesDirectory");
+		String levelNamesFile = directoriesFile.getProperty("levelNamesFile");
 		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
 		
-		ResourcesBeta.setDefaultPath(propertiesFile.getProperty("resourcesPath"));
+		ResourcesBeta.setDefaultPath(directoriesFile.getProperty("resourcesPath"));
 		ResourcesBeta.setGame(this);
 		screen = new Dimension(640,480);
 		playerInitialX = PLAYER_INITIAL_X;
@@ -290,32 +296,11 @@ public class Grandius extends Game {
 
 	private void buildMenuState() {
 		menuState = new GameState();
-		OverlayString menu1 = new OverlayString("WELCOME TO THE GRANDIUS GALAXY", font);
-		menu1.setLocation((int) screen.getWidth() / 7, 50);
-		OverlayString menu2 = new OverlayString("YOUR MISSION: DESTROY ALL ENEMIES", font);
-		menu2.setLocation((int) screen.getWidth() / 7, 100);
-		OverlayString menu3 = new OverlayString("ARROW KEY : MOVE", font);
-		menu3.setLocation((int) screen.getWidth() / 4, 150);
-		OverlayString menu4 = new OverlayString("ALT   : FIRE HORIZONTALLY", font);
-		menu4.setLocation((int) screen.getWidth() / 4, 200);
-		OverlayString menu5 = new OverlayString("SPACE   : FIRE VERTICALLY", font);
-		menu5.setLocation((int) screen.getWidth() / 4, 250);
-		OverlayString menu6 = new OverlayString("M: FIRE MISSILE - ONCE PURCHASED", font);
-		menu6.setLocation((int) screen.getWidth() / 8, 300);
-		OverlayString menu7 = new OverlayString("B: CREATE BLACK HOLE - ONCE PURCHASED", font);
-		menu7.setLocation((int) screen.getWidth() / 13, 350);
-		OverlayString menu8 = new OverlayString("CLICK TO PLAY", font);
-		menu8.setLocation((int) screen.getWidth() / 4, 400);
-		
-		MENU_GROUP.add(menu1);
-		MENU_GROUP.add(menu2);
-		MENU_GROUP.add(menu3);
-		MENU_GROUP.add(menu4);
-		MENU_GROUP.add(menu5);
-		MENU_GROUP.add(menu6);
-		MENU_GROUP.add(menu7);
-		MENU_GROUP.add(menu8);
-		
+		for(int i=1;i<9;i++){
+			OverlayString menu = new OverlayString(stringsFile.getProperty("menu"+i), font);
+			menu.setLocation(Integer.parseInt(stringsFile.getProperty("menuX")), Integer.parseInt(stringsFile.getProperty("menuY"))*i);
+			MENU_GROUP.add(menu);
+		}		
 		menuState.addRenderGroup(MENU_GROUP);
 	}
 
