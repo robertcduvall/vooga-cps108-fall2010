@@ -296,10 +296,10 @@ public class Jumper extends vooga.engine.core.Game {
 		 * Allow the user to walk to the Doodle left and right...
 		 */
 		if (keyDown(KeyEvent.VK_RIGHT)){
-			player.goRight();
+			player.moveDoodle("right");
 		}
 		if (keyDown(KeyEvent.VK_LEFT)){
-			player.goLeft();
+			player.moveDoodle("left");
 		}
 		if (keyDown(KeyEvent.VK_C)){
 			player.setY(GAME_HEIGHT - player.getHeight());
