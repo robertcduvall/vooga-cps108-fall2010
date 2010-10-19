@@ -240,17 +240,6 @@ public class DoodleGame extends Game {
 	}
 
 	/**
-	 * This method activates gameOver and deactivates each other state besides
-	 * win
-	 */
-	public void gameOver() {
-		play.deactivate();
-		pauseMenu.deactivate();
-		startMenu.deactivate();
-		gameOver.activate();
-	}
-
-	/**
 	 * This method activates play and deactivates each other state besides win
 	 */
 	public void playGame() {
@@ -278,6 +267,17 @@ public class DoodleGame extends Game {
 		}
 		playField.update(elapsedTime);
 		scoreString.setString("Score: " + Integer.toString(score.getStat()));
+	}
+
+	/**
+	 * This method activates gameOver and deactivates each other state besides
+	 * win
+	 */
+	public void gameOver() {
+		play.deactivate();
+		pauseMenu.deactivate();
+		startMenu.deactivate();
+		gameOver.activate();
 	}
 
 	/**
