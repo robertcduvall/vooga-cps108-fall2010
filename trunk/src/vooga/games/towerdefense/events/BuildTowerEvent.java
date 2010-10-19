@@ -3,6 +3,13 @@ package vooga.games.towerdefense.events;
 import vooga.engine.event.IEvent;
 import vooga.games.towerdefense.tower.Tower;
 
+/**
+ * If a tower is built, then put the tower at location (x, y)
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class BuildTowerEvent implements IEvent{
 
 	private Object obj;
