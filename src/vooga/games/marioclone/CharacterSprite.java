@@ -16,7 +16,7 @@ public abstract class CharacterSprite extends PlayerSprite {
 
 	private static final double GRAVITY = .0025;
 	private double myGravityCoef = 1;
-	private boolean active = true;
+	private boolean active;
 
 	public CharacterSprite(String name, String stateName,
 			BufferedImage[] right, BufferedImage[] left) {
@@ -32,12 +32,15 @@ public abstract class CharacterSprite extends PlayerSprite {
 		mapNameToSprite("Left", l);
 
 		addStat("Health", new Stat<Integer>(getMaxHealth()));
+		
+		active = true;
 	}
 
 	public abstract Integer getMaxHealth();
 
 	public void setHealth(Integer health) {
 		((Stat<Integer>) getStat("Health")).setStat(health);
+		
 	}
 
 	public Integer getHealth() {
@@ -46,6 +49,7 @@ public abstract class CharacterSprite extends PlayerSprite {
 
 	@Override
 	public void update(long elapsedTime) {
+
 		super.update(elapsedTime);
 		setVerticalSpeed(getVerticalSpeed() + getGravityCoef() * GRAVITY
 				* elapsedTime);
@@ -53,8 +57,15 @@ public abstract class CharacterSprite extends PlayerSprite {
 		((AnimatedSprite) getCurrentSprite())
 				.setAnimate(!(getHorizontalSpeed() == 0));
 
-		if (getHealth() <= 0)
-			setActive(false);
+		System.out.println(isActive());
+
+		
+		if (getHealth() <= 0) {
+			System.out.println("set false");
+			active = false;
+		}
+		
+		System.out.println(isActive());
 		/*
 		 * double yVelocity = getVerticalSpeed(); double newYVelocity =
 		 * yVelocity + gravity*elapsedTime; setVerticalSpeed(newYVelocity);
