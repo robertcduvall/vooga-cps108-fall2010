@@ -61,9 +61,16 @@ public class DoodleGame extends Game {
 
 	public DoodleGame() {
 		super();
-		currentLevel = 3;
+		currentLevel = 1;
 		showStart = true;
 		score = new Stat<Integer>(0);
+		makeOverlayStrings();
+	}
+
+	/**
+	 * This method instantiates all of the OverlayStrings
+	 */
+	public void makeOverlayStrings() {
 		scoreString = new OverlayString("Score: " + 0);
 		startString = new OverlayString("Press Enter to Start!", new Font(
 				"SansSerif", Font.BOLD, 40));
@@ -93,7 +100,7 @@ public class DoodleGame extends Game {
 
 		passScore += level.getScore();
 		nextLevel = level.getNextLevel();
-		
+
 		initSpriteGroups();
 
 		initDoodle();
@@ -103,6 +110,9 @@ public class DoodleGame extends Game {
 		setFPS(100);
 	}
 
+	/**
+	 * This method initializes all of the GameStates
+	 */
 	public void initStates() {
 		startMenu = new GameState();
 		play = new GameState();
@@ -115,12 +125,18 @@ public class DoodleGame extends Game {
 			play.activate();
 	}
 
+	/**
+	 * This method initializes all of the SpriteGroups
+	 */
 	public void initSpriteGroups() {
 		// spritegroups
 		ballGroup = playField.addGroup(new SpriteGroup("Ball Group"));
 		doodleGroup = playField.addGroup(new SpriteGroup("Doodle Group"));
 	}
 
+	/**
+	 * This method initializes Doodle
+	 */
 	public void initDoodle() {
 		// doodle (main player)
 		doodle = new DoodleSprite("doodle", "normal", new Sprite(
@@ -136,6 +152,12 @@ public class DoodleGame extends Game {
 				"vooga.games.doodlejump.DoodleSprite", null);
 	}
 
+	/**
+	 * This method takes in a DoodleLevel as a parameter and initializes all of
+	 * the Collisions
+	 * 
+	 * @param level
+	 */
 	public void initCollisions(DoodleLevel level) {
 		// Collision
 		doodleToGreenPlatform = new DoodleToGreenPlatformCollision();
@@ -168,10 +190,7 @@ public class DoodleGame extends Game {
 
 		if (gameOver.isActive()) {
 			if (keyPressed(KeyEvent.VK_ENTER)) {
-				currentLevel = 1;
-				score.setStat(0);
-				passScore = 0;
-				initResources();
+				resetGame();
 			}
 		} else if (startMenu.isActive()) {
 			if (keyPressed(KeyEvent.VK_ENTER)) {
@@ -180,18 +199,7 @@ public class DoodleGame extends Game {
 			playField.setBackground(new ImageBackground(
 					getImage("images/default-play.png")));
 		} else if (play.isActive()) {
-			for (SpriteGroup group : playField.getGroups()) {
-				for (Sprite sprite : group.getSprites()) {
-					if (doodle.getY() < 400 && sprite != null) {
-						if (group.getName().equals("Doodle Group"))
-							score.setStat(score.getStat() + 5);
-						sprite.moveY(400 - doodle.getY());
-					}
-				}
-			}
-			playField.update(elapsedTime);
-			scoreString
-					.setString("Score: " + Integer.toString(score.getStat()));
+			updateGame(elapsedTime);
 			if (score.getStat() >= passScore) {
 				if (nextLevel == 0) {
 					win.activate();
@@ -220,6 +228,21 @@ public class DoodleGame extends Game {
 		}
 	}
 
+	/**
+	 * This method resets the game by setting the current level to 1, setting
+	 * score and passScore to 0, and calling initResources()
+	 */
+	public void resetGame() {
+		currentLevel = 1;
+		score.setStat(0);
+		passScore = 0;
+		initResources();
+	}
+
+	/**
+	 * This method activates gameOver and deactivates each other state besides
+	 * win
+	 */
 	public void gameOver() {
 		play.deactivate();
 		pauseMenu.deactivate();
@@ -227,6 +250,9 @@ public class DoodleGame extends Game {
 		gameOver.activate();
 	}
 
+	/**
+	 * This method activates play and deactivates each other state besides win
+	 */
 	public void playGame() {
 		startMenu.deactivate();
 		play.activate();
@@ -234,6 +260,29 @@ public class DoodleGame extends Game {
 		gameOver.deactivate();
 	}
 
+	/**
+	 * This method takes in a long and updates all of the sprites in each
+	 * SpriteGroup on the PlayField
+	 * 
+	 * @param elapsedTime
+	 */
+	public void updateGame(long elapsedTime) {
+		for (SpriteGroup group : playField.getGroups()) {
+			for (Sprite sprite : group.getSprites()) {
+				if (doodle.getY() < 400 && sprite != null) {
+					if (group.getName().equals("Doodle Group"))
+						score.setStat(score.getStat() + 5);
+					sprite.moveY(400 - doodle.getY());
+				}
+			}
+		}
+		playField.update(elapsedTime);
+		scoreString.setString("Score: " + Integer.toString(score.getStat()));
+	}
+
+	/**
+	 * This method activates pause and deactivates each other state besides win
+	 */
 	public void pauseGame() {
 		play.deactivate();
 		pauseMenu.activate();
