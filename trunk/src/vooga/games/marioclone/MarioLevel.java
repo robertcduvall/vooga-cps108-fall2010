@@ -3,6 +3,7 @@ package vooga.games.marioclone;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -37,7 +38,8 @@ public class MarioLevel {
 	private int myBackgroundHeight;
 	private boolean myLevelFinished;
 
-	public MarioLevel(File mapFile, int width, int height, Game game, OverlayStat scoreOverlay, Stat<Integer> enemiesKilled, 
+	public MarioLevel(File mapFile, int width, int height, Game game,
+			OverlayStat scoreOverlay, Stat<Integer> enemiesKilled,
 			OverlayStat livesOverlay, Stat<Integer> livesLeft) {
 		myScoreOverlay = scoreOverlay;
 		myEnemiesKilled = enemiesKilled;
@@ -65,8 +67,14 @@ public class MarioLevel {
 		Background marioBackground = new ColorBackground(new Color(139, 201,
 				240), myBackgroundWidth, myBackgroundHeight);
 		marioBackground.setClip(0, 0, myWidth, myHeight);
-		myMario = new MarioSprite("mario", "regular", Resources
-				.getImage("MarioR"), Resources.getImage("MarioL"));
+
+		BufferedImage[] MarioR = new BufferedImage[] {
+				Resources.getImage("MarioR1"), Resources.getImage("MarioR2"),
+				Resources.getImage("MarioR3"), Resources.getImage("MarioR4") };
+		BufferedImage[] MarioL = new BufferedImage[] {
+				Resources.getImage("MarioL1"), Resources.getImage("MarioL2"),
+				Resources.getImage("MarioL3"), Resources.getImage("MarioL4") };
+		myMario = new MarioSprite("mario", "regular", MarioR, MarioL);
 		myMario.setLocation(150, 290);
 		setUpKeyboard();
 		getPlayField().getGroup("Mario Group").add(myMario);
@@ -107,7 +115,8 @@ public class MarioLevel {
 		int numKilled = removeKilled();
 		if (myTimer.action(elapsedTime))
 			spawnEnemies();
-		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()+numKilled);
+		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()
+				+ numKilled);
 		myLives.setStat(myMario.getHealth());
 	}
 
@@ -144,14 +153,18 @@ public class MarioLevel {
 	 */
 
 	public void spawnEnemies() {
-        for (int j = 0; j < NUM_ENEMIES; j++) {
-                Enemy enemy = new Enemy("enemy1", "regular", Resources
-                                .getImage("EnemyR"), Resources.getImage("EnemyL"));
-                enemy.setLocation(400,200);
-                getPlayField().getGroup("Enemy Group").add(enemy);
-        }
+		for (int j = 0; j < NUM_ENEMIES; j++) {
+			BufferedImage[] enemyImgs = new BufferedImage[] {
+					Resources.getImage("Enemy1"),
+					Resources.getImage("Enemy2"),
+					Resources.getImage("Enemy3"),
+					Resources.getImage("Enemy4")};
+			Enemy enemy = new Enemy("enemy1", "regular", enemyImgs, enemyImgs);
+			enemy.setLocation(400, 200);
+			getPlayField().getGroup("Enemy Group").add(enemy);
+		}
 		myTimer = new Timer(FREQ_ENEMIES);
-}
+	}
 
 	private void setUpKeyboard() {
 		myControl = new KeyboardControl(myMario, myGame);
