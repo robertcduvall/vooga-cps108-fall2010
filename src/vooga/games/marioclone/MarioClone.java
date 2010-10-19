@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
+import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
@@ -39,7 +40,7 @@ public class MarioClone extends Game {
 	private GamePlayState myGamePlayState;
 	private MainMenuState myMenuState;
 	private GameEndState myLoseState, myWinState;
-
+	
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
 		MarioClone game = new MarioClone();
@@ -82,6 +83,9 @@ public class MarioClone extends Game {
 		myGameStateManager.addGameState(myWinState);
 
 		myGameStateManager.switchTo(myMenuState);
+		
+		
+
 	}
 
 	@Override

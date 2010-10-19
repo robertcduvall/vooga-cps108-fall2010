@@ -18,6 +18,8 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.sun.org.apache.xml.internal.utils.QName;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 
 public class MarioLevel {
 
@@ -37,8 +39,8 @@ public class MarioLevel {
 	private int myBackgroundHeight;
 	private boolean myLevelFinished;
 
-	public MarioLevel(File mapFile, int width, int height, int levelNumber, Game game,
-			OverlayStat scoreOverlay, Stat<Integer> enemiesKilled,
+	public MarioLevel(File mapFile, int width, int height, int levelNumber,
+			Game game, OverlayStat scoreOverlay, Stat<Integer> enemiesKilled,
 			OverlayStat livesOverlay, Stat<Integer> livesLeft) {
 		myScoreOverlay = scoreOverlay;
 		myLives = livesLeft;
@@ -58,7 +60,7 @@ public class MarioLevel {
 		myPlayField = new MarioPlayField(map);
 		myPlayField.addGroup(map.getTileGroup());
 		Stat<Integer> levelNum = new Stat<Integer>(levelNumber);
-		OverlayStat levelOverlay = new OverlayStat("Level: ",levelNum);
+		OverlayStat levelOverlay = new OverlayStat("Level: ", levelNum);
 		myScoreOverlay.setLocation(myWidth - 1000, 5);
 		myLivesOverlay.setLocation(myWidth - 400, 5);
 		levelOverlay.setLocation(myWidth - 600, 5);
@@ -76,7 +78,8 @@ public class MarioLevel {
 		BufferedImage[] MarioL = new BufferedImage[] {
 				Resources.getImage("MarioL1"), Resources.getImage("MarioL2"),
 				Resources.getImage("MarioL3"), Resources.getImage("MarioL4") };
-		myMario = new MarioSprite("mario", "regular", MarioR, MarioL, enemiesKilled);
+		myMario = new MarioSprite("mario", "regular", MarioR, MarioL,
+				enemiesKilled);
 		myMario.setLocation(150, 290);
 		myMario.addStat("Kills", enemiesKilled);
 		setUpKeyboard();
@@ -116,7 +119,7 @@ public class MarioLevel {
 		}
 		getPlayField().update(elapsedTime);
 		getPlayField().getGroup("Enemy Group").removeInactiveSprites();
-		
+
 		if (myTimer.action(elapsedTime))
 			spawnEnemies();
 		myLives.setStat(myMario.getHealth());
@@ -143,10 +146,8 @@ public class MarioLevel {
 	public void spawnEnemies() {
 		for (int j = 0; j < NUM_ENEMIES; j++) {
 			BufferedImage[] enemyImgs = new BufferedImage[] {
-					Resources.getImage("Enemy1"),
-					Resources.getImage("Enemy2"),
-					Resources.getImage("Enemy3"),
-					Resources.getImage("Enemy4")};
+					Resources.getImage("Enemy1"), Resources.getImage("Enemy2"),
+					Resources.getImage("Enemy3"), Resources.getImage("Enemy4") };
 			Enemy enemy = new Enemy("enemy1", "regular", enemyImgs, enemyImgs);
 			enemy.setLocation(400, 200);
 			getPlayField().getGroup("Enemy Group").add(enemy);
@@ -163,6 +164,14 @@ public class MarioLevel {
 				"vooga.games.marioclone.MarioSprite");
 		myControl.addInput(KeyEvent.VK_W, "jumpCmd",
 				"vooga.games.marioclone.MarioSprite");
+		for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) {
+			if (i == KeyEvent.VK_D || i == KeyEvent.VK_A || i == KeyEvent.VK_W)
+				continue;
+			myControl.setParams(new Class[] { char.class });
+			myControl.addInput(i, "cheat",
+					"vooga.games.marioclone.MarioSprite", (char) i);
+		}
+
 		myMario.setHealth(myMario.getMaxHealth());
 		myMario.setActive(true);
 	}

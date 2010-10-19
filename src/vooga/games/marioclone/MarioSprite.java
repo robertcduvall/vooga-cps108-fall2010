@@ -1,7 +1,12 @@
 package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
+import sun.tools.jconsole.Resources;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.items.GravityItem;
@@ -15,6 +20,10 @@ public class MarioSprite extends CharacterSprite {
 	private double myMaxX;
 	private Stat<Integer> myEnemiesKilled;
 
+	private Queue<Character> myCheatText;
+	private static final int MAX_CHEAT_LENGTH = 10;
+	private char lastCheatChar;
+
 	public Stat<Integer> getEnemiesKilled() {
 		return myEnemiesKilled;
 	}
@@ -24,17 +33,16 @@ public class MarioSprite extends CharacterSprite {
 		super(name, stateName, left, right);
 		myEnemiesKilled = enemiesKilled;
 		setMaxHealth(3);
+
+		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
 	}
 
 	public void moveRight() {
 		setHorizontalSpeed(speed);
-		setToCurrentSprite("Right");
-
 	}
 
 	public void moveLeft() {
 		setHorizontalSpeed(-speed);
-		setToCurrentSprite("Left");
 	}
 
 	public void jump(boolean force) {
@@ -45,15 +53,15 @@ public class MarioSprite extends CharacterSprite {
 			}
 		}
 	}
-	
+
 	@Override
-    public void setY(double y) {
-        // check if falling
-        if (Math.round(y) > Math.round(getY())) {
-            onGround = false;
-        }
-        super.setY(y);
-    }
+	public void setY(double y) {
+		// check if falling
+		if (Math.round(y) > Math.round(getY())) {
+			onGround = false;
+		}
+		super.setY(y);
+	}
 
 	public void jumpCmd() {
 		jump(false);
@@ -70,8 +78,8 @@ public class MarioSprite extends CharacterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		setImage(getCurrentSprite().getImage());
-		double x = getX(); 
-		if(x > myMaxX){
+		double x = getX();
+		if (x > myMaxX) {
 			myMaxX = x;
 		}
 
@@ -80,9 +88,9 @@ public class MarioSprite extends CharacterSprite {
 		if (getX() <= 0) {
 			setX(0);
 		}
-		int halfScreen = getBackground().getWidth()/2; 
-		if((myMaxX-halfScreen) >= getX()){
-			setX(myMaxX-halfScreen);
+		int halfScreen = getBackground().getWidth() / 2;
+		if ((myMaxX - halfScreen) >= getX()) {
+			setX(myMaxX - halfScreen);
 		}
 	}
 
@@ -95,9 +103,36 @@ public class MarioSprite extends CharacterSprite {
 			setGravityCoef(((GravityItem) item).getGravity());
 		}
 	}
-	
+
 	public void incScore(int i) {
 		Stat<Integer> stat = (Stat<Integer>) getStat("Kills");
-		stat.setStat(stat.getStat()+i);
+		stat.setStat(stat.getStat() + i);
 	}
+	
+	private boolean checkCheat(String s) {
+		String curCheat = "";
+		for (char i : myCheatText)
+			curCheat += i;
+		if(myCheatText.size()-s.length() < 0) return false;
+		System.out.println(curCheat.substring(myCheatText.size()-s.length()));
+		if(s.equals(curCheat.substring(myCheatText.size()-s.length())))
+			return true;
+		return false;
+	}
+
+	public void cheat(char c) {
+		if (c != lastCheatChar) {
+			if (myCheatText.size() == MAX_CHEAT_LENGTH)
+				myCheatText.poll();
+			myCheatText.add(c);
+			lastCheatChar = c;
+		}
+		if(checkCheat("GRVTY")) 
+			setGravityCoef(.2);
+		else if(checkCheat("NORM")) 
+			setGravityCoef(1);
+		
+		
+	}
+	
 }
