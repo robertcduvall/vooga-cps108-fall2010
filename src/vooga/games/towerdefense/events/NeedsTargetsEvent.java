@@ -3,6 +3,13 @@ package vooga.games.towerdefense.events;
 import vooga.engine.event.IEvent;
 import vooga.games.towerdefense.tower.*;
 
+/**
+ * This class pairs enemies with towers
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class NeedsTargetsEvent implements IEvent{
 	private Object obj;
 	private String eventName;
