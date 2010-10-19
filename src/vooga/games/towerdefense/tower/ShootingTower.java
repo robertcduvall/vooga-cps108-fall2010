@@ -10,7 +10,13 @@ import vooga.games.towerdefense.events.NeedsTargetsEvent;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-
+/**
+ * This is the main class of the game.  It creates the different states of the games, and loads all the sprites used in the game.
+ * 
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
 public abstract class ShootingTower extends Tower{
 	
 

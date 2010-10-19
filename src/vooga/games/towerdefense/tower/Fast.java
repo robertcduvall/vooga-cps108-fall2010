@@ -5,6 +5,13 @@ import java.awt.image.BufferedImage;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourcesBeta;
 
+/**
+ * This tower shoots faster, costs more, and has a smaller range.
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class Fast extends ShootingTower{
 
 	private static final long serialVersionUID = -3736751382675453712L;

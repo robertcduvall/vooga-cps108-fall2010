@@ -6,6 +6,13 @@ import vooga.engine.event.EventManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.ResourcesBeta;
 
+/**
+ * This tower is a sniper. It has a huge range and a fast shot speed but a long delay between shots.
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class Sniper extends ShootingTower{
 
 	public final static BufferedImage IMAGE = ResourcesBeta.getImage("sniperTower");

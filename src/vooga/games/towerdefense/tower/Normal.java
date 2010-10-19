@@ -5,6 +5,13 @@ import java.awt.image.BufferedImage;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.ResourcesBeta;
 
+/**
+ * This is a standard tower. All attributes are balanced.
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public class Normal extends ShootingTower{
 	
 	public final static BufferedImage IMAGE = ResourcesBeta.getImage("normalTower");

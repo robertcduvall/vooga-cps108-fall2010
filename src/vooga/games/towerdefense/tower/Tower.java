@@ -11,6 +11,13 @@ import vooga.games.towerdefense.Enemy;
 import vooga.games.towerdefense.TowerDefense;
 import vooga.games.towerdefense.TowerShot;
 
+/**
+ * Abstract tower class that requires you to change the update methods 
+ * 
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
+ *
+ */
+
 public abstract class Tower extends Sprite{
 	
 	private BufferedImage previewImage;
