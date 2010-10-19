@@ -111,6 +111,7 @@ public class GamePlayState extends GameState {
 		for(int i=0; i<3; i++){
 			makeLevel(i, myGame);
 		}
+		myCurrentLevel = 0;
 	}
 	
 	private void makeLevel(int i, Game game){

@@ -2,6 +2,8 @@ package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
 
+import com.golden.gamedev.object.AnimatedSprite;
+
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.items.GravityItem;
 
@@ -14,20 +16,20 @@ public class MarioSprite extends CharacterSprite {
 	private boolean onGround = false;
 	private double myMaxX;
 
-	public MarioSprite(String name, String stateName, BufferedImage left,
-			BufferedImage right) {
-		super(name, stateName, left, right);		
+	public MarioSprite(String name, String stateName, BufferedImage[] left,
+			BufferedImage[] right) {
+		super(name, stateName, left, right);
 	}
 
 	public void moveRight() {
 		setHorizontalSpeed(speed);
-		setNewImage(myRightImage);
+		setToCurrentSprite("Right");
 
 	}
 
 	public void moveLeft() {
 		setHorizontalSpeed(-speed);
-		setNewImage(myLeftImage);
+		setToCurrentSprite("Left");
 	}
 
 	public void jump(boolean force) {
@@ -62,12 +64,12 @@ public class MarioSprite extends CharacterSprite {
 
 	@Override
 	public void update(long elapsedTime) {
+		setImage(getCurrentSprite().getImage());
 		double x = getX(); 
 		if(x > myMaxX){
 			myMaxX = x;
 		}
-		if(getHealth() <= 0)
-			setActive(false);
+
 		super.update(elapsedTime);
 		stop();
 		if (getX() <= 0) {
