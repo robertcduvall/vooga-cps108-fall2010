@@ -27,7 +27,6 @@ import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
-import com.golden.gamedev.object.background.*;
 
 import vooga.games.grandius.collisions.BlackHoleEnemyCollision;
 import vooga.games.grandius.collisions.MissileBossCollision;
@@ -59,6 +58,7 @@ public class Grandius extends Game {
 	private static final int INITIAL_PLAYER_LIVES = 3;
 	private static final int INITIAL_ZERO = 0;
 	
+	private Collection<GameState> gameStates;
 	private GameState menuState;
 	private GameState playState;
 	private GameState levelCompleteState;
@@ -80,7 +80,6 @@ public class Grandius extends Game {
 	private static final double BOSS_SPEED = 0.005;
 	
 	private PlayField myPlayfield;
-	private Background myBackground;
 
 	private boolean reacherShieldsDepleted;
 
@@ -163,7 +162,6 @@ public class Grandius extends Game {
 		try {
 			directoriesFile.load(new FileInputStream("src/vooga/games/grandius/Directories.properties"));
 			stringsFile.load(new FileInputStream("src/vooga/games/grandius/Strings.properties"));
-			//System.out.println(stringsFile.getProperty("menu1")+"\n\n");
 		}
 		catch(IOException e)
 		{
@@ -177,7 +175,9 @@ public class Grandius extends Game {
 		
 		ResourcesBeta.setDefaultPath(directoriesFile.getProperty("resourcesPath"));
 		ResourcesBeta.setGame(this);
-		screen = new Dimension(640,480);
+		int screenWidth = Integer.parseInt(stringsFile.getProperty("screenWidth"));
+		int screenHeight = Integer.parseInt(stringsFile.getProperty("screenHeight"));
+		screen = new Dimension(screenWidth,screenHeight);
 		playerInitialX = PLAYER_INITIAL_X;
 		playerInitialY = screen.getHeight()/2;
 
@@ -192,11 +192,7 @@ public class Grandius extends Game {
 
 		myPlayfield = new PlayField();
 
-		myBackground = new ImageBackground(ResourcesBeta.getImage("BG"), 640, 480);
-		myPlayfield.setBackground(myBackground);
-
 		shipsprite = new Sprite(ResourcesBeta.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
-		//playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite, INITIAL_PLAYER_HEALTH, INITIAL_PLAYER_RANK);
 		playersprite = new PlayerSprite("ThePlayer", "alive", shipsprite);
 		createComets();
 
@@ -205,12 +201,9 @@ public class Grandius extends Game {
 
 		
 		reacherShieldsDepleted = false;
-
-
 		gameStateManager = new GameStateManager();
 		
 		buildPlayState();
-		
 		buildLevelCompleteState();
 		
 		gameCompleteState = new GameState();
@@ -228,13 +221,15 @@ public class Grandius extends Game {
 				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED));
 		gameOverState.addRenderGroup(GAME_OVER_GROUP);
 		
-		gameStateManager.addGameState(menuState);
-		gameStateManager.addGameState(playState);
-		gameStateManager.addGameState(levelCompleteState);
-		gameStateManager.addGameState(shoppingLevelState);
-		gameStateManager.addGameState(startNewLevelState);
-		gameStateManager.addGameState(gameCompleteState);
-		gameStateManager.addGameState(gameOverState);
+		gameStates = new ArrayList<GameState>();
+		
+		addToGameStateList(menuState);
+		addToGameStateList(playState);
+		addToGameStateList(levelCompleteState);
+		addToGameStateList(shoppingLevelState);
+		addToGameStateList(startNewLevelState);
+		addToGameStateList(gameCompleteState);
+		addToGameStateList(gameOverState);
 		
 		gameStateManager.switchTo(menuState);
 		
@@ -243,31 +238,40 @@ public class Grandius extends Game {
 		addOverlays();
 	}
 
+	private void addToGameStateList(GameState gameState) {
+		gameStates.add(gameState);
+		gameStateManager.addGameState(gameState);
+	}
+
 	private void buildShoppingLevelState() {
 		shoppingLevelState = new GameState();
+		int displayX = Integer.parseInt(stringsFile.getProperty("shoppingLevelX"));
+		int displayY = Integer.parseInt(stringsFile.getProperty("shoppingLevelY"));
+		
 		OverlayString shoppingLevel1 = new OverlayString("CASH: " + myCash.getStat().intValue(), font);
-		shoppingLevel1.setLocation((int) screen.getWidth()/3, (int) (screen.getHeight()/5));
-		OverlayString shoppingLevel2 = new OverlayString("CLICK HERE TO BUY MISSILE - 500", font);
-		shoppingLevel2.setLocation((int) screen.getWidth()/10, (int) screen.getHeight()/4);
-		OverlayString shoppingLevel3 = new OverlayString("CLICK HERE TO BUY BLACK HOLE - 1000", font);
-		shoppingLevel3.setLocation((int) screen.getWidth()/10, (int) screen.getHeight()/3);
-		OverlayString shoppingLevel4 = new OverlayString("OR HIT SPACEBAR FOR NEXT LEVEL", font);
-		shoppingLevel4.setLocation((int) screen.getWidth()/6, (int) screen.getHeight()/2);
+		shoppingLevel1.setLocation(displayX,displayY);
 		SHOPPING_LEVEL_GROUP.add(shoppingLevel1);
-		SHOPPING_LEVEL_GROUP.add(shoppingLevel2);
-		SHOPPING_LEVEL_GROUP.add(shoppingLevel3);
-		SHOPPING_LEVEL_GROUP.add(shoppingLevel4);
+		
+		for(int i=2;i<5;i++){
+			displayY=displayY*i;
+			OverlayString shoppingLevel = new OverlayString(stringsFile.getProperty("shoppingLevel"+i), font);
+			shoppingLevel.setLocation(displayX, displayY);
+			SHOPPING_LEVEL_GROUP.add(shoppingLevel);
+		}
 		shoppingLevelState.addRenderGroup(SHOPPING_LEVEL_GROUP);
 		shoppingLevelState.addUpdateGroups(SHOPPING_LEVEL_GROUP);
 	}
 
 	private void buildLevelCompleteState() {
 		levelCompleteState = new GameState();
-		OverlayString levelComplete1 = new OverlayString("LEVEL " +
-				levelManager.getCurrentLevel() + " COMPLETE", font);
-		levelComplete1.setLocation((int) screen.getWidth() / 3,(int) (screen.getHeight() / 2.5));
-		OverlayString levelComplete2 = new OverlayString("CLICK FOR SHOPPING LEVEL", font);
-		levelComplete2.setLocation((int) screen.getWidth() / 3, (int) screen.getHeight() / 2);
+		int displayX = Integer.parseInt(stringsFile.getProperty("levelCompleteX"));
+		int displayY = Integer.parseInt(stringsFile.getProperty("levelCompleteY"));
+		
+		OverlayString levelComplete1 = new OverlayString("LEVEL " + levelManager.getCurrentLevel() + " COMPLETE", font);
+		levelComplete1.setLocation(displayX,displayY);
+		OverlayString levelComplete2 = new OverlayString(stringsFile.getProperty("levelCompleteMessage"), font);
+		levelComplete2.setLocation(displayX,2*displayY);
+		
 		LEVEL_COMPLETE_GROUP.add(levelComplete1);
 		LEVEL_COMPLETE_GROUP.add(levelComplete2);
 		levelCompleteState.addRenderGroup(LEVEL_COMPLETE_GROUP);
@@ -364,68 +368,27 @@ public class Grandius extends Game {
 	@Override
 	public void render(Graphics2D g) {
 		if (menuState.isActive()) {
-			// TODO - replace Magic numbers
-
+			//myPlayfield.render(g);
 		}
-
-		if (playState.isActive()) {
-			myPlayfield.render(g);
-		}
-
-		if (levelCompleteState.isActive()){
-//			myPlayfield.clearPlayField();
-			myPlayfield.render(g);
-
-		}
-		if (shoppingLevelState.isActive()){
-//			myPlayfield.clearPlayField();
-			myPlayfield.render(g);
-//			font.drawString(g, "CASH: " + myCash.getStat().intValue(),
-//					(int) screen.getWidth()/3,
-//					(int) (screen.getHeight()/5));
-//			font.drawString(g, "CLICK HERE TO BUY MISSILE - 500",
-//					(int) screen.getWidth()/10,
-//					(int) screen.getHeight()/4);
-//			font.drawString(g, "CLICK HERE TO BUY BLACK HOLE - 1000",
-//					(int) screen.getWidth()/10,
-//					(int) screen.getHeight()/3);
-//			font.drawString(g, "OR HIT SPACEBAR FOR NEXT LEVEL",
-//					(int) screen.getWidth()/6,
-//					(int) screen.getHeight()/2);
-		}
-
-		if (gameCompleteState.isActive()) {
-//			myPlayfield.clearPlayField();
-			myPlayfield.render(g);
-//			font.drawString(g, "GAME COMPLETE",
-//					(int) screen.getWidth() / 3,
-//					(int) (screen.getHeight() / 2.5));
-//			font.drawString(g, "YOU WIN",
-//					(int) screen.getWidth() / 3,
-//					(int) screen.getHeight() / 2);
-//			this.stop();
-		}
+		for(GameState gamestate: gameStates){
+			if (!gamestate.equals(menuState) && gamestate.isActive()) {
+				myPlayfield.render(g);
+			}
+		}		
 		gameStateManager.render(g);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
-		//myPlayfield.
+		
 		if(levelManager.getCurrentLevel()==0){
 			PlayField playfield=levelManager.loadNextLevel();
+			myPlayfield.setBackground(levelManager.getBackground());
 			for(SpriteGroup group: playfield.getGroups()){
 				myPlayfield.addGroup(group);
 			}
 		}
 		
-		//playfield.update(elapsedTime);
-		
-//		if(levelcomplete condition){
-//			playfield.clearPlayField();
-//			playfield=levelManager.loadNextLevel();
-//		}
-
-		//TODO Utilize VOOGA State API
 		if (menuState.isActive()){
 			if(click()){
 				gameStateManager.switchTo(playState);
@@ -465,17 +428,18 @@ public class Grandius extends Game {
 
 		if (shoppingLevelState.isActive()){
 			//TODO factor out switch to out of if statement
+			int displayX = Integer.parseInt(stringsFile.getProperty("shoppingLevelX"));
+			int displayY = Integer.parseInt(stringsFile.getProperty("shoppingLevelY"));
 			if(click()){
-				if((this.getMouseX()>screen.getWidth()/3) &&
-						(this.getMouseX()<screen.getWidth()-100)){
-					if((this.getMouseY()>screen.getHeight()/4) &&
-							(this.getMouseY()<screen.getHeight()/3)){
+				if((this.getMouseX()>displayX)){
+					if((this.getMouseY()>displayY*2) &&
+							(this.getMouseY()<displayY*3)){
 						missileActive = true;
 						updateStat(myCash,-500);
 						myPlayfield.clearPlayField();
 					}
-					else if((this.getMouseY()>screen.getHeight()/3) &&
-							(this.getMouseY()<screen.getHeight()/2)){
+					else if((this.getMouseY()>displayY*3) &&
+							(this.getMouseY()<displayY*4)){
 						blackHoleActive = true;
 						updateStat(myCash,-1000);
 						myPlayfield.clearPlayField();
@@ -490,14 +454,12 @@ public class Grandius extends Game {
 
 		if (startNewLevelState.isActive()){
 			PlayField playfield=levelManager.loadNextLevel();
+			myPlayfield.setBackground(levelManager.getBackground());
 			for(SpriteGroup group: playfield.getGroups()){
 				myPlayfield.addGroup(group);
 			}
-			//ArrayList<ArrayList<Sprite>> currentLevel = levelManager.currentLevel();
 			PLAYER_GROUP.add(playersprite);
-			//myPlayfield.addGroup(PLAYER_GROUP);
 			createComets();
-			//initLevel(currentLevel.get(0), currentLevel.get(1), currentLevel.get(2));
 			addOverlays();
 			playSound(ResourcesBeta.getSound("StartLevelSound"));
 			gameStateManager.switchTo(playState);
@@ -616,9 +578,11 @@ public class Grandius extends Game {
 				b.setHorizontalSpeed(-((Reacher)(b)).getSpeed());
 			}
 		}
-		resetSpriteSpeed(PROJECTILE_GROUP, 0.15);
-		resetSpriteSpeed(ENEMY_PROJECTILE_GROUP, -0.15);
-		resetSpriteSpeed(MISSILE_GROUP, 0.15);
+		
+		double bulletSpeed = Double.parseDouble(stringsFile.getProperty("bulletSpeed"));
+		resetSpriteSpeed(PROJECTILE_GROUP, bulletSpeed);
+		resetSpriteSpeed(ENEMY_PROJECTILE_GROUP, -1*bulletSpeed);
+		resetSpriteSpeed(MISSILE_GROUP, bulletSpeed);
 		
 		for (Sprite h: BLACK_HOLE_GROUP.getSprites()) {
 			if (h == null) 
@@ -733,24 +697,6 @@ public class Grandius extends Game {
 		return true;
 	}
 
-//	private void initLevel(Collection<Sprite> sprites, Collection<Sprite> bossparts, Collection<Sprite> bosses) {
-//		ENEMY_GROUP.clear();
-//		BOSS_PART_GROUP.clear();
-//		BOSS_GROUP.clear();
-//		for (Sprite s: sprites) {
-//			AnimatedSprite as = (AnimatedSprite)s;
-//			as.setAnimate(true);
-//			as.setLoopAnim(true);
-//			ENEMY_GROUP.add(as);
-//		}
-//		for (Sprite s: bossparts) {
-//			BOSS_PART_GROUP.add(s);
-//		}
-//		for (Sprite s: bosses) {
-//			BOSS_GROUP.add(s);
-//		}
-//		reacherShieldsDepleted = false;
-//	}
 
 	/**
 	 * Method for adding a value (including negative ones)
@@ -811,15 +757,15 @@ public class Grandius extends Game {
 	}
 
 	private void createComets() {
-		//TODO Fix magic numbers
 		for (int j = 0; j < NUM_COMETS; j++) { // create 500 background sprites
 			Random valX = new Random();
 			Random valY = new Random();
 			double x = valX.nextDouble();
 			double y = valY.nextDouble();
 			Sprite backgroundSprite = new Sprite(ResourcesBeta.getImage("Comet"),
-					(x * 10000), (y * 480));
-			backgroundSprite.setHorizontalSpeed(-0.18);
+					(x * Integer.parseInt(stringsFile.getProperty("cometX"))), 
+					(y * Integer.parseInt(stringsFile.getProperty("cometY"))));
+			backgroundSprite.setHorizontalSpeed(Double.parseDouble(stringsFile.getProperty("cometVX")));
 			myPlayfield.add(backgroundSprite);
 		}
 	}

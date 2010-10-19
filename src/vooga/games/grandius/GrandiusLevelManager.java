@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.Scanner;
 
 import vooga.engine.factory.LevelManager;
+
+import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 
@@ -47,6 +49,10 @@ public class GrandiusLevelManager extends LevelManager{
 		ArrayList<ArrayList<Sprite>> returnCollection = new ArrayList<ArrayList<Sprite>>();
 		returnCollection = (levelFactory.getGrandiusSpritesList());
 		return returnCollection;
+	}
+	
+	public Background getBackground(){
+		return levelFactory.getBackground();
 	}
 
 }
