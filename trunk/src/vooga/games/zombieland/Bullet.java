@@ -1,7 +1,5 @@
 package vooga.games.zombieland;
 
-import java.util.ResourceBundle;
-
 import vooga.engine.player.control.GameEntitySprite;
 import com.golden.gamedev.object.Sprite;
 
@@ -12,9 +10,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Bullet extends GameEntitySprite {
-
-	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
+public class Bullet extends GameEntitySprite implements IZombielandConstants {
 	
 	private double damage;
 	private double velocity;
@@ -22,14 +18,11 @@ public class Bullet extends GameEntitySprite {
 	private double userX;
 	private double userY;
 	private double adjustment;
-	private ResourceBundle bundle;
 
 	public Bullet(double x, double y, double bulletAngle, double bulletDamage,
 			double bulletSpeed) {
 		super("Bullet", "Moving", new Sprite());
-		
-		bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
-		
+				
 		userX = x;
 		userY = y;
 		damage = bulletDamage;
