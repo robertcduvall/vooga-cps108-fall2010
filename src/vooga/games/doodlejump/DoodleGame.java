@@ -61,7 +61,7 @@ public class DoodleGame extends Game {
 
 	public DoodleGame() {
 		super();
-		currentLevel = 1;
+		currentLevel = 3;
 		showStart = true;
 		score = new Stat<Integer>(0);
 		scoreString = new OverlayString("Score: " + 0);
@@ -154,14 +154,12 @@ public class DoodleGame extends Game {
 			if (keyPressed(KeyEvent.VK_ENTER)) {
 				currentLevel = 1;
 				score.setStat(0);
+				passScore = 0;
 				initResources();
 			}
 		} else if (startMenu.isActive()) {
 			if (keyPressed(KeyEvent.VK_ENTER)) {
-				startMenu.deactivate();
-				play.activate();
-				pauseMenu.deactivate();
-				gameOver.deactivate();
+				playGame();
 			}
 			playField.setBackground(new ImageBackground(
 					getImage("images/default-play.png")));
@@ -182,10 +180,7 @@ public class DoodleGame extends Game {
 				if (nextLevel == 0) {
 					win.activate();
 					if (keyPressed(KeyEvent.VK_ENTER)) {
-						startMenu.deactivate();
-						play.deactivate();
-						pauseMenu.deactivate();
-						gameOver.activate();
+						gameOver();
 						win.deactivate();
 					}
 				}
@@ -198,17 +193,11 @@ public class DoodleGame extends Game {
 				}
 			}
 			if (keyPressed(KeyEvent.VK_P)) {
-				play.deactivate();
-				pauseMenu.activate();
-				startMenu.deactivate();
-				gameOver.deactivate();
+				pauseGame();
 			}
 		} else {
 			if (keyPressed(KeyEvent.VK_P)) {
-				play.activate();
-				pauseMenu.deactivate();
-				startMenu.deactivate();
-				gameOver.deactivate();
+				playGame();
 			}
 			playField.setBackground(new ImageBackground(
 					getImage("images/pause-cover-resume.png")));
@@ -220,6 +209,20 @@ public class DoodleGame extends Game {
 		pauseMenu.deactivate();
 		startMenu.deactivate();
 		gameOver.activate();
+	}
+
+	public void playGame() {
+		startMenu.deactivate();
+		play.activate();
+		pauseMenu.deactivate();
+		gameOver.deactivate();
+	}
+
+	public void pauseGame() {
+		play.deactivate();
+		pauseMenu.activate();
+		startMenu.deactivate();
+		gameOver.deactivate();
 	}
 
 	@Override
