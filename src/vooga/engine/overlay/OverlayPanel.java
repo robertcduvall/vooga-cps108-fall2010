@@ -1,7 +1,6 @@
 package vooga.engine.overlay;
 
 import com.golden.gamedev.*;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -72,14 +71,12 @@ public class OverlayPanel extends OverlayManager{
 				xOffset = 0;
 			else if(i==numberOfOverlays-1 && numberOfOverlays > 1)
 				xOffset -= overlay.getWidth()*1.7;
-			System.out.println("X: "+(xCoordinates[i]+xOffset)+" Y: "+(yCoordinate+yOffset));
 			overlay.setLocation(xCoordinates[i]+xOffset, yCoordinate+yOffset);
 			xOffset = 0;
 			yOffset = 0;
 			
 			i++;
 		}
-		System.out.println("Sprites: "+this.getSprites().length);
 	}
 	
 	private int[] setXCoordinates(int numberOfOverlays)
