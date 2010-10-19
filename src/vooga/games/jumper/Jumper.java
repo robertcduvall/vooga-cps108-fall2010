@@ -72,10 +72,11 @@ public class Jumper extends vooga.engine.core.Game {
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
 	private SpriteGroup myPlayers = new SpriteGroup("players");
 	
-	private final int blockTypeNormal     = 1;
-	private final int blockTypeSpring     = 2;
-	private final int blockTypeNotBroken  = 3;
-	private final int blockTypeJetpack    = 4;
+	
+//	public  final blocks blockTypeNormal;
+//	private final Sprite blockTypeSpring    = new Sprite();
+//	private final Sprite blockTypeNotBroken = new Sprite();
+//	private final Sprite blockTypeJetpack   = new Sprite();
 
 	private String myFontString = " !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 	
@@ -189,33 +190,33 @@ public class Jumper extends vooga.engine.core.Game {
 
 		//make the correct type of block
 		if (randomBlockOccurance < myBlockFrequency){
-			Sprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
+			BlockSprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
 			if (myBlockCounter == myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformGray"));
 				block.setVerticalSpeed(myBlockVelocity);
-				block.setID(blockTypeNormal);
+				block.setBlockType("blockTypeNormal");
 
 			} else if(myBlockCounter == 2*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformRed"));
 				block.setVerticalSpeed(myBlockVelocity*fastBlockSpeedMultiplier);
-				block.setID(blockTypeNormal);
+				block.setBlockType("blockTypeNormal");
 
 			} else if(myBlockCounter == 3*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformLightBlueWide"));
-				block.setID(blockTypeNormal);
+				block.setBlockType("blockTypeNormal");
 			} else if(myBlockCounter == 4*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformBreak"));
-				block.setID(blockTypeNotBroken);
+				block.setBlockType("blockTypeNotBroken");
 			} else if(myBlockCounter == 5*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("platformSpringDouble"));
-				block.setID(blockTypeSpring);
+				block.setBlockType("blockTypeSpring");
 			} else if(myBlockCounter == 6*myBlockCounterIncrement){
 				block.setImage(ResourceHandler.getImage("jetpack"));
-				block.setID(blockTypeJetpack);
+				block.setBlockType("blockTypeJetpack");
 				myBlockCounter = 0;
 			} else {
 				block.setImage(ResourceHandler.getImage("platformGreen"));
-				block.setID(blockTypeNormal);
+				block.setBlockType("blockTypeNormal");
 			}
 
 			myBlockCounter++;
