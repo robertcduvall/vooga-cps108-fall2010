@@ -56,6 +56,7 @@ public class GamePlayState extends GameState {
 		myCurrentLevel = 0;
 		this.myWidth = width;
 		this.myHeight = height;
+		myLevels = new ArrayList<MarioLevel>();
 		init();
 	}
 
@@ -115,9 +116,15 @@ public class GamePlayState extends GameState {
 	}
 	
 	private void makeLevel(int i, Game game){
-		MarioLevel level = new MarioLevel(new File(
-		"src/vooga/games/marioclone/map"+Integer.toString(i)+".txt"), myWidth, myHeight, game, myScoreOverlay, myEnemiesKilled, 
+		File map = new File("src/vooga/games/marioclone/map"+Integer.toString(i)+".txt");
+		if(map == null){
+			System.out.println("problem");
+		}
+		MarioLevel level = new MarioLevel(map, myWidth, myHeight, game, myScoreOverlay, myEnemiesKilled, 
 		myLivesOverlay, myLives);
+		if(level == null){
+			System.out.println("problem");
+		}
 		myLevels.add(level);
 	}
 
