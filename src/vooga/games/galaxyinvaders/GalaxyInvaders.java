@@ -82,7 +82,7 @@ public class GalaxyInvaders extends Game {
 		enemyTorpedos = new SpriteGroup("enemyTorpedos");
 		pauseMenu = new SpriteGroup("pauseMenu");
 		gameOverMenu = new SpriteGroup("gameOverMenu");
-		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/galaxyinvaders/resources/overlays.xml");
+		overlayTracker = OverlayCreator.createOverlays(ResourceHandler.getMapping("overlays"));
 		myLives = overlayTracker.getStats().get(0);
 		myScore = overlayTracker.getStats().get(1);
 		gameStateManager = new GameStateManager();
