@@ -12,11 +12,11 @@ import com.golden.gamedev.object.AnimatedSprite;
  */
 
 @SuppressWarnings("serial")
-public abstract class CharacterSprite extends PlayerSprite {
+public class CharacterSprite extends PlayerSprite {
 
 	private static final double GRAVITY = .0025;
 	private double myGravityCoef = 1;
-//	private boolean active;
+	public Integer myMaxHealth = 100;
 
 	public CharacterSprite(String name, String stateName,
 			BufferedImage[] right, BufferedImage[] left) {
@@ -32,17 +32,25 @@ public abstract class CharacterSprite extends PlayerSprite {
 		mapNameToSprite("Left", l);
 
 		addStat("Health", new Stat<Integer>(getMaxHealth()));
-		
-//		active = true;
+
+		// active = true;
 	}
 
-	public abstract Integer getMaxHealth();
+	public Integer getMaxHealth() {
+		return myMaxHealth;
+	}
+	
+	protected void setMaxHealth(Integer health) {
+		myMaxHealth = health;
+	}
 
+	@SuppressWarnings("unchecked")
 	public void setHealth(Integer health) {
 		((Stat<Integer>) getStat("Health")).setStat(health);
-		
+
 	}
 
+	@SuppressWarnings("unchecked")
 	public Integer getHealth() {
 		return ((Stat<Integer>) getStat("Health")).getStat();
 	}
@@ -57,19 +65,9 @@ public abstract class CharacterSprite extends PlayerSprite {
 		((AnimatedSprite) getCurrentSprite())
 				.setAnimate(!(getHorizontalSpeed() == 0));
 
-//		System.out.println(isActive());
-
-		
 		if (getHealth() <= 0) {
-//			System.out.println("set false");
 			setActive(false);
 		}
-		
-//		System.out.println(isActive());
-		/*
-		 * double yVelocity = getVerticalSpeed(); double newYVelocity =
-		 * yVelocity + gravity*elapsedTime; setVerticalSpeed(newYVelocity);
-		 */
 
 	}
 
@@ -80,15 +78,5 @@ public abstract class CharacterSprite extends PlayerSprite {
 	protected double getGravityCoef() {
 		return myGravityCoef;
 	}
-	
-//	@Override
-//	public boolean isActive() {
-//		return active;
-//	}
-//	
-//	@Override
-//	public void setActive(boolean b) {
-//		active = b;
-//	}
 
 }

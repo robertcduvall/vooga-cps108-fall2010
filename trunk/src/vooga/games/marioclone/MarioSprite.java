@@ -2,8 +2,6 @@ package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.object.AnimatedSprite;
-
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.items.GravityItem;
@@ -11,7 +9,6 @@ import vooga.games.marioclone.items.GravityItem;
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
 
-	private static final int myMaxHealth = 3;
 	private double jumpSpeed = 1;
 	private double speed = .5;
 	private boolean onGround = false;
@@ -26,6 +23,7 @@ public class MarioSprite extends CharacterSprite {
 			BufferedImage[] right, Stat<Integer> enemiesKilled) {
 		super(name, stateName, left, right);
 		myEnemiesKilled = enemiesKilled;
+		setMaxHealth(3);
 	}
 
 	public void moveRight() {
@@ -90,11 +88,6 @@ public class MarioSprite extends CharacterSprite {
 
 	public double getMaxX() {
 		return myMaxX;
-	}
-
-	@Override
-	public Integer getMaxHealth() {
-		return myMaxHealth;
 	}
 
 	public void actOnItem(ItemSprite item) {
