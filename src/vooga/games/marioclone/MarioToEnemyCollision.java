@@ -20,6 +20,7 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 				//thisEnemy.setHealth(thisEnemy.getHealth()-100);
 				thisEnemy.setActive(false);
 				thisMario.jump(true);
+				thisMario.incScore(1);
 			}
 			else {
 				thisMario.setHealth(thisMario.getHealth()-1);

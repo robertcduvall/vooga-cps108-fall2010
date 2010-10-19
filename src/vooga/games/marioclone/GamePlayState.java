@@ -138,5 +138,9 @@ public class GamePlayState extends GameState {
 		super.render(g);
 		myLevels.get(myCurrentLevel).render(g);
 	}
+	
+	public Long getScore() {
+		return new Long(myEnemiesKilled.getStat());
+	}
 
 }

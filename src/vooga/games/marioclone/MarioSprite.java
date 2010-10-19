@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
+import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.items.GravityItem;
 
@@ -94,5 +95,10 @@ public class MarioSprite extends CharacterSprite {
 		if (item.getClass().equals(GravityItem.class)) {
 			setGravityCoef(((GravityItem) item).getGravity());
 		}
+	}
+	
+	public void incScore(int i) {
+		Stat<Integer> stat = (Stat<Integer>) getStat("Kills");
+		stat.setStat(stat.getStat()+i);
 	}
 }

@@ -80,6 +80,7 @@ public class MarioLevel {
 				Resources.getImage("MarioL3"), Resources.getImage("MarioL4") };
 		myMario = new MarioSprite("mario", "regular", MarioR, MarioL);
 		myMario.setLocation(150, 290);
+		myMario.addStat("Kills", enemiesKilled);
 		setUpKeyboard();
 		getPlayField().getGroup("Mario Group").add(myMario);
 		spawnEnemies();
@@ -121,8 +122,8 @@ public class MarioLevel {
 		//getPlayField().getGroup("Enemy Group").removeInactiveSprites();
 
 		
-//		if (myTimer.action(elapsedTime))
-//			spawnEnemies();
+		if (myTimer.action(elapsedTime))
+			spawnEnemies();
 		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()
 				+ numKilled);
 		myLives.setStat(myMario.getHealth());

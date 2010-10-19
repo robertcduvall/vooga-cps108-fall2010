@@ -95,9 +95,11 @@ public class MarioClone extends Game {
 
 			switch (nextState) {
 			case Win:
+				myWinState.setScore(myGamePlayState.getScore());
 				myGameStateManager.switchTo(myWinState);
 				break;
 			case Lose:
+				myLoseState.setScore(myGamePlayState.getScore());
 				myGameStateManager.switchTo(myLoseState);
 				break;
 			}
