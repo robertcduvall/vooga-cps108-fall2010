@@ -103,7 +103,6 @@ public class Zombieland extends Game {
 	 * stats for the game
 	 */
 	public void initResources() {
-
 		bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 		delim = bundle.getString("delim");
 
@@ -123,13 +122,12 @@ public class Zombieland extends Game {
 	 * This method initializes zombie health, zombie damage and starting number zombies
 	 */
 	private void initZombies() {
-		zombiesAppeared = 0;
+		resetZombiesCount();
 		zombieHealth = parseInt("startZombieHealth");
 		zombieDamage = parseInt("startZombieDamage");
 	}
 
 	private void initEnvironment() {
-	
 		playField = new PlayField();
 		
 		String sandbackgroundpath = bundle.getString("sandbg");
@@ -178,7 +176,6 @@ public class Zombieland extends Game {
 		play.addGroup(bullets);
 		play.addGroup(items);
 		
-		
 		playField.setBackground(background);
 
 		level = parseInt("startLevel");	
@@ -194,9 +191,13 @@ public class Zombieland extends Game {
 	}
 
 	private void initOverlayPauseString(){
+		
+		int overlayPauseStringX = parseInt("overlayPauseStringX");
+		int overlayPauseStringY = parseInt("overlayPauseStringY");
+		
 		overlayPauseString = new OverlayString("PAUSE", Color.BLACK);
-		overlayPauseString.setLocation(GAME_WIDTH / 2 - 60,
-				GAME_HEIGHT / 2 - 10);
+		overlayPauseString.setLocation(overlayPauseStringX,
+				overlayPauseStringY);
 		overlayPauseString.setActive(false);
 		
 		SpriteGroup overlays = playField.getGroup("Overlays");
@@ -372,16 +373,20 @@ public class Zombieland extends Game {
 					addZombie();
 				}
 			}
-			else if (player.getLevelScore() == zombiesAppeared){
+			else if (levelCompleted()){
 				statLevel.setStat(level+1);
 				overlayLevelString.update(elapsedTime);
 				overlayLevelString.setActive(true);
 				playField.update(elapsedTime);
+				
 				if (timer.action(elapsedTime)){
-					timer.setDelay((long) (2000/level*1.5));
+					
+					setNewDelay();
 					updateZombieStats();
-					zombiesAppeared = 0;
+					resetZombiesCount();
+					
 					level++;
+					
 					player.resetLevelScore();
 					overlayLevelString.setActive(false);
 				}
@@ -389,13 +394,35 @@ public class Zombieland extends Game {
 		}
 	}
 
+	private boolean levelCompleted() {
+		return player.getLevelScore() == zombiesAppeared;
+	}
+
+	private void setNewDelay() {
+		
+		int timeInterval = parseInt("timeInterval");
+		double delayFactor = parseDouble("delayFactor");
+		
+		timer.setDelay((long) (timeInterval/level* delayFactor));
+	}
+
+	private void resetZombiesCount() {
+		zombiesAppeared = 0;
+	}
+
 	private void updateZombieStats() {
-		zombieHealth = (int) (zombieHealth*level/1.5);
-		zombieDamage = (int) (zombieDamage+level/1.5);
+		
+		double zombieStatMultiplier = parseDouble("zombieStatMultiplier");
+		
+		zombieHealth = (int) (zombieHealth*level/ zombieStatMultiplier);
+		zombieDamage = (int) (zombieDamage+level/ zombieStatMultiplier);
 	}
 
 	private boolean moreZombieCanBeAdded() {
-		return zombiesAppeared < ZOMBIES_PER_LEVEL*level*0.5;
+		
+		double zombieLimitingFactor = parseDouble("zombieLimitingFactor");
+		
+		return zombiesAppeared < ZOMBIES_PER_LEVEL*level*zombieLimitingFactor;
 	}
 
 	/**
@@ -453,18 +480,22 @@ public class Zombieland extends Game {
 
 		Random random = new Random();
 		int choice = random.nextInt(3);
+		
+		int weapon1 = parseInt("weapon1");
+		int weapon2 = parseInt("weapon2");
+		int healthKit = parseInt("healthKit");
 
 		Item item;
 		switch (choice) {
 		case 0:
-			item = new WeaponItem(player, new Sprite(assaultRifleImage), 1, x,
+			item = new WeaponItem(player, new Sprite(assaultRifleImage), weapon1, x,
 					y);
 			break;
 		case 1:
-			item = new WeaponItem(player, new Sprite(shotGunImage), 2, x, y);
+			item = new WeaponItem(player, new Sprite(shotGunImage), weapon2, x, y);
 			break;
 		case 2:
-			item = new HealthItem(player, new Sprite(healthImage), 100, x, y);
+			item = new HealthItem(player, new Sprite(healthImage), healthKit, x, y);
 			break;
 
 		default:
@@ -521,7 +552,11 @@ public class Zombieland extends Game {
 	private void initializeAnimatedSprite(AnimatedSprite sprite, long delay,
 			boolean loop) {
 		sprite.getAnimationTimer().setDelay(delay);
-		sprite.setAnimationFrame(0, sprite.getImages().length - 1);
+		
+		int startFrame = 0;
+		int endFrame = sprite.getImages().length-1;
+		
+		sprite.setAnimationFrame(startFrame, endFrame);
 		sprite.setAnimate(true);
 		sprite.setLoopAnim(loop);
 	}
@@ -577,9 +612,13 @@ public class Zombieland extends Game {
 	 * @param g
 	 */
 	private void renderGameOver(Graphics2D g) {
+		
+		int overlayStringX = parseInt("overlayStringX");
+		int overlayStringY = parseInt("overlayStringY");
+		
 		overlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
-		overlayGameOverString.setLocation(GAME_WIDTH / 2 - 60,
-				GAME_HEIGHT / 2 - 10);
+		overlayGameOverString.setLocation(overlayStringX,
+				overlayStringY);
 		overlayGameOverString.render(g);
 		endGame();
 	}
