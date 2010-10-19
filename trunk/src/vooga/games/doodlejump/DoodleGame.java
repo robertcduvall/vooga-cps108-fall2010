@@ -26,6 +26,8 @@ import java.util.Scanner;
  * 
  */
 public class DoodleGame extends Game {
+	
+	// GameStates
 	GameState startMenu, play, pauseMenu, gameOver;
 	
 	// Background

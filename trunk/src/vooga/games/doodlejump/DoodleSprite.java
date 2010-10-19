@@ -79,7 +79,7 @@ public class DoodleSprite extends PlayerSprite {
 		bulletDelay--;
 		
 		if (getY() > 850 || died) {
-			gameOverString = new OverlayString("Game over!", new Font("SansSerif", Font.BOLD, 48));
+			gameOverString = new OverlayString("Game over! Enter to Restart.", new Font("SansSerif", Font.BOLD, 36));
 			gameOverString.setX(game.getWidth() / 2 - gameOverString.getWidth() / 2);
 			gameOverString.setY(game.getHeight() / 2 - gameOverString.getHeight() / 2);
 		}
