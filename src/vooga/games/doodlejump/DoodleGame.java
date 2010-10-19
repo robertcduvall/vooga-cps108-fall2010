@@ -4,6 +4,7 @@ import java.awt.*;
 
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.state.GameState;
 import vooga.engine.overlay.*;
 
 import com.golden.gamedev.*;
@@ -25,7 +26,8 @@ import java.util.Scanner;
  * 
  */
 public class DoodleGame extends Game {
-
+	GameState startMenu, play, pauseMenu, gameOver;
+	
 	// Background
 	private Background background;
 
@@ -51,13 +53,12 @@ public class DoodleGame extends Game {
 			ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform,
 			doodleToSpring, doodleToTrampoline, doodleToJetpack;
 	
-	// Game States (menus)
-	private int menuInt;
-	private boolean isActive;
+	private boolean showStart;
 	
 	public DoodleGame(){
 		super();
 		currentLevel = 1;
+		showStart = true;
 		score = new Stat<Integer>(0);
 		scoreString = new OverlayString("0");
 		scoreString.setX(450);
@@ -67,6 +68,15 @@ public class DoodleGame extends Game {
 	@Override
 	public void initResources() {
 		DoodleLevel level = new DoodleLevel();
+		
+		startMenu = new GameState();
+		play = new GameState();
+		pauseMenu = new GameState();
+		gameOver = new GameState();
+		if(showStart)
+			startMenu.activate();
+		else
+			play.activate();
 		
 		// playfield
 		playField = level.getPlayfield(new File("src/vooga/games/doodlejump/levels/level" + Integer.toString(currentLevel) + ".txt"));
@@ -115,26 +125,31 @@ public class DoodleGame extends Game {
 		playField.addCollisionGroup(doodleGroup, level.getTrampolineGroup(),
 				doodleToTrampoline);
 		
-		//game state
-		menuInt = 1;
-		isActive = false;
 		setFPS(100);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
-				
 		doodle_keyboard_control.update();
-		if (menuInt ==1){
+		
+		if(gameOver.isActive()) {
 			if(keyPressed(KeyEvent.VK_ENTER)){
-				menuInt++;
-				isActive = true;
+				currentLevel = 1;
+				score.setStat(0);
+				initResources();
+			}
+		}
+		else if (startMenu.isActive()){
+			if(keyPressed(KeyEvent.VK_ENTER)){
+				startMenu.deactivate();
+				play.activate();
+				pauseMenu.deactivate();
+				gameOver.deactivate();
 			}
 			playField.setBackground(new ImageBackground(
 					getImage("images/default-play.png")));
 		}
-		else if(menuInt%2 == 0){
-			playField.setBackground(background);
+		else if(play.isActive()){
 			for(SpriteGroup group : playField.getGroups()){
 				for(Sprite sprite : group.getSprites()){
 					if(doodle.getY() < 400 && sprite != null){
@@ -149,35 +164,49 @@ public class DoodleGame extends Game {
 			if(Integer.parseInt(scoreString.getString()) >= passScore){
 				if(nextLevel != 0){
 					currentLevel = nextLevel;
+					showStart = false;
 					initResources();
 				}
 				else{
-					stop();
+					gameOver();
 				}
 			}
 			if(keyPressed(KeyEvent.VK_P)){
-				menuInt++;
-				isActive = false;
+				play.deactivate();
+				pauseMenu.activate();
+				startMenu.deactivate();
+				gameOver.deactivate();
 			}
 		}
 		else {
 			if(keyPressed(KeyEvent.VK_P)){
-				menuInt--;
-				isActive = true;
+				play.activate();
+				pauseMenu.deactivate();	
+				startMenu.deactivate();
+				gameOver.deactivate();
 			}
 			playField.setBackground(new ImageBackground(
 					getImage("images/pause-cover-resume.png")));
 		}
 	}
 
+	public void gameOver(){
+		play.deactivate();
+		pauseMenu.deactivate();
+		startMenu.deactivate();
+		gameOver.activate();
+	}
+	
 	@Override
 	public void render(Graphics2D g) {
-		playField.render(g);
-		
-		if (menuInt == 1) {
+		if(play.isActive()){
+			playField.setBackground(background);
+			playField.render(g);
+		}
+		else if (startMenu.isActive()) {
 			playField.getBackground().render(g);
 		}
-		else if (menuInt %2 != 0) {
+		else if (pauseMenu.isActive()) {
 			playField.getBackground().render(g);
 		}
 		
