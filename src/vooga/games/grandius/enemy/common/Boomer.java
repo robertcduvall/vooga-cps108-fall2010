@@ -13,8 +13,8 @@ public class Boomer extends Enemy {
 	public static final int BOOMER_BLUE = 0;
 	public static final int BOOMER_YELLOW = 1;
 	public static final int BOOMER_RED = 2;
-	private static final int SCORE_VALUE = 50;
-	private static final int CASH_VALUE = 5;
+	private static final int SCORE_VALUE = 100;
+	private static final int CASH_VALUE = 2;
 	
 	private int myColor;
 	
