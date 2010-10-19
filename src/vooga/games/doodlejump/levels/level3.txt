@@ -47,4 +47,4 @@ green_jumping_monster,150,-1700
 spring,326,-1120
 trampoline,100,-1270
 finish_line,0,-1600
-score,2000,0
+score,2000,1
