@@ -99,39 +99,35 @@ public class DoodleSprite extends Sprite {
 	}
 
 	/**
-	 * Accelerate doodle to the right
-	 */
-	public void goRight(){
-		if(Jumper.isJetpackOn()){
-			setImage(doodleRightImageJetpack);
-			System.out.println("gorightpack   on");
-			addHorizontalSpeed(	ACCELERATION_TIME, 
-								jetpackMultiplier*X_ACCELERATION, 
-								jetpackMultiplier*MAX_SPEED
-								);
-		} else{
-			System.out.println("gorightpack   off");
-			setImage(doodleRightImage);
-			addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION, MAX_SPEED);
+	 * Accelerate doodle
+	 * @param direction representing the "right" or "left" direction
+	 */	
+	public void moveDoodle(String direction){
+		
+		int directionMultiplier = 1;
+		if (direction == "left"){
+			directionMultiplier = -1;
 		}
-	}
 
-	/**
-	 * Accelerate doodle to the left
-	 */
-	public void goLeft(){
 		if(Jumper.isJetpackOn()){
-			setImage(doodleLeftImageJetpack);
+			if (directionMultiplier == 1){
+			setImage(doodleRightImageJetpack);
+			}
+			else{
+				setImage(doodleLeftImageJetpack);
+			}
 			addHorizontalSpeed(	ACCELERATION_TIME, 
-								jetpackMultiplier*(-X_ACCELERATION), 
-								jetpackMultiplier*(-MAX_SPEED)
+								jetpackMultiplier*X_ACCELERATION * directionMultiplier, 
+								jetpackMultiplier*MAX_SPEED * directionMultiplier
 								);
-			System.out.println("goleft jetpack on");
 		} else{
-			setImage(doodleLeftImage);
-			addHorizontalSpeed(ACCELERATION_TIME, -X_ACCELERATION, -MAX_SPEED);
-			System.out.println("goleft jetpack off");
-
+			if (directionMultiplier == 1){
+				setImage(doodleRightImage);
+			}
+			else{
+				setImage(doodleLeftImage);
+			}
+			addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION * directionMultiplier, MAX_SPEED * directionMultiplier);
 		}
 	}
 }
