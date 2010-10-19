@@ -22,6 +22,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -37,12 +38,16 @@ public class MainGame extends Game {
 	private static final int RANDOM_BLOCK_SIZE = 15;
 	private static final int MINIMUM_RANDOM_BLOCKS = 5;
 	private static final int RANDOM_LEVEL_BLOCKS = 3;
+	
+	private static final String LEVEL_FILE = "src/vooga/games/tron/resources/levels.txt";
 
 	private static final int GRID_WIDTH=WIDTH/PLAYER_IMAGE_WIDTH;
 	private static final int GRID_HEIGHT=HEIGHT/PLAYER_IMAGE_WIDTH;
 
 	ImageBackground imageBack;
 	public ColorBackground backGround;
+	
+	TronLevelManager levelManager;
 
 	TronPlayer player1;
 	TronPlayer player2;
@@ -91,17 +96,20 @@ public class MainGame extends Game {
 	//	player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
 	//	player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
 		
+		File levelFile = new File(LEVEL_FILE);
+		levelManager = new TronLevelManager(levelFile);
 		
 		
-		createRandomLevel();
+		initializeNewLevel();
 
 		playMusic("src/vooga/games/tron/resources/music.mid");
 	}
 	/**
 	 * Create a random level with random blocks
 	 */
-	public void createRandomLevel(){
-
+	
+	public void initializeNewLevel() {
+		
 		playerGroup1=new SpriteGroup("player1");
 		playerGroup1.clear();
 		playerGroup2=new SpriteGroup("player2");
@@ -136,19 +144,33 @@ public class MainGame extends Game {
 
 		playerGroup1.add(player1);
 		playerGroup2.add(player2);
-
+		
 		blocksGroup=new SpriteGroup("blocks");
 		blocksGroup.clear();
-		createRandomLevelBlocks();
+		
+		
+		//uncomment these lines once the disparity between vooga.Sprite and golden.Sprite is solved
+		
+		//if (levelManager.outOfLevels()){
+			createRandomLevelBlocks();
+		//} else {
+		//	for (Sprite tempSprite : levelManager.getCurrentLevel()){
+		//		blocksGroup.add(tempSprite);
+		//	}	
+		//}
+		
+		
+		
+		
 		createRandomBonus();
 		for(speedBonus bonus:bonusList){
 			bonus.setActive(false);
 			bonusGroup.add(bonus);
 		}
-
+		
 		moveController=new MoveController(this, player1);
 		computerController=new ComputerController(this, player2);
-
+		
 		initializeBlocks();
 		initializeCollisionManagers();
 		initializePlayfield();
@@ -156,8 +178,10 @@ public class MainGame extends Game {
 		player1.setActive(true);
 		player2.setActive(true);
 		isCollision=false;
-
+		
 	}
+	
+
 	/**
 	 * create random bonuses for the level
 	 */
@@ -308,7 +332,7 @@ public class MainGame extends Game {
 		long currentTime=System.currentTimeMillis();
 		while(System.currentTimeMillis()-currentTime<2000){ //delay between levels		
 		}
-		createRandomLevel();
+		initializeNewLevel();
 	}
 	/**
 	 * render the graphics
