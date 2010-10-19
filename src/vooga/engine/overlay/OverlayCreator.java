@@ -103,6 +103,8 @@ import com.golden.gamedev.util.ImageUtil;
  *<li>max - the max value of the bar.  For example if the max is 100 and the stat is at 50 the bar will be half full</li>
  *<li>color - The color of the value of the bar.  By default red.  Same format as the color in OverlayString</li>
  *<li>backColor - The color of the background of the bar.  By default black.  Same format as the color in OverlayString</li>
+ *<li>length - The length of the bar</li>
+ *<li>height - The height of the bar</li>
  *</ul>
  *</li>
  *</ul>
@@ -321,6 +323,14 @@ public class OverlayCreator {
 				String strMax = eleBar.getAttribute("max");
 				int max = Integer.valueOf(strMax);
 				OverlayBar ob = new OverlayBar(generalStat(eleBar), max);
+				String strLength = eleBar.getAttribute("length");
+				if(!strLength.equals("")){
+					ob.setMaxLength(Integer.valueOf(strLength));
+				}
+				String strHeight = eleBar.getAttribute("height");
+				if(!strHeight.equals("")){
+					ob.setMaxLength(Integer.valueOf(strHeight));
+				}
 				getLocation(ob, eleBar);
 				String color = eleBar.getAttribute("color");
 				if(!color.equals("")){
