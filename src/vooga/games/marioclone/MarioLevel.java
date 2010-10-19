@@ -38,7 +38,7 @@ public class MarioLevel {
 	private int myBackgroundHeight;
 	private boolean myLevelFinished;
 
-	public MarioLevel(File mapFile, int width, int height, Game game,
+	public MarioLevel(File mapFile, int width, int height, int levelNumber, Game game,
 			OverlayStat scoreOverlay, Stat<Integer> enemiesKilled,
 			OverlayStat livesOverlay, Stat<Integer> livesLeft) {
 		myScoreOverlay = scoreOverlay;
@@ -59,11 +59,15 @@ public class MarioLevel {
 		myBackgroundHeight = map.height * map.TILE_SIZE;
 		myPlayField = new MarioPlayField(map);
 		myPlayField.addGroup(map.getTileGroup());
+		Stat<Integer> levelNum = new Stat<Integer>(levelNumber);
+		OverlayStat levelOverlay = new OverlayStat("Level: ",levelNum);
 		myScoreOverlay.setLocation(myWidth - 1000, 5);
 		myLivesOverlay.setLocation(myWidth - 400, 5);
+		levelOverlay.setLocation(myWidth - 600, 5);
 
 		getPlayField().add(myScoreOverlay);
 		getPlayField().add(myLivesOverlay);
+		getPlayField().add(levelOverlay);
 		Background marioBackground = new ColorBackground(new Color(139, 201,
 				240), myBackgroundWidth, myBackgroundHeight);
 		marioBackground.setClip(0, 0, myWidth, myHeight);
@@ -136,7 +140,6 @@ public class MarioLevel {
 		int num = 0;
 		for (int i = 0; i < group.getSize(); i++) {
 			if (!sprites[i].isActive()) {
-				System.out.println("removing sprite");
 				num++;
 				group.remove(sprites[i]);
 			}

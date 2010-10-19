@@ -120,7 +120,7 @@ public class GamePlayState extends GameState {
 		if(map == null){
 			System.out.println("problem");
 		}
-		MarioLevel level = new MarioLevel(map, myWidth, myHeight, game, myScoreOverlay, myEnemiesKilled, 
+		MarioLevel level = new MarioLevel(map, myWidth, myHeight, (i+1), game, myScoreOverlay, myEnemiesKilled, 
 		myLivesOverlay, myLives);
 		if(level == null){
 			System.out.println("problem");
