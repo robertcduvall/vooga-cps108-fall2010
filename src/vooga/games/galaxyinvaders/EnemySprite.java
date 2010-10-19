@@ -18,7 +18,6 @@ import com.golden.gamedev.object.Timer;
 public class EnemySprite extends GameEntitySprite {
 
 	private static final int DEFAULT_HP = 2;
-    private static final int LEVEL1_TIMER = 700;
     private int pathNum;
     private Timer timer;
     private ArrayList<Point> path;    
@@ -47,7 +46,7 @@ public class EnemySprite extends GameEntitySprite {
 	 */
 	public void update(long time) {
 		super.update(time);
-		if(hitPoints < 2) {
+		if(hitPoints < DEFAULT_HP) {
 			setToCurrentSprite("damaged");
 		}
 		if(hitPoints <= 0) {

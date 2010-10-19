@@ -32,9 +32,12 @@ import com.golden.gamedev.object.background.ColorBackground;
  */
 public class GalaxyInvaders extends Game {
 
-	private static final int LIVES = 5;
 	private static final int TOTAL_LEVELS = 3;
-
+	private static final int MOVE_DISTANCE = 5;
+	private static final double PLAYER_BOMB_SPEED = 0.8;
+	private static final double ENEMY_BOMB_SPEED = 0.5;
+	private static final double ITEM_SPEED = 0.1;
+	private static final int MAX_ALLOWED_ENEMY_YPOS = 700;
 	private static int ITEM_FREQUENCY = 7;
 	private static int BOMB_FREQUENCY = 10;
 
@@ -324,7 +327,7 @@ public class GalaxyInvaders extends Game {
 
 	private void spawnHealth() {
 		Sprite temp = new Sprite(ResourceHandler.getImage("health"), getWidth()/2, 0);
-		temp.setVerticalSpeed(.1);
+		temp.setVerticalSpeed(ITEM_SPEED);
 		items.add(temp);
 	}
 
@@ -347,7 +350,7 @@ public class GalaxyInvaders extends Game {
 			}
 			EnemySprite enemy = (EnemySprite) enemySprites[enemySeed];
 			Sprite temp = new Sprite(ResourceHandler.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
-			temp.setSpeed(0, .5);
+			temp.setSpeed(0, ENEMY_BOMB_SPEED);
 			enemyTorpedos.add(temp);
 		}
 	}
@@ -381,21 +384,21 @@ public class GalaxyInvaders extends Game {
 
 	
 	private void moveLeft() {
-		ship.move(-5, 0);
+		ship.move(-MOVE_DISTANCE, 0);
 	}
 
 	private void moveRight() {
-		ship.move(5, 0);
+		ship.move(MOVE_DISTANCE, 0);
 	}
 
 	private void fire() {
 		Sprite temp = new Sprite(ResourceHandler.getImage("torpedo"), ship.getX()+25, ship.getY()-35);
-		temp.setSpeed(0, -.8);
+		temp.setSpeed(0, -PLAYER_BOMB_SPEED);
 		torpedos.add(temp);
 	}
 
 	private boolean isAtBorder(Sprite enemy){
-		return enemy.getY() >=  700;
+		return enemy.getY() >=  MAX_ALLOWED_ENEMY_YPOS;
 	}
 
 }

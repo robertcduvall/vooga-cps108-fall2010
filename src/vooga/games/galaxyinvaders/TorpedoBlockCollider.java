@@ -12,6 +12,8 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class TorpedoBlockCollider extends BasicCollisionGroup {
 
+	private static final int DAMAGE_TAKEN = 2;
+	
 	public TorpedoBlockCollider() {
 		super();
 		pixelPerfectCollision = true;
@@ -20,7 +22,7 @@ public class TorpedoBlockCollider extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		((BlockadeSprite) s2).decrementHitPoints(2);
+		((BlockadeSprite) s2).decrementHitPoints(DAMAGE_TAKEN);
 	}
 
 }
