@@ -13,11 +13,23 @@ public class TronPlayer extends Sprite {
 
 	private static final long serialVersionUID = 1L;
 	private String direction;  //left,right,down,up
+	private String initDirection;
+
+	
 	public boolean[][] blocks;
+	
+	private GridSpace grid;
+	
+	private double playerInitialRow;
+	private double playerInitialCol;
+	
 	private double playerCurrentRow;
 	private double playerCurrentColumn;
 	private int playerImageWidth;
 	private int speedUp;
+	
+	public int score;
+	
 	/**
 	 * constructor
 	 * @param image
@@ -29,13 +41,33 @@ public class TronPlayer extends Sprite {
 	 */
 	public TronPlayer(BufferedImage image,double initialColPosition,double initialRowPosition,GridSpace gridSpace,int playerImageWidth, String initialDirection){
 		super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
+		
+		playerInitialRow = initialRowPosition;
+		playerInitialCol = initialColPosition;
+		
 		direction=initialDirection;
+		initDirection = initialDirection;
+		
 		this.playerImageWidth=playerImageWidth;
 		playerCurrentRow=initialRowPosition;
 		playerCurrentColumn=initialColPosition;
 		blocks=new boolean[(int)gridSpace.getTotalRow()+2][(int)gridSpace.getTotalColumn()+2];
 		speedUp=1;
+		score = 0;
+		grid = gridSpace;
+		
 	}
+
+	
+	public void resetPosition(){
+		
+		setPlayerRowandCol(playerInitialRow,playerInitialCol);
+		direction = initDirection;
+	
+		blocks = new boolean[(int)grid.getTotalRow()+2][(int)grid.getTotalColumn()+2];
+		
+	}
+	
 	/**
 	 * get the width of the image
 	 * @return
