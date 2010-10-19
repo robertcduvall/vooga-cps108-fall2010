@@ -1,5 +1,7 @@
 #Level 2
 
+#Background, BG, 640, 480
+
 #Boss Format:
 #Health Breakpoints
 #Coordinates
