@@ -59,7 +59,7 @@ public class DoodleGame extends Game {
 	
 	public DoodleGame(){
 		super();
-		currentLevel = 1;
+		currentLevel = 3;
 		showStart = true;
 		score = new Stat<Integer>(0);
 		scoreString = new OverlayString("Score: " + 0);
@@ -221,6 +221,7 @@ public class DoodleGame extends Game {
 		if(play.isActive()){
 			playField.setBackground(background);
 			playField.render(g);
+			scoreString.render(g);
 		}
 		else if (startMenu.isActive()) {
 			playField.getBackground().render(g);
@@ -228,12 +229,11 @@ public class DoodleGame extends Game {
 		}
 		else if (pauseMenu.isActive()) {
 			playField.getBackground().render(g);
+			//scoreString.render(g);
 		}
 		else if (win.isActive()) {
 			winString.render(g);
 		}
-		
-		scoreString.render(g);
 	}
 
 	public static void main(String[] args) {
