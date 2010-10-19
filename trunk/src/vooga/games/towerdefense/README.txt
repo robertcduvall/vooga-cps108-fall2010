@@ -21,7 +21,7 @@ overwhelmed, they are given the option to quit or go back to main menu
 and play again.
 
 API Use:
-Tower Defense makes use of the Resource, Game State, Player Contol, and
+Tower Defense makes use of the Resource, Game State, Event, Player Contol, and
 Overlay APIs. 
 
 The Resource API simplifies the loading of images. Formerly, only 
@@ -44,6 +44,10 @@ controller classes which control the player in our game would be merged into one
 However due to time contraints we simply used two predefined controllers which is 
 fucntional.
 
+The Event API allows us to build towers and assign towers enemy's without building a 
+targeting and retargeting system into our code. It automatically reassigns enemys if
+a tower does not have one. 
+
 The Overlay API is used for automating the display of critical information to 
 the user. It capabilities were extended to also allow for static overlays which are 
 themselves interactable, in this case clickable overlays for each available tower.
@@ -57,9 +61,6 @@ prevent towers from being placed on the path. The reason towers can overlap in p
 is because use of either built in collision ability would have required the process wasting 
 task of checking collision betweens the tower being placed and the other towers every 
 update instead of just on clicks.
-
-The Event API was not used because a need for an event system never arose which would have 
-practical benefits outweighing the con of having to learn how to use the event system. 
 
 The Level API was not used because it appears to have two functions which were not needed 
 for this game. The first is the ability to load the initial sprites for a level which is 
