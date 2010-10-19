@@ -140,6 +140,12 @@ public class Grandius extends Game {
 
 	@Override
 	public void initResources() {
+		//TODO - change to work with ResourcesBeta class (or overlay?)
+		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
+				" !            .,0123" +
+				"456789:   -? ABCDEFG" +
+		"HIJKLMNOPQRSTUVWXYZ ");
+		
 		myPanel = new OverlayPanel("GrandiusOverlay", this, true);
 		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
 		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
@@ -186,6 +192,68 @@ public class Grandius extends Game {
 		initLevel(grandiusLevelManager.currentLevel().get(0), grandiusLevelManager.currentLevel().get(1), grandiusLevelManager.currentLevel().get(2));
 
 		gameStateManager = new GameStateManager();
+		
+		buildPlayState();
+		
+		buildLevelCompleteState();
+		
+		gameCompleteState = new GameState();
+		GAME_COMPLETE_GROUP.add(new OverlayString("Game complete"));
+		gameCompleteState.addRenderGroup(GAME_COMPLETE_GROUP);
+		
+		buildShoppingLevelState();
+		
+		startNewLevelState = new GameState();
+		
+		buildMenuState();
+		
+		gameOverState = new GameState();
+		GAME_OVER_GROUP.add(new OverlayString("GAME OVER",
+				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED));
+		gameOverState.addRenderGroup(GAME_OVER_GROUP);
+		
+		gameStateManager.addGameState(menuState);
+		gameStateManager.addGameState(playState);
+		gameStateManager.addGameState(levelCompleteState);
+		gameStateManager.addGameState(shoppingLevelState);
+		gameStateManager.addGameState(startNewLevelState);
+		gameStateManager.addGameState(gameCompleteState);
+		gameStateManager.addGameState(gameOverState);
+		
+		gameStateManager.switchTo(menuState);
+		
+		//create collisions and register them to the playfield
+		createCollisions();
+		addOverlays();
+	}
+
+	private void buildShoppingLevelState() {
+		shoppingLevelState = new GameState();
+		OverlayString shoppingLevel1 = new OverlayString("CASH: " + myCash.getStat().intValue(), font);
+		shoppingLevel1.setLocation((int) screen.getWidth()/3, (int) (screen.getHeight()/5));
+		OverlayString shoppingLevel2 = new OverlayString("CLICK HERE TO BUY MISSILE - 500", font);
+		shoppingLevel2.setLocation((int) screen.getWidth()/10, (int) screen.getHeight()/4);
+		OverlayString shoppingLevel3 = new OverlayString("CLICK HERE TO BUY BLACK HOLE - 1000", font);
+		shoppingLevel3.setLocation((int) screen.getWidth()/10, (int) screen.getHeight()/3);
+		OverlayString shoppingLevel4 = new OverlayString("OR HIT SPACEBAR FOR NEXT LEVEL", font);
+		shoppingLevel4.setLocation((int) screen.getWidth()/6, (int) screen.getHeight()/2);
+		SHOPPING_LEVEL_GROUP.add(new OverlayString("Shopping level"));
+		shoppingLevelState.addRenderGroup(SHOPPING_LEVEL_GROUP);
+	}
+
+	private void buildLevelCompleteState() {
+		levelCompleteState = new GameState();
+		OverlayString levelComplete1 = new OverlayString("LEVEL " +
+				grandiusLevelManager.getMyCurrentLevel() + " COMPLETE", font);
+		levelComplete1.setLocation((int) screen.getWidth() / 3,(int) (screen.getHeight() / 2.5));
+		OverlayString levelComplete2 = new OverlayString("CLICK FOR SHOPPING LEVEL", font);
+		levelComplete2.setLocation((int) screen.getWidth() / 3, (int) screen.getHeight() / 2);
+		LEVEL_COMPLETE_GROUP.add(levelComplete1);
+		LEVEL_COMPLETE_GROUP.add(levelComplete2);
+		levelCompleteState.addRenderGroup(LEVEL_COMPLETE_GROUP);
+	}
+
+	private void buildPlayState() {
 		playState = new GameState();
 		playState.addRenderGroup(PLAYER_GROUP);
 		playState.addRenderGroup(PROJECTILE_GROUP);
@@ -204,50 +272,37 @@ public class Grandius extends Game {
 		playState.addUpdateGroups(BOSS_GROUP);
 		playState.addUpdateGroups(MISSILE_GROUP);
 		playState.addUpdateGroups(BLACK_HOLE_GROUP);
-		
-		levelCompleteState = new GameState();
-		LEVEL_COMPLETE_GROUP.add(new OverlayString("LEVEL COMPLETE"));
-		levelCompleteState.addRenderGroup(LEVEL_COMPLETE_GROUP);
-		
-		gameCompleteState = new GameState();
-		GAME_COMPLETE_GROUP.add(new OverlayString("Game complete"));
-		gameCompleteState.addRenderGroup(GAME_COMPLETE_GROUP);
-		
-		shoppingLevelState = new GameState();
-		SHOPPING_LEVEL_GROUP.add(new OverlayString("Shopping level"));
-		shoppingLevelState.addRenderGroup(SHOPPING_LEVEL_GROUP);
-		
-		startNewLevelState = new GameState();
-		
+	}
+
+	private void buildMenuState() {
 		menuState = new GameState();
-		MENU_GROUP.add(new OverlayString("Welcome to Grandius"));
+		OverlayString menu1 = new OverlayString("WELCOME TO THE GRANDIUS GALAXY", font);
+		menu1.setLocation((int) screen.getWidth() / 7, 50);
+		OverlayString menu2 = new OverlayString("YOUR MISSION: DESTROY ALL ENEMIES", font);
+		menu2.setLocation((int) screen.getWidth() / 7, 100);
+		OverlayString menu3 = new OverlayString("ARROW KEY : MOVE", font);
+		menu3.setLocation((int) screen.getWidth() / 4, 150);
+		OverlayString menu4 = new OverlayString("ALT   : FIRE HORIZONTALLY", font);
+		menu4.setLocation((int) screen.getWidth() / 4, 200);
+		OverlayString menu5 = new OverlayString("SPACE   : FIRE VERTICALLY", font);
+		menu5.setLocation((int) screen.getWidth() / 4, 250);
+		OverlayString menu6 = new OverlayString("M: FIRE MISSILE - ONCE PURCHASED", font);
+		menu6.setLocation((int) screen.getWidth() / 8, 300);
+		OverlayString menu7 = new OverlayString("B: CREATE BLACK HOLE - ONCE PURCHASED", font);
+		menu7.setLocation((int) screen.getWidth() / 13, 350);
+		OverlayString menu8 = new OverlayString("CLICK TO PLAY", font);
+		menu8.setLocation((int) screen.getWidth() / 4, 400);
+		
+		MENU_GROUP.add(menu1);
+		MENU_GROUP.add(menu2);
+		MENU_GROUP.add(menu3);
+		MENU_GROUP.add(menu4);
+		MENU_GROUP.add(menu5);
+		MENU_GROUP.add(menu6);
+		MENU_GROUP.add(menu7);
+		MENU_GROUP.add(menu8);
+		
 		menuState.addRenderGroup(MENU_GROUP);
-		
-		gameOverState = new GameState();
-		GAME_OVER_GROUP.add(new OverlayString("GAME OVER",
-				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED));
-		gameOverState.addRenderGroup(GAME_OVER_GROUP);
-		
-		gameStateManager.addGameState(menuState);
-		gameStateManager.addGameState(playState);
-		gameStateManager.addGameState(levelCompleteState);
-		gameStateManager.addGameState(shoppingLevelState);
-		gameStateManager.addGameState(startNewLevelState);
-		gameStateManager.addGameState(gameCompleteState);
-		gameStateManager.addGameState(gameOverState);
-		gameStateManager.deactivateAll();
-		
-		gameStateManager.switchTo(menuState);
-		
-		//create collisions and register them to the playfield
-		createCollisions();
-		addOverlays();
-		
-		//TODO - change to work with ResourcesBeta class (or overlay?)
-		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
-				" !            .,0123" +
-				"456789:   -? ABCDEFG" +
-		"HIJKLMNOPQRSTUVWXYZ ");
 	}
 
 	/**
@@ -311,14 +366,7 @@ public class Grandius extends Game {
 	public void render(Graphics2D g) {
 		if (menuState.isActive()) {
 			// TODO - replace Magic numbers
-//			font.drawString(g, "WELCOME TO THE GRANDIUS GALAXY", (int) screen.getWidth() / 7, 50);
-//			font.drawString(g, "YOUR MISSION: DESTROY ALL ENEMIES", (int) screen.getWidth() / 7, 100);
-//			font.drawString(g, "ARROW KEY : MOVE", (int) screen.getWidth() / 4, 150);
-//			font.drawString(g, "ALT   : FIRE HORIZONTALLY",(int) screen.getWidth() / 4, 200);
-//			font.drawString(g, "SPACE   : FIRE VERTICALLY",(int) screen.getWidth() / 4, 250);
-//			font.drawString(g, "M: FIRE MISSILE - ONCE PURCHASED",(int) screen.getWidth() / 8, 300);
-//			font.drawString(g, "B: CREATE BLACK HOLE - ONCE PURCHASED",(int) screen.getWidth() / 13, 350);
-//			font.drawString(g, "CLICK TO PLAY", (int) screen.getWidth() / 4, 400);
+
 		}
 
 		if (playState.isActive()) {
@@ -328,12 +376,7 @@ public class Grandius extends Game {
 		if (levelCompleteState.isActive()){
 //			myPlayfield.clearPlayField();
 //			myPlayfield.render(g);
-//			font.drawString(g, "LEVEL " + grandiusLevelManager.getMyCurrentLevel() + " COMPLETE",
-//					(int) screen.getWidth() / 3,
-//					(int) (screen.getHeight() / 2.5));
-//			font.drawString(g, "CLICK FOR SHOPPING LEVEL",
-//					(int) screen.getWidth() / 3,
-//					(int) screen.getHeight() / 2);
+
 		}
 		if (shoppingLevelState.isActive()){
 //			myPlayfield.clearPlayField();
