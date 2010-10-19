@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import vooga.engine.core.Game;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.state.*;
 
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
@@ -45,21 +46,18 @@ public class Zombieland extends Game {
 	private AnimatedSprite shooterImage;
 	private ImageBackground background;
 	private Shooter player;
-	private int maxHealth;
 
 	private SpriteGroup zombies;
 	private SpriteGroup players;
 	private SpriteGroup bullets;
 	private SpriteGroup items;
+	private SpriteGroup overlays;
 
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
 
-	private BufferedImage[] playerUpImage;
 	private BufferedImage[] playerDefaultImage;
-	private BufferedImage[] playerLeftImage;
-	private BufferedImage[] playerRightImage;
 
 	private BufferedImage[] zombieUpImage;
 	private BufferedImage[] zombieDownImage;
@@ -87,8 +85,13 @@ public class Zombieland extends Game {
 	private OverlayString overlayHealthString;
 	private OverlayStat overlayScoreString;
 	private OverlayString overlayGameOverString;
+	private OverlayString overlayPauseString;
 	private OverlayStat overlayAmmoString;
 	private OverlayStat overlayLevelString;
+	
+	private GameStateManager stateManager;
+	private GameState play;
+	private GameState pause;
 
 	private Stat<Integer> statLevel;
 	private int level;
@@ -113,6 +116,7 @@ public class Zombieland extends Game {
 		setListeners();
 		initCollisionManagers();
 		initZombies();
+		stateManager.activateOnly(play);
 
 	}
 
@@ -152,25 +156,43 @@ public class Zombieland extends Game {
 		int delay = parseInt("timer");
 		timer = new Timer(delay);
 
-		playField.add(player);
-		playField.addGroup(zombies);
-		playField.addGroup(bullets);
-		playField.addGroup(items);
-		playField.add(overlayLevelString);
+		stateManager = new GameStateManager();
+		play = new ZombieGameStates();
+		pause = new ZombieGameStates();
+		
+		stateManager.addGameState(play);
+		stateManager.addGameState(pause);
+		
+		play.addGroup(players);
+		play.addGroup(zombies);
+		play.addGroup(bullets);
+		play.addGroup(items);
+		playField.addGroup(overlays);
 		playField.setBackground(background);
 
 		level = parseInt("startLevel");
+		
 	}
 
 	public void initOverlays() {
-		initOverlayHealthString(bundle);
-		initOverlayHealthBar(bundle);
-		initOverlayScoreString(bundle);
-		initOverlayAmmoString(bundle);
-		initOverlayLevelString(bundle);
+		overlays = new SpriteGroup("Overlays");
+		initOverlayHealthString();
+		initOverlayHealthBar();
+		initOverlayScoreString();
+		initOverlayAmmoString();
+		initOverlayLevelString();
+		initOverlayPauseString();
 	}
 
-	private void initOverlayLevelString(ResourceBundle bundle) {
+	private void initOverlayPauseString(){
+		overlayPauseString = new OverlayString("PAUSE", Color.BLACK);
+		overlayPauseString.setLocation(GAME_WIDTH / 2 - 60,
+				GAME_HEIGHT / 2 - 10);
+		overlayPauseString.setActive(false);
+		overlays.add(overlayPauseString);
+	}
+	
+	private void initOverlayLevelString() {
 
 		int overlayLevelStringX = parseInt("overlayLevelStringX");
 		int overlayLevelStringY = parseInt("overlayLevelStringY");
@@ -180,9 +202,10 @@ public class Zombieland extends Game {
 		overlayLevelString
 		.setLocation(overlayLevelStringX, overlayLevelStringY);
 		overlayLevelString.setActive(false);
+		overlays.add(overlayLevelString);
 	}
 
-	private void initOverlayAmmoString(ResourceBundle bundle) {
+	private void initOverlayAmmoString() {
 
 		int overlayAmmoStringX = parseInt("overlayAmmoStringX");
 		int overlayAmmoStringY = parseInt("overlayAmmoStringY");
@@ -193,9 +216,10 @@ public class Zombieland extends Game {
 				player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
 		overlayAmmoString.setLocation(overlayAmmoStringX, overlayAmmoStringY);
+		overlays.add(overlayAmmoString);
 	}
 
-	private void initOverlayScoreString(ResourceBundle bundle) {
+	private void initOverlayScoreString() {
 		int overlayScoreStringX = parseInt("overlayScoreStringX");
 		int overlayScoreStringY = parseInt("overlayScoreStringY");
 		String overlayAmmoStringMessage = bundle
@@ -205,9 +229,10 @@ public class Zombieland extends Game {
 				player.getScore());
 		overlayScoreString
 		.setLocation(overlayScoreStringX, overlayScoreStringY);
+		overlays.add(overlayScoreString);
 	}
 
-	private void initOverlayHealthBar(ResourceBundle bundle) {
+	private void initOverlayHealthBar() {
 
 		int overlayHealthBarX = parseInt("overlayHealthBarX");
 		int overlayHealthBarY = parseInt("overlayHealthBarY");
@@ -216,15 +241,17 @@ public class Zombieland extends Game {
 				.getHealth().getStat());
 		overlayHealthBar.setColor(Color.GREEN);
 		overlayHealthBar.setLocation(overlayHealthBarX, overlayHealthBarY);
+		overlays.add(overlayHealthBar);
 	}
 
-	private void initOverlayHealthString(ResourceBundle bundle) {
+	private void initOverlayHealthString() {
 		int overlayHealthStringX = parseInt("overlayHealthStringX");
 		int overlayHeatlhStringY = parseInt("overlayHealthStringY");
 
 		overlayHealthString = new OverlayString("Health: ", Color.BLUE);
 		overlayHealthString.setLocation(overlayHealthStringX,
 				overlayHeatlhStringY);
+		overlays.add(overlayHealthString);
 	}
 
 	private void initPlayer() {
@@ -300,33 +327,35 @@ public class Zombieland extends Game {
 	 * update all components of the game
 	 */
 	public void update(long elapsedTime) {
-		playField.update(elapsedTime);
-		control.update();
-		player.update(elapsedTime);
-		overlayHealthBar.update(elapsedTime);
-		overlayHealthString.update(elapsedTime);
-		overlayScoreString.update(elapsedTime);
-		overlayAmmoString.update(elapsedTime);
-		zombies.update(elapsedTime);
-		bullets.update(elapsedTime);
-		items.update(elapsedTime);
-		if (moreZombieCanBeAdded()){
-			if (timer.action(elapsedTime)) {
-				addZombie();
-			}
+		if (bsInput.getKeyPressed() == KeyEvent.VK_P){
+			stateManager.toggle(pause);
+			stateManager.toggle(play);
+			overlayPauseString.setActive(!overlayPauseString.isActive());
 		}
-		else if (player.getLevelScore() == zombiesAppeared){
-			statLevel.setStat(level+1);
-			overlayLevelString.update(elapsedTime);
-			overlayLevelString.setActive(true);
+		
+		stateManager.update(elapsedTime);
+		
+		if (play.isActive()){
 			playField.update(elapsedTime);
-			if (timer.action(elapsedTime)){
-				timer.setDelay((long) (2000/level*1.5));
-				updateZombieStats();
-				zombiesAppeared = 0;
-				level++;
-				player.resetLevelScore();
-				overlayLevelString.setActive(false);
+			control.update();
+			if (moreZombieCanBeAdded()){
+				if (timer.action(elapsedTime)) {
+					addZombie();
+				}
+			}
+			else if (player.getLevelScore() == zombiesAppeared){
+				statLevel.setStat(level+1);
+				overlayLevelString.update(elapsedTime);
+				overlayLevelString.setActive(true);
+				playField.update(elapsedTime);
+				if (timer.action(elapsedTime)){
+					timer.setDelay((long) (2000/level*1.5));
+					updateZombieStats();
+					zombiesAppeared = 0;
+					level++;
+					player.resetLevelScore();
+					overlayLevelString.setActive(false);
+				}
 			}
 		}
 	}
@@ -488,11 +517,7 @@ public class Zombieland extends Game {
 	public void render(Graphics2D g) {
 		background.render(g);
 		playField.render(g);
-		overlayHealthBar.render(g);
-		overlayHealthString.render(g);
-		overlayScoreString.render(g);
-		overlayAmmoString.render(g);
-
+		stateManager.render(g);
 		if (overlayLevelString.isActive()){
 			overlayLevelString.render(g);
 		}
