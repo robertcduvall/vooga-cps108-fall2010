@@ -68,7 +68,7 @@ game. The second use seems to be to manage most of the game functionality, but t
 class was already doing that for us.
 
 Code Commentary:
-The use of reflection in the abstract Plaer class allows for a strong adherence to the 
+The use of reflection in the abstract Player class allows for a strong adherence to the 
 Open/Closed principle when it comes to adding new Towers. If a new Tower class is created, 
 one must simply assign the string of that class name to a new key on the number pad. Everything 
 else will take of itself as long as the new class adheres to the template provided by the 
@@ -78,7 +78,7 @@ time to make a non standard tower that might, for instance, slow down enemies. I
 were available, the Tower class would also be better designed to ensure that extensions of 
 the Tower class adhered to the templates of the existing Tower subclasses. The overlay menu 
 would also be altered to allow for adding and subtracting of tower buttons and information 
-without having to copy/paste and edit similair segments of code with fixed String values.
+without having to copy/paste and edit similar segments of code with fixed String values.
 
 
 
