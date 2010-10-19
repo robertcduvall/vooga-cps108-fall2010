@@ -15,6 +15,9 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	
 	private GalaxyInvaders g;
 	
+	private static final int ENEMY_DAMAGE_TAKEN = 1;
+	private static final int SCORE_PER_HIT = 10;
+	
 	public TorpedoEnemyCollider(GalaxyInvaders game) {
 		super();
 		g = game;
@@ -24,8 +27,8 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		((EnemySprite) s2).decrementHitPoints(1);
-		g.increasePlayerScore(10);
+		((EnemySprite) s2).decrementHitPoints(ENEMY_DAMAGE_TAKEN);
+		g.increasePlayerScore(SCORE_PER_HIT);
 	}
 	
 
