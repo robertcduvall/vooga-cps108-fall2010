@@ -32,6 +32,7 @@ public class GameEndState extends GameState {
 	private HighScoreHandler myHighScores;
 	private GameFontManager myFontManager;
 	private OverlayString[] myHighScoreOverlays;
+	private Long myScore;
 
 	private static final int NUM_SCORES = 5;
 	private int xScoreOverlay = 300;
@@ -73,9 +74,8 @@ public class GameEndState extends GameState {
 
 	private void onEnter() {
 		try {
-			long score = (long) (Math.random() * 100000l);
-			myHighScores.updateScores(score, System.currentTimeMillis());
-			System.out.println(score);
+			myHighScores.updateScores(myScore, System.currentTimeMillis());
+			System.out.println(myScore);
 		} catch (SQLiteException e) {
 			System.out.println("Error with scoring");
 		}
@@ -127,4 +127,8 @@ public class GameEndState extends GameState {
 
 	}
 
+	
+	public void setScore(Long score) {
+		myScore = score;
+	}
 }
