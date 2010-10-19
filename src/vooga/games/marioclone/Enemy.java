@@ -56,7 +56,6 @@ public class Enemy extends CharacterSprite {
 	 */
 	@Override
 	public void update(long elapsedTime) {
-		if(getHealth() <= 0) setActive(false);
 		super.update(elapsedTime);
 
 		// if(!isOnScreen()) bounce();

@@ -115,8 +115,9 @@ public class MarioLevel {
 		int numKilled = 0;//removeKilled();
 		getPlayField().getGroup("Enemy Group").removeInactiveSprites();
 
-		if (myTimer.action(elapsedTime))
-			spawnEnemies();
+		
+//		if (myTimer.action(elapsedTime))
+//			spawnEnemies();
 		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()
 				+ numKilled);
 		myLives.setStat(myMario.getHealth());
