@@ -237,6 +237,15 @@ public class GameState implements Comparable<GameState> {
 		myRenderGroups.clear();
 		myUpdateGroups.clear();
 	}
+	
+	/**
+	 * GameState of specified group.
+	 * 
+	 */
+	public void removeGroup(SpriteGroup group) {
+		myRenderGroups.remove(group);
+		myUpdateGroups.remove(group);
+	}
 
 
 	/**
