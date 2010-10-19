@@ -26,7 +26,6 @@ public class MarioLevel {
 	private MarioPlayField myPlayField;
 	private MarioSprite myMario;
 	private OverlayStat myScoreOverlay;
-	private Stat<Integer> myEnemiesKilled;
 	private Stat<Integer> myLives;
 	private OverlayStat myLivesOverlay;
 	private Timer myTimer;
@@ -42,7 +41,6 @@ public class MarioLevel {
 			OverlayStat scoreOverlay, Stat<Integer> enemiesKilled,
 			OverlayStat livesOverlay, Stat<Integer> livesLeft) {
 		myScoreOverlay = scoreOverlay;
-		myEnemiesKilled = enemiesKilled;
 		myLives = livesLeft;
 		myLivesOverlay = livesOverlay;
 		myLevelFinished = false;
@@ -78,7 +76,7 @@ public class MarioLevel {
 		BufferedImage[] MarioL = new BufferedImage[] {
 				Resources.getImage("MarioL1"), Resources.getImage("MarioL2"),
 				Resources.getImage("MarioL3"), Resources.getImage("MarioL4") };
-		myMario = new MarioSprite("mario", "regular", MarioR, MarioL);
+		myMario = new MarioSprite("mario", "regular", MarioR, MarioL, enemiesKilled);
 		myMario.setLocation(150, 290);
 		myMario.addStat("Kills", enemiesKilled);
 		setUpKeyboard();
@@ -117,37 +115,11 @@ public class MarioLevel {
 			scrollLevel();
 		}
 		getPlayField().update(elapsedTime);
-		int numKilled = 0;
-		removeKilled();
-		//getPlayField().getGroup("Enemy Group").removeInactiveSprites();
-
+		getPlayField().getGroup("Enemy Group").removeInactiveSprites();
 		
 		if (myTimer.action(elapsedTime))
 			spawnEnemies();
-		myEnemiesKilled.setStat(myEnemiesKilled.getStat().intValue()
-				+ numKilled);
 		myLives.setStat(myMario.getHealth());
-		/*
-		SpriteGroup group = getPlayField().getGroup("Enemy Group");
-		System.out.println(((CharacterSprite) group.getSprites()[0])
-				.getHealth()
-				+ " : "
-				+ ((CharacterSprite) group.getSprites()[0]).isActive()
-				+ " : " + group.getSprites()[0].isActive());
-				*/
-	}
-
-	private int removeKilled() {
-		SpriteGroup group = getPlayField().getGroup("Enemy Group");
-		Sprite[] sprites = group.getSprites();
-		int num = 0;
-		for (int i = 0; i < group.getSize(); i++) {
-			if (!sprites[i].isActive()) {
-				num++;
-				group.remove(sprites[i]);
-			}
-		}
-		return num;
 	}
 
 	public boolean getLevelFinished() {
