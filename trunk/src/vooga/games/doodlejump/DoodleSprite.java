@@ -101,7 +101,7 @@ public class DoodleSprite extends PlayerSprite {
 				if(getVerticalSpeed() < 0)
 					ball.setVerticalSpeed(-1.5);
 				balls.add(ball);
-				game.BallGroup.add(ball);
+				game.ballGroup.add(ball);
 			} catch (Exception e) {
 				System.out.println(e);
 				System.exit(0);
@@ -120,7 +120,7 @@ public class DoodleSprite extends PlayerSprite {
 			ball.render(g);
 		if(gameOverString != null || (died && gameOverString != null)){
 			gameOverString.render(g);
-			game.stop();
+			game.gameOver();
 		}
 	}
 }
