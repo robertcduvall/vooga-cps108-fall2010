@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.Random;
 
 //VOOGA
+import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
@@ -72,7 +74,8 @@ public class Jumper extends vooga.engine.core.Game {
 	private final int blockTypeSpring     = 2;
 	private final int blockTypeNotBroken  = 3;
 	private final int blockTypeJetpack    = 4;
-	
+
+	private String myFontString = " !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 	
 //	private GameState playGameState;
 //	private GameState pauseGameState;
@@ -140,16 +143,12 @@ public class Jumper extends vooga.engine.core.Game {
 		myNormalCollision = new DoodleToBlockCollision();
 		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
 
-		myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),
-				" !            .,0123" + "456789:   -? ABCDEFG"
-				+ "HIJKLMNOPQRSTUVWXYZ ");
+		myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),myFontString);
 
-		myOverlay = new SpriteGroup("overlay");
-		myScore = new Stat<Long>((long) 0);
-		OverlayStat score = new OverlayStat("SCORE : ", myScore);
-		score.setFont(myFont);
-		myOverlay.add(score);
-		myPlayfield.addGroup(myOverlay);
+		OverlayCreator.setGame(this);
+		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
+		myScore = track.getStats().get(0);
+		myPlayfield.addGroup(track.getOverlayGroups().get(0));
 
 		myClock = new GameClock();
 		try {
