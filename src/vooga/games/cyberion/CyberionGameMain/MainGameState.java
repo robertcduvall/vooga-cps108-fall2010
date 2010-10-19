@@ -59,28 +59,12 @@ public class MainGameState extends GameState {
 	//
 	@Override
 	public void initialize() {
+
 		initResources();
 	}
 
 	// initializes sprites from images
 	private void setSprites() {
-		// TODO: MAKE THIS WORK:
-		// Resources.loadImage("starImage",
-		// "vooga/games/cyberion/Resources/star.png");
-		// Resources.loadImage("playerShot",
-		// "/vooga/src/vooga/games/cyberion/Resources/playerShot.png");
-		// Resources.loadImage("enemyShot",
-		// "/vooga/src/vooga/games/cyberion/Resources/enemyShot.png");
-		// Resources.loadImage("playerShip",
-		// "/vooga/src/vooga/games/cyberion/Resources/playerShip.png");
-		// Resources.loadImage("enemyShip",
-		// "/vooga/src/vooga/games/cyberion/Resources/enemyShip.png");
-		// Resources
-		// .loadImage("bonus",
-		// "/vooga/src/vooga/games/cyberion/Resources/bonus.png");
-		// Resources.loadImage("bg",
-		// "/vooga/src/vooga/games/cyberion/Resources/bg.png");
-
 		BufferedImage playerShotImage = Resources.getImage("playerShot");
 		BufferedImage enemyShotImage = Resources.getImage("enemyShot");
 		BufferedImage playerImage = Resources.getImage("playerShip");
@@ -131,38 +115,20 @@ public class MainGameState extends GameState {
 
 	}
 
-	@Override
 	public void update(long elapsedTime) {
-//		star.update(elapsedTime);
-//		playerGroup.update(elapsedTime);
-//		playerShot.update(elapsedTime);
-//		enemyGroup.update(elapsedTime);
-//		enemyShot.update(elapsedTime);
-//		bonusGroup.update(elapsedTime);
-//		keyboardControl.update();
-
+		super.update(elapsedTime);
+		keyboardControl.update();
 		playerCollidesWithWall.checkCollision();
 		playerCollidesWithEnemy.checkCollision();
 		playerCollidesWithShot.checkCollision();
 		playerCollidesWithBonus.checkCollision();
-//		enemyCollidesWithShot.checkCollision();
-	}
-	
-	public void render(Graphics2D g){
-//		 bg.render(g);
-//		 star.render(g);
-//		 playerGroup.render(g);
-//		 playerShot.render(g);
-//		 enemyGroup.render(g);
-//		 enemyShot.render(g);
-//		 bonusGroup.render(g);
+		enemyCollidesWithShot.checkCollision();
 	}
 
-	// initializes collision managers
 	private void setCollisionDetection() {
 
-		// enemyCollidesWithShot = new EnemyCollidesWithShot(bsSound);
-		// enemyCollidesWithShot.setCollisionGroup(playerShot, enemyGroup);
+		enemyCollidesWithShot = new EnemyCollidesWithShot();
+		enemyCollidesWithShot.setCollisionGroup(playerShot, enemyGroup);
 		playerCollidesWithEnemy = new PlayerCollidesEnemy();
 		playerCollidesWithEnemy.setCollisionGroup(playerGroup, enemyGroup);
 		playerCollidesWithWall = new PlayerCollidesWall(bg);
@@ -183,8 +149,6 @@ public class MainGameState extends GameState {
 
 	// calls other methods and initializes all remaining variables
 	public void initResources() {
-		// bsInput.setMouseVisible(false);
-		// bsSound.setVolume(0.1f);
 		eventManager = new EventManager();
 		setSprites();
 		BufferedImage gameBg = Resources.getImage("bg");
@@ -195,8 +159,8 @@ public class MainGameState extends GameState {
 		startEventManager();
 
 	}
-	
-	public void setGame(CyberionGame cyberionGame){
+
+	public void setGame(CyberionGame cyberionGame) {
 		myGame = cyberionGame;
 	}
 
