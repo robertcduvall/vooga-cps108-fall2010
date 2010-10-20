@@ -6,6 +6,7 @@ package vooga.games.tron.foundations;
  */
 
 import vooga.engine.state.GameState;
+import vooga.engine.state.GameStateManager;
 import vooga.games.tron.Bonus.speedBonus;
 import vooga.games.tron.Players.TronPlayer;
 
@@ -49,6 +50,7 @@ public class MainGame extends Game {
 	ImageBackground imageBack;
 	public ColorBackground backGround;
 	
+	GameStateManager gameStateManager;
 	GameState startMenu,pause,play;
 	boolean showStartMenu;
 	
@@ -97,11 +99,17 @@ public class MainGame extends Game {
 			backGround=new ColorBackground(Color.WHITE,WIDTH,HEIGHT);
 			gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
 			showStartMenu=true;
+			gameStateManager=new GameStateManager();
+			
 			startMenu = new GameState();
 			play=new GameState();
 			pause=new GameState();
+			gameStateManager.addGameState(startMenu);
+			gameStateManager.addGameState(play);
+			gameStateManager.addGameState(pause);
+			
 			if(showStartMenu){
-				startMenu.activate();
+				gameStateManager.switchTo(startMenu);
 			}
 	//	player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
 	//	player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
@@ -168,10 +176,7 @@ public class MainGame extends Game {
 		//		blocksGroup.add(tempSprite);
 		//	}	
 		//}
-		
-		
-		
-		
+	
 		createRandomBonus();
 		for(speedBonus bonus:bonusList){
 			bonus.setActive(false);
@@ -236,6 +241,7 @@ public class MainGame extends Game {
 			
 			randomHeight = (randomRow+randomHeight>=row)? row-randomRow:randomHeight;
 			randomWidth = (randomCol+randomWidth>=col)? col-randomCol:randomWidth;
+			
 			for(int index1=0;index1<randomHeight;index1++){
 				for(int index2 = 0;index2<randomWidth;index2++){
 					blocksGroup.add(new Sprite(getImage("src/vooga/games/tron/resources/greenlazer.png"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
@@ -288,10 +294,8 @@ public class MainGame extends Game {
 	public void update(long elapsedTime) {
 		if(startMenu.isActive()){
 		playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamestart.png")));
-		if(keyPressed(KeyEvent.VK_ENTER)){
-			startMenu.deactivate();
-			play.activate();
-			pause.deactivate();
+		if(keyPressed(KeyEvent.VK_ENTER)){		
+			gameStateManager.switchTo(play);
 			//gameOver.deactivate();
 		}
 		}
@@ -299,15 +303,13 @@ public class MainGame extends Game {
 		else if(pause.isActive()){
 			playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamepause.png")));
 			if(keyPressed(KeyEvent.VK_P)){
-				play.activate();
-				pause.deactivate();
+				gameStateManager.switchTo(play);
 			}
 		}
 		
 		else if(play.isActive()){
 			if(keyPressed(KeyEvent.VK_P)){
-				play.deactivate();
-				pause.activate();
+				gameStateManager.switchTo(pause);
 			}
 			else{
 	    PlayerAndBoundariesCollision2.checkCollision();
