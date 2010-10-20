@@ -12,7 +12,7 @@ import java.util.*;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Zombie extends GameEntitySprite {
+public class Zombie extends GameEntitySprite implements IZombielandConstants {
 
 	private static int ITEM_CHANCE;
 	private int attackDelay;
@@ -27,8 +27,6 @@ public class Zombie extends GameEntitySprite {
 	private String currentAttackAnimation = "";
 	private DropThis game;
 	private Random random;
-	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
-	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 
 	public Zombie(String name, String stateName, AnimatedSprite down,
 			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,

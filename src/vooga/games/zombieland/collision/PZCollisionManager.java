@@ -1,4 +1,7 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.collision;
+
+import vooga.games.zombieland.Shooter;
+import vooga.games.zombieland.Zombie;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;

@@ -7,6 +7,11 @@ import com.golden.gamedev.object.*;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.games.zombieland.weapons.AssaultRifle;
+import vooga.games.zombieland.weapons.Bullet;
+import vooga.games.zombieland.weapons.Pistol;
+import vooga.games.zombieland.weapons.ShotGun;
+import vooga.games.zombieland.weapons.Weapon;
 
 /**
  * Player class. Contains all properties and abilities of the player
@@ -14,7 +19,7 @@ import vooga.engine.player.control.PlayerSprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Shooter extends PlayerSprite {
+public class Shooter extends PlayerSprite implements IZombielandConstants{
 
 	private static int shotgunAmmo;
 	private static int rifleAmmo;
@@ -29,9 +34,6 @@ public class Shooter extends PlayerSprite {
 	private Stat<Integer> score;
 	private Stat<Integer> ammo;
 	private int levelScore;
-
-	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
-	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
 			int playerHealth, int playerRank, DropThis zombieland) {

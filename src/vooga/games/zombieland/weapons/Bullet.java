@@ -1,6 +1,8 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.weapons;
 
 import vooga.engine.player.control.GameEntitySprite;
+import vooga.games.zombieland.IZombielandConstants;
+
 import com.golden.gamedev.object.Sprite;
 
 /**

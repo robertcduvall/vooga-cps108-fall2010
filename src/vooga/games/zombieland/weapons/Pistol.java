@@ -1,4 +1,6 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.weapons;
+
+import vooga.games.zombieland.Shooter;
 
 /**
  * The default weapon. Low damage, medium firing delay, and low bullet speed.

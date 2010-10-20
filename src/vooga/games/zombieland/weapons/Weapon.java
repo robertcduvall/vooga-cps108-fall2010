@@ -1,6 +1,9 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.weapons;
 
 import java.util.ResourceBundle;
+
+import vooga.games.zombieland.IZombielandConstants;
+import vooga.games.zombieland.Shooter;
 
 /**
  * Weapon class. Sets up the basic functions of a weapon and allows for

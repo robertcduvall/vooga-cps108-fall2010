@@ -1,4 +1,6 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.weapons;
+
+import vooga.games.zombieland.Shooter;
 
 /**
  * Same as a Pistol, with a lower firing delay, higher damage, and faster
