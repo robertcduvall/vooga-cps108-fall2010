@@ -39,11 +39,16 @@ We would review Doodle Jump very similarly to our game (Cyberion).  It is a good
 
 
 In the revised and refactored version of Doodle Jump most of the changes were made inside of DoodleGame. Blocks of code that took up several lines but were only instantiating one object got moved into a method to reduce the size of the code in the constructor, initResources() and update(long). 
+
 In the DoodleGame constructor makeOverlayStrings() contains all of the code to create and instantiate the scoreString, startString and winString. Previously the initResources() method was very bulky and looked unorganized. This code was simplified into four methods: initStates(), initSpriteGroups(), initDoodle(), and initCollisions(Level). initStates() contains all of the code needed to initialize the GameState variables, initSpriteGroups contains all of the code to initialize the SpriteGroup variables, initDoodle contains all of the code to initialize the DoodleSprite variable and initCollisions contains all of the code to initialize the CollisionManager variables. 
+
 The update(long) method was revised to use GameStates to control functionality in the game instead of using integers to keep track of what state the game was in. This method was refactored by making a method for each state the game was in that would appropriately activate or deactivate the GameState variables. These methods were resetGame(), playGame(), gameOver() and pauseGame(). A method updateGame(long) was also implemented to reduce the amount of code within update(long). 
+
 The render(Graphics2D) method was changed to render the background first if the current GameState was play or last if the current GameState was startMenu or pauseMenu. The OverlayStrings were also rendered based on the current GameState in this method.
+
 Several bug fixes were made to the instance variables in DoodleGame() and inside of update(long) and render(Graphics2D). Previously integers were used to keep track of the variable score. The change to Stat(Integer) reduced code in DoodleGame() and made updating OverlayStrings much easier. In update(long) there was difficulty checking to see if a level was completed. Before passScore was being compared to the OverlayString value, in the revised version passScore is compared against the Stat(Integer) score. Also in initResources() passScore and score are set to 0 which fixed a bug when the game was reset and levels could not be completed because passScore was always greater than score. Previously in render(Graphics2D) the start menu screen and pause menu screen were being rendered behind the sprites in the game. In the revised version the render calls for these backgrounds were being made after the PlayField was being rendered when appropriate.
-DoodleSprite was revised by changing a line in render to call “game.gameOver()” if doodle died which made the GameStates and update(long) method in DoodleGame function properly. -- (DoodleJump Revised Review)
+
+DoodleSprite was revised by changing a line in render to call “game.gameOver()” if doodle died which made the GameStates and update(long) method in DoodleGame function properly.. -- (DoodleJump Revised Review)
 
 == Galaxy Invaders ==
 
