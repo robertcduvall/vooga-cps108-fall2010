@@ -14,7 +14,7 @@ public class ComputerController extends UserInputEventAdaptor{
 	TronPlayer myPlayer;
 	
 	int counter = 0;
-	int preventRange = 10;
+	int preventRange = 3;
 	
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
@@ -29,7 +29,7 @@ public class ComputerController extends UserInputEventAdaptor{
 		upDownDirection = "up";
 	}
 	/**
-	 * This is the main class that implements the AI algorithm for the computer-controlled player
+	 * This is the main method that implements the AI algorithm for the computer-controlled player
 	 * @param tronPlayerList
 	 * @param levelBlocks
 	 */
