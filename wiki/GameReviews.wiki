@@ -88,6 +88,15 @@ Possible ideas to consider:
 
 -the game state control is implemented with an integer switch; seems like using the GameState API could simplify this
 
+SECOND REVIEW
+
+After the Grandius refactoring, they implemented some other APIs that they had not originally (including LevelFactory and GameStates).
+Otherwise, to make the code more easily readable, this team could continue to break the longer methods into even smaller ones (especially initResources()) and remove some of the duplicated or similar code (including instances like the key presses in updateEntities(), in updateCashOnCollision and updateScoreOnCollision, in buildShoppingLevelState and buildLevelCompleteState), firing Beams in Reacher). They can just call gameState.addGroup() which adds parameter to both update and render groups in buildPlayState() in order to reduce the length. 
+Some issues that still exist:
+-when ship is hit, if it is hit by something long it takes away all of its lives because it tries to respawn it in the same spot. something like a ship invisibility timer (like, nothing can hit you for 5 seconds after you respawn) would fix this. also seems that the collisions between player and large projectiles are imprecise (collides even when images don’t appear to be colliding).
+-Overlays seem to not display on second level
+-currently, there is no way to restart the game
+
 --GalaxyInvaders team
 
 The game itself is quite simple, though a little difficult to get used to in the beginning.  The movement of the screen relative to the player takes some getting used to, but other than that, it’s a pretty challenging, yet very playable game.  Also, the shopping round in between levels is a fun concept.
