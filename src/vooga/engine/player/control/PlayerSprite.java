@@ -29,17 +29,6 @@ public class PlayerSprite extends GameEntitySprite {
 	private List<ItemSprite> myItemList;
 	
 	private Map<String, Stat<?>> myStatMap;
-	
-//	private StatInt myScore;
-//	private int myLives;
-//	private int myHealth;
-//	private int myRank;
-
-	// constants
-	private final int DEFAULT_RANK = 1;
-	private final int DEFAULT_SCORE = 0;
-	private final int DEFAULT_HEALTH = 0;
-	private final int DEFAULT_LIVES = 5;
 
 	/**
 	 * 
@@ -76,34 +65,6 @@ public class PlayerSprite extends GameEntitySprite {
 	}
 
 	/**
-	 * Sets rank to DEFAULT_RANK, health to DEFAULT_HEALTH, score to
-	 * DEFAULT_SCORE, lives to DEFAULT_LIVES
-	 */
-	
-//	public void resetAllStatistics() {
-//		resetRank();
-//		resetHealth();
-//		resetScore();
-//		resetLives();
-//	}
-
-//	public void resetRank() {
-//		myRank = DEFAULT_RANK;
-//	}
-//
-//	public void resetHealth() {
-//		myHealth = DEFAULT_HEALTH;
-//	}
-//
-//	public void resetLives() {
-//		myLives = DEFAULT_LIVES;
-//	}
-//
-//	public void resetScore() {
-//		myScore = DEFAULT_SCORE;
-//	}
-
-	/**
 	 * Causes the act method of an item to be executed and the item to be
 	 * removed from the player's list.
 	 * 
@@ -136,54 +97,5 @@ public class PlayerSprite extends GameEntitySprite {
 	public Stat<?> getStat(String statName) {
 		return myStatMap.get(statName);
 	}
-
-//	public int getScore() {
-//		return myScore;
-//	}
-//
-//	public void updateScore(int i) {
-//		myScore += i;
-//	}
-//
-//	public void setScore(int i) {
-//		myScore = i;
-//
-//	}
-//
-//	public int getHealth() {
-//		return myHealth;
-//	}
-//
-//	public void updateHealth(double d) {
-//		myHealth += d;
-//	}
-//
-//	public void setHealth(int i) {
-//		myHealth = i;
-//	}
-//
-//	public int getLives() {
-//		return myLives;
-//	}
-//
-//	public void updateLives(int i) {
-//		myLives += i;
-//	}
-//
-//	public void setLives(int i) {
-//		myLives = i;
-//	}
-//
-//	public int getRank() {
-//		return myRank;
-//	}
-//
-//	public void updateRank(int i) {
-//		myRank += i;
-//	}
-//
-//	public void setRank(int k) {
-//		myRank = k;
-//	}
 
 }
