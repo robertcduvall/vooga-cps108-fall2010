@@ -1,4 +1,6 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.weapons;
+
+import vooga.games.zombieland.Shooter;
 
 /**
  * Shogun. Generates multiple bullets per round. High damage, high firing delay,

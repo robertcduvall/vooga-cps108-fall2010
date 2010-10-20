@@ -1,4 +1,4 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.collision;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;
