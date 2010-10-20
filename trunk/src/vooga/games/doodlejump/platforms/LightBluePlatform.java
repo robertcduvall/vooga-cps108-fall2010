@@ -1,4 +1,4 @@
-package vooga.games.doodlejump;
+package vooga.games.doodlejump.platforms;
 
 import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;

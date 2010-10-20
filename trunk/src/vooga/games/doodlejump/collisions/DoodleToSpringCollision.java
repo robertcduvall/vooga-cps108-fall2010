@@ -1,4 +1,4 @@
-package vooga.games.doodlejump;
+package vooga.games.doodlejump.collisions;
 
 import java.applet.AudioClip;
 import java.net.URL;

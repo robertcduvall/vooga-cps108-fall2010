@@ -14,6 +14,9 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 import vooga.engine.factory.*;
 
+import vooga.games.doodlejump.monsters.*;
+import vooga.games.doodlejump.platforms.*;
+
 public class DoodleLevel implements LevelFactory {
 	private ImageBackground background;
 
