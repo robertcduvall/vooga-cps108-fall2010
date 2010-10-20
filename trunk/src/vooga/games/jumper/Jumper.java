@@ -23,6 +23,7 @@ import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.Pause;
+import vooga.engine.core.Game;
 
 // GTGE
 import com.golden.gamedev.GameLoader;
@@ -50,7 +51,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 //TODO: try making it so that the blocks come in waves.  Add side jetpack thrusters.  Add jump capability.
 
-public class Jumper extends vooga.engine.core.Game {
+public class Jumper extends Game {
 
 	private final static int GAME_WIDTH = 500;
 	private final static int GAME_HEIGHT = 800;
