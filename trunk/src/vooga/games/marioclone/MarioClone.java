@@ -50,13 +50,13 @@ public class MarioClone extends Game {
 
 	public void initResources() {
 		Resources.setGame(this);
-		GameFont menuFont = fontManager.getFont(getImages("images/font.png",
+		GameFont menuFont = fontManager.getFont(getImages("resources/images/font.png",
 				20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
 
 		try {
-			Resources.loadFile("src/vooga/games/marioclone/resourcelist.txt");
+			Resources.loadFile("src/vooga/games/marioclone/resources/game.properties");
 		} catch (IOException e) {
 			System.out.println("Error - could not load file.");
 		}
