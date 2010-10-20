@@ -3,7 +3,7 @@ package vooga.games.grandius.collisions;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.ResourcesBeta;
-import vooga.games.grandius.Grandius;
+import vooga.games.grandius.GrandiusMain;
 import vooga.games.grandius.enemy.common.Enemy;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -21,9 +21,9 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  */
 public class ProjectileEnemyCollision extends BasicCollision{
 
-	private Grandius grandius;
+	private GrandiusMain grandius;
 	
-	public ProjectileEnemyCollision(Grandius grandius) {
+	public ProjectileEnemyCollision(GrandiusMain grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
