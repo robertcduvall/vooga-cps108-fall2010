@@ -1,4 +1,4 @@
-/images/space-background.png
+space-background
 green_platform,400,-200
 green_platform,200,400
 green_platform,325,700
@@ -35,7 +35,7 @@ gray_platform,200,-1400
 green_platform,325,-1100
 light_blue_platform,200,-1700
 white_platform,300,-1300
-brown_platform,100,-1200
+brown_platform_breaking,100,-1200
 blue_flying_monster,50,-1700
 blue_monster,70,-1300
 green_flying_monster,1,-1000

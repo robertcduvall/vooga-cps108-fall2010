@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import vooga.engine.resource.ResourceHandler;
+
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -25,23 +27,10 @@ public class MovingMonster extends Sprite {
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		if (getX() < 0 || getX() > 532 - getWidth()) {
-			if (getX() < 0) {
-				try {
-					setImage(ImageIO
-							.read(new File(
-									"src/vooga/games/doodlejump/images/blue_monster_right.png")));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					setImage(ImageIO
-							.read(new File(
-									"src/vooga/games/doodlejump/images/blue_monster_left.png")));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+			if (getX() < 0)
+				setImage(ResourceHandler.getImage("blue_monster_right"));
+			else
+				setImage(ResourceHandler.getImage("blue_monster_left"));
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 		}
 	}
