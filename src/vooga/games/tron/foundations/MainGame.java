@@ -89,12 +89,13 @@ public class MainGame extends Game {
 	PlayField playfield;
 
 	MoveController moveController;
+	MoveController2 moveController2;
 	ComputerController computerController;
 
 	GridSpace gridSpace;
 
-	boolean isCollision;
-
+	boolean isCollision;  
+	boolean playervsplayer;
 	Queue<speedBonus> bonusList;
 	/**
 	 * Initializing the resources, initializing the game
@@ -197,7 +198,8 @@ public class MainGame extends Game {
 
 		moveController=new MoveController(this, player1);
 		computerController=new ComputerController(this, player2);
-
+		moveController2=new MoveController2(this,player2);
+		
 		initializeBlocks();
 		initializeCollisionManagers();
 		initializePlayfield();
@@ -225,8 +227,6 @@ public class MainGame extends Game {
 	 */
 	public void initializeBlocks(){
 		int count=0;
-
-
 		for(TronPlayer player:tronPlayerList){	
 			for(int i=0;i<player.blocks.length;i++){
 				for(int j=0;j<player.blocks[0].length;j++){
@@ -267,7 +267,7 @@ public class MainGame extends Game {
 	 */
 	public void initializePlayfield(){
 		playfield=new PlayField();
-	//	playfield.addGroup(overlayGroup);
+		//playfield.addGroup(overlayGroup);
 		playfield.addGroup(playerGroup1);
 		playfield.addGroup(playerGroup2);
 		playfield.addGroup(blocksGroup);
@@ -313,9 +313,13 @@ public class MainGame extends Game {
 		}
 		if(startMenu.isActive()){
 			playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamestart.png")));
-			if(keyPressed(KeyEvent.VK_ENTER)){		
-				gameStateManager.switchTo(play);
-				
+			if(keyPressed(KeyEvent.VK_A)){
+				playervsplayer=true;
+				gameStateManager.switchTo(play);	
+			}
+			else if(keyPressed(KeyEvent.VK_B)){	
+				playervsplayer=false;
+				gameStateManager.switchTo(play);	
 			}
 		}
 
@@ -347,9 +351,12 @@ public class MainGame extends Game {
 				}
 
 				moveController.checkInput(); 
-
+			    if(playervsplayer){
+				moveController2.checkInput(); 
+				}
+				else{			
 				computerController.aiUpdate(tronPlayerList,levelBlocks);
-
+				}
 				//computerController.checkInput();
 
 				if(!isCollision){
@@ -387,7 +394,6 @@ public class MainGame extends Game {
 	 */
 	public void afterCollision(){
 		gameStateManager.switchTo(gameover);
-		//overlayString.setLocation(WIDTH/2,HEIGHT/2);
 		isCollision=true;
 		playSound("src/vooga/games/tron/resources/explosion.wav");
 		System.out.println("Game Over!");
