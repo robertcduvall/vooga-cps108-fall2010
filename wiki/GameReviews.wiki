@@ -159,7 +159,7 @@ A few magic numbers exist in the code, and a lot of the integer and double value
 --Grandius Team
 
 == MarioClone ==
-
+*Review 1*
 The design of our game began as a platformer similar to Mario.  It would have levels that consist of tiles that have different traits.  The player would walk in one dimension and have the ability to jump and crouch as well.  Most enemies would attack the player as he or she progresses through the level by either touching the player from the top, bottom, or side, or by firing a projectile.  The player could kill an enemy by jumping on it.  A boss battle would begin upon the completion of one or more levels.  A boss would be a special type of enemy that requires a different strategy to defeat than merely jumping on top of it.
 
 By the time the game was due, not all of these features were able to be implemented.  Means to create a level's map were created via the TileMap class.  A TileMap consists of a list of Tile objects, each of which contains a position, an image or images, and a behavior.  Tiles are subclasses of Golden T's Sprite class, so they implement Collidable and are, therefore, able to interact with other sprites.  Three different types of Tile were implemented so far, an indestructible tile that does nothing on collisions, a breakable one that disappears after being hit from below by the player, and a mutating one that cycles between images on these upward collisions.  A map can be loaded from a text file that uses different characters as stand-ins for different tile types.
@@ -170,7 +170,10 @@ On its own, this type of game can be very fun if implemented correctly.  Obvious
 
 --MarioClone team
 
+*Review 2*
 
+
+--MarioClone team
 When playing MarioClone, I was never really clear about the objective or progression of the game.  It seemed as if this was a cool idea for a game that never truly materialized.
 
 In terms of the actual code, I am curious as to why this group used conventional Playfields for its “menu”, “end”, and “win” fields.  This seems like the perfect scenario for GameStates, because this would allow an easier—and cleaner—transition from state to state.  This change could cut down on a ton of repeated code, particularly in the initResources() method.  Also, this would eliminate the need for a “myGameState” variable as well as the “MAIN_MENU”, “GAME_PLAY”, “GAME_OVER”, and “GAME_WIN” constants, which all serve as messy constants that the State system was designed to eliminate.
