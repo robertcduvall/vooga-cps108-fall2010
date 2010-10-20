@@ -173,8 +173,24 @@ On its own, this type of game can be very fun if implemented correctly.  Obvious
 
 *Review 2*
 
+Since the first review was written, the functionality of our game has been increased enormously.  The most important change in gameplay was the addition of scrolling to levels so that the player's movement and the tile map are not restricted to just one screen of play.  Also, there now exist three different levels through which one must progress before winning the game.
+
+Collisions in MarioClone were greatly improved via the overriding of Golden T's CollisionManager revertPosition and getCollisionSide methods.  While this still does not work perfectly, it is a large step towards playability.
+
+A system by which tiles are able to spawn items was created, as was an ItemTile class to place such tiles in a MarioClone level.  So far, one item has been made, the GravityItem.  This item, when picked up my Mario, changes the coefficient of gravity (relative to a reasonable default) that he experiences to a specified value.  
+
+New in-game graphics were designed to make the game more aesthetically appealing to the player.  Now, Mario and enemies have underlying animated sprites that display the characters walking while their horizontal velocities are nonzero.  
+
+States in MarioClone are now handled by VOOGA GameState instances, of which a GameStateManager keeps track.  We created three state classes, MainMenuState, GamePlayState, and EndGameState.  In the main MarioClone class, instances of each of these are created (1 for each of MainMenuState and GamePlayState, and 2 for EndGameState for win and lose outcomes).  
+
+A MarioLevel class was created to contain all of the information that one level of the game requires, such as a MarioPlayField and overlays.  While this approach works, efforts will be made in the coming days to transition to VOOGA's LevelFactory API.  In the long run, this will aid in extensibility.  
+
+Once a game is complete, a game over screen is displayed.  This screen either congratulates the player for winning or disparages him or her for losing.  It also displays a high score list with the highest five scores recorded and the times at which they were recorded.  This was done using the VOOGA HighScoreHandler API.
+
+Support for cheat codes is in progress.  Currently, a player can type "GRVTY" at any point during gameplay in order to change Mario's gravity coefficient to .2 and "NORM" to change it back to 1.  Support for more cheat codes and the names of their respective callback methods to be loaded from a file will be available soon.
 
 --MarioClone team
+
 When playing MarioClone, I was never really clear about the objective or progression of the game.  It seemed as if this was a cool idea for a game that never truly materialized.
 
 In terms of the actual code, I am curious as to why this group used conventional Playfields for its “menu”, “end”, and “win” fields.  This seems like the perfect scenario for GameStates, because this would allow an easier—and cleaner—transition from state to state.  This change could cut down on a ton of repeated code, particularly in the initResources() method.  Also, this would eliminate the need for a “myGameState” variable as well as the “MAIN_MENU”, “GAME_PLAY”, “GAME_OVER”, and “GAME_WIN” constants, which all serve as messy constants that the State system was designed to eliminate.
