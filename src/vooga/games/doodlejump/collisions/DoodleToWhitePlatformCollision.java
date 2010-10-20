@@ -1,4 +1,4 @@
-package vooga.games.doodlejump;
+package vooga.games.doodlejump.collisions;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;

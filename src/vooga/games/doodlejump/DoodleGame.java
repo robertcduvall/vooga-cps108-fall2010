@@ -7,6 +7,8 @@ import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.state.GameState;
 import vooga.engine.overlay.*;
 
+import vooga.games.doodlejump.collisions.*;
+
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
 
