@@ -220,6 +220,17 @@ The Collision API suits this game as most of the game is based on collision, whe
 
 I agree with their implementation without a Resource Manager as there are essentially only 3 objects with limited behavior. In summary, I believe adding use of the Event, Collision, and State API's would greatly benefit this game. -- Tower Defense
 
+It seems that the fixes weren't fixed. Blocks are still generated on the initial path of the two players. The AI difficulty does not increase after every game. There is still a glitch where you can go through the lines of another player including yourself.
+
+Since the Collision API was removed, the Collision system seems to be the same and still has the flaw of going through another player. I assume this is due to the generation of the sprites. 
+
+I appreciate the switch to the resource manager even though there are only 2 players; as it makes the code much easier to read. But I feel like music should also be put inside the resource manager. There is a lot more use the Tron team could have obtained from the Resource class especially for the random generations. 
+
+There is still no pause screen or a menu screen. So there is no use of the states API which would help.
+
+However, I do like the fact that they switched a lot of their Objects into Collections.
+
+-- Second Review
 
 == Zombieland ==
 
