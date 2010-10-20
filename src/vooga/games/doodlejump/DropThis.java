@@ -27,7 +27,7 @@ import java.util.Scanner;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class DoodleGame extends Game {
+public class DropThis extends Game {
 
 	// GameStates
 	GameState startMenu, play, pauseMenu, gameOver, win;
@@ -61,7 +61,7 @@ public class DoodleGame extends Game {
 
 	private boolean showStart;
 
-	public DoodleGame() {
+	public DropThis() {
 		super();
 		currentLevel = 1;
 		showStart = true;
@@ -311,7 +311,7 @@ public class DoodleGame extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new DoodleGame(), new Dimension(532, 850), false);
+		game.setup(new DropThis(), new Dimension(532, 850), false);
 		game.start();
 	}
 

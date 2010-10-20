@@ -14,11 +14,11 @@ import vooga.engine.player.control.*;
  */
 public class TorpedoPlayerCollider extends BasicCollisionGroup {
 
-	private GalaxyInvaders g;
+	private DropThis g;
 	
 	private static final int LIVES_LOST = 1;
 	
-	public TorpedoPlayerCollider(GalaxyInvaders game) {
+	public TorpedoPlayerCollider(DropThis game) {
 		g = game;
 		pixelPerfectCollision = true;
 	}

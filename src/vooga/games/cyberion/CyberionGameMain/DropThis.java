@@ -42,7 +42,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * @see http://www.istisoft.net/online/cyberion/cyberion.html
  */
 
-public class CyberionGame extends Game {
+public class DropThis extends Game {
 
 	MainGameState playGameState = new MainGameState();
 	GameStateManager gameStateManager = new GameStateManager();
@@ -88,7 +88,7 @@ public class CyberionGame extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new CyberionGame(), new Dimension(640, 480), false);
+		game.setup(new DropThis(), new Dimension(640, 480), false);
 		game.start();
 	}
 

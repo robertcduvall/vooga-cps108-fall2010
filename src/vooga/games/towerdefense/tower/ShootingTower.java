@@ -3,6 +3,7 @@ package vooga.games.towerdefense.tower;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.event.EventManager;
+import vooga.engine.event.SingletonEventManager;
 import vooga.engine.resource.ResourcesBeta;
 import vooga.games.towerdefense.Enemy;
 import vooga.games.towerdefense.TowerShot;
@@ -28,8 +29,8 @@ public abstract class ShootingTower extends Tower{
 	private double range;
 	private double shotSpeed;
 
-	public ShootingTower(BufferedImage image, double x, double y, BufferedImage previewImage, int cost, EventManager eventManager, double range,  double shotSpeed, long shotDelay){
-		super(image, x, y, previewImage, cost, eventManager);
+	public ShootingTower(BufferedImage image, double x, double y, BufferedImage previewImage, int cost, double range,  double shotSpeed, long shotDelay){
+		super(image, x, y, previewImage, cost);
 		this.range = range;
 		this.shotSpeed = shotSpeed;
 		this.shotDelay = shotDelay;
@@ -46,7 +47,7 @@ public abstract class ShootingTower extends Tower{
 	
 	private void shoot(){
 		if(!isValidTarget(target)){
-			getEventManager().fireEvent("NeedsTargetsEvent", new NeedsTargetsEvent(this, "NeedsTargetsEvent", this));
+			SingletonEventManager.fireEvent("NeedsTargetsEvent", new NeedsTargetsEvent(this, "NeedsTargetsEvent", this));
 		}
 		if(target!=null){
 			target.gotHit();

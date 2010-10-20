@@ -14,6 +14,7 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.event.EventManager;
+import vooga.engine.event.SingletonEventManager;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
@@ -31,22 +32,20 @@ import vooga.games.towerdefense.tower.*;
 public class PlayerCursor extends PlayerSprite {
 
 	private static final long serialVersionUID = -8174656868252384431L;
-	private TowerDefense myGame;
+	private DropThis myGame;
 	private Stat<Integer> creditBalance;
 	private int towerCost;
 	private NonSetGameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
-	private EventManager eventManager;
 	private Tower currentTower;
 
-	public PlayerCursor(String name, String stateName, Sprite s, TowerDefense game, Stat<Integer> balance,NonSetGameStateManager states, EventManager eventManager) {
+	public PlayerCursor(String name, String stateName, Sprite s, DropThis game, Stat<Integer> balance,NonSetGameStateManager states) {
 		super(name, stateName, s);
 		myGame = game;
 		creditBalance = balance;
-		changeTowerType(new Normal(0,0, eventManager));
+		changeTowerType(new Normal(0,0));
 		stateManager = states;
-		this.eventManager = eventManager;
 	}
 	
 	public void changeTowerType(Tower newTower){
@@ -109,13 +108,13 @@ public class PlayerCursor extends PlayerSprite {
 		if(mouseY>215 && mouseY<500){
 			if(mouseX > 760 && mouseX<1000){
 				if(mouseY<300){
-					changeTowerType(new Normal(0,0, eventManager));
+					changeTowerType(new Normal(0,0));
 				}
 				if(mouseY>315 && mouseY<400){
-					changeTowerType(new Fast(0,0, eventManager));
+					changeTowerType(new Fast(0,0));
 				}
 				if(mouseY>415){
-					changeTowerType(new Sniper(0,0, eventManager));
+					changeTowerType(new Sniper(0,0));
 				}
 				
 			}
@@ -125,7 +124,7 @@ public class PlayerCursor extends PlayerSprite {
 	private void buildTower(){
 		
 		if (creditBalance.getStat() >= currentTower.getCost() && offPath() && inPlayArea()) {
-			eventManager.fireEvent("BuildTowerEvent", new BuildTowerEvent(this, "BuildTowerEvent", currentTower,  getX(), getY()));
+			SingletonEventManager.fireEvent("BuildTowerEvent", new BuildTowerEvent(this, "BuildTowerEvent", currentTower,  getX(), getY()));
 			creditBalance.setStat(creditBalance.getStat() - currentTower.getCost());
 			changeTowerType(currentTower.clone());
 			

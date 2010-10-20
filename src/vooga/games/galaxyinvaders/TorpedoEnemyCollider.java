@@ -13,12 +13,12 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	
-	private GalaxyInvaders g;
+	private DropThis g;
 	
 	private static final int ENEMY_DAMAGE_TAKEN = 1;
 	private static final int SCORE_PER_HIT = 10;
 	
-	public TorpedoEnemyCollider(GalaxyInvaders game) {
+	public TorpedoEnemyCollider(DropThis game) {
 		super();
 		g = game;
 		pixelPerfectCollision = true;

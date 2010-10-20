@@ -50,7 +50,7 @@ public class BlockSprite extends Sprite {
 	 * Bounce BlockSprite off wall if it touches the side
 	 */
 	public void bounceOnWall(){
-		if (this.getX() + this.getWidth() > Jumper.getGameWidth() || this.getX() < 0){
+		if (this.getX() + this.getWidth() > DropThis.getGameWidth() || this.getX() < 0){
 			this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
 		}
 	}

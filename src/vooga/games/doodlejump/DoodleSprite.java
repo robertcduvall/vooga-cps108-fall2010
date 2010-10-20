@@ -23,11 +23,11 @@ import vooga.engine.player.control.PlayerSprite;
 public class DoodleSprite extends PlayerSprite {
 	private boolean died;
 	private ArrayList<BallSprite> balls;
-	private DoodleGame game;
+	private DropThis game;
 	private int bulletDelay = 20;
 	private OverlayString gameOverString;
 
-	public DoodleSprite(String name, String stateName, Sprite s, DoodleGame game) {
+	public DoodleSprite(String name, String stateName, Sprite s, DropThis game) {
 		super(name, stateName, s);
 		died = false;
 		balls = new ArrayList<BallSprite>();

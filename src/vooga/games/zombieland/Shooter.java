@@ -20,7 +20,7 @@ public class Shooter extends PlayerSprite {
 	private static int rifleAmmo;
 	private static int pistolAmmo;
 	private int maxHealth;
-	private Zombieland game;
+	private DropThis game;
 	private int speed;
 	private double orientation;
 	private int weaponChoice;
@@ -34,7 +34,7 @@ public class Shooter extends PlayerSprite {
 	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
-			int playerHealth, int playerRank, Zombieland zombieland) {
+			int playerHealth, int playerRank, DropThis zombieland) {
 		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];

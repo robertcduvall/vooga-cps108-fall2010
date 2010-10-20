@@ -19,6 +19,7 @@ import com.golden.gamedev.util.Utility;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.EventManager;
+import vooga.engine.event.SingletonEventManager;
 import vooga.engine.overlay.OverlayBar;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
@@ -43,7 +44,7 @@ import vooga.games.towerdefense.tower.*;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
-public class TowerDefense extends Game {
+public class DropThis extends Game {
 
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
@@ -73,7 +74,6 @@ public class TowerDefense extends Game {
 	Timer spawn;
 	Timer gameTimer;
 	private int spawnSpeed;
-	private EventManager eventManager;
 	private TowerBuilder towerBuilder;
 	private TowerTargetFinder towerTargetFinder;
 
@@ -85,13 +85,12 @@ public class TowerDefense extends Game {
 		Resources.setGame(this);
 		loadImages();
 		initBackgrounds();
-		eventManager = new EventManager();
 		towerBuilder = new TowerBuilder();
 		towerBuilder.setGame(this);
 		towerTargetFinder = new TowerTargetFinder();
 		towerTargetFinder.setGame(this);
-		eventManager.addEventListener("BuildTowerEvent", towerBuilder);
-		eventManager.addEventListener("NeedsTargetsEvent", towerTargetFinder);
+		SingletonEventManager.addEventListener("BuildTowerEvent", towerBuilder);
+		SingletonEventManager.addEventListener("NeedsTargetsEvent", towerTargetFinder);
 		
 		
 		stateManager = new NonSetGameStateManager();
@@ -276,7 +275,7 @@ public class TowerDefense extends Game {
 	private void initPlayer() {
 		
 		PlayerSprite player = new PlayerCursor("player", "playerCursor", new Sprite(
-				ResourcesBeta.getImage("towerPreview")), this, money, stateManager, eventManager);
+				ResourcesBeta.getImage("towerPreview")), this, money, stateManager);
 		
 
 		playerGroup.add(player);
@@ -288,13 +287,13 @@ public class TowerDefense extends Game {
 				"vooga.games.towerdefense.PlayerCursor");
 		playerKeyboardControl.setParams(new Class[] { Tower.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_1, "changeTowerType",
-				"vooga.games.towerdefense.PlayerCursor", new Normal(0,0, eventManager));
+				"vooga.games.towerdefense.PlayerCursor", new Normal(0,0));
 		playerKeyboardControl.setParams(new Class[] { Tower.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_2, "changeTowerType",
-				"vooga.games.towerdefense.PlayerCursor", new Fast(0,0, eventManager));
+				"vooga.games.towerdefense.PlayerCursor", new Fast(0,0));
 		playerKeyboardControl.setParams(new Class[] { Tower.class });
 		playerKeyboardControl.addInput(KeyEvent.VK_3, "changeTowerType",
-				"vooga.games.towerdefense.PlayerCursor", new Sniper(0, 0, eventManager));
+				"vooga.games.towerdefense.PlayerCursor", new Sniper(0, 0));
 		
 		
 		menuGroup.add(player);
@@ -391,7 +390,7 @@ public class TowerDefense extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new TowerDefense(), new Dimension(WIDTH, HEIGHT), false);
+		game.setup(new DropThis(), new Dimension(WIDTH, HEIGHT), false);
 		game.start();
 	}
 

@@ -52,7 +52,7 @@ import vooga.games.grandius.weapons.Missile;
  * @author Se-Gil Feldsott, John Kline, Bhawana Singh 
  * @version 2.0
  */
-public class Grandius extends Game {
+public class DropThis extends Game {
 
 	private static final int PLAYER_INITIAL_X = 15;
 	private static final int INITIAL_PLAYER_LIVES = 3;
@@ -751,7 +751,7 @@ public class Grandius extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new Grandius(), new Dimension(640,480), false);
+		game.setup(new DropThis(), new Dimension(640,480), false);
 		game.start();
 	}
 

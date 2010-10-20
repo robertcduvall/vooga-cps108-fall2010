@@ -30,7 +30,7 @@ import com.golden.gamedev.object.background.ColorBackground;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class GalaxyInvaders extends Game {
+public class DropThis extends Game {
 
 	private static final int TOTAL_LEVELS = 3;
 	private static final int MOVE_DISTANCE = 5;
@@ -138,7 +138,7 @@ public class GalaxyInvaders extends Game {
 	 */
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new GalaxyInvaders(), new Dimension(700,800), false);
+		game.setup(new DropThis(), new Dimension(700,800), false);
 		game.start();
 	}
 
@@ -378,7 +378,7 @@ public class GalaxyInvaders extends Game {
 		
 		if(keyPressed(KeyEvent.VK_R)) {
 			this.finish();
-			GalaxyInvaders.main(null);
+			DropThis.main(null);
 		}
 	}
 

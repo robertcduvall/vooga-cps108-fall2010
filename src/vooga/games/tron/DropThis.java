@@ -34,7 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class MainGame extends Game {
+public class DropThis extends Game {
 
 	private static final int WIDTH=480;
 	private static final int HEIGHT=480;
@@ -423,7 +423,7 @@ public class MainGame extends Game {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new MainGame(), new Dimension(WIDTH,HEIGHT), false);
+		game.setup(new DropThis(), new Dimension(WIDTH,HEIGHT), false);
 		game.start();
 	}
 
