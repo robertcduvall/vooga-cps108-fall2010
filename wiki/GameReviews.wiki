@@ -263,7 +263,7 @@ Overall the Zombieland game is nicely designed and it has pretty graphics and an
 
 --Meng Li,Brent Sodman,Jiaqi Yan
 
-Response:
+RESPONSE----------------------------------------------------------------------------------
 The new version of the ZombieLand game has drastically improved and currently utilizes many of vooga API’s that we were not able to implement in the past. Currently, we are using the player/item api, the overlay api, Golden T collision api (now the official vooga collision api), the state api, and the control api inside the player/item api. For the player/item system, we utilized the map between states to animatedSprite to effectively change game states in resource to game interactions. For overlay api, we used the overlay classes to render strings and images, such as “Health:” and health bar, during the game play. We implemented the player’s control system by using the addInput method to store what the keyboard should listen to easier. The state system API was used to create a Pause state in which all the sprites on the screen would disappear and “Pause” would be displayed on the screen. For the most part, the State system took over for Golden T’s playfield, except for background and overlay display purposes.
 
 We did not however use the resource manager because we had literal values inside our of resource files and we thought resource bundle was an easier solution for now (We have talked with members of the resource groups and we hope to combine resource bundle capability provided by Java with the resource handler class).
@@ -274,7 +274,7 @@ The API’s used in the game are:
 3. Golden T’s collision system
 4. Control
 5. States
-
+------------------------------------------------------------------------------------------
 
  There are several aspects of the ZombieLand game that can be optimized. First, instead of hardcoding the string name for the filepaths, it would be much easier if the resourceHandler class was used or if .properties files were used to obtain the filepath string associated with the location of image files. Second, we can also use file handlers (especially .properties file) to load specific integer values (i.e. location of the healthbar on the screen) from file. Third, some of the local variables (BufferedImage variables) should be contained inside the initResource() method because they are only used once. Fourth, spriteGroups can be added to the playfield. This can greatly simplify the update method because we can simply call from playfield.update() and playfield.render() and we should be able to take care of sprites.  The events and level packages were also not implemented, and they may be looked into for the refactor.
 
@@ -282,7 +282,7 @@ There are plenty of places where the code can be refactored. To make the initRes
 
 -Zombieland
 
-Response:
+Response:---------------------------------------------------------------------------------
 In the ZombieLand game, we have made several improvements in addition the adopting vooga’s apis to make our game more readable and cleaner. For start, we completely switched to the use of resource bundle (a feature that is soon-to-be part of the Resource Beta package) to get rid of literals and filepaths to image locations. we also removed as many magic constants in the game as we could. In addition, we have modularized our methods our initResource() method by breaking it down into several of its component functions. Now, our initResource() method is a wrapper initialization method that takes care of overlay initialization, player initialization, image initializaiton, reflection initialization, and zombie initialization. For compacting and reducing global variables, we tried to get rid of as many global variables as we could. We decided to keep the bufferedImages arrays as global variables because we have a method called addZombie(), which would drastically clog up the game speed if we load each zombie every time. Instead, we decided to save a copy of the bufferedImages arrays as global variables. Doing so save use time and improved the overall game play performance. Similarly, for other parts of our classes, we have simplified many complex methods down, allowing readers of our code to better understand how the ZombieLand game works.
 
 Several code improvements we have made include:
