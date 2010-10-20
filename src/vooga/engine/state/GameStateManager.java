@@ -12,7 +12,7 @@ import java.util.Collection;
  * 
  * @author VitorOlivier & BrianSimel & sort of BrentSodman
  * 
- * Special thanks to UTA Ben Getson for helping with refactoring
+ * Special thanks to UTA Ben Getson for helping with refactoring and Scott Brothers for helping develop this concept
  */
 public class GameStateManager {
 
