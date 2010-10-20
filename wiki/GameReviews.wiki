@@ -88,6 +88,21 @@ There are some segments of repeated code.  For instance, the createNewBlocks() m
 Even though Block Id’s have been created for each type of block (normal, spring, not broken and jetpack), when writing the DoodleToBlockCollision class, these id’s are not used. Instead, the numbers assigned to these blocks are used as such. Using these hard-coded numbers would be something we want to avoid. We would also like to change these block id’s to be constants as opposed to variables since the id associated with a particular block type will never change.
 --Grandius team
 
+REVIEW II
+Jumper now just goes straight into game play with no instructions, and there’s a new jump feature in the game which I only know about because it was mentioned in class.  I still think it would’ve been useful to have a short instruction screen at the beginning (even if it was just to let players know they can jump).
+
+Relatively, the game as a whole does a pretty good job using vooga’s API’s.  I like that it uses the new Overlay xml parsing feature, and due to the nature of the game, I can see how implementing a LevelManager / Factory could be considered useless.  I think the game could’ve utilized the Player and Item Sprites in the player.control API, such as having DoodleSprite extend PlayerSprite and making the jetpack an ItemSprite.  Also, the extension of GameState is a little unclear to me.  I feel that the game did not need a subclass of GameState to get the functionality it provides.
+
+The code would benefit from use of the ResourcesBeta class, which has functionality to allow for setting a default path from which to access files. This way, in the resourcelist.txt file, “resources/” would not need to be typed before every filename, since it is common among them.
+
+Random numbers are used in the createNewBlocks() method, and it may be beneficial to the group to utilize the resource package’s Randomizer class to implement new and possibly more advanced functionality. If multiplayer is ever considered, the Randomizer class could assist by providing a way for both players to experience the same game progression (which blocks appear when, bonuses, etc). The game makes good use of the GameClock class to maintain a timer for the jetpack.
+
+The game still has instances of repeated code in the Jumper class. The huge if-else block could have been handled better by replacing it by an appropriate method.
+
+A few magic numbers exist in the code, and a lot of the integer and double values could have been moved to a file. In terms of general look of the code, there is at least one method that is not currently used - getClockTime() - and there are comments throughout that could be removed.
+
+--Grandius Team
+
 == MarioClone ==
 
 The design of our game began as a platformer similar to Mario.  It would have levels that consist of tiles that have different traits.  The player would walk in one dimension and have the ability to jump and crouch as well.  Most enemies would attack the player as he or she progresses through the level by either touching the player from the top, bottom, or side, or by firing a projectile.  The player could kill an enemy by jumping on it.  A boss battle would begin upon the completion of one or more levels.  A boss would be a special type of enemy that requires a different strategy to defeat than merely jumping on top of it.
