@@ -1,4 +1,4 @@
-package vooga.games.tron.Bonus;
+package vooga.games.tron.bonus;
 
 /**
  * This class holds the speed-up bonus for the player
