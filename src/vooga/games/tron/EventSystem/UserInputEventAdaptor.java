@@ -1,4 +1,4 @@
-package vooga.games.tron.EventSystem;
+package vooga.games.tron.eventsystem;
 /**
  * event adaptor (part of the event API)
  * @author Meng Li,Brent Sodman,JiaQi Yan

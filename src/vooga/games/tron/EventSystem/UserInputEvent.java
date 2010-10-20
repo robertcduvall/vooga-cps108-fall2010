@@ -1,4 +1,4 @@
-package vooga.games.tron.EventSystem;
+package vooga.games.tron.eventsystem;
 /**
  * This class handles the user input
  * @author Meng Li,Brent Sodman,JiaQi Yan
