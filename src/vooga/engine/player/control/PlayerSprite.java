@@ -27,7 +27,7 @@ public class PlayerSprite extends GameEntitySprite {
 
 	// general instance variables
 	private List<ItemSprite> myItemList;
-	
+
 	private Map<String, Stat<?>> myStatMap;
 
 	/**
@@ -73,7 +73,7 @@ public class PlayerSprite extends GameEntitySprite {
 	 */
 	public void useItem(ItemSprite i) {
 		i.act();
-		if(!i.hasMoreUses()) {
+		if (!i.hasMoreUses()) {
 			myItemList.remove(i);
 		}
 	}
@@ -89,11 +89,11 @@ public class PlayerSprite extends GameEntitySprite {
 	public void addItemsToList(List<ItemSprite> list) {
 		myItemList.addAll(list);
 	}
-	
+
 	public void addStat(String statName, Stat<?> stat) {
 		myStatMap.put(statName, stat);
 	}
-	
+
 	public Stat<?> getStat(String statName) {
 		return myStatMap.get(statName);
 	}
