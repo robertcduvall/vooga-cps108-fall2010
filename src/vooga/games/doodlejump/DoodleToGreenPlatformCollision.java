@@ -27,7 +27,7 @@ public class DoodleToGreenPlatformCollision extends BasicCollisionGroup {
 		if (doodle.getVerticalSpeed() > 0
 				&& doodle.getY() + doodle.getHeight() - 15 < green_platform
 						.getY()) {
-			URL jump_url = getClass().getResource("sounds/jump_sound.wav");
+			URL jump_url = getClass().getResource("resources/sounds/jump_sound.wav");
 			doodle.setVerticalSpeed(-0.6);
 			AudioClip clip = java.applet.Applet.newAudioClip(jump_url);
 			clip.play();
