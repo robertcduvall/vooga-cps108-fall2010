@@ -132,6 +132,13 @@ The control of the player is done using two Control subclasses, one which handle
 
 The way the PlayerCursor manages what Tower it is building has been overhauled. Towers are now arranged in a better hierarchy. This allows PlayerCursor to find qualities about the subclasses of th current towers using Tower methods instead of reflection which looked at static methods. 
 
+We also used the new overlay creator to create our overlays in an xml file.  It turned the initOverlay method from about 100 lines to about 7.
+
+The game states were extraordinarily helpful.  Although we did not implement there pause or menu game states, making our own was very easy.    Now that the game states uses sprite groups instead of collections of sprites it makes, also is helpful for changing between levels.  The only functionality that was not there was the ability to remove a sprite group from a game state.  In the end we decided to just add a method to the game state API which removes a sprite group from the state.
+
+The only API we did not use was levels.  This was because currently the level is basically a sprite factory.  And at the beginning of every level we had no sprites on the board besides the overlays.
+
+
 
 -- Tower Defense Team
 
