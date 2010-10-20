@@ -357,12 +357,8 @@ public class MainGame extends Game {
 				else{			
 				computerController.aiUpdate(tronPlayerList,levelBlocks);
 				}
-				//computerController.checkInput();
-
 				if(!isCollision){
-
 					buildBlockWall();
-
 					player1.setLocation(player1.routineUpdatePlayerX(),player1.routineUpdatePlayerY());//running without user control   	
 					player2.setLocation(player2.routineUpdatePlayerX(),player2.routineUpdatePlayerY());//running without user control  
 
