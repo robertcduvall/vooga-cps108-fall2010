@@ -1,0 +1,7 @@
+#summary One-Naming Conventions for VOOGA
+
+= Naming Conventions =
+
+*Resources* should be located in   resources/game.properties
+
+*Main Game Class* should be a java class called     Blah.java
