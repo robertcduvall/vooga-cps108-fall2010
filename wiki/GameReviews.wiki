@@ -124,13 +124,15 @@ Some javadoc comments before methods and classes might have been helpful.
 
 The Tower Defense game has the basic premise of killing the enemies before they finish the path.  Our twist on the game was that you could never win.  The goal was to obtain a high score before your self-esteem was inevitably destroyed.  
 
-I think we used the api’s fairly well.  We used  all of the api’s except the Levels, Events and Collisions.  There is some functionality that we would like to add that the collision api might be useful.  Mostly tight now you can build towers on top of towers.  If there was a way to test collisions for one action it would be useful.  
+We used the ResourcesBeta class from the Resources API to load all of our images from a file at initialization. These images are then accessed at run time by the Overlay, individual Towers, and enemies. Access is simple due to the static nature of the ResourcesBeta class.
 
-The api’s we did use definitely made our game better and easier to write.  The state system was very useful for the menu screen and pause screen, though some fixes should be made which are included in our blurb in the API wiki.  
+The static Event Manager class was just implemented and it allowed simplification of the code and a more reasonable distribution of responsibilities. For instance we eliminated the requirement to pass the Game to every class that had to interact with Sprite Groups. Now classes which add to Sprite Groups simply fire an event and then the Sprite is added to the Sprite Group elsewhere. 
 
-One fix I would like to make to our game is that currently the levels are to easy.  I would like to make a more dynamic way to control the occurrence of enemies.  Also possibly make different types of enemies to make the game more difficult.
+The control of the player is done using two Control subclasses, one which handles keyboard input and one which handles mouse input. This was done in a handful of lines during initialization instead of setting up a complex system of listeners in the update step. Our game does not require handling of simultaneous controls (such as moving and shooting) so the Control class was sufficient for our needs.
 
-While our game did do many good things, such as have a way to restart without exiting the game, much could be improved as far as the quality of the code is concerned.  We worked up until the deadline so some coding conventions might be ignored.  Also there are very limited comments within the code to describe how the game works.  
+The way the PlayerCursor manages what Tower it is building has been overhauled. Towers are now arranged in a better hierarchy. This allows PlayerCursor to find qualities about the subclasses of th current towers using Tower methods instead of reflection which looked at static methods. 
+
+
 -- Tower Defense Team
 
 
