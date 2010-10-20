@@ -48,9 +48,13 @@ We would review Doodle Jump very similarly to our game (Cyberion).  It is a good
 -Cyberion Team
 
 Doodle Jump is a very appealing and entertaining game that is very similar to the actual iPhone/iPod app.  The only problems I can see in the actual playing of the game is 1) trampolines are placed randomly on the screen instead of directly on top of blocks and 2) it is very hard to shoot a monster because it seems like you can only shoot directly up with the space bar, although there may be a way to aim that we are not aware of.
+
 To follow up on the comments made previously, it seems like they have added one more vooga API, game state.  This is certainly an improvement, but more integration is probably necessary if we want to move away from Golden T's 'game' eventually.  It also seems like the overall principals they are using have stayed the same, which is not a bad thing.  They did a great job improving on the general refactoring, especially making the program more readable by splitting up the extremely long and wordy initResources method into multiple other methods.
+
 The use/addition of game states is very apparent.  Throughout the code, you can see the gamestates set up and used, and it is very nice to see in the actual game itself.  It still seems like there is some repetitive code, especially with collision detection, but that is probably because the class decided to stick with Golden T for that.  A problem that still exists for Doodle Jump and most groups is importing images and files with hard-coded strings.
+
 Overall, it seems like Doodle Jump is a good game that has made many improvements, but there is always ways to keep improving.
+
 - Cyberion Team Update
 
 
