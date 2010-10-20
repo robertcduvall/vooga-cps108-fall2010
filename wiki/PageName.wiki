@@ -1,4 +1,4 @@
-#summary One-Naming Conventions for VOOGA
+#summary Naming Conventions for VOOGA
 
 = Naming Conventions =
 
