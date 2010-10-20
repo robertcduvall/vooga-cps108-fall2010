@@ -65,7 +65,7 @@ public class CyberionGame extends Game {
 	private void loadImages() {
 		try {
 			Resources
-					.loadFile("cyberion/Resources/imageList.txt");
+					.loadFile("src/vooga/games/cyberion/Resources/imageList.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
