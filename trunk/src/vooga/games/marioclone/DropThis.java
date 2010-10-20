@@ -31,7 +31,7 @@ import com.golden.gamedev.object.font.SystemFont;
  * 
  */
 
-public class MarioClone extends Game {
+public class DropThis extends Game {
 
 	private static final int WIDTH = 1024;
 	private static int HEIGHT = 768;
@@ -43,7 +43,7 @@ public class MarioClone extends Game {
 	
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
-		MarioClone game = new MarioClone();
+		DropThis game = new DropThis();
 		gl.setup(game, new Dimension(WIDTH, HEIGHT), false);
 		gl.start();
 	}
@@ -53,7 +53,7 @@ public class MarioClone extends Game {
 		GameFont menuFont = fontManager.getFont(getImages("resources/images/font.png",
 				20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
-		bsLoader = new BaseLoader(new BaseIO(MarioClone.class), Color.white);
+		bsLoader = new BaseLoader(new BaseIO(DropThis.class), Color.white);
 
 		try {
 			Resources.loadFile("src/vooga/games/marioclone/resources/game.properties");

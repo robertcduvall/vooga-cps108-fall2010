@@ -92,7 +92,7 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 			 */
 			} else if(((BlockSprite)block).getBlockType().equals("blockTypeJetpack")){
 			changeSpriteImage(block, "jetpackInvisible");
-			Jumper.setJetpackOn(true);
+			DropThis.setJetpackOn(true);
 
 			
 

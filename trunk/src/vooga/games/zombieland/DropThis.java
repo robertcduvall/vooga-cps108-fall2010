@@ -34,7 +34,7 @@ import com.golden.gamedev.util.ImageUtil;
  * 
  */
 
-public class Zombieland extends Game implements IZombielandConstants {
+public class DropThis extends Game implements IZombielandConstants {
 
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
@@ -664,7 +664,7 @@ public class Zombieland extends Game implements IZombielandConstants {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new Zombieland(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
+		game.setup(new DropThis(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
 				false);
 		game.start();
 	}

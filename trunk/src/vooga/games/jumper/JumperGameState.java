@@ -24,7 +24,7 @@ public class JumperGameState extends GameState {
             	break;
             }
             case 2:	{ //jetpack gamestate
-            	Jumper.setJetpackOn(true);
+            	DropThis.setJetpackOn(true);
             	System.out.println("SET JETPACK ON --- TRUE");
             	break;
             }

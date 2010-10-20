@@ -60,7 +60,7 @@ public class DoodleSprite extends Sprite {
 	 * Make sure the doodle doesn't fall out of the screen from below
 	 */
 	public void maintainFloor(){
-		int gameHeight = Jumper.getGameHeight();
+		int gameHeight = DropThis.getGameHeight();
 		if (getY() + mySpriteHeight > gameHeight){
 			setY(gameHeight - mySpriteHeight);
 		}
@@ -88,9 +88,9 @@ public class DoodleSprite extends Sprite {
 	 * Allow doodle to move through wall to the other side
 	 */
 	public void moveThroughWall(){
-		int gameWidth = Jumper.getGameWidth();
+		int gameWidth = DropThis.getGameWidth();
 
-		if (getX() + mySpriteWidth > Jumper.getGameWidth()){
+		if (getX() + mySpriteWidth > DropThis.getGameWidth()){
 			setX(0);
 		}
 		if (getX() < 0){
@@ -109,7 +109,7 @@ public class DoodleSprite extends Sprite {
 			directionMultiplier = -1;
 		}
 
-		if(Jumper.isJetpackOn()){
+		if(DropThis.isJetpackOn()){
 			if (directionMultiplier == 1){
 			setImage(doodleRightImageJetpack);
 			}

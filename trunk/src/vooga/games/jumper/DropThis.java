@@ -51,7 +51,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 //TODO: try making it so that the blocks come in waves.  Add side jetpack thrusters.  Add jump capability.
 
-public class Jumper extends Game {
+public class DropThis extends Game {
 
 	private final static int GAME_WIDTH = 500;
 	private final static int GAME_HEIGHT = 800;
@@ -312,9 +312,9 @@ public class Jumper extends Game {
 	}
 	
 	public static void setJetpackOn(boolean jetpackOn) {
-		Jumper.jetpackOn = jetpackOn;
+		DropThis.jetpackOn = jetpackOn;
 		if(jetpackOn == true){
-			Jumper.jetpackStartTime = Jumper.myClock.getTime();
+			DropThis.jetpackStartTime = DropThis.myClock.getTime();
 		}
 	}
 
@@ -350,7 +350,7 @@ public class Jumper extends Game {
 	 */    
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		Jumper jump = new Jumper();
+		DropThis jump = new DropThis();
 		//myPause = new Pause(jump, KeyEvent.VK_P, KeyEvent.VK_P);
 		game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
 		game.start();

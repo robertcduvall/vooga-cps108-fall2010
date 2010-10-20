@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.event.IEvent;
-import vooga.games.towerdefense.TowerDefense;
+import vooga.games.towerdefense.DropThis;
 import vooga.games.towerdefense.events.*;
 
 /**
@@ -18,10 +18,10 @@ import vooga.games.towerdefense.events.*;
 
 public class TowerBuilder implements BuildTowerListener{
 	
-	private TowerDefense game;
+	private DropThis game;
 	public final int TOWER_EDGE = 16;
 
-	public void setGame(TowerDefense game){
+	public void setGame(DropThis game){
 		this.game = game;
 	}
 	

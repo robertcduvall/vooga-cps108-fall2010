@@ -25,7 +25,7 @@ public class Zombie extends GameEntitySprite {
 
 	private int attackDelayStep;
 	private String currentAttackAnimation = "";
-	private Zombieland game;
+	private DropThis game;
 	private Random random;
 	private static final String MAIN_RESOURCES_PATH = "vooga.games.zombieland.MainResources";
 	ResourceBundle bundle = ResourceBundle.getBundle(MAIN_RESOURCES_PATH);
@@ -35,7 +35,7 @@ public class Zombie extends GameEntitySprite {
 			AnimatedSprite attackDown, AnimatedSprite attackUp,
 			AnimatedSprite attackLeft, AnimatedSprite attackRight,
 			AnimatedSprite death, int health, int damage, Shooter player,
-			Zombieland zombieland) {
+			DropThis zombieland) {
 		super(name, stateName, down);
 
 		mapNameToSprite("Down", down);

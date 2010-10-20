@@ -13,9 +13,9 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class ItemPlayerCollider extends BasicCollisionGroup {
 
-	private GalaxyInvaders g;
+	private DropThis g;
 	
-	public ItemPlayerCollider(GalaxyInvaders game) {
+	public ItemPlayerCollider(DropThis game) {
 		super();
 		g = game;
 		pixelPerfectCollision = true;

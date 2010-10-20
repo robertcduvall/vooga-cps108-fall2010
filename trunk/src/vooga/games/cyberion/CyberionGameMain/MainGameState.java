@@ -54,7 +54,7 @@ public class MainGameState extends GameState {
 	// creates keyboard control
 	private KeyboardControl keyboardControl;
 	private Resources resources;
-	private CyberionGame myGame;
+	private DropThis myGame;
 
 	//
 	@Override
@@ -160,7 +160,7 @@ public class MainGameState extends GameState {
 
 	}
 
-	public void setGame(CyberionGame cyberionGame) {
+	public void setGame(DropThis cyberionGame) {
 		myGame = cyberionGame;
 	}
 

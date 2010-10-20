@@ -5,7 +5,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.event.IEvent;
 import vooga.games.towerdefense.Enemy;
-import vooga.games.towerdefense.TowerDefense;
+import vooga.games.towerdefense.DropThis;
 import vooga.games.towerdefense.events.NeedsTargetsEvent;
 import vooga.games.towerdefense.events.NeedsTargetsListener;
 
@@ -17,9 +17,9 @@ import vooga.games.towerdefense.events.NeedsTargetsListener;
  */
 
 public class TowerTargetFinder implements NeedsTargetsListener{
-	TowerDefense game;
+	DropThis game;
 	
-	public void setGame(TowerDefense game){
+	public void setGame(DropThis game){
 		this.game = game;
 	}
 	
