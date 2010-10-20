@@ -88,7 +88,7 @@ There are some segments of repeated code.  For instance, the createNewBlocks() m
 Even though Block Id’s have been created for each type of block (normal, spring, not broken and jetpack), when writing the DoodleToBlockCollision class, these id’s are not used. Instead, the numbers assigned to these blocks are used as such. Using these hard-coded numbers would be something we want to avoid. We would also like to change these block id’s to be constants as opposed to variables since the id associated with a particular block type will never change.
 --Grandius team
 
-REVIEW II
+ - REVIEW II -
 Jumper now just goes straight into game play with no instructions, and there’s a new jump feature in the game which I only know about because it was mentioned in class.  I still think it would’ve been useful to have a short instruction screen at the beginning (even if it was just to let players know they can jump).
 
 Relatively, the game as a whole does a pretty good job using vooga’s API’s.  I like that it uses the new Overlay xml parsing feature, and due to the nature of the game, I can see how implementing a LevelManager / Factory could be considered useless.  I think the game could’ve utilized the Player and Item Sprites in the player.control API, such as having DoodleSprite extend PlayerSprite and making the jetpack an ItemSprite.  Also, the extension of GameState is a little unclear to me.  I feel that the game did not need a subclass of GameState to get the functionality it provides.
