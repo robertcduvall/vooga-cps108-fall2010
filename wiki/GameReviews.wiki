@@ -66,6 +66,12 @@ After changing the hardcoded pathname for level1.txt, level2.txt and level3.txt 
 
 In your code it was clever to separate the initialization of enemies and blocks into two different methods. This adds to the readability of the code and if you ever need to add new enemies/blocks it will be a simple fix. We would suggest that you try to utilize Golden T’s PlayField class, and attach each Background, Sprite and SpriteGroup to it so that you can simplify your update and render methods to “playfield.update()/playfield.render()”. Also the moveLeft and moveRight methods should really be moved into the PlayerSprite class for your ship to take full advantage of that API. The StatInt was a good choice for keeping track of your players score. -- (Doodle Jump)
 
+The refactored version of Galaxy Invaders is well refactored and runs smoothly.  The levels are no longer hardcoded and all of the code is very well commented and organized.  Thus, it was easy to follow and determine what code did what in each class/method/call.  One of the more specific aspects of the Galaxy Invaders code which I enjoyed was use of both the gamestate and the level (in the form of level factory) API’s.  The game itself has a nice menu which states controls as well as a nice pause menu and a restart function.  All of these features make it easy to understand and play.
+
+As for the actual game, Galaxy Invaders is smooth and is a good representation of the original.  It was interesting to have the invaders move by blocks instead of a smooth transition (it actually makes the game a bit harder as bullets that you fire if not in the correct line will always miss).  Also, bullets which you fire can go through the 3 blockades which offer protection.  This might be a glitch but makes the game a little cheap (even if the blockade has limited HP).  Another thing is that the game ends early at times and finishes with a game over screen making it impossible to beat.  Even though only 3 levels are present, it would have been a nice touch to make a congratulatory screen at the end.
+
+A couple things to consider for future development would be expansion of upgrades and levels.  As is, it is pretty simple (albeit fun) game that ends abruptly; at times even without killing all the enemies or dying.  There is also no reward system nor variation in enemies.  A shop to upgrade your defenses would have added some personalization as well as flavor to the game. -- (DoodleJump Revised Review)
+
 == Grandius ==
 
 Possible ideas to consider:
