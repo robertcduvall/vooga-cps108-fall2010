@@ -92,7 +92,7 @@ public class DoodleGame extends Game {
 
 		// playfield
 		playField = level.getPlayfield(new File(
-				"src/vooga/games/doodlejump/levels/level"
+				"src/vooga/games/doodlejump/resources/levels/level"
 						+ Integer.toString(currentLevel) + ".txt"));
 
 		// background
@@ -140,7 +140,7 @@ public class DoodleGame extends Game {
 	public void initDoodle() {
 		// doodle (main player)
 		doodle = new DoodleSprite("doodle", "normal", new Sprite(
-				getImage("images/doodle_right.png"), 325, 550), this);
+				getImage("resources/images/doodle_right.png"), 325, 550), this);
 		doodle.setVerticalSpeed(0.5);
 		doodleGroup.add(doodle);
 		doodle_keyboard_control = new KeyboardControl(doodle, this);
@@ -197,7 +197,7 @@ public class DoodleGame extends Game {
 				playGame();
 			}
 			playField.setBackground(new ImageBackground(
-					getImage("images/default-play.png")));
+					getImage("resources/images/default-play.png")));
 		} else if (play.isActive()) {
 			updateGame(elapsedTime);
 			if (score.getStat() >= passScore) {
@@ -224,7 +224,7 @@ public class DoodleGame extends Game {
 				playGame();
 			}
 			playField.setBackground(new ImageBackground(
-					getImage("images/pause-cover-resume.png")));
+					getImage("resources/images/pause-cover-resume.png")));
 		}
 	}
 

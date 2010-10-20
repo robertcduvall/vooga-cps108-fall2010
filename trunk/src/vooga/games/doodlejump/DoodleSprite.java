@@ -37,7 +37,7 @@ public class DoodleSprite extends PlayerSprite {
 	public void moveLeft() {
 		try {
 			BufferedImage image = ImageIO.read(new File(
-					"src/vooga/games/doodlejump/images/doodle_left.png"));
+					"src/vooga/games/doodlejump/resources/images/doodle_left.png"));
 			setNewImage(image);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -54,7 +54,7 @@ public class DoodleSprite extends PlayerSprite {
 	public void moveRight() {
 		try {
 			BufferedImage image = ImageIO.read(new File(
-					"src/vooga/games/doodlejump/images/doodle_right.png"));
+					"src/vooga/games/doodlejump/resources/images/doodle_right.png"));
 			setNewImage(image);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -92,10 +92,10 @@ public class DoodleSprite extends PlayerSprite {
 		if (bulletDelay <= 0) {
 			try {
 				BufferedImage image = ImageIO.read(new File(
-						"src/vooga/games/doodlejump/images/doodle_up.png"));
+						"src/vooga/games/doodlejump/resources/images/doodle_up.png"));
 				setNewImage(image);
 				BufferedImage ballImage = ImageIO.read(new File(
-						"src/vooga/games/doodlejump/images/ball.png"));
+						"src/vooga/games/doodlejump/resources/images/ball.png"));
 				BallSprite ball = new BallSprite("ball", "flying", new Sprite(
 						ballImage, getX() + getWidth() / 2
 								- ballImage.getWidth() / 2, getY()
