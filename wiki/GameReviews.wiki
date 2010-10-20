@@ -134,6 +134,18 @@ There are a bunch of hardcoded values in the render method that would mess every
 
 Some javadoc comments before methods and classes might have been helpful. 
 
+--Second Review--
+
+The MarioClone game does not currently compile, so it is difficult to test the gameplay of this game, although I would certainly applaud this group for their ambitious game design.
+
+An actual MarioPlayField is set up which does not seem to add much beyond the Playfield class which it extends.
+
+There is a “BetterCollisionGroup” class.  We agreed in class to only use the Golden T collision system.
+
+There is a hardcoded string for the font setup.  As we discussed in class, this should probably be corrected.
+
+One big improvement to the game code was the introduction of game state classes, which makes this code way better.  Also, the introduction of javadoc comments is really helpful to understanding the code.
+
 
 == Tower Defense ==
 
