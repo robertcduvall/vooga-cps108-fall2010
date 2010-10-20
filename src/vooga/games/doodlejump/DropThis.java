@@ -4,6 +4,7 @@ import java.awt.*;
 
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.overlay.*;
@@ -19,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -41,6 +43,9 @@ public class DropThis extends Game {
 
 	// Playfield
 	protected PlayField playField;
+	
+	private DoodleLevelManager levelManager;
+	private DoodleLevel level;
 
 	private OverlayString scoreString, startString, winString;
 	private Stat<Integer> score;
@@ -71,6 +76,14 @@ public class DropThis extends Game {
 		showStart = true;
 		score = new Stat<Integer>(0);
 		makeOverlayStrings();
+		levelManager = new DoodleLevelManager();
+		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels", new File("levelNames.txt"));
+		ResourceHandler.setGame(this);
+		try {
+			ResourceHandler.loadFile("vooga/games/doodlejump/resources/resourcelist.txt");
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 	}
 
 	/**
@@ -92,8 +105,11 @@ public class DropThis extends Game {
 
 	@Override
 	public void initResources() {
-		DoodleLevel level = new DoodleLevel();
-
+		if(playField != null)	
+			playField.clearPlayField();
+		playField = levelManager.loadNextLevel();
+		level = (DoodleLevel) levelManager.getCurrentDoodleLevel();
+		
 		initStates();
 
 		// playfield
@@ -256,6 +272,8 @@ public class DropThis extends Game {
 		currentLevel = 1;
 		score.setStat(0);
 		passScore = 0;
+		levelManager = new DoodleLevelManager();
+		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels", new File("levelNames.txt"));
 		initResources();
 	}
 
@@ -263,11 +281,6 @@ public class DropThis extends Game {
 	 * This method activates play and deactivates each other state besides win
 	 */
 	public void playGame() {
-//		startMenuState.deactivate();
-//		playState.activate();
-//		pauseMenuState.deactivate();
-//		gameOverState.deactivate();
-		
 		doodleStateManager.switchTo(playState);
 	}
 
@@ -296,10 +309,6 @@ public class DropThis extends Game {
 	 * win
 	 */
 	public void gameOver() {
-//		playState.deactivate();
-//		pauseMenuState.deactivate();
-//		startMenuState.deactivate();
-//		gameOverState.activate();
 		doodleStateManager.switchTo(gameOverState);
 	}
 
@@ -307,10 +316,6 @@ public class DropThis extends Game {
 	 * This method activates pause and deactivates each other state besides win
 	 */
 	public void pauseGame() {
-//		playState.deactivate();
-//		pauseMenuState.activate();
-//		startMenuState.deactivate();
-//		gameOverState.deactivate();
 		doodleStateManager.switchTo(pauseMenuState);
 	}
 
@@ -325,7 +330,6 @@ public class DropThis extends Game {
 			startString.render(g);
 		} else if (pauseMenuState.isActive()) {
 			playField.getBackground().render(g);
-			// scoreString.render(g);
 		} else if (winState.isActive()) {
 			winString.render(g);
 		}

@@ -12,6 +12,7 @@ import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.resource.ResourceHandler;
 
 /**
  * The DoodleSprite class extends PlayerSprite and defines how the main
@@ -35,14 +36,7 @@ public class DoodleSprite extends PlayerSprite {
 	}
 
 	public void moveLeft() {
-		try {
-			BufferedImage image = ImageIO.read(new File(
-					"src/vooga/games/doodlejump/resources/images/doodle_left.png"));
-			setNewImage(image);
-		} catch (Exception e) {
-			System.out.println(e);
-			System.exit(0);
-		}
+		setNewImage(ResourceHandler.getImage("doodle_left"));
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
@@ -52,14 +46,7 @@ public class DoodleSprite extends PlayerSprite {
 	}
 
 	public void moveRight() {
-		try {
-			BufferedImage image = ImageIO.read(new File(
-					"src/vooga/games/doodlejump/resources/images/doodle_right.png"));
-			setNewImage(image);
-		} catch (Exception e) {
-			System.out.println(e);
-			System.exit(0);
-		}
+		setNewImage(ResourceHandler.getImage("doodle_right"));
 		if (isOnScreen()) {
 			setX(getX() + 5);
 		} else {
@@ -90,25 +77,17 @@ public class DoodleSprite extends PlayerSprite {
 
 	public void shoot() {
 		if (bulletDelay <= 0) {
-			try {
-				BufferedImage image = ImageIO.read(new File(
-						"src/vooga/games/doodlejump/resources/images/doodle_up.png"));
-				setNewImage(image);
-				BufferedImage ballImage = ImageIO.read(new File(
-						"src/vooga/games/doodlejump/resources/images/ball.png"));
-				BallSprite ball = new BallSprite("ball", "flying", new Sprite(
-						ballImage, getX() + getWidth() / 2
-								- ballImage.getWidth() / 2, getY()
-								- ballImage.getHeight()));
-				ball.setVerticalSpeed(-0.7);
-				if (getVerticalSpeed() < 0)
-					ball.setVerticalSpeed(-1.5);
-				balls.add(ball);
-				game.ballGroup.add(ball);
-			} catch (Exception e) {
-				System.out.println(e);
-				System.exit(0);
-			}
+			setNewImage(ResourceHandler.getImage("doodle_up"));
+			BufferedImage ballImage = ResourceHandler.getImage("ball");
+			BallSprite ball = new BallSprite("ball", "flying", new Sprite(
+					ballImage, getX() + getWidth() / 2
+							- ballImage.getWidth() / 2, getY()
+							- ballImage.getHeight()));
+			ball.setVerticalSpeed(-0.7);
+			if (getVerticalSpeed() < 0)
+				ball.setVerticalSpeed(-1.5);
+			balls.add(ball);
+			game.ballGroup.add(ball);
 			bulletDelay = 20;
 		}
 	}

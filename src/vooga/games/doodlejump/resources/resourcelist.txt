@@ -50,7 +50,7 @@ resources/images/resume-on.png,resume-on
 resources/images/resume.png,resume
 resources/images/shield.png,shield
 resources/images/soccer-background.png,soccer-background
-resources/images/space-background,space-background
+resources/images/space-background.png,space-background
 resources/images/spring_compressed.png,spring_compressed
 resources/images/spring_full.png,spring_full
 resources/images/trampoline_down.png,trampoline_down
