@@ -5,6 +5,7 @@ import java.awt.*;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.state.GameState;
+import vooga.engine.state.GameStateManager;
 import vooga.engine.overlay.*;
 
 import vooga.games.doodlejump.collisions.*;
@@ -28,9 +29,12 @@ import java.util.Scanner;
  * 
  */
 public class DropThis extends Game {
+	
+	//GameStateManager
+	GameStateManager doodleStateManager;
 
 	// GameStates
-	GameState startMenu, play, pauseMenu, gameOver, win;
+	GameState startMenuState, playState, pauseMenuState, gameOverState, winState;
 
 	// Background
 	private Background background;
@@ -50,7 +54,7 @@ public class DropThis extends Game {
 
 	// Doodle (main player)
 	private DoodleSprite doodle;
-	private KeyboardControl doodle_keyboard_control;
+	private KeyboardControl doodleKeyboardControl;
 
 	protected SpriteGroup doodleGroup, ballGroup;
 
@@ -116,15 +120,29 @@ public class DropThis extends Game {
 	 * This method initializes all of the GameStates
 	 */
 	public void initStates() {
-		startMenu = new GameState();
-		play = new GameState();
-		pauseMenu = new GameState();
-		gameOver = new GameState();
-		win = new GameState();
+		doodleStateManager = new GameStateManager();
+		
+		startMenuState = new GameState();
+		playState = new GameState();
+		pauseMenuState = new GameState();
+		gameOverState = new GameState();
+		winState = new GameState();
+		
+		doodleStateManager.addGameState(startMenuState);
+		doodleStateManager.addGameState(playState);
+		doodleStateManager.addGameState(pauseMenuState);
+		doodleStateManager.addGameState(gameOverState);
+		doodleStateManager.addGameState(winState);
+		
+//		if (showStart)
+//			startMenuState.activate();
+//		else
+//			playState.activate();
+		
 		if (showStart)
-			startMenu.activate();
+			doodleStateManager.switchTo(startMenuState);
 		else
-			play.activate();
+			doodleStateManager.switchTo(playState);
 	}
 
 	/**
@@ -145,12 +163,12 @@ public class DropThis extends Game {
 				getImage("resources/images/doodle_right.png"), 325, 550), this);
 		doodle.setVerticalSpeed(0.5);
 		doodleGroup.add(doodle);
-		doodle_keyboard_control = new KeyboardControl(doodle, this);
-		doodle_keyboard_control.addInput(KeyEvent.VK_LEFT, "moveLeft",
+		doodleKeyboardControl = new KeyboardControl(doodle, this);
+		doodleKeyboardControl.addInput(KeyEvent.VK_LEFT, "moveLeft",
 				"vooga.games.doodlejump.DoodleSprite", null);
-		doodle_keyboard_control.addInput(KeyEvent.VK_RIGHT, "moveRight",
+		doodleKeyboardControl.addInput(KeyEvent.VK_RIGHT, "moveRight",
 				"vooga.games.doodlejump.DoodleSprite", null);
-		doodle_keyboard_control.addInput(KeyEvent.VK_SPACE, "shoot",
+		doodleKeyboardControl.addInput(KeyEvent.VK_SPACE, "shoot",
 				"vooga.games.doodlejump.DoodleSprite", null);
 	}
 
@@ -188,26 +206,26 @@ public class DropThis extends Game {
 
 	@Override
 	public void update(long elapsedTime) {
-		doodle_keyboard_control.update();
+		doodleKeyboardControl.update();
 
-		if (gameOver.isActive()) {
+		if (gameOverState.isActive()) {
 			if (keyPressed(KeyEvent.VK_ENTER)) {
 				resetGame();
 			}
-		} else if (startMenu.isActive()) {
+		} else if (startMenuState.isActive()) {
 			if (keyPressed(KeyEvent.VK_ENTER)) {
 				playGame();
 			}
 			playField.setBackground(new ImageBackground(
 					getImage("resources/images/default-play.png")));
-		} else if (play.isActive()) {
+		} else if (playState.isActive()) {
 			updateGame(elapsedTime);
 			if (score.getStat() >= passScore) {
 				if (nextLevel == 0) {
-					win.activate();
+					winState.activate();
 					if (keyPressed(KeyEvent.VK_ENTER)) {
 						gameOver();
-						win.deactivate();
+						winState.deactivate();
 					}
 				}
 				if (nextLevel != 0) {
@@ -245,10 +263,12 @@ public class DropThis extends Game {
 	 * This method activates play and deactivates each other state besides win
 	 */
 	public void playGame() {
-		startMenu.deactivate();
-		play.activate();
-		pauseMenu.deactivate();
-		gameOver.deactivate();
+//		startMenuState.deactivate();
+//		playState.activate();
+//		pauseMenuState.deactivate();
+//		gameOverState.deactivate();
+		
+		doodleStateManager.switchTo(playState);
 	}
 
 	/**
@@ -276,35 +296,37 @@ public class DropThis extends Game {
 	 * win
 	 */
 	public void gameOver() {
-		play.deactivate();
-		pauseMenu.deactivate();
-		startMenu.deactivate();
-		gameOver.activate();
+//		playState.deactivate();
+//		pauseMenuState.deactivate();
+//		startMenuState.deactivate();
+//		gameOverState.activate();
+		doodleStateManager.switchTo(gameOverState);
 	}
 
 	/**
 	 * This method activates pause and deactivates each other state besides win
 	 */
 	public void pauseGame() {
-		play.deactivate();
-		pauseMenu.activate();
-		startMenu.deactivate();
-		gameOver.deactivate();
+//		playState.deactivate();
+//		pauseMenuState.activate();
+//		startMenuState.deactivate();
+//		gameOverState.deactivate();
+		doodleStateManager.switchTo(pauseMenuState);
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		if (play.isActive()) {
+		if (playState.isActive()) {
 			playField.setBackground(background);
 			playField.render(g);
 			scoreString.render(g);
-		} else if (startMenu.isActive()) {
+		} else if (startMenuState.isActive()) {
 			playField.getBackground().render(g);
 			startString.render(g);
-		} else if (pauseMenu.isActive()) {
+		} else if (pauseMenuState.isActive()) {
 			playField.getBackground().render(g);
 			// scoreString.render(g);
-		} else if (win.isActive()) {
+		} else if (winState.isActive()) {
 			winString.render(g);
 		}
 	}
