@@ -1,4 +1,4 @@
-package vooga.games.tron.EventSystem;
+package vooga.games.tron.eventsystem;
 /**
  * handles input event for user two
  * @author Meng Li,Brent Sodman,JiaQi Yan

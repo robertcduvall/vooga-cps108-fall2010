@@ -1,4 +1,4 @@
-package vooga.games.tron.Players;
+package vooga.games.tron.players;
 /**
  * This class represents the players of the game
  * @author Meng Li,Brent Sodman,JiaQi Yan
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.games.tron.foundations.GridSpace;
+import vooga.games.tron.GridSpace;
 
 public class TronPlayer extends Sprite {
 

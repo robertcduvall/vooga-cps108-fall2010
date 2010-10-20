@@ -1,4 +1,4 @@
-package vooga.games.tron.EventSystem;
+package vooga.games.tron.eventsystem;
 /**
  * adaptor of the keyboard input events 
  * @author Meng Li,Brent Sodman,JiaQi Yan
