@@ -23,7 +23,7 @@ public class SingletonEventManager {
 	}
 	/**
 	 * return the instance of the class
-	 * @return
+	 * @return instance of SingletonEventManager
 	 */
 	public static SingletonEventManager getEventManagerInstance(){
 		return instance;
