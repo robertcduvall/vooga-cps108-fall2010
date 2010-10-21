@@ -11,25 +11,29 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class MarioPlayField extends PlayField {
 	private TileMap myTileMap;
-
-	public MarioPlayField(TileMap map) {
-		myTileMap = map;
+	
+	public MarioPlayField() {
 		addGroup(new SpriteGroup("Item Group"));
 		addGroup(new SpriteGroup("Mario Group"));
 		addGroup(new SpriteGroup("Enemy Group"));
 		addCollisionGroup(getGroup("Mario Group"), getGroup("Item Group"),
 				new MarioToItemCollision());
-		addCollisionGroup(getGroup("Mario Group"), myTileMap.getTileGroup(),
-				new MarioToTileCollision());
-		addCollisionGroup(getGroup("Enemy Group"), myTileMap.getTileGroup(),
-				new EnemyToTileCollision());
 		addCollisionGroup(getGroup("Mario Group"), getGroup("Enemy Group"),
 				new MarioToEnemyCollision());
+	}
+
+	public MarioPlayField(TileMap map) {
+		this();
+		addTileMap(map);
 	}
 
 
 	public void addTileMap(TileMap tileMap) {
 		myTileMap = tileMap;
+		addCollisionGroup(getGroup("Mario Group"), myTileMap.getTileGroup(),
+				new MarioToTileCollision());
+		addCollisionGroup(getGroup("Enemy Group"), myTileMap.getTileGroup(),
+				new EnemyToTileCollision());
 	}
 
 	public TileMap getTileMap() {

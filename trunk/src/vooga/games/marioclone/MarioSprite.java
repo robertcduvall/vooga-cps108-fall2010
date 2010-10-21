@@ -26,11 +26,12 @@ public class MarioSprite extends CharacterSprite {
 	}
 
 	public MarioSprite(String name, String stateName, BufferedImage[] left,
-			BufferedImage[] right, Stat<Integer> enemiesKilled) {
+			BufferedImage[] right) {
 		super(name, stateName, left, right);
-		myEnemiesKilled = enemiesKilled;
 		setMaxHealth(3);
 
+		myEnemiesKilled = new Stat<Integer>(0);
+		
 		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
 	}
 
