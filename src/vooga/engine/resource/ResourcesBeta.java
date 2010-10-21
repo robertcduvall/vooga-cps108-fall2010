@@ -18,28 +18,47 @@ import vooga.engine.core.Game;
 import com.golden.gamedev.engine.BaseIO;
 
 /**
- * The ResourcesBeta class manages the Images, Animations, and Sounds which will
- * be needed in the game. It maintains two maps: imageMap maps String labels to
- * BufferedImage[] animations. soundMap maps String labels to String filepaths.
  * 
- * Golden T has quite strong Image and Animation management, and so the
- * ResourcesBeta class has been simplified in this most recent version. In
- * Golden T, one should place the following code in their main class'
- * initResources() method:
+ * The ResourcesBeta class stores references to various resources which can be 
+ * accessed from anywhere in the game. The available resources include 
+ * BufferedImages, BufferedImage Arrays (animations), Sounds, Strings, 
+ * Integers, and Doubles.
  * 
- * ResourcesBeta.initialize(this); ResourcesBeta.setDefaultPath("pathname"); [If
- * a default path is desired] ResourcesBeta.loadImageFile("imagelist.txt");
- * ResourcesBeta.loadSoundFile("soundlist.txt"); These calls will initialize the
- * ResourcesBeta maps.
+ * All of the available resources can be loaded one at a time basis by
+ * passing in a string file path (if the file is in the resources folder of 
+ * the game) or by passing in a File (can be used to access resources anywhere).
  * 
- * Then, one can retrieve an image: ResourcesBeta.getImage("name"); an
- * animation: ResourcesBeta.getAnimation("name"); or a sound:
- * ResourcesBeta.getSound("name");
+ * Resources also has the ability to load multiple resources at once using a 
+ * Comma Separated Value (CSV) text file. Each line represents a resource, the 
+ * first word is the key to access the resource, and the following values 
+ * Separated by commas are individual components of the resource. A single file
+ * may only contain one type of resource and is loaded using the appropriate 
+ * file loading method.
  * 
- * Example text file format: #Resources are put into the ResourceHandler.myMap
- * field as follows: #(Lines preceded by a '#' sign are considered comments)
- * *resource1 name*,*resource1 filepath* *resource2 name*,*resource2 filepath*
- * ...
+ * To load multiple CSV files, create a CSV file where each line represents a
+ * different type of resource. These files are referred to as Property files 
+ * by ResourcesBeta. The key is replaced by a keyword indicating 
+ * which kind of resource the files listed in that line references. The remaining 
+ * values in the line are file paths to the files to be loaded. All games should 
+ * run loadPropertiesFile(game.properties) to load all desired resources at 
+ * game launch. Further resources can be added later using any load method.
+ * 
+ * Images are stored as BufferedImage arrays. In the case of images which are 
+ * not animations, the array only has one element. Images can be retrieved as 
+ * animations, but the animation will only have one frame. Likewise, animations 
+ * can be retrieved as images and only the first frame will be retrieved. Images 
+ * are loaded using the Game.loadImage() method and supports png, gif, bmp, and 
+ * jpg files.
+ * 
+ * Sounds are simply stored as their filepath in referenced with
+ * yougamepackage.resources as the root folder. These file paths allow you 
+ * to play the sounds using the games playMusic() and playSound() methods.
+ * 
+ * Strings, Integers, and Doubles are stored as Strings, Integers, and Doubles.
+ *  
+ * Example files following the standard CSV format can be found in the 
+ * examples.resources folder. Note that whitespace is not trimmed in accordance 
+ * with IETF standards.
  * 
  * @author John Kline, Daniel Koverman
  * 
