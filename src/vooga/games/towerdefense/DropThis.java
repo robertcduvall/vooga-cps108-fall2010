@@ -35,7 +35,6 @@ import vooga.engine.resource.Resources;
 import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
-import vooga.games.doodlejump.DoodleState;
 import vooga.games.towerdefense.tower.*;
 /**
  * This is the main class of the game.  It creates the different states of the games, and loads all the sprites used in the game.
