@@ -129,7 +129,6 @@ public class DropThis extends Game {
 		File levelFile = new File(LEVEL_FILE);
 		levelManager = new TronLevelManager(levelFile);
 
-
 		initializeNewLevel();
 
 		playMusic("src/vooga/games/tron/resources/music.mid");
@@ -148,8 +147,8 @@ public class DropThis extends Game {
 		bonusGroup.clear();
 		tronPlayerList=new ArrayList<TronPlayer>();
 
-		player1=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
-		player2=new TronPlayer(getImage("src/vooga/games/tron/resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+		player1=new TronPlayer(getImage("resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
+		player2=new TronPlayer(getImage("resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
 
 
 		tronPlayerList.add(player1);
@@ -218,7 +217,7 @@ public class DropThis extends Game {
 		for (int i = 0; i < 5; i++){		
 			int randomX = (int)Math.ceil(Math.random()* GRID_WIDTH);
 			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
-			bonusList.add(new SpeedBonus(getImage("src/vooga/games/tron/resources/yellowlazer.png"), (randomX),(randomY),PLAYER_IMAGE_WIDTH));	
+			bonusList.add(new SpeedBonus(getImage("resources/yellowlazer.png"), (randomX),(randomY),PLAYER_IMAGE_WIDTH));	
 		}
 
 	}
@@ -230,7 +229,7 @@ public class DropThis extends Game {
 		for(TronPlayer player:tronPlayerList){	
 			for(int i=0;i<player.blocks.length;i++){
 				for(int j=0;j<player.blocks[0].length;j++){
-					tronPlayerBlocksList.get(count)[i][j]=new Sprite(getImage("src/vooga/games/tron/resources/lazer"+count+".png"),-50,-50);
+					tronPlayerBlocksList.get(count)[i][j]=new Sprite(getImage("resources/lazer"+count+".png"),-50,-50);
 					blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
 				}
 			}	
@@ -256,7 +255,7 @@ public class DropThis extends Game {
 
 			for(int index1=0;index1<randomHeight;index1++){
 				for(int index2 = 0;index2<randomWidth;index2++){
-					blocksGroup.add(new Sprite(getImage("src/vooga/games/tron/resources/greenlazer.png"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
+					blocksGroup.add(new Sprite(getImage("resources/greenlazer.png"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
 					levelBlocks[randomRow+index1][randomCol+index2] = true;
 				}		
 			}
@@ -312,7 +311,7 @@ public class DropThis extends Game {
 			}
 		}
 		if(startMenu.isActive()){
-			playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamestart.png")));
+			playfield.setBackground(new ImageBackground(getImage("resources/gamestart.png")));
 			if(keyPressed(KeyEvent.VK_A)){
 				playervsplayer=true;
 				gameStateManager.switchTo(play);	
@@ -324,7 +323,7 @@ public class DropThis extends Game {
 		}
 
 		else if(pause.isActive()){
-			playfield.setBackground(new ImageBackground(getImage("src/vooga/games/tron/resources/gamepause.png")));
+			playfield.setBackground(new ImageBackground(getImage("resources/gamepause.png")));
 			if(keyPressed(KeyEvent.VK_P)){
 				gameStateManager.switchTo(play);
 			}
@@ -391,7 +390,7 @@ public class DropThis extends Game {
 	public void afterCollision(){
 		gameStateManager.switchTo(gameover);
 		isCollision=true;
-		playSound("src/vooga/games/tron/resources/explosion.wav");
+		playSound("resources/explosion.wav");
 		System.out.println("Game Over!");
 		long currentTime=System.currentTimeMillis();
 		while(System.currentTimeMillis()-currentTime<2000){ //delay between levels		
