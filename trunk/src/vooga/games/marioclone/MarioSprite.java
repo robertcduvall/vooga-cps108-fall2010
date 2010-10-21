@@ -15,22 +15,18 @@ public class MarioSprite extends CharacterSprite {
 	private double speed = .5;
 	private boolean onGround = false;
 	private double myMaxX;
-	private Stat<Integer> myEnemiesKilled;
 
 	private Queue<Character> myCheatText;
 	private static final int MAX_CHEAT_LENGTH = 10;
 	private char lastCheatChar;
 
-	public Stat<Integer> getEnemiesKilled() {
-		return myEnemiesKilled;
-	}
 
 	public MarioSprite(String name, String stateName, BufferedImage[] left,
 			BufferedImage[] right) {
 		super(name, stateName, left, right);
 		setMaxHealth(3);
-
-		myEnemiesKilled = new Stat<Integer>(0);
+		
+		addStat("Score", new Stat<Integer>(0));
 		
 		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
 	}
@@ -104,8 +100,16 @@ public class MarioSprite extends CharacterSprite {
 
 	@SuppressWarnings("unchecked")
 	public void incScore(int i) {
-		Stat<Integer> stat = (Stat<Integer>) getStat("Kills");
+		Stat<Integer> stat = (Stat<Integer>) getStat("Score");
 		stat.setStat(stat.getStat() + i);
+	}
+	
+	public void setScore(int i) {
+		((Stat<Integer>) getStat("Score")).setStat(i);
+	}
+	
+	public Integer getScore() {
+		return (Integer) getStat("Score").getStat();
 	}
 	
 	private boolean checkCheat(String s) {

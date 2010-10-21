@@ -20,15 +20,13 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 				//thisEnemy.setHealth(thisEnemy.getHealth()-100);
 				thisEnemy.setActive(false);
 				thisMario.jump(true);
-				thisMario.getEnemiesKilled().setStat(thisMario.getEnemiesKilled().getStat()+1);
+				thisMario.incScore(10);
 			}
 			else {
 				thisMario.setHealth(thisMario.getHealth()-1);
 				thisEnemy.bounce();
 			}
-//			mario.setHorizontalSpeed(0);
 			lastcollision = thiscollision;
-//			revertPosition1(mario, enemy);
 		}
 	}
 }

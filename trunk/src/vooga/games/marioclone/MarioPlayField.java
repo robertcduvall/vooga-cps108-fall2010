@@ -3,6 +3,7 @@ package vooga.games.marioclone;
 import java.awt.Graphics2D;
 import java.util.List;
 
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.tiles.Tile;
 
@@ -11,6 +12,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class MarioPlayField extends PlayField {
 	private TileMap myTileMap;
+	private OverlayTracker myOverlays;
 	
 	public MarioPlayField() {
 		addGroup(new SpriteGroup("Item Group"));
@@ -33,6 +35,11 @@ public class MarioPlayField extends PlayField {
 	
 	public MarioSprite getMario() {
 		return (MarioSprite) getGroup("Mario Group").getActiveSprite();
+	}
+	
+	public void setMario(MarioSprite mario) {
+		getGroup("Mario Group").remove(0);
+		getGroup("Mario Group").add(mario);
 	}
 
 
@@ -64,7 +71,19 @@ public class MarioPlayField extends PlayField {
 			scrollLevel();
 		}
 		getGroup("Enemy Group").removeInactiveSprites();
+		updateStats();
 		super.update(elapsedTime);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setLevel(int level) {
+		myOverlays.getStats().get(2).setStat(level);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void updateStats() {
+		myOverlays.getStats().get(0).setStat(getMario().getHealth()); //update lives
+		myOverlays.getStats().get(1).setStat(getMario().getScore()); //update score
 	}
 
 	@Override
@@ -73,5 +92,20 @@ public class MarioPlayField extends PlayField {
 		for (Tile t : myTileMap.getTiles()) {
 			t.render(g);
 		}
+	}
+
+	public void addOverlays(OverlayTracker overlayTracker) {
+		myOverlays = overlayTracker;
+		for(SpriteGroup g : myOverlays.getOverlayGroups())
+			addGroup(g);
+	}
+	
+	public OverlayTracker getOverlays() {
+		return myOverlays;
+	}
+	
+	public boolean isFinished() {
+		int backgroundWidth = myTileMap.width * myTileMap.TILE_SIZE;
+		return getMario().getX() > backgroundWidth - 200;
 	}
 }

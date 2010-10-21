@@ -7,16 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.engine.core.Game;
-import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.GameEntitySprite;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-
-import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.Sprite;
 
 /**
  * 
@@ -32,14 +28,12 @@ import com.golden.gamedev.object.Sprite;
 public class GamePlayState extends GameState {
 
 	private Game myGame;
-	private List<PlayField> myLevels;
-	private Stat<Integer> myEnemiesKilled;
-	private OverlayStat myScoreOverlay;
-	private Stat<Integer> myLives;
-	private OverlayStat myLivesOverlay;
+	private List<MarioPlayField> myLevels;
+	MarioLevelFactory myLevelFactory = new MarioLevelFactory();
+
 
 	private int myCurrentLevel;
-	
+
 	private KeyboardControl myControl;
 
 	public enum State {
@@ -61,7 +55,7 @@ public class GamePlayState extends GameState {
 	public GamePlayState(Game game) {
 		myGame = game;
 		myCurrentLevel = 0;
-		myLevels = new ArrayList<PlayField>();
+		myLevels = new ArrayList<MarioPlayField>();
 		init();
 	}
 
@@ -74,18 +68,17 @@ public class GamePlayState extends GameState {
 	 */
 
 	public State nextState() {
-//		if (!myLevels.get(myCurrentLevel).getMario().isActive()) {
-//			return State.Lose;
-//		} else if (myLevels.get(myCurrentLevel).getLevelFinished()) {
-//			if (myCurrentLevel >= myLevels.size() - 1)
-//				return State.Win;
-//			else {
-//				myCurrentLevel++;
-//				return State.Continue;
-//			}
-//		} else
-//			return State.Continue;
-		return State.Continue;
+		 if (!myLevels.get(myCurrentLevel).getMario().isActive()) {
+		 return State.Lose;
+		 } else if (myLevels.get(myCurrentLevel).isFinished()) {
+		 if (myCurrentLevel >= myLevels.size() - 1)
+		 return State.Win;
+		 else {
+		 myCurrentLevel++;
+		 return State.Continue;
+		 }
+		 } else
+		 return State.Continue;
 	}
 
 	/**
@@ -99,9 +92,8 @@ public class GamePlayState extends GameState {
 	public void update(long t) {
 		super.update(t);
 		myLevels.get(myCurrentLevel).update(t);
-		
-		myControl.update();
 
+		myControl.update();
 
 	}
 
@@ -111,39 +103,38 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-		myEnemiesKilled = new Stat<Integer>(new Integer(0));
-		myScoreOverlay = new OverlayStat("Score: ", myEnemiesKilled);
-		myLives = new Stat<Integer>(new Integer(0));
-		myLivesOverlay = new OverlayStat("Lives: ", myLives);
-		for(int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			makeLevel(i);
 		}
 		setUpKeyboard();
 		myGame.playMusic(Resources.getSound("MarioSong"));
-		
 	}
 
-	private void makeLevel(int i) {
-//		File map = new File("src/vooga/games/marioclone/resources/maps/map"
-//				+ Integer.toString(i) + ".txt");
-//		if (map == null) {
-//			System.out.println("problem");
-//		}
-//		MarioLevel level = new MarioLevel(map, (i + 1),
-//				game, myScoreOverlay, myEnemiesKilled, myLivesOverlay, myLives);
-//		if (level == null) {
-//			System.out.println("problem");
-//		}
-//		myLevels.add(level);
+	public Long getScore() {
+		return new Long(myLevels.get(myCurrentLevel).getMario().getScore());
+	}
 	
-		File levelFile = new File(Resources.getString("level"+Integer.toString(i)));
-		if(levelFile==null) System.out.println("No level here.  Problem?");
-		
-		
-		MarioLevelFactory lf = new MarioLevelFactory();
-		lf.manualConstruct(i, myLives, myScoreOverlay, myLivesOverlay);
-		myLevels.add(lf.getPlayfield(levelFile));
-		
+	private void makeLevel(int i) {
+		// File map = new File("src/vooga/games/marioclone/resources/maps/map"
+		// + Integer.toString(i) + ".txt");
+		// if (map == null) {
+		// System.out.println("problem");
+		// }
+		// MarioLevel level = new MarioLevel(map, (i + 1),
+		// game, myScoreOverlay, myEnemiesKilled, myLivesOverlay, myLives);
+		// if (level == null) {
+		// System.out.println("problem");
+		// }
+		// myLevels.add(level);
+
+		File levelFile = new File(Resources.getString("level"
+				+ Integer.toString(i)));
+		if (levelFile == null)
+			System.out.println("No level here.  Problem?");
+
+		MarioPlayField pf = (MarioPlayField) myLevelFactory.getPlayfield(levelFile);
+		pf.setLevel(i+1);
+		myLevels.add(pf);
 	}
 
 	/**
@@ -156,12 +147,10 @@ public class GamePlayState extends GameState {
 		myLevels.get(myCurrentLevel).render(g);
 	}
 
-	public Long getScore() {
-		return new Long(myEnemiesKilled.getStat());
-	}
-	
+
 	private void setUpKeyboard() {
-		myControl = new KeyboardControl(((MarioPlayField) myLevels.get(myCurrentLevel)).getMario(), myGame);
+		myControl = new KeyboardControl(((MarioPlayField) myLevels
+				.get(myCurrentLevel)).getMario(), myGame);
 
 		myControl.addInput(KeyEvent.VK_D, "moveRight",
 				"vooga.games.marioclone.MarioSprite");
@@ -178,6 +167,5 @@ public class GamePlayState extends GameState {
 		}
 
 	}
-	
 
 }
