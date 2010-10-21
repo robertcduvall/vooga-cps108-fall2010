@@ -2,23 +2,20 @@ package vooga.games.tronlegacy;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import com.golden.gamedev.GameLoader;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
-import vooga.engine.state.Pause;
 
 /**
  * @author BrentSodman
  *
- * Like Tron, but better.
+ * Like Tron++
  */
 
 public class Blah extends Game {
