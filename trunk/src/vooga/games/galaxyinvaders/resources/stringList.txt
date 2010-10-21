@@ -1,0 +1,1 @@
+overlays,src/vooga/games/galaxyinvaders/resources/overlays.xml
