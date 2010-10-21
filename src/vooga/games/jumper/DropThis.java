@@ -72,12 +72,6 @@ public class DropThis extends Game {
 
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
 	private SpriteGroup myPlayers = new SpriteGroup("players");
-	
-	
-//	public  final blocks blockTypeNormal;
-//	private final Sprite blockTypeSpring    = new Sprite();
-//	private final Sprite blockTypeNotBroken = new Sprite();
-//	private final Sprite blockTypeJetpack   = new Sprite();
 
 	private String myFontString = " !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 	
