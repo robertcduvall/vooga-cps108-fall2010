@@ -25,7 +25,7 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 	private static int rifleAmmo;
 	private static int pistolAmmo;
 	private int maxHealth;
-	private DropThis game;
+	private Zombieland game;
 	private int speed;
 	private double orientation;
 	private int weaponChoice;
@@ -36,7 +36,7 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 	private int levelScore;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
-			int playerHealth, int playerRank, DropThis zombieland) {
+			int playerHealth, int playerRank, Zombieland zombieland) {
 		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];
