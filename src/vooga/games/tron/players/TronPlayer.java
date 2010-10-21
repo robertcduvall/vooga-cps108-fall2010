@@ -15,21 +15,19 @@ public class TronPlayer extends Sprite {
 	private String direction;  //left,right,down,up
 	private String initDirection;
 
-	
 	public boolean[][] blocks;
-	
 	private GridSpace grid;
-	
+
 	private double playerInitialRow;
 	private double playerInitialCol;
-	
+
 	private double playerCurrentRow;
 	private double playerCurrentColumn;
 	private int playerImageWidth;
 	private int speedUp;
-	
+
 	public int score;
-	
+
 	/**
 	 * constructor
 	 * @param image
@@ -41,13 +39,13 @@ public class TronPlayer extends Sprite {
 	 */
 	public TronPlayer(BufferedImage image,double initialColPosition,double initialRowPosition,GridSpace gridSpace,int playerImageWidth, String initialDirection){
 		super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
-		
+
 		playerInitialRow = initialRowPosition;
 		playerInitialCol = initialColPosition;
-		
+
 		direction=initialDirection;
 		initDirection = initialDirection;
-		
+
 		this.playerImageWidth=playerImageWidth;
 		playerCurrentRow=initialRowPosition;
 		playerCurrentColumn=initialColPosition;
@@ -55,19 +53,28 @@ public class TronPlayer extends Sprite {
 		speedUp=1;
 		score = 0;
 		grid = gridSpace;
-		
+
 	}
 
-	
+
 	public void resetPosition(){
-		
+
 		setPlayerRowandCol(playerInitialRow,playerInitialCol);
 		direction = initDirection;
-	
+
 		blocks = new boolean[(int)grid.getTotalRow()+2][(int)grid.getTotalColumn()+2];
-		
+
 	}
-	
+	/**
+	 * mark the block if it is filled by items in the game 
+	 * @param row
+	 * @param col
+	 * 
+	 */
+	public void fillBlock(double row,double col){
+		blocks[(int)row][(int)col]=true;
+	}
+
 	/**
 	 * get the width of the image
 	 * @return
@@ -104,7 +111,8 @@ public class TronPlayer extends Sprite {
 	public void setPlayerRowandCol(double currentRow,double currentColumn){
 		playerCurrentRow=currentRow;
 		playerCurrentColumn=currentColumn;
-		blocks[(int)playerCurrentRow][(int)playerCurrentColumn]=true;
+		fillBlock(playerCurrentRow,playerCurrentColumn);
+
 	}
 	/**
 	 * get the row position of the player
@@ -134,23 +142,33 @@ public class TronPlayer extends Sprite {
 	public double getPlayerXPosition(){
 		return playerCurrentColumn*playerImageWidth;
 	}
+
+	public void setPlayerColumn(int amount){
+		playerCurrentColumn=playerCurrentColumn+amount;
+	}
+
+	public void setPlayerRow(int amount){
+		playerCurrentRow=playerCurrentRow+amount;
+	}
 	/**
 	 * routinely update the X-coordinate for the player (keep going in the same X-direction)
 	 * @return
 	 */
-	public double routineUpdatePlayerX(){
+	public double playerXDirectionMove(){
 		if(direction.equals("left")){
 			for(int i=0;i<speedUp;i++){
-				playerCurrentColumn=playerCurrentColumn-1;
-				if(playerCurrentRow>=0&&playerCurrentColumn>=0)
-					blocks[(int)playerCurrentRow][(int)playerCurrentColumn]=true;
+				setPlayerColumn(-1);
+				if(playerInbound())
+					fillBlock(playerCurrentRow,playerCurrentColumn);
+
 			}
 			return getPlayerXPosition();
 		}
 		else if(direction.equals("right")){
 			for(int i=0;i<speedUp;i++){
-				playerCurrentColumn=playerCurrentColumn+1;
-				blocks[(int)playerCurrentRow][(int)playerCurrentColumn]=true;
+				setPlayerColumn(1);
+				fillBlock(playerCurrentRow,playerCurrentColumn);
+
 			}
 			return getPlayerXPosition();
 		}
@@ -165,7 +183,7 @@ public class TronPlayer extends Sprite {
 	 * routinely update the Y-coordinate for the player (keep going in the same Y-direction)
 	 * @return
 	 */
-	public double routineUpdatePlayerY(){
+	public double playerYDirectionMove(){
 		if(direction.equals("left")){
 			return getPlayerYPosition();
 		}
@@ -174,16 +192,18 @@ public class TronPlayer extends Sprite {
 		}
 		else if(direction.equals("down")){
 			for(int i=0;i<speedUp;i++){
-				playerCurrentRow=playerCurrentRow+1;
-				blocks[(int)playerCurrentRow][(int)playerCurrentColumn]=true;
+				setPlayerRow(1);
+				fillBlock(playerCurrentRow,playerCurrentColumn);
+
 			}
 			return getPlayerYPosition();
 		}
 		else{ //up
 			for(int i=0;i<speedUp;i++){
-				playerCurrentRow=playerCurrentRow-1;
-				if(playerCurrentRow>=0&&playerCurrentColumn>=0)
-					blocks[(int)playerCurrentRow][(int)playerCurrentColumn]=true;
+				setPlayerRow(-1);
+				if(playerInbound())
+					fillBlock(playerCurrentRow,playerCurrentColumn);
+
 			}
 			return getPlayerYPosition();
 		}
@@ -196,7 +216,7 @@ public class TronPlayer extends Sprite {
 	public double updatePlayerXPosition(String playerDirection){
 
 		this.direction=playerDirection;
-		return routineUpdatePlayerX();
+		return playerXDirectionMove();
 	}
 	/**
 	 * update the Y-coordinate position for the player
@@ -205,7 +225,14 @@ public class TronPlayer extends Sprite {
 	 */
 	public double updatePlayerYPosition(String playerDirection){
 		this.direction=playerDirection;
-		return routineUpdatePlayerY();
+		return playerYDirectionMove();
 	}
 
+	/**
+	 * check to see if players are in bound
+	 * @return true if players are still in bound
+	 */
+	public boolean playerInbound(){
+		return playerCurrentRow>=0&&playerCurrentColumn>=0;
+	}
 }
