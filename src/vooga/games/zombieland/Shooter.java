@@ -19,7 +19,7 @@ import vooga.games.zombieland.weapons.Weapon;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Shooter extends PlayerSprite implements IZombielandConstants{
+public class Shooter extends PlayerSprite{
 
 	private static int shotgunAmmo;
 	private static int rifleAmmo;
@@ -42,13 +42,13 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 		weapons = new Weapon[3];
 		maxHealth = playerHealth;
 		// DEFAULT attributes
-		speed = getInt("speed");
-		orientation = getInt("orientation");
-		weaponChoice = getInt("weaponChoice");
-		levelScore = getInt("levelScore");
-		shotgunAmmo = getInt("shotgunAmmo");
-		rifleAmmo = getInt("rifleAmmo");
-		pistolAmmo = getInt("pistolAmmo");
+		speed = ZombielandResources.getInt("speed");
+		orientation = ZombielandResources.getInt("orientation");
+		weaponChoice = ZombielandResources.getInt("weaponChoice");
+		levelScore = ZombielandResources.getInt("levelScore");
+		shotgunAmmo = ZombielandResources.getInt("shotgunAmmo");
+		rifleAmmo = ZombielandResources.getInt("rifleAmmo");
+		pistolAmmo = ZombielandResources.getInt("pistolAmmo");
 		
 		setupWeapons();
 
@@ -62,10 +62,49 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 
 
 	}
-
-	private int getInt(String key) {
-		return Integer.parseInt(bundle.getString(key));
+	public Shooter(String name, String stateName, DropThis zombieland) {
+		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
+		game = zombieland;
+		weapons = new Weapon[3];
+		// DEFAULT attributes
+		speed = ZombielandResources.getInt("speed");
+		maxHealth = ZombielandResources.getInt("maxHealth");
+		orientation = ZombielandResources.getInt("orientation");
+		weaponChoice = ZombielandResources.getInt("weaponChoice");
+		levelScore = ZombielandResources.getInt("levelScore");
+		shotgunAmmo = ZombielandResources.getInt("shotgunAmmo");
+		rifleAmmo = ZombielandResources.getInt("rifleAmmo");
+		pistolAmmo = ZombielandResources.getInt("pistolAmmo");
+		
+		setupWeapons();
+		
+		int playerDefaultX = ZombielandResources.getInt("playerDefaultX");
+		int playerDefaultY = ZombielandResources.getInt("playerDefaultY");
+		this.setX(playerDefaultX);
+		this.setY(playerDefaultY);
+		
+		AnimatedSprite down = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down"));
+		AnimatedSprite up = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Up"));
+		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Left"));
+		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Right"));
+		
+		this.mapNameToSprite("Down", down);
+		this.mapNameToSprite("Up", up);
+		this.mapNameToSprite("Left", left);
+		this.mapNameToSprite("Right", right);
+		
+		// Setup displays
+		health = new Stat<Integer>(maxHealth);
+		addStat("health", health);
+		score = new Stat<Integer>(0);
+		addStat("score", score);
+		ammo = new Stat<Integer>(getAmmo());
+		addStat("ammo", ammo);
 	}
+//
+//	private int getInt(String key) {
+//		return Integer.parseInt(bundle.getString(key));
+//	}
 
 	/**
 	 * Creates weapon objects with default ammo
