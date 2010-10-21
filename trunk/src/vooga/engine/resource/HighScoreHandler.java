@@ -80,14 +80,13 @@ public class HighScoreHandler {
 		st.dispose();
 		for (int j = 0; j < maxScores; j++)
 			addEntry("anon", 0l, 0l);
-		
+
 	}
 
 	private void addEntry(String name, Long score, Long time)
 			throws SQLiteException {
 		String q = "INSERT INTO " + tableName + "(PLAYER,SCORE,TIME) values(\""
 				+ name + "\"," + score.toString() + "," + time.toString() + ")";
-		System.out.println(q);
 		SQLiteStatement st = db.prepare(q);
 		st.step();
 		st.dispose();
@@ -148,7 +147,7 @@ public class HighScoreHandler {
 	public void updateScores(Long score) throws SQLiteException {
 		updateScores("anon", score, 0l);
 	}
-	
+
 	/**
 	 * If the input score belongs on list, adds a new score entry and drops the
 	 * prior lowest score.
@@ -160,7 +159,7 @@ public class HighScoreHandler {
 	 *            midnight, January 1, 1970 UTC).
 	 */
 	public void updateScores(long score, long time) throws SQLiteException {
-		updateScores("anon",score,time);
+		updateScores("anon", score, time);
 	}
 
 	private void populateLists() throws SQLiteException {
@@ -198,6 +197,5 @@ public class HighScoreHandler {
 	public Long[] getTimes() {
 		return times;
 	}
-
 
 }
