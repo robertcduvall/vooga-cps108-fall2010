@@ -18,7 +18,6 @@ import com.golden.gamedev.object.AnimatedSprite;
 import vooga.engine.collision.CollisionManager;
 //import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
-import vooga.engine.resource.ResourceHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
@@ -52,7 +51,6 @@ public class Level {
 	private CollisionManager collisionManager;
 	private EventManager eventManager;
 	private GameState gameState;
-	private ResourceHandler resourceHandler;
 	
 	public Level(String fileToBeRead)
 	{
@@ -163,12 +161,7 @@ public class Level {
 	public CollisionManager getCollisionManager(){
 		return collisionManager;
 	}
-	/** 
-	 * @return the resource handler of the level 
-	 */
-	public ResourceHandler getResourceHandler(){
-		return resourceHandler;
-	}
+
 	
 	/**
 	 * Initialize the collision manager
@@ -212,12 +205,6 @@ public class Level {
 	 */
 	public void setResources(){
 	}
-	/**
-	 * Initialize the Resource Handler to rh
-	 * @param rh
-	 */
-	public void setResources(ResourceHandler rh){
-		resourceHandler = rh;
-	}		
+		
 
 }
