@@ -1,7 +1,7 @@
 package vooga.games.zombieland.weapons;
 
 import vooga.engine.player.control.GameEntitySprite;
-import vooga.games.zombieland.IZombielandConstants;
+import vooga.games.zombieland.ZombielandResources;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -12,7 +12,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Bullet extends GameEntitySprite implements IZombielandConstants {
+public class Bullet extends GameEntitySprite{
 	
 	private double damage;
 	private double velocity;
@@ -57,8 +57,8 @@ public class Bullet extends GameEntitySprite implements IZombielandConstants {
 	 */
 	private void correctRightFacingBullet() {
 		
-		int bulletsCorrectRightX = parseInt("bulletsCorrectRightX");
-		int bulletsCorrectRightY = parseInt("bulletsCorrectRightY");
+		int bulletsCorrectRightX = ZombielandResources.getInt("bulletsCorrectRightX");
+		int bulletsCorrectRightY = ZombielandResources.getInt("bulletsCorrectRightY");
 		
 		if (angle > 135 && angle < 225)
 			correctBulletPlacement(bulletsCorrectRightX, bulletsCorrectRightY);
@@ -69,8 +69,8 @@ public class Bullet extends GameEntitySprite implements IZombielandConstants {
 	 */
 	private void correctUpFacingBullet() {
 		
-		int bulletsCorrectUpX = parseInt("bulletsCorrectUpX");
-		int bulletsCorrectUpY = parseInt("bulletsCorrectUpY");
+		int bulletsCorrectUpX = ZombielandResources.getInt("bulletsCorrectUpX");
+		int bulletsCorrectUpY = ZombielandResources.getInt("bulletsCorrectUpY");
 		
 		if (angle > 45 && angle < 135)
 			correctBulletPlacement(bulletsCorrectUpX, bulletsCorrectUpY);
@@ -81,8 +81,8 @@ public class Bullet extends GameEntitySprite implements IZombielandConstants {
 	 */
 	private void correctLeftFacingBullet() {
 		
-		int bulletsCorrectLeftX = parseInt("bulletsCorrectLeftX");
-		int bulletsCorrectLeftY = parseInt("bulletsCorrectLeftY");
+		int bulletsCorrectLeftX = ZombielandResources.getInt("bulletsCorrectLeftX");
+		int bulletsCorrectLeftY = ZombielandResources.getInt("bulletsCorrectLeftY");
 		
 		if (angle > -45 && angle < 45)
 			correctBulletPlacement(bulletsCorrectLeftX, bulletsCorrectLeftY);
@@ -93,8 +93,8 @@ public class Bullet extends GameEntitySprite implements IZombielandConstants {
 	 */
 	private void correctDownFacingBullet() {
 		
-		int bulletsCorrectDownX = parseInt("bulletsCorrectDownX");
-		int bulletsCorrectDownY = parseInt("bulletsCorrectDownY");
+		int bulletsCorrectDownX = ZombielandResources.getInt("bulletsCorrectDownX");
+		int bulletsCorrectDownY = ZombielandResources.getInt("bulletsCorrectDownY");
 		
 		if (angle > 225 && angle < 315)
 			correctBulletPlacement(bulletsCorrectDownX, bulletsCorrectDownY);
@@ -134,32 +134,32 @@ public class Bullet extends GameEntitySprite implements IZombielandConstants {
 		moveY(newYAmountFromAngle);
 
 	}
-	/**
-	 * (This method does not really belong here but the Resource group does not yet
-	 * have any  classes to deal with literals).
-	 * This method allows the user to parse the value associated with the keyName to
-	 * a double. Specifically, this method does this by drawing the value associated
-	 * with the keyName from the global ResourceBundle bundle. 
-	 * @param keyName
-	 * @return
-	 */
-	public double parseDouble(String keyName) {
-		String string = bundle.getString(keyName);
-		return Double.parseDouble(string);
-	}
-
-	/**
-	 * (This method does not really belong here but the Resource group does not yet 
-	 * have any classes to deal with literals).
-	 * This method allows the user to parse the value associated with the keyName to
-	 * an integer. Specifically, this method does this by drawing the value associated
-	 * with the keyName from the global ResourceBundle bundle. 
-	 * @param keyName
-	 * @return
-	 */
-	public int parseInt(String keyName) {
-		String string = bundle.getString(keyName);
-		return Integer.parseInt(string);
-	}
+//	/**
+//	 * (This method does not really belong here but the Resource group does not yet
+//	 * have any  classes to deal with literals).
+//	 * This method allows the user to parse the value associated with the keyName to
+//	 * a double. Specifically, this method does this by drawing the value associated
+//	 * with the keyName from the global ResourceBundle bundle. 
+//	 * @param keyName
+//	 * @return
+//	 */
+//	public double parseDouble(String keyName) {
+//		String string = bundle.getString(keyName);
+//		return Double.parseDouble(string);
+//	}
+//
+//	/**
+//	 * (This method does not really belong here but the Resource group does not yet 
+//	 * have any classes to deal with literals).
+//	 * This method allows the user to parse the value associated with the keyName to
+//	 * an integer. Specifically, this method does this by drawing the value associated
+//	 * with the keyName from the global ResourceBundle bundle. 
+//	 * @param keyName
+//	 * @return
+//	 */
+//	public int parseInt(String keyName) {
+//		String string = bundle.getString(keyName);
+//		return Integer.parseInt(string);
+//	}
 }
 

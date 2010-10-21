@@ -2,7 +2,6 @@ package vooga.games.zombieland.weapons;
 
 import java.util.ResourceBundle;
 
-import vooga.games.zombieland.IZombielandConstants;
 import vooga.games.zombieland.Shooter;
 
 /**
@@ -12,7 +11,7 @@ import vooga.games.zombieland.Shooter;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public abstract class Weapon implements IZombielandConstants {
+public abstract class Weapon {
 
 	private Shooter player;
 	private int ammoCount;
@@ -33,10 +32,6 @@ public abstract class Weapon implements IZombielandConstants {
 		damage = dmg;
 		bulletSpeed = speed;
 		firingDelay = delay;
-	}
-	
-	protected int getInt(String key) {
-		return Integer.parseInt(bundle.getString(key));
 	}
 
 	/**

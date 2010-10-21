@@ -32,9 +32,8 @@ import vooga.games.zombieland.items.Item;
 import vooga.games.zombieland.items.WeaponItem;
 import vooga.games.zombieland.weapons.Bullet;
 
-public class ZombielandPlayState extends GameState{
+public class ZombielandPlayState extends GameState {
 
-	
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
@@ -43,15 +42,14 @@ public class ZombielandPlayState extends GameState{
 	private static DropThis currentGame;
 	private static ResourceBundle mainResourceBundle;
 	private static String delim;
-	
-	
+
 	private AnimatedSprite shooterImage;
 	private ImageBackground background;
 	private Shooter player;
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
-	
+
 	/**
 	 * We choose to jave BufferedImage[] files as private variables because we
 	 * have a method called addZombie(). If we try to get the images every time
@@ -94,44 +92,45 @@ public class ZombielandPlayState extends GameState{
 	private int zombiesAppeared;
 	private int zombieHealth;
 	private int zombieDamage;
-	
-	
-	public ZombielandPlayState(DropThis game, String ResourceURL)
-	{
+
+	public ZombielandPlayState(DropThis game, String ResourceURL) {
 		super();
 		currentGame = game;
 		mainResourceBundle = ResourceBundle.getBundle(ResourceURL);
 		delim = mainResourceBundle.getString("delim");
-		
+
 		zombielandPlayState = new GameState();
 		zombielandPauseState = new GameState();
-		
+
 		initialize();
 	}
-	
+
 	@Override
-	public void initialize()
-	{
+	public void initialize() {
 		initImages();
-		initPlayer();
+		// initPlayer();
+		player = new Shooter("Hero", "Down", currentGame);
 		initEnvironment();
 		initOverlays();
 
 		setListeners();
-		initZombies();
-		stateManager.activateOnly(zombielandPlayState);		
-		
+		// initZombies();
+		stateManager.activateOnly(zombielandPlayState);
+
 	}
-	
-	/**
-	 * This method initializes zombie health, zombie damage and starting number
-	 * zombies.
-	 */
-	private void initZombies() {
-		resetZombiesCount();
-		zombieHealth = parseInt("startZombieHealth");
-		zombieDamage = parseInt("startZombieDamage");
-	}
+
+	// /**
+	// * This method initializes zombie health, zombie damage and starting
+	// number
+	// * zombies.
+	// */
+	// private void initZombies() {
+	// resetZombiesCount();
+	// zombieHealth = ZRes.getInt("startZombieHealth");
+	// zombieDamage = ZRes.getInt("startZombieDamage");
+	// zombieHealth = ZRes.getInt("startZombieHealth");
+	// zombieDamage = ZRes.getInt("startZombieDamage");
+	// }
 
 	/**
 	 * This method initializes the zombies, bullets, players, overlays
@@ -171,7 +170,7 @@ public class ZombielandPlayState extends GameState{
 		HICollisionManager humanItemManager = new HICollisionManager();
 		playField.addCollisionGroup(players, items, humanItemManager);
 
-		int delay = parseInt("timer");
+		int delay = ZombielandResources.getInt("timer");
 		timer = new Timer(delay);
 
 		stateManager = new GameStateManager();
@@ -186,7 +185,7 @@ public class ZombielandPlayState extends GameState{
 
 		playField.setBackground(background);
 
-		level = parseInt("startLevel");
+		level = ZombielandResources.getInt("startLevel");
 	}
 
 	/**
@@ -216,8 +215,8 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void initializeOverlayItem(Overlay overlay, String item,
 			boolean active) {
-		int x = parseInt(item + "X");
-		int y = parseInt(item + "Y");
+		int x = ZombielandResources.getInt(item + "X");
+		int y = ZombielandResources.getInt(item + "Y");
 		overlay.setLocation(x, y);
 		overlay.setActive(active);
 		SpriteGroup overlays = playField.getGroup("Overlays");
@@ -249,8 +248,8 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void initOverlayAmmoString() {
 		String overlayName = "overlayAmmoString";
-		String overlayAmmoStringMessage = mainResourceBundle.getString(overlayName
-				+ "Message");
+		String overlayAmmoStringMessage = mainResourceBundle
+		.getString(overlayName + "Message");
 		overlayAmmoString = new OverlayStat(overlayAmmoStringMessage,
 				player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
@@ -264,8 +263,8 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void initOverlayScoreString() {
 		String overlayName = "overlayScoreString";
-		String overlayAmmoStringMessage = mainResourceBundle.getString(overlayName
-				+ "Message");
+		String overlayAmmoStringMessage = mainResourceBundle
+		.getString(overlayName + "Message");
 		overlayScoreString = new OverlayStat(overlayAmmoStringMessage,
 				player.getScore());
 		initializeOverlayItem(overlayScoreString, overlayName, true);
@@ -288,8 +287,8 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void initOverlayHealthString() {
 		String overlayName = "overlayHealthString";
-		String overlayHealthStringMessage = mainResourceBundle.getString(overlayName
-				+ "Message");
+		String overlayHealthStringMessage = mainResourceBundle
+		.getString(overlayName + "Message");
 		overlayHealthString = new OverlayString(overlayHealthStringMessage,
 				Color.BLUE);
 		initializeOverlayItem(overlayHealthString, overlayName, true);
@@ -299,23 +298,25 @@ public class ZombielandPlayState extends GameState{
 	 * This method is responsible for initializing the player and all of its
 	 * animated images.
 	 */
-	private void initPlayer() {
-		double playerDefaultX = parseDouble("playerDefaultX");
-		double playerDefaultY = parseDouble("playerDefaultY");
-
-		int maxHealth = parseInt("maxHealth");
-
-		playerDefaultImage = getBufferedImageArray("Down");
-		shooterImage = new AnimatedSprite(playerDefaultImage, playerDefaultX,
-				playerDefaultY);
-		player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0, currentGame);
-
-		String[] list = { "Down", "Up", "Left", "Right" };
-		for (int i = 0; i < list.length; i++) {
-			AnimatedSprite animation = getInitializedAnimatedSprite(list[i]);
-			player.mapNameToSprite(list[i], animation);
-		}
-	}
+	// private void initPlayer() {
+	// int playerDefaultX = ZRes.getInt("playerDefaultX");
+	// int playerDefaultY = ZRes.getInt("playerDefaultY");
+	//
+	// int maxHealth = ZRes.getInt("maxHealth");
+	//
+	// playerDefaultImage = ZRes.getAnimation("Down");
+	// shooterImage = new AnimatedSprite(playerDefaultImage, playerDefaultX,
+	// playerDefaultY);
+	// player = new Shooter("Hero", "Down", shooterImage, maxHealth, 0,
+	// currentGame);
+	//
+	// String[] list = { "Down", "Up", "Left", "Right" };
+	// for (int i = 0; i < list.length; i++) {
+	// AnimatedSprite animation =
+	// ZRes.getInitializedAnimatedSprite(ZRes.getAnimation(list[i]));
+	// player.mapNameToSprite(list[i], animation);
+	// }
+	// }
 
 	/**
 	 * This method is responsible for initializing the pictures associated with
@@ -323,125 +324,148 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void initImages() {
 		// Zombie animations
-		initZombie();
-		bulletImage = currentGame.getImage(mainResourceBundle.getString("bulletImage"));
-		shotGunImage = currentGame.getImage(mainResourceBundle.getString("shotGunImage"));
-		assaultRifleImage = currentGame.getImage(mainResourceBundle.getString("assaultRifleImage"));
-		healthImage = currentGame.getImage(mainResourceBundle.getString("healthImage"));
+		// initZombie();
+		// bulletImage =
+		// currentGame.getImage(mainResourceBundle.getString("bulletImage"));
+		// shotGunImage =
+		// currentGame.getImage(mainResourceBundle.getString("shotGunImage"));
+		// assaultRifleImage =
+		// currentGame.getImage(mainResourceBundle.getString("assaultRifleImage"));
+		// healthImage =
+		// currentGame.getImage(mainResourceBundle.getString("healthImage"));
+		bulletImage = ZombielandResources.getImage("bulletImage");
+		shotGunImage = ZombielandResources.getImage("shotGunImage");
+		assaultRifleImage = ZombielandResources.getImage("assaultRifleImage");
+		healthImage = ZombielandResources.getImage("healthImage");
 	}
 
-	/**
-	 * This method initializes all of the animated sprite images for a zombie.
-	 */
-	private void initZombie() {
-		zombieDownImage = getBufferedImageArray("ZombieDown");
-		zombieUpImage = getBufferedImageArray("ZombieUp");
-		zombieLeftImage = getBufferedImageArray("ZombieLeft");
-		zombieRightImage = getBufferedImageArray("ZombieRight");
-		zombieAttackUpImage = getBufferedImageArray("ZombieAttackUp");
-		zombieAttackDownImage = getBufferedImageArray("ZombieAttackDown");
-		zombieAttackLeftImage = getBufferedImageArray("ZombieAttackLeft");
-		zombieAttackRightImage = getBufferedImageArray("ZombieAttackRight");
-		zombieDeathImage = getBufferedImageArray("ZombieDeath");
-	}
+	//
+	// /**
+	// * This method initializes all of the animated sprite images for a zombie.
+	// */
+	// private void initZombie() {
+	// zombieDownImage = getBufferedImageArray("ZombieDown");
+	// zombieUpImage = getBufferedImageArray("ZombieUp");
+	// zombieLeftImage = getBufferedImageArray("ZombieLeft");
+	// zombieRightImage = getBufferedImageArray("ZombieRight");
+	// zombieAttackUpImage = getBufferedImageArray("ZombieAttackUp");
+	// zombieAttackDownImage = getBufferedImageArray("ZombieAttackDown");
+	// zombieAttackLeftImage = getBufferedImageArray("ZombieAttackLeft");
+	// zombieAttackRightImage = getBufferedImageArray("ZombieAttackRight");
+	// zombieDeathImage = getBufferedImageArray("ZombieDeath");
+	//
+	// zombieDownImage = ZRes.getAnimation("ZombieDown");
+	// zombieUpImage = ZRes.getAnimation("ZombieUp");
+	// zombieLeftImage = ZRes.getAnimation("ZombieLeft");
+	// zombieRightImage = ZRes.getAnimation("ZombieRight");
+	// zombieAttackUpImage = ZRes.getAnimation("ZombieAttackUp");
+	// zombieAttackDownImage = ZRes.getAnimation("ZombieAttackDown");
+	// zombieAttackLeftImage = ZRes.getAnimation("ZombieAttackLeft");
+	// zombieAttackRightImage = ZRes.getAnimation("ZombieAttackRight");
+	// zombieDeathImage = ZRes.getAnimation("ZombieDeath");
+	// }
 
-	/**
-	 * This method allows the user to parse the value associated with the
-	 * keyName to a double. Specifically, this method does this by drawing the
-	 * value associated with the keyName from the global ResourceBundle bundle.
-	 * 
-	 * @param keyName
-	 * @return
-	 */
-	public double parseDouble(String keyName) {
-		String string = mainResourceBundle.getString(keyName);
-		return Double.parseDouble(string);
-	}
+	// /**
+	// * This method allows the user to parse the value associated with the
+	// * keyName to a double. Specifically, this method does this by drawing the
+	// * value associated with the keyName from the global ResourceBundle
+	// bundle.
+	// *
+	// * @param keyName
+	// * @return
+	// */
+	// public double ZRes.getDouble(String keyName) {
+	// String string = mainResourceBundle.getString(keyName);
+	// return Double.ZRes.getDouble(string);
+	// }
+	//
+	// /**
+	// * This method allows the user to parse the value associated with the
+	// * keyName to an integer. Specifically, this method does this by drawing
+	// the
+	// * value associated with the keyName from the global ResourceBundle
+	// bundle.
+	// *
+	// * @param keyName
+	// * @return
+	// */
+	// public int parseInt(String keyName) {
+	// String string = mainResourceBundle.getString(keyName);
+	// return Integer.ZRes.getInt(string);
+	// }
 
-	/**
-	 * This method allows the user to parse the value associated with the
-	 * keyName to an integer. Specifically, this method does this by drawing the
-	 * value associated with the keyName from the global ResourceBundle bundle.
-	 * 
-	 * @param keyName
-	 * @return
-	 */
-	public int parseInt(String keyName) {
-		String string = mainResourceBundle.getString(keyName);
-		return Integer.parseInt(string);
-	}
-
-	/**
-	 * This method allows the user to read in the String associated with a key
-	 * value and then split the value base on the regular expression delim to
-	 * get different frames of the same animation associated with one animated
-	 * sprite.
-	 * 
-	 * @param bundleURL
-	 * @param key
-	 * @param delim
-	 * @return
-	 */
-	private BufferedImage[] getBufferedImageArray(String key) {
-		String value = mainResourceBundle.getString(key);
-		String[] list = value.split(delim);
-		BufferedImage[] images = new BufferedImage[list.length];
-
-		for (int i = 0; i < list.length; i++) {
-			String imageLocation = mainResourceBundle.getString(list[i]);
-			images[i] = currentGame.getImage(imageLocation);
-		}
-		return images;
-	}
-
-	/**
-	 * Initialize a set of images to be animated.
-	 * 
-	 * @param key
-	 *            names of the images in the resourceBundle
-	 * @return initialized animated sprite
-	 */
-	private AnimatedSprite getInitializedAnimatedSprite(String key) {
-		return getInitializedAnimatedSprite(getBufferedImageArray(key));
-	}
-
-	/**
-	 * Initialize a set of images to be animated.
-	 * 
-	 * @param images
-	 *            a set of images to be made into an animated sprite
-	 * @return initialized animated sprite
-	 */
-	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
-		AnimatedSprite sprite = new AnimatedSprite(images);
-		initializeAnimatedSprite(sprite, defaultAnimationDelay, true);
-		return sprite;
-	}
-
-	/**
-	 * Set the attributes for an animated sprite
-	 * 
-	 * @param sprite
-	 *            animated sprite object
-	 * @param delay
-	 *            animation delay
-	 * @param loop
-	 *            loop animation
-	 */
-	private void initializeAnimatedSprite(AnimatedSprite sprite, long delay,
-			boolean loop) {
-		sprite.getAnimationTimer().setDelay(delay);
-
-		sprite.setAnimationFrame(0, sprite.getImages().length - 1);
-		sprite.setAnimate(true);
-		sprite.setLoopAnim(loop);
-	}
+	// /**
+	// * This method allows the user to read in the String associated with a key
+	// * value and then split the value base on the regular expression delim to
+	// * get different frames of the same animation associated with one animated
+	// * sprite.
+	// *
+	// * @param bundleURL
+	// * @param key
+	// * @param delim
+	// * @return
+	// */
+	// private BufferedImage[] getBufferedImageArray(String key) {
+	// String value = mainResourceBundle.getString(key);
+	// String[] list = value.split(delim);
+	// BufferedImage[] images = new BufferedImage[list.length];
+	//
+	// for (int i = 0; i < list.length; i++) {
+	// String imageLocation = mainResourceBundle.getString(list[i]);
+	// images[i] = currentGame.getImage(imageLocation);
+	// }
+	// return images;
+	// }
+	//
+	// /**
+	// * Initialize a set of images to be animated.
+	// *
+	// * @param key
+	// * names of the images in the resourceBundle
+	// * @return initialized animated sprite
+	// */
+	// private AnimatedSprite getInitializedAnimatedSprite(String key) {
+	// return getInitializedAnimatedSprite(getBufferedImageArray(key));
+	// }
+	//
+	// /**
+	// * Initialize a set of images to be animated.
+	// *
+	// * @param images
+	// * a set of images to be made into an animated sprite
+	// * @return initialized animated sprite
+	// */
+	// private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[]
+	// images) {
+	// AnimatedSprite sprite = new AnimatedSprite(images);
+	// initializeAnimatedSprite(sprite, defaultAnimationDelay, true);
+	// return sprite;
+	// }
+	//
+	// /**
+	// * Set the attributes for an animated sprite
+	// *
+	// * @param sprite
+	// * animated sprite object
+	// * @param delay
+	// * animation delay
+	// * @param loop
+	// * loop animation
+	// */
+	// private void initializeAnimatedSprite(AnimatedSprite sprite, long delay,
+	// boolean loop) {
+	// sprite.getAnimationTimer().setDelay(delay);
+	//
+	// sprite.setAnimationFrame(0, sprite.getImages().length - 1);
+	// sprite.setAnimate(true);
+	// sprite.setLoopAnim(loop);
+	// }
 
 	/**
 	 * update all components of the ZombieLand game. This method checks to see
 	 * if more zombies can be added or if the level has been completed.
 	 */
-	
+
 	@Override
 	public void update(long elapsedTime) {
 		if (currentGame.bsInput.getKeyPressed() == KeyEvent.VK_P) {
@@ -488,9 +512,8 @@ public class ZombielandPlayState extends GameState{
 	 * This method sets the new Delay Time
 	 */
 	private void setNewDelay() {
-
-		int timeInterval = parseInt("timeInterval");
-		double delayFactor = parseDouble("delayFactor");
+		int timeInterval = ZombielandResources.getInt("timeInterval");
+		double delayFactor = ZombielandResources.getDouble("delayFactor");
 
 		timer.setDelay((long) (timeInterval / level * delayFactor));
 	}
@@ -507,7 +530,7 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void updateZombieStats() {
 
-		double zombieStatMultiplier = parseDouble("zombieStatMultiplier");
+		double zombieStatMultiplier = ZombielandResources.getDouble("zombieStatMultiplier");
 
 		zombieHealth = (int) (zombieHealth * level / zombieStatMultiplier);
 		zombieDamage = (int) (zombieDamage + level / zombieStatMultiplier);
@@ -515,10 +538,10 @@ public class ZombielandPlayState extends GameState{
 
 	private boolean moreZombieCanBeAdded() {
 
-		double zombieLimitingFactor = parseDouble("zombieLimitingFactor");
+		double zombieLimitingFactor = ZombielandResources.getDouble("zombieLimitingFactor");
 
 		return zombiesAppeared < ZOMBIES_PER_LEVEL * level
-				* zombieLimitingFactor;
+		* zombieLimitingFactor;
 	}
 
 	/**
@@ -527,18 +550,18 @@ public class ZombielandPlayState extends GameState{
 	 */
 	public void addZombie() {
 
-		Zombie newZombie = new Zombie("New", "Moving",
-				getInitializedAnimatedSprite(zombieDownImage),
-				getInitializedAnimatedSprite(zombieUpImage),
-				getInitializedAnimatedSprite(zombieLeftImage),
-				getInitializedAnimatedSprite(zombieRightImage),
-				getInitializedAnimatedSprite(zombieAttackDownImage),
-				getInitializedAnimatedSprite(zombieAttackUpImage),
-				getInitializedAnimatedSprite(zombieAttackLeftImage),
-				getInitializedAnimatedSprite(zombieAttackRightImage),
-				getInitializedAnimatedSprite(zombieDeathImage), zombieHealth,
-				zombieDamage, player, currentGame);
-
+		// Zombie newZombie = new Zombie("New", "Moving",
+		// ZRes.getInitializedAnimatedSprite(zombieDownImage),
+		// ZRes.getInitializedAnimatedSprite(zombieUpImage),
+		// ZRes.getInitializedAnimatedSprite(zombieLeftImage),
+		// ZRes.getInitializedAnimatedSprite(zombieRightImage),
+		// ZRes.getInitializedAnimatedSprite(zombieAttackDownImage),
+		// ZRes.getInitializedAnimatedSprite(zombieAttackUpImage),
+		// ZRes.getInitializedAnimatedSprite(zombieAttackLeftImage),
+		// ZRes.getInitializedAnimatedSprite(zombieAttackRightImage),
+		// ZRes.getInitializedAnimatedSprite(zombieDeathImage), zombieHealth,
+		// zombieDamage, player, currentGame);
+		Zombie newZombie = new Zombie("New", "Moving", player, currentGame);
 		newZombie.setX(Math.random() * GAME_WIDTH);
 		newZombie.setY(Math.random() * GAME_HEIGHT);
 		zombiesAppeared++;
@@ -579,9 +602,9 @@ public class ZombielandPlayState extends GameState{
 		Random random = new Random();
 		int choice = random.nextInt(3);
 
-		int weapon1 = parseInt("weapon1");
-		int weapon2 = parseInt("weapon2");
-		int healthKit = parseInt("healthKit");
+		int weapon1 = ZombielandResources.getInt("weapon1");
+		int weapon2 = ZombielandResources.getInt("weapon2");
+		int healthKit = ZombielandResources.getInt("healthKit");
 
 		Item item;
 		switch (choice) {
@@ -659,8 +682,8 @@ public class ZombielandPlayState extends GameState{
 	 */
 	private void renderGameOver(Graphics2D g) {
 
-		int overlayStringX = parseInt("overlayStringX");
-		int overlayStringY = parseInt("overlayStringY");
+		int overlayStringX = ZombielandResources.getInt("overlayStringX");
+		int overlayStringY = ZombielandResources.getInt("overlayStringY");
 
 		overlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
 		overlayGameOverString.setLocation(overlayStringX, overlayStringY);
@@ -676,8 +699,5 @@ public class ZombielandPlayState extends GameState{
 				+ player.getScore(), Color.BLACK);
 		currentGame.stop();
 	}
-	
-	
-	
-	
+
 }

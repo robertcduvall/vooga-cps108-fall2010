@@ -12,7 +12,7 @@ import java.util.*;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Zombie extends GameEntitySprite implements IZombielandConstants {
+public class Zombie extends GameEntitySprite {
 
 	private static int ITEM_CHANCE;
 	private int attackDelay;
@@ -50,11 +50,70 @@ public class Zombie extends GameEntitySprite implements IZombielandConstants {
 
 		setHumanTarget(player);
 		directionToMove = "X";
-		speed = Double.parseDouble(bundle.getString("zombieSpeed"));
-		attackDelay = Integer.parseInt(bundle.getString("zombieAttackDelay"));
-		ITEM_CHANCE = Integer.parseInt(bundle.getString("ITEM_CHANCE"));
+		// speed = Double.parseDouble(bundle.getString("zombieSpeed"));
+		// attackDelay = ZRes.getInt("zombieAttackDelay"));
+		// ITEM_CHANCE = ZRes.getInt("ITEM_CHANCE";
+		speed = ZombielandResources.getDouble("zombieSpeed");
+		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
+		ITEM_CHANCE = ZombielandResources.getInt("ITEM_CHANCE");
 		setHealth(health);
 		setDamage(damage);
+		resetAttackDelayStep();
+
+		game = currentGame;
+		random = new Random();
+
+		this.setActive(true);
+	}
+
+	public Zombie(String name, String stateName, Shooter player,
+			DropThis currentGame) {
+		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieDown")));
+
+		AnimatedSprite down = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieDown"));
+		AnimatedSprite up = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieUp"));
+		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieLeft"));
+		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieRight"));
+		AnimatedSprite attackDown = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieAttackDown"));
+		AnimatedSprite attackUp = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieAttackUp"));
+		AnimatedSprite attackLeft = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieAttackLeft"));
+		AnimatedSprite attackRight = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieAttackRight"));
+		AnimatedSprite death = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
+				.getAnimation("ZombieDeath"));
+
+		mapNameToSprite("Down", down);
+		mapNameToSprite("Up", up);
+		mapNameToSprite("Left", left);
+		mapNameToSprite("Right", right);
+
+		mapNameToSprite("AttackDown", attackDown);
+		mapNameToSprite("AttackUp", attackUp);
+		mapNameToSprite("AttackLeft", attackLeft);
+		mapNameToSprite("AttackRight", attackRight);
+
+		mapNameToSprite("ZombieDeath", death);
+
+		setHumanTarget(player);
+		directionToMove = "X";
+		// speed = Double.parseDouble(bundle.getString("zombieSpeed"));
+		// attackDelay = ZRes.getInt("zombieAttackDelay"));
+		// ITEM_CHANCE = ZRes.getInt("ITEM_CHANCE";
+		speed = ZombielandResources.getDouble("zombieSpeed");
+		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
+		ITEM_CHANCE = ZombielandResources.getInt("ITEM_CHANCE");
+		zombieHealth = ZombielandResources.getInt("startZombieHealth");
+		zombieDamage = ZombielandResources.getInt("startZombieDamage");
+		// setHealth(health);
+		// setDamage(damage);
 		resetAttackDelayStep();
 
 		game = currentGame;
@@ -226,8 +285,9 @@ public class Zombie extends GameEntitySprite implements IZombielandConstants {
 
 				int item = random.nextInt(100);
 				if (item < ITEM_CHANCE) {
-					
-					((ZombielandPlayState) game.getCurrentState()).addRandomItem(getX(), getY());
+
+					((ZombielandPlayState) game.getCurrentState())
+							.addRandomItem(getX(), getY());
 				}
 			}
 			return;

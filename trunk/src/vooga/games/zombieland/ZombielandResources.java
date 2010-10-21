@@ -7,17 +7,8 @@ import com.golden.gamedev.object.AnimatedSprite;
 import vooga.engine.resource.ResourcesBeta;
 
 public class ZombielandResources extends ResourcesBeta {
-
-	private static long defaultAnimationDelay = 300;
-
-	/**
-	 * Initialize a set of images to be animated.
-	 * 
-	 * @param images
-	 *            a set of images to be made into an animated sprite
-	 * @return initialized animated sprite
-	 */
-	private AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
+	public  static long defaultAnimationDelay = 300;
+	public static AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		initializeAnimatedSprite(sprite, defaultAnimationDelay, true);
 		return sprite;
@@ -33,7 +24,7 @@ public class ZombielandResources extends ResourcesBeta {
 	 * @param loop
 	 *            loop animation
 	 */
-	private void initializeAnimatedSprite(AnimatedSprite sprite, long delay,
+	public static void initializeAnimatedSprite(AnimatedSprite sprite, long delay,
 			boolean loop) {
 		sprite.getAnimationTimer().setDelay(delay);
 
