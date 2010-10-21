@@ -35,7 +35,7 @@ import com.golden.gamedev.object.font.SystemFont;
 public class DropThis extends Game {
 
 	private static final int WIDTH = 1024;
-	private static int HEIGHT = 768;
+	private static final int HEIGHT = 768;
 
 	private GameStateManager myGameStateManager;
 	private GamePlayState myGamePlayState;
@@ -45,6 +45,8 @@ public class DropThis extends Game {
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
 		DropThis game = new DropThis();
+		ResourcesBeta.loadInt("Height",HEIGHT);
+		ResourcesBeta.loadInt("Width",WIDTH);
 		gl.setup(game, new Dimension(WIDTH, HEIGHT), false);
 		gl.start();
 	}
@@ -68,7 +70,7 @@ public class DropThis extends Game {
 
 		myGameStateManager = new GameStateManager();
 
-		myGamePlayState = new GamePlayState(WIDTH, HEIGHT, this);
+		myGamePlayState = new GamePlayState(this);
 
 		GameFont gameOverFont = new SystemFont(new Font(Font.SANS_SERIF,
 				Font.BOLD, 200));
@@ -76,7 +78,7 @@ public class DropThis extends Game {
 		fontManager.putFont("GAMEOVER", gameOverFont);
 		fontManager.putFont("MENU", menuFont);
 
-		myMenuState = new MainMenuState(WIDTH, HEIGHT, fontManager);
+		myMenuState = new MainMenuState(fontManager);
 		myLoseState = new GameEndState(new ColorBackground(Color.red), "FAIL!",
 				fontManager);
 		myWinState = new GameEndState(new ColorBackground(Color.blue), "YOU WIN!",

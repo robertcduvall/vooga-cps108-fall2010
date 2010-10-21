@@ -27,8 +27,6 @@ import vooga.engine.state.GameState;
 public class GamePlayState extends GameState {
 
 	private Game myGame;
-	private int myWidth;
-	private int myHeight;
 	private List<MarioLevel> myLevels;
 	private Stat<Integer> myEnemiesKilled;
 	private OverlayStat myScoreOverlay;
@@ -53,11 +51,9 @@ public class GamePlayState extends GameState {
 	 *            is the desired height of the game window
 	 */
 
-	public GamePlayState(int width, int height, Game game) {
+	public GamePlayState(Game game) {
 		myGame = game;
 		myCurrentLevel = 0;
-		this.myWidth = width;
-		this.myHeight = height;
 		myLevels = new ArrayList<MarioLevel>();
 		init();
 	}
@@ -123,7 +119,7 @@ public class GamePlayState extends GameState {
 		if (map == null) {
 			System.out.println("problem");
 		}
-		MarioLevel level = new MarioLevel(map, myWidth, myHeight, (i + 1),
+		MarioLevel level = new MarioLevel(map, (i + 1),
 				game, myScoreOverlay, myEnemiesKilled, myLivesOverlay, myLives);
 		if (level == null) {
 			System.out.println("problem");

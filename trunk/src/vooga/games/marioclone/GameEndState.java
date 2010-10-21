@@ -6,6 +6,7 @@ import java.io.File;
 
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.resource.HighScoreHandler;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 
 import com.almworks.sqlite4java.SQLiteException;
@@ -55,7 +56,7 @@ public class GameEndState extends GameState {
 		myFontManager = fontManager;
 		myMessage = new OverlayString(messageString);
 		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
-		myMessage.setLocation(512 - myMessage.getWidth() / 2, 100);
+		myMessage.setLocation((ResourcesBeta.getInt("Width") - myMessage.getWidth()) / 2, 100);
 
 		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File(
 				"src/vooga/games/marioclone/resources/highscores.db"));

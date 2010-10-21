@@ -20,8 +20,8 @@ import com.golden.gamedev.object.background.ImageBackground;
 public class MainMenuState extends GameState {
 
 	private ImageBackground myMainMenu;
-	private int WIDTH;
-	private int HEIGHT;
+	private int myWidth;
+	private int myHeight;
 	private GameFont myMenuFont;
 
 	/**
@@ -33,12 +33,12 @@ public class MainMenuState extends GameState {
 	 * @param fontManager
 	 */
 	
-	public MainMenuState(int width, int height, GameFontManager fontManager) {
+	public MainMenuState(GameFontManager fontManager) {
 		super();
 		myMenuFont = fontManager.getFont("MENU");
 		myMainMenu = new ImageBackground(ResourcesBeta.getImage("MenuBG"));
-		WIDTH = width;
-		HEIGHT = height;
+        myWidth = ResourcesBeta.getInt("Width");
+        myHeight = ResourcesBeta.getInt("Height");
 	}
 	
 	/**
@@ -48,10 +48,10 @@ public class MainMenuState extends GameState {
 		super.render(g);
 		
 		myMainMenu.render(g);
-		myMenuFont.drawString(g, "WELCOME TO MARIOCLONE!", WIDTH / 4, HEIGHT / 2 + 50);
-		myMenuFont.drawString(g, "PRESS A AND D TO MOVE LEFT AND RIGHT.",(WIDTH / 4), (HEIGHT / 2) + 125);
-		myMenuFont.drawString(g, "PRESS W TO JUMP AND S TO CROUCH.", (WIDTH / 4), (HEIGHT / 2) + 200);
-		myMenuFont.drawString(g, "PRESS SPACE TO PLAY!", (WIDTH / 4), (HEIGHT / 2) + 250);
+		myMenuFont.drawString(g, "WELCOME TO MARIOCLONE!", myWidth / 4, myHeight / 2 + 50);
+		myMenuFont.drawString(g, "PRESS A AND D TO MOVE LEFT AND RIGHT.",(myWidth / 4), (myHeight / 2) + 125);
+		myMenuFont.drawString(g, "PRESS W TO JUMP AND S TO CROUCH.", (myWidth / 4), (myHeight / 2) + 200);
+		myMenuFont.drawString(g, "PRESS SPACE TO PLAY!", (myWidth / 4), (myHeight / 2) + 250);
 	}
 	
 
