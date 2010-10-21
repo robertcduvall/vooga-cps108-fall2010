@@ -56,9 +56,11 @@ public class DropThis extends Game {
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(DropThis.class), Color.white);
 
+		ResourcesBeta.setDefaultPath("src/vooga/games/marioclone/resources/");
+		
 		try {
-//			ResourcesBeta.loadPropertiesFile("src/vooga/games/marioclone/resources/game.properties");
-			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/images.properties");
+			ResourcesBeta.loadPropertiesFile("game.properties");
+//			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/images.properties");
 
 		} catch (IOException e) {
 			System.out.println("Error - could not load file.");

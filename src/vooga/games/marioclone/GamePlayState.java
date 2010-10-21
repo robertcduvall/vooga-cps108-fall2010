@@ -113,7 +113,7 @@ public class GamePlayState extends GameState {
 		}
 		myCurrentLevel = 0;
 		
-//		myGame.playMusic(ResourcesBeta.getSound("MarioSong"));
+		myGame.playMusic(ResourcesBeta.getSound("MarioSong"));
 		
 	}
 
