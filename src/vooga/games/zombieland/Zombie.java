@@ -14,115 +14,34 @@ import java.util.*;
  */
 public class Zombie extends GameEntitySprite {
 
-	private static int ITEM_CHANCE;
-	private int attackDelay;
-	private static int zombieDamage;
-	private static int zombieHealth;
-	private static int zombieAppeared;
+	private static int itemChance;
+	private static int attackDelay;
+	private static double zombieStatMultiplier;
+	
+	private double zombieDamage;
+	private int zombieCurrentHealth;
 
 	private Shooter target;
 	private String directionToMove;
 	private double speed;
 
 	private int attackDelayStep;
-	private String currentAttackAnimation = "";
+	private String currentAttackAnimation;
+	
 	private DropThis game;
-	private Random random;
 
-	public Zombie(String name, String stateName, AnimatedSprite down,
-			AnimatedSprite up, AnimatedSprite left, AnimatedSprite right,
-			AnimatedSprite attackDown, AnimatedSprite attackUp,
-			AnimatedSprite attackLeft, AnimatedSprite attackRight,
-			AnimatedSprite death, int health, int damage, Shooter player,
-			DropThis currentGame) {
-		super(name, stateName, down);
-
-		mapNameToSprite("Down", down);
-		mapNameToSprite("Up", up);
-		mapNameToSprite("Left", left);
-		mapNameToSprite("Right", right);
-
-		mapNameToSprite("AttackDown", attackDown);
-		mapNameToSprite("AttackUp", attackUp);
-		mapNameToSprite("AttackLeft", attackLeft);
-		mapNameToSprite("AttackRight", attackRight);
-
-		mapNameToSprite("ZombieDeath", death);
-
-		setHumanTarget(player);
-		directionToMove = "X";
-
-		speed = ZombielandResources.getDouble("zombieSpeed");
-		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
-		ITEM_CHANCE = ZombielandResources.getInt("ITEM_CHANCE");
-		setHealth(health);
-		setDamage(damage);
-		resetAttackDelayStep();
-
-		game = currentGame;
-		random = new Random();
-		resetZombieCount();
-		resetZombieDamage();
-		resetZombieHealth();
-
-		this.setActive(true);
-	}
-
-	public static void resetZombieHealth() {
-		zombieHealth = 0;
-	}
-	
-	public static void setZombieHealth(int newHealth)
-	{
-		zombieHealth = newHealth;
-	}
-	
-	public static void updateZombieHealth(int change)
-	{
-		zombieHealth += change;
-	}
-	
-	public static int getZombieHealth()
-	{
-		return zombieHealth;
-	}
-
-	public static void resetZombieDamage() {
-		zombieDamage = 0;
-	}
-	
-	public static void setZombieDamage(int damage)
-	{
-		zombieDamage = damage;
-	}
-	
-	public static void updateZombieDamage(int change)
-	{
-		zombieDamage += change;
-	}
-	
-	public static int getZombieDamage()
-	{
-		return zombieDamage;
-	}
-
-	public static void resetZombieCount() {
-		zombieAppeared = 0;
-	}
-	
-	public static void updateZombieCount()
-	{
-		zombieAppeared++;
-	}
-	
-	public static int getZombieCount()
-	{
-		return zombieAppeared;
-	}
-	
+	private static String LEFT;
+	private static String RIGHT;
+	private static String UP;
+	private static String DOWN;
+	private static String ATTACKLEFT;
+	private static String ATTACKRight;
+	private static String ATTACKUP;
+	private static String ATTACKDown;
+	private static String DEATH;
 	
 
-	public Zombie(String name, String stateName, Shooter player,
+	public Zombie(String name, String stateName, int level, Shooter player,
 			DropThis currentGame) {
 		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
 				.getAnimation("ZombieDown")));
@@ -150,49 +69,45 @@ public class Zombie extends GameEntitySprite {
 		mapNameToSprite("Up", up);
 		mapNameToSprite("Left", left);
 		mapNameToSprite("Right", right);
-
 		mapNameToSprite("AttackDown", attackDown);
 		mapNameToSprite("AttackUp", attackUp);
 		mapNameToSprite("AttackLeft", attackLeft);
 		mapNameToSprite("AttackRight", attackRight);
-
 		mapNameToSprite("ZombieDeath", death);
 
 		setHumanTarget(player);
-		directionToMove = "X";
-		// speed = Double.parseDouble(bundle.getString("zombieSpeed"));
-		// attackDelay = ZRes.getInt("zombieAttackDelay"));
-		// ITEM_CHANCE = ZRes.getInt("ITEM_CHANCE";
-		speed = ZombielandResources.getDouble("zombieSpeed");
+		
+		currentAttackAnimation="";
 		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
-		ITEM_CHANCE = ZombielandResources.getInt("ITEM_CHANCE");
-		zombieHealth = ZombielandResources.getInt("startZombieHealth");
+		itemChance = ZombielandResources.getInt("ITEM_CHANCE");
+		zombieStatMultiplier = ZombielandResources.getDouble("zombieStatMultiplier");
+		
+		directionToMove = "X";
+		speed = ZombielandResources.getDouble("zombieSpeed");
+		zombieCurrentHealth = ZombielandResources.getInt("startZombieHealth");
 		zombieDamage = ZombielandResources.getInt("startZombieDamage");
-		// setHealth(health);
-		// setDamage(damage);
-		resetAttackDelayStep();
-
+				
+		updateStats(level);
+		
+		chooseRandomLocation();
+	
 		game = currentGame;
-		random = new Random();
-
+		
 		this.setActive(true);
 	}
 
-	public void setHealth(int health) {
-		zombieHealth = health;
-	}
-
-	public void updateHealth(int update) {
-		zombieHealth += update;
+	private void chooseRandomLocation() {
+		setX(Math.random() * ZombielandResources.getInt("GAME_WIDTH"));
+		setY(Math.random() * ZombielandResources.getInt("GAME_HEIGHT"));
 	}
 
 	public void updateStats(int level) {
-		zombieHealth *= level / 1.5;
-		zombieDamage *= level;
+		zombieCurrentHealth = (int) (zombieCurrentHealth * level / zombieStatMultiplier);
+		zombieDamage = (int) (zombieDamage + level / zombieStatMultiplier);
 	}
 
 	public double getHealth() {
-		return zombieHealth;
+		return zombieCurrentHealth;
 	}
 
 	/**
@@ -204,16 +119,6 @@ public class Zombie extends GameEntitySprite {
 	 */
 	private void setHumanTarget(Shooter hero) {
 		target = hero;
-	}
-
-	/**
-	 * Set the damage of the zombie
-	 * 
-	 * @param hit
-	 *            damage of the zombie
-	 */
-	private void setDamage(int hit) {
-		zombieDamage = hit;
 	}
 
 	/**
@@ -234,7 +139,7 @@ public class Zombie extends GameEntitySprite {
 	 * 
 	 * @return
 	 */
-	public boolean isHealthZero() {
+	public boolean isDead() {
 		return (getHealth() <= 0);
 	}
 
@@ -265,28 +170,11 @@ public class Zombie extends GameEntitySprite {
 	 * 
 	 * @return attack direction
 	 */
-	public int getAttackDirection() {
+	public int getDirection() {
 		if (isCloserInXDirection()) {
 			return ((target.getX() - getX()) > 0) ? 0 : 2;
 		} else
 			return ((target.getY() - getY()) > 0) ? 3 : 1;
-	}
-
-	/**
-	 * Get movement directions
-	 * 
-	 * @return direction
-	 */
-	public double getDirection() {
-		if (isCloserInXDirection()) {
-			directionToMove = "X";
-			return (target.getX() - getX()) / Math.abs(target.getX() - getX());
-		}
-
-		// Else is assumed here. Implicitly calls on iAmCloserInYDirection()
-		directionToMove = "Y";
-		return (target.getY() - getY()) / Math.abs(target.getY() - getY());
-
 	}
 
 	/**
@@ -296,7 +184,7 @@ public class Zombie extends GameEntitySprite {
 	 *            damage taken by the zombie
 	 */
 	public void calculateDamage(double damage) {
-		updateHealth((int) damage);
+		zombieCurrentHealth -= damage;
 	}
 
 	/**
@@ -305,7 +193,7 @@ public class Zombie extends GameEntitySprite {
 	public void updateAttackStep() {
 		attackDelayStep++;
 	}
-
+	
 	/**
 	 * reset attack step
 	 */
@@ -329,7 +217,7 @@ public class Zombie extends GameEntitySprite {
 	 */
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (isHealthZero()) {
+		if (isDead()) {
 			setToCurrentSprite("ZombieDeath");
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 			// When the death animation is finished
@@ -339,11 +227,11 @@ public class Zombie extends GameEntitySprite {
 				// Update score
 				target.updateScore(1);
 
-				int item = random.nextInt(100);
-				if (item < ITEM_CHANCE) {
+				int item = (int) (Math.random()*100);
+				if (item < itemChance) {
 
 					((ZombielandPlayState) game.getCurrentState())
-							.addRandomItem(getX(), getY());
+					.addRandomItem(getX(), getY());
 				}
 			}
 			return;
@@ -360,25 +248,24 @@ public class Zombie extends GameEntitySprite {
 		}
 
 		// Movement control
-		double direction = getDirection();
-		if (directionToMove.equals("X")) {
-			if (direction < 0) {
-				moveX(speed);
-				setToCurrentSprite("Left");
-			} else {
-				moveX(Math.abs(speed));
-				setToCurrentSprite("Right");
-			}
-		}
-
-		if (directionToMove.equals("Y")) {
-			if (direction < 0) {
-				moveY(speed);
-				setToCurrentSprite("Up");
-			} else {
-				moveY(Math.abs(speed));
-				setToCurrentSprite("Down");
-			}
+		int direction = getDirection();
+		switch (direction) {
+		case 0:
+			moveX(Math.abs(speed));
+			setToCurrentSprite("Right");
+			break;
+		case 1:
+			moveY(speed);
+			setToCurrentSprite("Up");
+			break;
+		case 2:
+			moveX(speed);
+			setToCurrentSprite("Left");
+			break;
+		case 3:
+			moveY(Math.abs(speed));
+			setToCurrentSprite("Down");
+			break;
 		}
 	}
 
