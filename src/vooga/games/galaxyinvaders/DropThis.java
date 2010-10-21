@@ -78,14 +78,16 @@ public class DropThis extends Game {
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
 	 */
 	public void initResources() {
-		ResourceHandler.setGame(this);
-		try {
-			ResourceHandler.loadFile("vooga/games/galaxyinvaders/resources/game.properties");
-		} catch (IOException e1) {
-			System.out.print("File cannot be found.");
-		}
+//		Resources.setGame(this);
+//		try {
+//			Resources.loadImageFile("vooga/games/galaxyinvaders/resources/game.properties");
+//			Resources.loadStringFile("vooga/games/galaxyinvaders/resources/strings.properties");
+//		} catch (IOException e1) {
+//			System.out.print("File cannot be found.");
+//		}
+		super.initResources();
 		background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
-		ship = new PlayerSprite("p1", "default", new Sprite(ResourceHandler.getImage("ship"), getWidth()/2, getHeight()-100));
+		ship = new PlayerSprite("p1", "default", new Sprite(Resources.getImage("ship"), getWidth()/2, getHeight()-100));
 		
 		initializeSpriteGroups();
 		initializeOverlays();
@@ -135,17 +137,6 @@ public class DropThis extends Game {
 		scoreStat.setStat(scoreStat.getStat() + score);
 	}
 
-	/**
-	 * Java main method
-	 * 
-	 * @param args do nothing
-	 */
-	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new DropThis(), new Dimension(GAME_WIDTH, GAME_HEIGHT), false);
-		game.start();
-	}
-
 	private void initializeSpriteGroups() {
 		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
@@ -158,14 +149,14 @@ public class DropThis extends Game {
 	}
 
 	private void initializeOverlays() {
-		overlayTracker = OverlayCreator.createOverlays(ResourceHandler.getMapping("overlays"));
+		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlays"));
 		livesStat = overlayTracker.getStats().get(0);
 		scoreStat = overlayTracker.getStats().get(1);
 	}
 
 	private void initializeBlocks() {
 		for(int i = FIRST_BLOCKADE_XPOS; i<getWidth(); i+=INCREMENT_BLOCKADE_XPOS) {
-			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(ResourceHandler.getImage("barrier"), i, BLOCKADE_YPOS));
+			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(Resources.getImage("barrier"), i, BLOCKADE_YPOS));
 			blockades.add(b);
 		}
 	}
@@ -308,7 +299,7 @@ public class DropThis extends Game {
 	}
 	
 	private void spawnHealth() {
-		Sprite temp = new Sprite(ResourceHandler.getImage("health"), getWidth()/2, 0);
+		Sprite temp = new Sprite(Resources.getImage("health"), getWidth()/2, 0);
 		temp.setVerticalSpeed(ITEM_SPEED);
 		items.add(temp);
 	}
@@ -331,7 +322,7 @@ public class DropThis extends Game {
 				enemySeed = 0;
 			}
 			EnemySprite enemy = (EnemySprite) enemySprites[enemySeed];
-			Sprite temp = new Sprite(ResourceHandler.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
+			Sprite temp = new Sprite(Resources.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
 			temp.setSpeed(0, ENEMY_BOMB_SPEED);
 			enemyTorpedos.add(temp);
 		}
@@ -376,13 +367,25 @@ public class DropThis extends Game {
 	}
 
 	private void fire() {
-		Sprite temp = new Sprite(ResourceHandler.getImage("torpedo"), ship.getX()+25, ship.getY()-35);
+		Sprite temp = new Sprite(Resources.getImage("torpedo"), ship.getX()+25, ship.getY()-35);
 		temp.setSpeed(0, -PLAYER_BOMB_SPEED);
 		torpedos.add(temp);
 	}
 
 	private boolean isAtBorder(Sprite enemy){
 		return enemy.getY() >= MAX_ALLOWED_ENEMY_YPOS;
+	}
+	
+
+	/**
+	 * Java main method
+	 * 
+	 * @param args do nothing
+	 */
+	public static void main(String[] args) {
+		GameLoader game = new GameLoader();
+		game.setup(new DropThis(), new Dimension(GAME_WIDTH, GAME_HEIGHT), false);
+		game.start();
 	}
 
 }

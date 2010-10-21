@@ -14,7 +14,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import vooga.engine.factory.LevelFactory;
-import vooga.engine.resource.ResourceHandler;
 import vooga.engine.resource.Resources;
 
 public class GalaxyLevelFactory implements LevelFactory {
@@ -48,8 +47,8 @@ public class GalaxyLevelFactory implements LevelFactory {
 	private SpriteGroup makeEnemies(int numberOfEnemies, ArrayList<Point> path, int timer) {
 		SpriteGroup enemies = new SpriteGroup("enemies");
 		for (int i=0; i<numberOfEnemies; i++){
-			EnemySprite e = new EnemySprite("", "default", new Sprite(ResourceHandler.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), path, timer);
-			Sprite damaged = new Sprite(ResourceHandler.getImage("enemy1damage"));
+			EnemySprite e = new EnemySprite("", "default", new Sprite(Resources.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), path, timer);
+			Sprite damaged = new Sprite(Resources.getImage("enemy1damage"));
 			e.mapNameToSprite("damaged", damaged);
 			enemies.add(e);
 		} 
