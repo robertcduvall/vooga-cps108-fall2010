@@ -23,7 +23,7 @@ import vooga.engine.state.GameState;
 public class GamePlayState extends GameState {
 
 	private Game myGame;
-	MarioLevelFactory myLevelFactory = new MarioLevelFactory();
+	MarioLevelFactory myLevelFactory;
 
 	private static final int NUM_LEVELS = 3;
 
@@ -50,7 +50,6 @@ public class GamePlayState extends GameState {
 
 	public GamePlayState(Game game) {
 		myGame = game;
-		myCurrentLevel = 0;
 		init();
 	}
 
@@ -99,9 +98,8 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-		// for (int i = 0; i < 3; i++) {
-		// makeLevel(i);
-		// }
+		myLevelFactory = new MarioLevelFactory();
+		myCurrentLevel = 0;
 		switchLevel(0);
 		setUpKeyboard();
 		myGame.playMusic(Resources.getSound("MarioSong"));
