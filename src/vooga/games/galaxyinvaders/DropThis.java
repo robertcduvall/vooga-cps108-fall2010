@@ -209,16 +209,14 @@ public class DropThis extends Game {
 		play.addGroup(overlayTracker.getOverlayGroups().get(2));
 		gameStateManager.addGameState(play);
 		pause = new GameState();
-		pause.addGroup(pauseMenu);
-		gameStateManager.addGameState(pause);
 		gameOver = new GameState();
-		gameOver.addGroup(gameOverMenu);
-		gameStateManager.addGameState(gameOver);
-		initialize(pauseMenu, 0);
-		initialize(gameOverMenu, 1);
+		initializeMenus(pause, pauseMenu, 0);
+		initializeMenus(gameOver, gameOverMenu, 1);
 	}
 	
-	private void initialize(SpriteGroup menu, int overlayGroup){
+	private void initializeMenus(GameState state, SpriteGroup menu, int overlayGroup){
+		state.addGroup(menu);
+		gameStateManager.addGameState(state);
 		SpriteGroup strings = overlayTracker.getOverlayGroups().get(overlayGroup);
 		Sprite[] lines = strings.getSprites();
 		int size = strings.getSize();
