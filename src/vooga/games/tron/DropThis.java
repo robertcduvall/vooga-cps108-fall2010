@@ -43,8 +43,8 @@ public class DropThis extends Game {
 	private static final int RANDOM_BLOCK_SIZE = 15;
 	private static final int MINIMUM_RANDOM_BLOCKS = 5;
 	private static final int RANDOM_LEVEL_BLOCKS = 3;
-
-	private static final String LEVEL_FILE = "src/vooga/games/tron/resources/levels.txt";
+//comment this because we already created a property and put it inside
+//	private static final String LEVEL_FILE = "src/vooga/games/tron/resources/levels.txt";
 
 	private static final int GRID_WIDTH=WIDTH/PLAYER_IMAGE_WIDTH;
 	private static final int GRID_HEIGHT=HEIGHT/PLAYER_IMAGE_WIDTH;
@@ -126,12 +126,12 @@ public class DropThis extends Game {
 		overlayString.setColor(Color.RED);
 		
 		
-		File levelFile = new File(LEVEL_FILE);
+		File levelFile = new File(ResourcesBundle.getString("levelfile"));
 		levelManager = new TronLevelManager(levelFile);
 
 		initializeNewLevel();
 
-		playMusic("src/vooga/games/tron/resources/music.mid");
+		playMusic(ResourcesBundle.getString("music"));
 	}
 	/**
 	 * Create a random level with random blocks
@@ -147,8 +147,8 @@ public class DropThis extends Game {
 		bonusGroup.clear();
 		tronPlayerList=new ArrayList<TronPlayer>();
 
-		player1=new TronPlayer(getImage("resources/lazer0.png") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
-		player2=new TronPlayer(getImage("resources/lazer1.png"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+		player1=new TronPlayer(getImage(ResourcesBundle.getString("lazer_red")) , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
+		player2=new TronPlayer(getImage(ResourcesBundle.getString("lazer_blue")), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
 
 
 		tronPlayerList.add(player1);
@@ -217,7 +217,7 @@ public class DropThis extends Game {
 		for (int i = 0; i < 5; i++){		
 			int randomX = (int)Math.ceil(Math.random()* GRID_WIDTH);
 			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
-			bonusList.add(new SpeedBonus(getImage("resources/yellowlazer.png"), (randomX),(randomY),PLAYER_IMAGE_WIDTH));	
+			bonusList.add(new SpeedBonus(getImage(ResourcesBundle.getString("lazer_yellow")), (randomX),(randomY),PLAYER_IMAGE_WIDTH));	
 		}
 
 	}
@@ -255,7 +255,7 @@ public class DropThis extends Game {
 
 			for(int index1=0;index1<randomHeight;index1++){
 				for(int index2 = 0;index2<randomWidth;index2++){
-					blocksGroup.add(new Sprite(getImage("resources/greenlazer.png"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
+					blocksGroup.add(new Sprite(getImage(ResourcesBundle.getString("lazer_green")),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
 					levelBlocks[randomRow+index1][randomCol+index2] = true;
 				}		
 			}
@@ -311,7 +311,7 @@ public class DropThis extends Game {
 			}
 		}
 		if(startMenu.isActive()){
-			playfield.setBackground(new ImageBackground(getImage("resources/gamestart.png")));
+			playfield.setBackground(new ImageBackground(getImage(ResourcesBundle.getString("gamestart_image"))));
 			if(keyPressed(KeyEvent.VK_A)){
 				playervsplayer=true;
 				gameStateManager.switchTo(play);	
@@ -323,7 +323,7 @@ public class DropThis extends Game {
 		}
 
 		else if(pause.isActive()){
-			playfield.setBackground(new ImageBackground(getImage("resources/gamepause.png")));
+			playfield.setBackground(new ImageBackground(getImage(ResourcesBundle.getString("gamepause_image"))));
 			if(keyPressed(KeyEvent.VK_P)){
 				gameStateManager.switchTo(play);
 			}
@@ -390,7 +390,7 @@ public class DropThis extends Game {
 	public void afterCollision(){
 		gameStateManager.switchTo(gameover);
 		isCollision=true;
-		playSound("resources/explosion.wav");
+		playSound(ResourcesBundle.getString("sound"));
 		System.out.println("Game Over!");
 		long currentTime=System.currentTimeMillis();
 		while(System.currentTimeMillis()-currentTime<2000){ //delay between levels		
