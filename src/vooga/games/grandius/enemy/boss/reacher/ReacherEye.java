@@ -2,7 +2,7 @@ package vooga.games.grandius.enemy.boss.reacher;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.BossPart;
 
 import com.golden.gamedev.object.Sprite;
@@ -58,7 +58,7 @@ public class ReacherEye extends BossPart{
 	 * @return The Beam sprite to add to the play field.
 	 */
 	public Sprite fireBeam() {
-		Sprite beam = new Sprite(ResourcesBeta.getImage("ReacherEyeBeam"),this.getX()-this.getWidth(),this.getY()+this.getHeight()/3);
+		Sprite beam = new Sprite(Resources.getImage("ReacherEyeBeam"),this.getX()-this.getWidth(),this.getY()+this.getHeight()/3);
 		beam.setHorizontalSpeed(-REACHER_EYE_BEAM_SPEED);
 		beamTimer = new Timer(REACHER_EYE_BEAM_RELOAD_TIME);
 		beamReloaded = false;

@@ -12,7 +12,7 @@ import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.GameEntitySprite;
 import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 import com.golden.gamedev.object.PlayField;
@@ -119,7 +119,7 @@ public class GamePlayState extends GameState {
 			makeLevel(i);
 		}
 		setUpKeyboard();
-		myGame.playMusic(ResourcesBeta.getSound("MarioSong"));
+		myGame.playMusic(Resources.getSound("MarioSong"));
 		
 	}
 
@@ -136,7 +136,7 @@ public class GamePlayState extends GameState {
 //		}
 //		myLevels.add(level);
 	
-		File levelFile = new File(ResourcesBeta.getString("level"+Integer.toString(i)));
+		File levelFile = new File(Resources.getString("level"+Integer.toString(i)));
 		if(levelFile==null) System.out.println("No level here.  Problem?");
 		
 		

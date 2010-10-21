@@ -32,7 +32,7 @@ import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.MouseControl;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.towerdefense.tower.*;
@@ -80,7 +80,7 @@ public class DropThis extends Game {
 
 	@Override
 	public void initResources() {
-		ResourcesBeta.setGame(this);
+		Resources.setGame(this);
 		Resources.setGame(this);
 		loadImages();
 		initBackgrounds();
@@ -108,14 +108,14 @@ public class DropThis extends Game {
 		
 		
 
-		Sprite pauseScreen = new Sprite(ResourcesBeta.getImage("pause"));
+		Sprite pauseScreen = new Sprite(Resources.getImage("pause"));
 		pauseGroup = pause.addAndReturnGroup(new SpriteGroup("Pause Group"));
 		pauseGroup.add(pauseScreen);
 		
 		
 		gameOverGroup = gameOver.addAndReturnGroup(new SpriteGroup("Game Over Group"));
 		
-		Sprite menuSprite = new Sprite(ImageUtil.resize(ResourcesBeta.getImage("menu"), WIDTH, HEIGHT));
+		Sprite menuSprite = new Sprite(ImageUtil.resize(Resources.getImage("menu"), WIDTH, HEIGHT));
 		menuGroup = startMenu.addAndReturnGroup(new SpriteGroup("Menu Group"));
 		menuGroup.add(menuSprite);		
 		
@@ -138,7 +138,7 @@ public class DropThis extends Game {
 	
 	private void loadImages(){
 		try {
-			ResourcesBeta.loadImageFile("src/vooga/games/towerdefense/resources/images/imageList.txt");
+			Resources.loadImageFile("src/vooga/games/towerdefense/resources/images/imageList.txt");
 			Resources.loadImage("sniperTower","resources/images/sniperTower.png");
 			Resources.loadImage("normalTower","resources/images/normalTower.png");
 			Resources.loadImage("fastTower","resources/images/fastTower.png");
@@ -154,7 +154,7 @@ public class DropThis extends Game {
 		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/games/towerdefense/resources/overlays.xml");
 		overlayGroup = track.getOverlayGroups().get(0);
 		gameOverGroup = track.getOverlayGroups().get(1);
-		gameOverGroup.add(0, new Sprite(ImageUtil.resize(ResourcesBeta.getImage("gameOver"), WIDTH, HEIGHT)));
+		gameOverGroup.add(0, new Sprite(ImageUtil.resize(Resources.getImage("gameOver"), WIDTH, HEIGHT)));
 		selfEsteem = track.getStats().get(0);
 		score = track.getStats().get(1);
 		money = track.getStats().get(2);
@@ -274,7 +274,7 @@ public class DropThis extends Game {
 	private void initPlayer() {
 		
 		PlayerSprite player = new PlayerCursor("player", "playerCursor", new Sprite(
-				ResourcesBeta.getImage("towerPreview")), this, money, stateManager);
+				Resources.getImage("towerPreview")), this, money, stateManager);
 		
 
 		playerGroup.add(player);
