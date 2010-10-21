@@ -120,7 +120,7 @@ public class DropThis extends Game {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		zombielandPlayState = new ZombielandPlayState(this, MAIN_RESOURCES_PATH);
+		zombielandPlayState = new ZombielandPlayState(this);
 
 		// initImages();
 		// initPlayer();
