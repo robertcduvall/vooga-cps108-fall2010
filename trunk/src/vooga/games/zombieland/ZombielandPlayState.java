@@ -11,7 +11,6 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ImageBackground;
-import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.overlay.Overlay;
 import vooga.engine.overlay.OverlayBar;
@@ -58,8 +57,6 @@ public class ZombielandPlayState extends GameState {
 	private Stat<Integer> statLevel;
 	private int level;
 	private int zombiesAppeared;
-	private int zombieHealth;
-	private int zombieDamage;
 
 	public ZombielandPlayState(DropThis game, int screen_width, int screen_height) {
 		super();
@@ -76,7 +73,6 @@ public class ZombielandPlayState extends GameState {
 
 	@Override
 	public void initialize() {
-		//initImages();
 		player = new Shooter("Hero", "Down", currentGame);
 		initEnvironment();
 		initOverlays();
@@ -207,7 +203,7 @@ public class ZombielandPlayState extends GameState {
 	 */
 	private void initOverlayAmmoString() {
 		String overlayName = "overlayAmmoString";
-		String ammoString = ZombielandResources.getString("overlayAmmoString");
+		String ammoString = ZombielandResources.getString(overlayName);
 		overlayAmmoString = new OverlayStat(ammoString,
 				player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
@@ -221,8 +217,7 @@ public class ZombielandPlayState extends GameState {
 	 */
 	private void initOverlayScoreString() {
 		String overlayName = "overlayScoreString";
-		String scoreString = ZombielandResources.getString("overlayScoreString");
-		//.getString(overlayName + "Message");
+		String scoreString = ZombielandResources.getString(overlayName);
 		overlayScoreString = new OverlayStat(scoreString,
 				player.getScore());
 		initializeOverlayItem(overlayScoreString, overlayName, true);
@@ -294,7 +289,7 @@ public class ZombielandPlayState extends GameState {
 				if (timer.action(elapsedTime)) {
 
 					setNewDelay();
-					updateZombieStats();
+//					updateZombieStats();
 					resetZombiesCount();
 
 					level++;
@@ -327,17 +322,6 @@ public class ZombielandPlayState extends GameState {
 		zombiesAppeared = 0;
 	}
 
-	/**
-	 * Increase the zombie's health and damage.
-	 */
-	private void updateZombieStats() {
-
-		double zombieStatMultiplier = ZombielandResources.getDouble("zombieStatMultiplier");
-
-		zombieHealth = (int) (zombieHealth * level / zombieStatMultiplier);
-		zombieDamage = (int) (zombieDamage + level / zombieStatMultiplier);
-	}
-
 	private boolean moreZombieCanBeAdded() {
 
 		double zombieLimitingFactor = ZombielandResources.getDouble("zombieLimitingFactor");
@@ -352,14 +336,12 @@ public class ZombielandPlayState extends GameState {
 	 */
 	public void addZombie() {
 
-		Zombie newZombie = new Zombie("New", "Moving", player, currentGame);
-		newZombie.setX(Math.random() * GAME_WIDTH);
-		newZombie.setY(Math.random() * GAME_HEIGHT);
+		Zombie newZombie = new Zombie("New", "Moving", level, player, currentGame);
+		
 		zombiesAppeared++;
 
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
-
 	}
 
 	/**
@@ -372,13 +354,6 @@ public class ZombielandPlayState extends GameState {
 	 *            the orientation of the bullet (in degrees)
 	 */
 	public void addBullet(Bullet bullet, double angle) {
-		
-		BufferedImage bulletImage = ZombielandResources.getImage("bulletImage");
-		
-		bullet.getCurrentSprite().setImage(
-				ImageUtil.rotate(bulletImage, (int) angle));
-		bullet.setActive(true);
-
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		bullets.add(bullet);
 	}

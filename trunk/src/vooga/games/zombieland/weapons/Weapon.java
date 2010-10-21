@@ -15,7 +15,7 @@ public abstract class Weapon {
 
 	private Shooter player;
 	private int ammoCount;
-	private double damage;
+	private int damage;
 	private double bulletSpeed;
 	private int frameCount;
 	private int firingDelay;
@@ -25,7 +25,7 @@ public abstract class Weapon {
 		ammoCount = ammo;
 		frameCount = 0;
 	}
-	public Weapon(Shooter shooter, int ammo, double dmg, double speed, int delay) {
+	public Weapon(Shooter shooter, int ammo, int dmg, double speed, int delay) {
 		player = shooter;
 		ammoCount = ammo;
 		frameCount = 0;
@@ -58,7 +58,7 @@ public abstract class Weapon {
 	 * 
 	 * @param weaponDamage
 	 */
-	public void setDamage(double weaponDamage) {
+	public void setDamage(int weaponDamage) {
 		damage = weaponDamage;
 	}
 

@@ -34,8 +34,8 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 		Shooter currentPlayer = (Shooter) player;
 
 		processDamage(currentZombie, currentPlayer);
-		
-		int attackDirection = (int) (currentZombie.getAttackDirection());
+
+		int attackDirection = currentZombie.getDirection();
 		initiateAttackAnimation(attackDirection, currentZombie);
 	}
 

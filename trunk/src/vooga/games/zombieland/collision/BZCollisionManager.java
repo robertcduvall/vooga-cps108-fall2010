@@ -35,17 +35,17 @@ public class BZCollisionManager extends PreciseCollisionGroup {
 	private void actOnCollision(Sprite bullet, Sprite zombie) {
 		Zombie currentZombie = (Zombie) zombie;
 		Bullet currentBullet = (Bullet) bullet;
-
-		int damage = -(int) currentBullet.getDamage();
-
-		currentZombie.updateHealth(damage);
-		if (currentZombie.isHealthZero()) {
+		
+		//Process bullet damage
+		currentZombie.calculateDamage(currentBullet.getDamage());
+		
+		//If the zombie's killed, turn on the zombie death animation
+		if (currentZombie.isDead()) {
 			currentZombie.setToCurrentSprite("ZombieDeath");
-			((AnimatedSprite) currentZombie.getCurrentSprite())
-					.setAnimate(true);
-
+			((AnimatedSprite) currentZombie.getCurrentSprite()).setAnimate(true);
 		}
-
+		
+		//delete bullet from the game
 		currentBullet.setActive(false);
 	}
 }
