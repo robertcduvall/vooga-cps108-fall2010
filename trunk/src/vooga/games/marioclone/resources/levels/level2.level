@@ -1,0 +1,3 @@
+map=src/vooga/games/marioclone/resources/maps/map2.txt
+enemy = 400, 200
+mario = 200,300
