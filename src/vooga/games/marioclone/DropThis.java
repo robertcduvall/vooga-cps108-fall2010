@@ -39,7 +39,7 @@ public class DropThis extends Game {
 
 	private GameStateManager myGameStateManager;
 	private GamePlayState myGamePlayState;
-	private MainMenuState myMenuState;
+	private MainMenuState myMenuState, myPausedState;
 	private GameEndState myLoseState, myWinState;
 	
 	public static void main(String[] args) throws IOException {
@@ -79,12 +79,14 @@ public class DropThis extends Game {
 		fontManager.putFont("MENU", menuFont);
 
 		myMenuState = new MainMenuState(fontManager);
+		myPausedState = new MainMenuState(fontManager);
 		myLoseState = new GameEndState(new ColorBackground(Color.red), "FAIL!",
 				fontManager);
 		myWinState = new GameEndState(new ColorBackground(Color.blue), "YOU WIN!",
 				fontManager);
 
 		myGameStateManager.addGameState(myMenuState);
+		myGameStateManager.addGameState(myPausedState);
 		myGameStateManager.addGameState(myGamePlayState);
 		myGameStateManager.addGameState(myLoseState);
 		myGameStateManager.addGameState(myWinState);
@@ -102,26 +104,34 @@ public class DropThis extends Game {
 		GamePlayState.State nextState;
 
 		if (myGamePlayState.isActive()) {
-			nextState = myGamePlayState.nextState();
-
-			switch (nextState) {
-			case Win:
-				myWinState.setScore(myGamePlayState.getScore());
-				myGameStateManager.switchTo(myWinState);
-				break;
-			case Lose:
-				myLoseState.setScore(myGamePlayState.getScore());
-				myGameStateManager.switchTo(myLoseState);
-				break;
+			if (keyPressed(KeyEvent.VK_P)){
+				myGameStateManager.switchTo(myPausedState);
+			}
+			else{
+				nextState = myGamePlayState.nextState();
+				
+				switch (nextState) {
+				case Win:
+					myWinState.setScore(myGamePlayState.getScore());
+					myGameStateManager.switchTo(myWinState);
+					break;
+				case Lose:
+					myLoseState.setScore(myGamePlayState.getScore());
+					myGameStateManager.switchTo(myLoseState);
+					break;
+				}
 			}
 		}
-
-		if (myMenuState.isActive()) {
+		else if (myPausedState.isActive()){
+			if (keyPressed(KeyEvent.VK_P)){
+				myGameStateManager.switchTo(myGamePlayState);
+			}
+		}
+		else if (myMenuState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE))
 				myGameStateManager.switchTo(myGamePlayState);
 		}
-
-		if (myWinState.isActive() || myLoseState.isActive()) {
+		else if (myWinState.isActive() || myLoseState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
 				myGamePlayState.init();
 				myGameStateManager.switchTo(myGamePlayState);
