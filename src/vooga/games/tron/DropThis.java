@@ -6,6 +6,7 @@ package vooga.games.tron;
  */
 
 import vooga.engine.overlay.OverlayString;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tron.bonus.SpeedBonus;
@@ -28,6 +29,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -102,14 +104,14 @@ public class DropThis extends vooga.engine.core.Game {
 	 */
 	public void initResources() {	
 		setFPS(FRAME_RATE); 	
-	//	ResourcesBeta.initialize(this, getResourcePath());
-//		try {
-//			ResourcesBeta.loadPropertiesFile("game.properties");
-//		} catch (IOException e) {
-//			System.out.println("Failed to load resources/game.properties");
-//			e.printStackTrace();
-//			System.exit(1);
-//		}
+		ResourcesBeta.initialize(this, getResourcePath());
+		try {
+			ResourcesBeta.loadPropertiesFile("game.properties");
+		} catch (IOException e) {
+			System.out.println("Failed to load resources/game.properties");
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
 		backGround=new ColorBackground(Color.WHITE,WIDTH,HEIGHT);
 		gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
@@ -140,7 +142,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 		initializeNewLevel();
 
-		playMusic(ResourcesBundle.getString("music"));
+		playMusic(ResourcesBeta.getSound("music"));
 	}
 	/**
 	 * Create a random level with random blocks
@@ -156,8 +158,8 @@ public class DropThis extends vooga.engine.core.Game {
 		bonusGroup.clear();
 		tronPlayerList=new ArrayList<TronPlayer>();
 
-		player1=new TronPlayer(getImage(ResourcesBundle.getString("lazer_red")) , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
-		player2=new TronPlayer(getImage(ResourcesBundle.getString("lazer_blue")), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
+		player1=new TronPlayer(ResourcesBeta.getImage("lazer_red") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right");       
+		player2=new TronPlayer(ResourcesBeta.getImage("lazer_blue"), gridSpace.getTotalRow() * 9 / 10, gridSpace.getTotalColumn() / 2, gridSpace,PLAYER_IMAGE_WIDTH, "left");
 
 
 		tronPlayerList.add(player1);
@@ -226,7 +228,7 @@ public class DropThis extends vooga.engine.core.Game {
 		for (int i = 0; i < 5; i++){		
 			int randomX = (int)Math.ceil(Math.random()* GRID_WIDTH);
 			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
-			bonusList.add(new SpeedBonus(getImage(ResourcesBundle.getString("lazer_yellow")), (randomX),(randomY),PLAYER_IMAGE_WIDTH));	
+			bonusList.add(new SpeedBonus(ResourcesBeta.getImage("lazer_yellow"), (randomX),(randomY),PLAYER_IMAGE_WIDTH));	
 		}
 
 	}
@@ -264,7 +266,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 			for(int index1=0;index1<randomHeight;index1++){
 				for(int index2 = 0;index2<randomWidth;index2++){
-					blocksGroup.add(new Sprite(getImage(ResourcesBundle.getString("lazer_green")),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
+					blocksGroup.add(new Sprite(ResourcesBeta.getImage("lazer_green"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
 					levelBlocks[randomRow+index1][randomCol+index2] = true;
 				}		
 			}
@@ -320,7 +322,7 @@ public class DropThis extends vooga.engine.core.Game {
 			}
 		}
 		if(startMenu.isActive()){
-			playfield.setBackground(new ImageBackground(getImage(ResourcesBundle.getString("gamestart_image"))));
+			playfield.setBackground(new ImageBackground(ResourcesBeta.getImage("gamestart_image")));
 			if(keyPressed(KeyEvent.VK_A)){
 				playervsplayer=true;
 				gameStateManager.switchTo(play);	
@@ -332,7 +334,7 @@ public class DropThis extends vooga.engine.core.Game {
 		}
 
 		else if(pause.isActive()){
-			playfield.setBackground(new ImageBackground(ImageUtil.resize(getImage(ResourcesBundle.getString("gamepause_image")),WIDTH,HEIGHT)));
+			playfield.setBackground(new ImageBackground(ImageUtil.resize(ResourcesBeta.getImage("gamepause_image"),WIDTH,HEIGHT)));
 			if(keyPressed(KeyEvent.VK_P)){
 				gameStateManager.switchTo(play);
 			}
@@ -398,7 +400,7 @@ public class DropThis extends vooga.engine.core.Game {
 	public void afterCollision(){
 		gameStateManager.switchTo(gameover);
 		isCollision=true;
-		playSound(ResourcesBundle.getString("sound"));
+		playSound(ResourcesBeta.getSound("explosion"));
 		System.out.println("Game Over!");
 		long currentTime=System.currentTimeMillis();
 		while(System.currentTimeMillis()-currentTime<2000){ //delay between levels		
@@ -429,11 +431,11 @@ public class DropThis extends vooga.engine.core.Game {
 	}
 
 	
-//	private String getResourcePath(){
-//		String gamePath = getClass().getPackage().toString();
-//		String defaultPath = "src/" + gamePath.substring(8, gamePath.length())+"/resources/";
-//		return defaultPath.replace('.', '/');
-//	}
+	private String getResourcePath(){
+		String gamePath = getClass().getPackage().toString();
+		String defaultPath = "src/" + gamePath.substring(8, gamePath.length())+"/resources/";
+		return defaultPath.replace('.', '/');
+	}
 	
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
