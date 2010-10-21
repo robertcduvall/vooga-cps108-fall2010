@@ -50,6 +50,7 @@ public class DropThis extends Game {
 	private Background background;
 	private PlayerSprite ship;
 	private LevelManager levelManager;
+	private PlayField playfield;
 	
 	private SpriteGroup torpedos;
 	private SpriteGroup enemyTorpedos;
@@ -65,10 +66,10 @@ public class DropThis extends Game {
 	private CollisionManager itemPlayerCollider;
 	private CollisionManager torpedoBlockCollider;
 	
-	private GameState play;
+	private GalaxyGameState play;
 	private GameState pause;
 	private GameState gameOver;
-	private GameStateManager gameStateManager;
+	private GameStateManager stateManager;
 	
 	private OverlayTracker overlayTracker;
 	protected Stat<Integer> scoreStat;
@@ -82,13 +83,8 @@ public class DropThis extends Game {
 		background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
 		ship = new PlayerSprite("p1", "default", new Sprite(Resources.getImage("ship"), getWidth()/2, getHeight()-100));
 		
-		initializeSpriteGroups();
-		initializeOverlays();
-		initializeBlocks();
-		initializeLevels();
-		initializeColliders();
-		initializeGameStates();
-		gameStateManager.switchTo(pause);
+		initializePlayField();
+		stateManager.switchTo(pause);
 
 		players.add(ship);
 	}
@@ -99,7 +95,7 @@ public class DropThis extends Game {
 	 */
 	public void render(Graphics2D g) {
 		background.render(g);
-		gameStateManager.render(g);
+		stateManager.render(g);
 	}
 
 	/**
@@ -108,11 +104,10 @@ public class DropThis extends Game {
 	 * also checks to see if the game is over, and ends it if it is.
 	 */
 	public void update(long time) {
-		gameStateManager.update(time);
 		background.update(time);
+		stateManager.update(time);
 		
 		checkLevel();
-		checkCollisions();
 		
 		spawnBombs();
 		spawnPowerUps();
@@ -130,6 +125,17 @@ public class DropThis extends Game {
 		scoreStat.setStat(scoreStat.getStat() + score);
 	}
 
+	public void initGameStates(){
+		playfield = new PlayField();
+		super.initGameStates();
+		initializeSpriteGroups();
+		initializeOverlays();
+		initializeBlocks();
+		initializeLevels();
+		initializeColliders();
+		initializeGameStates();
+	}
+	
 	private void initializeSpriteGroups() {
 		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
@@ -161,26 +167,22 @@ public class DropThis extends Game {
 
 	private void initializeColliders() {
 		torpedoCollider = new TorpedoEnemyCollider(this);
-		torpedoCollider.setCollisionGroup(torpedos, enemies);
 		torpedoPlayerCollider = new TorpedoPlayerCollider(this);
-		torpedoPlayerCollider.setCollisionGroup(enemyTorpedos, players);
 		itemPlayerCollider = new ItemPlayerCollider(this);
-		itemPlayerCollider.setCollisionGroup(items, players);
 		torpedoBlockCollider = new TorpedoBlockCollider();
-		torpedoBlockCollider.setCollisionGroup(enemyTorpedos, blockades);
 	}
 
 	private void initializeGameStates() {
-		gameStateManager = new GameStateManager();
-		play = new GameState();
-		play.addGroup(items);
+		stateManager = new GameStateManager();
+		play = new GalaxyGameState(playfield);
+		/*play.addGroup(items);
 		play.addGroup(torpedos);
 		play.addGroup(enemies);
 		play.addGroup(blockades);
 		play.addGroup(players);
 		play.addGroup(enemyTorpedos);
-		play.addGroup(overlayTracker.getOverlayGroups().get(2));
-		gameStateManager.addGameState(play);
+		play.addGroup(overlayTracker.getOverlayGroups().get(2));*/
+		stateManager.addGameState(play);
 		pause = new GameState();
 		gameOver = new GameState();
 		initializeMenus(pause, pauseMenu, 0);
@@ -189,7 +191,7 @@ public class DropThis extends Game {
 	
 	private void initializeMenus(GameState state, SpriteGroup menu, int overlayGroup){
 		state.addGroup(menu);
-		gameStateManager.addGameState(state);
+		stateManager.addGameState(state);
 		SpriteGroup strings = overlayTracker.getOverlayGroups().get(overlayGroup);
 		Sprite[] lines = strings.getSprites();
 		int size = strings.getSize();
@@ -200,15 +202,21 @@ public class DropThis extends Game {
 			menu.add(oString);
 		}			
 	}
-	
-	
-	private void checkCollisions() {
-		torpedoCollider.checkCollision();
-		torpedoPlayerCollider.checkCollision();
-		itemPlayerCollider.checkCollision();
-		torpedoBlockCollider.checkCollision();
-	}
 
+	private void initializePlayField(){
+        playfield.addGroup(items);
+		playfield.addGroup(torpedos);
+		playfield.addGroup(enemies);
+		playfield.addGroup(blockades);
+		playfield.addGroup(players);
+		playfield.addGroup(enemyTorpedos);
+		playfield.addGroup(overlayTracker.getOverlayGroups().get(2));
+		playfield.addCollisionGroup(torpedos, enemies, torpedoCollider);
+        playfield.addCollisionGroup(enemyTorpedos, players, torpedoPlayerCollider);
+        playfield.addCollisionGroup(items, players, itemPlayerCollider);
+        playfield.addCollisionGroup(enemyTorpedos, blockades, torpedoBlockCollider);
+	}
+	
 	private void checkLevel() {
 		if(levelManager.getCurrentLevel()==0){
 				loadLevel();
@@ -224,7 +232,7 @@ public class DropThis extends Game {
 					loadLevel();
 				}
 				else {
-					gameStateManager.switchTo(gameOver);
+					stateManager.switchTo(gameOver);
 				}
 			}
 		}
@@ -243,13 +251,13 @@ public class DropThis extends Game {
 		for(Sprite enemy: enemies.getSprites()) {
 			if(enemy!=null) {
 				if (isAtBorder(enemy)) {
-					gameStateManager.switchTo(gameOver);
+					stateManager.switchTo(gameOver);
 					break;
 				}
 			}
 		}
 		if(livesStat.getStat()<=0) {
-			gameStateManager.switchTo(gameOver);
+			stateManager.switchTo(gameOver);
 		}
 
 	}
@@ -329,8 +337,8 @@ public class DropThis extends Game {
 		}
 
 		if(keyPressed(KeyEvent.VK_P)) {
-			gameStateManager.toggle(pause);
-			gameStateManager.toggle(play);
+			stateManager.toggle(pause);
+			stateManager.toggle(play);
 		}
 		
 		if(keyPressed(KeyEvent.VK_R)) {
