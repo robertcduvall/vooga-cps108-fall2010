@@ -26,10 +26,19 @@ public class MarioPlayField extends PlayField {
 		this();
 		addTileMap(map);
 	}
+	
+	private void scrollLevel() {
+		getBackground().setToCenter(getMario());
+	}
+	
+	public MarioSprite getMario() {
+		return (MarioSprite) getGroup("Mario Group").getActiveSprite();
+	}
 
 
 	public void addTileMap(TileMap tileMap) {
 		myTileMap = tileMap;
+		addGroup(tileMap.getTileGroup());
 		addCollisionGroup(getGroup("Mario Group"), myTileMap.getTileGroup(),
 				new MarioToTileCollision());
 		addCollisionGroup(getGroup("Enemy Group"), myTileMap.getTileGroup(),
@@ -51,6 +60,10 @@ public class MarioPlayField extends PlayField {
 	public void update(long elapsedTime) {
 		myTileMap.updateTiles();
 		updateItems();
+		if (getMario().getX() > getMario().getMaxX()) {
+			scrollLevel();
+		}
+		getGroup("Enemy Group").removeInactiveSprites();
 		super.update(elapsedTime);
 	}
 
