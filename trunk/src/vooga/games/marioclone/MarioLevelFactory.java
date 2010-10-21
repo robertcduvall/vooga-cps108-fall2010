@@ -211,6 +211,7 @@ public class MarioLevelFactory implements LevelFactory {
 			myMario.setHealth(myMario.getMaxHealth());
 			myMario.setActive(true);
 		}
+		myMario.setMaxX(0);
 		myMario.setLocation(x, y);
 	}
 

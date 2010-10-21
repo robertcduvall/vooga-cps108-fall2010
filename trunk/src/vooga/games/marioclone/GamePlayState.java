@@ -31,8 +31,10 @@ public class GamePlayState extends GameState {
 	private List<MarioPlayField> myLevels;
 	MarioLevelFactory myLevelFactory = new MarioLevelFactory();
 
-
+	private static final int NUM_LEVELS = 3;
+	
 	private int myCurrentLevel;
+	private MarioPlayField myLevel;
 
 	private KeyboardControl myControl;
 
@@ -55,7 +57,7 @@ public class GamePlayState extends GameState {
 	public GamePlayState(Game game) {
 		myGame = game;
 		myCurrentLevel = 0;
-		myLevels = new ArrayList<MarioPlayField>();
+//		myLevels = new ArrayList<MarioPlayField>();
 		init();
 	}
 
@@ -68,13 +70,14 @@ public class GamePlayState extends GameState {
 	 */
 
 	public State nextState() {
-		 if (!myLevels.get(myCurrentLevel).getMario().isActive()) {
+		 if (!myLevel.getMario().isActive()) {
 		 return State.Lose;
-		 } else if (myLevels.get(myCurrentLevel).isFinished()) {
-		 if (myCurrentLevel >= myLevels.size() - 1)
+		 } else if (myLevel.isFinished()) {
+		 if (myCurrentLevel >= NUM_LEVELS - 1)
 		 return State.Win;
 		 else {
 		 myCurrentLevel++;
+		 switchLevel(myCurrentLevel);
 		 return State.Continue;
 		 }
 		 } else
@@ -91,7 +94,7 @@ public class GamePlayState extends GameState {
 
 	public void update(long t) {
 		super.update(t);
-		myLevels.get(myCurrentLevel).update(t);
+		myLevel.update(t);
 
 		myControl.update();
 
@@ -103,18 +106,19 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-		for (int i = 0; i < 3; i++) {
-			makeLevel(i);
-		}
+//		for (int i = 0; i < 3; i++) {
+//			makeLevel(i);
+//		}
+		switchLevel(0);
 		setUpKeyboard();
 		myGame.playMusic(Resources.getSound("MarioSong"));
 	}
 
 	public Long getScore() {
-		return new Long(myLevels.get(myCurrentLevel).getMario().getScore());
+		return new Long(myLevel.getMario().getScore());
 	}
 	
-	private void makeLevel(int i) {
+	private void switchLevel(int i) {
 		// File map = new File("src/vooga/games/marioclone/resources/maps/map"
 		// + Integer.toString(i) + ".txt");
 		// if (map == null) {
@@ -134,7 +138,7 @@ public class GamePlayState extends GameState {
 
 		MarioPlayField pf = (MarioPlayField) myLevelFactory.getPlayfield(levelFile);
 		pf.setLevel(i+1);
-		myLevels.add(pf);
+		myLevel = pf;
 	}
 
 	/**
@@ -144,13 +148,12 @@ public class GamePlayState extends GameState {
 
 	public void render(Graphics2D g) {
 		super.render(g);
-		myLevels.get(myCurrentLevel).render(g);
+		myLevel.render(g);
 	}
 
 
 	private void setUpKeyboard() {
-		myControl = new KeyboardControl(((MarioPlayField) myLevels
-				.get(myCurrentLevel)).getMario(), myGame);
+		myControl = new KeyboardControl(((MarioPlayField) myLevel).getMario(), myGame);
 
 		myControl.addInput(KeyEvent.VK_D, "moveRight",
 				"vooga.games.marioclone.MarioSprite");
