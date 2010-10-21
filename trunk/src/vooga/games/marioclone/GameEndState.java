@@ -1,6 +1,5 @@
 package vooga.games.marioclone;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 
@@ -12,7 +11,6 @@ import vooga.engine.state.GameState;
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFontManager;
-import com.golden.gamedev.object.background.ColorBackground;
 
 /**
  * 
@@ -56,10 +54,12 @@ public class GameEndState extends GameState {
 		myFontManager = fontManager;
 		myMessage = new OverlayString(messageString);
 		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
-		myMessage.setLocation((Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
+		myMessage.setLocation(
+				(Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
 
-		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File(
-				"src/vooga/games/marioclone/resources/highscores.db"));
+		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
+				.getString("highscoredbname"), new File(Resources
+				.getString("highscorefile")));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
 
@@ -98,8 +98,9 @@ public class GameEndState extends GameState {
 		for (int j = 0; j < myHighScores.getNames().length; j++) {
 			y += 20;
 			myHighScoreOverlays[j + 1] = new OverlayString(String.format(
-					"%d. %d (set on %tD at %tr)", j + 1, myHighScores.getScores()[j],
-					myHighScores.getTimes()[j],myHighScores.getTimes()[j]));
+					"%d. %d (set on %tD at %tr)", j + 1, myHighScores
+							.getScores()[j], myHighScores.getTimes()[j],
+					myHighScores.getTimes()[j]));
 			myHighScoreOverlays[j + 1].setLocation(x, y);
 		}
 	}
@@ -128,7 +129,6 @@ public class GameEndState extends GameState {
 
 	}
 
-	
 	public void setScore(Long score) {
 		myScore = score;
 	}

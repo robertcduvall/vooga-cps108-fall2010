@@ -108,6 +108,7 @@ public class MarioSprite extends CharacterSprite {
 		stat.setStat(stat.getStat() + i);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setScore(int i) {
 		((Stat<Integer>) getStat("Score")).setStat(i);
 	}
@@ -138,6 +139,10 @@ public class MarioSprite extends CharacterSprite {
 			setGravityCoef(.2);
 		else if(checkCheat("NORM")) 
 			setGravityCoef(1);
+		else if(checkCheat("MORE"))
+			speed+=.1;
+		else if(checkCheat("EROM"))
+			speed-=.1;
 		
 		
 	}
