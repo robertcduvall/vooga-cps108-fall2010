@@ -71,6 +71,14 @@ public class MarioSprite extends CharacterSprite {
 
 	@Override
 	public void update(long elapsedTime) {
+		System.out.println("Updating");
+		if(!this.isOnScreen()){
+			System.out.println("off screen!");
+			while(getHealth() > 0){
+				setHealth(getHealth() - 1);
+			}
+		}
+		
 		double x = getX();
 		if (x > myMaxX) {
 			myMaxX = x;
@@ -86,11 +94,6 @@ public class MarioSprite extends CharacterSprite {
 		if ((myMaxX - halfScreen) >= getX()) {
 			setX(myMaxX - halfScreen);
 		}
-		
-		if(!this.isOnScreen()){
-			setHealth(this.getHealth()-1);
-		}
-		
 	}
 
 	public double getMaxX() {
