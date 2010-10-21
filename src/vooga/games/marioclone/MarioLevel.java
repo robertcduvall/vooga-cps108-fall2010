@@ -8,25 +8,22 @@ import java.io.File;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
+import vooga.engine.factory.LevelFactory;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.Resources;
 import vooga.engine.resource.ResourcesBeta;
 
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
-import com.sun.org.apache.xml.internal.utils.QName;
-import com.sun.org.apache.xpath.internal.operations.Variable;
 
-public class MarioLevel {
+public class MarioLevel implements LevelFactory {
 
 	private Game myGame;
 	private KeyboardControl myControl;
-	private MarioPlayField myPlayField;
+	private MarioPlayField myPlayfield;
 	private MarioSprite myMario;
 	private OverlayStat myScoreOverlay;
 	private Stat<Integer> myLives;
@@ -58,8 +55,8 @@ public class MarioLevel {
 		myHeight = height;
 		myBackgroundWidth = map.width * map.TILE_SIZE;
 		myBackgroundHeight = map.height * map.TILE_SIZE;
-		myPlayField = new MarioPlayField(map);
-		myPlayField.addGroup(map.getTileGroup());
+		myPlayfield = new MarioPlayField(map);
+		myPlayfield.addGroup(map.getTileGroup());
 		Stat<Integer> levelNum = new Stat<Integer>(levelNumber);
 		OverlayStat levelOverlay = new OverlayStat("Level: ", levelNum);
 		myScoreOverlay.setLocation(myWidth - 1000, 5);
@@ -99,7 +96,7 @@ public class MarioLevel {
 	}
 
 	public MarioPlayField getPlayField() {
-		return myPlayField;
+		return myPlayfield;
 	}
 
 	public int getWidth() {
@@ -131,7 +128,7 @@ public class MarioLevel {
 	}
 
 	public void render(Graphics2D g) {
-		myPlayField.render(g);
+		myPlayfield.render(g);
 	}
 
 	private void scrollLevel() {
@@ -175,6 +172,11 @@ public class MarioLevel {
 
 		myMario.setHealth(myMario.getMaxHealth());
 		myMario.setActive(true);
+	}
+
+	@Override
+	public PlayField getPlayfield(File levelFactoryFile) {
+		return myPlayfield;
 	}
 
 }

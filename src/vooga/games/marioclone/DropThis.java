@@ -57,7 +57,9 @@ public class DropThis extends Game {
 		bsLoader = new BaseLoader(new BaseIO(DropThis.class), Color.white);
 
 		try {
-			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/game.properties");
+//			ResourcesBeta.loadPropertiesFile("src/vooga/games/marioclone/resources/game.properties");
+			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/images.properties");
+
 		} catch (IOException e) {
 			System.out.println("Error - could not load file.");
 		}

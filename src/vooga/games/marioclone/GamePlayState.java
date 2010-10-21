@@ -5,11 +5,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.golden.gamedev.engine.audio.MidiRenderer;
+
 import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
-
 
 /**
  * 
@@ -72,7 +74,7 @@ public class GamePlayState extends GameState {
 		if (!myLevels.get(myCurrentLevel).getMario().isActive()) {
 			return State.Lose;
 		} else if (myLevels.get(myCurrentLevel).getLevelFinished()) {
-			if (myCurrentLevel >= myLevels.size()-1)
+			if (myCurrentLevel >= myLevels.size() - 1)
 				return State.Win;
 			else {
 				myCurrentLevel++;
@@ -95,7 +97,6 @@ public class GamePlayState extends GameState {
 		myLevels.get(myCurrentLevel).update(t);
 	}
 
-
 	/**
 	 * This method initializes all necessary variables, such as playfields,
 	 * backgrounds, enemies, and tiles for the start of the game.
@@ -104,30 +105,31 @@ public class GamePlayState extends GameState {
 	public void init() {
 		myLevels = new ArrayList<MarioLevel>();
 		myEnemiesKilled = new Stat<Integer>(new Integer(0));
-		myScoreOverlay = new OverlayStat("Score: ",
-				myEnemiesKilled);
+		myScoreOverlay = new OverlayStat("Score: ", myEnemiesKilled);
 		myLives = new Stat<Integer>(new Integer(0));
-		myLivesOverlay = new OverlayStat("Lives: ",
-				myLives);
-		for(int i=0; i<3; i++){
+		myLivesOverlay = new OverlayStat("Lives: ", myLives);
+		for (int i = 0; i < 3; i++) {
 			makeLevel(i, myGame);
 		}
 		myCurrentLevel = 0;
+		
+//		myGame.playMusic(ResourcesBeta.getSound("MarioSong"));
+		
 	}
-	
-	private void makeLevel(int i, Game game){
-		File map = new File("src/vooga/games/marioclone/resources/maps/map"+Integer.toString(i)+".txt");
-		if(map == null){
+
+	private void makeLevel(int i, Game game) {
+		File map = new File("src/vooga/games/marioclone/resources/maps/map"
+				+ Integer.toString(i) + ".txt");
+		if (map == null) {
 			System.out.println("problem");
 		}
-		MarioLevel level = new MarioLevel(map, myWidth, myHeight, (i+1), game, myScoreOverlay, myEnemiesKilled, 
-		myLivesOverlay, myLives);
-		if(level == null){
+		MarioLevel level = new MarioLevel(map, myWidth, myHeight, (i + 1),
+				game, myScoreOverlay, myEnemiesKilled, myLivesOverlay, myLives);
+		if (level == null) {
 			System.out.println("problem");
 		}
 		myLevels.add(level);
 	}
-
 
 	/**
 	 * Main render method that renders the backgrounds and playfield.
@@ -138,7 +140,7 @@ public class GamePlayState extends GameState {
 		super.render(g);
 		myLevels.get(myCurrentLevel).render(g);
 	}
-	
+
 	public Long getScore() {
 		return new Long(myEnemiesKilled.getStat());
 	}
