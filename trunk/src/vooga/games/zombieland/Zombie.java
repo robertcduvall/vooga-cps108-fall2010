@@ -14,6 +14,7 @@ import java.util.*;
  */
 public class Zombie extends GameEntitySprite {
 
+	private static final int ZOMBIES_PER_LEVEL = 25;
 	private static int itemChance;
 	private static int attackDelay;
 	private static double zombieStatMultiplier;
@@ -28,7 +29,7 @@ public class Zombie extends GameEntitySprite {
 	private int attackDelayStep;
 	private String currentAttackAnimation;
 	
-	private DropThis game;
+	private Blah game;
 
 	private static String LEFT;
 	private static String RIGHT;
@@ -42,7 +43,7 @@ public class Zombie extends GameEntitySprite {
 	
 
 	public Zombie(String name, String stateName, int level, Shooter player,
-			DropThis currentGame) {
+			Blah currentGame) {
 		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
 				.getAnimation("ZombieDown")));
 
@@ -110,6 +111,11 @@ public class Zombie extends GameEntitySprite {
 		return zombieCurrentHealth;
 	}
 
+	public static int zombiesPerLevel()
+	{
+		return ZOMBIES_PER_LEVEL;
+	}
+	
 	/**
 	 * Sets the target for the current zombie. Can be used if at some point we
 	 * have more than one human target

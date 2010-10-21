@@ -25,7 +25,7 @@ public class Shooter extends PlayerSprite{
 	private static int rifleAmmo;
 	private static int pistolAmmo;
 	private int maxHealth;
-	private DropThis game;
+	private Blah game;
 	private int speed;
 	private double orientation;
 	private int weaponChoice;
@@ -36,7 +36,7 @@ public class Shooter extends PlayerSprite{
 	private int levelScore;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
-			int playerHealth, int playerRank, DropThis zombieland) {
+			int playerHealth, int playerRank, Blah zombieland) {
 		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];
@@ -62,7 +62,7 @@ public class Shooter extends PlayerSprite{
 
 
 	}
-	public Shooter(String name, String stateName, DropThis zombieland) {
+	public Shooter(String name, String stateName, Blah zombieland) {
 		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
 		game = zombieland;
 		weapons = new Weapon[3];

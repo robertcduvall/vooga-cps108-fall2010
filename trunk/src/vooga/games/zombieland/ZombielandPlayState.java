@@ -14,8 +14,10 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 import vooga.engine.overlay.Overlay;
 import vooga.engine.overlay.OverlayBar;
+import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.state.GameState;
@@ -32,10 +34,9 @@ import vooga.games.zombieland.weapons.Bullet;
 public class ZombielandPlayState extends GameState {
 
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
-	private static final int ZOMBIES_PER_LEVEL = 25;
 	private static int GAME_WIDTH;
 	private static int GAME_HEIGHT;
-	private static DropThis currentGame;
+	private static Blah currentGame;
 
 	private Shooter player;
 	private PlayField playField;
@@ -44,11 +45,11 @@ public class ZombielandPlayState extends GameState {
 
 	private OverlayBar overlayHealthBar;
 	private OverlayString overlayHealthString;
-	private OverlayStat overlayScoreString;
+	private OverlayStat overlayScoreStat;
 	private OverlayString overlayGameOverString;
 	private OverlayString overlayPauseString;
-	private OverlayStat overlayAmmoString;
-	private OverlayStat overlayLevelString;
+	private OverlayStat overlayAmmoStat;
+	private OverlayStat overlayLevelStat;
 
 	private GameStateManager stateManager;
 	private GameState zombielandPlayState;
@@ -58,7 +59,7 @@ public class ZombielandPlayState extends GameState {
 	private int level;
 	private int zombiesAppeared;
 
-	public ZombielandPlayState(DropThis game, int screen_width, int screen_height) {
+	public ZombielandPlayState(Blah game, int screen_width, int screen_height) {
 		super();
 		GAME_WIDTH = screen_width;
 		GAME_HEIGHT = screen_height;
@@ -74,11 +75,12 @@ public class ZombielandPlayState extends GameState {
 	@Override
 	public void initialize() {
 		player = new Shooter("Hero", "Down", currentGame);
+		stateManager.activateOnly(zombielandPlayState);
+		
 		initEnvironment();
 		initOverlays();
-
 		setListeners();
-		stateManager.activateOnly(zombielandPlayState);
+		
 
 	}
 
@@ -144,106 +146,123 @@ public class ZombielandPlayState extends GameState {
 	 * OverlayLevelString, overllayPauseString.
 	 */
 	public void initOverlays() {
-		initOverlayHealthString();
-		initOverlayHealthBar();
-		initOverlayScoreString();
-		initOverlayAmmoString();
-		initOverlayLevelString();
-		initOverlayPauseString();
-	}
-
-	/**
-	 * This initializes each overly item, setting their location, state, and
-	 * adding it to the playfield
-	 * 
-	 * @param overlay
-	 *            overlay item
-	 * @param item
-	 *            overlay item name
-	 * @param active
-	 *            overlay item state
-	 */
-	private void initializeOverlayItem(Overlay overlay, String item,
-			boolean active) {
-		int x = ZombielandResources.getInt(item + "X");
-		int y = ZombielandResources.getInt(item + "Y");
-		overlay.setLocation(x, y);
-		overlay.setActive(active);
+		
+		OverlayCreator.setGame(currentGame);
+		OverlayTracker tracker = OverlayCreator.createOverlays("src/vooga/games/zombieland/resources/overlays.xml");
+		
 		SpriteGroup overlays = playField.getGroup("Overlays");
-		overlays.add(overlay);
-	}
-
-	/**
-	 * This method initializes the PauseString, which is displayed when the game
-	 * is paused.
-	 */
-	private void initOverlayPauseString() {
+		overlays = tracker.getOverlayGroups().get(0);		
 		
-		String pauseString = ZombielandResources.getString("overlayPauseString");
+
+		overlayHealthBar = tracker.getBarOverlays().get(0);
 		
-		overlayPauseString = new OverlayString(pauseString, Color.BLACK);
-		initializeOverlayItem(overlayPauseString, "overlayPauseString", false);
-	}
-
-	/**
-	 * This method is responsible for displaying the level string while the game
-	 * is playing.
-	 */
-	private void initOverlayLevelString() {
+		overlayPauseString = tracker.getStringOverlays().get(1);
+		overlayHealthString = tracker.getStringOverlays().get(2);
+		overlayGameOverString = tracker.getStringOverlays().get(5);
 		
-		String levelString = ZombielandResources.getString("overlayLevelString");
-		statLevel = new Stat<Integer>(level);
-		overlayLevelString = new OverlayStat(levelString, statLevel);
-		initializeOverlayItem(overlayLevelString, "overlayLevelString", false);
+		overlayAmmoStat = tracker.getStatOverlays().get(1);
+		overlayLevelStat = tracker.getStatOverlays().get(0);
+		overlayScoreStat = tracker.getStatOverlays().get(2);
+//		
+//		initOverlayHealthString();
+//		initOverlayHealthBar();
+//		initOverlayScoreString();
+//		initOverlayAmmoString();
+//		initOverlayLevelString();
+//		initOverlayPauseString();
 	}
 
-	/**
-	 * This method is responsible for initializing the Ammo string that is
-	 * displayed during game play.
-	 */
-	private void initOverlayAmmoString() {
-		String overlayName = "overlayAmmoString";
-		String ammoString = ZombielandResources.getString(overlayName);
-		overlayAmmoString = new OverlayStat(ammoString,
-				player.getStatAmmo());
-		overlayAmmoString.setColor(Color.BLUE);
-
-		initializeOverlayItem(overlayAmmoString, overlayName, true);
-	}
-
-	/**
-	 * This method is responsible for initializing the Score String as an
-	 * increasing number during the game play.
-	 */
-	private void initOverlayScoreString() {
-		String overlayName = "overlayScoreString";
-		String scoreString = ZombielandResources.getString(overlayName);
-		overlayScoreString = new OverlayStat(scoreString,
-				player.getScore());
-		initializeOverlayItem(overlayScoreString, overlayName, true);
-	}
-
-	/**
-	 * This method is responsible for initializing the health bar that is
-	 * displayed during game play.
-	 */
-	private void initOverlayHealthBar() {
-		overlayHealthBar = new OverlayBar(player.getHealth(), player
-				.getHealth().getStat());
-		overlayHealthBar.setColor(Color.GREEN);
-		initializeOverlayItem(overlayHealthBar, "overlayHealthBar", true);
-	}
-
-	/**
-	 * This method is responsible for initializing the message "Health: " on the
-	 * screen during game play
-	 */
-	private void initOverlayHealthString() {
-		String overlayName = "overlayHealthString";
-		String healthString = ZombielandResources.getString("overlayHealthString");	
-		overlayHealthString = new OverlayString(healthString, Color.BLUE);
-		initializeOverlayItem(overlayHealthString, overlayName, true);
-	}
+//	/**
+//	 * This initializes each overly item, setting their location, state, and
+//	 * adding it to the playfield
+//	 * 
+//	 * @param overlay
+//	 *            overlay item
+//	 * @param item
+//	 *            overlay item name
+//	 * @param active
+//	 *            overlay item state
+//	 */
+//	private void initializeOverlayItem(Overlay overlay, String item,
+//			boolean active) {
+//		int x = ZombielandResources.getInt(item + "X");
+//		int y = ZombielandResources.getInt(item + "Y");
+//		overlay.setLocation(x, y);
+//		overlay.setActive(active);
+//		SpriteGroup overlays = playField.getGroup("Overlays");
+//		overlays.add(overlay);
+//	}
+//
+//	/**
+//	 * This method initializes the PauseString, which is displayed when the game
+//	 * is paused.
+//	 */
+//	private void initOverlayPauseString() {
+//		
+//		String pauseString = ZombielandResources.getString("overlayPauseString");
+//		
+//		overlayPauseString = new OverlayString(pauseString, Color.BLACK);
+//		initializeOverlayItem(overlayPauseString, "overlayPauseString", false);
+//	}
+//
+//	/**
+//	 * This method is responsible for displaying the level string while the game
+//	 * is playing.
+//	 */
+//	private void initOverlayLevelString() {
+//		
+//		String levelString = ZombielandResources.getString("overlayLevelString");
+//		statLevel = new Stat<Integer>(level);
+//		overlayLevelString = new OverlayStat(levelString, statLevel);
+//		initializeOverlayItem(overlayLevelString, "overlayLevelString", false);
+//	}
+//
+//	/**
+//	 * This method is responsible for initializing the Ammo string that is
+//	 * displayed during game play.
+//	 */
+//	private void initOverlayAmmoString() {
+//		String overlayName = "overlayAmmoString";
+//		String ammoString = ZombielandResources.getString(overlayName);
+//		overlayAmmoString = new OverlayStat(ammoString,
+//				player.getStatAmmo());
+//		overlayAmmoString.setColor(Color.BLUE);
+//
+//		initializeOverlayItem(overlayAmmoString, overlayName, true);
+//	}
+//
+//	/**
+//	 * This method is responsible for displaying "Kill: " during the game play.
+//	 */
+//	private void initOverlayScoreString() {
+//		String overlayName = "overlayScoreString";
+//		String scoreString = ZombielandResources.getString(overlayName);
+//		overlayScoreString = new OverlayStat(scoreString,
+//				player.getScore());
+//		initializeOverlayItem(overlayScoreString, overlayName, true);
+//	}
+//
+//	/**
+//	 * This method is responsible for initializing the health bar that is
+//	 * displayed during game play.
+//	 */
+//	private void initOverlayHealthBar() {
+//		overlayHealthBar = new OverlayBar(player.getHealth(), player
+//				.getHealth().getStat());
+//		overlayHealthBar.setColor(Color.GREEN);
+//		initializeOverlayItem(overlayHealthBar, "overlayHealthBar", true);
+//	}
+//
+//	/**
+//	 * This method is responsible for initializing the message "Health: " on the
+//	 * screen during game play
+//	 */
+//	private void initOverlayHealthString() {
+//		String overlayName = "overlayHealthString";
+//		String healthString = ZombielandResources.getString("overlayHealthString");	
+//		overlayHealthString = new OverlayString(healthString, Color.BLUE);
+//		initializeOverlayItem(overlayHealthString, overlayName, true);
+//	}
 
 
 	/**
@@ -282,8 +301,8 @@ public class ZombielandPlayState extends GameState {
 				}
 			} else if (levelCompleted()) {
 				statLevel.setStat(level + 1);
-				overlayLevelString.update(elapsedTime);
-				overlayLevelString.setActive(true);
+				overlayLevelStat.update(elapsedTime);
+				overlayLevelStat.setActive(true);
 				playField.update(elapsedTime);
 
 				if (timer.action(elapsedTime)) {
@@ -295,7 +314,7 @@ public class ZombielandPlayState extends GameState {
 					level++;
 
 					player.resetLevelScore();
-					overlayLevelString.setActive(false);
+					overlayLevelStat.setActive(false);
 				}
 			}
 		}
@@ -326,7 +345,7 @@ public class ZombielandPlayState extends GameState {
 
 		double zombieLimitingFactor = ZombielandResources.getDouble("zombieLimitingFactor");
 
-		return zombiesAppeared < ZOMBIES_PER_LEVEL * level
+		return zombiesAppeared < Zombie.zombiesPerLevel() * level
 		* zombieLimitingFactor;
 	}
 
@@ -429,8 +448,8 @@ public class ZombielandPlayState extends GameState {
 	public void render(Graphics2D g) {
 		playField.render(g);
 		stateManager.render(g);
-		if (overlayLevelString.isActive()) {
-			overlayLevelString.render(g);
+		if (overlayLevelStat.isActive()) {
+			overlayLevelStat.render(g);
 		}
 		if (gameOver()) {
 			renderGameOver(g);
