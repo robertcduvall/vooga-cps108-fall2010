@@ -27,7 +27,6 @@ public class PlayerSprite extends GameEntitySprite {
 
 	// general instance variables
 	private List<ItemSprite> myItemList;
-
 	private Map<String, Stat<?>> myStatMap;
 
 	/**
