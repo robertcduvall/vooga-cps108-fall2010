@@ -25,7 +25,7 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 	private static int rifleAmmo;
 	private static int pistolAmmo;
 	private int maxHealth;
-	private Zombieland game;
+	private DropThis game;
 	private int speed;
 	private double orientation;
 	private int weaponChoice;
@@ -36,7 +36,7 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 	private int levelScore;
 
 	public Shooter(String name, String stateName, AnimatedSprite s,
-			int playerHealth, int playerRank, Zombieland zombieland) {
+			int playerHealth, int playerRank, DropThis zombieland) {
 		super(name, stateName, s);
 		game = zombieland;
 		weapons = new Weapon[3];
@@ -85,7 +85,8 @@ public class Shooter extends PlayerSprite implements IZombielandConstants{
 	 *            the angle of the bullet's trajectory
 	 */
 	public void addBulletToGame(Bullet bullet, double angle) {
-		game.addBullet(bullet, angle);
+		((ZombielandPlayState) game.getCurrentState()).addBullet(bullet, angle);
+
 	}
 
 	private void showAnimation(String direction) {

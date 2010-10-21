@@ -25,7 +25,7 @@ public class Zombie extends GameEntitySprite implements IZombielandConstants {
 
 	private int attackDelayStep;
 	private String currentAttackAnimation = "";
-	private Zombieland game;
+	private DropThis game;
 	private Random random;
 
 	public Zombie(String name, String stateName, AnimatedSprite down,
@@ -33,7 +33,7 @@ public class Zombie extends GameEntitySprite implements IZombielandConstants {
 			AnimatedSprite attackDown, AnimatedSprite attackUp,
 			AnimatedSprite attackLeft, AnimatedSprite attackRight,
 			AnimatedSprite death, int health, int damage, Shooter player,
-			Zombieland zombieland) {
+			DropThis currentGame) {
 		super(name, stateName, down);
 
 		mapNameToSprite("Down", down);
@@ -57,7 +57,7 @@ public class Zombie extends GameEntitySprite implements IZombielandConstants {
 		setDamage(damage);
 		resetAttackDelayStep();
 
-		game = zombieland;
+		game = currentGame;
 		random = new Random();
 
 		this.setActive(true);
