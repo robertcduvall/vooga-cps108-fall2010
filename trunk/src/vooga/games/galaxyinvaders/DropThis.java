@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import vooga.engine.core.Game;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
@@ -16,7 +17,6 @@ import vooga.engine.resource.*;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
-import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.ColorBackground;
@@ -32,16 +32,22 @@ import com.golden.gamedev.object.background.ColorBackground;
  */
 public class DropThis extends Game {
 
+
+	private static final int GAME_WIDTH = 700;
+	private static final int GAME_HEIGHT = 800;
 	private static final int TOTAL_LEVELS = 3;
 	private static final int MOVE_DISTANCE = 5;
 	private static final double PLAYER_BOMB_SPEED = 0.8;
 	private static final double ENEMY_BOMB_SPEED = 0.5;
 	private static final double ITEM_SPEED = 0.1;
 	private static final int MAX_ALLOWED_ENEMY_YPOS = 700;
+	private static final int FIRST_BLOCKADE_XPOS = 100;
+	private static final int BLOCKADE_YPOS = 600;
+	private static final int INCREMENT_BLOCKADE_XPOS = 200;
 	private static int ITEM_FREQUENCY = 7;
 	private static int BOMB_FREQUENCY = 10;
 
-	private Background bg;
+	private Background background;
 	private PlayerSprite ship;
 	private LevelManager levelManager;
 	
@@ -65,8 +71,8 @@ public class DropThis extends Game {
 	private GameStateManager gameStateManager;
 	
 	private OverlayTracker overlayTracker;
-	protected Stat<Integer> myScore;
-	protected Stat<Integer> myLives;
+	protected Stat<Integer> scoreStat;
+	protected Stat<Integer> livesStat;
 
 	/**
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
@@ -74,11 +80,11 @@ public class DropThis extends Game {
 	public void initResources() {
 		ResourceHandler.setGame(this);
 		try {
-			ResourceHandler.loadFile("vooga/games/galaxyinvaders/resources/resourcelist.txt");
+			ResourceHandler.loadFile("vooga/games/galaxyinvaders/resources/game.properties");
 		} catch (IOException e1) {
 			System.out.print("File cannot be found.");
 		}
-		bg = new ColorBackground(Color.BLACK, 700, 800);
+		background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
 		ship = new PlayerSprite("p1", "default", new Sprite(ResourceHandler.getImage("ship"), getWidth()/2, getHeight()-100));
 		
 		initializeSpriteGroups();
@@ -97,7 +103,7 @@ public class DropThis extends Game {
 	 * 
 	 */
 	public void render(Graphics2D g) {
-		bg.render(g);
+		background.render(g);
 		gameStateManager.render(g);
 	}
 
@@ -107,9 +113,8 @@ public class DropThis extends Game {
 	 * also checks to see if the game is over, and ends it if it is.
 	 */
 	public void update(long time) {
-
 		gameStateManager.update(time);
-		bg.update(time);
+		background.update(time);
 		
 		checkLevel();
 		checkCollisions();
@@ -119,7 +124,6 @@ public class DropThis extends Game {
 
 		checkDefeat();
 		checkButtons();
-
 	}
 	
 	/**
@@ -128,7 +132,7 @@ public class DropThis extends Game {
 	 * @param score the amount by which to increase the score
 	 */
 	public void increasePlayerScore(int score) {
-		myScore.setStat(myScore.getStat() + score);
+		scoreStat.setStat(scoreStat.getStat() + score);
 	}
 
 	/**
@@ -138,12 +142,10 @@ public class DropThis extends Game {
 	 */
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new DropThis(), new Dimension(700,800), false);
+		game.setup(new DropThis(), new Dimension(GAME_WIDTH, GAME_HEIGHT), false);
 		game.start();
 	}
 
-	
-	
 	private void initializeSpriteGroups() {
 		items = new SpriteGroup("items");
 		torpedos = new SpriteGroup("shots");
@@ -157,13 +159,13 @@ public class DropThis extends Game {
 
 	private void initializeOverlays() {
 		overlayTracker = OverlayCreator.createOverlays(ResourceHandler.getMapping("overlays"));
-		myLives = overlayTracker.getStats().get(0);
-		myScore = overlayTracker.getStats().get(1);
+		livesStat = overlayTracker.getStats().get(0);
+		scoreStat = overlayTracker.getStats().get(1);
 	}
 
 	private void initializeBlocks() {
-		for(int i = 100; i<getWidth(); i+=200) {
-			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(ResourceHandler.getImage("barrier"), i, 600));
+		for(int i = FIRST_BLOCKADE_XPOS; i<getWidth(); i+=INCREMENT_BLOCKADE_XPOS) {
+			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(ResourceHandler.getImage("barrier"), i, BLOCKADE_YPOS));
 			blockades.add(b);
 		}
 	}
@@ -212,34 +214,21 @@ public class DropThis extends Game {
 		gameOver = new GameState();
 		gameOver.addGroup(gameOverMenu);
 		gameStateManager.addGameState(gameOver);
-		initializePause();
-		initializeGameOver();
+		initialize(pauseMenu, 0);
+		initialize(gameOverMenu, 1);
 	}
 	
-	private void initializePause() {
-			SpriteGroup strings = overlayTracker.getOverlayGroups().get(0);
-			Sprite[] lines = strings.getSprites();
-			int size = strings.getSize();
-			for (int i = 0; i<size; i++)
-			{
-				OverlayString oString = (OverlayString) lines[i];
-				oString.setColor(Color.WHITE);
-				pauseMenu.add(oString);
-			}			
+	private void initialize(SpriteGroup menu, int overlayGroup){
+		SpriteGroup strings = overlayTracker.getOverlayGroups().get(overlayGroup);
+		Sprite[] lines = strings.getSprites();
+		int size = strings.getSize();
+		for (int i = 0; i<size; i++)
+		{
+			OverlayString oString = (OverlayString) lines[i];
+			oString.setColor(Color.WHITE);
+			menu.add(oString);
+		}			
 	}
-
-	private void initializeGameOver() {
-			SpriteGroup strings = overlayTracker.getOverlayGroups().get(1);
-			Sprite[] lines = strings.getSprites();
-			int size = strings.getSize();
-			for (int i = 0; i<size; i++)
-			{
-				OverlayString oString = (OverlayString) lines[i];
-				oString.setColor(Color.WHITE);
-				gameOverMenu.add(oString);
-			}			
-	}
-
 	
 	
 	private void checkCollisions() {
@@ -251,12 +240,7 @@ public class DropThis extends Game {
 
 	private void checkLevel() {
 		if(levelManager.getCurrentLevel()==0){
-			SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
-			for(Sprite s : temp.getSprites()) {
-				if(s!=null) {
-					enemies.add(s);
-				}
-			}
+				loadLevel();
 		}
 		
 		for(Sprite e : enemies.getSprites()) {
@@ -266,16 +250,20 @@ public class DropThis extends Game {
 			else {
 				if(levelManager.getCurrentLevel()<TOTAL_LEVELS) {
 					enemies.clear();
-					SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
-					for(Sprite s : temp.getSprites()) {
-						if(s!=null) {
-							enemies.add(s);
-						}
-					}
+					loadLevel();
 				}
 				else {
 					gameStateManager.switchTo(gameOver);
 				}
+			}
+		}
+	}
+	
+	private void loadLevel(){
+		SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
+		for(Sprite s : temp.getSprites()) {
+			if(s!=null) {
+				enemies.add(s);
 			}
 		}
 	}
@@ -289,7 +277,7 @@ public class DropThis extends Game {
 				}
 			}
 		}
-		if(myLives.getStat()<=0) {
+		if(livesStat.getStat()<=0) {
 			gameStateManager.switchTo(gameOver);
 		}
 
@@ -299,32 +287,28 @@ public class DropThis extends Game {
 		//this randomly determines whether a health powerup will be dropped
 		//on this turn. the constant ITEM_FREQUENCY can be changed to change 
 		//the rate of powerups dropped
-		int itemSeed;
-		try {
-			itemSeed = Randomizer.nextInt(10000);
-		} catch (RandomizerException e) {
-			e.printStackTrace();
-			itemSeed = 0;
-		}
-
-		if(itemSeed<ITEM_FREQUENCY) {
+		if(getRandomSeed(10000)<ITEM_FREQUENCY) {
 			spawnHealth();
 		}
 	}
 
 	private void spawnBombs() {
-		int bombSeed;
-		try {
-			bombSeed = Randomizer.nextInt(1000);
-		} catch (RandomizerException e) {
-			e.printStackTrace();
-			bombSeed = 0;
-		}
-		if(bombSeed<BOMB_FREQUENCY) {
+		if(getRandomSeed(1000)<BOMB_FREQUENCY) {
 			spawnEnemyBomb();
 		}
 	}
 
+	private int getRandomSeed(int randomizer){
+		int seed;
+		try {
+			seed = Randomizer.nextInt(randomizer);
+		} catch (RandomizerException e) {
+			e.printStackTrace();
+			seed = 0;
+		}
+		return seed;
+	}
+	
 	private void spawnHealth() {
 		Sprite temp = new Sprite(ResourceHandler.getImage("health"), getWidth()/2, 0);
 		temp.setVerticalSpeed(ITEM_SPEED);
@@ -357,10 +341,12 @@ public class DropThis extends Game {
 	
 	private void checkButtons() {
 		if(keyDown(KeyEvent.VK_LEFT)) {
-			if(ship.getX()>0-15)  moveLeft();
+			if(ship.getX()>0-15)  
+				moveLeft(-MOVE_DISTANCE);
 		}
 		if(keyDown(KeyEvent.VK_RIGHT)) {
-			if(ship.getX()<getWidth()-45)   moveRight();
+			if(ship.getX()<getWidth()-45)   
+				moveRight(MOVE_DISTANCE);
 		}
 		if(keyPressed(KeyEvent.VK_SPACE)) {
 			fire();
@@ -383,12 +369,12 @@ public class DropThis extends Game {
 	}
 
 	
-	private void moveLeft() {
-		ship.move(-MOVE_DISTANCE, 0);
+	private void moveLeft(int distance) {
+		ship.move(distance, 0);
 	}
 
-	private void moveRight() {
-		ship.move(MOVE_DISTANCE, 0);
+	private void moveRight(int distance) {
+		ship.move(distance, 0);
 	}
 
 	private void fire() {
@@ -398,7 +384,7 @@ public class DropThis extends Game {
 	}
 
 	private boolean isAtBorder(Sprite enemy){
-		return enemy.getY() >=  MAX_ALLOWED_ENEMY_YPOS;
+		return enemy.getY() >= MAX_ALLOWED_ENEMY_YPOS;
 	}
 
 }

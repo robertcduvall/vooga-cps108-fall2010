@@ -19,7 +19,6 @@ import vooga.engine.resource.Resources;
 
 public class GalaxyLevelFactory implements LevelFactory {
 	
-	
 	public PlayField getPlayfield(File levelFactoryFile) {
 		Scanner scanner;
 		try {
