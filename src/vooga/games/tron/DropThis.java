@@ -18,6 +18,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
+import com.golden.gamedev.util.ImageUtil;
 
 
 // Java Foundation Classes (JFC)
@@ -331,7 +332,7 @@ public class DropThis extends vooga.engine.core.Game {
 		}
 
 		else if(pause.isActive()){
-			playfield.setBackground(new ImageBackground(getImage(ResourcesBundle.getString("gamepause_image"))));
+			playfield.setBackground(new ImageBackground(ImageUtil.resize(getImage(ResourcesBundle.getString("gamepause_image")),WIDTH,HEIGHT)));
 			if(keyPressed(KeyEvent.VK_P)){
 				gameStateManager.switchTo(play);
 			}
