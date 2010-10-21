@@ -18,7 +18,8 @@ import com.golden.gamedev.GameLoader;
  *               dropped.
  */
 
-public class DropThis extends Game {
+public class Blah extends Game {
+	
 	private static final int SCREEN_WIDTH = 700;
 	private static final int SCREEN_HEIGHT = 500;
 
@@ -67,7 +68,7 @@ public class DropThis extends Game {
 	 */
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new DropThis(), new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT),
+		game.setup(new Blah(), new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT),
 				false);
 		game.start();
 	}

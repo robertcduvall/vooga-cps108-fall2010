@@ -1,0 +1,28 @@
+<Overlay>
+
+<Stat type="Integer" value="200"></Stat>
+<Stat type="Integer" value="0"></Stat>
+<Stat type="Integer" value="100"></Stat>
+
+<OverlayGroup>
+
+<OverlayBar stat="0" max="200" xLoc="80" yLoc="18" length="0"></OverlayBar>
+
+<OverlayString label="Level: " fontName="gameFontBlack" xLoc="260" yLoc="180"></OverlayString>
+<OverlayString label="PAUSE" fontName="gameFontRed" xLoc="260" yLoc="50"></OverlayString>
+<OverlayString label="Health: " fontName="gameFontBlack" xLoc="5" yLoc="10"></OverlayString>
+<OverlayString label="Kills: " fontName="gameFontBlack" xLoc="385" yLoc="12"></OverlayString>
+<OverlayString label="Ammo: " fontName="gameFontBlue" xLoc="470" yLoc="12"></OverlayString>
+<OverlayString label="Game Over" fontName="gameFontBlack" xLoc="260" yLoc="50"></OverlayString>
+
+<OverlayStat label="HealthStat" stat="0" fontName="gameFontBlack" xLoc="5" yLoc="10"></OverlayStat>
+<OverlayStat label="KillsStat" stat="1" fontName="gameFontBlack" xLoc="385" yLoc="12"></OverlayStat> 
+<OverlayStat label="AmmoStat" stat="2" fontName="gameFontBlue" xLoc="470" yLoc="12"></OverlayStat> 
+</OverlayGroup>
+
+</Overlay>
+
+
+
+
+
