@@ -78,13 +78,6 @@ public class DropThis extends Game {
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
 	 */
 	public void initResources() {
-//		Resources.setGame(this);
-//		try {
-//			Resources.loadImageFile("vooga/games/galaxyinvaders/resources/game.properties");
-//			Resources.loadStringFile("vooga/games/galaxyinvaders/resources/strings.properties");
-//		} catch (IOException e1) {
-//			System.out.print("File cannot be found.");
-//		}
 		super.initResources();
 		background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
 		ship = new PlayerSprite("p1", "default", new Sprite(Resources.getImage("ship"), getWidth()/2, getHeight()-100));
