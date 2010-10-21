@@ -20,6 +20,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.Pause;
@@ -33,6 +34,7 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
+import com.sun.xml.internal.ws.api.ResourceLoader;
 
 
 /**
@@ -111,21 +113,22 @@ public class DropThis extends Game {
 		this.hideCursor();
 
 		//setting up resource handler
-		ResourceHandler.setGame(this);
+		/*ResourceHandler.setGame(this);
 		try{
-			ResourceHandler.loadFile("vooga/games/jumper/resources/resourcelist.txt");
+			Resources.loadFile("vooga/games/jumper/resources/resourcelist.txt");
 		} catch (IOException e){
 			e.printStackTrace();
-		}
+		}*/
+		Resources.initialize(this, "vooga/games/jumper/resources/resourcelist.txt");
 
 
-		BufferedImage leftDoodle = ResourceHandler.getImage("leftDoodle");
-		BufferedImage rightDoodle = ResourceHandler.getImage("rightDoodle");
+		BufferedImage leftDoodle = Resources.getImage("leftDoodle");
+		BufferedImage rightDoodle = Resources.getImage("rightDoodle");
 		DoodleSprite player1 = new DoodleSprite(leftDoodle, DOODLE_START, leftDoodle, rightDoodle);
 		myPlayers.add(player1);
 
 		myPlayfield = new PlayField();
-		myBackground = new ImageBackground(ResourceHandler.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
+		myBackground = new ImageBackground(Resources.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
 		myPlayfield.setBackground(myBackground);
 
 		/*
@@ -141,7 +144,18 @@ public class DropThis extends Game {
 		myNormalCollision = new DoodleToBlockCollision();
 		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
 
-		myFont = fontManager.getFont(ResourceHandler.getImages("font", 20, 3),myFontString);
+		
+		/**
+		 * 
+		 * 
+		 * NEEDS TO BE RESOLVED
+		 
+		
+		myFont = fontManager.getFont(Resources.loadImageFile("font");
+		//getImages("font", 20, 3),myFontString);
+		 * 
+		 * 
+		 */
 
 		OverlayCreator.setGame(this);
 		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
@@ -187,30 +201,30 @@ public class DropThis extends Game {
 		if (randomBlockOccurance < myBlockFrequency){
 			BlockSprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
 			if (myBlockCounter == myBlockCounterIncrement){
-				block.setImage(ResourceHandler.getImage("platformGray"));
+				block.setImage(Resources.getImage("platformGray"));
 				block.setVerticalSpeed(myBlockVelocity);
 				block.setBlockType("blockTypeNormal");
 
 			} else if(myBlockCounter == 2*myBlockCounterIncrement){
-				block.setImage(ResourceHandler.getImage("platformRed"));
+				block.setImage(Resources.getImage("platformRed"));
 				block.setVerticalSpeed(myBlockVelocity*fastBlockSpeedMultiplier);
 				block.setBlockType("blockTypeNormal");
 
 			} else if(myBlockCounter == 3*myBlockCounterIncrement){
-				block.setImage(ResourceHandler.getImage("platformLightBlueWide"));
+				block.setImage(Resources.getImage("platformLightBlueWide"));
 				block.setBlockType("blockTypeNormal");
 			} else if(myBlockCounter == 4*myBlockCounterIncrement){
-				block.setImage(ResourceHandler.getImage("platformBreak"));
+				block.setImage(Resources.getImage("platformBreak"));
 				block.setBlockType("blockTypeNotBroken");
 			} else if(myBlockCounter == 5*myBlockCounterIncrement){
-				block.setImage(ResourceHandler.getImage("platformSpringDouble"));
+				block.setImage(Resources.getImage("platformSpringDouble"));
 				block.setBlockType("blockTypeSpring");
 			} else if(myBlockCounter == 6*myBlockCounterIncrement){
-				block.setImage(ResourceHandler.getImage("jetpack"));
+				block.setImage(Resources.getImage("jetpack"));
 				block.setBlockType("blockTypeJetpack");
 				myBlockCounter = 0;
 			} else {
-				block.setImage(ResourceHandler.getImage("platformGreen"));
+				block.setImage(Resources.getImage("platformGreen"));
 				block.setBlockType("blockTypeNormal");
 			}
 
