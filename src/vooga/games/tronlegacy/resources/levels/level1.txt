@@ -1,1 +1,3 @@
-levelBlock, 1,1
+levelBlock,360,240
+levelBlock,100,100
+levelBlock,300,300

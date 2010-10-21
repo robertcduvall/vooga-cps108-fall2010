@@ -1,0 +1,9 @@
+<Overlay>
+<Stat type="Integer" value="0"></Stat>
+
+<OverlayGroup>
+<OverlayStat label="SCORE : " stat="0" fontName="gameFontGreen" xLoc="200" yLoc="440"></OverlayStat>
+</OverlayGroup>
+
+
+</Overlay>
