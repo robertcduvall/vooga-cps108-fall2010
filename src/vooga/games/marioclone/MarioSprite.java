@@ -1,12 +1,9 @@
 package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import sun.tools.jconsole.Resources;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.ItemSprite;
 import vooga.games.marioclone.items.GravityItem;
@@ -104,6 +101,7 @@ public class MarioSprite extends CharacterSprite {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void incScore(int i) {
 		Stat<Integer> stat = (Stat<Integer>) getStat("Kills");
 		stat.setStat(stat.getStat() + i);

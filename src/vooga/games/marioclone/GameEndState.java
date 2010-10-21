@@ -58,7 +58,7 @@ public class GameEndState extends GameState {
 		myMessage.setLocation(512 - myMessage.getWidth() / 2, 100);
 
 		myHighScores = new HighScoreHandler(NUM_SCORES, "highscores", new File(
-				"src/vooga/games/marioclone/highscores.db"));
+				"src/vooga/games/marioclone/resources/highscores.db"));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
 

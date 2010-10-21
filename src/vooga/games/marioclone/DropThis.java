@@ -10,6 +10,7 @@ import java.io.IOException;
 import vooga.engine.core.Game;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.GameLoader;
@@ -49,14 +50,14 @@ public class DropThis extends Game {
 	}
 
 	public void initResources() {
-		Resources.setGame(this);
+		ResourcesBeta.setGame(this);
 		GameFont menuFont = fontManager.getFont(getImages("resources/images/font.png",
 				20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(DropThis.class), Color.white);
 
 		try {
-			Resources.loadFile("src/vooga/games/marioclone/resources/game.properties");
+			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/game.properties");
 		} catch (IOException e) {
 			System.out.println("Error - could not load file.");
 		}

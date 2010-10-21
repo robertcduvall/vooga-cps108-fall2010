@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import vooga.engine.player.control.ItemSprite;
-import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.games.marioclone.items.GravityItem;
 import vooga.games.marioclone.tiles.BreakTile;
 import vooga.games.marioclone.tiles.ChangingTile;
@@ -116,27 +116,27 @@ public class TileMap {
 				case(' '):
 					break;
 				case('F'):
-					addTile(new IndestructibleTile(x,y,Resources.getImage("GrassTile")));
+					addTile(new IndestructibleTile(x,y,ResourcesBeta.getImage("GrassTile")));
 					break;
 				case('D'):
-					addTile(new IndestructibleTile(x,y,Resources.getImage("DirtTile")));
+					addTile(new IndestructibleTile(x,y,ResourcesBeta.getImage("DirtTile")));
 					break;
 				case('B'):
-					addTile(new BreakTile(x,y,Resources.getImage("Break")));
+					addTile(new BreakTile(x,y,ResourcesBeta.getImage("Break")));
 					break;	
 				case('C'):
 					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
-					changingImages.add(Resources.getImage("Changing1"));
-					changingImages.add(Resources.getImage("Changing2"));
-					changingImages.add(Resources.getImage("Changing3"));
-					changingImages.add(Resources.getImage("Changing4"));
+					changingImages.add(ResourcesBeta.getImage("Changing1"));
+					changingImages.add(ResourcesBeta.getImage("Changing2"));
+					changingImages.add(ResourcesBeta.getImage("Changing3"));
+					changingImages.add(ResourcesBeta.getImage("Changing4"));
 					addTile(new ChangingTile(x,y,changingImages));
 					break;
 				case('G'):
 					List<BufferedImage> itemTileImages = new ArrayList<BufferedImage>();
-					itemTileImages.add(Resources.getImage("ItemTile1"));
-					itemTileImages.add(Resources.getImage("ItemTile2"));
-					GravityItem gravityItem = new GravityItem(new Sprite(Resources.getImage("GravityItem")),.5);
+					itemTileImages.add(ResourcesBeta.getImage("ItemTile1"));
+					itemTileImages.add(ResourcesBeta.getImage("ItemTile2"));
+					GravityItem gravityItem = new GravityItem(new Sprite(ResourcesBeta.getImage("GravityItem")),.5);
 					gravityItem.setLocation(x,y-gravityItem.getHeight());
 					addTile(new ItemTile(x,y,itemTileImages,gravityItem));
 					break;
