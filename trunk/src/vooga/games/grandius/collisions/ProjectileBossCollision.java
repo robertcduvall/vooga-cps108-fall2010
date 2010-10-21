@@ -3,7 +3,7 @@ package vooga.games.grandius.collisions;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.GrandiusMain;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.enemy.boss.reacher.Reacher;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -12,9 +12,9 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class ProjectileBossCollision extends BasicCollision {
 	
-private GrandiusMain grandius;
+private Blah grandius;
 	
-	public ProjectileBossCollision(GrandiusMain grandius) {
+	public ProjectileBossCollision(Blah grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}

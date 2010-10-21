@@ -1,7 +1,7 @@
 package vooga.games.grandius.collisions;
 
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.GrandiusMain;
+import vooga.games.grandius.Blah;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -15,9 +15,9 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class BasicCollision extends BasicCollisionGroup {
 
-	private GrandiusMain grandius;
+	private Blah grandius;
 	
-	public BasicCollision(GrandiusMain grandius) {
+	public BasicCollision(Blah grandius) {
 		super();
 		this.grandius = grandius;
 	}
