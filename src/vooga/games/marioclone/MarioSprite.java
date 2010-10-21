@@ -91,7 +91,11 @@ public class MarioSprite extends CharacterSprite {
 	public double getMaxX() {
 		return myMaxX;
 	}
-
+	
+	public void setMaxX(double maxX) {
+		myMaxX = maxX;
+	}
+	
 	public void actOnItem(ItemSprite item) {
 		if (item.getClass().equals(GravityItem.class)) {
 			setGravityCoef(((GravityItem) item).getGravity());
