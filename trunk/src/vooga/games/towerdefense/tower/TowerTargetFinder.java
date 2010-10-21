@@ -3,11 +3,10 @@ package vooga.games.towerdefense.tower;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.event.IEvent;
-import vooga.games.towerdefense.Enemy;
+import vooga.engine.event.*;
+import vooga.games.towerdefense.*;
 import vooga.games.towerdefense.DropThis;
-import vooga.games.towerdefense.events.NeedsTargetsEvent;
-import vooga.games.towerdefense.events.NeedsTargetsListener;
+import vooga.games.towerdefense.events.*;
 
 /**
  * This class works with the Event API to make each tower locate the enemy to fire upon.
@@ -16,7 +15,7 @@ import vooga.games.towerdefense.events.NeedsTargetsListener;
  *
  */
 
-public class TowerTargetFinder implements NeedsTargetsListener{
+public class TowerTargetFinder implements IEventListener{
 	DropThis game;
 	
 	public void setGame(DropThis game){

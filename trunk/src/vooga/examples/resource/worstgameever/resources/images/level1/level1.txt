@@ -1,0 +1,1 @@
+downAnim,images/level1/Down1.png,images/level1/Down2.png,images/level1/Down3.png,images/level1/Down4.png
