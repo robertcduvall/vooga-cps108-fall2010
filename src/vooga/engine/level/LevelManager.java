@@ -8,7 +8,6 @@ import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.collision.CollisionManager;
 import vooga.engine.event.EventManager;
-import vooga.engine.resource.ResourceHandler;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.GrandiusLevel;
 
@@ -52,7 +51,6 @@ public class LevelManager {
 	private static CollisionManager persistentCollisionManager = null;
 	private static EventManager persistentEventManager = null;
 	private static GameState persistentGameState = null;
-	private static ResourceHandler persistentResourceHandler = null;
 
 	public LevelManager() {
 		myLayout = new ArrayList<Level>();
@@ -154,13 +152,7 @@ public class LevelManager {
 	public void setPersistentGameState(GameState gs){
 		persistentGameState = gs;
 	}
-	/**
-	 * Set the persist Resource Handler. Called by a level when it exits.
-	 * @param rh
-	 */
-	public void setPersistentResourceHandler(ResourceHandler rh){
-		persistentResourceHandler = rh;
-	}		
+
 	
 	public void persistCollisionManager(Level l){			
 		l.setCollision(persistentCollisionManager);
@@ -179,11 +171,5 @@ public class LevelManager {
 	public void persistGameState(Level l){
 		l.setGameState(persistentGameState);
 	}
-	/**
-	 * Assign the persistent Resource Handler to the level l.
-	 * @param l
-	 */
-	public void persistentResourceHandler(Level l){
-		l.setResources(persistentResourceHandler);
-	}
+
 }
