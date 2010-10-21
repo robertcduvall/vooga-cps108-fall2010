@@ -16,8 +16,9 @@ public class Zombie extends GameEntitySprite {
 
 	private static int ITEM_CHANCE;
 	private int attackDelay;
-	private double zombieDamage;
-	private double zombieHealth;
+	private static int zombieDamage;
+	private static int zombieHealth;
+	private static int zombieAppeared;
 
 	private Shooter target;
 	private String directionToMove;
@@ -50,9 +51,7 @@ public class Zombie extends GameEntitySprite {
 
 		setHumanTarget(player);
 		directionToMove = "X";
-		// speed = Double.parseDouble(bundle.getString("zombieSpeed"));
-		// attackDelay = ZRes.getInt("zombieAttackDelay"));
-		// ITEM_CHANCE = ZRes.getInt("ITEM_CHANCE";
+
 		speed = ZombielandResources.getDouble("zombieSpeed");
 		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
 		ITEM_CHANCE = ZombielandResources.getInt("ITEM_CHANCE");
@@ -62,9 +61,66 @@ public class Zombie extends GameEntitySprite {
 
 		game = currentGame;
 		random = new Random();
+		resetZombieCount();
+		resetZombieDamage();
+		resetZombieHealth();
 
 		this.setActive(true);
 	}
+
+	public static void resetZombieHealth() {
+		zombieHealth = 0;
+	}
+	
+	public static void setZombieHealth(int newHealth)
+	{
+		zombieHealth = newHealth;
+	}
+	
+	public static void updateZombieHealth(int change)
+	{
+		zombieHealth += change;
+	}
+	
+	public static int getZombieHealth()
+	{
+		return zombieHealth;
+	}
+
+	public static void resetZombieDamage() {
+		zombieDamage = 0;
+	}
+	
+	public static void setZombieDamage(int damage)
+	{
+		zombieDamage = damage;
+	}
+	
+	public static void updateZombieDamage(int change)
+	{
+		zombieDamage += change;
+	}
+	
+	public static int getZombieDamage()
+	{
+		return zombieDamage;
+	}
+
+	public static void resetZombieCount() {
+		zombieAppeared = 0;
+	}
+	
+	public static void updateZombieCount()
+	{
+		zombieAppeared++;
+	}
+	
+	public static int getZombieCount()
+	{
+		return zombieAppeared;
+	}
+	
+	
 
 	public Zombie(String name, String stateName, Shooter player,
 			DropThis currentGame) {
