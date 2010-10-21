@@ -36,12 +36,10 @@ public class ZombielandPlayState extends GameState {
 
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 500;
+	
 	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
-	private static long defaultAnimationDelay = 300;
 	private static final int ZOMBIES_PER_LEVEL = 25;
 	private static DropThis currentGame;
-	private static ResourceBundle mainResourceBundle;
-	private static String delim;
 
 	private AnimatedSprite shooterImage;
 	private ImageBackground background;
@@ -49,26 +47,6 @@ public class ZombielandPlayState extends GameState {
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
-
-	/**
-	 * We choose to jave BufferedImage[] files as private variables because we
-	 * have a method called addZombie(). If we try to get the images every time
-	 * from the resource bundle (i.e. making these variables local), we run into
-	 * the problem of clogging the performance of the game.
-	 */
-	private BufferedImage[] playerDefaultImage;
-
-	private BufferedImage[] zombieUpImage;
-	private BufferedImage[] zombieDownImage;
-	private BufferedImage[] zombieLeftImage;
-	private BufferedImage[] zombieRightImage;
-
-	private BufferedImage[] zombieAttackUpImage;
-	private BufferedImage[] zombieAttackDownImage;
-	private BufferedImage[] zombieAttackLeftImage;
-	private BufferedImage[] zombieAttackRightImage;
-
-	private BufferedImage[] zombieDeathImage;
 
 	private BufferedImage bulletImage;
 	private BufferedImage shotGunImage;
@@ -93,11 +71,10 @@ public class ZombielandPlayState extends GameState {
 	private int zombieHealth;
 	private int zombieDamage;
 
-	public ZombielandPlayState(DropThis game, String ResourceURL) {
+	public ZombielandPlayState(DropThis game) {
 		super();
+		
 		currentGame = game;
-		mainResourceBundle = ResourceBundle.getBundle(ResourceURL);
-		delim = mainResourceBundle.getString("delim");
 
 		zombielandPlayState = new GameState();
 		zombielandPauseState = new GameState();
@@ -140,8 +117,9 @@ public class ZombielandPlayState extends GameState {
 	private void initEnvironment() {
 		playField = new PlayField();
 
-		String sandbackgroundpath = mainResourceBundle.getString("sandbg");
-		BufferedImage sandbg = currentGame.getImage(sandbackgroundpath);
+		//String sandbackgroundpath = ZombielandResources.getImage("sandbg");
+		BufferedImage sandbg = ZombielandResources.getImage("sandbg");
+		
 		background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
 		SpriteGroup zombies = new SpriteGroup("Zombies");
@@ -228,7 +206,10 @@ public class ZombielandPlayState extends GameState {
 	 * is paused.
 	 */
 	private void initOverlayPauseString() {
-		overlayPauseString = new OverlayString("PAUSE", Color.BLACK);
+		
+		String pauseString = ZombielandResources.getString("overlayPauseString");
+		
+		overlayPauseString = new OverlayString(pauseString, Color.BLACK);
 		initializeOverlayItem(overlayPauseString, "overlayPauseString", false);
 	}
 
@@ -237,8 +218,11 @@ public class ZombielandPlayState extends GameState {
 	 * is playing.
 	 */
 	private void initOverlayLevelString() {
+		
+		String levelString = ZombielandResources.getString("overlayLevelString");
+		
 		statLevel = new Stat<Integer>(level);
-		overlayLevelString = new OverlayStat("Level ", statLevel);
+		overlayLevelString = new OverlayStat(levelString, statLevel);
 		initializeOverlayItem(overlayLevelString, "overlayLevelString", false);
 	}
 
@@ -248,9 +232,9 @@ public class ZombielandPlayState extends GameState {
 	 */
 	private void initOverlayAmmoString() {
 		String overlayName = "overlayAmmoString";
-		String overlayAmmoStringMessage = mainResourceBundle
-		.getString(overlayName + "Message");
-		overlayAmmoString = new OverlayStat(overlayAmmoStringMessage,
+		String ammoString = ZombielandResources.getString("overlayAmmoString");
+		//.getString(overlayName + "Message");
+		overlayAmmoString = new OverlayStat(ammoString,
 				player.getStatAmmo());
 		overlayAmmoString.setColor(Color.BLUE);
 
@@ -263,9 +247,9 @@ public class ZombielandPlayState extends GameState {
 	 */
 	private void initOverlayScoreString() {
 		String overlayName = "overlayScoreString";
-		String overlayAmmoStringMessage = mainResourceBundle
-		.getString(overlayName + "Message");
-		overlayScoreString = new OverlayStat(overlayAmmoStringMessage,
+		String scoreString = ZombielandResources.getString("overlayScoreString");
+		//.getString(overlayName + "Message");
+		overlayScoreString = new OverlayStat(scoreString,
 				player.getScore());
 		initializeOverlayItem(overlayScoreString, overlayName, true);
 	}
@@ -287,10 +271,11 @@ public class ZombielandPlayState extends GameState {
 	 */
 	private void initOverlayHealthString() {
 		String overlayName = "overlayHealthString";
-		String overlayHealthStringMessage = mainResourceBundle
-		.getString(overlayName + "Message");
-		overlayHealthString = new OverlayString(overlayHealthStringMessage,
-				Color.BLUE);
+		String healthString = ZombielandResources.getString("overlayHealthString");
+		
+		//.getString(overlayName + "Message");
+		
+		overlayHealthString = new OverlayString(healthString, Color.BLUE);
 		initializeOverlayItem(overlayHealthString, overlayName, true);
 	}
 
@@ -323,16 +308,7 @@ public class ZombielandPlayState extends GameState {
 	 * bulletImage, shotGunImage, assaultRifleImage, and healthImage
 	 */
 	private void initImages() {
-		// Zombie animations
-		// initZombie();
-		// bulletImage =
-		// currentGame.getImage(mainResourceBundle.getString("bulletImage"));
-		// shotGunImage =
-		// currentGame.getImage(mainResourceBundle.getString("shotGunImage"));
-		// assaultRifleImage =
-		// currentGame.getImage(mainResourceBundle.getString("assaultRifleImage"));
-		// healthImage =
-		// currentGame.getImage(mainResourceBundle.getString("healthImage"));
+
 		bulletImage = ZombielandResources.getImage("bulletImage");
 		shotGunImage = ZombielandResources.getImage("shotGunImage");
 		assaultRifleImage = ZombielandResources.getImage("assaultRifleImage");
