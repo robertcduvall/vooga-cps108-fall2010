@@ -19,7 +19,6 @@ import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.GameClock;
 import vooga.engine.resource.GameClockException;
-import vooga.engine.resource.ResourceHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
