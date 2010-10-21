@@ -6,13 +6,11 @@ package vooga.games.tron;
  */
 
 import vooga.engine.overlay.OverlayString;
-import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tron.bonus.SpeedBonus;
 import vooga.games.tron.players.TronPlayer;
 
-import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
@@ -29,7 +27,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
