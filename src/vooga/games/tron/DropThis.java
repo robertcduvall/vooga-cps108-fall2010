@@ -6,6 +6,7 @@ package vooga.games.tron;
  */
 
 import vooga.engine.overlay.OverlayString;
+import vooga.engine.resource.ResourcesBeta;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tron.bonus.SpeedBonus;
@@ -28,13 +29,14 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class DropThis extends Game {
+public class DropThis extends vooga.engine.core.Game {
 
 	private static final int WIDTH=480;
 	private static final int HEIGHT=480;
@@ -102,6 +104,15 @@ public class DropThis extends Game {
 	 */
 	public void initResources() {	
 		setFPS(FRAME_RATE); 	
+	//	ResourcesBeta.initialize(this, getResourcePath());
+//		try {
+//			ResourcesBeta.loadPropertiesFile("game.properties");
+//		} catch (IOException e) {
+//			System.out.println("Failed to load resources/game.properties");
+//			e.printStackTrace();
+//			System.exit(1);
+//		}
+		
 		backGround=new ColorBackground(Color.WHITE,WIDTH,HEIGHT);
 		gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
 		showStartMenu=true;
@@ -420,6 +431,13 @@ public class DropThis extends Game {
 		}
 	}
 
+	
+//	private String getResourcePath(){
+//		String gamePath = getClass().getPackage().toString();
+//		String defaultPath = "src/" + gamePath.substring(8, gamePath.length())+"/resources/";
+//		return defaultPath.replace('.', '/');
+//	}
+	
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
 		game.setup(new DropThis(), new Dimension(WIDTH,HEIGHT), false);
