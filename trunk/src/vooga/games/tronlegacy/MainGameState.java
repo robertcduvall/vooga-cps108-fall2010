@@ -3,37 +3,25 @@ package vooga.games.tronlegacy;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ColorBackground;
-import com.golden.gamedev.object.collision.CollisionBounds;
-import com.golden.gamedev.util.ImageUtil;
 
-import sun.misc.Queue;
 import vooga.engine.core.Game;
 import vooga.engine.event.EventManager;
-import vooga.engine.level.LevelManager;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.engine.level.Level;
 
 public class MainGameState extends GameState {
-	
-	//note to self: the new levelmanager in the factory package will help this a lot once it is fixed
-	
+		
 	private final static int FPS = 100;
 	private final static Point humanPlayerStartingLocation = new Point (48,240);
 	private final static Point computerPlayerStartingLocation = new Point (432,240);
@@ -58,8 +46,6 @@ public class MainGameState extends GameState {
 	private LinkedList<Sprite> blockQueue = new LinkedList<Sprite>();
 	
 	int currentLevel = 1;
-	boolean gameOver = false;
-	boolean paused = false;
 	
 	public void initialize(Game aGame) {
 		
@@ -80,18 +66,21 @@ public class MainGameState extends GameState {
 	
 		currentPlayField.render(g);
 		
-		for (Sprite currentSprite: blockQueue){
+		//handles those few sprites behind the players that we don't want to collide immediately upon creation
+		for (Sprite currentSprite: blockQueue){ 
 			currentSprite.render(g);
 		}
 		
 	}
 	
 	public void update(long elapsedTime){
+		
 		keyboardControl.update();
 		deployPlayerBlocks();
 		currentPlayField.update(elapsedTime);
 		computerPlayer.aiUpdate(currentPlayField);
 		checkLevelEnd();
+		
 	}
 	
 	public void deployPlayerBlocks(){
@@ -100,8 +89,7 @@ public class MainGameState extends GameState {
 			if (currentPlayer != null){
 			blockQueue.add(new Sprite(currentPlayer.getImage(),
 										currentPlayer.getX(),
-										currentPlayer.getY()));
-			
+										currentPlayer.getY()));		
 			}
 		}
 		
@@ -113,8 +101,12 @@ public class MainGameState extends GameState {
 	
 	public void initializePlayers(){
 		
-		Sprite humanSprite = new Sprite(Resources.getImage("humanPlayer"),humanPlayerStartingLocation.x,humanPlayerStartingLocation.y);
-		Sprite computerSprite = new Sprite(Resources.getImage("computerPlayer"),computerPlayerStartingLocation.x,computerPlayerStartingLocation.y);
+		Sprite humanSprite = new Sprite(Resources.getImage("humanPlayer"),
+										humanPlayerStartingLocation.x,
+										humanPlayerStartingLocation.y);
+		Sprite computerSprite = new Sprite(Resources.getImage("computerPlayer"),
+										   computerPlayerStartingLocation.x,
+										   computerPlayerStartingLocation.y);
 		
 		humanPlayer = new CyclePlayer("humanPlayer", 
 									  "gameplay",
@@ -142,23 +134,18 @@ public class MainGameState extends GameState {
 	
 	public void deployLevel(){
 		
-		levelBlocks = null;
-		playerBlocks = null;
-		currentPlayField = null;
-		
 		currentPlayField = levelManager.getCurrentPlayField(new File(LEVEL_FILEPATH+"/level"+currentLevel+".txt"));
 		
 		currentPlayField.setBackground(new ColorBackground(Color.WHITE));
 				
 		resetPlayers();
 		
-		currentPlayField.addGroup(players);
-		currentPlayField.addGroup(overlayGroup);
-		
 		playerBlocks = new SpriteGroup("playerBlocks");
 		levelBlocks = (currentPlayField.getGroup("levelSprites"));
 		
+		currentPlayField.addGroup(players);
 		currentPlayField.addGroup(playerBlocks);
+		currentPlayField.addGroup(overlayGroup);
 		
 		currentPlayField.addCollisionGroup(players, players, new TronCollision());
 		currentPlayField.addCollisionGroup(players, levelBlocks, new TronCollision());
@@ -175,13 +162,13 @@ public class MainGameState extends GameState {
 		humanPlayer.setActive(true);
 		computerPlayer.setActive(true);
 		
-		blockQueue = new LinkedList<Sprite>();
+		blockQueue.clear();
 		
 	}
 	
 	public void checkLevelEnd(){
 		if (!humanPlayer.isActive()){
-			gameOver = true;
+			gameOver();
 		} else if (!computerPlayer.isActive()){
 			currentLevel++;
 			currentScore.setStat(currentScore.getStat() + 50);
@@ -189,12 +176,10 @@ public class MainGameState extends GameState {
 		}
 	}
 	
-	public boolean checkGameOver(){
-		return gameOver;
-	}
-	
-	public boolean checkPaused(){
-		return paused;
+	public void gameOver(){
+
+		//todo
+		
 	}
 	
 	private void initializeOverlays() {

@@ -15,8 +15,7 @@ import vooga.games.tronlegacy.CyclePlayer;
 public class CyclePlayer extends PlayerSprite {
 	
 	private final static double SPEED = 0.1;
-	private Point offset = new Point(0,0);
-	private final static String classpath = "VOOGAbranch/src/vooga/games/tronlegacy/CyclePlayer";
+	private final static String classpath = "vooga.games.tronlegacy.CyclePlayer";
 	
 	private enum Direction {
 		UP, DOWN, LEFT, RIGHT;
@@ -38,38 +37,19 @@ public class CyclePlayer extends PlayerSprite {
 		controller = kb;
 		try {
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_UP, "changeDirection", "vooga.games.tronlegacy.CyclePlayer", "UP");
+			controller.addInput(KeyEvent.VK_UP, "changeDirection", classpath, "UP");
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_DOWN, "changeDirection", "vooga.games.tronlegacy.CyclePlayer", "DOWN");
+			controller.addInput(KeyEvent.VK_DOWN, "changeDirection", classpath, "DOWN");
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_LEFT, "changeDirection", "vooga.games.tronlegacy.CyclePlayer", "LEFT");
+			controller.addInput(KeyEvent.VK_LEFT, "changeDirection", classpath, "LEFT");
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_RIGHT, "changeDirection", "vooga.games.tronlegacy.CyclePlayer", "RIGHT");
+			controller.addInput(KeyEvent.VK_RIGHT, "changeDirection", classpath, "RIGHT");
 		}
 		catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Failed attaching KeyboardControl to humanPlayer.");
 		}
 		
 		return controller;
-	}
-
-	
-	public void aiUpdate(PlayField playField){
-		
-		for (SpriteGroup spriteGroup : playField.getGroups()){
-			if (spriteGroup != null){
-				for (Sprite sprite : spriteGroup.getSprites()){
-					if (sprite != null){
-						if (this.getDistance(sprite) < 10 && !this.equals(sprite) ){
-							changeDirectionRandom();
-						}
-					}
-
-				}
-			}
-		}
-			
 	}
 	
 	public void changeDirectionRandom(){
@@ -115,6 +95,23 @@ public class CyclePlayer extends PlayerSprite {
 			break;
 		}
 		
+	}
+	
+	public void aiUpdate(PlayField playField){
+		
+		for (SpriteGroup spriteGroup : playField.getGroups()){
+			if (spriteGroup != null){
+				for (Sprite sprite : spriteGroup.getSprites()){
+					if (sprite != null){
+						if (this.getDistance(sprite) < 10 && !this.equals(sprite) ){
+							changeDirectionRandom();
+						}
+					}
+
+				}
+			}
+		}
+			
 	}
 	
 }
