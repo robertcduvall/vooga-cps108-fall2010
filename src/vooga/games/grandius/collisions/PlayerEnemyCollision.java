@@ -1,6 +1,6 @@
 package vooga.games.grandius.collisions;
 
-import vooga.games.grandius.GrandiusMain;
+import vooga.games.grandius.Blah;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -14,10 +14,10 @@ import com.golden.gamedev.object.Sprite;
  */
 public class PlayerEnemyCollision extends BasicCollision{
 
-	private GrandiusMain grandius;
+	private Blah grandius;
 	
 	
-	public PlayerEnemyCollision(GrandiusMain grandius) {
+	public PlayerEnemyCollision(Blah grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
