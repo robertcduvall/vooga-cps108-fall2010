@@ -155,19 +155,8 @@ public class DropThis extends Game {
 	}
 
 	private void initializeLevels() {
-		Properties propertiesFile = new Properties();
-		try {
-			propertiesFile.load(new FileInputStream("src/vooga/games/galaxyinvaders/resources/Directories.properties"));
-		}
-		catch(IOException e)
-		{
-			System.out.println(".properties file not found!");
-		}
-		
-		String levelFilesDirectory = propertiesFile.getProperty("levelFilesDirectory");
-		String levelNamesFile = propertiesFile.getProperty("levelNamesFile");
 		levelManager = new GalaxyLevelManager();
-		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
+		levelManager.addLevels(Resources.getString("levelFilesDirectory"),new File(Resources.getString("levelNamesFile")));
 	}
 
 	private void initializeColliders() {
