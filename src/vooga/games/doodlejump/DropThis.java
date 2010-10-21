@@ -31,24 +31,25 @@ import java.util.Scanner;
  * 
  */
 public class DropThis extends Game {
-	
-	//GameStateManager
+
+	// GameStateManager
 	GameStateManager doodleStateManager;
 
 	// GameStates
-	GameState startMenuState, playState, pauseMenuState, gameOverState, winState;
+	GameState startMenuState, playState, pauseMenuState, gameOverState,
+			winState;
 
 	// Background
 	private Background background;
 
 	// Playfield
 	protected PlayField playField;
-	
+
 	private DoodleLevelManager levelManager;
 	private DoodleLevel level;
 
 	private OverlayString scoreString, startString, winString;
-	private Stat<Integer> score;
+	private Stat<Integer> score = new Stat<Integer>(0);
 	private int currentLevel;
 	private int passScore;
 	private int nextLevel;
@@ -64,60 +65,43 @@ public class DropThis extends Game {
 			ballToMonster, doodleToBrownPlatform, doodleToWhitePlatform,
 			doodleToSpring, doodleToTrampoline, doodleToJetpack;
 
-	private boolean showStart;
-	
+	private boolean showStartMenu = true;
+
 	{
 		distribute = true;
 	}
 
-	public DropThis() {
-		super();
-		currentLevel = 1;
-		showStart = true;
-		score = new Stat<Integer>(0);
-		makeOverlayStrings();
-		levelManager = new DoodleLevelManager();
-		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels", new File("levelNames.txt"));
-		ResourceHandler.setGame(this);
-		try {
-			ResourceHandler.loadFile("vooga/games/doodlejump/resources/resourcelist.txt");
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-	}
-
-	/**
-	 * This method instantiates all of the OverlayStrings
-	 */
-	public void makeOverlayStrings() {
-		scoreString = new OverlayString("Score: " + 0);
-		startString = new OverlayString("Press Enter to Start!", new Font(
-				"SansSerif", Font.BOLD, 40));
-		startString.setX(532 / 2 - startString.getWidth() / 2);
-		startString.setY(550 / 2 - startString.getHeight() / 2);
-		winString = new OverlayString("You Win! Enter to Restart.", new Font(
-				"SansSerif", Font.BOLD, 35));
-		winString.setX(532 / 2 - startString.getWidth() / 2);
-		winString.setY(200 - startString.getHeight() / 2);
-		scoreString.setX(400);
-		scoreString.setY(50);
-	}
+	// public DropThis() {
+	// super();
+	// currentLevel = 1;
+	// showStartMenu = true;
+	// score = new Stat<Integer>(0);
+	// makeOverlayStrings();
+	// levelManager = new DoodleLevelManager();
+	// levelManager.addLevels("src/vooga/games/doodlejump/resources/levels",
+	// new File("levelNames.txt"));
+	// ResourceHandler.setGame(this);
+	// try {
+	// ResourceHandler
+	// .loadFile("vooga/games/doodlejump/resources/resourcelist.txt");
+	// } catch (IOException e) {
+	// System.out.println(e);
+	// }
+	// }
 
 	@Override
 	public void initResources() {
-		if(playField != null)	
-			playField.clearPlayField();
-		playField = levelManager.loadNextLevel();
-		level = (DoodleLevel) levelManager.getCurrentDoodleLevel();
-		
+
+		if (showStartMenu) {
+			currentLevel = 1;
+		}
+
+		initLevelManager();
+
+		initPlayField();
+
 		initStates();
 
-		// playfield
-		playField = level.getPlayfield(new File(
-				"src/vooga/games/doodlejump/resources/levels/level"
-						+ Integer.toString(currentLevel) + ".txt"));
-
-		// background
 		background = level.getBackground();
 
 		passScore += level.getScore();
@@ -129,7 +113,40 @@ public class DropThis extends Game {
 
 		initCollisions(level);
 
+		makeOverlayStrings();
+
 		setFPS(100);
+	}
+
+	/**
+	 * This method initializes the LevelManager
+	 */
+	public void initLevelManager() {
+		levelManager = new DoodleLevelManager();
+		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels",
+				new File("levelNames.txt"));
+		ResourceHandler.setGame(this);
+		try {
+			ResourceHandler
+					.loadFile("vooga/games/doodlejump/resources/resourcelist.txt");
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+
+	/**
+	 * This method initializes the PlayField
+	 */
+	public void initPlayField() {
+		if (playField != null)
+			playField.clearPlayField();
+		playField = levelManager.loadNextLevel();
+		level = (DoodleLevel) levelManager.getCurrentDoodleLevel();
+
+		// playfield
+		playField = level.getPlayfield(new File(
+				"src/vooga/games/doodlejump/resources/levels/level"
+						+ Integer.toString(currentLevel) + ".txt"));
 	}
 
 	/**
@@ -137,28 +154,23 @@ public class DropThis extends Game {
 	 */
 	public void initStates() {
 		doodleStateManager = new GameStateManager();
-		
+
 		startMenuState = new GameState();
 		playState = new GameState();
 		pauseMenuState = new GameState();
 		gameOverState = new GameState();
 		winState = new GameState();
-		
+
 		doodleStateManager.addGameState(startMenuState);
 		doodleStateManager.addGameState(playState);
 		doodleStateManager.addGameState(pauseMenuState);
 		doodleStateManager.addGameState(gameOverState);
 		doodleStateManager.addGameState(winState);
-		
-//		if (showStart)
-//			startMenuState.activate();
-//		else
-//			playState.activate();
-		
-		if (showStart)
-			doodleStateManager.switchTo(startMenuState);
+
+		if (showStartMenu)
+			startMenu();
 		else
-			doodleStateManager.switchTo(playState);
+			playGame();
 	}
 
 	/**
@@ -220,6 +232,23 @@ public class DropThis extends Game {
 				doodleToTrampoline);
 	}
 
+	/**
+	 * This method instantiates all of the OverlayStrings
+	 */
+	public void makeOverlayStrings() {
+		scoreString = new OverlayString("Score: " + 0);
+		startString = new OverlayString("Press Enter to Start!", new Font(
+				"SansSerif", Font.BOLD, 40));
+		startString.setX(532 / 2 - startString.getWidth() / 2);
+		startString.setY(550 / 2 - startString.getHeight() / 2);
+		winString = new OverlayString("You Win! Enter to Restart.", new Font(
+				"SansSerif", Font.BOLD, 35));
+		winString.setX(532 / 2 - startString.getWidth() / 2);
+		winString.setY(200 - startString.getHeight() / 2);
+		scoreString.setX(400);
+		scoreString.setY(50);
+	}
+
 	@Override
 	public void update(long elapsedTime) {
 		doodleKeyboardControl.update();
@@ -235,23 +264,11 @@ public class DropThis extends Game {
 			playField.setBackground(new ImageBackground(
 					getImage("resources/images/default-play.png")));
 		} else if (playState.isActive()) {
+
 			updateGame(elapsedTime);
-			if (score.getStat() >= passScore) {
-				if (nextLevel == 0) {
-					winState.activate();
-					if (keyPressed(KeyEvent.VK_ENTER)) {
-						gameOver();
-						winState.deactivate();
-					}
-				}
-				if (nextLevel != 0) {
-					currentLevel = nextLevel;
-					showStart = false;
-					initResources();
-				} else {
-					gameOver();
-				}
-			}
+
+			checkLevelCompleted();
+
 			if (keyPressed(KeyEvent.VK_P)) {
 				pauseGame();
 			}
@@ -265,6 +282,14 @@ public class DropThis extends Game {
 	}
 
 	/**
+	 * This method activates startMenuState and deactivates each other state
+	 * besides win
+	 */
+	public void startMenu() {
+		doodleStateManager.switchTo(startMenuState);
+	}
+
+	/**
 	 * This method resets the game by setting the current level to 1, setting
 	 * score and passScore to 0, and calling initResources()
 	 */
@@ -273,12 +298,14 @@ public class DropThis extends Game {
 		score.setStat(0);
 		passScore = 0;
 		levelManager = new DoodleLevelManager();
-		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels", new File("levelNames.txt"));
+		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels",
+				new File("levelNames.txt"));
 		initResources();
 	}
 
 	/**
-	 * This method activates play and deactivates each other state besides win
+	 * This method activates playState and deactivates each other state besides
+	 * win
 	 */
 	public void playGame() {
 		doodleStateManager.switchTo(playState);
@@ -305,15 +332,39 @@ public class DropThis extends Game {
 	}
 
 	/**
-	 * This method activates gameOver and deactivates each other state besides
-	 * win
+	 * This method checks to see if the current level has been completed then
+	 * either goes to the next level or Game Over screen
+	 */
+	public void checkLevelCompleted() {
+		if (score.getStat() >= passScore) {
+			if (nextLevel == 0) {
+				winState.activate();
+				if (keyPressed(KeyEvent.VK_ENTER)) {
+					gameOver();
+					winState.deactivate();
+				}
+			}
+			if (nextLevel != 0) {
+				currentLevel = nextLevel;
+				showStartMenu = false;
+				initResources();
+			} else {
+				gameOver();
+			}
+		}
+	}
+
+	/**
+	 * This method activates gameOverState and deactivates each other state
+	 * besides win
 	 */
 	public void gameOver() {
 		doodleStateManager.switchTo(gameOverState);
 	}
 
 	/**
-	 * This method activates pause and deactivates each other state besides win
+	 * This method activates pauseMenuState and deactivates each other state
+	 * besides win
 	 */
 	public void pauseGame() {
 		doodleStateManager.switchTo(pauseMenuState);
