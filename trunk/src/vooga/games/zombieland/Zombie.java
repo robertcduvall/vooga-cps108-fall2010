@@ -226,8 +226,8 @@ public class Zombie extends GameEntitySprite implements IZombielandConstants {
 
 				int item = random.nextInt(100);
 				if (item < ITEM_CHANCE) {
-					// Drop item
-					game.addRandomItem(getX(), getY());
+					
+					((ZombielandPlayState) game.getCurrentState()).addRandomItem(getX(), getY());
 				}
 			}
 			return;

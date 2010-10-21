@@ -11,7 +11,7 @@ public class NumbersBundle extends ListResourceBundle{
 	
 	static final Object[][] contents ={
 		
-		{"delim" , ","},
+		{"delim" , "\,"},
 		{"playerImageGroups" , "Down,Up,Left,Right"},
 		
 		{"Down" , "Down1,Down2,Down3,Down4"},
