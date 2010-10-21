@@ -53,10 +53,6 @@ public class DropThis extends Game {
 	private int passScore;
 	private int nextLevel;
 
-	{
-		distribute = true;
-	}
-
 	// Doodle (main player)
 	private DoodleSprite doodle;
 	private KeyboardControl doodleKeyboardControl;
@@ -69,6 +65,10 @@ public class DropThis extends Game {
 			doodleToSpring, doodleToTrampoline, doodleToJetpack;
 
 	private boolean showStart;
+	
+	{
+		distribute = true;
+	}
 
 	public DropThis() {
 		super();
