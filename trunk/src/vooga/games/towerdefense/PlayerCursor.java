@@ -18,6 +18,7 @@ import vooga.engine.event.SingletonEventManager;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameStateManager;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.tower.*;
 
@@ -35,12 +36,12 @@ public class PlayerCursor extends PlayerSprite {
 	private DropThis myGame;
 	private Stat<Integer> creditBalance;
 	private int towerCost;
-	private NonSetGameStateManager stateManager;
+	private GameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
 	private Tower currentTower;
 
-	public PlayerCursor(String name, String stateName, Sprite s, DropThis game, Stat<Integer> balance,NonSetGameStateManager states) {
+	public PlayerCursor(String name, String stateName, Sprite s, DropThis game, Stat<Integer> balance,GameStateManager states) {
 		super(name, stateName, s);
 		myGame = game;
 		creditBalance = balance;
