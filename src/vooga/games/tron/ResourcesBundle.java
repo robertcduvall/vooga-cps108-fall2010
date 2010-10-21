@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 public class ResourcesBundle {
 	
-	private static ResourceBundle bundle=ResourceBundle.getBundle("vooga.games.tron.resources.game1");
+	private static ResourceBundle bundle=ResourceBundle.getBundle("vooga.games.tron.resources.filepath");
 	
 	public static String getString(String key){
 		try{		
