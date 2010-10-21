@@ -12,7 +12,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import vooga.engine.factory.LevelFactory;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.BossPart;
 import vooga.games.grandius.enemy.boss.GrandiusBoss;
 import vooga.games.grandius.enemy.boss.reacher.Reacher;
@@ -54,7 +54,7 @@ public class GrandiusLevelFactory implements LevelFactory{
 					String image = details.next();
 					int width = details.nextInt();
 					int height = details.nextInt();
-					background = new ImageBackground(ResourcesBeta.getImage(image));
+					background = new ImageBackground(Resources.getImage(image));
 					background.setSize(width, height);
 					//playfield.setBackground(background);
 				}
@@ -118,7 +118,7 @@ public class GrandiusLevelFactory implements LevelFactory{
 							BossPart newBossPart = null;
 							if (bossPartName.equals("ReacherEye")) {
 								//System.out.println("making new ReacherEye");
-								newBossPart = new ReacherEye(ResourcesBeta.getAnimation(bossPartName), breakpoints, xPosition, yPosition, health, shields);
+								newBossPart = new ReacherEye(Resources.getAnimation(bossPartName), breakpoints, xPosition, yPosition, health, shields);
 							}
 							myBossPartList.add(newBossPart);
 							//System.out.println("y="+y);
@@ -130,7 +130,7 @@ public class GrandiusLevelFactory implements LevelFactory{
 					}
 					if (bossName.equals("Reacher")) {
 						System.out.println("creating Reacher at" + bossXPosition + "," + bossYPosition);
-						newBoss = new Reacher(ResourcesBeta.getAnimation(bossName), bossBreakpoints, bossXPosition, bossYPosition, bossHealth, myBossPartList);
+						newBoss = new Reacher(Resources.getAnimation(bossName), bossBreakpoints, bossXPosition, bossYPosition, bossHealth, myBossPartList);
 					}
 					myBossList.add(newBoss);
 					playfield.add(newBoss);
@@ -140,12 +140,12 @@ public class GrandiusLevelFactory implements LevelFactory{
 					double xPosition = Double.parseDouble(st.nextToken());
 					double yPosition = Double.parseDouble(st.nextToken());
 					if (spriteName.equals("Zipster")) {
-						Zipster newZipster = new Zipster(ResourcesBeta.getAnimation(spriteName), xPosition, yPosition);
+						Zipster newZipster = new Zipster(Resources.getAnimation(spriteName), xPosition, yPosition);
 						mySpritesList.add(newZipster);
 						playfield.add(newZipster);
 					}
 					if (spriteName.equals("Boomer")) {
-						Boomer newBoomer = new Boomer(ResourcesBeta.getAnimation(spriteName), xPosition, yPosition);
+						Boomer newBoomer = new Boomer(Resources.getAnimation(spriteName), xPosition, yPosition);
 						mySpritesList.add(newBoomer);
 						playfield.add(newBoomer);
 					}

@@ -10,7 +10,7 @@ import java.io.IOException;
 import vooga.engine.core.Game;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.GameLoader;
@@ -45,23 +45,23 @@ public class DropThis extends Game {
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
 		DropThis game = new DropThis();
-		ResourcesBeta.loadInt("Height",HEIGHT);
-		ResourcesBeta.loadInt("Width",WIDTH);
+		Resources.loadInt("Height",HEIGHT);
+		Resources.loadInt("Width",WIDTH);
 		gl.setup(game, new Dimension(WIDTH, HEIGHT), false);
 		gl.start();
 	}
 
 	public void initResources() {
-		ResourcesBeta.setGame(this);
+		Resources.setGame(this);
 		GameFont menuFont = fontManager.getFont(getImages("resources/images/font.png",
 				20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(DropThis.class), Color.white);
 
-		ResourcesBeta.setDefaultPath("src/vooga/games/marioclone/resources/");
+		Resources.setDefaultPath("src/vooga/games/marioclone/resources/");
 		
 		try {
-			ResourcesBeta.loadPropertiesFile("game.properties");
+			Resources.loadPropertiesFile("game.properties");
 //			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/images.properties");
 
 		} catch (IOException e) {

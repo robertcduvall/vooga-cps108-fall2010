@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.event.EventManager;
 import vooga.engine.event.SingletonEventManager;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.Enemy;
 import vooga.games.towerdefense.TowerShot;
 import vooga.games.towerdefense.events.NeedsTargetsEvent;
@@ -52,7 +52,7 @@ public abstract class ShootingTower extends Tower{
 		if(target!=null){
 			target.gotHit();
 			timeSinceShot=0;
-			TowerShot shot = new TowerShot(ResourcesBeta.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
+			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
 			//shotGroup.add(shot);
 		}
 		

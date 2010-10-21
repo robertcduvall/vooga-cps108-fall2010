@@ -3,7 +3,7 @@ package vooga.games.towerdefense;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
@@ -23,7 +23,7 @@ public class Counter extends Sprite{
 	
 	public Counter() {
 		timer = new Timer(1000);
-		image = ResourcesBeta.getImage("10");
+		image = Resources.getImage("10");
 		setImage(ImageUtil.resize(image, 150, (int)(((double)image.getHeight()/(double)image.getWidth())*150)));
 		i = 9;
 	}
@@ -35,7 +35,7 @@ public class Counter extends Sprite{
 		
 		if(timer.action(elapsedTime) && i!=0){
 			if(i!=-1){
-				image = ResourcesBeta.getImage(String.valueOf(i));
+				image = Resources.getImage(String.valueOf(i));
 				setImage(ImageUtil.resize(image, 150, (int)(((double)image.getHeight()/(double)image.getWidth())*150)));
 				if(i==1){
 					i = -1;
@@ -47,7 +47,7 @@ public class Counter extends Sprite{
 				i = 0;
 			}
 		}else if(i == 0){
-			image = ResourcesBeta.getImage("go");
+			image = Resources.getImage("go");
 			setImage(ImageUtil.resize(image, 200, (int)(((double)image.getHeight()/(double)image.getWidth())*200)));
 		}
 		

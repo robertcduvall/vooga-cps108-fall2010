@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 
-public class ZombielandResources extends ResourcesBeta {
+public class ZombielandResources extends Resources {
 	public  static long defaultAnimationDelay = 300;
 	public static AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);

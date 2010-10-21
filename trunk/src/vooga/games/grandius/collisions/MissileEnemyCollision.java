@@ -2,7 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.GrandiusMain;
 import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
@@ -28,10 +28,10 @@ public class MissileEnemyCollision extends BasicCollision {
 			missile.setActive(false);
 		}
 		enemy.setActive(false);
-		BufferedImage[] images = ResourcesBeta.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("Explosion");
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		grandius.getPlayfield().add(explosion);
-		grandius.playSound(ResourcesBeta.getSound("LaserSound"));
+		grandius.playSound(Resources.getSound("LaserSound"));
 		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());
 		grandius.updateCashOnCollision(((Enemy)enemy).getCashValue());
 	}

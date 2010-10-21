@@ -6,7 +6,7 @@ import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.Enemy;
 import vooga.games.towerdefense.DropThis;
 import vooga.games.towerdefense.TowerShot;

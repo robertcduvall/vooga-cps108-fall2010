@@ -17,7 +17,7 @@ import vooga.engine.factory.LevelFactory;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
@@ -45,8 +45,8 @@ public class MarioLevelFactory implements LevelFactory {
 	private OverlayStat myLevelOverlay;
 
 	public MarioLevelFactory() {
-		myWidth = ResourcesBeta.getInt("Width");
-		myHeight = ResourcesBeta.getInt("Height");
+		myWidth = Resources.getInt("Width");
+		myHeight = Resources.getInt("Height");
 	}
 
 //	public MarioLevelFactory(File mapFile, int levelNumber, Game game,
@@ -186,10 +186,10 @@ public class MarioLevelFactory implements LevelFactory {
 
 	private Enemy spawnEnemy(int x, int y) {
 		BufferedImage[] enemyImgs = new BufferedImage[] {
-				ResourcesBeta.getImage("Enemy1"),
-				ResourcesBeta.getImage("Enemy2"),
-				ResourcesBeta.getImage("Enemy3"),
-				ResourcesBeta.getImage("Enemy4") };
+				Resources.getImage("Enemy1"),
+				Resources.getImage("Enemy2"),
+				Resources.getImage("Enemy3"),
+				Resources.getImage("Enemy4") };
 		Enemy enemy = new Enemy("enemy1", "regular", enemyImgs, enemyImgs);
 		enemy.setLocation(x, y);
 		return enemy;
@@ -197,15 +197,15 @@ public class MarioLevelFactory implements LevelFactory {
 
 	private MarioSprite spawnMario(int x, int y) {
 		BufferedImage[] MarioR = new BufferedImage[] {
-				ResourcesBeta.getImage("MarioR1"),
-				ResourcesBeta.getImage("MarioR2"),
-				ResourcesBeta.getImage("MarioR3"),
-				ResourcesBeta.getImage("MarioR4") };
+				Resources.getImage("MarioR1"),
+				Resources.getImage("MarioR2"),
+				Resources.getImage("MarioR3"),
+				Resources.getImage("MarioR4") };
 		BufferedImage[] MarioL = new BufferedImage[] {
-				ResourcesBeta.getImage("MarioL1"),
-				ResourcesBeta.getImage("MarioL2"),
-				ResourcesBeta.getImage("MarioL3"),
-				ResourcesBeta.getImage("MarioL4") };
+				Resources.getImage("MarioL1"),
+				Resources.getImage("MarioL2"),
+				Resources.getImage("MarioL3"),
+				Resources.getImage("MarioL4") };
 
 		MarioSprite mario = new MarioSprite("mario", "regular", MarioR, MarioL);
 		mario.setLocation(x, y);

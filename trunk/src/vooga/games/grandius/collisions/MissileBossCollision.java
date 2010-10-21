@@ -2,7 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.GrandiusMain;
 import vooga.games.grandius.enemy.boss.reacher.Reacher;
 import vooga.games.grandius.enemy.common.Enemy;
@@ -30,11 +30,11 @@ public class MissileBossCollision extends BasicCollision {
 		}
 		if (boss instanceof Reacher && ((Reacher) boss).deplete(10)) {
 			boss.setActive(false);
-			BufferedImage[] images = ResourcesBeta.getAnimation("ReacherExplosion");
+			BufferedImage[] images = Resources.getAnimation("ReacherExplosion");
 			AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
 			grandius.getPlayfield().add(explosion);
 		}
-		BufferedImage[] images = ResourcesBeta.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("Explosion");
 		AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
 		grandius.getPlayfield().add(explosion);
 		//grandius.playSound(Resources.getMapping("LaserSound"));

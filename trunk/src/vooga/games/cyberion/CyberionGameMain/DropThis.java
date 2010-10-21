@@ -11,7 +11,7 @@ import java.util.Random;
 import vooga.engine.event.EventManager;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
 import vooga.games.cyberion.Collision.EnemyCollidesWithShot;

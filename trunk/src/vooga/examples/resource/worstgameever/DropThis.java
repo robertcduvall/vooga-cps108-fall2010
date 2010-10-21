@@ -8,7 +8,7 @@ import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.Sprite;
-import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.resource.Resources;
 
 public class DropThis extends Game{
 
@@ -22,14 +22,7 @@ public class DropThis extends Game{
 	 * the ResourcesBeta class.
 	 */
 	public void initResources() {
-		ResourcesBeta.initialize(this, getResourcePath());
-		try {
-			ResourcesBeta.loadPropertiesFile("game.properties");
-		} catch (IOException e) {
-			System.out.println("Failed to load resources/game.properties");
-			e.printStackTrace();
-			System.exit(1);
-		}
+		super.initResources();
 		
 		runTests();
 	}
@@ -46,21 +39,10 @@ public class DropThis extends Game{
 	 * without crashing, though the Sprites have not yet been tested.
 	 */
 	private static void runTests(){
-		System.out.println(ResourcesBeta.getString("helloMessage"));
-		Sprite oneImage = new Sprite(ResourcesBeta.getImage("duvall"), 0, 0);
-		AnimatedSprite fourImage = new AnimatedSprite(ResourcesBeta.getAnimation("downAnim"),0,0);
+		System.out.println(Resources.getString("helloMessage"));
+		Sprite oneImage = new Sprite(Resources.getImage("duvall"), 0, 0);
+		AnimatedSprite fourImage = new AnimatedSprite(Resources.getAnimation("downAnim"),0,0);
 		
-	}
-	
-	/**
-	 * This seems like a ridiculous way to do this, but it works on at least Linux. 
-	 * If someone has a better way of handling this, it's all yours.
-	 * @return 
-	 */
-	private String getResourcePath(){
-		String gamePath = getClass().getPackage().toString();
-		String defaultPath = "src/" + gamePath.substring(8, gamePath.length())+"/resources/";
-		return defaultPath.replace('.', '/');
 	}
 	
 	
