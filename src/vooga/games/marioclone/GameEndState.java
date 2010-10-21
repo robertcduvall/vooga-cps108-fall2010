@@ -54,9 +54,7 @@ public class GameEndState extends GameState {
 		myFontManager = fontManager;
 		myMessage = new OverlayString(messageString);
 		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
-		myMessage.setLocation(
-				(Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
-
+		myMessage.setLocation((Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
 				.getString("highscoredbname"), new File(Resources
 				.getString("highscorefile")));
@@ -126,7 +124,8 @@ public class GameEndState extends GameState {
 		}
 		super.render(g);
 		myMessage.render(g);
-
+		
+		myFontManager.getFont("MENU").drawString(g, "PRESS SPACE TO PLAY AGAIN!", (myBackground.getWidth() / 4), (myBackground.getHeight() / 2) +50);
 	}
 
 	public void setScore(Long score) {
