@@ -369,9 +369,8 @@ public class DropThis extends vooga.engine.core.Game {
 				}
 				if(!isCollision){
 					buildBlockWall();
-					player1.setLocation(player1.routineUpdatePlayerX(),player1.routineUpdatePlayerY());//running without user control   	
-					player2.setLocation(player2.routineUpdatePlayerX(),player2.routineUpdatePlayerY());//running without user control  
-
+					player1.setLocation(player1.playerXDirectionMove(),player1.playerYDirectionMove());//running without user control   	
+					player2.setLocation(player2.playerXDirectionMove(),player2.playerYDirectionMove());//running without user control  
 				} 
 			}
 		}
