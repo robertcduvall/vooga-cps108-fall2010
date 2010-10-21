@@ -9,6 +9,7 @@ import com.golden.gamedev.GameLoader;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.Sprite;
+import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
@@ -36,6 +37,8 @@ public class Blah extends Game {
 		Resources.initialize(this);
 		Resources.setDefaultPath(DEFAULT_FILEPATH);
 		
+		OverlayCreator.setGame(this);
+		
 		try {
 			Resources.loadImageFile("game.properties");
 		} catch (IOException e) {
@@ -43,7 +46,7 @@ public class Blah extends Game {
 			this.stop();
 		}
 		
-		playState.initialize();
+		playState.initialize(this);
 		stateManager.addGameState(playState);
 		stateManager.addGameState(pauseState);
 		stateManager.toggle(playState);
@@ -57,6 +60,8 @@ public class Blah extends Game {
 	public void update(long elapsedTime){
 		stateManager.update(elapsedTime);
 	}
+	
+
 	
 	//placeholder main function
 	public static void main(String[] args) {
