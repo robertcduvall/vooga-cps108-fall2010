@@ -116,7 +116,7 @@ public class GamePlayState extends GameState {
 	}
 	
 	private void makeLevel(int i, Game game){
-		File map = new File("src/vooga/games/marioclone/map"+Integer.toString(i)+".txt");
+		File map = new File("src/vooga/games/marioclone/resources/maps/map"+Integer.toString(i)+".txt");
 		if(map == null){
 			System.out.println("problem");
 		}

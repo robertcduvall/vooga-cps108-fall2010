@@ -12,6 +12,7 @@ import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.ResourcesBeta;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;
@@ -73,11 +74,11 @@ public class MarioLevel {
 		marioBackground.setClip(0, 0, myWidth, myHeight);
 
 		BufferedImage[] MarioR = new BufferedImage[] {
-				Resources.getImage("MarioR1"), Resources.getImage("MarioR2"),
-				Resources.getImage("MarioR3"), Resources.getImage("MarioR4") };
+				ResourcesBeta.getImage("MarioR1"), ResourcesBeta.getImage("MarioR2"),
+				ResourcesBeta.getImage("MarioR3"), ResourcesBeta.getImage("MarioR4") };
 		BufferedImage[] MarioL = new BufferedImage[] {
-				Resources.getImage("MarioL1"), Resources.getImage("MarioL2"),
-				Resources.getImage("MarioL3"), Resources.getImage("MarioL4") };
+				ResourcesBeta.getImage("MarioL1"), ResourcesBeta.getImage("MarioL2"),
+				ResourcesBeta.getImage("MarioL3"), ResourcesBeta.getImage("MarioL4") };
 		myMario = new MarioSprite("mario", "regular", MarioR, MarioL,
 				enemiesKilled);
 		myMario.setLocation(150, 290);
@@ -146,8 +147,8 @@ public class MarioLevel {
 	public void spawnEnemies() {
 		for (int j = 0; j < NUM_ENEMIES; j++) {
 			BufferedImage[] enemyImgs = new BufferedImage[] {
-					Resources.getImage("Enemy1"), Resources.getImage("Enemy2"),
-					Resources.getImage("Enemy3"), Resources.getImage("Enemy4") };
+					ResourcesBeta.getImage("Enemy1"), ResourcesBeta.getImage("Enemy2"),
+					ResourcesBeta.getImage("Enemy3"), ResourcesBeta.getImage("Enemy4") };
 			Enemy enemy = new Enemy("enemy1", "regular", enemyImgs, enemyImgs);
 			enemy.setLocation(400, 200);
 			getPlayField().getGroup("Enemy Group").add(enemy);

@@ -2,13 +2,12 @@ package vooga.games.marioclone;
 
 import java.awt.Graphics2D;
 
+import vooga.engine.resource.ResourcesBeta;
+import vooga.engine.state.GameState;
+
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.GameFontManager;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.background.ImageBackground;
-
-import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 
 /**
  * 
@@ -37,7 +36,7 @@ public class MainMenuState extends GameState {
 	public MainMenuState(int width, int height, GameFontManager fontManager) {
 		super();
 		myMenuFont = fontManager.getFont("MENU");
-		myMainMenu = new ImageBackground(Resources.getImage("MenuBG"));
+		myMainMenu = new ImageBackground(ResourcesBeta.getImage("MenuBG"));
 		WIDTH = width;
 		HEIGHT = height;
 	}
