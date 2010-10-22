@@ -133,7 +133,6 @@ public class DropThis extends Game {
 		else if (myMenuState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
 				myGameStateManager.switchTo(myGamePlayState);
-				playMusic(Resources.getSound("MarioSong"));	
 			}
 		}
 		else if (myWinState.isActive() || myLoseState.isActive()) {
@@ -141,7 +140,6 @@ public class DropThis extends Game {
 				bsMusic.setLoop(true);
 				myGamePlayState.init();
 				myGameStateManager.switchTo(myGamePlayState);
-				playMusic(Resources.getSound("MarioSong"));	
 			}
 		}
 

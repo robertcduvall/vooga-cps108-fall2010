@@ -15,6 +15,7 @@ public class MarioPlayField extends PlayField {
 	private OverlayTracker myOverlays;
 	private double mySpawnX;
 	private double mySpawnY;
+	private String myMusic;
 
 	public MarioPlayField() {
 		addGroup(new SpriteGroup("Item Group"));
@@ -126,6 +127,14 @@ public class MarioPlayField extends PlayField {
 	public void setSpawnLocation(double x, double y) {
 		this.mySpawnX = x;
 		this.mySpawnY = y;
+	}
+
+	public String getMusic() {
+		return myMusic;
+	}
+
+	public void setMusic(String music) {
+		this.myMusic = music;
 	}
 	
 }
