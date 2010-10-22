@@ -65,10 +65,9 @@ public class GamePlayState extends GameState {
 		if (myLevel.getMario() == null || !myLevel.getMario().isActive()) {
 			return State.Lose;
 		} else if (myLevel.isFinished()) {
-			if (myCurrentLevel >= NUM_LEVELS - 1){
+			if (myCurrentLevel >= NUM_LEVELS - 1) {
 				return State.Win;
-			}
-			else {
+			} else {
 				myCurrentLevel++;
 				switchLevel(myCurrentLevel);
 				return State.FinishedLevel;
@@ -104,10 +103,9 @@ public class GamePlayState extends GameState {
 	}
 
 	public Long getScore() {
-		if(myLevel.getMario() != null){
+		if (myLevel.getMario() != null) {
 			return new Long(myLevel.getMario().getScore());
-		}
-		else{
+		} else {
 			return new Long(0);
 		}
 	}
@@ -134,7 +132,7 @@ public class GamePlayState extends GameState {
 		super.render(g);
 		myLevel.render(g);
 	}
-	
+
 	public int getCurrentLevel() {
 		return myCurrentLevel;
 	}
