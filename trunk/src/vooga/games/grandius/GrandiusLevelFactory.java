@@ -182,4 +182,8 @@ public class GrandiusLevelFactory implements LevelFactory{
 	public Background getBackground(){
 		return background;
 	}
+
+	public void setBackground(Background background) {
+		this.background = background;
+	}
 }
