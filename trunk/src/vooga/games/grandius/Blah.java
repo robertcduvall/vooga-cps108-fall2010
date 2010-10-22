@@ -146,7 +146,8 @@ public class Blah extends Game {
 
 	@Override
 	public void initResources() {
-		//TODO - change to work with ResourcesBeta class (or overlay?)
+		//TODO - change to work with new Overlay xml
+		super.initResources();
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" +
 				"456789:   -? ABCDEFG" +
@@ -742,7 +743,7 @@ public class Blah extends Game {
 //			//myPlayfield.clearPlayField();
 //			//gameOver.setLocation(screen.getWidth() / 3, screen.getHeight() / 2);
 //			//myPlayfield.add(gameOver);
-//			playSound(ResourcesBeta.getSound("OhManSound"));
+//			playSound(Resources.getSound("OhManSound"));
 //		}
 
 	}
@@ -782,7 +783,7 @@ public class Blah extends Game {
 	public void addOverlays() {
 		OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
 		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
-		OverlayStat cashCounter = new OverlayStat("Cash", myCash);
+		OverlayStat cashCounter  = new OverlayStat("Cash", myCash);
 
 	    myPanel.add(livesCounter);
 	    myPanel.add(cashCounter);		
