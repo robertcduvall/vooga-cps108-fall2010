@@ -1,20 +1,15 @@
 package vooga.games.tronlegacy;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.IOException;
 
 import com.golden.gamedev.GameLoader;
-import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ColorBackground;
+
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
 /**

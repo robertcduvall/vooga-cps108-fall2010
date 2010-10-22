@@ -2,10 +2,8 @@
 <Stat type="Integer" value="0"></Stat>
 
 <OverlayGroup>
-<OverlayStat label="SCORE : " stat="0" fontName="gameFontGreen" xLoc="200" yLoc="440"></OverlayStat>
+<OverlayStat label="SCORE : " stat="0" fontName="gameFontGreen" xLoc="285" yLoc="455"></OverlayStat>
 </OverlayGroup>
-	<OverlayGroup>
-		<OverlayString xLoc="200" yLoc="240" fontName="Times New Roman" Label="Paused" fontSize="32"></OverlayString></OverlayGroup>
 
 
 </Overlay>
