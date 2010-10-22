@@ -13,64 +13,71 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
 
+/**
+ * 
+ * @author BrentSodman
+ * 
+ */
+
 public class TLevelManager extends LevelManager {
+
+	// this isn't how it seems like the levelManager wants the level to be
+	// implemented
+	// but its the best I could do as the level manager currently stands
 
 	@Override
 	public Collection<String> getLevelNames(File levelNamesFile) {
-		
+
 		ArrayList<String> returnNames = new ArrayList<String>();
-		
+
 		try {
 			Scanner levelScanner = new Scanner(levelNamesFile);
-		
 			levelScanner.useDelimiter("\n");
-			
-			while (levelScanner.hasNext()){
-			
+			while (levelScanner.hasNext()) {
 				returnNames.add(levelScanner.next());
-				
+
 			}
-		
-		
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		return returnNames;
-		
+
 	}
 
 	@Override
 	public PlayField getCurrentPlayField(File currentLevelFactoryFile) {
-		
+
 		PlayField returnField = new PlayField();
 		SpriteGroup levelSprites = new SpriteGroup("levelSprites");
-		
+
 		try {
-			Scanner levelScanner = new Scanner(currentLevelFactoryFile);			
-			while (levelScanner.hasNextLine()){
-				
+			Scanner levelScanner = new Scanner(currentLevelFactoryFile);
+			while (levelScanner.hasNextLine()) {
+
 				Scanner lineScanner = new Scanner(levelScanner.nextLine());
 				lineScanner.useDelimiter(",");
-				
+
 				String spriteName = lineScanner.next();
 				int spriteX = lineScanner.nextInt();
 				int spriteY = lineScanner.nextInt();
-		
-				Sprite tempSprite = new Sprite(Resources.getImage(spriteName),spriteX,spriteY);
-				
+
+				Sprite tempSprite = new Sprite(Resources.getImage(spriteName),
+						spriteX, spriteY);
+
 				levelSprites.add(tempSprite);
-				
+
 			}
-			
+
 		} catch (FileNotFoundException e) {
-			//do nothing for a blank level
+			// do nothing for a blank level
 		}
-		
+
 		returnField.addGroup(levelSprites);
-		
+
 		return returnField;
-		
+
 	}
 
 }
