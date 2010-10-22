@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
+
 import vooga.engine.event.EventManager;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
@@ -116,12 +118,48 @@ public class CyclePlayer extends PlayerSprite {
 		}
 	}
 
-	// this AI method is really bad but other stuff is more important (API usage), ill fix it
-	// later (it moves randomly)
+	// experimental and in progress (not really working yet)
 	public void aiUpdate(PlayField playField) {
-		if (Math.random() > 0.98) {
-			changeDirectionRandom();
+
+		for (SpriteGroup spriteGroup : playField.getGroups()) {
+			if (spriteGroup != null) {
+				for (Sprite sprite : spriteGroup.getSprites()) {
+					if (sprite != null) {
+
+						switch (directionIndex) {
+						case 0:
+							if (sprite.getY() < getY()
+									&& getDistance(sprite) < 50) {
+								changeDirectionRandom();
+							}
+							break;
+						case 1:
+							if (sprite.getX() > getX()
+									&& getDistance(sprite) < 50) {
+								changeDirectionRandom();
+							}
+							break;
+						case 2:
+							if (sprite.getY() > getY()
+									&& getDistance(sprite) < 50) {
+								changeDirectionRandom();
+							}
+							break;
+						case 3:
+							if (sprite.getX() < getX()
+									&& getDistance(sprite) < 50) {
+								changeDirectionRandom();
+							}
+							break;
+						default:
+							break;
+						}
+
+					}
+				}
+			}
 		}
+
 	}
 
 }
