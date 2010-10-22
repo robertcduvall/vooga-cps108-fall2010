@@ -95,7 +95,7 @@ public class Blah extends Game {
 
 	public void gameOver() {
 		playState.deactivate();
-		playState = new MainGameState();
+		playState.initialize(this);
 		menuState.activate();
 	}
 
