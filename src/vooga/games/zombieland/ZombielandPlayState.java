@@ -48,6 +48,7 @@ public class ZombielandPlayState extends GameState {
 	private OverlayString overlayPauseString;
 	private OverlayStat overlayAmmoStat;
 	private OverlayStat overlayLevelStat;
+	private OverlayTracker tracker;
 
 	private Stat<Integer> statLevel;
 	private int level;
@@ -61,7 +62,11 @@ public class ZombielandPlayState extends GameState {
 	}
 
 	public void initialize() {
-		player = new Shooter("Hero", "Down", currentGame);
+		OverlayCreator.setGame(currentGame);
+		tracker = OverlayCreator.createOverlays("src/vooga/games/zombieland/resources/overlays.xml");
+		
+		player = new Shooter("Hero", "Down", currentGame, tracker.getStats().get(0), tracker.getStats().get(2), tracker.getStats().get(1));
+		
 		
 		initEnvironment();
 		initOverlays();
@@ -143,136 +148,20 @@ public class ZombielandPlayState extends GameState {
 	 * OverlayLevelString, overllayPauseString.
 	 */
 	public void initOverlays() {
-		
-		OverlayCreator.setGame(currentGame);
-		OverlayTracker tracker = OverlayCreator.createOverlays("src/vooga/games/zombieland/resources/overlays.xml");
-		
+
 		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays = tracker.getOverlayGroups().get(0);		
 		
-
-		overlayHealthBar = tracker.getBarOverlays().get(0);
+		statLevel = tracker.getStats().get(3);
+		
+		overlayLevelStat = tracker.getStatOverlays().get(2);
+		overlayLevelStat.setActive(false);
 		
 		overlayPauseString = tracker.getStringOverlays().get(1);
-		overlayHealthString = tracker.getStringOverlays().get(2);
-		overlayGameOverString = tracker.getStringOverlays().get(5);
+		overlayGameOverString = tracker.getStringOverlays().get(2);
 		
-		overlayAmmoStat = tracker.getStatOverlays().get(1);
-		overlayLevelStat = tracker.getStatOverlays().get(0);
-		overlayScoreStat = tracker.getStatOverlays().get(2);
-//		
-//		initOverlayHealthString();
-//		initOverlayHealthBar();
-//		initOverlayScoreString();
-//		initOverlayAmmoString();
-//		initOverlayLevelString();
-//		initOverlayPauseString();
+		playField.addGroup(tracker.getOverlayGroups().get(0));
 	}
-
-//	/**
-//	 * This initializes each overly item, setting their location, state, and
-//	 * adding it to the playfield
-//	 * 
-//	 * @param overlay
-//	 *            overlay item
-//	 * @param item
-//	 *            overlay item name
-//	 * @param active
-//	 *            overlay item state
-//	 */
-//	private void initializeOverlayItem(Overlay overlay, String item,
-//			boolean active) {
-//		int x = ZombielandResources.getInt(item + "X");
-//		int y = ZombielandResources.getInt(item + "Y");
-//		overlay.setLocation(x, y);
-//		overlay.setActive(active);
-//		SpriteGroup overlays = playField.getGroup("Overlays");
-//		overlays.add(overlay);
-//	}
-//
-//	/**
-//	 * This method initializes the PauseString, which is displayed when the game
-//	 * is paused.
-//	 */
-//	private void initOverlayPauseString() {
-//		
-//		String pauseString = ZombielandResources.getString("overlayPauseString");
-//		
-//		overlayPauseString = new OverlayString(pauseString, Color.BLACK);
-//		initializeOverlayItem(overlayPauseString, "overlayPauseString", false);
-//	}
-//
-//	/**
-//	 * This method is responsible for displaying the level string while the game
-//	 * is playing.
-//	 */
-//	private void initOverlayLevelString() {
-//		
-//		String levelString = ZombielandResources.getString("overlayLevelString");
-//		statLevel = new Stat<Integer>(level);
-//		overlayLevelString = new OverlayStat(levelString, statLevel);
-//		initializeOverlayItem(overlayLevelString, "overlayLevelString", false);
-//	}
-//
-//	/**
-//	 * This method is responsible for initializing the Ammo string that is
-//	 * displayed during game play.
-//	 */
-//	private void initOverlayAmmoString() {
-//		String overlayName = "overlayAmmoString";
-//		String ammoString = ZombielandResources.getString(overlayName);
-//		overlayAmmoString = new OverlayStat(ammoString,
-//				player.getStatAmmo());
-//		overlayAmmoString.setColor(Color.BLUE);
-//
-//		initializeOverlayItem(overlayAmmoString, overlayName, true);
-//	}
-//
-//	/**
-//	 * This method is responsible for displaying "Kill: " during the game play.
-//	 */
-//	private void initOverlayScoreString() {
-//		String overlayName = "overlayScoreString";
-//		String scoreString = ZombielandResources.getString(overlayName);
-//		overlayScoreString = new OverlayStat(scoreString,
-//				player.getScore());
-//		initializeOverlayItem(overlayScoreString, overlayName, true);
-//	}
-//
-//	/**
-//	 * This method is responsible for initializing the health bar that is
-//	 * displayed during game play.
-//	 */
-//	private void initOverlayHealthBar() {
-//		overlayHealthBar = new OverlayBar(player.getHealth(), player
-//				.getHealth().getStat());
-//		overlayHealthBar.setColor(Color.GREEN);
-//		initializeOverlayItem(overlayHealthBar, "overlayHealthBar", true);
-//	}
-//
-//	/**
-//	 * This method is responsible for initializing the message "Health: " on the
-//	 * screen during game play
-//	 */
-//	private void initOverlayHealthString() {
-//		String overlayName = "overlayHealthString";
-//		String healthString = ZombielandResources.getString("overlayHealthString");	
-//		overlayHealthString = new OverlayString(healthString, Color.BLUE);
-//		initializeOverlayItem(overlayHealthString, overlayName, true);
-//	}
-
-
-	/**
-	 * This method is responsible for initializing the pictures associated with
-	 * bulletImage, shotGunImage, assaultRifleImage, and healthImage
-	 */
-	//private void initImages() {
-
-	//	bulletImage = ZombielandResources.getImage("bulletImage");
-	//	shotGunImage = ZombielandResources.getImage("shotGunImage");
-	//	assaultRifleImage = ZombielandResources.getImage("assaultRifleImage");
-	//	healthImage = ZombielandResources.getImage("healthImage");
-	//}
 
 	/**
 	 * update all components of the ZombieLand game. This method checks to see
@@ -290,7 +179,7 @@ public class ZombielandPlayState extends GameState {
 					addZombie();
 				}
 			} else if (levelCompleted()) {
-//				statLevel.setStat(level + 1);
+				statLevel.setStat(level + 1);
 				overlayLevelStat.update(elapsedTime);
 				overlayLevelStat.setActive(true);
 				playField.update(elapsedTime);
