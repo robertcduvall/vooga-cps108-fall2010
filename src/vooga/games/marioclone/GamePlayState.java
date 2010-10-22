@@ -33,7 +33,7 @@ public class GamePlayState extends GameState {
 	private KeyboardControl myControl;
 
 	public enum State {
-		Win, Lose, Continue
+		Win, Lose, Continue, FinishedLevel
 	};
 
 	/**
@@ -71,7 +71,7 @@ public class GamePlayState extends GameState {
 			else {
 				myCurrentLevel++;
 				switchLevel(myCurrentLevel);
-				return State.Continue;
+				return State.FinishedLevel;
 			}
 		} else
 			return State.Continue;
@@ -133,6 +133,10 @@ public class GamePlayState extends GameState {
 	public void render(Graphics2D g) {
 		super.render(g);
 		myLevel.render(g);
+	}
+	
+	public int getCurrentLevel() {
+		return myCurrentLevel;
 	}
 
 	private void setUpKeyboard() {

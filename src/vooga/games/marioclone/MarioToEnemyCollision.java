@@ -15,7 +15,6 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 			if (side == BOTTOM_TOP_COLLISION) {
 				thisEnemy.setActive(false);
 				thisMario.jump(true);
-				thisMario.incScore(10);
 			} else {
 				thisMario.setHealth(thisMario.getHealth() - 1);
 				thisEnemy.bounce();
