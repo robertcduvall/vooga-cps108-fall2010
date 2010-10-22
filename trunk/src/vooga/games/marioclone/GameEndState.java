@@ -1,6 +1,8 @@
 package vooga.games.marioclone;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import vooga.engine.overlay.OverlayString;
@@ -11,6 +13,7 @@ import vooga.engine.state.GameState;
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFontManager;
+import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * 
@@ -49,19 +52,19 @@ public class GameEndState extends GameState {
 	 *            - resource used to write text
 	 */
 
-	public GameEndState(Background background, String messageString,
+	public GameEndState(BufferedImage backgroundImage, String messageString,
 			GameFontManager fontManager) {
+		myBackground = new ImageBackground(backgroundImage);
 		myFontManager = fontManager;
 		myMessage = new OverlayString(messageString);
 		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
-		myMessage.setLocation((Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
+		myMessage.setLocation(
+				(Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
 				.getString("highscoredbname"), new File(Resources
 				.getString("highscorefile")));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
-
-		myBackground = background;
 	}
 
 	/**
@@ -120,12 +123,15 @@ public class GameEndState extends GameState {
 	public void render(Graphics2D g) {
 		myBackground.render(g);
 		for (OverlayString os : myHighScoreOverlays) {
+			os.setColor(Color.white);
 			os.render(g);
 		}
 		super.render(g);
 		myMessage.render(g);
-		
-		myFontManager.getFont("MENU").drawString(g, "PRESS SPACE TO PLAY AGAIN!", (myBackground.getWidth() / 4), (myBackground.getHeight() / 2) +50);
+
+		myFontManager.getFont("MENU").drawString(g,
+				"PRESS SPACE TO PLAY AGAIN!", (myBackground.getWidth() / 4),
+				(myBackground.getHeight() / 2) + 50);
 	}
 
 	public void setScore(Long score) {

@@ -1,6 +1,7 @@
 package vooga.games.marioclone;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -19,7 +20,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 public class MainMenuState extends GameState {
 
-	private ImageBackground myMainMenu;
+	private ImageBackground myMainMenuBG;
 	private int myWidth;
 	private int myHeight;
 	private GameFont myMenuFont;
@@ -33,10 +34,10 @@ public class MainMenuState extends GameState {
 	 * @param fontManager
 	 */
 	
-	public MainMenuState(GameFontManager fontManager) {
+	public MainMenuState(BufferedImage backgroundImage, GameFontManager fontManager) {
 		super();
 		myMenuFont = fontManager.getFont("MENU");
-		myMainMenu = new ImageBackground(Resources.getImage("MenuBG"));
+		myMainMenuBG = new ImageBackground(backgroundImage);
         myWidth = Resources.getInt("Width");
         myHeight = Resources.getInt("Height");
 	}
@@ -47,7 +48,7 @@ public class MainMenuState extends GameState {
 	public void render(Graphics2D g) {
 		super.render(g);
 		
-		myMainMenu.render(g);
+		myMainMenuBG.render(g);
 		myMenuFont.drawString(g, "WELCOME TO MARIOCLONE!", myWidth / 4, myHeight / 2 + 50);
 		myMenuFont.drawString(g, "PRESS A AND D TO MOVE LEFT AND RIGHT.",(myWidth / 4), (myHeight / 2) + 125);
 		myMenuFont.drawString(g, "PRESS W TO JUMP AND S TO CROUCH.", (myWidth / 4), (myHeight / 2) + 200);

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
@@ -16,6 +17,7 @@ import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.object.font.SystemFont;
 
 /**
@@ -68,19 +70,20 @@ public class DropThis extends Game {
 
 		myGamePlayState = new GamePlayState(this);
 
-		GameFont gameOverFont = new SystemFont(new Font(Font.SANS_SERIF,
+		SystemFont gameOverFont = new SystemFont(new Font(Font.SANS_SERIF,
 				Font.BOLD, 200));
+		gameOverFont.setColor(Color.white);
 
 		fontManager.putFont("GAMEOVER", gameOverFont);
 		fontManager.putFont("MENU", menuFont);
 
-		myMenuState = new MainMenuState(fontManager);
-		myPausedState = new MainMenuState(fontManager);
-		myLoseState = new GameEndState(new ColorBackground(Color.red), "FAIL!",
+		myMenuState = new MainMenuState(Resources.getImage("MenuBG"),fontManager);
+		myPausedState = new MainMenuState(Resources.getImage("PauseBG"),fontManager);
+		myLoseState = new GameEndState(Resources.getImage("LoseBG"), "FAIL!",
 				fontManager);
-		myWinState = new GameEndState(new ColorBackground(Color.blue), "YOU WIN!",
+		myWinState = new GameEndState(Resources.getImage("WinBG"), "YOU WIN!",
 				fontManager);
-		myLevelFinishedState = new MainMenuState(fontManager);
+		myLevelFinishedState = new MainMenuState(Resources.getImage("LevelFinishedBG"),fontManager);
 
 		myGameStateManager.addGameState(myMenuState);
 		myGameStateManager.addGameState(myPausedState);
