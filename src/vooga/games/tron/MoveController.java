@@ -17,6 +17,10 @@ public class MoveController extends UserInputEventAdaptor{
 		this.game=game;  
 		this.myPlayer = player;	
 	}
+	
+	public void move(){
+		myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+	}
 	/**
 	 * handles down turning
 	 */
@@ -24,7 +28,8 @@ public class MoveController extends UserInputEventAdaptor{
 	public void down() {
 		if(!myPlayer.getDirection().equals("down")&&!myPlayer.getDirection().equals("up")){
 			myPlayer.setDirection("down");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+			move();
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}  		
 	}
 	/**
@@ -34,7 +39,8 @@ public class MoveController extends UserInputEventAdaptor{
 	public void left() {
 		if(!myPlayer.getDirection().equals("left")&&!myPlayer.getDirection().equals("right")){
 			myPlayer.setDirection("left");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+			move();
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}
 	}
 	/**
@@ -44,7 +50,8 @@ public class MoveController extends UserInputEventAdaptor{
 	public void right() {
 		if(!myPlayer.getDirection().equals("right")&&!myPlayer.getDirection().equals("left")){
 			myPlayer.setDirection("right");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+			move();
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}
 	}
 	/**
@@ -54,7 +61,8 @@ public class MoveController extends UserInputEventAdaptor{
 	public void up() {
 		if(!myPlayer.getDirection().equals("up")&&!myPlayer.getDirection().equals("down")){
 			myPlayer.setDirection("up");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+			move();
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}
 	}	
 
