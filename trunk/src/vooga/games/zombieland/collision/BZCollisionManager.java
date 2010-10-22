@@ -1,7 +1,9 @@
 package vooga.games.zombieland.collision;
 
+
 import vooga.games.zombieland.Zombie;
 import vooga.games.zombieland.weapons.Bullet;
+import vooga.games.zombieland.Constants;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -13,7 +15,7 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
  * 
  * @author Jimmy Mu, Aaron Choi, Yang Su
  */
-public class BZCollisionManager extends PreciseCollisionGroup {
+public class BZCollisionManager extends PreciseCollisionGroup implements Constants{
 	/**
 	 * Initiates post-collision behavior for the zombie and the bullet
 	 */
@@ -41,7 +43,7 @@ public class BZCollisionManager extends PreciseCollisionGroup {
 		
 		//If the zombie's killed, turn on the zombie death animation
 		if (currentZombie.isDead()) {
-			currentZombie.setToCurrentSprite("ZombieDeath");
+			currentZombie.setToCurrentSprite(DEATH);
 			((AnimatedSprite) currentZombie.getCurrentSprite()).setAnimate(true);
 		}
 		

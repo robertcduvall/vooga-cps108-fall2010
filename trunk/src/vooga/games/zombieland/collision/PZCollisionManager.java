@@ -1,5 +1,6 @@
 package vooga.games.zombieland.collision;
 
+import vooga.games.zombieland.Constants;
 import vooga.games.zombieland.Shooter;
 import vooga.games.zombieland.Zombie;
 
@@ -12,7 +13,8 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
  * @Author Jimmy Mu, Aaron Choi, Yang Su
  */
 
-public class PZCollisionManager extends PreciseCollisionGroup {
+public class PZCollisionManager extends PreciseCollisionGroup implements
+Constants {
 	/**
 	 * Initiates post-collision behavior for the zombie
 	 */
@@ -35,7 +37,7 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 
 		processDamage(currentZombie, currentPlayer);
 
-		int attackDirection = currentZombie.getDirection();
+		String attackDirection = currentZombie.getDirection();
 		initiateAttackAnimation(attackDirection, currentZombie);
 	}
 
@@ -63,23 +65,22 @@ public class PZCollisionManager extends PreciseCollisionGroup {
 	 * @param currentZombie
 	 *            a zombie
 	 */
-	private void initiateAttackAnimation(int attackDirection,
+	private void initiateAttackAnimation(String attackDirection,
 			Zombie currentZombie) {
 		String direction = "";
-		switch (attackDirection) {
-		case 0:
-			direction = "AttackRight";
-			break;
-		case 1:
-			direction = "AttackUp";
-			break;
-		case 2:
-			direction = "AttackLeft";
-			break;
-		case 3:
-			direction = "AttackDown";
-			break;
+		if (attackDirection.equals(RIGHT)) {
+			direction = ATTACKRIGHT;
 		}
+		else if (attackDirection.equals(UP)) {
+			direction = ATTACKUP;
+		}
+		else if (attackDirection.equals(LEFT)) {
+			direction = ATTACKLEFT;
+		}
+		else {
+			direction = ATTACKDOWN;
+		}
+
 		currentZombie.setAttackAnimation(direction);
 	}
 }

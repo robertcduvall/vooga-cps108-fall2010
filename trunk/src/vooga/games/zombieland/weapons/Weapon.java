@@ -128,6 +128,6 @@ public abstract class Weapon {
 	 */
 	protected void makeBullet(double angle) {
 		player.addBulletToGame(new Bullet(player.getX(), player.getY(), angle,
-				damage, bulletSpeed), angle);
+				damage, bulletSpeed));
 	}
 }

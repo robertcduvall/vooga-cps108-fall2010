@@ -4,43 +4,30 @@ import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.player.control.GameEntitySprite;
 
-import java.util.*;
-
 /**
  * Zombie Class. Contains all behavior and controls for zombies in the game
  * 
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Zombie extends GameEntitySprite {
+public class Zombie extends GameEntitySprite implements Constants {
 
 	private static final int ZOMBIES_PER_LEVEL = 25;
 	private static int itemChance;
 	private static int attackDelay;
 	private static double zombieStatMultiplier;
-	
+
 	private double zombieDamage;
 	private int zombieCurrentHealth;
 
 	private Shooter target;
-	private String directionToMove;
 	private double speed;
 
 	private int attackDelayStep;
 	private String currentAttackAnimation;
-	
+
 	private Blah game;
 
-	private static String LEFT;
-	private static String RIGHT;
-	private static String UP;
-	private static String DOWN;
-	private static String ATTACKLEFT;
-	private static String ATTACKRight;
-	private static String ATTACKUP;
-	private static String ATTACKDown;
-	private static String DEATH;
-	
 
 	public Zombie(String name, String stateName, int level, Shooter player,
 			Blah currentGame) {
@@ -66,34 +53,33 @@ public class Zombie extends GameEntitySprite {
 		AnimatedSprite death = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
 				.getAnimation("ZombieDeath"));
 
-		mapNameToSprite("Down", down);
-		mapNameToSprite("Up", up);
-		mapNameToSprite("Left", left);
-		mapNameToSprite("Right", right);
-		mapNameToSprite("AttackDown", attackDown);
-		mapNameToSprite("AttackUp", attackUp);
-		mapNameToSprite("AttackLeft", attackLeft);
-		mapNameToSprite("AttackRight", attackRight);
-		mapNameToSprite("ZombieDeath", death);
-
-		setHumanTarget(player);
+		mapNameToSprite(DOWN, down);
+		mapNameToSprite(UP, up);
+		mapNameToSprite(LEFT, left);
+		mapNameToSprite(RIGHT, right);
+		mapNameToSprite(ATTACKDOWN, attackDown);
+		mapNameToSprite(ATTACKUP, attackUp);
+		mapNameToSprite(ATTACKLEFT, attackLeft);
+		mapNameToSprite(ATTACKRIGHT, attackRight);
+		mapNameToSprite(DEATH, death);
 		
+		setHumanTarget(player);
+
 		currentAttackAnimation="";
 		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
-		itemChance = ZombielandResources.getInt("ITEM_CHANCE");
+		itemChance = ZombielandResources.getInt("itemChance");
 		zombieStatMultiplier = ZombielandResources.getDouble("zombieStatMultiplier");
-		
-		directionToMove = "X";
+
 		speed = ZombielandResources.getDouble("zombieSpeed");
 		zombieCurrentHealth = ZombielandResources.getInt("startZombieHealth");
 		zombieDamage = ZombielandResources.getInt("startZombieDamage");
-				
+
 		updateStats(level);
-		
+
 		chooseRandomLocation();
-	
+
 		game = currentGame;
-		
+
 		this.setActive(true);
 	}
 
@@ -115,7 +101,7 @@ public class Zombie extends GameEntitySprite {
 	{
 		return ZOMBIES_PER_LEVEL;
 	}
-	
+
 	/**
 	 * Sets the target for the current zombie. Can be used if at some point we
 	 * have more than one human target
@@ -176,13 +162,12 @@ public class Zombie extends GameEntitySprite {
 	 * 
 	 * @return attack direction
 	 */
-	public int getDirection() {
+	public String getDirection() {
 		if (isCloserInXDirection()) {
-			return ((target.getX() - getX()) > 0) ? 0 : 2;
+			return ((target.getX() - getX()) > 0) ? RIGHT : LEFT;
 		} else
-			return ((target.getY() - getY()) > 0) ? 3 : 1;
+			return ((target.getY() - getY()) > 0) ? DOWN : UP;
 	}
-
 	/**
 	 * Update the zombie's health according to the damage taken
 	 * 
@@ -199,7 +184,7 @@ public class Zombie extends GameEntitySprite {
 	public void updateAttackStep() {
 		attackDelayStep++;
 	}
-	
+
 	/**
 	 * reset attack step
 	 */
@@ -254,24 +239,26 @@ public class Zombie extends GameEntitySprite {
 		}
 
 		// Movement control
-		int direction = getDirection();
-		switch (direction) {
-		case 0:
+		String direction = getDirection();
+		if(direction.equals(RIGHT)) {
 			moveX(Math.abs(speed));
-			setToCurrentSprite("Right");
-			break;
-		case 1:
+			setToCurrentSprite(RIGHT);
+			return;
+		}
+		if(direction.equals(UP)) {
 			moveY(speed);
-			setToCurrentSprite("Up");
-			break;
-		case 2:
+			setToCurrentSprite(UP);
+			return;
+		}
+		if(direction.equals(LEFT)) {
 			moveX(speed);
-			setToCurrentSprite("Left");
-			break;
-		case 3:
+			setToCurrentSprite(LEFT);
+			return;
+		}
+		if(direction.equals(DOWN)) {
 			moveY(Math.abs(speed));
-			setToCurrentSprite("Down");
-			break;
+			setToCurrentSprite(DOWN);
+			return;
 		}
 	}
 

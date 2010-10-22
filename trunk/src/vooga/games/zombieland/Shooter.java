@@ -19,7 +19,7 @@ import vooga.games.zombieland.weapons.Weapon;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Shooter extends PlayerSprite{
+public class Shooter extends PlayerSprite implements Constants{
 
 	private static int shotgunAmmo;
 	private static int rifleAmmo;
@@ -35,33 +35,6 @@ public class Shooter extends PlayerSprite{
 	private Stat<Integer> ammo;
 	private int levelScore;
 
-	public Shooter(String name, String stateName, AnimatedSprite s,
-			int playerHealth, int playerRank, Blah zombieland) {
-		super(name, stateName, s);
-		game = zombieland;
-		weapons = new Weapon[3];
-		maxHealth = playerHealth;
-		// DEFAULT attributes
-		speed = ZombielandResources.getInt("speed");
-		orientation = ZombielandResources.getInt("orientation");
-		weaponChoice = ZombielandResources.getInt("weaponChoice");
-		levelScore = ZombielandResources.getInt("levelScore");
-		shotgunAmmo = ZombielandResources.getInt("shotgunAmmo");
-		rifleAmmo = ZombielandResources.getInt("rifleAmmo");
-		pistolAmmo = ZombielandResources.getInt("pistolAmmo");
-		
-		setupWeapons();
-
-		// Setup displays
-		health = new Stat<Integer>(playerHealth);
-		addStat("health", health);
-		score = new Stat<Integer>(0);
-		addStat("score", score);
-		ammo = new Stat<Integer>(getAmmo());
-		addStat("ammo", ammo);
-
-
-	}
 	public Shooter(String name, String stateName, Blah zombieland) {
 		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
 		game = zombieland;
@@ -83,15 +56,15 @@ public class Shooter extends PlayerSprite{
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
 		
-		AnimatedSprite down = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down"));
-		AnimatedSprite up = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Up"));
-		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Left"));
-		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Right"));
+		AnimatedSprite down = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(DOWN));
+		AnimatedSprite up = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(UP));
+		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(LEFT));
+		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(RIGHT));
 		
-		this.mapNameToSprite("Down", down);
-		this.mapNameToSprite("Up", up);
-		this.mapNameToSprite("Left", left);
-		this.mapNameToSprite("Right", right);
+		this.mapNameToSprite(DOWN, down);
+		this.mapNameToSprite(UP, up);
+		this.mapNameToSprite(LEFT, left);
+		this.mapNameToSprite(RIGHT, right);
 		
 		// Setup displays
 		health = new Stat<Integer>(maxHealth);
@@ -123,8 +96,8 @@ public class Shooter extends PlayerSprite{
 	 * @param angle
 	 *            the angle of the bullet's trajectory
 	 */
-	public void addBulletToGame(Bullet bullet, double angle) {
-		((ZombielandPlayState) game.getCurrentState()).addBullet(bullet, angle);
+	public void addBulletToGame(Bullet bullet) {
+		((ZombielandPlayState) game.getCurrentState()).addBullet(bullet);
 
 	}
 
@@ -138,7 +111,7 @@ public class Shooter extends PlayerSprite{
 	 */
 	public void goLeft() {
 		orientation = 180;
-		showAnimation("Left");
+		showAnimation(LEFT);
 		moveX(speed);
 	}
 
@@ -147,7 +120,7 @@ public class Shooter extends PlayerSprite{
 	 */
 	public void goRight() {
 		orientation = 0;
-		showAnimation("Right");
+		showAnimation(RIGHT);
 		moveX(Math.abs(speed));
 	}
 
@@ -156,7 +129,7 @@ public class Shooter extends PlayerSprite{
 	 */
 	public void goUp() {
 		orientation = 270;
-		showAnimation("Up");
+		showAnimation(UP);
 		moveY(speed);
 	}
 
@@ -165,7 +138,7 @@ public class Shooter extends PlayerSprite{
 	 */
 	public void goDown() {
 		orientation = 90;
-		showAnimation("Down");
+		showAnimation(DOWN);
 		moveY(Math.abs(speed));
 	}
 
