@@ -33,7 +33,6 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
-import com.sun.xml.internal.ws.api.ResourceLoader;
 
 
 /**
@@ -201,36 +200,39 @@ public class DropThis extends vooga.engine.core.Game {
 		if (randomBlockOccurance < myBlockFrequency){
 			BlockSprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
 			if (myBlockCounter == myBlockCounterIncrement){
-				block.setImage(Resources.getImage("platformGray"));
 				block.setVerticalSpeed(myBlockVelocity);
-				block.setBlockType("blockTypeNormal");
-
+				setBlock(block, "platformGray", "blockTypeNormal");
 			} else if(myBlockCounter == 2*myBlockCounterIncrement){
-				block.setImage(Resources.getImage("platformRed"));
 				block.setVerticalSpeed(myBlockVelocity*fastBlockSpeedMultiplier);
-				block.setBlockType("blockTypeNormal");
-
+				setBlock(block, "platformRed", "blockTypeNormal");
 			} else if(myBlockCounter == 3*myBlockCounterIncrement){
-				block.setImage(Resources.getImage("platformLightBlueWide"));
-				block.setBlockType("blockTypeNormal");
+				setBlock(block, "platformLightBlueWide", "blockTypeNormal");
 			} else if(myBlockCounter == 4*myBlockCounterIncrement){
-				block.setImage(Resources.getImage("platformBreak"));
-				block.setBlockType("blockTypeNotBroken");
+				setBlock(block, "platformBreak", "blockTypeNotBroken");
 			} else if(myBlockCounter == 5*myBlockCounterIncrement){
-				block.setImage(Resources.getImage("platformSpringDouble"));
-				block.setBlockType("blockTypeSpring");
+				setBlock(block, "platformSpringDouble", "blockTypeSpring");
 			} else if(myBlockCounter == 6*myBlockCounterIncrement){
-				block.setImage(Resources.getImage("jetpack"));
-				block.setBlockType("blockTypeJetpack");
+				setBlock(block, "jetpack", "blockTypeJetpack");
 				myBlockCounter = 0;
 			} else {
-				block.setImage(Resources.getImage("platformGreen"));
-				block.setBlockType("blockTypeNormal");
+				setBlock(block, "platformGreen", "blockTypeNormal");
 			}
 
 			myBlockCounter++;
 			myBlocks.add(block);
 		}
+	}
+	/**
+	 * sets the block image and the block type
+	 * @param block
+	 * @param imageName
+	 * @param blockType
+	 *
+	 */
+	
+	public void setBlock(BlockSprite block, String imageName, String blockType) {
+		block.setImage(Resources.getImage(imageName));
+		block.setBlockType(blockType);
 	}
 
 	/**
