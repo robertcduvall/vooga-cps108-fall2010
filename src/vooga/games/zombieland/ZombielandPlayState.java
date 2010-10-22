@@ -12,7 +12,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ImageBackground;
 
-import vooga.engine.overlay.Overlay;
 import vooga.engine.overlay.OverlayBar;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
@@ -21,7 +20,6 @@ import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.state.GameState;
-import vooga.engine.state.GameStateManager;
 import vooga.games.zombieland.collision.BZCollisionManager;
 import vooga.games.zombieland.collision.HICollisionManager;
 import vooga.games.zombieland.collision.PZCollisionManager;
@@ -62,7 +60,6 @@ public class ZombielandPlayState extends GameState {
 		currentGame = game;
 	}
 
-	@Override
 	public void initialize() {
 		player = new Shooter("Hero", "Down", currentGame);
 		
@@ -293,7 +290,7 @@ public class ZombielandPlayState extends GameState {
 					addZombie();
 				}
 			} else if (levelCompleted()) {
-				statLevel.setStat(level + 1);
+//				statLevel.setStat(level + 1);
 				overlayLevelStat.update(elapsedTime);
 				overlayLevelStat.setActive(true);
 				playField.update(elapsedTime);
@@ -301,7 +298,6 @@ public class ZombielandPlayState extends GameState {
 				if (timer.action(elapsedTime)) {
 
 					setNewDelay();
-//					updateZombieStats();
 					resetZombiesCount();
 
 					level++;
@@ -347,11 +343,8 @@ public class ZombielandPlayState extends GameState {
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-
 		Zombie newZombie = new Zombie("New", "Moving", level, player, currentGame);
-		
 		zombiesAppeared++;
-
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
 	}
@@ -365,7 +358,7 @@ public class ZombielandPlayState extends GameState {
 	 * @param angle
 	 *            the orientation of the bullet (in degrees)
 	 */
-	public void addBullet(Bullet bullet, double angle) {
+	public void addBullet(Bullet bullet) {
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		bullets.add(bullet);
 	}
