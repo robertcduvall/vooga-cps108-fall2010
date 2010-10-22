@@ -10,8 +10,8 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public class ItemTile extends ChangingTile {
 
-	private ItemSprite myItem;
-	private boolean releaseItem;
+	protected ItemSprite myItem;
+	protected boolean releaseItem;
 
 	public ItemTile(double x, double y, List<BufferedImage> images,
 			ItemSprite item) {
