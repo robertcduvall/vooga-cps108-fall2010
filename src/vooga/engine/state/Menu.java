@@ -56,9 +56,10 @@ import com.golden.gamedev.Game;
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import com.sun.org.apache.bcel.internal.classfile.Method;
 
 
-public class Menu {
+public class Menu extends GameState{
 
 	//The Mouse Event is java keyEvent Equivalent for the mouse. Making this variable allows us to put MOUSE_EVENT in keyToMenu
 	private final static int MOUSE_EVENT = 1000;
@@ -66,11 +67,13 @@ public class Menu {
 	private Game currentGame;
 	private SpriteGroup menuDisplay;
 	private Map<Integer, Menu> keyToMenu;
+	private Map<Integer, Method> keyToMethod;
 
 	public Menu(Game game)
 	{
 		currentGame = game;
 		keyToMenu = new TreeMap<Integer, Menu>();
+		keyToMethod = new TreeMap<Integer, Method>();
 		
 		//Initially, the menu is not active, until called 
 		setActive(false);
@@ -81,20 +84,6 @@ public class Menu {
 		this(game);
 		menuDisplay = displayedgroup;
 	}
-
-//	public Menu(Game game, Collection<Sprite> collection)
-//	{
-//		this(game);
-//		
-//		Enumeration iterator = Collections.enumeration(collection);
-//		menuDisplay = new SpriteGroup("Menu");
-//
-//		while(iterator.hasMoreElements())
-//		{
-//			Sprite sprite = (Sprite) iterator.nextElement();
-//			menuDisplay.add(sprite);
-//		}
-//	}
 	
 	/**************************************************************************
 	 * METHODS FOR MOUSECLICK AND KEYPRESS EVENT, CHANGING MENU, SETTING CURRENT MENU ACTIVE 
@@ -167,6 +156,9 @@ public class Menu {
 		return currentGame;
 	}
 	
+	
+	
+	
 	/****************************************************************************
 	 * METHODS FOR UPDATING, RENDERING, AND LISTENING
 	 ****************************************************************************/
@@ -208,171 +200,13 @@ public class Menu {
 	 * This method displays the menuDisplay.
 	 * @param g
 	 */
+	@Override
 	public void render(Graphics2D g)
 	{
 		menuDisplay.render(g);
 	}
 	
-	/*******************************************************************************
-	 * METHODS FOR LOADING MENU IMAGES: FROM FILEPATH, IMAGEFILE, SPRITE, ANIMATEDSPRITE
-	 *******************************************************************************/
-	/**
-	 * This method makes a sprite from a bufferedImage, make the sprite non-moving (static), 
-	 * sets the image to a particular x and y coordinates, and adds it to the menuDisplay 
-	 * to be rendered.
-	 */
-	public void addStaticFromImage(BufferedImage images, double x, double y)
-	{
-		Sprite sprite = new Sprite(images);
-		sprite.setX(x);
-		sprite.setY(y);
-		menuDisplay.add(sprite);
-	}
-
-	/**
-	 * This method makes a sprite from the relativeURL, makes the sprite non-moving (static),
-	 * sets the image to a particular x and y coordinates, and adds it to the menuDisplay 
-	 * to be rendered.
-	 * @param relativeURL
-	 * @param x
-	 * @param y
-	 */
-	public void addStaticFromPath(String relativeURL, double x, double y)
-	{
-		BufferedImage image = currentGame.getImage(relativeURL);
-		addStaticFromImage(image, x, y);
-	}
-
-	/**
-	 * This method creates an animated sprite from an array of images, makes the sprite non-moving
-	 * (static), sets the image to a particular x and y locations, and adds it to the menuDisplay
-	 * to be rendered.
-	 * @param images
-	 * @param x
-	 * @param y
-	 */
-	public void addAnimatedStaticFromImages(BufferedImage[] images, double x, double y)
-	{
-		AnimatedSprite sprite = new AnimatedSprite(images);
-		sprite.setX(x);
-		sprite.setY(y);
-		menuDisplay.add(sprite);
-	}
-
-	/**
-	 * This method takes in a sprite, makes the image non-moving (static), sets the sprite to a 
-	 * particular x and y locations, and adds it to the menuDisplay to be rendered.
-	 * @param sprite
-	 * @param x
-	 * @param y
-	 */
-	public void addStaticSprite(Sprite sprite, double x, double y)
-	{
-		resetSprite(sprite);			
-		sprite.setX(x);
-		sprite.setY(y);
-		menuDisplay.add(sprite);
-	}
-
-	/**
-	 * This method takes in a sprite, makes the image moving (dynamic), sets the sprite to a 
-	 * particular x and y direction startin location, sets the movement of the image with vx 
-	 * (horizontal speed) and vy (vertical speed), and adds it to the menuDisplay to be
-	 * rendered. 
-	 * @param sprite
-	 * @param x
-	 * @param y
-	 * @param vx
-	 * @param vy
-	 */
-	public void addDynamicSprite(Sprite sprite, double x, double y, double vx, double vy)
-	{
-		addStaticSprite(sprite, x, y);
-		sprite.setVerticalSpeed(vx);
-		sprite.setHorizontalSpeed(vy);
-	}
-
-	/**
-	 * This method takes in an animated sprite, makes the image non-moving (static), sets the 
-	 * sprite to a particular x and y location, and adds it to the menuDisplay to be rendered.
-	 * @param sprite
-	 * @param x
-	 * @param y
-	 */
-	public void addAnimatedStaticSprite(AnimatedSprite sprite, double x, double y)
-	{
-		resetSprite(sprite);
-		sprite.setX(x);
-		sprite.setY(y);
-		menuDisplay.add(sprite);
-	}
-
-	/**
-	 * This method takes in an animated sprite, makes the image moving (dynamic), sets the sprite
-	 * to an initial x and y position, sets the xv (horizontal velocity) and yv (vertical velocity),
-	 * and adds it to the menuDisplay to be rendered.
-	 * @param sprite
-	 * @param x
-	 * @param y
-	 * @param vx
-	 * @param vy
-	 */
-	public void addAnimatedDynamicSprite(AnimatedSprite sprite, double x, double y, double vx, double vy)
-	{
-		addAnimatedStaticSprite(sprite, x, y);
-		sprite.setVerticalSpeed(vx);
-		sprite.setHorizontalSpeed(vy);	
-	}
-
-	/**
-	 * This method takes in an array of BufferedImage, makes the image moving ,sets the sprite to 
-	 * a particular x and y starting location, sets the initial velocity vx and vy, and adds it to 
-	 * the menuDisplay to be rendered.
-	 * @param images
-	 * @param x
-	 * @param y
-	 * @param vx
-	 * @param vy
-	 */
-	public void addAnimatedDynamicSpriteFromImages(BufferedImage[] images, double x, double y, double vx, double vy)
-	{
-		AnimatedSprite sprite = new AnimatedSprite(images);
-		addAnimatedStaticSprite(sprite, x, y);
-		sprite.setVerticalSpeed(vx);
-		sprite.setHorizontalSpeed(vy);
-	}
-
-	/**
-	 * This method takes in a single bufferedImage, sets the sprite to a particular x and y starting
-	 * location, sets the dimage to be moving (dynamic), sets the initial vx and vy, and adds it to 
-	 * the menuDisplay to be rendered.
-	 * @param image
-	 * @param x
-	 * @param y
-	 * @param vx
-	 * @param vy
-	 */
-	public void addDynamicSpriteFromImage(BufferedImage image, double x, double y, double vx, double vy)
-	{
-		Sprite sprite = new Sprite(image);
-		addStaticSprite(sprite, x, y);
-		sprite.setHorizontalSpeed(vx);
-		sprite.setVerticalSpeed(vy);
-
-	}
-	/**
-	 * This method resets the given sprite's horizontal velocity and vertical velocity to zero and sets 
-	 * the initial position of the sprite be (0, 0), top left corner of the screen.
-	 * @param sprite
-	 */
-	private void resetSprite(Sprite sprite)
-	{
-		sprite.setVerticalSpeed(0);
-		sprite.setHorizontalSpeed(0);
-		sprite.setX(0);
-		sprite.setY(0);
-	}
-
+	
 
 
 
