@@ -204,42 +204,53 @@ public class DropThis extends vooga.engine.core.Game {
 
 		//make the correct type of block
 		if (randomBlockOccurance < myBlockFrequency){
-			BlockSprite block = new BlockSprite(null, randomLocation, 0, myBlockVelocity);
+			BlockSprite block;
+			
 			if (myBlockCounter == myBlockCounterIncrement){
-				block.setVerticalSpeed(myBlockVelocity);
-				setBlock(block, "platformGray", "blockTypeNormal");
-			} else if(myBlockCounter == 2*myBlockCounterIncrement){
-				block.setVerticalSpeed(myBlockVelocity*fastBlockSpeedMultiplier);
-				setBlock(block, "platformRed", "blockTypeNormal");
-			} else if(myBlockCounter == 3*myBlockCounterIncrement){
-				setBlock(block, "platformLightBlueWide", "blockTypeNormal");
-			} else if(myBlockCounter == 4*myBlockCounterIncrement){
-				setBlock(block, "platformBreak", "blockTypeNotBroken");
-			} else if(myBlockCounter == 5*myBlockCounterIncrement){
-				setBlock(block, "platformSpringDouble", "blockTypeSpring");
-			} else if(myBlockCounter == 6*myBlockCounterIncrement){
-				setBlock(block, "jetpack", "blockTypeJetpack");
+				block = new NormalBlock(Resources.getImage("platformGray"), randomLocation, 0, myBlockVelocity);
+			} 
+			
+			else if(myBlockCounter == 2*myBlockCounterIncrement){
+				block = new NormalBlock(Resources.getImage("platformRed"), randomLocation, 0, myBlockVelocity*fastBlockSpeedMultiplier);
+			} 
+			
+			else if(myBlockCounter == 3*myBlockCounterIncrement){
+				block = new NormalBlock(Resources.getImage("platformLightBlueWide"), randomLocation, 0, myBlockVelocity);
+			} 
+			
+			else if(myBlockCounter == 4*myBlockCounterIncrement){
+				block = new BreakingBlock(Resources.getImage("platformBreak"), randomLocation, 0, myBlockVelocity);
+			} 
+			
+			else if(myBlockCounter == 5*myBlockCounterIncrement){
+				block = new SpringBlock(Resources.getImage("platformSpringDouble"), randomLocation);				
+			} 
+			
+			else if(myBlockCounter == 6*myBlockCounterIncrement){
+				block = new JetpackBlock(Resources.getImage("jetpack"), randomLocation, 0, myBlockVelocity);
 				myBlockCounter = 0;
-			} else {
-				setBlock(block, "platformGreen", "blockTypeNormal");
+			} 
+			
+			else {
+				block = new NormalBlock(Resources.getImage("platformGreen"), randomLocation, 0, myBlockVelocity);
 			}
 
 			myBlockCounter++;
 			myBlocks.add(block);
 		}
 	}
-	/**
-	 * sets the block image and the block type
-	 * @param block
-	 * @param imageName
-	 * @param blockType
-	 *
-	 */
-	
-	public void setBlock(BlockSprite block, String imageName, String blockType) {
-		block.setImage(Resources.getImage(imageName));
-		block.setBlockType(blockType);
-	}
+//	/**
+//	 * sets the block image and the block type
+//	 * @param block
+//	 * @param imageName
+//	 * @param blockType
+//	 *
+//	 */
+//	
+//	public void setBlock(BlockSprite block, String imageName, String blockType) {
+//		block.setImage(Resources.getImage(imageName));
+//		block.setBlockType(blockType);
+//	}
 
 	/**
 	 * Updates game values
@@ -313,6 +324,8 @@ public class DropThis extends vooga.engine.core.Game {
 		
 		/**
 		 * Allow the user to walk to the Doodle left and right...
+		 * 
+		 * TODO:Use the event manager
 		 */
 		if (keyDown(KeyEvent.VK_RIGHT)){
 			player.moveDoodle("right");
