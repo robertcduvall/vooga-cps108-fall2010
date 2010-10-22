@@ -100,43 +100,41 @@ public class ZombielandPlayState extends GameState {
 	private void initEnvironment() {
 		playField = new PlayField();
 
+		//Set up the music
 		String audiofile = ZombielandResources.getString("gamemusic");
 		currentGame.playMusic(audiofile);
 
+		//Set up the game background
 		BufferedImage sandbg = ZombielandResources.getImage("sandbg");
 		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
 				GAME_HEIGHT);
+		playField.setBackground(background);
 
-		SpriteGroup zombies = new SpriteGroup("Zombies");
-		SpriteGroup bullets = new SpriteGroup("Bullets");
-		SpriteGroup items = new SpriteGroup("Items");
-		SpriteGroup players = new SpriteGroup("Players");
-		SpriteGroup overlays = new SpriteGroup("Overlays");
-
-		playField.addGroup(zombies);
-		playField.addGroup(bullets);
-		playField.addGroup(items);
-		playField.addGroup(players);
-		playField.addGroup(overlays);
-
+		String spritegroupslist = ZombielandResources.getString("spritegroupslist");
+		String delim = ZombielandResources.getString("delim");
+		String[] spritegroups = spritegroupslist.split(delim);
+		
+		for(int i = 0; i < spritegroups.length; i++)
+		{
+			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
+			playField.addGroup(currentGroup);
+		}
+		
+		//Have not used reflections to be able to call on objects. I 
+		//have not look into how to do that yet.
 		PZCollisionManager playerZombieManager = new PZCollisionManager();
-		players.add(player);
-
-		playField.addCollisionGroup(players, zombies, playerZombieManager);
-
+		playField.getGroup("Players").add(player);
 		WallBoundManager entityWallManager = new WallBoundManager(background);
-		playField.addCollisionGroup(players, players, entityWallManager);
-
 		BZCollisionManager bulletZombieManager = new BZCollisionManager();
-		playField.addCollisionGroup(bullets, zombies, bulletZombieManager);
-
 		HICollisionManager humanItemManager = new HICollisionManager();
-		playField.addCollisionGroup(players, items, humanItemManager);
-
+		
+		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Zombies"), playerZombieManager);
+		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Players"), entityWallManager);
+		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
+		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
+		
 		int delay = ZombielandResources.getInt("timer");
 		timer = new Timer(delay);
-
-		playField.setBackground(background);
 
 		level = ZombielandResources.getInt("startLevel");
 	}
@@ -148,16 +146,17 @@ public class ZombielandPlayState extends GameState {
 	 */
 	public void initOverlays() {
 
+		SpriteGroup overlays = playField.getGroup("Overlays");
+		
 		int overlayXMLlocation = Resources.getInt("overlayXMLlocation");
 		int statLevelXMLlocation = Resources.getInt("statLevelXMLlocation");
 		int levelStatXMLlocation = Resources.getInt("levelStatXMLlocation");
 		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
 		int gameOverStringXMLlocation = Resources.getInt("gameOverStringXMLlocation");
 				
-		SpriteGroup overlays = playField.getGroup("Overlays");
 		overlays = tracker.getOverlayGroups().get(overlayXMLlocation);
 		statLevel = tracker.getStats().get(statLevelXMLlocation);
-		
+	
 		overlayLevelStat = tracker.getStatOverlays().get(levelStatXMLlocation);
 		overlayLevelStat.setActive(false);
 		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);

@@ -76,14 +76,5 @@ public class Game extends com.golden.gamedev.Game {
 		return defaultPath.replace('.', '/');
 	}
 	
-	/**
-	 * This method allows the clients of this class to get a full URL to the location
-	 * of their game.properties file
-	 * @return
-	 */
-	public String getMainPropertiesPath()
-	{
-		return getResourcePath() + "game.properties";	
-	}
 	
 }

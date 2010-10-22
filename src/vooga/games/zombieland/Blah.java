@@ -25,10 +25,14 @@ public class Blah extends Game {
 	private static final int SCREEN_WIDTH = 700;
 	private static final int SCREEN_HEIGHT = 500;
 
-	private static GameStateManager stateManager;
 	private static ZombielandPlayState zombielandPlayState;
 	private static ZombielandPauseState zombielandPauseState;
 	
+	@Override
+	/**
+	 * We overrode this method because we have specific a subclass ResourceHandler 
+	 * that we implemented for our purpose
+	 */
 	public void initResources() {
 		
 		ZombielandResources.initialize(this,
@@ -39,16 +43,15 @@ public class Blah extends Game {
 			e.printStackTrace();
 		}
 		
-		stateManager = new GameStateManager();
-		
 		zombielandPauseState = new ZombielandPauseState(this);
 		zombielandPlayState = new ZombielandPlayState(this, SCREEN_WIDTH,
 				SCREEN_HEIGHT);
 		zombielandPlayState.initialize();
 	
-		stateManager.addGameState(zombielandPlayState);
-		stateManager.addGameState(zombielandPauseState);
-		stateManager.activateAll();
+		initGameStates();
+		getGameStateManager().addGameState(zombielandPlayState);
+		getGameStateManager().addGameState(zombielandPauseState);
+		getGameStateManager().activateAll();
 	}
 
 	/**
@@ -63,26 +66,29 @@ public class Blah extends Game {
 	/**
 	 * update all components of the ZombieLand game. This method checks to see
 	 * if more zombies can be added or if the level has been completed.
+	 * updating getGameStateManger() and zombielandPlayState makes the game 
+	 * go twice the speed, which makes the game more fun.
 	 */
 	public void update(long elapsedTime) {
 		
 		if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
-			stateManager.toggle(zombielandPauseState);
-			stateManager.toggle(zombielandPlayState);
+			getGameStateManager().toggle(zombielandPauseState);
+			getGameStateManager().toggle(zombielandPlayState);
 			
 			boolean active = zombielandPlayState.getOverlayPauseString().isActive();
 			zombielandPlayState.getOverlayPauseString().setActive(!active);
 		}
 		
-		stateManager.update(elapsedTime);
+		getGameStateManager().update(elapsedTime);
 		zombielandPlayState.update(elapsedTime);
 	}
 
 	/**
-	 * render the graphics component in the game
+	 * render the graphics component in the game.
+	 * rendering both at the same time makes the game run faster.
 	 */
 	public void render(Graphics2D g) {
-		stateManager.render(g);
+		getGameStateManager().render(g);
 		zombielandPlayState.render(g);
 	}
 
