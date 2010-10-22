@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -28,9 +28,9 @@ public class MovingMonster extends Sprite {
 		super.update(elapsedTime);
 		if (getX() < 0 || getX() > 532 - getWidth()) {
 			if (getX() < 0)
-				setImage(ResourceHandler.getImage("blue_monster_right"));
+				setImage(Resources.getImage("blue_monster_right"));
 			else
-				setImage(ResourceHandler.getImage("blue_monster_left"));
+				setImage(Resources.getImage("blue_monster_left"));
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 		}
 	}

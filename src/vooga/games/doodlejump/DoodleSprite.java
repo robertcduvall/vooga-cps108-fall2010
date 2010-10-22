@@ -12,7 +12,7 @@ import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.player.control.PlayerSprite;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 
 /**
  * The DoodleSprite class extends PlayerSprite and defines how the main
@@ -36,7 +36,7 @@ public class DoodleSprite extends PlayerSprite {
 	}
 
 	public void moveLeft() {
-		setNewImage(ResourceHandler.getImage("doodle_left"));
+		setNewImage(Resources.getImage("doodle_left"));
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
@@ -46,7 +46,7 @@ public class DoodleSprite extends PlayerSprite {
 	}
 
 	public void moveRight() {
-		setNewImage(ResourceHandler.getImage("doodle_right"));
+		setNewImage(Resources.getImage("doodle_right"));
 		if (isOnScreen()) {
 			setX(getX() + 5);
 		} else {
@@ -77,8 +77,8 @@ public class DoodleSprite extends PlayerSprite {
 
 	public void shoot() {
 		if (bulletDelay <= 0) {
-			setNewImage(ResourceHandler.getImage("doodle_up"));
-			BufferedImage ballImage = ResourceHandler.getImage("ball");
+			setNewImage(Resources.getImage("doodle_up"));
+			BufferedImage ballImage = Resources.getImage("ball");
 			BallSprite ball = new BallSprite("ball", "flying", new Sprite(
 					ballImage, getX() + getWidth() / 2
 							- ballImage.getWidth() / 2, getY()
