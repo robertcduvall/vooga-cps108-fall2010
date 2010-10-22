@@ -15,27 +15,28 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.state.GameState;
 
-public class PauseState extends GameState {
+public class MenuState extends GameState {
 
-	OverlayString pauseOverlay;
+	OverlayString menuOverlay;
 	Blah game;
 	
-	public PauseState(Blah aGame) {
+	public MenuState(Blah aGame) {
 
 		game = aGame;
-		pauseOverlay = new OverlayString("Paused - U to Unpause", Color.BLACK);
+		menuOverlay = new OverlayString("Press Space to Start", Color.BLACK);
 
 	}
 	
 	public void render(Graphics2D g){
-		pauseOverlay.render(g);
+		System.out.println("lolol");
+		menuOverlay.render(g);
 	}
 	
 	public void update(long elapsedTime){
-		pauseOverlay.update(elapsedTime);
+		menuOverlay.update(elapsedTime);
 		
-		if (game.keyPressed(KeyEvent.VK_U)){
-			game.togglePauseGame();
+		if (game.keyPressed(KeyEvent.VK_SPACE)){
+			game.startGame();
 		}
 	}
 	
