@@ -24,6 +24,15 @@ import vooga.engine.state.GameState;
  * 
  * @author BrentSodman
  * 
+ *         to-do status list 
+ *         level API - functional - create more complex levels
+ *         player API - functional - improve computer ai (in essence, implement any ai whatsoever) 
+ *         state API - functional - improve menu and pause graphics; solve messy stateManager problems in main class 
+ *         overlay API - functional - track more stats? lives?
+ *         resource API - functional - complete 
+ *         collision API - deprecated 
+ *         core.Game - complete 
+ *         core.Sprite - pending changes to APIs
  */
 
 public class MainGameState extends GameState {
@@ -36,28 +45,23 @@ public class MainGameState extends GameState {
 
 	private EventManager eventManager;
 	private TLevelManager levelManager;
-
 	private Stat<Integer> currentScore;
-
 	private CyclePlayer humanPlayer;
 	private CyclePlayer computerPlayer;
 	private KeyboardControl keyboardControl;
 	private Blah game;
-
 	private SpriteGroup players;
 	private SpriteGroup levelBlocks;
 	private SpriteGroup playerBlocks;
 	private SpriteGroup overlayGroup;
 	private PlayField currentPlayField;
-
 	private LinkedList<Sprite> blockQueue = new LinkedList<Sprite>();
 
 	int currentLevel = 1;
 
-	public void initialize(Blah aGame) {
-
-		game = aGame;
-
+	public void initialize(Blah currentGame) {
+		game = currentGame;
+		
 		eventManager = new EventManager();
 		levelManager = new TLevelManager();
 
@@ -66,11 +70,9 @@ public class MainGameState extends GameState {
 		levelManager.addLevels(LEVEL_FILEPATH, new File("levels.txt"));
 
 		deployLevel();
-
 	}
 
 	public void render(Graphics2D g) {
-
 		currentPlayField.render(g);
 
 		// handles those few sprites behind the players that we don't want to
@@ -78,21 +80,17 @@ public class MainGameState extends GameState {
 		for (Sprite currentSprite : blockQueue) {
 			currentSprite.render(g);
 		}
-
 	}
 
 	public void update(long elapsedTime) {
-
 		keyboardControl.update();
 		deployPlayerBlocks();
 		currentPlayField.update(elapsedTime);
 		computerPlayer.aiUpdate(currentPlayField);
 		checkLevelStatus();
-
 	}
 
 	public void deployPlayerBlocks() {
-
 		for (Sprite currentPlayer : players.getSprites()) {
 			if (currentPlayer != null) {
 				blockQueue.add(new Sprite(currentPlayer.getImage(),
@@ -103,11 +101,9 @@ public class MainGameState extends GameState {
 		while (blockQueue.size() > FPS / 5) {
 			playerBlocks.add(blockQueue.remove());
 		}
-
 	}
 
 	public void initializePlayers() {
-
 		Sprite humanSprite = new Sprite(Resources.getImage("humanPlayer"),
 				humanPlayerStartingLocation.x, humanPlayerStartingLocation.y);
 		Sprite computerSprite = new Sprite(
@@ -129,11 +125,17 @@ public class MainGameState extends GameState {
 		players = new SpriteGroup("players");
 		players.add(humanPlayer);
 		players.add(computerPlayer);
+	}
+	
+	private void initializeOverlays() {
+		OverlayTracker tracker = OverlayCreator
+				.createOverlays("src/vooga/games/tronlegacy/resources/overlays.xml");
 
+		overlayGroup = tracker.getOverlayGroups().get(0);
+		currentScore = tracker.getStats().get(0);
 	}
 
 	public void deployLevel() {
-
 		currentPlayField = levelManager.getCurrentPlayField(new File(
 				LEVEL_FILEPATH + "/level" + currentLevel + ".txt"));
 
@@ -156,30 +158,27 @@ public class MainGameState extends GameState {
 				currentPlayField.getBackground()));
 		currentPlayField.addCollisionGroup(players, playerBlocks,
 				new TronCollision());
-
 	}
 
 	public void resetPlayers() {
-
 		humanPlayer.setLocation(humanPlayerStartingLocation.x,
 				humanPlayerStartingLocation.y);
 		computerPlayer.setLocation(computerPlayerStartingLocation.x,
 				computerPlayerStartingLocation.y);
-
+		
 		humanPlayer.changeDirection("RIGHT");
 		computerPlayer.changeDirection("LEFT");
-		
+
 		humanPlayer.setActive(true);
 		computerPlayer.setActive(true);
 
 		blockQueue.clear();
-
 	}
 
 	public void checkLevelStatus() {
 		if (!humanPlayer.isActive()) {
 			game.playSound(Resources.getSound("explosion"));
-			gameOver();
+			game.gameOver();
 		} else if (!computerPlayer.isActive()) {
 			game.playSound(Resources.getSound("explosion"));
 			currentLevel++;
@@ -192,21 +191,4 @@ public class MainGameState extends GameState {
 			game.togglePauseGame();
 		}
 	}
-
-	public void gameOver() {
-
-		game.gameOver();
-
-	}
-
-	private void initializeOverlays() {
-
-		OverlayTracker tracker = OverlayCreator
-				.createOverlays("src/vooga/games/tronlegacy/resources/overlays.xml");
-
-		overlayGroup = tracker.getOverlayGroups().get(0);
-		currentScore = tracker.getStats().get(0);
-
-	}
-
 }

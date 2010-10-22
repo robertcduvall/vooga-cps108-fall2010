@@ -1,12 +1,9 @@
 package vooga.games.tronlegacy;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
-
 import vooga.engine.event.EventManager;
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
@@ -33,15 +30,12 @@ public class CyclePlayer extends PlayerSprite {
 	private int directionIndex;
 
 	public CyclePlayer(String name, String stateName, Sprite s, EventManager em) {
-
 		super(name, stateName, s);
 
 		eventManager = em;
-
 	}
 
 	public KeyboardControl addPlayerControl(KeyboardControl kb) {
-
 		controller = kb;
 		try {
 			controller.setParams(Class.forName("java.lang.String"));
@@ -61,7 +55,6 @@ public class CyclePlayer extends PlayerSprite {
 			System.out
 					.println("Failed attaching KeyboardControl to humanPlayer.");
 		}
-
 		return controller;
 	}
 
@@ -74,12 +67,12 @@ public class CyclePlayer extends PlayerSprite {
 	}
 
 	public void changeDirectionRandom() {
+		//rotates clockwise or counterclockwise randomly
 		if (Math.random() < 0.5) {
 			directionIndex = (directionIndex - 1) % 3;
 		} else {
 			directionIndex = (directionIndex + 1) % 3;
 		}
-		
 
 		switch (directionIndex) {
 		case 0:
@@ -101,7 +94,6 @@ public class CyclePlayer extends PlayerSprite {
 	}
 
 	public void changeDirection(String direction) {
-
 		System.out.println(direction);
 
 		switch (Direction.valueOf(direction)) {
@@ -124,17 +116,14 @@ public class CyclePlayer extends PlayerSprite {
 		default:
 			break;
 		}
-
 	}
 
-	// this AI method is really bad but im focusing on using APIs, ill fix it
+	// this AI method is really bad but other stuff is more important (API usage), ill fix it
 	// later (it moves randomly)
 	public void aiUpdate(PlayField playField) {
-		
-		if (Math.random() > 0.98){
+		if (Math.random() > 0.98) {
 			changeDirectionRandom();
 		}
-
 	}
 
 }

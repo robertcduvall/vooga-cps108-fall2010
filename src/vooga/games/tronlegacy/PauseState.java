@@ -19,25 +19,24 @@ public class PauseState extends GameState {
 
 	OverlayString pauseOverlay;
 	Blah game;
-	
+
 	public PauseState(Blah aGame) {
 
 		game = aGame;
 		pauseOverlay = new OverlayString("Paused - U to Unpause", Color.BLACK);
 
 	}
-	
-	public void render(Graphics2D g){
+
+	public void render(Graphics2D g) {
 		pauseOverlay.render(g);
 	}
-	
-	public void update(long elapsedTime){
+
+	public void update(long elapsedTime) {
 		pauseOverlay.update(elapsedTime);
-		
-		if (game.keyPressed(KeyEvent.VK_U)){
+
+		if (game.keyPressed(KeyEvent.VK_U)) {
 			game.togglePauseGame();
 		}
 	}
-	
 
 }

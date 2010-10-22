@@ -21,6 +21,10 @@ import vooga.engine.state.GameStateManager;
  * @author BrentSodman
  * 
  *         Like Tron++
+ * 
+ *         Currently the levels and graphics are very simplistic, really there
+ *         just to demonstrate that the APIs work.
+ * 
  */
 
 public class Blah extends Game {
@@ -54,16 +58,14 @@ public class Blah extends Game {
 		stateManager.addGameState(playState);
 		stateManager.addGameState(pauseState);
 		stateManager.addGameState(menuState);
-
 		menuState.activate();
 		playState.deactivate();
 		pauseState.deactivate();
-		
+
 		playMusic(Resources.getSound("music"));
-		
 	}
 
-	public void render(Graphics2D g) {	
+	public void render(Graphics2D g) {
 		stateManager.render(g);
 	}
 
@@ -74,34 +76,27 @@ public class Blah extends Game {
 	public void togglePauseGame() {
 
 		if (playState.isActive()) {
-			
 			pauseState.addRenderState(playState);
-			
+
 			playState.deactivate();
 			pauseState.activate();
-			
 		} else {
-
 			pauseState.removeAllGroups();
-			
+
 			playState.activate();
 			pauseState.deactivate();
-			
 		}
 	}
-	
+
 	public void startGame() {
-		
 		menuState.deactivate();
 		playState.activate();
-		
 	}
-	
+
 	public void gameOver() {
-		
 		playState.deactivate();
+		playState = new MainGameState();
 		menuState.activate();
-		
 	}
 
 	// placeholder main function
