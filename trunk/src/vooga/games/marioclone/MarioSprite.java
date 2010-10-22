@@ -79,7 +79,7 @@ public class MarioSprite extends CharacterSprite {
 
 	@Override
 	public void update(long elapsedTime) {
-		if (!this.isOnScreen()) {
+		if (getY() > this.getBackground().getHeight()) {
 			setHealth(getHealth() - 1);
 			killed = true;
 		}
