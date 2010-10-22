@@ -102,12 +102,8 @@ public class GamePlayState extends GameState {
 		setUpKeyboard();
 	}
 
-	public Long getScore() {
-		if (myLevel.getMario() != null) {
-			return new Long(myLevel.getMario().getScore());
-		} else {
-			return new Long(0);
-		}
+	public int getScore() {
+		return (Integer) myLevel.getOverlays().getStats().get(1).getStat();
 	}
 
 	private void switchLevel(int i) {

@@ -109,13 +109,13 @@ public class DropThis extends Game {
 			switch (nextState) {
 			case Win:
 				bsMusic.setLoop(false);
-				myWinState.setScore(myGamePlayState.getScore());
+				myWinState.setScore(new Long(myGamePlayState.getScore()));
 				myGameStateManager.switchTo(myWinState);
 				playMusic(Resources.getSound("Win"));
 				break;
 			case Lose:
 				bsMusic.setLoop(false);
-				myLoseState.setScore(myGamePlayState.getScore());
+				myLoseState.setScore(new Long(myGamePlayState.getScore()));
 				myGameStateManager.switchTo(myLoseState);
 				playMusic(Resources.getSound("Lose"));
 				break;
