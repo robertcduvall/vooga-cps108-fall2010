@@ -40,7 +40,7 @@ public class ChangingTile extends Tile {
 		locked = false;
 	}
 
-	protected boolean isLocked() {
+	public boolean isLocked() {
 		return locked;
 	}
 

@@ -158,7 +158,7 @@ public class TileMap {
 							.getImage("Coin")));
 					coin.setLocation(x + (TILE_SIZE - coin.getWidth()) / 2, y
 							- coin.getHeight());
-					addTile(new CoinTile(x, y, coinTileImages, coin));
+					addTile(new CoinTile(x, y, coinTileImages, coin, 1));
 					break;
 				}
 			}

@@ -85,6 +85,7 @@ public class MarioPlayField extends PlayField {
 		getMario().getBackground().setLocation(0, 0);
 		getMario().setKilled(false);
 		getMario().setMaxX(0);
+		getMario().setGravityCoef(1);
 	}
 
 	@SuppressWarnings("unchecked")
