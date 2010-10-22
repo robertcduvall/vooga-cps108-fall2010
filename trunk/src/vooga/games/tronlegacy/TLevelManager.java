@@ -22,12 +22,10 @@ import vooga.engine.resource.Resources;
 public class TLevelManager extends LevelManager {
 
 	// this isn't how it seems like the levelManager wants the level to be
-	// implemented
-	// but its the best I could do as the level manager currently stands
+	// implemented see below
 
 	@Override
 	public Collection<String> getLevelNames(File levelNamesFile) {
-
 		ArrayList<String> returnNames = new ArrayList<String>();
 
 		try {
@@ -43,9 +41,10 @@ public class TLevelManager extends LevelManager {
 		}
 
 		return returnNames;
-
 	}
 
+	//ugly hack of a level file scanner that turns it into a playfield
+	//seems like a good version of this should be default in api
 	@Override
 	public PlayField getCurrentPlayField(File currentLevelFactoryFile) {
 
@@ -71,13 +70,11 @@ public class TLevelManager extends LevelManager {
 			}
 
 		} catch (FileNotFoundException e) {
-			// do nothing for a blank level
+			// do nothing -- once we run out of levels just use the blank arena
 		}
 
 		returnField.addGroup(levelSprites);
-
 		return returnField;
-
 	}
 
 }

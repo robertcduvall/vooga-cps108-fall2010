@@ -19,26 +19,25 @@ public class MenuState extends GameState {
 
 	OverlayString menuOverlay;
 	Blah game;
-	
+
 	public MenuState(Blah aGame) {
 
 		game = aGame;
 		menuOverlay = new OverlayString("Press Space to Start", Color.BLACK);
 
 	}
-	
-	public void render(Graphics2D g){
+
+	public void render(Graphics2D g) {
 		System.out.println("lolol");
 		menuOverlay.render(g);
 	}
-	
-	public void update(long elapsedTime){
+
+	public void update(long elapsedTime) {
 		menuOverlay.update(elapsedTime);
-		
-		if (game.keyPressed(KeyEvent.VK_SPACE)){
+
+		if (game.keyPressed(KeyEvent.VK_SPACE)) {
 			game.startGame();
 		}
 	}
-	
 
 }
