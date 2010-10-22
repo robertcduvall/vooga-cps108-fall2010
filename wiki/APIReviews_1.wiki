@@ -129,6 +129,8 @@ For each API listed below, there should be nine reviews: one from each game team
 
  * We had some trouble getting OverlayPanel to work with our game.  Also, there is overlap between Player and Overlay in that Player keeps track of certain values that could be taken care of in an overlay, such as the score.  Other than that, it’s a very useful class, and we used several overlays in our game. --Grandius team
 
+ * The Overlay system is great, but I wish I didn't have to hardcode int values in for my Overlay locations in my XML file.  For example, I couldn't but an Overlay at "GAME_HEIGHT". -Brian Simel
+
 == Collisions ==
  * The Collisions API seems to have a lot of overhead to use (implementing Collidable for every object in question) without significantly reducing the amount of work required. Since we are are now dealing with Golden T and Sprites, I think CollisionManager or a subclass of CollisionManager inside the engine.collision package should work with Sprites automatically.  It also seems to me like the Collidable interface was created with the intention of creating a collision manager which would use the information Collidable requires to prevent the CollisionManager from having to loop through every possible Collidable object. Since this is not the case, Collidable seems unnecessary to me until such a CollisionManger is produced. I do not think that the Collisions API should be abandoned in deference to the collision managers in Golden T because those collision managers are built on the premise that they will be called every update and are a pain to set up if you only want to check for collisions occasionally (for instance making sure there is no overlap when placing a new Sprite in the game). --Daniel Koverman (Tower Defense)
 
