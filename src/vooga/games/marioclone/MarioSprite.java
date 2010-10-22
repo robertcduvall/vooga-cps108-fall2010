@@ -119,11 +119,17 @@ public class MarioSprite extends CharacterSprite {
 	public void incScore(int i) {
 		Stat<Integer> stat = (Stat<Integer>) getStat("Score");
 		stat.setStat(stat.getStat() + i);
+		System.out.println(stat.getStat());
+		if((stat.getStat()%100) == 0){
+			System.out.println("incrementing health");
+			setHealth(getHealth()+1);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public void setScore(int i) {
-		((Stat<Integer>) getStat("Score")).setStat(i);
+		Stat<Integer> stat = ((Stat<Integer>) getStat("Score"));
+		stat.setStat(i);
 	}
 
 	public Integer getScore() {
