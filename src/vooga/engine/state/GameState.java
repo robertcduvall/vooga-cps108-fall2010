@@ -283,9 +283,9 @@ public class GameState implements Comparable<GameState> {
 	 * @param Object
 	 * @return boolean
 	 */
-	@Override
+	/*@Override
 	public boolean equals(Object obj){
-		if (this == obj){
+		if (this.equals(obj)){
 			return true;
 		}
 		if(!(obj instanceof GameState))
@@ -296,7 +296,7 @@ public class GameState implements Comparable<GameState> {
 		return  myLayer == other.getLayer() &&
 				myUpdateGroups.equals(other.getUpdateGroups()) &&
 				myRenderGroups.equals(other.getRenderGroups());
-	}
+	}*/
 
 	/**
 	 * Hash coding for GameStates

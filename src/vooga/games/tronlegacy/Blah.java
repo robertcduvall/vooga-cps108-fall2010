@@ -35,7 +35,7 @@ public class Blah extends Game {
 
 	MainGameState playState = new MainGameState();
 	PauseState pauseState = new PauseState(this);
-	MenuState menuState = new MenuState(this);
+	MenuState menuState;
 
 	GameStateManager stateManager = new GameStateManager();
 
@@ -55,12 +55,12 @@ public class Blah extends Game {
 		}
 
 		playState.initialize(this);
+		menuState = new MenuState(this);
+		
 		stateManager.addGameState(playState);
 		stateManager.addGameState(pauseState);
 		stateManager.addGameState(menuState);
-		menuState.activate();
-		playState.deactivate();
-		pauseState.deactivate();
+		stateManager.activateOnly(menuState);
 
 		playMusic(Resources.getSound("music"));
 	}
@@ -74,29 +74,22 @@ public class Blah extends Game {
 	}
 
 	public void togglePauseGame() {
-
 		if (playState.isActive()) {
 			pauseState.addRenderState(playState);
-
-			playState.deactivate();
-			pauseState.activate();
 		} else {
 			pauseState.removeAllGroups();
-
-			playState.activate();
-			pauseState.deactivate();
 		}
+		stateManager.toggle(playState);
+		stateManager.toggle(pauseState);
 	}
 
 	public void startGame() {
-		menuState.deactivate();
-		playState.activate();
+		stateManager.activateOnly(playState);
 	}
 
 	public void gameOver() {
-		playState.deactivate();
+		stateManager.activateOnly(menuState);
 		playState.initialize(this);
-		menuState.activate();
 	}
 
 	// placeholder main function

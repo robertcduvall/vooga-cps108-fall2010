@@ -3,6 +3,7 @@ package vooga.games.tronlegacy;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.LinkedList;
 
@@ -11,7 +12,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ColorBackground;
 
-import vooga.engine.core.Game;
 import vooga.engine.event.EventManager;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
@@ -27,7 +27,7 @@ import vooga.engine.state.GameState;
  *         to-do status list 
  *         level API - functional - create more complex levels
  *         player API - functional - improve computer ai (in essence, implement any ai whatsoever) 
- *         state API - functional - improve menu and pause graphics; solve messy stateManager problems in main class 
+ *         state API - functional - improve menu and pause graphics
  *         overlay API - functional - track more stats? lives?
  *         resource API - functional - complete 
  *         collision API - deprecated 
@@ -120,8 +120,11 @@ public class MainGameState extends GameState {
 		resetPlayers();
 
 		keyboardControl = new KeyboardControl(humanPlayer, game);
-		keyboardControl = humanPlayer.addPlayerControl(keyboardControl);
-
+		keyboardControl = humanPlayer.addPlayerControl(keyboardControl,
+													   KeyEvent.VK_UP,
+													   KeyEvent.VK_DOWN,
+													   KeyEvent.VK_LEFT,
+													   KeyEvent.VK_RIGHT);
 		players = new SpriteGroup("players");
 		players.add(humanPlayer);
 		players.add(computerPlayer);

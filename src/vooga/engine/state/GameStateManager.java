@@ -10,7 +10,7 @@ import java.util.Collection;
  * deactivating specific states. Otherwise, its main purpose is to sort and iterate over GameStates, rendering and
  * updating the active ones.
  * 
- * @author VitorOlivier & BrianSimel & sort of BrentSodman
+ * @author VitorOlivier & BrianSimel & BrentSodman
  * 
  * Special thanks to UTA Ben Getson for helping with refactoring and Scott Brothers for helping develop this concept
  */

@@ -35,20 +35,20 @@ public class CyclePlayer extends PlayerSprite {
 		eventManager = em;
 	}
 
-	public KeyboardControl addPlayerControl(KeyboardControl kb) {
+	public KeyboardControl addPlayerControl(KeyboardControl kb, int upKey, int downKey, int leftKey, int rightKey) {
 		controller = kb;
 		try {
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_UP, "changeDirection", classpath,
+			controller.addInput(upKey, "changeDirection", classpath,
 					"UP");
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_DOWN, "changeDirection", classpath,
+			controller.addInput(downKey, "changeDirection", classpath,
 					"DOWN");
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_LEFT, "changeDirection", classpath,
+			controller.addInput(leftKey, "changeDirection", classpath,
 					"LEFT");
 			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(KeyEvent.VK_RIGHT, "changeDirection",
+			controller.addInput(rightKey, "changeDirection",
 					classpath, "RIGHT");
 			controller.addInput(KeyEvent.VK_P, "invokePause", classpath, null);
 		} catch (ClassNotFoundException e) {
@@ -69,9 +69,9 @@ public class CyclePlayer extends PlayerSprite {
 	public void changeDirectionRandom() {
 		//rotates clockwise or counterclockwise randomly
 		if (Math.random() < 0.5) {
-			directionIndex = (directionIndex - 1) % 3;
+			directionIndex = (directionIndex - 1) % 4;
 		} else {
-			directionIndex = (directionIndex + 1) % 3;
+			directionIndex = (directionIndex + 1) % 4;
 		}
 
 		switch (directionIndex) {
