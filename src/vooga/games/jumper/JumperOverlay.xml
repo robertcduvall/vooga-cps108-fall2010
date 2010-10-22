@@ -3,5 +3,11 @@
 
 <OverlayGroup>
 <OverlayStat stat="0" label="SCORE : " fontName="gameFontRed" xLoc = "0" yLoc = "0"></OverlayStat>
+
 </OverlayGroup>
+
+<OverlayGroup>
+<OverlayStat stat="0" label="GAME OVER : " fontName="gameFontRed" xLoc = "100" yLoc = "400"></OverlayStat>
+</OverlayGroup>
+
 </Overlay>

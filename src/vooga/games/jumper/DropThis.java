@@ -73,6 +73,7 @@ public class DropThis extends vooga.engine.core.Game {
 	private SpriteGroup myBlocks = new SpriteGroup("blocks");
 	private SpriteGroup myPlayers = new SpriteGroup("players");
 
+	private OverlayTracker myTrack;
 	private String myFontString = " !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 	
 //	private GameState playGameState;
@@ -96,6 +97,7 @@ public class DropThis extends vooga.engine.core.Game {
 	private static GameClock myClock;
 
 	private Stat<Long> myScore;
+	private Stat<Long> myFinalScore;
 
 	private SpriteGroup myOverlay;
 
@@ -161,9 +163,9 @@ public class DropThis extends vooga.engine.core.Game {
 		 */
 
 		OverlayCreator.setGame(this);
-		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
-		myScore = track.getStats().get(0);
-		myPlayfield.addGroup(track.getOverlayGroups().get(0));
+		myTrack = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
+		myScore = myTrack.getStats().get(0);
+		myPlayfield.addGroup(myTrack.getOverlayGroups().get(0));
 
 		myClock = new GameClock();
 		try {
@@ -280,8 +282,7 @@ public class DropThis extends vooga.engine.core.Game {
 		Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 		Point fontSize = new Point (GAME_WIDTH / 3, GAME_HEIGHT / 20);
 
-		myFont.drawString(g, "GAME OVER!!!", myFont.CENTER, middle.x - (fontSize.x / 2), middle.y - (fontSize.y/2),  fontSize.x);
-		myFont.drawString(g, "FINAL SCORE: " + myScore.getStat(), myFont.CENTER, middle.x - (fontSize.x / 2), middle.y + (fontSize.y / 2), fontSize.x);
+		myPlayfield.addGroup(myTrack.getOverlayGroups().get(1));
 	}
 
 	/**
