@@ -7,6 +7,7 @@ import com.golden.gamedev.object.*;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.player.control.PlayerSprite;
+import vooga.games.zombieland.gamestates.ZombielandPlayState;
 import vooga.games.zombieland.weapons.AssaultRifle;
 import vooga.games.zombieland.weapons.Bullet;
 import vooga.games.zombieland.weapons.Pistol;
@@ -74,10 +75,6 @@ public class Shooter extends PlayerSprite implements Constants{
 		ammo = initAmmo;
 		addStat("ammo", ammo);
 	}
-//
-//	private int getInt(String key) {
-//		return Integer.parseInt(bundle.getString(key));
-//	}
 
 	/**
 	 * Creates weapon objects with default ammo

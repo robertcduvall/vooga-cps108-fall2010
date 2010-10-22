@@ -3,6 +3,7 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.player.control.GameEntitySprite;
+import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
 /**
  * Zombie Class. Contains all behavior and controls for zombies in the game
@@ -28,30 +29,39 @@ public class Zombie extends GameEntitySprite implements Constants {
 
 	private Blah game;
 
-
 	public Zombie(String name, String stateName, int level, Shooter player,
 			Blah currentGame) {
-		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieDown")));
+		super(name, stateName, ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieDown")));
 
-		AnimatedSprite down = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieDown"));
-		AnimatedSprite up = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieUp"));
-		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieLeft"));
-		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieRight"));
-		AnimatedSprite attackDown = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieAttackDown"));
-		AnimatedSprite attackUp = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieAttackUp"));
-		AnimatedSprite attackLeft = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieAttackLeft"));
-		AnimatedSprite attackRight = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieAttackRight"));
-		AnimatedSprite death = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources
-				.getAnimation("ZombieDeath"));
+		AnimatedSprite down = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieDown"));
+		AnimatedSprite up = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieUp"));
+		AnimatedSprite left = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieLeft"));
+		AnimatedSprite right = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieRight"));
+		AnimatedSprite attackDown = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieAttackDown"));
+		AnimatedSprite attackUp = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieAttackUp"));
+		AnimatedSprite attackLeft = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieAttackLeft"));
+		AnimatedSprite attackRight = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieAttackRight"));
+		AnimatedSprite death = ZombielandResources
+				.getInitializedAnimatedSprite(ZombielandResources
+						.getAnimation("ZombieDeath"));
 
 		mapNameToSprite(DOWN, down);
 		mapNameToSprite(UP, up);
@@ -62,13 +72,14 @@ public class Zombie extends GameEntitySprite implements Constants {
 		mapNameToSprite(ATTACKLEFT, attackLeft);
 		mapNameToSprite(ATTACKRIGHT, attackRight);
 		mapNameToSprite(DEATH, death);
-		
+
 		setHumanTarget(player);
 
-		currentAttackAnimation="";
+		currentAttackAnimation = "";
 		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
 		itemChance = ZombielandResources.getInt("itemChance");
-		zombieStatMultiplier = ZombielandResources.getDouble("zombieStatMultiplier");
+		zombieStatMultiplier = ZombielandResources
+				.getDouble("zombieStatMultiplier");
 
 		speed = ZombielandResources.getDouble("zombieSpeed");
 		zombieCurrentHealth = ZombielandResources.getInt("startZombieHealth");
@@ -84,8 +95,8 @@ public class Zombie extends GameEntitySprite implements Constants {
 	}
 
 	private void chooseRandomLocation() {
-		setX(Math.random() * ZombielandResources.getInt("GAME_WIDTH"));
-		setY(Math.random() * ZombielandResources.getInt("GAME_HEIGHT"));
+		setX(Math.random() * GAME_WIDTH);
+		setY(Math.random() * GAME_HEIGHT);
 	}
 
 	public void updateStats(int level) {
@@ -97,8 +108,7 @@ public class Zombie extends GameEntitySprite implements Constants {
 		return zombieCurrentHealth;
 	}
 
-	public static int zombiesPerLevel()
-	{
+	public static int zombiesPerLevel() {
 		return ZOMBIES_PER_LEVEL;
 	}
 
@@ -156,9 +166,9 @@ public class Zombie extends GameEntitySprite implements Constants {
 	}
 
 	/**
-	 * Returns the attack direction of the zombie. Here the returned values are
-	 * predefined to be 0, 1, 2, or 3, representing Right, Up, Left, Bottom
-	 * respectively. Used to initiate attack animations
+	 * Returns the attack direction of the zombie. The up and down is reversed
+	 * because the coordinate system has its positive y axis in the down
+	 * direction, so everything's flipped when it comes to y.
 	 * 
 	 * @return attack direction
 	 */
@@ -168,6 +178,7 @@ public class Zombie extends GameEntitySprite implements Constants {
 		} else
 			return ((target.getY() - getY()) > 0) ? DOWN : UP;
 	}
+
 	/**
 	 * Update the zombie's health according to the damage taken
 	 * 
@@ -218,11 +229,11 @@ public class Zombie extends GameEntitySprite implements Constants {
 				// Update score
 				target.updateScore(1);
 
-				int item = (int) (Math.random()*100);
+				int item = (int) (Math.random() * 100);
 				if (item < itemChance) {
 
 					((ZombielandPlayState) game.getCurrentState())
-					.addRandomItem(getX(), getY());
+							.addRandomItem(getX(), getY());
 				}
 			}
 			return;
@@ -238,24 +249,29 @@ public class Zombie extends GameEntitySprite implements Constants {
 			return;
 		}
 
-		// Movement control
+		/*
+		 * Movement control Speed is inherently negative. This is due to the
+		 * coordinate system: the positive x axis is to the right and the
+		 * positive y axis is down. So to move left or up, the speed remains
+		 * negative, to move right or down, the speed needs to be positive.
+		 */
 		String direction = getDirection();
-		if(direction.equals(RIGHT)) {
+		if (direction.equals(RIGHT)) {
 			moveX(Math.abs(speed));
 			setToCurrentSprite(RIGHT);
 			return;
 		}
-		if(direction.equals(UP)) {
+		if (direction.equals(UP)) {
 			moveY(speed);
 			setToCurrentSprite(UP);
 			return;
 		}
-		if(direction.equals(LEFT)) {
+		if (direction.equals(LEFT)) {
 			moveX(speed);
 			setToCurrentSprite(LEFT);
 			return;
 		}
-		if(direction.equals(DOWN)) {
+		if (direction.equals(DOWN)) {
 			moveY(Math.abs(speed));
 			setToCurrentSprite(DOWN);
 			return;

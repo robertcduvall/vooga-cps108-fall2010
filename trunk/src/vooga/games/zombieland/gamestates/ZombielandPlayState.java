@@ -1,4 +1,4 @@
-package vooga.games.zombieland;
+package vooga.games.zombieland.gamestates;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -28,12 +28,14 @@ import vooga.games.zombieland.items.HealthItem;
 import vooga.games.zombieland.items.Item;
 import vooga.games.zombieland.items.WeaponItem;
 import vooga.games.zombieland.weapons.Bullet;
+import vooga.games.zombieland.Blah;
+import vooga.games.zombieland.Constants;
+import vooga.games.zombieland.Shooter;
+import vooga.games.zombieland.Zombie;
+import vooga.games.zombieland.ZombielandResources;
 
-public class ZombielandPlayState extends GameState {
+public class ZombielandPlayState extends GameState implements Constants{
 
-	private static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
-	private static int GAME_WIDTH;
-	private static int GAME_HEIGHT;
 	private static Blah currentGame;
 
 	private Shooter player;
@@ -51,17 +53,20 @@ public class ZombielandPlayState extends GameState {
 	private int level;
 	private int zombiesAppeared;
 
-	public ZombielandPlayState(Blah game, int screen_width, int screen_height) {
+	public ZombielandPlayState(Blah game) {
 		super();
-		GAME_WIDTH = screen_width;
-		GAME_HEIGHT = screen_height;
 		currentGame = game;
+		
+		initialize();
 	}
-
+	
+	/**
+	 * setup 
+	 */
 	public void initialize() {
 		OverlayCreator.setGame(currentGame);
 		tracker = OverlayCreator
-				.createOverlays("src/vooga/games/zombieland/resources/overlays.xml");
+				.createOverlays(XML_PATH);
 		random = new Random();
 	
 		initializePlayer();
@@ -69,7 +74,10 @@ public class ZombielandPlayState extends GameState {
 		initOverlays();
 		setListeners();
 	}
-
+	
+	/**
+	 * Set the player with initial weapons and stats
+	 */
 	private void initializePlayer() {
 		int initHealthXML = ZombielandResources.getInt("initHealthXML");
 		int initAmmoXML = ZombielandResources.getInt("initAmmoXML");
@@ -83,14 +91,14 @@ public class ZombielandPlayState extends GameState {
 				initScore);
 	}
 
-	/**
-	 * This method returns the Pause string
-	 * 
-	 * @return
-	 */
-	public OverlayString getOverlayPauseString() {
-		return overlayPauseString;
-	}
+//	/**
+//	 * This method returns the Pause string
+//	 * 
+//	 * @return
+//	 */
+//	public OverlayString getOverlayPauseString() {
+//		return overlayPauseString;
+//	}
 
 	/**
 	 * This method initializes the zombies, bullets, players, overlays
@@ -145,59 +153,23 @@ public class ZombielandPlayState extends GameState {
 	 * OverlayLevelString, overllayPauseString.
 	 */
 	public void initOverlays() {
-
-		SpriteGroup overlays = playField.getGroup("Overlays");
 		
 		int overlayXMLlocation = Resources.getInt("overlayXMLlocation");
 		int statLevelXMLlocation = Resources.getInt("statLevelXMLlocation");
 		int levelStatXMLlocation = Resources.getInt("levelStatXMLlocation");
-		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
+//		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
 		int gameOverStringXMLlocation = Resources.getInt("gameOverStringXMLlocation");
 				
-		overlays = tracker.getOverlayGroups().get(overlayXMLlocation);
+		SpriteGroup overlays = tracker.getOverlayGroups().get(overlayXMLlocation);
 		statLevel = tracker.getStats().get(statLevelXMLlocation);
 	
 		overlayLevelStat = tracker.getStatOverlays().get(levelStatXMLlocation);
 		overlayLevelStat.setActive(false);
-		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);
+//		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);
+//		overlayPauseString.setActive(false);
 		overlayGameOverString = tracker.getStringOverlays().get(gameOverStringXMLlocation);
-
+		overlayGameOverString.setActive(false);
 		playField.addGroup(tracker.getOverlayGroups().get(0));
-	}
-
-	/**
-	 * update all components of the ZombieLand game. This method checks to see
-	 * if more zombies can be added or if the level has been completed.
-	 */
-
-	@Override
-	public void update(long elapsedTime) {
-
-		if (isActive()) {
-			playField.update(elapsedTime);
-			control.update();
-			if (moreZombieCanBeAdded()) {
-				if (timer.action(elapsedTime)) {
-					addZombie();
-				}
-			} else if (levelCompleted()) {
-				statLevel.setStat(level + 1);
-				overlayLevelStat.update(elapsedTime);
-				overlayLevelStat.setActive(true);
-				playField.update(elapsedTime);
-
-				if (timer.action(elapsedTime)) {
-
-					setNewDelay();
-					resetZombiesCount();
-
-					level++;
-
-					player.resetLevelScore();
-					overlayLevelStat.setActive(false);
-				}
-			}
-		}
 	}
 
 	private boolean levelCompleted() {
@@ -343,9 +315,41 @@ public class ZombielandPlayState extends GameState {
 	}
 
 	/**
+	 * update all components of the ZombieLand game. This method checks to see
+	 * if more zombies can be added or if the level has been completed.
+	 */
+	public void update(long elapsedTime) {
+	
+		if (isActive()) {
+			playField.update(elapsedTime);
+			control.update();
+			if (moreZombieCanBeAdded()) {
+				if (timer.action(elapsedTime)) {
+					addZombie();
+				}
+			} else if (levelCompleted()) {
+				statLevel.setStat(level + 1);
+				overlayLevelStat.update(elapsedTime);
+				overlayLevelStat.setActive(true);
+				playField.update(elapsedTime);
+	
+				if (timer.action(elapsedTime)) {
+	
+					setNewDelay();
+					resetZombiesCount();
+	
+					level++;
+	
+					player.resetLevelScore();
+					overlayLevelStat.setActive(false);
+				}
+			}
+		}
+	}
+
+	/**
 	 * render the graphics component in the game
 	 */
-	@Override
 	public void render(Graphics2D g) {
 		playField.render(g);
 		if (overlayLevelStat.isActive()) {
@@ -386,8 +390,6 @@ public class ZombielandPlayState extends GameState {
 	 * Stop the game altogether
 	 */
 	private void endGame() {
-		overlayGameOverString = new OverlayString("GAME OVER\nFinal Score: "
-				+ player.getScore(), Color.BLACK);
 		currentGame.stop();
 	}
 
