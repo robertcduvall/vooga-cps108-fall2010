@@ -23,18 +23,17 @@ import com.golden.gamedev.object.Sprite;
 
 /**
  * A level in the game Grandius.
- * @author jtk11
- *
+ * @author John Kline
  */
 public class GrandiusLevel extends Level {
 	
-	private ArrayList<Sprite> myBossPartList;
-	private ArrayList<Sprite> myBossList;
+	private ArrayList<Sprite> bossPartList;
+	private ArrayList<Sprite> bossList;
 
 	public GrandiusLevel(String fileToBeRead) {
 		super(fileToBeRead);
-		myBossPartList = new ArrayList<Sprite>();
-		myBossList = new ArrayList<Sprite>();
+		bossPartList = new ArrayList<Sprite>();
+		bossList = new ArrayList<Sprite>();
 		try {
 			loadGrandiusLevel(fileToBeRead);
 		} catch (IOException e) {
@@ -42,6 +41,11 @@ public class GrandiusLevel extends Level {
 		}
 	}
 
+	/**
+	 * Creates a Grandius level out of the fileToBeRead.
+	 * @param fileToBeRead
+	 * @throws IOException
+	 */
 	public void loadGrandiusLevel(String fileToBeRead) throws IOException {
 		System.out.println("reached loadGrandiusLevel");
 		ArrayList<String> lines = new ArrayList<String>();
@@ -124,7 +128,7 @@ public class GrandiusLevel extends Level {
 							System.out.println("making new ReacherEye");
 							newBossPart = new ReacherEye(Resources.getAnimation(bossPartName), breakpoints, xPosition, yPosition, health, shields);
 						}
-						myBossPartList.add(newBossPart);
+						bossPartList.add(newBossPart);
 						//y++;
 						System.out.println("y="+y);
 						System.out.println("size="+lines.size());
@@ -137,9 +141,9 @@ public class GrandiusLevel extends Level {
 //				line = lines.get(y);
 				if (bossName.equals("Reacher")) {
 					System.out.println("creating Reacher at" + bossXPosition + "," + bossYPosition);
-					newBoss = new Reacher(Resources.getAnimation(bossName), bossBreakpoints, bossXPosition, bossYPosition, bossHealth, myBossPartList);
+					newBoss = new Reacher(Resources.getAnimation(bossName), bossBreakpoints, bossXPosition, bossYPosition, bossHealth, bossPartList);
 				}
-				myBossList.add(newBoss);
+				bossList.add(newBoss);
 			} else {
 				st = new StringTokenizer(line, ",");
 				String spriteName = st.nextToken();
@@ -158,11 +162,16 @@ public class GrandiusLevel extends Level {
 		}
 	}
 
+	/**
+	 * Returns the lists of the of the Sprite Lists in
+	 * the Grandius game.
+	 * @return
+	 */
 	public ArrayList<ArrayList<Sprite>> getGrandiusSpritesList() {
 		ArrayList<ArrayList<Sprite>> returnCollection = new ArrayList<ArrayList<Sprite>>();
 		returnCollection.add(mySpritesList);
-		returnCollection.add(myBossPartList);
-		returnCollection.add(myBossList);
+		returnCollection.add(bossPartList);
+		returnCollection.add(bossList);
 		return returnCollection;
 	}
 	/**
