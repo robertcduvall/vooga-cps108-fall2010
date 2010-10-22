@@ -15,6 +15,7 @@ import vooga.engine.resource.Resources;
 
 // GTGE
 import com.golden.gamedev.*;
+import vooga.engine.core.Game;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.*;
