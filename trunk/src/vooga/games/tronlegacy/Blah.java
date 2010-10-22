@@ -30,7 +30,8 @@ public class Blah extends Game {
 	private static final String DEFAULT_FILEPATH = "src/vooga/games/tronlegacy/resources/";
 
 	MainGameState playState = new MainGameState();
-	PauseState pauseState = new PauseState();
+	PauseState pauseState = new PauseState(this);
+	MenuState menuState = new MenuState(this);
 
 	GameStateManager stateManager = new GameStateManager();
 
@@ -52,19 +53,55 @@ public class Blah extends Game {
 		playState.initialize(this);
 		stateManager.addGameState(playState);
 		stateManager.addGameState(pauseState);
-		stateManager.deactivateAll();
-		stateManager.activateOnly(playState);
+		stateManager.addGameState(menuState);
 
+		menuState.activate();
+		playState.deactivate();
+		pauseState.deactivate();
+		
 		playMusic(Resources.getSound("music"));
 		
 	}
 
-	public void render(Graphics2D g) {
+	public void render(Graphics2D g) {	
 		stateManager.render(g);
 	}
 
 	public void update(long elapsedTime) {
 		stateManager.update(elapsedTime);
+	}
+
+	public void togglePauseGame() {
+
+		if (playState.isActive()) {
+			
+			pauseState.addRenderState(playState);
+			
+			playState.deactivate();
+			pauseState.activate();
+			
+		} else {
+
+			pauseState.removeAllGroups();
+			
+			playState.activate();
+			pauseState.deactivate();
+			
+		}
+	}
+	
+	public void startGame() {
+		
+		menuState.deactivate();
+		playState.activate();
+		
+	}
+	
+	public void gameOver() {
+		
+		playState.deactivate();
+		menuState.activate();
+		
 	}
 
 	// placeholder main function
@@ -73,16 +110,4 @@ public class Blah extends Game {
 		game.setup(new Blah(), new Dimension(GAME_WIDTH, GAME_HEIGHT), false);
 		game.start();
 	}
-
-	public void togglePauseGame() {
-
-		if (playState.isActive()) {
-			pauseState = new PauseState(playState);
-		}
-
-		stateManager.toggle(playState);
-		stateManager.toggle(pauseState);
-
-	}
-
 }

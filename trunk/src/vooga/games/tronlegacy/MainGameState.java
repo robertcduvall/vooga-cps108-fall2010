@@ -178,21 +178,24 @@ public class MainGameState extends GameState {
 
 	public void checkLevelStatus() {
 		if (!humanPlayer.isActive()) {
+			game.playSound(Resources.getSound("explosion"));
 			gameOver();
 		} else if (!computerPlayer.isActive()) {
+			game.playSound(Resources.getSound("explosion"));
 			currentLevel++;
 			currentScore.setStat(currentScore.getStat() + 50);
 			deployLevel();
 		}
 
 		if (humanPlayer.isPaused()) {
+			humanPlayer.invokePause();
 			game.togglePauseGame();
 		}
 	}
 
 	public void gameOver() {
 
-		// todo
+		game.gameOver();
 
 	}
 
