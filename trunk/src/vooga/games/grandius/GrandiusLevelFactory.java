@@ -20,6 +20,11 @@ import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.enemy.common.Boomer;
 import vooga.games.grandius.enemy.common.Zipster;
 
+/**
+ * Implementation of the LevelFactory interface.
+ * A factory for producing a Grandius PlayField from a file.
+ * @author Bhawana Singh
+ */
 public class GrandiusLevelFactory implements LevelFactory{
 	private PlayField playfield;	
 	private Background background;
