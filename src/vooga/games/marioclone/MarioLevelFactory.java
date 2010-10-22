@@ -119,6 +119,7 @@ public class MarioLevelFactory implements LevelFactory {
 		String marioString = vars.get("mario").get(0);
 		int[] coords = parseCoords(marioString);
 		spawnMario(coords[0], coords[1]);
+		playfield.setSpawnLocation(coords[0], coords[1]);
 		playfield.getGroup("Mario Group").add(myMario);
 
 		// Add Overlays

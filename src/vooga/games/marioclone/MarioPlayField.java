@@ -13,7 +13,9 @@ import com.golden.gamedev.object.SpriteGroup;
 public class MarioPlayField extends PlayField {
 	private TileMap myTileMap;
 	private OverlayTracker myOverlays;
-	
+	private double mySpawnX;
+	private double mySpawnY;
+
 	public MarioPlayField() {
 		addGroup(new SpriteGroup("Item Group"));
 		addGroup(new SpriteGroup("Mario Group"));
@@ -28,20 +30,19 @@ public class MarioPlayField extends PlayField {
 		this();
 		addTileMap(map);
 	}
-	
+
 	private void scrollLevel() {
 		getBackground().setToCenter(getMario());
 	}
-	
+
 	public MarioSprite getMario() {
 		return (MarioSprite) getGroup("Mario Group").getActiveSprite();
 	}
-	
+
 	public void setMario(MarioSprite mario) {
 		getGroup("Mario Group").remove(0);
 		getGroup("Mario Group").add(mario);
 	}
-
 
 	public void addTileMap(TileMap tileMap) {
 		myTileMap = tileMap;
@@ -72,18 +73,30 @@ public class MarioPlayField extends PlayField {
 		}
 		getGroup("Enemy Group").removeInactiveSprites();
 		updateStats();
+		if (getMario().isKilled())
+			respawnMario();
 		super.update(elapsedTime);
 	}
-	
+
+	private void respawnMario() {
+		getMario().setLocation(mySpawnX, mySpawnY);
+		scrollLevel();
+		getMario().getBackground().setLocation(0, 0);
+		getMario().setKilled(false);
+		getMario().setMaxX(0);
+	}
+
 	@SuppressWarnings("unchecked")
 	public void setLevel(int level) {
 		myOverlays.getStats().get(2).setStat(level);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void updateStats() {
-		myOverlays.getStats().get(0).setStat(getMario().getHealth()); //update lives
-		myOverlays.getStats().get(1).setStat(getMario().getScore()); //update score
+		myOverlays.getStats().get(0).setStat(getMario().getHealth()); // update
+																		// lives
+		myOverlays.getStats().get(1).setStat(getMario().getScore()); // update
+																		// score
 	}
 
 	@Override
@@ -96,16 +109,23 @@ public class MarioPlayField extends PlayField {
 
 	public void addOverlays(OverlayTracker overlayTracker) {
 		myOverlays = overlayTracker;
-		for(SpriteGroup g : myOverlays.getOverlayGroups())
+		for (SpriteGroup g : myOverlays.getOverlayGroups())
 			addGroup(g);
 	}
-	
+
 	public OverlayTracker getOverlays() {
 		return myOverlays;
 	}
-	
+
 	public boolean isFinished() {
 		int backgroundWidth = myTileMap.width * myTileMap.TILE_SIZE;
 		return getMario().getX() > backgroundWidth - 200;
 	}
+	
+
+	public void setSpawnLocation(double x, double y) {
+		this.mySpawnX = x;
+		this.mySpawnY = y;
+	}
+	
 }

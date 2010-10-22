@@ -65,8 +65,9 @@ public class GamePlayState extends GameState {
 		if (myLevel.getMario() == null || !myLevel.getMario().isActive()) {
 			return State.Lose;
 		} else if (myLevel.isFinished()) {
-			if (myCurrentLevel >= NUM_LEVELS - 1)
+			if (myCurrentLevel >= NUM_LEVELS - 1){
 				return State.Win;
+			}
 			else {
 				myCurrentLevel++;
 				switchLevel(myCurrentLevel);
@@ -102,7 +103,6 @@ public class GamePlayState extends GameState {
 		myCurrentLevel = 0;
 		switchLevel(0);
 		setUpKeyboard();
-		myGame.playMusic(Resources.getSound("MarioSong"));
 	}
 
 	public Long getScore() {
