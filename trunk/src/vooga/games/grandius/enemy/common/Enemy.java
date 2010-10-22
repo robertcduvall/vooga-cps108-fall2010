@@ -10,8 +10,8 @@ import com.golden.gamedev.object.*;
 public abstract class Enemy extends AnimatedSprite {
 	
 	private static final long serialVersionUID = 1L;
-	protected int myScore;
-	protected int myCash;
+	protected int scoreValue;
+	protected int cashValue;
 	
 	public Enemy(BufferedImage[] images, double x, double y)
 	{
@@ -20,11 +20,11 @@ public abstract class Enemy extends AnimatedSprite {
 	
 	public int getScore()
 	{
-		return myScore;
+		return scoreValue;
 	}
 	
 	public int getCashValue()
 	{
-		return myCash;
+		return cashValue;
 	}
 }
