@@ -8,8 +8,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
-import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
@@ -52,6 +50,8 @@ public class DropThis extends Game {
 	}
 
 	public void initResources() {
+		bsMusic.setAudioPolicy(bsMusic.SINGLE_REPLAY);
+		bsMusic.setExclusive(true);
 		Resources.setGame(this);
 		GameFont menuFont = fontManager.getFont(getImages("resources/images/font.png",
 				20, 3),
@@ -62,8 +62,6 @@ public class DropThis extends Game {
 		
 		try {
 			Resources.loadPropertiesFile("game.properties");
-//			ResourcesBeta.loadImageFile("src/vooga/games/marioclone/resources/images.properties");
-
 		} catch (IOException e) {
 			System.out.println("Error - could not load file.");
 		}
@@ -104,37 +102,46 @@ public class DropThis extends Game {
 		GamePlayState.State nextState;
 
 		if (myGamePlayState.isActive()) {
+			nextState = myGamePlayState.nextState();
+
+			switch (nextState) {
+			case Win:
+				bsMusic.setLoop(false);
+				myWinState.setScore(myGamePlayState.getScore());
+				myGameStateManager.switchTo(myWinState);
+				playMusic(Resources.getSound("Win"));
+				break;
+			case Lose:
+				bsMusic.setLoop(false);
+				myLoseState.setScore(myGamePlayState.getScore());
+				myGameStateManager.switchTo(myLoseState);
+				playMusic(Resources.getSound("Lose"));
+				break;
+			}
 			if (keyPressed(KeyEvent.VK_P)){
 				myGameStateManager.switchTo(myPausedState);
-			}
-			else{
+			} else{
 				nextState = myGamePlayState.nextState();
-				
-				switch (nextState) {
-				case Win:
-					myWinState.setScore(myGamePlayState.getScore());
-					myGameStateManager.switchTo(myWinState);
-					break;
-				case Lose:
-					myLoseState.setScore(myGamePlayState.getScore());
-					myGameStateManager.switchTo(myLoseState);
-					break;
-				}
 			}
 		}
 		else if (myPausedState.isActive()){
 			if (keyPressed(KeyEvent.VK_P)){
+				bsMusic.setLoop(true);
 				myGameStateManager.switchTo(myGamePlayState);
 			}
 		}
 		else if (myMenuState.isActive()) {
-			if (keyPressed(KeyEvent.VK_SPACE))
+			if (keyPressed(KeyEvent.VK_SPACE)) {
 				myGameStateManager.switchTo(myGamePlayState);
+				playMusic(Resources.getSound("MarioSong"));	
+			}
 		}
 		else if (myWinState.isActive() || myLoseState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
+				bsMusic.setLoop(true);
 				myGamePlayState.init();
 				myGameStateManager.switchTo(myGamePlayState);
+				playMusic(Resources.getSound("MarioSong"));	
 			}
 		}
 

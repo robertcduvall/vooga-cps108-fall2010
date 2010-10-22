@@ -13,21 +13,21 @@ public class MarioSprite extends CharacterSprite {
 
 	private double jumpSpeed = 1;
 	private double speed = .5;
-	private boolean onGround = false;
+	private boolean onGround;
+	private boolean killed;
 	private double myMaxX;
 
 	private Queue<Character> myCheatText;
 	private static final int MAX_CHEAT_LENGTH = 10;
 	private char lastCheatChar;
 
-
 	public MarioSprite(String name, String stateName, BufferedImage[] left,
 			BufferedImage[] right) {
 		super(name, stateName, left, right);
 		setMaxHealth(3);
-		
+
 		addStat("Score", new Stat<Integer>(0));
-		
+
 		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
 	}
 
@@ -68,17 +68,22 @@ public class MarioSprite extends CharacterSprite {
 	public void setOnGround(boolean b) {
 		onGround = b;
 	}
+	
+	public boolean isKilled() {
+		return killed;
+	}
+	
+	public void setKilled(boolean b) {
+		killed = b;
+	}
 
 	@Override
 	public void update(long elapsedTime) {
-		System.out.println("Updating");
-		if(!this.isOnScreen()){
-			System.out.println("off screen!");
-			while(getHealth() > 0){
-				setHealth(getHealth() - 1);
-			}
+		if (!this.isOnScreen()) {
+			setHealth(getHealth() - 1);
+			killed = true;
 		}
-		
+
 		double x = getX();
 		if (x > myMaxX) {
 			myMaxX = x;
@@ -89,7 +94,7 @@ public class MarioSprite extends CharacterSprite {
 		if (getX() <= 0) {
 			setX(0);
 		}
-		
+
 		int halfScreen = getBackground().getWidth() / 2;
 		if ((myMaxX - halfScreen) >= getX()) {
 			setX(myMaxX - halfScreen);
@@ -99,11 +104,11 @@ public class MarioSprite extends CharacterSprite {
 	public double getMaxX() {
 		return myMaxX;
 	}
-	
+
 	public void setMaxX(double maxX) {
 		myMaxX = maxX;
 	}
-	
+
 	public void actOnItem(ItemSprite item) {
 		if (item.getClass().equals(GravityItem.class)) {
 			setGravityCoef(((GravityItem) item).getGravity());
@@ -115,23 +120,24 @@ public class MarioSprite extends CharacterSprite {
 		Stat<Integer> stat = (Stat<Integer>) getStat("Score");
 		stat.setStat(stat.getStat() + i);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void setScore(int i) {
 		((Stat<Integer>) getStat("Score")).setStat(i);
 	}
-	
+
 	public Integer getScore() {
 		return (Integer) getStat("Score").getStat();
 	}
-	
+
 	private boolean checkCheat(String s) {
 		String curCheat = "";
 		for (char i : myCheatText)
 			curCheat += i;
-		if(myCheatText.size()-s.length() < 0) return false;
-		System.out.println(curCheat.substring(myCheatText.size()-s.length()));
-		if(s.equals(curCheat.substring(myCheatText.size()-s.length())))
+		if (myCheatText.size() - s.length() < 0)
+			return false;
+		System.out.println(curCheat.substring(myCheatText.size() - s.length()));
+		if (s.equals(curCheat.substring(myCheatText.size() - s.length())))
 			return true;
 		return false;
 	}
@@ -143,16 +149,15 @@ public class MarioSprite extends CharacterSprite {
 			myCheatText.add(c);
 			lastCheatChar = c;
 		}
-		if(checkCheat("GRVTY")) 
+		if (checkCheat("GRVTY"))
 			setGravityCoef(.2);
-		else if(checkCheat("NORM")) 
+		else if (checkCheat("NORM"))
 			setGravityCoef(1);
-		else if(checkCheat("MORE"))
-			speed+=.1;
-		else if(checkCheat("EROM"))
-			speed-=.1;
-		
-		
+		else if (checkCheat("MORE"))
+			speed += .1;
+		else if (checkCheat("EROM"))
+			speed -= .1;
+
 	}
-	
+
 }
