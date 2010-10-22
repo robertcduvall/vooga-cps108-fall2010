@@ -34,6 +34,10 @@ public class DropThis extends Game {
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
 	private static final int SECOND = 1000;
+	private static final int EASY = 0;
+	private static final int MEDIUM = 1;
+	private static final int HARD = 2;
+	
 
 	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl,
 			gameOverPlayerCursorControl;
@@ -53,11 +57,11 @@ public class DropThis extends Game {
 	private int difficulty;
 	private boolean go;
 	private Counter counter;
-	Timer hit1;
-	Timer hit2;
-	Timer hit3;
-	Timer spawn;
-	Timer gameTimer;
+	private Timer hit1;
+	private Timer hit2;
+	private Timer hit3;
+	private Timer spawn;
+	private Timer gameTimer;
 	private int spawnSpeed;
 	private TowerBuilder towerBuilder;
 	private TowerTargetFinder towerTargetFinder;
@@ -133,11 +137,11 @@ public class DropThis extends Game {
 
 	private void initBackgrounds() {
 		background = new Background[3];
-		background[0] = new ImageBackground(ImageUtil.resize(Resources
+		background[EASY] = new ImageBackground(ImageUtil.resize(Resources
 				.getImage("easyLevelBG"), WIDTH, HEIGHT), WIDTH, HEIGHT);
-		background[1] = new ImageBackground(ImageUtil.resize(Resources
+		background[MEDIUM] = new ImageBackground(ImageUtil.resize(Resources
 				.getImage("mediumLevelBG"), WIDTH, HEIGHT), WIDTH, HEIGHT);
-		background[2] = new ImageBackground(ImageUtil.resize(Resources
+		background[HARD] = new ImageBackground(ImageUtil.resize(Resources
 				.getImage("hardLevelBG"), WIDTH, HEIGHT), WIDTH, HEIGHT);
 	}
 
@@ -209,10 +213,10 @@ public class DropThis extends Game {
 		path = new ArrayList<PathPoint>();
 		try {
 			File thisLevel;
-			if (difficulty == 0) {
+			if (difficulty == EASY) {
 				thisLevel = new File(
 						"src/vooga/games/towerdefense/resources/levels/easy.txt");
-			} else if (difficulty == 1) {
+			} else if (difficulty == MEDIUM) {
 				thisLevel = new File(
 						"src/vooga/games/towerdefense/resources/levels/medium.txt");
 			} else {
@@ -311,9 +315,9 @@ public class DropThis extends Game {
 		towerShotGroup = play.addAndReturnGroup(new SpriteGroup(
 				"Tower Shot Group"));
 
-		selfEsteem.setStat(100);
-		score.setStat(0);
-		money.setStat(100);
+		selfEsteem.reset();
+		score.reset();
+		money.reset();
 
 		createPath();
 		totalTime = 0;

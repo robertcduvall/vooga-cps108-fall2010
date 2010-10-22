@@ -35,7 +35,6 @@ public class PlayerCursor extends PlayerSprite {
 	private static final long serialVersionUID = -8174656868252384431L;
 	private DropThis myGame;
 	private Stat<Integer> creditBalance;
-	private int towerCost;
 	private GameStateManager stateManager;
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
