@@ -18,8 +18,10 @@ public class ReacherEye extends BossPart{
 
 	private Timer beamTimer;
 	private boolean beamReloaded;
+	
 	private static final double REACHER_EYE_BEAM_SPEED = 0.10;
 	private static final double REACHER_EYE_SPEED = 0.01;
+	
 	private static final int SCORE_VALUE = 200;
 	private static final int CASH_VALUE = 4;
 	private static final int REACHER_EYE_BEAM_RELOAD_TIME = 3000;
@@ -71,20 +73,20 @@ public class ReacherEye extends BossPart{
 	 * @return If the ReacherEye is at health=0 (it is dead).
 	 */
 	public boolean deplete(int depleteAmount) {
-		if (myShields <= 0) {
-			this.myHealth -= depleteAmount;
-			if (myHealth <= 0) {
+		if (shields <= 0) {
+			this.health -= depleteAmount;
+			if (health <= 0) {
 				return true;
 				
-			} else if (myHealth >= myBreakpoints[0]) {
-				this.setImages(new BufferedImage[]{myImages[1]});
-			} else if (myHealth >= myBreakpoints[1]) {
-				this.setImages(new BufferedImage[]{myImages[2]});
+			} else if (health >= breakpoints[0]) {
+				this.setImages(new BufferedImage[]{images[1]});
+			} else if (health >= breakpoints[1]) {
+				this.setImages(new BufferedImage[]{images[2]});
 			} else {
-				this.setImages(new BufferedImage[]{myImages[3]});
+				this.setImages(new BufferedImage[]{images[3]});
 			} 
 		} else {
-			this.myShields -= depleteAmount;
+			this.shields -= depleteAmount;
 		}
 		return false;
 	}

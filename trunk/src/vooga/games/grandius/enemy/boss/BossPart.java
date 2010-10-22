@@ -11,19 +11,19 @@ import vooga.games.grandius.enemy.common.Enemy;
  */
 @SuppressWarnings("serial")
 public abstract class BossPart extends Enemy {
-	protected int myHealth;
-	protected int myShields;
-	protected int[] myBreakpoints; //0=green done, 1=yellow done
-	protected BufferedImage[] myImages; //0=shielded, 1=green, 2=yellow, 3=red
+	protected int health;
+	protected int shields;
+	protected int[] breakpoints; //0=green done, 1=yellow done
+	protected BufferedImage[] images; //0=shielded, 1=green, 2=yellow, 3=red
 //	private final int SCORE_VALUE = 200;
 //	private final int CASH_VALUE = 10;
 	
 	public BossPart(BufferedImage[] images, int[] breakpoints, double x, double y, int health, int shields) {
 		super(new BufferedImage[]{images[0]}, x, y);
-		this.myImages = images;
-		this.myBreakpoints = breakpoints;
-		this.myHealth = health;
-		this.myShields = shields;
+		this.images = images;
+		this.breakpoints = breakpoints;
+		this.health = health;
+		this.shields = shields;
 //		myScore = SCORE_VALUE;
 //		myCash = CASH_VALUE;
 	}
@@ -35,7 +35,7 @@ public abstract class BossPart extends Enemy {
 	}
 	
 	public BufferedImage[] getImages() {
-		return this.myImages;
+		return this.images;
 	}
 	
 }
