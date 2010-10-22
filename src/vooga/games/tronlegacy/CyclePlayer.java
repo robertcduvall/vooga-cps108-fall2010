@@ -94,8 +94,6 @@ public class CyclePlayer extends PlayerSprite {
 	}
 
 	public void changeDirection(String direction) {
-		System.out.println(direction);
-
 		switch (Direction.valueOf(direction)) {
 		case UP:
 			setSpeed(0, -SPEED);
