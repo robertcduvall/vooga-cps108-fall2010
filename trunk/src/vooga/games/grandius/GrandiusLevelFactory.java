@@ -23,14 +23,15 @@ import vooga.games.grandius.enemy.common.Zipster;
 public class GrandiusLevelFactory implements LevelFactory{
 	private PlayField playfield;	
 	private Background background;
-	private ArrayList<Sprite> myBossPartList;
-	private ArrayList<Sprite> myBossList;
-	private ArrayList<Sprite> mySpritesList;
+	//Lists (or Collection) vs. ArrayList
+	private ArrayList<Sprite> bossPartList;
+	private ArrayList<Sprite> bossList;
+	private ArrayList<Sprite> spritesList;
 	
 	public GrandiusLevelFactory() {
-		myBossPartList = new ArrayList<Sprite>();
-		myBossList = new ArrayList<Sprite>();
-		mySpritesList = new ArrayList<Sprite>();
+		bossPartList = new ArrayList<Sprite>();
+		bossList = new ArrayList<Sprite>();
+		spritesList = new ArrayList<Sprite>();
 	}
 	
 		
@@ -120,7 +121,7 @@ public class GrandiusLevelFactory implements LevelFactory{
 								//System.out.println("making new ReacherEye");
 								newBossPart = new ReacherEye(Resources.getAnimation(bossPartName), breakpoints, xPosition, yPosition, health, shields);
 							}
-							myBossPartList.add(newBossPart);
+							bossPartList.add(newBossPart);
 							//System.out.println("y="+y);
 							//System.out.println("size="+lines.size());
 							if ((y+1)==lines.size())
@@ -130,9 +131,9 @@ public class GrandiusLevelFactory implements LevelFactory{
 					}
 					if (bossName.equals("Reacher")) {
 						System.out.println("creating Reacher at" + bossXPosition + "," + bossYPosition);
-						newBoss = new Reacher(Resources.getAnimation(bossName), bossBreakpoints, bossXPosition, bossYPosition, bossHealth, myBossPartList);
+						newBoss = new Reacher(Resources.getAnimation(bossName), bossBreakpoints, bossXPosition, bossYPosition, bossHealth, bossPartList);
 					}
-					myBossList.add(newBoss);
+					bossList.add(newBoss);
 					playfield.add(newBoss);
 				} else {
 					st = new StringTokenizer(line, ",");
@@ -141,12 +142,12 @@ public class GrandiusLevelFactory implements LevelFactory{
 					double yPosition = Double.parseDouble(st.nextToken());
 					if (spriteName.equals("Zipster")) {
 						Zipster newZipster = new Zipster(Resources.getAnimation(spriteName), xPosition, yPosition);
-						mySpritesList.add(newZipster);
+						spritesList.add(newZipster);
 						playfield.add(newZipster);
 					}
 					if (spriteName.equals("Boomer")) {
 						Boomer newBoomer = new Boomer(Resources.getAnimation(spriteName), xPosition, yPosition);
-						mySpritesList.add(newBoomer);
+						spritesList.add(newBoomer);
 						playfield.add(newBoomer);
 					}
 				}
@@ -157,14 +158,22 @@ public class GrandiusLevelFactory implements LevelFactory{
 		return playfield;
 	}
 	
+	/**
+	 * Returns a list of all the SpriteLists created by the Factory.
+	 * @return
+	 */
 	public ArrayList<ArrayList<Sprite>> getGrandiusSpritesList() {
 		ArrayList<ArrayList<Sprite>> returnCollection = new ArrayList<ArrayList<Sprite>>();
-		returnCollection.add(mySpritesList);
-		returnCollection.add(myBossPartList);
-		returnCollection.add(myBossList);
+		returnCollection.add(spritesList);
+		returnCollection.add(bossPartList);
+		returnCollection.add(bossList);
 		return returnCollection;
 	}
 	
+	/**
+	 * Returns the background
+	 * @return
+	 */
 	public Background getBackground(){
 		return background;
 	}
