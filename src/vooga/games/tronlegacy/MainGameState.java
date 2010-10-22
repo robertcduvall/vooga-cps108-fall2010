@@ -58,7 +58,7 @@ public class MainGameState extends GameState {
 	private PlayField currentPlayField;
 	private LinkedList<Sprite> blockQueue = new LinkedList<Sprite>();
 
-	int currentLevel = 1;
+	private int currentLevel = 1;
 
 	public void initialize(Blah currentGame) {
 		game = currentGame;

@@ -13,8 +13,8 @@ import vooga.engine.state.GameState;
 
 public class MenuState extends GameState {
 
-	OverlayString menuOverlay;
-	Blah game;
+	private OverlayString menuOverlay;
+	private Blah game;
 	private PlayField playField;
 	
 	private static final int TEXT_X_POSITION = 135;
