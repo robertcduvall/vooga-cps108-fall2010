@@ -13,7 +13,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 import vooga.engine.factory.*;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 
 import vooga.games.doodlejump.monsters.*;
 import vooga.games.doodlejump.platforms.*;
@@ -44,7 +44,8 @@ public class DoodleLevel implements LevelFactory {
 			System.exit(0);
 		}
 		String backgroundName = levelFile.nextLine();
-		background = new ImageBackground(ResourceHandler.getImage(backgroundName));
+		Resources.loadImage(backgroundName, "");
+		background = new ImageBackground(Resources.getImage(backgroundName));
 		PlayField playField = new PlayField(background);
 		while (levelFile.hasNextLine()) {
 			String sprite = levelFile.nextLine();
@@ -67,19 +68,19 @@ public class DoodleLevel implements LevelFactory {
 	
 	public void addPlatforms(String spriteName, double x, double y){
 		if (spriteName.equals("green_platform") || spriteName.equals("dark_blue_platform"))
-			platformGroup.add(new Sprite(ResourceHandler.getImage(spriteName), x, y));
+			platformGroup.add(new Sprite(Resources.getImage(spriteName), x, y));
 		else if (spriteName.equals("gray_platform"))
-			platformGroup.add(new GrayPlatform(ResourceHandler.getImage(spriteName), x, y));
+			platformGroup.add(new GrayPlatform(Resources.getImage(spriteName), x, y));
 		else if (spriteName.equals("light_blue_platform"))
-			platformGroup.add(new LightBluePlatform(ResourceHandler.getImage(spriteName), x, y));
+			platformGroup.add(new LightBluePlatform(Resources.getImage(spriteName), x, y));
 		else if (spriteName.equals("white_platform"))
-			whitePlatformGroup.add(new Sprite(ResourceHandler.getImage(spriteName), x, y));
+			whitePlatformGroup.add(new Sprite(Resources.getImage(spriteName), x, y));
 		else if (spriteName.equals("brown_platform_breaking")) {
 			BufferedImage[] breaking_brown_images = new BufferedImage[4];
-			breaking_brown_images[0] = ResourceHandler.getImage(spriteName + "_1");
-			breaking_brown_images[1] = ResourceHandler.getImage(spriteName + "_2");
-			breaking_brown_images[2] = ResourceHandler.getImage(spriteName + "_3");
-			breaking_brown_images[3] = ResourceHandler.getImage(spriteName + "_4");
+			breaking_brown_images[0] = Resources.getImage(spriteName + "_1");
+			breaking_brown_images[1] = Resources.getImage(spriteName + "_2");
+			breaking_brown_images[2] = Resources.getImage(spriteName + "_3");
+			breaking_brown_images[3] = Resources.getImage(spriteName + "_4");
 			brownPlatformGroup.add(new AnimatedSprite(breaking_brown_images, x, y));
 		} 
 	}
@@ -87,45 +88,45 @@ public class DoodleLevel implements LevelFactory {
 	public void addMonsters(String spriteName, double x, double y){
 		if (spriteName.equals("blue_flying_monster")) {
 			BufferedImage[] blue_flying_images = new BufferedImage[5];
-			blue_flying_images[0] = ResourceHandler.getImage(spriteName + "_1");
-			blue_flying_images[1] = ResourceHandler.getImage(spriteName + "_2");
-			blue_flying_images[2] = ResourceHandler.getImage(spriteName + "_3");
-			blue_flying_images[3] = ResourceHandler.getImage(spriteName + "_4");
-			blue_flying_images[4] = ResourceHandler.getImage(spriteName + "_5");
+			blue_flying_images[0] = Resources.getImage(spriteName + "_1");
+			blue_flying_images[1] = Resources.getImage(spriteName + "_2");
+			blue_flying_images[2] = Resources.getImage(spriteName + "_3");
+			blue_flying_images[3] = Resources.getImage(spriteName + "_4");
+			blue_flying_images[4] = Resources.getImage(spriteName + "_5");
 			monsterGroup.add(new JigglingFlyingMonster(blue_flying_images, x, y));
 		} else if (spriteName.equals("blue_monster"))
-			monsterGroup.add(new MovingMonster(ResourceHandler.getImage("blue_monster_left"), x, y));
+			monsterGroup.add(new MovingMonster(Resources.getImage("blue_monster_left"), x, y));
 		else if (spriteName.equals("green_flying_monster")) {
 			BufferedImage[] green_flying_images = new BufferedImage[5];
-			green_flying_images[0] = ResourceHandler.getImage(spriteName + "_1");
-			green_flying_images[1] = ResourceHandler.getImage(spriteName + "_2");
-			green_flying_images[2] = ResourceHandler.getImage(spriteName + "_3");
-			green_flying_images[3] = ResourceHandler.getImage(spriteName + "_4");
-			green_flying_images[4] = ResourceHandler.getImage(spriteName + "_5");
+			green_flying_images[0] = Resources.getImage(spriteName + "_1");
+			green_flying_images[1] = Resources.getImage(spriteName + "_2");
+			green_flying_images[2] = Resources.getImage(spriteName + "_3");
+			green_flying_images[3] = Resources.getImage(spriteName + "_4");
+			green_flying_images[4] = Resources.getImage(spriteName + "_5");
 			monsterGroup.add(new FlyingMonster(green_flying_images, x, y));
 		} else if (spriteName.equals("green_monster") || spriteName.equals("big_blue_monster") || spriteName.equals("red_monster") || spriteName.equals("purple_monster"))
-			monsterGroup.add(new JigglingMonster(ResourceHandler.getImage(spriteName), x, y));
+			monsterGroup.add(new JigglingMonster(Resources.getImage(spriteName), x, y));
 		else if (spriteName.equals("green_jumping_monster"))
-			monsterGroup.add(new JumpingMonster(ResourceHandler.getImage(spriteName), x, y));
+			monsterGroup.add(new JumpingMonster(Resources.getImage(spriteName), x, y));
 	}
 	
 	public void addPowerUps(String spriteName, double x, double y){
 		if (spriteName.equals("spring")) {
 			BufferedImage[] spring_images = new BufferedImage[2];
-			spring_images[0] = ResourceHandler.getImage(spriteName + "_compressed");
-			spring_images[1] = ResourceHandler.getImage(spriteName + "_full");
+			spring_images[0] = Resources.getImage(spriteName + "_compressed");
+			spring_images[1] = Resources.getImage(spriteName + "_full");
 			springGroup.add(new AnimatedSprite(spring_images, x, y));
 		} else if (spriteName.equals("trampoline")) {
 			BufferedImage[] trampoline_images = new BufferedImage[2];
-			trampoline_images[0] = ResourceHandler.getImage(spriteName);
-			trampoline_images[1] = ResourceHandler.getImage(spriteName + "_down");
+			trampoline_images[0] = Resources.getImage(spriteName);
+			trampoline_images[1] = Resources.getImage(spriteName + "_down");
 			trampolineGroup.add(new AnimatedSprite(trampoline_images, x, y));
 		}
 	}
 	
 	public void addLevelInfo(String spriteName, double x, double y){
 		if (spriteName.equals("finish_line")) {
-			platformGroup.add(new Sprite(ResourceHandler.getImage("finish_line"), x, y));
+			platformGroup.add(new Sprite(Resources.getImage("finish_line"), x, y));
 		} else if (spriteName.equals("score")) {
 			score = (int) x;
 			nextLevel = (int) y;

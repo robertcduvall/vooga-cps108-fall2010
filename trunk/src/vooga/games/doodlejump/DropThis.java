@@ -4,15 +4,20 @@ import java.awt.*;
 
 import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.player.control.PlayerSprite;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.overlay.*;
+import vooga.engine.core.*;
+import vooga.engine.core.Game;
+//import vooga.engine.core.Sprite;
 
 import vooga.games.doodlejump.collisions.*;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
+import com.golden.gamedev.object.Sprite;
+//import com.golden.gamedev.object.Sprite;
 
 import com.golden.gamedev.object.background.*;
 
@@ -91,6 +96,8 @@ public class DropThis extends Game {
 
 	@Override
 	public void initResources() {
+		
+		super.initResources();
 
 		if (showStartMenu) {
 			currentLevel = 1;
@@ -125,13 +132,13 @@ public class DropThis extends Game {
 		levelManager = new DoodleLevelManager();
 		levelManager.addLevels("src/vooga/games/doodlejump/resources/levels",
 				new File("levelNames.txt"));
-		ResourceHandler.setGame(this);
-		try {
-			ResourceHandler
-					.loadFile("vooga/games/doodlejump/resources/resourcelist.txt");
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+//		Resources.initialize(this,"");
+//		try {
+//			Resources
+//					.loadPropertiesFile("src/vooga/games/doodlejump/resources/resourcelist.txt");
+//		} catch (IOException e) {
+//			System.out.println(e);
+//		}
 	}
 
 	/**
