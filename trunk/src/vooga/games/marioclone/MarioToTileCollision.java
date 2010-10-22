@@ -32,6 +32,7 @@ public class MarioToTileCollision extends BetterCollisionGroup{
 		case(BOTTOM_TOP_COLLISION):
 			mario.setVerticalSpeed(0);
 			((MarioSprite) mario).setOnGround(true);
+			((MarioSprite) mario).incScore(10);
 			break;
 		}	
 		

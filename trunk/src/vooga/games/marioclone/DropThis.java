@@ -22,9 +22,7 @@ import com.golden.gamedev.object.font.SystemFont;
  * 
  * @author David Herzka, Cameron McCallie, Andrew Brown
  * 
- *         Our game takes after the popular Mario game series, but with a twist!
- *         In our version, the user controls a monster, who attempts to rid the
- *         world of all marios by jumping on them. This project was written and
+ *         Our game takes after the popular Mario game series. This project was written and
  *         developed with the VOOGA game engine, in Duke University's Computer
  *         Science 108 class.
  * 
@@ -37,7 +35,7 @@ public class DropThis extends Game {
 
 	private GameStateManager myGameStateManager;
 	private GamePlayState myGamePlayState;
-	private MainMenuState myMenuState, myPausedState;
+	private MainMenuState myMenuState, myPausedState, myLevelFinishedState;
 	private GameEndState myLoseState, myWinState;
 	
 	public static void main(String[] args) throws IOException {
@@ -82,13 +80,15 @@ public class DropThis extends Game {
 				fontManager);
 		myWinState = new GameEndState(new ColorBackground(Color.blue), "YOU WIN!",
 				fontManager);
+		myLevelFinishedState = new MainMenuState(fontManager);
 
 		myGameStateManager.addGameState(myMenuState);
 		myGameStateManager.addGameState(myPausedState);
 		myGameStateManager.addGameState(myGamePlayState);
 		myGameStateManager.addGameState(myLoseState);
 		myGameStateManager.addGameState(myWinState);
-
+		myGameStateManager.addGameState(myLevelFinishedState);
+		
 		myGameStateManager.switchTo(myMenuState);
 		
 		
@@ -117,6 +117,10 @@ public class DropThis extends Game {
 				myGameStateManager.switchTo(myLoseState);
 				playMusic(Resources.getSound("Lose"));
 				break;
+			case FinishedLevel:
+				bsMusic.setLoop(false);
+				myGameStateManager.switchTo(myLevelFinishedState);
+				break;
 			}
 			if (keyPressed(KeyEvent.VK_P)){
 				myGameStateManager.switchTo(myPausedState);
@@ -139,6 +143,12 @@ public class DropThis extends Game {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
 				bsMusic.setLoop(true);
 				myGamePlayState.init();
+				myGameStateManager.switchTo(myGamePlayState);
+			}
+		}
+		else if(myLevelFinishedState.isActive()){
+			if (keyPressed(KeyEvent.VK_SPACE)) {
+				bsMusic.setLoop(true);
 				myGameStateManager.switchTo(myGamePlayState);
 			}
 		}
