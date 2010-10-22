@@ -16,6 +16,7 @@ public class Stat<T> {
 
 	
 	private T myStat;
+	private T myInitialStat;
 	
 	
 	/**
@@ -25,6 +26,7 @@ public class Stat<T> {
 	 */
 	public Stat(T i){
 		myStat = i;
+		myInitialStat = i;
 	}
 	
 	
@@ -35,6 +37,13 @@ public class Stat<T> {
 	public void setStat(T i){
 			myStat = i;
 		}
+	
+	/**
+	 * Resets the stat to the initial value.
+	 */
+	public void reset(){
+		myStat = myInitialStat;
+	}
 	}
 	
 	
