@@ -67,7 +67,6 @@ public class Blah extends Game {
 	private GameState startNewLevelState;
 	private GameState gameCompleteState;
 	private GameState gameOverState;
-	
 	private GameStateManager gameStateManager;
 	
 	private static final int LAST_LEVEL = 3;
@@ -115,11 +114,11 @@ public class Blah extends Game {
 	private MissileBossCollision 			missileBossCollision;
 	private BlackHoleEnemyCollision 		blackHoleEnemyCollision;
 
-	private OverlayPanel myPanel;
+	private OverlayPanel overlayPanel;
 	private OverlayStatImage livesIcon;
-	private Stat<Integer> myLives;
-	private Stat<Integer> myScore;
-	private Stat<Integer> myCash;
+	private Stat<Integer> statLives;
+	private Stat<Integer> statScore;
+	private Stat<Integer> statCash;
 
 	private GrandiusLevelManager levelManager;
 	private GameFont font;
@@ -153,10 +152,10 @@ public class Blah extends Game {
 				"456789:   -? ABCDEFG" +
 		"HIJKLMNOPQRSTUVWXYZ ");
 		
-		myPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		myLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
-		myScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
-		myCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
+		statLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
+		statScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		statCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
 		levelManager = new GrandiusLevelManager();
 		
 		directoriesFile = new Properties();
@@ -253,7 +252,8 @@ public class Blah extends Game {
 		int displayX = Integer.parseInt(stringsFile.getProperty("shoppingLevelX"));
 		int displayY = Integer.parseInt(stringsFile.getProperty("shoppingLevelY"));
 		
-		OverlayStat shoppingLevel1 = new OverlayStat("CASH: ", myCash);
+		//shoppingLevel1 is an OverlayStat vs. String (displays Stat)
+		OverlayStat shoppingLevel1 = new OverlayStat("CASH: ", statCash);
 		shoppingLevel1.setFont(font);
 		shoppingLevel1.setLocation(displayX,displayY);
 		shoppingLevelGroup.add(shoppingLevel1);
@@ -264,8 +264,7 @@ public class Blah extends Game {
 			shoppingLevel.setLocation(displayX, displayY);
 			shoppingLevelGroup.add(shoppingLevel);
 		}
-		shoppingLevelState.addRenderGroup(shoppingLevelGroup);
-		shoppingLevelState.addUpdateGroups(shoppingLevelGroup);
+		shoppingLevelState.addGroup(shoppingLevelGroup);
 	}
 
 	private void buildLevelCompleteState() {
@@ -285,23 +284,14 @@ public class Blah extends Game {
 
 	private void buildPlayState() {
 		playState = new GameState();
-		playState.addRenderGroup(playerGroup);
-		playState.addRenderGroup(projectileGroup);
-		playState.addRenderGroup(enemyProjectileGroup);
-		playState.addRenderGroup(enemyGroup);
-		playState.addRenderGroup(bossPartGroup);
-		playState.addRenderGroup(bossGroup);
-		playState.addRenderGroup(missileGroup);
-		playState.addRenderGroup(blackHoleGroup);
-		
-		playState.addUpdateGroups(playerGroup);
-		playState.addUpdateGroups(projectileGroup);
-		playState.addUpdateGroups(enemyProjectileGroup);
-		playState.addUpdateGroups(enemyGroup);
-		playState.addUpdateGroups(bossPartGroup);
-		playState.addUpdateGroups(bossGroup);
-		playState.addUpdateGroups(missileGroup);
-		playState.addUpdateGroups(blackHoleGroup);
+		playState.addGroup(playerGroup);
+		playState.addGroup(projectileGroup);
+		playState.addGroup(enemyProjectileGroup);
+		playState.addGroup(enemyGroup);
+		playState.addGroup(bossPartGroup);
+		playState.addGroup(bossGroup);
+		playState.addGroup(missileGroup);
+		playState.addGroup(blackHoleGroup);
 	}
 
 	private void buildMenuState() {
@@ -348,27 +338,27 @@ public class Blah extends Game {
 	 * spriteGroupSpeedMap.
 	 */
 	private void createSpriteGroups() {
-		playerGroup = playfield.addGroup(new SpriteGroup("Player"));
-		projectileGroup = playfield.addGroup(new SpriteGroup("Projectile"));
-		enemyProjectileGroup = playfield.addGroup(new SpriteGroup("EnemyProjectile"));
-		enemyGroup = playfield.addGroup(new SpriteGroup("Enemy"));
-		bossPartGroup = playfield.addGroup(new SpriteGroup("BossPart"));
-		bossGroup = playfield.addGroup(new SpriteGroup("Boss"));
-		missileGroup = playfield.addGroup(new SpriteGroup("Missile"));
-		blackHoleGroup = playfield.addGroup(new SpriteGroup("BlackHole"));
-		menuGroup = new SpriteGroup("MenuGroup");
-		levelCompleteGroup = new SpriteGroup("LevelCompleteGroup");
-		shoppingLevelGroup = new SpriteGroup("ShoppingLevelGroup");
-		gameCompleteGroup = new SpriteGroup("GameCompleteGroup");
-		gameOverGroup = new SpriteGroup("GameOverGroup");
+		playerGroup = 			playfield.addGroup(new SpriteGroup("Player"));
+		projectileGroup = 		playfield.addGroup(new SpriteGroup("Projectile"));
+		enemyProjectileGroup = 	playfield.addGroup(new SpriteGroup("EnemyProjectile"));
+		enemyGroup = 			playfield.addGroup(new SpriteGroup("Enemy"));
+		bossPartGroup = 		playfield.addGroup(new SpriteGroup("BossPart"));
+		bossGroup = 			playfield.addGroup(new SpriteGroup("Boss"));
+		missileGroup = 			playfield.addGroup(new SpriteGroup("Missile"));
+		blackHoleGroup = 		playfield.addGroup(new SpriteGroup("BlackHole"));
+		menuGroup = 			new SpriteGroup("MenuGroup");
+		levelCompleteGroup = 	new SpriteGroup("LevelCompleteGroup");
+		shoppingLevelGroup = 	new SpriteGroup("ShoppingLevelGroup");
+		gameCompleteGroup = 	new SpriteGroup("GameCompleteGroup");
+		gameOverGroup = 		new SpriteGroup("GameOverGroup");
 		
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-		spriteGroupSpeedMap.put(projectileGroup, new Double(PROJECTILE_SPEED));
-		spriteGroupSpeedMap.put(enemyProjectileGroup, new Double(-PROJECTILE_SPEED));
-		spriteGroupSpeedMap.put(enemyGroup, new Double(-ENEMY_SPEED));
-		spriteGroupSpeedMap.put(bossPartGroup, new Double(-BOSS_PART_SPEED));
-		spriteGroupSpeedMap.put(bossGroup, new Double(-BOSS_SPEED));
-		spriteGroupSpeedMap.put(missileGroup, new Double(PROJECTILE_SPEED));
+		spriteGroupSpeedMap.put(projectileGroup, 		new Double(PROJECTILE_SPEED));
+		spriteGroupSpeedMap.put(enemyProjectileGroup, 	new Double(-PROJECTILE_SPEED));
+		spriteGroupSpeedMap.put(enemyGroup, 			new Double(-ENEMY_SPEED));
+		spriteGroupSpeedMap.put(bossPartGroup, 			new Double(-BOSS_PART_SPEED));
+		spriteGroupSpeedMap.put(bossGroup, 				new Double(-BOSS_SPEED));
+		spriteGroupSpeedMap.put(missileGroup, 			new Double(PROJECTILE_SPEED));
 	}
 
 	@Override
@@ -376,10 +366,12 @@ public class Blah extends Game {
 		if (menuState.isActive()) {
 			//myPlayfield.render(g);
 		}
-		//This game should not be here; GameStateManager should take care of this.
+		//Shouldn't need this list hypothetically
+		//GameStateManager should take care of this.
 		for(GameState gamestate: gameStates){
 			if (!gamestate.equals(menuState) && gamestate.isActive()) {
-				playfield.render(g);
+				gamestate.render(g);
+				return;
 			}
 		}		
 		gameStateManager.render(g);
@@ -415,7 +407,7 @@ public class Blah extends Game {
 				playfield.clearPlayField();
 			}
 			playfield.update(elapsedTime);
-			if (myLives.getStat().intValue() <= 0) {
+			if (statLives.getStat().intValue() <= 0) {
 				playfield.clearPlayField();
 				gameStateManager.switchTo(gameOverState);
 				playSound(Resources.getSound("OhManSound"));
@@ -444,14 +436,14 @@ public class Blah extends Game {
 					if((this.getMouseY()>displayY*2) &&
 							(this.getMouseY()<displayY*3)){
 						missileActive = true;
-						updateStat(myCash,-500);
+						updateStat(statCash,-500);
 						playfield.clearPlayField();
 						gameStateManager.switchTo(startNewLevelState);
 					}
 					else if((this.getMouseY()>displayY*3) &&
 							(this.getMouseY()<displayY*4)){
 						blackHoleActive = true;
-						updateStat(myCash,-1000);
+						updateStat(statCash,-1000);
 						playfield.clearPlayField();
 						gameStateManager.switchTo(startNewLevelState);
 					}
@@ -470,7 +462,7 @@ public class Blah extends Game {
 			}
 			playerGroup.add(playerSprite);
 			createComets();
-			playfield.addGroup(myPanel);
+			playfield.addGroup(overlayPanel);
 			playSound(Resources.getSound("StartLevelSound"));
 			gameStateManager.switchTo(playState);
 		}
@@ -725,10 +717,15 @@ public class Blah extends Game {
 			stat.setStat(new Integer(0));
 	}
 
+	/**
+	 * Decrements the number of lives the player has.
+	 * Called when Player collides with enemy or an
+	 * enemy projectile.
+	 */
 	public void updatePlayerLives(){
-		int playerLives = (myLives.getStat()).intValue();
+		int playerLives = (statLives.getStat()).intValue();
 		if(playerLives > 0  && !isInvincible){
-			updateStat(myLives, (-1));
+			updateStat(statLives, (-1));
 			playerSprite.setLocation(playerInitialX, playerInitialY);
 		}
 		//TODO: switch this to a game state?
@@ -748,22 +745,28 @@ public class Blah extends Game {
 
 	}
 
+	/**
+	 * Returns the PlayField in this Game
+	 * @return
+	 */
 	public PlayField getPlayfield() {
 		return this.playfield;
 	}
 
-	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new Blah(), new Dimension(640,480), false);
-		game.start();
-	}
-
+	/**
+	 * Adds the given points to the Stat score.
+	 * @param points
+	 */
 	public void updateScoreOnCollision(int points) {
-		updateStat(myScore, points);
+		updateStat(statScore, points);
 	}
 
+	/**
+	 * Adds the given cash amounts to the Stat cash.
+	 * @param cash
+	 */
 	public void updateCashOnCollision(int cash) {
-		updateStat(myCash, cash);
+		updateStat(statCash, cash);
 	}
 
 	private void createComets() {
@@ -780,20 +783,20 @@ public class Blah extends Game {
 		}
 	}
 
-	public void addOverlays() {
-		OverlayIcon livesCounter = new OverlayIcon(myLives, livesIcon, "Lives");
-		OverlayStat scoreCounter = new OverlayStat("Score", myScore);
-		OverlayStat cashCounter  = new OverlayStat("Cash", myCash);
+	private void addOverlays() {
+		OverlayIcon livesCounter = new OverlayIcon(statLives, livesIcon, "Lives");
+		OverlayStat scoreCounter = new OverlayStat("Score", statScore);
+		OverlayStat cashCounter  = new OverlayStat("Cash", statCash);
 
-	    myPanel.add(livesCounter);
-	    myPanel.add(cashCounter);		
-		myPanel.add(scoreCounter);
-		myPanel.initialize();
+	    overlayPanel.add(livesCounter);
+	    overlayPanel.add(cashCounter);		
+		overlayPanel.add(scoreCounter);
+		overlayPanel.initialize();
 		
-		playfield.addGroup(myPanel);
+		playfield.addGroup(overlayPanel);
 	}
 
-	public void checkCheats() {
+	private void checkCheats() {
 		if(keyPressed(KeyEvent.VK_ENTER))
 		{
 			JFrame frame = new JFrame();
@@ -804,13 +807,18 @@ public class Blah extends Game {
 			else if(userInput.equals(SKIP_LEVEL))
 				skipLevel = true;
 			else if(userInput.equals(EXTRA_POINTS))
-				updateStat(myScore, 1000000);
+				updateStat(statScore, 1000000);
 			else if(userInput.equals(EXTRA_CASH))
-				updateStat(myCash, 5000);
+				updateStat(statCash, 5000);
 			else if(userInput.equals(ACTIVATE_MISSILE))
 				missileActive = true;
 				
 		}
 	}
 
+	public static void main(String[] args) {
+		GameLoader game = new GameLoader();
+		game.setup(new Blah(), new Dimension(640,480), false);
+		game.start();
+	}
 }
