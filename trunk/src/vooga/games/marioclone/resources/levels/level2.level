@@ -2,3 +2,5 @@ map=src/vooga/games/marioclone/resources/maps/map2.txt
 enemy = 400, 200
 mario = 200,300
 overlay = src/vooga/games/marioclone/resources/overlay.xml
+music = Underwater
+bg = color:0,0,0

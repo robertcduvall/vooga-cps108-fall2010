@@ -88,9 +88,7 @@ public class GamePlayState extends GameState {
 	public void update(long t) {
 		super.update(t);
 		myLevel.update(t);
-
 		myControl.update();
-
 	}
 
 	/**
@@ -124,6 +122,7 @@ public class GamePlayState extends GameState {
 				.getPlayfield(levelFile);
 		pf.setLevel(i + 1);
 		myLevel = pf;
+		myGame.playMusic(myLevel.getMusic());
 	}
 
 	/**

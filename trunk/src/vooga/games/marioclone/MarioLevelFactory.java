@@ -18,6 +18,7 @@ import vooga.engine.resource.Resources;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.background.ImageBackground;
 
 public class MarioLevelFactory implements LevelFactory {
 
@@ -74,7 +75,9 @@ public class MarioLevelFactory implements LevelFactory {
 		// map=*location of level's map file* (only first is read)
 		// enemy=*enemy x*,*enemy y*
 		// mario=*mario x*,*mario y* (only first is read)
-		// overlay=*location of overlay XML file*
+		// overlay=*location of overlay XML file* 
+		// music=*key for sound file*
+		// bg=[color/image]:[R,G,B/*key for image*]
 
 		MarioPlayField playfield = new MarioPlayField();
 
@@ -126,13 +129,29 @@ public class MarioLevelFactory implements LevelFactory {
 		OverlayTracker overlays = OverlayCreator.createOverlays(vars.get(
 				"overlay").get(0));
 		playfield.addOverlays(overlays);
-
+		
+		// Add Music
+		playfield.setMusic(Resources.getSound(vars.get("music").get(0)));
+		
+		// Add Background
+		Background background = null;
 		int backgroundWidth = map.width * map.TILE_SIZE;
 		int backgroundHeight = map.height * map.TILE_SIZE;
-		Background marioBackground = new ColorBackground(new Color(139, 201,
-				240), backgroundWidth, backgroundHeight);
-		marioBackground.setClip(0, 0, myWidth, myHeight);
-		playfield.setBackground(marioBackground);
+		String[] splitBG = vars.get("bg").get(0).split(":");
+		String type = splitBG[0];
+		String arg = splitBG[1];
+		if(type.equals("image")) {
+			background = new ImageBackground(Resources.getImage(arg),backgroundWidth,backgroundHeight);
+		}
+		else if(type.equals("color")) {
+			String[] colorStrings = arg.split(",");
+			int[] color = new int[3];
+			for(int i = 0; i <3; i++)
+				color[i] = Integer.parseInt(colorStrings[i].trim());
+			background = new ColorBackground(new Color(color[0], color[1], color[2]), backgroundWidth, backgroundHeight);
+		}
+		background.setClip(0, 0, myWidth, myHeight);
+		playfield.setBackground(background);
 
 		return playfield;
 	}
