@@ -9,7 +9,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Brian
  *
  */
-public class BlockSprite extends Sprite {
+public abstract class BlockSprite extends Sprite {
 	
 	private String myBlockType;
 
@@ -53,12 +53,7 @@ public class BlockSprite extends Sprite {
 		if (this.getX() + this.getWidth() > DropThis.getGameWidth() || this.getX() < 0){
 			this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
 		}
-	}
+	}	
 	
-	/*
-	public void setBlockType(String bt){
-		String blocktype = bt;
-	}
-	*/
-	
+	public abstract void handleCollision(DoodleSprite doodle);
 }
