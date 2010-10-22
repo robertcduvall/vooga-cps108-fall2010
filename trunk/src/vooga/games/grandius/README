@@ -6,15 +6,17 @@ authors:	Se-Gil Feldsott
 			
 =Description=
 Grandius is a 2-D side-scrolling shooter game.  You're a ship flying through space
-shooting terrifying shapes floating through space.  Use your laser gun and bombs to
-destroy them before they destroy you!
+shooting terrifying enemies flying through space.  Use your laser gun, bombs, missiles, 
+black holes to destroy them before they destroy you!
 
 =Instructions=
 -Use arrow keys to move your ship.  NOTE: The screen moves relative to the ship in the
 x-plane, so the ship will never appear to leave the left side of the screen.
 -Press 'ALT' to fire your laser forward
 -Press 'SpaceBar' to drop bombs downward onto enemies below
+-Later, you can use Missles and Blackholes;  Use "m" and "b," respectively, to use those!
 -Avoid bullets shot by enemies as well as contact with the enemy
+-Destroy all enemies to advance, including the boss!
 -Have Fun!
 
 =Shopping Level=
