@@ -107,10 +107,13 @@ public class DropThis extends vooga.engine.core.Game {
 	 */
 	public void initResources() {
 
-		super.initResources();
-
 		this.hideCursor();
-
+		
+		super.initResources();
+		
+//		Resources.setGame(this);
+//		Resources.setDefaultPath(src/vooga)
+//		
 		//setting up resource handler
 		/*ResourceHandler.setGame(this);
 		try{
@@ -118,9 +121,10 @@ public class DropThis extends vooga.engine.core.Game {
 		} catch (IOException e){
 			e.printStackTrace();
 		}*/
-		Resources.initialize(this, "vooga/games/jumper/resources/game.properties");
+		//Resources.initialize(this, "vooga/games/jumper/resources/game.properties");
 
-
+//		Resources.initialize(this, getResourcePath());
+		
 		BufferedImage leftDoodle = Resources.getImage("leftDoodle");
 		BufferedImage rightDoodle = Resources.getImage("rightDoodle");
 		DoodleSprite player1 = new DoodleSprite(leftDoodle, DOODLE_START, leftDoodle, rightDoodle);
