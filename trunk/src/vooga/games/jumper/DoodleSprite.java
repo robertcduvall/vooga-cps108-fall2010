@@ -2,8 +2,7 @@ package vooga.games.jumper;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 /**
@@ -39,8 +38,8 @@ public class DoodleSprite extends Sprite {
 		super(image, location.x, location.y);  
 		doodleLeftImage = left;
 		doodleRightImage = right;
-		doodleLeftImageJetpack = ResourceHandler.getImage("leftJetpackDoodle");
-		doodleRightImageJetpack= ResourceHandler.getImage("rightJetpackDoodle");
+		doodleLeftImageJetpack = Resources.getImage("leftJetpackDoodle");
+		doodleRightImageJetpack= Resources.getImage("rightJetpackDoodle");
 
 	}
 

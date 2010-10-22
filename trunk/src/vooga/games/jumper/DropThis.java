@@ -52,7 +52,7 @@ import com.sun.xml.internal.ws.api.ResourceLoader;
 
 //TODO: try making it so that the blocks come in waves.  Add side jetpack thrusters.  Add jump capability.
 
-public class DropThis extends Game {
+public class DropThis extends vooga.engine.core.Game {
 
 	private final static int GAME_WIDTH = 500;
 	private final static int GAME_HEIGHT = 800;
@@ -108,7 +108,8 @@ public class DropThis extends Game {
 	 */
 	public void initResources() {
 
-		//this.showLogo();
+		super.initResources();
+
 		this.hideCursor();
 
 		//setting up resource handler
@@ -118,7 +119,7 @@ public class DropThis extends Game {
 		} catch (IOException e){
 			e.printStackTrace();
 		}*/
-		Resources.initialize(this, "vooga/games/jumper/resources/resourcelist.txt");
+		Resources.initialize(this, "vooga/games/jumper/resources/game.properties");
 
 
 		BufferedImage leftDoodle = Resources.getImage("leftDoodle");

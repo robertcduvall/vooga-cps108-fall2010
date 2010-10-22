@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 
 
 import vooga.engine.resource.GameClock;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
@@ -111,6 +111,6 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	
 	
 	public void changeSpriteImage(Sprite spr, String str){
-		spr.setImage(ResourceHandler.getImage(str));
+		spr.setImage(Resources.getImage(str));
 	}
 }
