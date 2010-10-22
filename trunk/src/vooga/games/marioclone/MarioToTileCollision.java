@@ -27,7 +27,8 @@ public class MarioToTileCollision extends BetterCollisionGroup {
 			mario.setVerticalSpeed(0);
 			((Tile) tile).actOnCollision(mario);
 			if(tile instanceof CoinTile)
-				((MarioSprite) mario).incScore(10);
+				if(!((CoinTile) tile).isUsedUp())
+					((MarioSprite) mario).incScore(10);
 			break;
 		case (BOTTOM_TOP_COLLISION):
 			mario.setVerticalSpeed(0);
