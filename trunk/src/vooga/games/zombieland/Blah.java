@@ -41,7 +41,7 @@ public class Blah extends Game {
 		
 		stateManager = new GameStateManager();
 		
-		zombielandPauseState = new ZombielandPauseState();
+		zombielandPauseState = new ZombielandPauseState(this);
 		zombielandPlayState = new ZombielandPlayState(this, SCREEN_WIDTH,
 				SCREEN_HEIGHT);
 		zombielandPlayState.initialize();

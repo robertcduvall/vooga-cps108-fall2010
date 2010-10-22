@@ -35,7 +35,7 @@ public class Shooter extends PlayerSprite implements Constants{
 	private Stat<Integer> ammo;
 	private int levelScore;
 
-	public Shooter(String name, String stateName, Blah zombieland) {
+	public Shooter(String name, String stateName, Blah zombieland, Stat<Integer> initHealth, Stat<Integer> initAmmo, Stat<Integer> initScore) {
 		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
 		game = zombieland;
 		weapons = new Weapon[3];
@@ -67,11 +67,11 @@ public class Shooter extends PlayerSprite implements Constants{
 		this.mapNameToSprite(RIGHT, right);
 		
 		// Setup displays
-		health = new Stat<Integer>(maxHealth);
+		health = initHealth;
 		addStat("health", health);
-		score = new Stat<Integer>(0);
+		score = initScore;
 		addStat("score", score);
-		ammo = new Stat<Integer>(getAmmo());
+		ammo = initAmmo;
 		addStat("ammo", ammo);
 	}
 //
@@ -169,7 +169,7 @@ public class Shooter extends PlayerSprite implements Constants{
 	public void setAmmo() {
 		ammo.setStat(weapons[weaponChoice].getAmmo());
 	}
-
+	
 	/**
 	 * Gets the remaining ammo count on the current weapon
 	 * 
@@ -222,7 +222,7 @@ public class Shooter extends PlayerSprite implements Constants{
 	public void setHealth(int number) {
 		health.setStat(number);
 	}
-
+	
 	/**
 	 * update the health of the shooter
 	 * 
