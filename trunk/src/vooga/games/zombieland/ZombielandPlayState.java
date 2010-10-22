@@ -12,13 +12,13 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ImageBackground;
 
-import vooga.engine.overlay.OverlayBar;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.collision.BZCollisionManager;
 import vooga.games.zombieland.collision.HICollisionManager;
@@ -40,13 +40,10 @@ public class ZombielandPlayState extends GameState {
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
+	Random random;
 
-	private OverlayBar overlayHealthBar;
-	private OverlayString overlayHealthString;
-	private OverlayStat overlayScoreStat;
 	private OverlayString overlayGameOverString;
 	private OverlayString overlayPauseString;
-	private OverlayStat overlayAmmoStat;
 	private OverlayStat overlayLevelStat;
 	private OverlayTracker tracker;
 
@@ -63,24 +60,35 @@ public class ZombielandPlayState extends GameState {
 
 	public void initialize() {
 		OverlayCreator.setGame(currentGame);
-		tracker = OverlayCreator.createOverlays("src/vooga/games/zombieland/resources/overlays.xml");
-		
-		player = new Shooter("Hero", "Down", currentGame, tracker.getStats().get(0), tracker.getStats().get(2), tracker.getStats().get(1));
-		
-		
+		tracker = OverlayCreator
+				.createOverlays("src/vooga/games/zombieland/resources/overlays.xml");
+		random = new Random();
+	
+		initializePlayer();
 		initEnvironment();
 		initOverlays();
 		setListeners();
-//		stateManager.activateOnly(zombielandPlayState);
-
 	}
-	
+
+	private void initializePlayer() {
+		int initHealthXML = ZombielandResources.getInt("initHealthXML");
+		int initAmmoXML = ZombielandResources.getInt("initAmmoXML");
+		int initScoreXML = ZombielandResources.getInt("initScoreXML");
+
+		Stat<Integer> initHealth = tracker.getStats().get(initHealthXML);
+		Stat<Integer> initAmmo = tracker.getStats().get(initAmmoXML);
+		Stat<Integer> initScore = tracker.getStats().get(initScoreXML);
+
+		player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
+				initScore);
+	}
+
 	/**
 	 * This method returns the Pause string
+	 * 
 	 * @return
 	 */
-	public OverlayString getOverlayPauseString()
-	{
+	public OverlayString getOverlayPauseString() {
 		return overlayPauseString;
 	}
 
@@ -94,9 +102,10 @@ public class ZombielandPlayState extends GameState {
 
 		String audiofile = ZombielandResources.getString("gamemusic");
 		currentGame.playMusic(audiofile);
-		
+
 		BufferedImage sandbg = ZombielandResources.getImage("sandbg");
-		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
+		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
+				GAME_HEIGHT);
 
 		SpriteGroup zombies = new SpriteGroup("Zombies");
 		SpriteGroup bullets = new SpriteGroup("Bullets");
@@ -127,16 +136,6 @@ public class ZombielandPlayState extends GameState {
 		int delay = ZombielandResources.getInt("timer");
 		timer = new Timer(delay);
 
-//		stateManager = new GameStateManager();
-//
-//		stateManager.addGameState(zombielandPlayState);
-//		stateManager.addGameState(zombielandPauseState);
-
-		addGroup(players);
-		addGroup(zombies);
-		addGroup(bullets);
-		addGroup(items);
-
 		playField.setBackground(background);
 
 		level = ZombielandResources.getInt("startLevel");
@@ -149,17 +148,21 @@ public class ZombielandPlayState extends GameState {
 	 */
 	public void initOverlays() {
 
+		int overlayXMLlocation = Resources.getInt("overlayXMLlocation");
+		int statLevelXMLlocation = Resources.getInt("statLevelXMLlocation");
+		int levelStatXMLlocation = Resources.getInt("levelStatXMLlocation");
+		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
+		int gameOverStringXMLlocation = Resources.getInt("gameOverStringXMLlocation");
+				
 		SpriteGroup overlays = playField.getGroup("Overlays");
-		overlays = tracker.getOverlayGroups().get(0);		
+		overlays = tracker.getOverlayGroups().get(overlayXMLlocation);
+		statLevel = tracker.getStats().get(statLevelXMLlocation);
 		
-		statLevel = tracker.getStats().get(3);
-		
-		overlayLevelStat = tracker.getStatOverlays().get(2);
+		overlayLevelStat = tracker.getStatOverlays().get(levelStatXMLlocation);
 		overlayLevelStat.setActive(false);
-		
-		overlayPauseString = tracker.getStringOverlays().get(1);
-		overlayGameOverString = tracker.getStringOverlays().get(2);
-		
+		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);
+		overlayGameOverString = tracker.getStringOverlays().get(gameOverStringXMLlocation);
+
 		playField.addGroup(tracker.getOverlayGroups().get(0));
 	}
 
@@ -170,7 +173,7 @@ public class ZombielandPlayState extends GameState {
 
 	@Override
 	public void update(long elapsedTime) {
-	
+
 		if (isActive()) {
 			playField.update(elapsedTime);
 			control.update();
@@ -221,10 +224,11 @@ public class ZombielandPlayState extends GameState {
 
 	private boolean moreZombieCanBeAdded() {
 
-		double zombieLimitingFactor = ZombielandResources.getDouble("zombieLimitingFactor");
+		double zombieLimitingFactor = ZombielandResources
+				.getDouble("zombieLimitingFactor");
 
 		return zombiesAppeared < Zombie.zombiesPerLevel() * level
-		* zombieLimitingFactor;
+				* zombieLimitingFactor;
 	}
 
 	/**
@@ -232,7 +236,8 @@ public class ZombielandPlayState extends GameState {
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", "Moving", level, player, currentGame);
+		Zombie newZombie = new Zombie("New", "Moving", level, player,
+				currentGame);
 		zombiesAppeared++;
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
@@ -262,38 +267,60 @@ public class ZombielandPlayState extends GameState {
 	 */
 	public void addRandomItem(double x, double y) {
 
-		Random random = new Random();
 		int choice = random.nextInt(3);
 
-		int weapon1 = ZombielandResources.getInt("weapon1");
-		int weapon2 = ZombielandResources.getInt("weapon2");
-		int healthKit = ZombielandResources.getInt("healthKit");
+		String weaponchoices = ZombielandResources.getString("weaponchoices");
+		String delim = ZombielandResources.getString("delim");
 
-		Item item;
-		switch (choice) {
-		case 0:
-			BufferedImage assaultRifleImage = ZombielandResources.getImage("assaultRifleImage");
-			item = new WeaponItem(player, new Sprite(assaultRifleImage),
-					weapon1, x, y);
-			break;
-		case 1:
-			BufferedImage shotGunImage = ZombielandResources.getImage("shotGunImage");
-			item = new WeaponItem(player, new Sprite(shotGunImage), weapon2, x,
-					y);
-			break;
-		case 2:
-			BufferedImage healthImage = ZombielandResources.getImage("healthImage");
-			item = new HealthItem(player, new Sprite(healthImage), healthKit,
-					x, y);
-			break;
+		String[] options = weaponchoices.split(delim);
+		String option = options[choice];
 
-		default:
-			item = null;
-		}
-		item.setActive(true);
-
+		BufferedImage itemimage = ZombielandResources.getImage(option);
 		SpriteGroup items = playField.getGroup("Items");
-		items.add(item);
+		int healthOption = ZombielandResources.getInt("healthOption");
+
+		if (choice == healthOption) {
+			getHealthItem(x, y, option, itemimage, items);
+		} else {
+			getWeaponItem(x, y, option, itemimage, items);
+		}
+
+	}
+
+	/**
+	 * This method returns a gun item and adds ammo for the player.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param option
+	 * @param itemimage
+	 * @param items
+	 */
+	private void getWeaponItem(double x, double y, String option,
+			BufferedImage itemimage, SpriteGroup items) {
+		int weaponoption = ZombielandResources.getInt(option);
+		Item newGun = new WeaponItem(player, new Sprite(itemimage),
+				weaponoption, x, y);
+		items.add(newGun);
+		newGun.setActive(true);
+	}
+
+	/**
+	 * This method returns a health kit and adds 100 health for the player.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param option
+	 * @param itemimage
+	 * @param items
+	 */
+	private void getHealthItem(double x, double y, String option,
+			BufferedImage itemimage, SpriteGroup items) {
+		int health = ZombielandResources.getInt(option);
+		Item healthkit = new HealthItem(player, new Sprite(itemimage), health,
+				x, y);
+		items.add(healthkit);
+		healthkit.setActive(true);
 	}
 
 	/**
