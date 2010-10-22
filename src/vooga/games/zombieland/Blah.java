@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import vooga.engine.core.Game;
 import vooga.engine.state.*;
+import vooga.games.zombieland.gamestates.ZombielandPauseState;
+import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
 import com.golden.gamedev.GameLoader;
 
@@ -20,39 +22,31 @@ import com.golden.gamedev.GameLoader;
  *               dropped.
  */
 
-public class Blah extends Game {
-	
-	private static final int SCREEN_WIDTH = 700;
-	private static final int SCREEN_HEIGHT = 500;
+public class Blah extends Game implements Constants{
 
 	private static ZombielandPlayState zombielandPlayState;
 	private static ZombielandPauseState zombielandPauseState;
 	
-	
-	@Override
 	/**
 	 * We overrode this method because we have specific a subclass ResourceHandler 
 	 * that we implemented for our purpose
 	 */
 	public void initResources() {
 		
-		ZombielandResources.initialize(this,
-				"src/vooga/games/zombieland/resources/");
+		ZombielandResources.initialize(this,DEFAULT_RESOURCE_DIRECTORY);
 		try {
-			ZombielandResources.loadPropertiesFile("game.properties");
+			ZombielandResources.loadPropertiesFile(RESOURCE_FILENAME);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		zombielandPauseState = new ZombielandPauseState(this);
-		zombielandPlayState = new ZombielandPlayState(this, SCREEN_WIDTH,
-				SCREEN_HEIGHT);
-		zombielandPlayState.initialize();
+		zombielandPlayState = new ZombielandPlayState(this);
 	
 		initGameStates();
 		getGameStateManager().addGameState(zombielandPlayState);
+		zombielandPlayState.activate();
 		getGameStateManager().addGameState(zombielandPauseState);
-		getGameStateManager().activateAll();
 	}
 
 	/**
@@ -73,15 +67,11 @@ public class Blah extends Game {
 	public void update(long elapsedTime) {
 		
 		if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
-			getGameStateManager().toggle(zombielandPauseState);
 			getGameStateManager().toggle(zombielandPlayState);
-			
-			boolean active = zombielandPlayState.getOverlayPauseString().isActive();
-			zombielandPlayState.getOverlayPauseString().setActive(!active);
+			getGameStateManager().toggle(zombielandPauseState);
 		}
 		
 		getGameStateManager().update(elapsedTime);
-		zombielandPlayState.update(elapsedTime);
 	}
 
 	/**
@@ -100,7 +90,7 @@ public class Blah extends Game {
 	 */
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new Blah(), new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT),
+		game.setup(new Blah(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
 				false);
 		game.start();
 	}

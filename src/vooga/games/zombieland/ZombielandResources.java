@@ -7,7 +7,7 @@ import com.golden.gamedev.object.AnimatedSprite;
 import vooga.engine.resource.Resources;
 
 public class ZombielandResources extends Resources {
-	public  static long defaultAnimationDelay = 300;
+	public static long defaultAnimationDelay = 200;
 	public static AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
 		AnimatedSprite sprite = new AnimatedSprite(images);
 		initializeAnimatedSprite(sprite, defaultAnimationDelay, true);
