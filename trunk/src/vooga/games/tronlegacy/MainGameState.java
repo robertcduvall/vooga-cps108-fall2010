@@ -27,7 +27,7 @@ import vooga.engine.state.GameState;
  *         to-do status list 
  *         level API - functional - create more complex levels
  *         player API - functional - improve computer ai (in essence, implement any ai whatsoever) 
- *         state API - functional - improve menu and pause graphics
+ *         state API - functional - improve pause graphics
  *         overlay API - functional - track more stats? lives?
  *         resource API - functional - complete 
  *         collision API - deprecated 
@@ -42,6 +42,7 @@ public class MainGameState extends GameState {
 	private final static Point computerPlayerStartingLocation = new Point(432,
 			240);
 	private final static String LEVEL_FILEPATH = "src/vooga/games/tronlegacy/resources/levels/";
+	private final static Color BACKGROUND_COLOR = Color.BLACK;
 
 	private EventManager eventManager;
 	private TLevelManager levelManager;
@@ -70,37 +71,6 @@ public class MainGameState extends GameState {
 		levelManager.addLevels(LEVEL_FILEPATH, new File("levels.txt"));
 
 		deployLevel();
-	}
-
-	public void render(Graphics2D g) {
-		currentPlayField.render(g);
-
-		// handles those few sprites behind the players that we don't want to
-		// collide immediately upon creation
-		for (Sprite currentSprite : blockQueue) {
-			currentSprite.render(g);
-		}
-	}
-
-	public void update(long elapsedTime) {
-		keyboardControl.update();
-		deployPlayerBlocks();
-		currentPlayField.update(elapsedTime);
-		computerPlayer.aiUpdate(currentPlayField);
-		checkLevelStatus();
-	}
-
-	public void deployPlayerBlocks() {
-		for (Sprite currentPlayer : players.getSprites()) {
-			if (currentPlayer != null) {
-				blockQueue.add(new Sprite(currentPlayer.getImage(),
-						currentPlayer.getX(), currentPlayer.getY()));
-			}
-		}
-
-		while (blockQueue.size() > FPS / 5) {
-			playerBlocks.add(blockQueue.remove());
-		}
 	}
 
 	public void initializePlayers() {
@@ -142,7 +112,7 @@ public class MainGameState extends GameState {
 		currentPlayField = levelManager.getCurrentPlayField(new File(
 				LEVEL_FILEPATH + "/level" + currentLevel + ".txt"));
 
-		currentPlayField.setBackground(new ColorBackground(Color.WHITE));
+		currentPlayField.setBackground(new ColorBackground(BACKGROUND_COLOR));
 
 		resetPlayers();
 
@@ -161,6 +131,19 @@ public class MainGameState extends GameState {
 				currentPlayField.getBackground()));
 		currentPlayField.addCollisionGroup(players, playerBlocks,
 				new TronCollision());
+	}
+
+	public void deployPlayerBlocks() {
+		for (Sprite currentPlayer : players.getSprites()) {
+			if (currentPlayer != null) {
+				blockQueue.add(new Sprite(currentPlayer.getImage(),
+						currentPlayer.getX(), currentPlayer.getY()));
+			}
+		}
+
+		while (blockQueue.size() > FPS / 5) {
+			playerBlocks.add(blockQueue.remove());
+		}
 	}
 
 	public void resetPlayers() {
@@ -185,7 +168,7 @@ public class MainGameState extends GameState {
 		} else if (!computerPlayer.isActive()) {
 			game.playSound(Resources.getSound("explosion"));
 			currentLevel++;
-			currentScore.setStat(currentScore.getStat() + 50);
+			currentScore.setStat(currentScore.getStat() + 10);
 			deployLevel();
 		}
 
@@ -193,5 +176,23 @@ public class MainGameState extends GameState {
 			humanPlayer.invokePause();
 			game.togglePauseGame();
 		}
+	}
+	
+	public void render(Graphics2D g) {
+		currentPlayField.render(g);
+
+		// handles those few sprites behind the players that we don't want to
+		// collide immediately upon creation
+		for (Sprite currentSprite : blockQueue) {
+			currentSprite.render(g);
+		}
+	}
+
+	public void update(long elapsedTime) {
+		keyboardControl.update();
+		deployPlayerBlocks();
+		currentPlayField.update(elapsedTime);
+		computerPlayer.aiUpdate(currentPlayField);
+		checkLevelStatus();
 	}
 }
