@@ -17,18 +17,18 @@ import vooga.games.grandius.enemy.common.Enemy;
 @SuppressWarnings("serial")
 public abstract class GrandiusBoss extends Enemy {
 	
-	protected int myHealth;
-	protected int[] myBreakpoints; //0=green done, 1=yellow done
-	protected BufferedImage[] myImages; //0=shielded_3, 1=shielded_2, 2=shielded_1, 3=green, 4=yellow, 5=red
-	private List<Sprite> myParts;
+	protected int health;
+	protected int[] breakpoints; //0=green done, 1=yellow done
+	protected BufferedImage[] images; //0=shielded_3, 1=shielded_2, 2=shielded_1, 3=green, 4=yellow, 5=red
+	private List<Sprite> partsList;
 	private boolean vulnerable;
 	
 	public GrandiusBoss(BufferedImage[] images, int[] breakpoints, double x, double y, int health, 
 				       List<Sprite> parts) {
 		super(images, x, y);
-		this.myBreakpoints = breakpoints;
-		this.myHealth = health;
-		this.myParts = parts;
+		this.breakpoints = breakpoints;
+		this.health = health;
+		this.partsList = parts;
 	}
 	
 	public boolean isVulnerable() {
@@ -40,15 +40,15 @@ public abstract class GrandiusBoss extends Enemy {
 	}
 	
 	public void setParts(List<Sprite> parts) {
-		this.myParts = parts;
+		this.partsList = parts;
 	}
 	
 	public void addPart(BossPart part) {
-		this.myParts.add(part);
+		this.partsList.add(part);
 	}
 	
 	public void removePart(BossPart part) {
-		this.myParts.remove(part);
+		this.partsList.remove(part);
 	}
 	
 	@Override

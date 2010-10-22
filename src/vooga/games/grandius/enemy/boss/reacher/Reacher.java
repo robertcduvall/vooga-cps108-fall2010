@@ -103,12 +103,12 @@ public class Reacher extends GrandiusBoss {
 		if (!this.isVulnerable()) {
 			return false;
 		}
-		this.myHealth -= depleteAmount;
-		if (myHealth <= 0) {
+		this.health -= depleteAmount;
+		if (health <= 0) {
 			return true;
-		} else if (myHealth >= myBreakpoints[0]) {
+		} else if (health >= breakpoints[0]) {
 			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[3]});
-		} else if (myHealth >= myBreakpoints[1]) {
+		} else if (health >= breakpoints[1]) {
 			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[4]});
 		} else {
 			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[5]});
