@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
@@ -13,20 +12,19 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.GameLoader;
+import com.golden.gamedev.engine.BaseAudio;
 import com.golden.gamedev.engine.BaseIO;
 import com.golden.gamedev.engine.BaseLoader;
 import com.golden.gamedev.object.GameFont;
-import com.golden.gamedev.object.background.ColorBackground;
-import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.object.font.SystemFont;
 
 /**
  * 
  * @author David Herzka, Cameron McCallie, Andrew Brown
  * 
- *         Our game takes after the popular Mario game series. This project was written and
- *         developed with the VOOGA game engine, in Duke University's Computer
- *         Science 108 class.
+ *         Our game takes after the popular Mario game series. This project was
+ *         written and developed with the VOOGA game engine, in Duke
+ *         University's Computer Science 108 class.
  * 
  */
 
@@ -39,27 +37,27 @@ public class DropThis extends Game {
 	private GamePlayState myGamePlayState;
 	private MainMenuState myMenuState, myPausedState, myLevelFinishedState;
 	private GameEndState myLoseState, myWinState;
-	
+
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
 		DropThis game = new DropThis();
-		Resources.loadInt("Height",HEIGHT);
-		Resources.loadInt("Width",WIDTH);
+		Resources.loadInt("Height", HEIGHT);
+		Resources.loadInt("Width", WIDTH);
 		gl.setup(game, new Dimension(WIDTH, HEIGHT), false);
 		gl.start();
 	}
 
 	public void initResources() {
-		bsMusic.setAudioPolicy(bsMusic.SINGLE_REPLAY);
+		bsMusic.setAudioPolicy(BaseAudio.SINGLE_REPLAY);
 		bsMusic.setExclusive(true);
 		Resources.setGame(this);
-		GameFont menuFont = fontManager.getFont(getImages("resources/images/font.png",
-				20, 3),
+		GameFont menuFont = fontManager.getFont(getImages(
+				"resources/images/font.png", 20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		bsLoader = new BaseLoader(new BaseIO(DropThis.class), Color.white);
 
 		Resources.setDefaultPath("src/vooga/games/marioclone/resources/");
-		
+
 		try {
 			Resources.loadPropertiesFile("game.properties");
 		} catch (IOException e) {
@@ -77,13 +75,16 @@ public class DropThis extends Game {
 		fontManager.putFont("GAMEOVER", gameOverFont);
 		fontManager.putFont("MENU", menuFont);
 
-		myMenuState = new MainMenuState(Resources.getImage("MenuBG"),fontManager);
-		myPausedState = new MainMenuState(Resources.getImage("PauseBG"),fontManager);
+		myMenuState = new MainMenuState(Resources.getImage("MenuBG"),
+				fontManager);
+		myPausedState = new MainMenuState(Resources.getImage("PauseBG"),
+				fontManager);
 		myLoseState = new GameEndState(Resources.getImage("LoseBG"), "FAIL!",
 				fontManager);
 		myWinState = new GameEndState(Resources.getImage("WinBG"), "YOU WIN!",
 				fontManager);
-		myLevelFinishedState = new MainMenuState(Resources.getImage("LevelFinishedBG"),fontManager);
+		myLevelFinishedState = new MainMenuState(Resources
+				.getImage("LevelFinishedBG"), fontManager);
 
 		myGameStateManager.addGameState(myMenuState);
 		myGameStateManager.addGameState(myPausedState);
@@ -91,10 +92,8 @@ public class DropThis extends Game {
 		myGameStateManager.addGameState(myLoseState);
 		myGameStateManager.addGameState(myWinState);
 		myGameStateManager.addGameState(myLevelFinishedState);
-		
+
 		myGameStateManager.switchTo(myMenuState);
-		
-		
 
 	}
 
@@ -125,31 +124,27 @@ public class DropThis extends Game {
 				myGameStateManager.switchTo(myLevelFinishedState);
 				break;
 			}
-			if (keyPressed(KeyEvent.VK_P)){
+			if (keyPressed(KeyEvent.VK_P)) {
 				myGameStateManager.switchTo(myPausedState);
-			} else{
+			} else {
 				nextState = myGamePlayState.nextState();
 			}
-		}
-		else if (myPausedState.isActive()){
-			if (keyPressed(KeyEvent.VK_P)){
+		} else if (myPausedState.isActive()) {
+			if (keyPressed(KeyEvent.VK_P)) {
 				bsMusic.setLoop(true);
 				myGameStateManager.switchTo(myGamePlayState);
 			}
-		}
-		else if (myMenuState.isActive()) {
+		} else if (myMenuState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
 				myGameStateManager.switchTo(myGamePlayState);
 			}
-		}
-		else if (myWinState.isActive() || myLoseState.isActive()) {
+		} else if (myWinState.isActive() || myLoseState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
 				bsMusic.setLoop(true);
 				myGamePlayState.init();
 				myGameStateManager.switchTo(myGamePlayState);
 			}
-		}
-		else if(myLevelFinishedState.isActive()){
+		} else if (myLevelFinishedState.isActive()) {
 			if (keyPressed(KeyEvent.VK_SPACE)) {
 				bsMusic.setLoop(true);
 				myGameStateManager.switchTo(myGamePlayState);

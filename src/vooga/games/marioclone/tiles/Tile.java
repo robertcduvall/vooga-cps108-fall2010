@@ -9,18 +9,18 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public abstract class Tile extends Sprite {
 
-
 	private State state;
-	public enum State {active,inactive,removed};
-	
-	
+
+	public enum State {
+		active, inactive, removed
+	};
+
 	public Tile(BufferedImage image, double x, double y) {
-		super(image,x,y);
+		super(image, x, y);
 	}
 
-	
 	public abstract void actOnCollision(Sprite sprite);
-	
+
 	protected void setState(State state) {
 		this.state = state;
 	}
@@ -33,5 +33,5 @@ public abstract class Tile extends Sprite {
 	public ItemSprite checkItem() {
 		return null;
 	}
-	
+
 }

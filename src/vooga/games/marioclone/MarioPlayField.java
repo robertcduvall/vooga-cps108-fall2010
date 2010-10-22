@@ -95,9 +95,9 @@ public class MarioPlayField extends PlayField {
 	@SuppressWarnings("unchecked")
 	private void updateStats() {
 		myOverlays.getStats().get(0).setStat(getMario().getHealth()); // update
-																		// lives
+		// lives
 		myOverlays.getStats().get(1).setStat(getMario().getScore()); // update
-																		// score
+		// score
 	}
 
 	@Override
@@ -122,7 +122,6 @@ public class MarioPlayField extends PlayField {
 		int backgroundWidth = myTileMap.width * myTileMap.TILE_SIZE;
 		return getMario().getX() > backgroundWidth - 200;
 	}
-	
 
 	public void setSpawnLocation(double x, double y) {
 		this.mySpawnX = x;
@@ -136,5 +135,5 @@ public class MarioPlayField extends PlayField {
 	public void setMusic(String music) {
 		this.myMusic = music;
 	}
-	
+
 }

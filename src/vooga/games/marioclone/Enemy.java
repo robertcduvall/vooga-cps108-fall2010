@@ -2,10 +2,6 @@ package vooga.games.marioclone;
 
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.object.Sprite;
-
-import vooga.engine.player.control.PlayerSprite;
-
 /**
  * @author David Herzka, Cameron McCallie, Andrew Brown
  * 
@@ -13,6 +9,7 @@ import vooga.engine.player.control.PlayerSprite;
  * 
  */
 
+@SuppressWarnings("serial")
 public class Enemy extends CharacterSprite {
 
 	private static final double mySpeed = .25;
@@ -45,6 +42,5 @@ public class Enemy extends CharacterSprite {
 	public void bounce() {
 		setHorizontalSpeed(-getHorizontalSpeed());
 	}
-
 
 }

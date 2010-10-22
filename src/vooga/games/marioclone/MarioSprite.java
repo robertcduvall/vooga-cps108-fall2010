@@ -68,11 +68,11 @@ public class MarioSprite extends CharacterSprite {
 	public void setOnGround(boolean b) {
 		onGround = b;
 	}
-	
+
 	public boolean isKilled() {
 		return killed;
 	}
-	
+
 	public void setKilled(boolean b) {
 		killed = b;
 	}

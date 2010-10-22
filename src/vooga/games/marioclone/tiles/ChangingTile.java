@@ -7,8 +7,6 @@ import java.util.List;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.collision.Collidable;
-
 @SuppressWarnings("serial")
 public class ChangingTile extends Tile {
 
@@ -41,7 +39,7 @@ public class ChangingTile extends Tile {
 	protected void unlock() {
 		locked = false;
 	}
-	
+
 	protected boolean isLocked() {
 		return locked;
 	}
