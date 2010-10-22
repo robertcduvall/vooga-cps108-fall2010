@@ -51,10 +51,6 @@ public class ZombielandPlayState extends GameState {
 	private OverlayStat overlayAmmoStat;
 	private OverlayStat overlayLevelStat;
 
-	private GameStateManager stateManager;
-	private GameState zombielandPlayState;
-	private GameState zombielandPauseState;
-
 	private Stat<Integer> statLevel;
 	private int level;
 	private int zombiesAppeared;
@@ -64,24 +60,26 @@ public class ZombielandPlayState extends GameState {
 		GAME_WIDTH = screen_width;
 		GAME_HEIGHT = screen_height;
 		currentGame = game;
-
-		zombielandPlayState = new GameState();
-		zombielandPauseState = new GameState();
-
-		//where do we properly put initialize()?
-		initialize();
 	}
 
 	@Override
 	public void initialize() {
 		player = new Shooter("Hero", "Down", currentGame);
-		stateManager.activateOnly(zombielandPlayState);
 		
 		initEnvironment();
 		initOverlays();
 		setListeners();
-		
+//		stateManager.activateOnly(zombielandPlayState);
 
+	}
+	
+	/**
+	 * This method returns the Pause string
+	 * @return
+	 */
+	public OverlayString getOverlayPauseString()
+	{
+		return overlayPauseString;
 	}
 
 	/**
@@ -92,8 +90,10 @@ public class ZombielandPlayState extends GameState {
 	private void initEnvironment() {
 		playField = new PlayField();
 
-		BufferedImage sandbg = ZombielandResources.getImage("sandbg");
+		String audiofile = ZombielandResources.getString("gamemusic");
+		currentGame.playMusic(audiofile);
 		
+		BufferedImage sandbg = ZombielandResources.getImage("sandbg");
 		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH, GAME_HEIGHT);
 
 		SpriteGroup zombies = new SpriteGroup("Zombies");
@@ -125,15 +125,15 @@ public class ZombielandPlayState extends GameState {
 		int delay = ZombielandResources.getInt("timer");
 		timer = new Timer(delay);
 
-		stateManager = new GameStateManager();
+//		stateManager = new GameStateManager();
+//
+//		stateManager.addGameState(zombielandPlayState);
+//		stateManager.addGameState(zombielandPauseState);
 
-		stateManager.addGameState(zombielandPlayState);
-		stateManager.addGameState(zombielandPauseState);
-
-		zombielandPlayState.addGroup(players);
-		zombielandPlayState.addGroup(zombies);
-		zombielandPlayState.addGroup(bullets);
-		zombielandPlayState.addGroup(items);
+		addGroup(players);
+		addGroup(zombies);
+		addGroup(bullets);
+		addGroup(items);
 
 		playField.setBackground(background);
 
@@ -284,15 +284,8 @@ public class ZombielandPlayState extends GameState {
 
 	@Override
 	public void update(long elapsedTime) {
-		if (currentGame.bsInput.getKeyPressed() == KeyEvent.VK_P) {
-			stateManager.toggle(zombielandPauseState);
-			stateManager.toggle(zombielandPlayState);
-			overlayPauseString.setActive(!overlayPauseString.isActive());
-		}
-
-		stateManager.update(elapsedTime);
-
-		if (zombielandPlayState.isActive()) {
+	
+		if (isActive()) {
 			playField.update(elapsedTime);
 			control.update();
 			if (moreZombieCanBeAdded()) {
@@ -447,7 +440,6 @@ public class ZombielandPlayState extends GameState {
 	@Override
 	public void render(Graphics2D g) {
 		playField.render(g);
-		stateManager.render(g);
 		if (overlayLevelStat.isActive()) {
 			overlayLevelStat.render(g);
 		}
