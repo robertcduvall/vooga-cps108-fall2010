@@ -3,12 +3,13 @@ package vooga.games.marioclone;
 import com.golden.gamedev.object.Sprite;
 
 public class MarioToEnemyCollision extends BetterCollisionGroup {
-	long lastcollision;
-
+	long myLastCollisionTime;
+	
+	
 	@Override
 	public void collided(Sprite mario, Sprite enemy) {
-		long thiscollision = System.currentTimeMillis();
-		if (thiscollision - lastcollision > 100) {
+		long thisCollisionTime = System.currentTimeMillis();
+		if (thisCollisionTime - myLastCollisionTime > 100) {
 			int side = getCollisionSide(mario, enemy);
 			MarioSprite thisMario = (MarioSprite) mario;
 			Enemy thisEnemy = (Enemy) enemy;
@@ -19,7 +20,7 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 				thisMario.setHealth(thisMario.getHealth() - 1);
 				thisEnemy.bounce();
 			}
-			lastcollision = thiscollision;
+			myLastCollisionTime = thisCollisionTime;
 		}
 	}
 }
