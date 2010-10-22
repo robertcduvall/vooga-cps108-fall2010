@@ -11,9 +11,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import vooga.engine.player.control.ItemSprite;
 import vooga.engine.resource.Resources;
+import vooga.games.marioclone.items.Coin;
 import vooga.games.marioclone.items.GravityItem;
 import vooga.games.marioclone.tiles.BreakTile;
 import vooga.games.marioclone.tiles.ChangingTile;
+import vooga.games.marioclone.tiles.CoinTile;
 import vooga.games.marioclone.tiles.IndestructibleTile;
 import vooga.games.marioclone.tiles.ItemTile;
 import vooga.games.marioclone.tiles.Tile;
@@ -143,8 +145,20 @@ public class TileMap {
 					itemTileImages.add(Resources.getImage("ItemTile2"));
 					GravityItem gravityItem = new GravityItem(new Sprite(
 							Resources.getImage("GravityItem")), .5);
-					gravityItem.setLocation(x, y - gravityItem.getHeight());
+					gravityItem.setLocation(x
+							+ (TILE_SIZE - gravityItem.getWidth()) / 2, y
+							- gravityItem.getHeight());
 					addTile(new ItemTile(x, y, itemTileImages, gravityItem));
+					break;
+				case ('S'):
+					List<BufferedImage> coinTileImages = new ArrayList<BufferedImage>();
+					coinTileImages.add(Resources.getImage("ItemTile1"));
+					coinTileImages.add(Resources.getImage("ItemTile2"));
+					Coin coin = new Coin(new Sprite(Resources
+							.getImage("Coin")));
+					coin.setLocation(x + (TILE_SIZE - coin.getWidth()) / 2, y
+							- coin.getHeight());
+					addTile(new CoinTile(x, y, coinTileImages, coin));
 					break;
 				}
 			}

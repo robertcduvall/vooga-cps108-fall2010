@@ -41,7 +41,7 @@ public abstract class BetterCollisionGroup extends AdvanceCollisionGroup {
 		if (s1.getVerticalSpeed() < 0
 				&& (s1.getY() >= s2.getY() || s1.getHorizontalSpeed() == 0))
 			return TOP_BOTTOM_COLLISION;
-		return 5;
+		return Integer.MAX_VALUE;
 	}
 
 	/**
@@ -93,7 +93,7 @@ public abstract class BetterCollisionGroup extends AdvanceCollisionGroup {
 		case (BOTTOM_TOP_COLLISION):
 			sideString = "Bottom<->Top";
 			break;
-		case (5):
+		case (Integer.MAX_VALUE):
 			sideString = "Can't tell";
 			break;
 		}

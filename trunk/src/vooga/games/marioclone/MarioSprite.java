@@ -110,7 +110,7 @@ public class MarioSprite extends CharacterSprite {
 	}
 
 	public void actOnItem(ItemSprite item) {
-		if (item.getClass().equals(GravityItem.class)) {
+		if (item instanceof GravityItem) {
 			setGravityCoef(((GravityItem) item).getGravity());
 		}
 	}
