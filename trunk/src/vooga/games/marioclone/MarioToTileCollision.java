@@ -1,6 +1,7 @@
 package vooga.games.marioclone;
 
 import vooga.games.marioclone.tiles.Tile;
+import vooga.games.marioclone.tiles.ChangingTile;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -25,11 +26,12 @@ public class MarioToTileCollision extends BetterCollisionGroup {
 		case (TOP_BOTTOM_COLLISION):
 			mario.setVerticalSpeed(0);
 			((Tile) tile).actOnCollision(mario);
+			if(tile instanceof ChangingTile)
+				((MarioSprite) mario).incScore(10);
 			break;
 		case (BOTTOM_TOP_COLLISION):
 			mario.setVerticalSpeed(0);
 			((MarioSprite) mario).setOnGround(true);
-			((MarioSprite) mario).incScore(10);
 			break;
 		}
 
