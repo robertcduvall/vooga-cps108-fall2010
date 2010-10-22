@@ -18,6 +18,4 @@ public class TronBounds extends CollisionBounds {
 		sprite.setActive(false);
 	}
 
-	
-
 }
