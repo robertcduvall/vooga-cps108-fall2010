@@ -16,25 +16,25 @@ public class Boomer extends Enemy {
 	private static final int SCORE_VALUE = 100;
 	private static final int CASH_VALUE = 2;
 	
-	private int myColor;
+	private int color;
 	
 	public Boomer(BufferedImage[] images, double x, double y) {
 		super(images, x, y);
-		this.myColor = BOOMER_BLUE;
+		this.color = BOOMER_BLUE;
 		this.setHorizontalSpeed(-0.04);
-		myScore = SCORE_VALUE;
-		myCash = CASH_VALUE;
+		scoreValue = SCORE_VALUE;
+		cashValue = CASH_VALUE;
 	}
 	
 	public int getColor() {
-		return this.myColor;
+		return this.color;
 	}
 	
 	public void trigger() {
-		if (myColor == BOOMER_RED) {
+		if (color == BOOMER_RED) {
 			this.setActive(false);
 		} else {
-			this.myColor++;
+			this.color++;
 		}
 	}
 	

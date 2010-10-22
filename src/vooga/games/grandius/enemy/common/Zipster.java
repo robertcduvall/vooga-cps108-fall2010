@@ -20,14 +20,14 @@ public class Zipster extends Enemy {
 	private static final double ZIPSTER_LASER_SPEED = 0.15;
 	private static final double ZIPSTER_SPEED = 0.015;
 	private static final int ZIPSTER_LASER_RELOAD_TIME = 1000;
-	public static final int SCORE_VALUE = 25;
+	private static final int SCORE_VALUE = 25;
 	private static final int CASH_VALUE = 1;
 	
 	public Zipster(BufferedImage[] images, double x, double y) {
 		super(images, x, y);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
-		myScore = SCORE_VALUE;
-		myCash = CASH_VALUE;
+		scoreValue = SCORE_VALUE;
+		cashValue = CASH_VALUE;
 		spin = 0;
 		blackHoleProximate = false;
 	}
