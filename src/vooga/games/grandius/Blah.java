@@ -28,6 +28,8 @@ import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
+import com.golden.gamedev.object.background.ImageBackground;
+import com.golden.gamedev.util.ImageUtil;
 
 import vooga.games.grandius.collisions.BlackHoleEnemyCollision;
 import vooga.games.grandius.collisions.MissileBossCollision;
@@ -45,6 +47,7 @@ import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.weapons.BlackHole;
 import vooga.games.grandius.weapons.Missile;
+import vooga.games.towerdefense.State;
 
 /**
  * Grandius is a side-scrolling space shooter. The object of each level is to destroy all enemies. The player is the red ship on the
@@ -67,7 +70,7 @@ public class Blah extends Game {
 	private GameState startNewLevelState;
 	private GameState gameCompleteState;
 	private GameState gameOverState;
-	private GameStateManager gameStateManager;
+	//private GameStateManager gameStateManager;
 	
 	private static final int LAST_LEVEL = 3;
 	private static final int NUM_COMETS = 1500;
@@ -96,6 +99,7 @@ public class Blah extends Game {
 	private SpriteGroup shoppingLevelGroup;
 	private SpriteGroup gameCompleteGroup;
 	private SpriteGroup gameOverGroup;
+	private SpriteGroup backgroundGroup;
 	
 	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
 
@@ -146,18 +150,6 @@ public class Blah extends Game {
 	@Override
 	public void initResources() {
 		//TODO - change to work with new Overlay xml
-		super.initResources();
-		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
-				" !            .,0123" +
-				"456789:   -? ABCDEFG" +
-		"HIJKLMNOPQRSTUVWXYZ ");
-		
-		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		statLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
-		statScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
-		statCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
-		levelManager = new GrandiusLevelManager();
-		
 		directoriesFile = new Properties();
 		stringsFile = new Properties();
 		try {
@@ -168,8 +160,17 @@ public class Blah extends Game {
 		{
 			System.out.println(".properties file not found!");
 		}
+		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
+				" !            .,0123" +
+				"456789:   -? ABCDEFG" +
+		"HIJKLMNOPQRSTUVWXYZ ");
 		
-		
+		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
+		statLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
+		statScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		statCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		levelManager = new GrandiusLevelManager();
+	
 		String levelFilesDirectory = directoriesFile.getProperty("levelFilesDirectory");
 		String levelNamesFile = directoriesFile.getProperty("levelNamesFile");
 		levelManager.addLevels(levelFilesDirectory,new File(levelNamesFile));
@@ -190,62 +191,94 @@ public class Blah extends Game {
 		}
 
 		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
-
+		
 		playfield = new PlayField();
+		levelManager.getLevelFactory().setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
+		
+		//playfield.setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
+		//ImageBackground background = new ImageBackground(Resources.getImage("BG"));
 
 		shipSprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
 		playerSprite = new PlayerSprite("ThePlayer", "alive", shipSprite);
 		createComets();
-
 		createSpriteGroups();
 		playerGroup.add(playerSprite);
+		backgroundGroup.add(new Sprite(Resources.getImage("BG")));
 
 		reacherShieldsDepleted = false;
 		
 		//Start building the game states and state manager
-		gameStateManager = new GameStateManager();
+		//gameStateManager = new GameStateManager();
+		//initGameStates(); (done by super.initResources()
+//		gameStates = new ArrayList<GameState>();
+//		
+//		addToGameStateList(menuState);
+//		addToGameStateList(playState);
+//		addToGameStateList(levelCompleteState);
+//		addToGameStateList(shoppingLevelState);
+//		addToGameStateList(startNewLevelState);
+//		addToGameStateList(gameCompleteState);
+//		addToGameStateList(gameOverState);
 		
+//		getGameStateManager().switchTo(menuState);
+		
+		//create collisions and register them to the playfield
+		createCollisions();
+		addOverlays();
+		super.initResources();
+	}
+
+	@Override
+	public void initGameStates() {
+		super.initGameStates();
+		int screenWidth = Integer.parseInt(stringsFile.getProperty("screenWidth"));
+		int screenHeight = Integer.parseInt(stringsFile.getProperty("screenHeight"));
+		buildMenuState();
 		buildPlayState();
 		buildLevelCompleteState();
-		
-		gameCompleteState = new GameState();
-		gameCompleteGroup.add(new OverlayString("Game complete"));
-		gameCompleteState.addRenderGroup(gameCompleteGroup);
-		
+		buildGameCompleteState();
 		buildShoppingLevelState();
-		
-		startNewLevelState = new GameState();
-		
-		buildMenuState();
-		
+		buildStartNewLevelState();
+		buildGameOverState(screenWidth, screenHeight);
+
+		getGameStateManager().addGameState(menuState);
+		getGameStateManager().addGameState(playState);
+		getGameStateManager().addGameState(levelCompleteState);
+		getGameStateManager().addGameState(gameCompleteState);
+		getGameStateManager().addGameState(shoppingLevelState);
+		getGameStateManager().addGameState(startNewLevelState);
+		getGameStateManager().addGameState(gameOverState);
+
+		getGameStateManager().switchTo(menuState);
+	}
+
+	private void buildGameOverState(int screenWidth, int screenHeight) {
 		gameOverState = new GameState();
 		OverlayString gameOver = new OverlayString("GAME OVER",
 				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
 		gameOver.setLocation(screenWidth/2 - gameOver.getWidth()/2, screenHeight/2);
 		gameOverGroup.add(gameOver);
+		gameOverState.addGroup(backgroundGroup);
 		gameOverState.addRenderGroup(gameOverGroup);
-		
-		gameStates = new ArrayList<GameState>();
-		
-		addToGameStateList(menuState);
-		addToGameStateList(playState);
-		addToGameStateList(levelCompleteState);
-		addToGameStateList(shoppingLevelState);
-		addToGameStateList(startNewLevelState);
-		addToGameStateList(gameCompleteState);
-		addToGameStateList(gameOverState);
-		
-		gameStateManager.switchTo(menuState);
-		
-		//create collisions and register them to the playfield
-		createCollisions();
-		addOverlays();
 	}
 
-	private void addToGameStateList(GameState gameState) {
-		gameStates.add(gameState);
-		gameStateManager.addGameState(gameState);
+	private void buildStartNewLevelState() {
+		startNewLevelState = new GameState();
+		startNewLevelState.addGroup(backgroundGroup);
 	}
+
+	private void buildGameCompleteState() {
+		gameCompleteState = new GameState();
+		gameCompleteGroup.add(new OverlayString("Game complete"));
+		gameCompleteState.addGroup(backgroundGroup);
+		gameCompleteState.addRenderGroup(gameCompleteGroup);
+	}
+	
+//	private void addToGameStateList(GameState gameState) {
+	//TODO utilize gameStates list for looping?
+//		gameStates.add(gameState);
+//		getGameStateManager().addGameState(gameState);
+//	}
 
 	private void buildShoppingLevelState() {
 		shoppingLevelState = new GameState();
@@ -264,6 +297,7 @@ public class Blah extends Game {
 			shoppingLevel.setLocation(displayX, displayY);
 			shoppingLevelGroup.add(shoppingLevel);
 		}
+		shoppingLevelState.addGroup(backgroundGroup);
 		shoppingLevelState.addGroup(shoppingLevelGroup);
 	}
 
@@ -276,7 +310,8 @@ public class Blah extends Game {
 		levelComplete1.setLocation(displayX,displayY);
 		OverlayString levelComplete2 = new OverlayString(stringsFile.getProperty("levelCompleteMessage"), font);
 		levelComplete2.setLocation(displayX,2*displayY);
-
+		
+		levelCompleteState.addGroup(backgroundGroup);
 		levelCompleteGroup.add(levelComplete1);
 		levelCompleteGroup.add(levelComplete2);
 		levelCompleteState.addRenderGroup(levelCompleteGroup);
@@ -284,6 +319,7 @@ public class Blah extends Game {
 
 	private void buildPlayState() {
 		playState = new GameState();
+		playState.addGroup(backgroundGroup);
 		playState.addGroup(playerGroup);
 		playState.addGroup(projectileGroup);
 		playState.addGroup(enemyProjectileGroup);
@@ -296,6 +332,7 @@ public class Blah extends Game {
 
 	private void buildMenuState() {
 		menuState = new GameState();
+		menuState.addGroup(backgroundGroup);
 		for(int i=1;i<9;i++){
 			OverlayString menu = new OverlayString(stringsFile.getProperty("menu"+i), font);
 			menu.setLocation(Integer.parseInt(stringsFile.getProperty("menuX")), Integer.parseInt(stringsFile.getProperty("menuY"))*i);
@@ -351,6 +388,7 @@ public class Blah extends Game {
 		shoppingLevelGroup = 	new SpriteGroup("ShoppingLevelGroup");
 		gameCompleteGroup = 	new SpriteGroup("GameCompleteGroup");
 		gameOverGroup = 		new SpriteGroup("GameOverGroup");
+		backgroundGroup =       playfield.addGroup(new SpriteGroup("Background"));
 		
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		spriteGroupSpeedMap.put(projectileGroup, 		new Double(PROJECTILE_SPEED));
@@ -363,23 +401,26 @@ public class Blah extends Game {
 
 	@Override
 	public void render(Graphics2D g) {
-		if (menuState.isActive()) {
-			//myPlayfield.render(g);
-		}
+		super.render(g);
+		//playfield.render(g);
+		//playfield.clearPlayField();
+//		if (menuState.isActive()) {
+//			//myPlayfield.render(g);
+//		}
 		//Shouldn't need this list hypothetically
 		//GameStateManager should take care of this.
-		for(GameState gamestate: gameStates){
-			if (!gamestate.equals(menuState) && gamestate.isActive()) {
-				gamestate.render(g);
-				return;
-			}
-		}		
-		gameStateManager.render(g);
+//		for(GameState gamestate: gameStates){
+//			if (!gamestate.equals(menuState) && gamestate.isActive()) {
+//				gamestate.render(g);
+//				return;
+//			}
+//		}		
+		//gameStateManager.render(g);
 	}
+	
 
 	@Override
 	public void update(long elapsedTime) {
-		
 		if(levelManager.getCurrentLevel()==0){
 			PlayField playfield=levelManager.loadNextLevel();
 			playfield.setBackground(levelManager.getBackground());
@@ -387,10 +428,10 @@ public class Blah extends Game {
 				playfield.addGroup(group);
 			}
 		}
-		
+		super.update(elapsedTime);
 		if (menuState.isActive()){
 			if(click()){
-				gameStateManager.switchTo(playState);
+				getGameStateManager().switchTo(playState);
 				playSound(Resources.getSound("WatchThisSound"));
 				playSound(Resources.getSound("StartLevelSound"));
 			}
@@ -402,14 +443,13 @@ public class Blah extends Game {
 			checkCheats();
 			checkBossParts();
 			if (checkLevelComplete()) {
-
-				gameStateManager.switchTo(levelCompleteState);
 				playfield.clearPlayField();
+				getGameStateManager().switchTo(levelCompleteState);
 			}
 			playfield.update(elapsedTime);
 			if (statLives.getStat().intValue() <= 0) {
 				playfield.clearPlayField();
-				gameStateManager.switchTo(gameOverState);
+				getGameStateManager().switchTo(gameOverState);
 				playSound(Resources.getSound("OhManSound"));
 			}
 		}
@@ -417,11 +457,11 @@ public class Blah extends Game {
 		if (levelCompleteState.isActive()){
 			if(levelManager.getCurrentLevel()==LAST_LEVEL){
 				playfield.clearPlayField();
-				gameStateManager.switchTo(gameCompleteState);
+				getGameStateManager().switchTo(gameCompleteState);
 			}
 			else if(click()){
 				playfield.clearPlayField();
-				gameStateManager.switchTo(shoppingLevelState);
+				getGameStateManager().switchTo(shoppingLevelState);
 			}
 		}
 
@@ -438,24 +478,25 @@ public class Blah extends Game {
 						missileActive = true;
 						updateStat(statCash,-500);
 						playfield.clearPlayField();
-						gameStateManager.switchTo(startNewLevelState);
+						getGameStateManager().switchTo(startNewLevelState);
 					}
 					else if((this.getMouseY()>displayY*3) &&
 							(this.getMouseY()<displayY*4)){
 						blackHoleActive = true;
 						updateStat(statCash,-1000);
 						playfield.clearPlayField();
-						gameStateManager.switchTo(startNewLevelState);
+						getGameStateManager().switchTo(startNewLevelState);
 					}
 				}
 			}
 			if (keyPressed(KeyEvent.VK_SPACE)){
-				gameStateManager.switchTo(startNewLevelState);
+				getGameStateManager().switchTo(startNewLevelState);
 			}
 		}
 
 		if (startNewLevelState.isActive()){
 			PlayField playfield=levelManager.loadNextLevel();
+			playfield.clearPlayField();
 			playfield.setBackground(levelManager.getBackground());
 			for(SpriteGroup group: playfield.getGroups()){
 				playfield.addGroup(group);
@@ -464,9 +505,9 @@ public class Blah extends Game {
 			createComets();
 			playfield.addGroup(overlayPanel);
 			playSound(Resources.getSound("StartLevelSound"));
-			gameStateManager.switchTo(playState);
+			getGameStateManager().switchTo(playState);
 		}
-		gameStateManager.update(elapsedTime);
+		//getGameStateManager().update(elapsedTime);
 	}
 
 	/**
@@ -699,7 +740,6 @@ public class Blah extends Game {
 		return true;
 	}
 
-
 	/**
 	 * Method for adding a value (including negative ones)
 	 * to any Stat<Integer>, primarily for the lives, cash,
@@ -730,7 +770,7 @@ public class Blah extends Game {
 		}
 		//TODO: switch this to a game state?
 //		else if (playerLives==0){ //Game over.
-//			gameStateManager.switchTo(gameOverState);
+//			getGameStateManager().switchTo(gameOverState);
 ////			PLAYER_GROUP.setActive(false);
 ////			PROJECTILE_GROUP.setActive(false);
 ////			ENEMY_PROJECTILE_GROUP.setActive(false);

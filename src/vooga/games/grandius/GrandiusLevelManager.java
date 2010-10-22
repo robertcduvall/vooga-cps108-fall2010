@@ -70,5 +70,8 @@ public class GrandiusLevelManager extends LevelManager{
 		return levelFactory.getBackground();
 	}
 
+	public GrandiusLevelFactory getLevelFactory() {
+		return this.levelFactory;
+	}
 }
 
