@@ -65,7 +65,7 @@ public class DropThis extends vooga.engine.core.Game {
 	private void loadImages() {
 		try {
 			Resources
-					.loadImageFile("src/vooga/games/cyberion/resource/game.properties");
+					.loadImageFile("src/vooga/games/cyberion/resources/game.properties");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
