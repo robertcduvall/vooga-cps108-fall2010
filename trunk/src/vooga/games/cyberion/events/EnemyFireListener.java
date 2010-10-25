@@ -1,4 +1,4 @@
-package vooga.games.cyberion.GameEvent;
+package vooga.games.cyberion.events;
 
 import vooga.engine.event.IEventListener;
 

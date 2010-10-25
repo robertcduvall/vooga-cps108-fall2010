@@ -1,18 +1,21 @@
-package vooga.games.cyberion.GameEvent;
+package vooga.games.cyberion.events;
 
 import vooga.engine.event.IEvent;
 
-public class PlayerMoveEvent implements IEvent {
+public class PlayerFireEvent implements IEvent {
 	private Object obj;
 	private String eventName;
 	private double x;
 	private double y;
+	private int weaponPower;
 
-	public PlayerMoveEvent(Object source, String eventName, double x, double y) {
+	public PlayerFireEvent(Object source, String eventName, double x, double y,
+			int weaponPower) {
 		obj = source;
 		this.eventName = eventName;
 		this.x = x;
 		this.y = y;
+		this.weaponPower = weaponPower;
 	}
 
 	public Object getSource() {
@@ -29,6 +32,10 @@ public class PlayerMoveEvent implements IEvent {
 
 	public double getY() {
 		return y;
+	}
+
+	public int getWeaponPower() {
+		return weaponPower;
 	}
 
 }

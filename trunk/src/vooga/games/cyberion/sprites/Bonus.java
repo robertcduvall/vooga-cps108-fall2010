@@ -1,4 +1,4 @@
-package vooga.games.cyberion.CyberionSprite;
+package vooga.games.cyberion.sprites;
 
 import java.awt.image.BufferedImage;
 

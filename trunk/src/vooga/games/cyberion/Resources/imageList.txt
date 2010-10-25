@@ -1,7 +1,0 @@
-starImage,../Resources/star.png
-playerShot,../Resources/playerShot.png
-enemyShot,../Resources/enemyShot.png
-playerShip,../Resources/playerShip.png
-enemyShip,../Resources/enemyShip.png
-bonus,../Resources/bonus.png
-bg,../Resources/bg.png

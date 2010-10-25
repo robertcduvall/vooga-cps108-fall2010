@@ -1,10 +1,10 @@
-package vooga.games.cyberion.CyberionSprite;
+package vooga.games.cyberion.sprites;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import vooga.engine.event.EventManager;
-import vooga.games.cyberion.GameEvent.EnemyFireEvent;
+import vooga.games.cyberion.events.EnemyFireEvent;
 
 import com.golden.gamedev.object.Sprite;
 
