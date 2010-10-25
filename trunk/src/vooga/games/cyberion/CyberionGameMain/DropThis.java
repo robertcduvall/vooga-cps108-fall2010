@@ -42,7 +42,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * @see http://www.istisoft.net/online/cyberion/cyberion.html
  */
 
-public class DropThis extends Game {
+public class DropThis extends vooga.engine.core.Game {
 
 	MainGameState playGameState = new MainGameState();
 	GameStateManager gameStateManager = new GameStateManager();
@@ -65,7 +65,7 @@ public class DropThis extends Game {
 	private void loadImages() {
 		try {
 			Resources
-					.loadFile("src/vooga/games/cyberion/Resources/imageList.txt");
+					.loadImageFile("src/vooga/games/cyberion/Resources/imageList.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
