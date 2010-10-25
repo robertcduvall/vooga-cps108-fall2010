@@ -1,9 +1,9 @@
-package vooga.games.cyberion.CyberionSprite;
+package vooga.games.cyberion.sprites;
 
 import java.awt.image.BufferedImage;
 
-import vooga.games.cyberion.GameEvent.PlayerFireEvent;
-import vooga.games.cyberion.GameEvent.PlayerFireListener;
+import vooga.games.cyberion.events.PlayerFireEvent;
+import vooga.games.cyberion.events.PlayerFireListener;
 
 import com.golden.gamedev.object.AdvanceSpriteGroup;
 import com.golden.gamedev.object.Sprite;

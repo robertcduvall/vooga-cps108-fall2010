@@ -1,5 +1,5 @@
-package vooga.games.cyberion.Collision;
-import vooga.games.cyberion.CyberionSprite.PlayerShip;
+package vooga.games.cyberion.collisions;
+import vooga.games.cyberion.sprites.PlayerShip;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;

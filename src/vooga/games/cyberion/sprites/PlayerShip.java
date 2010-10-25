@@ -1,10 +1,10 @@
-package vooga.games.cyberion.CyberionSprite;
+package vooga.games.cyberion.sprites;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-import vooga.games.cyberion.GameEvent.PlayerFireEvent;
-import vooga.games.cyberion.GameEvent.PlayerMoveEvent;
+import vooga.games.cyberion.events.PlayerFireEvent;
+import vooga.games.cyberion.events.PlayerMoveEvent;
 
 import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.object.Sprite;
@@ -45,15 +45,15 @@ public class PlayerShip extends PlayerSprite {
 	public KeyboardControl setKeyboardControl(KeyboardControl kb) {
 		keyboardControl = kb;
 		keyboardControl.addInput(KeyEvent.VK_LEFT, "moveLeft",
-				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+				"vooga.games.cyberion.sprites.PlayerShip", null);
 		keyboardControl.addInput(KeyEvent.VK_RIGHT, "moveRight",
-				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+				"vooga.games.cyberion.sprites.PlayerShip", null);
 		keyboardControl.addInput(KeyEvent.VK_DOWN, "moveDown",
-				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+				"vooga.games.cyberion.sprites.PlayerShip", null);
 		keyboardControl.addInput(KeyEvent.VK_UP, "moveUp",
-				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+				"vooga.games.cyberion.sprites.PlayerShip", null);
 		keyboardControl.addInput(KeyEvent.VK_SPACE, "fire",
-				"vooga.games.cyberion.CyberionSprite.PlayerShip", null);
+				"vooga.games.cyberion.sprites.PlayerShip", null);
 		return keyboardControl;
 	}
 

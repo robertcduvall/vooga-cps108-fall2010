@@ -1,11 +1,11 @@
-package vooga.games.cyberion.CyberionSprite;
+package vooga.games.cyberion.sprites;
 
 import java.awt.image.BufferedImage;
 
-import vooga.games.cyberion.GameEvent.EnemyFireEvent;
-import vooga.games.cyberion.GameEvent.EnemyFireListener;
-import vooga.games.cyberion.GameEvent.PlayerMoveEvent;
-import vooga.games.cyberion.GameEvent.PlayerMoveListener;
+import vooga.games.cyberion.events.EnemyFireEvent;
+import vooga.games.cyberion.events.EnemyFireListener;
+import vooga.games.cyberion.events.PlayerMoveEvent;
+import vooga.games.cyberion.events.PlayerMoveListener;
 
 import com.golden.gamedev.object.AdvanceSpriteGroup;
 import com.golden.gamedev.object.Sprite;

@@ -1,4 +1,4 @@
-package vooga.games.cyberion.Collision;
+package vooga.games.cyberion.collisions;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;
