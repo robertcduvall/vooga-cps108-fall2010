@@ -7,7 +7,7 @@ import java.util.*;
 import vooga.engine.collision.CollisionManager;
 import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 /**
@@ -49,7 +49,7 @@ public class LevelManager {
     private static CollisionManager persistentCollisionManager = null;
     private static EventManager persistentEventManager = null;
     private static GameState persistentGameState = null;
-    private static ResourceHandler persistentResourceHandler = null;
+    private static Resources persistentResources = null;
 
     public LevelManager() {
         myLayout = new ArrayList<Level>();
@@ -131,8 +131,8 @@ public class LevelManager {
      * Set the persist Resource Handler. Called by a level when it exits.
      * @param rh
      */
-    public void setPersistentResourceHandler(ResourceHandler rh){
-        persistentResourceHandler = rh;
+    public void setPersistentResources(Resources rh){
+        persistentResources = rh;
     }           
     
     public void persistCollisionManager(Level l){           
@@ -156,7 +156,7 @@ public class LevelManager {
      * Assign the persistent Resource Handler to the level l.
      * @param l
      */
-    public void persistentResourceHandler(Level l){
-        l.setResources(persistentResourceHandler);
+    public void persistentResources(Level l){
+        l.setResources(persistentResources);
     }
 }
