@@ -9,7 +9,7 @@ import java.util.Scanner;
 import vooga.engine.collision.CollisionManager;
 import vooga.engine.core.Sprite;
 import vooga.engine.event.EventManager;
-import vooga.engine.resource.ResourceHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 /**
@@ -42,7 +42,7 @@ public class Level {
     private CollisionManager collisionManager;
     private EventManager eventManager;
     private GameState gameState;
-    private ResourceHandler resourceHandler;
+    private Resources resourceHandler;
     
     public Level(Scanner fileToBeRead)
     {
@@ -64,7 +64,7 @@ public class Level {
 	        Scanner details = new Scanner(spriteDetails);
 	        details.useDelimiter(", *");
 	        String imageName = details.next();
-	        BufferedImage image = ResourceHandler.getImage(imageName);
+	        BufferedImage image = Resources.getImage(imageName);
 	        
 	        double xPosition = details.nextDouble();
 	        double yPosition = details.nextDouble();
@@ -103,7 +103,7 @@ public class Level {
     /** 
      * @return the resource handler of the level 
      */
-    public ResourceHandler getResourceHandler(){
+    public Resources getResources(){
         return resourceHandler;
     }
     
@@ -153,7 +153,7 @@ public class Level {
      * Initialize the Resource Handler to rh
      * @param rh
      */
-    public void setResources(ResourceHandler rh){
+    public void setResources(Resources rh){
         resourceHandler = rh;
     }
 }
