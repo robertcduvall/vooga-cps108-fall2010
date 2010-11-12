@@ -18,7 +18,7 @@ CS108 API Revision - Class Notes 11/12/10
   * OverlayManager - relic left over from Greenfoot - get rid of it if no objection
   * OverlayPanel will extend SpriteGroup directly
   * OverlayStatImage will probably be gotten rid of
-  * OverlayCreator will be modified to allow 
+  * OverlayCreator will be modified 
   * For stats, a map will be used that has names as keys
   * Countdown clock - will be its own state, when done counting it will change to the GameState it’s been passed 
   * Question: clickable Overlays? (will GameState have a solution for this?)
