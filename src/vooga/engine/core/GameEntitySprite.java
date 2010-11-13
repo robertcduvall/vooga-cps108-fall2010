@@ -54,7 +54,7 @@ public class GameEntitySprite extends Sprite {
 	 * @param y is the y position.
 	 */
 	public GameEntitySprite(double x, double y) {
-		this(null, 0, 0);
+		this(null, x, y);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class GameEntitySprite extends Sprite {
 	 * @param image
 	 */
 	public GameEntitySprite(String label, BufferedImage image) {
-		this(image, 0, 0);
+		this(label, new Sprite(image, 0 , 0));
 	}
 	
 	/**
