@@ -1,10 +1,11 @@
-package vooga.engine.player.control;
+package vooga.engine.core;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import vooga.engine.overlay.Stat;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.util.ImageUtil;
@@ -23,13 +24,73 @@ import com.golden.gamedev.util.ImageUtil;
  */
 
 @SuppressWarnings("serial")
-public abstract class GameEntitySprite extends Sprite {
+public class GameEntitySprite extends Sprite {
 
+	private static final String DEFAULT_STATE_NAME = "default";
+	
 	private long myStartTime;
-	private String myName;
 	private Map<String, Sprite> mySprites;
 	private Sprite myCurrentSprite;
+	private Map<String, Stat<?>> myStatMap;
 
+	/**
+	 * Constructs an entity with null image and 0, 0 position and the default label.
+	 */
+	public GameEntitySprite() {
+		this(null);
+	}
+	
+	/**
+	 * Constructs an entity from the given image with 0, 0 position and the default label.
+	 * @param image
+	 */
+	public GameEntitySprite(BufferedImage image) {
+		this(DEFAULT_STATE_NAME, image);
+	}
+	
+	/** 
+	 * Constructs an entity with null image located at the specified coordinates with the default label.
+	 * @param x is the x position.
+	 * @param y is the y position.
+	 */
+	public GameEntitySprite(double x, double y) {
+		this(null, 0, 0);
+	}
+	
+	/**
+	 * Constructs an entity with given image located at the specified coordinates and the default label.
+	 * @param image 
+	 * @param x is the x position.
+	 * @param y is the y position.
+	 */
+	public GameEntitySprite(BufferedImage image, double x, double y) {
+		this(DEFAULT_STATE_NAME, new Sprite(image, x, y));
+	}
+	
+	/**
+	 * Constructs an entity with given image located at specified coordinates AND labels the 
+	 * image so that you can switch to this initial sprite if other sprites are added to this
+	 * entity later.
+	 * @param label is the label for this sprite representation.
+	 * @param image
+	 * @param x is the x position.
+	 * @param y is the y position.
+	 */
+	public GameEntitySprite(String label, BufferedImage image, double x, double y) {
+		this(label, new Sprite(image, x, y));
+	}
+	
+	/**
+	 * Constructs an entity with given image at 0, 0 position AND labels the 
+	 * image so that you can switch to this initial sprite if other sprites are added to this
+	 * entity later.
+	 * @param label is the label for this sprite representation.
+	 * @param image
+	 */
+	public GameEntitySprite(String label, BufferedImage image) {
+		this(image, 0, 0);
+	}
+	
 	/**
 	 * @param name
 	 *            is any name you'd like to give to the object.
@@ -41,33 +102,39 @@ public abstract class GameEntitySprite extends Sprite {
 	 * @param this is the default Sprite that will represent this Entity on the
 	 *        Screen.
 	 */
-
-	public GameEntitySprite(String name, String stateName, Sprite s) {
+	public GameEntitySprite(String label, Sprite s) {
 		myStartTime = System.currentTimeMillis();
 		mySprites = new HashMap<String, Sprite>();
-		mapNameToSprite(stateName, s);
+		addSprite(label, s);
 		myCurrentSprite = s;
-		setName(name);
+		myStatMap = new HashMap<String, Stat<?>>();
 	}
-	
 
 	/**
-	 * @param state
+	 * @param label
 	 *            is the name you'd like to use to represent the Sprite
 	 *            parameter. e.g. "alive" or "dead" or "shooting"
 	 * @param sp
 	 *            is the Sprite you are mapping to the first parameter.
 	 */
-
-	public void mapNameToSprite(String state, Sprite sp) {
-		mySprites.put(state, sp);
+	public void addSprite(String label, Sprite sp) {
+		mySprites.put(label, sp);
+	}
+	
+	/**
+	 * Adds a new Sprite made from the given image.
+	 * @param label is the name you'd like to use to represent the Sprite
+	 *            parameter. e.g. "alive" or "dead" or "shooting"
+	 * @param image is the image from which the new Sprite will be constructed.
+	 */
+	public void addSprite(String label, BufferedImage image) {
+		addSprite(label, new Sprite(image));
 	}
 	
 	/**
 	 * This method returns my currentSprite. Beware that the currentSprite may change
 	 * @return Sprite
 	 */
-	
 	public Sprite getCurrentSprite()
 	{
 		return myCurrentSprite;
@@ -82,23 +149,6 @@ public abstract class GameEntitySprite extends Sprite {
 		return currentTime - myStartTime;
 	}
 
-	/**
-	 * 
-	 * @return GameEntity's name
-	 */
-	public String getName() {
-		return myName;
-	}
-
-	/**
-	 * Changes the name of the GameEntity.
-	 * 
-	 * @param name
-	 *            new name.
-	 */
-	private void setName(String name) {
-		myName = name;
-	}
 
 	/**
 	 * Modify GameEntity so that it is represented by the Sprite specified by
@@ -138,6 +188,23 @@ public abstract class GameEntitySprite extends Sprite {
 		setActive(true);
 	}
 
+
+	/**
+	 * Returns the Stat associated with the given name.
+	 * @param statName is the name used 
+	 * @return
+	 */
+	public Stat<?> getStat(String statName) {
+		return myStatMap.get(statName);
+	}
+	
+	/**
+	 * Sets 
+	 */
+	public void setStat(String name, Stat<?> t) {
+		myStatMap.put(name, t);
+	}
+	 
 	/***********************************************************************************************************
 	 * THIS SECTION REWRITES ALL OF SPRITE'S METHODS. These simply forward the
 	 * method calls to the currently active sprite in the GameEntity.
@@ -181,7 +248,7 @@ public abstract class GameEntitySprite extends Sprite {
 	 * 
 	 * @param Image
 	 */
-	protected void setNewImage(BufferedImage Image) {
+	public void setImage(BufferedImage Image) {
 		myCurrentSprite.setImage(Image);
 	}
 
@@ -209,7 +276,7 @@ public abstract class GameEntitySprite extends Sprite {
 		g.drawImage(currentSpriteImage, 0, 0, null);
 		g.dispose();
 
-		setNewImage(image);
+		setImage(image);
 	}
 
 	/**
