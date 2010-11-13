@@ -6,7 +6,7 @@ public class PacmanEvent implements IEventHandler {
 	private Pacman pacman;
 	private Ghost ghost;
 	/**
-	 * constructor. User can pass objects or variables through this constructor.
+	 * Constructor. User can pass objects or variables through this constructor.
 	 * @param pacman
 	 * @param ghost
 	 */
@@ -15,7 +15,7 @@ public class PacmanEvent implements IEventHandler {
 		this.ghost=ghost;
 	}
 	/**
-	 * user defines what to do after event has been triggered.
+	 * User defines what to do after event has been triggered.
 	 */
 	@Override
 	public void actionPerformed() {
@@ -23,7 +23,7 @@ public class PacmanEvent implements IEventHandler {
 			System.exit(0);
 	}
 	/**
-	 * user defines the condition when the event will be triggered
+	 * User defines the condition when the event will be triggered
 	 */
 	@Override
 	public boolean isTriggerred() {
