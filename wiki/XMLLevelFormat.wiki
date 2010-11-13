@@ -1,0 +1,69 @@
+#summary One-sentence summary of this page.
+#labels level,format,xml
+
+= XML Format For Composite Objects =
+
+
+
+This document contains the outline for a level XML file. Basically, each level has a <level> tag that specify the game objects and the rules specific to that level. All the game objects inside a level are outlined inside the tag <LevelObjects> and all the rules inside the level are stored inside the <LevelRules>. Please add to this format and all the attributes that would make a good level XML.
+
+
+= Details =
+
+
+<Level name= “ “>
+
+      <LevelObjects>
+
+<SpriteGroup name=” “>
+
+<vooga.Sprite x= “ “ y = “ “ vx = “ “ vy= “ “>
+
+    <golden.Sprite imageloc=” “> </golden.Sprite>
+
+        <golden.Sprite imageloc=” “> </golden.Sprite>
+
+<golden.Sprite imageloc=” “> </golden.Sprite>
+
+<Stat classname=” “ name=” “></Stat>
+
+<Stat classname=” “ name=””></Stat>
+
+</vooga.Sprite>
+
+<vooga.Sprite x= “ “ y = “ “ vx = “ “ vy= “ “>
+
+    <golden.Sprite imageloc=” “> </golden.Sprite>
+
+        <golden.Sprite imageloc=” “> </golden.Sprite>
+
+<golden.Sprite imageloc=” “> </golden.Sprite>
+
+</vooga.Sprite>
+
+</SpriteGroup>
+
+<SpriteGroup name= “ “>
+
+</SpriteGroup>
+
+   </LevelObjects>
+
+<LevelRules>
+        <CollisionGroup name= “ “>
+            <SpriteGroup name= “ “></SpriteGroup>
+            <SpriteGroup name=” “></SpriteGroup>       
+        </CollisionGroup>
+
+        <CollisionGroup name=” “>
+            <SpriteGroup name= “ “></SpriteGroup>
+            <SpriteGroup name=” “></SpriteGroup>   
+        </CollisionGroup>
+
+        <Rule name=” “>
+            <SpriteGroup name=” “></SpriteGroup>
+            <SpriteGroup name= “ “></SpriteGroup>
+        </Rule>
+
+</LevelRules>
+</Level>
