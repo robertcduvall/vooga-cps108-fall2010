@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import java.util.*;
 
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 
 /**
@@ -91,6 +92,19 @@ public class GameState implements Comparable<GameState> {
 	public GameState(SpriteGroup sprites, int layer) {
 		this(sprites);
 		this.setLayer(layer);
+	}
+	
+	/**
+	 * Creates a new GameState from a Playfield by placing all SpriteGroups in render and update groups.
+	 * 
+	 * @param playfield
+	 */
+	public GameState(PlayField playfield) {
+		this();
+		SpriteGroup[] groups = playfield.getGroups();
+		for (SpriteGroup group: groups){
+			this.addGroup(group);
+		}
 	}
 
 	/**
