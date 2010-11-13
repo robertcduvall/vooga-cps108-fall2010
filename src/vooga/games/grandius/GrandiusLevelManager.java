@@ -26,26 +26,26 @@ public class GrandiusLevelManager extends LevelManager{
 		super();
 	}
 
-	//Returning Strings vs. Levels?
-	@Override
-	public Collection<String> getLevelNames(File levelNamesFile) {
-		Scanner scanner;
-		try {
-			scanner = new Scanner(levelNamesFile);
-			while(scanner.hasNextLine()){
-				String levelName = scanner.nextLine();
-				if (levelName.equals("") || levelName.startsWith("#")){
-					continue;
-				}
-				else{
-					myLevelNames.add(levelName);
-				}
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("LevelNames File not found!");
-		}
-		return myLevelNames;
-	}
+//	//Returning Strings vs. Levels?
+//	@Override
+//	public Collection<String> getLevelNames(File levelNamesFile) {
+//		Scanner scanner;
+//		try {
+//			scanner = new Scanner(levelNamesFile);
+//			while(scanner.hasNextLine()){
+//				String levelName = scanner.nextLine();
+//				if (levelName.equals("") || levelName.startsWith("#")){
+//					continue;
+//				}
+//				else{
+//					myLevelNames.add(levelName);
+//				}
+//			}
+//		} catch (FileNotFoundException e) {
+//			System.out.println("LevelNames File not found!");
+//		}
+//		return myLevelNames;
+//	}
 
 	@Override
 	public PlayField getCurrentPlayField(File currentLevelFactoryFile) {

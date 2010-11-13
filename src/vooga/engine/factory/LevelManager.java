@@ -1,57 +1,95 @@
 package vooga.engine.factory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 import com.golden.gamedev.object.PlayField;
 
 /**
  * This is an abstract class and needs to be extended by a class which provides
- * specific implementation for the getLevelNames and getCurrentPlayField methods.
- * This class would take care of different tasks like reading level names from
- * a file, making a collection of these level files and loading next level etc.
- * @author bhawana
+ * specific implementation for the getCurrentPlayField method.This class would 
+ * take care of different tasks like reading level names from a file, making a 
+ * collection of these level files and loading next level etc.
+ * An example of how this could be used in a game is as follows:
+ * <pre>
+ * <code>
+ * 	private LevelManagerExample levelManager = new LevelManagerExample();
+	private PlayField playfield;
+	
+	public void initResources() { 
+		String levelFilesDirectory = resources.getString(levelFilesDirectory);
+		String levelNamesFile = resources.getString(levelNamesFile);
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+	}
+		
+	public void update(long elapsedTime){
+		if(levelManager.getCurrentLevel()==0){
+			playfield=levelManager.loadNextLevel();
+		}
+		
+		playfield.update(elapsedTime);
+		
+		if(levelcomplete condition){
+			playfield.clearPlayField();
+			playfield=levelManager.loadNextLevel();
+		}
+	}	
+ * </code>
+ * </pre>
+ * 
+ * An example for the implementation of the getCurrentPlayField is as follows:
+ * <pre>
+ * <code>
+ * 	public PlayField getCurrentPlayField(File currentLevelFactoryFile) {
+		return levelFactory.getPlayfield(currentLevelFactoryFile);
+ 	}
+ * </code>
+ * </pre>
+ * @author Bhawana, Cameron, Derek
  *
  */
 public abstract class LevelManager {
-	//TODO - Should this be made private?
-	protected List<String> myLevelNames;
-	private List<File> myLevelFactoryFiles;
+	private List<String> myLevelNames;
 	private int myCurrentLevel;
+	private static final String COMMENT = "#";
+	private static final String EMPTY_STRING = "";
 
 
 	public LevelManager(){
-		myCurrentLevel = 0;
-		myLevelFactoryFiles = new ArrayList<File>();
+		myCurrentLevel = -1;
 		myLevelNames = new ArrayList<String>();
 	}
 	
 	
 	/**
 	 * This method reads in from a File containing the names of different levels
-	 * and returns a Collection of strings, myLevelNames, which represent the names 
-	 * of the different level files in the order in which they need to be loaded,
-	 * eg. {easyLevel.txt,shoppingLevel.txt}
-	 * @param levelNamesFile - file containing the names of the different levels
-	 * @return myLevelnames - a Collection of strings representing level files names
+	 * and returns a Collection of strings, myLevelNames, which represents the names 
+	 * of the different level files in the order in which they need to be loaded.
+	 * @param levelPath - directory path where all level files are stored
+	 * @param levelNamesFile - name of the File which specifies the names of the 
+	 * levels in the order in which they are to be loaded
+	 * @return a Collection of strings representing level files names
 	 */
-	public abstract Collection<String> getLevelNames(File levelNamesFile);
-	
-	
-	/**
-	 * This method gets the names of the different levels for this game from myLevelNames
-	 * and adds the corresponding level files to a Collection of Files, which can be 
-	 * used later for loading the next level or for skipping to a particular level.
-	 * @param path - directory path where the levelNamesFile and level files are stored
-	 * @param levelNamesFile - file containing the list of levels for this game
-	 */
-	public void addLevels(String path, File levelNamesFile){
-		for (String levelName : getLevelNames(new File(path+"/"+levelNamesFile))){
-			myLevelFactoryFiles.add(new File(path+"/"+levelName));
-			System.out.println("added level "+levelName);
+	public Collection<String> makeLevels(String levelPath,String levelNamesFile){
+		try {
+			Scanner scanner = new Scanner(new File(levelPath+"/"+levelNamesFile));
+			while(scanner.hasNextLine()){
+				String levelName = scanner.nextLine();
+				if (levelName.equals(EMPTY_STRING) || levelName.startsWith(COMMENT)){
+					continue;
+				}
+				else{
+					myLevelNames.add(levelPath+"/"+levelName);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("LevelNames File not found!");
 		}
+		return myLevelNames;
 	}
 	
 	
@@ -70,7 +108,7 @@ public abstract class LevelManager {
 	 */
 	public PlayField loadNextLevel() {
 		myCurrentLevel+=1;
-		return getCurrentPlayField(myLevelFactoryFiles.get(myCurrentLevel-1));
+		return getCurrentPlayField(new File(myLevelNames.get(myCurrentLevel)));
 	}
 	
 	
@@ -81,7 +119,7 @@ public abstract class LevelManager {
 	 */
 	public PlayField skipToLevel(int levelIndex) {
 		myCurrentLevel = levelIndex; 
-		return getCurrentPlayField(myLevelFactoryFiles.get(myCurrentLevel-1));
+		return getCurrentPlayField(new File(myLevelNames.get(levelIndex)));
 	}
 	
 	
@@ -99,7 +137,7 @@ public abstract class LevelManager {
 	 * @return Name of the level file for the current level
 	 */
 	public String getCurrentLevelName(){
-		return myLevelNames.get(myCurrentLevel-1);
+		return myLevelNames.get(myCurrentLevel);
 	}
 	
 }
