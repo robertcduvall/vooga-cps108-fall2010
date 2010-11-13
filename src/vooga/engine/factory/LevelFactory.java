@@ -16,6 +16,6 @@ public interface LevelFactory {
 	 * @param levelFactoryFile - file containing details of the game objects for the current level
 	 * @return Playfield for the current level
 	 */
-	public PlayField getPlayfield(File levelFactoryFile);
+	public PlayField getPlayfield(String filePath);
 	
 }
