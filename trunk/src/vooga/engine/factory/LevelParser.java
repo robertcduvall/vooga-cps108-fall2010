@@ -2,17 +2,21 @@ package vooga.engine.factory;
 
 import java.io.File;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+
 import com.golden.gamedev.object.PlayField;
 
 public class LevelParser implements LevelFactory{
 
 	@Override
-	public PlayField getPlayfield(File levelFactoryFile) {
+	public PlayField getPlayfield(String filepath) {
 		
-		PlayField newplayfield = new PlayField();
-		newplayfield = parseToPlayField(levelFactoryFile, newplayfield);
-		
-		return newplayfield;
+		return makePlayFieldFromFile(filepath);
+	
 	}
 
 	/**
@@ -21,9 +25,24 @@ public class LevelParser implements LevelFactory{
 	 * @param newplayfield
 	 * @return
 	 */
-	private PlayField parseToPlayField(File levelFactoryFile,
-			PlayField newplayfield) {
+	private PlayField makePlayFieldFromFile(String xmlLevelFile) {
 	
+		PlayField newplayfield = new PlayField();
+		
+		File file = new File(xmlLevelFile);
+		DocumentBuilderFactory documentfactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		try {
+			builder = documentfactory.newDocumentBuilder();
+			
+			
+			
+		} catch (ParserConfigurationException e) {
+			
+			throw LevelException.LEVEL_PARSING_EXCEPTION;
+		}
+		
+
 		
 		
 		
@@ -32,9 +51,7 @@ public class LevelParser implements LevelFactory{
 		
 		
 		
-		
-		
-		return null;
+		return newplayfield;
 		
 	}
 
