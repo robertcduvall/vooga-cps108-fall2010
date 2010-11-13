@@ -8,7 +8,7 @@ import com.golden.gamedev.object.PlayField;
 /**
  * This interface is used to retrieve the playfield for the current level.
  * Additional methods could be added to specifically get Sprite Velocities etc.
- * @author bhawana
+ * @author Bhawana, Cameron, Derek
  */
 public interface LevelFactory {
 	
