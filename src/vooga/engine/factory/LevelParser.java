@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.engine.control.Control;
 import vooga.engine.core.Game;
 import vooga.engine.core.VoogaPlayField;
 
@@ -189,6 +190,8 @@ public class LevelParser implements LevelFactory{
 	}
 
 	private void processControls(NodeList controlslist, Sprite newsprite) {
+		
+		Control control = new Control();
 		
 		for(int i = 0; i < controlslist.getLength(); i++)
 		{
