@@ -3,6 +3,7 @@ package vooga.engine.overlay;
 
 
 import java.awt.Graphics2D;
+import java.util.Map;
 
 
 /**
@@ -20,19 +21,7 @@ import java.awt.Graphics2D;
 
 public class OverlayStat extends OverlayString {
 	
-	private StatInt myIntTracker;
 	private Stat<?> myGenTracker;
-	//private Stat myGenTracker;
-	
-	/**
-	 * Creates a OverlyStat Class
-	 * @param label String to display
-	 * @param tracker Int specific stat
-	 */
-	public OverlayStat(String label, StatInt tracker){
-		super(label);
-		myIntTracker = tracker;
-	}
 	
 	/**
 	 * Creates a OverlyStat Class
@@ -43,6 +32,13 @@ public class OverlayStat extends OverlayString {
 		super(label);
 		myGenTracker = tracker;
 	}	
+	
+	
+	public OverlayStat(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		super(attributes, tracker);
+		String statLoc = attributes.get("stat");
+		myGenTracker = tracker.getStat(statLoc);		
+	}
 
 	/**
 	 * Used to render to the screen.
@@ -55,15 +51,14 @@ public class OverlayStat extends OverlayString {
 	}
 
 	private String setStat() {
-		if(myIntTracker != null){
-			return Integer.toString(myIntTracker.getStat());
-		}else if(myGenTracker != null){
+		if(myGenTracker != null){
 			return myGenTracker.getStat().toString();
 		}else {
 			return "";
 		}
 		
 	}
+
 	
 
 }

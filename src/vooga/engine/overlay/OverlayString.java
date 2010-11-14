@@ -89,11 +89,11 @@ public class OverlayString extends Overlay {
 	}
 	
 	
-	protected OverlayString(Map<String, String> attributes, OverlayTrackerTemp tracker){
+	public OverlayString(Map<String, String> attributes, OverlayTrackerTemp tracker){
 		this(attributes.get("label"));
 		
 		String fontName = attributes.get("fontName");
-		if (fontName.startsWith("gameFont")) {
+		if (fontName != null && fontName.startsWith("gameFont")) {
 			GameFont gameFont = OverlayCreatorTemp.getGameFont(fontName.substring(8));
 			if (gameFont != null) {
 				setFont(gameFont);
@@ -104,7 +104,7 @@ public class OverlayString extends Overlay {
 			int fontStyle = OverlayCreatorTemp.stringToFontStyle(fontStyleStr);
 			String fontSizeStr = attributes.get("fontSize");
 			int fontSize;
-			if (fontSizeStr.equals("")) {
+			if (fontSizeStr == null) {
 				fontSize = 22;
 			} else {
 				fontSize = Integer.valueOf(fontSizeStr);

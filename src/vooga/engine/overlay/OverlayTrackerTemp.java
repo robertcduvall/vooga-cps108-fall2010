@@ -19,22 +19,22 @@ public class OverlayTrackerTemp {
 	
 	private Map<String, SpriteGroup> myOverlayGroups;
 	private Map<String, Overlay> myOverlays;
-	private Map<String, Stat<?>> myStats;
+	private Map<String, Stat> myStats;
 	
 
 	public OverlayTrackerTemp(){
 		myOverlayGroups = new TreeMap<String, SpriteGroup>();
 		myOverlays = new TreeMap<String, Overlay>();
-		myStats = new TreeMap<String, Stat<?>>();
+		myStats = new TreeMap<String, Stat>();
 		
 	}
 
 
 	public SpriteGroup getOverlayGroup(String name) {
-		return null;
+		return myOverlayGroups.get(name);
 	}
 
-	public Stat<?> getStat(String name){
+	public Stat getStat(String name){
 		return myStats.get(name);
 	}
 	
@@ -58,7 +58,7 @@ public class OverlayTrackerTemp {
 		myOverlays.put(key, value);
 	}
 	
-	protected void putStat(String key, Stat<?> value){
+	protected void putStat(String key, Stat value){
 		myStats.put(key, value);
 	}
 

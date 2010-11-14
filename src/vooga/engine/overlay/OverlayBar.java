@@ -52,8 +52,28 @@ public class OverlayBar extends Overlay {
 		myMaxScore = maxScore;
 	}
 	
-	protected OverlayBar(Map<String, String> attributes, OverlayTrackerTemp tracker){
-		
+	public OverlayBar(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		String strMax = attributes.get("max");
+		myMaxScore =  Integer.valueOf(strMax);
+		String statLoc = attributes.get("stat");
+		myStat = tracker.getStat(statLoc, new Integer(1));	
+		String strLength = attributes.get("length");
+		if(strLength !=null){
+			setMaxLength(Integer.valueOf(strLength));
+		}
+		String strHeight = attributes.get("height");
+		if(strHeight !=null){
+			setMaxLength(Integer.valueOf(strHeight));
+		}
+		setLocation(attributes);
+		String color = attributes.get("color");
+		if(color !=null){
+			setColor(OverlayCreatorTemp.stringToColor(color));
+		}
+		String backColor = attributes.get("backColor");
+		if(backColor !=null){
+			setBackgroundColor(OverlayCreatorTemp.stringToColor(backColor));
+		}
 	}
 	
 	/**

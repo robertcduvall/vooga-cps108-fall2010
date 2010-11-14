@@ -209,7 +209,7 @@ public class OverlayCreatorTemp {
 	private static void initializeClassMap() {
 		Properties props = new Properties();
 		try {
-			props.load(new FileInputStream("overlays.properties"));
+			props.load(new FileInputStream("src/vooga/engine/overlay/overlays.properties"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -242,7 +242,7 @@ public class OverlayCreatorTemp {
 				}
 
 				String name = eleGroup.getAttribute("name");
-				if (name.equals("")) {
+				if (name == null) {
 					name = "OverlayGroup_" + myOverlayGroupCount;
 				}
 
@@ -264,14 +264,15 @@ public class OverlayCreatorTemp {
 			Map<String, String> attributes = new TreeMap<String, String>();
 			for (int i = 0; i < nNM.getLength(); i++) {
 				Attr temp = (Attr) nNM.item(i);
-				attributes.put(type, temp.getValue());
+				String name = temp.getName();
+				attributes.put(name, overlay.getAttribute(name));
 			}
-			Class<?> partypes[] = { Map.class, OverlayTrackerTemp.class };
+			Class partypes[] = { Map.class, OverlayTrackerTemp.class };
 			Object arglist[] = { attributes, myOverlayTracker };
-			Constructor<?> ct = cls.getConstructor(partypes);
+			Constructor ct = cls.getConstructor(partypes);
 			Overlay current = (Overlay) ct.newInstance(arglist);
 			String name = attributes.get("name");
-			if (name.equals("")) {
+			if (name == null) {
 				name = "overlay_" + myOverlayCount;
 			}
 			myOverlayTracker.putOverlay(name, current);
