@@ -1,4 +1,4 @@
-package vooga.engine.resource;
+package vooga.engine.resource.random;
 
 /**
  * Keeps track of the value of the seed, the number of times a seed is used, and

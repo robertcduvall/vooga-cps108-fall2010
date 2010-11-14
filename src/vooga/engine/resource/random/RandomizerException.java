@@ -1,4 +1,4 @@
-package vooga.engine.resource;
+package vooga.engine.resource.random;
 
 /**
  * RandomizerException is thrown whenever Randomizer attempts to work with 
