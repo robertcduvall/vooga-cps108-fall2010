@@ -2,6 +2,7 @@ package vooga.engine.overlay;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * The OverlayPanel provides a convenient way for users
@@ -16,7 +17,7 @@ import com.golden.gamedev.object.Sprite;
  * playField.add(panel);
  * @author Se-Gil Feldsott & Andrew Brown
  */
-public class OverlayPanel extends OverlayManager{
+public class OverlayPanel extends SpriteGroup{
 
 	private boolean isOnTop;
 	private int screenHeight;
@@ -30,7 +31,7 @@ public class OverlayPanel extends OverlayManager{
 	 */
 	public OverlayPanel(String name, Game game, boolean topOrBottom)
 	{
-		super(name, 0, 0);
+		super(name);
 		isOnTop = topOrBottom;
 		screenWidth = game.getWidth();
 		screenHeight = game.getHeight();
