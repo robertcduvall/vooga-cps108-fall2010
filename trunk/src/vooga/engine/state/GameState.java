@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 
 import java.util.*;
 
+import vooga.engine.core.VoogaPlayField;
+
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -25,8 +27,8 @@ import com.golden.gamedev.object.SpriteGroup;
 public class GameState implements Comparable<GameState> {
 
 	private boolean myIsActive = false;
-	private ArrayList<SpriteGroup> myRenderGroups = new ArrayList<SpriteGroup>();
-	private ArrayList<SpriteGroup> myUpdateGroups = new ArrayList<SpriteGroup>();
+	private VoogaPlayField myRenderField = new VoogaPlayField();
+	private VoogaPlayField myUpdateField = new VoogaPlayField();
 	private int myLayer;
 
 
@@ -149,9 +151,8 @@ public class GameState implements Comparable<GameState> {
 	 */
 	public void render(Graphics2D g) {
 
-		for (SpriteGroup s : myRenderGroups) {
-			s.render(g);
-		}
+		myRenderField.render(g);
+		
 	}
 
 	/**
@@ -160,9 +161,9 @@ public class GameState implements Comparable<GameState> {
 	 * @param t
 	 */
 	public void update(long t) {
-		for (SpriteGroup sprite : myUpdateGroups) {
-			sprite.update(t);
-		}
+		
+		myUpdateField.update(t);
+		
 	}
 
 	/**
@@ -171,7 +172,9 @@ public class GameState implements Comparable<GameState> {
 	 * @param s
 	 */
 	public void addRenderGroup(SpriteGroup sg) {
-		myRenderGroups.add(sg);
+		
+		myRenderField.addGroup(sg);
+	
 	}
 
 	/**
@@ -179,8 +182,10 @@ public class GameState implements Comparable<GameState> {
 	 * 
 	 * @param s
 	 */
-	public void addUpdateGroups(SpriteGroup sprites) {
-		myUpdateGroups.add(sprites);
+	public void addUpdateGroups(SpriteGroup sg) {
+		
+		myUpdateField.addGroup(sg);
+		
 	}
 
 	/**
@@ -198,8 +203,8 @@ public class GameState implements Comparable<GameState> {
 	 * 
 	 * @return List<SpriteGroup>
 	 */
-	public ArrayList<SpriteGroup> getRenderGroups() {
-		return myRenderGroups;
+	public PlayField getRenderField() {
+		return myRenderField;
 	}
 
 	/**
@@ -207,8 +212,8 @@ public class GameState implements Comparable<GameState> {
 	 * 
 	 * @return List<SpriteGroup>
 	 */
-	public ArrayList<SpriteGroup> getUpdateGroups() {
-		return myUpdateGroups;
+	public PlayField getUpdateField() {
+		return myUpdateField;
 	}
 
 	/**
@@ -216,10 +221,14 @@ public class GameState implements Comparable<GameState> {
 	 * 
 	 * @param gamestate
 	 */
-	public void addRenderState(GameState gamestate) {
-		for (SpriteGroup group : gamestate.getRenderGroups()) {
-			myRenderGroups.add(group);
-		}
+	public void addRenderState(GameState gamestate) {		
+		
+		//vooga playfield will contain this method
+		myRenderField.addPlayField(gamestate.getRenderField());
+		
+		/*for (SpriteGroup group : gamestate.getRenderGroups()) {
+			myRenderField.add(group);
+		}*/
 	}
 
 	/**
@@ -228,9 +237,13 @@ public class GameState implements Comparable<GameState> {
 	 * @param gamestate
 	 */
 	public void addUpdateState(GameState gamestate) {
-		for (SpriteGroup group : gamestate.getUpdateGroups()) {
-			myUpdateGroups.add(group);
-		}
+		
+		//vooga playfield will contain this method
+		myUpdateField.addPlayField(gamestate.getUpdateField());
+		
+		/*for (SpriteGroup group : gamestate.getUpdateGroups()) {
+			myUpdateField.add(group);
+		}*/
 	}
 
 	/**
@@ -247,9 +260,9 @@ public class GameState implements Comparable<GameState> {
 	 * Clears the GameState of all contents.
 	 * 
 	 */
-	public void removeAllGroups() {
-		myRenderGroups.clear();
-		myUpdateGroups.clear();
+	public void removeEverything() {
+		myRenderField.clearPlayField();
+		myUpdateField.clearPlayField();
 	}
 	
 	/**
@@ -257,8 +270,8 @@ public class GameState implements Comparable<GameState> {
 	 * 
 	 */
 	public void removeGroup(SpriteGroup group) {
-		myRenderGroups.remove(group);
-		myUpdateGroups.remove(group);
+		myRenderField.removeGroup(group);
+		myUpdateField.removeGroup(group);
 	}
 
 
@@ -323,8 +336,8 @@ public class GameState implements Comparable<GameState> {
 		final int PRIME_NUMBER = 7;
 		
 		int code = 37;
-		code = code * PRIME_NUMBER + myRenderGroups.hashCode(); 
-		code = code * PRIME_NUMBER + myUpdateGroups.hashCode();
+		code = code * PRIME_NUMBER + myRenderField.hashCode(); 
+		code = code * PRIME_NUMBER + myUpdateField.hashCode();
 		code = code * PRIME_NUMBER + myLayer;
 		
 		return code;
