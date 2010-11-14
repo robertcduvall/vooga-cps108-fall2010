@@ -31,8 +31,8 @@ import com.golden.gamedev.util.ImageUtil;
 
 /**
  * This class is used for creating overlays from an xml file instead of in the code itself.
- * @author Justin Goldsmith
  * 
+ * <pre>
  * <p>example</p>
  * <p>OverlayCreator.setGame(this);  //This is assuming you are in the game class</p>
  * <p>//Also this does not need to be done if you are using normal fonts.  If you use any of the three
@@ -108,7 +108,8 @@ import com.golden.gamedev.util.ImageUtil;
  *</ul>
  *</li>
  *</ul>
- * 
+ *</pre>
+ * @author Justin Goldsmith
  */
 public class OverlayCreator {
 	

@@ -14,10 +14,12 @@ import com.golden.gamedev.object.GameFontManager;
  * This OverlayString class displays some text on the screen.
  * @author Justin Goldsmith
  * 
+ * <pre>
  * <p>OverlayString overlay = new OverlayString("Hello");</p>
  * <p>Font font = new Font("sampleFont", Font.PLAIN, 22);</p>
  * <p>overlay.setFont(font);</p>
  * <p>overlay.setColor(Color.BLUE);</p>
+ * </pre>
  * 
  * <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  *

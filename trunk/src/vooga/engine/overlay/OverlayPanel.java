@@ -9,12 +9,14 @@ import com.golden.gamedev.object.SpriteGroup;
  * to evenly place up to 5 overlays across the top or
  * bottom of the screen.
  * 
+ * <pre>
  * OverlayPanel panel = new Overlay("Overlays", someGame, true);
  * panel.add(overlay1);
  * panel.add(overlay2);
  * panel.add(overlay3);
  * panel.initialize();
  * playField.add(panel);
+ * </pre>
  * @author Se-Gil Feldsott & Andrew Brown
  */
 public class OverlayPanel extends SpriteGroup{

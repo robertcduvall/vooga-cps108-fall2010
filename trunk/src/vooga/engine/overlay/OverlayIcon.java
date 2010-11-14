@@ -15,9 +15,11 @@ import com.golden.gamedev.object.SpriteGroup;
  * This Overlay class displays a finite number of icons, with the image provided by the user
  * @author Se-Gil Feldsott and Justin Goldsmith
  * 
+ * <pre>
  * <p>StatInt stat = new StatInt(5);</p>
  * <p>GreenfootImage image = new GreenfootImage("...");</p>
  * <p>OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");</p>
+ * </pre>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  * 

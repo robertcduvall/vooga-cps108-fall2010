@@ -7,10 +7,12 @@ package vooga.engine.overlay;
  * getStat() will be called when it is time to display the stat
  * in order to change the stat call setStat(T i)
  * 
- * @author Justin Goldsimth
- * 
+ * <pre>
  * <p>Stat<String> stat = new Stat<String>("Hello");</p>
  * <p>stat.setStat("World");</p>
+ * </pre>
+ * 
+ *  @author Justin Goldsimth
  */
 public class Stat<T> {
 
