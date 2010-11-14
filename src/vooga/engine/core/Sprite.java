@@ -38,7 +38,11 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * Constructs an entity with null image and 0, 0 position and the default label.
 	 */
 	public Sprite() {
-		this(null);
+		super();
+	}
+	
+	public Sprite(BufferedImage image){
+		super(image);
 	}
 	
 	/**
