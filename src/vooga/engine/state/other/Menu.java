@@ -41,7 +41,7 @@
  * library.
  */
 
-package vooga.engine.state;
+package vooga.engine.state.other;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -51,6 +51,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import vooga.engine.state.GameState;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.AnimatedSprite;

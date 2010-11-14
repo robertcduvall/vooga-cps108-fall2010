@@ -22,7 +22,7 @@ import vooga.engine.resource.GameClockException;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
-import vooga.engine.state.Pause;
+import vooga.engine.state.other.Pause;
 import vooga.engine.core.Game;
 
 // GTGE

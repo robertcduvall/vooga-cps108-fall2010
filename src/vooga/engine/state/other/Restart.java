@@ -6,7 +6,7 @@
  * is that  
  */
 
-package vooga.engine.state;
+package vooga.engine.state.other;
 
 import com.golden.gamedev.Game;
 
