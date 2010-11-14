@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.Stat;
 
 import com.golden.gamedev.engine.BaseIO;
 
@@ -247,7 +248,7 @@ public class Resources {
 	public static double getDouble(String key){
 		return doubleMap.get(key);
 	}
-
+	
 
 	/**
 	 * Reads an imageListFile and initializes the ResourcesBeta's imageMap.
