@@ -1,9 +1,8 @@
-package vooga.engine.event;
+package vooga.engine.core;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.event.IEventHandler;
 
 public abstract class Button extends Sprite implements IEventHandler{
 
@@ -28,7 +27,6 @@ public abstract class Button extends Sprite implements IEventHandler{
 	
 	@Override
 	public boolean isTriggerred() {
-		
 		return myGame.click() && myGame.checkPosMouse(this, true);
 	}
 
