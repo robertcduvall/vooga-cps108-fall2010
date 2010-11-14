@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Resources>
+	<Images>
+		<Image name="Comet" path="comet.jpg" />
+		<Image name="Missile" path="missile.jpg" />
+		<Image name="BG2" path="bg2.jpg" />
+		<Image name="BUY" path="buyMissile.jpg" />
+		<Image name="BG" path="background.png" />
+		<Image name="Zipster" path="zipster1.png" />
+		<Image name="PlayerShip" path="playersingle.png" />
+		<Image name="Explosion" path="explosion.png" />
+		<Image name="Projectile" path="projectile.png" />
+		<Image name="ProjectileVertical" path="bullet.jpg" />
+		<Image name="PlayerShipSingle" path="playersingle.png" />
+		<Image name="Laser" path="projectile-blue.png" />
+		<Image name="ZipsterLaser" path="zipster_laser.png"></Image>
+		<Image name="SideKick" path="orange-circle.png" />
+		<Image name="ReacherEyeBeam" path="reacher_eye_beam.png" />
+		<Image name="ReacherBeam" path="reacher_beam.png" />
+		<Image name="ReacherRedRay" path="reacher_redray.png" />
+		<Image name="BlackHole" path="black_hole.png" />
+	</Images>
+
+	<Animations>
+		<Animation name="SpinningZipster">
+			<Image path="spinning_zipster_0.png" />
+			<Image path="spinning_zipster_1.png" />
+			<Image path="spinning_zipster_2.png" />
+			<Image path="spinning_zipster_3.png" />
+			<Image path="spinning_zipster_4.png" />
+			<Image path="spinning_zipster_5.png" />
+			<Image path="spinning_zipster_6.png" />
+			<Image path="spinning_zipster_7.png" />
+		</Animation>
+		<Animation name="Boomer">
+			<Image path="boomer1.png" />
+			<Image path="boomer2.png" />
+		</Animation>
+		<Animation name="EyeExplosion">
+			<Image path="eye_explosion_1.png" />
+			<Image path="eye_explosion_2.png" />
+		</Animation>
+		<Animation name="ReacherEye">
+			<Image path="reacher_eye_shielded.png" />
+			<Image path="reacher_eye_green.png" />
+			<Image path="reacher_eye_yellow.png" />
+			<Image path="reacher_eye_red.png" />
+		</Animation>
+		<Animation name="Reacher">
+			<Image path="reacher_shielded_3.png" />
+			<Image path="reacher_shielded_2.png" />
+			<Image path="reacher_shielded_1.png" />
+			<Image path="reacher_green.png" />
+			<Image path="reacher_yellow.png" />
+			<Image path="reacher_red.png" />
+		</Animation>
+		<Animation name="ReacherExplosion">
+			<Image path="reacher_explosion_1.png" />
+			<Image path="reacher_explosion_2.png" />
+			<Image path="reacher_explosion_3.png" />
+			<Image path="reacher_explosion_4.png" />
+		</Animation>
+		<Animation name="Vortex">
+			<Image path="vortex_1.png" />
+			<Image path="vortex_2.png" />
+		</Animation>
+	</Animations>
+
+	<Sounds>
+		<Sound name="LaserSound" path="laser.wav" />
+		<Sound name="MissileSound" path="missile.wav" />
+		<Sound name="ZipsterLaserSound" path="zipster_laser.wav" />
+		<Sound name="ExplosionSound" path="large_explosion.wav" />
+		<Sound name="LargeExplosionSound" path="large_explosion.wav" />
+		<Sound name="OhManSound" path="oh_man.wav" />
+		<Sound name="ReacherBeamSound" path="reacher_beam.wav" />
+		<Sound name="ReacherEyeBeamSound" path="reacher_eye_beam.wav" />
+		<Sound name="ReacherRedRaySound" path="reacher_redray.wav" />
+		<Sound name="StartLevelSound" path="start_level.wav" />
+		<Sound name="WatchThisSound" path="watch_this.WAV" />
+	</Sounds>
+
+	<Strings>
+		<String name="menu1" value="WELCOME TO THE GRANDIUS GALAXY" />
+		<String name="menu2" value="YOUR MISSION: DESTROY ALL ENEMIES" />
+		<String name="menu3" value="ARROW KEY : MOVE" />
+		<String name="menu4" value="ALT : FIRE HORIZONTALLY" />
+		<String name="menu5" value="SPACE : FIRE VERTICALLY" />
+		<String name="menu6" value="M : FIRE MISSILE - ONCE BOUGHT" />
+		<String name="menu7" value="B : CREATE BLACK HOLE - ONCE BOUGHT" />
+		<String name="menu8" value="CLICK TO PLAY" />
+		<String name="shoppingLevel2" value="CLICK HERE TO BUY MISSILE - 500" />
+		<String name="shoppingLevel3" value="CLICK HERE TO BUY BLACK HOLE  - 1000" />
+		<String name="shoppingLevel4" value="OR HIT SPACEBAR FOR NEXT LEVEL" />
+		<String name="levelCompleteMessage" value="CLICK FOR SHOPPING LEVEL" />
+		<String name="levelFilesDirectory" value="src/vooga/games/grandius/resources/levels" />
+		<String name="levelNamesFile" value="levelNames.txt" />
+		<String name="resourcesPath" value="src/vooga/games/grandius/resources" />
+	</Strings>
+
+	<Integers>
+		<Integer name="menuX" value="90" />
+		<Integer name="menuY" value="50" />
+		<Integer name="screenWidth" value="640" />
+		<Integer name="screenHeight" value="480" />
+		<Integer name="shoppingLevelX" value="60" />
+		<Integer name="shoppingLevelY" value="75" />
+		<Integer name="levelCompleteX" value="200" />
+		<Integer name="levelCompleteY" value="150" />
+		<Integer name="cometX" value="10000" />
+		<Integer name="cometY" value="480" />
+	</Integers>
+
+	<Doubles>
+		<Double name="cometVX" value="-0.05" />
+		<Double name="bulletSpeed" value="0.15" />
+	</Doubles>
+</Resources>

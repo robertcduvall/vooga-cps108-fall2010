@@ -1,5 +1,6 @@
 package vooga.games.grandius.collisions;
 
+import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.Blah;
 
@@ -15,17 +16,17 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class BasicCollision extends BasicCollisionGroup {
 
-	private Blah grandius;
+	private Game game;
 	
-	public BasicCollision(Blah grandius) {
+	public BasicCollision(Game grandius) {
 		super();
-		this.grandius = grandius;
+		this.game = grandius;
 	}
 	
 	@Override
 	public void collided(Sprite playerSideSprite, Sprite commonEnemy) {
 		//TODO - add an explosion sound (done)
-		grandius.playSound(Resources.getSound("ExplosionSound"));
+		game.playSound(Resources.getSound("ExplosionSound"));
 		// make the explosion image stay longer
 	}
 	
