@@ -7,7 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
-import com.golden.gamedev.object.PlayField;
+import vooga.engine.core.VoogaPlayField;
+
 
 /**
  * This is an abstract class and needs to be extended by a class which provides
@@ -18,7 +19,7 @@ import com.golden.gamedev.object.PlayField;
  * <pre>
  * <code>
  * 	private LevelManagerExample levelManager = new LevelManagerExample();
-	private PlayField playfield;
+	private VoogaPlayField playfield;
 	
 	public void initResources() { 
 		String levelFilesDirectory = resources.getString(levelFilesDirectory);
@@ -44,7 +45,7 @@ import com.golden.gamedev.object.PlayField;
  * An example for the implementation of the getCurrentPlayField is as follows:
  * <pre>
  * <code>
- * 	public PlayField getCurrentPlayField(File currentLevelFactoryFile) {
+ * 	public VoogaPlayField getCurrentPlayField(File currentLevelFactoryFile) {
 		return levelFactory.getPlayfield(currentLevelFactoryFile);
  	}
  * </code>
@@ -99,14 +100,14 @@ public abstract class LevelManager {
 	 * @param currentLevelFactoryFile
 	 * @return Playfield for the current level
 	 */
-	public abstract PlayField getCurrentPlayField(File currentLevelFactoryFile);
+	public abstract VoogaPlayField getCurrentPlayField(File currentLevelFactoryFile);
 	
 	
 	/**
 	 * Loads the next level. Playfield should be cleared before making a call
 	 * to this method, so as to remove the game objects from previous level.
 	 */
-	public PlayField loadNextLevel() {
+	public VoogaPlayField loadNextLevel() {
 		myCurrentLevel+=1;
 		return getCurrentPlayField(new File(myLevelNames.get(myCurrentLevel)));
 	}
@@ -117,7 +118,7 @@ public abstract class LevelManager {
 	 * @param levelIndex
 	 * @return Playfield for the specified level
 	 */
-	public PlayField skipToLevel(int levelIndex) {
+	public VoogaPlayField skipToLevel(int levelIndex) {
 		myCurrentLevel = levelIndex; 
 		return getCurrentPlayField(new File(myLevelNames.get(levelIndex)));
 	}
