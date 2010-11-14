@@ -77,26 +77,44 @@ public class LevelParser implements LevelFactory{
 		xmlOverlayPath = level.getAttribute("xmloverlaypath");
 		Node levelObjectsSection = xmlDocument.getElementsByTagName("LevelObjects").item(0);
         NodeList listOfLevelObjects = levelObjectsSection.getChildNodes();
-        int length = listOfLevelObjects.getLength();
-        for (int i = 0; i < length; i++) {
-        	Node node = listOfLevelObjects.item(i);
-        	if (isElement(node)) {
-            	NodeList spriteGroupList = node.getChildNodes();
-            	processSpriteGroups(spriteGroupList);
-        	}
-        }
-		
+        processLevelObjects(listOfLevelObjects);
 		Node levelRulesSection = xmlDocument.getElementsByTagName("LevelRules").item(0);
-		NodeList listOfLevelRules = levelObjectsSection.getChildNodes();
-		length = listOfLevelRules.getLength();
+		NodeList listOfLevelRules = levelRulesSection.getChildNodes();
+		processLevelRules(listOfLevelRules);
+
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param listOfLevelRules
+	 */
+	private void processLevelRules(NodeList listOfLevelRules){
+		int length = listOfLevelRules.getLength();
         for (int i = 0; i < length; i++) {
-        	Node node = listOfLevelObjects.item(i);
+        	Node node = listOfLevelRules.item(i);
         	if (isElement(node) && node.getNodeName().equals("CollisionGroup")) {
             	NodeList collisionGroupList = node.getChildNodes();
             	processCollisionGroups(collisionGroupList);
         	} else if (isElement(node) && node.getNodeName().equals("Rule")) {
         		NodeList rulesList = node.getChildNodes();
             	processRules(rulesList);
+        	}
+        }
+	}
+	
+	/**
+	 * 
+	 * @param listOfLevelObjects
+	 */
+	private void processLevelObjects(NodeList listOfLevelObjects){
+		int length = listOfLevelObjects.getLength();
+		for (int i = 0; i < length; i++) {
+        	Node node = listOfLevelObjects.item(i);
+        	if (isElement(node)) {
+            	NodeList spriteGroupList = node.getChildNodes();
+            	processSpriteGroups(spriteGroupList);
         	}
         }
 	}
@@ -254,4 +272,10 @@ public class LevelParser implements LevelFactory{
     	}
     	return elementList;
     }
+
+	@Override
+	public VoogaPlayField getPlayfield(String filePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
