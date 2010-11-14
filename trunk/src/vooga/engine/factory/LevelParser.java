@@ -2,6 +2,7 @@ package vooga.engine.factory;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-//import vooga.engine.control.Control;
 import vooga.engine.core.Game;
 import vooga.engine.core.Sprite;
 import vooga.engine.core.VoogaPlayField;
@@ -35,15 +35,14 @@ public class LevelParser implements LevelFactory{
 	private static Map<String, SpriteGroup> spriteGroupMap;
 	
 	@Override
-	public VoogaPlayField getPlayfield(String filepath, Game currentgame) {
-	
-		currentGame = currentgame;
+	public VoogaPlayField getPlayfield(String filepath, Game currentGame) {
+		currentGame = currentGame;
 		myVoogaPlayField = new VoogaPlayField();
 		spriteGroupMap = new HashMap<String, SpriteGroup>();
 		createLevelPlayfield(filepath);
 		return myVoogaPlayField;
 	}
-
+	
 	/**
 	 * Creates a VoogaPlayField and stores it in the field myVoogaPlayField.
 	 */
@@ -63,67 +62,43 @@ public class LevelParser implements LevelFactory{
 	}	
 
 	/**
-	 * Returns the value for a given tag from a given Node.
-	 * 
-	 * @param node the node to gather information from
-	 * @param tag the name of the tag which should be gathered
-	 * @return a String of the appropriate value
-	 */
-	private static String getXMLValue(Node node, String tag)
-	{
-		Element element = (Element) node;
-		return element.getElementsByTagName(tag).item(0).getChildNodes().item(0).getNodeValue();
-	}
-
-	/**
 	 * Processes a Level XML file.
 	 */
 	private void processLevel(Document xmlDocument)
 	{
 		Element level = (Element) xmlDocument.getFirstChild(); 
-		gameClassPath = level.getAttribute("gameclasspath");
+		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
 		overlayTracker = OverlayCreatorTemp.createOverlays(xmlOverlayPath);
 		
-		Node levelObjectsSection = xmlDocument.getElementsByTagName("LevelObjects").item(0);
-        NodeList listOfLevelObjects = levelObjectsSection.getChildNodes();
-        processLevelObjects(listOfLevelObjects);
-		Node levelRulesSection = xmlDocument.getElementsByTagName("LevelRules").item(0);
-		NodeList listOfLevelRules = levelRulesSection.getChildNodes();
-		processLevelRules(listOfLevelRules);		
+		Node spriteGroupsSection = xmlDocument.getElementsByTagName("SpriteGroups").item(0);
+        NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
+        processSpriteGroups(listOfSpriteGroups);
+//		Node levelRulesSection = xmlDocument.getElementsByTagName("LevelRules").item(0);
+//		NodeList listOfLevelRules = levelRulesSection.getChildNodes();
+//		processLevelRules(listOfLevelRules);
+        Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
+		NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
+		processCollisionGroups(listOfCollisionGroups);
 	}
 	
-	/**
-	 * Processes a Level's LevelObjects.
-	 */
-	private void processLevelObjects(NodeList listOfLevelObjects){
-		int length = listOfLevelObjects.getLength();
-		for (int i = 0; i < length; i++) {
-        	Node node = listOfLevelObjects.item(i);
-        	if (isElement(node)) {
-            	NodeList spriteGroupList = node.getChildNodes();
-            	processSpriteGroups(spriteGroupList);
-        	}
-        }
-	}
-	
-	/**
-	 * Processes a Level's LevelRules.
-	 */
-	private void processLevelRules(NodeList listOfLevelRules){
-		int length = listOfLevelRules.getLength();
-        for (int i = 0; i < length; i++) {
-        	Node node = listOfLevelRules.item(i);
-        	if (isElement(node) && node.getNodeName().equals("CollisionGroup")) {
-            	NodeList collisionGroupList = node.getChildNodes();
-            	processCollisionGroups(collisionGroupList);
-            	
-        	} else if (isElement(node) && node.getNodeName().equals("Rule")) {
-        		NodeList rulesList = node.getChildNodes();
-            	processRules(rulesList);
-        	}
-        }
-	}
+//	/**
+//	 * Processes a Level's LevelRules.
+//	 */
+//	private void processLevelRules(NodeList listOfLevelRules){
+//		int length = listOfLevelRules.getLength();
+//        for (int i = 0; i < length; i++) {
+//        	Node node = listOfLevelRules.item(i);
+//        	if (isElement(node) && node.getNodeName().equals("CollisionGroup")) {
+//            	NodeList collisionGroupList = node.getChildNodes();
+//            	processCollisionGroups(collisionGroupList);
+//            	
+//        	} else if (isElement(node) && node.getNodeName().equals("Rule")) {
+//        		NodeList rulesList = node.getChildNodes();
+//            	processRules(rulesList);
+//        	}
+//        }
+//	}
 	
 	/**
 	 * Processes the SpriteGroups within the LevelObjects section.
@@ -134,14 +109,14 @@ public class LevelParser implements LevelFactory{
 		{
 			if (isElement(spriteGroupsList.item(i)))
 			{
-				Element spritegroup = (Element) spriteGroupsList.item(i);
-				String groupname = spritegroup.getAttribute("name");
+				Element spriteGroup = (Element) spriteGroupsList.item(i);
+				String groupName = spriteGroup.getAttribute("name");
 
-				SpriteGroup newspritegroup = new SpriteGroup(groupname);
-				NodeList spriteslist = spritegroup.getChildNodes();
+				SpriteGroup newSpriteGroup = new SpriteGroup(groupName);
+				NodeList spritesList = spriteGroup.getChildNodes();
 
-				processSprites(spriteslist, spritegroup);
-				myVoogaPlayField.addGroup(newspritegroup);
+				processSprites(spritesList, newSpriteGroup);
+				myVoogaPlayField.addGroup(newSpriteGroup);
 			}
 		}
 	}
@@ -149,7 +124,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes the Sprites within a SpriteGroup.
 	 */
-	private void processSprites(NodeList spritesList, Element spriteGroup) {
+	private void processSprites(NodeList spritesList, SpriteGroup spriteGroup) {
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			if(isElement(spritesList.item(i)))
@@ -157,19 +132,15 @@ public class LevelParser implements LevelFactory{
 				Element sprite = (Element) spritesList.item(i);
 				Sprite newsprite = new Sprite();
 				
-				//process Images
-				NodeList visualsList = sprite.getElementsByTagName("visual");
+				NodeList visualsList = sprite.getElementsByTagName("Visual");
 				processVisuals(visualsList, newsprite);
 				
-				//process Stats
-				NodeList statsList = sprite.getElementsByTagName("stat");
+				NodeList statsList = sprite.getElementsByTagName("Stat");
 				processStats(statsList, newsprite);
 				
-				//process Controls
-				NodeList controlsList = sprite.getElementsByTagName("control");
+				NodeList controlsList = sprite.getElementsByTagName("Control");
 				processControls(controlsList, newsprite);
 				
-				//process locations/velocities
 				double x = Double.parseDouble(sprite.getAttribute("x"));
 				double y = Double.parseDouble(sprite.getAttribute("y"));
 				double vx = Double.parseDouble(sprite.getAttribute("vx"));
@@ -177,8 +148,8 @@ public class LevelParser implements LevelFactory{
 						
 				newsprite.setLocation(x, y);
 				newsprite.setHorizontalSpeed(vx);
-				newsprite.setVerticalSpeed(vy);
-					
+				newsprite.setVerticalSpeed(vy);	
+				spriteGroup.add(newsprite);
 			}
 		}
 	}
@@ -191,7 +162,6 @@ public class LevelParser implements LevelFactory{
 		{
 			if (isElement(visualsList.item(imageLocation)))
 			{
-				//getAnimation
 				Element visualElement = (Element) visualsList.item(imageLocation);
 				String visualName = visualElement.getAttribute("name");
 				BufferedImage[] visual = Resources.getVisual(visualName);
@@ -235,6 +205,9 @@ public class LevelParser implements LevelFactory{
 		}	
 	}
 	
+	/**
+	 * Processes the CollisionGroups.
+	 */
 	private void processCollisionGroups(NodeList collisionGroupList) {
     	for (int i = 0; i < collisionGroupList.getLength(); i++) {
     		Node node = collisionGroupList.item(i);
@@ -246,16 +219,17 @@ public class LevelParser implements LevelFactory{
     			String spriteGroupName1 = ((Element) spriteGroupList.item(1)).getAttribute("name");
     			myVoogaPlayField.addCollisionGroup(spriteGroupMap.get(spriteGroupName0), 
     											   spriteGroupMap.get(spriteGroupName1),
-    											   ((CollisionManager)createSubclass(subclassName)));
+    											   ((CollisionManager)createCollisionSubclass(subclassName, currentGame)));
     		}
     	}
 	}
 	
-	private Object createSubclass(String subclassName) {
+	private Object createCollisionSubclass(String subclassName, Game param) {
 		Class<?> subclass;
 		try {
 			subclass = Class.forName(subclassName);
-			return subclass.newInstance();
+			Constructor<?> ct = subclass.getConstructor(Game.class);
+			return ct.newInstance(param);
 		} catch (Throwable t) {
 			System.out.println("Subclass instance creation error");
 		}
