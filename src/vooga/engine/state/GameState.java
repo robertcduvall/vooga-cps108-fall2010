@@ -59,39 +59,6 @@ public abstract class GameState {
 
 	}
 
-	/**
-	 * Creates a new GameState with a layer value. Layers are used to render multiple GameStates in a defined order.
-	 * 
-	 * @param layer
-	 */
-	public GameState(int layer) {
-	
-		this.setLayer(layer);
-	}
-
-	/**
-	 * Creates a new GameState from an existing GameState and assigns it a layer value. Layers are used to render multiple 
-	 * GameStates in a defined order.
-	 * 
-	 * @param gamestate
-	 * @param layer
-	 */
-	public GameState(GameState gamestate, int layer) {
-		this(gamestate);
-		this.setLayer(layer);
-	}
-
-	/**
-	 * Creates a new GameState from an existing SpriteGroup and assigns it a layer value. Layers are used to render multiple
-	 * GameStates in a defined order.
-	 * 
-	 * @param spritegroup
-	 * @param layer
-	 */
-	public GameState(SpriteGroup sprites, int layer) {
-		this(sprites);
-		this.setLayer(layer);
-	}
 	
 	/**
 	 * Creates a new GameState from a Playfield by placing all SpriteGroups in render and update groups.
