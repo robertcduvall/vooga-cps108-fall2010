@@ -83,6 +83,9 @@ public class Resources {
 		game.bsLoader.getBaseIO().setMode(BaseIO.CLASS_LOADER);
 	}
 
+	public static String getDefaultPath() {
+		return defaultPath;
+	}
 	/**
 	 * Changes the Game of this Resources.
 	 */
