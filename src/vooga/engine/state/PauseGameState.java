@@ -65,7 +65,7 @@ public class PauseGameState extends GameState {
 	@Override
 	public void initialize() {
 
-		//do nothing
+		
 		
 	}
 

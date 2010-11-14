@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import vooga.engine.event.IEventHandler;
+
 /**
  * GameStateManager manages the behavior of GameState for overarching classes like Game. At its heart,
  * GameStateManager is a collection of GameStates with a number of useful methods for toggling, activating, and 
@@ -16,7 +18,7 @@ import java.util.Collection;
  */
 public class GameStateManager {
 
-	private Collection<GameState> currentGameStates;
+	private ArrayList<GameState> currentGameStates;
 
 	/**
 	 * Constructs a new GameStateManager.
@@ -26,12 +28,31 @@ public class GameStateManager {
 	}
 
 	/**
-	 * Adds a GameState to the GameStateManager's collection of GameStates.
+	 * Adds a GameState to the top layer of a GameStateManager's collection of GameStates.
 	 * 
 	 * @param gamestate
 	 */
 	public void addGameState(GameState gamestate) {
-		currentGameStates.add(gamestate);
+		currentGameStates.add(0, gamestate);
+	}
+
+	/**
+	 * Adds a GameState to the layer above the specified GameState
+	 * @param gamestate
+	 * @param nextStateDown
+	 */
+	public void addGameState(GameState gamestate, int index){
+		currentGameStates.add( index, gamestate );
+	}
+	
+	/**
+	 * Same as addGameState(GameState, int), but takes a target GameState instead of a target index.
+	 * 
+	 * @param gamestate
+	 * @param nextstate
+	 */
+	public void addGameState(GameState gamestate, GameState nextstate){
+		addGameState(gamestate, currentGameStates.indexOf(nextstate));
 	}
 
 	/**
@@ -49,7 +70,6 @@ public class GameStateManager {
 	 * @param t
 	 */
 	public void update(long t) {
-		//sort();
 		for (GameState state: currentGameStates){
 			if (state.isActive()){
 				state.update(t);
@@ -63,7 +83,6 @@ public class GameStateManager {
 	 * @param g
 	 */
 	public void render(Graphics2D g) {
-		//sort();
 		for (GameState state: currentGameStates){
 			if (state.isActive()){
 				state.render(g);
@@ -148,40 +167,5 @@ public class GameStateManager {
 		activatedGameState.activate();
 
 	}
-
-//	/**
-//	 * Deactivates a GameState, transfers all sprite groups to another GameState
-//	 * which is then activated.
-//	 * 
-//	 * @param gamestate
-//	 */
-//	public void switchToAndTransferAll(GameState gamestate) {
-//		
-//		gamestate.addState(this);
-//		this.switchTo(gamestate);
-//	}
-//
-//	/**
-//	 * Deactivates this GameState, transfers update sprite group to gamestate
-//	 * which is then activated
-//	 * 
-//	 * @param gamestate
-//	 */
-//	public void switchToAndTransferUpdate(GameState gamestate) {
-//		gamestate.addUpdateState(this);
-//		switchTo(gamestate);
-//	}
-//
-//	/**
-//	 * Deactivates this GameState, transfers update sprite group to gamestate
-//	 * which is then activated
-//	 * 
-//	 * @param gamestate
-//	 */
-//	public void switchToAndTransferRender(GameState gamestate) {
-//		gamestate.addRenderState(this);
-//		switchTo(gamestate);
-//	}
-
 	
 }
