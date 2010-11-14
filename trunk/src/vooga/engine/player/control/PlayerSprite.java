@@ -26,8 +26,8 @@ import com.golden.gamedev.object.Sprite;
 public class PlayerSprite extends GameEntitySprite {
 
 	// general instance variables
-	private List<ItemSprite> myItemList;
-	private Map<String, Stat<?>> myStatMap;
+	protected List<ItemSprite> myItemList;
+	protected Map<String, Stat<?>> myStatMap;
 
 	/**
 	 * 
