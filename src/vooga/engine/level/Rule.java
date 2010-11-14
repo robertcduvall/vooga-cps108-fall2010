@@ -10,8 +10,8 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public interface Rule {
 
-	public boolean checkRule(SpriteGroup group1, SpriteGroup group2);
-	public void enforceRule(SpriteGroup group1, SpriteGroup group2);
+	public boolean checkRule(SpriteGroup...groups);
+	public void enforceRule(SpriteGroup...groups);
 	
 	
 }
