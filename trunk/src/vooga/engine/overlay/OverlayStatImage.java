@@ -33,7 +33,7 @@ public class OverlayStatImage extends Overlay{
 		setImage(image);
 	}
 	/**
-	 * Creats a Image to be placed in game.
+	 * Creates a Image to be placed in game.
 	 * @param image image to display		 
 	 * @param width width of image
 	 * @param height height of image
