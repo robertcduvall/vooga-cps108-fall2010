@@ -3,12 +3,14 @@ package vooga.engine.overlay;
 /**
  * Int specific Stat tracker
  * getStat() will be called when it is time to display the stat
- * in order to change the stat call setStat(int i)
+ * in order to change the stat call setStat(int i) 
  * 
- * @author Justin Goldsimth
- * 
+ * <pre>
  * <p>StatInt stat = new StatInt(5);</p>
  * <p>stat.setStat(7);</p>
+ * </pre>
+ * 
+ *  @author Justin Goldsimth
  */
 public class StatInt{
 

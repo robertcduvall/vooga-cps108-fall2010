@@ -11,17 +11,12 @@ import java.awt.image.BufferedImage;
  * 
  * This example creates an OverlayBar that displays the score of a game (as represented by myStat). The
  * OverlayBar is placed at point (10,10);
- * </br>
- * <code>
- * </br>
+ * 
+ * <pre>
  * Stat<Integer> myStat;
- * </br>
  * myStat = new Stat(Integer 0);
- * </br>
  * OverlayBar scorebar = new OverlayBar(myStat,100);
- * </br>
  * addObject(scorebar,10,10);
- * </code> 
  * 
  * @author Andrew Brown
  * 

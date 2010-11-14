@@ -9,8 +9,10 @@ import java.awt.Graphics2D;
  * The Overlay stat class to display a String and something the user defines
  * @author Justin Goldsmith
  * 
+ * <pre>
  * <p>Stat<Integer> stat = new Stat<Integer>(5);</p>
  * <p>OverlayStat overlay = new OverlayStat("score: ", stat);</p>
+ * </pre>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  */
