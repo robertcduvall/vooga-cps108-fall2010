@@ -1,24 +1,25 @@
 package vooga.engine.core;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.io.IOException;
 
-import vooga.engine.resource.*;
+import vooga.engine.factory.LevelParser;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
 /**
  * Extension of the Golden T game to automate some Vooga API functionality.
  * 
  * Currently differs from Golden T game because initResources() automatically
- * loads all resources associated with the game.properties file in your games
- * resources folder.
+ * loads all resources associated with the resources.xml file (or the game.properties file)
+ * in your game's resources package.
  * 
  * It also now has a built in GameStateManager which is automatically initialized
  * in initResources. The initialization behavior can be changed by overriding 
  * initGameStates. The update and render methods call update and render for this 
- * game state manager.
+ * GameStateManager.
  * 
- * @author rcd, Daniel Koverman
+ * @author rcd, Daniel Koverman, John Kline
  */
 public class Game extends com.golden.gamedev.Game {
 
@@ -26,17 +27,23 @@ public class Game extends com.golden.gamedev.Game {
 
 	@Override
 	public void initResources() {
-		// initialize all resources stemming from resources/game.properties
+		// Game teams should convert their old imagelist.txt, soundlist.txt, etc. files into the
+		// new and improved resources.xml file format by following the example code in 
+		// vooga.examples.resources
+		// Then, the second try statement here can be removed.
 		Resources.initialize(this, getResourcePath());
+		try {
+			Resources.loadResourcesXMLFile("resources.xml");
+		} catch (IOException e) {
+			System.out.println("Failed to load resources.xml");
+		}
 		try {
 			Resources.loadPropertiesFile("game.properties");
 		} catch (IOException e) {
 			System.out.println("Failed to load resources/game.properties");
-			e.printStackTrace();
-			System.exit(1);
 		}
-
 		initGameStates();
+		initFirstLevel();
 	}
 
 	@Override
@@ -56,6 +63,12 @@ public class Game extends com.golden.gamedev.Game {
 	 */
 	public void initGameStates() {
 		stateManager = new GameStateManager();
+	}
+	
+	public void initFirstLevel() {
+		LevelParser levelParser = new LevelParser();
+		System.out.println(getResourcePath());
+		VoogaPlayField vpf = levelParser.getPlayfield(getResourcePath() + "level1.xml", this);
 	}
 	
 	public GameStateManager getGameStateManager(){
