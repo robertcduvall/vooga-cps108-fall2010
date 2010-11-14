@@ -13,6 +13,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
 
@@ -20,46 +30,29 @@ import com.golden.gamedev.engine.BaseIO;
 
 /**
  * 
- * The ResourcesBeta class stores references to various resources which can be 
- * accessed from anywhere in the game. The available resources include 
- * BufferedImages, BufferedImage Arrays (animations), Sounds, Strings, 
- * Integers, and Doubles.
+ * The Resources class stores references to various resources which can be 
+ * accessed from anywhere in the game. The available types of resources include 
+ * BufferedImage Arrays, Sounds, Strings, Integers, and Doubles.
  * 
- * All of the available resources can be loaded one at a time basis by
- * passing in a string file path (if the file is in the resources folder of 
- * the game) or by passing in a File (can be used to access resources anywhere).
+ * All of the available resources can be loaded on a one-at-a-time basis by
+ * passing in a String filepath or by passing in a File.
  * 
- * Resources also has the ability to load multiple resources at once using a 
- * Comma Separated Value (CSV) text file. Each line represents a resource, the 
- * first word is the key to access the resource, and the following values 
- * Separated by commas are individual components of the resource. A single file
- * may only contain one type of resource and is loaded using the appropriate 
- * file loading method.
+ * Resources also has the ability to load multiple resources at once using an 
+ * XML file. This is the main utility of the Resources class.
  * 
- * To load multiple CSV files, create a CSV file where each line represents a
- * different type of resource. These files are referred to as Property files 
- * by ResourcesBeta. The key is replaced by a keyword indicating 
- * which kind of resource the files listed in that line references. The remaining 
- * values in the line are file paths to the files to be loaded. All games should 
- * run loadPropertiesFile(game.properties) to load all desired resources at 
- * game launch. Further resources can be added later using any load method.
+ * The vooga.engine.core.Game class calls the Resources.loadResourcesXMLFile method 
+ * on the file "resources.xml". Each game should have a resources.xml file located in their
+ * resources package. Further resources can be added later using any load method.
  * 
- * Images are stored as BufferedImage arrays. In the case of images which are 
+ * Images are stored as BufferedImage arrays. In the case of images which are //TODO is this implemented?
  * not animations, the array only has one element. Images can be retrieved as 
  * animations, but the animation will only have one frame. Likewise, animations 
  * can be retrieved as images and only the first frame will be retrieved. Images 
  * are loaded using the Game.loadImage() method and supports png, gif, bmp, and 
- * jpg files.
- * 
- * Sounds are simply stored as their filepath in referenced with
- * yougamepackage.resources as the root folder. These file paths allow you 
- * to play the sounds using the games playMusic() and playSound() methods.
- * 
- * Strings, Integers, and Doubles are stored as Strings, Integers, and Doubles.
+ * jpg files. //TODO provide example of how to play/use a sound
  *  
- * Example files following the standard CSV format can be found in the 
- * examples.resources folder. Note that whitespace is not trimmed in accordance 
- * with IETF standards.
+ * Example files following the standard XML format can be found in the 
+ * examples.resources package.
  * 
  * @author John Kline, Daniel Koverman
  * 
@@ -74,20 +67,15 @@ public class Resources {
 	private static Map<String, Double> doubleMap = new HashMap<String, Double>();
 
 	/**
-	 * Sets the Game of this ResourcesBeta and sets the default path to be a
+	 * Sets the Game of this Resources and sets the default path to be a
 	 * blank string.
-	 * 
-	 * @param game
 	 */
 	public static void initialize(Game game) {
 		initialize(game, "");
 	}
 
 	/**
-	 * Sets the game of this ResourcesBeta and sets the default path.
-	 * 
-	 * @param game
-	 * @param defaultFilePath
+	 * Sets the game of this Resources and sets the default path.
 	 */
 	public static void initialize(Game game, String defaultFilePath) {
 		setGame(game);
@@ -96,30 +84,23 @@ public class Resources {
 	}
 
 	/**
-	 * Changes the Game of this ResourcesBeta.
-	 * 
-	 * @param game
+	 * Changes the Game of this Resources.
 	 */
 	public static void setGame(Game game) {
 		myGame = game;
 	}
 
 	/**
-	 * Changes the default path of this ResourcesBeta.
-	 * 
-	 * @param path
+	 * Changes the default path of this Resources.
 	 */
 	public static void setDefaultPath(String path) {
 		defaultPath = path;
 	}
 
 	/**
-	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key
+	 * Puts a new entry into this Resources's imageMap, with a String key
 	 * and a BufferedImage[] value. This method is used when a single image is
 	 * being put into the map.
-	 * 
-	 * @param key
-	 * @param file
 	 */
 	public static void loadImage(String key, File file) {
 		imageMap.put(key,
@@ -127,24 +108,18 @@ public class Resources {
 	}
 
 	/**
-	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key
+	 * Puts a new entry into this Resources's imageMap, with a String key
 	 * and a BufferedImage[] value. This method is used when a single image is
 	 * being put into the map.
-	 * 
-	 * @param key
-	 * @param filePath
 	 */
 	public static void loadImage(String key, String filePath) {
 		loadImage(key, new File(defaultPath + filePath));
 	}
 
 	/**
-	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key
+	 * Puts a new entry into this Resources's imageMap, with a String key
 	 * and a BufferedImage[] value. This method is used when multiple images are
 	 * being put into the map as an animation.
-	 * 
-	 * @param key
-	 * @param files
 	 */
 	public static void loadAnimation(String key, File[] files) {
 		BufferedImage[] animation = new BufferedImage[files.length];
@@ -155,12 +130,9 @@ public class Resources {
 	}
 
 	/**
-	 * Puts a new entry into this ResourcesBeta's imageMap, with a String key
+	 * Puts a new entry into this Resources's imageMap, with a String key
 	 * and a BufferedImage[] value. This method is used when multiple images are
 	 * being put into the map as an animation.
-	 * 
-	 * @param key
-	 * @param files
 	 */
 	public static void loadAnimation(String key, String[] filePaths) {
 		File[] files = new File[filePaths.length];
@@ -170,12 +142,9 @@ public class Resources {
 		loadAnimation(key, files);
 	}
 
+	//TODO use only the getVisual method?
 	/**
 	 * Returns the BufferedImage associated with the given label.
-	 * 
-	 * @param key
-	 *            The label of the image in the map.
-	 * @return The BufferedImage.
 	 */
 	public static BufferedImage getImage(String key) {
 		return imageMap.get(key)[0];
@@ -183,241 +152,356 @@ public class Resources {
 
 	/**
 	 * Returns the BufferedImage[] associated with the given label.
-	 * 
-	 * @param key
-	 *            The label of the image in the map.
-	 * @return The BufferedImage[].
 	 */
 	public static BufferedImage[] getAnimation(String key) {
 		return imageMap.get(key);
 	}
+	
+	/**
+	 * Returns the BufferedImage[] associated with the given label.
+	 */
+	public static BufferedImage[] getVisual(String key) {
+		return imageMap.get(key);
+	}
+	
 
 	/**
-	 * Puts a new entry into this ResourcesBeta's soundMap, with a String key
+	 * Puts a new entry into this Resources's soundMap, with a String key
 	 * and a String value.
-	 * 
-	 * @param key
-	 * @param file
 	 */
 	public static void loadSound(String key, File file) {
 		soundMap.put(key, file.getPath());
 	}
 
 	/**
-	 * Puts a new entry into this ResourcesBeta's soundMap, with a String key
+	 * Puts a new entry into this Resources's soundMap, with a String key
 	 * and a String value.
-	 * 
-	 * @param key
-	 * @param filePath
 	 */
 	public static void loadSound(String key, String filePath) {
 		loadSound(key, new File(defaultPath + filePath));
 	}
 
 	/**
-	 * Returns the String associated with the given sound label.
-	 * 
-	 * @param key
-	 *            The label of the sound in the map.
-	 * @return The String filepath.
+	 * Returns the String associated with the given Sound label.
 	 */
 	public static String getSound(String key) {
 		return soundMap.get(key);
 	}
 	
+	/**
+	 * Puts a new entry into this Resources's stringMap, with a String key
+	 * and a String value.
+	 */
 	public static void loadString(String key, String stringToLoad){
 		stringMap.put(key, stringToLoad);
 	}
 	
+	/**
+	 * Returns the String associated with the given String label.
+	 */
 	public static String getString(String key){
 		return stringMap.get(key);
 	}
 	
+	/**
+	 * Puts a new entry into this Resources's integerMap, with a String key
+	 * and an int value.
+	 */
 	public static void loadInt(String key, int intToLoad){
 		integerMap.put(key, intToLoad);
 	}
 	
+	/**
+	 * Returns the int associated with the given int label.
+	 */
 	public static int getInt(String key){
 		return integerMap.get(key);
 	}
 	
+	/**
+	 * Puts a new entry into this Resources's doubleMap, with a String key
+	 * and a double value.
+	 */
 	public static void loadDouble(String key, double doubleToLoad){
 		doubleMap.put(key, doubleToLoad);
 	}
 	
+	/**
+	 * Returns the double associated with the given double label.
+	 */
 	public static double getDouble(String key){
 		return doubleMap.get(key);
 	}
 	
-
 	/**
-	 * Reads an imageListFile and initializes the ResourcesBeta's imageMap.
-	 * 
-	 * @param imageListFile
-	 * @throws IOException
+	 * Reads the resources.xml file and initializes the Resources's mappings. Thanks to Lucas Best, Ben Getson, and Sam Kitange
+	 * for XML parsing methods.
 	 */
-	public static void loadImageFile(String imageListFile) throws IOException {
-		List<String> lines = getLinesFromFile(defaultPath + imageListFile);
-		for (int y = 0; y < lines.size(); y++) {
-			String[] tokens = getTokensFromLine(lines.get(y));
-			String name = tokens[0];
-			String filepath = tokens[1];
-			int counter = 1;
-			ArrayList<String> pathList = new ArrayList<String>();
-			if (filepath.equals("")) {
-				System.out.println("Name " + name
-						+ "has no filepath associated with it.");
-			} else {
-				while (!filepath.equals("")) {
-					pathList.add(filepath);
-					if (counter < tokens.length) {
-						filepath = tokens[counter];
-						counter++;
-					} else
-						break;
-				}
-			}
-			String[] pathArray = new String[pathList.size()];
-			for (int i = 0; i < pathList.size(); i++) {
-				pathArray[i] = pathList.get(i);
-			}
-			loadAnimation(name, pathArray);
-		}
-	}
-
-	/**
-	 * Reads an soundListFile and initializes the ResourcesBeta's soundMap.
-	 * 
-	 * @param soundListFile
-	 * @throws IOException
-	 */
-	public static void loadSoundFile(String soundListFile) throws IOException {
-		List<String> lines = getLinesFromFile(defaultPath + soundListFile);
-		for (int y = 0; y < lines.size(); y++) {
-			String[] tokens = getTokensFromLine(lines.get(y));
-			loadSound(tokens[0], tokens[1]);
-		}
-	}
-
-	public static void loadStringFile(String stringListFile) throws IOException {
-		List<String> lines = getLinesFromFile(defaultPath + stringListFile);
-		for (int y = 0; y < lines.size(); y++) {
-			String[] tokens = getTokensFromLine(lines.get(y));
-			loadString(tokens[0], tokens[1]);
-		}
+	public static void loadResourcesXMLFile(String resourcesXMLFilepath) throws IOException {
+		try
+        {
+            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(new File(defaultPath + resourcesXMLFilepath));
+            doc.getDocumentElement().normalize();
+            List<Element> newElements = loadSectionElements(doc, "Images");
+            for (Element e: newElements) {
+            	String name = e.getAttribute("name");
+            	String path = e.getAttribute("path");
+            	loadImage(name, "images/" + path);
+            }
+            newElements = loadSectionElements(doc, "Sounds");
+            for (Element e: newElements) {
+            	String name = e.getAttribute("name");
+            	String path = e.getAttribute("path");
+            	loadSound(name, "sounds/" + path);
+            }
+            newElements = loadSectionElements(doc, "Strings");
+            for (Element e: newElements) {
+            	String name = e.getAttribute("name");
+            	String value = e.getAttribute("value");
+            	loadString(name, value);
+            }
+            newElements = loadSectionElements(doc, "Integers");
+            for (Element e: newElements) {
+            	String name = e.getAttribute("name");
+            	int value = Integer.parseInt(e.getAttribute("value"));
+            	loadInt(name, value);
+            }
+            newElements = loadSectionElements(doc, "Doubles");
+            for (Element e: newElements) {
+            	String name = e.getAttribute("name");
+            	double value = Double.parseDouble(e.getAttribute("value"));
+            	loadDouble(name, value);
+            }
+            Node animationsSection = doc.getElementsByTagName("Animations").item(0);
+            NodeList listOfAnimations = animationsSection.getChildNodes();
+            int length = listOfAnimations.getLength();
+            for (int i = 0; i < length; i++) {
+            	Node node = listOfAnimations.item(i);
+            	if (node.getNodeType() == Node.ELEMENT_NODE) {
+	            	String animationName = ((Element) node).getAttribute("name");
+	            	NodeList frames = node.getChildNodes();
+	            	ArrayList<String> pathList = new ArrayList<String>();
+	            	for (int j = 1; j < frames.getLength(); j++) {
+	            		if (frames.item(j).getNodeType() == Node.ELEMENT_NODE)
+	            			pathList.add("images/" + ( (Element) frames.item(j) ).getAttribute("path"));
+	            	}
+	            	String[] pathArray = new String[pathList.size()];
+	    			for (int j = 0; j < pathList.size(); j++) {
+	    				pathArray[j] = pathList.get(j);
+	    			}
+	            	loadAnimation(animationName, pathArray);
+            	}
+            }
+        }
+        catch (SAXParseException err)
+        {
+            System.err.println("** Parsing error" + ", line " + err.getLineNumber() + ", uri " + err.getSystemId());
+            System.err.println(" " + err.getMessage());
+        }
+        catch (SAXException e)
+        {
+            Exception x = e.getException();
+            ((x == null) ? e : x).printStackTrace();
+        }
+        catch (Throwable t)
+        {
+            t.printStackTrace();
+        }
 	}
 	
-	public static void loadIntFile(String intListFile) throws IOException {
-		List<String> lines = getLinesFromFile(defaultPath + intListFile);
-		for (int y = 0; y < lines.size(); y++) {
-			String[] tokens = getTokensFromLine(lines.get(y));
-			loadInt(tokens[0], Integer.parseInt(tokens[1]));
-		}
-	}
-	
-	public static void loadDoubleFile(String doubleListFile) throws IOException {
-		List<String> lines = getLinesFromFile(defaultPath + doubleListFile);
-		for (int y = 0; y < lines.size(); y++) {
-			String[] tokens = getTokensFromLine(lines.get(y));
-			loadDouble(tokens[0], Double.parseDouble(tokens[1]));
-		}
-	}
-	
-	public static void loadPropertiesFile(String resourceListFile)
-			throws IOException {
-		List<String> lines = getLinesFromFile(defaultPath + resourceListFile);
-		for (int y = 0; y < lines.size(); y++) {
-			String[] tokens = getTokensFromLine(lines.get(y));
-			String type = tokens[0];
-			String filepath = tokens[1];
-			int counter = 1;
-			ArrayList<String> pathList = new ArrayList<String>();
-			while (!filepath.equals("")) {
-				pathList.add(filepath);
-				if (counter < tokens.length) {
-					filepath = tokens[counter];
-					counter++;
-				} else
-					break;
-			}
-			loadResourceFile(type, pathList);
-		}
-	}
-	
-	private static void loadResourceFile(String type, Collection<String> pathList) throws IOException{
-		if(type.equalsIgnoreCase("Image")){
-			for(String path: pathList){
-				loadImageFile(path);
-			}
-		} else if(type.equalsIgnoreCase("Sound")){
-			for(String path: pathList){
-				loadSoundFile(path);
-			}
-		} else if(type.equalsIgnoreCase("String")){
-			for(String path: pathList){
-				loadStringFile(path);
-			}
-		} else if(type.equalsIgnoreCase("Int")){
-			for(String path: pathList){
-				loadIntFile(path);
-			}
-		}else if(type.equalsIgnoreCase("Double")){
-			for(String path: pathList){
-				loadDoubleFile(path);
-			}
-		}else if(type.equalsIgnoreCase("Property")){
-			for(String path: pathList){
-				loadPropertiesFile(path);
-			}
-		}
-			
-	}
-
 	/**
-	 * Utility method for the loadImageFile and loadSoundFile methods. This
-	 * method returns the lines in a given file as a List.
-	 * 
-	 * @param filePath
-	 * @return The list of lines.
-	 * @throws IOException
+	 * Utility method for loadResourcesXMLFile - loads a Node's Elements and returns them in a List.
+	 * @param doc
+	 * @param sectionTag
+	 * @return
 	 */
-	private static List<String> getLinesFromFile(String filePath)
-			throws IOException {
-		List<String> lines = new ArrayList<String>();
-		URL url = Resources.class.getClassLoader().getResource(filePath);
-		url = new File(filePath).toURI().toURL();
-		if (url == null) {
-			throw new IOException("No such directory: " + filePath);
-		}
-		BufferedReader reader = new BufferedReader(new InputStreamReader(url
-				.openStream()));
-		while (true) {
-			String line = reader.readLine();
-			if (line == null) {
-				reader.close();
-				break;
-			}
-			if (!line.equals("") && !line.startsWith("#")) {
-				lines.add(line);
-			}
-		}
-		return lines;
-	}
-
+	private static List<Element> loadSectionElements(Document doc, String sectionTag) {
+    	Node section = doc.getElementsByTagName(sectionTag).item(0);
+    	NodeList nodeList = section.getChildNodes();
+    	int length = nodeList.getLength();
+    	ArrayList<Element> elementList = new ArrayList<Element>();
+    	for (int i = 0; i < length; i++) {
+    		Node node = nodeList.item(i);
+    		if (node.getNodeType() == Node.ELEMENT_NODE) {
+    			Element element = (Element) node;
+    			elementList.add(element);
+    		}
+    	}
+    	return elementList;
+    }
+	
 	/**
-	 * Utility method for the loadImageFile and loadSoundFile methods. This
-	 * method returns a String[] of tokens in a given line.
-	 * 
-	 * @param line
-	 * @return The String[] of tokens.
-	 */
-	private static String[] getTokensFromLine(String line) {
-		StringTokenizer st = new StringTokenizer(line, ",");
-		int totalTokens = st.countTokens();
-		String[] tokens = new String[totalTokens];
-		for (int i = 0; i < totalTokens; i++) {
-			tokens[i] = st.nextToken();
-		}
-		return tokens;
-	}
+     * Reads an imageListFile and initializes the ResourcesBeta's imageMap.
+     * 
+     * @param imageListFile
+     * @throws IOException
+     */
+    public static void loadImageFile(String imageListFile) throws IOException {
+            List<String> lines = getLinesFromFile(defaultPath + imageListFile);
+            for (int y = 0; y < lines.size(); y++) {
+                    String[] tokens = getTokensFromLine(lines.get(y));
+                    String name = tokens[0];
+                    String filepath = tokens[1];
+                    int counter = 1;
+                    ArrayList<String> pathList = new ArrayList<String>();
+                    if (filepath.equals("")) {
+                            System.out.println("Name " + name
+                                            + "has no filepath associated with it.");
+                    } else {
+                            while (!filepath.equals("")) {
+                                    pathList.add(filepath);
+                                    if (counter < tokens.length) {
+                                            filepath = tokens[counter];
+                                            counter++;
+                                    } else
+                                            break;
+                            }
+                    }
+                    String[] pathArray = new String[pathList.size()];
+                    for (int i = 0; i < pathList.size(); i++) {
+                            pathArray[i] = pathList.get(i);
+                    }
+                    loadAnimation(name, pathArray);
+            }
+    }
+
+    /**
+     * Reads an soundListFile and initializes the ResourcesBeta's soundMap.
+     * 
+     * @param soundListFile
+     * @throws IOException
+     */
+    public static void loadSoundFile(String soundListFile) throws IOException {
+            List<String> lines = getLinesFromFile(defaultPath + soundListFile);
+            for (int y = 0; y < lines.size(); y++) {
+                    String[] tokens = getTokensFromLine(lines.get(y));
+                    loadSound(tokens[0], tokens[1]);
+            }
+    }
+
+    public static void loadStringFile(String stringListFile) throws IOException {
+            List<String> lines = getLinesFromFile(defaultPath + stringListFile);
+            for (int y = 0; y < lines.size(); y++) {
+                    String[] tokens = getTokensFromLine(lines.get(y));
+                    loadString(tokens[0], tokens[1]);
+            }
+    }
+    
+    public static void loadIntFile(String intListFile) throws IOException {
+            List<String> lines = getLinesFromFile(defaultPath + intListFile);
+            for (int y = 0; y < lines.size(); y++) {
+                    String[] tokens = getTokensFromLine(lines.get(y));
+                    loadInt(tokens[0], Integer.parseInt(tokens[1]));
+            }
+    }
+    
+    public static void loadDoubleFile(String doubleListFile) throws IOException {
+            List<String> lines = getLinesFromFile(defaultPath + doubleListFile);
+            for (int y = 0; y < lines.size(); y++) {
+                    String[] tokens = getTokensFromLine(lines.get(y));
+                    loadDouble(tokens[0], Double.parseDouble(tokens[1]));
+            }
+    }
+    
+    public static void loadPropertiesFile(String resourceListFile)
+                    throws IOException {
+            List<String> lines = getLinesFromFile(defaultPath + resourceListFile);
+            for (int y = 0; y < lines.size(); y++) {
+                    String[] tokens = getTokensFromLine(lines.get(y));
+                    String type = tokens[0];
+                    String filepath = tokens[1];
+                    int counter = 1;
+                    ArrayList<String> pathList = new ArrayList<String>();
+                    while (!filepath.equals("")) {
+                            pathList.add(filepath);
+                            if (counter < tokens.length) {
+                                    filepath = tokens[counter];
+                                    counter++;
+                            } else
+                                    break;
+                    }
+                    loadResourceFile(type, pathList);
+            }
+    }
+    
+    private static void loadResourceFile(String type, Collection<String> pathList) throws IOException{
+            if(type.equalsIgnoreCase("Image")){
+                    for(String path: pathList){
+                            loadImageFile(path);
+                    }
+            } else if(type.equalsIgnoreCase("Sound")){
+                    for(String path: pathList){
+                            loadSoundFile(path);
+                    }
+            } else if(type.equalsIgnoreCase("String")){
+                    for(String path: pathList){
+                            loadStringFile(path);
+                    }
+            } else if(type.equalsIgnoreCase("Int")){
+                    for(String path: pathList){
+                            loadIntFile(path);
+                    }
+            }else if(type.equalsIgnoreCase("Double")){
+                    for(String path: pathList){
+                            loadDoubleFile(path);
+                    }
+            }else if(type.equalsIgnoreCase("Property")){
+                    for(String path: pathList){
+                            loadPropertiesFile(path);
+                    }
+            }
+                    
+    }
+
+    /**
+     * Utility method for the loadImageFile and loadSoundFile methods. This
+     * method returns the lines in a given file as a List.
+     * 
+     * @param filePath
+     * @return The list of lines.
+     * @throws IOException
+     */
+    private static List<String> getLinesFromFile(String filePath)
+                    throws IOException {
+            List<String> lines = new ArrayList<String>();
+            URL url = Resources.class.getClassLoader().getResource(filePath);
+            url = new File(filePath).toURI().toURL();
+            if (url == null) {
+                    throw new IOException("No such directory: " + filePath);
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url
+                            .openStream()));
+            while (true) {
+                    String line = reader.readLine();
+                    if (line == null) {
+                            reader.close();
+                            break;
+                    }
+                    if (!line.equals("") && !line.startsWith("#")) {
+                            lines.add(line);
+                    }
+            }
+            return lines;
+    }
+
+    /**
+     * Utility method for the loadImageFile and loadSoundFile methods. This
+     * method returns a String[] of tokens in a given line.
+     * 
+     * @param line
+     * @return The String[] of tokens.
+     */
+    private static String[] getTokensFromLine(String line) {
+            StringTokenizer st = new StringTokenizer(line, ",");
+            int totalTokens = st.countTokens();
+            String[] tokens = new String[totalTokens];
+            for (int i = 0; i < totalTokens; i++) {
+                    tokens[i] = st.nextToken();
+            }
+            return tokens;
+    }
+	
+	
 }
