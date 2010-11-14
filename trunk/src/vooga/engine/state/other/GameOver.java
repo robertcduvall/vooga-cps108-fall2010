@@ -5,7 +5,8 @@
  * what GUI's are to displayed when that happens. 
  */
 
-package vooga.engine.state;
+package vooga.engine.state.other;
+
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.SpriteGroup;

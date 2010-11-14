@@ -7,7 +7,7 @@
  * resume key is pressed
  */
 
-package vooga.engine.state;
+package vooga.engine.state.other;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.SpriteGroup;

@@ -5,7 +5,7 @@
  * use this class to their advantages. Please add to the code. 
  */
 
-package vooga.engine.state;
+package vooga.engine.state.other;
 
 public interface KeyMenu {
 
