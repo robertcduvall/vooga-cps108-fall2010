@@ -1,0 +1,7 @@
+<Overlay>
+
+<OverlayGroup>
+<OverlayString label="Control Panel" fontName="gameFontBlack" xLoc="0" yLoc="0"></OverlayString>
+</OverlayGroup>
+
+</Overlay>

@@ -1,6 +1,8 @@
 package vooga.engine.player.control;
 
+import java.lang.reflect.Method;
 import java.util.*;
+
 import com.golden.gamedev.Game;
 
 /**
@@ -19,14 +21,19 @@ import com.golden.gamedev.Game;
  */
 public class Control{
     protected List<GameEntitySprite> entities;
-    protected Class[] paramTypes;
+    protected Class<?>[] paramTypes;
     protected Game myGame;
+	protected Map<Integer, Method> methodMap;
+	protected Map<Integer, Object[]> paramMap;
+	protected int key;
     
     /**
      * Default Control Constructor
      */
     public Control() {
+    	initializeMappings();
         entities = new ArrayList<GameEntitySprite>();
+        key = 0;
     }
     
     /**
@@ -77,7 +84,20 @@ public class Control{
      * Invoke methods here. Call method each time through game loop
      */
     public void update() {
-    	
+    	if (methodMap.containsKey(key))
+        {
+            try{
+                for (int i = 0; i < entities.size(); i++)
+                {
+                     Method perform = methodMap.get(key);
+                     Object[] paramVals = paramMap.get(key);
+                     perform.invoke(entities.get(i), paramVals);
+                }
+            }
+            catch (Throwable e){
+                System.err.println(e);
+            }
+        }
     }
 
 	/**
@@ -97,12 +117,32 @@ public class Control{
      * parameter with something other than 'null', you must use setParams first.
      */
     public void addInput(int listen, String method, String classname, Object... paramVals) {
-    //should be overridden in subclasses
+    	try {
+            Class<?> myClass = Class.forName(classname);
+            Method perform = myClass.getMethod(method, paramTypes);
+            methodMap.put(listen, perform);
+            paramMap.put(listen, paramVals);
+            paramTypes = null;
+        } catch (Throwable e) {
+            System.err.println(e);
+        }
     }
 
-	
+
 	public void initializeMappings() {
-		// TODO Auto-generated method stub
-		
+		methodMap = new HashMap<Integer, Method>();
+		paramMap = new HashMap<Integer, Object[]>();
+	}
+	
+	public void changeKey(int previousKey, int newKey){
+		if (methodMap.containsKey(previousKey))
+		{
+			Method method = methodMap.get(previousKey);
+			methodMap.put(newKey, method);
+			methodMap.remove(previousKey);
+		}
+		else {
+			System.out.println("This key didn't exist in the map yet");
+		}
 	}
 }
