@@ -97,8 +97,8 @@ public class MarioLevelFactory implements LevelFactory {
 	 * 
 	 * In general: *variable*=*value*
 	 * 
-	 * map=*location of level's map file* (only first is read) enemy=*enemy
-	 * x*,*enemy y* mario=*mario x*,*mario y* (only first is read)
+	 * map=*location of level's map file* (only first is read)
+	 * enemy=*enemy x*, *enemy y* mario=*mario x*,*mario y* (only first is read)
 	 * overlay=*location of overlay XML file* music=*key for sound file*
 	 * bg=[color/image]:[R,G,B/*key for image*]
 	 */
