@@ -10,6 +10,7 @@ import javax.crypto.Mac;
 
 import vooga.engine.level.Rule;
 import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Background;
@@ -33,6 +34,7 @@ public class VoogaPlayField extends PlayField {
 	
 	private Map<String, Rule> ruleBook;
 	private Map<Rule, SpriteGroup[]> ruleMap; 
+	private String myMusic;
 	
 	public VoogaPlayField(Background background){
 		super(background);
@@ -97,6 +99,15 @@ public class VoogaPlayField extends PlayField {
 		for(SpriteGroup overlay : overlayGroups){
 			this.addGroup(overlay);
 		}
+	}
+	
+	
+	/**
+	 * Gives the current PlayField music
+	 * @param key
+	 */
+	private void addMusic(String key) {
+		myMusic = Resources.getSound(key);
 	}
 	
 
