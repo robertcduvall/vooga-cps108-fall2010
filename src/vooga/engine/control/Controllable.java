@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.control;
 
 /**
  * Interface that can be used by classes that wish to use a control scheme. Has the 

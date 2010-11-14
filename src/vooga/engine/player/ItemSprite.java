@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.player;
 
 import com.golden.gamedev.object.Sprite;
 

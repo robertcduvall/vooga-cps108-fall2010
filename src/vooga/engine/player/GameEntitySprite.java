@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.player;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
