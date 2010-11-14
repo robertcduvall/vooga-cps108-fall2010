@@ -2,6 +2,8 @@ package vooga.engine.factory;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,7 +31,7 @@ public class LevelParser implements LevelFactory{
 	private static Game currentGame;
 
 	@Override
-	public PlayField getPlayfield(String filepath, Game currentgame) {
+	public VoogaPlayField getPlayfield(String filepath, Game currentgame) {
 	
 		currentGame = currentgame;
 		return createLevelPlayfield(filepath);
@@ -38,21 +40,20 @@ public class LevelParser implements LevelFactory{
 
 	private VoogaPlayField createLevelPlayfield(String xmlLevelFile)
 	{
-
-		VoogaPlayField godField = new VoogaPlayField();
+		VoogaPlayField voogaPlayField = new VoogaPlayField();
 		File file = new File(xmlLevelFile);
 		DocumentBuilderFactory documentfactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		try {
 			builder = documentfactory.newDocumentBuilder();
 			Document xmlDocument = builder.parse(file);
-			processLevel(xmlDocument, godField); // This should nest into specific cases and process a level
+			processLevel(xmlDocument, voogaPlayField); // This should nest into specific cases and process a level
 		} 
 		catch (Exception e) {
 			throw LevelException.LEVEL_PARSING_EXCEPTION;
 		}
 
-		return godField;
+		return voogaPlayField;
 
 	}
 
@@ -89,8 +90,11 @@ public class LevelParser implements LevelFactory{
 		gameClassPath = level.getAttribute("gameclasspath");
 		xmlOverlayPath = level.getAttribute("xmloverlaypath");
 
+		List<Element> levelObjectsList = loadSectionElements(xmlDocument, "LevelObjects");
+		
+		
 		NodeList spritegrouplist = getXMLList(xmlDocument, "SpriteGroup");
-		processSpriteGroups(spritegrouplist, godfield);
+		processLevelObjects(spritegrouplist, godfield);
 
 		NodeList collisiongrouplist = getXMLList(xmlDocument, "CollisionGroup");
 		processCollisionGroups(collisiongrouplist, godfield);
@@ -101,7 +105,7 @@ public class LevelParser implements LevelFactory{
 	}
 
 
-	private void processSpriteGroups(NodeList spritegroupslist, PlayField godfield) {
+	private void processLevelObjects(List<Element> levelObjectsList, PlayField godfield) {
 
 		for(int i = 0; i < spritegroupslist.getLength(); i++)
 		{
@@ -235,4 +239,24 @@ public class LevelParser implements LevelFactory{
 
 	}
 
+	/**
+	 * Utility method for loadResourcesXMLFile - loads a Node's Elements and returns them in a List.
+	 * @param doc
+	 * @param sectionTag
+	 * @return
+	 */
+	private static List<Element> loadSectionElements(Document doc, String sectionTag) {
+    	Node section = doc.getElementsByTagName(sectionTag).item(0);
+    	NodeList nodeList = section.getChildNodes();
+    	int length = nodeList.getLength();
+    	ArrayList<Element> elementList = new ArrayList<Element>();
+    	for (int i = 0; i < length; i++) {
+    		Node node = nodeList.item(i);
+    		if (node.getNodeType() == Node.ELEMENT_NODE) {
+    			Element element = (Element) node;
+    			elementList.add(element);
+    		}
+    	}
+    	return elementList;
+    }
 }
