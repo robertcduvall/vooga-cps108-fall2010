@@ -28,6 +28,18 @@ public class Counter extends Sprite{
 	private GameStateManager myStateManager;
 	private boolean go;
 	
+	
+	/**
+	 * Creats a counter to countdown to something then switch states.
+	 * All images must be initialized in resources before this is called.
+	 * 
+	 * @param startPoint - the number to start at.
+	 * @param timePerImage - time to spend on each image of the counter
+	 * @param timeAtEnd - time to spend on the last image of the counter
+	 * @param width - width of the images, scales the height to this width
+	 * @param stateManager - the GameStateManger of the game
+	 * @param switchTo - the GameState to switch to when the counter is done.
+	 */
 	public Counter(int startPoint, int timePerImage, int timeAtEnd, int width, GameStateManager stateManager, GameState switchTo) {
 		myTimer = new Timer(timePerImage);
 		myImage = Resources.getImage(String.valueOf(startPoint));
