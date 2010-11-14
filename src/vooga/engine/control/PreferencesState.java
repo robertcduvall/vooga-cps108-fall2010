@@ -37,5 +37,11 @@ public class PreferencesState extends GameState{
 	{
 		
 	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
