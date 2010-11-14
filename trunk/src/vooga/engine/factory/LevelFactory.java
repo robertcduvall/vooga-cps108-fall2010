@@ -2,6 +2,7 @@ package vooga.engine.factory;
 
 import java.io.File;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.VoogaPlayField;
 
 /**
@@ -15,6 +16,6 @@ public interface LevelFactory {
 	 * @param levelFactoryFile - file containing details of the game objects for the current level
 	 * @return Playfield for the current level
 	 */
-	public VoogaPlayField getPlayfield(File levelFactoryFile);
+	public VoogaPlayField getPlayfield(String filepath, Game currentgame);
 	
 }
