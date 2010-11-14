@@ -39,6 +39,9 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 */
 	public Sprite() {
 		super();
+		mySprites = new HashMap<String, com.golden.gamedev.object.Sprite>();
+		myCurrentSprite = new com.golden.gamedev.object.Sprite();
+		myStatMap = new HashMap<String, Stat<?>>();
 	}
 	
 	public Sprite(BufferedImage image){
@@ -142,7 +145,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param label
 	 * @param images
 	 */
-	public void addAnimatedsprite(String label, BufferedImage[] images){
+	public void addAnimatedSprite(String label, BufferedImage[] images){
 		addSprite(label, new AnimatedSprite(images));
 	}
 	
