@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
+import vooga.engine.resource.Resources;
+
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -32,7 +34,6 @@ public class OverlayIcon extends Overlay {
 	private OverlayStatImage myIcon;
 	private int myNumOfIcons;
 	private int myPreviousNumOfIcons;
-	private StatInt myStatKeeper;
 	private Stat<Integer> myStatKeeperGen;
 	private OverlayString myText;
 	private SpriteGroup myIconGroup;
@@ -60,7 +61,25 @@ public class OverlayIcon extends Overlay {
 	}
 	
 	
-	protected OverlayIcon(Map<String, String> attributes, OverlayTrackerTemp tracker){
+	public OverlayIcon(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		myText = new OverlayString(attributes, tracker);
+		String resourceName = attributes.get("image");
+		String width = attributes.get("width");
+		String height = attributes.get("height");
+		OverlayStatImage osi;
+		if(width!=null && height!=null){
+			osi = new OverlayStatImage(Resources.getImage(resourceName), Integer.valueOf(width), Integer.valueOf(height));
+		}else{
+			osi = new OverlayStatImage(Resources.getImage(resourceName));
+		}
+		myIcon = osi;
+		setLocation(attributes);
+		String statName = attributes.get("stat");
+		myStatKeeperGen = tracker.getStat(statName, new Integer(1));
+		myNumOfIcons = myStatKeeperGen.getStat().intValue();
+		myPreviousNumOfIcons = 0;
+		myIconGroup = new SpriteGroup("Icons");
+		updateIcon();
 		
 	}
 	
@@ -85,9 +104,7 @@ public class OverlayIcon extends Overlay {
 	@Override
 	public void update(long t)
 	{
-		if (myStatKeeper != null){
-			myNumOfIcons = myStatKeeper.getStat();
-		}else if(myStatKeeperGen != null){
+		if(myStatKeeperGen != null){
 			myNumOfIcons = myStatKeeperGen.getStat();
 		}else{
 			myNumOfIcons = 0;

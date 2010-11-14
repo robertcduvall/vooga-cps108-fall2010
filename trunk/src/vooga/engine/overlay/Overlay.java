@@ -24,14 +24,14 @@ public abstract class Overlay extends Sprite {
 	protected void setLocation(Map<String, String> attributes){
 		String xLocStr = attributes.get("xLoc");
 		int xLoc;
-		if(xLocStr.equals("")){
+		if(xLocStr == null){
 			xLoc = 0;
 		}else{
 			xLoc = Integer.valueOf(xLocStr);
 		}
 		String yLocStr = attributes.get("yLoc");
 		int yLoc;
-		if(yLocStr.equals("")){
+		if(yLocStr == null){
 			yLoc = 0;
 		}else{
 			yLoc = Integer.valueOf(yLocStr);
