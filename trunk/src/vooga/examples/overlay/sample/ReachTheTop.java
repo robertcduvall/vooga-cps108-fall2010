@@ -70,10 +70,10 @@ public class ReachTheTop extends Game {
 		Resources.loadImage("ball", "resources/transBall.gif");
 		
 		
-		OverlayCreator.setGame(this);
+		OverlayCreatorTemp.setGame(this);
 		OverlayTrackerTemp track = OverlayCreatorTemp.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
-		myLives = track.getStat("two");
-		myScore = track.getStat("three");
+		myLives = track.getStat("two", new Integer(0));
+		myScore = track.getStat("three", new Integer(0));
 
 		// create the game playfield
 		myPlayfield = new PlayField();
@@ -200,12 +200,7 @@ public class ReachTheTop extends Game {
 			myFont.drawString(g, "FINAL SCORE:" + myScore, myBackground
 					.getWidth() / 3, myBackground.getHeight() / 2 + 20);
 
-		} else {
-			// draw info text
-			myFont.drawString(g, "ARROW KEY : MOVE", 10, 10);
-			//myFont.drawString(g, "LIVES     : " + myLives, 10, 30);
-			//myFont.drawString(g, "SCORE     : " + myScore.getStat(), 10, 50);
-		}
+		} 
 	}
 
 	/****************************************************************************/
