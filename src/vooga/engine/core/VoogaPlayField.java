@@ -2,8 +2,10 @@ package vooga.engine.core;
 
 import java.util.ArrayList;
 
+
 import vooga.engine.overlay.OverlayTracker;
 
+import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
@@ -50,4 +52,12 @@ public class VoogaPlayField extends PlayField {
 		}
 	}
 
+	public void addPlayField(PlayField otherField){
+	
+		for (SpriteGroup sg : otherField.getGroups()){
+			addGroup(sg);
+		}
+				
+	}
+	
 }
