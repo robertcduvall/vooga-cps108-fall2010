@@ -24,14 +24,11 @@ import com.golden.gamedev.object.SpriteGroup;
  * 
  * @author VitorOlivier & BrentSodman & BrianSimel
  */
-public abstract class GameState implements Comparable<GameState> {
+public abstract class GameState {
 
 	private boolean myIsActive = false;
 	protected VoogaPlayField myRenderField = new VoogaPlayField();
 	protected VoogaPlayField myUpdateField = new VoogaPlayField();
-	private int myLayer;
-
-
 	
 	/**
 	 * Constructs a new GameState play
@@ -221,12 +218,8 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public void addRenderState(GameState gamestate) {		
 		
-		//vooga playfield will contain this method
 		myRenderField.addPlayField(gamestate.getRenderField());
 		
-		/*for (SpriteGroup group : gamestate.getRenderGroups()) {
-			myRenderField.add(group);
-		}*/
 	}
 
 	/**
@@ -236,12 +229,8 @@ public abstract class GameState implements Comparable<GameState> {
 	 */
 	public void addUpdateState(GameState gamestate) {
 		
-		//vooga playfield will contain this method
 		myUpdateField.addPlayField(gamestate.getUpdateField());
 		
-		/*for (SpriteGroup group : gamestate.getUpdateGroups()) {
-			myUpdateField.add(group);
-		}*/
 	}
 
 	/**
@@ -272,35 +261,6 @@ public abstract class GameState implements Comparable<GameState> {
 		myUpdateField.removeGroup(group);
 	}
 
-
-	/**
-	 * Sets the current GameState's layer value. Layers are used to render multiple GameStates in a defined order.
-	 * 
-	 * @param layer
-	 */
-	public void setLayer(int layer) {
-		this.myLayer = layer;
-	}
-
-	/**
-	 * Returns the current GameState's layer value.
-	 * 
-	 * @return GameState's layer
-	 */
-	public int getLayer() {
-		return myLayer;
-	}
-
-	/**
-	 * Compare function for GameStates. Tests the value of GameStates' layers against each other.
-	 * 
-	 * @param gamestate
-	 * @return int
-	 */
-	@Override
-	public int compareTo(GameState gamestate) {
-		return this.getLayer() - gamestate.getLayer();
-	}
 	
 	/**
 	 * Equals function for GameStates
@@ -323,22 +283,6 @@ public abstract class GameState implements Comparable<GameState> {
 				myRenderGroups.equals(other.getRenderGroups());
 	}*/
 
-	/**
-	 * Hash coding for GameStates
-	 * 
-	 * @return int
-	 */
 
-	@Override
-	public int hashCode(){
-		final int PRIME_NUMBER = 7;
-		
-		int code = 37;
-		code = code * PRIME_NUMBER + myRenderField.hashCode(); 
-		code = code * PRIME_NUMBER + myUpdateField.hashCode();
-		code = code * PRIME_NUMBER + myLayer;
-		
-		return code;
-	}
 
 }
