@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.engine.overlay.Stat;
+
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.util.ImageUtil;
 
@@ -28,7 +30,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	private static final String DEFAULT_STATE_NAME = "default";
 	
 	private long myStartTime;
-	private Map<String, Sprite> mySprites;
+	private Map<String, com.golden.gamedev.object.Sprite> mySprites;
 	private com.golden.gamedev.object.Sprite myCurrentSprite;
 	private Map<String, Stat<?>> myStatMap;
 
@@ -37,57 +39,6 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 */
 	public Sprite() {
 		this(null);
-	}
-	
-	/**
-	 * Constructs an entity from the given image with 0, 0 position and the default label.
-	 * @param image
-	 */
-	public Sprite(BufferedImage image) {
-		this(DEFAULT_STATE_NAME, image);
-	}
-	
-	/** 
-	 * Constructs an entity with null image located at the specified coordinates with the default label.
-	 * @param x is the x position.
-	 * @param y is the y position.
-	 */
-	public Sprite(double x, double y) {
-		this(null, 0, 0);
-	}
-	
-	/**
-	 * Constructs an entity with given image located at the specified coordinates and the default label.
-	 * @param image 
-	 * @param x is the x position.
-	 * @param y is the y position.
-	 */
-	public Sprite(BufferedImage image, double x, double y) {
-		this(DEFAULT_STATE_NAME, new Sprite(image, x, y));
-	}
-	
-	/**
-	 * Constructs an entity with given image located at specified coordinates AND labels the 
-	 * image so that you can switch to this initial sprite if other sprites are added to this
-	 * entity later.
-	 * @param label is the label for this sprite representation.
-	 * @param image
-	 * @param x is the x position.
-	 * @param y is the y position.
-	 */
-	public Sprite(String label, BufferedImage image, double x, double y) {
-		this(label, new Sprite(image, x, y));
-	}
-	
-	/**
-	 * Constructs an entity with given image at 0, 0 position AND labels the 
-	 * image so that you can switch to this initial sprite if other sprites are added to this
-	 * entity later.
-	 * @param label is the label for this sprite representation.
-	 * @param image
-	 */
-	public Sprite(String label, BufferedImage image) {
-		this(image, 0, 0);
 	}
 	
 	/**
@@ -101,13 +52,65 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param this is the default Sprite that will represent this Entity on the
 	 *        Screen.
 	 */
-	public Sprite(String label, Sprite s) {
+	public Sprite(String label, com.golden.gamedev.object.Sprite s) {
 		myStartTime = System.currentTimeMillis();
-		mySprites = new HashMap<String, Sprite>();
+		mySprites = new HashMap<String, com.golden.gamedev.object.Sprite>();
 		addSprite(label, s);
 		myCurrentSprite = s;
 		myStatMap = new HashMap<String, Stat<?>>();
 	}
+		
+	/**
+	 * Construct an entity from an array of images to create animated sprites
+	 * @param image
+	 */
+	public Sprite(BufferedImage[] images)
+	{
+		this(DEFAULT_STATE_NAME, new AnimatedSprite(images));
+	}
+	/** 
+	 * Constructs an entity with null image located at the specified coordinates with the default label.
+	 * @param x is the x position.
+	 * @param y is the y position.
+	 */
+	public Sprite(double x, double y) {
+		this(null, x, y);
+	}
+	
+	/**
+	 * Constructs an entity with given image located at the specified coordinates and the default label.
+	 * @param image 
+	 * @param x is the x position.
+	 * @param y is the y position.
+	 */
+	public Sprite(BufferedImage image, double x, double y) {
+		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite(image, x, y));
+	}
+	
+	/**
+	 * Constructs an entity with given image located at specified coordinates AND labels the 
+	 * image so that you can switch to this initial sprite if other sprites are added to this
+	 * entity later.
+	 * @param label is the label for this sprite representation.
+	 * @param image
+	 * @param x is the x position.
+	 * @param y is the y position.
+	 */
+	public Sprite(String label, BufferedImage image, double x, double y) {
+		this(label, new com.golden.gamedev.object.Sprite(image, x, y));
+	}
+	
+	/**
+	 * Constructs an entity with given image at 0, 0 position AND labels the 
+	 * image so that you can switch to this initial sprite if other sprites are added to this
+	 * entity later.
+	 * @param label is the label for this sprite representation.
+	 * @param image
+	 */
+	public Sprite(String label, BufferedImage image) {
+		this(image, 0, 0);
+	}
+	
 
 	/**
 	 * @param label
@@ -116,7 +119,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param sp
 	 *            is the Sprite you are mapping to the first parameter.
 	 */
-	public void addSprite(String label, Sprite sp) {
+	public void addSprite(String label, com.golden.gamedev.object.Sprite sp) {
 		mySprites.put(label, sp);
 	}
 	
@@ -127,8 +130,18 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param image is the image from which the new Sprite will be constructed.
 	 */
 	public void addSprite(String label, BufferedImage image) {
-		addSprite(label, new Sprite(image));
+		addSprite(label, new com.golden.gamedev.object.Sprite(image));
 	}
+	
+	/**
+	 * Adds a new Animatedsprite to the image map;
+	 * @param label
+	 * @param images
+	 */
+	public void addAnimatedsprite(String label, BufferedImage[] images){
+		addSprite(label, new AnimatedSprite(images));
+	}
+	
 	
 	/**
 	 * This method returns my currentSprite. Beware that the currentSprite may change
@@ -159,7 +172,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 */
 	public void setToCurrentSprite(String spriteName) {
 		if (mySprites.containsKey(spriteName)) {
-			Sprite nextSprite = mySprites.get(spriteName);
+			com.golden.gamedev.object.Sprite nextSprite = mySprites.get(spriteName);
 			setToCurrentSprite(nextSprite);
 		}
 	}
@@ -172,7 +185,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 *            set the "nextSprite" to the current sprite
 	 */
 
-	private void setToCurrentSprite(Sprite nextSprite) {
+	private void setToCurrentSprite(com.golden.gamedev.object.Sprite nextSprite) {
 
 		double currentX = myCurrentSprite.getX();
 		double currentY = myCurrentSprite.getY();
