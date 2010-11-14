@@ -28,4 +28,10 @@ public class PauseState extends GameState {
 		}
 	}
 
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
