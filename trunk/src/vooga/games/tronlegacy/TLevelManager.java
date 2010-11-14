@@ -23,8 +23,13 @@ public class TLevelManager extends LevelManager {
 
 	// this isn't how it seems like the levelManager wants the level to be
 	// implemented see below
+	
+	public void addLevels(String filepath, File file){
+		
+		getLevelNames(file);
+		
+	}
 
-	@Override
 	public Collection<String> getLevelNames(File levelNamesFile) {
 		ArrayList<String> returnNames = new ArrayList<String>();
 

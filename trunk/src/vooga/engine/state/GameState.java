@@ -24,11 +24,11 @@ import com.golden.gamedev.object.SpriteGroup;
  * 
  * @author VitorOlivier & BrentSodman & BrianSimel
  */
-public class GameState implements Comparable<GameState> {
+public abstract class GameState implements Comparable<GameState> {
 
 	private boolean myIsActive = false;
-	private VoogaPlayField myRenderField = new VoogaPlayField();
-	private VoogaPlayField myUpdateField = new VoogaPlayField();
+	protected VoogaPlayField myRenderField = new VoogaPlayField();
+	protected VoogaPlayField myUpdateField = new VoogaPlayField();
 	private int myLayer;
 
 
@@ -131,9 +131,7 @@ public class GameState implements Comparable<GameState> {
 	 * rather than anything broadly required for all GameStates.
 	 * 
 	 */
-	public void initialize(){
-		
-	}
+	public abstract void initialize();
 
 	/**
 	 * Returns the boolean value of the GameState's active variable.

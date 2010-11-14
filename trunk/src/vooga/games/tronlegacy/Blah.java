@@ -72,7 +72,7 @@ public class Blah extends Game {
 		if (playState.isActive()) {
 			pauseState.addRenderState(playState);
 		} else {
-			pauseState.removeAllGroups();
+			pauseState.removeEverything();
 		}
 		stateManager.toggle(playState);
 		stateManager.toggle(pauseState);
