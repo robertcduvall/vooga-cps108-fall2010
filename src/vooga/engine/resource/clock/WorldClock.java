@@ -108,6 +108,10 @@ public class WorldClock {
 		localCal.setTimeInMillis(System.currentTimeMillis());
 		return localCal.get(type);
 	}
+	
+	public static String getLocalTimeAsString(int type){
+		return Long.toString(getLocalTime(type));
+	}
 
 	/**
 	 * Returns the current local time measured as millisecond from January 1,

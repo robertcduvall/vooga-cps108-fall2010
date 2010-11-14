@@ -14,6 +14,8 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.*;
 import vooga.engine.player.control.*;
 import vooga.engine.resource.*;
+import vooga.engine.resource.random.Randomizer;
+import vooga.engine.resource.random.RandomizerException;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
