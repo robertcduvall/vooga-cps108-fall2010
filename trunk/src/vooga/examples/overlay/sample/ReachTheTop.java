@@ -5,10 +5,12 @@ import java.awt.image.*;
 import java.util.Random;
 
 import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayCreatorTemp;
 import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayStatImage;
 import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.OverlayTrackerTemp;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
 import vooga.engine.resource.Resources;
@@ -69,15 +71,15 @@ public class ReachTheTop extends Game {
 		
 		
 		OverlayCreator.setGame(this);
-		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
-		myLives = track.getStats().get(2);
-		myScore = track.getStats().get(3);
+		OverlayTrackerTemp track = OverlayCreatorTemp.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
+		myLives = track.getStat("two");
+		myScore = track.getStat("three");
 
 		// create the game playfield
 		myPlayfield = new PlayField();
-		myPlayfield.addGroup(track.getOverlayGroups().get(0));
-		myPlayfield.addGroup(track.getOverlayGroups().get(1));
-		myPlayfield.addGroup(track.getOverlayGroups().get(2));
+		myPlayfield.addGroup(track.getOverlayGroup("first"));
+		myPlayfield.addGroup(track.getOverlayGroup("second"));
+		myPlayfield.addGroup(track.getOverlayGroup("third"));
 		
 				
 
