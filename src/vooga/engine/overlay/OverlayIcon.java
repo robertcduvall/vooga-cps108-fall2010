@@ -18,11 +18,11 @@ import com.golden.gamedev.object.SpriteGroup;
  * This Overlay class displays a finite number of icons, with the image provided by the user
  * @author Se-Gil Feldsott and Justin Goldsmith
  * 
- * <pre>
- * <p>StatInt stat = new StatInt(5);</p>
+ * <xmp>
+ * <p>Stat<Integer> stat = new Stat<Integer>(5);</p>
  * <p>GreenfootImage image = new GreenfootImage("...");</p>
  * <p>OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");</p>
- * </pre>
+ * </xmp>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  * 
@@ -42,7 +42,7 @@ public class OverlayIcon extends Overlay {
 	 * 
 	 * Creats Overlay Icon class that is Integer specific
 	 * @param stat Stat object that contains an Integer to keep track of
-	 * @param newIcon Icon to display
+	 * @param icon Icon to display
 	 * @param label String to label the icons
 	 */
 	public OverlayIcon (Stat<Integer> stat, BufferedImage icon, String label)  //Dimensions of the image
@@ -63,16 +63,7 @@ public class OverlayIcon extends Overlay {
 	
 	public OverlayIcon(Map<String, String> attributes, OverlayTrackerTemp tracker){
 		myText = new OverlayString(attributes, tracker);
-		String resourceName = attributes.get("image");
-		String width = attributes.get("width");
-		String height = attributes.get("height");
-		OverlayStatImage osi;
-		if(width!=null && height!=null){
-			osi = new OverlayStatImage(Resources.getImage(resourceName), Integer.valueOf(width), Integer.valueOf(height));
-		}else{
-			osi = new OverlayStatImage(Resources.getImage(resourceName));
-		}
-		myIcon = osi;
+		myIcon = new OverlayStatImage(attributes, tracker);
 		setLocation(attributes);
 		String statName = attributes.get("stat");
 		myStatKeeperGen = tracker.getStat(statName, new Integer(1));

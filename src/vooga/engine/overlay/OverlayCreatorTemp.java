@@ -39,68 +39,52 @@ import com.golden.gamedev.util.ImageUtil;
  * This class is used for creating overlays from an xml file instead of in the
  * code itself.
  * 
- * @author Justin Goldsmith
- * 
- *         <p>
+ * <p>
  *         example
  *         </p>
- *         <p>
- *         OverlayCreator.setGame(this); //This is assuming you are in the game
- *         class
- *         </p>
- *         <p>
+ *         <xmp>
+ *         OverlayCreator.setGame(this); //This is assuming you are in the game class
+ *         
  *         //Also this does not need to be done if you are using normal fonts.
- *         If you use any of the three //provided GameFont's then you must set
- *         the game. Eventually the GameFont's should be in Resources //so you
- *         should not have to set the game
- *         </p>
- *         <p>
- *         OverlayTracker track = OverlayCreator.createOverlays(String
- *         xmlFileLocation);
- *         </p>
- *         <p>
- *         // the String xmlFileLocation must be path from the root of the
- *         project
- *         </p>
- *         <p>
- *         Stat<Integer> myLives = track.getStats().get(2);
- *         </p>
- *         <p>
- *         Stat<Integer> myScore = track.getStats().get(3);
- *         </p>
- *         *
- *         <p>
+ *         //If you use any of the three provided GameFont's then you must set
+ *         //the game. Eventually the GameFont's should be in Resources so you
+ *         //should not have to set the game
+
+ *         OverlayTracker track = OverlayCreator.createOverlays(String xmlFileLocation);
+
+ *         // the String xmlFileLocation must be path from the root of the project
+
+ *         Stat<Integer> myLives = track.getStat("lives", new Integer(0));
+		   Stat<Integer> myScore = track.getStat("score", new Integer(0));
+
  *         PlayField myPlayfield = new PlayField();
- *         </p>
- *         <p>
- *         myPlayfield.addGroup(track.getOverlayGroups().get(0));
- *         </p>
- *         <p>
- *         myPlayfield.addGroup(track.getOverlayGroups().get(1));
- *         </p>
- *         <p>
- *         myPlayfield.addGroup(track.getOverlayGroups().get(2));
- *         </p>
- *         <p>
+ *         
+ *         myPlayfield.addGroup(track.getOverlayGroup(name));
+ *         myPlayfield.addGroup(track.getOverlayGroup(name));
+
  *         // Playfield can also be replaced with States from the GameState API
- *         </p>
+ *         </xmp>
  * 
  *         <A HREF="OverlayExample.xml">Click here to view xml file example</A>
- *         *
  *         <p>
  *         Here are all the attributes for all of the different overlays/p>
  *         <ul>
+ *         <li>OverlayGroup
+ *         <ul>name - key in map</ul>
+ *         </li>
  *         <li>Stat
  *         <ul>
  *         <li>type - must be "Integer" or "String". This will ideally change
  *         soon so it can be of any type.</li>
  *         <li>value - initial value</li>
+ *         <li>name - key in map</li>
  *         </ul>
  *         </li>
  *         <li>All Overlays
  *         <ul>
  *         <li>xLoc - x location of the overlay</li>
  *         <li>yLoc - y location of the overlay</li>
+ *         <li>name - key in map</li>
  *         </ul>
  *         <li>OverlayString
  *         <ul>
@@ -136,9 +120,7 @@ import com.golden.gamedev.util.ImageUtil;
  *         <li>stat - The stat to be used to display icons. Must be a Stat of
  *         type Integer. It must be an integer representing the order in which
  *         the stat was made. if it was the first one made it would be "0".</li>
- *         <li>icon - The icon to be displayed. It must be an integer
- *         representing the order in which the OverlayStatImage was made. if it
- *         was the first one made it would be "0".</li>
+ *         <li>All attributes in OverlayIcon</li>
  *         <li>All attributes in OverlayString</li>
  *         </ul>
  *         </li>
@@ -159,6 +141,8 @@ import com.golden.gamedev.util.ImageUtil;
  *         </li>
  *         </ul>
  * 
+ * 
+ * @author Justin Goldsmith
  */
 public class OverlayCreatorTemp {
 

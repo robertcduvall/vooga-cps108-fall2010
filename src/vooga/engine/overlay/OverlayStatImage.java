@@ -4,6 +4,8 @@ package vooga.engine.overlay;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
+import vooga.engine.resource.Resources;
+
 import com.golden.gamedev.util.ImageUtil;
 
 
@@ -43,8 +45,15 @@ public class OverlayStatImage extends Overlay{
 		setImage(ImageUtil.resize(this.getImage(), width, height));
 	}
 	
-	protected OverlayStatImage(Map<String, String> attributes, OverlayTrackerTemp tracker){
-		
+	public OverlayStatImage(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		this(Resources.getImage(attributes.get("image")));
+		String width = attributes.get("width");
+		String height = attributes.get("height");
+		OverlayStatImage osi;
+		if(width!=null && height!=null){
+			setImage(ImageUtil.resize(this.getImage(), Integer.valueOf(width), Integer.valueOf(height)));
+		}
+		setLocation(attributes);
 	}
 	
 	protected void scale(int width, int height){

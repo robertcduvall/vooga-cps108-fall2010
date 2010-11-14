@@ -98,7 +98,6 @@ public class OverlayString extends Overlay {
 			if (gameFont != null) {
 				setFont(gameFont);
 			} 
-			return;
 		} else {
 			String fontStyleStr = attributes.get("fontStyle");
 			int fontStyle = OverlayCreatorTemp.stringToFontStyle(fontStyleStr);
