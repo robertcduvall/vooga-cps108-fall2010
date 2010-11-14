@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.Sprite;
@@ -28,32 +29,13 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class OverlayIcon extends Overlay {
 
-	private OverlayStatImage myImage;
+	private OverlayStatImage myIcon;
 	private int myNumOfIcons;
 	private int myPreviousNumOfIcons;
 	private StatInt myStatKeeper;
 	private Stat<Integer> myStatKeeperGen;
 	private OverlayString myText;
 	private SpriteGroup myIconGroup;
-	
-	
-	/**
-	 * Creats Overlay Icon that is Int specific
-	 * @param stat Specific class for Ints only
-	 * @param newIcon Icon to display
-	 * @param label String to label the icons
-	 */
-	public OverlayIcon (StatInt stat, OverlayStatImage newIcon, String label)  //Dimensions of the image
-	{
-		myText = new OverlayString(label);
-		myStatKeeper = stat;
-		myImage = newIcon;
-		myNumOfIcons = stat.getStat();
-		myPreviousNumOfIcons = 0;
-		myIconGroup = new SpriteGroup("Icons");
-		setImage(myImage.getImage());
-	}
-	
 		
 	/**
 	 * 
@@ -62,15 +44,24 @@ public class OverlayIcon extends Overlay {
 	 * @param newIcon Icon to display
 	 * @param label String to label the icons
 	 */
-	public OverlayIcon (Stat<Integer> stat, OverlayStatImage newIcon, String label)  //Dimensions of the image
+	public OverlayIcon (Stat<Integer> stat, BufferedImage icon, String label)  //Dimensions of the image
 	{
 		myText = new OverlayString(label);
 		myStatKeeperGen = stat;
-		myImage = newIcon;
+		myIcon = new OverlayStatImage(icon);
 		myNumOfIcons = stat.getStat().intValue();
 		myPreviousNumOfIcons = 0;
 		myIconGroup = new SpriteGroup("Icons");
 		updateIcon();
+	}
+	
+	public void scaleIcon(int width, int height){
+		myIcon.scale(width, height);
+	}
+	
+	
+	protected OverlayIcon(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		
 	}
 	
 		
@@ -111,7 +102,7 @@ public class OverlayIcon extends Overlay {
 		while(myNumOfIcons != myPreviousNumOfIcons) 
 		{
 			if(myNumOfIcons > myPreviousNumOfIcons){
-				myIconGroup.add(myImage.clone());
+				myIconGroup.add(myIcon.clone());
 				myPreviousNumOfIcons++;
 			}
 				
@@ -170,6 +161,7 @@ public class OverlayIcon extends Overlay {
 	protected OverlayString getOverlayString(){
 		return myText;
 	}
+
 
 }
 

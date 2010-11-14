@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Map;
+
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.GameFontManager;
 
@@ -85,6 +87,38 @@ public class OverlayString extends Overlay {
 	public OverlayString(String str, Color color){
 		this(str, DEFAULT_FONT, color);	
 	}
+	
+	
+	protected OverlayString(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		this(attributes.get("label"));
+		
+		String fontName = attributes.get("fontName");
+		if (fontName.startsWith("gameFont")) {
+			GameFont gameFont = OverlayCreatorTemp.getGameFont(fontName.substring(8));
+			if (gameFont != null) {
+				setFont(gameFont);
+			} 
+			return;
+		} else {
+			String fontStyleStr = attributes.get("fontStyle");
+			int fontStyle = OverlayCreatorTemp.stringToFontStyle(fontStyleStr);
+			String fontSizeStr = attributes.get("fontSize");
+			int fontSize;
+			if (fontSizeStr.equals("")) {
+				fontSize = 22;
+			} else {
+				fontSize = Integer.valueOf(fontSizeStr);
+			}
+			String fontColorStr = attributes.get("color");
+			Color color = OverlayCreatorTemp.stringToColor(fontColorStr);
+			setFont(new Font(fontName, fontStyle, fontSize));
+			setColor(color);
+		}	
+		setLocation(attributes);
+	}
+	
+	
+	
 	
 	/**
 	 * This method will implemented if this Overlay was created with a Font or only a String and not a GameFont.
@@ -174,8 +208,7 @@ public class OverlayString extends Overlay {
 	public int getHeight(){
 		return getTextHeight();
 		
-	}
-	
+	}	
 		
 }
 	
