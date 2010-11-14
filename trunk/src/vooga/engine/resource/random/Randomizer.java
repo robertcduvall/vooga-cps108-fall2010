@@ -1,6 +1,7 @@
-package vooga.engine.resource;
+package vooga.engine.resource.random;
 
 import java.util.*;
+
 
 /**
  * Manages random number generation for the game using a primary random number

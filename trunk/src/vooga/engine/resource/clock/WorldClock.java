@@ -1,4 +1,4 @@
-package vooga.engine.resource;
+package vooga.engine.resource.clock;
 
 import java.util.Calendar;
 import java.util.TimeZone;
