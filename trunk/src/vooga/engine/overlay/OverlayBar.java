@@ -3,6 +3,7 @@ package vooga.engine.overlay;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 
 /**
@@ -49,6 +50,10 @@ public class OverlayBar extends Overlay {
 	public OverlayBar(Stat<Integer> stat, int maxScore) {
 		myStat = stat;
 		myMaxScore = maxScore;
+	}
+	
+	protected OverlayBar(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		
 	}
 	
 	/**
@@ -212,5 +217,6 @@ public class OverlayBar extends Overlay {
 			myHeight = height;
 		}
 	}
+
 
 }
