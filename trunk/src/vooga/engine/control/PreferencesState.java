@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.control;
 
 import java.awt.event.MouseEvent;
 

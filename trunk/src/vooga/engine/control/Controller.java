@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.control;
 
 /**
  * Interface that can be used by classes that want to extend the Control class. The methods

@@ -1,7 +1,8 @@
-package vooga.engine.player.control;
+package vooga.engine.control;
 
 import java.util.*;
 import com.golden.gamedev.Game;
+import vooga.engine.player.GameEntitySprite;
 
 /**
  * Built-in example of how to extend Control class properly. Also a usable mouse

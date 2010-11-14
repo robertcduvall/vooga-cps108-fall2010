@@ -1,4 +1,4 @@
-package vooga.engine.player.control;
+package vooga.engine.player;
 
 import java.util.ArrayList;
 import java.util.HashMap;

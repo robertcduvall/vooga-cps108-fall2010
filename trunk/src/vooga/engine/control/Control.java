@@ -1,7 +1,8 @@
-package vooga.engine.player.control;
+package vooga.engine.control;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import vooga.engine.player.GameEntitySprite;
 
 import com.golden.gamedev.Game;
 
