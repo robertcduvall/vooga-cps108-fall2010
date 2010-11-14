@@ -11,8 +11,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.VoogaPlayField;
+
 import vooga.engine.core.Sprite;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.PlayField;
@@ -20,11 +23,15 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class LevelParser implements LevelFactory{
 
-	private static final int FIRST_IMAGE_LOCATION = 0;
+	private static final int FIRST_IMAGE = 0;
+	private static String xmlOverlayPath;
+	private static String gameClassPath;
+	private static Game currentGame;
 
 	@Override
-	public PlayField getPlayfield(String filepath) {
+	public PlayField getPlayfield(String filepath, Game currentgame) {
 	
+		currentGame = currentgame;
 		return createLevelPlayfield(filepath);
 
 	}
@@ -39,13 +46,9 @@ public class LevelParser implements LevelFactory{
 		try {
 			builder = documentfactory.newDocumentBuilder();
 			Document xmlDocument = builder.parse(file);
-
 			processLevel(xmlDocument, godField); // This should nest into specific cases and process a level
-
 		} 
-		catch (Exception e) 
-		{
-
+		catch (Exception e) {
 			throw LevelException.LEVEL_PARSING_EXCEPTION;
 		}
 
@@ -64,6 +67,7 @@ public class LevelParser implements LevelFactory{
 	{
 		return doc.getElementsByTagName(tag);
 	}
+	
 
 	/**
 	 * Returns the value for a given tag from a given Node.
@@ -81,6 +85,9 @@ public class LevelParser implements LevelFactory{
 
 	private void processLevel(Document xmlDocument, PlayField godfield)
 	{
+		Element level = (Element) xmlDocument.getFirstChild(); 
+		gameClassPath = level.getAttribute("gameclasspath");
+		xmlOverlayPath = level.getAttribute("xmloverlaypath");
 
 		NodeList spritegrouplist = getXMLList(xmlDocument, "SpriteGroup");
 		processSpriteGroups(spritegrouplist, godfield);
@@ -124,17 +131,17 @@ public class LevelParser implements LevelFactory{
 				Sprite newsprite = new Sprite();
 				
 				//process Images
-				NodeList visualslist = sprite.getElementsByTagName("Visual");
+				NodeList visualslist = sprite.getElementsByTagName("visual");
 				processVisuals(visualslist, newsprite);
 				
 				
 				//process Stats
-				NodeList statslist = sprite.getElementsByTagName("Stat");
+				NodeList statslist = sprite.getElementsByTagName("stat");
 				processStats(statslist, newsprite);
 				
 				
 				//process Controls
-				NodeList controlslist = sprite.getElementsByTagName("Control");
+				NodeList controlslist = sprite.getElementsByTagName("control");
 				processControls(controlslist, newsprite);
 				
 				//process locations/velocities
@@ -148,15 +155,40 @@ public class LevelParser implements LevelFactory{
 	}
 
 	private void processControls(NodeList controlslist, Sprite newsprite) {
-		// TODO Auto-generated method stub
+		
+		for(int i = 0; i < controlslist.getLength(); i++)
+		{
+			if (isElement(controlslist.item(i)))
+			{
+				
+				
+				
+				
+				
+				
+			}
+		}
+		
+		
+		
+		
 	}
 
 	private void processStats(NodeList statslist, Sprite newsprite) {
-		
-		
-		
-		
+
+		for(int i = 0; i < statslist.getLength(); i++)
+		{
+			if (isElement(statslist.item(i)))
+			{
+				Element statelement = (Element) statslist.item(i);
+				String statname = statelement.getAttribute("name");
+				
+				//Stat<?> stat = (Stat<?>)(statname);
+				//newsprite.setStat(statname, stat);
+			}
+		}
 	}
+	
 
 	private void processVisuals(NodeList visualslist, Sprite newsprite) {
 		
@@ -171,7 +203,7 @@ public class LevelParser implements LevelFactory{
 				
 				newsprite.addAnimatedsprite(imagename, images);
 				
-				if(imagelocation == FIRST_IMAGE_LOCATION)
+				if(imagelocation == FIRST_IMAGE)
 				{
 					newsprite.setToCurrentSprite(imagename);
 				}
@@ -183,10 +215,18 @@ public class LevelParser implements LevelFactory{
 		return (node.getNodeType() == Node.ELEMENT_NODE);
 	}
 
-	private void processCollisionGroups(NodeList collisiongrouplist,
+	private void processCollisionGroups(NodeList collisiongrouplist, 
 			PlayField godfield) {
-		// TODO Auto-generated method stub
-
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	private void processRules(NodeList spritegrouplist,
