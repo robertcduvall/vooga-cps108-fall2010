@@ -30,8 +30,9 @@ import com.golden.gamedev.object.GameFontManager;
 
 public class OverlayString extends Overlay {
 	
-	private final static Color DEFAULT_COLOR = Color.black;
-	private final static Font DEFAULT_FONT = new Font("mine", Font.PLAIN, 22);
+	
+	public final static Color DEFAULT_COLOR = Color.black;
+	public final static Font DEFAULT_FONT = new Font("mine", Font.PLAIN, 22);
 
 	
 	
