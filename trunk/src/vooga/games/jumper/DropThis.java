@@ -53,6 +53,10 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 public class DropThis extends vooga.engine.core.Game {
 
+	private static final int UP_KEY = KeyEvent.VK_UP;
+	private static final int CHEAT_KEY = KeyEvent.VK_C;
+	private static final int LEFT_KEY = KeyEvent.VK_LEFT;
+	private static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
 	private final static int GAME_WIDTH = 500;
 	private final static int GAME_HEIGHT = 800;
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
@@ -112,21 +116,7 @@ public class DropThis extends vooga.engine.core.Game {
 		this.hideCursor();
 		
 		super.initResources();
-		
-//		Resources.setGame(this);
-//		Resources.setDefaultPath(src/vooga)
-//		
-		//setting up resource handler
-		/*ResourceHandler.setGame(this);
-		try{
-			Resources.loadFile("vooga/games/jumper/resources/resourcelist.txt");
-		} catch (IOException e){
-			e.printStackTrace();
-		}*/
-		//Resources.initialize(this, "vooga/games/jumper/resources/game.properties");
-
-//		Resources.initialize(this, getResourcePath());
-		
+				
 		BufferedImage leftDoodle = Resources.getImage("leftDoodle");
 		BufferedImage rightDoodle = Resources.getImage("rightDoodle");
 		DoodleSprite player1 = new DoodleSprite(leftDoodle, DOODLE_START, leftDoodle, rightDoodle);
@@ -150,18 +140,7 @@ public class DropThis extends vooga.engine.core.Game {
 		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
 
 		
-		/**
-		 * 
-		 * 
-		 * NEEDS TO BE RESOLVED
-		 
 		
-		myFont = fontManager.getFont(Resources.loadImageFile("font");
-		//getImages("font", 20, 3),myFontString);
-		 * 
-		 * 
-		 */
-
 		OverlayCreator.setGame(this);
 		myTrack = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
 		myScore = myTrack.getStats().get(0);
@@ -239,25 +218,12 @@ public class DropThis extends vooga.engine.core.Game {
 			myBlocks.add(block);
 		}
 	}
-//	/**
-//	 * sets the block image and the block type
-//	 * @param block
-//	 * @param imageName
-//	 * @param blockType
-//	 *
-//	 */
-//	
-//	public void setBlock(BlockSprite block, String imageName, String blockType) {
-//		block.setImage(Resources.getImage(imageName));
-//		block.setBlockType(blockType);
-//	}
 
 	/**
 	 * Updates game values
 	 * @param elapsedTime long time elapsed from last update
 	 */
 	public void update(long elapsedTime) {
-		//Sprite myPlayerTest = myPlayfield.getGroup(myPlayers);
 
 		if((myClock.getTime()-jetpackStartTime)>totalJetpackTime & jetpackStartTime!=0){
 			setJetpackOn(false);
@@ -318,7 +284,7 @@ public class DropThis extends vooga.engine.core.Game {
 		/**
 		 * If the doodle is standing on a block & the user presses up on the D-Pad...
 		 */
-		if (collisionNumber == 8 & keyPressed(KeyEvent.VK_UP)){
+		if (collisionNumber == 8 & keyPressed(UP_KEY)){
 			player.setVerticalSpeed(jumpHeight);
 		}
 		
@@ -327,13 +293,13 @@ public class DropThis extends vooga.engine.core.Game {
 		 * 
 		 * TODO:Use the event manager
 		 */
-		if (keyDown(KeyEvent.VK_RIGHT)){
+		if (keyDown(RIGHT_KEY)){
 			player.moveDoodle("right");
 		}
-		if (keyDown(KeyEvent.VK_LEFT)){
+		if (keyDown(LEFT_KEY)){
 			player.moveDoodle("left");
 		}
-		if (keyDown(KeyEvent.VK_C)){
+		if (keyDown(CHEAT_KEY)){
 			player.setY(GAME_HEIGHT - player.getHeight());
 		}
 

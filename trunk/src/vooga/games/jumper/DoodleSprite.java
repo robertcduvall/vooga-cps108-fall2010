@@ -104,7 +104,7 @@ public class DoodleSprite extends Sprite {
 	public void moveDoodle(String direction){
 		
 		int directionMultiplier = 1;
-		if (direction == "left"){
+		if (direction.equals("left")){
 			directionMultiplier = -1;
 		}
 

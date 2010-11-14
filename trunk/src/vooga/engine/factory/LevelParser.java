@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.engine.core.Playfield;
+import vooga.engine.core.VoogaPlayField;
 import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 
@@ -29,10 +29,10 @@ public class LevelParser implements LevelFactory{
 
 	}
 
-	private Playfield createLevelPlayfield(String xmlLevelFile)
+	private VoogaPlayField createLevelPlayfield(String xmlLevelFile)
 	{
 
-		Playfield godField = new Playfield();
+		VoogaPlayField godField = new VoogaPlayField();
 		File file = new File(xmlLevelFile);
 		DocumentBuilderFactory documentfactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
