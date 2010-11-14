@@ -21,13 +21,13 @@ import com.golden.gamedev.object.SpriteGroup;
  * @author Bhawana , Cameron , Derek
  *
  */
-public class Playfield extends PlayField {
+public class VoogaPlayField extends PlayField {
 	
-	public Playfield(Background background){
+	public VoogaPlayField(Background background){
 		super(background);
 	}
 	
-	public Playfield() {
+	public VoogaPlayField() {
 		super();
 	}
 	
