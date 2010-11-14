@@ -3,7 +3,9 @@ package vooga.engine.factory;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,6 +19,8 @@ import vooga.engine.core.Game;
 import vooga.engine.core.VoogaPlayField;
 
 import vooga.engine.core.Sprite;
+import vooga.engine.overlay.OverlayCreatorTemp;
+import vooga.engine.overlay.OverlayTrackerTemp;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 
@@ -26,9 +30,10 @@ import com.golden.gamedev.object.SpriteGroup;
 public class LevelParser implements LevelFactory{
 
 	private static final int FIRST_IMAGE = 0;
-	private static String xmlOverlayPath;
 	private static String gameClassPath;
 	private static Game currentGame;
+	private static OverlayTrackerTemp overlayTracker;
+	private static Map<String, SpriteGroup> spriteGroupMap;
 	private static VoogaPlayField voogaPlayField;
 	
 
@@ -36,6 +41,7 @@ public class LevelParser implements LevelFactory{
 	public VoogaPlayField getPlayfield(String filepath, Game currentgame) {
 	
 		currentGame = currentgame;
+		spriteGroupMap = new HashMap<String, SpriteGroup>();
 		voogaPlayField = new VoogaPlayField();
 		createLevelPlayfield(filepath);
 		return voogaPlayField;
@@ -49,7 +55,7 @@ public class LevelParser implements LevelFactory{
 		try {
 			builder = documentfactory.newDocumentBuilder();
 			Document xmlDocument = builder.parse(file);
-			processLevel(xmlDocument, voogaPlayField); // This should nest into specific cases and process a level
+			processLevel(xmlDocument); // This should nest into specific cases and process a level
 		} 
 		catch (Exception e) {
 			throw LevelException.LEVEL_PARSING_EXCEPTION;
@@ -72,9 +78,13 @@ public class LevelParser implements LevelFactory{
 
 	private void processLevel(Document xmlDocument)
 	{
+		
+		
 		Element level = (Element) xmlDocument.getFirstChild(); 
 		gameClassPath = level.getAttribute("gameclasspath");
-		xmlOverlayPath = level.getAttribute("xmloverlaypath");
+		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
+		overlayTracker = OverlayCreatorTemp.createOverlays(xmlOverlayPath);
+		
 		Node levelObjectsSection = xmlDocument.getElementsByTagName("LevelObjects").item(0);
         NodeList listOfLevelObjects = levelObjectsSection.getChildNodes();
         processLevelObjects(listOfLevelObjects);
@@ -97,6 +107,7 @@ public class LevelParser implements LevelFactory{
         	if (isElement(node) && node.getNodeName().equals("CollisionGroup")) {
             	NodeList collisionGroupList = node.getChildNodes();
             	processCollisionGroups(collisionGroupList);
+            	
         	} else if (isElement(node) && node.getNodeName().equals("Rule")) {
         		NodeList rulesList = node.getChildNodes();
             	processRules(rulesList);
@@ -164,11 +175,15 @@ public class LevelParser implements LevelFactory{
 				processControls(controlslist, newsprite);
 				
 				//process locations/velocities
-//				double x = 
-//				double y = 
-//				double vx = 
-//				double vy = 
+				double x = Double.parseDouble(sprite.getAttribute("x"));
+				double y = Double.parseDouble(sprite.getAttribute("y"));
+				double vx = Double.parseDouble(sprite.getAttribute("vx"));
+				double vy = Double.parseDouble(sprite.getAttribute("vy"));
 						
+				newsprite.setLocation(x, y);
+				newsprite.setHorizontalSpeed(vx);
+				newsprite.setVerticalSpeed(vy);
+					
 			}
 		}
 	}
@@ -187,10 +202,7 @@ public class LevelParser implements LevelFactory{
 				
 			}
 		}
-		
-		
-		
-		
+			
 	}
 
 	private void processStats(NodeList statslist, Sprite newsprite) {
@@ -201,9 +213,8 @@ public class LevelParser implements LevelFactory{
 			{
 				Element statelement = (Element) statslist.item(i);
 				String statname = statelement.getAttribute("name");
-				
-				//Stat<?> stat = (Stat<?>)(statname);
-				//newsprite.setStat(statname, stat);
+				Stat<?> stat = overlayTracker.getStat(statname);
+				newsprite.setStat(statname, stat);
 			}
 		}
 	}
