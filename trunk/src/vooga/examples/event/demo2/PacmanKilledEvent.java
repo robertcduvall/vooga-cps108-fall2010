@@ -16,8 +16,8 @@ public class PacmanKilledEvent implements IEventHandler {
 	private Ghost ghost;
 	/**
 	 * Constructor. User can pass objects or variables through this constructor.
-	 * @param pacman
-	 * @param ghost
+	 * @param pacman Pacman object
+	 * @param ghost Ghost object
 	 */
 	public PacmanKilledEvent(Pacman pacman, Ghost ghost){
 		this.pacman=pacman;
