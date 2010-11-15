@@ -82,6 +82,9 @@ public class LevelParser implements LevelFactory{
 		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("BG").item(0);
         NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
         processBackgrounds(listOfBackgrounds);
+        Node musicGroupSection = xmlDocument.getElementsByTagName("Music").item(0);
+        NodeList listOfMusic = musicGroupSection.getChildNodes();
+        processMusic(listOfMusic);
 	}
 	
 //	/**
@@ -186,6 +189,17 @@ public class LevelParser implements LevelFactory{
 		{
 			Element bgElement = (Element) backgrounds.item(i);
 			myVoogaPlayField.addImageBackground(bgElement.getAttribute("path"));
+		}
+	}
+	
+	/**
+	 * Processes the background
+	 */
+	private void processMusic(NodeList musics) {
+		for(int i = 0; i < musics.getLength(); i++)
+		{
+			Element musicElements = (Element) musics.item(i);
+			myVoogaPlayField.addMusic(musicElements.getAttribute("path"));
 		}
 	}
 	
