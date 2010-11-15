@@ -1,6 +1,8 @@
 package vooga.engine.control;
 
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Method;
+import java.util.ResourceBundle;
 
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -14,9 +16,11 @@ public class PreferencesState extends GameState{
 	private OverlayTracker tracker;
 	private MouseControl control;
 	private SpriteGroup overlays;
+	private ResourceBundle resources;
 	
 	public PreferencesState(){
 		super();
+		resources = ResourceBundle.getBundle("vooga.engine.control.PreferencesResources");
 	}
 	
 	public PreferencesState(String location) {
@@ -26,6 +30,22 @@ public class PreferencesState extends GameState{
 		control = new MouseControl();
 	}
 
+	public void addCategories(String name, String type, Stat<?> stat) {
+		Class<?> myClass = PreferencesState.class;
+		try {
+		Method myMethod = myClass.getMethod(resources.getString(type), String.class, Stat.class);
+		myMethod.invoke(this, name, stat);
+		}
+		catch (Throwable e)
+		{
+			System.out.println(e);
+		}
+	}
+	
+	public void addString(String name, Stat<?> stat) {
+		
+	}
+	
 	public void setCategories(String name, String type, Stat<?> stat) {
 		
 		control.setParams(new Class[]{String.class, String.class, Stat.class});
