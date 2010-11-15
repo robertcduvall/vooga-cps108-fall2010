@@ -37,53 +37,79 @@ public abstract class Rule {
 	 * @param group
 	 */
 	public abstract void enforceRule(boolean ruleSatisfied, SpriteGroup... group);
-	
-	public void ruleViolated(){
-	}
-	
-	
-
+	/**
+	 * Whether the level should fail 
+	 * @return
+	 */
 	public boolean LevelFail() {
 		return false;
 	}
-
+	/**
+	 * Whether the level should proceed
+	 * @return
+	 */
 	public boolean LevelProceed() {
 		return false;
 	}
-
+	/**
+	 * Set the condition for Level to fail
+	 */
 	public void setLevelOverCondition() {
 	}
 
+	/**
+	 * Set the condition for the level to proceed
+	 */
 	public void setLevelProceeedCondition() {
 	}
-
+	
 	/**
-	 * Override this method when you need to change the specific rule.
+	 * Auto-update the rule when level proceed
 	 */
-	public void updateRule() {
-	}
-
 	public void autoUpdateBetweenLevels() {
 	}
 	
+	/**
+	 * Auto-update the rule within the level (each frame/update)
+	 */
 	public void autoUpdateWithinLevel(){
 	}
 	
+	/**
+	 * Auto-update the rule when certain condition is met
+	 */
 	public void autoUpdateUnderCondition(){
 	}
 	
+	/**
+	 * The condition for the rule to auto-update
+	 */
 	public void setUpdateCondition(){
 	}
-	
+	/**
+	 * Set the condition for the game over
+	 */
 	public void setGameOverCondition() {
 	}
+	
+	/**
+	 * Set the condition for the game win 
+	 */
 	public void setGameWonCondition(){
 	}
-
+	
+	/**
+	 * Whether the game is lost
+	 * @return
+	 */
 	public boolean GameLost() {
 		return false;
 	}
-
+	
+	/**
+	 * Whether the game is won
+	 * @return
+	 */
 	public boolean GameWon() {
 		return false;
 	}
