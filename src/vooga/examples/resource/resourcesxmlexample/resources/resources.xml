@@ -18,6 +18,7 @@
 	
 	<Strings>
 		<String name="helloMessage" value="Hello World!" />
+		<String name="Level1" value="blueLevel.xml" />
 	</Strings>
 	
 	<Integers>

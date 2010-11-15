@@ -15,10 +15,11 @@ public class DropThis extends Game{
 	@Override
 	/**
 	 * Utilizes resources.xml XML file to initialize Resources.
+	 * Note: running this class will not produce a running, functional Game yet, but the
+	 * new infrastructure for loading resources is outlined here.
 	 */
 	public void initResources() {
 		super.initResources();
-		
 		runTests();
 	}
 	
@@ -37,8 +38,5 @@ public class DropThis extends Game{
 		System.out.println(Resources.getString("helloMessage"));
 		Sprite oneImage = new Sprite(Resources.getImage("duvall"), 0, 0);
 		AnimatedSprite fourImage = new AnimatedSprite(Resources.getAnimation("downAnim"),0,0);
-		
-	}
-	
-	
+	}	
 }
