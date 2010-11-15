@@ -21,125 +21,131 @@ import com.golden.gamedev.Game;
  * @version 1.0
  */
 public class Control{
-    protected List<GameEntitySprite> entities;
-    protected Class<?>[] paramTypes;
-    protected Game myGame;
-	protected Map<Integer, Method> methodMap;
-	protected Map<Integer, Object[]> paramMap;
+	protected List<GameEntitySprite> entities;
+	protected Class<?>[] paramTypes;
+	protected Game myGame;
+	protected Map<Integer, ArrayList<Method>> methodMap;
+	protected Map<Integer, ArrayList<Object[]>> paramMap;
 	protected int key;
-    
-    /**
-     * Default Control Constructor
-     */
-    public Control() {
-    	initializeMappings();
-        entities = new ArrayList<GameEntitySprite>();
-        key = 0;
-    }
-    
-    /**
-     * Control Constructor with only a Game declared
-     * 
-     * @param game The game which this Control object is a part of
-     */
-    public Control(Game game) {
-        this();
-        myGame = game;
-    }
-
-    /**
-     * Constructor which can add an intial player to the scheme
-     * 
-     * @param initialPlayer First player to add to use this control scheme
-     * @param game The game which this Control object is a part of
-     */
-    public Control(GameEntitySprite initialPlayer, Game game) {
-        this(game);
-        entities.add(initialPlayer);
-    }
-
-    /**
-     * Constructor that can add multiple players initially
-     * 
-     * @param players Initial players to use this scheme
-     * @param game The game which this Control object is a part of
-     */
-    public Control(ArrayList<GameEntitySprite> players, Game game) {
-        this(game);
-        this.entities = players;
-    }
-
-    /**
-     * Sets the parameter types that need to be used for the next method
-     * 
-     * @param parameterTypes The types of parameters that need to be used. 
-     * Need to be implemented in the form setParams(new Class[]{Class cls})
-     * 
-     * eg. player.setParams(new Class[]{int.class, double.class})
-     */
-    public void setParams(Class<?>... parameterTypes) {
-        paramTypes = parameterTypes;
-    }
-
-    /**
-     * Invoke methods here. Call method each time through game loop
-     */
-    public void update() {
-    	if (methodMap.containsKey(key))
-        {
-            try{
-                for (int i = 0; i < entities.size(); i++)
-                {
-                     Method perform = methodMap.get(key);
-                     Object[] paramVals = paramMap.get(key);
-                     perform.invoke(entities.get(i), paramVals);
-                }
-            }
-            catch (Throwable e){
-                System.err.println(e);
-            }
-        }
-    }
 
 	/**
-     * Create keyset to map input to method. Can be overwritten to create new control scheme  
-     * 
-     * @param listen Use an Integer version of what to listen to (eg. Java.awt.event.KeyEvent constants
-     * for "KEYBOARD" or Java.awt.event.MouseEvent constants for "MOUSE")
-     * 
-     * @param method Name of method to map to (do not include brackets)
-     * 
-     * @param classname Name of class that wants to use this (eg.
-     * "Player" or "Game") NOTE: You must put the class's fully qualified name (including its package)
-     * For example: if a class is called Test and is in the package cps108.games.example then the
-     * String here must be "cps108.games.example.Test"
-     * 
-     * @param paramVals Value of the parameters that the method has NOTE: If you want to use this
-     * parameter with something other than 'null', you must use setParams first.
-     */
-    public void addInput(int listen, String method, String classname, Object... paramVals) {
-    	try {
-            Class<?> myClass = Class.forName(classname);
-            Method perform = myClass.getMethod(method, paramTypes);
-            methodMap.put(listen, perform);
-            paramMap.put(listen, paramVals);
-            paramTypes = null;
-        } catch (Throwable e) {
-            System.err.println(e);
-        }
-    }
+	 * Default Control Constructor
+	 */
+	public Control() {
+		initializeMappings();
+		entities = new ArrayList<GameEntitySprite>();
+		key = 0;
+	}
+
+	/**
+	 * Control Constructor with only a Game declared
+	 * 
+	 * @param game The game which this Control object is a part of
+	 */
+	public Control(Game game) {
+		this();
+		myGame = game;
+	}
+
+	/**
+	 * Constructor which can add an intial player to the scheme
+	 * 
+	 * @param initialPlayer First player to add to use this control scheme
+	 * @param game The game which this Control object is a part of
+	 */
+	public Control(GameEntitySprite initialPlayer, Game game) {
+		this(game);
+		entities.add(initialPlayer);
+	}
+
+	/**
+	 * Constructor that can add multiple players initially
+	 * 
+	 * @param players Initial players to use this scheme
+	 * @param game The game which this Control object is a part of
+	 */
+	public Control(ArrayList<GameEntitySprite> players, Game game) {
+		this(game);
+		this.entities = players;
+	}
+
+	/**
+	 * Sets the parameter types that need to be used for the next method
+	 * 
+	 * @param parameterTypes The types of parameters that need to be used. 
+	 * Need to be implemented in the form setParams(new Class[]{Class cls})
+	 * 
+	 * eg. player.setParams(new Class[]{int.class, double.class})
+	 */
+	public void setParams(Class<?>... parameterTypes) {
+		paramTypes = parameterTypes;
+	}
+
+	/**
+	 * Invoke methods here. Call method each time through game loop
+	 */
+	public void update() {
+		if (methodMap.containsKey(key))
+		{
+			try{
+				for (int i = 0; i < entities.size(); i++)
+				{
+					for(int e = 0; e < methodMap.get(key).size(); e++){
+						Method perform = methodMap.get(key).get(e);
+						Object[] paramVals = paramMap.get(key).get(e);
+						perform.invoke(entities.get(i), paramVals);
+					}
+				}
+			}
+			catch (Throwable e){
+				System.err.println(e);
+			}
+		}
+	}
+
+	/**
+	 * Create keyset to map input to method. Can be overwritten to create new control scheme  
+	 * 
+	 * @param listen Use an Integer version of what to listen to (eg. Java.awt.event.KeyEvent constants
+	 * for "KEYBOARD" or Java.awt.event.MouseEvent constants for "MOUSE")
+	 * 
+	 * @param method Name of method to map to (do not include brackets)
+	 * 
+	 * @param classname Name of class that wants to use this (eg.
+	 * "Player" or "Game") NOTE: You must put the class's fully qualified name (including its package)
+	 * For example: if a class is called Test and is in the package cps108.games.example then the
+	 * String here must be "cps108.games.example.Test"
+	 * 
+	 * @param paramVals Value of the parameters that the method has NOTE: If you want to use this
+	 * parameter with something other than 'null', you must use setParams first.
+	 */
+	public void addInput(int listen, String method, String classname, Object... paramVals) {
+		try {
+			Class<?> myClass = Class.forName(classname);
+			Method perform = myClass.getMethod(method, paramTypes);
+			ArrayList<Method> prevMethods = methodMap.get(listen) == null ? new ArrayList<Method>() : methodMap.get(listen);
+			prevMethods.add(perform);
+			methodMap.put(listen, prevMethods);
+			ArrayList<Object[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Object[]>() : paramMap.get(listen);
+			prevParams.add(paramVals);
+			paramMap.put(listen, prevParams);
+			paramTypes = null;
+		} catch (Throwable e) {
+			System.err.println(e);
+		}
+	}
 
 
 	public void initializeMappings() {
-		methodMap = new HashMap<Integer, Method>();
-		paramMap = new HashMap<Integer, Object[]>();
+		methodMap = new HashMap<Integer, ArrayList<Method>>();
+		paramMap = new HashMap<Integer, ArrayList<Object[]>>();
 	}
-	
+
 	public void changeKey(int previousKey, int newKey){
 		if (methodMap.containsKey(previousKey))
 		{
-			Method method = methodMap.get(previousKey);
-			methodMap.put(newKey, method);
+			ArrayList<Method> methods = methodMap.get(previousKey);
+			methodMap.put(newKey, methods);
 			methodMap.remove(previousKey);
 		}
 		else {
