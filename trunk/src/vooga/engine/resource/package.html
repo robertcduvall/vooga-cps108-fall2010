@@ -14,13 +14,29 @@ world time.</p>
 Integers, Doubles, and Strings. These are stored in maps and retrievable using a 
 string key. An example XML document can be found in the 
 src.examples.resource.resourcesxmlexample package for formatting concerns. The 
-Resources class also allows for adding Resources on an individual basis. Finally, 
+Resources class also allows for adding Resources on an individual basis. Data 
+required to launch the game window (width, height, and full screen true/false) can 
+also be loaded separately from the other resources using loadPreLaunchData(). All 
+data that can be handled using Resources should be handled using Resources.</p>
+
+<p>The use of ResourceModules is in development. ResoureModules should allow for 
+the addition of new types of resources without modification to the Resources class.</p>
+
+<p>*David put in paragraph about Databases here*</p>
 
 <p>Real world time is kept using the static WorldClock class which allows for setting a 
 local time zone and determining the time at that time zone as well as individual 
 components of time ranging from the current millisecond to the current year. These 
 times are also available in UTC/system time. This allows for the game to change based 
 on real world variables such as time of day or time of year. <br>@see WorldClock</p>
+
+<p>If repeatability is a concern when generating random numbers, the Randomizer class 
+should be used. Randomizer allows static access to a random number generator which 
+means that all random number generation in the game can be tied to the same generator.
+This allows the value of one seed to govern the behavior of the entire game. There is 
+functionality for reverting back to previous seeds and starting secondary random 
+number generators for when repeatability is not an issue.</p>
+
 
 
 <p>Importation of data is performed using the DataHandler class.  The DataHandler class is abstract and acts as a template for a data loading subclass.  It contains a Data HashMap<String, Object> and methods that assist with importing data as well as an abstract load method.  When creating his or her data handling class which extends DataHandler, one must implement the method load(...), in which one loads data from a file by adding new records to the hashmap.  Since the map is generically typed, one can have any sort of object correspond to a string representing what data is stored in that object.  The resulting object charData could then be placed into the Data hashmap with the call CreateDataField(�Characters�, charData) and retrieved with getData(�Characters�).  DataHandler includes helper methods for parsing different formats such as arbitrarily delimited spreadsheets and XML files.<br>@see DataHandler</p>
@@ -36,8 +52,7 @@ All random numbers in a game that might require exact replication in order to re
 should be generated using this class. Random numbers which do not require exact 
 replication, such as aesthetic or particle effects, can also be generated with this 
 class using secondary random paths.<br>@Randomizer<p>
-
-<p>Image and Sound handling should be handled by the ResourceManager class. The static classes ImageHandler and SoundHandler maintain two maps of Images/Animations and filepaths for sounds, respectively. Classes that need to load and store image and sound files should, in the initialization method in their main "GameManager" class (or whichever contains the main method) use the loadFile() methods of ImageHandler andSoundHandler to load the respective text files into the Handlers to construct mappings of String "keys" to Object (Image, Animation) or sound filepath "values". Whenever a certain resource is needed by, say, a GameState, all the class needs to do is call the ImageHandler or SoundHandler's getMapping() method to retrieve the resource.<br>@see ImageHandler , SoundHandler</p> 
+ 
 
 @since 1.6
 
