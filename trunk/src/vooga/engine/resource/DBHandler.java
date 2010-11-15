@@ -19,6 +19,11 @@ public class DBHandler {
 	private static SQLiteConnection dbConnection_;
 	private static String table_;
 
+	/**
+	 * Opens a connection to the database file specified.
+	 * @param dbFileName Path to database file.
+	 * @return true if operation successful
+	 */
 	public static boolean open(String dbFileName) {
 		dbConnection_ = new SQLiteConnection(new File(dbFileName));
 		try {
@@ -29,6 +34,12 @@ public class DBHandler {
 		return true;
 	}
 
+	/**
+	 * Creates a new table in the database with the specified name and columns
+	 * @param tableName Name of table
+	 * @param columns The columns the table will have
+	 * @return true if operation successful
+	 */
 	public static boolean createTable(String tableName, Column... columns) {
 		StringBuilder query = new StringBuilder("CREATE TABLE " + tableName
 				+ " (");
@@ -46,6 +57,12 @@ public class DBHandler {
 		return true;
 	}
 
+	/**
+	 * Creates a new table in the database with the specified name and columns of the BLOB data type
+	 * @param tableName Name of table
+	 * @param columnNames Names of columns
+	 * @return true if operation successful
+	 */
 	public static boolean createTable(String tableName, String... columnNames) {
 		Column[] columns = new Column[columnNames.length];
 		for (int i = 0; i < columnNames.length; i++) {
@@ -54,6 +71,11 @@ public class DBHandler {
 		return createTable(tableName, columns);
 	}
 
+	/**
+	 * Sets the active table on which other operations are performed.
+	 * @param tableName Name of table
+	 * @return true if operation successful
+	 */
 	public static boolean setTable(String tableName) {
 		String query = "SELECT name FROM sqlite_master WHERE name = '"
 				+ tableName + "'";
@@ -70,8 +92,13 @@ public class DBHandler {
 		return true;
 	}
 
-	public static String[] getColumnStrings(String columnName) {
-		String query = "SELECT " + columnName + " FROM " + table_;
+	/**
+	 * Fetches a column of strings from the database
+	 * @param fieldName Name of column
+	 * @return Array of column elements
+	 */
+	public static String[] getColumnStrings(String fieldName) {
+		String query = "SELECT " + fieldName + " FROM " + table_;
 		SQLiteStatement statement = null;
 		Collection<String> column = new ArrayList<String>();
 		try {
@@ -87,8 +114,13 @@ public class DBHandler {
 		return column.toArray(new String[0]);
 	}
 
-	public static Integer[] getColumnInts(String columnName) {
-		String query = "SELECT " + columnName + " FROM " + table_;
+	/**
+	 * Fetches a column of integers from the database
+	 * @param fieldName Field name
+	 * @return Array of column elements
+	 */
+	public static Integer[] getColumnInts(String fieldName) {
+		String query = "SELECT " + fieldName + " FROM " + table_;
 		SQLiteStatement statement = null;
 		Collection<Integer> column = new ArrayList<Integer>();
 		try {
@@ -104,8 +136,13 @@ public class DBHandler {
 		return column.toArray(new Integer[0]);
 	}
 
-	public static Double[] getColumnDoubles(String columnName) {
-		String query = "SELECT " + columnName + " FROM " + table_;
+	/**
+	 * Fetches a column of doubles from the database
+	 * @param fieldName Field name
+	 * @return Array of column elements
+	 */
+	public static Double[] getColumnDoubles(String fieldName) {
+		String query = "SELECT " + fieldName + " FROM " + table_;
 		SQLiteStatement statement = null;
 		Collection<Double> column = new ArrayList<Double>();
 		try {
@@ -121,8 +158,13 @@ public class DBHandler {
 		return column.toArray(new Double[0]);
 	}
 
-	public static Boolean[] getColumnBools(String columnName) {
-		String query = "SELECT " + columnName + " FROM " + table_;
+	/**
+	 * Fetches a column of booleans from the database
+	 * @param fieldName Field name
+	 * @return Array of column elements
+	 */
+	public static Boolean[] getColumnBools(String fieldName) {
+		String query = "SELECT " + fieldName + " FROM " + table_;
 		SQLiteStatement statement = null;
 		Collection<Boolean> column = new ArrayList<Boolean>();
 		try {
@@ -139,11 +181,16 @@ public class DBHandler {
 		return column.toArray(new Boolean[0]);
 	}
 
+	/**
+	 * Adds a row of data to the database
+	 * @param entries A set of field,data pairs
+	 * @return true if operation was successful
+	 */
 	public static boolean addRow(Entry<?>... entries) {
 		StringBuilder columnNames = new StringBuilder("");
 		StringBuilder columnValues = new StringBuilder("");
 		for (Entry<?> e : entries) {
-			columnNames.append(e.getColumnName() + ",");
+			columnNames.append(e.getFieldName() + ",");
 			columnValues.append("'" + e.getData().toString() + "',");
 		}
 		columnNames.deleteCharAt(columnNames.length() - 1);
@@ -159,10 +206,15 @@ public class DBHandler {
 		return true;
 	}
 
+	/**
+	 * Deletes a row of data from the database
+	 * @param entries A set of field,data pairs a row must satisfy (via LIKE operator) to be deleted
+	 * @return true if operation was successful
+	 */
 	public static boolean deleteRow(Entry<?>... entries) {
 		StringBuilder conditions = new StringBuilder("");
 		for (Entry<?> e : entries) {
-			conditions.append(e.getColumnName() + " LIKE '"
+			conditions.append(e.getFieldName() + " LIKE '"
 					+ e.getData().toString() + "' AND");
 		}
 		conditions.delete(conditions.length() - 4, conditions.length());
