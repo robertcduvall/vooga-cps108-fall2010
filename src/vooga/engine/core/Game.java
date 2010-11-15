@@ -37,7 +37,7 @@ public class Game extends com.golden.gamedev.Game {
 			System.out.println("Failed to load resources.xml");
 		}
 		initGameStates();
-		initFirstLevel();
+		initLevel(1);
 	}
 
 	@Override
@@ -60,15 +60,16 @@ public class Game extends com.golden.gamedev.Game {
 	}
 	
 	/**
-	 * Initializes the First Level in the game. The XML file associated with the First Level
-	 * is located at a filepath specified by Resources.getString("Level1")
-	 * For example, if the First Level's XML file is called blueLevel.xml, the stringMap in
-	 * Resources contains the entry: "Level1"->"blueLevel.xml" 
+	 * Initializes the level specified by the given int index. The XML file associated with the level
+	 * is located at a filepath specified by Resources.getString("Level" + index)
+	 * For example, if the level's XML file is called blueLevel.xml, the stringMap in
+	 * Resources contains the String -> String entry: "Level" + index -> "blueLevel.xml" 
 	 */
-	public void initFirstLevel() {
+	public VoogaPlayField initLevel(int index) {
 		LevelParser levelParser = new LevelParser();
 		System.out.println(getResourcePath());
-		VoogaPlayField vpf = levelParser.getPlayfield(getResourcePath() + Resources.getString("Level1"), this);
+		VoogaPlayField vpf = levelParser.getPlayfield(getResourcePath() + Resources.getString("Level" + index), this);
+		return vpf;
 	}
 	
 	public GameStateManager getGameStateManager(){
