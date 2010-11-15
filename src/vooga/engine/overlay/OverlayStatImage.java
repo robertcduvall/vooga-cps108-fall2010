@@ -16,8 +16,7 @@ import com.golden.gamedev.util.ImageUtil;
  * @author Se-Gil Feldsott and Justin Goldsmith
  * 
  * <pre>
- * <p>GreenfootImage image = new GreenfootImage("...");</p>
- * <p>OverlayStatImage overlay = new OverlayStatImage(image, 10, 10);</p>
+ * <p>OverlayStatImage overlay = new OverlayStatImage(Resources.getImage("someName"), 10, 10);</p>
  * </pre>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
@@ -45,7 +44,7 @@ public class OverlayStatImage extends Overlay{
 		setImage(ImageUtil.resize(this.getImage(), width, height));
 	}
 	
-	public OverlayStatImage(Map<String, String> attributes, OverlayTrackerTemp tracker){
+	public OverlayStatImage(Map<String, String> attributes, OverlayTracker tracker){
 		this(Resources.getImage(attributes.get("image")));
 		String width = attributes.get("width");
 		String height = attributes.get("height");
