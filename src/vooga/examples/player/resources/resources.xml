@@ -1,0 +1,30 @@
+<Resources>
+	<Images>
+		<Image name="background" path="background.png" />
+	</Images>
+
+	<Animations>
+		<Animation name="leftFacingDoodleAnimation">
+			<Image path="doodle_left.png" />
+			<Image path="doodle_left_crouch.png" />
+		</Animation>
+		<Animation name="rightFacingDoodleAnimation">
+			<Image path="doodle_right.png" />
+			<Image path="doodle_right_crouch.png" />
+		</Animation>
+	</Animations>
+
+	<Sounds>
+		<!-- <Sound name="explode" path="explosion.wav" /> -->
+	</Sounds>
+
+	<Strings>
+		<!-- <String name="helloMessage" value="Hello World!" /> -->
+	</Strings>
+
+	<Integers>
+	</Integers>
+
+	<Doubles>
+	</Doubles>
+</Resources>
