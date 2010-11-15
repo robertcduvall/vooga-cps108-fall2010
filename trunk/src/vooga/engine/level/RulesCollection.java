@@ -2,8 +2,6 @@ package vooga.engine.level;
 
 import java.util.HashMap;
 
-import com.golden.gamedev.object.SpriteGroup;
-
 public class RulesCollection {
 	private HashMap<String,Rule> ruleMap;
 	public void addRule(String n,Rule r){
@@ -18,8 +16,8 @@ public class RulesCollection {
 	public void updateRule(String n,Rule r){
 		ruleMap.put(n, r);
 	}
-	public void autoUpdateRule(String n){
-		ruleMap.get(n).autoUpdateRule();
+	public void autoUpdateBetweenLevels(String n){
+		ruleMap.get(n).autoUpdateBetweenLevels();
 	}
 	public HashMap<String,Rule> getRules(){
 		return ruleMap;
