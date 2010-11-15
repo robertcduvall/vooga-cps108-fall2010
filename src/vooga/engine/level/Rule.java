@@ -35,12 +35,15 @@ public abstract class Rule {
 	 * Override this method when you need to change the specific rule.
 	 */
 	public void changeRule(){
-		
 	}
 	
 	public void setGameOverCondition(){
-		
 	}
 	
-
+	public boolean GameLost(){
+		return false;
+	}
+	public boolean GameWon(){
+		return false;
+	}
 }

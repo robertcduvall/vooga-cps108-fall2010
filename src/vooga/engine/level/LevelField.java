@@ -14,14 +14,18 @@ public class LevelField extends PlayField{
 	HashMap<String,Rule> ruleMap;
 	HashMap<Rule,SpriteGroup[]> spriteGroupMap;
 	private String myMusic;
+	private boolean LevelFailed;
+	private boolean LevelProceed;
+	private boolean GameLost;
+	private boolean GameWon;
 	
+	public LevelField(){
+		super();
+	}
 	public LevelField(Background background){
 		super(background);
 		ruleMap = new HashMap<String, Rule>();
 		spriteGroupMap = new HashMap<Rule, SpriteGroup[]>();
-	}
-	public LevelField(){
-		super();
 	}
 	
 	@Override
@@ -29,8 +33,19 @@ public class LevelField extends PlayField{
 	{
 		super.update(elapsedTime);
 		actOnRules();
-		
+		checkLevelConditions();
 	}
+	
+	public void checkLevelConditions(){
+		for (Rule r: ruleMap.values()){
+			LevelFailed = r.LevelFail();
+			LevelProceed = r.LevelProceed();
+			GameLost = r.GameLost();
+			GameWon = r.GameWon();
+		}
+	}
+	
+	
 	
 	/**
 	 * Adds OverlayTracker to the playfield.
@@ -77,13 +92,10 @@ public class LevelField extends PlayField{
 		{
 			Rule rule = ruleMap.get(key);
 			SpriteGroup[] obedients = spriteGroupMap.get(rule);
-	
 			if(rule.ruleSatisfied(obedients))
 			{
 				rule.enforceRule(obedients);
 			}
-			
-			
 		}
 	}
 	
