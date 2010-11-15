@@ -4,10 +4,11 @@ import vooga.engine.core.Sprite;
 import vooga.engine.overlay.Stat;
 
 /**
- * PlayerSpriteExample gives a
+ * PlayerSpriteExample is an example of how vooga.engine.core.Sprite can be
+ * extended to create a more unique sprite for a specific game.
  * 
  * @author Jimmy Mu, Marcus Molchany, Drew Sternesky
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class PlayerExample extends Sprite {
@@ -32,6 +33,9 @@ public class PlayerExample extends Sprite {
 		initializeStats();
 	}
 
+	/**
+	 * initializeStats initializes all of the stats for the PlayerExample
+	 */
 	private void initializeStats() {
 		initializeHealthStat();
 		initializeLivesStat();
@@ -43,17 +47,17 @@ public class PlayerExample extends Sprite {
 		myHealthStat = new Stat<Integer>(INITIAL_HEALTH);
 		setStat(EXISTS_STRING, myExistsStat);
 	}
-	
+
 	private void initializeLivesStat() {
 		myLivesStat = new Stat<Integer>(INITIAL_LIVES);
 		setStat(LIVES_STRING, myLivesStat);
 	}
-	
+
 	private void initializeExistsStat() {
 		myExistsStat = new Stat<Boolean>(INITIAL_EXISTS);
 		setStat(HEALTH_STRING, myHealthStat);
 	}
-	
+
 	private void initializeScoreStat() {
 		myScoreStat = new Stat<Integer>(INITIAL_SCORE);
 		setStat(SCORE_STRING, myScoreStat);
