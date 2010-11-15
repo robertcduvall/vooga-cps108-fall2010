@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Level name="Level1">
 
-	<SpriteGroups>
+		<SpriteGroups>
 		<SpriteGroup name="playerGroup">
-			<Sprite name="playerSprite" x="0" y="100" vx="10" vy="20">
+			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20" q="1">
 				<Visual name="Player!!!" />
-			</Sprite>
+			</RegularSprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite name="enemySprite" x="100" y="100" vx="-10" vy="-20">
+			<SpawnedSprite name="enemySprite" xRange="300" yRange="400" vxRange="10" vyRange="-10" quantity="20">
 				<Visual name="Enemy!!!" />
-			</Sprite>
+			</SpawnedSprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
