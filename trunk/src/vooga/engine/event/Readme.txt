@@ -1,4 +1,52 @@
 README file for the Event System
+Author: Meng Li, Hao He, Cody Kolodziejzyk
+Version: Nov 14th
+
+This explains how to use our Event package to develop games. If you have any
+problems with the package or how to use it, send an email to us.
+<meng.li@duke.edu>
+<hao.he2@duke.edu>
+<cody.ko@gmail.com>
+
+
+Description
+
+  Our goal is to make it simple and easy to use. Compared with the old event system,
+  this version contains only two classes,which reduces the complexity but doesn't reduce the power of 
+  event system. This event system is a little bit like collision system in GlodenT. Developer needs to 
+  write their own events classes to handle their events. Since the fire event condition will be specified
+  in these event classes, so there will be no "if and else" statement in the game loop.
+  One thing needs to be mentioned is that if there are lots of event in the game, developer needs to 
+  write lots of event classes to handle these event.
+  In one word, it isolates event from game loop, thus makes the game maintainable and expandable.
+
+
+A Simple Example
+
+  Our package is extremely easy to use. Taking Pacman game for example,
+  ghosts, enemies of pacman, are trying to catch pacman in one line and end the game. The
+  speed of ghost is faster than pacman. Here is the fire event condition: when the ghost catches 
+  up with pacman which indicated by their x position, the pacman will be killed the killevent will 
+  be triggered. In this case, we can write a event class such as PacmanKilledEvent.Add it in the
+  EventLoop class. And the eventLoop will check the event for you. This is a simple example showing where and how our event system can be used.
+  More details please see the example demo @ examples/event/demo2
+
+EventPool
+  Collect all the events from the game loop. Also the user has the flexibility to remove the event
+  from the EventPool if a certain event is not wanted anymore.
+
+IEventHandler
+
+
+
+
+
+
+
+
+
+
+README file for the Event System
 ------------------------------------------------------------------------------
 Author: Hao He, Meng Li, Cody Kolodziejzyk
 Version: October 1st
