@@ -9,6 +9,7 @@ import javax.crypto.Mac;
 
 
 import vooga.engine.level.Rule;
+import vooga.engine.level.RuleInterface;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 
@@ -32,14 +33,14 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class VoogaPlayField extends PlayField {
 	
-	private Map<String, Rule> ruleBook;
-	private Map<Rule, SpriteGroup[]> ruleMap; 
+	private Map<String, RuleInterface> ruleBook;
+	private Map<RuleInterface, SpriteGroup[]> ruleMap; 
 	private String myMusic;
 	
 	public VoogaPlayField(Background background){
 		super(background);
-		ruleBook = new HashMap<String, Rule>();
-		ruleMap = new HashMap<Rule, SpriteGroup[]>();
+		ruleBook = new HashMap<String, RuleInterface>();
+		ruleMap = new HashMap<RuleInterface, SpriteGroup[]>();
 	}
 	
 	@Override
@@ -57,12 +58,12 @@ public class VoogaPlayField extends PlayField {
 		
 		for(String key: ruleBook.keySet())
 		{
-			Rule rule = ruleBook.get(key);
+			RuleInterface rule = ruleBook.get(key);
 			SpriteGroup[] obedients = ruleMap.get(rule);
 			
 			if(rule.checkRule(obedients))
 			{
-				rule.enforceRule(obedients);
+				rule.enforce(obedients);
 			}
 		}
 	}
@@ -76,7 +77,7 @@ public class VoogaPlayField extends PlayField {
 	 * @param rulename
 	 * @param rule
 	 */
-	public void addRule(String rulename, Rule rule, SpriteGroup[] obedients)
+	public void addRule(String rulename, RuleInterface rule, SpriteGroup[] obedients)
 	{
 		ruleBook.put(rulename, rule);
 		ruleMap.put(rule, obedients);
