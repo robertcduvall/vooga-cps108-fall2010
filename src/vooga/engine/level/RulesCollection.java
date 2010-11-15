@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * Initializes the rules and passes them between levels so that the rules don't
- * need to be reinialized every time a new level is created.
+ * need to be reinitialized every time a new level is created.
  * 
  * @author Jiaqi Yan
  * 
