@@ -76,7 +76,7 @@ public class XMLFileParser implements XMLDocumentCreator {
 
 	@Override
 	/**
-	 * Create a DOM Document from the XML file
+	 * Create a DOM Document from the XML file. Automatically normalized.
 	 */
 	public Document getDocument() throws ParserConfigurationException,
 			SAXException, IOException {
@@ -84,6 +84,7 @@ public class XMLFileParser implements XMLDocumentCreator {
 		DocumentBuilder db;
 		db = dbf.newDocumentBuilder();
 		Document doc = db.parse(xmlFile);
+		doc.getDocumentElement().normalize();
 		return doc;
 	}
 

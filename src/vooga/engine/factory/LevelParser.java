@@ -21,6 +21,8 @@ import vooga.engine.overlay.OverlayCreatorTemp;
 import vooga.engine.overlay.OverlayTrackerTemp;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
+import vooga.engine.util.XMLDocumentCreator;
+import vooga.engine.util.XMLFileParser;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
@@ -48,12 +50,9 @@ public class LevelParser implements LevelFactory{
 	 */
 	private void createLevelPlayfield(String xmlLevelFile)
 	{
-		File file = new File(xmlLevelFile);
-		DocumentBuilderFactory documentfactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
 		try {
-			builder = documentfactory.newDocumentBuilder();
-			Document xmlDocument = builder.parse(file);
+			XMLDocumentCreator xmlCreator = new XMLFileParser(xmlLevelFile);
+	        Document xmlDocument = xmlCreator.getDocument();
 			processLevel(xmlDocument); // This nests into specific cases and processes a level
 		} 
 		catch (Exception e) {
