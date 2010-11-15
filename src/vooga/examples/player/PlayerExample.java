@@ -13,20 +13,11 @@ import vooga.engine.overlay.Stat;
 @SuppressWarnings("serial")
 public class PlayerExample extends Sprite {
 
-	private static final String HEALTH_STRING = "Health";
-	private static final String LIVES_STRING = "Lives";
-	private static final String EXISTS_STRING = "Exists";
-	private static final String SCORE_STRING = "Score";
+	private static final String EXAMPLE_STAT_STRING = "Example";
 
-	private static final int INITIAL_HEALTH = 100;
-	private static final int INITIAL_LIVES = 5;
-	private static final boolean INITIAL_EXISTS = true;
-	private static final int INITIAL_SCORE = 0;
+	private static final int EXAMPLE_STAT_INT = 10;
 
-	private Stat<Integer> myHealthStat;
-	private Stat<Integer> myLivesStat;
-	private Stat<Boolean> myExistsStat;
-	private Stat<Integer> myScoreStat;
+	private Stat<Integer> myExampleStat;
 
 	public PlayerExample(String label, Sprite s) {
 		super(label, s);
@@ -37,29 +28,11 @@ public class PlayerExample extends Sprite {
 	 * initializeStats initializes all of the stats for the PlayerExample
 	 */
 	private void initializeStats() {
-		initializeHealthStat();
-		initializeLivesStat();
-		initializeExistsStat();
-		initializeScoreStat();
+		initializeExampleStat();
 	}
 
-	private void initializeHealthStat() {
-		myHealthStat = new Stat<Integer>(INITIAL_HEALTH);
-		setStat(EXISTS_STRING, myExistsStat);
-	}
-
-	private void initializeLivesStat() {
-		myLivesStat = new Stat<Integer>(INITIAL_LIVES);
-		setStat(LIVES_STRING, myLivesStat);
-	}
-
-	private void initializeExistsStat() {
-		myExistsStat = new Stat<Boolean>(INITIAL_EXISTS);
-		setStat(HEALTH_STRING, myHealthStat);
-	}
-
-	private void initializeScoreStat() {
-		myScoreStat = new Stat<Integer>(INITIAL_SCORE);
-		setStat(SCORE_STRING, myScoreStat);
+	private void initializeExampleStat() {
+		myExampleStat = new Stat<Integer>(EXAMPLE_STAT_INT);
+		setStat(EXAMPLE_STAT_STRING, myExampleStat);
 	}
 }
