@@ -11,8 +11,8 @@ import java.util.Map;
  * @author Justin Goldsmith
  * 
  * <pre>
- * <p>Stat<Integer> stat = new Stat<Integer>(5);</p>
- * <p>OverlayStat overlay = new OverlayStat("score: ", stat);</p>
+ * Stat<Integer> stat = new Stat<Integer>(5);
+ * OverlayStat overlay = new OverlayStat("score: ", stat);
  * </pre>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
