@@ -2,16 +2,21 @@ package vooga.engine.level;
 
 import com.golden.gamedev.object.SpriteGroup;
 
-/**
- * 
- * @author Yijia Mu, Cameron McCallie, John Kline
- *
- */
+public abstract class Rule {
+	public Rule(){
+	}	
+	public abstract void checkRules();
 
-public interface Rule {
-
-	public boolean checkRule(SpriteGroup...groups);
-	public void enforceRule(SpriteGroup...groups);
+	public abstract void enforce();
+	
+	public abstract void setGoals();
+	
+	public void changeRule(){
+	}
+	
+	public void addGroup(SpriteGroup g){
+		
+	}
 	
 	
 }
