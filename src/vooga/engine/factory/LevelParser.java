@@ -79,6 +79,9 @@ public class LevelParser implements LevelFactory{
         Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
 		NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
 		processCollisionGroups(listOfCollisionGroups);
+		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("BG").item(0);
+        NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
+        processBackgrounds(listOfBackgrounds);
 	}
 	
 //	/**
@@ -172,6 +175,16 @@ public class LevelParser implements LevelFactory{
 					newSprite.setToCurrentSprite(visualName);
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Processes the background
+	 */
+	private void processBackgrounds(NodeList backgrounds) {
+		for(int i = 0; i < backgrounds.getLength(); i++)
+		{
+			myVoogaPlayField.addImageBackground(backgrounds.item(i));
 		}
 	}
 	
