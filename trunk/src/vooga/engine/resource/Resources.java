@@ -327,7 +327,14 @@ public class Resources {
     	return elementList;
     }
 	
-	private static ResourceBundle loadPreLaunchData(String filePath){
+	/**
+	 * Get data to launch the game frame from the main() method of game. The 
+	 * file should be named config.properties and contain the width, height, 
+	 * and whether or not the game should be full screen.
+	 * @param filePath file path to config.properties
+	 * @return ResourceBundle containing necessary data for game launch
+	 */
+	public static ResourceBundle loadPreLaunchData(String filePath){
 		return ResourceBundle.getBundle(filePath);
 	}
 	
