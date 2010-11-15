@@ -7,15 +7,16 @@ import vooga.engine.player.GameEntitySprite;
 import com.golden.gamedev.Game;
 
 /**
- * Control class which can be used to create control schemes. Can also be extended to create alternate schemes (for AI, control pads, etc)
- * 
- * Control takes one or more Players and registers actions that those Players will perform if an event occurs from some predetermined input device.
- * If the programmer is just trying to use the keyboard and mouse listening capabilties, they can do:
- * 
- * 	Control shipControl = new Control(this); //this is inside of a Player class.
- * 	shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.
- * 	shipControl.addInput("KEYBOARD", "left", "rotateLeft", "Ship", 10); //Registers the left key to trigger rotateLeft with a parameter of 10.
- *  shipControl.act(); //Within Player's act method.  Tells Control to check the registered events and see if any have occurred.
+ * Control class which can be extended to create control schemes.  Keyboard and mouse control are already packaged subclasses, but this class can also be
+ * extended to control GameEntitySprites with an AI, joystick, network, etc.
+ * <br /><br />
+ * Control takes one or more GameEntitySprites and registers actions that those sprites will perform if an event occurs from some predetermined input device.
+ * If the programmer is just trying to use the built in keyboard or mouse listening capabilties, they can do the following:
+ * <br /><br />
+ * 	&nbsp&nbsp&nbsp&nbsp&nbsp<i>Control shipControl = new Control(this); //this is inside of a GameEntitySprite subclass.</i>
+ * 	<br />&nbsp&nbsp&nbsp&nbsp&nbsp<i>shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.</i>
+ * 	<br />&nbsp&nbsp&nbsp&nbsp&nbsp<i>shipControl.addInput("KEYBOARD", "left", "rotateLeft", "Ship", 10); //Registers the left key to trigger rotateLeft with a parameter of 10.</i>
+ *  <br />&nbsp&nbsp&nbsp&nbsp&nbsp<i>shipControl.act(); //Within Player's act method.  Tells Control to check the registered events and see if any have occurred.</i>
  * 
  * @author Choi, Cue, Hawthorne
  * @version 1.0
@@ -135,18 +136,32 @@ public class Control{
 		}
 	}
 
+	/**
+	 * Initialize the mappings of inputs to methods and inputs to the methods parameters.
+	 */
 
 	public void initializeMappings() {
 		methodMap = new HashMap<Integer, ArrayList<Method>>();
 		paramMap = new HashMap<Integer, ArrayList<Object[]>>();
 	}
 
+	/**
+	 * Change the input corresponding to a set of actions to a different input.  Use this method to change
+	 * moving left from the left arrow key to the 'A' key for instance.
+	 * 
+	 * @param previousKey the previous input 
+	 * @param newKey the new input
+	 */
+	
 	public void changeKey(int previousKey, int newKey){
 		if (methodMap.containsKey(previousKey))
 		{
 			ArrayList<Method> methods = methodMap.get(previousKey);
 			methodMap.put(newKey, methods);
 			methodMap.remove(previousKey);
+			ArrayList<Object[]> params = paramMap.get(previousKey);
+			paramMap.put(newKey, params);
+			paramMap.remove(previousKey);
 		}
 		else {
 			System.out.println("This key didn't exist in the map yet");
