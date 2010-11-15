@@ -16,7 +16,7 @@ import org.w3c.dom.NodeList;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.Sprite;
-import vooga.engine.core.VoogaPlayField;
+import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
@@ -32,14 +32,14 @@ public class LevelParser implements LevelFactory{
 	private static final int FIRST_IMAGE = 0;
 	private static String gameClassPath;
 	private static Game currentGame;
-	private static VoogaPlayField myVoogaPlayField;
+	private static PlayField myVoogaPlayField;
 	private static OverlayTracker overlayTracker;
 	private static Map<String, SpriteGroup> spriteGroupMap;
 	
 	@Override
-	public VoogaPlayField getPlayfield(String filepath, Game currentGame) {
+	public PlayField getPlayfield(String filepath, Game currentGame) {
 		currentGame = currentGame;
-		myVoogaPlayField = new VoogaPlayField();
+		myVoogaPlayField = new PlayField();
 		spriteGroupMap = new HashMap<String, SpriteGroup>();
 		createLevelPlayfield(filepath);
 		return myVoogaPlayField;

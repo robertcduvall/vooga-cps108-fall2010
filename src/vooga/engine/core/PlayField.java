@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
 import vooga.engine.level.Rule;
 import vooga.engine.level.RuleInterface;
 import vooga.engine.overlay.OverlayTracker;
@@ -16,7 +14,6 @@ import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
@@ -26,7 +23,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * Example:
  * <pre>
  * <code>
- * VoogaPlayfield playfield = new VoogaPlayfield();
+ * Playfield playfield = new Playfield();
  * OverlayTracker track = OverlayCreator.createOverlays(String xmlFileLocation);
  * playfield.addOverlayTracker(track);
  * </pre>
@@ -34,7 +31,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * @author Bhawana , Cameron , Derek, Jimmy
  *
  */
-public class VoogaPlayField extends PlayField {
+public class PlayField extends com.golden.gamedev.object.PlayField {
 	
 	private Map<String, RuleInterface> myRuleBook;
 	private Map<RuleInterface, SpriteGroup[]> ruleMap; 
@@ -42,7 +39,7 @@ public class VoogaPlayField extends PlayField {
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
 	
-	public VoogaPlayField(Background background){
+	public PlayField(Background background){
 		super(background);
 		myRuleBook = new HashMap<String, RuleInterface>();
 		ruleMap = new HashMap<RuleInterface, SpriteGroup[]>();
@@ -73,7 +70,7 @@ public class VoogaPlayField extends PlayField {
 		}
 	}
 
-	public VoogaPlayField() {
+	public PlayField() {
 		super();
 	}
 	
@@ -93,17 +90,8 @@ public class VoogaPlayField extends PlayField {
 	 * @param overlayTracker
 	 */
 	public void addOverlayTracker(OverlayTracker overlayTracker){
-		addOverlayGroups(overlayTracker.getOverlayGroups());
-	}
-
-
-	/**
-	 * Adds every SpriteGroup from the OverlayTracker to the playfield.
-	 * @param overlayGroups
-	 */
-	public void addOverlayGroups(List<SpriteGroup> overlayGroups) {
-		for(SpriteGroup overlay : overlayGroups){
-			this.addGroup(overlay);
+		for(String overlayKey: overlayTracker.overlayKeySet()){
+			this.add(overlayTracker.getOverlay(overlayKey));
 		}
 	}
 	
