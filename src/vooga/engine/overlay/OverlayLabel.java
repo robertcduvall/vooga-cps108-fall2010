@@ -9,11 +9,11 @@ import com.golden.gamedev.object.Sprite;
  * of another Actor.  It constantly updates the
  * position in case the Actor moves around.
  * 
- * <pre>
+ * <xmp>
  * Actor player1 = new Actor();
  * OverlayString playerName = new OverlayString("Player 1");
  * OverlayLabel playerLabel = new OverlayLabel(player1, playerName);
- * </pre>
+ * </xmp>
  * 
  * @author Se-Gil Feldsott
  */
