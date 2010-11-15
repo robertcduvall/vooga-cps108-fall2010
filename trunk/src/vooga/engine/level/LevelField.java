@@ -8,11 +8,15 @@ import vooga.engine.resource.Resources;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.PlayField;
-
+/**
+ * 
+ * @author Jiaqi Yan
+ *
+ */
 public class LevelField extends PlayField{
-	HashMap<String,Rule> ruleMap;
-	HashMap<Rule,SpriteGroup[]> spriteGroupMap;
-	HashMap<Rule,Boolean> activatedRule;
+	private HashMap<String,Rule> ruleMap;
+	private HashMap<Rule,SpriteGroup[]> spriteGroupMap;
+	private HashMap<Rule,Boolean> activatedRule;
 	private String myMusic;
 	private boolean LevelFailed;
 	private boolean LevelProceed;
@@ -29,13 +33,16 @@ public class LevelField extends PlayField{
 		activatedRule = new HashMap<Rule,Boolean>();
 	}
 	
+	public void initializeRules(RulesCollection rc){
+		ruleMap = rc.getRules();
+	}
+	
 	@Override
 	public void update(long elapsedTime)
 	{
 		super.update(elapsedTime);
 		actOnRules();
 		checkLevelConditions();
-		
 	}
 	
 	public ArrayList<SpriteGroup> getRuleSpriteGroups(){
