@@ -132,38 +132,68 @@ public class LevelParser implements LevelFactory{
 	private void processSprites(NodeList spritesList, SpriteGroup spriteGroup) {
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
-			if(isElement(spritesList.item(i)))
+			Node currentNode = spritesList.item(i);
+			if(isElement(currentNode))
 			{
-				Element sprite = (Element) spritesList.item(i);
-				Sprite newsprite = new Sprite();
-				
-				NodeList visualsList = sprite.getElementsByTagName("Visual");
-				processVisuals(visualsList, newsprite);
-				
-				NodeList statsList = sprite.getElementsByTagName("Stat");
-				processStats(statsList, newsprite);
-				
-				NodeList controlsList = sprite.getElementsByTagName("Control");
-				processControls(controlsList, newsprite);
-				
-				double x = Double.parseDouble(sprite.getAttribute("x"));
-				double y = Double.parseDouble(sprite.getAttribute("y"));
-				double vx = Double.parseDouble(sprite.getAttribute("vx"));
-				double vy = Double.parseDouble(sprite.getAttribute("vy"));
-				int q = Integer.parseInt(sprite.getAttribute("q"));
-				
-				newsprite.setLocation(x, y);
-				newsprite.setHorizontalSpeed(vx);
-				newsprite.setVerticalSpeed(vy);	
-				
-				for(int j = 0; j < q; j++)
-				{
-					spriteGroup.add(newsprite);
-				}	
+				if (currentNode.getNodeName().equals("RegularSprite")) {
+					processRegularSprite((Element)currentNode, spriteGroup);
+				} else if (currentNode.getNodeName().equals("SpawnedSprite")) {
+					processSpawnedSprite((Element)currentNode, spriteGroup);
+				}
 			}
 		}
 	}
 
+	/**
+	 * Adds a regular, location-specified Sprite to the given SpriteGroup.
+	 */
+	private void processRegularSprite(Element spriteElement, SpriteGroup spriteGroup) {
+		Sprite newSprite = new Sprite();
+		
+		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
+		processVisuals(visualsList, newSprite);
+		NodeList statsList = spriteElement.getElementsByTagName("Stat");
+		processStats(statsList, newSprite);
+		NodeList controlsList = spriteElement.getElementsByTagName("Control");
+		processControls(controlsList, newSprite);
+		
+		double x = Double.parseDouble(spriteElement.getAttribute("x"));
+		double y = Double.parseDouble(spriteElement.getAttribute("y"));
+		double vx = Double.parseDouble(spriteElement.getAttribute("vx"));
+		double vy = Double.parseDouble(spriteElement.getAttribute("vy"));
+		
+		newSprite.setLocation(x, y);
+		newSprite.setHorizontalSpeed(vx);
+		newSprite.setVerticalSpeed(vy);	
+		spriteGroup.add(newSprite);
+	}
+	
+	/**
+	 * Adds or "spawns" [quantity] Sprites with random locations and
+	 * velocities to the given SpriteGroup.
+	 */
+	private void processSpawnedSprite(Element spriteElement, SpriteGroup spriteGroup) {		
+		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
+		NodeList statsList = spriteElement.getElementsByTagName("Stat");
+		NodeList controlsList = spriteElement.getElementsByTagName("Control");
+		
+		double xRange = Double.parseDouble(spriteElement.getAttribute("xRange"));
+		double yRange = Double.parseDouble(spriteElement.getAttribute("yRange"));
+		double vxRange = Double.parseDouble(spriteElement.getAttribute("vxRange"));
+		double vyRange = Double.parseDouble(spriteElement.getAttribute("vyRange"));
+		
+		int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
+		for(int j = 0; j < quantity; j++) {
+			Sprite newSprite = new Sprite();
+			newSprite.setLocation(Math.random()*xRange, Math.random()*yRange);
+			newSprite.setHorizontalSpeed(Math.random()*vxRange);
+			newSprite.setVerticalSpeed(Math.random()*vyRange);	
+			processVisuals(visualsList, newSprite);
+			processStats(statsList, newSprite);
+			processControls(controlsList, newSprite);
+			spriteGroup.add(newSprite);
+		}
+	}
 	/**
 	 * Processes Visuals within a Sprite.
 	 */
