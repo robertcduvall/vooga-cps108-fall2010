@@ -30,7 +30,6 @@ public class LevelField extends PlayField {
 	private GameLostConditions gameLostConditions;
 	private LevelProceedConditions levelProceedConditions;
 	private LevelLostConditions levelLostConditions;
-	
 
 	public LevelField() {
 		super();
@@ -58,21 +57,24 @@ public class LevelField extends PlayField {
 	public void initializeRules(HashMap<String, Rule> rm) {
 		ruleMap = rm;
 	}
-	
+
 	/**
-	 * Initialize the conditions related to the game/level state  
+	 * Initialize the conditions related to the game/level state
+	 * 
 	 * @param gamewon
 	 * @param gameLost
 	 * @param levelProceed
 	 * @param levelLost
 	 */
-	public void initializeConditions(GameWonConditions gamewon,GameLostConditions gameLost,LevelProceedConditions levelProceed,LevelLostConditions levelLost){
-		gameWonConditions = gamewon; 
+	public void initializeConditions(GameWonConditions gamewon,
+			GameLostConditions gameLost, LevelProceedConditions levelProceed,
+			LevelLostConditions levelLost) {
+		gameWonConditions = gamewon;
 		gameLostConditions = gameLost;
 		levelProceedConditions = levelProceed;
 		levelLostConditions = levelLost;
 	}
-	
+
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
@@ -110,15 +112,23 @@ public class LevelField extends PlayField {
 	 */
 	public void checkLevelConditions() {
 		for (Rule r : ruleMap.values()) {
-			if(r.LevelFail()) LevelFailed = true;
-			if(r.LevelProceed()) LevelProceed = true;
-			if(r.GameLost()) GameLost= true;
-			if(r.GameWon()) GameWon = true;
+			if (r.LevelFail())
+				LevelFailed = true;
+			if (r.LevelProceed())
+				LevelProceed = true;
+			if (r.GameLost())
+				GameLost = true;
+			if (r.GameWon())
+				GameWon = true;
 		}
-		if(gameWonConditions.GameWon()) GameWon = true;
-		if(gameLostConditions.GameLost()) GameLost = true;
-		if(levelProceedConditions.LevelProceed()) LevelProceed = true;
-		if(levelLostConditions.LevelLost()) LevelFailed = true;
+		if (gameWonConditions.GameWon())
+			GameWon = true;
+		if (gameLostConditions.GameLost())
+			GameLost = true;
+		if (levelProceedConditions.LevelProceed())
+			LevelProceed = true;
+		if (levelLostConditions.LevelLost())
+			LevelFailed = true;
 	}
 
 	/**
