@@ -22,8 +22,8 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 /**
- * This class is an integration of our original level class with the rest of the API. It is where the main body of the level
- * (or the subgame) should be implemented. 
+ * This class is an integration of our original level class with the rest of the API.
+ * It is where the main body of the level (or the subgame) should be implemented. 
  * @author Jiaqi Yan 
  *
  */
