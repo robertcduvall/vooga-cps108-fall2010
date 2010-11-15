@@ -2,7 +2,7 @@ package vooga.games.doodlejump;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.player.GameEntitySprite;
 
 /**
  * The BallSprite class extends GameEntitySprite and defines how the balls that

@@ -2,8 +2,8 @@ package vooga.games.doodlejump;
 
 import java.awt.*;
 
-import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.player.PlayerSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;

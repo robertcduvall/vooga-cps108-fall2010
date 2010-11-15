@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.overlay.OverlayString;
-import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.player.PlayerSprite;
 import vooga.engine.resource.Resources;
 
 /**
