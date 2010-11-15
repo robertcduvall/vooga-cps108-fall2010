@@ -3,6 +3,7 @@ package vooga.engine.overlay;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.Map;
 
 import vooga.engine.resource.clock.WorldClock;
 
@@ -60,6 +61,11 @@ public class OverlayClock extends OverlayString{
 	 */
 	public OverlayClock(Font font, Color color){		
 		super(null, font, color);
+		setString(get24HourTime());
+	}
+	
+	public OverlayClock(Map<String, String> attributes, OverlayTrackerTemp tracker){
+		super(attributes, tracker);
 		setString(get24HourTime());
 	}
 	
