@@ -6,7 +6,7 @@ public class Pacman {
 
 	Pacman(int x) {
 		this.x = x;
-	
+
 	}
 
 	public int getX() {
