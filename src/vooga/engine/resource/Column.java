@@ -16,13 +16,18 @@ public class Column {
 	public static final String REAL = "REAL";
 	public static final String TEXT = "TEXT";
 
-	
+	/**
+	 * Constructs a Column with the indicated name, type, and arguments (e.g., PRIMARY KEY)
+	 */
 	public Column(String name,String type,String... args) {
 		myName = name;
 		myType = type;
 		myArgs = args;
 	}
 
+	/**
+	 * Generates the approprate declaration for the column
+	 */
 	public String getDeclaration() {
 		StringBuilder sb = new StringBuilder("");
 		sb.append(myName+" "+myType);
