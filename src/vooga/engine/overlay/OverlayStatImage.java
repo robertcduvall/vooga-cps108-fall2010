@@ -16,7 +16,7 @@ import com.golden.gamedev.util.ImageUtil;
  * @author Se-Gil Feldsott and Justin Goldsmith
  * 
  * <pre>
- * <p>OverlayStatImage overlay = new OverlayStatImage(Resources.getImage("someName"), 10, 10);</p>
+ * OverlayStatImage overlay = new OverlayStatImage(Resources.getImage("someName"), 10, 10);
  * </pre>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>

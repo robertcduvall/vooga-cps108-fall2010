@@ -19,7 +19,8 @@ import vooga.engine.resource.clock.WorldClock;
  * time zone for WorldClock.
  * <br/><br/>
  * Sample initialization:
- * <pre>WorldClock.setTimeZone("EST");
+ * <pre>
+ * WorldClock.setTimeZone("EST");
  * OverlayClock clock = new OverlayClock();
  * clock.setLocation(WIDTH/2, HEIGHT/2);
  * </pre>
