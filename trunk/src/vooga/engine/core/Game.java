@@ -24,6 +24,7 @@ import vooga.engine.state.GameStateManager;
 public class Game extends com.golden.gamedev.Game {
 
 	private GameStateManager stateManager;
+	private VoogaPlayField myCurrentLevel;
 
 	@Override
 	public void initResources() {
@@ -37,7 +38,7 @@ public class Game extends com.golden.gamedev.Game {
 			System.out.println("Failed to load resources.xml");
 		}
 		initGameStates();
-		initLevel(1);
+		myCurrentLevel = initLevel(1);
 	}
 
 	@Override
