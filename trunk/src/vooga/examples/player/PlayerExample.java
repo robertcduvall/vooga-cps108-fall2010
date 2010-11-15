@@ -10,7 +10,7 @@ import vooga.engine.overlay.Stat;
  *
  */
 @SuppressWarnings("serial")
-public class PlayerSpriteExample extends Sprite {
+public class PlayerExample extends Sprite {
 
 	private static final String HEALTH_STRING = "Health";
 	private static final String LIVES_STRING = "Lives";
@@ -27,8 +27,8 @@ public class PlayerSpriteExample extends Sprite {
 	private Stat<Boolean> myExistsStat;
 	private Stat<Integer> myScoreStat;
 
-	public PlayerSpriteExample(String name, Sprite s) {
-		super(name, s);
+	public PlayerExample(String label, Sprite s) {
+		super(label, s);
 		initializeStats();
 	}
 
