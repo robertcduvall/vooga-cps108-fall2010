@@ -81,6 +81,11 @@ public class OverlayClock extends OverlayString{
 	}
 	
 	private String get24HourTime(){
-		return WorldClock.getLocalTimeAsString(WorldClock.HOUR) + ":" + WorldClock.getLocalTimeAsString(WorldClock.MINUTE);
+		String hour = WorldClock.getLocalTimeAsString(WorldClock.HOUR);
+		String minute = WorldClock.getLocalTimeAsString(WorldClock.MINUTE);
+		if(minute.length()==1){
+			minute = "0" + minute;
+		}
+		return hour + ":" + minute;
 	}
 }
