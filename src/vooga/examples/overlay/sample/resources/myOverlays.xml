@@ -21,6 +21,7 @@
 <OverlayBar xLoc="200" yLoc="250" max="100" stat="one" color="purple" backColor="green"></OverlayBar>
 <OverlayStat xLoc="200" yLoc="350" stat="one" fontName="gameFontgreen" label="HELLO "></OverlayStat>
 <OverlayString xLoc="200" yLoc="50" fontName="Times New Roman" label="Justin " fontSize="32"></OverlayString>
+<OverlayClock xLoc="200" yLoc="400" fontName="Times New Roman" label="Justin " fontSize="32"></OverlayClock>
 </OverlayGroup>
 
 </Overlay>

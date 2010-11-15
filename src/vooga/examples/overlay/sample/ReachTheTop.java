@@ -5,14 +5,13 @@ import java.awt.image.*;
 import java.util.Random;
 
 import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayCreatorTemp;
 import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayStatImage;
 import vooga.engine.overlay.OverlayTracker;
-import vooga.engine.overlay.OverlayTrackerTemp;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.clock.WorldClock;
 
 // GTGE
 import com.golden.gamedev.*;
@@ -67,10 +66,11 @@ public class ReachTheTop extends Game {
 		sg.add(oi);*/
 		Resources.setGame(this);
 		Resources.loadImage("ball", "resources/transBall.gif");
+		WorldClock.setTimeZone("EST");
 		
 		
-		OverlayCreatorTemp.setGame(this);
-		OverlayTrackerTemp track = OverlayCreatorTemp.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
+		OverlayCreator.setGame(this);
+		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
 		myLives = track.getStat("two", new Integer(0));
 		myScore = track.getStat("three", new Integer(0));
 
