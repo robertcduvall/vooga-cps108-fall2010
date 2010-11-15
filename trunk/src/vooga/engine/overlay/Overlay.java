@@ -17,11 +17,11 @@ import com.golden.gamedev.object.Sprite;
  * 
  * 
  * To be created with the OverlayCreator, the Overlay must have a constructor
- * <pre>
+ * <xmp>
  * public Overlay(Map<String, String> attributes, OverlayTracker tracker){
  *	// code
  * }
- * </pre>
+ * </xmp>
  * 
  * @author Se-Gil Feldsott and Justin Goldsmith
  */

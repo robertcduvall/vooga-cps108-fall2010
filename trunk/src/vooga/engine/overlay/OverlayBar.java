@@ -15,7 +15,7 @@ import java.util.Map;
  * The OverlayBar is initialized and placed at point (10,10);
  * The myScore stat is updated by the method incrementScore, which would be called based on the game's logic.
  * 
- * <pre>
+ * <xmp>
  * Stat<Integer> myScore;
  * 
  * ...
@@ -30,7 +30,7 @@ import java.util.Map;
  * 	myScore = myScore.getStat()+1;
  * }
  * 
- * </pre>
+ * </xmp>
  * 
  * @author Andrew Brown
  * 

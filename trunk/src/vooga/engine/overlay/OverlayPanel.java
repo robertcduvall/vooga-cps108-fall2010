@@ -11,7 +11,7 @@ import com.golden.gamedev.object.SpriteGroup;
  * recommended since OverlayPanel does not take measures
  * to prevent overlapping.
  * 
- * <pre>
+ * <xmp>
  * OverlayBar	overlay1 = new OverlayBar(stat1,100);
  * OverlayIcon	overlay2 = new OverlayIcon(stat2, image, "Lives: ");
  * OverlayStat	overlay3 = new OverlayStat("Score: ", stat3);
@@ -22,7 +22,7 @@ import com.golden.gamedev.object.SpriteGroup;
  * panel.add(overlay3);
  * panel.initialize();
  * playField.add(panel);
- * </pre>
+ * </xmp>
  * @author Se-Gil Feldsott & Andrew Brown
  */
 public class OverlayPanel extends SpriteGroup{

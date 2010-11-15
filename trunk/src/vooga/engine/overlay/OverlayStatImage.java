@@ -15,9 +15,9 @@ import com.golden.gamedev.util.ImageUtil;
  * The OverlayStatImage class displays a GreenfootImage defined by the user
  * @author Se-Gil Feldsott and Justin Goldsmith
  * 
- * <pre>
+ * <xmp>
  * OverlayStatImage overlay = new OverlayStatImage(Resources.getImage("someName"), 10, 10);
- * </pre>
+ * </xmp>
  * 
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  *
