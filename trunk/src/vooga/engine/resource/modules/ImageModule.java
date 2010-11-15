@@ -10,10 +10,18 @@ import org.w3c.dom.Element;
 
 import vooga.engine.core.Game;
 
+/**
+ * ResourceModule designed to track Images which are 
+ * stored as BufferedImages. Depends on the Game class 
+ * to load image files as BufferedImages.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class ImageModule extends ResourceModule{
 	
 	
-	private Map<String, BufferedImage[]> imageMap = new HashMap<String, BufferedImage[]>();
+	private Map<String, BufferedImage> imageMap = new HashMap<String, BufferedImage>();
 
 	@Override
 	public void loadElements(Collection<Element> elements) {
@@ -30,8 +38,7 @@ public class ImageModule extends ResourceModule{
 	 * being put into the map.
 	 */
 	public void loadImage(String key, File file) {
-		imageMap.put(key,
-				new BufferedImage[] {getGame().getImage(file.getPath()) });
+		imageMap.put(key,getGame().getImage(file.getPath()));
 	}
 
 	/**
@@ -44,7 +51,7 @@ public class ImageModule extends ResourceModule{
 	}
 	
 	public BufferedImage getImage(String key) {
-		return imageMap.get(key)[0];
+		return imageMap.get(key);
 	}
 
 	@Override

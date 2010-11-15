@@ -1,20 +1,13 @@
 package vooga.engine.resource;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.ResourceBundle;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,7 +17,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import vooga.engine.core.Game;
-import vooga.engine.overlay.Stat;
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
 
@@ -335,5 +327,8 @@ public class Resources {
     	return elementList;
     }
 	
+	private static ResourceBundle loadPreLaunchData(String filePath){
+		return ResourceBundle.getBundle(filePath);
+	}
 	
 }

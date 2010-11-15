@@ -6,6 +6,13 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+/**
+ * ResourceModule designed to track Integers which act 
+ * as constants throughout the game.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class IntegerModule extends ResourceModule{
 	private static Map<String, Integer> integerMap = new HashMap<String, Integer>();
 

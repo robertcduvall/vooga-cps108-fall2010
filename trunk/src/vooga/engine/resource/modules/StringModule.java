@@ -6,6 +6,13 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+/**
+ * ResourceModule designed to track Strings which act 
+ * as constants throughout the game.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class StringModule extends ResourceModule{
 	private static Map<String, String> stringMap = new HashMap<String, String>();
 
