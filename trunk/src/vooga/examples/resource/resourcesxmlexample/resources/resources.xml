@@ -1,0 +1,28 @@
+<Resources>
+	<Images>
+		<Image name="duvall" path="duvallFace.png" />
+	</Images>
+	
+	<Animations>
+		<Animation name="downAnim" >
+			<Image path="level1/Down1.png" />
+			<Image path="level1/Down2.png" />
+			<Image path="level1/Down3.png" />
+			<Image path="level1/Down4.png" />
+		</Animation>
+	</Animations>
+	
+	<Sounds>
+		<Sound name="explode" path="explosion.wav" />
+	</Sounds>
+	
+	<Strings>
+		<String name="helloMessage" value="Hello World!" />
+	</Strings>
+	
+	<Integers>
+	</Integers>
+	
+	<Doubles>
+	</Doubles>
+</Resources>
