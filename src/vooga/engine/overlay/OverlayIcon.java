@@ -24,7 +24,8 @@ import com.golden.gamedev.util.ImageUtil;
  * <p>OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");</p>
  * </xmp>
  * 
- * <p>All overlays must be updated and rendered; This is the responsibility of the game creator.</p>
+ * <p>All overlays must be updated and rendered;
+ * This is the responsibility of the game creator.</p>
  * 
  * @author Se-Gil Feldsott and Justin Goldsmith
  */

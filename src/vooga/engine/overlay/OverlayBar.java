@@ -18,6 +18,7 @@ import java.util.Map;
  * myStat = new Stat(Integer 0);
  * OverlayBar scorebar = new OverlayBar(myStat,100);
  * addObject(scorebar,10,10);
+ * </pre>
  * 
  * @author Andrew Brown
  * 
