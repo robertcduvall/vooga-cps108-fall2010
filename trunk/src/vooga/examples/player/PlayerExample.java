@@ -14,10 +14,7 @@ import vooga.engine.overlay.Stat;
 public class PlayerExample extends Sprite {
 
 	private static final String EXAMPLE_STAT_STRING = "Example";
-
 	private static final int EXAMPLE_STAT_INT = 10;
-
-	private Stat<Integer> myExampleStat;
 
 	public PlayerExample(String label, Sprite s) {
 		super(label, s);
@@ -28,11 +25,8 @@ public class PlayerExample extends Sprite {
 	 * initializeStats initializes all of the stats for the PlayerExample
 	 */
 	private void initializeStats() {
-		initializeExampleStat();
-	}
-
-	private void initializeExampleStat() {
-		myExampleStat = new Stat<Integer>(EXAMPLE_STAT_INT);
+		Stat<Integer> myExampleStat = new Stat<Integer>(EXAMPLE_STAT_INT);
 		setStat(EXAMPLE_STAT_STRING, myExampleStat);
 	}
+
 }
