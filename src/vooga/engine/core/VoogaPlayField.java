@@ -100,7 +100,7 @@ public class VoogaPlayField extends PlayField {
 	 * Adds every SpriteGroup from the OverlayTracker to the playfield.
 	 * @param overlayGroups
 	 */
-	private void addOverlayGroups(List<SpriteGroup> overlayGroups) {
+	public void addOverlayGroups(List<SpriteGroup> overlayGroups) {
 		for(SpriteGroup overlay : overlayGroups){
 			this.addGroup(overlay);
 		}
@@ -111,14 +111,14 @@ public class VoogaPlayField extends PlayField {
 	 * Gives the current PlayField music.
 	 * @param key
 	 */
-	private void addMusic(String key) {
+	public void addMusic(String key) {
 		myMusic = Resources.getSound(key);
 	}
 	
 	/**
 	 * Add an image background to the current Collection. To make a particular background active, use the setBackground method.
 	 */
-	private void addImageBackground(String key){
+	public void addImageBackground(String key){
 		Background currentBackground = new ImageBackground(Resources.getImage(key));
 		myBackgrounds.add(currentBackground);
 	}
@@ -126,15 +126,22 @@ public class VoogaPlayField extends PlayField {
 	/**
 	 * Add a color background to the current Collection.
 	 */
-	private void addColorBackground(Color color){
+	public void addColorBackground(Color color){
 		myBackgrounds.add(new ColorBackground(color));
 	}
 	
 	/**
 	 * Returns the desired background based on the index the user provides.
 	 */
-	private Background getBackground(int index){
+	public Background getBackground(int index){
 		return ((ArrayList<Background>) myBackgrounds).get(index);
+	}
+	
+	/**
+	 * Makes the background given by the index active in the current playfield.
+	 */
+	public void setBackground(int index){
+		super.setBackground(((ArrayList<Background>myBackgrounds).get(index));
 	}
 
 	
