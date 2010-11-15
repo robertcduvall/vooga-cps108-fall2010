@@ -1,8 +1,9 @@
 package vooga.examples.event.demo2;
 
 import vooga.engine.event.EventPool;
+import vooga.engine.event.IEventHandler;
 /**
- * This demo <code>Demo2</code> shows how to use {@link #EventPool EventPool} and {@link #IEventHandler IEventHandler} to create 
+ * This demo <code>Demo2</code> shows how to use {@link EventPool} and {@link IEventHandler} to create 
  * events in game.
  * <p>
  * Taking Pacman game for example, ghosts, enemies of pacman, are trying to catch pacman in one line and end the game. The
