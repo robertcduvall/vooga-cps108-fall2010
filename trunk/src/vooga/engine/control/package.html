@@ -2,39 +2,17 @@
 <html>
 <head>
 </head>
-<body bgcolor="green">
-<p>
-Design Document
-<br />
-<br />
-Design goals of project
-<br />
-<br />
-Our project was designed to provide the game developer a comprehensive player and item system to simplify the management of these aspects of a game. Both PlayerSprite and ItemSprite derive from GameEntitySprite. GameEntitySprite implements a great feature: multiple sprite representation. This allows the developer to use different sprites to represent different states any GameEntitySprite object might be in. Our PlayerSprite class derives from GameEntitySprite and handles all the basic data associated with a game player--rank, health, lives, score, and item list. ItemSprite is also an extension of GameEntitySprite and is very similar to a GameEntitySprite but contains an act() method to allow for causing a change in the game. ItemSprite is meant to be overridden and functionality added to the act() method. One of the most important goals we had in developing our package was to ensure that our package worked seamlessly with all of the other functions that Golden-T provides, such as collision detection, SpriteGroup management, and input detection. For this reason, we made several important decisions that are documented in section three.
-<br />
-<br />
-How to add new features to you project
-<br />
-<br />
-Adding new features to our project is relatively simple--all of our classes can be extended to make new classes. For example, if there is a new aspect to Player that needs to be kept track of, such as kill count, the PlayerSprite class could be extended, retaining all the functionality of GameEntitySprite and PlayerSprite. Other features that could easily be added are different player controllers. We defined an interface for controlling the movement of a player--it contains four methods that must be implemented. It should be relatively simple to add a controller that takes inputs from the network, or a controller that takes input from a joystick, by using this interface.
-<br />
-<br />
-Major design choices made in project
-<br />
-<br />
-A major design choice made this week, that has been in debate since last week, was making the GameEntitySprite class extend Sprite. Before the class was called GameEntity and contained a Sprite object. The idea was to have the GameEntity class and one of its subclasses (Player or Item) describe what the GameEntity was and only use the Sprite to display a picture. With this design we were forced to rewrite all of the methods inside of Sprite in GameEntity so that we could keep track of the Sprites location and other variables. This implementation proved difficult to keep track of the current Sprite and made it very difficult to use more than one Sprite per GameEntity.
-Also, the collision detection in Golden T is completely based on Sprites, so instead of rewriting the collision detection class to handle a GameEntity it was much simpler to extend the Sprite class, making a GameEntitySprite.
-Although it seems confusing to extend Sprite and also have a Sprite in the same class it makes things like collision detection and having multiple Sprites per GameEntity possible.
-The idea of controls being linked to a Player was conceived during the first week of the High Level Engine project, but was implemented this week. An interface named IPlayerController mandates four methods deltaX(), deltaY(), deltaVelocityX() and deltaVelocityY(). KeyboardController and MouseController implement this interface and each class defines how that specific controller functions. The MovementKeys class was created to simplify mapping keys to define movement of a Player. This class is appropriate because movement is relevant to nearly every video game.
-<br />
-<br />
-Assumptions or decisions made to simplify or resolve ambiguities in project's functionality
-<br />
-<br />
-One of the great features of our GameEntitySprite class is that it can contain multiple Sprites. Included in this functionality is also the ability to use different kinds of Sprites, such as AnimatedSprites or PatternSprites. However, our class does not provide the ability to extract and modify these kinds of Sprites after they have been passed to the GameEntitySprite object. The developer will have to make sure that all parameters for these special kinds of Sprites are set before using these special Sprites as part of a GameEntitySprite. We also assume that the developer understands how to use casting to enhance functionality. This is particularly important in the CollisionManager classes that the developer may use. Because our PlayerSprite can act as a Sprite, it can be passed to the CollisionManager. Within the collided method, if you have a collision with a player that should cause a change in the playerÕs lives, for example, since you know which Sprite is going to be the player (s1 or s2), you can simply cast that Sprite as a PlayerSprite and update the playerÕs score, all from within the CollisionManager.
-<br />
-<br />
-<!-- Put @see and @since tags down here. -->
-
+<body bgcolor="white">
+<p>Creates control schemes by mapping inputs from any kind of peripheral devices to actions/behaviors of one or more GameEntitySprites.</p>
+<p>Authors: Aaron Choi, Adam Cue, Nick Hawthorne</p>
+<p>Control is the main workhorse of this API. Any developer that wants to enjoy the benefits of this Vooga API will subclass Control to add whatever
+peripheral-specific logic is necessary to register the inputs and their corresponding methods.  The subclasses in most cases should only have to override
+the update method so it can perform whatever logic it needs to to pass the input into Control.</p>
+<p>KeyboardControl and MouseControl are two examples of these Control subclasses. While being examples of how to use this API, they are also fully functional
+keyboard and mouse listeners, meaning that if there are basic keyboard/mouse mappings that you want to do, KeyboardControl and MouseControl should be sufficient.
+</p>
+<p>PreferencesState is a GameState that allows the user to change the input mappings during the game. This would most likely be in some sort of preference
+pane but the decision is completely up to the developer. Also, PreferencesState can be extended and modified to fit whatever peripheral device whose input the
+user wishes to remap.</p>
 </body>
 </html>

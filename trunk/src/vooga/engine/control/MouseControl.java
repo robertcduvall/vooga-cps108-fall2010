@@ -11,7 +11,7 @@ import vooga.engine.player.GameEntitySprite;
  * @version 1.0
  */
 
-public class MouseControl extends Control implements Controller{
+public class MouseControl extends Control{
 	
 	public MouseControl(){
 		super();
