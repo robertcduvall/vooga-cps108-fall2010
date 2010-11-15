@@ -1,1 +1,0 @@
-duvall,images/duvallFace.png
