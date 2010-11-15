@@ -1,11 +1,11 @@
 package vooga.engine.core;
 
-import java.util.ArrayList;
+import java.awt.Color;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.Mac;
 
 
 import vooga.engine.level.Rule;
@@ -17,6 +17,8 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * Extension of the Golden T Playfield to allow addition of OverlayTracker to the Playfield.
@@ -33,13 +35,14 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class VoogaPlayField extends PlayField {
 	
-	private Map<String, RuleInterface> ruleBook;
+	private Map<String, RuleInterface> myRuleBook;
 	private Map<RuleInterface, SpriteGroup[]> ruleMap; 
 	private String myMusic;
+	private Collection<Background> myBackgrounds;
 	
 	public VoogaPlayField(Background background){
 		super(background);
-		ruleBook = new HashMap<String, RuleInterface>();
+		myRuleBook = new HashMap<String, RuleInterface>();
 		ruleMap = new HashMap<RuleInterface, SpriteGroup[]>();
 	}
 	
@@ -56,9 +59,9 @@ public class VoogaPlayField extends PlayField {
 	 */
 	private void actOnRules() {
 		
-		for(String key: ruleBook.keySet())
+		for(String key: myRuleBook.keySet())
 		{
-			RuleInterface rule = ruleBook.get(key);
+			RuleInterface rule = myRuleBook.get(key);
 			SpriteGroup[] obedients = ruleMap.get(rule);
 			
 			if(rule.checkRule(obedients))
@@ -79,7 +82,7 @@ public class VoogaPlayField extends PlayField {
 	 */
 	public void addRule(String rulename, RuleInterface rule, SpriteGroup[] obedients)
 	{
-		ruleBook.put(rulename, rule);
+		myRuleBook.put(rulename, rule);
 		ruleMap.put(rule, obedients);
 	}
 	
@@ -111,6 +114,20 @@ public class VoogaPlayField extends PlayField {
 		myMusic = Resources.getSound(key);
 	}
 	
+	/**
+	 * Add an image background to the current Collection. To make a particular background active, use the setBackground method.
+	 */
+	private void addImageBackground(String key){
+		Background currentBackground = new ImageBackground(Resources.getImage(key));
+		myBackgrounds.add(currentBackground);
+	}
+	
+	/**
+	 * Add a color background to the current Collection.
+	 */
+	private void addColorBackground(Color color){
+		myBackgrounds.add(new ColorBackground(color));
+	}
 
 	
 }
