@@ -34,7 +34,7 @@ public class OverlayStat extends OverlayString {
 	}	
 	
 	
-	public OverlayStat(Map<String, String> attributes, OverlayTrackerTemp tracker){
+	public OverlayStat(Map<String, String> attributes, OverlayTracker tracker){
 		super(attributes, tracker);
 		String statLoc = attributes.get("stat");
 		myGenTracker = tracker.getStat(statLoc);		

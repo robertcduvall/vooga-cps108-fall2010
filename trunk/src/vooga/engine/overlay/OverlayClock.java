@@ -64,7 +64,7 @@ public class OverlayClock extends OverlayString{
 		setString(get24HourTime());
 	}
 	
-	public OverlayClock(Map<String, String> attributes, OverlayTrackerTemp tracker){
+	public OverlayClock(Map<String, String> attributes, OverlayTracker tracker){
 		super(attributes, tracker);
 		setString(get24HourTime());
 	}

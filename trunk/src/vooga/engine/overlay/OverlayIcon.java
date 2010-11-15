@@ -55,7 +55,7 @@ public class OverlayIcon extends Overlay {
 		updateIcon();
 	}
 
-	public OverlayIcon(Map<String, String> attributes, OverlayTrackerTemp tracker){
+	public OverlayIcon(Map<String, String> attributes, OverlayTracker tracker){
 		myText = new OverlayString(attributes, tracker);
 		myIcon = new OverlayStatImage(attributes, tracker);
 		setLocation(attributes);
@@ -169,46 +169,6 @@ public class OverlayIcon extends Overlay {
 
 	protected OverlayString getOverlayString(){
 		return myText;
-	}
-
-	/**
-	 * The OverlayStatImage class is essentially a Sprite
-	 * wrapper used by the OverlayIcon class to display
-	 * the icons.  It has a cloning method which allows
-	 * the OverlayIcon to easily display multiples of the
-	 * icon image.
-	 * @author Se-Gil Feldsott and Justin Goldsmith
-	 */
-	private class OverlayStatImage extends Overlay{
-
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Creates a Image to be placed in game.
-		 * @param image image to display
-		 */
-		public OverlayStatImage(BufferedImage image){
-			setImage(image);
-		}
-
-		public OverlayStatImage(Map<String, String> attributes, OverlayTrackerTemp tracker){
-			this(Resources.getImage(attributes.get("image")));
-			String width = attributes.get("width");
-			String height = attributes.get("height");
-			if(width!=null && height!=null){
-				setImage(ImageUtil.resize(this.getImage(), Integer.valueOf(width), Integer.valueOf(height)));
-			}
-			setLocation(attributes);
-		}
-
-		protected void scale(int width, int height){
-			setImage(ImageUtil.resize(this.getImage(), width, height));
-		}
-
-		protected OverlayStatImage clone(){
-			return new OverlayStatImage(getImage());
-		}
-
 	}
 
 }
