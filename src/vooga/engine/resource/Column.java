@@ -2,7 +2,7 @@ package vooga.engine.resource;
 
 /**
  * This is a class representing a column of an SQLite table
- * @author David Herzka
+ * @author David G. Herzka
  */
 public class Column {
 	private String myName;

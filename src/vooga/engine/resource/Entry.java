@@ -2,7 +2,7 @@ package vooga.engine.resource;
 
 /**
  * Entry represents a single database cell, containing field and data information.
- * @author david
+ * @author David G. Herzka
  *
  * @param <T>
  */

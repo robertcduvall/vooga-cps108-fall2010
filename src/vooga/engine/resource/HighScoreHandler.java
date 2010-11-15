@@ -10,7 +10,7 @@ import com.almworks.sqlite4java.SQLiteStatement;
  * This class handles storing and retrieving a high score list of arbitrary
  * length in an SQLite database. It supports name, score, and time columns.
  * 
- * @author dgh11
+ * @author David G. Herzka
  * 
  */
 public class HighScoreHandler {
