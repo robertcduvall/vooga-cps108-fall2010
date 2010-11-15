@@ -38,12 +38,12 @@ import com.golden.gamedev.engine.BaseIO;
  * on the file "resources.xml". Each game should have a resources.xml file located in their
  * resources package. Further resources can be added later using any load method.
  * 
- * Images are stored as BufferedImage arrays. In the case of images which are //TODO is this implemented?
+ * Images are stored as BufferedImage arrays. In the case of images which are
  * not animations, the array only has one element. Images can be retrieved as 
  * animations, but the animation will only have one frame. Likewise, animations 
  * can be retrieved as images and only the first frame will be retrieved. Images 
  * are loaded using the Game.loadImage() method and supports png, gif, bmp, and 
- * jpg files. //TODO provide example of how to play/use a sound
+ * jpg files.
  *  
  * Example files following the standard XML format can be found in the 
  * examples.resources package.
