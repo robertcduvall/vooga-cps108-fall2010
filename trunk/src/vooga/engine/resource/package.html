@@ -3,58 +3,90 @@
 <head>
 </head>
 <body bgcolor="white">
-<p>Primarily keeps track of read-only game data loaded from XML files and 
-readable/writable data stored in databases. Secondarily provides functionality 
-for more repeatable random number generation and access to the current real 
-world time.</p>
+<p>Primarily keeps track of read-only game data loaded from XML
+files and readable/writable data stored in databases. Secondarily
+provides functionality for more repeatable random number generation and
+access to the current real world time.</p>
 
 <p>Authors: David Herzka, John Kline, Daniel Koverman</p>
 
-<p>The Resources class parses XML documents to retrieve Images, Animations, Sounds, 
-Integers, Doubles, and Strings. These are stored in maps and retrievable using a 
-string key. An example XML document can be found in the 
-src.examples.resource.resourcesxmlexample package for formatting concerns. The 
-Resources class also allows for adding Resources on an individual basis. Data 
-required to launch the game window (width, height, and full screen true/false) can 
-also be loaded separately from the other resources using loadPreLaunchData(). All 
-data that can be handled using Resources should be handled using Resources.</p>
+<p>The Resources class parses XML documents to retrieve Images,
+Animations, Sounds, Integers, Doubles, and Strings. These are stored in
+maps and retrievable using a string key. An example XML document can be
+found in the src.examples.resource.resourcesxmlexample package for
+formatting concerns. The Resources class also allows for adding
+Resources on an individual basis. Data required to launch the game
+window (width, height, and full screen true/false) can also be loaded
+separately from the other resources using loadPreLaunchData(). All data
+that can be handled using Resources should be handled using Resources.</p>
 
-<p>The use of ResourceModules is in development. ResoureModules should allow for 
-the addition of new types of resources without modification to the Resources class.</p>
+<p>The use of ResourceModules is in development. ResoureModules
+should allow for the addition of new types of resources without
+modification to the Resources class.</p>
 
-<p>*David put in paragraph about Databases here*</p>
+<p>The DBHandler class allows for basic interactions with an SQLite
+database. Currently, its functionality includes creating tables,
+fetching columns, and adding and deleting table rows. Different types of
+data can be stored in the database columns as dictated by the built-in
+data type constants in the Column class. As SQLite is loosely typed, it
+is usually fine to use the "NONE" data type for all columns.</p>
 
-<p>Real world time is kept using the static WorldClock class which allows for setting a 
-local time zone and determining the time at that time zone as well as individual 
-components of time ranging from the current millisecond to the current year. These 
-times are also available in UTC/system time. This allows for the game to change based 
-on real world variables such as time of day or time of year. <br>@see WorldClock</p>
+<p>Real world time is kept using the static WorldClock class which
+allows for setting a local time zone and determining the time at that
+time zone as well as individual components of time ranging from the
+current millisecond to the current year. These times are also available
+in UTC/system time. This allows for the game to change based on real
+world variables such as time of day or time of year. <br>
+@see WorldClock</p>
 
-<p>If repeatability is a concern when generating random numbers, the Randomizer class 
-should be used. Randomizer allows static access to a random number generator which 
-means that all random number generation in the game can be tied to the same generator.
-This allows the value of one seed to govern the behavior of the entire game. There is 
-functionality for reverting back to previous seeds and starting secondary random 
+<p>If repeatability is a concern when generating random numbers, the
+Randomizer class should be used. Randomizer allows static access to a
+random number generator which means that all random number generation in
+the game can be tied to the same generator. This allows the value of one
+seed to govern the behavior of the entire game. There is functionality
+for reverting back to previous seeds and starting secondary random
 number generators for when repeatability is not an issue.</p>
 
 
 
-<p>Importation of data is performed using the DataHandler class.  The DataHandler class is abstract and acts as a template for a data loading subclass.  It contains a Data HashMap<String, Object> and methods that assist with importing data as well as an abstract load method.  When creating his or her data handling class which extends DataHandler, one must implement the method load(...), in which one loads data from a file by adding new records to the hashmap.  Since the map is generically typed, one can have any sort of object correspond to a string representing what data is stored in that object.  The resulting object charData could then be placed into the Data hashmap with the call CreateDataField(�Characters�, charData) and retrieved with getData(�Characters�).  DataHandler includes helper methods for parsing different formats such as arbitrarily delimited spreadsheets and XML files.<br>@see DataHandler</p>
+<p>Importation of data is performed using the DataHandler class. The
+DataHandler class is abstract and acts as a template for a data loading
+subclass. It contains a Data HashMap<String , Object> and
+methods that assist with importing data as well as an abstract load
+method. When creating his or her data handling class which extends
+DataHandler, one must implement the method load(...), in which one loads
+data from a file by adding new records to the hashmap. Since the map is
+generically typed, one can have any sort of object correspond to a
+string representing what data is stored in that object. The resulting
+object charData could then be placed into the Data hashmap with the call
+CreateDataField(�Characters�, charData) and retrieved with
+getData(�Characters�). DataHandler includes helper methods for
+parsing different formats such as arbitrarily delimited spreadsheets and
+XML files.<br>
+@see DataHandler</p>
 
-<p>
-HighScoreHandler is a class that deals with data that must be both accessed and written.  In a future release, the API will include a systematic way to interface with a database, but the high score list feature is a common enough one to warrant its own class.  This class, which initialized, creates a highscores table in the desired database file if one does not already exist and populates it with zeros.  The list can be maintained at any length desired.  The updateScores(...) method checks whether an input score belongs on the list and adds it if it does (while removing the previous lowest entry).  The list of scores, their corresponding player names, and the time at which the score was set can be retrieved from the class with the getScores(), getNames(), and getTimes() accessor methods.<br>@HighScoreHandler
-</p>
+<p>HighScoreHandler is a class that deals with data that must be
+both accessed and written. The API includes a systematic way to
+interface with a database, but the high score list feature is a common
+enough one to warrant its own class. This class, which initialized,
+creates a highscores table in the desired database file if one does not
+already exist and populates it with zeros. The list can be maintained at
+any length desired. The updateScores(...) method checks whether an input
+score belongs on the list and adds it if it does (while removing the
+previous lowest entry). The list of scores, their corresponding player
+names, and the time at which the score was set can be retrieved from the
+class with the getScores(), getNames(), and getTimes() accessor methods.<br>
+@HighScoreHandler</p>
 
-<p>All random number handling for the game should be handled using the static Randomizer 
-class. Randomizer is based on the java.util.Random class and has all of the same 
-functionality plus the ability to store and reset seeds in order to facilitate replays.
-All random numbers in a game that might require exact replication in order to replay 
-should be generated using this class. Random numbers which do not require exact 
-replication, such as aesthetic or particle effects, can also be generated with this 
-class using secondary random paths.<br>@Randomizer<p>
- 
-
-@since 1.6
-
+<p>All random number handling for the game should be handled using
+the static Randomizer class. Randomizer is based on the java.util.Random
+class and has all of the same functionality plus the ability to store
+and reset seeds in order to facilitate replays. All random numbers in a
+game that might require exact replication in order to replay should be
+generated using this class. Random numbers which do not require exact
+replication, such as aesthetic or particle effects, can also be
+generated with this class using secondary random paths.<br>
+@Randomizer
+<p>@since 1.6
 </body>
 </html>
