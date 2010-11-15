@@ -1,7 +1,6 @@
 package vooga.engine.level;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
@@ -9,12 +8,11 @@ import vooga.engine.resource.Resources;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.CollisionManager;
-
 
 public class LevelField extends PlayField{
 	HashMap<String,Rule> ruleMap;
 	HashMap<Rule,SpriteGroup[]> spriteGroupMap;
+	HashMap<Rule,Boolean> activatedRule;
 	private String myMusic;
 	private boolean LevelFailed;
 	private boolean LevelProceed;
@@ -28,6 +26,7 @@ public class LevelField extends PlayField{
 		super(background);
 		ruleMap = new HashMap<String, Rule>();
 		spriteGroupMap = new HashMap<Rule, SpriteGroup[]>();
+		activatedRule = new HashMap<Rule,Boolean>();
 	}
 	
 	@Override
@@ -36,10 +35,17 @@ public class LevelField extends PlayField{
 		super.update(elapsedTime);
 		actOnRules();
 		checkLevelConditions();
+		
 	}
 	
-	public SpriteGroup[] getRuleSpriteGroups(){
-		
+	public ArrayList<SpriteGroup> getRuleSpriteGroups(){
+		ArrayList<SpriteGroup> c = new ArrayList<SpriteGroup>();
+		for(SpriteGroup[] g: spriteGroupMap.values()){
+			for(int i=0;i<g.length;i++){
+				c.add(g[i]);
+			}
+		}
+		return c;
 	}
 	
 	public void checkLevelConditions(){
@@ -51,6 +57,21 @@ public class LevelField extends PlayField{
 		}
 	}
 	
+	public boolean LevelIsLost(){
+		return LevelFailed;
+	}
+	
+	public boolean LevelShouldProceed(){
+		return LevelProceed;
+	}
+	
+	public boolean GameWon(){
+		return  GameWon;
+	}
+	
+	public boolean GameOver(){
+		return GameLost;
+	}
 	
 	
 	/**
@@ -98,11 +119,18 @@ public class LevelField extends PlayField{
 		{
 			Rule rule = ruleMap.get(key);
 			SpriteGroup[] obedients = spriteGroupMap.get(rule);
-			if(rule.ruleSatisfied(obedients))
+			if(rule.ruleSatisfied(obedients) && activatedRule.get(rule))
 			{
 				rule.enforceRule(obedients);
 			}
 		}
+	}
+	
+	public void activateRule(Rule r){
+		activatedRule.put(r, true);
+	}
+	public void deactivateRule(Rule r){
+		activatedRule.put(r, false);
 	}
 	
 	public void addRule(String rulename, Rule rule, SpriteGroup[] obedients)
