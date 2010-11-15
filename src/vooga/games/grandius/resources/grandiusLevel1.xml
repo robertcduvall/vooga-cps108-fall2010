@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="Level1">
+
+	<SpriteGroups>
+		<SpriteGroup name="playerGroup">
+			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20">
+				<Visual name="PlayerShipSingle" />
+			</RegularSprite>
+		</SpriteGroup>
+		<SpriteGroup name="enemyGroup">
+			<SpawnedSprite name="enemySprite" xRange="300" yRange="400" vxRange="10" vyRange="-10" quantity="20">
+				<Visual name="Zipster" />
+			</SpawnedSprite>
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
+			<SpriteGroup name="playerGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+	
+	<Background name="BG" />
+	
+	
+</Level>
