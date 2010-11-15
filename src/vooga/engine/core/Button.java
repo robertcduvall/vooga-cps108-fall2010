@@ -59,7 +59,6 @@ public abstract class Button extends Sprite implements IEventHandler{
 	 * Decides when button has been triggered
 	 * @return whether the button has been triggered
 	 */
-	@Override
 	public boolean isTriggered() {
 		return myGame.click() && myGame.checkPosMouse(this, true);
 	}
