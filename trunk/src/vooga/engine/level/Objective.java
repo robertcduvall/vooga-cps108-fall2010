@@ -20,6 +20,7 @@ package vooga.engine.level;
 public abstract class Objective {
 	
 	private boolean isMet;
+	private int targetNumber;
 
 	
 	/**
@@ -32,6 +33,17 @@ public abstract class Objective {
 	public boolean isMet () {
 		return isMet;
 	}
+	
+	/**
+	 * Setter for numerical objectives like "collect X amount of coins" or "get X experience points"
+	 * or "survive for X amount of seconds"
+	 * @param num
+	 */
+	public void setTargetNumber(int num) {
+		targetNumber = num;
+		
+	}
+	
 	
 	
 	
