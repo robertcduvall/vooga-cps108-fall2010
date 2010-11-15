@@ -56,6 +56,20 @@ public class GameStateManager {
 	}
 
 	/**
+	* Add game state(s) to the game state manager. Assumes the first game state
+	* in the list to be the default game state and activates it.
+	* 
+	* @param states a list of game states
+	*/
+
+	public void addGameState(GameState... states) {
+		for (GameState gamestate : states) {
+			currentGameStates.add(gamestate);
+		}
+		currentGameStates.get(0).activate();
+	}
+	
+	/**
 	 * Removes a GameState from the GameStateManager's collection of GameStates.
 	 * 
 	 * @param gamestate
