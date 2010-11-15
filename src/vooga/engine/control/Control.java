@@ -4,9 +4,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.GameEntitySprite;
+import vooga.engine.player.PlayerSprite;
 
-import com.golden.gamedev.Game;
+import vooga.engine.core.Game;
 
 /**
  * Control class which can be extended to create control schemes.  Keyboard and mouse control are already packaged subclasses, but this class can also be
@@ -24,7 +24,7 @@ import com.golden.gamedev.Game;
  * @version 1.0
  */
 public class Control{
-	protected List<GameEntitySprite> entities;
+	protected List<PlayerSprite> entities;
 	protected Class<?>[] paramTypes;
 	protected Game myGame;
 	protected Map<Integer, ArrayList<Method>> methodMap;
@@ -36,7 +36,7 @@ public class Control{
 	 */
 	public Control() {
 		initializeMappings();
-		entities = new ArrayList<GameEntitySprite>();
+		entities = new ArrayList<PlayerSprite>();
 		key = new ArrayList<Integer>();
 	}
 
@@ -51,12 +51,12 @@ public class Control{
 	}
 
 	/**
-	 * Constructor which can add an intial player to the scheme
+	 * Constructor which can add an initial player to the scheme
 	 * 
 	 * @param initialPlayer First player to add to use this control scheme
 	 * @param game The game which this Control object is a part of
 	 */
-	public Control(GameEntitySprite initialPlayer, Game game) {
+	public Control(PlayerSprite initialPlayer, Game game) {
 		this(game);
 		entities.add(initialPlayer);
 	}
@@ -67,7 +67,7 @@ public class Control{
 	 * @param players Initial players to use this scheme
 	 * @param game The game which this Control object is a part of
 	 */
-	public Control(ArrayList<GameEntitySprite> players, Game game) {
+	public Control(List<PlayerSprite> players, Game game) {
 		this(game);
 		this.entities = players;
 	}
