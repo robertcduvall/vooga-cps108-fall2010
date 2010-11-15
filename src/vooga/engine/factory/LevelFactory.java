@@ -17,5 +17,4 @@ public interface LevelFactory {
 	 * @return Playfield for the current level
 	 */
 	public VoogaPlayField getPlayfield(String filepath, Game currentgame);
-	
 }
