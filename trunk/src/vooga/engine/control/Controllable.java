@@ -11,8 +11,8 @@ package vooga.engine.control;
 public interface Controllable {
 	
 	/**
-	 * Implement the addInput methods here; addInput methods must be used for Controller
-	 * to work
+	 * Implement the addInput methods here. The addInput method registers inputs with methods so
+	 * at run time the Controller knows what actions to perform when it encounters a certain input.
 	 */
 	public void setListeners();
 	

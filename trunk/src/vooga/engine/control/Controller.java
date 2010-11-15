@@ -28,7 +28,9 @@ public interface Controller {
     /**
      * Sets the parameter types that need to be used for the next method
      * 
-     * @param parameterTypes The types of parameters that need to be used. Need to be implemented in the form setParams(new Class[]{Class cls})
+     * @param parameterTypes The types of parameters that need to be used. Need to be implemented in the form <br />
+     * <i>setParams(new Class[]{int.class, String.class})</i><br /> if you want to tell Controller that the next method takes
+     * an int followed by a String.
      */
     public void setParams(Class<?>... parameterTypes);
     /**
