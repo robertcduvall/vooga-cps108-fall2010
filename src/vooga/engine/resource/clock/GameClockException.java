@@ -1,4 +1,4 @@
-package vooga.engine.resource;
+package vooga.engine.resource.clock;
 
 /**
  * Thrown when an invalid GameClock Operation is performed. These operations
