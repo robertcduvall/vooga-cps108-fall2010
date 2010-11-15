@@ -14,9 +14,9 @@ import com.golden.gamedev.object.PlayField;
  *
  */
 public class LevelField extends PlayField{
-	private HashMap<String,Rule> ruleMap;
-	private HashMap<Rule,SpriteGroup[]> spriteGroupMap;
-	private HashMap<Rule,Boolean> activatedRule;
+	private HashMap<String,Rule> ruleMap = new HashMap<String, Rule>();
+	private HashMap<Rule,SpriteGroup[]> spriteGroupMap = new HashMap<Rule,SpriteGroup[]>();
+	private HashMap<Rule,Boolean> activatedRule = new HashMap<Rule,Boolean>();
 	private String myMusic;
 	private boolean LevelFailed;
 	private boolean LevelProceed;
@@ -28,13 +28,14 @@ public class LevelField extends PlayField{
 	}
 	public LevelField(Background background){
 		super(background);
-		ruleMap = new HashMap<String, Rule>();
-		spriteGroupMap = new HashMap<Rule, SpriteGroup[]>();
-		activatedRule = new HashMap<Rule,Boolean>();
 	}
 	
 	public void initializeRules(RulesCollection rc){
 		ruleMap = rc.getRules();
+	}
+	
+	public void initializeRules(HashMap<String,Rule> rm){
+		ruleMap = rm;
 	}
 	
 	@Override
@@ -78,6 +79,17 @@ public class LevelField extends PlayField{
 	
 	public boolean GameOver(){
 		return GameLost;
+	}
+	
+	public LevelField nextLevelField(){
+		LevelField nextField = new LevelField();
+		HashMap<String,Rule> nextRuleMap = new HashMap<String,Rule>();
+		nextRuleMap = ruleMap;
+		for(Rule r:nextRuleMap.values()){
+			r.autoUpdateBetweenLevels();
+		}
+		nextField.initializeRules(nextRuleMap);
+		return nextField;
 	}
 	
 	
@@ -148,5 +160,4 @@ public class LevelField extends PlayField{
 	public void addRule(String n,Rule r){
 		ruleMap.put(n,r);
 	}
-	
 }
