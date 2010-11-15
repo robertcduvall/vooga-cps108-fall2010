@@ -33,7 +33,10 @@ public class KeyboardControl extends Control{
     
 	@Override
 	public void update(){
-		key = myGame.bsInput.getKeyPressed();
-
+		while (!key.contains(myGame.bsInput.getKeyPressed()))
+		{
+			key.add(myGame.bsInput.getKeyPressed());
+		}
+		super.update();
 	}
 }

@@ -27,7 +27,7 @@ public class Control{
 	protected Game myGame;
 	protected Map<Integer, ArrayList<Method>> methodMap;
 	protected Map<Integer, ArrayList<Object[]>> paramMap;
-	protected int key;
+	protected ArrayList<Integer> key;
 
 	/**
 	 * Default Control Constructor
@@ -35,7 +35,7 @@ public class Control{
 	public Control() {
 		initializeMappings();
 		entities = new ArrayList<GameEntitySprite>();
-		key = 0;
+		key = new ArrayList<Integer>();
 	}
 
 	/**
@@ -86,14 +86,17 @@ public class Control{
 	 * Invoke methods here. Call method each time through game loop
 	 */
 	public void update() {
-		if (methodMap.containsKey(key))
+		while (key.size() > 0)
+		{
+			int thisKey = key.remove(0);
+		if (methodMap.containsKey(thisKey))
 		{
 			try{
 				for (int i = 0; i < entities.size(); i++)
 				{
-					for(int e = 0; e < methodMap.get(key).size(); e++){
-						Method perform = methodMap.get(key).get(e);
-						Object[] paramVals = paramMap.get(key).get(e);
+					for(int e = 0; e < methodMap.get(thisKey).size(); e++){
+						Method perform = methodMap.get(thisKey).get(e);
+						Object[] paramVals = paramMap.get(thisKey).get(e);
 						perform.invoke(entities.get(i), paramVals);
 					}
 				}
@@ -101,6 +104,7 @@ public class Control{
 			catch (Throwable e){
 				System.err.println(e);
 			}
+		}
 		}
 	}
 
@@ -159,9 +163,12 @@ public class Control{
 			ArrayList<Method> methods = methodMap.get(previousKey);
 			methodMap.put(newKey, methods);
 			methodMap.remove(previousKey);
-			ArrayList<Object[]> params = paramMap.get(previousKey);
-			paramMap.put(newKey, params);
-			paramMap.remove(previousKey);
+			if (paramMap.containsKey(previousKey))
+			{
+				ArrayList<Object[]> parameters = paramMap.get(previousKey);
+				paramMap.put(newKey, parameters);
+				paramMap.remove(previousKey);
+			}
 		}
 		else {
 			System.out.println("This key didn't exist in the map yet");
