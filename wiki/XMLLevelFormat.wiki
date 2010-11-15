@@ -5,66 +5,45 @@
 
 
 
-This document contains the outline for a level XML file. Basically, each level has a {{{<level>}}} tag that specify the game objects and the rules specific to that level. All the game objects inside a level are outlined inside the tag <LevelObjects> and all the rules inside the level are stored inside the <LevelRules>. Please add to this format and all the attributes that would make a good level XML.
+All the game objects inside a level are outlined inside the tag <LevelObjects> and all the rules inside the level are stored inside the <LevelRules>. Please add to this format and all the attributes that would make a good level XML.
 
 
 = Details =
 
 {{{
-<Level name= “ “>
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="Level1">
 
-      <LevelObjects>
+	<SpriteGroups>
+		<SpriteGroup name="playerGroup">
+			<Sprite name="playerSprite" x="0" y="100" vx="10" vy="20">
+				<Visual name="Player!!!" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="enemyGroup">
+			<Sprite name="enemySprite" x="100" y="100" vx="-10" vy="-20">
+				<Visual name="Enemy!!!" />
+			</Sprite>
+		</SpriteGroup>
+	</SpriteGroups>
 
-<SpriteGroup name=” “>
-
-<vooga.Sprite x= “ “ y = “ “ vx = “ “ vy= “ “>
-
-    <golden.Sprite imageloc=” “> </golden.Sprite>
-
-        <golden.Sprite imageloc=” “> </golden.Sprite>
-
-<golden.Sprite imageloc=” “> </golden.Sprite>
-
-<Stat classname=” “ name=” “></Stat>
-
-<Stat classname=” “ name=””></Stat>
-
-</vooga.Sprite>
-
-<vooga.Sprite x= “ “ y = “ “ vx = “ “ vy= “ “>
-
-    <golden.Sprite imageloc=” “> </golden.Sprite>
-
-        <golden.Sprite imageloc=” “> </golden.Sprite>
-
-<golden.Sprite imageloc=” “> </golden.Sprite>
-
-</vooga.Sprite>
-
-</SpriteGroup>
-
-<SpriteGroup name= “ “>
-
-</SpriteGroup>
-
-   </LevelObjects>
-
-<LevelRules>
-        <CollisionGroup name= “ “>
-            <SpriteGroup name= “ “></SpriteGroup>
-            <SpriteGroup name=” “></SpriteGroup>       
-        </CollisionGroup>
-
-        <CollisionGroup name=” “>
-            <SpriteGroup name= “ “></SpriteGroup>
-            <SpriteGroup name=” “></SpriteGroup>   
-        </CollisionGroup>
-
-        <Rule name=” “>
-            <SpriteGroup name=” “></SpriteGroup>
-            <SpriteGroup name= “ “></SpriteGroup>
-        </Rule>
-
-</LevelRules>
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.examples.factory.PlayerEnemyCollision">
+			<SpriteGroup name="playerGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+	
+	<Background name="Background">
+		<BackgroundGroup name="background1.jpg"></BackgroundGroup>
+		<BackgroundGroup name="background2.jpg"></BackgroundGroup>
+		<BackgroundGroup name="background3.jpg"></BackgroundGroup>
+	</Background>
+	
+	<Music name="Background">
+		<MusicGroup name="music1.midi"></MusicGroup>
+		<MusicGroup name="music2.midi"></MusicGroup>
+		<MusicGroup name="music3.midi"></MusicGroup>
+	</Music>
 </Level>
 }}}
