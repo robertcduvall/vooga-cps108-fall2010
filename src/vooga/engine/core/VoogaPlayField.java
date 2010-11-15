@@ -141,7 +141,7 @@ public class VoogaPlayField extends PlayField {
 	 * Makes the background given by the index active in the current playfield.
 	 */
 	public void setBackground(int index){
-		super.setBackground(((ArrayList<Background>myBackgrounds).get(index));
+		super.setBackground(((ArrayList<Background>)myBackgrounds).get(index));
 	}
 
 	
