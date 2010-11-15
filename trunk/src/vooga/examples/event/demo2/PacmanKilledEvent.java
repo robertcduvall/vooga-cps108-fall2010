@@ -2,11 +2,11 @@ package vooga.examples.event.demo2;
 
 import vooga.engine.event.IEventHandler;
 /**
- * Class <code>PacmanKilledEvent</code> implements the interface {@link #IEventHandler IEventHandler} to create 
+ * Class <code>PacmanKilledEvent</code> implements the interface {@link IEventHandler} to create 
  * an event for the Pacman game. 
  * <p>
  * There are two methods in <code>PacmanKilledEvent</code> interface.
- * Please see {@link #actionPerformed() actionPerformed} , {@link #isTriggerred() isTriggerred}.
+ * Please see {@link #actionPerformed()} , {@link #isTriggered()}.
  * </p>
  * @author Meng Li
  *
