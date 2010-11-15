@@ -9,6 +9,8 @@ import vooga.engine.resource.Resources;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.CollisionManager;
+
 
 public class LevelField extends PlayField{
 	HashMap<String,Rule> ruleMap;
@@ -34,6 +36,10 @@ public class LevelField extends PlayField{
 		super.update(elapsedTime);
 		actOnRules();
 		checkLevelConditions();
+	}
+	
+	public SpriteGroup[] getRuleSpriteGroups(){
+		
 	}
 	
 	public void checkLevelConditions(){
