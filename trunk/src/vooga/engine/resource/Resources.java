@@ -25,6 +25,8 @@ import org.xml.sax.SAXParseException;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
+import vooga.engine.util.XMLDocumentCreator;
+import vooga.engine.util.XMLFileParser;
 
 import com.golden.gamedev.engine.BaseIO;
 
@@ -243,10 +245,8 @@ public class Resources {
 	public static void loadResourcesXMLFile(String resourcesXMLFilepath) throws IOException {
 		try
         {
-            DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-            Document doc = docBuilder.parse(new File(defaultPath + resourcesXMLFilepath));
-            doc.getDocumentElement().normalize();
+			XMLDocumentCreator xmlCreator = new XMLFileParser(defaultPath + resourcesXMLFilepath);
+            Document doc = xmlCreator.getDocument();
             List<Element> newElements = loadSectionElements(doc, "Images");
             for (Element e: newElements) {
             	String name = e.getAttribute("name");
