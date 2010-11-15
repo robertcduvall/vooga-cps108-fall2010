@@ -25,6 +25,7 @@ public class Game extends com.golden.gamedev.Game {
 
 	private GameStateManager stateManager;
 	private VoogaPlayField myCurrentLevel;
+	private static final int INITIAL_LEVEL = 1;
 
 	@Override
 	public void initResources() {
@@ -38,7 +39,21 @@ public class Game extends com.golden.gamedev.Game {
 			System.out.println("Failed to load resources.xml");
 		}
 		initGameStates();
-		myCurrentLevel = initLevel(1);
+		setCurrentLevel(INITIAL_LEVEL);
+	}
+	
+	/**
+	 * Returns the VoogaPlayField that is associated with the current level.
+	 */
+	public VoogaPlayField getCurrentLevel(){
+		return myCurrentLevel;
+	}
+	
+	/**
+	 * Sets the VoogaPlayField to the desired level.
+	 */
+	public void setCurrentLevel(int level){
+		myCurrentLevel = initLevel(level);
 	}
 
 	@Override
