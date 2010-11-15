@@ -1,6 +1,7 @@
 package vooga.engine.core;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +56,7 @@ public class VoogaPlayField extends PlayField {
 	}
 	
 	/**
-	 * This method checks if a Rule is applied 
+	 * This method checks if a Rule is applied. 
 	 */
 	private void actOnRules() {
 		
@@ -76,7 +77,7 @@ public class VoogaPlayField extends PlayField {
 	}
 	
 	/**
-	 * This method adds a Rule the palyfield.
+	 * This method adds a Rule the playfield.
 	 * @param rulename
 	 * @param rule
 	 */
@@ -107,7 +108,7 @@ public class VoogaPlayField extends PlayField {
 	
 	
 	/**
-	 * Gives the current PlayField music
+	 * Gives the current PlayField music.
 	 * @param key
 	 */
 	private void addMusic(String key) {
@@ -127,6 +128,13 @@ public class VoogaPlayField extends PlayField {
 	 */
 	private void addColorBackground(Color color){
 		myBackgrounds.add(new ColorBackground(color));
+	}
+	
+	/**
+	 * Returns the desired background based on the index the user provides.
+	 */
+	private Background getBackground(int index){
+		return ((ArrayList<Background>) myBackgrounds).get(index);
 	}
 
 	
