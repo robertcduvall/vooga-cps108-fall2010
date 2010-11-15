@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
-import vooga.engine.core.VoogaPlayField;
+import vooga.engine.core.PlayField;
 
 
 /**
@@ -100,14 +100,14 @@ public abstract class LevelManager {
 	 * @param currentLevelFactoryFile
 	 * @return Playfield for the current level
 	 */
-	public abstract VoogaPlayField getCurrentPlayField(File currentLevelFactoryFile);
+	public abstract PlayField getCurrentPlayField(File currentLevelFactoryFile);
 	
 	
 	/**
 	 * Loads the next level. Playfield should be cleared before making a call
 	 * to this method, so as to remove the game objects from previous level.
 	 */
-	public VoogaPlayField loadNextLevel() {
+	public PlayField loadNextLevel() {
 		myCurrentLevel+=1;
 		return getCurrentPlayField(new File(myLevelNames.get(myCurrentLevel)));
 	}
@@ -118,7 +118,7 @@ public abstract class LevelManager {
 	 * @param levelIndex
 	 * @return Playfield for the specified level
 	 */
-	public VoogaPlayField skipToLevel(int levelIndex) {
+	public PlayField skipToLevel(int levelIndex) {
 		myCurrentLevel = levelIndex; 
 		return getCurrentPlayField(new File(myLevelNames.get(levelIndex)));
 	}

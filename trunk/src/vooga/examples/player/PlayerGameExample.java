@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import com.golden.gamedev.GameLoader;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.VoogaPlayField;
+import vooga.engine.core.PlayField;
 
 /**
  * PlayerGameExample is an example game class that has a PlayerExample. This
@@ -20,7 +20,7 @@ public class PlayerGameExample extends Game {
 	// private Background background;
 	// private PlayerExample doodleRight;
 
-	private VoogaPlayField voogaPlayField;
+	private PlayField voogaPlayField;
 
 	public void initResources() {
 		super.initResources();

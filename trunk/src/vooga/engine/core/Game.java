@@ -28,7 +28,7 @@ import vooga.engine.state.GameStateManager;
 public class Game extends com.golden.gamedev.Game {
 
 	private GameStateManager stateManager;
-	private VoogaPlayField myCurrentLevel;
+	private PlayField myCurrentLevel;
 	private static final int INITIAL_LEVEL = 1;
 
 	@Override
@@ -52,7 +52,7 @@ public class Game extends com.golden.gamedev.Game {
 	/**
 	 * Returns the VoogaPlayField that is associated with the current level.
 	 */
-	public VoogaPlayField getCurrentLevel() {
+	public PlayField getCurrentLevel() {
 		return myCurrentLevel;
 	}
 
@@ -88,10 +88,10 @@ public class Game extends com.golden.gamedev.Game {
 	 * is called blueLevel.xml, the stringMap in Resources contains the String
 	 * -> String entry: "Level" + index -> "blueLevel.xml"
 	 */
-	public VoogaPlayField initLevel(int index) {
+	public PlayField initLevel(int index) {
 		LevelParser levelParser = new LevelParser();
 		System.out.println(getResourcePath());
-		VoogaPlayField vpf;
+		PlayField vpf;
 		try {
 			vpf = levelParser.getPlayfield(
 					getResourcePath() + Resources.getString("Level" + index),

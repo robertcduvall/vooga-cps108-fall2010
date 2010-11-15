@@ -9,7 +9,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
-import vooga.engine.core.VoogaPlayField;
+import vooga.engine.core.PlayField;
 import vooga.engine.factory.*;
 import vooga.engine.resource.Resources;
 
@@ -34,7 +34,7 @@ public class DoodleLevel implements LevelFactory {
 	}
 
 	@Override
-	public VoogaPlayField getPlayfield(File levelFactoryFile) {
+	public PlayField getPlayfield(File levelFactoryFile) {
 		Scanner levelFile = null;
 		try {
 			levelFile = new Scanner(levelFactoryFile);
@@ -44,7 +44,7 @@ public class DoodleLevel implements LevelFactory {
 		String backgroundName = levelFile.nextLine();
 		Resources.loadImage(backgroundName, "");
 		background = new ImageBackground(Resources.getImage(backgroundName));
-		VoogaPlayField playField = new VoogaPlayField(background);
+		PlayField playField = new PlayField(background);
 		while (levelFile.hasNextLine()) {
 			String sprite = levelFile.nextLine();
 			String spriteName = sprite.substring(0, sprite.indexOf(","));

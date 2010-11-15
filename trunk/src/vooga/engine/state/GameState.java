@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import java.util.*;
 
-import vooga.engine.core.VoogaPlayField;
+import vooga.engine.core.PlayField;
 
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
@@ -27,8 +27,8 @@ import com.golden.gamedev.object.SpriteGroup;
 public abstract class GameState {
 
 	private boolean myIsActive = false;
-	protected VoogaPlayField myRenderField = new VoogaPlayField();
-	protected VoogaPlayField myUpdateField = new VoogaPlayField();
+	protected PlayField myRenderField = new PlayField();
+	protected PlayField myUpdateField = new PlayField();
 	
 	/**
 	 * Constructs a new GameState play
