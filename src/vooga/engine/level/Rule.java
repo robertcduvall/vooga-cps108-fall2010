@@ -34,7 +34,11 @@ public abstract class Rule {
 	/**
 	 * Override this method when you need to change the specific rule.
 	 */
-	public void changeRule(){
+	public void updateRule(){
+	}
+	
+	public void autoUpdateRule(){
+		
 	}
 	
 	public void setGameOverCondition(){
