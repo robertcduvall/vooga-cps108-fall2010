@@ -4,24 +4,32 @@
 	<SpriteGroups>
 		<SpriteGroup name="playerGroup">
 			<Sprite name="playerSprite" x="0" y="100" vx="10" vy="20">
-				<Visual name="PlayerShipSingle" />
+				<Visual name="Player!!!" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
 			<Sprite name="enemySprite" x="100" y="100" vx="-10" vy="-20">
-				<Visual name="Zipster" />
+				<Visual name="Enemy!!!" />
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
 	<CollisionGroups>
-		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
+		<CollisionGroup subclass="vooga.examples.factory.PlayerEnemyCollision">
 			<SpriteGroup name="playerGroup"></SpriteGroup>
 			<SpriteGroup name="enemyGroup"></SpriteGroup>
 		</CollisionGroup>
 	</CollisionGroups>
 	
-	<Background name="BG" />
+	<Background name="Background">
+		<BackgroundGroup name="background1.jpg"></BackgroundGroup>
+		<BackgroundGroup name="background2.jpg"></BackgroundGroup>
+		<BackgroundGroup name="background3.jpg"></BackgroundGroup>
+	</Background>
 	
-	
+	<Music name="Background">
+		<MusicGroup name="music1.midi"></MusicGroup>
+		<MusicGroup name="music2.midi"></MusicGroup>
+		<MusicGroup name="music3.midi"></MusicGroup>
+	</Music>
 </Level>
