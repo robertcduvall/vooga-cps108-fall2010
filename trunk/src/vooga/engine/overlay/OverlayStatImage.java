@@ -12,14 +12,23 @@ import com.golden.gamedev.util.ImageUtil;
 
 
 /**
- * The OverlayStatImage class displays a GreenfootImage defined by the user
- * @author Se-Gil Feldsott and Justin Goldsmith
+ * The OverlayStatImage class displays a image.
  * 
- * <xmp>
+ * 
+ * 
+ *  <xmp>
  * OverlayStatImage overlay = new OverlayStatImage(Resources.getImage("someName"), 10, 10);
  * </xmp>
  * 
+ * 
+ * 	<p> It is basically the same thing as a Sprite, except for the fact that it now has a cloan method
+ * 		which is used with the OverlayIcon</p>
  *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
+ * 
+ * 
+ * @author Se-Gil Feldsott and Justin Goldsmith
+ * 
+ *
  *
  */
 public class OverlayStatImage extends Overlay{
