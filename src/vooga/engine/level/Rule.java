@@ -52,6 +52,8 @@ public abstract class Rule {
 	
 	public void setGameOverCondition() {
 	}
+	public void setGameWonCondition(){
+	}
 
 	public boolean GameLost() {
 		return false;
