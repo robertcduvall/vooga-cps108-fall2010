@@ -10,7 +10,7 @@ This document contains the outline for a level XML file. Basically, each level h
 
 = Details =
 
-
+{{{
 <Level name= “ “>
 
       <LevelObjects>
@@ -67,3 +67,4 @@ This document contains the outline for a level XML file. Basically, each level h
 
 </LevelRules>
 </Level>
+}}}
