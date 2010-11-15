@@ -15,6 +15,6 @@ public class LevelParserExample {
 	{
 		LevelParser parse = new LevelParser();
 		Game g = new Game();
-		parse.getPlayfield("level1.xml", g);
+		parse.getPlayfield("tutorialXML.xml", g);
 	}
 }
