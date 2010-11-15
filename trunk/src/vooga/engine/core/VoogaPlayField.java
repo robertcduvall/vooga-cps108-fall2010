@@ -40,6 +40,7 @@ public class VoogaPlayField extends PlayField {
 	private Map<RuleInterface, SpriteGroup[]> ruleMap; 
 	private String myMusic;
 	private Collection<Background> myBackgrounds;
+	private Collection<String> myMusics;
 	
 	public VoogaPlayField(Background background){
 		super(background);
@@ -113,6 +114,20 @@ public class VoogaPlayField extends PlayField {
 	 */
 	public void addMusic(String key) {
 		myMusic = Resources.getSound(key);
+	}
+	
+	/**
+	 * Returns the desired music based on the index the user provides.
+	 */
+	public String getMusic(int index){
+		return ((ArrayList<String>) myMusics).get(index);
+	}
+	
+	/**
+	 * Makes the music given by the index active in the current playfield.
+	 */
+	public void setMusic(int index){
+		myMusic = Resources.getSound(((ArrayList<String>) myMusics).get(index));
 	}
 	
 	/**
