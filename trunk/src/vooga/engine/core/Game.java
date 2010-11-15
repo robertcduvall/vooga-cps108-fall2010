@@ -27,20 +27,14 @@ public class Game extends com.golden.gamedev.Game {
 
 	@Override
 	public void initResources() {
-		// Game teams should convert their old imagelist.txt, soundlist.txt, etc. files into the
+		// Game teams should now convert their old imagelist.txt, soundlist.txt, etc. files into the
 		// new and improved resources.xml file format by following the example code in 
-		// vooga.examples.resources
-		// Then, the second try statement here can be removed.
+		// vooga.examples.resource.resourcesxmlexample
 		Resources.initialize(this, getResourcePath());
 		try {
 			Resources.loadResourcesXMLFile("resources.xml");
 		} catch (IOException e) {
 			System.out.println("Failed to load resources.xml");
-		}
-		try {
-			Resources.loadPropertiesFile("game.properties");
-		} catch (IOException e) {
-			System.out.println("Failed to load resources/game.properties");
 		}
 		initGameStates();
 		initFirstLevel();
@@ -57,18 +51,24 @@ public class Game extends com.golden.gamedev.Game {
 	}
 	
 	/**
-	 * Initializes the game state manager. This should be 
-	 * overridden by subclasses which should call super and 
-	 * then setup/add all game states.
+	 * Initializes the GameStateManager. This should be 
+	 * overridden by subclasses which should call super() and 
+	 * then setup/add all necessary GameStates.
 	 */
 	public void initGameStates() {
 		stateManager = new GameStateManager();
 	}
 	
+	/**
+	 * Initializes the First Level in the game. The XML file associated with the First Level
+	 * is located at a filepath specified by Resources.getString("Level1")
+	 * For example, if the First Level's XML file is called blueLevel.xml, the stringMap in
+	 * Resources contains the entry: "Level1"->"blueLevel.xml" 
+	 */
 	public void initFirstLevel() {
 		LevelParser levelParser = new LevelParser();
 		System.out.println(getResourcePath());
-		VoogaPlayField vpf = levelParser.getPlayfield(getResourcePath() + "level1.xml", this);
+		VoogaPlayField vpf = levelParser.getPlayfield(getResourcePath() + Resources.getString("Level1"), this);
 	}
 	
 	public GameStateManager getGameStateManager(){
