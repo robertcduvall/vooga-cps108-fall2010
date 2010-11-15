@@ -5,14 +5,29 @@ import org.w3c.dom.Element;
 
 import vooga.engine.core.Game;
 
-public interface ResourceModule {
+public abstract class ResourceModule {
 	
-	public void setGame(Game game);
+	private Game game;
+	private String defaultPath;
 	
-	public void setDefaultPath(String defaultFilePath);
+	public void setGame(Game game) {
+		this.game = game;		
+	}
+	
+	public Game getGame() {
+		return game;		
+	}
+	
+	public void setDefaultPath(String defaultFilePath) {
+		this.defaultPath = defaultFilePath;		
+	}
 
-	public void loadElements(Collection<Element> elements);
+	public String getDefaultPath() {
+		return defaultPath;		
+	}
 	
-	public void clearElements();
+	public abstract void loadElements(Collection<Element> elements);
+	
+	public abstract void clearElements();
 	
 }

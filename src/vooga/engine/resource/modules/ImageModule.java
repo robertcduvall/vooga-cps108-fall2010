@@ -10,10 +10,9 @@ import org.w3c.dom.Element;
 
 import vooga.engine.core.Game;
 
-public class Image implements ResourceModule{
+public class ImageModule extends ResourceModule{
 	
-	private Game game;
-	private String defaultPath;
+	
 	private Map<String, BufferedImage[]> imageMap = new HashMap<String, BufferedImage[]>();
 
 	@Override
@@ -32,7 +31,7 @@ public class Image implements ResourceModule{
 	 */
 	public void loadImage(String key, File file) {
 		imageMap.put(key,
-				new BufferedImage[] {game.getImage(file.getPath()) });
+				new BufferedImage[] {getGame().getImage(file.getPath()) });
 	}
 
 	/**
@@ -41,7 +40,7 @@ public class Image implements ResourceModule{
 	 * being put into the map.
 	 */
 	public void loadImage(String key, String filePath) {
-		loadImage(key, new File(defaultPath + filePath));
+		loadImage(key, new File(getDefaultPath() + filePath));
 	}
 	
 	public BufferedImage getImage(String key) {
@@ -50,18 +49,7 @@ public class Image implements ResourceModule{
 
 	@Override
 	public void clearElements() {
-		imageMap = new HashMap<String, BufferedImage[]>();
-		
-	}
-
-	@Override
-	public void setGame(Game game) {
-		this.game = game;		
-	}
-
-	@Override
-	public void setDefaultPath(String defaultFilePath) {
-		this.defaultPath = defaultFilePath;
+		imageMap.clear();
 		
 	}
 
