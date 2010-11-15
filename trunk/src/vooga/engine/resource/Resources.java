@@ -335,7 +335,7 @@ public class Resources {
 	 * @return ResourceBundle containing necessary data for game launch
 	 */
 	public static ResourceBundle loadPreLaunchData(String filePath){
-		return ResourceBundle.getBundle(filePath);
+		return ResourceBundle.getBundle(defaultPath+filePath);
 	}
 	
 }
