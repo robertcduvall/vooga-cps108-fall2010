@@ -18,11 +18,11 @@ import com.golden.gamedev.util.ImageUtil;
 /**
  * This Overlay class displays a finite number of icons, with an image provided by the user.
  * 
- * <pre>
+ * <xmp>
  * <p>Stat<Integer> stat = new Stat<Integer>(5);</p>
  * <p>GreenfootImage image = new GreenfootImage("...");</p>
  * <p>OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");</p>
- * </pre>
+ * </xmp>
  * 
  * <p>All overlays must be updated and rendered; This is the responsibility of the game creator.</p>
  * 
@@ -56,10 +56,15 @@ public class OverlayIcon extends Overlay {
 	}
 
 	public OverlayIcon(Map<String, String> attributes, OverlayTrackerTemp tracker){
-		this(tracker.getStat(attributes.get("stat"), new Integer(1)), null, null);
 		myText = new OverlayString(attributes, tracker);
 		myIcon = new OverlayStatImage(attributes, tracker);
 		setLocation(attributes);
+		String statName = attributes.get("stat");
+		myStatKeeperGen = tracker.getStat(statName, new Integer(1));
+		myNumOfIcons = myStatKeeperGen.getStat().intValue();
+		myPreviousNumOfIcons = 0;
+		myIconGroup = new SpriteGroup("Icons");
+		updateIcon();
 	}
 
 	/**
