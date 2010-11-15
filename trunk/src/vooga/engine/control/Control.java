@@ -2,6 +2,8 @@ package vooga.engine.control;
 
 import java.lang.reflect.Method;
 import java.util.*;
+
+import vooga.engine.overlay.Stat;
 import vooga.engine.player.GameEntitySprite;
 
 import com.golden.gamedev.Game;
@@ -26,7 +28,7 @@ public class Control{
 	protected Class<?>[] paramTypes;
 	protected Game myGame;
 	protected Map<Integer, ArrayList<Method>> methodMap;
-	protected Map<Integer, ArrayList<Object[]>> paramMap;
+	protected Map<Integer, ArrayList<Stat<?>[]>> paramMap;
 	protected ArrayList<Integer> key;
 
 	/**
@@ -89,22 +91,27 @@ public class Control{
 		while (key.size() > 0)
 		{
 			int thisKey = key.remove(0);
-		if (methodMap.containsKey(thisKey))
-		{
-			try{
-				for (int i = 0; i < entities.size(); i++)
-				{
-					for(int e = 0; e < methodMap.get(thisKey).size(); e++){
-						Method perform = methodMap.get(thisKey).get(e);
-						Object[] paramVals = paramMap.get(thisKey).get(e);
-						perform.invoke(entities.get(i), paramVals);
+			if (methodMap.containsKey(thisKey))
+			{
+				try{
+					for (int i = 0; i < entities.size(); i++)
+					{
+						for(int e = 0; e < methodMap.get(thisKey).size(); e++){
+							Method perform = methodMap.get(thisKey).get(e);
+							Stat<?>[] paramVals = paramMap.get(thisKey).get(e);
+							List<Object> objectParameters = new ArrayList<Object>();
+							for (Stat<?> parameter : paramVals)
+							{
+								objectParameters.add(parameter.getStat());
+							}
+							perform.invoke(entities.get(i), objectParameters.toArray());
+						}
 					}
 				}
+				catch (Throwable e){
+					System.err.println(e);
+				}
 			}
-			catch (Throwable e){
-				System.err.println(e);
-			}
-		}
 		}
 	}
 
@@ -124,14 +131,14 @@ public class Control{
 	 * @param paramVals Value of the parameters that the method has NOTE: If you want to use this
 	 * parameter with something other than 'null', you must use setParams first.
 	 */
-	public void addInput(int listen, String method, String classname, Object... paramVals) {
+	public void addInput(int listen, String method, String classname, Stat<?>... paramVals) {
 		try {
 			Class<?> myClass = Class.forName(classname);
 			Method perform = myClass.getMethod(method, paramTypes);
 			ArrayList<Method> prevMethods = methodMap.get(listen) == null ? new ArrayList<Method>() : methodMap.get(listen);
 			prevMethods.add(perform);
 			methodMap.put(listen, prevMethods);
-			ArrayList<Object[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Object[]>() : paramMap.get(listen);
+			ArrayList<Stat<?>[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Stat<?>[]>() : paramMap.get(listen);
 			prevParams.add(paramVals);
 			paramMap.put(listen, prevParams);
 			paramTypes = null;
@@ -146,7 +153,7 @@ public class Control{
 
 	public void initializeMappings() {
 		methodMap = new HashMap<Integer, ArrayList<Method>>();
-		paramMap = new HashMap<Integer, ArrayList<Object[]>>();
+		paramMap = new HashMap<Integer, ArrayList<Stat<?>[]>>();
 	}
 
 	/**
@@ -165,7 +172,7 @@ public class Control{
 			methodMap.remove(previousKey);
 			if (paramMap.containsKey(previousKey))
 			{
-				ArrayList<Object[]> parameters = paramMap.get(previousKey);
+				ArrayList<Stat<?>[]> parameters = paramMap.get(previousKey);
 				paramMap.put(newKey, parameters);
 				paramMap.remove(previousKey);
 			}
