@@ -1,10 +1,12 @@
-package vooga.engine.resource;
+package vooga.engine.resource.clock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Collection;
 import java.util.Map;
+
+
 import com.golden.gamedev.object.Timer;
 
 /**
