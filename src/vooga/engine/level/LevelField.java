@@ -38,12 +38,13 @@ public class LevelField extends PlayField{
 		ruleMap = rm;
 	}
 	
+	
+	
 	@Override
 	public void update(long elapsedTime)
 	{
 		super.update(elapsedTime);
 		actOnRules();
-		checkLevelConditions();
 	}
 	
 	public ArrayList<SpriteGroup> getRuleSpriteGroups(){
@@ -81,7 +82,7 @@ public class LevelField extends PlayField{
 		return GameLost;
 	}
 	
-	public LevelField nextLevelField(){
+	public LevelField getNextLevelField(){
 		LevelField nextField = new LevelField();
 		HashMap<String,Rule> nextRuleMap = new HashMap<String,Rule>();
 		nextRuleMap = ruleMap;
@@ -129,18 +130,15 @@ public class LevelField extends PlayField{
 		spriteGroupMap.put(r, newGroup);
 	}
 	
-	
 	/**
 	 * This method checks if a Rule is applied 
 	 */
 	private void actOnRules() {		
-		for(String key: ruleMap.keySet())
-		{
-			Rule rule = ruleMap.get(key);
+		for (Rule rule:ruleMap.values()){
 			SpriteGroup[] obedients = spriteGroupMap.get(rule);
-			if(rule.ruleSatisfied(obedients) && activatedRule.get(rule))
+			if(activatedRule.get(rule))
 			{
-				rule.enforceRule(obedients);
+				rule.enforceRule(rule.ruleSatisfied(obedients),obedients);
 			}
 		}
 	}
