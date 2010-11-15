@@ -12,7 +12,7 @@ import vooga.engine.player.GameEntitySprite;
  * @version 1.0
  */
 
-public class KeyboardControl extends Control implements Controller{
+public class KeyboardControl extends Control{
 	
 	public KeyboardControl(){
 		super();
