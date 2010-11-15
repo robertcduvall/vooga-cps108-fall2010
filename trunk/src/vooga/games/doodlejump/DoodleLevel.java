@@ -1,17 +1,15 @@
 package vooga.games.doodlejump;
 
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Scanner;
 
-import javax.imageio.ImageIO;
-
 import com.golden.gamedev.object.AnimatedSprite;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
+
+import vooga.engine.core.VoogaPlayField;
 import vooga.engine.factory.*;
 import vooga.engine.resource.Resources;
 
@@ -36,7 +34,7 @@ public class DoodleLevel implements LevelFactory {
 	}
 
 	@Override
-	public PlayField getPlayfield(File levelFactoryFile) {
+	public VoogaPlayField getPlayfield(File levelFactoryFile) {
 		Scanner levelFile = null;
 		try {
 			levelFile = new Scanner(levelFactoryFile);
@@ -46,7 +44,7 @@ public class DoodleLevel implements LevelFactory {
 		String backgroundName = levelFile.nextLine();
 		Resources.loadImage(backgroundName, "");
 		background = new ImageBackground(Resources.getImage(backgroundName));
-		PlayField playField = new PlayField(background);
+		VoogaPlayField playField = new VoogaPlayField(background);
 		while (levelFile.hasNextLine()) {
 			String sprite = levelFile.nextLine();
 			String spriteName = sprite.substring(0, sprite.indexOf(","));
