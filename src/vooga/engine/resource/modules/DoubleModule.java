@@ -6,6 +6,13 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+/**
+ * ResourceModule designed to track Doubles which act 
+ * as constants throughout the game.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class DoubleModule extends ResourceModule{
 	
 	private static Map<String, Double> doubleMap = new HashMap<String, Double>();

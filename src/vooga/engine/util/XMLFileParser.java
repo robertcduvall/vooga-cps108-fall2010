@@ -20,6 +20,11 @@ import org.xml.sax.SAXException;
  * attempting to parse anything. Generally it is safer to initialize with a
  * file.
  * 
+ * Example code for parsing a Document using a file path:
+ * <pre>XMLDocumentCreator xmlCreator = new XMLFileParser(defaultPath + resourcesXMLFilepath);
+ * Document doc = xmlCreator.getDocument();
+ * </pre>
+ * 
  * @author Daniel Koverman
  * 
  */

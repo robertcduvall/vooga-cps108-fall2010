@@ -3,16 +3,18 @@
 <head>
 </head>
 <body bgcolor="white">
-<p>Keeps track of and load game resources such as images, sounds, game time, world time, 
-data files, and random numbers.</p>
+<p>Primarily keeps track of read-only game data loaded from XML files and 
+readable/writable data stored in databases. Secondarily provides functionality 
+for more repeatable random number generation and access to the current real 
+world time.</p>
 
 <p>Authors: David Herzka, John Kline, Daniel Koverman</p>
 
-<p>Game time is kept using the static GameClock class which includes functionality for 
-pausing, resetting, javax.swing.Timer management, and marking locations in time. All 
-classes which rely on a synchronous game time subject to pausing should use this 
-class.<br>@see GameClock</p>
-
+<p>The Resources class parses XML documents to retrieve Images, Animations, Sounds, 
+Integers, Doubles, and Strings. These are stored in maps and retrievable using a 
+string key. An example XML document can be found in the 
+src.examples.resource.resourcesxmlexample package for formatting concerns. The 
+Resources class also allows for adding Resources on an individual basis. Finally, 
 
 <p>Real world time is kept using the static WorldClock class which allows for setting a 
 local time zone and determining the time at that time zone as well as individual 

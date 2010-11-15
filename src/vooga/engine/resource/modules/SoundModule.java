@@ -7,6 +7,13 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+/**
+ * ResourceModule designed to track file paths 
+ * for sound files.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class SoundModule extends ResourceModule{
 	
 	private static Map<String, String> soundMap = new HashMap<String, String>();
