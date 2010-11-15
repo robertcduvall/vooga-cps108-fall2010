@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import vooga.engine.resource.Resources;
+import vooga.engine.util.XMLFileParser;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.GameFont;
@@ -167,12 +168,7 @@ public class OverlayCreatorTemp {
 		myOverlayCount = 0;
 		myOverlayGroupCount = 0;
 		try {
-			File file = new File(xmlFileLocation);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db;
-			db = dbf.newDocumentBuilder();
-			Document doc = db.parse(file);
-			doc.getDocumentElement().normalize();
+			Document doc = (new XMLFileParser(xmlFileLocation)).getDocument();
 			NodeList statList = doc.getElementsByTagName("Stat");
 			NodeList overlayList = doc.getElementsByTagName("OverlayGroup");
 			if (!processStats(statList)) {

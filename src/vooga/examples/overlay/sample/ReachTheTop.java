@@ -12,7 +12,6 @@ import vooga.engine.overlay.OverlayStatImage;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.OverlayTrackerTemp;
 import vooga.engine.overlay.Stat;
-import vooga.engine.overlay.StatInt;
 import vooga.engine.resource.Resources;
 
 // GTGE
