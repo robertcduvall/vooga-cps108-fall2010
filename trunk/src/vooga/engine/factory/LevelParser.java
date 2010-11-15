@@ -184,7 +184,8 @@ public class LevelParser implements LevelFactory{
 	private void processBackgrounds(NodeList backgrounds) {
 		for(int i = 0; i < backgrounds.getLength(); i++)
 		{
-			myVoogaPlayField.addImageBackground(backgrounds.item(i));
+			Element bgElement = (Element) backgrounds.item(i);
+			myVoogaPlayField.addImageBackground(bgElement.getAttribute("path"));
 		}
 	}
 	
