@@ -14,11 +14,12 @@ import vooga.engine.core.Game;
  * <br /><br />
  * Control takes one or more GameEntitySprites and registers actions that those sprites will perform if an event occurs from some predetermined input device.
  * If the programmer is just trying to use the built in keyboard or mouse listening capabilties, they can do the following:
- * <br /><br />
- * 	&nbsp&nbsp&nbsp&nbsp&nbsp<i>Control shipControl = new Control(this); //this is inside of a GameEntitySprite subclass.</i>
- * 	<br />&nbsp&nbsp&nbsp&nbsp&nbsp<i>shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.</i>
- * 	<br />&nbsp&nbsp&nbsp&nbsp&nbsp<i>shipControl.addInput("KEYBOARD", "left", "rotateLeft", "Ship", 10); //Registers the left key to trigger rotateLeft with a parameter of 10.</i>
- *  <br />&nbsp&nbsp&nbsp&nbsp&nbsp<i>shipControl.act(); //Within Player's act method.  Tells Control to check the registered events and see if any have occurred.</i>
+ * <xmp>
+ * Control shipControl = new Control(this); //this is inside of a GameEntitySprite subclass.
+ * shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.
+ * shipControl.addInput(KeyEvent.VK_LEFT, "left", "rotateLeft", "Ship", 10); //Registers the left key to trigger rotateLeft with a parameter of 10.
+ * shipControl.act(); //Within Player's act method.  Tells Control to check the registered events and see if any have occurred.
+ * </xmp>
  * 
  * @author Choi, Cue, Hawthorne
  * @version 1.0
