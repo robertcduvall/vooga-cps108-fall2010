@@ -3,7 +3,7 @@ package vooga.engine.event;
 public interface IEventHandler {
 	/**
 	 * User defines the condition when the event will be triggered
-	 * @return true iff the condition is satisfied
+	 * @return true if the condition is satisfied
 	 */
 	public boolean isTriggerred();
 	/**
