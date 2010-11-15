@@ -14,7 +14,7 @@ public class Demo2 {
 	public void gameLoop(){
 		// how to setup the event before the gameloop
 		EventPool eventPool = EventPool.getInstance();
-		PacmanEvent pacmanEvent = new PacmanEvent(pacman,ghost);
+		PacmanKilledEvent pacmanEvent = new PacmanKilledEvent(pacman,ghost);
 		eventPool.addEvent(pacmanEvent);
 		//
 		int pacmanSpeed = 1;
