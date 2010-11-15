@@ -12,7 +12,7 @@ import com.almworks.sqlite4java.SQLiteStatement;
  * DBHandler is a class that allows static access to a database for reading and
  * writing data.
  * 
- * @author David Herzka
+ * @author David G. Herzka
  * 
  */
 public class DBHandler {

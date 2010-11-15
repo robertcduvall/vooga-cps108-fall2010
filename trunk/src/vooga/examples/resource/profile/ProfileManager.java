@@ -3,6 +3,11 @@ package vooga.examples.resource.profile;
 import vooga.engine.resource.DBHandler;
 import vooga.engine.resource.Entry;
 
+/**
+ * 
+ * @author David G. Herzka
+ *
+ */
 public class ProfileManager {
 	
 	public ProfileManager() {
