@@ -17,8 +17,8 @@ import org.w3c.dom.NodeList;
 import vooga.engine.core.Game;
 import vooga.engine.core.Sprite;
 import vooga.engine.core.VoogaPlayField;
-import vooga.engine.overlay.OverlayCreatorTemp;
-import vooga.engine.overlay.OverlayTrackerTemp;
+import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.XMLDocumentCreator;
@@ -33,7 +33,7 @@ public class LevelParser implements LevelFactory{
 	private static String gameClassPath;
 	private static Game currentGame;
 	private static VoogaPlayField myVoogaPlayField;
-	private static OverlayTrackerTemp overlayTracker;
+	private static OverlayTracker overlayTracker;
 	private static Map<String, SpriteGroup> spriteGroupMap;
 	
 	@Override
@@ -68,7 +68,7 @@ public class LevelParser implements LevelFactory{
 		Element level = (Element) xmlDocument.getFirstChild(); 
 		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
-		overlayTracker = OverlayCreatorTemp.createOverlays(xmlOverlayPath);
+		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath);
 		
 		Node spriteGroupsSection = xmlDocument.getElementsByTagName("SpriteGroups").item(0);
         NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
