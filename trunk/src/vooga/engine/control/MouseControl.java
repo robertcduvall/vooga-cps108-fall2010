@@ -12,26 +12,29 @@ import vooga.engine.player.GameEntitySprite;
  */
 
 public class MouseControl extends Control{
-	
+
 	public MouseControl(){
 		super();
 	}
-	
+
 	public MouseControl(Game game){
 		super(game);
 	}
-	
+
 	public MouseControl(GameEntitySprite initialEntity, Game game){
 		super(initialEntity, game);
 	}
-	
+
 	public MouseControl(ArrayList<GameEntitySprite> initialEntities, Game game){
 		super(initialEntities, game);
 	}
 
 	@Override
 	public void update(){
-		key = myGame.bsInput.getMousePressed();
-        
+		while (!key.contains(myGame.bsInput.getMousePressed()))
+		{
+			key.add(myGame.bsInput.getMousePressed());
+		}
+		super.update();
 	}
 }
