@@ -1,4 +1,6 @@
 package vooga.engine.level;
+
+import vooga.engine.player.GameEntitySprite;
 	
 
 
@@ -20,7 +22,9 @@ package vooga.engine.level;
 public abstract class Objective {
 	
 	private boolean isMet;
-	private int targetNumber;
+	private int targetNumber = 0;
+	private GameEntitySprite targetSprite = null;
+	private String targetLevel = null;
 
 	
 	/**
@@ -43,6 +47,54 @@ public abstract class Objective {
 		targetNumber = num;
 		
 	}
+	
+
+	/**
+	 * 
+	 * @return the target number for the objective
+	 */
+	public int getTargetNumber () {
+		return targetNumber;
+	}
+	
+	
+	/**
+	 * Setter for sprite objectives like "touch the jetpack sprite" or "shoot the
+	 * jedi sprite" or "step on the rare candy sprite"
+	 * @param num
+	 */
+	public void setTargetSprite(GameEntitySprite ges) {
+		targetSprite = ges;
+	}
+	
+	
+	/**
+	 * 
+	 * @return the target sprite for the objective
+	 */
+	public GameEntitySprite getTargetSprite () {
+		return targetSprite;
+	}
+
+	
+	/**
+	 * Setter for level objectives like "get to the level with the first boss" or "complete the level with
+	 * the green monsters"
+	 * @param num
+	 */
+	public void setTargetLevel(String level) {
+		targetLevel = level;
+	}
+	
+	/**
+	 * 
+	 * @return the target level for the objective
+	 */
+	public String getTargetLevel () {
+		return targetLevel;
+	}
+	
+	
 	
 	
 	
