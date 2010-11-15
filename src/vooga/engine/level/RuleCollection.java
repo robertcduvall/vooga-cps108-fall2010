@@ -5,8 +5,8 @@ import java.util.*;
 import com.golden.gamedev.object.SpriteGroup;
 
 /**
- * I think it's unnecessary to reinitialize the Rule Collection class for each level. Hence we need some methods for 
- * adding/removing/changing the rules 
+ * I think it's unnecessary to reinitialize the Rule Collection class for each level. 
+ * Hence we need some methods for adding/removing/changing the rules.
  * @author Jiaqi Yan
  *
  */
