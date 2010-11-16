@@ -1,32 +1,32 @@
 package vooga.engine.state;
 
-import java.awt.Graphics2D;
-import java.util.List;
-import java.util.ArrayList;
-
-import vooga.engine.event.Button;
+import vooga.engine.core.Button;
+import vooga.engine.core.PlayField;
 
 public class MenuGameState extends GameState {
 
-	public MenuGameState (Iterable<Button> buttons){
-		
-		for (Button button : buttons){
+	private PlayField menuPlayfield = new PlayField();
+
+	public MenuGameState(Iterable<Button> buttons) {
+
+		for (Button button : buttons) {
 			addButton(button);
 		}
-		
+
 	}
-	
+
 	@Override
 	public void initialize() {
-		
-	}
-	
-	public void addButton(Button button){
 
-		myUpdateField.add(button);
-		myRenderField.add(button);
-		
 	}
-	
+
+	public void addButton(Button button) {
+
+		menuPlayfield.add(button);
+		menuPlayfield.add(button);
+
+		addPlayField(menuPlayfield);
+
+	}
 
 }

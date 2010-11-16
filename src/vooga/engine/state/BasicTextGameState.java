@@ -2,56 +2,67 @@ package vooga.engine.state;
 
 import java.awt.Color;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayString;
 
 public class BasicTextGameState extends GameState {
 
 	private OverlayString textOverlay;
-	
-	public BasicTextGameState(String pauseMessage){
-			
+	private PlayField basicTextPlayfield = new PlayField();
+
+	public BasicTextGameState(String pauseMessage) {
+
 		textOverlay = new OverlayString(pauseMessage, Color.BLACK);
-		
-		setMessagePosition(myRenderField.getBackground().getWidth() / 2, myRenderField.getBackground().getHeight() / 2);
-		
+
+		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
+				basicTextPlayfield.getBackground().getHeight() / 2);
+
+		addPlayField(basicTextPlayfield);
+
 	}
-	
-	public BasicTextGameState(String pauseMessage, Color color){
-				
+
+	public BasicTextGameState(String pauseMessage, Color color) {
+
 		textOverlay = new OverlayString(pauseMessage, color);
 
-		setMessagePosition(myRenderField.getBackground().getWidth() / 2, myRenderField.getBackground().getHeight() / 2);
-		
+		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
+				basicTextPlayfield.getBackground().getHeight() / 2);
+
+		addPlayField(basicTextPlayfield);
 	}
-	
-	public BasicTextGameState(String pauseMessage, int x, int y){
-		
+
+	public BasicTextGameState(String pauseMessage, int x, int y) {
+
 		this(pauseMessage);
-		
-		setMessagePosition(x,y);
-		
+
+		setMessagePosition(x, y);
+
+		addPlayField(basicTextPlayfield);
+
 	}
-	
-	public BasicTextGameState(String pauseMessage, Color color, int x, int y){
-		
+
+	public BasicTextGameState(String pauseMessage, Color color, int x, int y) {
+
 		this(pauseMessage, color);
-		
-		setMessagePosition(x,y);
-		
+
+		setMessagePosition(x, y);
+
+		addPlayField(basicTextPlayfield);
+
 	}
-	
-	public void setMessagePosition(int x, int y){
-		
+
+	public void setMessagePosition(int x, int y) {
+
 		textOverlay.setX(x);
 		textOverlay.setY(y);
-		
+
 	}
 
 	@Override
 	public void initialize() {
 
-		//do nothing
-		
+		// intialize and add to playfields any sprites that are specific to this gamestate
+
 	}
-	
+
 }
