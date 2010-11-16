@@ -7,6 +7,41 @@
 Design Document
 <br />
 <br />
+***UPDATE 11/15***
+<br />
+<br />
+Design goals of project
+<br />
+<br />
+Over the last few days, we have streamlined our API to make it easier to use. The new Sprite class, formerly named GameEntitySprite, has been moved to the vooga core package. This is the Sprite class that should be used from now on instead of the Golden-T built-in Sprite. To do this, only import statements must be changed to point to the vooga core Sprite instead of the Golden-T sprite.
+<br />
+<br />
+The two key features of the enhanced Sprite class are as follows:
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* The option to switch between renderable images (using any image or animation to represent the Sprite on screen)
+    <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Any attributes in the form of a Stat (Sprite holds a map of names to Stats, which can be any object that Sprite needs to contain)
+<br />
+<br />
+Our examples can be found in the vooga.examples.player package. The example is designed as a sample game that can be run to demonstrate the Sprite features. It contains the XML level file that gives an example of how to construct a Sprite with various attributes through the LevelParser. The PlayerEnemyCollision is a possible implementation of a collision between a player and an enemy. When the example game is run, you can use keys specified to switch the state of the player (from left to right). There is also an example that is not initialized from an XML file called GameExample. All the initialization should normally be done through the Level XML, but the other methods found in this example game are a good model of how to use the Sprite features.
+<br />
+<br />
+The associated documentation has been updated and clarified to make Sprite easier to use.
+<br />
+<br />
+At this time, we have decided to eliminate PlayerSprite and ItemSprite. All of the functionality that PlayerSprite provided has been moved up to Sprite. ItemSprite did not provide a great deal of functionality as we have reconsidered what an Item is--non-visible 	&#8220;Items&#8221; should be considered Rules, and visible Items can simply be represented with a Sprite. This should be a minor change for those groups that used these two classes; simply replace all references to PlayerSprite with Sprite. Also, if you did utilize the inventory (itemList) feature in PlayerSprite, we recommend you create an inventory class that can be passed into a Stat. 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+***Original Version of Design Document***
+<br />
+<br />
 Design goals of project
 <br />
 <br />
