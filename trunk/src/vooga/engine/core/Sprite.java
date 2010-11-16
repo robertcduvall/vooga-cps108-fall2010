@@ -1,7 +1,6 @@
 package vooga.engine.core;
 
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,16 +8,47 @@ import vooga.engine.overlay.Stat;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.util.ImageUtil;
 
 /**
- * Sprite represents any object that you might interact with in a game. Player
- * and Item are both extensions of this class. It supports having multiple
- * images (implemented as sprites) to represent a single GameEntity. This class
- * extends Sprite so that it can act as a sprite, which is the unit that
- * Golden-T is built around, for things like collision detection and being able
- * to be added to SpriteGroups, but can also use multiple sprites (and different
- * kind of sprites) to represent the entity.
+ *  The vooga.engine.core.Sprite class can represent any renderable object in the game 
+ *  environment. The vooga.engine.core.Sprite class extends the 
+ *  com.golden.gamedev.object.Sprite class but provides two additional useful
+ *  features: the option to switch between renderable images and the capacity to contain 
+ *  any attributes in the form of a Stat. 
+ *  
+ *  Like the Golden T Sprite class, the Vooga Sprite class supports update and render
+ *  behaviors for a Sprite object. In addition, the Sprite class contains all the images
+ *  and attributes that a Sprite object needs. The functionalities supported by the 
+ *  Sprite class include rendering image animation, setting Sprite location and 
+ *  velocity, switching to a different image, and allows for the updating of Sprite 
+ *  attributes. 
+ * 
+ * Code Example:
+ * 	<XMP>
+ * Sprite robertDuvall = new Sprite(normal, "robertDuvall.jpg");
+ * 
+ * robertDuvall.addSprite(yelling, new Sprite("robertDuvallYelling.jpg"));
+ * BufferedImage[] duvallLaughing = Resources.getImages("robertDuvallLaughing"));
+ * robertDuvall.addAnimatedImages(laughing, duvallLaughing);
+ * robertDuvall.setAsRenderedSprite("laughing");
+ * 
+ * Stat<Integer> percentSarcasm = new Stat(100);
+ * Stat<String> happyprojectResponse= new Stat("See, that wasn't so bad, was it?");
+ * Stat<Sring> unhappyprojectResponse = new Stat("Well, this person obviously doesn't know how to code...");
+ * Stat<Double> understandability = new Stat(0.0);
+ * 
+ * robertDuvall.setStat("percentSarcasm" , percentSarcasm);
+ * robertDuvall.setStat("happyprojectResponse", happyprojectResponse);
+ * robertDuvall.setStat("unhappyprojectResponse", unhappyprojectResponse);
+ * robertDuvall.setStat("understandability", understandability);
+ * 
+ * Stat<Integer> sarcasm = robertDuvall.getStat("percentSarcasm");
+ * 
+ * long timeExisted = robertDuvall.getTimeInExistence();
+ * robertDuvall.update(timeExisted);
+ * robertDvuall.render(g);
+ * 
+ * 	</XMP>
  * 
  * @author Jimmy Mu, Marcus Molchany, Drew Sternesky
  * 
@@ -77,6 +107,15 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 		this(DEFAULT_STATE_NAME, new AnimatedSprite(images));
 	}
 
+	/**
+	 * Construct an entity from an array of images to create animated sprites
+	 * 
+	 * @param image
+	 */
+	public Sprite(String label, BufferedImage[] images) {
+		this(label, new AnimatedSprite(images));
+	}
+	
 	/**
 	 * Constructs an entity with null image located at the specified coordinates
 	 * with the default label.
@@ -155,7 +194,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param image
 	 *            is the image from which the new Sprite will be constructed.
 	 */
-	public void addSprite(String label, BufferedImage image) {
+	public void addImage(String label, BufferedImage image) {
 		addSprite(label, new com.golden.gamedev.object.Sprite(image));
 	}
 
@@ -165,7 +204,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param label
 	 * @param images
 	 */
-	public void addAnimatedSprite(String label, BufferedImage[] images) {
+	public void addAnimatedImages(String label, BufferedImage[] images) {
 		addSprite(label, new AnimatedSprite(images));
 	}
 
@@ -196,11 +235,11 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 *            the "name" of the sprite that GameEntity will now be
 	 *            represented by.
 	 */
-	public void setToCurrentSprite(String spriteName) {
+	public void setAsRenderedSprite(String spriteName) {
 		if (mySprites.containsKey(spriteName)) {
 			com.golden.gamedev.object.Sprite nextSprite = mySprites
 					.get(spriteName);
-			setToCurrentSprite(nextSprite);
+			setAsRenderedSprite(nextSprite);
 		}
 	}
 
@@ -212,7 +251,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 *            set the "nextSprite" to the current sprite
 	 */
 
-	private void setToCurrentSprite(com.golden.gamedev.object.Sprite nextSprite) {
+	private void setAsRenderedSprite(com.golden.gamedev.object.Sprite nextSprite) {
 
 		double currentX = myCurrentSprite.getX();
 		double currentY = myCurrentSprite.getY();
@@ -293,33 +332,6 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 */
 	public void setImage(BufferedImage Image) {
 		myCurrentSprite.setImage(Image);
-	}
-
-	/**
-	 * roteSpriteImage rotates the displayed myCurrentSprite by a specified
-	 * angle
-	 * 
-	 * @param angle
-	 *            specifies how much myCurrentSprite image is rotated in
-	 *            clockwise direction
-	 */
-	public void rotateSpriteImage(double angle) {
-		BufferedImage currentSpriteImage = getImage();
-		int width = currentSpriteImage.getWidth();
-		int height = currentSpriteImage.getHeight();
-
-		int transparency = currentSpriteImage.getColorModel().getTransparency();
-		BufferedImage image = ImageUtil
-				.createImage(width, height, transparency);
-
-		Graphics2D g = image.createGraphics();
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g.rotate(Math.toRadians(angle), width / 2, height / 2);
-		g.drawImage(currentSpriteImage, 0, 0, null);
-		g.dispose();
-
-		setImage(image);
 	}
 
 	/**
