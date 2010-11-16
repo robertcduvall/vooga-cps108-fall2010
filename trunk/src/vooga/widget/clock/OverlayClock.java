@@ -1,10 +1,12 @@
-package vooga.engine.overlay;
+package vooga.widget.clock;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.Map;
 
+import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.clock.WorldClock;
 
 /**
@@ -16,27 +18,45 @@ import vooga.engine.resource.clock.WorldClock;
  * OverlayClock in a GameState which renders without updating. The 
  * font and color of the clock are customizable. If the clock is 
  * specifying the incorrect time, make sure that you set the proper 
- * time zone for WorldClock.
+ * time zone for WorldClock. The default way to display time is 
+ * the 24 time format.
  * <br/><br/>
- * Sample initialization:
+ * Sample initialization using default 24 hour time:
  * <xmp>
  * WorldClock.setTimeZone("EST");
  * OverlayClock clock = new OverlayClock();
  * clock.setLocation(WIDTH/2, HEIGHT/2);
  * </xmp>
- * 
+ * <br/><br/>
+ * Sample initialization using default 12 hour time with am/pm:
+ * <xmp>
+ * WorldClock.setTimeZone("EST");
+ * OverlayClock clock = new OverlayClock(new AMandPMReader());
+ * clock.setLocation(WIDTH/2, HEIGHT/2);
+ * </xmp>
  * @author Daniel Koverman
  *
  */
 public class OverlayClock extends OverlayString{
 
 	private static final long serialVersionUID = 1;
+	private static final TimeReader DEFAULT_TIME_READER = new TwentyFourHourReader();
+	private static TimeReader timeReader;
 	
 	/**
 	 * Create a clock with default font and color
 	 */
 	public OverlayClock(){
-		this(DEFAULT_FONT, DEFAULT_COLOR);
+		this(DEFAULT_TIME_READER, DEFAULT_FONT, DEFAULT_COLOR);
+	}
+	
+	/**
+	 * Create a clock with default font and color and 
+	 * a custom TimeReader
+	 */
+	public OverlayClock(TimeReader timeReader){
+		this(timeReader, DEFAULT_FONT, DEFAULT_COLOR);
+	
 	}
 	
 	/**
@@ -44,7 +64,7 @@ public class OverlayClock extends OverlayString{
 	 * @param font Font used to render the clock digits
 	 */
 	public OverlayClock(Font font){		
-		this(font, DEFAULT_COLOR);
+		this(DEFAULT_TIME_READER, font, DEFAULT_COLOR);
 	}
 	
 	/**
@@ -52,7 +72,7 @@ public class OverlayClock extends OverlayString{
 	 * @param color Color used to render the clock
 	 */
 	public OverlayClock(Color color){		
-		this(DEFAULT_FONT, color);
+		this(DEFAULT_TIME_READER, DEFAULT_FONT, color);
 	}
 	
 	/**
@@ -60,14 +80,15 @@ public class OverlayClock extends OverlayString{
 	 * @param font Font used to render clock digits
 	 * @param color Color used to render clock
 	 */
-	public OverlayClock(Font font, Color color){		
+	public OverlayClock(TimeReader timeReader, Font font, Color color){		
 		super(null, font, color);
-		setString(get24HourTime());
+		this.timeReader = timeReader;
+		setString(getTime());
 	}
 	
 	public OverlayClock(Map<String, String> attributes, OverlayTracker tracker){
 		super(attributes, tracker);
-		setString(get24HourTime());
+		setString(getTime());
 	}
 	
 	/**
@@ -78,15 +99,10 @@ public class OverlayClock extends OverlayString{
 	 */
 	@Override
 	public void update(long elapsedTime){
-		setString(get24HourTime());
+		setString(getTime());
 	}
 	
-	private String get24HourTime(){
-		String hour = WorldClock.getLocalTimeAsString(WorldClock.HOUR);
-		String minute = WorldClock.getLocalTimeAsString(WorldClock.MINUTE);
-		if(minute.length()==1){
-			minute = "0" + minute;
-		}
-		return hour + ":" + minute;
+	private String getTime(){
+		return timeReader.getTime();
 	}
 }

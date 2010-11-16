@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 import com.golden.gamedev.GameLoader;
 
 import vooga.engine.core.Game;
-import vooga.engine.overlay.OverlayClock;
 import vooga.engine.resource.clock.WorldClock;
+import vooga.widget.clock.OverlayClock;
 
 /**
  * Demonstrates how to initialize an OverlayClock, place 
