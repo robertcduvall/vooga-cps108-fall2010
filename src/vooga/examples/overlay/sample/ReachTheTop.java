@@ -6,6 +6,7 @@ import java.util.Random;
 
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayIcon;
+import vooga.engine.overlay.OverlayPanel;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayStatImage;
 import vooga.engine.overlay.OverlayTracker;
@@ -73,12 +74,17 @@ public class ReachTheTop extends Game {
 		OverlayTracker track = OverlayCreator.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
 		myLives = track.getStat("two", new Integer(0));
 		myScore = track.getStat("three", new Integer(0));
+		
+//		OverlayPanel panel = new OverlayPanel("Overlays", this, true);
+//		panel.add(track.getOverlay("overlay_1"));
+//		panel.initialize();
 
 		// create the game playfield
 		myPlayfield = new PlayField();
 		myPlayfield.addGroup(track.getOverlayGroup("first"));
 		myPlayfield.addGroup(track.getOverlayGroup("second"));
 		myPlayfield.addGroup(track.getOverlayGroup("third"));
+//		myPlayfield.addGroup(panel);
 		
 				
 
