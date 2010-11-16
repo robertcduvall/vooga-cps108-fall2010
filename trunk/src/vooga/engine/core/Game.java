@@ -14,16 +14,23 @@ import vooga.engine.state.GameStateManager;
 /**
  * Extension of the Golden T game to automate some Vooga API functionality.
  * 
- * Currently differs from Golden T game because initResources() automatically
- * loads all resources associated with the resources.xml file (or the
- * game.properties file) in your game's resources package.
+ * InitResources() automatically loads all resources associated with the
+ * resources.xml file (or the game.properties file) in your game's resources
+ * package.
  * 
  * It also now has a built in GameStateManager which is automatically
  * initialized in initResources. The initialization behavior can be changed by
  * overriding initGameStates. The update and render methods call update and
  * render for this GameStateManager.
  * 
- * @author rcd, Daniel Koverman, John Kline
+ * The game also automatically loads the initial level using the Level XML
+ * parser
+ * 
+ * All subclasses should override initResources() and implement a main method
+ * that calls launch(). The initResources() method should first call
+ * super.initResources() and then initialize all the game states
+ * 
+ * @author rcd, Daniel Koverman, John Kline, Yang Su, Kate Yang
  */
 public class Game extends com.golden.gamedev.Game {
 
@@ -31,6 +38,10 @@ public class Game extends com.golden.gamedev.Game {
 	protected LevelParser levelParser;
 	protected PlayField myCurrentLevel;
 	private static final int INITIAL_LEVEL = 1;
+
+	private static final int DEFAULT_WIDTH = 600;
+	private static final int DEFAULT_HEIGHT = 400;
+	private static final boolean DEFAULT_FULLSCREEN = false;
 
 	@Override
 	public void initResources() {
@@ -47,7 +58,6 @@ public class Game extends com.golden.gamedev.Game {
 		}
 		initGameStates();
 		setCurrentLevel(INITIAL_LEVEL);
-
 	}
 
 	/**
@@ -128,35 +138,34 @@ public class Game extends com.golden.gamedev.Game {
 		return defaultPath.replace('.', '/');
 	}
 
-	public static void main(String[] args) {
-		Game g = new Game();
-		/**
-		 * The game width, height, and fullscreen option are stored in a file
-		 * called config.properties under the resources package. These values
-		 * are extracted before the game is launched.
-		 */
-		ResourceBundle rb = Resources.loadPreLaunchData(g.getResourcePath()
-				+ "config.properties");
-		int width = Integer.parseInt(rb.getString("GAME_WIDTH"));
-		int height = Integer.parseInt(rb.getString("GAME_HEIGHT"));
-		boolean fullScreen = (rb.getString("FULLSCREEN").equals("true")) ? true
-				: false;
-		//TODO this is a terrible solution
-		String classname = rb.getString("CLASSNAME");
+	/**
+	 * Launches the game using default or given settings. The game width,
+	 * height, and fullscreen option are stored in a file called
+	 * config.properties under the resources package. These values are extracted
+	 * before the game is launched. Any subclass should call launch() in the
+	 * main method
+	 * 
+	 * @param g
+	 */
+	public static void launch(Game g) {
+
+		// Default settings
+		int width = DEFAULT_WIDTH;
+		int height = DEFAULT_HEIGHT;
+		boolean fullScreen = DEFAULT_FULLSCREEN;
+
 		try {
-			Class<?> c=Class.forName(classname);
-			g=(Game)c.newInstance();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+			ResourceBundle rb = Resources.loadPreLaunchData(g.getResourcePath()
+					+ "config.properties");
+			width = Integer.parseInt(rb.getString("GAME_WIDTH"));
+			height = Integer.parseInt(rb.getString("GAME_HEIGHT"));
+			fullScreen = (rb.getString("FULLSCREEN").equals("true")) ? true
+					: false;
+		} catch (Exception e) {
+			// TODO Resource Exception
 			e.printStackTrace();
 		}
-		
+
 		GameLoader game = new GameLoader();
 		game.setup(g, new Dimension(width, height), fullScreen);
 		game.start();
