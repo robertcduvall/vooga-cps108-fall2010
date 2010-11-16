@@ -30,6 +30,10 @@ public class EventPool {
 	public ArrayList<IEventHandler> getEventList(){
 		return eventList;
 	}
+	
+	public void setEventList(ArrayList<IEventHandler> eventList){
+		this.eventList = eventList;
+	}
 	/**
 	 * Remove event from the eventPool so that this event will not trigger anything in the gameloop.
 	 * @param event The class object which implements <code>IEventHandler</code> interface.  
