@@ -6,6 +6,9 @@
 			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20" q="1">
 				<Visual name="Player!!!" />
 			</RegularSprite>
+			<MySprite name="playerName" xRange="0" yRange="100" vxValue="10" health="100" damage="15">
+				<Visual name="mySpriteImage" />
+			</MySprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
 			<SpawnedSprite name="enemySprite" xRange="300" yRange="400" vxRange="10" vyRange="-10" quantity="20">
