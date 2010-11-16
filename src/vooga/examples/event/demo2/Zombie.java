@@ -16,15 +16,15 @@ public class Zombie {
 		this.x = x;
 	}
     /**
-     * Get the x position of the Zombie's
-     * @return int Returns an integer which indicates the current position of a Zombie
+     * Get the x position of the zombie
+     * @return int Returns an integer which indicates the current position of a zombie
      */
 	public int getX() {
 		return x;
 	}
 	/**
-	 * Set the current x position of the Zombie
-	 * @param x Zombie's x position
+	 * Set the current x position of the zombie
+	 * @param x zombie's x position
 	 */
 	public void setX(int x) {
 		this.x = x;
