@@ -27,24 +27,24 @@ import com.golden.gamedev.engine.BaseIO;
  * The Resources class stores references to various resources which can be 
  * accessed from anywhere in the game. The available types of resources include 
  * BufferedImage Arrays, Sounds, Strings, Integers, and Doubles.
- * 
+ * <br />
  * All of the available resources can be loaded on a one-at-a-time basis by
  * passing in a String filepath or by passing in a File.
- * 
+ * <br />
  * Resources also has the ability to load multiple resources at once using an 
  * XML file. This is the main utility of the Resources class.
- * 
+ * <br />
  * The vooga.engine.core.Game class calls the Resources.loadResourcesXMLFile method 
  * on the file "resources.xml". Each game should have a resources.xml file located in their
  * resources package. Further resources can be added later using any load method.
- * 
+ * <br />
  * Images are stored as BufferedImage arrays. In the case of images which are
  * not animations, the array only has one element. Images can be retrieved as 
  * animations, but the animation will only have one frame. Likewise, animations 
  * can be retrieved as images and only the first frame will be retrieved. Images 
  * are loaded using the Game.loadImage() method and supports png, gif, bmp, and 
  * jpg files.
- *  
+ * <br /> 
  * Example files following the standard XML format can be found in the 
  * examples.resources package.
  * 
@@ -77,9 +77,6 @@ public class Resources {
 		game.bsLoader.getBaseIO().setMode(BaseIO.CLASS_LOADER);
 	}
 
-	public static String getDefaultPath() {
-		return defaultPath;
-	}
 	/**
 	 * Changes the Game of this Resources.
 	 */
@@ -92,6 +89,13 @@ public class Resources {
 	 */
 	public static void setDefaultPath(String path) {
 		defaultPath = path;
+	}
+	
+	/**
+	 * Returns the default path of this Resources.
+	 */
+	public static String getDefaultPath() {
+		return defaultPath;
 	}
 
 	/**
@@ -113,6 +117,13 @@ public class Resources {
 		loadImage(key, new File(defaultPath + filePath));
 	}
 
+	/**
+	 * Returns the BufferedImage associated with the given label.
+	 */
+	public static BufferedImage getImage(String key) {
+		return imageMap.get(key)[0];
+	}
+	
 	/**
 	 * Puts a new entry into this Resources's imageMap, with a String key
 	 * and a BufferedImage[] value. This method is used when multiple images are
@@ -139,14 +150,6 @@ public class Resources {
 		loadAnimation(key, files);
 	}
 
-	//TODO use only the getVisual method?
-	/**
-	 * Returns the BufferedImage associated with the given label.
-	 */
-	public static BufferedImage getImage(String key) {
-		return imageMap.get(key)[0];
-	}
-
 	/**
 	 * Returns the BufferedImage[] associated with the given label.
 	 */
@@ -161,7 +164,6 @@ public class Resources {
 		return imageMap.get(key);
 	}
 	
-
 	/**
 	 * Puts a new entry into this Resources's soundMap, with a String key
 	 * and a String value.
@@ -308,9 +310,8 @@ public class Resources {
 	
 	/**
 	 * Utility method for loadResourcesXMLFile - loads a Node's Elements and returns them in a List.
-	 * @param doc
-	 * @param sectionTag
-	 * @return
+	 * @param doc The Document object that is being parsed.
+	 * @param sectionTag The section being loaded.
 	 */
 	private static List<Element> loadSectionElements(Document doc, String sectionTag) {
     	Node section = doc.getElementsByTagName(sectionTag).item(0);
