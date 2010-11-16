@@ -48,9 +48,9 @@ public class PreferencesState extends GameState{
 	
 	public void setCategories(String name, String type, Stat<?> stat) {
 		
-		control.setParams(new Class[]{String.class, String.class, Stat.class});
-		control.addInput(MouseEvent.BUTTON1, "changeStat", "vooga.engine.player.control.PreferencesState", new Stat<String>(name), new Stat<String>(type), stat);
 		
+		control.addInput(MouseEvent.BUTTON1, "changeStat", "vooga.engine.player.control.PreferencesState", String.class, String.class, Stat.class);
+		control.setParams(MouseEvent.BUTTON1, name, type, stat);
 	}
 	
 	public void changeStat(String name, String type, Stat<?> stat)
