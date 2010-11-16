@@ -19,6 +19,8 @@ import com.golden.gamedev.object.PlayField;
  * 
  */
 public class LevelField extends PlayField {
+	
+	
 	private HashMap<String, Rule> ruleMap = new HashMap<String, Rule>();
 	private HashMap<Rule, SpriteGroup[]> spriteGroupMap = new HashMap<Rule, SpriteGroup[]>();
 	private HashMap<Rule, Boolean> activatedRule = new HashMap<Rule, Boolean>();
@@ -227,7 +229,7 @@ public class LevelField extends PlayField {
 	private void actOnRules() {
 		for (Rule rule : ruleMap.values()) {
 			SpriteGroup[] obedients = spriteGroupMap.get(rule);
-			rule.update();
+			rule.enforce();
 			//if (activatedRule.get(rule)) {
 			//	rule.enforceRule(rule.ruleSatisfied(obedients), obedients);
 			//}

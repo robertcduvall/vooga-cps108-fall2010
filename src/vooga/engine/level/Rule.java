@@ -1,5 +1,5 @@
 package vooga.engine.level;
 
 public interface Rule {
-	public void update();
+	public void enforce();
 }
