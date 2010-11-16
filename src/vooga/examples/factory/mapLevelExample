@@ -1,0 +1,16 @@
+
+#The following is a level map, with each different character representing a unique association key to a type of sprite,
+#which will be called by the user in the MapReader code.
+
+                                                                                      D
+                                                                                      D
+                                                                                      D
+       BBBBBBCCCCCCCCCCCCCCSSSSSCCCCCCCCCCCCCCCCCCCCCCCCC                             D
+                                                                           C          D
+                                                                          CC          D
+             SGCCCSSSSSCCCCCGCCCC            DDDDBBBCCCCCCCCCCCCC        CCC          D
+                                                                        CCCC          D
+                                                                       CCCCC          D
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF    FF    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD    DD    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD    DD    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
