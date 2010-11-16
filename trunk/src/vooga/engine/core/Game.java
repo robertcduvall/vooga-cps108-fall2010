@@ -27,9 +27,9 @@ import vooga.engine.state.GameStateManager;
  */
 public class Game extends com.golden.gamedev.Game {
 
-	private GameStateManager stateManager;
-	private LevelParser levelParser;
-	private PlayField myCurrentLevel;
+	protected GameStateManager stateManager;
+	protected LevelParser levelParser;
+	protected PlayField myCurrentLevel;
 	private static final int INITIAL_LEVEL = 1;
 
 	@Override
