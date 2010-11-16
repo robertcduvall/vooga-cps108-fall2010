@@ -2,7 +2,7 @@ package vooga.engine.resource;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteException;
@@ -91,96 +91,52 @@ public class DBHandler {
 		table_ = tableName;
 		return true;
 	}
-
+	
+	
+	public static List<String> getColumn(String fieldName) {
+		return getColumn(fieldName,new String());
+	}
+	
 	/**
-	 * Fetches a column of strings from the database
-	 * @param fieldName Name of column
-	 * @return Array of column elements
+	 * Retrieves a column of information from the database in the specified format.
+	 * @param <T> A class which extends Integer, String, Double, Boolean
+	 * @param fieldName Name of field to fetch
+	 * @param t An object of the class of the desired output
+	 * @return A list containing the contents of the column
 	 */
-	public static String[] getColumnStrings(String fieldName) {
+	public static <T> List<T> getColumn(String fieldName, T t) {
 		String query = "SELECT " + fieldName + " FROM " + table_;
 		SQLiteStatement statement = null;
-		Collection<String> column = new ArrayList<String>();
+		List<T> column = new ArrayList<T>();
 		try {
 			statement = dbConnection_.prepare(query);
 			statement.step();
 			while (statement.hasRow()) {
-				column.add(statement.columnString(0));
+				T columnElement = getColumnElement(statement,t);
+				column.add(columnElement);
 				statement.step();
 			}
 		} catch (SQLiteException e) {
 			throw new RuntimeException(e);
 		}
-		return column.toArray(new String[0]);
+		return column;
 	}
-
-	/**
-	 * Fetches a column of integers from the database
-	 * @param fieldName Field name
-	 * @return Array of column elements
-	 */
-	public static Integer[] getColumnInts(String fieldName) {
-		String query = "SELECT " + fieldName + " FROM " + table_;
-		SQLiteStatement statement = null;
-		Collection<Integer> column = new ArrayList<Integer>();
-		try {
-			statement = dbConnection_.prepare(query);
-			statement.step();
-			while (statement.hasRow()) {
-				column.add(statement.columnInt(0));
-				statement.step();
-			}
-		} catch (SQLiteException e) {
-			throw new RuntimeException(e);
-		}
-		return column.toArray(new Integer[0]);
+	
+	@SuppressWarnings("unchecked")
+	private static <T> T getColumnElement(SQLiteStatement statement, T t) throws SQLiteException {
+		if(t instanceof Double)
+			return (T) (Object) Double.parseDouble(statement.columnString(0));
+		if(t instanceof Integer)
+			return (T) (Object) Integer.parseInt(statement.columnString(0));
+		if(t instanceof String)
+			return (T) (Object) statement.columnString(0);
+		if(t instanceof Boolean)
+			return (T) (Object) new Boolean(Integer.parseInt(statement.columnString(0))!=0);
+		throw new RuntimeException(t.getClass().getName() + "is not a valid type");
 	}
-
-	/**
-	 * Fetches a column of doubles from the database
-	 * @param fieldName Field name
-	 * @return Array of column elements
-	 */
-	public static Double[] getColumnDoubles(String fieldName) {
-		String query = "SELECT " + fieldName + " FROM " + table_;
-		SQLiteStatement statement = null;
-		Collection<Double> column = new ArrayList<Double>();
-		try {
-			statement = dbConnection_.prepare(query);
-			statement.step();
-			while (statement.hasRow()) {
-				column.add(statement.columnDouble(0));
-				statement.step();
-			}
-		} catch (SQLiteException e) {
-			throw new RuntimeException(e);
-		}
-		return column.toArray(new Double[0]);
-	}
-
-	/**
-	 * Fetches a column of booleans from the database
-	 * @param fieldName Field name
-	 * @return Array of column elements
-	 */
-	public static Boolean[] getColumnBools(String fieldName) {
-		String query = "SELECT " + fieldName + " FROM " + table_;
-		SQLiteStatement statement = null;
-		Collection<Boolean> column = new ArrayList<Boolean>();
-		try {
-			statement = dbConnection_.prepare(query);
-
-			while (statement.hasRow()) {
-				statement.step();
-				column.add(statement.columnInt(0) != 0);
-			}
-
-		} catch (SQLiteException e) {
-			throw new RuntimeException(e);
-		}
-		return column.toArray(new Boolean[0]);
-	}
-
+	
+	
+	
 	/**
 	 * Adds a row of data to the database
 	 * @param entries A set of field,data pairs
