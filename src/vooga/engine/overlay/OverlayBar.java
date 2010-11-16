@@ -20,7 +20,8 @@ import java.util.Map;
  * 
  * ...
  * 
- *\// This would be in the class constructor.
+ *This would be in the class constructor.
+ *...
  * myScore = new Stat(Integer 0);
  * OverlayBar scoreBar = new OverlayBar(myScore,100);
  * scoreBar.setLocation(10,10);

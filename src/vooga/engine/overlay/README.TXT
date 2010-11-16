@@ -1,17 +1,8 @@
 CPS 108 - Fall '10
-9/26/2010
+11/15/2010
 
-OVERLAY ENGINE IN GREENFOOT
-AUTHORS: Greenfoot #1 - Andrew Brown, Se-Gil Feldsott, Justin Goldsmith
-
-NOTE: Our API does not compile in Eclipse because we have not been able to get the Greenfoot .jar file to work with Eclipse. However, it compiles
-and runs fine in Greenfoot. Since our engine deals primarily with drawing pixels on the screen, the details are highly dependent on the specific
-game engine being used. However, the overall structure should work universally with any game engine. 
-
-This is a package based on the Greenfoot engine that provides a convenient
-way for developers to display game information and statistics in real time.
-The package includes several ways for which this information can be
-displayed (see below for details).
+OVERLAY API
+AUTHORS: Andrew Brown, Se-Gil Feldsott, Justin Goldsmith
 
 To use the Overlay classes, the user should make each variable he wishes to display be of type Stat<T> or StatInt. The user should then pass, 
 that variable to the constructor of the Overlay, and the Overlay class will use that stat to keep updating the score (etc).
