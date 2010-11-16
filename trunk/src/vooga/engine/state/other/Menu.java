@@ -207,6 +207,12 @@ public class Menu extends GameState{
 	{
 		menuDisplay.render(g);
 	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
