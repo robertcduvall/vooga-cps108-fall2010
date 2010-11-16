@@ -12,15 +12,11 @@ import com.golden.gamedev.object.SpriteGroup;
  * to prevent overlapping.
  * 
  * <xmp>
- * OverlayBar	overlay1 = new OverlayBar(stat1,100);
- * OverlayIcon	overlay2 = new OverlayIcon(stat2, image, "Lives: ");
- * OverlayStat	overlay3 = new OverlayStat("Score: ", stat3);
- * 
- * OverlayPanel panel = new Overlay("Overlays", someGame, true);
- * panel.add(overlay1);
- * panel.add(overlay2);
- * panel.add(overlay3);
+ * OverlayTracker track = OverlayCreator.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
+ * OverlayPanel panel = new Overlay("Overlays", this, true);
+ * panel.add(track.getOverlay("overlay_1"));
  * panel.initialize();
+ * 
  * playField.add(panel);
  * </xmp>
  * @author Se-Gil Feldsott & Andrew Brown
