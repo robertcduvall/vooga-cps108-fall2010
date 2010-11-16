@@ -23,6 +23,9 @@ import com.golden.gamedev.object.background.ImageBackground;
  * However, this is a good demonstration of the "setAsRenderedSprite()" method. See the
  * update method for its use. 
  * 
+ * PLEASE VISIT THE level1.xml FILE FOR AN EXAMPLE OF HOW TO CREATE THESE SPRITES USING XML,
+ * WHICH IS HOW IT REALLY SHOULD BE DONE.
+ * 
  * @author Jimmy Mu, Marcus Molchany, Drew Sternesky
  *
  */
