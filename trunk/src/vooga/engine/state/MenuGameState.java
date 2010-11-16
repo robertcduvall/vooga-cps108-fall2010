@@ -1,7 +1,7 @@
 package vooga.engine.state;
 
-import vooga.engine.core.Button;
 import vooga.engine.core.PlayField;
+import vooga.widget.Button;
 
 public class MenuGameState extends GameState {
 
