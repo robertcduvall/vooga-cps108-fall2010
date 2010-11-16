@@ -34,7 +34,7 @@
 	</Music>
 	
 	<Map name="Map 1">
-		<MapPath path = "firstmap.txt" />
+		<MapPath name = "firstmap.txt" />
 			<Association char = "G" object = "IndestructibleTile"></Association>
 	</Map>
 </Level>
