@@ -29,10 +29,10 @@ import com.golden.gamedev.object.Background;
  * 
  * robertDuvall.addSprite(yelling, new Sprite("robertDuvallYelling.jpg"));
  * BufferedImage[] duvallLaughing = Resources.getImages("robertDuvallLaughing"));
- * robertDuvall.addAnimatedImages(laughing, duvallLaughing);
+ * robertDuvall.addAnimatedImages("laughing", duvallLaughing);
  * robertDuvall.setAsRenderedSprite("laughing");
  * 
- * Stat<Sring> unhappyprojectResponse = new Stat("Well, this person obviously doesn't know how to code...");
+ * Stat<String> unhappyprojectResponse = new Stat("Well, this person obviously doesn't know how to code...");
  * Stat<Double> understandability = new Stat(0.0);
  * robertDuvall.setStat("unhappyprojectResponse", unhappyprojectResponse);
  * robertDuvall.setStat("understandability", understandability);
@@ -205,6 +205,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	public void addAnimatedImages(String label, BufferedImage[] images) {
 		addSprite(label, new AnimatedSprite(images));
 	}
+	
 
 	/**
 	 * This method returns my currentSprite. Beware that the currentSprite may
