@@ -1,6 +1,0 @@
-#Images
-Blue Backgroud,resources/bg2.jpg
-Space Backgroud,resources/space_background.jpg
-Spaceship,resources/space_ship.png
-Explosion,resources/explosion.png
-Bullet,resources/bullet.jpg

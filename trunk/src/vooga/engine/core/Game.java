@@ -28,6 +28,7 @@ import vooga.engine.state.GameStateManager;
 public class Game extends com.golden.gamedev.Game {
 
 	private GameStateManager stateManager;
+	private LevelParser levelParser;
 	private PlayField myCurrentLevel;
 	private static final int INITIAL_LEVEL = 1;
 
@@ -89,7 +90,7 @@ public class Game extends com.golden.gamedev.Game {
 	 * -> String entry: "Level" + index -> "blueLevel.xml"
 	 */
 	public PlayField initLevel(int index) {
-		LevelParser levelParser = new LevelParser();
+		levelParser = new LevelParser();
 		System.out.println(getResourcePath());
 		PlayField vpf;
 		try {
@@ -108,6 +109,10 @@ public class Game extends com.golden.gamedev.Game {
 
 	public GameStateManager getGameStateManager() {
 		return stateManager;
+	}
+
+	public LevelParser getLevelParser() {
+		return levelParser;
 	}
 
 	/**
