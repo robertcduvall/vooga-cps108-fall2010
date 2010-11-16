@@ -43,7 +43,7 @@ public class BZCollisionManager extends PreciseCollisionGroup implements Constan
 		
 		//If the zombie's killed, turn on the zombie death animation
 		if (currentZombie.isDead()) {
-			currentZombie.setToCurrentSprite(DEATH);
+			currentZombie.setAsRenderedSprite(DEATH);
 			((AnimatedSprite) currentZombie.getCurrentSprite()).setAnimate(true);
 		}
 		

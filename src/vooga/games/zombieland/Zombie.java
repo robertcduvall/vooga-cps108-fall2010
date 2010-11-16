@@ -220,7 +220,7 @@ public class Zombie extends GameEntitySprite implements Constants {
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		if (isDead()) {
-			setToCurrentSprite("ZombieDeath");
+			setAsRenderedSprite("ZombieDeath");
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 			// When the death animation is finished
 			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
@@ -241,7 +241,7 @@ public class Zombie extends GameEntitySprite implements Constants {
 
 		// Attack animation
 		if (!currentAttackAnimation.isEmpty()) {
-			setToCurrentSprite(currentAttackAnimation);
+			setAsRenderedSprite(currentAttackAnimation);
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
 				currentAttackAnimation = "";
@@ -258,22 +258,22 @@ public class Zombie extends GameEntitySprite implements Constants {
 		String direction = getDirection();
 		if (direction.equals(RIGHT)) {
 			moveX(Math.abs(speed));
-			setToCurrentSprite(RIGHT);
+			setAsRenderedSprite(RIGHT);
 			return;
 		}
 		if (direction.equals(UP)) {
 			moveY(speed);
-			setToCurrentSprite(UP);
+			setAsRenderedSprite(UP);
 			return;
 		}
 		if (direction.equals(LEFT)) {
 			moveX(speed);
-			setToCurrentSprite(LEFT);
+			setAsRenderedSprite(LEFT);
 			return;
 		}
 		if (direction.equals(DOWN)) {
 			moveY(Math.abs(speed));
-			setToCurrentSprite(DOWN);
+			setAsRenderedSprite(DOWN);
 			return;
 		}
 	}
