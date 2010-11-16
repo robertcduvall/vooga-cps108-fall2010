@@ -18,9 +18,8 @@ import com.golden.gamedev.util.ImageUtil;
  * OverlayStatImage overlay = new OverlayStatImage(Resources.getImage("someName"), 10, 10);
  * </xmp>
  * 
- * 	<p> It is basically the same thing as a Sprite, except for the fact that it now has a cloan method
+ * 	<p> It is basically the same thing as a Sprite, except for the fact that it now has a clone method
  * 		which is used with the OverlayIcon</p>
- *  <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  * 
  * 
  * @author Se-Gil Feldsott and Justin Goldsmith

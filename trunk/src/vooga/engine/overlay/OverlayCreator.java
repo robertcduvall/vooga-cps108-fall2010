@@ -40,32 +40,8 @@ import com.golden.gamedev.util.ImageUtil;
  * This class is used for creating overlays from an xml file instead of in the
  * code itself.
  * 
- * <p>
- *         example
- *         </p>
- *         <xmp>
- *         OverlayCreator.setGame(this); //This is assuming you are in the game class
- *         
- *         //Also this does not need to be done if you are using normal fonts.
- *         //If you use any of the three provided GameFont's then you must set
- *         //the game. Eventually the GameFont's should be in Resources so you
- *         //should not have to set the game
-
- *         OverlayTracker track = OverlayCreator.createOverlays(String xmlFileLocation);
-
- *         // the String xmlFileLocation must be path from the root of the project
-
- *         Stat<Integer> myLives = track.getStat("lives", new Integer(0));
-		   Stat<Integer> myScore = track.getStat("score", new Integer(0));
-
- *         PlayField myPlayfield = new PlayField();
- *         
- *         myPlayfield.addGroup(track.getOverlayGroup(name));
- *         myPlayfield.addGroup(track.getOverlayGroup(name));
-
- *         // Playfield can also be replaced with States from the GameState API
- *         </xmp>
- * 
+ * For an example see <A HREF="OverlayExample.html">OverlayExample.java</A>.
+ *  
  *         <A HREF="OverlayExample.xml">Click here to view xml file example</A>
  *         <p>
  *         Here are all the attributes for all of the different overlays/p>

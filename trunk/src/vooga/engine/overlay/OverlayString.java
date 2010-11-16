@@ -15,14 +15,8 @@ import com.golden.gamedev.object.GameFontManager;
 /**
  * This OverlayString class displays some text on the screen.
  * 
- * <xmp>
- * OverlayString overlay = new OverlayString("Hello");
- * Font font = new Font("sampleFont", Font.PLAIN, 22);
- * overlay.setFont(font);
- * overlay.setColor(Color.BLUE);
- * </xmp>
+ * For an example see <A HREF="OverlayExample.html">OverlayExample.java</A>.
  * 
- * <p>All overlays must be updated and rendered, This is the responsibility of the game creator</p>
  *@author Justin Goldsmith
  */
 

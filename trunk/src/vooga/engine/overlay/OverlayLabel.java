@@ -6,14 +6,9 @@ import com.golden.gamedev.object.Sprite;
 
 /**
  * Takes an OverlayString and places it over the top
- * of another Actor.  It constantly updates the
- * position in case the Actor moves around.
- * 
- * <xmp>
- * Actor player1 = new Actor();
- * OverlayString playerName = new OverlayString("Player 1");
- * OverlayLabel playerLabel = new OverlayLabel(player1, playerName);
- * </xmp>
+ * of another Sprite.  It constantly updates the
+ * position in case the Sprite moves around. This could be
+ * used to display a player's name above his character.
  * 
  * @author Se-Gil Feldsott
  */
@@ -24,7 +19,7 @@ public class OverlayLabel extends Sprite {
 	 */
 	private Sprite mySprite;
 	/**
-	 * The string / value to be displayed over the Actor.
+	 * The string / value to be displayed over the Sprite.
 	 */
 	private OverlayString myOverlayString;
 	
