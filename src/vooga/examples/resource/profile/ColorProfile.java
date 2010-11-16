@@ -1,5 +1,7 @@
 package vooga.examples.resource.profile;
 
+import java.util.List;
+
 import vooga.engine.resource.DBHandler;
 import vooga.engine.resource.Entry;
 
@@ -8,9 +10,9 @@ import vooga.engine.resource.Entry;
  * @author David G. Herzka
  *
  */
-public class ProfileManager {
+public class ColorProfile {
 	
-	public ProfileManager() {
+	public ColorProfile() {
 		DBHandler.open("src/vooga/examples/resource/profile/profileDB.sqlite");
 		DBHandler.createTable("Profiles", "username", "backgroundColor");
 		DBHandler.setTable("Profiles");
@@ -23,16 +25,16 @@ public class ProfileManager {
 	}
 
 	public Integer getColor(String user) {
-		String[] users = DBHandler.getColumnStrings("username");
-		Integer[] colors = DBHandler.getColumnInts("backgroundColor");
+		List<String> users = DBHandler.getColumn("username",new String());
+		List<Integer>colors = DBHandler.getColumn("backgroundColor",new Integer(0));
 		int userIndex = -1;
-		for(int i = 0; i < users.length; i++) {
-			if(users[i].equals(user)) userIndex = i;
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).equals(user)) userIndex = i;
 		}
-		return colors[userIndex];
+		return colors.get(userIndex);
 	}
 	
 	public String[] getUsers() {
-		return DBHandler.getColumnStrings("username");
+		return DBHandler.getColumn("username").toArray(new String[0]);
 	}
 }

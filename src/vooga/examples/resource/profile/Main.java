@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class Main {
 
-	private ProfileManager pm;
+	private ColorProfile profile;
 	private JList list;
 	private JButton button;
 	private JTextField text;
@@ -38,7 +38,7 @@ public class Main {
 	private void init() throws InterruptedException {
 		// TODO Auto-generated method stub
 
-		pm = new ProfileManager();
+		profile = new ColorProfile();
 //		pm.setColor("user1", 0xFFAAFF);
 //		pm.setColor("user2", 0xFFFFFF);
 //		pm.setColor("user3", 0x0000DA);
@@ -49,7 +49,7 @@ public class Main {
 		frame.setLayout(new FlowLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		String[] users = pm.getUsers();
+		String[] users = profile.getUsers();
 		list = new JList(users);
 		list.addListSelectionListener(new ListSelectionListener() {
 			
@@ -77,7 +77,7 @@ public class Main {
 
 		while (true) {
 			if (buttonPress) {
-				pm.setColor((String) list.getSelectedValue(), Integer
+				profile.setColor((String) list.getSelectedValue(), Integer
 						.parseInt(text.getText()));
 				drawBG();
 				buttonPress = false;
@@ -92,7 +92,7 @@ public class Main {
 	}
 
 	private void drawBG() {
-		int color = pm.getColor((String) list.getSelectedValue());
+		int color = profile.getColor((String) list.getSelectedValue());
 		frame.setBackground(new Color(color));
 		text.setText(Integer.toString(color));
 	}
