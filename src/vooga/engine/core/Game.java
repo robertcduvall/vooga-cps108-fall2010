@@ -60,6 +60,16 @@ public class Game extends com.golden.gamedev.Game {
 		setCurrentLevel(INITIAL_LEVEL);
 	}
 
+	@Override
+	public void update(long elapsedTime) {
+		stateManager.update(elapsedTime);
+	}
+
+	@Override
+	public void render(Graphics2D g) {
+		stateManager.render(g);
+	}
+
 	/**
 	 * Returns the VoogaPlayField that is associated with the current level.
 	 */
@@ -72,16 +82,6 @@ public class Game extends com.golden.gamedev.Game {
 	 */
 	public void setCurrentLevel(int level) {
 		myCurrentLevel = initLevel(level);
-	}
-
-	@Override
-	public void update(long elapsedTime) {
-		stateManager.update(elapsedTime);
-	}
-
-	@Override
-	public void render(Graphics2D g) {
-		stateManager.render(g);
 	}
 
 	/**
@@ -116,10 +116,20 @@ public class Game extends com.golden.gamedev.Game {
 
 	}
 
+	/**
+	 * get the GameStateManager for this game
+	 * 
+	 * @return GameStateManager object
+	 */
 	public GameStateManager getGameStateManager() {
 		return stateManager;
 	}
 
+	/**
+	 * get the LevelParser for this game
+	 * 
+	 * @return LevelParser object
+	 */
 	public LevelParser getLevelParser() {
 		return levelParser;
 	}
@@ -152,8 +162,8 @@ public class Game extends com.golden.gamedev.Game {
 		int width = DEFAULT_WIDTH;
 		int height = DEFAULT_HEIGHT;
 		boolean fullScreen = DEFAULT_FULLSCREEN;
-		
-		String bundlePath=g.getResourcePath()+"config.properties";
+
+		String bundlePath = g.getResourcePath() + "config.properties";
 		try {
 			ResourceBundle rb = Resources.loadPreLaunchData(bundlePath);
 			width = Integer.parseInt(rb.getString("GAME_WIDTH"));
