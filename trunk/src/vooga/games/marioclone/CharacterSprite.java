@@ -63,9 +63,9 @@ public class CharacterSprite extends PlayerSprite {
 	public void update(long elapsedTime) {
 
 		if (getHorizontalSpeed() > 0)
-			setToCurrentSprite("Right");
+			setAsRenderedSprite("Right");
 		else if (getHorizontalSpeed() < 0)
-			setToCurrentSprite("Left");
+			setAsRenderedSprite("Left");
 
 		super.update(elapsedTime);
 		setVerticalSpeed(getVerticalSpeed() + getGravityCoef() * GRAVITY

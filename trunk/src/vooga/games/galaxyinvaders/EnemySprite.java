@@ -47,7 +47,7 @@ public class EnemySprite extends GameEntitySprite {
 	public void update(long time) {
 		super.update(time);
 		if(hitPoints < DEFAULT_HP) {
-			setToCurrentSprite("damaged");
+			setAsRenderedSprite("damaged");
 		}
 		if(hitPoints <= 0) {
 			setActive(false);

@@ -99,7 +99,7 @@ public class Shooter extends PlayerSprite implements Constants{
 	}
 
 	private void showAnimation(String direction) {
-		setToCurrentSprite(direction);
+		setAsRenderedSprite(direction);
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 	}
 
