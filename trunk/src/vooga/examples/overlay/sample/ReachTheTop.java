@@ -22,6 +22,11 @@ import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.*;
 
 /**
+ * 
+ * This is the Example to use the OverlayCreator Class.
+ * The first 20 or so lines of this code have to do with the overlays,
+ * after that it is just code to make the game run.
+ * 
  * Objective:Reach the finish line as many times as you can. Get 10 points every
  * time the bomb reaches the finish line. You get 4 lives.
  * Use the up , down, right and left arrow keys to move.
@@ -54,17 +59,6 @@ public class ReachTheTop extends Game {
 
 	public void initResources() {
 
-		// set number of lives and initial score
-		/*myLives = new StatInt(4);
-		myScore = new StatInt(0);
-		os = new OverlayStat("SCORE     : ", myScore);
-		OverlayStatImage osi = new OverlayStatImage(getImage("resources/transBall.gif"), 10, 10);
-		OverlayIcon oi = new OverlayIcon(myLives, osi, "LIVES     : ");
-		os.setLocation(10, 50);
-		oi.setLocation(10, 30);
-		sg = new SpriteGroup(null);
-		sg.add(os);
-		sg.add(oi);*/
 		Resources.setGame(this);
 		Resources.loadImage("ball", "resources/transBall.gif");
 		WorldClock.setTimeZone("EST");
@@ -202,7 +196,7 @@ public class ReachTheTop extends Game {
 			// game over
 			myFont.drawString(g, "GAME OVER!!!", myBackground.getWidth() / 3,
 					myBackground.getHeight() / 2);
-			myFont.drawString(g, "FINAL SCORE:" + myScore, myBackground
+			myFont.drawString(g, "FINAL SCORE:" + myScore.getStat(), myBackground
 					.getWidth() / 3, myBackground.getHeight() / 2 + 20);
 
 		} 
