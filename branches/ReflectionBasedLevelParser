@@ -3,14 +3,19 @@ package vooga.engine.factory;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import model.RGBColor;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -89,6 +94,8 @@ public class LevelParser implements LevelFactory{
         Node mapSection = xmlDocument.getElementsByTagName("Map").item(0);
         NodeList listOfMaps = mapSection.getChildNodes();
         processMap(listOfMaps);
+        
+        
 	}
 	
 //	/**
@@ -134,7 +141,7 @@ public class LevelParser implements LevelFactory{
 	 * Processes the Sprites within a SpriteGroup.
 	 */
 	private void processSprites(NodeList spritesList, SpriteGroup spriteGroup) {
-		for(int i = 0; i < spritesList.getLength(); i++)
+		/*for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			Node currentNode = spritesList.item(i);
 			if(isElement(currentNode))
@@ -145,6 +152,11 @@ public class LevelParser implements LevelFactory{
 					processSpawnedSprite((Element)currentNode, spriteGroup);
 				}
 			}
+		}*/
+		for(int i = 0; i < spritesList.getLength(); i++)
+		{
+			Element currentNode = (Element) spritesList.item(i);
+			processX(currentNode.getTagName(), currentNode.getAttributes());
 		}
 	}
 	
@@ -157,7 +169,7 @@ public class LevelParser implements LevelFactory{
 			if(isElement(currentNode))
 			{
 				String path = currentNode.getNodeName();
-				reader = new MapReader(path, myVoogaPlayfield);
+				reader = new MapReader(path, myVoogaPlayField);
 				NodeList listOfAssociations = currentNode.getChildNodes();
 				for(int j = 0; j < listOfAssociations.getLength(); j++)
 				{
@@ -168,7 +180,7 @@ public class LevelParser implements LevelFactory{
 						
 					reader.addAssociation(key, value);
 				}
-				reader.processMap();
+				myVoogaPlayField = reader.processMap();
 			}
 		}
 	}
@@ -343,5 +355,24 @@ public class LevelParser implements LevelFactory{
 	
 	private static boolean isElement(Node node){
 		return (node.getNodeType() == Node.ELEMENT_NODE);
+	}
+	
+	
+	
+	private void processX(String classname, NamedNodeMap attributes)
+	{
+		try
+		{
+			Class<?> op = this.getClass();
+			String methodname = "process" + classname;
+			Method m = op.getMethod(methodname, NamedNodeMap.class);
+			m.invoke(null);
+		}
+		catch (Exception e)
+		{
+			// fatal error, problem with resource file
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 }
