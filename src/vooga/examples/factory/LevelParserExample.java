@@ -14,6 +14,14 @@ This class provides full implementation for LevelParser.
 * which will contain all resources that constitute a level. This level, in the form of a
 * VoogaPlayField, can be used to construct a GameState for the given level, which should
 * handle rendering and updating of the level.
+* 
+* In order to use your own specific sprites extend LevelParser and add a method named 
+* as the following
+* 
+* process + Name of Specific Sprite
+* 
+* and then define the fields in the xml file and use those attributes and create your sprite
+* do what you need to the sprite and call the other methods needed for all sprites.
  * @author Derek
 *
 */
