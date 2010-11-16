@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Level name="Level1">
 
-		<SpriteGroups>
+	<SpriteGroups>
 		<SpriteGroup name="playerGroup">
 			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20" q="1">
 				<Visual name="Player!!!" />
@@ -22,15 +22,15 @@
 	</CollisionGroups>
 	
 	<Background name="Background">
-		<BackgroundGroup name="background1.jpg"></BackgroundGroup>
-		<BackgroundGroup name="background2.jpg"></BackgroundGroup>
-		<BackgroundGroup name="background3.jpg"></BackgroundGroup>
+		<Visual name ="background1.jpg" />
+		<Visual name ="background1.jpg" />
+		<Visual name ="background1.jpg" />
 	</Background>
 	
-	<Music name="Background">
-		<MusicGroup name="music1.midi"></MusicGroup>
-		<MusicGroup name="music2.midi"></MusicGroup>
-		<MusicGroup name="music3.midi"></MusicGroup>
+	<Music name="Music">
+		<Sound name ="music1.midi" />
+		<Sound name ="music2.midi" />
+		<Sound name ="music3.midi" />
 	</Music>
 	
 	<Map name="Map 1">
