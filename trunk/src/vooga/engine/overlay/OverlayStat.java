@@ -24,7 +24,7 @@ public class OverlayStat extends OverlayString {
 	private Stat<?> myGenTracker;
 	
 	/**
-	 * Creates a OverlyStat Class
+	 * Creates a OverlayStat Class
 	 * @param label String to display
 	 * @param tracker Can be a Stat of any type.  Will call the toString of the type to display.
 	 */
