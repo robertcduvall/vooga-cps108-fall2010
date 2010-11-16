@@ -259,11 +259,11 @@ public class LevelParser implements LevelFactory{
 				String visualName = visualElement.getAttribute("name");
 				BufferedImage[] visual = Resources.getVisual(visualName);
 
-				newSprite.addAnimatedSprite(visualName, visual);
+				newSprite.addAnimatedImages(visualName, visual);
 
 				if(imageLocation == FIRST_IMAGE)
 				{
-					newSprite.setToCurrentSprite(visualName);
+					newSprite.setAsRenderedSprite(visualName);
 				}
 			}
 		}
