@@ -1,8 +1,0 @@
-#This is an example level file for 1st level
-
-#Background
-Space Backgroud, 640, 480
-
-#Sprites
-Explosion, 100, 200
-Explosion, 300, 100

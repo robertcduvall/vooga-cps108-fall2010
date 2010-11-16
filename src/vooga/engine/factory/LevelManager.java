@@ -7,33 +7,32 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 
-
 /**
- * This is an abstract class and needs to be extended by a class which provides
- * specific implementation for the getCurrentPlayField method.This class would 
- * take care of different tasks like reading level names from a file, making a 
- * collection of these level files and loading next level etc.
+ * This class takes care of different tasks like reading level names from a file, 
+ * making a collection of these level files and loading next level etc. It loads
+ * the levels when they are needed. However, if all the levels need to be loaded
+ * at the beginning of the game , then a call to <code> getAllPlayFields()</code>
+ * method would return all the level Playfields at once, in a list according to the 
+ * order in which they need to be loaded.
+ * 
  * An example of how this could be used in a game is as follows:
  * <pre>
  * <code>
- * 	private LevelManagerExample levelManager = new LevelManagerExample();
-	private VoogaPlayField playfield;
-	
 	public void initResources() { 
-		String levelFilesDirectory = resources.getString(levelFilesDirectory);
-		String levelNamesFile = resources.getString(levelNamesFile);
+		LevelManager levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
 	}
-		
-	public void update(long elapsedTime){
-		if(levelManager.getCurrentLevel()==0){
-			playfield=levelManager.loadNextLevel();
-		}
-		
-		playfield.update(elapsedTime);
-		
+ * </code>
+ * </pre>
+ * To load levels one by one, i.e., as they are needed, the following code can be used:
+ * <pre>
+ * <code>	
+	public void update(long elapsedTime){	
 		if(levelcomplete condition){
 			playfield.clearPlayField();
 			playfield=levelManager.loadNextLevel();
@@ -42,27 +41,29 @@ import vooga.engine.core.PlayField;
  * </code>
  * </pre>
  * 
- * An example for the implementation of the getCurrentPlayField is as follows:
+ * To get all the playfields at the beginning of the game, this method call would be useful:
  * <pre>
  * <code>
- * 	public VoogaPlayField getCurrentPlayField(File currentLevelFactoryFile) {
-		return levelFactory.getPlayfield(currentLevelFactoryFile);
- 	}
+ * 	levelManager.getAllPlayFields();
  * </code>
  * </pre>
- * @author Bhawana, Cameron, Derek
+ * @author Bhawana
  *
  */
-public abstract class LevelManager {
+public class LevelManager {
 	private List<String> myLevelNames;
+	private List<PlayField> myPlayFields;
 	private int myCurrentLevel;
 	private static final String COMMENT = "#";
 	private static final String EMPTY_STRING = "";
+	private Game game;
 
 
-	public LevelManager(){
+	public LevelManager(Game currentgame){
+		game = currentgame;
 		myCurrentLevel = -1;
 		myLevelNames = new ArrayList<String>();
+		myPlayFields = new ArrayList<PlayField>();
 	}
 	
 	
@@ -97,10 +98,28 @@ public abstract class LevelManager {
 	/**
 	 * Gets the playfield for the current level. This can be done by 
 	 * making a call to LevelFactory's getPlayField method.
-	 * @param currentLevelFactoryFile
+	 * @param currentLevelFileName
 	 * @return Playfield for the current level
 	 */
-	public abstract PlayField getCurrentPlayField(File currentLevelFactoryFile);
+	public PlayField getCurrentPlayField(String filepath){
+		return game.getLevelParser().getPlayfield(filepath,game);
+	}
+	
+	
+	/**
+	 * This method is used to get a list of all the playfields for the current game. 
+	 * Every playfield is associated with one level. The returned list contains the
+	 * playfields in the order in which they are to be loaded. A call to this method 
+	 * would be useful in cases where all the playfields / levels need to be loaded 
+	 * at the beginning of the game.
+	 * @return collection of Playfields listed in the order in which they are to be loaded
+	 */
+	public Collection<PlayField> getAllPlayFields(){
+		for(String levelFile : myLevelNames){
+			myPlayFields.add(game.getLevelParser().getPlayfield(levelFile,game));
+		}
+		return myPlayFields;
+	}
 	
 	
 	/**
@@ -109,7 +128,7 @@ public abstract class LevelManager {
 	 */
 	public PlayField loadNextLevel() {
 		myCurrentLevel+=1;
-		return getCurrentPlayField(new File(myLevelNames.get(myCurrentLevel)));
+		return getCurrentPlayField(myLevelNames.get(myCurrentLevel));
 	}
 	
 	
@@ -120,7 +139,7 @@ public abstract class LevelManager {
 	 */
 	public PlayField skipToLevel(int levelIndex) {
 		myCurrentLevel = levelIndex; 
-		return getCurrentPlayField(new File(myLevelNames.get(levelIndex)));
+		return getCurrentPlayField(myLevelNames.get(myCurrentLevel));
 	}
 	
 	
