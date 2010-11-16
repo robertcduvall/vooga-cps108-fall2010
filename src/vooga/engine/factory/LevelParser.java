@@ -79,12 +79,16 @@ public class LevelParser implements LevelFactory{
         Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
 		NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
 		processCollisionGroups(listOfCollisionGroups);
-		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("BG").item(0);
+		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("Background").item(0);
         NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
         processBackgrounds(listOfBackgrounds);
         Node musicGroupSection = xmlDocument.getElementsByTagName("Music").item(0);
         NodeList listOfMusic = musicGroupSection.getChildNodes();
         processMusic(listOfMusic);
+        
+        Node mapSection = xmlDocument.getElementsByTagName("Map").item(0);
+        NodeList listOfAssociations = mapSection.getChildNodes();
+        processMap(listOfAssociations);
 	}
 	
 //	/**
@@ -140,6 +144,20 @@ public class LevelParser implements LevelFactory{
 				} else if (currentNode.getNodeName().equals("SpawnedSprite")) {
 					processSpawnedSprite((Element)currentNode, spriteGroup);
 				}
+			}
+		}
+	}
+	
+	private void processMap(NodeList mapAssociations) {
+		MapReader reader;
+		for(int i = 0; i < mapAssociations.getLength(); i++)
+		{
+			Node currentNode = mapAssociations.item(i);
+			
+			if(isElement(currentNode))
+			{
+				String path = currentNode.getNodeName();
+				reader = new MapReader(path, myVoogaPlayfield);
 			}
 		}
 	}
