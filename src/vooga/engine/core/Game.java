@@ -101,7 +101,6 @@ public class Game extends com.golden.gamedev.Game {
 	 */
 	public PlayField initLevel(int index) {
 		levelParser = new LevelParser();
-		System.out.println(getResourcePath());
 		PlayField vpf;
 		try {
 			vpf = levelParser.getPlayfield(
@@ -153,10 +152,10 @@ public class Game extends com.golden.gamedev.Game {
 		int width = DEFAULT_WIDTH;
 		int height = DEFAULT_HEIGHT;
 		boolean fullScreen = DEFAULT_FULLSCREEN;
-
+		
+		String bundlePath=g.getResourcePath()+"config.properties";
 		try {
-			ResourceBundle rb = Resources.loadPreLaunchData(g.getResourcePath()
-					+ "config.properties");
+			ResourceBundle rb = Resources.loadPreLaunchData(bundlePath);
 			width = Integer.parseInt(rb.getString("GAME_WIDTH"));
 			height = Integer.parseInt(rb.getString("GAME_HEIGHT"));
 			fullScreen = (rb.getString("FULLSCREEN").equals("true")) ? true
