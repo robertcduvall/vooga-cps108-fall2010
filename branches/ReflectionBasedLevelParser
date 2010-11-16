@@ -30,6 +30,13 @@ import vooga.engine.util.XMLFileParser;
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
 
+/**
+ * LevelParser
+ * 
+ * @author Derek, Cameron, Jimmy, John
+ *
+*/
+
 public class LevelParser implements LevelFactory{
 
 	private static final int FIRST_IMAGE = 0;
