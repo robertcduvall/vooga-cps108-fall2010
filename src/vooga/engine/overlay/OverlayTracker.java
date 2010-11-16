@@ -12,7 +12,13 @@ import com.golden.gamedev.object.SpriteGroup;
 /**
  * Class used to track overlays and Stats.
  * 
- * 
+ * <xmp>
+ * OverlayCreator.setGame(this);
+ * OverlayTracker track = OverlayCreator.createOverlays("src/vooga/examples/overlay/sample/resources/myOverlays.xml");
+ * myLives = track.getStat("two", new Integer(0));
+ * myScore = track.getStat("three", new Integer(0));
+ * </xmp>
+ * <p>See example in the examples package for full code</p>
  * @author Justin Goldsmith
  *
  */
