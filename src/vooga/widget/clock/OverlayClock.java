@@ -88,6 +88,7 @@ public class OverlayClock extends OverlayString{
 	
 	public OverlayClock(Map<String, String> attributes, OverlayTracker tracker){
 		super(attributes, tracker);
+		timeReader = DEFAULT_TIME_READER;
 		setString(getTime());
 	}
 	
