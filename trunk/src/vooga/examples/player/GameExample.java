@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+
+import vooga.engine.overlay.Stat;
+
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
@@ -69,6 +72,9 @@ public class GameExample extends Game {
 		//set player location
 		player.setLocation(getWidth()/2, getHeight()/2);
 		
+		//this adds a new stat for score--see the update method for more information
+		player.setStat("score", new Stat<Integer>(0));
+		
 		//construct playfield
 		myPlayField = new PlayField();
 		
@@ -101,6 +107,22 @@ public class GameExample extends Game {
 		if(keyPressed(KeyEvent.VK_LEFT)) {
 			player.setAsRenderedSprite("left");
 		}
+		
+		/*
+		 * This is an example of how to use the stats feature. this updates the 
+		 * score by one point for every cycle of the game loop. Obviously, you 
+		 * won't ever need to do this, but it shows how one can access the Stat
+		 * while avoiding any problems with generics, which is the way the Stat
+		 * class is designed.
+		 */
+		//gets the stat
+		Stat<Integer> tempStat = (Stat<Integer>)player.getStat("score");
+		//gets the number out of the stat object
+		Integer i = tempStat.getStat();
+		//bumps the stat by 1
+		i++;
+		//updates the stat to the new integer
+		tempStat.setStat(i);
 	}
 
 	public void render(Graphics2D g) {
