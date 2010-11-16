@@ -3,6 +3,7 @@ package vooga.examples.factory;
 import org.w3c.dom.NamedNodeMap;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.Sprite;
 import vooga.engine.factory.LevelParser;
 
 /**
@@ -26,7 +27,7 @@ This class provides full implementation for LevelParser.
 *
 */
 public class LevelParserExample extends LevelParser{
-	public void processMySprite(NamedNodeMap parameters)
+	public MySprite processMySprite(NamedNodeMap parameters)
 	{
 		String playerName = parameters.getNamedItem("name").getNodeValue();
 		int health = Integer.parseInt(parameters.getNamedItem("health").getNodeValue());
@@ -36,8 +37,27 @@ public class LevelParserExample extends LevelParser{
 		double vxValue = Double.parseDouble(parameters.getNamedItem("vxValue").getNodeValue());
 		
 		MySprite sprite = new MySprite(playerName, health, damage);
-		sprite.doSomething(somethingToDo);
+		sprite.doSomething("somethingToDo");
 		sprite.setLocation(xRange, yRange);
 		sprite.setHorizontalSpeed(vxValue);
+		return sprite;
+	}
+	
+	public class MySprite extends Sprite
+	{
+		private String myName;
+		private int myHealth;
+		private double myDamage;
+		
+		public MySprite(String name, int health, double damage)
+		{
+			myName = name;
+			myHealth = health;
+			myDamage = damage;
+		}
+		public void doSomething(String doThis)
+		{
+			System.out.println("Doing SOMETHING! Yes.");
+		}
 	}
 }
