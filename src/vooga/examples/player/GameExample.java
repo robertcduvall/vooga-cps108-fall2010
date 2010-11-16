@@ -1,75 +1,111 @@
 package vooga.examples.player;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-
 import com.golden.gamedev.object.PlayField;
-
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
 
-import vooga.engine.core.Sprite;
+/**
+ * This game is an example of how to use the sprite-switching features of the new core Sprite
+ * if you were unable to write a good Level XML file. Normally, all of the initialization
+ * code would be handled by the Level parser and done automatically. 
+ * 
+ * However, this is a good demonstration of the "setAsRenderedSprite()" method. See the
+ * update method for its use. 
+ * 
+ * @author dhs9
+ *
+ */
 
 public class GameExample extends Game {
 
-	private PlayField voogaPlayField;
+	private PlayField myPlayField;
 	private PlayerExample player;
-	private ImageBackground bg;
-	private SpriteGroup sprites;
 	
 	public void initResources() {
-//		BufferedImage[] leftImages = {getImage("resources/images/doodle_left.png"), getImage("resources/images/doodle_left_crouch.png")};
-//		BufferedImage[] rightImages = {getImage("resources/images/doodle_right.png"), getImage("resources/images/doodle_right_crouch.png")};
-//		AnimatedSprite leftFacingDoodle = new AnimatedSprite(leftImages);
-//		leftFacingDoodle.setAnimate(true);
-//		AnimatedSprite rightFacingDoodle = new AnimatedSprite(rightImages);
-//		rightFacingDoodle.setAnimate(true);
-//		Sprite s = new Sprite("leftDoodle", leftFacingDoodle);
-//		s.addSprite("rightDoodle", rightFacingDoodle);
-		player = new PlayerExample("left", new com.golden.gamedev.object.Sprite(getImage("resources/images/doodle_left.png")));
-		player.addSprite("right", getImage("resources/images/doodle_right.png"));
+		//gets arrays of images for left and right-facing animations
+		BufferedImage[] leftImages = {getImage("resources/images/doodle_left.png"), getImage("resources/images/doodle_left_crouch.png")};
+		BufferedImage[] rightImages = {getImage("resources/images/doodle_right.png"), getImage("resources/images/doodle_right_crouch.png")};
+		
+		//constructs left-facing animatedSprite
+		AnimatedSprite leftFacingDoodle = new AnimatedSprite(leftImages);
+		leftFacingDoodle.setAnimate(true);
+		
+		//constructs right-facing animatedSprite
+		AnimatedSprite rightFacingDoodle = new AnimatedSprite(rightImages);
+		rightFacingDoodle.setAnimate(true);
+		
+		//set both animated sprites to loop
+		leftFacingDoodle.setLoopAnim(true);
+		rightFacingDoodle.setLoopAnim(true);
+		
+		//sets the delay for animation timer
+		leftFacingDoodle.getAnimationTimer().setDelay(100);
+		rightFacingDoodle.getAnimationTimer().setDelay(100);
+		
+		/* 
+		 * constructs a new PlayerExample (subclass of Sprite) using the leftFacingDoodle 
+		 * animation. here's what's happening: the string "left" is the name used to access
+		 * the leftFacingDoodle animation, and the leftFacingDoodle animation is the default
+		 * representation of player.
+		 */
+		player = new PlayerExample("left", leftFacingDoodle);
+		
+		/*
+		 * now, we are going to add the right-facing animated sprite representation to our
+		 * player. this method adds the rightFacingDoodle with the string "right" as the name
+		 * that you can use if you want to switch the representation of this player to 
+		 * the rightFacingDoodle animation.
+		 */
+		player.addSprite("right", rightFacingDoodle);
+		
+		//set player location
 		player.setLocation(getWidth()/2, getHeight()/2);
-		sprites = new SpriteGroup("sprites");
+		
+		//construct playfield
+		myPlayField = new PlayField();
+		
+		//construct a SpriteGroup for player so that we can add it to our PlayField
+		SpriteGroup sprites = new SpriteGroup("sprites");
 		sprites.add(player);
-		voogaPlayField = new PlayField();
+
+		//set up background
 		BufferedImage background = getImage("resources/images/background.png");
-		bg = new ImageBackground(background, 400,400);
-		voogaPlayField.addGroup(sprites);
-		voogaPlayField.setBackground(bg);
+		Background bg = new ImageBackground(background, 400,400);
+		myPlayField.addGroup(sprites);
+		myPlayField.setBackground(bg);
 
 	}
 
 	public void update(long elapsedTime) {
-//		player.update(elapsedTime);
-		voogaPlayField.update(elapsedTime);
-		if(keyPressed(KeyEvent.VK_W)) {
-			player.setToCurrentSprite("right");
+		
+		myPlayField.update(elapsedTime);
+		
+		/*
+		 * if the right arrow key is pressed, the sprite will switch to the 
+		 * rightFacingDoodle
+		 * 
+		 * if the left arrow key is pressed, the sprite will switch to the
+		 * leftFacingDoodle
+		 */
+		if(keyPressed(KeyEvent.VK_RIGHT)) {
+			player.setAsRenderedSprite("right");
 		}
-		if(keyPressed(KeyEvent.VK_S)) {
-			player.setToCurrentSprite("left");
+		if(keyPressed(KeyEvent.VK_LEFT)) {
+			player.setAsRenderedSprite("left");
 		}
-//		if(counter % 2 == 0)
-//		player.setToCurrentSprite("right");
-//		
-//		if(counter % 2 == 1)
-//		player.setToCurrentSprite("left");
-//		counter++;
 	}
 
 	public void render(Graphics2D g) {
-//		bg.render(g);
-//		player.setToCurrentSprite("right");
-//		player.setToCurrentSprite("left");
-//		player.render(g);
-		voogaPlayField.render(g);
+
+		myPlayField.render(g);
 		
 	}
 
