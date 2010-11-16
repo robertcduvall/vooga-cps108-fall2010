@@ -1,11 +1,8 @@
 package vooga.engine.level;
 
 import java.util.*;
-
-import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.event.*;
-
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -25,21 +22,17 @@ public class LevelField extends PlayField {
 	private HashMap<String, Rule> ruleMap = new HashMap<String, Rule>();
 	private HashMap<Rule, SpriteGroup[]> spriteGroupMap = new HashMap<Rule, SpriteGroup[]>();
 	private HashMap<Rule, Boolean> activatedRule = new HashMap<Rule, Boolean>();
+	
+	private LevelSwitchingConditions levelSwitchingConditions;
 	private String myMusic;
-	private boolean LevelFailed;
-	private boolean LevelProceed;
-	private boolean GameLost;
-	private boolean GameWon;
+	private boolean switchLevel;
+	private int switchLevelIndex;
+	private boolean gameLost;
+	private boolean gameWon;
 	private GameWonConditions gameWonConditions;
 	private GameLostConditions gameLostConditions;
-	private LevelProceedConditions levelProceedConditions;
-	private LevelLostConditions levelLostConditions;
+	private EventPool eventPool = new EventPool();
 	
-	private EventPool eventPool;
-	
-	
-	
-
 	public LevelField() {
 		super();
 	}
@@ -58,8 +51,8 @@ public class LevelField extends PlayField {
 		ruleMap = rc.getRules();
 	}
 	
-	public void initializeEvents(EventPool eventPool){
-		
+	public void initializeEvents(EventPool pool){
+		eventPool = pool;
 	}
 	
 	public void addEvent(IEventHandler event){
@@ -69,13 +62,20 @@ public class LevelField extends PlayField {
 		eventPool.removeEvent(event);
 	}
 	
+	public void addSwitchConditoin(LevelSwitch ls){
+		levelSwitchingConditions.addCondition(ls);
+	}
+	public void removeSwithCondition(LevelSwitch ls){
+		levelSwitchingConditions.removeCondition(ls);
+	}
+	
 	
 	/**
 	 * Initialize the rules from the specified rule map.
 	 * 
 	 * @param rm
 	 */
-	public void initializeRules(HashMap<String, Rule> rm) {
+	public void initializeRules(HashMap<String, Rule> rm){
 		ruleMap = rm;
 	}
 
@@ -88,19 +88,22 @@ public class LevelField extends PlayField {
 	 * @param levelLost
 	 */
 	public void initializeConditions(GameWonConditions gamewon,
-			GameLostConditions gameLost, LevelProceedConditions levelProceed,
-			LevelLostConditions levelLost) {
+			GameLostConditions gameLost, LevelSwitchingConditions levelSwitch) {
+		levelSwitchingConditions = levelSwitch;
 		gameWonConditions = gamewon;
 		gameLostConditions = gameLost;
-		levelProceedConditions = levelProceed;
-		levelLostConditions = levelLost;
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+		actOnEvents();
 		actOnRules();
 		checkLevelConditions();
+	}
+	
+	private void actOnEvents(){
+		eventPool.checkEvents();
 	}
 
 	/**
@@ -132,51 +135,31 @@ public class LevelField extends PlayField {
 	 * check for the conditions that decide the state of the level
 	 */
 	public void checkLevelConditions() {
-		for (Rule r : ruleMap.values()) {
-			if (r.LevelFail())
-				LevelFailed = true;
-			if (r.LevelProceed())
-				LevelProceed = true;
-			if (r.GameLost())
-				GameLost = true;
-			if (r.GameWon())
-				GameWon = true;
-		}
 		if (gameWonConditions.GameWon())
-			GameWon = true;
+			gameWon = true;
 		if (gameLostConditions.GameLost())
-			GameLost = true;
-		if (levelProceedConditions.LevelProceed())
-			LevelProceed = true;
-		if (levelLostConditions.LevelLost())
-			LevelFailed = true;
+			gameLost = true;
+		if (levelSwitchingConditions.levelSwitch()){
+			switchLevel = true;
+			switchLevelIndex = levelSwitchingConditions.getSwitchToLevel();
+		}
 	}
 
-	/**
-	 * Whether the level is lost
-	 * 
-	 * @return
-	 */
-	public boolean LevelIsLost() {
-		return LevelFailed;
+	public boolean switchLevel(){
+		return switchLevel;
 	}
-
-	/**
-	 * Whether the level is won
-	 * 
-	 * @return
-	 */
-	public boolean LevelShouldProceed() {
-		return LevelProceed;
+	
+	public int switchToLevel(){
+		return switchLevelIndex;
 	}
-
+	
 	/**
 	 * Whether the game is won
 	 * 
 	 * @return
 	 */
-	public boolean GameWon() {
-		return GameWon;
+	public boolean gameWon() {
+		return gameWon;
 	}
 
 	/**
@@ -184,8 +167,8 @@ public class LevelField extends PlayField {
 	 * 
 	 * @return
 	 */
-	public boolean GameOver() {
-		return GameLost;
+	public boolean gameOver() {
+		return gameLost;
 	}
 
 	/**
@@ -198,25 +181,9 @@ public class LevelField extends PlayField {
 		LevelField nextField = new LevelField();
 		HashMap<String, Rule> nextRuleMap = new HashMap<String, Rule>();
 		nextRuleMap = ruleMap;
-		for (Rule r : nextRuleMap.values()) {
-			r.autoUpdateBetweenLevels();
-		}
 		nextField.initializeRules(nextRuleMap);
 		return nextField;
 	}
-
-	/**
-	 * Adds OverlayTracker to the playfield.
-	 * 
-	 * @param overlayTracker
-	 */
-	/*public void addOverlayTracker(OverlayTracker overlayTracker) {
-		addOverlayGroups(overlayTracker.getOverlayGroup("s"));
-	}
-	
-	public void addOverlayGroup(OverlayTracker String s){
-		this.addGroup(getOverlayGroup(s));
-	}*/
 
 	/**
 	 * Adds every SpriteGroup from the OverlayTracker to the playfield.
@@ -260,9 +227,10 @@ public class LevelField extends PlayField {
 	private void actOnRules() {
 		for (Rule rule : ruleMap.values()) {
 			SpriteGroup[] obedients = spriteGroupMap.get(rule);
-			if (activatedRule.get(rule)) {
-				rule.enforceRule(rule.ruleSatisfied(obedients), obedients);
-			}
+			rule.update();
+			//if (activatedRule.get(rule)) {
+			//	rule.enforceRule(rule.ruleSatisfied(obedients), obedients);
+			//}
 		}
 	}
 
@@ -280,7 +248,7 @@ public class LevelField extends PlayField {
 	 * 
 	 * @param r
 	 */
-	public void activaterule(Rule r) {
+	public void activateRule(Rule r) {
 		activatedRule.put(r, true);
 	}
 
