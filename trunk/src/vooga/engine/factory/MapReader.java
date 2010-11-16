@@ -62,11 +62,11 @@ public class MapReader {
 
 
 
-	private void addAssociation(String key, String className){
+	public void addAssociation(String key, String className){
 		myAssociativities.put(key, className);
 	}
 
-	private PlayField processMap(){
+	public PlayField processMap(){
 		try {
 			loadMappedSprites(path);
 		} catch (IOException e) {
