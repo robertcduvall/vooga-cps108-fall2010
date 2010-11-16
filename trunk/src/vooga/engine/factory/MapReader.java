@@ -1,4 +1,4 @@
-
+package vooga.engine.factory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import com.golden.gamedev.object.SpriteGroup;
  * @example
  * 
  * @author David Herzka - original author for MarioClone game
- * @author Cameron McCallie - ported the MarioClone version to be reusable by all
+ * @author Cameron McCallie, Derek Zhou- ported the MarioClone version to be reusable by all
  *
  */
 public class MapReader {
@@ -31,6 +31,7 @@ public class MapReader {
 	private static PlayField myPlayfield;
 	private static int myWidth;
 	private static int myHeight;
+	private static String path;
 	private static Map<String, String> myAssociativities;
 
 	// This is the pixel size of each object in the text file.
@@ -45,9 +46,9 @@ public class MapReader {
 	 */
 
 	public MapReader(String pathName, PlayField level){
-
+		path = pathName;
 		myAssociativities = new HashMap<String, String>();
-		loadMappedSprites(pathName);
+		
 
 	}
 
@@ -66,7 +67,12 @@ public class MapReader {
 	}
 
 	private PlayField processMap(){
-
+		try {
+			loadMappedSprites(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return myPlayfield;
 	}
 
@@ -101,15 +107,21 @@ public class MapReader {
 				double y = spritesToPixels(k);
 
 				currentKey = (j < lines.get(k).length()) ? lines.get(k).charAt(j) : ' ';
-
+				
 				if (myAssociativities.containsKey(currentKey)){
-
+					String classToCreate = myAssociativities.get(currentKey); 
+					Class<Sprite> op;
+					try {
+						op = (Class<Sprite>) Class.forName(classToCreate);
+						Sprite obj = op.newInstance();
+						myPlayfield.add(obj);
+					} catch (Exception e) {
+						throw ClassAssociatedException.CLASS_NOT_FOUND ;
+					}
 				}
 				else{
-
+					throw ClassAssociatedException.CHARACTER_NOT_FOUND;
 				}
-
-
 			}
 		}
 	}
