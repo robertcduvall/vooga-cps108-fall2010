@@ -16,8 +16,8 @@ public class PlayerExample extends Sprite {
 	private static final String EXAMPLE_STAT_STRING = "Example";
 	private static final int EXAMPLE_STAT_INT = 10;
 
-	public PlayerExample(String label, Sprite s) {
-		super(label, s);
+	public PlayerExample(String label, com.golden.gamedev.object.Sprite sprite) {
+		super(label, sprite);
 		initializeStats();
 	}
 
