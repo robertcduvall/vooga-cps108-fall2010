@@ -20,7 +20,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * However, this is a good demonstration of the "setAsRenderedSprite()" method. See the
  * update method for its use. 
  * 
- * @author dhs9
+ * @author Jimmy Mu, Marcus Molchany, Drew Sternesky
  *
  */
 
