@@ -32,22 +32,17 @@ import com.golden.gamedev.object.Background;
  * robertDuvall.addAnimatedImages(laughing, duvallLaughing);
  * robertDuvall.setAsRenderedSprite("laughing");
  * 
- * Stat<Integer> percentSarcasm = new Stat(100);
- * Stat<String> happyprojectResponse= new Stat("See, that wasn't so bad, was it?");
  * Stat<Sring> unhappyprojectResponse = new Stat("Well, this person obviously doesn't know how to code...");
  * Stat<Double> understandability = new Stat(0.0);
- * 
- * robertDuvall.setStat("percentSarcasm" , percentSarcasm);
- * robertDuvall.setStat("happyprojectResponse", happyprojectResponse);
  * robertDuvall.setStat("unhappyprojectResponse", unhappyprojectResponse);
  * robertDuvall.setStat("understandability", understandability);
  * 
- * Stat<Integer> sarcasm = robertDuvall.getStat("percentSarcasm");
- * 
+ * Stat<Double> intelligible = robertDuvall.getStat("understandability");
+ *
  * long timeExisted = robertDuvall.getTimeInExistence();
+ *
  * robertDuvall.update(timeExisted);
  * robertDvuall.render(g);
- * 
  * 	</XMP>
  * 
  * @author Jimmy Mu, Marcus Molchany, Drew Sternesky
@@ -69,14 +64,16 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * label.
 	 */
 	public Sprite() {
-		super();
-		mySprites = new HashMap<String, com.golden.gamedev.object.Sprite>();
-		myCurrentSprite = new com.golden.gamedev.object.Sprite();
-		myStatMap = new HashMap<String, Stat<?>>();
+		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite());
 	}
 
+	/**
+	 * Constructs an entity with the image and 0, 0 position
+	 * 
+	 * @param image
+	 */
 	public Sprite(BufferedImage image) {
-		super(image);
+		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite(image));
 	}
 
 	/**
@@ -99,7 +96,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	}
 
 	/**
-	 * Construct an entity from an array of images to create animated sprites
+	 * Construct an animated entity from an array of images
 	 * 
 	 * @param image
 	 */
@@ -108,7 +105,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	}
 
 	/**
-	 * Construct an entity from an array of images to create animated sprites
+	 * Construct an entity from an array of BufferedImages to create an animated sprite
 	 * 
 	 * @param image
 	 */
@@ -116,6 +113,22 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 		this(label, new AnimatedSprite(images));
 	}
 	
+	/**
+	 * Constructs an entity with an image located at the specified
+	 * coordinates and the default label.
+	 * 
+	 * @param image
+	 * 
+	 * @param x
+	 *            is the x position.
+	 * @param y
+	 *            is the y position.
+	 */
+	public Sprite(BufferedImage image, double x, double y) {
+		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite(image, x,
+				y));
+	}
+
 	/**
 	 * Constructs an entity with null image located at the specified coordinates
 	 * with the default label.
@@ -128,22 +141,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	public Sprite(double x, double y) {
 		this(null, x, y);
 	}
-
-	/**
-	 * Constructs an entity with given image located at the specified
-	 * coordinates and the default label.
-	 * 
-	 * @param image
-	 * @param x
-	 *            is the x position.
-	 * @param y
-	 *            is the y position.
-	 */
-	public Sprite(BufferedImage image, double x, double y) {
-		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite(image, x,
-				y));
-	}
-
+	
 	/**
 	 * Constructs an entity with given image located at specified coordinates
 	 * AND labels the image so that you can switch to this initial sprite if
@@ -284,13 +282,8 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 		myStatMap.put(name, t);
 	}
 
-	/***********************************************************************************************************
-	 * THIS SECTION REWRITES ALL OF SPRITE'S METHODS. These simply forward the
-	 * method calls to the currently active sprite in the GameEntity.
-	 * ***********
-	 * ***************************************************************
-	 * *******************************
-	 */
+
+
 
 	/**
 	 * Specify how the GameEntity Object should be updated.
@@ -310,10 +303,9 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 		myCurrentSprite.render(g);
 	}
 
-	/***********************************************************************************
-	 * myCurrentSprite: IMAGE MANIPULATION, DISPLAY, ROTATION
-	 * *******************
-	 * **************************************************************
+	/***************************************************
+	 * myCurrentSprite: IMAGE MANIPULATION AND DISPLAY
+	 * *************************************************
 	 */
 
 	/**
@@ -379,10 +371,9 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 		}
 	}
 
-	/**************************************************************************************
+	/*********************************************
 	 * myCurrentSprite: MOVEMENT, SPEED, LOCATION
-	 * *******************************
-	 * *****************************************************
+	 * *******************************************
 	 */
 
 	/**
