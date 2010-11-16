@@ -14,6 +14,7 @@ import vooga.engine.core.Game;
  * <br /><br />
  * Control takes one or more GameEntitySprites and registers actions that those sprites will perform if an event occurs from some predetermined input device.
  * If the programmer is just trying to use the built in keyboard or mouse listening capabilties, they can do the following:
+
  * <xmp>
  * Control shipControl = new Control(this); //this is inside of a GameEntitySprite subclass.
  * shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.
@@ -29,7 +30,8 @@ public class Control{
 	protected Class<?>[] paramTypes;
 	protected Game myGame;
 	protected Map<Integer, ArrayList<Method>> methodMap;
-	protected Map<Integer, ArrayList<Stat<?>[]>> paramMap;
+	protected Map<Integer, ArrayList<Object[]>> paramMap;
+	protected Map<Integer, ArrayList<Method[]>> methodParamMap;
 	protected ArrayList<Integer> key;
 
 	/**
@@ -81,10 +83,18 @@ public class Control{
 	 * 
 	 * eg. player.setParams(new Class[]{int.class, double.class})
 	 */
-	public void setParams(Class<?>... parameterTypes) {
-		paramTypes = parameterTypes;
+	public void setParams(int listen, Object... paramValues) {
+		ArrayList<Object[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Object[]>() : paramMap.get(listen);
+		prevParams.add(paramValues);
+		paramMap.put(listen, prevParams);
 	}
 
+	public void setParams(int listen, Class<?> paramClass, Method... paramValues) {
+		ArrayList<Method[]> prevParams = methodParamMap.get(listen) == null ? new ArrayList<Method[]>() : methodParamMap.get(listen);
+		prevParams.add(paramValues);
+		methodParamMap.put(listen, prevParams);
+	}
+	
 	/**
 	 * Invoke methods here. Call method each time through game loop
 	 */
@@ -99,13 +109,19 @@ public class Control{
 					{
 						for(int e = 0; e < methodMap.get(thisKey).size(); e++){
 							Method perform = methodMap.get(thisKey).get(e);
-							Stat<?>[] paramVals = paramMap.get(thisKey).get(e);
+							Object[] paramVals = paramMap.get(thisKey).get(e);
+							Method[] newParams = methodParamMap.get(thisKey).get(e);
 							List<Object> objectParameters = new ArrayList<Object>();
-							for (Stat<?> parameter : paramVals)
+							for (Object parameter : paramVals)
 							{
-								objectParameters.add(parameter.getStat());
+								objectParameters.add(parameter);
+							}
+							for (Method method : newParams)
+							{
+								objectParameters.add(method.invoke(method.getDeclaringClass(), null));
 							}
 							perform.invoke(entities.get(i), objectParameters.toArray());
+								
 						}
 					}
 				}
@@ -132,16 +148,16 @@ public class Control{
 	 * @param paramVals Value of the parameters that the method has NOTE: If you want to use this
 	 * parameter with something other than 'null', you must use setParams first.
 	 */
-	public void addInput(int listen, String method, String classname, Stat<?>... paramVals) {
+	public void addInput(int listen, String method, String classname, Class<?>... paramTypes) {
 		try {
 			Class<?> myClass = Class.forName(classname);
 			Method perform = myClass.getMethod(method, paramTypes);
 			ArrayList<Method> prevMethods = methodMap.get(listen) == null ? new ArrayList<Method>() : methodMap.get(listen);
 			prevMethods.add(perform);
 			methodMap.put(listen, prevMethods);
-			ArrayList<Stat<?>[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Stat<?>[]>() : paramMap.get(listen);
-			prevParams.add(paramVals);
-			paramMap.put(listen, prevParams);
+//			ArrayList<Stat<?>[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Stat<?>[]>() : paramMap.get(listen);
+//			prevParams.add(paramVals);
+//			paramMap.put(listen, prevParams);
 			paramTypes = null;
 		} catch (Throwable e) {
 			System.err.println(e);
@@ -154,7 +170,7 @@ public class Control{
 
 	public void initializeMappings() {
 		methodMap = new HashMap<Integer, ArrayList<Method>>();
-		paramMap = new HashMap<Integer, ArrayList<Stat<?>[]>>();
+		paramMap = new HashMap<Integer, ArrayList<Object[]>>();
 	}
 
 	/**
@@ -173,7 +189,7 @@ public class Control{
 			methodMap.remove(previousKey);
 			if (paramMap.containsKey(previousKey))
 			{
-				ArrayList<Stat<?>[]> parameters = paramMap.get(previousKey);
+				ArrayList<Object[]> parameters = paramMap.get(previousKey);
 				paramMap.put(newKey, parameters);
 				paramMap.remove(previousKey);
 			}
