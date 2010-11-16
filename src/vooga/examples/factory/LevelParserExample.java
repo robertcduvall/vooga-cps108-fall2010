@@ -26,6 +26,7 @@ public class LevelParserExample extends LevelParser{
 		double xRange = Double.parseDouble(parameters.getNamedItem("xValue").getNodeValue());
 		double yRange = Double.parseDouble(parameters.getNamedItem("yValue").getNodeValue());
 		double vxValue = Double.parseDouble(parameters.getNamedItem("vxValue").getNodeValue());
+		
 		MySprite sprite = new MySprite(playerName, health, damage);
 		sprite.doSomething(somethingToDo);
 		sprite.setLocation(xRange, yRange);
