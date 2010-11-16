@@ -16,6 +16,9 @@ import vooga.engine.event.IEventHandler;
  */
 public abstract class Button extends Sprite implements IEventHandler{
 
+	/**
+	 * Instance of the game in which the Button exists
+	 */
 	private Game myGame;
 	
 	/**
