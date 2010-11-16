@@ -7,31 +7,12 @@ import java.util.Map;
 
 
 /**
- * The OverlayBar class displays a bar that grows or shrinks based on an int and
- * a maximum indicated by the user
+ * The OverlayBar class displays a bar that grows or shrinks based on a Stat and
+ * a maximum indicated by the user.
  * 
- * This example creates an OverlayBar that displays the score of a game (as represented by myScore).
- * The maximum value for this OverlayBar is 100. Therefore if the score is 10, 1/10 of the OverlayBar will be filled. 
- * The OverlayBar is initialized and placed at point (10,10);
- * The myScore stat is updated by the method incrementScore, which would be called based on the game's logic.
+ * An example is included in OverlayExample.
  * 
- * <xmp>
- * Stat<Integer> myScore;
- * 
- * ...
- * 
- *This would be in the class constructor.
- *...
- * myScore = new Stat(Integer 0);
- * OverlayBar scoreBar = new OverlayBar(myScore,100);
- * scoreBar.setLocation(10,10);
- * ...
- * 
- * private Stat<Integer> incrementScore(){
- * 	myScore = myScore.getStat()+1;
- * }
- * 
- * </xmp>
+ * For an example see <A HREF="OverlayExample.html">OverlayExample.java</A>.
  * 
  * @author Andrew Brown
  * 

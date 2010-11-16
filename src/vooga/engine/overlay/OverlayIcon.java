@@ -18,15 +18,6 @@ import com.golden.gamedev.util.ImageUtil;
 /**
  * This Overlay class displays a finite number of icons, with an image provided by the user.
  * 
- * <xmp>
- * Stat<Integer> stat = new Stat<Integer>(5);
- * GreenfootImage image = new GreenfootImage("...");
- * OverlayIcon overlay = new OverlayIcon(stat, image, "Lives: ");
- * </xmp>
- * 
- * <p>All overlays must be updated and rendered;
- * This is the responsibility of the game creator.</p>
- * 
  * @author Se-Gil Feldsott and Justin Goldsmith
  */
 public class OverlayIcon extends Overlay {

@@ -1,25 +1,15 @@
 <Overlay>
 
-<Stat type="Integer" value="50" name="zero"></Stat>
-<Stat type="Integer" value="70" name="one"></Stat>
-<Stat type="Integer" value="4" name="two"></Stat>
-<Stat type="Integer" value="0" name="three"></Stat>
+<Stat type="Integer" value="0" name="score"></Stat>
+<Stat type="Integer" value="50" name="health"></Stat>
 
-<OverlayGroup name="first" >
-<OverlayStat stat="three" label="SCORE     : " xLoc="10" yLoc="50"></OverlayStat>
+<OverlayGroup name="ScoreGroup" >
+<OverlayStat stat="score" label="SCORE: " xLoc="10" yLoc="10"></OverlayStat>
 </OverlayGroup>
 
-<OverlayGroup name="second">
-<OverlayBar xLoc="100" yLoc="100" max="100" stat="zero" color="orange" backColor="blue"></OverlayBar>
-<OverlayBar xLoc="100" yLoc="200" max="100" stat="zero" color="purple" backColor="green"></OverlayBar>
-<OverlayStat xLoc="100" yLoc="300" stat="zero" fontName="gameFontgreen" label="HELLO "></OverlayStat>
-</OverlayGroup>
-
-<OverlayGroup name="third">
-<OverlayBar xLoc="200" yLoc="150" max="100" stat="one" color="orange" backColor="blue"></OverlayBar>
-<OverlayBar xLoc="200" yLoc="250" max="100" stat="one" color="purple" backColor="green"></OverlayBar>
-<OverlayStat xLoc="200" yLoc="350" stat="one" fontName="gameFontgreen" label="HELLO "></OverlayStat>
-<OverlayString xLoc="200" yLoc="50" fontName="Times New Roman" label="Justin " fontSize="32"></OverlayString>
+<OverlayGroup name="HealthGroup">
+<OverlayString xLoc="10" yLoc="100" fontName="Times New Roman" label="Health: " fontSize="32"></OverlayString>
+<OverlayBar xLoc="110" yLoc="110" max="100" stat="health" color="red" backColor="black"></OverlayBar>
 </OverlayGroup>
 
 </Overlay>
