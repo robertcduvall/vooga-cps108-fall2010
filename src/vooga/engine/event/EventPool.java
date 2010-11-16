@@ -15,25 +15,20 @@ import java.util.ArrayList;
  */
 public class EventPool {
 	ArrayList<IEventHandler> eventList = new ArrayList<IEventHandler>();
-	private static EventPool instance =new EventPool();
-	/**
-	 * Private constructor
-	 */
-	private EventPool(){	
-	}
-	/**
-	 * Static method to get singleton object
-	 * @return <code>EventPool</code> object
-	 */
-	public static EventPool getInstance(){
-		return instance;
-	}
+	
 	/**
 	 * Add event into the eventPool so that eventPool can check the event for you in the gameloop.
 	 * @param event The class object which implements <code>IEventHandler</code> interface.  
 	 */
 	public void addEvent(IEventHandler event){
 		eventList.add(event);
+	}
+	/**
+	 * Get the a list of events which contains all the events in the EventPool
+	 * @return ArrayList<IEventHandler> The event list in the <code>EventPool</code>.
+	 */
+	public ArrayList<IEventHandler> getEventList(){
+		return eventList;
 	}
 	/**
 	 * Remove event from the eventPool so that this event will not trigger anything in the gameloop.
