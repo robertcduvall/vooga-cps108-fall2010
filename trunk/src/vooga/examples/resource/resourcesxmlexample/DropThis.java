@@ -1,7 +1,6 @@
 package vooga.examples.resource.resourcesxmlexample;
 
 import java.awt.Dimension;
-import java.io.IOException;
 
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
@@ -15,11 +14,12 @@ public class DropThis extends Game{
 	@Override
 	/**
 	 * Utilizes resources.xml XML file to initialize Resources.
-	 * Note: running this class will not produce a running, functional Game yet, but the
+	 * Note: running this class will not produce a running, functional Game, but the
 	 * new infrastructure for loading resources is outlined here.
 	 */
 	public void initResources() {
-		super.initResources();
+		super.initResources(); //It really is as simple as that! core.Game now loads your resources for you, as long as you
+							   //create a resources.xml file in a resources package within your game package.
 		runTests();
 	}
 	
