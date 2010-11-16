@@ -1,6 +1,7 @@
 package vooga.examples.resource.profile;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,18 +18,22 @@ import javax.swing.event.ListSelectionListener;
 /**
  * 
  * @author David G. Herzka
- *
+ * 
  */
 public class Main {
 
 	private ColorProfile profile;
 	private JList list;
-	private JButton button;
-	private JTextField text;
+	private JButton setButton;
+	private JButton addButton;
+	private JTextField colorText;
 	private JFrame frame;
 
-	private boolean buttonPress;
+	private boolean setButtonPress;
 	private boolean listAction;
+	protected boolean addButtonPress;
+	private JTextField newUserText;
+	private JTextField newColorText;
 
 	public static void main(String[] args) throws InterruptedException {
 
@@ -36,13 +43,12 @@ public class Main {
 	}
 
 	private void init() throws InterruptedException {
-		// TODO Auto-generated method stub
 
 		profile = new ColorProfile();
-//		pm.setColor("user1", 0xFFAAFF);
-//		pm.setColor("user2", 0xFFFFFF);
-//		pm.setColor("user3", 0x0000DA);
-//		pm.setColor("user4", 0x334455);
+		// pm.setColor("user1", 0xFFAAFF);
+		// pm.setColor("user2", 0xFFFFFF);
+		// pm.setColor("user3", 0x0000DA);
+		// pm.setColor("user4", 0x334455);
 
 		frame = new JFrame("Profile Example");
 		frame.setSize(400, 400);
@@ -52,39 +58,63 @@ public class Main {
 		String[] users = profile.getUsers();
 		list = new JList(users);
 		list.addListSelectionListener(new ListSelectionListener() {
-			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				listAction = true;
 			}
 		});
-		frame.add(list);
+		JScrollPane scrollPane = new JScrollPane(list);
+		frame.add(scrollPane);
 
-		text = new JTextField(10);
-		frame.add(text);
+		colorText = new JTextField(10);
+		frame.add(colorText);
 
-		button = new JButton("Set");
-		button.addActionListener(new ActionListener() {
-
+		setButton = new JButton("Set");
+		setButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				buttonPress = true;
+				setButtonPress = true;
 			}
 		});
-		frame.add(button);
+		frame.add(setButton);
+
+		JPanel newUserPanel = new JPanel();
+		frame.add(newUserPanel);
+
+		newUserText = new JTextField(10);
+		newUserPanel.add(newUserText);
+
+		newColorText = new JTextField(10);
+		newUserPanel.add(newColorText);
+
+		addButton = new JButton("Add User");
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addButtonPress = true;
+			}
+		});
+		newUserPanel.add(addButton);
 
 		frame.setVisible(true);
 
 		while (true) {
-			if (buttonPress) {
+			if (setButtonPress) {
 				profile.setColor((String) list.getSelectedValue(), Integer
-						.parseInt(text.getText()));
+						.parseInt(colorText.getText()));
 				drawBG();
-				buttonPress = false;
+				setButtonPress = false;
 			}
 			if (listAction) {
 				drawBG();
 				listAction = false;
+			}
+			if (addButtonPress) {
+				profile.setColor(newUserText.getText(), Integer
+						.parseInt(newColorText.getText()));
+				list.setListData(profile.getUsers());
+				list.setSelectedIndex(0);
+				addButtonPress = false;
 			}
 			Thread.sleep(10);
 		}
@@ -93,8 +123,8 @@ public class Main {
 
 	private void drawBG() {
 		int color = profile.getColor((String) list.getSelectedValue());
-		frame.setBackground(new Color(color));
-		text.setText(Integer.toString(color));
+		frame.getContentPane().setBackground(new Color(color));
+		colorText.setText(Integer.toString(color));
 	}
 
 }
