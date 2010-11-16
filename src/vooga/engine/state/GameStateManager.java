@@ -2,9 +2,6 @@ package vooga.engine.state;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Collection;
-
-import vooga.engine.event.IEventHandler;
 
 /**
  * GameStateManager manages the behavior of GameState for overarching classes like Game. At its heart,
@@ -18,10 +15,13 @@ import vooga.engine.event.IEventHandler;
  */
 public class GameStateManager {
 
+	/**
+	 * A list of all GameStates in the GameStateManager
+	 */
 	private ArrayList<GameState> currentGameStates;
 
 	/**
-	 * Constructs a new GameStateManager.
+	 * Constructs a new empty GameStateManager.
 	 */
 	public GameStateManager() {
 		currentGameStates = new ArrayList<GameState>();
@@ -38,8 +38,8 @@ public class GameStateManager {
 
 	/**
 	 * Adds a GameState to the layer above the specified GameState
-	 * @param gamestate
-	 * @param nextStateDown
+	 * @param gamestate represents the GameState to be added
+	 * @param nextStateDown represents the GameState one layer below the new GameState
 	 */
 	public void addGameState(GameState gamestate, int index){
 		currentGameStates.add( index, gamestate );
@@ -94,7 +94,7 @@ public class GameStateManager {
 	/**
 	 * Iterates over the GameStates, in order of their layer values, and renders the active ones in order.
 	 * 
-	 * @param g
+	 * @param g represents the Graphics2D instance
 	 */
 	public void render(Graphics2D g) {
 		for (GameState state: currentGameStates){
@@ -107,7 +107,7 @@ public class GameStateManager {
 	/**
 	 * Activates the specified GameState and deactivates all others.
 	 * 
-	 * @param gamestate
+	 * @param gamestate represents the GameState to be activated; all others will be deactivated
 	 */
 	public void activateOnly(GameState gamestate) {
 		for (GameState state: currentGameStates){
