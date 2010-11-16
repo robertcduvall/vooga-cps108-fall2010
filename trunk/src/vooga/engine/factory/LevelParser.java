@@ -87,8 +87,8 @@ public class LevelParser implements LevelFactory{
         processMusic(listOfMusic);
         
         Node mapSection = xmlDocument.getElementsByTagName("Map").item(0);
-        NodeList listOfAssociations = mapSection.getChildNodes();
-        processMap(listOfAssociations);
+        NodeList listOfMaps = mapSection.getChildNodes();
+        processMap(listOfMaps);
 	}
 	
 //	/**
@@ -148,16 +148,27 @@ public class LevelParser implements LevelFactory{
 		}
 	}
 	
-	private void processMap(NodeList mapAssociations) {
+	private void processMap(NodeList listOfMaps) {
 		MapReader reader;
-		for(int i = 0; i < mapAssociations.getLength(); i++)
+		for(int i = 0; i < listOfMaps.getLength(); i++)
 		{
-			Node currentNode = mapAssociations.item(i);
+			Node currentNode = listOfMaps.item(i);
 			
 			if(isElement(currentNode))
 			{
 				String path = currentNode.getNodeName();
 				reader = new MapReader(path, myVoogaPlayfield);
+				NodeList listOfAssociations = currentNode.getChildNodes();
+				for(int j = 0; j < listOfAssociations.getLength(); j++)
+				{
+					Element association = (Element) listOfAssociations.item(j);
+
+					String key = association.getAttribute("char");
+					String value = association.getAttribute("object");
+						
+					reader.addAssociation(key, value);
+				}
+				reader.processMap();
 			}
 		}
 	}
