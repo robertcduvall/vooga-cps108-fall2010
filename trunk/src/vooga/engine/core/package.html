@@ -3,9 +3,48 @@
 <head>
 </head>
 <body bgcolor="white">
-<p>
-Placeholder package until a game engine is chosen.
+  <p>Extension of the Golden T game to automate some Vooga API functionality.</p>
+  
+  <p>InitResources() automatically loads all resources associated with the
+  resources.xml file (or the game.properties file) in your game's resources
+  package. </p>
+  
+  <p>It also now has a built in GameStateManager which is automatically
+  initialized in initResources. The initialization behavior can be changed by
+  overriding initGameStates. The update and render methods call update and
+  render for this GameStateManager.</p>
+  
+  <p>The game also automatically loads the initial level using the Level XML
+  parser</p>
+  
+  <p>All subclasses should override initResources() and implement a main method
+  that calls launch(). The initResources() method should first call
+  super.initResources() and then initialize all the game states. An example is
+   shown below:</p>
+  <xmp>
+  public class Example extends Game {
 
+	@Override
+	public void initResources() {
+		super.initResources();
+		// Setup game states
+		ExampleState1 state1 = new ExampleState1();
+		state1.initialize();
+		ExampleState2 state2 = new ExampleState2();
+		state2.initialize();
+		// Add game states to game state manager
+		getGameStateManager().addGameState(state1, state2);
+	}
+
+	public static void main(String[] args) {
+		launch(new Example());
+	}
+
+  }
+  </xmp>
+  
+  
+</pre>
 <!-- Put @see and @since tags down here. -->
 
 </body>
