@@ -32,4 +32,9 @@
 		<MusicGroup name="music2.midi"></MusicGroup>
 		<MusicGroup name="music3.midi"></MusicGroup>
 	</Music>
+	
+	<Map name="Map 1">
+		<MapPath path = "firstmap.txt" />
+			<Association char = "G" object = "IndestructibleTile"></Association>
+	</Map>
 </Level>
