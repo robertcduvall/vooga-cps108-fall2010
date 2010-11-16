@@ -1,6 +1,6 @@
 package vooga.engine.level;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Initializes the rules and passes them between levels so that the rules don't
@@ -51,20 +51,11 @@ public class RulesCollection {
 	}
 
 	/**
-	 * auto update the rules when level proceeds
-	 * 
-	 * @param n
-	 */
-	public void autoUpdateBetweenLevels(String n) {
-		ruleMap.get(n).autoUpdateBetweenLevels();
-	}
-
-	/**
 	 * return the map of the rules
 	 * 
 	 * @return
 	 */
-	public HashMap<String, Rule> getRules() {
+	public HashMap<String,Rule> getRules() {
 		return ruleMap;
 	}
 }
