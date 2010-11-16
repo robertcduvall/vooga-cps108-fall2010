@@ -4,6 +4,8 @@ import java.util.*;
 
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
+import vooga.engine.event.*;
+
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -13,7 +15,9 @@ import com.golden.gamedev.object.PlayField;
  * This class is a PlayField for the level that has all the rules built in, and
  * overrides the update method to handle the updating of all the rules. It also
  * decides whether the level/game should proceed or whether it's failed.
+ * <xmp>
  * 
+ *</xmp>
  * @author Jiaqi Yan
  * 
  */
@@ -30,6 +34,11 @@ public class LevelField extends PlayField {
 	private GameLostConditions gameLostConditions;
 	private LevelProceedConditions levelProceedConditions;
 	private LevelLostConditions levelLostConditions;
+	
+	private EventPool eventPool;
+	
+	
+	
 
 	public LevelField() {
 		super();
@@ -48,7 +57,19 @@ public class LevelField extends PlayField {
 	public void initializeRules(RulesCollection rc) {
 		ruleMap = rc.getRules();
 	}
-
+	
+	public void initializeEvents(EventPool eventPool){
+		
+	}
+	
+	public void addEvent(IEventHandler event){
+		eventPool.addEvent(event);
+	}
+	public void removeEvent(IEventHandler event){
+		eventPool.removeEvent(event);
+	}
+	
+	
 	/**
 	 * Initialize the rules from the specified rule map.
 	 * 
@@ -189,9 +210,13 @@ public class LevelField extends PlayField {
 	 * 
 	 * @param overlayTracker
 	 */
-	public void addOverlayTracker(OverlayTracker overlayTracker) {
-		addOverlayGroups(overlayTracker.getOverlayGroups());
+	/*public void addOverlayTracker(OverlayTracker overlayTracker) {
+		addOverlayGroups(overlayTracker.getOverlayGroup("s"));
 	}
+	
+	public void addOverlayGroup(OverlayTracker String s){
+		this.addGroup(getOverlayGroup(s));
+	}*/
 
 	/**
 	 * Adds every SpriteGroup from the OverlayTracker to the playfield.
