@@ -6,8 +6,6 @@ import java.util.*;
 
 import vooga.engine.core.PlayField;
 
-import com.golden.gamedev.object.SpriteGroup;
-
 /**
  * GameState is, at its most basic conception, a container class for collections
  * of sprites. Beyond that, it should be used control state-specific behavior
@@ -54,17 +52,6 @@ public abstract class GameState {
 	}
 
 	/**
-	 * Creates a new GameState by importing the Sprites from a SpriteGroup
-	 * 
-	 * @param spritegroup
-	 */
-	public GameState(SpriteGroup sprites) {
-
-		// this.addGroup(sprites);
-
-	}
-
-	/**
 	 * Creates a new GameState from a Playfield by placing all SpriteGroups in
 	 * render and update groups.
 	 * 
@@ -73,10 +60,6 @@ public abstract class GameState {
 	public GameState(PlayField playfield) {
 		this();
 		addPlayField(playfield);
-		// SpriteGroup[] groups = playfield.getGroups();
-		// for (SpriteGroup group : groups) {
-		// this.addGroup(group);
-		// }
 	}
 
 	/**
@@ -140,38 +123,6 @@ public abstract class GameState {
 	}
 
 	/**
-	 * Adds a SpriteGroup to the GameState's renderGroups.
-	 * 
-	 * @param s
-	 */
-	// public void addRenderGroup(SpriteGroup sg) {
-	//
-	// myRenderField.addGroup(sg);
-	//
-	// }
-
-	/**
-	 * Adds a SpriteGroup to the GameState's updateGroups.
-	 * 
-	 * @param s
-	 */
-	// public void addUpdateGroups(SpriteGroup sg) {
-	//
-	// myUpdateField.addGroup(sg);
-	//
-	// }
-
-	/**
-	 * Adds a SpriteGroup to the GameState's render and updateGroups.
-	 * 
-	 * @param s
-	 */
-	// public void addGroup(SpriteGroup sg) {
-	// this.addRenderGroup(sg);
-	// this.addUpdateGroups(sg);
-	// }
-
-	/**
 	 * Returns the GameState's renderGroups.
 	 * 
 	 * @return List<SpriteGroup>
@@ -224,17 +175,29 @@ public abstract class GameState {
 		this.addRenderState(gamestate);
 	}
 
+	/**
+	 * Adds a playfield to an rendered and updated in an existing GameState
+	 * @param playfield to be rendered and updated
+	 */
 	public void addPlayField(PlayField playfield) {
 		addUpdatePlayField(playfield);
 		addRenderPlayField(playfield);
 
 	}
 
+	/**
+	 * Adds a playfield to an rendered in an existing GameState
+	 * @param playfield to be rendered
+	 */
 	public void addRenderPlayField(PlayField playfield) {
 		myRenderField.add(playfield);
 
 	}
 
+	/**
+	 * Adds a playfield to an updated in an existing GameState
+	 * @param playfield to be updated
+	 */
 	public void addUpdatePlayField(PlayField playfield) {
 		myUpdateField.add(playfield);
 
@@ -248,30 +211,5 @@ public abstract class GameState {
 		myRenderField.clear();
 		myUpdateField.clear();
 	}
-
-	/**
-	 * GameState of specified group.
-	 * 
-	 */
-	public void removeGroup(SpriteGroup group) {
-		// myRenderField.removeGroup(group);
-		// myUpdateField.removeGroup(group);
-	}
-
-	/**
-	 * Equals function for GameStates
-	 * 
-	 * @param Object
-	 * @return boolean
-	 */
-	/*
-	 * @Override public boolean equals(Object obj){ if (this.equals(obj)){
-	 * return true; } if(!(obj instanceof GameState)) return false;
-	 * 
-	 * GameState other = (GameState) obj; // Two GameStates are the same if they
-	 * have the same update and render groups, and the same layer return myLayer
-	 * == other.getLayer() && myUpdateGroups.equals(other.getUpdateGroups()) &&
-	 * myRenderGroups.equals(other.getRenderGroups()); }
-	 */
 
 }
