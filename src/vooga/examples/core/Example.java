@@ -1,10 +1,12 @@
 package vooga.examples.core;
 
+import java.awt.Dimension;
+
+import com.golden.gamedev.GameLoader;
+
 import vooga.engine.core.Game;
 /**
- * Copied resources files from the resource group.
  * @author Yang
- *
  */
 public class Example extends Game {
 
@@ -14,6 +16,13 @@ public class Example extends Game {
 
 		getGameStateManager().addGameState(new ExampleState1(),
 				new ExampleState2());
+	}
+	
+	public static void main(String[] args){
+		launch(new Example());
+//		GameLoader game = new GameLoader();
+//		game.setup(new Example(), new Dimension(600, 400), false);
+//		game.start();
 	}
 
 }
