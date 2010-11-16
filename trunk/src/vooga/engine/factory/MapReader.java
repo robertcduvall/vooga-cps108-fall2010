@@ -1,156 +1,149 @@
-package vooga.engine.factory;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Scanner;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
+
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
+/**
+ * 
+ * This class can be used to read in .txt files that serve as a map for placement of different Sprites.
+ * This is a unique implementation of a level.
+ * 
+ * 
+ * @example
+ * 
+ * @author David Herzka - original author for MarioClone game
+ * @author Cameron McCallie - ported the MarioClone version to be reusable by all
+ *
+ */
 public class MapReader {
-	public int TILE_SIZE = 64;
+	
+	private static PlayField myPlayfield;
+	private static int myWidth;
+	private static int myHeight;
+	
+	// This is the pixel size of each object in the text file.
+	private static int SPRITE_SIZE = 64;
 
-	private List<Tile> tiles;
-	private SpriteGroup tileGroup;
-	public int width;
-	public int height;
-
-	public TileMap(File file) throws IOException {
-		tiles = new CopyOnWriteArrayList<Tile>();
-		tileGroup = new SpriteGroup("Tile Group");
-		loadTiles(file);
+	
+	/**
+	 * This MapReader will be instantiated by the LevelParser class if it contains a <Map> tag.
+	 * This tag will store all information about Sprites unique to the mapping representation of the text file.
+	 * This constructor returns the PlayField that is represented by the current level from the LevelParser. This
+	 * constructor will update the PlayField based on all the information in the <Map> tag.
+	 */
+	
+	public MapReader(String pathName, PlayField level){
+		
+		loadMappedSprites(pathName);
+		
+	}
+	
+	/**
+	 * Spaces each sprite exactly the size of the sprite (in pixels) away from the previous sprite.
+	 * 
+	 */
+	private double spritesToPixels(int coord) {
+		return coord * SPRITE_SIZE;
 	}
 
-	public List<ItemSprite> getNewItems() {
-		List<ItemSprite> list = new ArrayList<ItemSprite>();
-		for (Tile t : tiles) {
-			ItemSprite item = t.checkItem();
-			if (item != null)
-				list.add(item);
-		}
-		return list;
+	
+	
+	private void addAssociation(String key, String className){
+		Class sprite = Class.forName(className);
+		
+	}
+	
+	private PlayField processMap(){
+		
+		return myPlayfield;
 	}
 
-	public List<Tile> getTiles() {
-		return tiles;
-	}
-
-	public void updateTiles() {
-		for (Tile t : tiles) {
-			if (t.getState() == State.removed)
-				removeTile(t);
-		}
-	}
-
-	private void removeTile(Tile t) {
-		tiles.remove(t);
-		tileGroup.remove(t);
-	}
-
-	private void addTile(Tile t) {
-		tiles.add(t);
-		tileGroup.add(t);
-	}
-
-	public SpriteGroup getTileGroup() {
-		return tileGroup;
-	}
-
-	public void setTileGroup(SpriteGroup tileGroup) {
-		this.tileGroup = tileGroup;
-	}
-
-	private double tilesToPixels(int coord) {
-		return coord * TILE_SIZE;
-	}
-
-	public void loadTiles(File file) throws IOException {
+	public void loadMappedSprites(String pathName) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
-		width = 0;
-		height = 0;
+		myWidth = 0;
+		myHeight = 0;
 
-		if (file == null) {
-			throw new IOException("No such map!");
-		}
+//		TODO: Need an error check if the pathName is messed up - resources job?
 
-		// read every line in the text file into the list
-		BufferedReader reader = new BufferedReader(new FileReader(file));
+		Scanner lineReader = new Scanner(pathName);
 
-		while (true) {
-			String line = reader.readLine();
-			// no more lines to read
-			if (line == null) {
-				reader.close();
-				break;
-			}
-			// add every line except for comments
-			if (!line.startsWith("#")) {
-				lines.add(line);
-				width = Math.max(width, line.length());
+		while (lineReader.hasNextLine()) {
+			String currentLine = lineReader.nextLine();
+			
+			// Add every line except for comments
+			if (!currentLine.startsWith("#")) {
+				lines.add(currentLine);
+				
+				//Ensures that myWidth is equal to the length of the longest line in the map
+				myWidth = Math.max(myWidth, currentLine.length());
 			}
 		}
 
 		// parse the lines to create a tile list
 		Character curChar = ' ';
-		height = lines.size();
-		for (int j = 0; j < width; j++) {
-			for (int k = 0; k < height; k++) {
-				double x = tilesToPixels(j);
-				double y = tilesToPixels(k);
-				curChar = (j < lines.get(k).length()) ? lines.get(k).charAt(j)
-						: ' ';
+		myHeight = lines.size();
+		for (int j = 0; j < myWidth; j++) {
+			for (int k = 0; k < myHeight; k++) {
+				double x = spritesToPixels(j);
+				double y = spritesToPixels(k);
+				
+				curChar = (j < lines.get(k).length()) ? lines.get(k).charAt(j) : ' ';
+				
 				switch (curChar) {
-				case (' '):
-					break;
-				case ('F'):
-					addTile(new IndestructibleTile(x, y, Resources
-							.getImage("GrassTile")));
-					break;
-				case ('D'):
-					addTile(new IndestructibleTile(x, y, Resources
-							.getImage("DirtTile")));
-					break;
-				case ('B'):
-					addTile(new BreakTile(x, y, Resources.getImage("Break")));
-					break;
-				case ('C'):
-					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
-					changingImages.add(Resources.getImage("Changing1"));
-					changingImages.add(Resources.getImage("Changing2"));
-					changingImages.add(Resources.getImage("Changing3"));
-					changingImages.add(Resources.getImage("Changing4"));
-					addTile(new ChangingTile(x, y, changingImages));
-					break;
-				case ('G'):
-					List<BufferedImage> itemTileImages = new ArrayList<BufferedImage>();
-					itemTileImages.add(Resources.getImage("ItemTile1"));
-					itemTileImages.add(Resources.getImage("ItemTile2"));
-					GravityItem gravityItem = new GravityItem(new Sprite(
-							Resources.getImage("GravityItem")), .5);
-					gravityItem.setLocation(x
-							+ (TILE_SIZE - gravityItem.getWidth()) / 2, y
-							- gravityItem.getHeight());
-					addTile(new ItemTile(x, y, itemTileImages, gravityItem));
-					break;
-				case ('S'):
-					List<BufferedImage> coinTileImages = new ArrayList<BufferedImage>();
-					coinTileImages.add(Resources.getImage("ItemTile1"));
-					coinTileImages.add(Resources.getImage("ItemTile2"));
-					Coin coin = new Coin(new Sprite(Resources
-							.getImage("Coin")));
-					coin.setLocation(x + (TILE_SIZE - coin.getWidth()) / 2, y
-							- coin.getHeight());
-					addTile(new CoinTile(x, y, coinTileImages, coin));
-					break;
+//				case (' '):
+//					break;
+//				case ('F'):
+//					addTile(new IndestructibleTile(x, y, Resources.getImage("GrassTile")));
+//					break;
+//				case ('D'):
+//					addTile(new IndestructibleTile(x, y, Resources
+//							.getImage("DirtTile")));
+//					break;
+//				case ('B'):
+//					addTile(new BreakTile(x, y, Resources.getImage("Break")));
+//					break;
+//				case ('C'):
+//					List<BufferedImage> changingImages = new ArrayList<BufferedImage>();
+//					changingImages.add(Resources.getImage("Changing1"));
+//					changingImages.add(Resources.getImage("Changing2"));
+//					changingImages.add(Resources.getImage("Changing3"));
+//					changingImages.add(Resources.getImage("Changing4"));
+//					addTile(new ChangingTile(x, y, changingImages));
+//					break;
+//				case ('G'):
+//					List<BufferedImage> itemTileImages = new ArrayList<BufferedImage>();
+//					itemTileImages.add(Resources.getImage("ItemTile1"));
+//					itemTileImages.add(Resources.getImage("ItemTile2"));
+//					GravityItem gravityItem = new GravityItem(new Sprite(
+//							Resources.getImage("GravityItem")), .5);
+//					gravityItem.setLocation(x
+//							+ (TILE_SIZE - gravityItem.getWidth()) / 2, y
+//							- gravityItem.getHeight());
+//					addTile(new ItemTile(x, y, itemTileImages, gravityItem));
+//					break;
+//				case ('S'):
+//					List<BufferedImage> coinTileImages = new ArrayList<BufferedImage>();
+//					coinTileImages.add(Resources.getImage("ItemTile1"));
+//					coinTileImages.add(Resources.getImage("ItemTile2"));
+//					Coin coin = new Coin(new Sprite(Resources
+//							.getImage("Coin")));
+//					coin.setLocation(x + (TILE_SIZE - coin.getWidth()) / 2, y
+//							- coin.getHeight());
+//					addTile(new CoinTile(x, y, coinTileImages, coin));
+//					break;
 				}
 			}
 		}
+
 	}
+
 }
