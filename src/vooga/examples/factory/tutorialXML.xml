@@ -22,19 +22,19 @@
 	</CollisionGroups>
 	
 	<Background name="Background">
-		<Visual name ="background1.jpg" />
-		<Visual name ="background1.jpg" />
-		<Visual name ="background1.jpg" />
+		<Visual name ="background1" />
+		<Visual name ="background2" />
+		<Visual name ="background3" />
 	</Background>
 	
 	<Music name="Music">
-		<Sound name ="music1.midi" />
-		<Sound name ="music2.midi" />
-		<Sound name ="music3.midi" />
+		<Sound name ="music1" />
+		<Sound name ="music2" />
+		<Sound name ="music3" />
 	</Music>
 	
-	<Map name="Map 1">
-		<MapPath name = "firstmap.txt" />
+	<Map name="Map">
+		<MapGroup name = "firstMap" />
 			<Association char = "G" object = "IndestructibleTile"></Association>
 	</Map>
 </Level>
