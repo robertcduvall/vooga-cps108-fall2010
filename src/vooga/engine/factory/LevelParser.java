@@ -40,15 +40,15 @@ import com.golden.gamedev.object.SpriteGroup;
 public class LevelParser implements LevelFactory{
 
 	private static final int FIRST_IMAGE = 0;
-	private static String gameClassPath;
-	private static Game currentGame;
-	private static PlayField myVoogaPlayField;
-	private static OverlayTracker overlayTracker;
-	private static Map<String, SpriteGroup> spriteGroupMap;
+	private String gameClassPath;
+	private Game currentGame;
+	private PlayField myVoogaPlayField;
+	private OverlayTracker overlayTracker;
+	private Map<String, SpriteGroup> spriteGroupMap;
 
 	@Override
 	public PlayField getPlayfield(String filepath, Game game) {
-		currentGame = game;
+		this.currentGame = game;
 		myVoogaPlayField = new PlayField();
 		spriteGroupMap = new HashMap<String, SpriteGroup>();
 		createLevelPlayfield(filepath);
@@ -150,7 +150,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes the Sprites within a SpriteGroup.
 	 */
-	private void processSprite(NodeList spritesList, SpriteGroup group) {
+	public void processSprite(NodeList spritesList, SpriteGroup group) {
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			Element currentNode = (Element) spritesList.item(i);
@@ -197,7 +197,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Adds a regular, location-specified Sprite to the given SpriteGroup.
 	 */
-	private void processRegularSprite(Element spriteElement, SpriteGroup group) {
+	public void processRegularSprite(Element spriteElement, SpriteGroup group) {
 		Sprite newSprite = new Sprite();
 
 		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
@@ -250,7 +250,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes Visuals within a Sprite.
 	 */
-	private void processVisual(NodeList visualsList, Sprite newSprite) {
+	public void processVisual(NodeList visualsList, Sprite newSprite) {
 		for(int imageLocation = 0; imageLocation < visualsList.getLength(); imageLocation++)
 		{
 			if (isElement(visualsList.item(imageLocation)))
@@ -356,11 +356,14 @@ public class LevelParser implements LevelFactory{
 
 	}
 
-	private static boolean isElement(Node node){
+	public static boolean isElement(Node node){
 		return (node.getNodeType() == Node.ELEMENT_NODE);
 	}
 
 
+	public Game getGame(){
+		return currentGame;
+	}
 
 	private Sprite processX(String classname, NamedNodeMap attributes)
 	{

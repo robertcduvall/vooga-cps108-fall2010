@@ -1,0 +1,8 @@
+<Resources>
+	
+	<Integers>
+		<Integer name="gameWidth" value="1050" />
+		<Integer name="gameHeight" value="600" />
+	</Integers>
+	
+</Resources>

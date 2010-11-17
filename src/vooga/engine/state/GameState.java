@@ -88,6 +88,10 @@ public abstract class GameState {
 	 * 
 	 */
 	public abstract void initialize();
+	//TODO suggestion: if you are going to require everyone to define an 
+	//initialize method, presumably you expect everyone to call it during
+	//construction. If this is the case, could you make all the constructors 
+	//of GameState call initialize? --Daniel Koverman
 
 	/**
 	 * Returns the boolean value of the GameState's active variable.
