@@ -229,7 +229,7 @@ public abstract class GameState {
 		
 			SpriteGroup group = playfield.getGroup(name);
 			
-			if (!group.equals(null)){
+			if (group!=null){
 			
 				return group;
 			
