@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import vooga.engine.level.Rule;
-import vooga.engine.level.RuleInterface;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 
@@ -33,16 +32,16 @@ import com.golden.gamedev.object.background.ImageBackground;
  */
 public class PlayField extends com.golden.gamedev.object.PlayField {
 	
-	private Map<String, RuleInterface> myRuleBook;
-	private Map<RuleInterface, SpriteGroup[]> ruleMap; 
+	private Map<String, Rule> myRuleBook;
+	private Map<Rule, SpriteGroup[]> ruleMap; 
 	private String myMusic;
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
 	
 	public PlayField(Background background){
 		super(background);
-		myRuleBook = new HashMap<String, RuleInterface>();
-		ruleMap = new HashMap<RuleInterface, SpriteGroup[]>();
+		myRuleBook = new HashMap<String, Rule>();
+		ruleMap = new HashMap<Rule, SpriteGroup[]>();
 	}
 	
 	@Override
@@ -60,13 +59,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		
 		for(String key: myRuleBook.keySet())
 		{
-			RuleInterface rule = myRuleBook.get(key);
-			SpriteGroup[] obedients = ruleMap.get(rule);
-			
-			if(rule.checkRule(obedients))
-			{
-				rule.enforce(obedients);
-			}
+			myRuleBook.get(key).enforce();
 		}
 	}
 
@@ -79,7 +72,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 * @param rulename
 	 * @param rule
 	 */
-	public void addRule(String rulename, RuleInterface rule, SpriteGroup[] obedients)
+	public void addRule(String rulename, Rule rule, SpriteGroup[] obedients)
 	{
 		myRuleBook.put(rulename, rule);
 		ruleMap.put(rule, obedients);
