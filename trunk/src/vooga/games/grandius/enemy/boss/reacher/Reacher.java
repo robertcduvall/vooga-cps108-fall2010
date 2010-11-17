@@ -3,10 +3,10 @@ package vooga.games.grandius.enemy.boss.reacher;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.GrandiusBoss;
 
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 /**
@@ -38,6 +38,8 @@ public class Reacher extends GrandiusBoss {
 		fireTopBeamTimer = new Timer(4000);
 		fireBottomBeamTimer = new Timer(4000);
 		fireRedRayTimer = new Timer(6000);
+		this.setScore(SCORE_VALUE);
+		this.setCash(CASH_VALUE);
 	}
 
 	@Override
@@ -103,35 +105,41 @@ public class Reacher extends GrandiusBoss {
 		if (!this.isVulnerable()) {
 			return false;
 		}
-		this.health -= depleteAmount;
-		if (health <= 0) {
+		//this.health -= depleteAmount;
+		this.setHealth(getHealth()- depleteAmount);
+		if (getHealth() <= 0) {
 			return true;
-		} else if (health >= breakpoints[0]) {
-			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[3]});
-		} else if (health >= breakpoints[1]) {
-			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[4]});
+		} else if (getHealth() >= breakpoints[0]) {
+			//this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[3]});
+			this.setImage(Resources.getAnimation("Reacher")[3]);
+		} else if (getHealth() >= breakpoints[1]) {
+			//this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[4]});
+			this.setImage(Resources.getAnimation("Reacher")[4]);
 		} else {
-			this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[5]});
+			//this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[5]});
+			this.setImage(Resources.getAnimation("Reacher")[5]);
 		} 
 		return false;
 	}
-	/**
-	 * Returns the point value of this enemy.
-	 * @return
-	 */
-	public int getScoreValue()
-	{
-		return SCORE_VALUE;
-	}
-
-	/**
-	 * Returns the cash value of this enemy.
-	 * @return
-	 */
-	public int getCashValue()
-	{
-		return CASH_VALUE;
-	}
+	
+	//TODO - these methods no longer needed. Use getScore()& getCash()from superclass.
+//	/**
+//	 * Returns the point value of this enemy.
+//	 * @return
+//	 */
+//	public int getScoreValue()
+//	{
+//		return SCORE_VALUE;
+//	}
+//
+//	/**
+//	 * Returns the cash value of this enemy.
+//	 * @return
+//	 */
+//	public int getCashValue()
+//	{
+//		return CASH_VALUE;
+//	}
 	
 	public double getSpeed() {
 		return REACHER_SPEED;

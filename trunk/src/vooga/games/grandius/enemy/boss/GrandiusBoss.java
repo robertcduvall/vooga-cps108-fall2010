@@ -3,8 +3,9 @@ package vooga.games.grandius.enemy.boss;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import com.golden.gamedev.object.Sprite;
 
+import vooga.engine.core.Sprite;
+import vooga.engine.overlay.Stat;
 import vooga.games.grandius.enemy.common.Enemy;
 
 /**
@@ -17,20 +18,31 @@ import vooga.games.grandius.enemy.common.Enemy;
 @SuppressWarnings("serial")
 public abstract class GrandiusBoss extends Enemy {
 	
-	protected int health;
+	//protected int health;
 	protected int[] breakpoints; //0=green done, 1=yellow done
 	protected BufferedImage[] images; //0=shielded_3, 1=shielded_2, 2=shielded_1, 3=green, 4=yellow, 5=red
 	private List<Sprite> partsList;
 	private boolean vulnerable;
+	private static final String HEALTH = "Health";
 	
 	public GrandiusBoss(BufferedImage[] images, int[] breakpoints, double x, double y, int health, 
 				       List<Sprite> parts) {
 		super(images, x, y);
 		this.breakpoints = breakpoints;
-		this.health = health;
 		this.partsList = parts;
+		setHealth(health);
+		//this.health = health;
 	}
 	
+	protected void setHealth(int health) {
+		Stat<Integer> healthValue = new Stat<Integer>(health);
+		setStat(HEALTH, healthValue);
+	}
+
+	public int getHealth(){
+		return (Integer) this.getStat(HEALTH).getStat();
+	}
+
 	public boolean isVulnerable() {
 		return this.vulnerable;
 	}
@@ -53,9 +65,6 @@ public abstract class GrandiusBoss extends Enemy {
 	
 	@Override
 	public void update(long elapsedTime) {
-
 		this.updateMovement(elapsedTime);
-	}
-	
-	
+	}	
 }
