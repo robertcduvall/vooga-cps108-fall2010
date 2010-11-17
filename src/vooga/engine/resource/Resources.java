@@ -149,7 +149,7 @@ public class Resources {
 		}
 		loadAnimation(key, files);
 	}
-
+	
 	/**
 	 * Returns the BufferedImage[] associated with the given label.
 	 */
