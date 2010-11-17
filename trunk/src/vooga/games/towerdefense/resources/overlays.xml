@@ -1,13 +1,13 @@
 <Overlay>
-<Stat type="Integer" value="100"></Stat>
-<Stat type="Integer" value="0"></Stat>
-<Stat type="Integer" value="100"></Stat>
+<Stat type="Integer" value="selfEsteem"></Stat>
+<Stat type="Integer" value="0" name="score"></Stat>
+<Stat type="Integer" value="100" name="money"></Stat>
 
-<OverlayGroup>
+<OverlayGroup name="play">
 <OverlayString label="SELFESTEEM" fontName="gameFontRed" xLoc="800" yLoc="50"></OverlayString>
-<OverlayBar stat="0" max="100" xLoc="775" yLoc="70" length="200"></OverlayBar>
-<OverlayStat label="MONEY : " stat="2" fontName="gameFontGreen" xLoc="800" yLoc="100"></OverlayStat>
-<OverlayStat label="SCORE : " stat="1" fontName="gameFontGreen" xLoc="800" yLoc="130"></OverlayStat>
+<OverlayBar stat="selfEsteem" max="100" xLoc="775" yLoc="70" length="200"></OverlayBar>
+<OverlayStat label="MONEY : " stat="money" fontName="gameFontGreen" xLoc="800" yLoc="100"></OverlayStat>
+<OverlayStat label="SCORE : " stat="score" fontName="gameFontGreen" xLoc="800" yLoc="130"></OverlayStat>
 <OverlayString label="TOWERS" fontName="Times New Roman" fontStyle="ITALIC" fontSize="26" xLoc="830" yLoc="180"></OverlayString>
 
 <OverlayString label="NORMAL TOWER" fontName="gameFontOrange" xLoc="800" yLoc="220"></OverlayString>
@@ -23,7 +23,7 @@
 <OverlayStatImage image="sniperTower" xLoc="880" yLoc="460"></OverlayStatImage>
 </OverlayGroup>
 
-<OverlayGroup>
+<OverlayGroup name="gameOver">
 <OverlayString label="SELFSETEEM DEPLETED" fontName="gameFontGreen" xLoc="500" yLoc="220"></OverlayString>
 <OverlayStat label="SCORE : " stat="1" fontName="gameFontOrange" xLoc="515" yLoc="250"></OverlayStat>
 </OverlayGroup>
