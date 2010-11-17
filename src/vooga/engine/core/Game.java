@@ -53,7 +53,7 @@ public class Game extends com.golden.gamedev.Game {
 			System.out.println("Failed to load resources.xml");
 		}
 		initGameStates();
-		setCurrentLevel(INITIAL_LEVEL);
+		//setCurrentLevel(INITIAL_LEVEL);
 	}
 
 	@Override
@@ -132,13 +132,14 @@ public class Game extends com.golden.gamedev.Game {
 		return levelParser;
 	}
 
+	//TODO change ambiguity of "." and "/"
 	/**
 	 * Get the path for the resources package directory where the resources.xml
 	 * file is
 	 * 
 	 * @return the path for the resources directory
 	 */
-	private String getResourceXMLPath() {
+	protected String getResourceXMLPath() {
 		String defaultPath = "src/" + getResourcePackagePath();
 		return defaultPath.replace('.', '/');
 	}
