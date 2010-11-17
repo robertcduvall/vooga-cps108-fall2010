@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import vooga.engine.core.Game;
 import vooga.engine.state.GameState;
+import vooga.engine.state.MenuGameState;
 
 
 import com.golden.gamedev.GameLoader;
@@ -21,7 +22,8 @@ import com.golden.gamedev.GameLoader;
 
 public class DropThis extends Game {
 	
-	public GameEndState myEndState;
+	public MenuGameState gameOver, mainMenu;
+	public PauseGameState gamePause;
 	
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
@@ -49,8 +51,8 @@ public class DropThis extends Game {
 	
 	
 	public void initGameStates(){
-		super.initGameStates();
-		stateManager.addGameState(myEndState = new GameEndState());
+		stateManager.addGameState(gameOver = new MenuGameState());
+		stateManager.addGameState(mainMenu = new MenuGameState())
 	}
 
 	
