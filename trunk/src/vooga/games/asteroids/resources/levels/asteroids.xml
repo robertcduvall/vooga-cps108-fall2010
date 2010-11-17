@@ -38,7 +38,10 @@
 	</Background>
 
 	<Music>
-		
+		<Sound name="explosionSound"/>
+		<Sound name="laser1Sound"/>
+		<Sound name="laser2Sound"/>
+		<Sound name="thrustSound"/>
 	</Music>
 
 </Level>
