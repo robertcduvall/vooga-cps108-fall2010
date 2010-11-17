@@ -25,6 +25,7 @@
 	<Strings>
 		<String name="levelFilesDirectory" value="vooga/games/asteroids/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
+		<String name="Level1" value="asteroids.xml" />
 	</Strings>
 
 	<Integers>
