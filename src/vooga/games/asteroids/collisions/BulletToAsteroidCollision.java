@@ -1,10 +1,14 @@
 package vooga.games.asteroids.collisions;
 
 
-import com.golden.gamedev.object.Sprite;
+import vooga.engine.core.Sprite;
+import vooga.engine.overlay.Stat;
+
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 public class BulletToAsteroidCollision extends AdvanceCollisionGroup{
+	
+	private static final int ADD_PER_HIT = 10;
 
 	public BulletToAsteroidCollision(){
 		pixelPerfectCollision = true;
@@ -14,6 +18,9 @@ public class BulletToAsteroidCollision extends AdvanceCollisionGroup{
 	public void collided(Sprite bullet, Sprite asteroid) {
 		bullet.setActive(false);
 		asteroid.setActive(false);
+	
+		Stat<Integer> score = (Stat<Integer>) bullet.getStat("score");
+		score.setStat(score.getStat() + ADD_PER_HIT);
 		//TODO:play sound
 		//TODO:add score
 		//TODO: create smaller asteroids
