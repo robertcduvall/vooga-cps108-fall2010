@@ -1,4 +1,4 @@
-package vooga.games.marioclone;
+package vooga.games.mariocloneold;
 
 import java.awt.image.BufferedImage;
 import java.util.Queue;
@@ -6,7 +6,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import vooga.engine.overlay.Stat;
 import vooga.engine.player.control.ItemSprite;
-import vooga.games.marioclone.items.GravityItem;
+import vooga.games.mariocloneold.items.GravityItem;
 
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {

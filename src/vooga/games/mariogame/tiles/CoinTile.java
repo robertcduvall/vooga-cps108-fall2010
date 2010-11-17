@@ -1,10 +1,10 @@
-package vooga.games.marioclone.tiles;
+package vooga.games.mariocloneold.tiles;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import vooga.games.marioclone.MarioSprite;
-import vooga.games.marioclone.items.Coin;
+import vooga.games.mariocloneold.MarioSprite;
+import vooga.games.mariocloneold.items.Coin;
 
 import com.golden.gamedev.object.Sprite;
 

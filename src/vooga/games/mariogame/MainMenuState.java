@@ -1,4 +1,4 @@
-package vooga.games.marioclone;
+package vooga.games.mariocloneold;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

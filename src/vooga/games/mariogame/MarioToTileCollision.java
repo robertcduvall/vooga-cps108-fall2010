@@ -1,6 +1,6 @@
-package vooga.games.marioclone;
+package vooga.games.mariocloneold;
 
-import vooga.games.marioclone.tiles.Tile;
+import vooga.games.mariocloneold.tiles.Tile;
 
 import com.golden.gamedev.object.Sprite;
 

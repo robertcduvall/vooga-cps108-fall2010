@@ -1,4 +1,4 @@
-package vooga.games.marioclone.tiles;
+package vooga.games.mariocloneold.tiles;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
