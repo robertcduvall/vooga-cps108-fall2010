@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="Level1">
+<Level name="BlueLevel">
 
 	<SpriteGroups>
 		<SpriteGroup name="playerGroup">
-			<Sprite name="playerSprite" x="0" y="100" vx="10" vy="20">
+			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20">
 				<Visual name="downAnim" />
-			</Sprite>
+			</RegularSprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
