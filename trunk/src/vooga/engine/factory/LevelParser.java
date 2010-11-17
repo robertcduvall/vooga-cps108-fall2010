@@ -66,6 +66,7 @@ public class LevelParser implements LevelFactory{
 			processLevel(xmlDocument); // This nests into specific cases and processes a level
 		} 
 		catch (Exception e) {
+			e.printStackTrace();
 			throw LevelException.LEVEL_PARSING_EXCEPTION;
 		}
 	}	
