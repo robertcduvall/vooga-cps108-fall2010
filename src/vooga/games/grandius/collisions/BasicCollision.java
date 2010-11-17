@@ -2,7 +2,7 @@ package vooga.games.grandius.collisions;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.Blah;
+import vooga.games.grandius.DropThis;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
