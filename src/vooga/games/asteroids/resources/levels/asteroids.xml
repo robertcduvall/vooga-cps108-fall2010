@@ -4,19 +4,19 @@
 	<SpriteGroups>
 		<SpriteGroup name="playerShip">
 			<RegularSprite name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
-				<Visual name="Player"/>
+				<Visual name="shipImage"/>
 			</RegularSprite>
 		</SpriteGroup>
 		
 		<SpriteGroup name="shotGroup">
 			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" quantity="0">
-				<Visual name="Shot"/>
+				<Visual name="greenBulletImage"/>
 			</RegularSprite>
 		</SpriteGroup>
 		
 		<SpriteGroup name="asteroidGroup">
 			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="5">
-				<Visual name="Asteroid"/>
+				<Visual name="asteroidAnimation"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
 	</SpriteGroups>
