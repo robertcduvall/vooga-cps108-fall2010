@@ -15,7 +15,9 @@ public class BlahThis extends Game {
 	 * 
 	 */
 	public BlahThis() {
-		// TODO Auto-generated constructor stub
+		PlayGameState playGameState = new PlayGameState();
+		playGameState.initialize();
+		stateManager.addGameState(playGameState);
 	}
 
 	/**
