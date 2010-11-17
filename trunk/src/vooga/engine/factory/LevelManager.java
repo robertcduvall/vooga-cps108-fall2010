@@ -60,12 +60,22 @@ public class LevelManager {
 
 
 	public LevelManager(Game currentgame){
+		this(currentgame, new LevelParser());
+	}
+	
+	public LevelManager(Game currentgame, LevelParser parser){
 		game = currentgame;
 		myCurrentLevel = -1;
 		myLevelNames = new ArrayList<String>();
 		myPlayFields = new ArrayList<PlayField>();
 	}
+
 	
+	public PlayField loadFirstLevel ()
+	{
+		// TODO: return a valid playfield
+		return new PlayField();
+	}
 	
 	/**
 	 * This method reads in from a File containing the names of different levels

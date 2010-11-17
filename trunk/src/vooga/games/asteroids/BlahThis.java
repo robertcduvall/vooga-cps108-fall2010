@@ -4,6 +4,11 @@
 package vooga.games.asteroids;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
+import vooga.engine.factory.LevelFactory;
+import vooga.engine.factory.LevelManager;
+import vooga.engine.factory.LevelParser;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.PauseGameState;
 import vooga.games.asteroids.states.PlayState;
 
@@ -23,32 +28,19 @@ public class BlahThis extends Game {
 	
 	public void initResources() {
 		super.initResources();
-		//dont change this you cant initialize on construction
-		playState = new PlayState(this);
-		playState.initialize();
-		
-		stateManager.addGameState(playState);		
+		PlayField levelPlayField = new LevelManager(this).loadFirstLevel();
 
+		playState = new PlayState(this, levelPlayField);
+		pauseState = new PauseGameState(playState);
+		stateManager.addGameState(playState, pauseState);
 	}
 	
 	public void pauseGame() {
-		
-		pauseState = new PauseGameState(playState);
-		pauseState.initialize();
-		
-		stateManager.addGameState(pauseState);
-		
-		stateManager.activateOnly(pauseState);
-		
+		stateManager.activateOnly(pauseState);		
 	}
 	
-	public void unpauseGame() {
-		
+	public void unpauseGame() {		
 		stateManager.activateOnly(playState);
-		stateManager.removeGameState(pauseState);
-		
-		super.initResources();
-		stateManager.addGameState(new PlayState(this));		
 	}
 
 	/**

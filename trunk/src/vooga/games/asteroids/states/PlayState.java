@@ -14,7 +14,6 @@ import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
-import vooga.engine.state.GameState;
 import vooga.games.asteroids.collisions.BulletToAsteroidCollision;
 import vooga.games.asteroids.collisions.ShipToAsteroidCollision;
 
@@ -22,7 +21,8 @@ public class PlayState extends GameState{
 	
 	private Game game;
 	
-	public PlayState(Game game){
+	public PlayState(Game game, PlayField field){
+		super(field);
 		this.game = game;
 	}
 
@@ -34,7 +34,6 @@ public class PlayState extends GameState{
 	}
 	
 	private void initLevel(){
-		LevelFactory factory = new LevelParser();
 
 //		PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
 		
@@ -42,11 +41,7 @@ public class PlayState extends GameState{
 //		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
 //		
 //		addPlayField(playField);
-		PlayField levelPlayfield = factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game);
-		addPlayField(levelPlayfield);
-		
-		Sprite playerShip = (Sprite) levelPlayfield.getGroup("playerShip").getSprites()[0];
-		
+		Sprite playerShip = (Sprite)(getGroup("playerShip").getSprites()[0]);
 		initControls(playerShip);
 
 	}
