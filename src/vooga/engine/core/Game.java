@@ -32,7 +32,7 @@ public class Game extends com.golden.gamedev.Game {
 	protected GameStateManager stateManager;
 	protected LevelParser levelParser;
 	protected PlayField myCurrentLevel;
-	private static final int INITIAL_LEVEL = 1;
+	//private static final int INITIAL_LEVEL = 1;
 
 	private static final int DEFAULT_WIDTH = 600;
 	private static final int DEFAULT_HEIGHT = 400;
@@ -72,13 +72,15 @@ public class Game extends com.golden.gamedev.Game {
 	public PlayField getCurrentLevel() {
 		return myCurrentLevel;
 	}
-
-	/**
-	 * Sets the VoogaPlayField to the desired level.
-	 */
-	public void setCurrentLevel(int level) {
-		myCurrentLevel = initLevel(level);
-	}
+	
+	
+// No longer needed. This should be done inside the actual game using the LevelManger
+//	/**
+//	 * Sets the VoogaPlayField to the desired level.
+//	 */
+//	public void setCurrentLevel(int level) {
+//		myCurrentLevel = initLevel(level);
+//	}
 
 	/**
 	 * Initializes the GameStateManager. This should be overridden by subclasses
@@ -88,31 +90,33 @@ public class Game extends com.golden.gamedev.Game {
 		stateManager = new GameStateManager();
 	}
 
-	/**
-	 * Initializes the level specified by the given int index. The XML file
-	 * associated with the level is located at a filepath specified by
-	 * Resources.getString("Level" + index) For example, if the level's XML file
-	 * is called blueLevel.xml, the stringMap in Resources contains the String
-	 * -> String entry: "Level" + index -> "blueLevel.xml"
-	 */
-	public PlayField initLevel(int index) {
-		levelParser = new LevelParser();
-		PlayField vpf;
-		try {
-			vpf = levelParser
-					.getPlayfield(
-							getResourceXMLPath()
-									+ Resources.getString("Level" + index),
-							this);
-			return vpf;
-		} catch (Exception e) {
-			// TODO display error messages like: throw new
-			// Resources.FileNotFoundException;
-			e.printStackTrace();
-			return null;
-		}
-
-	}
+// No longer needed. This should be done inside the actual game using the LevelManger
+// See initLevelManager() in BlahThis of asteroids.	
+//	/**
+//	 * Initializes the level specified by the given int index. The XML file
+//	 * associated with the level is located at a filepath specified by
+//	 * Resources.getString("Level" + index) For example, if the level's XML file
+//	 * is called blueLevel.xml, the stringMap in Resources contains the String
+//	 * -> String entry: "Level" + index -> "blueLevel.xml"
+//	 */
+//	public PlayField initLevel(int index) {
+//		levelParser = new LevelParser();
+//		PlayField vpf;
+//		try {
+//			vpf = levelParser
+//					.getPlayfield(
+//							getResourceXMLPath()
+//									+ Resources.getString("Level" + index),
+//							this);
+//			return vpf;
+//		} catch (Exception e) {
+//			// TODO display error messages like: throw new
+//			// Resources.FileNotFoundException;
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//	}
 
 	/**
 	 * get the GameStateManager for this game
@@ -123,14 +127,15 @@ public class Game extends com.golden.gamedev.Game {
 		return stateManager;
 	}
 
-	/**
-	 * get the LevelParser for this game
-	 * 
-	 * @return LevelParser object
-	 */
-	public LevelParser getLevelParser() {
-		return levelParser;
-	}
+//	No longer needed.
+//	/**
+//	 * get the LevelParser for this game
+//	 * 
+//	 * @return LevelParser object
+//	 */
+//	public LevelParser getLevelParser() {
+//		return levelParser;
+//	}
 
 	//TODO change ambiguity of "." and "/"
 	/**
