@@ -28,6 +28,20 @@ Thanks!
 
 Contact: Jiaqi Yan
 
+*Event System *
+We changed a lot to the event system. We worked with Runtime Level group and the event system has been delegated to Runtime Level class. Since not many people are using our API, so the new change didn't break the code that much.
+
+A little more details for our event class:
+1.EventPool 
+All classes which implement IEventHandler interface need to be added to EventPool by addEvent() method. The checkEvents() method from EventPool should be called in the update() so that all the events will be checked automatically.  
+2.IEventHandler
+actionPerformed() and isTriggered() are the only two methods in the interface. isTriggered() handles the condition that the event is based upon while actionPerformed() handles what happen after the event is fired.
+
+I have updated a new demo which is in vooga.examples.event.demo2 package. It is very different from the previous event system and it is very easy to use. Please check it out if you needs to deal with game event in your own API. Our goal is to reduce your workload. Feel free to give me any suggestion which help us to improve our event system. Thanks.
+
+Contact: Meng Li
+
+
 *Overlay*
 You'll be happy to hear that we, the Overlay team, made relatively few
 changes to our core API this weekend. (If it ain't broke don't fix it,
