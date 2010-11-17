@@ -1,9 +1,11 @@
 package vooga.games.grandius.enemy.common;
 import java.awt.image.BufferedImage;
 
+import com.golden.gamedev.object.Timer;
+
+import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 
-import com.golden.gamedev.object.*;
 
 /**
  * A Zipster is a common Gradius enemy that can fire a simple laser every second if the player 
@@ -25,11 +27,13 @@ public class Zipster extends Enemy {
 	
 	public Zipster(BufferedImage[] images, double x, double y) {
 		super(images, x, y);
+		this.setScore(SCORE_VALUE);
+		this.setCash(CASH_VALUE);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
-		scoreValue = SCORE_VALUE;
-		cashValue = CASH_VALUE;
-		spin = 0;
 		blackHoleProximate = false;
+		spin = 0;
+//		scoreValue = SCORE_VALUE;
+//		cashValue = CASH_VALUE;
 	}
 	
 	@Override
@@ -57,14 +61,15 @@ public class Zipster extends Enemy {
 		return laser;
 	}
 	
-	/**
-	 * Returns the point value of this enemy.
-	 * @return
-	 */
-	public int getScoreValue()
-	{
-		return SCORE_VALUE;
-	}
+	//TODO - This should no longer be needed. getScore()
+//	/**
+//	 * Returns the point value of this enemy.
+//	 * @return
+//	 */
+//	public int getScoreValue()
+//	{
+//		return SCORE_VALUE;
+//	}
 	
 	public double getSpeed() {
 		return ZIPSTER_SPEED;
