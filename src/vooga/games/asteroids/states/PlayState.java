@@ -2,14 +2,18 @@ package vooga.games.asteroids.states;
 
 import java.awt.event.KeyEvent;
 
+
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.core.Sprite;
 import vooga.engine.factory.LevelFactory;
 import vooga.engine.factory.LevelParser;
+
+import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
+
 import vooga.engine.state.GameState;
 import vooga.games.asteroids.collisions.BulletToAsteroidCollision;
 import vooga.games.asteroids.collisions.ShipToAsteroidCollision;
@@ -41,8 +45,8 @@ public class PlayState extends GameState{
 		PlayField levelPlayfield = factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game);
 		addPlayField(levelPlayfield);
 		
-		// TODO how do you get the player sprite out of the playfield
-		//Sprite[] playerShip = levelPlayfield.getGroup("playerShip").getSprites();
+		//TODO how do you get the player sprite out of the playfield
+		Sprite playerShipGroup = (Sprite) levelPlayfield.getGroup("playerShip").getSprites()[0];
 		
 		// initControls(playerShip);
 
