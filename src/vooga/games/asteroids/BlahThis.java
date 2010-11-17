@@ -24,17 +24,25 @@ public class BlahThis extends Game {
 	
 	PlayState playState;
 	PauseGameState pauseState;
+	private LevelManager levelManager;
 	
 	
 	public void initResources() {
 		super.initResources();
-		PlayField levelPlayField = new LevelManager(this).loadFirstLevel(getResourceXMLPath(), this);
-
+		initLevelManager();
+		PlayField levelPlayField = levelManager.loadFirstLevel();
 		playState = new PlayState(this, levelPlayField);
 		pauseState = new PauseGameState(playState);
 		stateManager.addGameState(playState, pauseState);
 	}
 	
+	private void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
+	}
+
 	public void pauseGame() {
 		stateManager.activateOnly(pauseState);		
 	}
