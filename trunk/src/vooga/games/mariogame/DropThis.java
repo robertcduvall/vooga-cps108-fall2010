@@ -1,4 +1,4 @@
-package vooga.games.marioclone;
+package vooga.games.mariocloneold;
 
 import java.awt.Color;
 import java.awt.Dimension;

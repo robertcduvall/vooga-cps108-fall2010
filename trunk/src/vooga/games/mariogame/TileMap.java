@@ -1,4 +1,4 @@
-package vooga.games.marioclone;
+package vooga.games.mariocloneold;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -11,15 +11,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import vooga.engine.player.control.ItemSprite;
 import vooga.engine.resource.Resources;
-import vooga.games.marioclone.items.Coin;
-import vooga.games.marioclone.items.GravityItem;
-import vooga.games.marioclone.tiles.BreakTile;
-import vooga.games.marioclone.tiles.ChangingTile;
-import vooga.games.marioclone.tiles.CoinTile;
-import vooga.games.marioclone.tiles.IndestructibleTile;
-import vooga.games.marioclone.tiles.ItemTile;
-import vooga.games.marioclone.tiles.Tile;
-import vooga.games.marioclone.tiles.Tile.State;
+import vooga.games.mariocloneold.items.Coin;
+import vooga.games.mariocloneold.items.GravityItem;
+import vooga.games.mariocloneold.tiles.BreakTile;
+import vooga.games.mariocloneold.tiles.ChangingTile;
+import vooga.games.mariocloneold.tiles.CoinTile;
+import vooga.games.mariocloneold.tiles.IndestructibleTile;
+import vooga.games.mariocloneold.tiles.ItemTile;
+import vooga.games.mariocloneold.tiles.Tile;
+import vooga.games.mariocloneold.tiles.Tile.State;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
