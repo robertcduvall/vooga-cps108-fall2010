@@ -45,6 +45,7 @@ public class Game extends com.golden.gamedev.Game {
 		// new and improved resources.xml file format by following the example
 		// code in
 		// vooga.examples.resource.resourcesxmlexample
+		stateManager=new GameStateManager();
 		Resources.initialize(this, getResourceXMLPath());
 		try {
 			Resources.loadResourcesXMLFile("resources.xml");

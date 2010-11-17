@@ -33,7 +33,7 @@ public class GameStateManager {
 	 * @param gamestate
 	 */
 	public void addGameState(GameState gamestate) {
-		currentGameStates.add(0, gamestate);
+		addGameState(gamestate, 0);
 	}
 
 	/**
@@ -42,6 +42,7 @@ public class GameStateManager {
 	 * @param nextStateDown represents the GameState one layer below the new GameState
 	 */
 	public void addGameState(GameState gamestate, int index){
+		gamestate.initialize();
 		currentGameStates.add( index, gamestate );
 	}
 	
@@ -64,8 +65,7 @@ public class GameStateManager {
 
 	public void addGameState(GameState... states) {
 		for (GameState gamestate : states) {
-			gamestate.initialize();
-			currentGameStates.add(gamestate);
+			addGameState(gamestate);
 		}
 		currentGameStates.get(0).activate();
 	}
