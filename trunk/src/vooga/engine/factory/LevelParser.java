@@ -336,8 +336,10 @@ public class LevelParser implements LevelFactory{
 				NodeList spriteGroupList = collisionGroupElement.getElementsByTagName("SpriteGroup");
 				String spriteGroupName0 = ((Element) spriteGroupList.item(0)).getAttribute("name");
 				String spriteGroupName1 = ((Element) spriteGroupList.item(1)).getAttribute("name");
-				myVoogaPlayField.addCollisionGroup(spriteGroupMap.get(spriteGroupName0), 
-						spriteGroupMap.get(spriteGroupName1),
+				System.out.println(myVoogaPlayField.getGroup(spriteGroupName0));
+				System.out.println(myVoogaPlayField.getGroup(spriteGroupName1));
+				myVoogaPlayField.addCollisionGroup(myVoogaPlayField.getGroup(spriteGroupName0), 
+						myVoogaPlayField.getGroup(spriteGroupName1),
 						((CollisionManager)createCollisionSubclass(subclassName)));
 			}
 		}
