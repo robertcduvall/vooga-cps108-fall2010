@@ -7,8 +7,8 @@ public class Ship extends Sprite {
 	private static int ROTATION_AMOUNT;
 	private static int VELOCITY_REDUCTION;
 	
-	private int myVelocity;
-	private int myOrientation;
+	private double myVelocity;
+	private double myOrientation;
 	
 	public Ship()
 	{
@@ -25,7 +25,7 @@ public class Ship extends Sprite {
 	}
 	
 	public void thrust(){
-	
+		this.setMovement(myVelocity, myOrientation);
 	}
 	
 	public void fire(){
