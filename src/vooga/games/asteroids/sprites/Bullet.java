@@ -1,4 +1,4 @@
-package vooga.games.asteroids;
+package vooga.games.asteroids.sprites;
 
 import vooga.engine.core.Sprite;
 import vooga.engine.overlay.Stat;
