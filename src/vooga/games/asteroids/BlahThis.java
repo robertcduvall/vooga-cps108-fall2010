@@ -14,7 +14,7 @@ public class BlahThis extends Game {
 	/**
 	 * 
 	 */
-	public BlahThis() {
+	public void initResources() {
 		PlayGameState playGameState = new PlayGameState();
 		playGameState.initialize();
 		stateManager.addGameState(playGameState);
