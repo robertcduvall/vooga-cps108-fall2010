@@ -29,9 +29,9 @@ public class ReacherEye extends BossPart{
 	public ReacherEye(BufferedImage[] images, int[] breakpoints, double x,
 			double y, int health, int shields) {
 		super(images, breakpoints, x, y, health, shields);
+		beamTimer = new Timer(REACHER_EYE_BEAM_RELOAD_TIME);
 		this.setScore(SCORE_VALUE);
 		this.setCash(CASH_VALUE);
-		beamTimer = new Timer(REACHER_EYE_BEAM_RELOAD_TIME);
 	}
 	
 	@Override
