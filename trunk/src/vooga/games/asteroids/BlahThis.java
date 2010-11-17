@@ -6,7 +6,7 @@ package vooga.games.asteroids;
 import vooga.engine.core.Game;
 
 /**
- * @author student
+ * @author CPS108 Fall10
  *
  */
 public class BlahThis extends Game {
@@ -24,8 +24,7 @@ public class BlahThis extends Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		launch(new BlahThis());
 	}
 
 }
