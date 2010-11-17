@@ -1,5 +1,7 @@
 package vooga.games.towerdefense;
 
+
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -14,10 +16,7 @@ import com.golden.gamedev.object.background.*;
 import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
-import vooga.engine.event.SingletonEventManager;
 import vooga.engine.overlay.*;
-import vooga.engine.player.control.*;
-import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.*;
 import vooga.games.towerdefense.tower.*;
 
@@ -29,7 +28,8 @@ import vooga.games.towerdefense.tower.*;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  * 
  */
-public class OldDropThisForReference extends Game {
+public class OldDropThisForReference extends Game {}
+	/*
 
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
@@ -337,3 +337,4 @@ public class OldDropThisForReference extends Game {
 	}
 
 }
+*/
