@@ -33,7 +33,6 @@ public class DropThis extends Game {
 		
 		//TODO: How do we format the config.properties file for width, height, etc?
 		
-		game.initResources();
 		game.launch(game);
 	}
 	
@@ -41,6 +40,7 @@ public class DropThis extends Game {
 
 	
 	public void initResources() {
+		super.initResources();
 
 		//TODO: Figure out where to put this
 //		GameFont menuFont = fontManager.getFont(getImages(
@@ -48,6 +48,10 @@ public class DropThis extends Game {
 //				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 
 
+	}
+	
+	public void initGameStates(){
+		super.initGameStates();
 	}
 
 	

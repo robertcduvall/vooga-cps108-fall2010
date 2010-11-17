@@ -1,3 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<Resources>
+	<Images>
+		<Image name="Bowser" path="bowser.jpg"/>
+		<Image name="Break Tile" path="BreakTile.png"/>		
+		<Image name="Dirt Tile" path="DirtTile.png"/>
+		<Image name="Font" path="font.png"/>
+		<Image name="Grass Tile" path="GrassTile.png"/>
+		<Image name="Gravity Item" path="GravityItem.png"/>
+		<Image name="Space BG" path="spacebg.jpg"/>
+		<Image name="Item Tile 1" path="ItemTile1.jpg"/>
+		<Image name="Item Tile 2" path="ItemTile2.jpg"/>
+		<Image name="Ground Tile" path="ITile.jpg"/>
+		<Image name="Level Complete BG" path="levelfinished.jpg"/>
+		<Image name="Mario and Luigi BG" path="mario_and_luigi.jpg"/>
+		<Image name="Mario Menu BG" path="mariomenu.jpg"/>
+		<Image name="Coin" path="super_mario_coin.png"/>
+		<Image name="Pause BG" path="toad_wallpaper.jpg"/>				
+	</Images>
+	
+	<Animations>
+		<Animation name="Mario">
+			<Image path="mario1l.png" />
+			<Image path="mario1r.png" />
+			<Image path="mario2l.png" />
+			<Image path="mario2r.png" />
+			<Image path="mario3l.png" />
+			<Image path="mario3r.png" />
+			<Image path="mario4l.png" />
+			<Image path="mario4r.png" />			
+		</Animation>
+	</Animations>
+	
+	<Sounds>
+		<Sound name="Level Music" path="mario1.mid" />
+		<Sound name="Level Finish" path="SMAS_SMB_Course_Clear.mid" />
+		<Sound name="Underground" path="smas07.mid" />
+		<Sound name="Underwater" path="smas39.mid" />
+		<Sound name="Game Over 1" path="smas44.mid" />
+		<Sound name="Game Over 2" path="smb_gameover.wav" />
+		<Sound name="Mario Dies" path="smb_mariodie.wav" />
+	</Sounds>
+	
+</Resources>
