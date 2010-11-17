@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import vooga.engine.control.*;
 import vooga.engine.core.*;
 import vooga.engine.factory.*;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.*;
 
 public class PlayState extends GameState{
@@ -24,7 +25,7 @@ public class PlayState extends GameState{
 	
 	private void initLevel(){
 		LevelFactory factory = new LevelParser();
-		addPlayField(factory.getPlayfield("INSERTFILEPATHERE", game));
+		addPlayField(factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game));
 	}
 	
 	private void initControls(){
