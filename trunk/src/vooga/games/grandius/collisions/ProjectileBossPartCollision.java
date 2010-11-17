@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.enemies.boss.reacher.ReacherEye;
-import vooga.games.grandius.enemies.common.Enemy;
+import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
+import vooga.games.grandius.enemy.common.Enemy;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -32,6 +32,6 @@ public class ProjectileBossPartCollision extends BasicCollision {
 			grandius.getPlayfield().add(explosion);
 		}
 		grandius.updateScoreOnCollision(((Enemy)bosspart).getScore());
-		grandius.updateCashOnCollision(((Enemy)bosspart).getCashValue());
+		grandius.updateCashOnCollision(((Enemy)bosspart).getCash());
 	}
 }
