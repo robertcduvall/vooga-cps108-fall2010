@@ -42,6 +42,7 @@ public class PlayState extends GameState {
 		
 	}
 
+	//TODO create PlayField for levels using Game.initLevel()
 	/**
 	 * Creates the different SpriteGroups and registers them to the playfield. Also adds the necessary SpriteGroups to the
 	 * spriteGroupSpeedMap.
