@@ -2,7 +2,7 @@ package vooga.games.towerdefense.tower;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.event.EventManager;
+
 import vooga.engine.resource.Resources;
 
 /**
