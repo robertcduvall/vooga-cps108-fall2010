@@ -96,6 +96,12 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/grandius/resources/levels" />
 		<String name="levelNamesFile" value="levelNames.txt" />
 		<String name="resourcesPath" value="src/vooga/games/grandius/resources" />
+		<String name="Level1" value="grandiusLevel1.xml" />
+		<String name="Invincibility" value="superman" />
+		<String name="ExtraPoints" value="highscore" />
+		<String name="ExtraCash" value="showmethemoney" />
+		<String name="SkipLevel" value="getmeouttahere" />
+		<String name="ActivateMissile" value="missiletime" />
 	</Strings>
 
 	<Integers>
@@ -109,6 +115,11 @@
 		<Integer name="levelCompleteY" value="150" />
 		<Integer name="cometX" value="10000" />
 		<Integer name="cometY" value="480" />
+		<Integer name="NumComents" value="500" />
+		<Integer name="LastLevel" value="3" />
+		<Integer name="PlayerInitialX" value="15" />
+		<Integer name="PlayerInitialY" value="200" />
+		<Integer name="InitialPlayerLives" value="3" />
 	</Integers>
 
 	<Doubles>
