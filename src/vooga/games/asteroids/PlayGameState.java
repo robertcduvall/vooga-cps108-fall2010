@@ -8,7 +8,7 @@ public class PlayGameState extends GameState {
 	public void initialize() {
 		
 //		we should get level' playfield here!
-		add(playfield);
+		addPlayField(playfield);
 		
 	}
 
