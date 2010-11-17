@@ -8,17 +8,19 @@
 			</RegularSprite>
 		</SpriteGroup>
 		
+		<SpriteGroup name="shotGroup">
+			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" q="0">
+				<Visual name="Shot"/>
+			</RegularSprite>
+		</SpriteGroup>
+		
 		<SpriteGroup name="asteroidGroup">
 			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="20">
 				<Visual name="Asteroid"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
 		
-		<SpriteGroup name="shotGroup">
-			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" q="0">
-				<Visual name="Shot"/>
-			</RegularSprite>
-		</SpriteGroup>
+
 	</SpriteGroups>
 
 	<CollisionGroups>
@@ -30,8 +32,7 @@
 		<CollisionGroup subclass="vooga.games.asteroids.collisions.BulletToAsteroidCollision">
 			<SpriteGroup name="shotGroup"></SpriteGroup>
 			<SpriteGroup name="asteroidGroup"></SpriteGroup>
-		</CollisionGroup>
-		
+		</CollisionGroup>		
 	</CollisionGroups>
 	
 	<Background>
@@ -39,6 +40,7 @@
 	</Background>
 
 	<Music>
+		
 	</Music>
 
 </Level>
