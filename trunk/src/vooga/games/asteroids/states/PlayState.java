@@ -19,17 +19,23 @@ public class PlayState extends GameState{
 	@Override
 	public void initialize() {
 		initLevel();
-		initControls();
+		
 		
 	}
 	
 	private void initLevel(){
 		LevelFactory factory = new LevelParser();
-		addPlayField(factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game));
+		PlayField levelPlayfield = factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game);
+		addPlayField(levelPlayfield);
+		
+		// TODO how do you get the player sprite out of the playfield
+		//Sprite[] playerShip = levelPlayfield.getGroup("playerShip").getSprites();
+		
+		// initControls(playerShip);
 	}
 	
-	private void initControls(){
-		Control playerControl = new KeyboardControl();
+	private void initControls(Sprite player){
+		Control playerControl = new KeyboardControl(player, game);
 		playerControl.addInput(KeyEvent.VK_LEFT, "rotateLeft", "Ship", null);
 		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "Ship", null);
 		playerControl.addInput(KeyEvent.VK_UP, "thrust", "Ship", null);
