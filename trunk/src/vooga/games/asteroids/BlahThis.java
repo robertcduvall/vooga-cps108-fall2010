@@ -19,6 +19,8 @@ public class BlahThis extends Game {
 		PlayState playState = new PlayState(this);
 		playState.initialize();
 		stateManager.addGameState(playState);
+		
+		
 	}
 
 	/**
