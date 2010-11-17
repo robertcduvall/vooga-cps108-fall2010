@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="Asteroids">
+
+	<SpriteGroups>
+		<SpriteGroup name="playerShip">
+			<RegularSprite name="playerSprite" x="400" y="300" vx="0" vy="0" q="1">
+				<Visual name="Player"/>
+			</RegularSprite>
+		</SpriteGroup>
+		
+		<SpriteGroup name="asteroidGroup">
+			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="20">
+				<Visual name="Asteroid"/>
+			</SpawnedSprite> 
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.asteroids.collisions.PlayerAsteroidCollision">
+			<SpriteGroup name="playerShip"></SpriteGroup>
+			<SpriteGroup name="asteroidGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+	
+	<Background>
+		<Visual name = "mainBG" />
+	</Background>
+
+	<Music>
+	</Music>
+
+</Level>
