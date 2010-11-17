@@ -22,8 +22,10 @@ public class Boomer extends Enemy {
 		super(images, x, y);
 		this.color = BOOMER_BLUE;
 		this.setHorizontalSpeed(-0.04);
-		scoreValue = SCORE_VALUE;
-		cashValue = CASH_VALUE;
+		this.setScore(SCORE_VALUE);
+		this.setCash(CASH_VALUE);
+//		scoreValue = SCORE_VALUE;
+//		cashValue = CASH_VALUE;
 	}
 	
 	public int getColor() {
