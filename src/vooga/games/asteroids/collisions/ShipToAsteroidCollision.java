@@ -1,4 +1,4 @@
-package vooga.games.asteroids;
+package vooga.games.asteroids.collisions;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
@@ -11,6 +11,8 @@ public class ShipToAsteroidCollision extends AdvanceCollisionGroup {
 	
 	@Override
 	public void collided(Sprite ship, Sprite asteroid) {
+		asteroid.setActive(false);
+		//TODO:reduce life
 		
 	}
 

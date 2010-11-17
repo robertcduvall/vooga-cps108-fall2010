@@ -1,4 +1,4 @@
-package vooga.games.asteroids;
+package vooga.games.asteroids.collisions;
 
 
 import com.golden.gamedev.object.Sprite;
@@ -16,6 +16,7 @@ public class BulletToAsteroidCollision extends AdvanceCollisionGroup{
 		asteroid.setActive(false);
 		//TODO:play sound
 		//TODO:add score
+		//TODO: create smaller asteroids
 	}
 
 }
