@@ -212,7 +212,7 @@ public class LevelParser implements LevelFactory{
 		double vx = Double.parseDouble(spriteElement.getAttribute("vx"));
 		double vy = Double.parseDouble(spriteElement.getAttribute("vy"));
 
-		int quantity = Integer.parseInt(spriteElement.getAttribute("q"));
+		int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
 		for(int j = 0; j < quantity; j++) {
 			newSprite.setLocation(x, y);
 			newSprite.setHorizontalSpeed(vx);
