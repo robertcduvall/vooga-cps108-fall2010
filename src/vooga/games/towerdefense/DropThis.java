@@ -177,13 +177,13 @@ public class DropThis extends Game {
 //		OverlayCreator.setGame(this);
 //		OverlayTracker track = OverlayCreator
 //				.createOverlays("src/vooga/games/towerdefense/resources/overlays.xml");
-//		overlayGroup = track.getOverlayGroups().get(0);
-//		gameOverGroup = track.getOverlayGroups().get(1);
+//		overlayGroup = track.getOverlayGroups("play");
+//		gameOverGroup = track.getOverlayGroup("gameOver");
 //		gameOverGroup.add(0, new Sprite(ImageUtil.resize(Resources
 //				.getImage("gameOver"), gameWidth, gameHeight)));
-//		selfEsteem = track.getStats().get(0);
-//		score = track.getStats().get(1);
-//		money = track.getStats().get(2);
+//		selfEsteem = track.getStat("selfEsteem" , new Integer(0));
+//		score = track.getStat("score" , new Integer(0));
+//		money = track.getStat("money" , new Integer(0));
 //
 //		play.addGroup(overlayGroup);
 //		gameOver.addGroup(gameOverGroup);
