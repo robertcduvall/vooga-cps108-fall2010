@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="Asteroids">
+<Level name="Asteroids" xmloverlaypath="src/vooga/games/asteroids/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="playerShip">
-			<RegularSprite name="playerSprite" x="400" y="300" vx="0" vy="0" q="1">
+			<RegularSprite name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
 				<Visual name="Player"/>
 			</RegularSprite>
 		</SpriteGroup>
 		
 		<SpriteGroup name="shotGroup">
-			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" q="0">
+			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" quantity="0">
 				<Visual name="Shot"/>
 			</RegularSprite>
 		</SpriteGroup>
