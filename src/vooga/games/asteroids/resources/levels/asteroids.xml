@@ -19,8 +19,6 @@
 				<Visual name="Asteroid"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
-		
-
 	</SpriteGroups>
 
 	<CollisionGroups>
