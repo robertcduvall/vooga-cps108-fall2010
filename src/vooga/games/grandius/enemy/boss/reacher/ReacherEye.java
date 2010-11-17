@@ -2,10 +2,10 @@ package vooga.games.grandius.enemy.boss.reacher;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.BossPart;
 
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 /**
@@ -29,6 +29,8 @@ public class ReacherEye extends BossPart{
 	public ReacherEye(BufferedImage[] images, int[] breakpoints, double x,
 			double y, int health, int shields) {
 		super(images, breakpoints, x, y, health, shields);
+		this.setScore(SCORE_VALUE);
+		this.setCash(CASH_VALUE);
 		beamTimer = new Timer(REACHER_EYE_BEAM_RELOAD_TIME);
 	}
 	
@@ -73,41 +75,47 @@ public class ReacherEye extends BossPart{
 	 * @return If the ReacherEye is at health=0 (it is dead).
 	 */
 	public boolean deplete(int depleteAmount) {
-		if (shields <= 0) {
-			this.health -= depleteAmount;
-			if (health <= 0) {
+		if (getShields() <= 0) {
+			this.setHealth(getHealth()- depleteAmount);
+			//this.health -= depleteAmount;
+			if (getHealth() <= 0) {
 				return true;
 				
-			} else if (health >= breakpoints[0]) {
-				this.setImages(new BufferedImage[]{images[1]});
-			} else if (health >= breakpoints[1]) {
-				this.setImages(new BufferedImage[]{images[2]});
+			} else if (getHealth() >= breakpoints[0]) {
+//				this.setImages(new BufferedImage[]{images[1]});
+				this.setImage(images[1]);
+			} else if (getHealth() >= breakpoints[1]) {
+//				this.setImages(new BufferedImage[]{images[2]});
+				this.setImage(images[2]);
 			} else {
-				this.setImages(new BufferedImage[]{images[3]});
+//				this.setImages(new BufferedImage[]{images[3]});
+				this.setImage(images[3]);
 			} 
 		} else {
-			this.shields -= depleteAmount;
+//			this.shields -= depleteAmount;
+			this.setShields(getShields()- depleteAmount);
 		}
 		return false;
 	}
 	
-	/**
-	 * Returns the point value of this enemy.
-	 * @return
-	 */
-	public int getScoreValue()
-	{
-		return SCORE_VALUE;
-	}
-	
-	/**
-	 * Returns the cash value of this enemy.
-	 * @return
-	 */
-	public int getCashValue()
-	{
-		return CASH_VALUE;
-	}
+	//TODO - these methods no longer needed. Use getScore()& getCash()from superclass.
+//	/**
+//	 * Returns the point value of this enemy.
+//	 * @return
+//	 */
+//	public int getScoreValue()
+//	{
+//		return SCORE_VALUE;
+//	}
+//	
+//	/**
+//	 * Returns the cash value of this enemy.
+//	 * @return
+//	 */
+//	public int getCashValue()
+//	{
+//		return CASH_VALUE;
+//	}
 	
 	/**
 	 * Returns the speed of the ReacherEye.
