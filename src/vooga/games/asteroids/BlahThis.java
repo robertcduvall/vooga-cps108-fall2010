@@ -28,7 +28,7 @@ public class BlahThis extends Game {
 	
 	public void initResources() {
 		super.initResources();
-		PlayField levelPlayField = new LevelManager(this).loadFirstLevel();
+		PlayField levelPlayField = new LevelManager(this).loadFirstLevel(getResourceXMLPath(), this);
 
 		playState = new PlayState(this, levelPlayField);
 		pauseState = new PauseGameState(playState);
