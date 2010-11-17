@@ -46,15 +46,16 @@ public class GameStateManager {
 		currentGameStates.add( index, gamestate );
 	}
 	
-	/**
-	 * Same as addGameState(GameState, int), but takes a target GameState instead of a target index.
-	 * 
-	 * @param gamestate
-	 * @param nextstate
-	 */
-	public void addGameState(GameState gamestate, GameState nextstate){
-		addGameState(gamestate, currentGameStates.indexOf(nextstate));
-	}
+//	/**
+//	 * Same as addGameState(GameState, int), but takes a target GameState instead of a target index.
+//	 * 
+//	 * @param gamestate
+//	 * @param nextstate
+//	 */
+//	//TODO
+//	public void addGameState(GameState gamestate, GameState nextstate){
+//		addGameState(gamestate, currentGameStates.indexOf(nextstate));
+//	}
 
 	/**
 	* Add game state(s) to the game state manager. Assumes the first game state
