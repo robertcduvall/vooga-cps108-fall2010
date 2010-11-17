@@ -25,6 +25,12 @@ public class PlayState extends GameState{
 	
 	private void initLevel(){
 		LevelFactory factory = new LevelParser();
+PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
+		
+		playField.addCollisionGroup(bulletGroup, asteroidGroup, new BulletToAsteroidCollision());
+		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
+		
+		addPlayField(playField);
 		PlayField levelPlayfield = factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game);
 		addPlayField(levelPlayfield);
 		
@@ -32,6 +38,7 @@ public class PlayState extends GameState{
 		//Sprite[] playerShip = levelPlayfield.getGroup("playerShip").getSprites();
 		
 		// initControls(playerShip);
+
 	}
 	
 	private void initControls(Sprite player){
