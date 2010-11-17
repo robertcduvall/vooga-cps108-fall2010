@@ -4,194 +4,168 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.resource.Resources;
 
 /**
- * This class takes care of different tasks like reading level names from a
- * file, making a collection of these level files and loading next level etc. It
- * loads the levels when they are needed. However, if all the levels need to be
- * loaded at the beginning of the game , then a call to
- * <code> getAllPlayFields()</code> method would return all the level Playfields
- * at once, in a list according to the order in which they need to be loaded.
+ * This class takes care of different tasks like reading level names from a file, 
+ * making a collection of these level files and loading next level etc. It loads
+ * the levels when they are needed. However, if all the levels need to be loaded
+ * at the beginning of the game , then a call to <code> getAllPlayFields()</code>
+ * method would return all the level Playfields at once, in a list according to the 
+ * order in which they need to be loaded.
  * 
  * An example of how this could be used in a game is as follows:
- * 
  * <pre>
  * <code>
- * 	public void initResources() { 
- * 		LevelManager levelManager = new LevelManager(this);
- * 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
- * 		String levelNamesFile = Resources.getString("levelNamesFile");
- * 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
- * 	}
+	public void initResources() { 
+		LevelManager levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+	}
  * </code>
  * </pre>
- * 
- * To load levels one by one, i.e., as they are needed, the following code can
- * be used:
- * 
+ * To load levels one by one, i.e., as they are needed, the following code can be used:
  * <pre>
  * <code>	
- * 	public void update(long elapsedTime){	
- * 		if(levelcomplete condition){
- * 			playfield.clearPlayField();
- * 			playfield=levelManager.loadNextLevel();
- * 		}
- * 	}	
+	public void update(long elapsedTime){	
+		if(levelcomplete condition){
+			playfield.clearPlayField();
+			playfield=levelManager.loadNextLevel();
+		}
+	}	
  * </code>
  * </pre>
  * 
- * To get all the playfields at the beginning of the game, this method call
- * would be useful:
- * 
+ * To get all the playfields at the beginning of the game, this method call would be useful:
  * <pre>
  * <code>
  * 	levelManager.getAllPlayFields();
  * </code>
  * </pre>
- * 
  * @author Bhawana
- * 
+ *
  */
 public class LevelManager {
-	private List<String> myLevelNames;
+	private Map<String,String> myLevelMap;
 	private List<PlayField> myPlayFields;
 	private int myCurrentLevel;
 	private static final String COMMENT = "#";
 	private static final String EMPTY_STRING = "";
 	private Game game;
+	private LevelParser myParser;
 
-	public LevelManager(Game currentgame) {
+
+	public LevelManager(Game currentgame){
 		this(currentgame, new LevelParser());
 	}
-
-	public LevelManager(Game currentgame, LevelParser parser) {
+	
+//TODO - comment out initlevel in core.gmae
+	
+	public LevelManager(Game currentgame, LevelParser parser){
 		game = currentgame;
-		myCurrentLevel = -1;
-		myLevelNames = new ArrayList<String>();
+		myParser = parser;
+		myCurrentLevel = 0;
+		myLevelMap = new HashMap<String,String>();
 		myPlayFields = new ArrayList<PlayField>();
 	}
 
-	public PlayField loadFirstLevel(String resourceXMLPath, Game currentGame) {
-		// TODO: return a valid playfield
-		// return new PlayField();
-		LevelParser levelParser = new LevelParser();
-		PlayField vpf;
-		try {
-			vpf = levelParser.getPlayfield(
-					resourceXMLPath + Resources.getString("Level1"),
-					currentGame);
-			return vpf;
-		} catch (Exception e) {
-			// TODO display error messages like: throw new
-			// Resources.FileNotFoundException;
-			e.printStackTrace();
-			return null;
-		}
+	
+	public PlayField loadFirstLevel ()
+	{
+		myCurrentLevel++;
+		return myParser.getPlayfield(myLevelMap.get("Level1"),game);
 	}
-
+	
 	/**
 	 * This method reads in from a File containing the names of different levels
-	 * and returns a Collection of strings, myLevelNames, which represents the
-	 * names of the different level files in the order in which they need to be
-	 * loaded.
-	 * 
-	 * @param levelPath
-	 *            - directory path where all level files are stored
-	 * @param levelNamesFile
-	 *            - name of the File which specifies the names of the levels in
-	 *            the order in which they are to be loaded
+	 * and returns a Collection of strings, myLevelNames, which represents the names 
+	 * of the different level files in the order in which they need to be loaded.
+	 * @param levelPath - directory path where all level files are stored
+	 * @param levelNamesFile - name of the File which specifies the names of the 
+	 * levels in the order in which they are to be loaded
 	 * @return a Collection of strings representing level files names
 	 */
-	public Collection<String> makeLevels(String levelPath, String levelNamesFile) {
+	
+	public Map<String,String> makeLevels(String levelPath,String levelNamesFile){
 		try {
-			Scanner scanner = new Scanner(new File(levelPath + "/"
-					+ levelNamesFile));
-			while (scanner.hasNextLine()) {
+			int levelIndex = 0;
+			Scanner scanner = new Scanner(new File(levelPath+"/"+levelNamesFile));
+			while(scanner.hasNextLine()){
 				String levelName = scanner.nextLine();
-				if (levelName.equals(EMPTY_STRING)
-						|| levelName.startsWith(COMMENT)) {
+				if (levelName.equals(EMPTY_STRING) || levelName.startsWith(COMMENT)){
 					continue;
-				} else {
-					myLevelNames.add(levelPath + "/" + levelName);
+				}
+				else{
+					levelIndex++;
+					myLevelMap.put("Level"+levelIndex, levelPath+"/"+levelName);
 				}
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("LevelNames File not found!");
 		}
-		return myLevelNames;
+		return myLevelMap;
 	}
-
+	
+	
 	/**
-	 * Gets the playfield for the current level. This can be done by making a
-	 * call to LevelFactory's getPlayField method.
-	 * 
-	 * @param currentLevelFileName
-	 * @return Playfield for the current level
+	 * This method is used to get a list of all the playfields for the current game. 
+	 * Every playfield is associated with one level. The returned list contains the
+	 * playfields in the order in which they are to be loaded. A call to this method 
+	 * would be useful in cases where all the playfields / levels need to be loaded 
+	 * at the beginning of the game.
+	 * @return collection of Playfields listed in the order in which they are to be loaded
 	 */
-	public PlayField getCurrentPlayField(String filepath) {
-		return game.getLevelParser().getPlayfield(filepath, game);
-	}
-
-	/**
-	 * This method is used to get a list of all the playfields for the current
-	 * game. Every playfield is associated with one level. The returned list
-	 * contains the playfields in the order in which they are to be loaded. A
-	 * call to this method would be useful in cases where all the playfields /
-	 * levels need to be loaded at the beginning of the game.
-	 * 
-	 * @return collection of Playfields listed in the order in which they are to
-	 *         be loaded
-	 */
-	public Collection<PlayField> getAllPlayFields() {
-		for (String levelFile : myLevelNames) {
-			myPlayFields.add(game.getLevelParser()
-					.getPlayfield(levelFile, game));
+	public Collection<PlayField> getAllPlayFields(){
+		for(int i=1 ; i<=myLevelMap.size() ; i++){
+			myPlayFields.add(myParser.getPlayfield(myLevelMap.get("Level"+i),game));
 		}
 		return myPlayFields;
 	}
-
+	
+	
 	/**
-	 * Loads the next level. Playfield should be cleared before making a call to
-	 * this method, so as to remove the game objects from previous level.
+	 * Loads the next level. Playfield should be cleared before making a call
+	 * to this method, so as to remove the game objects from previous level.
 	 */
 	public PlayField loadNextLevel() {
-		myCurrentLevel += 1;
-		return getCurrentPlayField(myLevelNames.get(myCurrentLevel));
+		myCurrentLevel++;
+		return myParser.getPlayfield(myLevelMap.get("Level"+myCurrentLevel),game);
 	}
-
+	
+	
 	/**
 	 * Skips to and loads the specified level.
-	 * 
 	 * @param levelIndex
 	 * @return Playfield for the specified level
 	 */
 	public PlayField skipToLevel(int levelIndex) {
-		myCurrentLevel = levelIndex;
-		return getCurrentPlayField(myLevelNames.get(myCurrentLevel));
+		myCurrentLevel = levelIndex - 1; 
+		return loadNextLevel();
 	}
-
+	
+	
 	/**
 	 * Returns an integer representing the curremt level number.
-	 * 
 	 * @return myCurrentLevel - current level number
 	 */
 	public int getCurrentLevel() {
 		return myCurrentLevel;
 	}
-
+	
+	
 	/**
 	 * Returns the name of the current level.
-	 * 
 	 * @return Name of the level file for the current level
 	 */
-	public String getCurrentLevelName() {
-		return myLevelNames.get(myCurrentLevel);
+	public String getCurrentLevelName(){
+		return myLevelMap.get("Level" + myCurrentLevel);
 	}
-
+	
 }
