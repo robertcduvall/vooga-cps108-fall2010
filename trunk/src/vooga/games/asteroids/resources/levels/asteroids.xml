@@ -15,7 +15,7 @@
 		</SpriteGroup>
 		
 		<SpriteGroup name="asteroidGroup">
-			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="20">
+			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="5">
 				<Visual name="Asteroid"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
