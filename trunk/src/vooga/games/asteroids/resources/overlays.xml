@@ -1,0 +1,13 @@
+<Overlay>
+
+<Stat type="Intger" value="0" name="score"></Stat>
+<Stat type="Intger" value="4" name="lives"></Stat>
+
+<OverlayGroup name="only">
+<OverlayStat stat="score" label="SCORE: " fontName="gameFontgreen" xLoc="0" yLoc="0"></OverlayStat>
+<OverlayIcon stat="lives" label="LIVES: " fontName="gameFontred" xLoc="100" yLoc="0" image="shipImage" width="10" height="10"></OverlayIcon>
+</OverlayGroup>
+
+
+
+</Overlay>
