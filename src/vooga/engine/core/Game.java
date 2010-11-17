@@ -12,20 +12,15 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
 /**
- * Extension of the Golden T game to automate some Vooga API functionality.
- * <br />
- * initResources() automatically
- * loads all resources associated with the resources.xml file in your game's 
- * resources package.
- * <br />
+ * Extension of the Golden T game to automate some Vooga API functionality. <br />
+ * initResources() automatically loads all resources associated with the
+ * resources.xml file in your game's resources package. <br />
  * It also now has a built in GameStateManager which is automatically
  * initialized in initResources. The initialization behavior can be changed by
  * overriding initGameStates. The update and render methods call update and
- * render for this GameStateManager.
- * <br />
+ * render for this GameStateManager. <br />
  * The game also automatically loads the initial level using the Level XML
- * parser
- * <br />
+ * parser <br />
  * All subclasses should override initResources() and implement a main method
  * that calls launch(). The initResources() method should first call
  * super.initResources() and then initialize all the game states
@@ -148,6 +143,16 @@ public class Game extends com.golden.gamedev.Game {
 	}
 
 	/**
+	 * Get the path for the config.properties to set up prelaunch
+	 * configurations for the game
+	 * 
+	 * @return path for config.properties
+	 */
+	private String getConfigPath() {
+		return getClass().getPackage().getName() + ".resources.config";
+	}
+
+	/**
 	 * Launches the game using default or given settings. The game width,
 	 * height, and fullscreen option are stored in a file called
 	 * config.properties under the resources package. These values are extracted
@@ -163,9 +168,8 @@ public class Game extends com.golden.gamedev.Game {
 		int height = DEFAULT_HEIGHT;
 		boolean fullScreen = DEFAULT_FULLSCREEN;
 
-		String bundlePath = g.getResourcePath() + "config.properties";
 		try {
-			ResourceBundle rb = Resources.loadPreLaunchData(bundlePath);
+			ResourceBundle rb = Resources.loadPreLaunchData(g.getConfigPath());
 			width = Integer.parseInt(rb.getString("GAME_WIDTH"));
 			height = Integer.parseInt(rb.getString("GAME_HEIGHT"));
 			fullScreen = (rb.getString("FULLSCREEN").equals("true")) ? true
