@@ -23,7 +23,7 @@ public class BlahThis extends Game {
 	
 	public void initResources() {
 	
-		//dont change this assholes
+		//dont change this you cant initialize on construction
 		playState = new PlayState(this);
 		playState.initialize();
 		
