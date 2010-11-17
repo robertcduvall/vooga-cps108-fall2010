@@ -13,6 +13,12 @@
 				<Visual name="Asteroid"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
+		
+		<SpriteGroup name="shotGroup">
+			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" q="0">
+				<Visual name="Shot"/>
+			</RegularSprite>
+		</SpriteGroup>
 	</SpriteGroups>
 
 	<CollisionGroups>
