@@ -4,12 +4,12 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.state.GameState;
 
-public class JumperGameState extends GameState {
+public class PlayGameState extends GameState {
 	private int gameStateType;
 
 	
 
-	public JumperGameState(SpriteGroup sg, int stateType){
+	public PlayGameState(SpriteGroup sg, int stateType){
 		super(sg);
 		gameStateType = stateType;	
 		System.out.println("cons.. " +gameStateType);
