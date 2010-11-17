@@ -3,6 +3,7 @@ package vooga.games.mariogame;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
+import vooga.engine.state.GameState;
 
 
 import com.golden.gamedev.GameLoader;
@@ -19,12 +20,14 @@ import com.golden.gamedev.GameLoader;
  */
 
 public class DropThis extends Game {
-
+	
+	public GameEndState myEndState;
+	
 	public static void main(String[] args) throws IOException {
 		GameLoader gl = new GameLoader();
 		DropThis game = new DropThis();
 		
-		//TODO: 		// Game teams should now convert their old imagelist.txt, soundlist.txt,
+		//TODO:  Game teams should now convert their old imagelist.txt, soundlist.txt,
 		// etc. files into the
 		// new and improved resources.xml file format by following the example
 		// code in
@@ -42,16 +45,12 @@ public class DropThis extends Game {
 	public void initResources() {
 		super.initResources();
 
-		//TODO: Figure out where to put this
-//		GameFont menuFont = fontManager.getFont(getImages(
-//				"resources/images/font.png", 20, 3),
-//				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
-
-
 	}
+	
 	
 	public void initGameStates(){
 		super.initGameStates();
+		stateManager.addGameState(myEndState = new GameEndState());
 	}
 
 	
