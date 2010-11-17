@@ -52,8 +52,11 @@ public class GameEndState extends GameState {
 	 *            - resource used to write text
 	 */
 
-	public GameEndState(BufferedImage backgroundImage, String messageString,
-			GameFontManager fontManager) {
+	public GameEndState(PlayField gameOver) {
+		
+		// The gameOver playfield should be constructed from an .xml
+		// file using the LevelParser.
+		
 		myBackground = new ImageBackground(backgroundImage);
 		myFontManager = fontManager;
 		myMessage = new OverlayString(messageString);
