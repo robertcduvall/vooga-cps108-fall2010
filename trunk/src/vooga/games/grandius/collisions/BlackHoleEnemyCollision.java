@@ -3,7 +3,7 @@ package vooga.games.grandius.collisions;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.Blah;
+import vooga.games.grandius.DropThis;
 import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.BlackHole;
 
@@ -22,9 +22,9 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  */
 public class BlackHoleEnemyCollision extends BasicCollision{
 
-	private Blah grandius;
+	private DropThis grandius;
 	
-	public BlackHoleEnemyCollision(Blah grandius) {
+	public BlackHoleEnemyCollision(DropThis grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}

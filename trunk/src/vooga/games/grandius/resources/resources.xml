@@ -102,6 +102,7 @@
 		<String name="ExtraCash" value="showmethemoney" />
 		<String name="SkipLevel" value="getmeouttahere" />
 		<String name="ActivateMissile" value="missiletime" />
+		<String name="StartLevelMessage" value="Here we go!" />
 		<String name="GameOverMessage" value="Oh no! IT'S GAME OVER, MAN!" />
 		<String name="GameCompleteMessage" value="Nice! YOU WON!" />
 	</Strings>

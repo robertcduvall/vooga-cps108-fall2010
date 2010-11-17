@@ -38,10 +38,12 @@ import vooga.games.grandius.collisions.ProjectileEnemyCollision;
 import vooga.games.grandius.enemy.boss.reacher.Reacher;
 import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.enemy.common.Zipster;
+import vooga.games.grandius.states.GameCompleteState;
 import vooga.games.grandius.states.GameOverState;
 import vooga.games.grandius.states.GrandiusMenuState;
 import vooga.games.grandius.states.LevelCompleteState;
 import vooga.games.grandius.states.PlayState;
+import vooga.games.grandius.states.ShoppingLevelState;
 import vooga.games.grandius.states.StartNewLevelState;
 import vooga.games.grandius.weapons.BlackHole;
 import vooga.games.grandius.weapons.Missile;
@@ -60,7 +62,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * @author Se-Gil Feldsott, John Kline, Bhawana Singh 
  * @version 3.0
  */
-public class Blah extends Game {
+public class DropThis extends Game {
 
 	//Stores in Resources now
 	//private static final int PLAYER_INITIAL_X = 15;
@@ -144,14 +146,6 @@ public class Blah extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
-		myMenuState = new MenuGameState();
-		myPlayState = new PlayState();
-		myLevelCompleteState = new LevelCompleteState();
-		myShoppingLevelState = new ShoppingLevelState();
-		myStartNewLevelState = new StartNewLevelState();
-		myGameCompleteState = new GameCompleteState();
-		myGameOverState = new GameOverState();
-//		myPauseGameState = new PauseGameState();
 		//TODO - change to work with new Overlay xml
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" +
@@ -159,14 +153,14 @@ public class Blah extends Game {
 		"HIJKLMNOPQRSTUVWXYZ ");
 
 		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		statLives = new Stat<Integer>(new Integer(INITIAL_PLAYER_LIVES));
-		statScore = new Stat<Integer>(new Integer(INITIAL_ZERO));
-		statCash = new Stat<Integer>(new Integer(INITIAL_ZERO));
+		statLives = new Stat<Integer>(new Integer(Resources.getInt("InitialPlayerLives")));
+		statScore = new Stat<Integer>(new Integer(Resources.getInt("InitialZero"))); //TODO get rid of this var?
+		statCash = new Stat<Integer>(new Integer(Resources.getInt("InitialZero")));
 		int screenWidth = Resources.getInt("screenWidth");
 		int screenHeight = Resources.getInt("screenHeight");
 		screen = new Dimension(screenWidth,screenHeight);
-		playerInitialX = PLAYER_INITIAL_X;
-		playerInitialY = screen.getHeight()/2;
+		playerInitialX = Resources.getInt("PlayerInitialX");
+		playerInitialY = Resources.getInt("PlayerInitialY");
 		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
 		levelManager.getLevelFactory().setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
 
@@ -187,56 +181,23 @@ public class Blah extends Game {
 	@Override
 	public void initGameStates() {
 		super.initGameStates();
-		//playfield = new PlayField();
 		levelManager = new GrandiusLevelManager();
 		levelManager.makeLevels(Resources.getString("levelFilesDirectory"),Resources.getString("levelNamesFile"));
-		//createSpriteGroups();
-		//int screenWidth = Resources.getInt("screenWidth");
-		//int screenHeight = Resources.getInt("screenHeight");
-		//buildMenuState();
-		//buildPlayState();
-		//buildLevelCompleteState();
-		//buildGameCompleteState();
-		//buildShoppingLevelState();
-		//buildStartNewLevelState();
-		//buildGameOverState(screenWidth, screenHeight);
-
-		stateManager.addGameState(myMenuState, //Default state is menu.
-								  myPlayState, 
-								  myLevelCompleteState,
-								  myGameCompleteState,
-								  myShoppingLevelState,
-								  myStartNewLevelState,
-								  myGameOverState);
-		//stateManager.addGameState(myPauseGameState);
-		
+		List<GameState> gameStates = new ArrayList<GameState>();
+		GameState[] gameStatesArray = new GameState[gameStates.size()];
+		gameStates.add(myMenuState = new GrandiusMenuState()); //Default GameState is menu.
+		gameStates.add(myPlayState = new PlayState());
+		gameStates.add(myLevelCompleteState = new LevelCompleteState());
+		gameStates.add(myGameCompleteState = new GameCompleteState());
+		gameStates.add(myShoppingLevelState = new ShoppingLevelState());
+		gameStates.add(myStartNewLevelState = new StartNewLevelState());
+		gameStates.add(myGameOverState = new GameOverState());
+		//gameStates.add(myPauseGameState = new PauseGameState());
+		for (int i = 0; i < gameStates.size(); i++)
+			gameStatesArray[i] = gameStates.get(i);
+		stateManager.addGameState(gameStatesArray);
 		stateManager.switchTo(myMenuState); //TODO is this needed if menu is default?
 	}
-
-	//The GameOverState is now implemented as a separate class that extends BasicTextGameState.
-//	private void buildGameOverState(int screenWidth, int screenHeight) {
-//		gameOverState = new GameState();
-//		OverlayString gameOver = new OverlayString("GAME OVER",
-//				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
-//		gameOver.setLocation(screenWidth/2 - gameOver.getWidth()/2, screenHeight/2);
-//		gameOverGroup.add(gameOver);
-//		gameOverState.addGroup(backgroundGroup);
-//		gameOverState.addRenderGroup(gameOverGroup);
-//	}
-
-	private void buildStartNewLevelState() {
-		startNewLevelState = new GameState();
-		startNewLevelState.addGroup(backgroundGroup);
-	}
-
-	//The GameCompleteState is now implemented as a separate class that extends BasicTextGameState.
-//	private void buildGameCompleteState() {
-//		gameCompleteState = new GameState();
-//		gameCompleteGroup.add(new OverlayString("Game complete"));
-//		gameCompleteState.addGroup(backgroundGroup);
-//		gameCompleteState.addRenderGroup(gameCompleteGroup);
-//	}
-
 
 	private void buildShoppingLevelState() {
 		shoppingLevelState = new GameState();
@@ -732,14 +693,11 @@ public class Blah extends Game {
 				updateStat(statCash, 5000);
 			else if(userInput.equals(Resources.getString("ActivateMissile")))
 				missileActive = true;
-
 		}
 	}
 
 	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new Blah(), new Dimension(640,480), false);
-		game.start();
+		launch(new DropThis());
 	}
 }
 

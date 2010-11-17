@@ -3,7 +3,7 @@ package vooga.games.grandius.collisions;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.Blah;
+import vooga.games.grandius.DropThis;
 import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
@@ -13,9 +13,9 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class MissileBossPartCollision extends BasicCollision {
-	private Blah grandius;
+	private DropThis grandius;
 
-	public MissileBossPartCollision(Blah grandius) {
+	public MissileBossPartCollision(DropThis grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
