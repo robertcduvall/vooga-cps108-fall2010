@@ -32,12 +32,12 @@ public class PlayState extends GameState{
 	private void initLevel(){
 		LevelFactory factory = new LevelParser();
 
-		PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
+//		PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
 		
-		playField.addCollisionGroup(bulletGroup, asteroidGroup, new BulletToAsteroidCollision());
-		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
-		
-		addPlayField(playField);
+//		playField.addCollisionGroup(bulletGroup, asteroidGroup, new BulletToAsteroidCollision());
+//		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
+//		
+//		addPlayField(playField);
 		PlayField levelPlayfield = factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game);
 		addPlayField(levelPlayfield);
 		
