@@ -34,7 +34,7 @@
 	</CollisionGroups>
 	
 	<Background>
-		<Visual name = "mainBG" />
+		<!-- <Visual name = "mainBG" /> -->
 	</Background>
 
 	<Music>
@@ -43,5 +43,9 @@
 		<Sound name="laser2Sound"/>
 		<Sound name="thrustSound"/>
 	</Music>
+	
+	<Map>
+	
+	</Map>
 
 </Level>
