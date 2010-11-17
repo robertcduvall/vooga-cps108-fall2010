@@ -45,13 +45,11 @@ public class LevelParser implements LevelFactory{
 	private Game currentGame;
 	private PlayField myVoogaPlayField;
 	private OverlayTracker overlayTracker;
-	private Map<String, SpriteGroup> spriteGroupMap;
 
 	@Override
 	public PlayField getPlayfield(String filepath, Game game) {
 		this.currentGame = game;
 		myVoogaPlayField = new PlayField();
-		spriteGroupMap = new HashMap<String, SpriteGroup>();
 		createLevelPlayfield(filepath);
 		return myVoogaPlayField;
 	}
@@ -279,8 +277,10 @@ public class LevelParser implements LevelFactory{
 	private void processBackground(NodeList backgrounds) {
 		for(int i = 0; i < backgrounds.getLength(); i++)
 		{
-			Element bgElement = (Element) backgrounds.item(i);
-			myVoogaPlayField.addImageBackground(bgElement.getAttribute("path"));
+			if (isElement(backgrounds.item(i))) {
+				Element bgElement = (Element) backgrounds.item(i);
+				myVoogaPlayField.addImageBackground(bgElement.getAttribute("path"));
+			}
 		}
 	}
 
@@ -290,8 +290,10 @@ public class LevelParser implements LevelFactory{
 	private void processMusic(NodeList musics) {
 		for(int i = 0; i < musics.getLength(); i++)
 		{
-			Element musicElements = (Element) musics.item(i);
-			myVoogaPlayField.addMusic(musicElements.getAttribute("name"));
+			if (isElement(musics.item(i))) {
+				Element musicElements = (Element) musics.item(i);
+				myVoogaPlayField.addMusic(musicElements.getAttribute("name"));
+			}
 		}
 	}
 
@@ -336,8 +338,6 @@ public class LevelParser implements LevelFactory{
 				NodeList spriteGroupList = collisionGroupElement.getElementsByTagName("SpriteGroup");
 				String spriteGroupName0 = ((Element) spriteGroupList.item(0)).getAttribute("name");
 				String spriteGroupName1 = ((Element) spriteGroupList.item(1)).getAttribute("name");
-				System.out.println(myVoogaPlayField.getGroup(spriteGroupName0));
-				System.out.println(myVoogaPlayField.getGroup(spriteGroupName1));
 				myVoogaPlayField.addCollisionGroup(myVoogaPlayField.getGroup(spriteGroupName0), 
 						myVoogaPlayField.getGroup(spriteGroupName1),
 						((CollisionManager)createCollisionSubclass(subclassName)));
