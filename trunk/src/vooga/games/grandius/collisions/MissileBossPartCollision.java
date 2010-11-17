@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
-import vooga.games.grandius.enemy.common.Enemy;
+import vooga.games.grandius.enemies.boss.reacher.ReacherEye;
+import vooga.games.grandius.enemies.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.AnimatedSprite;
