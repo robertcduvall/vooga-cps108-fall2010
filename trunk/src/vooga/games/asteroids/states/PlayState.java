@@ -45,10 +45,9 @@ public class PlayState extends GameState{
 		PlayField levelPlayfield = factory.getPlayfield(Resources.getString("levelFilesDirectory")+"asteroids.xml", game);
 		addPlayField(levelPlayfield);
 		
-		//TODO how do you get the player sprite out of the playfield
-		Sprite playerShipGroup = (Sprite) levelPlayfield.getGroup("playerShip").getSprites()[0];
+		Sprite playerShip = (Sprite) levelPlayfield.getGroup("playerShip").getSprites()[0];
 		
-		// initControls(playerShip);
+		initControls(playerShip);
 
 	}
 	
