@@ -25,10 +25,10 @@ public class Ship extends Sprite {
 	}
 	
 	public void thrust(){
-		
+	
 	}
 	
-	public void shoot(){
-		
+	public void fire(){
+	
 	}
 }
