@@ -2,8 +2,6 @@ package vooga.games.towerdefense.tower;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.event.EventManager;
-import vooga.engine.event.SingletonEventManager;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.Enemy;
 import vooga.games.towerdefense.TowerShot;

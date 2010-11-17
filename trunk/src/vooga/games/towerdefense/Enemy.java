@@ -6,8 +6,6 @@ import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
-import vooga.engine.overlay.StatInt;
-import vooga.engine.player.control.PlayerSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
 

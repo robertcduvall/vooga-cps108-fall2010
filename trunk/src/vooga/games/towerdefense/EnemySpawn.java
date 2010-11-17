@@ -6,7 +6,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.Utility;
 
 import vooga.engine.overlay.Stat;
-import vooga.engine.overlay.StatInt;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
 

@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.player.control.Control;
+
 import vooga.engine.state.GameState;
 
 /**
