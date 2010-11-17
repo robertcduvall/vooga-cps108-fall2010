@@ -9,7 +9,7 @@ import vooga.widget.Button;
  * @author with a splash of Brian (comments)
  *
  */
-public class MenuGameState extends GameState {
+public abstract class MenuGameState extends GameState {
 
 	/**
 	 * menuPlayfield is the desired new instance of PlayField
@@ -30,14 +30,19 @@ public class MenuGameState extends GameState {
 		}
 
 	}
+	
+	/**
+	 * Creates a new instance of MenuGameState
+	 */
+	public MenuGameState(){
+		initialize();
+	}
 
 	/**
 	 * Initializes MenuGameState
 	 */
 	@Override
-	public void initialize() {
-
-	}
+	public abstract void initialize();
 
 	/**
 	 * Adds a specified Button to the MenuGameState
