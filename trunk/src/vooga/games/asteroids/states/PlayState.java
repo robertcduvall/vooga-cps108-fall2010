@@ -16,12 +16,12 @@ public class PlayState extends GameState{
 
 	@Override
 	public void initialize() {
-		initPlayer();
+		initLevel();
 		initControls();
 		
 	}
 	
-	private void initPlayer(){
+	private void initLevel(){
 		
 	}
 	
