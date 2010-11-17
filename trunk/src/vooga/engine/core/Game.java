@@ -13,19 +13,19 @@ import vooga.engine.state.GameStateManager;
 
 /**
  * Extension of the Golden T game to automate some Vooga API functionality.
- * 
- * InitResources() automatically loads all resources associated with the
- * resources.xml file (or the game.properties file) in your game's resources
- * package.
- * 
+ * <br />
+ * initResources() automatically
+ * loads all resources associated with the resources.xml file in your game's 
+ * resources package.
+ * <br />
  * It also now has a built in GameStateManager which is automatically
  * initialized in initResources. The initialization behavior can be changed by
  * overriding initGameStates. The update and render methods call update and
  * render for this GameStateManager.
- * 
+ * <br />
  * The game also automatically loads the initial level using the Level XML
  * parser
- * 
+ * <br />
  * All subclasses should override initResources() and implement a main method
  * that calls launch(). The initResources() method should first call
  * super.initResources() and then initialize all the game states
