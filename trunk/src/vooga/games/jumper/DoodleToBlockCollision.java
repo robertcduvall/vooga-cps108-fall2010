@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 
 
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.clock.GameClock;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;

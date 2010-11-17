@@ -18,8 +18,6 @@ import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.clock.GameClock;
-import vooga.engine.resource.clock.GameClockException;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.other.Pause;
