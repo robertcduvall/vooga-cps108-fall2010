@@ -1,14 +1,12 @@
 package vooga.games.grandius;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +20,6 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.engine.state.MenuGameState;
 import vooga.games.grandius.collisions.BasicCollision;
 import vooga.games.grandius.collisions.BlackHoleEnemyCollision;
 import vooga.games.grandius.collisions.MissileBossCollision;
@@ -48,7 +45,6 @@ import vooga.games.grandius.states.StartNewLevelState;
 import vooga.games.grandius.weapons.BlackHole;
 import vooga.games.grandius.weapons.Missile;
 
-import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
@@ -64,11 +60,6 @@ import com.golden.gamedev.object.background.ImageBackground;
  */
 public class DropThis extends Game {
 
-	//Stores in Resources now
-	//private static final int PLAYER_INITIAL_X = 15;
-	//private static final int INITIAL_PLAYER_LIVES = 3;
-	//private static final int INITIAL_ZERO = 0;
-
 	//private Collection<GameState> gameStates; //TODO is this Collection needed?
 	private GrandiusMenuState myMenuState;
 	private PlayState myPlayState;
@@ -77,50 +68,12 @@ public class DropThis extends Game {
 	private StartNewLevelState myStartNewLevelState;
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
-
-	//These are now stored in Resources doubleMap
-//	private static final double PROJECTILE_SPEED = 0.15;
-//	private static final double PLAYER_SPEED = 0.1;
-//	private static final double ENEMY_SPEED = 0.015;
-//	private static final double BOSS_PART_SPEED = 0.01;
-//	private static final double BOSS_SPEED = 0.005;
-
-	//private PlayField playfield;
+//	private PauseGameState myPauseGameState;
 
 	//private boolean reacherShieldsDepleted;
 
-//	private SpriteGroup playerGroup;
-//	private SpriteGroup projectileGroup;
-//	private SpriteGroup enemyProjectileGroup;
-//	private SpriteGroup enemyGroup;
-//	private SpriteGroup bossPartGroup;
-//	private SpriteGroup bossGroup;
-//	private SpriteGroup missileGroup;
-//	private SpriteGroup blackHoleGroup;
-//	private SpriteGroup menuGroup;
-//	private SpriteGroup levelCompleteGroup;
-//	private SpriteGroup shoppingLevelGroup;
-//	private SpriteGroup gameCompleteGroup;
-//	private SpriteGroup gameOverGroup;
-//	private SpriteGroup backgroundGroup;
-
-//	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
-
 	private Sprite shipSprite;
 	private PlayerSprite playerSprite;
-
-	//The PlayState now takes care of the collisions.
-//	private PlayerEnemyCollision                    playerEnemyCollision;
-//	private PlayerBossPartCollision                 playerBossPartCollision;
-//	private PlayerBossCollision                     playerBossCollision;
-//	private ProjectileEnemyCollision                projectileEnemyCollision;
-//	private ProjectileBossPartCollision     projectileBossPartCollision;
-//	private PlayerEnemyProjectileCollision  playerEnemyProjectileCollision;
-//	private ProjectileBossCollision                 projectileBossCollision;
-//	private MissileEnemyCollision                   missileEnemyCollision;
-//	private MissileBossPartCollision                missileBossPartCollision;
-//	private MissileBossCollision                    missileBossCollision;
-//	private BlackHoleEnemyCollision                 blackHoleEnemyCollision;
 
 	private OverlayPanel overlayPanel;
 	private OverlayStatImage livesIcon;
@@ -136,7 +89,7 @@ public class DropThis extends Game {
 	private Dimension screen;
 
 	//TODO: Good practice here? Use Missile/BlackHole classes?
-			private boolean missileActive =         false;
+	private boolean missileActive =         false;
 	private boolean blackHoleActive =       false;
 
 	//Cheat options
@@ -146,6 +99,10 @@ public class DropThis extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
+		createCollisions(); //TODO will this work here?
+		levelManager = new GrandiusLevelManager();
+		levelManager.makeLevels(Resources.getString("levelFilesDirectory"),Resources.getString("levelNamesFile"));
+		
 		//TODO - change to work with new Overlay xml
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" +
@@ -163,26 +120,17 @@ public class DropThis extends Game {
 		playerInitialY = Resources.getInt("PlayerInitialY");
 		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
 		levelManager.getLevelFactory().setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
-
-
 		shipSprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
 		playerSprite = new PlayerSprite("ThePlayer", "alive", shipSprite);
 		playerGroup.add(playerSprite);
 		backgroundGroup.add(new Sprite(Resources.getImage("BG")));
-
 		reacherShieldsDepleted = false;
-
-
-		//create collisions and register them to the playfield
-		createCollisions();
 		addOverlays();
 	}
 
 	@Override
 	public void initGameStates() {
 		super.initGameStates();
-		levelManager = new GrandiusLevelManager();
-		levelManager.makeLevels(Resources.getString("levelFilesDirectory"),Resources.getString("levelNamesFile"));
 		List<GameState> gameStates = new ArrayList<GameState>();
 		GameState[] gameStatesArray = new GameState[gameStates.size()];
 		gameStates.add(myMenuState = new GrandiusMenuState()); //Default GameState is menu.
@@ -193,32 +141,34 @@ public class DropThis extends Game {
 		gameStates.add(myStartNewLevelState = new StartNewLevelState());
 		gameStates.add(myGameOverState = new GameOverState());
 		//gameStates.add(myPauseGameState = new PauseGameState());
-		for (int i = 0; i < gameStates.size(); i++)
+		for (int i = 0; i < gameStates.size(); i++) {
 			gameStatesArray[i] = gameStates.get(i);
+		}
 		stateManager.addGameState(gameStatesArray);
 		stateManager.switchTo(myMenuState); //TODO is this needed if menu is default?
 	}
 
-	private void buildShoppingLevelState() {
-		shoppingLevelState = new GameState();
-		int displayX = Resources.getInt("shoppingLevelX");
-		int displayY = Resources.getInt("shoppingLevelY");
-
-		//shoppingLevel1 is an OverlayStat vs. String (displays Stat)
-		OverlayStat shoppingLevel1 = new OverlayStat("CASH: ", statCash);
-		shoppingLevel1.setFont(font);
-		shoppingLevel1.setLocation(displayX,displayY);
-		shoppingLevelGroup.add(shoppingLevel1);
-
-		for(int i=2;i<5;i++){
-			displayY=displayY*i;
-			OverlayString shoppingLevel = new OverlayString(Resources.getString("shoppingLevel"+i), font);
-			shoppingLevel.setLocation(displayX, displayY);
-			shoppingLevelGroup.add(shoppingLevel);
-		}
-		shoppingLevelState.addGroup(backgroundGroup);
-		shoppingLevelState.addGroup(shoppingLevelGroup);
-	}
+	//TODO this GameState should be implemented using a MenuGameState
+//	private void buildShoppingLevelState() {
+//		shoppingLevelState = new GameState();
+//		int displayX = Resources.getInt("shoppingLevelX");
+//		int displayY = Resources.getInt("shoppingLevelY");
+//
+//		//shoppingLevel1 is an OverlayStat vs. String (displays Stat)
+//		OverlayStat shoppingLevel1 = new OverlayStat("CASH: ", statCash);
+//		shoppingLevel1.setFont(font);
+//		shoppingLevel1.setLocation(displayX,displayY);
+//		shoppingLevelGroup.add(shoppingLevel1);
+//
+//		for(int i=2;i<5;i++){
+//			displayY=displayY*i;
+//			OverlayString shoppingLevel = new OverlayString(Resources.getString("shoppingLevel"+i), font);
+//			shoppingLevel.setLocation(displayX, displayY);
+//			shoppingLevelGroup.add(shoppingLevel);
+//		}
+//		shoppingLevelState.addGroup(backgroundGroup);
+//		shoppingLevelState.addGroup(shoppingLevelGroup);
+//	}
 
 	private void buildLevelCompleteState() {
 		levelCompleteState = new GameState();
@@ -236,29 +186,17 @@ public class DropThis extends Game {
 		levelCompleteState.addRenderGroup(levelCompleteGroup);
 	}
 
-	//PlayState is now a separate class as well.
-//	private void buildPlayState() {
-//		playState.addGroup(backgroundGroup);
-//		playState.addGroup(playerGroup);
-//		playState.addGroup(projectileGroup);
-//		playState.addGroup(enemyProjectileGroup);
-//		playState.addGroup(enemyGroup);
-//		playState.addGroup(bossPartGroup);
-//		playState.addGroup(bossGroup);
-//		playState.addGroup(missileGroup);
-//		playState.addGroup(blackHoleGroup);
+	//TODO This GameState should be implemented using a MenuGameState
+//	private void buildMenuState() {
+//		menuState = new GameState();
+//		menuState.addGroup(backgroundGroup);
+//		for(int i=1;i<9;i++){
+//			OverlayString menu = new OverlayString(Resources.getString("menu"+i), font);
+//			menu.setLocation(Resources.getInt("menuX"), Resources.getInt("menuY")*i);
+//			menuGroup.add(menu);
+//		}               
+//		menuState.addRenderGroup(menuGroup);
 //	}
-
-	private void buildMenuState() {
-		menuState = new GameState();
-		menuState.addGroup(backgroundGroup);
-		for(int i=1;i<9;i++){
-			OverlayString menu = new OverlayString(Resources.getString("menu"+i), font);
-			menu.setLocation(Resources.getInt("menuX"), Resources.getInt("menuY")*i);
-			menuGroup.add(menu);
-		}               
-		menuState.addRenderGroup(menuGroup);
-	}
 
 	/**
 	 * Creates different types of collisions and registers them to the playfield.
@@ -277,19 +215,6 @@ public class DropThis extends Game {
 		collisionList.add(new MissileBossCollision(this)); 
 		collisionList.add(new BlackHoleEnemyCollision(this));
 		myPlayState.addCollisions(collisionList);
-		
-		//This code is now in PlayState.addCollisions()
-//		playfield.addCollisionGroup(playerGroup, enemyGroup, playerEnemyCollision);
-//		playfield.addCollisionGroup(playerGroup, bossPartGroup, playerBossPartCollision);
-//		playfield.addCollisionGroup(playerGroup, bossGroup, playerBossCollision);
-//		playfield.addCollisionGroup(projectileGroup, enemyGroup, projectileEnemyCollision);
-//		playfield.addCollisionGroup(projectileGroup, bossPartGroup, projectileBossPartCollision);
-//		playfield.addCollisionGroup(playerGroup, enemyProjectileGroup, playerEnemyProjectileCollision);
-//		playfield.addCollisionGroup(projectileGroup, bossGroup, projectileBossCollision);
-//		playfield.addCollisionGroup(missileGroup, enemyGroup, missileEnemyCollision);
-//		playfield.addCollisionGroup(missileGroup, bossPartGroup, missileBossPartCollision);
-//		playfield.addCollisionGroup(missileGroup, bossGroup, missileBossCollision);
-//		playfield.addCollisionGroup(blackHoleGroup, enemyGroup, blackHoleEnemyCollision);
 	}
 
 	@Override
@@ -400,12 +325,6 @@ public class DropThis extends Game {
 
 	/**
 	 * Utility method used in updateScreenSprites().
-	 * @param spriteGroup
-	 * @param currentLevel
-	 * @param currentSprites
-	 * @param playerX
-	 * @param playerY
-	 * @param index
 	 */
 	private void updateSpriteGroup(SpriteGroup spriteGroup, ArrayList<ArrayList<Sprite>> currentSprites,  int index) {
 		spriteGroup.clear();
@@ -552,9 +471,6 @@ public class DropThis extends Game {
 
 	/**
 	 * Utility method used in updateEntities().
-	 * @param spriteGroup
-	 * @param direction
-	 * @param offset
 	 */
 	private void moveSpriteGroup(SpriteGroup spriteGroup, String direction, double offset) {
 		if (direction.equals("right")) {
@@ -600,7 +516,6 @@ public class DropThis extends Game {
 	/**
 	 * Checks to see if a level has been completed (all the enemies have been cleared, or the user has used the
 	 * skip level cheat code.
-	 * @return Whether or not the level is complete.
 	 */
 	private boolean checkLevelComplete() {
 		if(skipLevel)
@@ -622,8 +537,6 @@ public class DropThis extends Game {
 	 * Method for adding a value (including negative ones)
 	 * to any Stat<Integer>, primarily for the lives, cash,
 	 * and score counters.
-	 * @param stat
-	 * @param addedValue
 	 */
 	public void updateStat(Stat<Integer> stat, int addedValue)
 	{
@@ -650,7 +563,6 @@ public class DropThis extends Game {
 
 	/**
 	 * Adds the given points to the Stat score.
-	 * @param points
 	 */
 	public void updateScoreOnCollision(int points) {
 		updateStat(statScore, points);
@@ -658,7 +570,6 @@ public class DropThis extends Game {
 
 	/**
 	 * Adds the given cash amounts to the Stat cash.
-	 * @param cash
 	 */
 	public void updateCashOnCollision(int cash) {
 		updateStat(statCash, cash);
