@@ -1,36 +1,26 @@
 
 package vooga.games.jumper;
 
-
-// JFC 
 import java.awt.Graphics2D;
-import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Random;
 
-//VOOGA
+import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.other.Pause;
-import vooga.engine.core.Game;
 
-// GTGE
-import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFont;
-import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
+
+
 
 
 /**
@@ -114,7 +104,7 @@ public class DropThis extends vooga.engine.core.Game {
 		this.hideCursor();
 		
 		super.initResources();
-				
+		
 		BufferedImage leftDoodle = Resources.getImage("leftDoodle");
 		BufferedImage rightDoodle = Resources.getImage("rightDoodle");
 		DoodleSprite player1 = new DoodleSprite(leftDoodle, DOODLE_START, leftDoodle, rightDoodle);
@@ -341,11 +331,7 @@ public class DropThis extends vooga.engine.core.Game {
 	 * @param args String[] of arguments from the command line
 	 */    
 	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		DropThis jump = new DropThis();
-		//myPause = new Pause(jump, KeyEvent.VK_P, KeyEvent.VK_P);
-		game.setup(jump, new Dimension(GAME_WIDTH,GAME_HEIGHT), false);
-		game.start();
+		launch(new DropThis());
 	}
 }
 
