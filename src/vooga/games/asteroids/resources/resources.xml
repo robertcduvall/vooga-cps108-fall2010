@@ -4,12 +4,14 @@
 		<Image name="shipImage" path="ship.gif" />
 		<Image name="greenBulletImage" path="green_bullet.jpg" />
 		<Image name="mainBG" path="space.jpg" />
-		
 	</Images>
 
 	<Animations>
 		<Animation name="asteroidAnimation">
 			<Image path="asteroid.gif" />
+		</Animation>
+		<Animation name="explosionAnimation">
+			<Image path="explosion.gif" />
 		</Animation>
 	</Animations>
 
@@ -21,8 +23,7 @@
 	</Sounds>
 
 	<Strings>
-		<String name="levelFilesDirectory"
-			value="vooga/games/asteroids/resources/levels" />
+		<String name="levelFilesDirectory" value="vooga/games/asteroids/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
 	</Strings>
 
