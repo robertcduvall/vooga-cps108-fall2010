@@ -1,5 +1,7 @@
 package vooga.games.asteroids.states;
 
+import java.awt.event.KeyEvent;
+
 import vooga.engine.control.*;
 import vooga.engine.core.*;
 import vooga.engine.state.*;
@@ -14,12 +16,21 @@ public class PlayState extends GameState{
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
+		initPlayer();
+		initControls();
+		
+	}
+	
+	private void initPlayer(){
 		
 	}
 	
 	private void initControls(){
 		Control playerControl = new KeyboardControl();
+		playerControl.addInput(KeyEvent.VK_LEFT, "rotateLeft", "Ship", null);
+		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "Ship", null);
+		playerControl.addInput(KeyEvent.VK_UP, "thrust", "Ship", null);
+		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "Ship", null);
 		
 	}
 
