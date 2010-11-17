@@ -61,7 +61,7 @@ public class Zipster extends Enemy {
 		return laser;
 	}
 	
-	//TODO - This should no longer be needed. getScore()
+	//TODO - This should no longer be needed. Use getScore()from superclass.
 //	/**
 //	 * Returns the point value of this enemy.
 //	 * @return
