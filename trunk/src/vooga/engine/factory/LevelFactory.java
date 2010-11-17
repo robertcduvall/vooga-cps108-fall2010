@@ -1,7 +1,5 @@
 package vooga.engine.factory;
 
-import java.io.File;
-
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 
