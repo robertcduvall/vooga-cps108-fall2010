@@ -26,7 +26,7 @@ public class PreferencesState extends GameState{
 	public PreferencesState(String location) {
 		tracker = OverlayCreator.createOverlays(location);
 		overlays = tracker.getOverlayGroup("preferenceMenu");
-		addGroup(overlays);
+		//addGroup(overlays);
 		control = new MouseControl();
 	}
 
