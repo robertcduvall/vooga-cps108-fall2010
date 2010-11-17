@@ -22,7 +22,6 @@ public class BlahThis extends Game {
 	
 	
 	public void initResources() {
-<<<<<<< .mine
 	
 		//dont change this assholes
 		playState = new PlayState(this);
@@ -48,10 +47,8 @@ public class BlahThis extends Game {
 		stateManager.activateOnly(playState);
 		stateManager.removeGameState(pauseState);
 		
-=======
 		super.initResources();
 		stateManager.addGameState(new PlayState(this));		
->>>>>>> .r1449
 	}
 
 	/**
