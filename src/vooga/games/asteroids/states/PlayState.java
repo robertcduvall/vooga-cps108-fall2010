@@ -2,11 +2,17 @@ package vooga.games.asteroids.states;
 
 import java.awt.event.KeyEvent;
 
-import vooga.engine.control.*;
-import vooga.engine.core.*;
-import vooga.engine.factory.*;
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
+import vooga.engine.core.Sprite;
+import vooga.engine.factory.LevelFactory;
+import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.*;
+import vooga.engine.state.GameState;
+import vooga.games.asteroids.collisions.BulletToAsteroidCollision;
+import vooga.games.asteroids.collisions.ShipToAsteroidCollision;
 
 public class PlayState extends GameState{
 	
@@ -25,7 +31,8 @@ public class PlayState extends GameState{
 	
 	private void initLevel(){
 		LevelFactory factory = new LevelParser();
-PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
+
+		PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
 		
 		playField.addCollisionGroup(bulletGroup, asteroidGroup, new BulletToAsteroidCollision());
 		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
