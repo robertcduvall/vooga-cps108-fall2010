@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.enemies.boss.reacher.Reacher;
-import vooga.games.grandius.enemies.common.Enemy;
+import vooga.games.grandius.enemy.boss.reacher.Reacher;
+import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -39,6 +39,6 @@ public class MissileBossCollision extends BasicCollision {
 		grandius.getPlayfield().add(explosion);
 		//grandius.playSound(Resources.getMapping("LaserSound"));
 		grandius.updateScoreOnCollision(((Enemy)boss).getScore());
-		grandius.updateCashOnCollision(((Enemy)boss).getCashValue());
+		grandius.updateCashOnCollision(((Enemy)boss).getCash());
 	}
 }
