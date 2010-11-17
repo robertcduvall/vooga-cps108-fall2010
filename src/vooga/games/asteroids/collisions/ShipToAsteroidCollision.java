@@ -1,5 +1,7 @@
 package vooga.games.asteroids.collisions;
 
+import vooga.engine.overlay.Stat;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
@@ -12,8 +14,8 @@ public class ShipToAsteroidCollision extends AdvanceCollisionGroup {
 	@Override
 	public void collided(Sprite ship, Sprite asteroid) {
 		asteroid.setActive(false);
-		//TODO:reduce life
-		
+		Stat<Integer> score = (Stat<Integer>) ((vooga.engine.core.Sprite) ship).getStat("lives");
+		score.setStat(score.getStat() -1);
 	}
 
 	
