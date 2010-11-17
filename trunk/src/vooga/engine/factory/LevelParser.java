@@ -29,6 +29,7 @@ import vooga.engine.util.XMLFileParser;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.collision.CollisionGroup;
 
 /**
  * LevelParser
@@ -79,7 +80,7 @@ public class LevelParser implements LevelFactory{
 		Element level = (Element) xmlDocument.getFirstChild(); 
 		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
-		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath);
+		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
 
 		//		Node levelRulesSection = xmlDocument.getElementsByTagName("LevelRules").item(0);
 		//		NodeList listOfLevelRules = levelRulesSection.getChildNodes();
@@ -154,18 +155,20 @@ public class LevelParser implements LevelFactory{
 	public void processSprite(NodeList spritesList, SpriteGroup group) {
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
-			Element currentNode = (Element) spritesList.item(i);
-			if (currentNode.getNodeName().equals("RegularSprite")) {
-				processRegularSprite((Element)currentNode, group);
-			} else if (currentNode.getNodeName().equals("SpawnedSprite")) {
-				processSpawnedSprite((Element)currentNode, group);
-			}
-			else
-			{
-				Sprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
-				NodeList visualsList = currentNode.getElementsByTagName("Visual");
-				group.add(result);
-				processVisual(visualsList, result);
+			if (isElement(spritesList.item(i))) {
+				Element currentNode = (Element) spritesList.item(i);
+				if (currentNode.getNodeName().equals("RegularSprite")) {
+					processRegularSprite((Element)currentNode, group);
+				} else if (currentNode.getNodeName().equals("SpawnedSprite")) {
+					processSpawnedSprite((Element)currentNode, group);
+				}
+				else
+				{
+					Sprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
+					NodeList visualsList = currentNode.getElementsByTagName("Visual");
+					group.add(result);
+					processVisual(visualsList, result);
+				}
 			}
 		}
 	}
@@ -335,17 +338,17 @@ public class LevelParser implements LevelFactory{
 				String spriteGroupName1 = ((Element) spriteGroupList.item(1)).getAttribute("name");
 				myVoogaPlayField.addCollisionGroup(spriteGroupMap.get(spriteGroupName0), 
 						spriteGroupMap.get(spriteGroupName1),
-						((CollisionManager)createCollisionSubclass(subclassName, currentGame)));
+						((CollisionManager)createCollisionSubclass(subclassName)));
 			}
 		}
 	}
 
-	private Object createCollisionSubclass(String subclassName, Game param) {
+	private Object createCollisionSubclass(String subclassName) {
 		Class<?> subclass;
 		try {
 			subclass = Class.forName(subclassName);
-			Constructor<?> ct = subclass.getConstructor(Game.class);
-			return ct.newInstance(param);
+			Constructor<?> ct = subclass.getConstructor();
+			return ct.newInstance();
 		} catch (Throwable t) {
 			System.out.println("Subclass instance creation error");
 		}
