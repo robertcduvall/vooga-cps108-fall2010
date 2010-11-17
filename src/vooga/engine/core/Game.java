@@ -45,7 +45,7 @@ public class Game extends com.golden.gamedev.Game {
 		// new and improved resources.xml file format by following the example
 		// code in
 		// vooga.examples.resource.resourcesxmlexample
-		Resources.initialize(this, getResourcePath());
+		Resources.initialize(this, getResourceXMLPath());
 		try {
 			Resources.loadResourcesXMLFile("resources.xml");
 		} catch (IOException e) {
@@ -98,9 +98,11 @@ public class Game extends com.golden.gamedev.Game {
 		levelParser = new LevelParser();
 		PlayField vpf;
 		try {
-			vpf = levelParser.getPlayfield(
-					getResourcePath() + Resources.getString("Level" + index),
-					this);
+			vpf = levelParser
+					.getPlayfield(
+							getResourceXMLPath()
+									+ Resources.getString("Level" + index),
+							this);
 			return vpf;
 		} catch (Exception e) {
 			// TODO display error messages like: throw new
@@ -130,26 +132,23 @@ public class Game extends com.golden.gamedev.Game {
 	}
 
 	/**
-	 * This seems like a ridiculous way to do this, but it works on at least
-	 * Linux. If someone has a better way of handling this, it's all yours.
+	 * Get the path for the resources package directory where the resources.xml
+	 * file is
 	 * 
-	 * @return the packages forming the gap between the VOOGA directory and the
-	 *         current game resources package
+	 * @return the path for the resources directory
 	 */
-	private String getResourcePath() {
-		String gamePath = getClass().getPackage().getName();
-		String defaultPath = "src/" + gamePath + "/resources/";
+	private String getResourceXMLPath() {
+		String defaultPath = "src/" + getResourcePackagePath();
 		return defaultPath.replace('.', '/');
 	}
 
 	/**
-	 * Get the path for the config.properties to set up prelaunch
-	 * configurations for the game
+	 * Get the path for the game resources package
 	 * 
-	 * @return path for config.properties
+	 * @return game package resources path
 	 */
-	private String getConfigPath() {
-		return getClass().getPackage().getName() + ".resources.config";
+	private String getResourcePackagePath() {
+		return getClass().getPackage().getName() + ".resources.";
 	}
 
 	/**
@@ -169,7 +168,8 @@ public class Game extends com.golden.gamedev.Game {
 		boolean fullScreen = DEFAULT_FULLSCREEN;
 
 		try {
-			ResourceBundle rb = Resources.loadPreLaunchData(g.getConfigPath());
+			String configPath = g.getResourcePackagePath() + "config";
+			ResourceBundle rb = Resources.loadPreLaunchData(configPath);
 			width = Integer.parseInt(rb.getString("GAME_WIDTH"));
 			height = Integer.parseInt(rb.getString("GAME_HEIGHT"));
 			fullScreen = (rb.getString("FULLSCREEN").equals("true")) ? true
