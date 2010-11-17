@@ -201,39 +201,41 @@ public class Blah extends Game {
 		//buildStartNewLevelState();
 		//buildGameOverState(screenWidth, screenHeight);
 
-		stateManager.addGameState(myMenuState);
-		stateManager.addGameState(myPlayState);
-		stateManager.addGameState(myLevelCompleteState);
-		stateManager.addGameState(myGameCompleteState);
-		stateManager.addGameState(myShoppingLevelState);
-		stateManager.addGameState(myStartNewLevelState);
-		stateManager.addGameState(myGameOverState);
+		stateManager.addGameState(myMenuState, //Default state is menu.
+								  myPlayState, 
+								  myLevelCompleteState,
+								  myGameCompleteState,
+								  myShoppingLevelState,
+								  myStartNewLevelState,
+								  myGameOverState);
 		//stateManager.addGameState(myPauseGameState);
 		
-		stateManager.switchTo(myMenuState);
+		stateManager.switchTo(myMenuState); //TODO is this needed if menu is default?
 	}
 
-	private void buildGameOverState(int screenWidth, int screenHeight) {
-		gameOverState = new GameState();
-		OverlayString gameOver = new OverlayString("GAME OVER",
-				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
-		gameOver.setLocation(screenWidth/2 - gameOver.getWidth()/2, screenHeight/2);
-		gameOverGroup.add(gameOver);
-		gameOverState.addGroup(backgroundGroup);
-		gameOverState.addRenderGroup(gameOverGroup);
-	}
+	//The GameOverState is now implemented as a separate class that extends BasicTextGameState.
+//	private void buildGameOverState(int screenWidth, int screenHeight) {
+//		gameOverState = new GameState();
+//		OverlayString gameOver = new OverlayString("GAME OVER",
+//				new Font("mine", Font.PLAIN, 30), java.awt.Color.RED);
+//		gameOver.setLocation(screenWidth/2 - gameOver.getWidth()/2, screenHeight/2);
+//		gameOverGroup.add(gameOver);
+//		gameOverState.addGroup(backgroundGroup);
+//		gameOverState.addRenderGroup(gameOverGroup);
+//	}
 
 	private void buildStartNewLevelState() {
 		startNewLevelState = new GameState();
 		startNewLevelState.addGroup(backgroundGroup);
 	}
 
-	private void buildGameCompleteState() {
-		gameCompleteState = new GameState();
-		gameCompleteGroup.add(new OverlayString("Game complete"));
-		gameCompleteState.addGroup(backgroundGroup);
-		gameCompleteState.addRenderGroup(gameCompleteGroup);
-	}
+	//The GameCompleteState is now implemented as a separate class that extends BasicTextGameState.
+//	private void buildGameCompleteState() {
+//		gameCompleteState = new GameState();
+//		gameCompleteGroup.add(new OverlayString("Game complete"));
+//		gameCompleteState.addGroup(backgroundGroup);
+//		gameCompleteState.addRenderGroup(gameCompleteGroup);
+//	}
 
 
 	private void buildShoppingLevelState() {
@@ -273,6 +275,7 @@ public class Blah extends Game {
 		levelCompleteState.addRenderGroup(levelCompleteGroup);
 	}
 
+	//PlayState is now a separate class as well.
 //	private void buildPlayState() {
 //		playState.addGroup(backgroundGroup);
 //		playState.addGroup(playerGroup);
@@ -302,16 +305,16 @@ public class Blah extends Game {
 	private void createCollisions() {
 		List<BasicCollision> collisionList = new ArrayList<BasicCollision>();
 		collisionList.add(new PlayerEnemyCollision(this));
-		collisionList.add(new PlayerBossPartCollision(this);
-		collisionList.add(new PlayerBossCollision(this);
-		collisionList.add(new ProjectileEnemyCollision(this);
-		collisionList.add(new ProjectileBossPartCollision(this);
-		collisionList.add(new PlayerEnemyProjectileCollision(this);
-		collisionList.add(new ProjectileBossCollision(this);
-		collisionList.add(new MissileEnemyCollision(this);
-		collisionList.add(new MissileBossPartCollision(this);
-		collisionList.add(new MissileBossCollision(this); 
-		collisionList.add(new BlackHoleEnemyCollision(this);
+		collisionList.add(new PlayerBossPartCollision(this));
+		collisionList.add(new PlayerBossCollision(this));
+		collisionList.add(new ProjectileEnemyCollision(this));
+		collisionList.add(new ProjectileBossPartCollision(this));
+		collisionList.add(new PlayerEnemyProjectileCollision(this));
+		collisionList.add(new ProjectileBossCollision(this));
+		collisionList.add(new MissileEnemyCollision(this));
+		collisionList.add(new MissileBossPartCollision(this));
+		collisionList.add(new MissileBossCollision(this)); 
+		collisionList.add(new BlackHoleEnemyCollision(this));
 		myPlayState.addCollisions(collisionList);
 		
 		//This code is now in PlayState.addCollisions()
@@ -326,37 +329,6 @@ public class Blah extends Game {
 //		playfield.addCollisionGroup(missileGroup, bossPartGroup, missileBossPartCollision);
 //		playfield.addCollisionGroup(missileGroup, bossGroup, missileBossCollision);
 //		playfield.addCollisionGroup(blackHoleGroup, enemyGroup, blackHoleEnemyCollision);
-	}
-
-	/**
-	 * Creates the different SpriteGroups and registers them to the playfield. Also adds the necessary SpriteGroups to the
-	 * spriteGroupSpeedMap.
-	 */
-	private void createSpriteGroups() {
-		//These SpriteGroups are now added to the PlayField object in class PlayState
-//		playerGroup =                   playfield.addGroup(new SpriteGroup("Player"));
-//		projectileGroup =               playfield.addGroup(new SpriteGroup("Projectile"));
-//		enemyProjectileGroup =  playfield.addGroup(new SpriteGroup("EnemyProjectile"));
-//		enemyGroup =                    playfield.addGroup(new SpriteGroup("Enemy"));
-//		bossPartGroup =                 playfield.addGroup(new SpriteGroup("BossPart"));
-//		bossGroup =                     playfield.addGroup(new SpriteGroup("Boss"));
-//		missileGroup =                  playfield.addGroup(new SpriteGroup("Missile"));
-//		blackHoleGroup =                playfield.addGroup(new SpriteGroup("BlackHole"));
-		menuGroup =                     new SpriteGroup("MenuGroup");
-		levelCompleteGroup =    new SpriteGroup("LevelCompleteGroup");
-		shoppingLevelGroup =    new SpriteGroup("ShoppingLevelGroup");
-		gameCompleteGroup =     new SpriteGroup("GameCompleteGroup");
-		gameOverGroup =                 new SpriteGroup("GameOverGroup");
-//		backgroundGroup =       playfield.addGroup(new SpriteGroup("Background"));
-
-		//spriteGroupSpeedMap is now in class PlayState
-//		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-//		spriteGroupSpeedMap.put(projectileGroup,                new Double(PROJECTILE_SPEED));
-//		spriteGroupSpeedMap.put(enemyProjectileGroup,   new Double(-PROJECTILE_SPEED));
-//		spriteGroupSpeedMap.put(enemyGroup,                     new Double(-ENEMY_SPEED));
-//		spriteGroupSpeedMap.put(bossPartGroup,                  new Double(-BOSS_PART_SPEED));
-//		spriteGroupSpeedMap.put(bossGroup,                              new Double(-BOSS_SPEED));
-//		spriteGroupSpeedMap.put(missileGroup,                   new Double(PROJECTILE_SPEED));
 	}
 
 	@Override
