@@ -14,7 +14,10 @@
 	</Animations>
 
 	<Sounds>
-		<Sound name="explode" path="explosion.wav" />
+		<Sound name="explosionSound" path="explosion1.wav" />
+		<Sound name="laser1Sound" path="laser1.wav" />
+		<Sound name="laser2Sound" path="laser2.wav" />
+		<Sound name="thrustSound" path="thurst1.wav" />
 	</Sounds>
 
 	<Strings>
