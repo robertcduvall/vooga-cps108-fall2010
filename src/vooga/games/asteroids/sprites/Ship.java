@@ -5,6 +5,10 @@ import vooga.engine.overlay.Stat;
 
 public class Ship extends Sprite {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static double ROTATION_AMOUNT;
 	private static double VELOCITY_REDUCTION;
 	private static double THRUST_AMOUNT;
