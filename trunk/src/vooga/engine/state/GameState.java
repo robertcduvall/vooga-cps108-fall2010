@@ -1,10 +1,12 @@
 package vooga.engine.state;
 
 import java.awt.Graphics2D;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import vooga.engine.core.PlayField;
+
+import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * GameState is, at its most basic conception, a container class for collections
@@ -214,6 +216,27 @@ public abstract class GameState {
 	public void removeEverything() {
 		myRenderField.clear();
 		myUpdateField.clear();
+	}
+	
+	/**
+	 * Get a SpriteGroup out of the GameState if it exists.  If it does not exist than this method will return null
+	 * @param name the name of the SpriteGroup
+	 * @return SpriteGroup with that name
+	 */
+	public SpriteGroup getGroup(String name){
+		
+		for (PlayField playfield: myUpdateField){
+		
+			SpriteGroup group = playfield.getGroup(name);
+			
+			if (!group.equals(null)){
+			
+				return group;
+			
+			}
+		}
+		
+		return null;//TODO:throw exception instead
 	}
 
 }
