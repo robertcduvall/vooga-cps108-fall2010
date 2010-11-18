@@ -36,22 +36,23 @@ import com.golden.gamedev.object.collision.CollisionGroup;
  * 
  * @author Derek, Cameron, Jimmy, John
  *
-*/
+ */
 
 public class LevelParser implements LevelFactory{
 
 	private static final int FIRST_IMAGE = 0;
 	private String gameClassPath;
 	private Game currentGame;
-	private PlayField myVoogaPlayField;
+	private PlayField voogaPlayField;
 	private OverlayTracker overlayTracker;
-
+	private Map<String, SpriteGroup> spriteGroups;
+	
 	@Override
 	public PlayField getPlayfield(String filepath, Game game) {
 		this.currentGame = game;
-		myVoogaPlayField = new PlayField();
+		voogaPlayField = new PlayField();
 		createLevelPlayfield(filepath);
-		return myVoogaPlayField;
+		return voogaPlayField;
 	}
 
 	/**
@@ -88,14 +89,24 @@ public class LevelParser implements LevelFactory{
 		NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
 		processSpriteGroups(listOfSpriteGroups);
 
+		//process Events
+		Node eventGroupsSection = xmlDocument.getElementsByTagName("Events").item(0);
+		NodeList listOfEventGroups = eventGroupsSection.getChildNodes();
+		processEventGroups(listOfEventGroups);
+
+		//process Rules
+		Node ruleGroupsSection = xmlDocument.getElementsByTagName("Rules").item(0);
+		NodeList listOfRuleGroups = ruleGroupsSection.getChildNodes();
+		processRuleGroups(listOfRuleGroups);
+
 		Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
 		NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
 		processCollisionGroups(listOfCollisionGroups);
-		
+
 		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("Background").item(0);
 		NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
 		processBackground(listOfBackgrounds);
-		
+
 		Node musicGroupSection = xmlDocument.getElementsByTagName("Music").item(0);
 		NodeList listOfMusic = musicGroupSection.getChildNodes();
 		processMusic(listOfMusic);
@@ -107,6 +118,37 @@ public class LevelParser implements LevelFactory{
 			processMap(listOfMaps);
 		}
 	}
+
+	private void processRuleGroups(NodeList ruleGroupsList) {
+		// TODO Auto-generated method stub
+
+		for(int i = 0; i < ruleGroupsList.getLength(); i++)
+		{
+			if (isElement(ruleGroupsList.item(i)))
+			{
+				Element rule = (Element) ruleGroupsList.item(i);
+				
+
+
+				//Element spriteGroup = (Element) spriteGroupsList.item(i);
+				//		String groupName = spriteGroup.getAttribute("name");
+
+				//SpriteGroup newSpriteGroup = new SpriteGroup(groupName);
+				//	NodeList spritesList = spriteGroup.getChildNodes();
+
+				//processSprite(spritesList, newSpriteGroup);
+				//voogaPlayField.addGroup(newSpriteGroup);
+			}
+		}
+
+
+	}
+
+	private void processEventGroups(NodeList eventGroupsList) {
+		// TODO Auto-generated method stub
+
+	}
+
 
 	//	/**
 	//	 * Processes a Level's LevelRules.
@@ -142,7 +184,7 @@ public class LevelParser implements LevelFactory{
 				NodeList spritesList = spriteGroup.getChildNodes();
 
 				processSprite(spritesList, newSpriteGroup);
-				myVoogaPlayField.addGroup(newSpriteGroup);
+				voogaPlayField.addGroup(newSpriteGroup);
 			}
 		}
 	}
@@ -180,7 +222,7 @@ public class LevelParser implements LevelFactory{
 			if(isElement(currentNode))
 			{
 				String path = currentNode.getNodeName();
-				reader = new MapReader(path, myVoogaPlayField);
+				reader = new MapReader(path, voogaPlayField);
 				NodeList listOfAssociations = currentNode.getChildNodes();
 				for(int j = 0; j < listOfAssociations.getLength(); j++)
 				{
@@ -191,10 +233,13 @@ public class LevelParser implements LevelFactory{
 
 					reader.addAssociation(key, value);
 				}
-				myVoogaPlayField = reader.processMap();
+				voogaPlayField = reader.processMap();
 			}
 		}
 	}
+
+	//process Stats
+	//process Control
 
 	/**
 	 * Adds a regular, location-specified Sprite to the given SpriteGroup.
@@ -277,9 +322,11 @@ public class LevelParser implements LevelFactory{
 	private void processBackground(NodeList backgrounds) {
 		for(int i = 0; i < backgrounds.getLength(); i++)
 		{
+			Element bgElement = (Element) backgrounds.item(i);
+			voogaPlayField.addImageBackground(bgElement.getAttribute("path"));
 			if (isElement(backgrounds.item(i))) {
-				Element bgElement = (Element) backgrounds.item(i);
-				myVoogaPlayField.addImageBackground(bgElement.getAttribute("path"));
+				Element bgElementNode = (Element) backgrounds.item(i);
+				voogaPlayField.addImageBackground(bgElementNode.getAttribute("path"));
 			}
 		}
 	}
@@ -290,9 +337,11 @@ public class LevelParser implements LevelFactory{
 	private void processMusic(NodeList musics) {
 		for(int i = 0; i < musics.getLength(); i++)
 		{
+			Element musicElements = (Element) musics.item(i);
+			//voogaPlayField.addMusic(musicElements.getAttribute("name"));
 			if (isElement(musics.item(i))) {
-				Element musicElements = (Element) musics.item(i);
-				myVoogaPlayField.addMusic(musicElements.getAttribute("name"));
+				Element musicElement = (Element) musics.item(i);
+				voogaPlayField.addMusic(musicElements.getAttribute("name"));
 			}
 		}
 	}
@@ -338,9 +387,14 @@ public class LevelParser implements LevelFactory{
 				NodeList spriteGroupList = collisionGroupElement.getElementsByTagName("SpriteGroup");
 				String spriteGroupName0 = ((Element) spriteGroupList.item(0)).getAttribute("name");
 				String spriteGroupName1 = ((Element) spriteGroupList.item(1)).getAttribute("name");
-				myVoogaPlayField.addCollisionGroup(myVoogaPlayField.getGroup(spriteGroupName0), 
-						myVoogaPlayField.getGroup(spriteGroupName1),
+				voogaPlayField.addCollisionGroup(voogaPlayField.getGroup(spriteGroupName0), 
+						voogaPlayField.getGroup(spriteGroupName1),
 						((CollisionManager)createCollisionSubclass(subclassName)));
+
+				voogaPlayField.addCollisionGroup(voogaPlayField.getGroup(spriteGroupName0), 
+						voogaPlayField.getGroup(spriteGroupName1),
+						((CollisionManager)createCollisionSubclass(subclassName)));
+
 			}
 		}
 	}
@@ -357,11 +411,7 @@ public class LevelParser implements LevelFactory{
 		return null;
 	}
 
-	//TODO: when rules finishes being implemented
-	private void processRules(NodeList spritegrouplist) {
-
-	}
-
+	
 	public static boolean isElement(Node node){
 		return (node.getNodeType() == Node.ELEMENT_NODE);
 	}
