@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.clock.GameClock;
 
 public class BreakingBlock extends BlockSprite{
 

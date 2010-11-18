@@ -12,6 +12,8 @@ import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
+import vooga.engine.resource.clock.GameClock;
+import vooga.engine.resource.clock.GameClockException;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.other.Pause;
 
@@ -114,13 +116,6 @@ public class DropThis extends vooga.engine.core.Game {
 		myBackground = new ImageBackground(Resources.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
 		myPlayfield.setBackground(myBackground);
 
-		/*
-		jetpackGameState = new JumperGameState(myPlayers, jetpackGameStateType);
-		myGameStateManager.addGameState(jetpackGameState);
-		//myGameStateManager.addGameState(normalGameState);
-		myGameStateManager.activateOnly(jetpackGameState);
-		*/
-
 		myPlayfield.addGroup(myBlocks);
 		myPlayfield.addGroup(myPlayers);
 		
@@ -131,8 +126,8 @@ public class DropThis extends vooga.engine.core.Game {
 		
 		OverlayCreator.setGame(this);
 		myTrack = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
-		myScore = myTrack.getStats().get(0);
-		myPlayfield.addGroup(myTrack.getOverlayGroups().get(0));
+		myScore = myTrack.getStat("score", new Long(0));
+		myPlayfield.addGroup(myTrack.getOverlayGroup("only"));
 
 		myClock = new GameClock();
 		try {
@@ -172,7 +167,8 @@ public class DropThis extends vooga.engine.core.Game {
 		//make the correct type of block
 		if (randomBlockOccurance < myBlockFrequency){
 			BlockSprite block;
-			
+
+			//TODO: make a block factory to abstract this ugliness away
 			if (myBlockCounter == myBlockCounterIncrement){
 				block = new NormalBlock(Resources.getImage("platformGray"), randomLocation, 0, myBlockVelocity);
 			} 
@@ -221,6 +217,8 @@ public class DropThis extends vooga.engine.core.Game {
 		myPlayfield.update(elapsedTime);
 		//myGameStateManager.update(elapsedTime);
 		
+		myScore.setStat(myClock.getTime());
+		
 		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
 		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
 		myBlockVelocity -= BLOCK_VELOCITY_INCREASE_RATE;
@@ -247,14 +245,14 @@ public class DropThis extends vooga.engine.core.Game {
 		Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 		Point fontSize = new Point (GAME_WIDTH / 3, GAME_HEIGHT / 20);
 
-		myPlayfield.addGroup(myTrack.getOverlayGroups().get(1));
+		myPlayfield.addGroup(myTrack.getOverlayGroup("game over"));
 	}
 
 	/**
 	 * Updates score based on time survived
 	 */
 	private void updateScore(){
-		myScore.setStat(myClock.getTime());
+		myScore.getStat();
 	}
 	
 	private Long getClockTime(){

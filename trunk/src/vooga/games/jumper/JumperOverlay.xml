@@ -1,12 +1,12 @@
 <Overlay>
-<Stat type = "Integer" value="0"></Stat>
+<Stat type = "Long" value="0" name="score"></Stat>
 
-<OverlayGroup>
+<OverlayGroup name="only">
 <OverlayStat stat="0" label="SCORE : " fontName="gameFontRed" xLoc = "0" yLoc = "0"></OverlayStat>
 
 </OverlayGroup>
 
-<OverlayGroup>
+<OverlayGroup name="game over">
 <OverlayStat stat="0" label="GAME OVER : " fontName="gameFontRed" xLoc = "100" yLoc = "400"></OverlayStat>
 </OverlayGroup>
 
