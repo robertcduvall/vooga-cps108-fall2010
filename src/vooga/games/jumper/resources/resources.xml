@@ -1,0 +1,54 @@
+
+<Resources>
+	<Images>
+		<Image name="ball" path="ball.png" />
+		<Image name="leftDoodle" path="doodle_left.png" />
+		<Image name="rightDoodle" path="doodle_right.png" />
+		<Image name="leftJetpackDoodle" path="doodle_left_jetpack.png" />
+		<Image name="rightJetpackDoodle" path="doodle_right_jetpack.png" />
+		<Image name="platformYellow" path="yellow_platform.png" />
+		<Image name="trampolineUp" path="trampoline_up.png" />
+		<Image name="platformTrampoline" path="trampoline_platform.png" />
+		<Image name="trampoline" path="trampoline.png" />
+		<Image name="platformSpringDouble" path="spring_platform_double.png" />
+		<Image name="specialShield" path="shield.png" />
+		<Image name="platformRed" path="red_platform.png" />
+		<Image name="monsterRed" path="red_monster.png" />
+		<Image name="monsterPurple" path="purple_monster.png" />
+		<Image name="platformLightBlue" path="light_blue_platform.png" />
+		<Image name="platformLightBlueWide" path="light_blue_platform_wide.png" />
+		<Image name="platformGreen" path="green_platform.png" />
+		<Image name="monsterGreen" path="green_monster.png" />
+		<Image name="monsterGreenFlying" path="green_flying_monster.png" />
+		<Image name="platformGray" path="gray_platform.png" />
+		<Image name="doodleRight" path="doodle_right.png" />
+		<Image name="doodleLeft" path="doodle_left.png" />
+		<Image name="doodleJet" path="doodleJet.png" />
+		<Image name="jetpack" path="jetpack.png" />
+		<Image name="jetpackInvisible" path="jetpackInvisible.png" />
+		<Image name="platformBreak3" path="brown_platform_breaking_3.png" />
+		<Image name="platformBreak2" path="brown_platform_breaking_2.png" />
+		<Image name="platformBreak1" path="brown_platform_breaking_1.png" />
+		<Image name="platformBreak" path="brown_platform.png" />
+		<Image name="monsterBlue" path="blue_monster.png" />
+		<Image name="monsterBlueFlying" path="blue_flying_monster.png" />
+		<Image name="backgroundImage" path="Background.png" />
+		<Image name="platformWhite" path="white_platform.png" />
+		<Image name="font" path="font.png" />
+	</Images>
+
+	<Animations>
+	</Animations>
+
+	<Sounds>
+	</Sounds>
+
+	<Strings>
+	</Strings>
+
+	<Integers>
+	</Integers>
+
+	<Doubles>
+	</Doubles>
+</Resources>

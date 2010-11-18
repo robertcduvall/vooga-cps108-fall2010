@@ -90,7 +90,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 	private static GameClock myClock;
 
-	private Stat<Long> myScore;
+	private Stat<Integer> myScore;
 	private Stat<Long> myFinalScore;
 
 	private SpriteGroup myOverlay;
@@ -125,8 +125,8 @@ public class DropThis extends vooga.engine.core.Game {
 		
 		
 		OverlayCreator.setGame(this);
-		myTrack = OverlayCreator.createOverlays("src/vooga/games/jumper/JumperOverlay.xml");
-		myScore = myTrack.getStat("score", new Long(0));
+		myTrack = OverlayCreator.createOverlays("src/vooga/games/jumper/resources/overlays.xml");
+		myScore = myTrack.getStat("score", new Integer(0));
 		myPlayfield.addGroup(myTrack.getOverlayGroup("only"));
 
 		myClock = new GameClock();
@@ -217,7 +217,7 @@ public class DropThis extends vooga.engine.core.Game {
 		myPlayfield.update(elapsedTime);
 		//myGameStateManager.update(elapsedTime);
 		
-		myScore.setStat(myClock.getTime());
+		myScore.setStat((int) myClock.getTime());
 		
 		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
 		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
