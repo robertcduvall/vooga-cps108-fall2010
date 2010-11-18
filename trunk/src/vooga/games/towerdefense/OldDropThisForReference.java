@@ -28,8 +28,8 @@ import vooga.games.towerdefense.tower.*;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  * 
  */
-public class OldDropThisForReference extends Game {}
-	/*
+public class OldDropThisForReference extends Game {
+
 
 	public static final int WIDTH = 1050;
 	public static final int HEIGHT = 600;
@@ -337,4 +337,3 @@ public class OldDropThisForReference extends Game {}
 	}
 
 }
-*/

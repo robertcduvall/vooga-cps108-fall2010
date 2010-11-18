@@ -127,6 +127,7 @@ public class Control{
 				}
 				catch (Throwable e){
 					System.err.println(e);
+					e.printStackTrace();
 				}
 			}
 		}

@@ -1,26 +1,16 @@
 package vooga.games.towerdefense;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
 
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.util.ImageUtil;
-
-import vooga.engine.event.EventManager;
-import vooga.engine.event.SingletonEventManager;
+import vooga.engine.core.Sprite;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.PlayerSprite;
-import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.games.towerdefense.events.BuildTowerEvent;
-import vooga.games.towerdefense.tower.*;
+import vooga.games.towerdefense.tower.Fast;
+import vooga.games.towerdefense.tower.Normal;
+import vooga.games.towerdefense.tower.Sniper;
+import vooga.games.towerdefense.tower.Tower;
+
 
 /**
  * Since the player does not have a physical representation, the cursor 
@@ -30,7 +20,7 @@ import vooga.games.towerdefense.tower.*;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
-public class PlayerCursor extends PlayerSprite {
+public class PlayerCursor extends Sprite {
 
 	private static final long serialVersionUID = -8174656868252384431L;
 	private DropThis myGame;
@@ -39,8 +29,10 @@ public class PlayerCursor extends PlayerSprite {
 	public final int TOWER_EDGE = 16;
 	public final double PLAY_AREA_WIDTH = 745;
 	private Tower currentTower;
+	
+	public PlayerCursor(String a)
 
-	public PlayerCursor(String name, String stateName, Sprite s, DropThis game, Stat<Integer> balance,GameStateManager states) {
+	public PlayerCursor(String name, String stateName, Sprite s, Stat<Integer> balance,GameStateManager states) {
 		super(name, stateName, s);
 		myGame = game;
 		creditBalance = balance;

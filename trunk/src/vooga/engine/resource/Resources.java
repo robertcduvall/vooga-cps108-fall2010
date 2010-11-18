@@ -83,6 +83,18 @@ public class Resources {
 	public static void setGame(Game game) {
 		myGame = game;
 	}
+	
+	/**
+	 * Gets the game currently using Resources. Allows
+	 * static access to a pointer to the current game.
+	 * Maybe it's bad practice but everything requires a 
+	 * reference to the top level entity to function properly
+	 * and I'm tired of passing 
+	 * @return
+	 */
+	public static Game getGame(){
+		return myGame;
+	}
 
 	/**
 	 * Changes the default path of this Resources.
