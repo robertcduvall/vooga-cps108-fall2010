@@ -2,7 +2,6 @@ package vooga.games.zombieland;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
-import vooga.engine.player.control.GameEntitySprite;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
 /**

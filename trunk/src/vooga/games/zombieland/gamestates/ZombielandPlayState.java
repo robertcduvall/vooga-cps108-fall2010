@@ -79,13 +79,10 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * Set the player with initial weapons and stats
 	 */
 	private void initializePlayer() {
-		int initHealthXML = ZombielandResources.getInt("initHealthXML");
-		int initAmmoXML = ZombielandResources.getInt("initAmmoXML");
-		int initScoreXML = ZombielandResources.getInt("initScoreXML");
 
-		Stat<Integer> initHealth = tracker.getStats().get(initHealthXML);
-		Stat<Integer> initAmmo = tracker.getStats().get(initAmmoXML);
-		Stat<Integer> initScore = tracker.getStats().get(initScoreXML);
+		Stat<Integer> initHealth = tracker.getStat("initHealth", new Integer(0));
+		Stat<Integer> initAmmo = tracker.getStat("initAmmo", new Integer(0));
+		Stat<Integer> initScore = tracker.getStat("initScore", new Integer(0));
 
 		player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
 				initScore);
@@ -154,22 +151,22 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	public void initOverlays() {
 		
-		int overlayXMLlocation = Resources.getInt("overlayXMLlocation");
-		int statLevelXMLlocation = Resources.getInt("statLevelXMLlocation");
-		int levelStatXMLlocation = Resources.getInt("levelStatXMLlocation");
+//		int overlayXMLlocation = Resources.getInt("overlayXMLlocation");
+//		int statLevelXMLlocation = Resources.getInt("statLevelXMLlocation");
+//		int levelStatXMLlocation = Resources.getInt("levelStatXMLlocation");
 //		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
-		int gameOverStringXMLlocation = Resources.getInt("gameOverStringXMLlocation");
+//		int gameOverStringXMLlocation = Resources.getInt("gameOverStringXMLlocation");
 				
-		SpriteGroup overlays = tracker.getOverlayGroups().get(overlayXMLlocation);
-		statLevel = tracker.getStats().get(statLevelXMLlocation);
+		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
+		statLevel = tracker.getStat("initLevel", new Integer(0));
 	
-		overlayLevelStat = tracker.getStatOverlays().get(levelStatXMLlocation);
+		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
 //		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);
 //		overlayPauseString.setActive(false);
-		overlayGameOverString = tracker.getStringOverlays().get(gameOverStringXMLlocation);
+		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
 		overlayGameOverString.setActive(false);
-		playField.addGroup(tracker.getOverlayGroups().get(0));
+		playField.addGroup(overlays);
 	}
 
 	private boolean levelCompleted() {
