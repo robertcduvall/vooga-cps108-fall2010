@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <Level name="mainMenuLayout">
-
 	<SpriteGroups>
 		<SpriteGroup name="buttons">
 			<LevelButton name="easy" x="100" y="400">

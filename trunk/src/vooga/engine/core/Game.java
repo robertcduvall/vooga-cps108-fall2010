@@ -9,6 +9,7 @@ import com.golden.gamedev.GameLoader;
 
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
 /**
@@ -126,6 +127,20 @@ public class Game extends com.golden.gamedev.Game {
 	public GameStateManager getGameStateManager() {
 		return stateManager;
 	}
+	
+	/**
+	 * add a GameState to the stateManager to 
+	 * prevent repetitive calls to retrieve the stateManager 
+	 * to add to it in Game extensions
+	 * 
+	 * @param gameState GameState to add to the Game stateManager
+	 * @return gameState added to reduce number of lines of code when adding GameStates
+	 */
+	public GameState addGameState(GameState gameState){
+		stateManager.addGameState(gameState);
+		return gameState;
+	}
+	
 
 //	No longer needed.
 //	/**
