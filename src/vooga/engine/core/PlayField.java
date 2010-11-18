@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import vooga.engine.control.Control;
+import vooga.engine.event.EventPool;
 import vooga.engine.level.Rule;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
@@ -39,6 +40,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
 	private Collection<Control> myControls;
+	private EventPool myEventPool;
 
 	// BUGBUG: Is this needed??
     public PlayField() {
@@ -61,6 +63,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		super.update(elapsedTime);
 		actOnRules();
 		updateControls();
+		myEventPool.checkEvents();
 		
 	}
 	
@@ -161,6 +164,10 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 */
 	public void addControl(Control control){
 		myControls.add(control);
+	}
+	
+	public void addEventPool(EventPool eventPool){
+		myEventPool = eventPool;
 	}
 
 	

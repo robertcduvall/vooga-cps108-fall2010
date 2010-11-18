@@ -1,16 +1,18 @@
-package vooga.games.towerdefense;
+package vooga.games.towerdefense.actors;
 
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.events.BuildTowerEvent;
 
 public class Player extends Sprite {
 
 
 	private static final long serialVersionUID = 1L;
+	private BuildTowerEvent buildTowerEvent;
 
-	public Player(BufferedImage image, double x, double y) {
+	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower) {
 		super(image, x, y);
 	}
 
@@ -25,6 +27,9 @@ public class Player extends Sprite {
 	}
 
 	private void buildTower() {
+		
+		//TODO add something real
+		buildTowerEvent.addTower(null);
 
 //		if (creditBalance.getStat() >= currentTower.getCost() && offPath()
 //				&& inPlayArea()) {
