@@ -47,7 +47,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 
 
 	public PlayField(Background background){
-		super();
+		this();
 	}
 
 	public PlayField() {
@@ -56,6 +56,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		myRuleMap = new HashMap<Rule, SpriteGroup[]>();
 		myControls = new ArrayList<Control>();
 		myEventPool = new EventPool();
+		myMusics = new ArrayList<String>();
 	}
 
 
@@ -172,6 +173,15 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 */
 	public void addControl(Control control){
 		myControls.add(control);
+	}
+	
+	/**
+	 * Here's to adding a music string
+	 * @param musicname
+	 */
+	public void addMusic(String musicname)
+	{
+		myMusics.add(musicname);
 	}
 
 	public void addEventPool(EventPool eventPool){
