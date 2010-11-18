@@ -10,7 +10,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelFactory;
 import vooga.engine.factory.LevelParser;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
@@ -41,12 +41,12 @@ public class PlayState extends GameState{
 //		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
 //		
 //		addPlayField(playField);
-		Sprite playerShip = (Sprite)(getGroup("playerShip").getSprites()[0]);
+		BetterSprite playerShip = (BetterSprite)(getGroup("playerShip").getSprites()[0]);
 		initControls(playerShip);
 
 	}
 	
-	private void initControls(Sprite player){
+	private void initControls(BetterSprite player){
 		Control playerControl = new KeyboardControl(player, game);
 		playerControl.addInput(KeyEvent.VK_LEFT, "rotateLeft", "vooga.games.asteroids.sprites.Ship");
 		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship");

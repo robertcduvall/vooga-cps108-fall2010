@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.*;
 
 import vooga.engine.collision.CollisionManager;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -95,7 +95,7 @@ public class LevelManager {
      * @return the Collection of Sprites that constitutes the selected Level.
      */
 
-    public Collection<Sprite> skipToLevel(int levelIndex) {
+    public Collection<BetterSprite> skipToLevel(int levelIndex) {
         myCurrentLevel = levelIndex - 1; 
         return myLayout.get(myCurrentLevel).getSpritesList();
     }
@@ -105,7 +105,7 @@ public class LevelManager {
      * @return The Collection of Sprites that constitutes the next Level in the folder.
      */
     
-    public Collection<Sprite> nextLevel() {
+    public Collection<BetterSprite> nextLevel() {
         myCurrentLevel++;
         return skipToLevel(myCurrentLevel);
     }

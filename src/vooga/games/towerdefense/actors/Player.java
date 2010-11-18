@@ -2,11 +2,11 @@ package vooga.games.towerdefense.actors;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 
-public class Player extends Sprite {
+public class Player extends BetterSprite {
 
 
 	private static final long serialVersionUID = 1L;

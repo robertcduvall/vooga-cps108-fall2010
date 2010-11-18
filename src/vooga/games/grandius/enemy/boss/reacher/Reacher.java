@@ -3,7 +3,7 @@ package vooga.games.grandius.enemy.boss.reacher;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.GrandiusBoss;
 
@@ -33,7 +33,7 @@ public class Reacher extends GrandiusBoss {
 	private static final int SCORE_VALUE = 1000;
 	private static final int CASH_VALUE = 100;
 
-	public Reacher(BufferedImage[] images, int[] breakpoints, double x, double y, int health, List<Sprite> parts) {
+	public Reacher(BufferedImage[] images, int[] breakpoints, double x, double y, int health, List<BetterSprite> parts) {
 		super(images, breakpoints, x, y, health, parts);
 		fireTopBeamTimer = new Timer(4000);
 		fireBottomBeamTimer = new Timer(4000);
@@ -56,39 +56,39 @@ public class Reacher extends GrandiusBoss {
 		this.updateMovement(elapsedTime);
 	}
 
-	public boolean topBeamWillFire(Sprite playersprite) {
+	public boolean topBeamWillFire(BetterSprite playersprite) {
 		return (playersprite.getY() > this.getY() && playersprite.getY() < this.getY()+this.getHeight()/4
 				&& playersprite.getX() < this.getX() && topBeamReloaded && this.isActive());
 	}
 	
-	public boolean bottomBeamWillFire(Sprite playersprite) {
+	public boolean bottomBeamWillFire(BetterSprite playersprite) {
 		return (playersprite.getY() > this.getY()+3*this.getHeight()/4 && playersprite.getY() < this.getY()+this.getHeight()
 				&& playersprite.getX() < this.getX() && bottomBeamReloaded && this.isActive());
 	}
 	
-	public boolean redRayWillFire(Sprite playersprite) {
+	public boolean redRayWillFire(BetterSprite playersprite) {
 		return (playersprite.getY() > this.getY()+this.getHeight()/4 && playersprite.getY() < this.getY()+3*this.getHeight()/4
 				&& playersprite.getX() < this.getX() && redRayReloaded && this.isActive());
 	}
 
-	public Sprite fireTopBeam() {
-		Sprite beam = new Sprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+this.getHeight()/7);
+	public BetterSprite fireTopBeam() {
+		BetterSprite beam = new BetterSprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+this.getHeight()/7);
 		beam.setHorizontalSpeed(-REACHER_BEAM_SPEED);
 		fireTopBeamTimer = new Timer(REACHER_BEAM_RELOAD_TIME);
 		topBeamReloaded = false;
 		return beam;
 	}
 
-	public Sprite fireBottomBeam() {
-		Sprite beam = new Sprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+5*this.getHeight()/7);
+	public BetterSprite fireBottomBeam() {
+		BetterSprite beam = new BetterSprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+5*this.getHeight()/7);
 		beam.setHorizontalSpeed(-REACHER_BEAM_SPEED);
 		fireBottomBeamTimer = new Timer(REACHER_BEAM_RELOAD_TIME);
 		bottomBeamReloaded = false;
 		return beam;
 	}
 
-	public Sprite fireRedRay() {
-		Sprite redray = new Sprite(Resources.getImage("ReacherRedRay"),this.getX()+this.getWidth()/4,this.getY()+3*this.getHeight()/7);
+	public BetterSprite fireRedRay() {
+		BetterSprite redray = new BetterSprite(Resources.getImage("ReacherRedRay"),this.getX()+this.getWidth()/4,this.getY()+3*this.getHeight()/7);
 		redray.setHorizontalSpeed(-REACHER_REDRAY_SPEED);
 		fireRedRayTimer = new Timer(REACHER_REDRAY_RELOAD_TIME);
 		redRayReloaded = false;

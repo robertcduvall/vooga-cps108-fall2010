@@ -186,7 +186,7 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 
 public class MainGameState extends GameState{
 	

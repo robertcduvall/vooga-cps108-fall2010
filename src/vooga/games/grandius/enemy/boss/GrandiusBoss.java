@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 import vooga.games.grandius.enemy.common.Enemy;
 
@@ -21,12 +21,12 @@ public abstract class GrandiusBoss extends Enemy {
 	//protected int health;
 	protected int[] breakpoints; //0=green done, 1=yellow done
 	protected BufferedImage[] images; //0=shielded_3, 1=shielded_2, 2=shielded_1, 3=green, 4=yellow, 5=red
-	private List<Sprite> partsList;
+	private List<BetterSprite> partsList;
 	private boolean vulnerable;
 	private static final String HEALTH = "Health";
 	
 	public GrandiusBoss(BufferedImage[] images, int[] breakpoints, double x, double y, int health, 
-				       List<Sprite> parts) {
+				       List<BetterSprite> parts) {
 		super(images, x, y);
 		this.breakpoints = breakpoints;
 		this.partsList = parts;
@@ -51,7 +51,7 @@ public abstract class GrandiusBoss extends Enemy {
 		this.vulnerable = vulnerable;
 	}
 	
-	public void setParts(List<Sprite> parts) {
+	public void setParts(List<BetterSprite> parts) {
 		this.partsList = parts;
 	}
 	

@@ -19,7 +19,7 @@ public class BulletToAsteroidCollision extends AdvanceCollisionGroup{
 		bullet.setActive(false);
 		asteroid.setActive(false);
 	
-		Stat<Integer> score = (Stat<Integer>) ((vooga.engine.core.Sprite) asteroid).getStat("score");
+		Stat<Integer> score = (Stat<Integer>) ((vooga.engine.core.BetterSprite) asteroid).getStat("score");
 		score.setStat(score.getStat() + ADD_PER_HIT);
 		//TODO:play sound
 		//TODO:add score

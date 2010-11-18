@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.control.Control;
 import vooga.engine.control.MouseControl;
 import vooga.engine.core.PlayField;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
@@ -38,7 +38,7 @@ public class PlayState extends GameState{
 		
 		BuildTowerEvent buildTower = new BuildTowerEvent();
 		eventPool.addEvent(buildTower);
-		Sprite player = initPlayer(buildTower);
+		BetterSprite player = initPlayer(buildTower);
 		playField.add(player);
 		
 		playField.addControl(initControl(player));
@@ -53,12 +53,12 @@ public class PlayState extends GameState{
 		return new ImageBackground(backgroundImage);
 	}
 	
-	private Sprite initPlayer(BuildTowerEvent buildTowerEvent){
-		Sprite player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent);		
+	private BetterSprite initPlayer(BuildTowerEvent buildTowerEvent){
+		BetterSprite player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent);		
 		return player;
 	}
 	
-	public Control initControl(Sprite player){
+	public Control initControl(BetterSprite player){
 		MouseControl playerControl = new MouseControl(player, Resources.getGame());	
 		playerControl.addInput(MouseEvent.BUTTON1, "onClick", "vooga.games.towerdefense.Player");
 		playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.Player");

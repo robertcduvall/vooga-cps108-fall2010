@@ -50,7 +50,7 @@ import com.golden.gamedev.object.Background;
  */
 
 @SuppressWarnings("serial")
-public class Sprite extends com.golden.gamedev.object.Sprite {
+public class BetterSprite extends com.golden.gamedev.object.Sprite {
 
 	private static final String DEFAULT_STATE_NAME = "default";
 
@@ -63,7 +63,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * Constructs an entity with null image and 0, 0 position and the default
 	 * label.
 	 */
-	public Sprite() {
+	public BetterSprite() {
 		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite());
 	}
 
@@ -72,7 +72,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * 
 	 * @param image
 	 */
-	public Sprite(BufferedImage image) {
+	public BetterSprite(BufferedImage image) {
 		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite(image));
 	}
 
@@ -87,7 +87,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param this is the default Sprite that will represent this Entity on the
 	 *        Screen.
 	 */
-	public Sprite(String label, com.golden.gamedev.object.Sprite s) {
+	public BetterSprite(String label, com.golden.gamedev.object.Sprite s) {
 		myStartTime = System.currentTimeMillis();
 		mySprites = new HashMap<String, com.golden.gamedev.object.Sprite>();
 		addSprite(label, s);
@@ -100,7 +100,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * 
 	 * @param image
 	 */
-	public Sprite(BufferedImage[] images) {
+	public BetterSprite(BufferedImage[] images) {
 		this(DEFAULT_STATE_NAME, new AnimatedSprite(images));
 	}
 
@@ -109,7 +109,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * 
 	 * @param image
 	 */
-	public Sprite(String label, BufferedImage[] images) {
+	public BetterSprite(String label, BufferedImage[] images) {
 		this(label, new AnimatedSprite(images));
 	}
 	
@@ -124,7 +124,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param y
 	 *            is the y position.
 	 */
-	public Sprite(BufferedImage image, double x, double y) {
+	public BetterSprite(BufferedImage image, double x, double y) {
 		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite(image, x,
 				y));
 	}
@@ -138,7 +138,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param y
 	 *            is the y position.
 	 */
-	public Sprite(double x, double y) {
+	public BetterSprite(double x, double y) {
 		this(null, x, y);
 	}
 	
@@ -155,7 +155,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 * @param y
 	 *            is the y position.
 	 */
-	public Sprite(String label, BufferedImage image, double x, double y) {
+	public BetterSprite(String label, BufferedImage image, double x, double y) {
 		this(label, new com.golden.gamedev.object.Sprite(image, x, y));
 	}
 
@@ -168,7 +168,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	 *            is the label for this sprite representation.
 	 * @param image
 	 */
-	public Sprite(String label, BufferedImage image) {
+	public BetterSprite(String label, BufferedImage image) {
 		this(image, 0, 0);
 	}
 
@@ -387,7 +387,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 	@Override
 	public void addHorizontalSpeed(long elapsedTime, double accel,
 			double maxSpeed) {
-		((Sprite) myCurrentSprite).addHorizontalSpeed(elapsedTime, accel,
+		((BetterSprite) myCurrentSprite).addHorizontalSpeed(elapsedTime, accel,
 				maxSpeed);
 	}
 
@@ -445,7 +445,7 @@ public class Sprite extends com.golden.gamedev.object.Sprite {
 		return myCurrentSprite.getDistance(other);
 	}
 
-	public double getDistance(Sprite other) {
+	public double getDistance(BetterSprite other) {
 		return myCurrentSprite.getDistance(other.getCurrentSprite());
 	}
 

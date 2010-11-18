@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import vooga.engine.core.PlayField;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.Player;
@@ -38,13 +38,13 @@ public class PlayState extends GameState {
 		addSpriteGroups();
 		//playerSprite initialization moved from DrpThis to addPlayer()
 		addPlayer();
-		backgroundGroup.add(new Sprite(Resources.getImage("BG")));		
+		backgroundGroup.add(new BetterSprite(Resources.getImage("BG")));		
 	}
 	
 	private void addPlayer() {
 		int playerInitialX = Resources.getInt("PlayerInitialX");
 		int playerInitialY = Resources.getInt("PlayerInitialY");
-		Sprite shipSprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
+		BetterSprite shipSprite = new BetterSprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
 		player = new Player("alive", shipSprite);
 		playerGroup.add(player);		
 	}
@@ -108,7 +108,7 @@ public class PlayState extends GameState {
 			Random valY = new Random();
 			double x = valX.nextDouble();
 			double y = valY.nextDouble();
-			Sprite backgroundSprite = new Sprite(Resources.getImage("Comet"),
+			BetterSprite backgroundSprite = new BetterSprite(Resources.getImage("Comet"),
 					(x * Resources.getInt("cometX")), 
 					(y * Resources.getInt("cometY")));
 			backgroundSprite.setHorizontalSpeed(Resources.getDouble("cometVX"));

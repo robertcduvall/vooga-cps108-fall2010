@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Timer;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
 
@@ -44,7 +44,7 @@ public class Zipster extends Enemy {
 		this.updateMovement(elapsedTime);
 	}
 	
-	public boolean willFire(Sprite playersprite) {
+	public boolean willFire(BetterSprite playersprite) {
 		return (playersprite.getY() > this.getY() && playersprite.getY() < this.getY()+this.getHeight()
 				&& playersprite.getX() < this.getX() && reloaded && this.isActive() && spin==0);
 	}
@@ -53,8 +53,8 @@ public class Zipster extends Enemy {
 	 * Fires the Zipster's laser weapon.
 	 * @return The laser sprite to add to the game field.
 	 */
-	public Sprite fireLaser() {
-		Sprite laser = new Sprite(Resources.getImage("ZipsterLaser"),this.getX()-this.getWidth(),this.getY());
+	public BetterSprite fireLaser() {
+		BetterSprite laser = new BetterSprite(Resources.getImage("ZipsterLaser"),this.getX()-this.getWidth(),this.getY());
 		laser.setHorizontalSpeed(-ZIPSTER_LASER_SPEED);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
 		reloaded = false;

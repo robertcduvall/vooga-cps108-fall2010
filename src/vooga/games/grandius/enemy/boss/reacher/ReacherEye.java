@@ -2,7 +2,7 @@ package vooga.games.grandius.enemy.boss.reacher;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.BossPart;
 
@@ -52,7 +52,7 @@ public class ReacherEye extends BossPart{
 	 * @param playerSprite The player sprite to check the location of, relative to the ReacherEye.
 	 * @return Whether or not the ReacherEye will fire.
 	 */
-	public boolean willFire(Sprite playerSprite) {
+	public boolean willFire(BetterSprite playerSprite) {
 		return (playerSprite.getY() > this.getY() && playerSprite.getY() < this.getY()+this.getHeight()
 				&& playerSprite.getX() < this.getX() && beamReloaded && this.isActive());
 	}
@@ -61,8 +61,8 @@ public class ReacherEye extends BossPart{
 	 * Fires the ReacherEye's beam weapon.
 	 * @return The Beam sprite to add to the play field.
 	 */
-	public Sprite fireBeam() {
-		Sprite beam = new Sprite(Resources.getImage("ReacherEyeBeam"),this.getX()-this.getWidth(),this.getY()+this.getHeight()/3);
+	public BetterSprite fireBeam() {
+		BetterSprite beam = new BetterSprite(Resources.getImage("ReacherEyeBeam"),this.getX()-this.getWidth(),this.getY()+this.getHeight()/3);
 		beam.setHorizontalSpeed(-REACHER_EYE_BEAM_SPEED);
 		beamTimer = new Timer(REACHER_EYE_BEAM_RELOAD_TIME);
 		beamReloaded = false;

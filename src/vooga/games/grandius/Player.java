@@ -1,11 +1,11 @@
 package vooga.games.grandius;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 
-public class Player extends Sprite implements IEventHandler {
+public class Player extends BetterSprite implements IEventHandler {
 
-	public Player(String label, Sprite sprite){
+	public Player(String label, BetterSprite sprite){
 		super(label,sprite);
 	}
 	

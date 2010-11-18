@@ -31,7 +31,7 @@ import vooga.games.cyberion.sprites.PlayerShot;
 import vooga.games.cyberion.sprites.StarGroup;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.core.PlayField;
 

@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayIcon;
@@ -78,7 +78,7 @@ public class DropThis extends Game {
 
 	private boolean reacherShieldsDepleted;
 
-	private Sprite shipSprite;
+	private BetterSprite shipSprite;
 	//private PlayerSprite playerSprite;
 	private Player player;
 
@@ -342,7 +342,7 @@ public class DropThis extends Game {
 	 * Updates the various enemies that are on screen.
 	 */
 	private void updateScreenSprites() {
-		ArrayList<ArrayList<Sprite>> currentSprites = levelManager.currentLevel();
+		ArrayList<ArrayList<BetterSprite>> currentSprites = levelManager.currentLevel();
 		updateSpriteGroup(enemyGroup, currentSprites,0);
 		updateSpriteGroup(bossPartGroup, currentSprites, 1);
 		updateSpriteGroup(bossGroup, currentSprites, 2);
@@ -351,10 +351,10 @@ public class DropThis extends Game {
 	/**
 	 * Utility method used in updateScreenSprites().
 	 */
-	private void updateSpriteGroup(SpriteGroup spriteGroup, ArrayList<ArrayList<Sprite>> currentSprites,  int index) {
+	private void updateSpriteGroup(SpriteGroup spriteGroup, ArrayList<ArrayList<BetterSprite>> currentSprites,  int index) {
 		spriteGroup.clear();
-		Collection<Sprite> screenSprites = currentSprites.get(index);
-		for (Sprite s: screenSprites) {
+		Collection<BetterSprite> screenSprites = currentSprites.get(index);
+		for (BetterSprite s: screenSprites) {
 			if (s==null) 
 				break;
 			spriteGroup.add(s);
@@ -399,7 +399,7 @@ public class DropThis extends Game {
 	private void updateEntities() {
 		updateScreenSprites();
 		playerSprite.setVerticalSpeed(0);
-		for (Sprite as: enemyGroup.getSprites()) {
+		for (BetterSprite as: enemyGroup.getSprites()) {
 			if (as == null) 
 				break;
 			if (as instanceof Zipster) {
@@ -414,7 +414,7 @@ public class DropThis extends Game {
 				((Zipster)as).setProximateToBlackHole(false);
 			}
 		}
-		for (Sprite bp: bossPartGroup.getSprites()) {
+		for (BetterSprite bp: bossPartGroup.getSprites()) {
 			if (bp == null) 
 				break;
 			if (bp instanceof ReacherEye) {
@@ -425,7 +425,7 @@ public class DropThis extends Game {
 				bp.setHorizontalSpeed(-((ReacherEye)(bp)).getSpeed());
 			}
 		}
-		for (Sprite b: bossGroup.getSprites()) {
+		for (BetterSprite b: bossGroup.getSprites()) {
 			if (b == null) 
 				break;
 			if (b instanceof Reacher) {
@@ -450,7 +450,7 @@ public class DropThis extends Game {
 		resetSpriteSpeed(enemyProjectileGroup, -1*bulletSpeed);
 		resetSpriteSpeed(missileGroup, bulletSpeed);
 
-		for (Sprite h: blackHoleGroup.getSprites()) {
+		for (BetterSprite h: blackHoleGroup.getSprites()) {
 			if (h == null) 
 				break;
 			if (h.isActive()) {
@@ -463,7 +463,7 @@ public class DropThis extends Game {
 			for (SpriteGroup sg: spriteGroupSpeedMap.keySet()) {
 				moveSpriteGroup(sg, "right", spriteGroupSpeedMap.get(sg));
 			}
-			for (Sprite h: blackHoleGroup.getSprites()) {
+			for (BetterSprite h: blackHoleGroup.getSprites()) {
 				if (h == null)
 					break;
 				((BlackHole)h).setPlayerCompensationSpeed(1*PLAYER_SPEED);
@@ -473,7 +473,7 @@ public class DropThis extends Game {
 			for (SpriteGroup sg: spriteGroupSpeedMap.keySet()) {
 				moveSpriteGroup(sg, "left", spriteGroupSpeedMap.get(sg));
 			}
-			for (Sprite h: blackHoleGroup.getSprites()) {
+			for (BetterSprite h: blackHoleGroup.getSprites()) {
 				if (h == null)
 					break;
 				((BlackHole)h).setPlayerCompensationSpeed(-1*PLAYER_SPEED);
@@ -488,7 +488,7 @@ public class DropThis extends Game {
 	}
 
 	private void resetSpriteSpeed(SpriteGroup spriteGroup, double newSpeed) {
-		for (Sprite s: spriteGroup.getSprites()) {
+		for (BetterSprite s: spriteGroup.getSprites()) {
 			if (s == null)
 				break;
 			s.setHorizontalSpeed(newSpeed);
@@ -500,13 +500,13 @@ public class DropThis extends Game {
 	 */
 	private void moveSpriteGroup(SpriteGroup spriteGroup, String direction, double offset) {
 		if (direction.equals("right")) {
-			for (Sprite s: spriteGroup.getSprites()) {
+			for (BetterSprite s: spriteGroup.getSprites()) {
 				if (s == null) 
 					break;
 				s.setHorizontalSpeed(1*PLAYER_SPEED+offset);
 			}
 		} else if (direction.equals("left")) {
-			for (Sprite s: spriteGroup.getSprites()) {
+			for (BetterSprite s: spriteGroup.getSprites()) {
 				if (s == null) 
 					break;
 				s.setHorizontalSpeed(-1*PLAYER_SPEED+offset);
@@ -517,9 +517,9 @@ public class DropThis extends Game {
 	private void checkBossParts() {
 		if (bossGroup.isActive()) {
 			//Change this method to accomodate more than one level
-			Sprite reacherSprite = bossGroup.getSprites()[0];
+			BetterSprite reacherSprite = bossGroup.getSprites()[0];
 			int reacherEyesDestroyed = 0;
-			for (Sprite bp: bossPartGroup.getSprites()) {
+			for (BetterSprite bp: bossPartGroup.getSprites()) {
 				if (bp==null)
 					break;
 				if (bp instanceof ReacherEye && !bp.isActive())
@@ -550,7 +550,7 @@ public class DropThis extends Game {
 			return true;
 		}
 		for (int i = 0; i < 3; i++) {
-			for (Sprite s: levelManager.currentLevel().get(i)) {
+			for (BetterSprite s: levelManager.currentLevel().get(i)) {
 				if (s.isActive()) {
 					return false;
 				}

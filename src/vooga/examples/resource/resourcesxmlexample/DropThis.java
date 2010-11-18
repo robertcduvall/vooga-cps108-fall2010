@@ -6,7 +6,7 @@ import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
 public class DropThis extends Game{
@@ -36,7 +36,7 @@ public class DropThis extends Game{
 	 */
 	private static void runTests(){
 		System.out.println(Resources.getString("helloMessage"));
-		Sprite oneImage = new Sprite(Resources.getImage("duvall"), 0, 0);
+		BetterSprite oneImage = new BetterSprite(Resources.getImage("duvall"), 0, 0);
 		AnimatedSprite fourImage = new AnimatedSprite(Resources.getAnimation("downAnim"),0,0);
 	}	
 }

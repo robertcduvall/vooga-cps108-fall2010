@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Scanner;
 
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.examples.level.Level;
 
 public class TronLevelManager {
@@ -15,7 +15,7 @@ public class TronLevelManager {
 	int currentLevel;
 	int totalLevels = 0;
 	
-	ArrayList<Collection<Sprite>> currentLevels = new ArrayList<Collection<Sprite>>();
+	ArrayList<Collection<BetterSprite>> currentLevels = new ArrayList<Collection<BetterSprite>>();
 	
 	public TronLevelManager(File initFile){
 	
@@ -42,11 +42,11 @@ public class TronLevelManager {
 		
 	}
 
-	public Collection<Sprite> getCurrentLevel(){
+	public Collection<BetterSprite> getCurrentLevel(){
 		return currentLevels.get(currentLevel);
 	}
 	
-	public Collection<Sprite> getCurrentLevelAndIncrement(){
+	public Collection<BetterSprite> getCurrentLevelAndIncrement(){
 		currentLevel++;
 		return currentLevels.get(currentLevel-1);
 	}

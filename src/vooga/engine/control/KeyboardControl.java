@@ -2,7 +2,7 @@ package vooga.engine.control;
 
 import java.util.*;
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 
 /**
  * Built-in example of how to extend Control class properly. Also a usable keyboard
@@ -36,7 +36,7 @@ public class KeyboardControl extends Control{
 	 * @param initialEntity the PlayerSprite to be controlled
 	 * @param game the Game to which the PlayerSprites belong
 	 */
-	public KeyboardControl(Sprite entity, Game game){
+	public KeyboardControl(BetterSprite entity, Game game){
 		super(entity, game);
 	}
 	
@@ -47,7 +47,7 @@ public class KeyboardControl extends Control{
 	 * @param initialEntities the players to be controlled
 	 * @param game the Game to which the PlayerSprites belong
 	 */
-	public KeyboardControl(List<Sprite> entities, Game game){
+	public KeyboardControl(List<BetterSprite> entities, Game game){
 		super(entities, game);
 	}
 

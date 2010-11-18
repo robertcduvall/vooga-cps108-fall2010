@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Scanner;
 
 import vooga.engine.collision.CollisionManager;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -38,7 +38,7 @@ import vooga.engine.state.GameState;
  */
 
 public class Level {
-    private Collection<Sprite> mySpritesList; 
+    private Collection<BetterSprite> mySpritesList; 
     private CollisionManager collisionManager;
     private EventManager eventManager;
     private GameState gameState;
@@ -47,7 +47,7 @@ public class Level {
     public Level(Scanner fileToBeRead)
     {
         loadSprites(fileToBeRead);
-        mySpritesList = new ArrayList<Sprite>();
+        mySpritesList = new ArrayList<BetterSprite>();
     }
     
     /**
@@ -68,7 +68,7 @@ public class Level {
 	        
 	        double xPosition = details.nextDouble();
 	        double yPosition = details.nextDouble();
-	        Sprite sprite = new Sprite(image, xPosition, yPosition);
+	        BetterSprite sprite = new BetterSprite(image, xPosition, yPosition);
 	        mySpritesList.add(sprite);
 	    }
     }
@@ -77,7 +77,7 @@ public class Level {
      * @return A Collection of Sprites to be used by the Game.
      */
     
-    public Collection<Sprite> getSpritesList()
+    public Collection<BetterSprite> getSpritesList()
     {
         return mySpritesList;
     }

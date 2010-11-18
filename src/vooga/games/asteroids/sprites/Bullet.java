@@ -1,10 +1,10 @@
 package vooga.games.asteroids.sprites;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 
-public class Bullet extends Sprite {
+public class Bullet extends BetterSprite {
 
 	/**
 	 * 

@@ -1,6 +1,6 @@
 package vooga.examples.player;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 
 /**
@@ -11,7 +11,7 @@ import vooga.engine.overlay.Stat;
  * 
  */
 @SuppressWarnings("serial")
-public class PlayerExample extends Sprite {
+public class PlayerExample extends BetterSprite {
 
 	private static final String EXAMPLE_STAT_STRING = "Example";
 	private static final int EXAMPLE_STAT_INT = 10;

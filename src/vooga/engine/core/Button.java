@@ -12,7 +12,7 @@ import vooga.engine.event.IEventHandler;
  * @author Brian Simel
  *
  */
-public abstract class Button extends Sprite implements IEventHandler{
+public abstract class Button extends BetterSprite implements IEventHandler{
 
 	private Game myGame;
 	

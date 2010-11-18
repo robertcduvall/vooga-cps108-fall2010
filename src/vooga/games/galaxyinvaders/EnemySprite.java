@@ -4,7 +4,7 @@ package vooga.games.galaxyinvaders;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.random.Randomizer;
 import vooga.engine.resource.random.RandomizerException;
@@ -18,7 +18,7 @@ import com.golden.gamedev.object.Timer;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class EnemySprite extends Sprite {
+public class EnemySprite extends BetterSprite {
 
 	private static final int DEFAULT_HP = 2;
     private int pathNum;
@@ -34,7 +34,7 @@ public class EnemySprite extends Sprite {
 	 * @param sprite see GameEntitySprite
 	 * @param list the path which this enemy is going to follow
 	 */
-	public EnemySprite(String name, Sprite sprite, ArrayList<Point> pathmap, int timerNum) {
+	public EnemySprite(String name, BetterSprite sprite, ArrayList<Point> pathmap, int timerNum) {
 		super(name, sprite);
 		hitPoints = DEFAULT_HP;
 		timer = new Timer(timerNum);

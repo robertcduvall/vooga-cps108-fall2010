@@ -3,11 +3,11 @@ package vooga.games.cyberion.sprites;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.games.cyberion.events.EnemyFireEvent;
 
-public class EnemyShip extends Sprite {
+public class EnemyShip extends BetterSprite {
 		private int life;
 		private Random rnd;
 		private EventPool eventManager;
