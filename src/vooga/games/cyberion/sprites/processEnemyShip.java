@@ -47,7 +47,7 @@ This class provides full implementation for LevelParser.
  * @author Derek
 *
 */
-public class EnemyShipParser extends LevelParser{
+public class processEnemyShip extends LevelParser{
 	public EnemyShip processEnemyShip(NamedNodeMap parameters)
 	{
 		String enemyImage = parameters.getNamedItem("imageName").getNodeValue();

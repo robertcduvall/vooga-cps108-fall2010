@@ -24,9 +24,9 @@ import vooga.games.cyberion.collisions.PlayerCollidesWall;
 import vooga.games.cyberion.collisions.PlayerCollidesWithBonus;
 import vooga.games.cyberion.collisions.PlayerCollidesWithShot;
 import vooga.games.cyberion.sprites.Bonus;
-import vooga.games.cyberion.sprites.EnemyShipParser;
+import vooga.games.cyberion.sprites.processEnemyShip;
 import vooga.games.cyberion.sprites.EnemyShot;
-import vooga.games.cyberion.sprites.PlayerShipParser;
+import vooga.games.cyberion.sprites.processPlayerShip;
 import vooga.games.cyberion.sprites.PlayerShot;
 import vooga.games.cyberion.sprites.StarGroup;
 
@@ -72,8 +72,8 @@ public class DropThis extends Game {
 		//create your own LevelParser in certain cases. In that case, use the following constructor:
 		//levelManager = new LevelManager(this, yourCustomizedParser);
 		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("directory");
-		String levelNamesFile = Resources.getString("file");
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
 	}
 
