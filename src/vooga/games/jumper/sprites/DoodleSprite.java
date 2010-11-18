@@ -131,4 +131,16 @@ public class DoodleSprite extends Sprite {
 			addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION * directionMultiplier, MAX_SPEED * directionMultiplier);
 		}
 	}
+	
+	public void moveLeft(){
+		
+	}
+	
+	public void moveRight(){
+		
+	}
+	
+	public void moveDown(){
+		
+	}
 }
