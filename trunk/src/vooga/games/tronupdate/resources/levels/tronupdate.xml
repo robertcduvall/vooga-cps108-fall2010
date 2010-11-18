@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="Tronupdate" xmloverlaypath="src/vooga/games/tronupdate/resources/overlays.xml">
+
+	<SpriteGroups>
+		<SpriteGroup name="playerSpriteGroup">
+			<RegularSprite name="playerSprite" x="200" y="300" vx="0" vy="0" quantity="1">
+				<Visual name="lazer0"/>
+			</RegularSprite>
+			<RegularSprite name="playerSprite2" x="500" y="300" vx="0.1" vy="0" quantity="1">
+				<Visual name="lazer1"/>
+			</RegularSprite>
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<CollisionGroups>
+	
+	</CollisionGroups>
+	
+	<Background>
+		<!-- <Visual name = "mainBG" /> -->
+	</Background>
+
+	<Music>
+		<Sound name="explosionSound"/>
+		<Sound name="backgroundmusic"/>
+	</Music>
+	
+	<Map>
+	
+	</Map>
+
+</Level>
