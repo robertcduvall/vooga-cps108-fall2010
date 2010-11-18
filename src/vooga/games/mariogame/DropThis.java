@@ -6,11 +6,17 @@ import java.io.IOException;
 
 import com.golden.gamedev.object.GameFontManager;
 import vooga.engine.core.Game;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
+<<<<<<< .mine
+import vooga.engine.state.PauseGameState;
+
+=======
 import vooga.engine.state.PauseGameState;
 import vooga.games.mariocloneold.GameEndState;
 import vooga.games.mariocloneold.MainMenuState;
+>>>>>>> .r1528
 
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.GameFont;
@@ -28,12 +34,13 @@ import com.golden.gamedev.object.font.SystemFont;
 
 public class DropThis extends Game {
 
-	public PauseGameState gamePause;
+	PauseGameState pauseState;
+	GamePlayState playState;
 	public GameFontManager fontManager;
+	private LevelManager levelManager;
 
 	public static void main(String[] args) throws IOException {
-		GameLoader gl = new GameLoader();
-		DropThis game = new DropThis();
+		launch(new DropThis());
 
 		// TODO: Game teams should now convert their old imagelist.txt,
 		// soundlist.txt,
@@ -42,21 +49,34 @@ public class DropThis extends Game {
 		// code in
 		// vooga.examples.resource.resourcesxmlexample
 
-		// TODO: How do we format the config.properties file for width, height,
-		// etc?
 
-		game.launch(game);
 	}
 
 	public void initResources() {
-		initFonts();
 		super.initResources();
+		initFonts();
+		initLevelManager();
 	}
+	
+	private void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+	}
+	
+	
+	public void initGameStates(){
+		stateManager.addGameState(gameOver = new MenuGameState());
+		stateManager.addGameState(mainMenu = new MenuGameState());
+		stateManager.addGameState(gamePause = new PauseGameState()); //will ultimately construct this from the previous GS
+		
+=======
 
 	private void initFonts() {
 		fontManager = new GameFontManager();
 		GameFont menuFont = fontManager.getFont(getImages(
-				"resources/images/font.png", 20, 3),
+"resources/images/font.png", 20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		SystemFont gameOverFont = new SystemFont(new Font(Font.SANS_SERIF,
 				Font.BOLD, 200));
@@ -66,20 +86,22 @@ public class DropThis extends Game {
 		fontManager.putFont("MENU", menuFont);
 	}
 
+	public void pauseGame() {
+		stateManager.activateOnly(pauseState);		
+	}
+	
+	public void resumeGame() {		
+		stateManager.activateOnly(playState);
+	}
+
 	public void initGameStates() {
 		super.initGameStates();
-		MainMenuState mainMenu = new MainMenuState(Resources
-				.getImage("Mario Menu BG"), fontManager);
-		MainMenuState pauseState = new MainMenuState(Resources
-				.getImage("PauseBG"), fontManager);
-		GameEndState loseState = new GameEndState(Resources.getImage("LoseBG"),
-				"FAIL!", fontManager);
-		GameEndState winState = new GameEndState(Resources.getImage("WinBG"),
-				"YOU WIN!", fontManager);
-		MainMenuState levelFinishedState = new MainMenuState(Resources
-				.getImage("LevelFinishedBG"), fontManager);
+		MainMenuState mainMenu = new MainMenuState(Resources.getImage("Mario Menu BG"), fontManager);
+		MainMenuState pauseState = new MainMenuState(Resources.getImage("PauseBG"), fontManager);
+		GameEndState loseState = new GameEndState(Resources.getImage("LoseBG"),"FAIL!", fontManager);
+		GameEndState winState = new GameEndState(Resources.getImage("WinBG"),"YOU WIN!", fontManager);
+		MainMenuState levelFinishedState = new MainMenuState(Resources.getImage("LevelFinishedBG"), fontManager);
 		GamePlayState playState = new GamePlayState(this);
-		stateManager.addGameState(mainMenu, pauseState, loseState, winState,
-				levelFinishedState, playState);
+		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
 	}
 }
