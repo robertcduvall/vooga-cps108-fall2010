@@ -35,9 +35,9 @@ public class ZombielandPauseState extends GameState implements Constants{
 	{
 		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
 
-		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);
+		overlayPauseString = tracker.getOverlay("pause", overlayPauseString);
 		overlayPauseString.setActive(true);
-		this.addGroup(tracker.getOverlayGroups().get(1));
+		this.addGroup(tracker.getOverlayGroup("pause"));
 	}
 	public void render(Graphics2D g) {
 		overlayPauseString.render(g);
