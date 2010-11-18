@@ -1,10 +1,11 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.engine.state.MenuGameState;
 
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.GameFontManager;
@@ -19,7 +20,7 @@ import com.golden.gamedev.object.background.ImageBackground;
  * 
  */
 
-public class MainMenuState extends GameState {
+public class MainMenuState extends MenuGameState {
 
 	private ImageBackground myMainMenuBG;
 	private int myWidth;
@@ -59,6 +60,12 @@ public class MainMenuState extends GameState {
 				(myWidth / 4), (myHeight / 2) + 200);
 		myMenuFont.drawString(g, "PRESS SPACE TO PLAY AND P TO PAUSE!",
 				(myWidth / 4), (myHeight / 2) + 250);
+	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
