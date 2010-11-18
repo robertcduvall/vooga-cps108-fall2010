@@ -2,7 +2,7 @@
 <Resources>
 	<Images>
 		<Image name="shipImage" path="ship.gif" />
-		<Image name="greenBulletImage" path="green_bullet.jpg" />
+		<Image name="greenBulletImage" path="green_bullet.gif" />
 		<Image name="mainBG" path="space.jpg" />
 	</Images>
 
