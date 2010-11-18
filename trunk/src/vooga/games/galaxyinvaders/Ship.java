@@ -26,7 +26,7 @@ public class Ship extends Sprite{
 
 	private void moveLeft(int distance) {
 		if(getX()>0-15)  
-			move(distance, 0);
+			move(-distance, 0);
 	}
 
 	private void moveRight(int distance) {

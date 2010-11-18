@@ -21,12 +21,11 @@ public class BlockadeSprite extends Sprite {
 	 * This is the constructor for a BlockadeSprite. It sends everything to its
 	 * superclass
 	 * 
-	 * @param s see GameEntitySprite
 	 * @param name see GameEntitySprite
 	 * @param spr see GameEntitySprite
 	 */
-	public BlockadeSprite(String s, String name, Sprite spr) {
-		super(s, name, spr);
+	public BlockadeSprite(String name, Sprite spr) {
+		super(name, spr);
 		hitPoints = DEFAULT_HP;
 	}
 

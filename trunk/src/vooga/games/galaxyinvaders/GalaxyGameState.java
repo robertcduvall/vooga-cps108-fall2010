@@ -96,10 +96,12 @@ public class GalaxyGameState extends GameState{
 	
 	private void initControls(){
 		shipControl = new KeyboardControl(ship, game);
-		shipControl.setParams(KeyEvent.VK_LEFT, new Class[]{int.class});
-		shipControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "Ship", -MOVE_DISTANCE);
-		shipControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "Ship", MOVE_DISTANCE);
+		shipControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "Ship", new Class[] {int.class});
+		shipControl.setParams(KeyEvent.VK_LEFT, MOVE_DISTANCE);
+		shipControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "Ship", new Class[] {int.class});
+		shipControl.setParams(KeyEvent.VK_RIGHT, MOVE_DISTANCE);
 		shipControl.addInput(KeyEvent.VK_SPACE, "fire", "Ship");
+		
 		gameControl = new KeyboardControl(game);
 		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
 		gameControl.addInput(KeyEvent.VK_T, "clearEnemies", "GalaxyGameState");
@@ -116,7 +118,7 @@ public class GalaxyGameState extends GameState{
 	
 	private void initBlocks() {
 		for(int i = FIRST_BLOCKADE_XPOS; i<game.getWidth(); i+=INCREMENT_BLOCKADE_XPOS) {
-			BlockadeSprite b = new BlockadeSprite("", "default", new Sprite(Resources.getImage("barrier"), i, BLOCKADE_YPOS));
+			BlockadeSprite b = new BlockadeSprite("default", new Sprite(Resources.getImage("barrier"), i, BLOCKADE_YPOS));
 			blockades.add(b);
 		}
 	}
@@ -237,7 +239,8 @@ public class GalaxyGameState extends GameState{
 				}
 			}
 		}
-		if(livesStat.getStat()<=0) {
+		//TODO: change type of game to DropThis to avoid casting
+		if(((DropThis)game).livesStat.getStat()<=0) {
 			((DropThis) game).gameOver();
 		}
 	}
