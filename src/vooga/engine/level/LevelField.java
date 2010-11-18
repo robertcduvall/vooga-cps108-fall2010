@@ -6,7 +6,8 @@ import vooga.engine.event.*;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.PlayField;
+//import com.golden.gamedev.object.PlayField;
+import vooga.engine.core.PlayField;
 
 /**
  * This class is a PlayField for the level that has all the rules built in, and
@@ -19,7 +20,6 @@ import com.golden.gamedev.object.PlayField;
  * 
  */
 public class LevelField extends PlayField {
-	
 	
 	private HashMap<String, Rule> ruleMap = new HashMap<String, Rule>();
 	private HashMap<Rule, SpriteGroup[]> spriteGroupMap = new HashMap<Rule, SpriteGroup[]>();
@@ -35,14 +35,13 @@ public class LevelField extends PlayField {
 	private GameLostConditions gameLostConditions;
 	private EventPool eventPool = new EventPool();
 	
+	/**
+	 * Constructor
+	 */
 	public LevelField() {
 		super();
 	}
-
-	public LevelField(Background background) {
-		super(background);
-	}
-
+	
 	/**
 	 * Initializes the rules of the current level from the specified
 	 * RulesCollection class.
@@ -52,7 +51,10 @@ public class LevelField extends PlayField {
 	public void initializeRules(RulesCollection rc) {
 		ruleMap = rc.getRules();
 	}
-	
+	/**
+	 * Initialize the events
+	 * @param pool
+	 */
 	public void initializeEvents(EventPool pool){
 		eventPool = pool;
 	}
@@ -63,10 +65,18 @@ public class LevelField extends PlayField {
 	public void removeEvent(IEventHandler event){
 		eventPool.removeEvent(event);
 	}
-	
+	/**
+	 * Add a condition that determines which level to switch to and what condition
+	 * @param ls
+	 */
 	public void addSwitchConditoin(LevelSwitch ls){
 		levelSwitchingConditions.addCondition(ls);
 	}
+	
+	/**
+	 * remove the switch level condition
+	 * @param ls
+	 */
 	public void removeSwithCondition(LevelSwitch ls){
 		levelSwitchingConditions.removeCondition(ls);
 	}
@@ -196,15 +206,6 @@ public class LevelField extends PlayField {
 		for (SpriteGroup overlay : overlayGroups) {
 			this.addGroup(overlay);
 		}
-	}
-
-	/**
-	 * Gives the current PlayField music
-	 * 
-	 * @param key
-	 */
-	private void addMusic(String key) {
-		myMusic = Resources.getSound(key);
 	}
 
 	/**
