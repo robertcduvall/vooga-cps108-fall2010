@@ -1,6 +1,7 @@
 package vooga.games.jumper;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelFactory;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.state.GameState;
