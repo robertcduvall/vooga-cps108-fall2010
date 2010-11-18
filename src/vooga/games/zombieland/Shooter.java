@@ -6,7 +6,7 @@ import com.golden.gamedev.object.*;
 
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.StatInt;
-import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.core.Sprite;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
 import vooga.games.zombieland.weapons.AssaultRifle;
 import vooga.games.zombieland.weapons.Bullet;
@@ -20,7 +20,7 @@ import vooga.games.zombieland.weapons.Weapon;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Shooter extends PlayerSprite implements Constants{
+public class Shooter extends Sprite implements Constants{
 
 	private static int shotgunAmmo;
 	private static int rifleAmmo;

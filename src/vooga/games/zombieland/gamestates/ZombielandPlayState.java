@@ -17,7 +17,7 @@ import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.KeyboardControl;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.collision.BZCollisionManager;
@@ -306,12 +306,15 @@ public class ZombielandPlayState extends GameState implements Constants{
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
 
-		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, 0);
-		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, 1);
-		control.setParams(new Class[] { int.class });
-		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, 2);
+		
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.setParams(KeyEvent.VK_1, 0);
+		
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.setParams(KeyEvent.VK_2, 1);
+		
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.setParams(KeyEvent.VK_3, 2);
 	}
 
 	/**
