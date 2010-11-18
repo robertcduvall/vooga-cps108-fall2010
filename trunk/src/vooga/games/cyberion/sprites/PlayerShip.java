@@ -3,14 +3,14 @@ package vooga.games.cyberion.sprites;
 import java.awt.event.KeyEvent;
 
 import vooga.engine.control.KeyboardControl;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.games.cyberion.events.PlayerFireEvent;
 
-public class PlayerShip extends Sprite {
+public class PlayerShip extends BetterSprite {
 		vooga.engine.control.KeyboardControl keyboardControl;
 
-		public PlayerShip(String name, Sprite s) {
+		public PlayerShip(String name, BetterSprite s) {
 			
 			super(name, s);
 			

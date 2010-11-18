@@ -26,7 +26,7 @@ public class PlayerEnemyCollision extends BasicCollision{
 	public void collided(Sprite playerSprite, Sprite enemy) {
 		super.collided(playerSprite, enemy);
 		//as an example, on collision, the player is set to switch to a different animation
-		((vooga.engine.core.Sprite)playerSprite).setAsRenderedSprite("rightFacingDoodleAnimation");
+		((vooga.engine.core.BetterSprite)playerSprite).setAsRenderedSprite("rightFacingDoodleAnimation");
 		//myGame.updatePlayerLives();
 	}
 

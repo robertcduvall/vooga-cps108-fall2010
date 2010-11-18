@@ -2,7 +2,7 @@ package vooga.games.towerdefense.actors;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 
 /**
  * Abstract tower class that requires you to change the update methods 
@@ -11,7 +11,7 @@ import vooga.engine.core.Sprite;
  *
  */
 
-public abstract class Tower extends Sprite{
+public abstract class Tower extends BetterSprite{
 	
 	private static final long serialVersionUID = 1L;
 	private BufferedImage previewImage;

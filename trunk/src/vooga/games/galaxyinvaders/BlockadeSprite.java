@@ -1,7 +1,7 @@
 package vooga.games.galaxyinvaders;
 
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 
 
 /**
@@ -11,7 +11,7 @@ import vooga.engine.core.Sprite;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class BlockadeSprite extends Sprite {
+public class BlockadeSprite extends BetterSprite {
 
 	private static final int DEFAULT_HP = 10;		
 	private int hitPoints;
@@ -24,7 +24,7 @@ public class BlockadeSprite extends Sprite {
 	 * @param name see GameEntitySprite
 	 * @param spr see GameEntitySprite
 	 */
-	public BlockadeSprite(String name, Sprite spr) {
+	public BlockadeSprite(String name, BetterSprite spr) {
 		super(name, spr);
 		hitPoints = DEFAULT_HP;
 	}

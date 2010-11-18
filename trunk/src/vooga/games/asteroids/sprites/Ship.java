@@ -1,9 +1,9 @@
 package vooga.games.asteroids.sprites;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 
-public class Ship extends Sprite {
+public class Ship extends BetterSprite {
 	
 	/**
 	 * 

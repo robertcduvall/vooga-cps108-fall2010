@@ -14,7 +14,7 @@ public class ShipToAsteroidCollision extends AdvanceCollisionGroup {
 	@Override
 	public void collided(Sprite ship, Sprite asteroid) {
 		asteroid.setActive(false);
-		Stat<Integer> score = (Stat<Integer>) ((vooga.engine.core.Sprite) ship).getStat("lives");
+		Stat<Integer> score = (Stat<Integer>) ((vooga.engine.core.BetterSprite) ship).getStat("lives");
 		score.setStat(score.getStat() -1);
 	}
 

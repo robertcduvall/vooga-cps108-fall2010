@@ -2,10 +2,10 @@ package vooga.games.galaxyinvaders;
 
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
-public class Ship extends Sprite{
+public class Ship extends BetterSprite{
 
 	private static final double PLAYER_BOMB_SPEED = 0.8;
 	private static final int X = 350;
@@ -19,7 +19,7 @@ public class Ship extends Sprite{
 	}
 	
 	private void fire() {
-		Sprite temp = new Sprite(Resources.getImage("torpedo"), getX()+25, getY()-35);
+		BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), getX()+25, getY()-35);
 		temp.setSpeed(0, -PLAYER_BOMB_SPEED);
 		torpedos.add(temp);
 	}

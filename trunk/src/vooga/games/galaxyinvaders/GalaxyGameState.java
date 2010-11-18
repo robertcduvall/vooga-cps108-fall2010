@@ -11,7 +11,7 @@ import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.random.Randomizer;
@@ -118,7 +118,7 @@ public class GalaxyGameState extends GameState{
 	
 	private void initBlocks() {
 		for(int i = FIRST_BLOCKADE_XPOS; i<game.getWidth(); i+=INCREMENT_BLOCKADE_XPOS) {
-			BlockadeSprite b = new BlockadeSprite("default", new Sprite(Resources.getImage("barrier"), i, BLOCKADE_YPOS));
+			BlockadeSprite b = new BlockadeSprite("default", new BetterSprite(Resources.getImage("barrier"), i, BLOCKADE_YPOS));
 			blockades.add(b);
 		}
 	}
@@ -163,7 +163,7 @@ public class GalaxyGameState extends GameState{
 	}
 	
 	private void spawnHealth() {
-		Sprite temp = new Sprite(Resources.getImage("health"), game.getWidth()/2, 0);
+		BetterSprite temp = new BetterSprite(Resources.getImage("health"), game.getWidth()/2, 0);
 		temp.setVerticalSpeed(ITEM_SPEED);
 		items.add(temp);
 	}
@@ -177,9 +177,9 @@ public class GalaxyGameState extends GameState{
 	
 	private void spawnEnemyBomb() {
 		int enemySeed;
-		Sprite[] enemySprites = (Sprite[]) enemies.getSprites();
+		BetterSprite[] enemySprites = (BetterSprite[]) enemies.getSprites();
 		int count = 0;
-		for(Sprite s : enemySprites) {
+		for(BetterSprite s : enemySprites) {
 			if(s!=null) {
 				if(s.isActive())
 					count++;
@@ -193,7 +193,7 @@ public class GalaxyGameState extends GameState{
 				enemySeed = 0;
 			}
 			EnemySprite enemy = (EnemySprite) enemySprites[enemySeed];
-			Sprite temp = new Sprite(Resources.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
+			BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
 			temp.setSpeed(0, ENEMY_BOMB_SPEED);
 			enemyTorpedos.add(temp);
 		}
@@ -233,7 +233,7 @@ public class GalaxyGameState extends GameState{
 	private void checkDefeat() {
 		for(com.golden.gamedev.object.Sprite enemy: enemies.getSprites()) {
 			if(enemy!=null) {
-				if (isAtBorder((Sprite) enemy)) {
+				if (isAtBorder((BetterSprite) enemy)) {
 					((DropThis) game).gameOver();
 					break;
 				}
@@ -245,7 +245,7 @@ public class GalaxyGameState extends GameState{
 		}
 	}
 	
-	private boolean isAtBorder(Sprite enemy){
+	private boolean isAtBorder(BetterSprite enemy){
 		return enemy.getY() >= MAX_ALLOWED_ENEMY_YPOS;
 	}
 	

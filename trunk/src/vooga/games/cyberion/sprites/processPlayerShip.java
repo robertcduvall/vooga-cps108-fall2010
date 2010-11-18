@@ -3,7 +3,7 @@ package vooga.games.cyberion.sprites;
 import org.w3c.dom.NamedNodeMap;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 
@@ -49,7 +49,7 @@ public class processPlayerShip extends LevelParser{
 		String playerName = parameters.getNamedItem("name").getNodeValue();
 		String playerImage = parameters.getNamedItem("imageName").getNodeValue();
 		
-		PlayerShip sprite = new PlayerShip(playerName, new Sprite(Resources.getImage(playerImage)));
+		PlayerShip sprite = new PlayerShip(playerName, new BetterSprite(Resources.getImage(playerImage)));
 		//sprite.setLocation(xRange, yRange);
 		//sprite.setHorizontalSpeed(vxValue);
 		return sprite;

@@ -18,7 +18,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
@@ -162,7 +162,7 @@ public class LevelParser implements LevelFactory{
 				}
 				else
 				{
-					Sprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
+					BetterSprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
 					NodeList visualsList = currentNode.getElementsByTagName("Visual");
 					group.add(result);
 					processVisual(visualsList, result);
@@ -200,7 +200,7 @@ public class LevelParser implements LevelFactory{
 	 * Adds a regular, location-specified Sprite to the given SpriteGroup.
 	 */
 	public void processRegularSprite(Element spriteElement, SpriteGroup group) {
-		Sprite newSprite = new Sprite();
+		BetterSprite newSprite = new BetterSprite();
 
 		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
 		processVisual(visualsList, newSprite);
@@ -239,7 +239,7 @@ public class LevelParser implements LevelFactory{
 
 		int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
 		for(int j = 0; j < quantity; j++) {
-			Sprite newSprite = new Sprite();
+			BetterSprite newSprite = new BetterSprite();
 			newSprite.setLocation(Math.random()*xRange, Math.random()*yRange);
 			newSprite.setHorizontalSpeed(Math.random()*vxRange);
 			newSprite.setVerticalSpeed(Math.random()*vyRange);	
@@ -252,7 +252,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes Visuals within a Sprite.
 	 */
-	public void processVisual(NodeList visualsList, Sprite newSprite) {
+	public void processVisual(NodeList visualsList, BetterSprite newSprite) {
 		for(int imageLocation = 0; imageLocation < visualsList.getLength(); imageLocation++)
 		{
 			if (isElement(visualsList.item(imageLocation)))
@@ -300,7 +300,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes Stats within a Sprite. 
 	 */
-	private void processStats(NodeList statsList, Sprite newSprite) {
+	private void processStats(NodeList statsList, BetterSprite newSprite) {
 
 		for(int i = 0; i < statsList.getLength(); i++)
 		{
@@ -317,7 +317,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes Controls within a Sprite.
 	 */
-	private void processControls(NodeList controlsList, Sprite newSprite) {
+	private void processControls(NodeList controlsList, BetterSprite newSprite) {
 		for(int i = 0; i < controlsList.getLength(); i++)
 		{
 			if (isElement(controlsList.item(i)))
@@ -371,7 +371,7 @@ public class LevelParser implements LevelFactory{
 		return currentGame;
 	}
 
-	private Sprite processX(String classname, NamedNodeMap attributes)
+	private BetterSprite processX(String classname, NamedNodeMap attributes)
 	{
 		try
 		{
@@ -379,7 +379,7 @@ public class LevelParser implements LevelFactory{
 			String methodname = "process" + classname;
 			Method m = op.getMethod(methodname, NamedNodeMap.class);
 			Object result = m.invoke(attributes);
-			return (Sprite) result;
+			return (BetterSprite) result;
 		}
 		catch (Exception e)
 		{

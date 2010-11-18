@@ -3,7 +3,7 @@ package vooga.widget;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 
 
@@ -14,7 +14,7 @@ import vooga.engine.event.IEventHandler;
  * @author Brian Simel
  *
  */
-public abstract class Button extends Sprite implements IEventHandler{
+public abstract class Button extends BetterSprite implements IEventHandler{
 
 	/**
 	 * Instance of the game in which the Button exists

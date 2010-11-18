@@ -2,13 +2,13 @@ package vooga.games.grandius.enemy.common;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 
 /**
  * An Enemy is any adversary of the player.
  */
-public abstract class Enemy extends Sprite {
+public abstract class Enemy extends BetterSprite {
 	//TODO - what is serialVersionUID for?
 	private static final long serialVersionUID = 1L;
 	private static final String SCORE = "Score";
