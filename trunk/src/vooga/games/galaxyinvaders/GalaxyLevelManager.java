@@ -7,14 +7,19 @@ import java.util.Scanner;
 
 import com.golden.gamedev.object.PlayField;
 
+import vooga.engine.core.Game;
 import vooga.engine.factory.LevelFactory;
 import vooga.engine.factory.LevelManager;
 
 public class GalaxyLevelManager extends LevelManager {
-
+	
 	private LevelFactory levelFactory = new GalaxyLevelFactory();
 	
-	@Override
+	public GalaxyLevelManager(Game currentgame) {
+		super(currentgame);
+	}
+
+	/*@Override
 	public Collection<String> getLevelNames(File levelNamesFile) {
 		Scanner scanner;
 		try {
@@ -37,6 +42,6 @@ public class GalaxyLevelManager extends LevelManager {
 	@Override
 	public PlayField getCurrentPlayField(File currentLevelFactoryFile) {
 		return levelFactory.getPlayfield(currentLevelFactoryFile);
-	}
+	}*/
 
 }
