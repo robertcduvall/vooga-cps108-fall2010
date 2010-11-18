@@ -30,13 +30,12 @@ public class EnemySprite extends Sprite {
 	 * This is the constructor for the EnemySprite class. It is similar to GameEntitySprite's 
 	 * constructor, but with an extra field which determines the path it will travel.
 	 * 
-	 * @param s see GameEntitySprite
 	 * @param name see GameEntitySprite
-	 * @param spr see GameEntitySprite
+	 * @param sprite see GameEntitySprite
 	 * @param list the path which this enemy is going to follow
 	 */
-	public EnemySprite(String s, String name, Sprite spr, ArrayList<Point> pathmap, int timerNum) {
-		super(s, name, spr);
+	public EnemySprite(String name, Sprite sprite, ArrayList<Point> pathmap, int timerNum) {
+		super(name, sprite);
 		hitPoints = DEFAULT_HP;
 		timer = new Timer(timerNum);
 		pathNum = 0;

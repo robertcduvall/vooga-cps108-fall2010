@@ -101,8 +101,8 @@ public class DropThis extends Game {
 
 	private void initializeOverlays() {
 		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlays"));
-		livesStat = overlayTracker.getStats().get(0);
-		scoreStat = overlayTracker.getStats().get(1);
+		livesStat = overlayTracker.getStat("lives");
+		scoreStat = overlayTracker.getStat("score");
 	}
 
 
@@ -114,13 +114,14 @@ public class DropThis extends Game {
 		pause = new PauseGameState(play);
 		gameOver = new BasicTextGameState("");
 		stateManager.addGameState(play, pause, gameOver);
-		initializeMenus(pause, pauseMenu, 0);
-		initializeMenus(gameOver, gameOverMenu, 1);
+		initializeMenus(pause, pauseMenu, "pauseMenu");
+		initializeMenus(gameOver, gameOverMenu, "gameOverMenu");
 	}
 	
-	private void initializeMenus(GameState state, SpriteGroup menu, int overlayGroup){
+	private void initializeMenus(GameState state, SpriteGroup menu, String overlayGroup){
+		//TODO:Re-work GameStates to take advantage of changes
 		state.addGroup(menu);
-		SpriteGroup strings = overlayTracker.getOverlayGroups().get(overlayGroup);
+		SpriteGroup strings = overlayTracker.getOverlayGroup(overlayGroup);
 		Sprite[] lines = strings.getSprites();
 		int size = strings.getSize();
 		for (int i = 0; i<size; i++)

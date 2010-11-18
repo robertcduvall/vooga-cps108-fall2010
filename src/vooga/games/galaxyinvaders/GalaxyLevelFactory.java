@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.Sprite;
+import vooga.engine.core.PlayField;
+
+import vooga.engine.core.Game;
+import vooga.engine.core.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
@@ -47,13 +49,21 @@ public class GalaxyLevelFactory implements LevelFactory {
 	private SpriteGroup makeEnemies(int numberOfEnemies, ArrayList<Point> path, int timer) {
 		SpriteGroup enemies = new SpriteGroup("enemies");
 		for (int i=0; i<numberOfEnemies; i++){
-			EnemySprite e = new EnemySprite("", "default", new Sprite(Resources.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), path, timer);
+			EnemySprite e = new EnemySprite("default", new Sprite(Resources.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), path, timer);
 			Sprite damaged = new Sprite(Resources.getImage("enemy1damage"));
-			e.mapNameToSprite("damaged", damaged);
+			//TODO: Check to see if this ever gets used
+			e.addSprite("damaged", damaged);
 			enemies.add(e);
 		} 
 		
 		return enemies;
+	}
+
+	@Override
+	public PlayField getPlayfield(String filepath,
+			Game currentgame) {
+		// TODO Write this method
+		return null;
 	}
 
 	
