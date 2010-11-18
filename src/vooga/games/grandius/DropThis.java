@@ -382,12 +382,12 @@ public class DropThis extends Game {
 //			projectileGroup.add(projectile);
 //			playSound(Resources.getSound("LaserSound"));
 //		}
-		if (keyPressed(KeyEvent.VK_M) && missileActive) {  
-			Missile missile = new Missile(Resources.getImage("Missile"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
-			missile.setHorizontalSpeed(PROJECTILE_SPEED);
-			missileGroup.add(missile);
-			playSound(Resources.getSound("MissileSound"));
-		}
+//		if (keyPressed(KeyEvent.VK_M) && missileActive) {  
+//			Missile missile = new Missile(Resources.getImage("Missile"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
+//			missile.setHorizontalSpeed(PROJECTILE_SPEED);
+//			missileGroup.add(missile);
+//			playSound(Resources.getSound("MissileSound"));
+//		}
 		if (keyPressed(KeyEvent.VK_B) && blackHoleActive) {  
 			BlackHole blackHole = new BlackHole(Resources.getImage("BlackHole"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
 			blackHoleGroup.add(blackHole);
