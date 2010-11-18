@@ -128,7 +128,7 @@ public class Control{
 							}
 							for (Method method : newParams)
 							{
-								objectParameters.add(method.invoke(method.getDeclaringClass(), null));
+								objectParameters.add(method.invoke(method.getDeclaringClass()));
 							}
 							perform.invoke(entities.get(i), objectParameters.toArray());
 								

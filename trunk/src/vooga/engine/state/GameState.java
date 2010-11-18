@@ -48,9 +48,8 @@ public abstract class GameState {
 	 * @param gamestate
 	 */
 	public GameState(GameState gamestate) {
-
-		this.addState(gamestate);
-
+	    this();
+		addState(gamestate);
 	}
 
 	/**
