@@ -4,8 +4,11 @@ package vooga.games.galaxyinvaders;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import com.golden.gamedev.object.Sprite;
-import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.core.Sprite;
+import vooga.engine.resource.Resources;
+import vooga.engine.resource.random.Randomizer;
+import vooga.engine.resource.random.RandomizerException;
+
 import com.golden.gamedev.object.Timer;
 
 /**
@@ -15,7 +18,7 @@ import com.golden.gamedev.object.Timer;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class EnemySprite extends GameEntitySprite {
+public class EnemySprite extends Sprite {
 
 	private static final int DEFAULT_HP = 2;
     private int pathNum;
@@ -74,6 +77,7 @@ public class EnemySprite extends GameEntitySprite {
 	public void decrementHitPoints(int dmg) {
 		hitPoints = hitPoints - dmg;
 	}
+
 	
 
 }

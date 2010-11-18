@@ -1,7 +1,7 @@
 package vooga.games.galaxyinvaders;
 
-import com.golden.gamedev.object.Sprite;
-import vooga.engine.player.control.GameEntitySprite;
+
+import vooga.engine.core.Sprite;
 
 
 /**
@@ -11,7 +11,7 @@ import vooga.engine.player.control.GameEntitySprite;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class BlockadeSprite extends GameEntitySprite {
+public class BlockadeSprite extends Sprite {
 
 	private static final int DEFAULT_HP = 10;		
 	private int hitPoints;

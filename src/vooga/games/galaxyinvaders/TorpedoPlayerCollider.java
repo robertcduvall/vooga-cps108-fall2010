@@ -1,9 +1,10 @@
 package vooga.games.galaxyinvaders;
 
-import com.golden.gamedev.Game;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.*;
-import vooga.engine.player.control.*;
+
+import vooga.engine.core.Game;
 
 /**
  * This class is an extension of BasicCollisionGroup, it handles collisions 
@@ -18,8 +19,8 @@ public class TorpedoPlayerCollider extends BasicCollisionGroup {
 	
 	private static final int LIVES_LOST = 1;
 	
-	public TorpedoPlayerCollider(DropThis game) {
-		g = game;
+	public TorpedoPlayerCollider(Game game) {
+		g = (DropThis) game;
 		pixelPerfectCollision = true;
 	}
 	@Override

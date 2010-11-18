@@ -1,6 +1,7 @@
 package vooga.games.galaxyinvaders;
 
-import vooga.engine.player.control.*;
+import vooga.engine.core.Game;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
@@ -18,9 +19,9 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	private static final int ENEMY_DAMAGE_TAKEN = 1;
 	private static final int SCORE_PER_HIT = 10;
 	
-	public TorpedoEnemyCollider(DropThis game) {
+	public TorpedoEnemyCollider(Game game) {
 		super();
-		g = game;
+		g = (DropThis) game;
 		pixelPerfectCollision = true;
 	}
 
