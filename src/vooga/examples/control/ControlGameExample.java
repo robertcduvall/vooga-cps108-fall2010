@@ -17,8 +17,8 @@ public class ControlGameExample extends Game {
 		//background = new ImageBackground(Resources.getImage("images/background"),532,850);
 		//doodleRight = new PlayerExample("doodleRight", new Sprite(Resources.getAnimation("leftFacingDoodleAnimation")));
 		//joystickControl = new ControlExample(doodleRight, this);
-		//joystickControl.setParams(null);
-		//joystickControl.addInput(Joystick.LEFT, "moveLeft", "vooga.examples.player.PlayerExample", null);
+		//joystickControl.addInput(Joystick.LEFT, "moveLeft", "vooga.examples.player.PlayerExample", String.class, int.class);
+		//joystickControl.setParams("Speed", 10);
 	}
 	
 	public void update(long elapsedTime) {
