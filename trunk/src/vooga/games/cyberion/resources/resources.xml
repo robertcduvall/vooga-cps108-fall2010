@@ -16,8 +16,8 @@
 	</Sounds>
 	
 	<Strings>
-		<String name="directory" value="/src/vooga/games/cyberion/resources" />
-		<String name="file" value="levels.txt" />
+		<String name="levelFilesDirectory" value="src/vooga/games/cyberion/resources" />
+		<String name="levelNamesFile" value="levels.txt" />
 		<String name="Level1" value="level1.xml" />
 	</Strings>
 	

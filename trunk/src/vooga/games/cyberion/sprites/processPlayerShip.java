@@ -43,7 +43,7 @@ This class provides full implementation for LevelParser.
  * @author Derek
 *
 */
-public class PlayerShipParser extends LevelParser{
+public class processPlayerShip extends LevelParser{
 	public PlayerShip processPlayerShip(NamedNodeMap parameters)
 	{
 		String playerName = parameters.getNamedItem("name").getNodeValue();
