@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import vooga.engine.core.Game;
+import vooga.engine.event.EventPool;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayPanel;
 import vooga.engine.overlay.OverlayStat;
@@ -35,6 +37,8 @@ import vooga.games.grandius.collisions.ProjectileEnemyCollision;
 import vooga.games.grandius.enemy.boss.reacher.Reacher;
 import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.enemy.common.Zipster;
+import vooga.games.grandius.events.FireHorizontalEvent;
+import vooga.games.grandius.events.FireVerticalEvent;
 import vooga.games.grandius.states.GameCompleteState;
 import vooga.games.grandius.states.GameOverState;
 import vooga.games.grandius.states.GrandiusMenuState;
@@ -68,12 +72,15 @@ public class DropThis extends Game {
 	private StartNewLevelState myStartNewLevelState;
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
+	private LevelManager levelManager;
+	private EventPool eventPool;
 //	private PauseGameState myPauseGameState;
 
 	//private boolean reacherShieldsDepleted;
 
 	private Sprite shipSprite;
-	private PlayerSprite playerSprite;
+	//private PlayerSprite playerSprite;
+	private Player player;
 
 	private OverlayPanel overlayPanel;
 	private OverlayStatImage livesIcon;
@@ -99,9 +106,12 @@ public class DropThis extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
+		initLevelManager();
+		initEvents();
+		
 		createCollisions(); //TODO will this work here?
-		levelManager = new GrandiusLevelManager();
-		levelManager.makeLevels(Resources.getString("levelFilesDirectory"),Resources.getString("levelNamesFile"));
+		//levelManager = new GrandiusLevelManager();
+		//levelManager.makeLevels(Resources.getString("levelFilesDirectory"),Resources.getString("levelNamesFile"));
 		
 		//TODO - change to work with new Overlay xml
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
@@ -128,6 +138,19 @@ public class DropThis extends Game {
 		addOverlays();
 	}
 
+	private void initEvents() {
+		eventPool = new EventPool();
+		eventPool.addEvent(new FireHorizontalEvent(this,player,myPlayState));
+		eventPool.addEvent(new FireVerticalEvent(this,player,myPlayState));
+	}
+
+	private void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
+	}
+	
 	@Override
 	public void initGameStates() {
 		super.initGameStates();
@@ -224,6 +247,7 @@ public class DropThis extends Game {
 
 	@Override
 	public void update(long elapsedTime) {
+		eventPool.checkEvents(); // TODO - is this the right place?
 		if(levelManager.getCurrentLevel()==0){
 			PlayField playfield=levelManager.loadNextLevel();
 			playfield.setBackground(levelManager.getBackground());
@@ -344,18 +368,19 @@ public class DropThis extends Game {
 	 * B: Create Black Hole, if it has been purchased.
 	 */
 	private void fireWeapon() {
-		if (keyPressed(KeyEvent.VK_ALT)) {             
-			Sprite projectile = new Sprite(Resources.getImage("Projectile"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
-			projectile.setHorizontalSpeed(PROJECTILE_SPEED);
-			projectileGroup.add(projectile);
-			playSound(Resources.getSound("LaserSound"));
-		}
-		if (keyPressed(KeyEvent.VK_SPACE)){
-			Sprite projectile = new Sprite(Resources.getImage("ProjectileVertical"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
-			projectile.setVerticalSpeed(PROJECTILE_SPEED);
-			projectileGroup.add(projectile);
-			playSound(Resources.getSound("LaserSound"));
-		}
+		//Replaced by event classes FireHorizontalEvent and FireVerticalEvent
+//		if (keyPressed(KeyEvent.VK_ALT)) {             
+//			Sprite projectile = new Sprite(Resources.getImage("Projectile"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
+//			projectile.setHorizontalSpeed(PROJECTILE_SPEED);
+//			projectileGroup.add(projectile);
+//			playSound(Resources.getSound("LaserSound"));
+//		}
+//		if (keyPressed(KeyEvent.VK_SPACE)){
+//			Sprite projectile = new Sprite(Resources.getImage("ProjectileVertical"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
+//			projectile.setVerticalSpeed(PROJECTILE_SPEED);
+//			projectileGroup.add(projectile);
+//			playSound(Resources.getSound("LaserSound"));
+//		}
 		if (keyPressed(KeyEvent.VK_M) && missileActive) {  
 			Missile missile = new Missile(Resources.getImage("Missile"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
 			missile.setHorizontalSpeed(PROJECTILE_SPEED);
