@@ -70,7 +70,7 @@ public class ReachTheTop extends Game {
 		myScore = track.getStat("three", new Integer(0));
 		
 //		OverlayPanel panel = new OverlayPanel("Overlays", this, true);
-//		panel.add(track.getOverlay("overlay_1"));
+//		panel.add(track.getOverlay("lives"));
 //		panel.initialize();
 
 		// create the game playfield
