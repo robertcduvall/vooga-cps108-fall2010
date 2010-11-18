@@ -3,7 +3,7 @@ package vooga.games.jumper.sprites;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.jumper.DropThis;
 
@@ -11,7 +11,8 @@ import vooga.games.jumper.DropThis;
  * This class represents the Doodle which is the main character of the game
  * @author Brian
  */
-public class DoodleSprite extends Sprite {
+
+public class DoodleSprite extends BetterSprite {
 
 
 	private double X_ACCELERATION = 5;
@@ -133,14 +134,14 @@ public class DoodleSprite extends Sprite {
 	}
 	
 	public void moveLeft(){
-		
+		System.out.println("left");
 	}
 	
 	public void moveRight(){
-		
+		System.out.println("right");
 	}
 	
 	public void moveDown(){
-		
+		System.out.println("down");
 	}
 }
