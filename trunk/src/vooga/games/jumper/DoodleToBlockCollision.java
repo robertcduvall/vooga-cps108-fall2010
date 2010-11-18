@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 
 
 import vooga.engine.resource.Resources;
+import vooga.games.jumper.sprites.BlockSprite;
+import vooga.games.jumper.sprites.DoodleSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
