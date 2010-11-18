@@ -11,10 +11,12 @@ import java.util.Scanner;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
+import vooga.engine.resource.Resources;
+import vooga.games.asteroids.states.PlayState;
 
 /**
  * This class takes care of different tasks like reading level names from a file, 
- * making a collection of these level files and loading next level etc. It loads
+ * making a Map of these level files and loading next level etc. It loads
  * the levels when they are needed. However, if all the levels need to be loaded
  * at the beginning of the game , then a call to <code> getAllPlayFields()</code>
  * method would return all the level Playfields at once, in a list according to the 
@@ -28,9 +30,15 @@ import vooga.engine.core.PlayField;
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
 		String levelNamesFile = Resources.getString("levelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+		PlayField levelPlayField = levelManager.loadFirstLevel();
+		playState = new PlayState(this, levelPlayField);
 	}
  * </code>
  * </pre>
+ * The String "levelFilesDirectory" in resources.xml file should be mapped to something 
+ * like "src/vooga/games/asteroids/resources/levels" where asteroids would be replaced by 
+ * your game's name,  and here it is assumed that your levelNames file as well as all your 
+ * level xml files are stored in a package called levels in your resources package.  
  * To load levels one by one, i.e., as they are needed, the following code can be used:
  * <pre>
  * <code>	
@@ -66,7 +74,6 @@ public class LevelManager {
 		this(currentgame, new LevelParser());
 	}
 	
-//TODO - comment out initlevel in core.gmae
 	
 	public LevelManager(Game currentgame, LevelParser parser){
 		game = currentgame;
@@ -77,6 +84,10 @@ public class LevelManager {
 	}
 
 	
+	/**
+	 * Returns the PlayField for the first level.
+	 * @return PlayField for the firt level
+	 */
 	public PlayField loadFirstLevel ()
 	{
 		myCurrentLevel++;
@@ -85,12 +96,12 @@ public class LevelManager {
 	
 	/**
 	 * This method reads in from a File containing the names of different levels
-	 * and returns a Collection of strings, myLevelNames, which represents the names 
-	 * of the different level files in the order in which they need to be loaded.
+	 * and returns a Map where level numbers are mapped to the names 
+	 * of the different level xml files.
 	 * @param levelPath - directory path where all level files are stored
 	 * @param levelNamesFile - name of the File which specifies the names of the 
 	 * levels in the order in which they are to be loaded
-	 * @return a Collection of strings representing level files names
+	 * @return a Map of level numbers to level files names
 	 */
 	
 	public Map<String,String> makeLevels(String levelPath,String levelNamesFile){
@@ -131,8 +142,8 @@ public class LevelManager {
 	
 	
 	/**
-	 * Loads the next level. Playfield should be cleared before making a call
-	 * to this method, so as to remove the game objects from previous level.
+	 * Returns the PlayField for the next level to be loaded.
+	 * @return PlayField for next level 
 	 */
 	public PlayField loadNextLevel() {
 		myCurrentLevel++;
