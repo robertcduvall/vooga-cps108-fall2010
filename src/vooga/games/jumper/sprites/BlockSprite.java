@@ -3,16 +3,16 @@ package vooga.games.jumper.sprites;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.BetterSprite;
 import vooga.games.jumper.DropThis;
 
-import com.golden.gamedev.object.Sprite;
 
 /**
  * This class represents the Blocks which push the Doodle
  * @author Brian
  *
  */
-public abstract class BlockSprite extends Sprite {
+public abstract class BlockSprite extends BetterSprite {
 	
 	private String myBlockType;
 
