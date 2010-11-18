@@ -3,9 +3,9 @@ package vooga.examples.control;
 import java.util.ArrayList;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.Sprite;
 
 import vooga.engine.control.Control;
-import vooga.engine.player.PlayerSprite;
 
 public class ControlExample extends Control{
 	public ControlExample(){
@@ -16,11 +16,11 @@ public class ControlExample extends Control{
 		super(game);
 	}
 
-	public ControlExample(PlayerSprite entity, Game game){
+	public ControlExample(Sprite entity, Game game){
 		super(entity, game);
 	}
 
-	public ControlExample(ArrayList<PlayerSprite> entities, Game game){
+	public ControlExample(ArrayList<Sprite> entities, Game game){
 		super(entities, game);
 	}
 	

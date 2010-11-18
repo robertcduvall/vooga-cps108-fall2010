@@ -3,7 +3,6 @@ package vooga.engine.control;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import vooga.engine.overlay.Stat;
 import vooga.engine.core.Sprite;
 
 import vooga.engine.core.Game;
@@ -76,12 +75,12 @@ public class Control{
 	}
 
 	/**
-	 * Sets the parameter types that need to be used for the next method
+	 * Sets the parameter values that need to be used for a method
 	 * 
-	 * @param parameterTypes The types of parameters that need to be used. 
-	 * Need to be implemented in the form setParams(new Class[]{Class cls})
+	 * @param listen The key which the method listens for
 	 * 
-	 * eg. player.setParams(new Class[]{int.class, double.class})
+	 * @param paramValues The value of the parameters (eg. "Shoot", 10, etc.)
+	 * 
 	 */
 	public void setParams(int listen, Object... paramValues) {
 		ArrayList<Object[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Object[]>() : paramMap.get(listen);
@@ -89,6 +88,17 @@ public class Control{
 		paramMap.put(listen, prevParams);
 	}
 
+	/**
+	 * Sets the parameter values that need to be used for a method
+	 * 
+	 * @param listen The key which the method listens for
+	 * 
+	 * @param paramClass The class which the method belongs to
+	 * 
+	 * @param paramValues The method which can be used as the value of the parameter. The method MUST
+	 * return an object needed for the method's parameters. (eg. getMouseX(), getCurrentLevel(), etc.)
+	 */
+	
 	public void setParams(int listen, Class<?> paramClass, Method... paramValues) {
 		ArrayList<Method[]> prevParams = methodParamMap.get(listen) == null ? new ArrayList<Method[]>() : methodParamMap.get(listen);
 		prevParams.add(paramValues);
@@ -146,8 +156,8 @@ public class Control{
 	 * For example: if a class is called Test and is in the package cps108.games.example then the
 	 * String here must be "cps108.games.example.Test"
 	 * 
-	 * @param paramVals Value of the parameters that the method has NOTE: If you want to use this
-	 * parameter with something other than 'null', you must use setParams first.
+	 * @param paramTypes Class type that the parameters must be for the method (previously set with setParams() method.
+	 * For example: String.class, int.class, etc.
 	 */
 	public void addInput(int listen, String method, String classname, Class<?>... paramTypes) {
 		try {
@@ -159,7 +169,6 @@ public class Control{
 //			ArrayList<Stat<?>[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Stat<?>[]>() : paramMap.get(listen);
 //			prevParams.add(paramVals);
 //			paramMap.put(listen, prevParams);
-			paramTypes = null;
 		} catch (Throwable e) {
 			System.err.println(e);
 		}
