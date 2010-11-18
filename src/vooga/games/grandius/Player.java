@@ -5,6 +5,10 @@ import vooga.engine.event.IEventHandler;
 
 public class Player extends Sprite implements IEventHandler {
 
+	public Player(String label, Sprite sprite){
+		super(label,sprite);
+	}
+	
 	@Override
 	public boolean isTriggered() {
 		// TODO Auto-generated method stub
