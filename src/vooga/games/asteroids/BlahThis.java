@@ -34,6 +34,7 @@ public class BlahThis extends Game {
 		playState = new PlayState(this, levelPlayField);
 		pauseState = new PauseGameState(playState);
 		stateManager.addGameState(playState, pauseState);
+		resumeGame();
 	}
 	
 	private void initLevelManager() {
@@ -50,7 +51,7 @@ public class BlahThis extends Game {
 		stateManager.activateOnly(pauseState);		
 	}
 	
-	public void unpauseGame() {		
+	public void resumeGame() {		
 		stateManager.activateOnly(playState);
 	}
 

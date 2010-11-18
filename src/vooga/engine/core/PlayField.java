@@ -42,21 +42,23 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private Collection<Control> myControls;
 	private EventPool myEventPool;
 
-	// BUGBUG: Is this needed??
     public PlayField() {
-        super();
         myRuleBook = new HashMap<String, Rule>();
         ruleMap = new HashMap<Rule, SpriteGroup[]>();
         myControls = new ArrayList<Control>();
+        myEventPool = new EventPool();
     }
     
-	public PlayField(Background background){
+/*
+    // BUGBUG: Is this needed??
+    public PlayField(Background background){
 		super(background);
 		myRuleBook = new HashMap<String, Rule>();
 		ruleMap = new HashMap<Rule, SpriteGroup[]>();
 		myControls = new ArrayList<Control>();
 	}
-	
+*/
+    
 	@Override
 	public void update(long elapsedTime)
 	{
