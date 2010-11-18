@@ -65,13 +65,6 @@ public class DropThis extends Game {
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
 	}
 	
-	
-	public void initGameStates(){
-		stateManager.addGameState(gameOver = new MenuGameState());
-		stateManager.addGameState(mainMenu = new MenuGameState());
-		stateManager.addGameState(gamePause = new PauseGameState()); //will ultimately construct this from the previous GS
-		
-=======
 
 	private void initFonts() {
 		fontManager = new GameFontManager();
