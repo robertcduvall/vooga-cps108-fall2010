@@ -1,0 +1,30 @@
+<Resources>
+	<Images>
+		<Image name="lazer1" path="lazer1.png" />
+		<Image name="lazer0" path="lazer0.png" />
+		<Image name="yellowbonus" path="yellowlazer.png" />
+		<Image name="greenplayer" path="greenlazer.png" />
+		<Image name="gamepause" path="gamepause.png" />
+		<Image name="gamestart" path="gamestart.png" />
+	</Images>
+	
+	<Animations>
+	</Animations>
+	
+    <Sounds>
+		<Sound name="explosionSound" path="explosion.wav" />
+		<Sound name="backgroundmusic" path="music.mid" />
+	</Sounds>
+	
+    <Strings>
+		<String name="levelFilesDirectory" value="src/vooga/games/tronupdate/resources/levels" />
+		<String name="levelNamesFile" value="LevelNames.txt" />
+		<String name="Level1" value="levels/tronupdate.xml" />
+	</Strings>
+	
+	<Integers>
+	</Integers>
+	
+	<Doubles>
+	</Doubles>
+</Resources>
