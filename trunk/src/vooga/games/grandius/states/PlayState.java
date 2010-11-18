@@ -6,11 +6,12 @@ import java.util.Map;
 import java.util.Random;
 
 import vooga.engine.core.PlayField;
+import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.games.grandius.Player;
 import vooga.games.grandius.collisions.BasicCollision;
 
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class PlayState extends GameState {
@@ -27,19 +28,31 @@ public class PlayState extends GameState {
 	private SpriteGroup missileGroup;
 	private SpriteGroup blackHoleGroup;
 	private SpriteGroup backgroundGroup; 
+	private Player player;
 	
 	@Override
 	public void initialize() {
 		//myPlayField = new PlayField();
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		this.createComets();
+		addSpriteGroups();
+		//playerSprite initialization moved from DrpThis to addPlayer()
+		addPlayer();
+		backgroundGroup.add(new Sprite(Resources.getImage("BG")));		
 	}
 	
+	private void addPlayer() {
+		int playerInitialX = Resources.getInt("PlayerInitialX");
+		int playerInitialY = Resources.getInt("PlayerInitialY");
+		Sprite shipSprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
+		player = new Player("alive", shipSprite);
+		playerGroup.add(player);		
+	}
+
 	@Override
 	public void update(long elapsedTime){
 		
 		super.update(elapsedTime);
-		
 	}
 
 	//TODO create PlayField for levels using Game.initLevel()

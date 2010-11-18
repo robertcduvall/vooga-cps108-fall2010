@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.Sprite;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayIcon;
@@ -51,7 +52,6 @@ import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
@@ -76,7 +76,7 @@ public class DropThis extends Game {
 	private EventPool eventPool;
 //	private PauseGameState myPauseGameState;
 
-	//private boolean reacherShieldsDepleted;
+	private boolean reacherShieldsDepleted;
 
 	private Sprite shipSprite;
 	//private PlayerSprite playerSprite;
@@ -126,14 +126,15 @@ public class DropThis extends Game {
 		int screenWidth = Resources.getInt("screenWidth");
 		int screenHeight = Resources.getInt("screenHeight");
 		screen = new Dimension(screenWidth,screenHeight);
-		playerInitialX = Resources.getInt("PlayerInitialX");
-		playerInitialY = Resources.getInt("PlayerInitialY");
 		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
-		levelManager.getLevelFactory().setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
-		shipSprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
-		playerSprite = new PlayerSprite("ThePlayer", "alive", shipSprite);
-		playerGroup.add(playerSprite);
-		backgroundGroup.add(new Sprite(Resources.getImage("BG")));
+		//levelManager.getLevelFactory().setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
+//		TODO - see addPlayer() method in PlayState for the following:
+//		playerInitialX = Resources.getInt("PlayerInitialX");
+//		playerInitialY = Resources.getInt("PlayerInitialY");
+		//shipSprite = new Sprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
+		//playerSprite = new PlayerSprite("ThePlayer", "alive", shipSprite);
+		//playerGroup.add(playerSprite);
+		//backgroundGroup.add(new Sprite(Resources.getImage("BG")));
 		reacherShieldsDepleted = false;
 		addOverlays();
 	}
