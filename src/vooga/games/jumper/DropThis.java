@@ -16,6 +16,12 @@ import vooga.engine.resource.clock.GameClock;
 import vooga.engine.resource.clock.GameClockException;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.other.Pause;
+import vooga.games.jumper.sprites.BlockSprite;
+import vooga.games.jumper.sprites.BreakingBlock;
+import vooga.games.jumper.sprites.DoodleSprite;
+import vooga.games.jumper.sprites.JetpackBlock;
+import vooga.games.jumper.sprites.NormalBlock;
+import vooga.games.jumper.sprites.SpringBlock;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFont;

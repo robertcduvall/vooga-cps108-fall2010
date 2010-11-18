@@ -1,7 +1,8 @@
-package vooga.games.jumper;
+package vooga.games.jumper.sprites;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+
 
 public class SpringBlock extends BlockSprite{
 
