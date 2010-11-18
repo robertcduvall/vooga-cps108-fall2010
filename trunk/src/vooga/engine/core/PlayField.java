@@ -45,12 +45,14 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
         super();
         myRuleBook = new HashMap<String, Rule>();
         ruleMap = new HashMap<Rule, SpriteGroup[]>();
+        myControls = new ArrayList<Control>();
     }
     
 	public PlayField(Background background){
 		super(background);
 		myRuleBook = new HashMap<String, Rule>();
 		ruleMap = new HashMap<Rule, SpriteGroup[]>();
+		myControls = new ArrayList<Control>();
 	}
 	
 	@Override
