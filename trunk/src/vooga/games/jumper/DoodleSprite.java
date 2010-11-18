@@ -2,9 +2,10 @@ package vooga.games.jumper;
 
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+
+import vooga.engine.core.Sprite;
 import vooga.engine.resource.Resources;
 
-import com.golden.gamedev.object.Sprite;
 /**
  * This class represents the Doodle which is the main character of the game
  * @author Brian
