@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="Asteroids" xmloverlaypath="src/vooga/games/asteroids/resources/overlays.xml">
+
+	<SpriteGroups>
+		<SpriteGroup name="playerShip">
+			<RegularSprite name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
+				<Visual name="shipImage"/>
+			</RegularSprite>
+		</SpriteGroup>
+		
+		<SpriteGroup name="shotGroup">
+			<RegularSprite name="shipShot" x="0" y="0" vx="0" vy="0" quantity="0">
+				<Visual name="greenBulletImage"/>
+			</RegularSprite>
+		</SpriteGroup>
+		
+		<SpriteGroup name="asteroidGroup">
+			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="5">
+				<Visual name="asteroidAnimation"/>
+			</SpawnedSprite> 
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.asteroids.collisions.ShipToAsteroidCollision">
+			<SpriteGroup name="playerShip"></SpriteGroup>
+			<SpriteGroup name="asteroidGroup"></SpriteGroup>
+		</CollisionGroup>
+		
+		<CollisionGroup subclass="vooga.games.asteroids.collisions.BulletToAsteroidCollision">
+			<SpriteGroup name="shotGroup"></SpriteGroup>
+			<SpriteGroup name="asteroidGroup"></SpriteGroup>
+		</CollisionGroup>		
+	</CollisionGroups>
+	
+	<Background>
+		<!-- <Visual name = "mainBG" /> -->
+	</Background>
+
+	<Music>
+		<Sound name="explosionSound"/>
+		<Sound name="laser1Sound"/>
+		<Sound name="laser2Sound"/>
+		<Sound name="thrustSound"/>
+	</Music>
+	
+	<Map>
+	
+	</Map>
+
+</Level>
