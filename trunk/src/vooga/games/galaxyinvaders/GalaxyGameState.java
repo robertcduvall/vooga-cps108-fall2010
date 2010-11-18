@@ -13,6 +13,9 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.factory.LevelManager;
+import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.random.Randomizer;
 import vooga.engine.resource.random.RandomizerException;
@@ -50,6 +53,10 @@ public class GalaxyGameState extends GameState{
 	private CollisionManager itemPlayerCollider;
 	private CollisionManager torpedoBlockCollider;
 	
+	private OverlayTracker overlayTracker;
+	protected Stat<Integer> scoreStat;
+	protected Stat<Integer> livesStat;
+	
 	public GalaxyGameState(Game g, PlayField pf){
 		playfield = pf;
 		game = g;
@@ -79,6 +86,7 @@ public class GalaxyGameState extends GameState{
 		initControls();
 		initColliders();
 		initBlocks();
+		initOverlays();
 		initPlayField();
 		initLevels();
 	}
@@ -123,6 +131,12 @@ public class GalaxyGameState extends GameState{
 		}
 	}
 	
+	private void initOverlays() {
+		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlays"));
+		livesStat = overlayTracker.getStat("lives");
+		scoreStat = overlayTracker.getStat("score");
+	}
+	
 	private void initPlayField(){
 		playfield.addGroup(items);
 		playfield.addGroup(torpedos);
@@ -130,16 +144,16 @@ public class GalaxyGameState extends GameState{
 		playfield.addGroup(blockades);
 		playfield.addGroup(players);
 		playfield.addGroup(enemyTorpedos);
-		playfield.addGroup(overlayTracker.getOverlayGroups().get(2));
+		playfield.addGroup(overlayTracker.getOverlayGroup("stats"));
 		playfield.addCollisionGroup(torpedos, enemies, torpedoCollider);
         playfield.addCollisionGroup(enemyTorpedos, players, torpedoPlayerCollider);
         playfield.addCollisionGroup(items, players, itemPlayerCollider);
         playfield.addCollisionGroup(enemyTorpedos, blockades, torpedoBlockCollider);
 	}
-
+	
 	private void initLevels() {
 		levelManager = new GalaxyLevelManager();
-		levelManager.addLevels(Resources.getString("levelFilesDirectory"),new File(Resources.getString("levelNamesFile")));
+		levelManager.makeLevels(Resources.getString("levelFilesDirectory"), Resources.getString("levelNamesFile"));
 	}
 	
 	private void spawnPowerUps() {
@@ -240,7 +254,7 @@ public class GalaxyGameState extends GameState{
 			}
 		}
 		//TODO: change type of game to DropThis to avoid casting
-		if(((DropThis)game).livesStat.getStat()<=0) {
+		if(livesStat.getStat()<=0) {
 			((DropThis) game).gameOver();
 		}
 	}
@@ -251,5 +265,14 @@ public class GalaxyGameState extends GameState{
 	
 	private void clearEnemies(){
 		enemies.clear();
+	}
+	
+	/**
+	 * This method increases the player's score by a certain amount
+	 * 
+	 * @param score the amount by which to increase the score
+	 */
+	private void increasePlayerScore(int score) {
+		scoreStat.setStat(scoreStat.getStat() + score);
 	}
 }
