@@ -1,26 +1,104 @@
 
 <Resources>
 	<Images>
-		<Image name="" path="" />
+		<Image name="background" path="background.png" />
+		<Image name="ball" path="ball.png" />
+		<Image name="bigBlueMonster" path="big_blue_monster.png" />
+		<Image name="darkBluePlatform" path="dark_blue_platform.png" />
+		<Image name="defaultPlayOn" path="default-play-on.png" />
+		<Image name="defaultPlay" path="default-play.png" />
+		<Image name="default" path="Default.png" />
+		<Image name="finishLine" path="finish_line.png" />
+		<Image name="grayPlatform" path="gray_platform.png" />
+		<Image name="greenJumpingMonster" path="green_jumping_monster.png" />
+		<Image name="greenMonster" path="green_monster.png" />
+		<Image name="greenPlatform" path="green_platform.png" />
+		<Image name="hole" path="hole.png" />
+		<Image name="jetPack" path="jetpack.png" />
+		<Image name="jungleNjuska" path="jungle-njuska.png" />
+		<Image name="lightBluePlatform" path="light_blue_platform.png" />
+		<Image name="menuOn" path="menu-on.png" />
+		<Image name="menu" path="menu.png" />
+		<Image name="pauseCoverResumeOn" path="pause-cover-resume-on.png" />
+		<Image name="pauseCoverResume" path="pause-cover-resume.png" />
+		<Image name="pauseCover" path="pause-cover.png" />
+		<Image name="playAgain" path="play-again.png" />
+		<Image name="playOn" path="play-on.png" />
+		<Image name="propeller" path="propeller.png" />
+		<Image name="purpleMonster" path="purple_monster.png" />
+		<Image name="redMonster" path="red_monster.png" />
+		<Image name="redPlatform" path="red_platform.png" />
+		<Image name="resumeOn" path="resume-on.png" />
+		<Image name="resume" path="resume.png" />
+		<Image name="shield" path="shield.png" />
+		<Image name="soccerBackground" path="soccer-background.png" />
+		<Image name="spaceBackground" path="space-background.png" />
+		<Image name="springFull" path="spring_full.png" />
+		<Image name="springPlatform" path="spring_platform" />
+		<Image name="springShoes" path="spring_shoes.png" />
+		<Image name="trampolineDown" path="trampoline_down.png" />
+		<Image name="trampolinePlatform" path="trampoline_platform.png" />
+		<Image name="trampolineUp" path="trampoline_up.png" />
+		<Image name="trampoline" path="trampoline.png" />
+		<Image name="whitePlatform" path="white_platform.png" />
+
 
 	</Images>
 
 	<Animations>
-		<Animation name="">
-			<Image path="" />
+		<Animation name="blueFlyingMonster">
+			<Image path="blue_flying_monster_1.png" />
+			<Image path="blue_flying_monster_2.png" />
+			<Image path="blue_flying_monster_3.png" />
+			<Image path="blue_flying_monster_4.png" />
+			<Image path="blue_flying_monster_5.png" />
 		</Animation>
-
+		<Animation name="blueMonster">
+			<Image path="blue_monster_left.png" />
+			<Image path="blue_monster_right.png" />
+		</Animation>
+		<Animation name="brownPlatformBreaking">
+			<Image path="brown_platform_breaking_1.png" />
+			<Image path="brown_platform_breaking_2.png" />
+			<Image path="brown_platform_breaking_3.png" />
+			<Image path="brown_platform_breaking_4.png" />
+		</Animation>
+		<Animation name="doodle">
+			<Image path="doodle_left_crouch.png" />
+			<Image path="doodle_left.png" />
+			<Image path="doodle_right_crouch.png" />
+			<Image path="doodle_right.png" />
+			<Image path="doodle_up_crouch.png" />
+			<Image path="doodle_up.png" />
+		</Animation>
+		<Animation name="greenFlyingMonster">
+			<Image path="green_flying_monster1.png" />
+			<Image path="green_flying_monster2.png" />
+			<Image path="green_flying_monster3.png" />
+			<Image path="green_flying_monster4.png" />
+			<Image path="green_flying_monster5.png" />
+		</Animation>
+		<Animation name="yellowPlatformDying">
+			<Image path="yellow_platform.png" />
+			<Image path="yellow_platform_dying_1.png" />
+			<Image path="yellow_platform_dying_2.png" />
+			<Image path="yellow_platform_dying_3.png" />
+			<Image path="yellow_platform_dying_4.png" />
+			<Image path="yellow_platform_dying_5.png" />
+			<Image path="yellow_platform_dying_6.png" />
+			<Image path="yellow_platform_dying_7.png" />
+		</Animation>
 	</Animations>
 
 	<Sounds>
-		<Sound name="" path="" />
-
+		<Sound name="jumpSound" path="jump_sound.wav" />
+		<Sound name="springSound" path="spring_sound.wav" />
 	</Sounds>
 
 	<Strings>
 		<String name="levelFilesDirectory" value="src/vooga/games/doodlejump/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
-		<String name="Level1" value="levels/asteroids.xml" />
+		<String name="Level1" value="levels/level1.xml" />
 	</Strings>
 
 	<Integers>
