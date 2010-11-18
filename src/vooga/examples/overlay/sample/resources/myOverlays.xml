@@ -6,8 +6,8 @@
 <Stat type="Integer" value="0" name="three"></Stat>
 
 <OverlayGroup name="first" >
-<OverlayStat stat="three" label="SCORE     : " xLoc="10" yLoc="50"></OverlayStat>
-<OverlayIcon stat="two" label="lives" xLoc="10" yLoc="30" image="ball" width="10" height="10"></OverlayIcon>
+<OverlayStat name="score" stat="three" label="SCORE     : " xLoc="10" yLoc="50"></OverlayStat>
+<OverlayIcon name="lives" stat="two" label="lives" xLoc="10" yLoc="30" image="ball" width="10" height="10"></OverlayIcon>
 </OverlayGroup>
 
 <OverlayGroup name="second">
