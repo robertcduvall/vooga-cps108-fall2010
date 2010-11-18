@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vooga.engine.control.Control;
 import vooga.engine.level.Rule;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
@@ -37,6 +38,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private String myMusic;
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
+	private Collection<Control> myControls;
 
 	// BUGBUG: Is this needed??
     public PlayField() {
@@ -56,6 +58,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	{
 		super.update(elapsedTime);
 		actOnRules();
+		updateControls();
 		
 	}
 	
@@ -67,6 +70,12 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		for(String key: myRuleBook.keySet())
 		{
 			myRuleBook.get(key).enforce();
+		}
+	}
+	
+	private void updateControls(){
+		for(Control control: myControls){
+			control.update();
 		}
 	}
 
@@ -141,6 +150,15 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 */
 	public void setBackground(int index){
 		super.setBackground(((ArrayList<Background>)myBackgrounds).get(index));
+	}
+	
+	/**
+	 * Add a control which will be updated everytime the 
+	 * playfield is updated.
+	 * @param control Control to be updated with the PlayField
+	 */
+	public void addControl(Control control){
+		myControls.add(control);
 	}
 
 	

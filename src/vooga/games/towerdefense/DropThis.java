@@ -1,26 +1,13 @@
 package vooga.games.towerdefense;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import com.golden.gamedev.GameLoader;
-import com.golden.gamedev.object.*;
-import com.golden.gamedev.object.background.*;
-import com.golden.gamedev.util.ImageUtil;
-
 import vooga.engine.core.Game;
-import vooga.engine.overlay.*;
-import vooga.engine.control.*;
-import vooga.engine.resource.*;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.towerdefense.states.MainMenu;
-import vooga.games.towerdefense.tower.*;
+import vooga.games.towerdefense.states.PlayState;
+
+
+
 
 /**
  * This is the main class of the game. It creates the different states of the
@@ -40,32 +27,32 @@ public class DropThis extends Game {
 	private int gameHeight;
 	
 
-	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl,
-			gameOverPlayerCursorControl;
-	private KeyboardControl playerKeyboardControl;
-	protected Background[] background;
-	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
-			pauseGroup, playerGroup, gameOverGroup, menuGroup;
-	private ArrayList<PathPoint> path;
-	private long totalTime;
-	private Stat<Integer> selfEsteem;
-	private Stat<Integer> score;
-	private Stat<Integer> money;
-	protected State startMenu;
-	protected State play;
-	protected State pause;
-	protected State gameOver;
-	private int difficulty;
-	private boolean go;
-	private Counter counter;
-	private Timer hit1;
-	private Timer hit2;
-	private Timer hit3;
-	private Timer spawn;
-	private Timer gameTimer;
-	private int spawnSpeed;
-	private TowerBuilder towerBuilder;
-	private TowerTargetFinder towerTargetFinder;
+//	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl,
+//			gameOverPlayerCursorControl;
+//	private KeyboardControl playerKeyboardControl;
+//	protected Background[] background;
+//	private SpriteGroup towerGroup, enemyGroup, towerShotGroup, overlayGroup,
+//			pauseGroup, playerGroup, gameOverGroup, menuGroup;
+//	private ArrayList<PathPoint> path;
+//	private long totalTime;
+//	private Stat<Integer> selfEsteem;
+//	private Stat<Integer> score;
+//	private Stat<Integer> money;
+//	protected State startMenu;
+//	protected State play;
+//	protected State pause;
+//	protected State gameOver;
+//	private int difficulty;
+//	private boolean go;
+//	private Counter counter;
+//	private Timer hit1;
+//	private Timer hit2;
+//	private Timer hit3;
+//	private Timer spawn;
+//	private Timer gameTimer;
+//	private int spawnSpeed;
+//	private TowerBuilder towerBuilder;
+//	private TowerTargetFinder towerTargetFinder;
 
 	@Override
 	public void initResources() {
@@ -78,9 +65,11 @@ public class DropThis extends Game {
 	public void initGameStates(){
 		super.initGameStates();
 		
-		GameState mainMenu = addGameState(new MainMenu(this));
+		//TODO uncomment once prolog error is found and fixed
+		//GameState mainMenu = addGameState(new MainMenu());
+		GameState play = addGameState(new PlayState());
 		
-		getGameStateManager().switchTo(mainMenu);
+		getGameStateManager().switchTo(play);
 	}
 
 //

@@ -13,9 +13,8 @@ import java.util.*;
 
 public class MainMenu extends GameState{
 	
-	private Game game;
 	
-	public MainMenu(Game game){
+	public MainMenu(){
 		super();
 		initialize();
 	}
@@ -23,7 +22,7 @@ public class MainMenu extends GameState{
 	@Override
 	public void initialize() {
 			LevelParser layoutReader = new LayoutParser();
-			addPlayField(layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), game));
+			addPlayField(layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame()));
 	}
 	
  

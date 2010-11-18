@@ -1,6 +1,9 @@
 <Resources>
 
-	<Images></Images>
+	<Images>
+		<Image name="background" path="backgrounds/easyLevel.png" />
+		<Image name="towerPreview" path="towerPreview.png" />
+	</Images>
 	<Animations></Animations>
 	<Sounds></Sounds>
 	<Doubles></Doubles>
