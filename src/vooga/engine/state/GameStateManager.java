@@ -65,10 +65,10 @@ public class GameStateManager {
 	*/
 
 	public void addGameState(GameState... states) {
+		states[0].activate();
 		for (GameState gamestate : states) {
 			addGameState(gamestate);
 		}
-		currentGameStates.get(0).activate();
 	}
 	
 	/**
