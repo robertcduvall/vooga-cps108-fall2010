@@ -1,0 +1,29 @@
+<Resources>
+	<Images>
+		<Image name="starImage" path="star.png" />
+		<Image name="playerShot" path="playerShot.png" />
+		<Image name="enemyShot" path="enemyShot.png" />
+		<Image name="playerShip" path="playerShip.png" />
+		<Image name="enemyShip" path="enemyShip.png" />
+		<Image name="bonus" path="bonus.png" />
+		<Image name="bg" path="bg.png" />
+	</Images>
+	
+	<Animations>
+	</Animations>
+	
+	<Sounds>
+	</Sounds>
+	
+	<Strings>
+		<String name="directory" value="/src/vooga/games/cyberion/resources" />
+		<String name="file" value="levels.txt" />
+		<String name="Level1" value="level1.xml" />
+	</Strings>
+	
+	<Integers>
+	</Integers>
+	
+	<Doubles>
+	</Doubles>
+</Resources>

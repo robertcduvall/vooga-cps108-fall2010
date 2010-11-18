@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="Level1">
+
+	<SpriteGroups>
+		<SpriteGroup name="starGroup">
+<RegularSprite name="star" x="200" y="0" vx="0" vy="0.5" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="10" y="13" vx="0" vy="0.9" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="100" y="87" vx="0" vy="0.7" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="300" y="400" vx="0" vy="0.8" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="500" y="320" vx="0" vy="0.4" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="234" y="234" vx="0" vy="0.3" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="604" y="162" vx="0" vy="0.6" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="27" y="320" vx="0" vy="0.2" q="1">
+			<Visual name="starImage" /></RegularSprite>
+<RegularSprite name="star" x="600" y="320" vx="0" vy="0.3" q="1">
+			<Visual name="starImage" /></RegularSprite>
+		</SpriteGroup>
+		<SpriteGroup name="playerGroup">
+			<playerShip name="player" imageName="playerImage" number="1000">
+			<Visual name="playerShip" /></playerShip>
+		</SpriteGroup>
+<SpriteGroup name="enemyGroup">
+<enemyShip imageName="enemyImage" maxX="640" maxY="100000">
+<Visual name="enemyShip" /></enemyShip>
+</SpriteGroup>
+	</SpriteGroups>
+
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.cyberion.collisions.PlayerCollidesEnemy">
+			<SpriteGroup name="playerGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+	
+	<Background>
+		<Visual name="bg" />
+	</Background>
+	
+	<Music>
+	</Music>
+	
+	<Map>
+	</Map>
+</Level>
