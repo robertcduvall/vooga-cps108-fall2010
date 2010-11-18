@@ -43,7 +43,7 @@ public class DropThis extends Game {
 	private static final int GAME_WIDTH = 700;
 	private static final int GAME_HEIGHT = 800;
 
-	private Background background;
+	//private Background background;
 	private PlayField playfield;
 	
 	private GalaxyGameState play;
@@ -52,18 +52,15 @@ public class DropThis extends Game {
 
 	private SpriteGroup pauseMenu;
 	private SpriteGroup gameOverMenu;
-	
-	private OverlayTracker overlayTracker;
-	protected Stat<Integer> scoreStat;
-	protected Stat<Integer> livesStat;
 
 	/**
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
 	 */
 	public void initResources() {
 		super.initResources();
-		background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
-		playfield = new PlayField(background);		
+		//background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
+		playfield = new PlayField();	
+		playfield.addColorBackground(Color.BLACK);
 		stateManager.switchTo(pause);
 	}
 
@@ -84,41 +81,29 @@ public class DropThis extends Game {
 		super.update(time);
 	}
 	
-	/**
-	 * This method increases the player's score by a certain amount
-	 * 
-	 * @param score the amount by which to increase the score
-	 */
-	public void increasePlayerScore(int score) {
-		scoreStat.setStat(scoreStat.getStat() + score);
-	}
+
 
 	public void initGameStates(){
 		super.initGameStates();
-		initializeOverlays();
 		initializeGameStates();
 	}
-
-	private void initializeOverlays() {
-		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlays"));
-		livesStat = overlayTracker.getStat("lives");
-		scoreStat = overlayTracker.getStat("score");
-	}
-
-
 
 	private void initializeGameStates() {
 		pauseMenu = new SpriteGroup("pauseMenu");
 		gameOverMenu = new SpriteGroup("gameOverMenu");
 		play = new GalaxyGameState(this, playfield);
-		pause = new PauseGameState(play);
-		gameOver = new BasicTextGameState("");
+		pause = new PauseGameState(play, "Welcome to GalaxyInvaders!\n" +
+										"To move, use the left and right arrow keys\n" +
+										"To fire, use the space bar\n" +
+										"To play, or pause and return to the menu, press P", Color.WHITE);
+		gameOver = new BasicTextGameState("Game Over!\n" +
+										"To restart the game, press R", Color.WHITE);
 		stateManager.addGameState(play, pause, gameOver);
-		initializeMenus(pause, pauseMenu, "pauseMenu");
-		initializeMenus(gameOver, gameOverMenu, "gameOverMenu");
+		//initializeMenus(pause, pauseMenu, "pauseMenu");
+		//initializeMenus(gameOver, gameOverMenu, "gameOverMenu");
 	}
 	
-	private void initializeMenus(GameState state, SpriteGroup menu, String overlayGroup){
+	/*private void initializeMenus(GameState state, SpriteGroup menu, String overlayGroup){
 		//TODO:Re-work GameStates to take advantage of changes
 		state.addGroup(menu);
 		SpriteGroup strings = overlayTracker.getOverlayGroup(overlayGroup);
@@ -130,7 +115,7 @@ public class DropThis extends Game {
 			oString.setColor(Color.WHITE);
 			menu.add(oString);
 		}			
-	}
+	}*/
 
 	public void toggle(){
 		stateManager.toggle(pause);
