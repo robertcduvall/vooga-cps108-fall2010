@@ -1,5 +1,13 @@
 <Resources>
-	
+
+	<Images></Images>
+	<Animations></Animations>
+	<Sounds></Sounds>
+	<Doubles></Doubles>
+	<Strings>
+		<String name="mainMenuLayoutPath" value="src/vooga/games/towerdefense/resources/layouts/mainMenu.xml" />
+	</Strings>
+
 	<Integers>
 		<Integer name="gameWidth" value="1050" />
 		<Integer name="gameHeight" value="600" />

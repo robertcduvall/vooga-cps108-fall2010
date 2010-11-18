@@ -18,6 +18,8 @@ import vooga.engine.core.Game;
 import vooga.engine.overlay.*;
 import vooga.engine.control.*;
 import vooga.engine.resource.*;
+import vooga.engine.state.GameState;
+import vooga.games.towerdefense.states.MainMenu;
 import vooga.games.towerdefense.tower.*;
 
 /**
@@ -67,31 +69,20 @@ public class DropThis extends Game {
 
 	@Override
 	public void initResources() {
-		//super.initResources();
-		//TODO remove this garbage and just call super once the core 
-		//team agrees to take out initialize first level
-		Resources.initialize(this, getResourcePath());
-		try {
-			Resources.loadResourcesXMLFile("resources.xml");
-		} catch (IOException e) {
-			System.out.println("Failed to load resources.xml");
-		}
-		initGameStates();
+		super.initResources();
 		gameWidth = Resources.getInt("gameWidth");
 		gameHeight = Resources.getInt("gameHeight");
-//		initBackgrounds();
-//		initEvents();
-//		initOverlays();
-//		initPlayer();
 	}
 	
-	//TODO remove this garbage and just call super once the core 
-	//team agrees to take out initialize first level 
-	private String getResourcePath() {
-		String gamePath = getClass().getPackage().getName();
-		String defaultPath = "src/" + gamePath + "/resources/";
-		return defaultPath.replace('.', '/');
+	@Override
+	public void initGameStates(){
+		super.initGameStates();
+		
+		GameState mainMenu = addGameState(new MainMenu(this));
+		
+		getGameStateManager().switchTo(mainMenu);
 	}
+
 //
 //	@Override
 //	public void update(long elapsedTime) {
