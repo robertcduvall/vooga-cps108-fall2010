@@ -37,7 +37,14 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private String myMusic;
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
-	
+
+	// BUGBUG: Is this needed??
+    public PlayField() {
+        super();
+        myRuleBook = new HashMap<String, Rule>();
+        ruleMap = new HashMap<Rule, SpriteGroup[]>();
+    }
+    
 	public PlayField(Background background){
 		super(background);
 		myRuleBook = new HashMap<String, Rule>();
@@ -63,10 +70,6 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		}
 	}
 
-	public PlayField() {
-		super();
-	}
-	
 	/**
 	 * This method adds a Rule the playfield.
 	 * @param rulename
