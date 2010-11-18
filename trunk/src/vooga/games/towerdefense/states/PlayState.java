@@ -3,25 +3,26 @@ package vooga.games.towerdefense.states;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import vooga.engine.control.Control;
+import vooga.engine.control.MouseControl;
+import vooga.engine.core.PlayField;
+import vooga.engine.core.Sprite;
+import vooga.engine.event.EventPool;
+import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
+import vooga.games.towerdefense.actors.Player;
+import vooga.games.towerdefense.events.BuildTowerEvent;
+
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.background.*;
+import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.util.ImageUtil;
 
 
-import vooga.engine.control.*;
-import vooga.engine.core.PlayField;
-import vooga.engine.core.Sprite;
-import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
-import vooga.games.towerdefense.*;
 
 
 
-
-
-public class PlayState extends GameState{
-	
-	
+public class PlayState extends GameState{	
 
 	@Override
 	public void initialize() {
@@ -31,9 +32,17 @@ public class PlayState extends GameState{
 	private PlayField initPlayField(){
 		PlayField playField = new PlayField();
 		playField.setBackground(initBackground());
-		Sprite player = initPlayer();
+		
+		EventPool eventPool = new EventPool();
+		playField.addEventPool(eventPool);
+		
+		BuildTowerEvent buildTower = new BuildTowerEvent();
+		eventPool.addEvent(buildTower);
+		Sprite player = initPlayer(buildTower);
 		playField.add(player);
+		
 		playField.addControl(initControl(player));
+		
 		
 		return playField;
 	}
@@ -44,8 +53,8 @@ public class PlayState extends GameState{
 		return new ImageBackground(backgroundImage);
 	}
 	
-	private Sprite initPlayer(){
-		Sprite player = new Player(Resources.getImage("towerPreview"), 0 , 0);		
+	private Sprite initPlayer(BuildTowerEvent buildTowerEvent){
+		Sprite player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent);		
 		return player;
 	}
 	
