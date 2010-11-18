@@ -1,0 +1,13 @@
+<Overlay>
+
+	<Stat type="Integer" value="0" name="zero"></Stat>
+	<Stat type="Integer" value="3" name="one"></Stat>
+	<Stat type="Integer" value="0" name="two"></Stat>
+
+	<OverlayGroup name="first" >
+		<OverlayStat name="score" stat="zero" label="SCORE: " xLoc="0" yLoc="0"></OverlayStat>
+		<OverlayIcon name="lives" stat="one" label="Lives: " xLoc="0" yLoc="0" image="PlayerShip"></OverlayIcon>
+		<OverlayStat name="cash" stat="two" label="Cash: " xLoc="0" yLoc="0"></OverlayStat>
+	</OverlayGroup>
+
+</Overlay>
