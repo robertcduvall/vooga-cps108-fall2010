@@ -152,7 +152,7 @@ public class GalaxyGameState extends GameState{
 	}
 	
 	private void initLevels() {
-		levelManager = new GalaxyLevelManager();
+		levelManager = new GalaxyLevelManager(game);
 		levelManager.makeLevels(Resources.getString("levelFilesDirectory"), Resources.getString("levelNamesFile"));
 	}
 	
@@ -272,7 +272,7 @@ public class GalaxyGameState extends GameState{
 	 * 
 	 * @param score the amount by which to increase the score
 	 */
-	private void increasePlayerScore(int score) {
+	public void increasePlayerScore(int score) {
 		scoreStat.setStat(scoreStat.getStat() + score);
 	}
 }

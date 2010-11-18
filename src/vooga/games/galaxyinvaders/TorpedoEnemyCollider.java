@@ -14,14 +14,16 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	
-	private DropThis g;
+	private DropThis game;
+	private GalaxyGameState playGameState;
 	
 	private static final int ENEMY_DAMAGE_TAKEN = 1;
 	private static final int SCORE_PER_HIT = 10;
 	
-	public TorpedoEnemyCollider(Game game) {
+	public TorpedoEnemyCollider(Game g) {
 		super();
-		g = (DropThis) game;
+		game = (DropThis) g;
+		playGameState = game.getPlayGameState();
 		pixelPerfectCollision = true;
 	}
 
@@ -29,7 +31,7 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
 		((EnemySprite) s2).decrementHitPoints(ENEMY_DAMAGE_TAKEN);
-		g.increasePlayerScore(SCORE_PER_HIT);
+		playGameState.increasePlayerScore(SCORE_PER_HIT);
 	}
 	
 

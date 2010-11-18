@@ -13,18 +13,20 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class ItemPlayerCollider extends BasicCollisionGroup {
 
-	private DropThis g;
+	private DropThis game;
+	private GalaxyGameState playGameState;
 	
-	public ItemPlayerCollider(Game game) {
+	public ItemPlayerCollider(Game g) {
 		super();
-		g = (DropThis) game;
+		game = (DropThis) g;
+		playGameState = game.getPlayGameState();
 		pixelPerfectCollision = true;
 	}
 	
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		g.livesStat.setStat(g.livesStat.getStat()+1);
+		playGameState.livesStat.setStat(playGameState.livesStat.getStat()+1);
 		
 	}
 	

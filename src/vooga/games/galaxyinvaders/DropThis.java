@@ -3,31 +3,15 @@ package vooga.games.galaxyinvaders;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
-import vooga.engine.control.Control;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.factory.LevelManager;
-import vooga.engine.overlay.*;
-import vooga.engine.resource.*;
-import vooga.engine.resource.random.Randomizer;
-import vooga.engine.resource.random.RandomizerException;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
-import vooga.engine.state.GameStateManager;
 import vooga.engine.state.PauseGameState;
 
 import com.golden.gamedev.GameLoader;
-import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.CollisionManager;
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ColorBackground;
 
 
 /**
@@ -64,25 +48,6 @@ public class DropThis extends Game {
 		stateManager.switchTo(pause);
 	}
 
-	/**
-	 * Rendering method for GoldenT
-	 * 
-	 */
-	public void render(Graphics2D g) {
-		super.render(g);
-	}
-
-	/**
-	 * This method is called every turn by the game engine. It determines whether
-	 * bombs or powerups should be dropped, and updates all the sprite groups. It
-	 * also checks to see if the game is over, and ends it if it is.
-	 */
-	public void update(long time) {
-		super.update(time);
-	}
-	
-
-
 	public void initGameStates(){
 		super.initGameStates();
 		initializeGameStates();
@@ -117,6 +82,10 @@ public class DropThis extends Game {
 		}			
 	}*/
 
+	public GalaxyGameState getPlayGameState(){
+		return play;
+	}
+	
 	public void toggle(){
 		stateManager.toggle(pause);
 		stateManager.toggle(play);
@@ -137,10 +106,10 @@ public class DropThis extends Game {
 	 * @param args do nothing
 	 */
 	public static void main(String[] args) {
-		/*GameLoader game = new GameLoader();
+		GameLoader game = new GameLoader();
 		game.setup(new DropThis(), new Dimension(GAME_WIDTH, GAME_HEIGHT), false);
-		game.start();*/
-		launch(new DropThis());
+		game.start();
+		//launch(new DropThis());
 	}
 
 }
