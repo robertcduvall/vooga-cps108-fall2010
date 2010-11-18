@@ -1,39 +1,41 @@
 package vooga.games.jumper;
 
-import com.golden.gamedev.object.SpriteGroup;
+import java.awt.event.KeyEvent;
 
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
+import vooga.engine.core.Sprite;
 import vooga.engine.state.GameState;
 
-public class PlayGameState extends GameState {
-	private int gameStateType;
-
+public class PlayGameState extends GameState{
 	
-
-	public PlayGameState(SpriteGroup sg, int stateType){
-		super(sg);
-		gameStateType = stateType;	
-		System.out.println("cons.. " +gameStateType);
-		initialize(); //why do I have to include this? --devon
+	private Game myGame;
+	private PlayField myField;
+	
+	public PlayGameState(Game game, PlayField field){
+		super(field);
+		myGame = game;
+		myField = field;
 	}
 	
 	@Override
 	public void initialize() {
-        switch (gameStateType) {
-            case 1: { //normal gamestate
-            	System.out.println("normalGS");
-            	break;
-            }
-            case 2:	{ //jetpack gamestate
-            	DropThis.setJetpackOn(true);
-            	System.out.println("SET JETPACK ON --- TRUE");
-            	break;
-            }
-        }
-
-		
-
+		initLevel();
 	}
 	
-	
+	private void initLevel(){
+		Sprite doodleSprite = (Sprite)(getGroup("doodleSprite").getSprites()[0]);
+		initControls(doodleSprite);
+	}
 
+	private void initControls(Sprite player) {
+		Control playerControl = new KeyboardControl(player, myGame);
+		playerControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.jumper.sprites.DoodleSprite");
+		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "vooga.games.jumper.sprites.DoodleSprite");
+		playerControl.addInput(KeyEvent.VK_UP, "moveUp", "vooga.games.jumper.sprites.DoodleSprite");
+		myField.addControl(playerControl);
+		
+	}
 }
