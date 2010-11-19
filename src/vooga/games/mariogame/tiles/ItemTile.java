@@ -17,6 +17,10 @@ public class ItemTile extends ChangingTile {
 		myItem = item;
 	}
 
+	public ItemTile(BufferedImage image, double x, double y) {
+		super(image,x,y);
+	}
+
 	@Override
 	public void actOnCollision(Sprite sprite) {
 		if (!isLocked()) {

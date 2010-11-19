@@ -277,8 +277,8 @@ public class LevelParser implements LevelFactory{
 	
 						String key = associationElement.getAttribute("char");
 						String value = associationElement.getAttribute("object");
-	
-						reader.addAssociation(key, value);
+						String image = associationElement.getAttribute("image");
+						reader.addAssociation(key, value, image);
 					}
 				}
 				voogaPlayField = reader.processMap();

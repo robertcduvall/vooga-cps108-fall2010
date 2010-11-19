@@ -1,7 +1,9 @@
 package vooga.engine.factory;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +32,8 @@ public class MapReader {
 	private static int myWidth;
 	private static int myHeight;
 	private static String path;
-	private static Map<String, String> myAssociativities;
-
+	private static Map<String, String> mySpriteClasses;
+	private static Map<String, String> mySpriteImages;
 	// This is the pixel size of each object in the text file.
 	private static int SPRITE_SIZE = 64;
 
@@ -45,8 +47,9 @@ public class MapReader {
 
 	public MapReader(String pathName, PlayField level){
 		path = pathName;
-		myAssociativities = new HashMap<String, String>();
-		
+		myPlayfield = level;
+		mySpriteClasses = new HashMap<String, String>();
+		mySpriteImages = new HashMap<String, String>();
 
 	}
 
@@ -60,8 +63,9 @@ public class MapReader {
 
 
 
-	public void addAssociation(String key, String className){
-		myAssociativities.put(key, className);
+	public void addAssociation(String key, String className, String imageName){
+		mySpriteClasses.put(key, className);
+		mySpriteImages.put(key, imageName);
 	}
 
 	public PlayField processMap(){
@@ -99,6 +103,9 @@ public class MapReader {
 		// and will always be represented as a character.
 		Character currentKey = ' ';
 		myHeight = lines.size();
+		
+		Class<?>[] constructorParams = {BufferedImage.class, double.class, double.class};
+		
 		for (int j = 0; j < myWidth; j++) {
 			for (int k = 0; k < myHeight; k++) {
 				double x = spritesToPixels(j);
@@ -106,12 +113,15 @@ public class MapReader {
 
 				currentKey = (j < lines.get(k).length()) ? lines.get(k).charAt(j) : ' ';
 				
-				if (myAssociativities.containsKey(currentKey+"")){
-					String classToCreate = myAssociativities.get(currentKey+""); 
+				if (mySpriteClasses.containsKey(currentKey+"")){
+					String classToCreate = mySpriteClasses.get(currentKey+""); 
+					String image = mySpriteImages.get(currentKey+"");
 					Class<? extends Sprite> op;
+					Constructor<? extends Sprite> cons;
 					try {
 						op = (Class<? extends Sprite>) Class.forName(classToCreate);
-						Sprite obj = op.newInstance();
+						cons = op.getConstructor(constructorParams);
+						Sprite obj = cons.newInstance(Resources.getImage(image),x,y);
 						myPlayfield.add(obj);
 					} catch (Exception e) {
 						throw ClassAssociatedException.CLASS_NOT_FOUND ;
