@@ -33,20 +33,11 @@ public class Blah extends Game implements Constants{
 	 */
 	public void initResources() {
 		
-		ZombielandResources.initialize(this,DEFAULT_RESOURCE_DIRECTORY);
-		try {
-			ZombielandResources.loadPropertiesFile(RESOURCE_FILENAME);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		super.initResources();
 		zombielandPauseState = new ZombielandPauseState(this);
 		zombielandPlayState = new ZombielandPlayState(this);
 	
-		initGameStates();
-		getGameStateManager().addGameState(zombielandPlayState);
-		zombielandPlayState.activate();
-		getGameStateManager().addGameState(zombielandPauseState);
+		getGameStateManager().addGameState(zombielandPlayState,zombielandPauseState);
 	}
 
 	/**

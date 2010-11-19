@@ -2,6 +2,7 @@ package vooga.games.zombieland;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
+import vooga.engine.core.BetterSprite;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
 /**
@@ -10,7 +11,7 @@ import vooga.games.zombieland.gamestates.ZombielandPlayState;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Zombie extends GameEntitySprite implements Constants {
+public class Zombie extends BetterSprite implements Constants {
 
 	private static final int ZOMBIES_PER_LEVEL = 25;
 	private static int itemChance;
@@ -28,9 +29,9 @@ public class Zombie extends GameEntitySprite implements Constants {
 
 	private Blah game;
 
-	public Zombie(String name, String stateName, int level, Shooter player,
+	public Zombie(String name, int level, Shooter player,
 			Blah currentGame) {
-		super(name, stateName, ZombielandResources
+		super(name, ZombielandResources
 				.getInitializedAnimatedSprite(ZombielandResources
 						.getAnimation("ZombieDown")));
 
@@ -62,15 +63,15 @@ public class Zombie extends GameEntitySprite implements Constants {
 				.getInitializedAnimatedSprite(ZombielandResources
 						.getAnimation("ZombieDeath"));
 
-		mapNameToSprite(DOWN, down);
-		mapNameToSprite(UP, up);
-		mapNameToSprite(LEFT, left);
-		mapNameToSprite(RIGHT, right);
-		mapNameToSprite(ATTACKDOWN, attackDown);
-		mapNameToSprite(ATTACKUP, attackUp);
-		mapNameToSprite(ATTACKLEFT, attackLeft);
-		mapNameToSprite(ATTACKRIGHT, attackRight);
-		mapNameToSprite(DEATH, death);
+		addSprite(DOWN, down);
+		addSprite(UP, up);
+		addSprite(LEFT, left);
+		addSprite(RIGHT, right);
+		addSprite(ATTACKDOWN, attackDown);
+		addSprite(ATTACKUP, attackUp);
+		addSprite(ATTACKLEFT, attackLeft);
+		addSprite(ATTACKRIGHT, attackRight);
+		addSprite(DEATH, death);
 
 		setHumanTarget(player);
 

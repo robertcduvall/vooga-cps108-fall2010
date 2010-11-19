@@ -2,7 +2,7 @@ package vooga.games.zombieland.weapons;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.core.BetterSprite;
 import vooga.games.zombieland.ZombielandResources;
 
 import com.golden.gamedev.object.Sprite;
@@ -15,7 +15,8 @@ import com.golden.gamedev.util.ImageUtil;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public class Bullet extends GameEntitySprite{
+@SuppressWarnings("serial")
+public class Bullet extends BetterSprite{
 
 	private int damage;
 	private double velocity;
@@ -25,7 +26,7 @@ public class Bullet extends GameEntitySprite{
 
 	public Bullet(double x, double y, double bulletAngle, int bulletDamage,
 			double bulletSpeed) {
-		super("Bullet", "Moving", new Sprite());
+		super("Bullet", new Sprite());
 
 
 		userX = x;

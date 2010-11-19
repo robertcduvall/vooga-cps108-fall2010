@@ -7,6 +7,8 @@ import vooga.games.zombieland.Constants;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
+
+import vooga.engine.core.BetterSprite;
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 /**
@@ -50,4 +52,5 @@ public class BZCollisionManager extends PreciseCollisionGroup implements Constan
 		//delete bullet from the game
 		currentBullet.setActive(false);
 	}
+
 }

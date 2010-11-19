@@ -18,10 +18,16 @@ public class ZombielandMenuState extends GameState implements Constants{
 	private static Blah currentGame;
 	private static SpriteGroup backgroundGroup;
 	
-	public ZombielandMenuState()
+	
+	@Override
+	public void activate()
 	{
-		//super();
-		//currentGame = game;
+		super.activate();
+		
+	}
+
+	@Override
+	public void initialize() {
 		backgroundGroup = new SpriteGroup("Background");
 		
 		BufferedImage menu = ZombielandResources.getImage("menu");
@@ -29,22 +35,8 @@ public class ZombielandMenuState extends GameState implements Constants{
 		
 		
 		backgroundGroup.add(menuSprite);	
-		this.addGroup(backgroundGroup);
+//		this.addGroup(backgroundGroup);
 		//zombielandPlayField.addGroup(backgroundGroup);
-		
-	}
-	
-//	@Override
-//	public void render(Graphics2D g)
-//	{
-//		super.render(g);
-//	}
-	
-	@Override
-	public void activate()
-	{
-		super.activate();
-		
 	}
 	
 	

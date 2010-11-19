@@ -36,7 +36,7 @@ public class Shooter extends BetterSprite implements Constants{
 	private int levelScore;
 
 	public Shooter(String name, String stateName, Blah zombieland, Stat<Integer> initHealth, Stat<Integer> initAmmo, Stat<Integer> initScore) {
-		super(name, stateName, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
+		super(name, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
 		game = zombieland;
 		weapons = new Weapon[3];
 		// DEFAULT attributes
@@ -61,18 +61,18 @@ public class Shooter extends BetterSprite implements Constants{
 		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(LEFT));
 		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(RIGHT));
 		
-		this.mapNameToSprite(DOWN, down);
-		this.mapNameToSprite(UP, up);
-		this.mapNameToSprite(LEFT, left);
-		this.mapNameToSprite(RIGHT, right);
+		this.addSprite(DOWN, down);
+		this.addSprite(UP, up);
+		this.addSprite(LEFT, left);
+		this.addSprite(RIGHT, right);
 		
 		// Setup displays
 		health = initHealth;
-		addStat("health", health);
+		setStat("health", health);
 		score = initScore;
-		addStat("score", score);
+		setStat("score", score);
 		ammo = initAmmo;
-		addStat("ammo", ammo);
+		setStat("ammo", ammo);
 	}
 
 	/**
