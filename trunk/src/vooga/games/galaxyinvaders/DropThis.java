@@ -35,7 +35,6 @@ public class DropThis extends Game {
 	 */
 	public void initResources() {
 		super.initResources();
-		//background = new ColorBackground(Color.BLACK, GAME_WIDTH, GAME_HEIGHT);
 		playfield = new PlayField();	
 		playfield.addColorBackground(Color.BLACK);
 		stateManager.switchTo(pause);

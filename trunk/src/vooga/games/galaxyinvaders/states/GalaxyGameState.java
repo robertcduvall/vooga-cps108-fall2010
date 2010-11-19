@@ -6,6 +6,7 @@ import java.io.File;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -50,7 +51,6 @@ public class GalaxyGameState extends GameState{
 	private LevelManager levelManager;
 	private Ship ship;
 	
-	private SpriteGroup torpedos;
 	private SpriteGroup enemyTorpedos;
 	private SpriteGroup enemies;
 	private SpriteGroup players;
@@ -64,7 +64,7 @@ public class GalaxyGameState extends GameState{
 	
 	private OverlayTracker overlayTracker;
 	protected Stat<Integer> scoreStat;
-	protected Stat<Integer> livesStat;
+	public Stat<Integer> livesStat;
 	
 	public GalaxyGameState(Game g, PlayField pf){
 		playfield = pf;
@@ -85,6 +85,7 @@ public class GalaxyGameState extends GameState{
 		gameControl.update();
 		
 		checkLevel();
+		checkDefeat();
 		spawnBombs();
 		spawnPowerUps();
 	}
@@ -102,12 +103,11 @@ public class GalaxyGameState extends GameState{
 	
 	private void initSpriteGroups() {
 		items = new SpriteGroup("items");
-		torpedos = new SpriteGroup("shots");
 		enemies = new SpriteGroup("enemies");
 		players = new SpriteGroup("players");
 		blockades = new SpriteGroup("blockades");
 		enemyTorpedos = new SpriteGroup("enemyTorpedos");
-		ship = new Ship(torpedos);
+		ship = new Ship();
 		players.add(ship);
 	}
 	
@@ -148,13 +148,12 @@ public class GalaxyGameState extends GameState{
 	
 	private void initPlayField(){
 		playfield.addGroup(items);
-		playfield.addGroup(torpedos);
 		playfield.addGroup(enemies);
 		playfield.addGroup(blockades);
 		playfield.addGroup(players);
 		playfield.addGroup(enemyTorpedos);
 		playfield.addGroup(overlayTracker.getOverlayGroup("stats"));
-		playfield.addCollisionGroup(torpedos, enemies, torpedoCollider);
+		playfield.addCollisionGroup(ship.getTorpedoGroup(), enemies, torpedoCollider);
         playfield.addCollisionGroup(enemyTorpedos, players, torpedoPlayerCollider);
         playfield.addCollisionGroup(items, players, itemPlayerCollider);
         playfield.addCollisionGroup(enemyTorpedos, blockades, torpedoBlockCollider);
@@ -227,7 +226,7 @@ public class GalaxyGameState extends GameState{
 				loadLevel();
 		}
 		
-		for(com.golden.gamedev.object.Sprite e : enemies.getSprites()) {
+		for(Sprite e : enemies.getSprites()) {
 			if(e.isActive()) {
 				break;
 			}
@@ -245,16 +244,15 @@ public class GalaxyGameState extends GameState{
 	
 	private void loadLevel(){
 		SpriteGroup temp = levelManager.loadNextLevel().getGroup("enemies");
-		for(com.golden.gamedev.object.Sprite s : temp.getSprites()) {
+		for(Sprite s : temp.getSprites()) {
 			if(s!=null) {
 				enemies.add(s);
 			}
 		}
 	}
 	
-
 	private void checkDefeat() {
-		for(com.golden.gamedev.object.Sprite enemy: enemies.getSprites()) {
+		for(Sprite enemy: enemies.getSprites()) {
 			if(enemy!=null) {
 				if (isAtBorder((BetterSprite) enemy)) {
 					((DropThis) game).gameOver();

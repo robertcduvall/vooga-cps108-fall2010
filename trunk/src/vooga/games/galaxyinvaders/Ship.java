@@ -13,9 +13,13 @@ public class Ship extends BetterSprite{
 	
 	private SpriteGroup torpedos;
 	
-	public Ship(SpriteGroup t){
+	public Ship(){
 		super(Resources.getImage("ship"), X, Y);
-		torpedos = t;
+		torpedos = new SpriteGroup("shots");
+	}
+	
+	public void update(long elapsedTime){
+		torpedos.update(elapsedTime);
 	}
 	
 	private void fire() {
@@ -32,6 +36,10 @@ public class Ship extends BetterSprite{
 	private void moveRight(int distance) {
 		if(getX()<getWidth()-45)  
 			move(distance, 0);
+	}
+	
+	public SpriteGroup getTorpedoGroup(){
+		return torpedos;
 	}
 	
 }
