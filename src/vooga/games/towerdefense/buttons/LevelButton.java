@@ -10,7 +10,7 @@ public class LevelButton extends Button{
 	
 	private String levelName;
 	
-	public LevelButton(Game game, String levelName, String imageName){
+	public LevelButton(Game game, String levelName, String imageName, double x, double y){
 		super(game);
 		this.levelName = levelName;
 		this.setImage(Resources.getImage(imageName));
