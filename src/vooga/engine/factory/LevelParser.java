@@ -91,25 +91,35 @@ public class LevelParser implements LevelFactory{
 
 		//process Events
 		Node eventGroupsSection = xmlDocument.getElementsByTagName("Events").item(0);
-		NodeList listOfEventGroups = eventGroupsSection.getChildNodes();
-		processEventGroups(listOfEventGroups);
+		if(eventGroupsSection!=null) {
+			NodeList listOfEventGroups = eventGroupsSection.getChildNodes();
+			processEventGroups(listOfEventGroups);
+		}
 
 		//process Rules
 		Node ruleGroupsSection = xmlDocument.getElementsByTagName("Rules").item(0);
-		NodeList listOfRuleGroups = ruleGroupsSection.getChildNodes();
-		processRuleGroups(listOfRuleGroups);
+		if(ruleGroupsSection!=null) {
+			NodeList listOfRuleGroups = ruleGroupsSection.getChildNodes();
+			processRuleGroups(listOfRuleGroups);
+		}
 
 		Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
-		NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
-		processCollisionGroups(listOfCollisionGroups);
+		if(collisionGroupsSection!=null) {
+			NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
+			processCollisionGroups(listOfCollisionGroups);
+		}
 
 		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("Background").item(0);
-		NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
-		processBackground(listOfBackgrounds);
+		if(backgroundGroupsSection!=null) {
+			NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
+			processBackground(listOfBackgrounds);
+		}
 
 		Node musicGroupSection = xmlDocument.getElementsByTagName("Music").item(0);
-		NodeList listOfMusic = musicGroupSection.getChildNodes();
-		processMusic(listOfMusic);
+		if(musicGroupSection!=null) {
+			NodeList listOfMusic = musicGroupSection.getChildNodes();
+			processMusic(listOfMusic);
+		}
 
 		Node mapSection = xmlDocument.getElementsByTagName("Map").item(0);
 		if(mapSection.hasChildNodes())
@@ -320,13 +330,16 @@ public class LevelParser implements LevelFactory{
 	 * Processes the background
 	 */
 	private void processBackground(NodeList backgrounds) {
-		for(int i = 0; i < backgrounds.getLength(); i++)
-		{
-			Element bgElement = (Element) backgrounds.item(i);
-			voogaPlayField.addImageBackground(bgElement.getAttribute("path"));
+		for (int i = 0; i < backgrounds.getLength(); i++) {
 			if (isElement(backgrounds.item(i))) {
-				Element bgElementNode = (Element) backgrounds.item(i);
-				voogaPlayField.addImageBackground(bgElementNode.getAttribute("path"));
+				Element bgElement = (Element) backgrounds.item(i);
+				voogaPlayField.addImageBackground(bgElement
+						.getAttribute("path"));
+				if (isElement(backgrounds.item(i))) {
+					Element bgElementNode = (Element) backgrounds.item(i);
+					voogaPlayField.addImageBackground(bgElementNode
+							.getAttribute("path"));
+				}
 			}
 		}
 	}
@@ -335,13 +348,14 @@ public class LevelParser implements LevelFactory{
 	 * Processes the background
 	 */
 	private void processMusic(NodeList musics) {
-		for(int i = 0; i < musics.getLength(); i++)
-		{
-			Element musicElements = (Element) musics.item(i);
-			//voogaPlayField.addMusic(musicElements.getAttribute("name"));
+		for (int i = 0; i < musics.getLength(); i++) {
 			if (isElement(musics.item(i))) {
-				Element musicElement = (Element) musics.item(i);
-				voogaPlayField.addMusic(musicElements.getAttribute("name"));
+				Element musicElements = (Element) musics.item(i);
+				// voogaPlayField.addMusic(musicElements.getAttribute("name"));
+				if (isElement(musics.item(i))) {
+					Element musicElement = (Element) musics.item(i);
+					voogaPlayField.addMusic(musicElements.getAttribute("name"));
+				}
 			}
 		}
 	}
