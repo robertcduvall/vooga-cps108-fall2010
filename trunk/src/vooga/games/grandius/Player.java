@@ -31,6 +31,18 @@ public class Player extends BetterSprite implements IEventHandler {
 		isInvincible = false;
 	}
 	
+	public void setLives(Stat<Integer> lives) {
+		statLives = lives;
+	}
+	
+	public void setScore(Stat<Integer> score) {
+		statScore = score;
+	}
+	
+	public void setCash(Stat<Integer> cash) {
+		statCash = cash;
+	}
+	
 	public Stat<Integer> getLives() {
 		return this.statLives;
 	}
