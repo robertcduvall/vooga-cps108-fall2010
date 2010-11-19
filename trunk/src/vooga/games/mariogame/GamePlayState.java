@@ -134,9 +134,9 @@ public class GamePlayState extends GameState {
 
 	private void setUpKeyboard() {
 		Control playerControl = new KeyboardControl(((MarioPlayField) myLevel).getMario(), myGame);
-		playerControl.addInput(KeyEvent.VK_D, "rotateLeft", "vooga.games.asteroids.sprites.Ship");
-		playerControl.addInput(KeyEvent.VK_A, "rotateRight", "vooga.games.asteroids.sprites.Ship");
-		playerControl.addInput(KeyEvent.VK_W, "thrust", "vooga.games.asteroids.sprites.Ship");
+		playerControl.addInput(KeyEvent.VK_D, "moveLeft", "vooga.games.mariogame.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_A, "moveRight", "vooga.games.mariogame.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.mariogame.MarioSprite");
 		myLevel.addControl(playerControl);
 		
 		/*
