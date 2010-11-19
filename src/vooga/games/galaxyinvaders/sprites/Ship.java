@@ -1,4 +1,4 @@
-package vooga.games.galaxyinvaders;
+package vooga.games.galaxyinvaders.sprites;
 
 import com.golden.gamedev.object.SpriteGroup;
 

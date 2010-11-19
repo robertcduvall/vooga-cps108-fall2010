@@ -1,4 +1,4 @@
-package vooga.games.galaxyinvaders;
+package vooga.games.galaxyinvaders.sprites;
 
 
 import vooga.engine.core.BetterSprite;

@@ -1,4 +1,4 @@
-<Level name="Level1">
+<Level name="Level2">
 
         <SpriteGroups>
                 <SpriteGroup name="player">
@@ -7,7 +7,7 @@
                         </Ship>
                 </SpriteGroup>
                 <SpriteGroup name="enemies">
-                        <EnemySprite name="enemySprite" xRange="300" yRange="400" vxRange="0" vyRange="0" quantity="20">
+                        <EnemySprite name="enemySprite" xRange="300" yRange="400" vxRange="0" vyRange="0" quantity="30">
                                 <Visual name="enemy1" />
                                 <Visual name="enemy1damage" />
                         </EnemySprite>
