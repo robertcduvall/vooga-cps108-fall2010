@@ -35,35 +35,35 @@ public class Zombie extends BetterSprite implements Constants {
 			Blah currentGame) {
 		super(name, AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieDown")));
+						.getAnimation(ZOMBIE_DOWN)));
 
 		AnimatedSprite down = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieDown"));
+						.getAnimation(ZOMBIE_DOWN));
 		AnimatedSprite up = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieUp"));
+						.getAnimation(ZOMBIE_UP));
 		AnimatedSprite left = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieLeft"));
+						.getAnimation(ZOMBIE_LEFT));
 		AnimatedSprite right = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieRight"));
+						.getAnimation(ZOMBIE_RIGHT));
 		AnimatedSprite attackDown = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieAttackDown"));
+						.getAnimation(ATTACKDOWN));
 		AnimatedSprite attackUp = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieAttackUp"));
+						.getAnimation(ATTACKUP));
 		AnimatedSprite attackLeft = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieAttackLeft"));
+						.getAnimation(ATTACKLEFT));
 		AnimatedSprite attackRight = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieAttackRight"));
+						.getAnimation(ATTACKRIGHT));
 		AnimatedSprite death = AnimationUtil
 				.getInitializedAnimatedSprite(Resources
-						.getAnimation("ZombieDeath"));
+						.getAnimation(DEATH));
 
 		addSprite(ZOMBIE_DOWN, down);
 		addSprite(ZOMBIE_UP, up);

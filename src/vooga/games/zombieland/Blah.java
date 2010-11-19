@@ -30,9 +30,10 @@ public class Blah extends Game implements Constants {
 		super.initResources();
 		zombielandPauseState = new ZombielandPauseState(this);
 		zombielandPlayState = new ZombielandPlayState(this);
-
-		getGameStateManager().addGameState(zombielandPlayState,
-				zombielandPauseState);
+		zombielandPlayState.activate();
+		getGameStateManager().addGameState(zombielandPlayState);
+//		getGameStateManager().addGameState(zombielandPlayState,
+//				zombielandPauseState);
 		// TODO add this in control
 		// if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
 		// getGameStateManager().toggle(zombielandPlayState);

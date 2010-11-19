@@ -74,6 +74,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 
 		player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
 				initScore);
+		player.setActive(true);
 	}
 
 //	/**
@@ -377,7 +378,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * Stop the game altogether
 	 */
 	private void endGame() {
-		currentGame.stop();
+		currentGame.finish();
 	}
 
 }

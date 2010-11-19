@@ -68,13 +68,13 @@ Constants {
 	private void initiateAttackAnimation(String attackDirection,
 			Zombie currentZombie) {
 		String direction = "";
-		if (attackDirection.equals(RIGHT)) {
+		if (attackDirection.equals(ZOMBIE_RIGHT)) {
 			direction = ATTACKRIGHT;
 		}
-		else if (attackDirection.equals(UP)) {
+		else if (attackDirection.equals(ZOMBIE_UP)) {
 			direction = ATTACKUP;
 		}
-		else if (attackDirection.equals(LEFT)) {
+		else if (attackDirection.equals(ZOMBIE_LEFT)) {
 			direction = ATTACKLEFT;
 		}
 		else {
