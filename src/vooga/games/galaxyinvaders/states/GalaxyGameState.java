@@ -112,17 +112,17 @@ public class GalaxyGameState extends GameState{
 	
 	private void initControls(){
 		shipControl = new KeyboardControl(ship, game);
-		shipControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "Ship", new Class[] {int.class});
+		shipControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.galaxyinvaders.sprites.Ship", new Class[] {int.class});
 		shipControl.setParams(KeyEvent.VK_LEFT, MOVE_DISTANCE);
-		shipControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "Ship", new Class[] {int.class});
+		shipControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "vooga.games.galaxyinvaders.sprites.Ship", new Class[] {int.class});
 		shipControl.setParams(KeyEvent.VK_RIGHT, MOVE_DISTANCE);
-		shipControl.addInput(KeyEvent.VK_SPACE, "fire", "Ship");
+		shipControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.galaxyinvaders.sprites.Ship");
 		
 		gameControl = new KeyboardControl(game);
 		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
-		gameControl.addInput(KeyEvent.VK_T, "clearEnemies", "GalaxyGameState");
-		gameControl.addInput(KeyEvent.VK_P, "toggle", "DropThis");
-		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "DropThis");
+		gameControl.addInput(KeyEvent.VK_T, "clearEnemies", "vooga.games.galaxyinvaders.states.GalaxyGameState");
+		gameControl.addInput(KeyEvent.VK_P, "toggle", "vooga.games.galaxyinvaders.DropThis");
+		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
 	}
 	
 	private void initColliders() {
@@ -266,7 +266,7 @@ public class GalaxyGameState extends GameState{
 		return enemy.getY() >= MAX_ALLOWED_ENEMY_YPOS;
 	}
 	
-	private void clearEnemies(){
+	public void clearEnemies(){
 		enemies.clear();
 	}
 	

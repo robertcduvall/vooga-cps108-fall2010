@@ -21,6 +21,7 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/galaxyinvaders/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
 		<String name="Level1" value="levels/level1.xml" />
+		<String name="overlays" value="src/vooga/games/galaxyinvaders/resources/overlays.xml" />
 	</Strings>
 
 	<Integers>
