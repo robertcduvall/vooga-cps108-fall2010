@@ -325,21 +325,24 @@ public class Resources {
 	 * @param doc The Document object that is being parsed.
 	 * @param sectionTag The section being loaded.
 	 */
-	private static List<Element> loadSectionElements(Document doc, String sectionTag) {
-    	Node section = doc.getElementsByTagName(sectionTag).item(0);
-    	NodeList nodeList = section.getChildNodes();
-    	int length = nodeList.getLength();
-    	ArrayList<Element> elementList = new ArrayList<Element>();
-    	for (int i = 0; i < length; i++) {
-    		Node node = nodeList.item(i);
-    		if (node.getNodeType() == Node.ELEMENT_NODE) {
-    			Element element = (Element) node;
-    			elementList.add(element);
-    		}
-    	}
-    	return elementList;
-    }
-	
+	private static List<Element> loadSectionElements(Document doc,
+			String sectionTag) {
+		ArrayList<Element> elementList = new ArrayList<Element>();
+		Node section = doc.getElementsByTagName(sectionTag).item(0);
+		if (section != null) {
+			NodeList nodeList = section.getChildNodes();
+			int length = nodeList.getLength();
+			for (int i = 0; i < length; i++) {
+				Node node = nodeList.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					elementList.add(element);
+				}
+			}
+		}
+		return elementList;
+	}
+
 	/**
 	 * Get data to launch the game frame from the main() method of game. The 
 	 * file should be named config.properties and contain the width, height, 

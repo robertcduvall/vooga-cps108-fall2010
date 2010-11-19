@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import vooga.engine.player.control.ItemSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.mariogame.items.Coin;
 import vooga.games.mariogame.items.GravityItem;
@@ -39,10 +38,10 @@ public class TileMap {
 		loadTiles(file);
 	}
 
-	public List<ItemSprite> getNewItems() {
-		List<ItemSprite> list = new ArrayList<ItemSprite>();
+	public List<Sprite> getNewItems() {
+		List<Sprite> list = new ArrayList<Sprite>();
 		for (Tile t : tiles) {
-			ItemSprite item = t.checkItem();
+			Sprite item = t.checkItem();
 			if (item != null)
 				list.add(item);
 		}
@@ -121,12 +120,12 @@ public class TileMap {
 				case (' '):
 					break;
 				case ('F'):
-					addTile(new IndestructibleTile(x, y, Resources
-							.getImage("GrassTile")));
+					addTile(new IndestructibleTile(x, y,
+							Resources.getImage("GrassTile")));
 					break;
 				case ('D'):
-					addTile(new IndestructibleTile(x, y, Resources
-							.getImage("DirtTile")));
+					addTile(new IndestructibleTile(x, y,
+							Resources.getImage("DirtTile")));
 					break;
 				case ('B'):
 					addTile(new BreakTile(x, y, Resources.getImage("Break")));
@@ -143,19 +142,18 @@ public class TileMap {
 					List<BufferedImage> itemTileImages = new ArrayList<BufferedImage>();
 					itemTileImages.add(Resources.getImage("ItemTile1"));
 					itemTileImages.add(Resources.getImage("ItemTile2"));
-					GravityItem gravityItem = new GravityItem(new Sprite(
-							Resources.getImage("GravityItem")), .5);
-					gravityItem.setLocation(x
-							+ (TILE_SIZE - gravityItem.getWidth()) / 2, y
-							- gravityItem.getHeight());
+					GravityItem gravityItem = new GravityItem(
+							Resources.getImage("GravityItem"), .5);
+					gravityItem.setLocation(
+							x + (TILE_SIZE - gravityItem.getWidth()) / 2, y
+									- gravityItem.getHeight());
 					addTile(new ItemTile(x, y, itemTileImages, gravityItem));
 					break;
 				case ('S'):
 					List<BufferedImage> coinTileImages = new ArrayList<BufferedImage>();
 					coinTileImages.add(Resources.getImage("ItemTile1"));
 					coinTileImages.add(Resources.getImage("ItemTile2"));
-					Coin coin = new Coin(new Sprite(Resources
-							.getImage("Coin")));
+					Coin coin = new Coin(Resources.getImage("Coin"));
 					coin.setLocation(x + (TILE_SIZE - coin.getWidth()) / 2, y
 							- coin.getHeight());
 					addTile(new CoinTile(x, y, coinTileImages, coin));
