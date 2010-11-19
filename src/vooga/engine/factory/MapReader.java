@@ -3,16 +3,12 @@ package vooga.engine.factory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import vooga.engine.core.PlayField;
-import vooga.engine.resource.Resources;
-
 
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * 
