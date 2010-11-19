@@ -4,8 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.Enemy;
-import vooga.games.towerdefense.TowerShot;
-import vooga.games.towerdefense.actors.Tower;
+import vooga.games.towerdefense.actors.TowerShot;
 import vooga.games.towerdefense.events.NeedsTargetsEvent;
 
 import com.golden.gamedev.object.Sprite;
@@ -45,9 +44,7 @@ public abstract class ShootingTower extends Tower{
 	}
 	
 	private void shoot(){
-		if(!isValidTarget(target)){
-			SingletonEventManager.fireEvent("NeedsTargetsEvent", new NeedsTargetsEvent(this, "NeedsTargetsEvent", this));
-		}
+		//TODO add ability to fire a shot
 		if(target!=null){
 			target.gotHit();
 			timeSinceShot=0;

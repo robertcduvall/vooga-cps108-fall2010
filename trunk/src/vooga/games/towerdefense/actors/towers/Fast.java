@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 
 import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.actors.Tower;
 
 /**
  * This tower shoots faster, costs more, and has a smaller range.

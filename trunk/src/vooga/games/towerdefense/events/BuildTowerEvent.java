@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.towerdefense.actors.Tower;
+import vooga.games.towerdefense.actors.towers.Tower;
 
 
 

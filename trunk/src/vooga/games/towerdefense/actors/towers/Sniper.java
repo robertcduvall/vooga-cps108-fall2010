@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.actors.Tower;
 
 /**
  * This tower is a sniper. It has a huge range and a fast shot speed but a long delay between shots.

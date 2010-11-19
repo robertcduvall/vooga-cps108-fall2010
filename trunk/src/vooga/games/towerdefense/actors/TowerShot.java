@@ -1,10 +1,9 @@
-package vooga.games.towerdefense;
+package vooga.games.towerdefense.actors;
 
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
-
-import com.golden.gamedev.object.Sprite;
+import vooga.engine.core.BetterSprite;
 
 /**
  * Represents a shot taken by a Tower at an enemy. Moves at a
@@ -14,8 +13,10 @@ import com.golden.gamedev.object.Sprite;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  *
  */
-public class TowerShot extends Sprite{
+public class TowerShot extends BetterSprite{
 	
+	
+	private static final long serialVersionUID = 1L;
 	private Point2D.Double destination;
 	private double speed;
 	
