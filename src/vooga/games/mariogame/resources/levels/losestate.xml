@@ -8,7 +8,7 @@
 	</CollisionGroups>
 	
 	<Background>
-		<Visual name = "Lose BG" />
+		<Visual path = "Lose BG"/>
 	</Background>
 
 	<Music>

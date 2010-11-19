@@ -8,7 +8,7 @@
 	</CollisionGroups>
 	
 	<Background>
-		<Visual name = "Win BG" />
+		<Visual path="Win BG" />
 	</Background>
 
 	<Music>
