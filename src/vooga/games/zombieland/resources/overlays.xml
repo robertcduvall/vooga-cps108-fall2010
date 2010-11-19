@@ -7,13 +7,13 @@
 
 <OverlayGroup name = "PlayStateOverlays">
 
-<OverlayBar name = "health" stat="0" max="200" xLoc="80" yLoc="18" length="0" color="green" backColor="black"></OverlayBar>
+<OverlayBar xLoc="80" yLoc="18" stat="initHealth" max="200" color="green" backColor="black"></OverlayBar>
 
 <OverlayString label="Health: " fontName="gameFontBlack" xLoc="5" yLoc="10"></OverlayString>
 
-<OverlayStat name = "kills" label="Kills: " stat="1" fontName="gameFontBlack" xLoc="385" yLoc="12"></OverlayStat> 
-<OverlayStat name = "ammos" label="Ammo: " stat="2" fontName="gameFontBlue" xLoc="470" yLoc="12"></OverlayStat> 
-<OverlayStat name = "levels" label="Level " stat="3" fontName="gameFontBlack" xLoc="260" yLoc="180"></OverlayStat> 
+<OverlayStat name = "kills" label="Kills: " stat="initScore" fontName="gameFontBlack" xLoc="385" yLoc="12"></OverlayStat> 
+<OverlayStat name = "ammos" label="Ammo: " stat="initAmmo" fontName="gameFontBlue" xLoc="470" yLoc="12"></OverlayStat> 
+<OverlayStat name = "levels" label="Level " stat="initLevel" fontName="gameFontBlack" xLoc="260" yLoc="180"></OverlayStat> 
 
 <OverlayString name = "gameOver" label="Game Over" fontName="gameFontBlack" xLoc="260" yLoc="50"></OverlayString>
 </OverlayGroup>

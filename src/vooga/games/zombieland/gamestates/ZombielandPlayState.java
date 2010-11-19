@@ -36,7 +36,6 @@ public class ZombielandPlayState extends GameState implements Constants{
 	Random random;
 
 	private OverlayString overlayGameOverString;
-	private OverlayString overlayPauseString;
 	private OverlayStat overlayLevelStat;
 	private OverlayTracker tracker;
 
@@ -139,19 +138,12 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	public void initOverlays() {
 		
-//		int overlayXMLlocation = Resources.getInt("overlayXMLlocation");
-//		int statLevelXMLlocation = Resources.getInt("statLevelXMLlocation");
-//		int levelStatXMLlocation = Resources.getInt("levelStatXMLlocation");
-//		int pauseStringXMLlocation = Resources.getInt("pauseStringXMLlocation");
-//		int gameOverStringXMLlocation = Resources.getInt("gameOverStringXMLlocation");
-				
+		
 		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
 		statLevel = tracker.getStat("initLevel", new Integer(0));
 	
 		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
-//		overlayPauseString = tracker.getStringOverlays().get(pauseStringXMLlocation);
-//		overlayPauseString.setActive(false);
 		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
 		overlayGameOverString.setActive(false);
 		playField.addGroup(overlays);
