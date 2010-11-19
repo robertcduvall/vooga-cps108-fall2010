@@ -8,13 +8,9 @@ import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.factory.LevelFactory;
-import vooga.engine.factory.LevelParser;
-
-import vooga.engine.core.Sprite;
-import vooga.engine.resource.Resources;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.state.GameState;
-
+import vooga.engine.factory.LevelManager;
 
 
 public class PlayState extends GameState{
@@ -27,6 +23,13 @@ public class PlayState extends GameState{
 		this.game = game;
 		myField = field;
 	}
+	
+	public PlayState(Game game, LevelManager levelManager){
+		this.game = game;
+		for(PlayField field: levelManager.getAllPlayFields()){
+			addPlayField(field);
+		}
+	}
 
 	@Override
 	public void initialize() {
@@ -34,21 +37,15 @@ public class PlayState extends GameState{
 	}
 	
 	private void initLevel(){
-
-//		PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
 		
-//		playField.addCollisionGroup(bulletGroup, asteroidGroup, new BulletToAsteroidCollision());
-//		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
-//		
-//		addPlayField(playField);
-		Sprite player1 =(Sprite)(getGroup("playerSpriteGroup").getSprites()[0]);
+		BetterSprite player1 =(BetterSprite)(getGroup("playerSpriteGroup").getSprites()[0]);
 		initPlayer1Controls(player1);
-		Sprite player2 =(Sprite)(getGroup("playerSpriteGroup").getSprites()[1]);
+		BetterSprite player2 =(BetterSprite)(getGroup("playerSpriteGroup").getSprites()[1]);
 		initPlayer2Controls(player2);
 
 	}
 	
-	private void initPlayer1Controls(Sprite player){
+	private void initPlayer1Controls(BetterSprite player){
 		Control playerControl = new KeyboardControl(player, game);
 		playerControl.addInput(KeyEvent.VK_LEFT, "playerXDirectionMove", "vooga.games.tronupdate.items.TronPlayer");
 //		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship");
@@ -57,9 +54,9 @@ public class PlayState extends GameState{
 		myField.addControl(playerControl);
 	}
 	
-	private void initPlayer2Controls(Sprite player){
+	private void initPlayer2Controls(BetterSprite player){
 		Control playerControl = new KeyboardControl(player, game);
-		playerControl.addInput(KeyEvent.VK_LEFT, "playerXDirectionMove", "vooga.games.tronupdate.items.TronPlayer2");
+		playerControl.addInput(KeyEvent.VK_LEFT, "playerXDirectionMove", "vooga.games.tronupdate.items.TronPlayer");
 //		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship");
 //		playerControl.addInput(KeyEvent.VK_UP, "thrust", "vooga.games.asteroids.sprites.Ship");
 //		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship");
