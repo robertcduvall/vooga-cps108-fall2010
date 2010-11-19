@@ -2,7 +2,7 @@
 
 <Resources>
 	<Images>
-		<Image name="Bowser" path="bowser.jpg"/>
+		<Image name="Lose BG" path="bowser.jpg"/>
 		<Image name="Break Tile" path="BreakTile.png"/>		
 		<Image name="Dirt Tile" path="DirtTile.png"/>
 		<Image name="Font" path="font.png"/>

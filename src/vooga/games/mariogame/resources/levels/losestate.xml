@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="Asteroids" xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameLoseOverlays.xml">
+
+	<SpriteGroups>
+	</SpriteGroups>
+
+	<CollisionGroups>	
+	</CollisionGroups>
+	
+	<Background>
+		<Visual name = "Lose BG" />
+	</Background>
+
+	<Music>
+	</Music>
+	
+	<Map>
+	</Map>
+
+</Level>
