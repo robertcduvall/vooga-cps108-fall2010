@@ -39,8 +39,8 @@ public class MainMenuState extends MenuGameState {
 		super();
 		myMainMenuBG = new ImageBackground(backgroundImage);
 		OverlayCreator overlayCreator = new OverlayCreator();
-		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/MainMenuOverlays.xml");
-		overlayTracker.getOverlayGroup("MainMenuGroup");
+		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/MainMenuOverlays.xml");
+		myOverlays = overlayTracker.getOverlayGroup("MainMenuGroup");
 	}
 
 	/**
