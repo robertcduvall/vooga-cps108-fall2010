@@ -98,12 +98,13 @@ public class DropThis extends Game {
 						+ "HIJKLMNOPQRSTUVWXYZ ");
 
 		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		statLives = new Stat<Integer>(new Integer(
-				Resources.getInt("InitialPlayerLives")));
-		statScore = new Stat<Integer>(new Integer(
-				Resources.getInt("InitialZero"))); // TODO get rid of this var?
-		statCash = new Stat<Integer>(new Integer(
-				Resources.getInt("InitialZero")));
+		//initialized in Player constructor
+//		statLives = new Stat<Integer>(new Integer(
+//				Resources.getInt("InitialPlayerLives")));
+//		statScore = new Stat<Integer>(new Integer(
+//				Resources.getInt("InitialZero"))); // TODO get rid of this var?
+//		statCash = new Stat<Integer>(new Integer(
+//				Resources.getInt("InitialZero")));
 		//int screenWidth = Resources.getInt("screenWidth");
 		//int screenHeight = Resources.getInt("screenHeight");
 		//screen = new Dimension(screenWidth, screenHeight);
