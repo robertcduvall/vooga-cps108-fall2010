@@ -19,13 +19,17 @@ public interface Constants {
 	public static final String RESOURCE_FILENAME="game.properties";
 	
 	//Control variables
-	public static final String LEFT=Resources.getString("LEFT");
-	public static final String RIGHT=Resources.getString("RIGHT");
-	public static final String UP=Resources.getString("UP");
-	public static final String DOWN=Resources.getString("DOWN");
-	public static final String ATTACKLEFT=Resources.getString("ATTACKLEFT");
-	public static final String ATTACKRIGHT=Resources.getString("ATTACKRIGHT");
-	public static final String ATTACKUP=Resources.getString("ATTACKUP");
-	public static final String ATTACKDOWN=Resources.getString("ATTACKDOWN");
-	public static final String DEATH=Resources.getString("DEATH");
+	public static final String ZOMBIE_LEFT="zombieleft";
+	public static final String ZOMBIE_RIGHT="zombieright";
+	public static final String ZOMBIE_UP="zombieup";
+	public static final String ZOMBIE_DOWN="zombiedown";
+	public static final String PLAYER_LEFT="playerleft";
+	public static final String PLAYER_RIGHT="playerright";
+	public static final String PLAYER_UP="playerup";
+	public static final String PLAYER_DOWN="playerdown";
+	public static final String ATTACKLEFT="zombieattackleft";
+	public static final String ATTACKRIGHT="zombieattackright";
+	public static final String ATTACKUP="zombieattackup";
+	public static final String ATTACKDOWN="zombieattackdown";
+	public static final String DEATH="zombiedeath";
 }

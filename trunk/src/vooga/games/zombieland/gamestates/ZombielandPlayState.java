@@ -45,9 +45,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	private int zombiesAppeared;
 
 	public ZombielandPlayState(Blah game) {
-		super();
 		currentGame = game;
-		initialize();
 	}
 	
 	/**
@@ -100,7 +98,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 		currentGame.playMusic(audiofile);
 
 		//Set up the game background
-		BufferedImage sandbg = Resources.getImage("sandbg");
+		BufferedImage sandbg = Resources.getImage("sandbackground");
 		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
 				GAME_HEIGHT);
 		playField.setBackground(background);
@@ -108,7 +106,6 @@ public class ZombielandPlayState extends GameState implements Constants{
 		String spritegroupslist = Resources.getString("spritegroupslist");
 		String delim = Resources.getString("delim");
 		String[] spritegroups = spritegroupslist.split(delim);
-		
 		for(int i = 0; i < spritegroups.length; i++)
 		{
 			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);

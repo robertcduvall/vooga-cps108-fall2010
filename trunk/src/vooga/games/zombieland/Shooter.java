@@ -38,7 +38,7 @@ public class Shooter extends BetterSprite implements Constants{
 	private int levelScore;
 
 	public Shooter(String name, String stateName, Blah zombieland, Stat<Integer> initHealth, Stat<Integer> initAmmo, Stat<Integer> initScore) {
-		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation("Down")));
+		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation("playerright")));
 		game = zombieland;
 		weapons = new Weapon[3];
 		// DEFAULT attributes
@@ -58,15 +58,15 @@ public class Shooter extends BetterSprite implements Constants{
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
 		
-		AnimatedSprite down = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(DOWN));
-		AnimatedSprite up = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(UP));
-		AnimatedSprite left = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(LEFT));
-		AnimatedSprite right = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(RIGHT));
+		AnimatedSprite down = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_DOWN));
+		AnimatedSprite up = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_UP));
+		AnimatedSprite left = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_LEFT));
+		AnimatedSprite right = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_RIGHT));
 		
-		this.addSprite(DOWN, down);
-		this.addSprite(UP, up);
-		this.addSprite(LEFT, left);
-		this.addSprite(RIGHT, right);
+		this.addSprite(PLAYER_DOWN, down);
+		this.addSprite(PLAYER_UP, up);
+		this.addSprite(PLAYER_LEFT, left);
+		this.addSprite(PLAYER_RIGHT, right);
 		
 		// Setup displays
 		health = initHealth;
@@ -109,7 +109,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	public void goLeft() {
 		orientation = 180;
-		showAnimation(LEFT);
+		showAnimation(PLAYER_LEFT);
 		moveX(speed);
 	}
 
@@ -118,7 +118,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	public void goRight() {
 		orientation = 0;
-		showAnimation(RIGHT);
+		showAnimation(PLAYER_RIGHT);
 		moveX(Math.abs(speed));
 	}
 
@@ -127,7 +127,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	public void goUp() {
 		orientation = 270;
-		showAnimation(UP);
+		showAnimation(PLAYER_UP);
 		moveY(speed);
 	}
 
@@ -136,7 +136,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	public void goDown() {
 		orientation = 90;
-		showAnimation(DOWN);
+		showAnimation(PLAYER_DOWN);
 		moveY(Math.abs(speed));
 	}
 
