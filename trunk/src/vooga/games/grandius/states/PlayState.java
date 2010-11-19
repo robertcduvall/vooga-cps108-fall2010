@@ -322,11 +322,17 @@ public class PlayState extends GameState {
 			skipLevel = false;
 			return true;
 		}
-		for (int i = 0; i < 3; i++) {
-			for (BetterSprite s : levelManager.currentLevel().get(i)) {
-				if (s.isActive()) {
-					return false;
-				}
+		//TODO is level specific code needed here? won't this automatically check in the current playfield?
+//		for (int i = 0; i < 3; i++) {
+//			for (BetterSprite s : levelManager.currentLevel().get(i)) {
+//				if (s.isActive()) {
+//					return false;
+//				}
+//			}
+//		}
+		for (Sprite s : this.enemyGroup.getSprites() ){
+			if (s.isActive()) {
+				return false;
 			}
 		}
 		return true;
