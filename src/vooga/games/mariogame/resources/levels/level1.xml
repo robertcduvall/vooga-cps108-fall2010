@@ -18,7 +18,7 @@
 	</SpriteGroups>
 	
 	<Map>
-		<MapGroup name = "map0.txt">
+		<MapGroup name = "src/vooga/games/mariogame/resources/maps/map0.txt">
 			<Association char = "F" object = "IndestructibleTile" />
 			<Association char = "D" object = "IndestructibleTile" />
 			<Association char = "B" object = "BreakTile" />
