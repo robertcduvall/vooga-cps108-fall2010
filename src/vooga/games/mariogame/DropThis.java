@@ -3,6 +3,7 @@ package vooga.games.mariogame;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
+import java.util.Collection;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
@@ -33,18 +34,10 @@ public class DropThis extends Game {
 	GamePlayState playState;
 	public GameFontManager fontManager;
 	private LevelManager levelManager;
+	public Collection<PlayField> myLevels;
 
 	public static void main(String[] args) throws IOException {
 		launch(new DropThis());
-
-		// TODO: Game teams should now convert their old imagelist.txt,
-		// soundlist.txt,
-		// etc. files into the
-		// new and improved resources.xml file format by following the example
-		// code in
-		// vooga.examples.resource.resourcesxmlexample
-
-
 	}
 
 	public void initResources() {
@@ -59,6 +52,7 @@ public class DropThis extends Game {
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
 		String levelNamesFile = Resources.getString("levelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+		myLevels = levelManager.getAllPlayFields();
 	}
 	
 
@@ -85,11 +79,9 @@ public class DropThis extends Game {
 
 	public void initGameStates() {
 		super.initGameStates();
-		
 		LevelParser levelParser = new LevelParser();
 		PlayField loseField = levelParser.getPlayfield(Resources.getString("losexml"),this);
 		PlayField winField = levelParser.getPlayfield(Resources.getString("winxml"),this);
-
 		MainMenuState mainMenu = new MainMenuState(Resources.getImage("Mario Menu BG"), fontManager);
 		MainMenuState pauseState = new MainMenuState(Resources.getImage("Pause BG"), fontManager);
 		GameEndState loseState = new GameEndState(loseField);
