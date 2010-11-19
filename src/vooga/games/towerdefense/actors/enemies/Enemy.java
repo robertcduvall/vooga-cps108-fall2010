@@ -1,6 +1,7 @@
 package vooga.games.towerdefense.actors.enemies;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -12,7 +13,7 @@ import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.path.PathPoint;
 
 /**
- * The enemy sprite class which is defined by a speed, a path, a location, and 
+ * The enemy sprite class which is defined by a speed, a path, a location, and
  * health for each enemy.
  * 
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
@@ -20,21 +21,17 @@ import vooga.games.towerdefense.path.PathPoint;
 
 public class Enemy extends BetterSprite {
 
-	protected ArrayList<PathPoint> myPath;
-	private ArrayList<PathPoint> myCurrentPath;
+	protected List<PathPoint> myPath;
+	private List<PathPoint> myCurrentPath;
 	private int mySpeed;
 	protected int myLoc;
 	private long myTotalTime;
 	private int myFreq;
 	private int myTempLoc;
 	private boolean myRestart;
-	protected Stat<Integer> mySelfEstem;
-	protected Stat<Integer> myScore;
-	protected Stat<Integer> myMoney;
 	private int myLives;
 
-	public Enemy(ArrayList<PathPoint> path, int speed, int lives,
-			Stat<Integer> selfEstem, Stat<Integer> score, Stat<Integer> money) {
+	public Enemy(List<PathPoint> path, int speed, int lives) {
 		super(-100, -100);
 		myPath = path;
 		mySpeed = speed;
@@ -43,9 +40,6 @@ public class Enemy extends BetterSprite {
 		myFreq = 0;
 		myTempLoc = 0;
 		myRestart = true;
-		mySelfEstem = selfEstem;
-		myScore = score;
-		myMoney = money;
 		myLives = lives;
 		setImage();
 	}
@@ -72,29 +66,19 @@ public class Enemy extends BetterSprite {
 		super.update(elapsedTime);
 		if (myRestart) {
 			int[] dist = getDistance();
-			// System.out.println(dist[0]);
 			createPath(dist[0], (int) ((((double) dist[0]) / mySpeed) * 50),
 					myLoc, dist[1]);
-			// System.out.println(myCurrentPath.size());
-			// System.out.println(myTempLoc);
-			// PathPoint point = myCurrentPath.get(myTempLoc);
 			myFreq = 20;
-			// setLocation(point.getX(), point.getY());
-			// System.out.println(dist[1]);
-			// System.out.println(myPath.size());
-			// myTempLoc++;
 			myTotalTime = 0;
 			myRestart = false;
-			// System.out.println(myLoc + " : " + myPath.size());
 			if (myLoc >= myPath.size() - 1) {
 				finish();
 			}
 			myLoc = dist[1];
-			// System.out.println(myLoc + " : " + myPath.size() + "a");
+
 		} else {
 			myTotalTime += elapsedTime;
 			if (myTotalTime >= myFreq * myTempLoc) {
-				// System.out.println(myLoc + " : " + myPath.size());
 				PathPoint point = myCurrentPath.get(myTempLoc);
 				setLocation(point.getX(), point.getY());
 				if (myTempLoc == myCurrentPath.size() - 1) {
@@ -110,17 +94,17 @@ public class Enemy extends BetterSprite {
 
 	private void finish() {
 		setActive(false);
-		mySelfEstem.setStat(mySelfEstem.getStat() - myLives);
+	}
+	
+	public int getLives(){
+		return myLives;
 	}
 
 	/**
 	 * displays whether or not an enemy is hit
 	 */
 	public void gotHit() {
-		myScore.setStat(myScore.getStat() + 10);
-		myMoney.setStat(myMoney.getStat() + 1);
 		if (myLives == 1) {
-			myMoney.setStat(myMoney.getStat() + 1);
 			setActive(false);
 		}
 		myLives--;
