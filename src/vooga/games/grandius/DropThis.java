@@ -31,7 +31,9 @@ import vooga.games.grandius.collisions.PlayerEnemyProjectileCollision;
 import vooga.games.grandius.collisions.ProjectileBossCollision;
 import vooga.games.grandius.collisions.ProjectileBossPartCollision;
 import vooga.games.grandius.collisions.ProjectileEnemyCollision;
+import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
+import vooga.games.grandius.events.FireMissileEvent;
 import vooga.games.grandius.events.FireVerticalEvent;
 import vooga.games.grandius.states.GameCompleteState;
 import vooga.games.grandius.states.GameOverState;
@@ -112,8 +114,12 @@ public class DropThis extends Game {
 	 */
 	private void initEvents() {
 		eventPool = new EventPool();
+		//TODO confused about Event implementation...do we need to add the following line?:
+		//eventpool.addEvent(player);
 		eventPool.addEvent(new FireHorizontalEvent(this, player, myPlayState));
 		eventPool.addEvent(new FireVerticalEvent(this, player, myPlayState));
+		eventPool.addEvent(new FireMissileEvent(this, player, myPlayState));
+		eventPool.addEvent(new FireBlackHoleEvent(this, player, myPlayState));
 	}
 
 	/**
@@ -160,6 +166,12 @@ public class DropThis extends Game {
 		myPlayState.addCollisions(collisionList);
 	}
 
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+		eventPool.checkEvents();
+	}
+	
 	// @Override
 	// public void update(long elapsedTime) {
 	// if(levelManager.getCurrentLevel()==0){

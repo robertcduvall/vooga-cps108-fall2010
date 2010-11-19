@@ -2,10 +2,11 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.enemies.boss.reacher.ReacherEye;
-import vooga.games.grandius.enemies.common.Enemy;
+import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
+import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -32,13 +33,19 @@ public class MissileBossPartCollision extends BasicCollision {
 			bossPart.setActive(false);
 			BufferedImage[] images = Resources.getAnimation("EyeExplosion");
 			AnimatedSprite explosion = new VolatileSprite(images, bossPart.getX(), bossPart.getY());
-			grandius.getPlayfield().add(explosion);
+			PlayField newField = new PlayField();
+			newField.add(explosion);
+			grandius.getPlayState().getRenderField().add(newField);
+			grandius.getPlayState().getUpdateField().add(newField);
 		}
 		BufferedImage[] images = Resources.getAnimation("Explosion");
 		AnimatedSprite explosion = new VolatileSprite(images, bossPart.getX(), bossPart.getY());
-		grandius.getPlayfield().add(explosion);
+		PlayField newField = new PlayField();
+		newField.add(explosion);
+		grandius.getPlayState().getRenderField().add(newField);
+		grandius.getPlayState().getUpdateField().add(newField);
 		//grandius.playSound(Resources.getMapping("LaserSound"));
-		grandius.updateScoreOnCollision(((Enemy)bossPart).getScore());
-		grandius.updateCashOnCollision(((Enemy)bossPart).getCashValue());
+		grandius.getPlayer().updateScore(((Enemy)bossPart).getScore());
+		grandius.getPlayer().updateCash(((Enemy)bossPart).getCash());
 	}
 }

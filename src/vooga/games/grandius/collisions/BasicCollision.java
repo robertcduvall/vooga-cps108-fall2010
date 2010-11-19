@@ -16,6 +16,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class BasicCollision extends BasicCollisionGroup {
 
+	//TODO the collision classes can definitely be cleaned up - lots of repeated code right now.
 	private Game game;
 	
 	public BasicCollision(Game grandius) {

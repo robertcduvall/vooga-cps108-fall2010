@@ -25,7 +25,7 @@ public class PlayerBossCollision extends BasicCollision{
 	@Override
 	public void collided(Sprite playerSprite, Sprite enemy) {
 		super.collided(playerSprite, enemy);
-		grandius.updatePlayerLives();
+		grandius.getPlayer().updatePlayerLives();
 	}
 
 	
