@@ -30,6 +30,13 @@
 			<Image path="mario4l.png" />
 			<Image path="mario4r.png" />			
 		</Animation>
+		
+		<Animation name="Goomba">
+			<Image path="goomba1.png"/>
+			<Image path="goomba2.png"/>
+			<Image path="goomba3.png"/>
+			<Image path="goomba4.png"/>
+		</Animation>
 	</Animations>
 	
 	<Sounds>

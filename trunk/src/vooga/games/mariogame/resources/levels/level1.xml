@@ -9,6 +9,12 @@
 				<Visual name= "marioMovement"/>
 			</RegularSprite>
 		</SpriteGroup>
+		
+		<SpriteGroup name="goombaGroup">
+			<SpawnedSprite name="goombaEnemy" xRange="50" yRange="50" vxRange="1" vyRange="1" quantity="3">
+				<Visual name="Goomba"/>
+			</SpawnedSprite>
+		</SpriteGroup>
 	</SpriteGroups>
 	
 	<Map>
@@ -21,5 +27,13 @@
 			<Association char = "S" object = "CoinTile"></Association>
 		</MapGroup>	
 	</Map>
+	
+	<Background>
+		
+	</Background>
+	
+	<Music>
+		<Sound name="Level Music"/>
+	</Music>
 	
 </Level>
