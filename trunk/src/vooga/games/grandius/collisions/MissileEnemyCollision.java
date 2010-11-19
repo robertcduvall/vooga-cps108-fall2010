@@ -2,6 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.enemy.common.Enemy;
@@ -30,9 +31,12 @@ public class MissileEnemyCollision extends BasicCollision {
 		enemy.setActive(false);
 		BufferedImage[] images = Resources.getAnimation("Explosion");
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
-		grandius.getPlayfield().add(explosion);
+		PlayField newField = new PlayField();
+		newField.add(explosion);
+		grandius.getPlayState().getRenderField().add(newField);
+		grandius.getPlayState().getUpdateField().add(newField);
 		grandius.playSound(Resources.getSound("LaserSound"));
-		grandius.updateScoreOnCollision(((Enemy)enemy).getScore());
-		grandius.updateCashOnCollision(((Enemy)enemy).getCash());
+		grandius.getPlayer().updateScore(((Enemy)enemy).getScore());
+		grandius.getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 }

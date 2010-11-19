@@ -129,5 +129,6 @@
 	<Doubles>
 		<Double name="cometVX" value="-0.05" />
 		<Double name="bulletSpeed" value="0.15" />
+		<Double name="playerSpeed"" value="0.2" />
 	</Doubles>
 </Resources>

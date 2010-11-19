@@ -16,17 +16,17 @@ import com.golden.gamedev.object.Sprite;
  */
 public class PlayerEnemyCollision extends BasicCollision{
 
-	private Game myGame;
+	private DropThis grandius;
 	
-	public PlayerEnemyCollision(Game game) {
-		super(game);
-		this.myGame = game;
+	public PlayerEnemyCollision(DropThis grandius) {
+		super(grandius);
+		this.grandius = grandius;
 	}
 	
 	@Override
 	public void collided(Sprite playerSprite, Sprite enemy) {
 		super.collided(playerSprite, enemy);
-		//myGame.updatePlayerLives();
+		grandius.getPlayer().updatePlayerLives();
 	}
 
 	

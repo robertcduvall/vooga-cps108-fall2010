@@ -2,6 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.enemy.boss.reacher.Reacher;
@@ -28,7 +29,10 @@ private DropThis grandius;
 			grandius.playSound(Resources.getSound("LargeExplosionSound"));
 			BufferedImage[] images = Resources.getAnimation("ReacherExplosion");
 			AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
-			grandius.getPlayfield().add(explosion);
+			PlayField newField = new PlayField();
+			newField.add(explosion);
+			grandius.getPlayState().getRenderField().add(newField);
+			grandius.getPlayState().getUpdateField().add(newField);
 		}
 	}
 }
