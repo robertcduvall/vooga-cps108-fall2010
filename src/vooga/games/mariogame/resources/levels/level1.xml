@@ -29,7 +29,7 @@
 	</Map>
 	
 	<Background>
-		
+		<Visual path="Space BG" />
 	</Background>
 	
 	<Music>
