@@ -2,10 +2,10 @@ package vooga.games.tronupdate.items;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.games.tron.GridSpace;
 
-public class TronPlayer2 extends Sprite {
+public class TronPlayer2 extends BetterSprite {
 
 	private static final long serialVersionUID = 1L;
 	private String direction;  //left,right,down,up
