@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LevelObject>
-	<SpriteGroup>
-		<Sprite>
-		
-		</Sprite>
-	</SpriteGroup>
-</LevelObject>
+
+
+<Level name="Level 1">
+
+	<SpriteGroups>
+		<SpriteGroup name="marioGroup">
+			<RegularSprite name="Mario" x="10" y="10" vx="0" vy="0" quantity="1">
+				<Visual name= "marioMovement"/>
+			</RegularSprite>
+		</SpriteGroup>
+	</SpriteGroups>
+	
+	<Map>
+		<MapGroup name = "map0.txt">
+			<Association char = "F" object = "IndestructibleTile"></Association>
+			<Association char = "D" object = "IndestructibleTile"></Association>
+			<Association char = "B" object = "BreakTile"></Association>
+			<Association char = "C" object = "ChangingTile"></Association>
+			<Association char = "G" object = "ItemTile"></Association>
+			<Association char = "S" object = "CoinTile"></Association>
+		</MapGroup>	
+	</Map>
+	
+</Level>
