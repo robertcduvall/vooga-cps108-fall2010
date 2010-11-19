@@ -86,6 +86,7 @@ public class DropThis extends Game {
 	}
 
 private OverlayTracker initOverlays() {
+		OverlayCreator.setGame(this);
 		return OverlayCreator.createOverlays(Resources.getString("overlayPath"));
 	}
 

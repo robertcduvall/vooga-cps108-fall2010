@@ -22,6 +22,7 @@ public class BuildEnemyEvent implements IEventHandler{
 			for(Enemy enemy: enemyQueue){
 				buildEnemy(enemy);
 			}
+			enemyQueue.clear();
 			
 		}
 
@@ -30,8 +31,12 @@ public class BuildEnemyEvent implements IEventHandler{
 			return !enemyQueue.isEmpty();
 		}
 		
-		public void buildEnemy(Enemy enemy){
+		private void buildEnemy(Enemy enemy){
 			playField.add(enemy);
+		}
+		
+		public void addEnemy(Enemy enemy){
+			enemyQueue.add(enemy);
 		}
 		
 	

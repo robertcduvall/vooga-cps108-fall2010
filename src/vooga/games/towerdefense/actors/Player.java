@@ -28,9 +28,12 @@ public class Player extends BetterSprite {
 	private Stat<Integer> score;
 	private Stat<Integer> selfEsteem;
 
-	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower) {
+	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
 		super(image, x, y);
 		changeTowerType(DEFAULT_TOWER);
+		this.balance = balance;
+		this.score = score;
+		this.selfEsteem = selfEsteem;
 	}
 
 	public void move() {
@@ -64,7 +67,7 @@ public class Player extends BetterSprite {
 	}
 	
 	public void removeSelfEsteem(int amount){
-		balance.setStat(balance.getStat()-amount);
+		selfEsteem.setStat(selfEsteem.getStat()-amount);
 	}
 	
 	public int getScore(){
