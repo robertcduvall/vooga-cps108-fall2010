@@ -91,7 +91,6 @@ public class DropThis extends Game {
 	// TODO: Good practice here? Use Missile/BlackHole classes?
 	private boolean missileActive = false;
 	private boolean blackHoleActive = false;
-	private boolean reacherShieldsDepleted;
 
 	// Cheat options
 	private boolean isInvincible = false;
@@ -121,7 +120,7 @@ public class DropThis extends Game {
 		//int screenHeight = Resources.getInt("screenHeight");
 		//screen = new Dimension(screenWidth, screenHeight);
 		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
-		reacherShieldsDepleted = false;
+//		reacherShieldsDepleted = false;
 		addOverlays();
 	}
 
@@ -284,30 +283,31 @@ public class DropThis extends Game {
 	// //stateManager.update(elapsedTime);
 	// }
 
-	/**
-	 * Updates the various enemies that are on screen.
-	 */
-	private void updateScreenSprites() {
-		ArrayList<ArrayList<BetterSprite>> currentSprites = levelManager
-				.currentLevel();
-		updateSpriteGroup(enemyGroup, currentSprites, 0);
-		updateSpriteGroup(bossPartGroup, currentSprites, 1);
-		updateSpriteGroup(bossGroup, currentSprites, 2);
-	}
-
-	/**
-	 * Utility method used in updateScreenSprites().
-	 */
-	private void updateSpriteGroup(SpriteGroup spriteGroup,
-			ArrayList<ArrayList<BetterSprite>> currentSprites, int index) {
-		spriteGroup.clear();
-		Collection<BetterSprite> screenSprites = currentSprites.get(index);
-		for (BetterSprite s : screenSprites) {
-			if (s == null)
-				break;
-			spriteGroup.add(s);
-		}
-	}
+	//TODO I moved these two methods to PlayState...I assume that's where they need to go - John
+//	/**
+//	 * Updates the various enemies that are on screen.
+//	 */
+//	private void updateScreenSprites() {
+//		ArrayList<ArrayList<BetterSprite>> currentSprites = levelManager
+//				.currentLevel();
+//		updateSpriteGroup(enemyGroup, currentSprites, 0);
+//		updateSpriteGroup(bossPartGroup, currentSprites, 1);
+//		updateSpriteGroup(bossGroup, currentSprites, 2);
+//	}
+//
+//	/**
+//	 * Utility method used in updateScreenSprites().
+//	 */
+//	private void updateSpriteGroup(SpriteGroup spriteGroup,
+//			ArrayList<ArrayList<BetterSprite>> currentSprites, int index) {
+//		spriteGroup.clear();
+//		Collection<BetterSprite> screenSprites = currentSprites.get(index);
+//		for (BetterSprite s : screenSprites) {
+//			if (s == null)
+//				break;
+//			spriteGroup.add(s);
+//		}
+//	}
 
 	/**
 	 * Use keys to fire weapons: ALT: Fire horizontal regular projectile. SPACE:
@@ -315,7 +315,7 @@ public class DropThis extends Game {
 	 * purchased. B: Create Black Hole, if it has been purchased.
 	 */
 	private void fireWeapon() {
-		// Replaced by event classes FireHorizontalEvent and FireVerticalEvent
+		// Replaced by event classes
 		// if (keyPressed(KeyEvent.VK_ALT)) {
 		// Sprite projectile = new
 		// Sprite(Resources.getImage("Projectile"),playerSprite.getX()+playerSprite.getWidth(),playerSprite.getY());
@@ -337,136 +337,136 @@ public class DropThis extends Game {
 		// missileGroup.add(missile);
 		// playSound(Resources.getSound("MissileSound"));
 		// }
-		if (keyPressed(KeyEvent.VK_B) && blackHoleActive) {
-			BlackHole blackHole = new BlackHole(
-					Resources.getImage("BlackHole"), playerSprite.getX()
-							+ playerSprite.getWidth(), playerSprite.getY());
-			blackHoleGroup.add(blackHole);
-			playSound(Resources.getSound("MissileSound"));
-		}
+//		if (keyPressed(KeyEvent.VK_B) && blackHoleActive) {
+//			BlackHole blackHole = new BlackHole(
+//					Resources.getImage("BlackHole"), playerSprite.getX()
+//							+ playerSprite.getWidth(), playerSprite.getY());
+//			blackHoleGroup.add(blackHole);
+//			playSound(Resources.getSound("MissileSound"));
+//		}
 
 	}
 
-	private void updateEntities() {
-		updateScreenSprites();
-		playerSprite.setVerticalSpeed(0);
-		for (BetterSprite as : enemyGroup.getSprites()) {
-			if (as == null)
-				break;
-			if (as instanceof Zipster) {
-				if (((Zipster) (as)).willFire(playerSprite)) {
-					enemyProjectileGroup.add(((Zipster) (as)).fireLaser());
-					playSound(Resources.getSound("ZipsterLaserSound"));
-				}
-				as.setHorizontalSpeed(-((Zipster) (as)).getSpeed());
-				((Zipster) as).setImages(new BufferedImage[] { Resources
-						.getAnimation("SpinningZipster")[((Zipster) as)
-						.getSpin()] });
-				if (!((Zipster) as).isProximateToBlackHole())
-					((Zipster) as).setSpin(0);
-				((Zipster) as).setProximateToBlackHole(false);
-			}
-		}
-		for (BetterSprite bp : bossPartGroup.getSprites()) {
-			if (bp == null)
-				break;
-			if (bp instanceof ReacherEye) {
-				if (((ReacherEye) (bp)).willFire(playerSprite)) {
-					enemyProjectileGroup.add(((ReacherEye) (bp)).fireBeam());
-					playSound(Resources.getSound("ReacherEyeBeamSound"));
-				}
-				bp.setHorizontalSpeed(-((ReacherEye) (bp)).getSpeed());
-			}
-		}
-		for (BetterSprite b : bossGroup.getSprites()) {
-			if (b == null)
-				break;
-			if (b instanceof Reacher) {
-				if (((Reacher) (b)).topBeamWillFire(playerSprite)) {
-					enemyProjectileGroup.add(((Reacher) (b)).fireTopBeam());
-					playSound(Resources.getSound("ReacherBeamSound"));
-				}
-				if (((Reacher) (b)).bottomBeamWillFire(playerSprite)) {
-					enemyProjectileGroup.add(((Reacher) (b)).fireBottomBeam());
-					playSound(Resources.getSound("ReacherBeamSound"));
-				}
-				if (((Reacher) (b)).redRayWillFire(playerSprite)) {
-					enemyProjectileGroup.add(((Reacher) (b)).fireRedRay());
-					playSound(Resources.getSound("ReacherRedRaySound"));
-				}
-				b.setHorizontalSpeed(-((Reacher) (b)).getSpeed());
-			}
-		}
+//	private void updateEntities() {
+//		updateScreenSprites();
+//		playerSprite.setVerticalSpeed(0);
+//		for (BetterSprite as : enemyGroup.getSprites()) {
+//			if (as == null)
+//				break;
+//			if (as instanceof Zipster) {
+//				if (((Zipster) (as)).willFire(playerSprite)) {
+//					enemyProjectileGroup.add(((Zipster) (as)).fireLaser());
+//					playSound(Resources.getSound("ZipsterLaserSound"));
+//				}
+//				as.setHorizontalSpeed(-((Zipster) (as)).getSpeed());
+//				((Zipster) as).setImages(new BufferedImage[] { Resources
+//						.getAnimation("SpinningZipster")[((Zipster) as)
+//						.getSpin()] });
+//				if (!((Zipster) as).isProximateToBlackHole())
+//					((Zipster) as).setSpin(0);
+//				((Zipster) as).setProximateToBlackHole(false);
+//			}
+//		}
+//		for (BetterSprite bp : bossPartGroup.getSprites()) {
+//			if (bp == null)
+//				break;
+//			if (bp instanceof ReacherEye) {
+//				if (((ReacherEye) (bp)).willFire(playerSprite)) {
+//					enemyProjectileGroup.add(((ReacherEye) (bp)).fireBeam());
+//					playSound(Resources.getSound("ReacherEyeBeamSound"));
+//				}
+//				bp.setHorizontalSpeed(-((ReacherEye) (bp)).getSpeed());
+//			}
+//		}
+//		for (BetterSprite b : bossGroup.getSprites()) {
+//			if (b == null)
+//				break;
+//			if (b instanceof Reacher) {
+//				if (((Reacher) (b)).topBeamWillFire(playerSprite)) {
+//					enemyProjectileGroup.add(((Reacher) (b)).fireTopBeam());
+//					playSound(Resources.getSound("ReacherBeamSound"));
+//				}
+//				if (((Reacher) (b)).bottomBeamWillFire(playerSprite)) {
+//					enemyProjectileGroup.add(((Reacher) (b)).fireBottomBeam());
+//					playSound(Resources.getSound("ReacherBeamSound"));
+//				}
+//				if (((Reacher) (b)).redRayWillFire(playerSprite)) {
+//					enemyProjectileGroup.add(((Reacher) (b)).fireRedRay());
+//					playSound(Resources.getSound("ReacherRedRaySound"));
+//				}
+//				b.setHorizontalSpeed(-((Reacher) (b)).getSpeed());
+//			}
+//		}
+//
+//		double bulletSpeed = Resources.getDouble("bulletSpeed");
+//		resetSpriteSpeed(projectileGroup, bulletSpeed);
+//		resetSpriteSpeed(enemyProjectileGroup, -1 * bulletSpeed);
+//		resetSpriteSpeed(missileGroup, bulletSpeed);
+//
+//		for (BetterSprite h : blackHoleGroup.getSprites()) {
+//			if (h == null)
+//				break;
+//			if (h.isActive()) {
+//				((BlackHole) h).suckEnemies(enemyGroup);
+//				((BlackHole) h).setPlayerCompensationSpeed(0);
+//			}
+//		}
+//
+//		if (keyDown(KeyEvent.VK_LEFT)) {
+//			for (SpriteGroup sg : spriteGroupSpeedMap.keySet()) {
+//				moveSpriteGroup(sg, "right", spriteGroupSpeedMap.get(sg));
+//			}
+//			for (BetterSprite h : blackHoleGroup.getSprites()) {
+//				if (h == null)
+//					break;
+//				((BlackHole) h).setPlayerCompensationSpeed(1 * PLAYER_SPEED);
+//			}
+//		}
+//		if (keyDown(KeyEvent.VK_RIGHT)) {
+//			for (SpriteGroup sg : spriteGroupSpeedMap.keySet()) {
+//				moveSpriteGroup(sg, "left", spriteGroupSpeedMap.get(sg));
+//			}
+//			for (BetterSprite h : blackHoleGroup.getSprites()) {
+//				if (h == null)
+//					break;
+//				((BlackHole) h).setPlayerCompensationSpeed(-1 * PLAYER_SPEED);
+//			}
+//		}
+//		if (keyDown(KeyEvent.VK_DOWN)) {
+//			playerSprite.setVerticalSpeed(PLAYER_SPEED);
+//		}
+//		if (keyDown(KeyEvent.VK_UP)) {
+//			playerSprite.setVerticalSpeed(-1 * PLAYER_SPEED);
+//		}
+//	}
 
-		double bulletSpeed = Resources.getDouble("bulletSpeed");
-		resetSpriteSpeed(projectileGroup, bulletSpeed);
-		resetSpriteSpeed(enemyProjectileGroup, -1 * bulletSpeed);
-		resetSpriteSpeed(missileGroup, bulletSpeed);
-
-		for (BetterSprite h : blackHoleGroup.getSprites()) {
-			if (h == null)
-				break;
-			if (h.isActive()) {
-				((BlackHole) h).suckEnemies(enemyGroup);
-				((BlackHole) h).setPlayerCompensationSpeed(0);
-			}
-		}
-
-		if (keyDown(KeyEvent.VK_LEFT)) {
-			for (SpriteGroup sg : spriteGroupSpeedMap.keySet()) {
-				moveSpriteGroup(sg, "right", spriteGroupSpeedMap.get(sg));
-			}
-			for (BetterSprite h : blackHoleGroup.getSprites()) {
-				if (h == null)
-					break;
-				((BlackHole) h).setPlayerCompensationSpeed(1 * PLAYER_SPEED);
-			}
-		}
-		if (keyDown(KeyEvent.VK_RIGHT)) {
-			for (SpriteGroup sg : spriteGroupSpeedMap.keySet()) {
-				moveSpriteGroup(sg, "left", spriteGroupSpeedMap.get(sg));
-			}
-			for (BetterSprite h : blackHoleGroup.getSprites()) {
-				if (h == null)
-					break;
-				((BlackHole) h).setPlayerCompensationSpeed(-1 * PLAYER_SPEED);
-			}
-		}
-		if (keyDown(KeyEvent.VK_DOWN)) {
-			playerSprite.setVerticalSpeed(PLAYER_SPEED);
-		}
-		if (keyDown(KeyEvent.VK_UP)) {
-			playerSprite.setVerticalSpeed(-1 * PLAYER_SPEED);
-		}
-	}
-
-	private void resetSpriteSpeed(SpriteGroup spriteGroup, double newSpeed) {
-		for (BetterSprite s : spriteGroup.getSprites()) {
-			if (s == null)
-				break;
-			s.setHorizontalSpeed(newSpeed);
-		}
-	}
-
-	/**
-	 * Utility method used in updateEntities().
-	 */
-	private void moveSpriteGroup(SpriteGroup spriteGroup, String direction,
-			double offset) {
-		if (direction.equals("right")) {
-			for (BetterSprite s : spriteGroup.getSprites()) {
-				if (s == null)
-					break;
-				s.setHorizontalSpeed(1 * PLAYER_SPEED + offset);
-			}
-		} else if (direction.equals("left")) {
-			for (BetterSprite s : spriteGroup.getSprites()) {
-				if (s == null)
-					break;
-				s.setHorizontalSpeed(-1 * PLAYER_SPEED + offset);
-			}
-		}
-	}
+//	private void resetSpriteSpeed(SpriteGroup spriteGroup, double newSpeed) {
+//		for (BetterSprite s : spriteGroup.getSprites()) {
+//			if (s == null)
+//				break;
+//			s.setHorizontalSpeed(newSpeed);
+//		}
+//	}
+//
+//	/**
+//	 * Utility method used in updateEntities().
+//	 */
+//	private void moveSpriteGroup(SpriteGroup spriteGroup, String direction,
+//			double offset) {
+//		if (direction.equals("right")) {
+//			for (BetterSprite s : spriteGroup.getSprites()) {
+//				if (s == null)
+//					break;
+//				s.setHorizontalSpeed(1 * PLAYER_SPEED + offset);
+//			}
+//		} else if (direction.equals("left")) {
+//			for (BetterSprite s : spriteGroup.getSprites()) {
+//				if (s == null)
+//					break;
+//				s.setHorizontalSpeed(-1 * PLAYER_SPEED + offset);
+//			}
+//		}
+//	}
 
 	private void checkBossParts() {
 		if (bossGroup.isActive()) {
