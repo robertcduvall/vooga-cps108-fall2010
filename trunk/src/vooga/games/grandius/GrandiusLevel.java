@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import vooga.engine.oldlevel.Level;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.boss.BossPart;
 import vooga.games.grandius.enemy.boss.GrandiusBoss;
