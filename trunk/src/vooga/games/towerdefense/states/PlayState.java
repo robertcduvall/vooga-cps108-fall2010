@@ -9,6 +9,8 @@ import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.towerdefense.actors.Player;
@@ -23,12 +25,30 @@ import com.golden.gamedev.util.ImageUtil;
 
 
 public class PlayState extends GameState{	
+	
+	private OverlayTracker myTracker;
+	private Stat<Integer> myScore;
+	private Stat<Integer> myMoney;
+	private PlayField myPlayField;
+	
+	public PlayState(OverlayTracker tracker){
+		myTracker = tracker;
+	}
 
 	@Override
 	public void initialize() {
-		addPlayField(initPlayField());
+		myPlayField = initPlayField();
+		addPlayField(myPlayField);
+		addOverlays();
 	}
 	
+	private void addOverlays() {
+		myScore = myTracker.getStat("score", new Integer(0));
+		myMoney = myTracker.getStat("money", new Integer(0));
+		myPlayField.addGroup(myTracker.getOverlayGroup("play"));
+		
+	}
+
 	private PlayField initPlayField(){
 		PlayField playField = new PlayField();
 		playField.setBackground(initBackground());
