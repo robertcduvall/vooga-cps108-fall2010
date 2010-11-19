@@ -7,81 +7,59 @@ possible. Self esteem is reduced when an enemy makes it all the way to the
 end of the path. The only way to stop enemies is to place towers to attack 
 them as they travel along the path.
 
-Tower are bought with money. The player starts out with a sum of money in 
-order to place the first tower or towers. To accrue more money, the player 
-must hit and kill enemies with 1 dollar distributed for each hit and another 
-for a killing shot. To place a tower, the player must simply click where the 
-tower should be placed. Towers are distinguished by both their range, which 
-is displayed as you move your cursor, and their rate of fire. To cycle 
-between the three currently available towers either click their icons in the 
-overlay or hit the number 1,2, or 3 keys.
-
-At any time the game can be paused by pressing 'p'. Once the player is 
-overwhelmed, they are given the option to quit or go back to main menu 
-and play again.
-
 API Use:
-Tower Defense makes use of the Resource, Game State, Event, Player Contol, and
-Overlay APIs. 
+Core: (very helpful)
+We use Game, PlayField, and BetterSprite from the core. Game allows us to initialize 
+the game with a minimal amount of code. We no longer have an update or render method
+in our DropThis class. PlayField is used as a container to hold 
+almost all game elements and replaces the use of the GoldenT PlayField for our game. 
+Likewise, BetterSprite replaces our use of the GoldenT Sprite class.
 
-The Resource API simplifies the loading of images. Formerly, only 
-the game class could load images which required passing the Game class around 
-wherever an Image was required. Using the Resources class, images can be loaded 
-and retrieved from anywhere in the Project. We elected to load all necessary images 
-at the start of the game.
+Control: (very helpful, but appears to be broken)
+We use Control to handle the mouse input for controlling the player. Unfortunately, 
+the controls do not seem to work at this time.
 
-The Game State API simplifies the use of menus and pause screens, effectively working 
-as an enhanced version of Playfield as well as a tracker for the current game state. 
-The Game State API required some modification to work properly, thus the creation of 
-the NonSetStateManager. Its simple extensibility allows it to also update Controlers 
-from the Player Control API, making it a much more versitile tool.
+Event: (very helpful)
+Events have taken over the responsibilities for making things happen in the game. They 
+have allowed us to remove many dependencies within the game. Primarily, different 
+objects no longer have to be aware of the PlayField they are in to add objects to it. 
+For instance, Player can add Towers to the level by way of an event, the 
+EnemyGenerator can add enemies to the level by way of an event, etc. Most of the logic 
+for making the game work are held in events.
 
-The Player Control group simplified and automated input listening for the player. Though 
-it had a high learning curve for proper use, once it is learned it allows for the 
-automation of input response in a custom manner. The provided example controller classes 
-only required slight modification to fit perfectly into this game. Ideally, the two 
-controller classes which control the player in our game would be merged into one class. 
-However due to time contraints we simply used two predefined controllers which is 
-fucntional.
+Factory: (very helpful, but appears to be broken)
+We attempted to get the Factory to load the MainMenu which is effectively a 
+collection of BetterSprites (the Buttons and Title) and a background. However, an 
+error is preventing the actual creation of PlayFields from XML files. We have 
+responded by commenting out the MainMenu GameState in the game to prevent the game 
+from crashing, but leaving the infrastructure in place for when the LevelParser does 
+work. Out other GameState, that PlayStat, we hardcoded how to load so that we would 
+have something functional, although this will be switched to XML as well eventually.
 
-The Event API allows us to build towers and assign towers enemy's without building a 
-targeting and retargeting system into our code. It automatically reassigns enemys if
-a tower does not have one. 
+Level: (one part is potentially helpful, rules we do not see a use for)
+As a side effect of the update process, we only have one functional level so the
+concept of switching between levels is not useful to us currently. The other concept 
+represented in the Level API, rules, seems to us to be the same thing as event. Both 
+event and rule has a trigger condition which is checked in the game loop and an 
+action to perform is that condition is true. Where to use a rule versus an event 
+seems to be completely arbitrary so the only rules we used were the GameWon and 
+GameLost rules which could have easily been events instead.
 
-The Overlay API is used for automating the display of critical information to 
-the user. It capabilities were extended to also allow for static overlays which are 
-themselves interactable, in this case clickable overlays for each available tower.
-
-Neither the Golden T not the class API collision detection was used. Both are non trivial 
-to implement because they seem to be designed with the notion of constantly checking 
-for collisions. However, our game could have used a simple, possibly static, collision 
-manager which would determine if two sprites or bounding boxes overlapped. In lieu of 
-this, we used distance calculations to determine which sprites were in range and to 
-prevent towers from being placed on the path. The reason towers can overlap in placement 
-is because use of either built in collision ability would have required the process wasting 
-task of checking collision betweens the tower being placed and the other towers every 
-update instead of just on clicks.
-
-The Level API was not used because it appears to have two functions which were not needed 
-for this game. The first is the ability to load the initial sprites for a level which is 
-unimportant for a game with a fixed view and most sprites generated over the course of the 
-game. The second use seems to be to manage most of the game functionality, but the Game 
-class was already doing that for us.
-
-Code Commentary:
-The use of reflection in the abstract Player class allows for a strong adherence to the 
-Open/Closed principle when it comes to adding new Towers. If a new Tower class is created, 
-one must simply assign the string of that class name to a new key on the number pad. Everything 
-else will take of itself as long as the new class adheres to the template provided by the 
-three existing kinds of Towers. Futhermore, the Tower class was designed to allow for extension 
-in the case that a tower with nonstandard fucntionality was required, though we did not have 
-time to make a non standard tower that might, for instance, slow down enemies. If more time 
-were available, the Tower class would also be better designed to ensure that extensions of 
-the Tower class adhered to the templates of the existing Tower subclasses. The overlay menu 
-would also be altered to allow for adding and subtracting of tower buttons and information 
-without having to copy/paste and edit similar segments of code with fixed String values.
+Overlay:
 
 
+Resource: (very helpful)
+We used the Resource API only for the Resource class which we use to hold all images,
+most if not all numeric constants, all String file paths, and most if not all Strings.
+It has been very helpful to have static access to all of these things. Randomizer and 
+WorldClock both don't have use for the project as designed, but future game play 
+improvements might use them. The database functionality will likely be useful once 
+we get to the point where we have time to add things like player preferences rather 
+than not having enought time to get the game to simply work.
 
-
-
+State: (very helpful)
+We currently have two states: play and main menu. Most of the initialization occurs
+within these states. From our previous game, we know that when the full game is 
+implemented state switching will be required to display a game over screen or restart 
+from the main menu or pause. However, we currently don't have all the game states we 
+plan to implement.
