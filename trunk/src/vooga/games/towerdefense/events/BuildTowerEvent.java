@@ -1,9 +1,10 @@
 package vooga.games.towerdefense.events;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.towerdefense.tower.Tower;
+import vooga.games.towerdefense.actors.Tower;
 
 
 
