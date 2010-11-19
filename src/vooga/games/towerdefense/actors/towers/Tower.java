@@ -1,4 +1,4 @@
-package vooga.games.towerdefense.actors;
+package vooga.games.towerdefense.actors.towers;
 
 import java.awt.image.BufferedImage;
 

@@ -6,17 +6,19 @@ import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.actors.towers.Normal;
+import vooga.games.towerdefense.actors.towers.Tower;
 
 public class Player extends BetterSprite {
 
 
 	private static final long serialVersionUID = 1L;
+	private static final Tower DEFAULT_TOWER = new Normal(0,0);
 	private Tower currentTower;
 	private BuildTowerEvent buildTowerEvent;
 
 	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower) {
 		super(image, x, y);
-		changeTowerType(new Normal(0,0));
+		changeTowerType(DEFAULT_TOWER);
 	}
 
 	public void move() {
@@ -31,7 +33,6 @@ public class Player extends BetterSprite {
 
 	private void buildTower() {
 		
-		//TODO add something real
 		buildTowerEvent.addTower(currentTower);
 		changeTowerType(currentTower.clone());
 

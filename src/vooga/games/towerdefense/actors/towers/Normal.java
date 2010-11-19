@@ -3,7 +3,6 @@ package vooga.games.towerdefense.actors.towers;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.actors.Tower;
 
 /**
  * This is a standard tower. All attributes are balanced.
