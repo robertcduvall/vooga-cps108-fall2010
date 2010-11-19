@@ -26,13 +26,14 @@ import vooga.engine.state.GameStateManager;
  * that calls launch(). The initResources() method should first call
  * super.initResources() and then initialize all the game states
  * 
- * @author rcd, Daniel Koverman, John Kline, Yang Su, Kate Yang
+ * @author rcd, Daniel Koverman, John Kline, Yang Su, Kate Yang, Jimmy Mu
  */
 public class Game extends com.golden.gamedev.Game {
 
 	protected GameStateManager stateManager;
 	protected LevelParser levelParser;
 	protected PlayField myCurrentLevel;
+	protected GameState myPlayState;
 	//private static final int INITIAL_LEVEL = 1;
 
 	private static final int DEFAULT_WIDTH = 600;
@@ -72,6 +73,24 @@ public class Game extends com.golden.gamedev.Game {
 	 */
 	public PlayField getCurrentLevel() {
 		return myCurrentLevel;
+	}
+	
+	/**
+	 * this method gets the play game state
+	 * @return
+	 */
+	public GameState getPlayGameState()
+	{
+		return myPlayState;
+	}
+	
+	/**
+	 * This method sets the play game state
+	 * @param state
+	 */
+	public void setAsPlayGameState(GameState state)
+	{
+		myPlayState = state;
 	}
 	
 	
