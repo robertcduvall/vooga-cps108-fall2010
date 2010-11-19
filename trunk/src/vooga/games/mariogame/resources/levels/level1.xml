@@ -20,11 +20,11 @@
 	<Map>
 		<MapGroup name = "map0.txt">
 			<Association char = "F" object = "IndestructibleTile" />
-			<Association char = "D" object = "IndestructibleTile"></Association>
-			<Association char = "B" object = "BreakTile"></Association>
-			<Association char = "C" object = "ChangingTile"></Association>
-			<Association char = "G" object = "ItemTile"></Association>
-			<Association char = "S" object = "CoinTile"></Association>
+			<Association char = "D" object = "IndestructibleTile" />
+			<Association char = "B" object = "BreakTile" />
+			<Association char = "C" object = "ChangingTile" />
+			<Association char = "G" object = "ItemTile" />
+			<Association char = "S" object = "CoinTile" />
 		</MapGroup>	
 	</Map>
 	
