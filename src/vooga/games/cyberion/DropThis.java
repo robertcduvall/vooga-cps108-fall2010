@@ -3,43 +3,15 @@ package vooga.games.cyberion;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
-
-//import vooga.engine.event.EventManager;
-import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayTracker;
-import vooga.engine.overlay.Stat;
-//import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.resource.Resources;
-import vooga.engine.state.GameStateManager;
-import vooga.engine.state.PauseGameState;
-
-import vooga.games.asteroids.states.PlayState;
-import vooga.games.cyberion.collisions.EnemyCollidesWithShot;
-import vooga.games.cyberion.collisions.PlayerCollidesEnemy;
-import vooga.games.cyberion.collisions.PlayerCollidesWall;
-import vooga.games.cyberion.collisions.PlayerCollidesWithBonus;
-import vooga.games.cyberion.collisions.PlayerCollidesWithShot;
-import vooga.games.cyberion.sprites.Bonus;
-import vooga.games.cyberion.sprites.processEnemyShip;
-import vooga.games.cyberion.sprites.EnemyShot;
-import vooga.games.cyberion.sprites.processPlayerShip;
-import vooga.games.cyberion.sprites.PlayerShot;
-import vooga.games.cyberion.sprites.StarGroup;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.BetterSprite;
-import vooga.engine.factory.LevelManager;
 import vooga.engine.core.PlayField;
+import vooga.engine.factory.LevelManager;
+import vooga.engine.resource.Resources;
+import vooga.engine.state.GameStateManager;
+import vooga.games.cyberion.sprites.CyberionLevelParser;
 
 import com.golden.gamedev.GameLoader;
-
-import com.golden.gamedev.object.CollisionManager;
-import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * Cyberion shooting game
@@ -55,14 +27,16 @@ public class DropThis extends Game {
 	GameStateManager gameStateManager = new GameStateManager();
 	public PlayField myPlayfield = new PlayField();
 	LevelManager levelManager;
+	CyberionLevelParser levelParser;
 
 	
 	// calls other methods and initializes all remaining variables
 
 	public void initResources() {
 		super.initResources();
-		initLevelManager();
-		PlayField levelPlayField = levelManager.loadFirstLevel();
+		//initLevelManager();
+		levelParser = new CyberionLevelParser();
+		PlayField levelPlayField = levelParser.getPlayfield("src/vooga/games/cyberion/resources/Level1.xml"	, this);
 		playGameState = new MainGameState(this, levelPlayField);
 		stateManager.addGameState(playGameState);
 	}
