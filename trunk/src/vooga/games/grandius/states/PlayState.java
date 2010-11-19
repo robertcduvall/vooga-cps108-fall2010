@@ -43,10 +43,10 @@ public class PlayState extends GameState {
 	public void initialize() {
 		//myPlayField = new PlayField();
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-		this.createComets();
-		addSpriteGroups();
-		addPlayer();
-		backgroundGroup.add(new BetterSprite(Resources.getImage("BG")));		
+		addSpriteGroups(); //Important that background group is always created first.
+		createComets();
+		backgroundGroup.add(new BetterSprite(Resources.getImage("BG")));	
+		addPlayer();	
 	}
 	
 	private void addPlayer() {
@@ -61,18 +61,19 @@ public class PlayState extends GameState {
 	public void update(long elapsedTime){
 		super.update(elapsedTime);
 //		updateScreenSprites(); //TODO is this method needed?
-		updateEntities();
-		checkBossParts();
-		checkLevelComplete();
+		//updateEntities();
+		//checkBossParts();
+		//checkLevelComplete();
 	}
 
 	//TODO create PlayField for levels using Game.initLevel()
 	/**
-	 * Creates the different SpriteGroups and registers them to the playfield. Also adds the necessary SpriteGroups to the
-	 * spriteGroupSpeedMap.
+	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
+	 * Also adds the necessary SpriteGroup entries to the spriteGroupSpeedMap.
 	 */
 	private void addSpriteGroups() {
 		PlayField newField = new PlayField();
+		backgroundGroup =       		newField.addGroup(new SpriteGroup("Background"));
 		playerGroup =            		newField.addGroup(new SpriteGroup("Player"));
 		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
 		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
@@ -81,8 +82,6 @@ public class PlayState extends GameState {
 		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
 		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
 		blackHoleGroup =                newField.addGroup(new SpriteGroup("BlackHole"));
-		backgroundGroup =       		newField.addGroup(new SpriteGroup("Background"));
-
 		this.addUpdatePlayField(newField);
 		this.addRenderPlayField(newField);
 		
@@ -95,6 +94,10 @@ public class PlayState extends GameState {
 		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("projectileSpeed"));
 	}
 	
+	/**
+	 * Adds the necessary CollisionGroups to the PlayState.
+	 * @param collisions
+	 */
 	public void addCollisions(List<BasicCollision> collisions) { //TODO find a way to make this method private?
 		PlayField newField = new PlayField();
 		newField.addCollisionGroup(playerGroup, enemyGroup, collisions.get(0));
@@ -112,9 +115,12 @@ public class PlayState extends GameState {
 		this.addRenderPlayField(newField);
 	}
 	
+	/**
+	 * Creates background "comet sprites" to provide illusion of movement through space.
+	 */
 	private void createComets() {
 		PlayField newField = new PlayField();
-		for (int j = 0; j < Resources.getInt("NumComets"); j++) { // create 500 background sprites
+		for (int j = 0; j < Resources.getInt("NumComets"); j++) {
 			Random valX = new Random();
 			Random valY = new Random();
 			double x = valX.nextDouble();

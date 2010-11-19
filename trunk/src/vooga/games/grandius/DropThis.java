@@ -98,7 +98,6 @@ public class DropThis extends Game {
 		//int screenWidth = Resources.getInt("screenWidth");
 		//int screenHeight = Resources.getInt("screenHeight");
 		//screen = new Dimension(screenWidth, screenHeight);
-		//livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
 		// TODO errors with overlays line>: addOverlays();
 	}
 
@@ -132,7 +131,7 @@ public class DropThis extends Game {
 	public void initGameStates() {
 		super.initGameStates();
 		List<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state is Menu.
+		gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
 		gameStates.add(myPlayState = new PlayState());
 		gameStates.add(myLevelCompleteState = new LevelCompleteState());
 		gameStates.add(myGameCompleteState = new GameCompleteState());
@@ -145,6 +144,7 @@ public class DropThis extends Game {
 			gameStatesArray[i] = gameStates.get(i);
 		}
 		stateManager.addGameState(gameStatesArray);
+		stateManager.switchTo(myPlayState);
 	}
 
 	/**
