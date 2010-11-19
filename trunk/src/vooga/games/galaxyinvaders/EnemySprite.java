@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.random.Randomizer;
-import vooga.engine.resource.random.RandomizerException;
 
 import com.golden.gamedev.object.Timer;
 
@@ -79,7 +77,9 @@ public class EnemySprite extends BetterSprite {
 	}
 	
 	/**
-	 * Spawns a bomb
+	 * Spawns a bomb, returns it
+	 * 
+	 * @return BetterSprite the bomb being dropped
 	 */
 	public BetterSprite spawnBomb()
 	{

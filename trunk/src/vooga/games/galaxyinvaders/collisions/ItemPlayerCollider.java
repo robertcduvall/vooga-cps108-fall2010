@@ -20,9 +20,9 @@ public class ItemPlayerCollider extends BasicCollisionGroup {
 	private DropThis game;
 	private GalaxyGameState playGameState;
 	
-	public ItemPlayerCollider(Game g) {
+	public ItemPlayerCollider(DropThis g) {
 		super();
-		game = (DropThis) g;
+		game = g;
 		playGameState = game.getPlayGameState();
 		pixelPerfectCollision = true;
 	}

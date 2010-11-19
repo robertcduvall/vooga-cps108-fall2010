@@ -8,13 +8,13 @@ import vooga.engine.resource.Resources;
 public class Ship extends BetterSprite{
 
 	private static final double PLAYER_BOMB_SPEED = 0.8;
-	private static final int X = 350;
-	private static final int Y = 700;
+	private static final int INITIAL_SHIP_X = 350;
+	private static final int INITIAL_SHIP_Y = 700;
 	
 	private SpriteGroup torpedos;
 	
 	public Ship(){
-		super(Resources.getImage("ship"), X, Y);
+		super(Resources.getImage("ship"), INITIAL_SHIP_X, INITIAL_SHIP_Y);
 		torpedos = new SpriteGroup("shots");
 	}
 	

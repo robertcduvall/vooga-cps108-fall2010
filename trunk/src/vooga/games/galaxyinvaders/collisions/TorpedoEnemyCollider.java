@@ -23,9 +23,9 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	private static final int ENEMY_DAMAGE_TAKEN = 1;
 	private static final int SCORE_PER_HIT = 10;
 	
-	public TorpedoEnemyCollider(Game g) {
+	public TorpedoEnemyCollider(DropThis g) {
 		super();
-		game = (DropThis) g;
+		game = g;
 		playGameState = game.getPlayGameState();
 		pixelPerfectCollision = true;
 	}
