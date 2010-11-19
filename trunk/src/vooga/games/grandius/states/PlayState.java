@@ -25,7 +25,6 @@ public class PlayState extends GameState {
 	
 	//private PlayField myPlayField;
 	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
-	
 	private SpriteGroup playerGroup;
 	private SpriteGroup projectileGroup;
 	private SpriteGroup enemyProjectileGroup;
@@ -36,10 +35,7 @@ public class PlayState extends GameState {
 	private SpriteGroup blackHoleGroup;
 	private SpriteGroup backgroundGroup; 
 	private Player player;
-	
 	private boolean reacherShieldsDepleted;
-	
-	// Cheat options
 	private boolean isInvincible = false;
 	private boolean skipLevel = false;
 
@@ -49,7 +45,6 @@ public class PlayState extends GameState {
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		this.createComets();
 		addSpriteGroups();
-		//playerSprite initialization moved from DrpThis to addPlayer()
 		addPlayer();
 		backgroundGroup.add(new BetterSprite(Resources.getImage("BG")));		
 	}
@@ -68,6 +63,7 @@ public class PlayState extends GameState {
 //		updateScreenSprites(); //TODO is this method needed?
 		updateEntities();
 		checkBossParts();
+		checkLevelComplete();
 	}
 
 	//TODO create PlayField for levels using Game.initLevel()
@@ -170,14 +166,16 @@ public class PlayState extends GameState {
 //					playSound(Resources.getSound("ZipsterLaserSound"));
 				}
 				as.setHorizontalSpeed(-((Zipster) (as)).getSpeed());
-				((Zipster) as).setImages(new BufferedImage[] { Resources
-						.getAnimation("SpinningZipster")[((Zipster) as)
-						.getSpin()] });
+				((Zipster) as).setAsRenderedSprite("SpinningZipsterSprite");
+//				((Zipster) as).setImages(new BufferedImage[] { Resources
+//						.getAnimation("SpinningZipster")[((Zipster) as)
+//						.getSpin()] });
 				if (!((Zipster) as).isProximateToBlackHole())
 					((Zipster) as).setSpin(0);
 				((Zipster) as).setProximateToBlackHole(false);
 			}
 		}
+	
 		for (Sprite bp : bossPartGroup.getSprites()) {
 			if (bp == null)
 				break;
@@ -292,21 +290,24 @@ public class PlayState extends GameState {
 					reacherEyesDestroyed++;
 			}
 			if (reacherEyesDestroyed == 1) {
-				((Reacher) (reacherSprite))
-						.setImage(new BufferedImage[] { Resources
-								.getAnimation("Reacher")[1] });
+				((Reacher) reacherSprite).setImage(Resources.getImage("ReacherShieldsMedium"));
+//				((Reacher) (reacherSprite))
+//						.setImage(new BufferedImage[] { Resources
+//								.getAnimation("Reacher")[1] });
 			} else if (reacherEyesDestroyed == 3) {
-				((Reacher) (reacherSprite))
-						.setImage(new BufferedImage[] { Resources
-								.getAnimation("Reacher")[2] });
+				((Reacher) reacherSprite).setImage(Resources.getImage("ReacherShieldsLow"));
+//				((Reacher) (reacherSprite))
+//						.setImage(new BufferedImage[] { Resources
+//								.getAnimation("Reacher")[2] });
 			} else if (reacherEyesDestroyed == 5 && !reacherShieldsDepleted) {
 				// Deplete shields, but do not reset to the "depleted shields"
 				// image more than once (the next
 				// images should be of the Reacher's status becoming yellow,
 				// then red)
-				((Reacher) (reacherSprite))
-						.setImage(new BufferedImage[] { Resources
-								.getAnimation("Reacher")[3] });
+				((Reacher) reacherSprite).setImage(Resources.getImage("ReacherShieldsDepleted"));
+//				((Reacher) (reacherSprite))
+//						.setImage(new BufferedImage[] { Resources
+//								.getAnimation("Reacher")[3] });
 				reacherShieldsDepleted = true;
 				((Reacher) (reacherSprite)).setVulnerable(true);
 			}
@@ -322,15 +323,17 @@ public class PlayState extends GameState {
 			skipLevel = false;
 			return true;
 		}
-		//TODO is level specific code needed here? won't this automatically check in the current playfield?
-//		for (int i = 0; i < 3; i++) {
-//			for (BetterSprite s : levelManager.currentLevel().get(i)) {
-//				if (s.isActive()) {
-//					return false;
-//				}
-//			}
-//		}
-		for (Sprite s : this.enemyGroup.getSprites() ){
+		for (Sprite s : enemyGroup.getSprites()) {
+			if (s.isActive()) {
+				return false;
+			}
+		}
+		for (Sprite s : bossPartGroup.getSprites()) {
+			if (s.isActive()) {
+				return false;
+			}
+		}
+		for (Sprite s : bossGroup.getSprites()) {
 			if (s.isActive()) {
 				return false;
 			}
