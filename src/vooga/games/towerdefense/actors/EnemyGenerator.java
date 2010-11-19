@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
 import vooga.games.towerdefense.path.PathPoint;
 
@@ -18,13 +19,15 @@ import vooga.games.towerdefense.path.PathPoint;
  */
 public abstract class EnemyGenerator extends BetterSprite{
 	
-	private List<PathPoint> myPath;
+	protected List<PathPoint> myPath;
 	protected EnemyFailEvent myFailEvent;
+	protected BuildEnemyEvent myBuildEvent;
 	
 	
-	public EnemyGenerator(String resourcePathName, EnemyFailEvent failEvent){
+	public EnemyGenerator(String resourcePathName, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent){
 		myFailEvent = failEvent;
 		myPath = createPath(resourcePathName);
+		myBuildEvent = buildEvent;
 	}
 
 
@@ -46,6 +49,14 @@ public abstract class EnemyGenerator extends BetterSprite{
 		}
 		return path;
 	}
+	
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+		createEnemies(elapsedTime);
+	}
+	
+	protected abstract void createEnemies(long elapsedTime);
 
 	
 	
