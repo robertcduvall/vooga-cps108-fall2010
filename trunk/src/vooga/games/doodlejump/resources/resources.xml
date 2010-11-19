@@ -34,7 +34,7 @@
 		<Image name="soccerBackground" path="soccer-background.png" />
 		<Image name="spaceBackground" path="space-background.png" />
 		<Image name="springFull" path="spring_full.png" />
-		<Image name="springPlatform" path="spring_platform" />
+		<Image name="springPlatform" path="spring_platform.png" />
 		<Image name="springShoes" path="spring_shoes.png" />
 		<Image name="trampolineDown" path="trampoline_down.png" />
 		<Image name="trampolinePlatform" path="trampoline_platform.png" />
@@ -72,11 +72,11 @@
 			<Image path="doodle_up.png" />
 		</Animation>
 		<Animation name="greenFlyingMonster">
-			<Image path="green_flying_monster1.png" />
-			<Image path="green_flying_monster2.png" />
-			<Image path="green_flying_monster3.png" />
-			<Image path="green_flying_monster4.png" />
-			<Image path="green_flying_monster5.png" />
+			<Image path="green_flying_monster_1.png" />
+			<Image path="green_flying_monster_2.png" />
+			<Image path="green_flying_monster_3.png" />
+			<Image path="green_flying_monster_4.png" />
+			<Image path="green_flying_monster_5.png" />
 		</Animation>
 		<Animation name="yellowPlatformDying">
 			<Image path="yellow_platform.png" />
@@ -97,7 +97,7 @@
 
 	<Strings>
 		<String name="levelFilesDirectory" value="src/vooga/games/doodlejump/resources/levels" />
-		<String name="levelNamesFile" value="LevelNames.txt" />
+		<String name="levelNamesFile" value="levelNames.txt" />
 		<String name="Level1" value="levels/level1.xml" />
 	</Strings>
 
