@@ -15,9 +15,10 @@ in our DropThis class. PlayField is used as a container to hold
 almost all game elements and replaces the use of the GoldenT PlayField for our game. 
 Likewise, BetterSprite replaces our use of the GoldenT Sprite class.
 
-Control: (very helpful, but appears to be broken)
-We use Control to handle the mouse input for controlling the player. Unfortunately, 
-the controls do not seem to work at this time.
+Control: (very helpful if we could get it working)
+We use Control to handle the mouse input for controlling the player which would be 
+very helpful. Unfortunately we were unable to get it to actually control the player
+even though it runs without errors making trouble shooting difficult.
 
 Event: (very helpful)
 Events have taken over the responsibilities for making things happen in the game. They 
