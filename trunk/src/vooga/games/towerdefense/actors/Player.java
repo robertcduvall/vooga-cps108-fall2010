@@ -32,7 +32,8 @@ public class Player extends BetterSprite {
 	}
 
 	private void buildTower() {
-		
+		currentTower.forceX(getX());
+		currentTower.forceY(getY());
 		buildTowerEvent.addTower(currentTower);
 		changeTowerType(currentTower.clone());
 
