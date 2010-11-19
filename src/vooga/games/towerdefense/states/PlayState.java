@@ -96,8 +96,8 @@ public class PlayState extends GameState{
 	
 	public Control initControl(BetterSprite player){
 		MouseControl playerControl = new MouseControl(player, Resources.getGame());	
-		playerControl.addInput(MouseEvent.MOUSE_CLICKED, "onClick", "vooga.games.towerdefense.actors.Player");
-		playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.Player");
+		playerControl.addInput(MouseEvent.BUTTON1, "onClick", "vooga.games.towerdefense.actors.Player");
+		playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.actors.Player");
 		
 		return playerControl;
 	}
