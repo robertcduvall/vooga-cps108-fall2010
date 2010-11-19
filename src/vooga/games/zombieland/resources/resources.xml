@@ -10,19 +10,19 @@
 		<Image name="bullet" 			path="bullet.png" />
 		<Image name="flash" 			path="flash.png" />
 		<Image name="grenadelauncher" 		path="GrenadeLauncher.png" />
-		<Image name="greybackground" 		path="greybackground.png" />
+		<Image name="greybackground" 		path="greybackground.jpg" />
 		<Image name="health"			path="Health.png" />
 		<Image name="help1menu"			path="help1menu.jpg" />	
 		<Image name="help2menu"			path="help2menu.jpg" />
 		<Image name="orangebackground"		path="orangebackground.jpg" />	
 		<Image name="pistol"			path="pistol.png" />
-		<Image name="pistolicon"		path="pistolicon.png">
+		<Image name="pistolicon"		path="pistolicon.png"/>
 		<Image name="redbackground"		path="redbackground.jpg" />
 		<Image name="rocket"			path="rocket.png" />
 		<Image name="sandbackground"		path="sandbackground.png" />		
 		<Image name="shotgun"			path="shotgun.png" />
-		<Image name="shotgundisplay"		path="shotgunDisplay.png" /> 		
-		<Image name="zombielandcredit"		path="zombielandcredit.png" />
+		<Image name="shotgundisplay"		path="shotgunDisplay.png" ></Image> 		
+		<Image name="zombielandcredit"		path="zombielandcredit.jpg" />
 		<Image name="zombielandmenu"		path="zombielandmenu.png" />
 	</Images>
 	
@@ -46,6 +46,13 @@
 			<Image path="Up2.png" />			
 			<Image path="Up3.png" />
 			<Image path="Up4.png" />
+		</Animation>
+		
+		<Animation name="playerdown">
+			<Image path="Down1.png" />		
+			<Image path="Down2.png" />			
+			<Image path="Down3.png" />
+			<Image path="Down4.png" />
 		</Animation>
 
 		<Animation name="zombieattackdown">
@@ -120,23 +127,14 @@
 		<String name="overlayAmmoString"		value="Ammo:" />
 		<String name="overlayLevelString"		value="Level:" /> 
 		<String name="gamemusic"				value="resources/sounds/entersand.mid" />
-		<String name="delim"					value="|" />	
-		<String name="weaponchoices"			value="assualtRifleImage|shotGunImage|healthImage" />
-		<String name="spritegroupslist"			value="Zombies|Bullets|Items|Players|Overlays" />
+		<String name="delim"					value="," />	
+		<String name="weaponchoices"			value="assualtRifleImage,shotGunImage,healthImage" />
+		<String name="spritegroupslist"			value="Zombies,Bullets,Items,Players,Overlays" />
 		<String name="VK_LEFT"					value="goLeft" />
 		<String name="VK_RIGHT"					value="goRight" />
 		<String name="VK_UP"					value="goUp" />
 		<String name="VK_DOWN"					value="goDown" />
 		<String name="VK_SPACE"					value="shoot" />
-		<String name="LEFT"						value="Left" />
-		<String name="RIGHT"					value="Right" />
-		<String name="UP"						value="Up" />
-		<String name="DOWN"						value="Down" />
-		<String name="ATTACKLEFT"				value="AttackLeft" />
-		<String name="ATTACKRIGHT"				value="AttackRight" />
-		<String name="ATTACKUP"					value="AttackUp" />	
-		<String name="ATTACKDOWN"				value="AttackDown" />
-		<String name="DEATH"					value="Death" />
 	</Strings>
 	
 	<Integers>

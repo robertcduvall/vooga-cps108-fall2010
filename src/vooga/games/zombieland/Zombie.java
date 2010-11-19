@@ -65,10 +65,10 @@ public class Zombie extends BetterSprite implements Constants {
 				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieDeath"));
 
-		addSprite(DOWN, down);
-		addSprite(UP, up);
-		addSprite(LEFT, left);
-		addSprite(RIGHT, right);
+		addSprite(ZOMBIE_DOWN, down);
+		addSprite(ZOMBIE_UP, up);
+		addSprite(ZOMBIE_LEFT, left);
+		addSprite(ZOMBIE_RIGHT, right);
 		addSprite(ATTACKDOWN, attackDown);
 		addSprite(ATTACKUP, attackUp);
 		addSprite(ATTACKLEFT, attackLeft);
@@ -176,9 +176,9 @@ public class Zombie extends BetterSprite implements Constants {
 	 */
 	public String getDirection() {
 		if (isCloserInXDirection()) {
-			return ((target.getX() - getX()) > 0) ? RIGHT : LEFT;
+			return ((target.getX() - getX()) > 0) ? ZOMBIE_RIGHT : ZOMBIE_LEFT;
 		} else
-			return ((target.getY() - getY()) > 0) ? DOWN : UP;
+			return ((target.getY() - getY()) > 0) ? ZOMBIE_DOWN : ZOMBIE_UP;
 	}
 
 	/**
@@ -258,24 +258,24 @@ public class Zombie extends BetterSprite implements Constants {
 		 * negative, to move right or down, the speed needs to be positive.
 		 */
 		String direction = getDirection();
-		if (direction.equals(RIGHT)) {
+		if (direction.equals(ZOMBIE_RIGHT)) {
 			moveX(Math.abs(speed));
-			setAsRenderedSprite(RIGHT);
+			setAsRenderedSprite(ZOMBIE_RIGHT);
 			return;
 		}
-		if (direction.equals(UP)) {
+		if (direction.equals(ZOMBIE_UP)) {
 			moveY(speed);
-			setAsRenderedSprite(UP);
+			setAsRenderedSprite(ZOMBIE_UP);
 			return;
 		}
-		if (direction.equals(LEFT)) {
+		if (direction.equals(ZOMBIE_LEFT)) {
 			moveX(speed);
-			setAsRenderedSprite(LEFT);
+			setAsRenderedSprite(ZOMBIE_LEFT);
 			return;
 		}
-		if (direction.equals(DOWN)) {
+		if (direction.equals(ZOMBIE_DOWN)) {
 			moveY(Math.abs(speed));
-			setAsRenderedSprite(DOWN);
+			setAsRenderedSprite(ZOMBIE_DOWN);
 			return;
 		}
 	}
