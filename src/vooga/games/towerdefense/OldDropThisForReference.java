@@ -18,6 +18,7 @@ import com.golden.gamedev.util.ImageUtil;
 import vooga.engine.core.Game;
 import vooga.engine.overlay.*;
 import vooga.engine.resource.*;
+import vooga.games.towerdefense.path.PathPoint;
 import vooga.games.towerdefense.tower.*;
 
 /**
