@@ -23,8 +23,10 @@ public class EnemyFailEvent implements IEventHandler{
 	public void actionPerformed() {
 		for(Enemy enemy: failQueue){
 			myPlayer.removeSelfEsteem(enemy.getLives());
+			System.out.println('a');
 			enemy.setActive(false);
 		}
+		failQueue.clear();
 	}
 
 	@Override

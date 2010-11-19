@@ -37,8 +37,6 @@ import com.golden.gamedev.util.ImageUtil;
 public class PlayState extends GameState{	
 	
 	private OverlayTracker myTracker;
-	private Stat<Integer> myScore;
-	private Stat<Integer> myMoney;
 	private PlayField myPlayField;
 	
 	public PlayState(OverlayTracker tracker){
@@ -53,8 +51,6 @@ public class PlayState extends GameState{
 	}
 	
 	private void addOverlays() {
-		myScore = myTracker.getStat("score", new Integer(0));
-		myMoney = myTracker.getStat("money", new Integer(0));
 		myPlayField.addGroup(myTracker.getOverlayGroup("play"));
 		
 	}
@@ -77,7 +73,8 @@ public class PlayState extends GameState{
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(playField);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
-		
+		eventPool.addEvent(failEvent);
+		eventPool.addEvent(buildEnemy);
 		playField.add(enemyGenerator);
 		
 		playField.addControl(initControl(player));
@@ -93,7 +90,7 @@ public class PlayState extends GameState{
 	}
 	
 	private Player initPlayer(BuildTowerEvent buildTowerEvent){
-		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent);		
+		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
 		return player;
 	}
 	

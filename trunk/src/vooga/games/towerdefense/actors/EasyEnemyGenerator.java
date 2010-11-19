@@ -30,16 +30,16 @@ public class EasyEnemyGenerator extends EnemyGenerator{
 	@Override
 	protected void createEnemies(long elapsedTime) {
 		if (hit1.action(elapsedTime)) {
-			myBuildEvent.buildEnemy(new Enemy(myPath, 50, 1, myFailEvent));
+			myBuildEvent.addEnemy(new Enemy(myPath, 50, 1, myFailEvent));
 		}
 		if (hit2.action(elapsedTime)) {
-			myBuildEvent.buildEnemy(new Enemy(myPath, 80, 2, myFailEvent));
+			myBuildEvent.addEnemy(new Enemy(myPath, 80, 2, myFailEvent));
 		}
 		if (hit3.action(elapsedTime)) {
-			myBuildEvent.buildEnemy(new Enemy(myPath, 40, 3, myFailEvent));
+			myBuildEvent.addEnemy(new Enemy(myPath, 40, 3, myFailEvent));
 		}
 		if (spawn.action(elapsedTime)) {
-			myBuildEvent.buildEnemy(new EnemySpawn(myPath, spawnSpeed, myFailEvent, myBuildEvent));
+			myBuildEvent.addEnemy(new EnemySpawn(myPath, spawnSpeed, myFailEvent, myBuildEvent));
 		}
 		if (gameTimer.action(elapsedTime)) {
 			long delay = spawn.getDelay() / 2;
