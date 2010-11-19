@@ -2,16 +2,21 @@ package vooga.games.tronupdate.items;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.Sprite;
+import vooga.engine.core.BetterSprite;
 import vooga.games.tron.GridSpace;
+import vooga.games.tronupdate.util.*;
 
-public class TronPlayer extends Sprite {
+public class TronPlayer extends BetterSprite {
 
 	private static final long serialVersionUID = 1L;
+	
+	private Position pos;
+	private Direction dir;
+	
 	private String direction;  //left,right,down,up
 	private String initDirection;
 
-	public boolean[][] blocks;
+	private boolean[][] blocks;
 	private GridSpace grid;
 
 	private double playerInitialRow;
