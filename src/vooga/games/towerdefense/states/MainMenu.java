@@ -22,6 +22,8 @@ public class MainMenu extends GameState{
 	@Override
 	public void initialize() {
 			LevelParser layoutReader = new LayoutParser();
+			//TODO getting the playField currently generates an error
+			//the main menu can't be displayed until this is resolved
 			addPlayField(layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame()));
 	}
 	

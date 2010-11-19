@@ -56,7 +56,7 @@ public class PlayState extends GameState{
 		EventPool eventPool = new EventPool();
 		playField.addEventPool(eventPool);
 		
-		BuildTowerEvent buildTower = new BuildTowerEvent();
+		BuildTowerEvent buildTower = new BuildTowerEvent(playField);
 		eventPool.addEvent(buildTower);
 		BetterSprite player = initPlayer(buildTower);
 		playField.add(player);

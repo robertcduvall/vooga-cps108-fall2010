@@ -10,6 +10,9 @@
 	<Strings>
 		<String name="mainMenuLayoutPath" value="src/vooga/games/towerdefense/resources/layouts/mainMenu.xml" />
 		<String name="overlayPath" value="src/vooga/games/towerdefense/resources/overlays.xml" />
+		<String name="easyLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/easy.txt" />
+		<String name="mediumLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/medium.txt" />
+		<String name="hardLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/hard.txt" />
 	</Strings>
 
 	<Integers>
