@@ -1,5 +1,7 @@
 package vooga.engine.util;
 
+import java.awt.image.BufferedImage;
+
 import com.golden.gamedev.object.AnimatedSprite;
 
 /**
@@ -13,6 +15,13 @@ import com.golden.gamedev.object.AnimatedSprite;
 
 public class AnimationUtil {
 	
+	public static long defaultAnimationDelay = 200;
+	public static AnimatedSprite getInitializedAnimatedSprite(BufferedImage[] images) {
+		AnimatedSprite sprite = new AnimatedSprite(images);
+		initializeAnimatedSprite(sprite, defaultAnimationDelay, true);
+		return sprite;
+	}
+
 	/**
 	 * Set the attributes for an animated sprite
 	 * 
