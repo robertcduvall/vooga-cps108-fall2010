@@ -78,19 +78,10 @@ public class DropThis extends Game {
 
 	private OverlayPanel overlayPanel;
 	private OverlayStatImage livesIcon;
-	private Stat<Integer> statLives;
-	private Stat<Integer> statScore;
-	private Stat<Integer> statCash;
 
 	private GameFont font;
-	private double playerInitialX;
-	private double playerInitialY;
 
 	private Dimension screen;
-
-	// TODO: Good practice here? Use Missile/BlackHole classes?
-	private boolean missileActive = false;
-	private boolean blackHoleActive = false;
 
 	@Override
 	public void initResources() {
@@ -182,11 +173,6 @@ public class DropThis extends Game {
 		collisionList.add(new BlackHoleEnemyCollision(this));
 		myPlayState.addCollisions(collisionList);
 	}
-
-	// @Override
-	// public void render(Graphics2D g) {
-	// super.render(g);
-	// }
 
 	// @Override
 	// public void update(long elapsedTime) {
@@ -281,50 +267,13 @@ public class DropThis extends Game {
 
 //TODO handle key events
 
-	/**
-	 * Method for adding a value (including negative ones) to any Stat<Integer>,
-	 * primarily for the lives, cash, and score counters.
-	 */
-	public void updateStat(Stat<Integer> stat, int addedValue) {
-		int myCurrentStat = stat.getStat();
-		// Can't go below 0
-		if (myCurrentStat + addedValue > 0)
-			stat.setStat(new Integer(stat.getStat().intValue() + addedValue));
-		else
-			stat.setStat(new Integer(0));
-	}
-
-	/**
-	 * Decrements the number of lives the player has. Called when Player
-	 * collides with enemy or an enemy projectile.
-	 */
-	public void updatePlayerLives() {
-		int playerLives = (statLives.getStat()).intValue();
-		if (playerLives > 0 && !isInvincible) {
-			updateStat(statLives, (-1));
-			playerSprite.setLocation(playerInitialX, playerInitialY);
-		}
-	}
-
-	/**
-	 * Adds the given points to the Stat score.
-	 */
-	public void updateScoreOnCollision(int points) {
-		updateStat(statScore, points);
-	}
-
-	/**
-	 * Adds the given cash amounts to the Stat cash.
-	 */
-	public void updateCashOnCollision(int cash) {
-		updateStat(statCash, cash);
-	}
+	//moved updatePlayerLives, updateScoreOnCollision, updateCashOnCollision to Player
 
 	private void addOverlays() {
-		OverlayIcon livesCounter = new OverlayIcon(statLives, livesIcon,
+		OverlayIcon livesCounter = new OverlayIcon(player.getLives(), livesIcon,
 				"Lives");
-		OverlayStat scoreCounter = new OverlayStat("Score", statScore);
-		OverlayStat cashCounter = new OverlayStat("Cash", statCash);
+		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
+		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
 
 		overlayPanel.add(livesCounter);
 		overlayPanel.add(cashCounter);
@@ -340,15 +289,15 @@ public class DropThis extends Game {
 			String userInput = (String) JOptionPane.showInputDialog(frame,
 					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
 			if (userInput.equals(Resources.getString("Invincibility")))
-				isInvincible = true;
+				player.setInvincible();
 			else if (userInput.equals(Resources.getString("SkipLevel")))
-				skipLevel = true;
+				player.skipLevel();
 			else if (userInput.equals(Resources.getString("ExtraPoints")))
-				updateStat(statScore, 1000000);
+				player.updateScore(1000000);
 			else if (userInput.equals(Resources.getString("ExtraCash")))
-				updateStat(statCash, 5000);
+				player.updateCash(5000);
 			else if (userInput.equals(Resources.getString("ActivateMissile")))
-				missileActive = true;
+				player.setMissileActive();
 		}
 	}
 
