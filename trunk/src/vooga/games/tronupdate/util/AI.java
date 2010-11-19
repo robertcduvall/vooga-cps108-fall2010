@@ -15,6 +15,9 @@ public class AI {
 	//temporary implementation
 	private TronPlayer myPlayer;
 	
+	private AI(){
+	}
+	
 	public void setPlayer(TronPlayer player){
 		myPlayer = player;
 	}
