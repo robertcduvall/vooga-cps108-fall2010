@@ -22,18 +22,18 @@ public class Ship extends BetterSprite{
 		torpedos.update(elapsedTime);
 	}
 	
-	private void fire() {
+	public void fire() {
 		BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), getX()+25, getY()-35);
 		temp.setSpeed(0, -PLAYER_BOMB_SPEED);
 		torpedos.add(temp);
 	}
 
-	private void moveLeft(int distance) {
+	public void moveLeft(int distance) {
 		if(getX()>0-15)  
 			move(-distance, 0);
 	}
-
-	private void moveRight(int distance) {
+	
+	public void moveRight(int distance) {
 		if(getX()<getWidth()-45)  
 			move(distance, 0);
 	}
