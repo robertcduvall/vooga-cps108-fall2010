@@ -1,6 +1,8 @@
-package vooga.games.galaxyinvaders;
+package vooga.games.galaxyinvaders.collisions;
 
 import vooga.engine.core.Game;
+import vooga.games.galaxyinvaders.DropThis;
+import vooga.games.galaxyinvaders.GalaxyGameState;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;

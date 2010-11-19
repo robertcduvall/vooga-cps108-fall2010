@@ -20,6 +20,10 @@ import vooga.engine.resource.Resources;
 import vooga.engine.resource.random.Randomizer;
 import vooga.engine.resource.random.RandomizerException;
 import vooga.engine.state.GameState;
+import vooga.games.galaxyinvaders.collisions.ItemPlayerCollider;
+import vooga.games.galaxyinvaders.collisions.TorpedoBlockCollider;
+import vooga.games.galaxyinvaders.collisions.TorpedoEnemyCollider;
+import vooga.games.galaxyinvaders.collisions.TorpedoPlayerCollider;
 
 public class GalaxyGameState extends GameState{
 
