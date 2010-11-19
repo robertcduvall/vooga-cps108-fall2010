@@ -1,8 +1,8 @@
 <Overlay>
 
-	<Stat type="Integer" value="0" name="zero"></Stat>
-	<Stat type="Integer" value="3" name="one"></Stat>
-	<Stat type="Integer" value="0" name="two"></Stat>
+	<Stat type="Integer" value="0" name="InitialScore"></Stat>
+	<Stat type="Integer" value="3" name="InitialPlayerLives"></Stat>
+	<Stat type="Integer" value="0" name="InitialCash"></Stat>
 
 	<OverlayGroup name="first" >
 		<OverlayStat name="score" stat="zero" label="SCORE: " xLoc="0" yLoc="0"></OverlayStat>
