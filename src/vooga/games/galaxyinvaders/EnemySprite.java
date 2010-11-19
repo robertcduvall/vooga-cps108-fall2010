@@ -21,7 +21,8 @@ import com.golden.gamedev.object.Timer;
 public class EnemySprite extends BetterSprite {
 
 	private static final int DEFAULT_HP = 2;
-    private int pathNum;
+	private static final double ENEMY_BOMB_SPEED = 0.5;
+	private int pathNum;
     private Timer timer;
     private ArrayList<Point> path;    
 	private int hitPoints;
@@ -75,6 +76,16 @@ public class EnemySprite extends BetterSprite {
 	 */
 	public void decrementHitPoints(int dmg) {
 		hitPoints = hitPoints - dmg;
+	}
+	
+	/**
+	 * Spawns a bomb
+	 */
+	public BetterSprite spawnBomb()
+	{
+		BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), this.getX()+25, this.getY()+30);
+		temp.setSpeed(0, ENEMY_BOMB_SPEED);
+		return temp;
 	}
 
 	
