@@ -8,9 +8,9 @@
 			</RegularSprite>
 		</SpriteGroup>
 		<SpriteGroup name="playerShip">
-			<Ship name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
+			<SpawnedSprite name="playerSprite" xRange="400" yRange="300" vxRange="0" vyRange="0" quantity="1">
 				<Visual name="shipAnimation"/>
-			</Ship>
+			</SpawnedSprite>
 		</SpriteGroup>
 		
 		<SpriteGroup name="shotGroup">
@@ -25,6 +25,10 @@
 			</SpawnedSprite> 
 		</SpriteGroup>
 	</SpriteGroups>
+	
+	<Events></Events>
+	
+	<Rules></Rules>
 
 	<CollisionGroups>
 		<CollisionGroup subclass="vooga.games.asteroids.collisions.ShipToAsteroidCollision">

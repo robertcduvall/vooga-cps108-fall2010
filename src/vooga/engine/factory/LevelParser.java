@@ -373,11 +373,11 @@ public class LevelParser implements LevelFactory{
 			if (isElement(backgrounds.item(i))) {
 				Element bgElement = (Element) backgrounds.item(i);
 				voogaPlayField.addImageBackground(bgElement
-						.getAttribute("path"));
+						.getAttribute("name"));
 				if (isElement(backgrounds.item(i))) {
 					Element bgElementNode = (Element) backgrounds.item(i);
 					voogaPlayField.addImageBackground(bgElementNode
-							.getAttribute("path"));
+							.getAttribute("name"));
 				}
 			}
 		}
