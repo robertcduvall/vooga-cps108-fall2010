@@ -6,11 +6,8 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.factory.*;
 import vooga.games.towerdefense.buttons.*;
-import vooga.widget.*;
 
-public class LayoutParser extends LevelParser {
-	
-	
+public class LayoutParser extends LevelParser {	
 
 	@Override
 	public void processSprite(NodeList spritesList, SpriteGroup spriteGroup) {
@@ -30,15 +27,16 @@ public class LayoutParser extends LevelParser {
 
 	public void processLevelButton(Element buttonElement,
 			SpriteGroup spriteGroup) {
-		String difficulty = buttonElement.getAttribute("Difficulty");
-		Button button = new LevelButton(getGame(), difficulty);
+		LevelButton button = new LevelButton(getGame());
 
 		NodeList visualsList = buttonElement.getElementsByTagName("Visual");
 		processVisual(visualsList, button);
 		
+		String levelName = buttonElement.getAttribute("LevelName");
+		button.setLevel(levelName);
+		
 		double x = Double.parseDouble(buttonElement.getAttribute("x"));
 		double y = Double.parseDouble(buttonElement.getAttribute("y"));
-
 		button.setLocation(x, y);
 		spriteGroup.add(button);
 	}

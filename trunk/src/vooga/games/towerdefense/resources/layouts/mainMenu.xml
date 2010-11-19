@@ -1,13 +1,13 @@
 <Level name="mainMenuLayout">
 	<SpriteGroups>
 		<SpriteGroup name="buttons">
-			<LevelButton name="easy" x="100" y="400">
+			<LevelButton name="easy" x="100" y="400" levelName="easyLevel">
 				<Visual name="easyButton" />
 			</LevelButton>
-			<LevelButton name="medium" x="300" y="400">
+			<LevelButton name="medium" x="300" y="400" levelName="mediumLevel">
 				<Visual name="mediumButton" />
 			</LevelButton>
-			<LevelButton name="hard" x="500" y="400">
+			<LevelButton name="hard" x="500" y="400" levelName="hardLevel">
 				<Visual name="hardButton" />
 			</LevelButton>
 		</SpriteGroup>
