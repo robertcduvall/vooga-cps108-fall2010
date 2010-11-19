@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -12,13 +11,12 @@ import javax.swing.JOptionPane;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayPanel;
 import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.OverlayStatImage;
-import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.collisions.BasicCollision;
@@ -33,9 +31,6 @@ import vooga.games.grandius.collisions.PlayerEnemyProjectileCollision;
 import vooga.games.grandius.collisions.ProjectileBossCollision;
 import vooga.games.grandius.collisions.ProjectileBossPartCollision;
 import vooga.games.grandius.collisions.ProjectileEnemyCollision;
-import vooga.games.grandius.enemy.boss.reacher.Reacher;
-import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
-import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.events.FireHorizontalEvent;
 import vooga.games.grandius.events.FireVerticalEvent;
 import vooga.games.grandius.states.GameCompleteState;
@@ -45,10 +40,8 @@ import vooga.games.grandius.states.LevelCompleteState;
 import vooga.games.grandius.states.PlayState;
 import vooga.games.grandius.states.ShoppingLevelState;
 import vooga.games.grandius.states.StartNewLevelState;
-import vooga.games.grandius.weapons.BlackHole;
 
 import com.golden.gamedev.object.GameFont;
-import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * Grandius is a side-scrolling space shooter. The object of each level is to
@@ -91,26 +84,16 @@ public class DropThis extends Game {
 		initEvents();
 		createCollisions(); // TODO will this method call work here?
 
-		// TODO - change to work with new Overlay xml
+		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
 				getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" + "456789:   -? ABCDEFG"
 						+ "HIJKLMNOPQRSTUVWXYZ ");
 
-		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		//initialized in Player constructor
-//		statLives = new Stat<Integer>(new Integer(
-//				Resources.getInt("InitialPlayerLives")));
-//		statScore = new Stat<Integer>(new Integer(
-//				Resources.getInt("InitialZero"))); // TODO get rid of this var?
-//		statCash = new Stat<Integer>(new Integer(
-//				Resources.getInt("InitialZero")));
 		//int screenWidth = Resources.getInt("screenWidth");
 		//int screenHeight = Resources.getInt("screenHeight");
 		//screen = new Dimension(screenWidth, screenHeight);
 		//livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
-		livesIcon = Resources.getImage("PlayerShipSingle");
-//		reacherShieldsDepleted = false;
 		addOverlays();
 	}
 
@@ -273,6 +256,8 @@ public class DropThis extends Game {
 	//moved updatePlayerLives, updateScoreOnCollision, updateCashOnCollision to Player
 
 	private void addOverlays() {
+		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
+		livesIcon = Resources.getImage("PlayerShipSingle");
 		OverlayIcon livesCounter = new OverlayIcon(player.getLives(), livesIcon,
 				"Lives");
 		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
@@ -282,8 +267,10 @@ public class DropThis extends Game {
 		overlayPanel.add(cashCounter);
 		overlayPanel.add(scoreCounter);
 		overlayPanel.initialize();
-
-		playfield.addGroup(overlayPanel);
+		PlayField newField = new PlayField();
+		newField.addGroup(overlayPanel);
+		myPlayState.getUpdateField().add(newField);
+		myPlayState.getRenderField().add(newField);
 	}
 
 	private void checkCheats() {
@@ -304,6 +291,16 @@ public class DropThis extends Game {
 		}
 	}
 
+	//TODO could these two methods be removed somehow? they're used
+	//to deal with collisions...
+	public Player getPlayer() {
+		return this.player;
+	}
+	
+	public PlayState getPlayState() {
+		return this.myPlayState;
+	}
+	
 	public static void main(String[] args) {
 		launch(new DropThis());
 	}

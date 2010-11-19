@@ -23,7 +23,7 @@ public class Player extends BetterSprite implements IEventHandler {
 	public Player(String label, BetterSprite sprite){
 		super(label,sprite);
 		statLives = new Stat<Integer>( Resources.getInt("InitialPlayerLives"));
-		statScore = new Stat<Integer>(Resources.getInt("InitialZero")); 
+		statScore = new Stat<Integer>(Resources.getInt("InitialZero"));//TODO get rid of this "InitialZero" variable? 
 		statCash = new Stat<Integer>(Resources.getInt("InitialZero"));
 		missileActive = false;
 		blackHoleActive = false;
