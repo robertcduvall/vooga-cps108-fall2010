@@ -16,8 +16,8 @@ import vooga.engine.core.Game;
 
  * <xmp>
  * Control shipControl = new Control(this); //this is inside of a GameEntitySprite subclass.
- * shipControl.setParams(new Class[]{int.class}); //Tells Control to expect a single int parameter.
- * shipControl.addInput(KeyEvent.VK_LEFT, "left", "rotateLeft", "Ship", 10); //Registers the left key to trigger rotateLeft with a parameter of 10.
+ * shipControl.addInput(KeyEvent.VK_LEFT, "left", "rotateLeft", "Ship", new Class[]{int.class}); //Registers the left key to trigger rotateLeft with an int parameter.
+ * shipControl.setParams(KeyEvent.VK_LEFT, 10); //Sets parameter of rotateLeft to 10.
  * shipControl.act(); //Within Player's act method.  Tells Control to check the registered events and see if any have occurred.
  * </xmp>
  * 
@@ -119,8 +119,8 @@ public class Control{
 					{
 						for(int e = 0; e < methodMap.get(thisKey).size(); e++){
 							Method perform = methodMap.get(thisKey).get(e);
-							Object[] paramVals = paramMap.get(thisKey).get(e);
-							Method[] newParams = methodParamMap.get(thisKey).get(e);
+							Object[] paramVals = paramMap.containsKey(thisKey) ? paramMap.get(thisKey).get(e) : new Object[0];
+							Method[] newParams = methodParamMap.containsKey(thisKey) ? methodParamMap.get(thisKey).get(e) : new Method[0];
 							List<Object> objectParameters = new ArrayList<Object>();
 							for (Object parameter : paramVals)
 							{
