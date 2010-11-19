@@ -223,19 +223,33 @@ public abstract class GameState {
 	 * @return SpriteGroup with that name
 	 */
 	public SpriteGroup getGroup(String name){
-		
 		for (PlayField playfield: myUpdateField){
-		
-			SpriteGroup group = playfield.getGroup(name);
-			
+			SpriteGroup group = playfield.getGroup(name);	
 			if (group!=null){
-			
 				return group;
-			
 			}
 		}
-		
 		return null;//TODO:throw exception instead
 	}
 
+	
+	/**
+	 * Equals function for GameStates
+	 * 
+	 * @param Object
+	 * @return boolean
+	 */
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj){
+			return true;
+		}
+		if(!(obj instanceof GameState))
+			return false;
+		
+		GameState other = (GameState) obj;
+		// Two GameStates are the same if they have the same update and render groups, and the same layer
+		return  myUpdateField.equals(other.getUpdateField()) &&
+				myRenderField.equals(other.getRenderField());
+	}
 }
