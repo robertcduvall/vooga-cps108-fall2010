@@ -22,8 +22,12 @@
 	</Strings>
 	
 	<Integers>	
+		<Integer name="firstInteger" value="5" />
+		<Integer name="blahInteger" value="145" />
 	</Integers>
 	
 	<Doubles>
+		<Double name="firstDouble" value="5" />
+		<Double name="blahDouble" value="145" />
 	</Doubles>
 </Resources>
