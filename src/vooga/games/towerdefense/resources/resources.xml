@@ -9,6 +9,7 @@
 	<Doubles></Doubles>
 	<Strings>
 		<String name="mainMenuLayoutPath" value="src/vooga/games/towerdefense/resources/layouts/mainMenu.xml" />
+		<String name="overlayPath" value="src/vooga/games/towerdefense/resources/overlays.xml" />
 	</Strings>
 
 	<Integers>
