@@ -81,7 +81,7 @@ public class DropThis extends Game {
 		//TODO uncomment once prolog error is found and fixed
 		//GameState mainMenu = addGameState(new MainMenu());
 		GameState play = addGameState(new PlayState(tracker));
-		play.addPlayField(initLevel("/resources/level/level.xml"));
+		//play.addPlayField(initLevel("/resources/level/level.xml"));
 		getGameStateManager().switchTo(play);
 	}
 
