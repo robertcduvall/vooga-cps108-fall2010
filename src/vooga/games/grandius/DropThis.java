@@ -99,7 +99,7 @@ public class DropThis extends Game {
 		//int screenHeight = Resources.getInt("screenHeight");
 		//screen = new Dimension(screenWidth, screenHeight);
 		//livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
-		addOverlays();
+		// TODO errors with overlays line>: addOverlays();
 	}
 
 	/**
@@ -145,8 +145,6 @@ public class DropThis extends Game {
 			gameStatesArray[i] = gameStates.get(i);
 		}
 		stateManager.addGameState(gameStatesArray);
-		stateManager.switchTo(myMenuState); // TODO is this needed if menu is
-											// default?
 	}
 
 	/**

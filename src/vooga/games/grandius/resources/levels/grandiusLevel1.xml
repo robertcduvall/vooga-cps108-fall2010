@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="easyLevel">
+<Level name="easyLevel" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="playerGroup">
