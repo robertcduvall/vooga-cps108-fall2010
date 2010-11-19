@@ -1,3 +1,0 @@
-overlays,src/vooga/games/galaxyinvaders/resources/overlays.xml
-levelNamesFile,levelNames.txt
-levelFilesDirectory,src/vooga/games/galaxyinvaders/resources/levels/

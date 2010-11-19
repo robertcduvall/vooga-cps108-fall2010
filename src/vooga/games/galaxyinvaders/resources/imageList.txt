@@ -1,6 +1,0 @@
-ship,images/ship.gif
-enemy1,images/enemy1.png
-enemy1damage,images/enemy1damage.png
-barrier,images/barrier.png
-health,images/health.png
-torpedo,images/torpedo.png

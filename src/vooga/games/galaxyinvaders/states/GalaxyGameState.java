@@ -1,4 +1,4 @@
-package vooga.games.galaxyinvaders;
+package vooga.games.galaxyinvaders.states;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -20,6 +20,11 @@ import vooga.engine.resource.Resources;
 import vooga.engine.resource.random.Randomizer;
 import vooga.engine.resource.random.RandomizerException;
 import vooga.engine.state.GameState;
+import vooga.games.galaxyinvaders.BlockadeSprite;
+import vooga.games.galaxyinvaders.DropThis;
+import vooga.games.galaxyinvaders.EnemySprite;
+import vooga.games.galaxyinvaders.GalaxyLevelManager;
+import vooga.games.galaxyinvaders.Ship;
 import vooga.games.galaxyinvaders.collisions.ItemPlayerCollider;
 import vooga.games.galaxyinvaders.collisions.TorpedoBlockCollider;
 import vooga.games.galaxyinvaders.collisions.TorpedoEnemyCollider;
