@@ -57,6 +57,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		myControls = new ArrayList<Control>();
 		myEventPool = new EventPool();
 		myMusics = new ArrayList<String>();
+		myBackgrounds = new ArrayList<Background>();
 	}
 
 
