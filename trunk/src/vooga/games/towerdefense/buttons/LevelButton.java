@@ -23,8 +23,12 @@ public class LevelButton extends Button{
 
 	@Override
 	public void actionPerformed() {
-		// TODO Launch the next level somehow using levelName
-		
+		switch levelName;
+		{
+			case "easy": 
+			case "medium":
+			case "hard":
+		}
 	}
 
 }
