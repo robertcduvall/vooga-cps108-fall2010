@@ -249,10 +249,10 @@ public class LevelParser implements LevelFactory{
 				}
 				else
 				{
-					BetterSprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
+					/*BetterSprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
 					NodeList visualsList = currentNode.getElementsByTagName("Visual");
 					group.add(result);
-					processVisual(visualsList, result);
+					processVisual(visualsList, result);*/
 				}
 			}
 		}
@@ -478,7 +478,7 @@ public class LevelParser implements LevelFactory{
 	public Game getGame(){
 		return currentGame;
 	}
-
+	/*
 	private BetterSprite processX(String classname, NamedNodeMap attributes)
 	{
 		try
@@ -496,5 +496,5 @@ public class LevelParser implements LevelFactory{
 			// compiler is :)
 			return null;
 		}
-	}
+	}*/
 }
