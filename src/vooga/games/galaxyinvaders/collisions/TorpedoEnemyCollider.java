@@ -34,7 +34,7 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
 		((EnemySprite) s2).decrementHitPoints(ENEMY_DAMAGE_TAKEN);
-		playGameState.increasePlayerScore(SCORE_PER_HIT);
+		playGameState.changePlayerScore(SCORE_PER_HIT);
 	}
 	
 

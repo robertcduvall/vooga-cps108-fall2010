@@ -275,11 +275,22 @@ public class GalaxyGameState extends GameState{
 	}
 	
 	/**
-	 * This method increases the player's score by a certain amount
+	 * This method changes the player's score by a certain amount. To decrease
+	 * score, enter a negative score as a parameter
 	 * 
-	 * @param score the amount by which to increase the score
+	 * @param score the amount by which to change the score
 	 */
-	public void increasePlayerScore(int score) {
+	public void changePlayerScore(int score) {
 		scoreStat.setStat(scoreStat.getStat() + score);
+	}
+	
+	/**
+	 * This method changes the player's lives by a certain amount. To decrease
+	 * lives, enter a negative score as a parameter
+	 * 
+	 * @param lives the amount by which to change the lives
+	 */
+	public void changePlayerLives(int lives) {
+		livesStat.setStat(livesStat.getStat() + lives);
 	}
 }

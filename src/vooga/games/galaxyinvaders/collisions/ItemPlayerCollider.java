@@ -15,6 +15,8 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class ItemPlayerCollider extends BasicCollisionGroup {
 
+	private static int POWER_UP_AMOUNT = 1;
+	
 	private DropThis game;
 	private GalaxyGameState playGameState;
 	
@@ -28,7 +30,7 @@ public class ItemPlayerCollider extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		playGameState.livesStat.setStat(playGameState.livesStat.getStat()+1);
+		playGameState.changePlayerLives(POWER_UP_AMOUNT);
 		
 	}
 	
