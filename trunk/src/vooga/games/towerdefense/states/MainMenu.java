@@ -39,5 +39,4 @@ public class MainMenu extends GameState{
 			addPlayField(layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame()));
 	}
 	
- 
 }
