@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.golden.gamedev.object.Sprite;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
@@ -17,7 +18,7 @@ import vooga.games.towerdefense.PathPoint;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  */
 
-public class Enemy extends Sprite {
+public class Enemy extends BetterSprite {
 
 	protected ArrayList<PathPoint> myPath;
 	private ArrayList<PathPoint> myCurrentPath;
