@@ -1,11 +1,11 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.Graphics2D;
 import java.util.List;
 
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.player.control.ItemSprite;
-import vooga.games.mariocloneold.tiles.Tile;
+import vooga.games.mariogame.tiles.Tile;
 
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;

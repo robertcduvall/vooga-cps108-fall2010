@@ -1,12 +1,13 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.image.BufferedImage;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.golden.gamedev.object.Sprite;
+
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.ItemSprite;
-import vooga.games.mariocloneold.items.GravityItem;
+import vooga.games.mariogame.items.GravityItem;
 
 @SuppressWarnings("serial")
 public class MarioSprite extends CharacterSprite {
@@ -26,7 +27,7 @@ public class MarioSprite extends CharacterSprite {
 		super(name, stateName, left, right);
 		setMaxHealth(3);
 
-		addStat("Score", new Stat<Integer>(0));
+		setStat("Score", new Stat<Integer>(0));
 
 		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
 	}
@@ -109,7 +110,7 @@ public class MarioSprite extends CharacterSprite {
 		myMaxX = maxX;
 	}
 
-	public void actOnItem(ItemSprite item) {
+	public void actOnItem(Sprite item) {
 		if (item.getClass().equals(GravityItem.class)) {
 			setGravityCoef(((GravityItem) item).getGravity());
 		}

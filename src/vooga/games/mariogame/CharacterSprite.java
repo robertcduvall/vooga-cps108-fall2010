@@ -1,9 +1,9 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.PlayerSprite;
 
 import com.golden.gamedev.object.AnimatedSprite;
 
@@ -16,7 +16,7 @@ import com.golden.gamedev.object.AnimatedSprite;
  */
 
 @SuppressWarnings("serial")
-public class CharacterSprite extends PlayerSprite {
+public class CharacterSprite extends BetterSprite {
 
 	private static final double GRAVITY = .0025;
 	private double myGravityCoef = 1;
@@ -24,18 +24,17 @@ public class CharacterSprite extends PlayerSprite {
 
 	public CharacterSprite(String name, String stateName,
 			BufferedImage[] right, BufferedImage[] left) {
-		super(name, stateName, new AnimatedSprite(right));
-
+//		super(name, stateName, new AnimatedSprite(right));
+		super(name,new AnimatedSprite(right));
 		AnimatedSprite r = new AnimatedSprite(right);
 		r.setAnimate(true);
 		r.setLoopAnim(true);
 		AnimatedSprite l = new AnimatedSprite(left);
 		r.setAnimate(true);
 		r.setLoopAnim(true);
-		mapNameToSprite("Right", r);
-		mapNameToSprite("Left", l);
-
-		addStat("Health", new Stat<Integer>(getMaxHealth()));
+		addSprite("Right", r);
+		addSprite("Left", l);
+		setStat("Health", new Stat<Integer>(getMaxHealth()));
 
 		// active = true;
 	}

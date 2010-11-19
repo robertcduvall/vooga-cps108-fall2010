@@ -1,15 +1,15 @@
-package vooga.games.mariocloneold.items;
+package vooga.games.mariogame.items;
+
+import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.player.control.ItemSprite;
-
 @SuppressWarnings("serial")
-public class GravityItem extends ItemSprite {
+public class GravityItem extends Sprite {
 
 	private double myGravity;
 
-	public GravityItem(Sprite s, double gravity) {
+	public GravityItem(BufferedImage s, double gravity) {
 		super(s);
 		myGravity = gravity;
 	}

@@ -1,4 +1,4 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import vooga.engine.player.control.ItemSprite;
 
