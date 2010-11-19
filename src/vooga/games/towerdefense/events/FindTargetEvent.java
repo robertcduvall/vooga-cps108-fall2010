@@ -1,21 +1,19 @@
 package vooga.games.towerdefense.events;
 
+import vooga.engine.core.BetterSprite;
+import vooga.engine.event.IEventHandler;
+import vooga.games.towerdefense.DropThis;
+import vooga.games.towerdefense.actors.enemies.Enemy;
+import vooga.games.towerdefense.actors.towers.ShootingTower;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.event.IEventHandler;
-import vooga.games.towerdefense.DropThis;
-import vooga.games.towerdefense.actors.towers.Enemy;
-import vooga.games.towerdefense.actors.towers.IEvent;
-import vooga.games.towerdefense.actors.towers.ShootingTower;
-
 public class FindTargetEvent implements IEventHandler{
 
-	DropThis game;
-	NeedsTargetsEvent needsTargetsEvent;
+	private DropThis game;
 	
-	public void setGame(DropThis game, IEvent event){
-		needsTargetsEvent = (NeedsTargetsEvent) event;
+	public void setGame(DropThis game){
 		this.game = game;
 	}
 	
@@ -38,8 +36,13 @@ public class FindTargetEvent implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		NeedsTargetsEvent needsTargetsEvent = (NeedsTargetsEvent) event;
-		ShootingTower tower = needsTargetsEvent.getTower();
-		tower.setTarget((Enemy) findTarget(tower));
+		ShootingTower[] towersToCheck = (ShootingTower[]) game.getCurrentLevel().getGroup("tower").getSprites();
+		for(int i = 0; i < towersToCheck.length; i++)
+		{
+			if(towersToCheck[i].getTarget()==null)
+			{
+				towersToCheck[i].setTarget((Enemy) findTarget(towersToCheck[i]));
+			}
+		}
 	}
 }
