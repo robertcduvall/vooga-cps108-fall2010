@@ -3,10 +3,11 @@ package vooga.games.towerdefense.actors;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.actors.towers.Normal;
 import vooga.games.towerdefense.actors.towers.Tower;
+import vooga.games.towerdefense.events.BuildTowerEvent;
 
 /**
  * Represents the player in the game. The player follows 
@@ -19,11 +20,13 @@ import vooga.games.towerdefense.actors.towers.Tower;
  */
 public class Player extends BetterSprite {
 
-
 	private static final long serialVersionUID = 1L;
 	private static final Tower DEFAULT_TOWER = new Normal(0,0);
 	private Tower currentTower;
 	private BuildTowerEvent buildTowerEvent;
+	private Stat<Integer> balance;
+	private Stat<Integer> score;
+	private Stat<Integer> selfEsteem;
 
 	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower) {
 		super(image, x, y);
@@ -50,5 +53,25 @@ public class Player extends BetterSprite {
 	public void changeTowerType(Tower newTower){
 		currentTower = newTower;
 		setImage(currentTower.getPreviewImage());
+	}
+	
+	public void addMoney(int money){
+		balance.setStat(balance.getStat()+money);
+	}
+	
+	public int getSelfEsteem(){
+		return selfEsteem.getStat();
+	}
+	
+	public void removeSelfEsteem(int amount){
+		balance.setStat(balance.getStat()-amount);
+	}
+	
+	public int getScore(){
+		return score.getStat();		
+	}
+	
+	public void addScore(int amount){
+		score.setStat(score.getStat() + amount);
 	}
 }
