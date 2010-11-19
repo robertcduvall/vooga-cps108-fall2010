@@ -4,8 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import java.awt.event.KeyEvent;
+
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
-import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
@@ -134,15 +137,13 @@ public class GamePlayState extends GameState {
 	}
 
 	private void setUpKeyboard() {
-		myControl = new KeyboardControl(((MarioPlayField) myLevel).getMario(),
-				myGame);
-
-		myControl.addInput(KeyEvent.VK_D, "moveRight",
-				"vooga.games.marioclone.MarioSprite");
-		myControl.addInput(KeyEvent.VK_A, "moveLeft",
-				"vooga.games.marioclone.MarioSprite");
-		myControl.addInput(KeyEvent.VK_W, "jumpCmd",
-				"vooga.games.marioclone.MarioSprite");
+		Control playerControl = new KeyboardControl(((MarioPlayField) myLevel).getMario(), myGame);
+		playerControl.addInput(KeyEvent.VK_D, "rotateLeft", "vooga.games.asteroids.sprites.Ship");
+		playerControl.addInput(KeyEvent.VK_A, "rotateRight", "vooga.games.asteroids.sprites.Ship");
+		playerControl.addInput(KeyEvent.VK_W, "thrust", "vooga.games.asteroids.sprites.Ship");
+		myLevel.addControl(playerControl);
+		
+		/*
 		for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) {
 			if (i == KeyEvent.VK_D || i == KeyEvent.VK_A || i == KeyEvent.VK_W)
 				continue;
@@ -150,7 +151,7 @@ public class GamePlayState extends GameState {
 			myControl.addInput(i, "cheat",
 					"vooga.games.marioclone.MarioSprite", (char) i);
 		}
-
+		*/
 	}
 
 }
