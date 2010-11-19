@@ -2,7 +2,7 @@ package vooga.games.doodlejump;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.player.GameEntitySprite;
+import vooga.engine.core.BetterSprite;;
 
 /**
  * The BallSprite class extends GameEntitySprite and defines how the balls that
@@ -11,10 +11,10 @@ import vooga.engine.player.GameEntitySprite;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class BallSprite extends GameEntitySprite {
+public class BallSprite extends BetterSprite {
 
 	public BallSprite(String name, String stateName, Sprite s) {
-		super(name, stateName, s);
+		super(name, s);
 	}
 
 	@Override
