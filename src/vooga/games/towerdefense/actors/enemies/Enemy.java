@@ -33,7 +33,7 @@ public class Enemy extends BetterSprite {
 	private int myLives;
 	private final int MONEY = 1;
 	private final int SCORE = 10;
-	private EnemyFailEvent myFailEvent;
+	protected EnemyFailEvent myFailEvent;
 
 	public Enemy(List<PathPoint> path, int speed, int lives, EnemyFailEvent failEvent) {
 		super(-100, -100);
