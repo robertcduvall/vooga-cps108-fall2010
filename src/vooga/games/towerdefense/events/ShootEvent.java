@@ -9,8 +9,8 @@ import vooga.games.towerdefense.actors.enemies.Enemy;
 import vooga.games.towerdefense.actors.towers.ShootingTower;
 
 public class ShootEvent implements IEventHandler{
-	ShootingTower tower;
-	Player player;
+	private ShootingTower tower;
+	private Player player;
 	
 	public ShootEvent(Player p)
 	{
