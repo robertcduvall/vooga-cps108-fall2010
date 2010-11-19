@@ -10,10 +10,8 @@ public class LevelButton extends Button{
 	
 	private String levelName;
 	
-	public LevelButton(Game game, String levelName, String imageName, double x, double y){
+	public LevelButton(Game game){
 		super(game);
-		this.levelName = levelName;
-		this.setImage(Resources.getImage(imageName));
 	}
 
 	public LevelButton(Game game, BufferedImage image, double x, double y) {
@@ -23,12 +21,16 @@ public class LevelButton extends Button{
 
 	@Override
 	public void actionPerformed() {
-		switch levelName;
-		{
-			case "easy": 
-			case "medium":
-			case "hard":
-		}
+//		switch levelName;
+//		{
+//			case "easy": 
+//			case "medium":
+//			case "hard":
+//		}
+	}
+	
+	public void setLevel(String levelName){
+		this.levelName = levelName;
 	}
 
 }
