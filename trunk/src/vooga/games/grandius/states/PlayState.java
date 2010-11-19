@@ -87,12 +87,12 @@ public class PlayState extends GameState {
 		this.addRenderPlayField(newField);
 		
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>(); //TODO get rid of the negative signs?
-		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("ProjectileSpeed"));
-		spriteGroupSpeedMap.put(enemyProjectileGroup,   -Resources.getDouble("ProjectileSpeed"));
-		spriteGroupSpeedMap.put(enemyGroup,             Resources.getDouble("EnemySpeed"));
-		spriteGroupSpeedMap.put(bossPartGroup,          -Resources.getDouble("BossPartSpeed"));
-		spriteGroupSpeedMap.put(bossGroup,              -Resources.getDouble("BossSpeed"));
-		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("ProjectileSpeed"));
+		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("projectileSpeed"));
+		spriteGroupSpeedMap.put(enemyProjectileGroup,   -Resources.getDouble("projectileSpeed"));
+		spriteGroupSpeedMap.put(enemyGroup,             Resources.getDouble("enemySpeed"));
+		spriteGroupSpeedMap.put(bossPartGroup,          -Resources.getDouble("bossPartSpeed"));
+		spriteGroupSpeedMap.put(bossGroup,              -Resources.getDouble("bossSpeed"));
+		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("projectileSpeed"));
 	}
 	
 	public void addCollisions(List<BasicCollision> collisions) { //TODO find a way to make this method private?

@@ -31,15 +31,17 @@ public class ShoppingLevelState extends MenuGameState {
 	private BuyMissileButton myBuyMissileButton;
 	private BuyBlackHoleButton myBuyBlackHoleButton;
 	private NextLevelButton myNextLevelButton;
-	
+	private Game myGame;
+	 //TODO distinguish between initialize() and constructor in terms of what they need to do
 	public ShoppingLevelState(Game game) {
-		this.myBuyMissileButton = new BuyMissileButton(game);
-		this.myBuyBlackHoleButton = new BuyBlackHoleButton(game);
-		this.myNextLevelButton = new NextLevelButton(game);
+		this.myGame = game;
 	}
 
 	@Override
 	public void initialize() {
+		this.myBuyMissileButton = new BuyMissileButton(myGame);
+		this.myBuyBlackHoleButton = new BuyBlackHoleButton(myGame);
+		this.myNextLevelButton = new NextLevelButton(myGame);
 		addButton(myBuyMissileButton);
 		addButton(myBuyBlackHoleButton);
 		addButton(myNextLevelButton);

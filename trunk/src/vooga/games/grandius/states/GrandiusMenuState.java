@@ -19,14 +19,16 @@ public class GrandiusMenuState extends MenuGameState {
 
 	private PlayButton myPlayButton;
 	private QuitButton myQuitButton;
+	private Game myGame;
 	
 	public GrandiusMenuState(Game game) {
-		this.myPlayButton = new PlayButton(game);
-		this.myQuitButton = new QuitButton(game);
+		myGame = game;
 	}
 
 	@Override
 	public void initialize() {
+		this.myPlayButton = new PlayButton(myGame);
+		this.myQuitButton = new QuitButton(myGame);
 		addButton(myPlayButton);
 		addButton(myQuitButton);
 	}
