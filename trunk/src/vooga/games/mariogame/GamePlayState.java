@@ -2,12 +2,10 @@ package vooga.games.mariogame;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
-import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 /**
@@ -24,7 +22,7 @@ import vooga.engine.state.GameState;
 public class GamePlayState extends GameState {
 
 	private Game myGame;
-	MarioLevelFactory myLevelFactory;
+//	MarioLevelFactory myLevelFactory;
 
 	private static final int NUM_LEVELS = 3;
 
@@ -49,8 +47,9 @@ public class GamePlayState extends GameState {
 	 *            is the desired height of the game window
 	 */
 
-	public GamePlayState(Game game) {
+	public GamePlayState(Game game, MarioPlayField level) {
 		myGame = game;
+		myLevel = level;
 		init();
 	}
 
@@ -97,7 +96,7 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-		myLevelFactory = new MarioLevelFactory();
+//		myLevelFactory = new MarioLevelFactory();
 		myCurrentLevel = 0;
 		switchLevel(0);
 		setUpKeyboard();
@@ -108,13 +107,13 @@ public class GamePlayState extends GameState {
 	}
 
 	private void switchLevel(int i) {
-		File levelFile = new File(Resources.getString("level"
-				+ Integer.toString(i)));
-
-		MarioPlayField pf = (MarioPlayField) myLevelFactory
-				.getPlayfield(levelFile);
-		pf.setLevel(i + 1);
-		myLevel = pf;
+//		File levelFile = new File(Resources.getString("level"
+//				+ Integer.toString(i)));
+//
+//		MarioPlayField pf = (MarioPlayField) myLevelFactory
+//				.getPlayfield(levelFile);
+//		pf.setLevel(i + 1);
+//		myLevel = pf;
 		myGame.playMusic(myLevel.getMusic());
 	}
 

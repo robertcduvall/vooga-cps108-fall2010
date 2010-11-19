@@ -41,16 +41,17 @@ public class DropThis extends Game {
 	}
 
 	public void initResources() {
-		super.initResources();
 		initFonts();
+		super.initResources();
 		initLevelManager();
-		initGameStates();
+		initStates();
+
 	}
 	
 	private void initLevelManager() {
 		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-		String levelNamesFile = Resources.getString("levelNamesFile");
+		String levelFilesDirectory = Resources.getString("LevelFilesDirectory");
+		String levelNamesFile = Resources.getString("LevelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
 		myLevels = levelManager.getAllPlayFields();
 	}
@@ -77,8 +78,7 @@ public class DropThis extends Game {
 		stateManager.activateOnly(playState);
 	}
 
-	public void initGameStates() {
-		super.initGameStates();
+	public void initStates() {
 		LevelParser levelParser = new LevelParser();
 		PlayField loseField = levelParser.getPlayfield(Resources.getString("losexml"),this);
 		PlayField winField = levelParser.getPlayfield(Resources.getString("winxml"),this);
@@ -87,7 +87,7 @@ public class DropThis extends Game {
 		GameEndState loseState = new GameEndState(loseField);
 		GameEndState winState = new GameEndState(winField);
 		MainMenuState levelFinishedState = new MainMenuState(Resources.getImage("Level Complete BG"), fontManager);
-		GamePlayState playState = new GamePlayState(this);
+		GamePlayState playState = new GamePlayState(this,(MarioPlayField) myLevels.toArray()[0]);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
 	}
 }
