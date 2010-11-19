@@ -42,46 +42,4 @@ public class LayoutParser extends LevelParser {
 		button.setLocation(x, y);
 		spriteGroup.add(button);
 	}
-	
-	public void processEasyButton(Element buttonElement,
-			SpriteGroup spriteGroup) {
-		Button button = new LevelButton(getGame());
-
-		NodeList visualsList = buttonElement.getElementsByTagName("Visual");
-		processVisual(visualsList, button);
-
-		double x = Double.parseDouble(buttonElement.getAttribute("x"));
-		double y = Double.parseDouble(buttonElement.getAttribute("y"));
-
-		button.setLocation(x, y);
-		spriteGroup.add(button);
-	}
-	
-	public void processMediumButton(Element buttonElement,
-			SpriteGroup spriteGroup) {
-		Button button = new LevelButton(getGame());
-
-		NodeList visualsList = buttonElement.getElementsByTagName("Visual");
-		processVisual(visualsList, button);
-
-		double x = Double.parseDouble(buttonElement.getAttribute("x"));
-		double y = Double.parseDouble(buttonElement.getAttribute("y"));
-
-		button.setLocation(x, y);
-		spriteGroup.add(button);
-	}
-	
-	public void processHardButton(Element buttonElement,
-			SpriteGroup spriteGroup) {
-		Button button = new LevelButton(getGame());
-
-		NodeList visualsList = buttonElement.getElementsByTagName("Visual");
-		processVisual(visualsList, button);
-
-		double x = Double.parseDouble(buttonElement.getAttribute("x"));
-		double y = Double.parseDouble(buttonElement.getAttribute("y"));
-
-		button.setLocation(x, y);
-		spriteGroup.add(button);
-	}
 }
