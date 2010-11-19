@@ -204,7 +204,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", "Moving", level, player,
+		Zombie newZombie = new Zombie("New", level, player,
 				currentGame);
 		zombiesAppeared++;
 		SpriteGroup zombies = playField.getGroup("Zombies");

@@ -12,7 +12,6 @@ import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.Blah;
@@ -37,7 +36,7 @@ public class ZombielandPauseState extends GameState implements Constants{
 
 		overlayPauseString = tracker.getOverlay("pause", overlayPauseString);
 		overlayPauseString.setActive(true);
-		this.addGroup(tracker.getOverlayGroup("pause"));
+//		this.addGroup(tracker.getOverlayGroup("pause"));
 	}
 	public void render(Graphics2D g) {
 		overlayPauseString.render(g);

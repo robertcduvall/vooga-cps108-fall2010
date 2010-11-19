@@ -1,6 +1,6 @@
 package vooga.games.zombieland.items;
 
-import vooga.engine.player.control.GameEntitySprite;
+import vooga.engine.core.BetterSprite;
 import vooga.games.zombieland.Shooter;
 
 import com.golden.gamedev.object.Sprite;
@@ -12,12 +12,12 @@ import com.golden.gamedev.object.Sprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
-public abstract class Item extends GameEntitySprite {
+public abstract class Item extends BetterSprite {
 
 	private Shooter myPlayer;
 
 	public Item(Shooter shooter, Sprite s, double x, double y) {
-		super("Item", "Usable", s);
+		super("Item", s);
 		setX(x);
 		setY(y);
 		myPlayer = shooter;
