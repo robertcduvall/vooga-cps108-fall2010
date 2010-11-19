@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="Level1">
+<Level name="easyLevel">
 
 	<SpriteGroups>
 		<SpriteGroup name="playerGroup">
-			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20">
+			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20" q="1">
 				<Visual name="PlayerShipSingle" />
 			</RegularSprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<SpawnedSprite name="enemySprite" xRange="300" yRange="400" vxRange="10" vyRange="-10" quantity="20">
+			<!--<SpawnedSprite name="enemySprite" xRange="300" yRange="400" vxRange="10" vyRange="-10" quantity="5">
 				<Visual name="Zipster" />
-			</SpawnedSprite>
+			</SpawnedSprite>-->
+			<RegularSprite name="enemySprite" x="350" y="50">
+				<Visual name="Zipster" />
+			</RegularSprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
