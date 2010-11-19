@@ -44,7 +44,7 @@ public class GalaxyGameState extends GameState{
 	private static int BOMB_FREQUENCY = 10;
 	
 	private PlayField playfield;
-	private Game game;
+	private DropThis game;
 	private Control shipControl;
 	private Control gameControl;
 	private LevelManager levelManager;
@@ -65,7 +65,7 @@ public class GalaxyGameState extends GameState{
 	protected Stat<Integer> scoreStat;
 	public Stat<Integer> livesStat;
 	
-	public GalaxyGameState(Game g, PlayField pf){
+	public GalaxyGameState(DropThis g, PlayField pf){
 		playfield = pf;
 		game = g;
 	}
@@ -233,7 +233,7 @@ public class GalaxyGameState extends GameState{
 					loadLevel();
 				}
 				else {
-					((DropThis) game).gameOver();
+					game.gameOver();
 				}
 			}
 		}
@@ -252,14 +252,13 @@ public class GalaxyGameState extends GameState{
 		for(Sprite enemy: enemies.getSprites()) {
 			if(enemy!=null) {
 				if (isAtBorder((BetterSprite) enemy)) {
-					((DropThis) game).gameOver();
+					game.gameOver();
 					break;
 				}
 			}
 		}
-		//TODO: change type of game to DropThis to avoid casting
 		if(livesStat.getStat()<=0) {
-			((DropThis) game).gameOver();
+			game.gameOver();
 		}
 	}
 	

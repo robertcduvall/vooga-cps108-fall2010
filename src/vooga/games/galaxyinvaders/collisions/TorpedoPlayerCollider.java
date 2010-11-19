@@ -22,8 +22,8 @@ public class TorpedoPlayerCollider extends BasicCollisionGroup {
 	
 	private static final int LIVES_LOST = 1;
 	
-	public TorpedoPlayerCollider(Game g) {
-		game = (DropThis) g;
+	public TorpedoPlayerCollider(DropThis g) {
+		game = g;
 		pixelPerfectCollision = true;
 	}
 	@Override
