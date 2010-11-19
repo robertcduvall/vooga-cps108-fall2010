@@ -29,12 +29,8 @@ public class BuildEnemyEvent implements IEventHandler{
 		public boolean isTriggered() {
 			return !enemyQueue.isEmpty();
 		}
-
-		public void addTower(Enemy enemy){
-			enemyQueue.add(enemy);
-		}
 		
-		private void buildEnemy(Enemy enemy){
+		public void buildEnemy(Enemy enemy){
 			playField.add(enemy);
 		}
 		
