@@ -1,5 +1,7 @@
 package vooga.games.towerdefense;
 
+import com.golden.gamedev.object.SpriteGroup;
+
 import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
@@ -339,6 +341,11 @@ private OverlayTracker initOverlays() {
 
 	public static void main(String[] args) {
 		launch(new DropThis());
+	}
+
+	public SpriteGroup getEnemyGroup() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
