@@ -1,12 +1,13 @@
 package vooga.games.towerdefense.states;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.control.Control;
-import vooga.engine.control.MouseControl;
-import vooga.engine.core.PlayField;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
@@ -85,9 +86,9 @@ public class PlayState extends GameState{
 	}
 	
 	public Control initControl(BetterSprite player){
-		MouseControl playerControl = new MouseControl(player, Resources.getGame());	
-		playerControl.addInput(MouseEvent.BUTTON1, "onClick", "vooga.games.towerdefense.Player");
-		playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.Player");
+		KeyboardControl playerControl = new KeyboardControl(player, Resources.getGame());	
+		playerControl.addInput(KeyEvent.VK_SPACE, "onClick", "vooga.games.towerdefense.Player");
+		//playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.Player");
 		
 		return playerControl;
 	}
