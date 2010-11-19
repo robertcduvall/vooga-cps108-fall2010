@@ -4,8 +4,11 @@
 		<Image name="background" path="backgrounds/easyLevel.png" />
 		<Image name="towerPreview" path="towerPreview.png" />
 		<Image name="normalTower" path="normalTower.png" />
+		<Image name="normalTowerPreview" path="normalTowerPreview.png" />
 		<Image name="fastTower" path="fastTower.png" />
+		<Image name="fastTowerPreview" path="fastTowerPreview.png" />
 		<Image name="sniperTower" path="sniperTower.png" />
+		<Image name="sniperTowerPreview" path="sniperTowerPreview.png" />
 	</Images>
 	<Animations></Animations>
 	<Sounds></Sounds>
