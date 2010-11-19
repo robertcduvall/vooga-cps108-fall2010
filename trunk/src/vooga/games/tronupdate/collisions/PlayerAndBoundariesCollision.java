@@ -27,6 +27,6 @@ public class PlayerAndBoundariesCollision extends CollisionBounds{
 	public void collided(Sprite s) {
 		//s.setSpeed(-0.2, -0.2);
 		//s.setActive(false); //this will prevent collided method being called many times after collision
-		//gm.switchTo(gameOverState);
+		gm.switchTo(gameOverState);
 	}
 }
