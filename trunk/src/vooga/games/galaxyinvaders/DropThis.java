@@ -1,16 +1,12 @@
 package vooga.games.galaxyinvaders;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.PauseGameState;
-
-import com.golden.gamedev.GameLoader;
+import vooga.games.galaxyinvaders.states.GalaxyGameState;
 import com.golden.gamedev.object.SpriteGroup;
 
 
@@ -23,9 +19,6 @@ import com.golden.gamedev.object.SpriteGroup;
  *
  */
 public class DropThis extends Game {
-
-	private static final int GAME_WIDTH = 700;
-	private static final int GAME_HEIGHT = 800;
 
 	//private Background background;
 	private PlayField playfield;
@@ -106,10 +99,7 @@ public class DropThis extends Game {
 	 * @param args do nothing
 	 */
 	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new DropThis(), new Dimension(GAME_WIDTH, GAME_HEIGHT), false);
-		game.start();
-		//launch(new DropThis());
+		launch(new DropThis());
 	}
 
 }
