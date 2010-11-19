@@ -3,6 +3,8 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
+import vooga.engine.util.AnimationUtil;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
 /**
@@ -31,36 +33,36 @@ public class Zombie extends BetterSprite implements Constants {
 
 	public Zombie(String name, int level, Shooter player,
 			Blah currentGame) {
-		super(name, ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		super(name, AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieDown")));
 
-		AnimatedSprite down = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite down = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieDown"));
-		AnimatedSprite up = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite up = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieUp"));
-		AnimatedSprite left = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite left = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieLeft"));
-		AnimatedSprite right = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite right = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieRight"));
-		AnimatedSprite attackDown = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite attackDown = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieAttackDown"));
-		AnimatedSprite attackUp = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite attackUp = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieAttackUp"));
-		AnimatedSprite attackLeft = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite attackLeft = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieAttackLeft"));
-		AnimatedSprite attackRight = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite attackRight = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieAttackRight"));
-		AnimatedSprite death = ZombielandResources
-				.getInitializedAnimatedSprite(ZombielandResources
+		AnimatedSprite death = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
 						.getAnimation("ZombieDeath"));
 
 		addSprite(DOWN, down);
@@ -76,14 +78,14 @@ public class Zombie extends BetterSprite implements Constants {
 		setHumanTarget(player);
 
 		currentAttackAnimation = "";
-		attackDelay = ZombielandResources.getInt("zombieAttackDelay");
-		itemChance = ZombielandResources.getInt("itemChance");
-		zombieStatMultiplier = ZombielandResources
+		attackDelay = Resources.getInt("zombieAttackDelay");
+		itemChance = Resources.getInt("itemChance");
+		zombieStatMultiplier = Resources
 				.getDouble("zombieStatMultiplier");
 
-		speed = ZombielandResources.getDouble("zombieSpeed");
-		zombieCurrentHealth = ZombielandResources.getInt("startZombieHealth");
-		zombieDamage = ZombielandResources.getInt("startZombieDamage");
+		speed = Resources.getDouble("zombieSpeed");
+		zombieCurrentHealth = Resources.getInt("startZombieHealth");
+		zombieDamage = Resources.getInt("startZombieDamage");
 
 		updateStats(level);
 

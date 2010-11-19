@@ -8,10 +8,10 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.Constants;
-import vooga.games.zombieland.ZombielandResources;
 
 public class ZombielandMenuState extends GameState implements Constants{
 
@@ -30,7 +30,7 @@ public class ZombielandMenuState extends GameState implements Constants{
 	public void initialize() {
 		backgroundGroup = new SpriteGroup("Background");
 		
-		BufferedImage menu = ZombielandResources.getImage("menu");
+		BufferedImage menu = Resources.getImage("menu");
 		Sprite menuSprite = new Sprite(menu, GAME_WIDTH, GAME_HEIGHT);
 		
 		

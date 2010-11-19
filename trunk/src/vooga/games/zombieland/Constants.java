@@ -1,5 +1,7 @@
 package vooga.games.zombieland;
 
+import vooga.engine.resource.Resources;
+
 /**
  * Keeps the shared paths/constants
  * @author Yang
@@ -17,13 +19,13 @@ public interface Constants {
 	public static final String RESOURCE_FILENAME="game.properties";
 	
 	//Control variables
-	public static final String LEFT=ZombielandResources.getString("LEFT");
-	public static final String RIGHT=ZombielandResources.getString("RIGHT");
-	public static final String UP=ZombielandResources.getString("UP");
-	public static final String DOWN=ZombielandResources.getString("DOWN");
-	public static final String ATTACKLEFT=ZombielandResources.getString("ATTACKLEFT");
-	public static final String ATTACKRIGHT=ZombielandResources.getString("ATTACKRIGHT");
-	public static final String ATTACKUP=ZombielandResources.getString("ATTACKUP");
-	public static final String ATTACKDOWN=ZombielandResources.getString("ATTACKDOWN");
-	public static final String DEATH=ZombielandResources.getString("DEATH");
+	public static final String LEFT=Resources.getString("LEFT");
+	public static final String RIGHT=Resources.getString("RIGHT");
+	public static final String UP=Resources.getString("UP");
+	public static final String DOWN=Resources.getString("DOWN");
+	public static final String ATTACKLEFT=Resources.getString("ATTACKLEFT");
+	public static final String ATTACKRIGHT=Resources.getString("ATTACKRIGHT");
+	public static final String ATTACKUP=Resources.getString("ATTACKUP");
+	public static final String ATTACKDOWN=Resources.getString("ATTACKDOWN");
+	public static final String DEATH=Resources.getString("DEATH");
 }

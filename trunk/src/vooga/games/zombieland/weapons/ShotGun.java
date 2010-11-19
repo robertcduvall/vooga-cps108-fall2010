@@ -1,7 +1,7 @@
 package vooga.games.zombieland.weapons;
 
 import vooga.games.zombieland.Shooter;
-import vooga.games.zombieland.ZombielandResources;
+import vooga.engine.resource.Resources;
 
 /**
  * Shogun. Generates multiple bullets per round. High damage, high firing delay,
@@ -19,11 +19,11 @@ public class ShotGun extends Weapon {
 
 	public ShotGun(Shooter shooter, int ammo) {
 		super(shooter, ammo);
-		setDamage(ZombielandResources.getInt("shotgunDamage"));
-		setBulletSpeed(ZombielandResources.getInt("shotgunSpeed"));
-		setFiringDelay(ZombielandResources.getInt("shotgunDelay"));
-		angleRange=ZombielandResources.getInt("shotgunAngleRange");
-		numberOfShots=ZombielandResources.getInt("shotgunNumberOfShots");
+		setDamage(Resources.getInt("shotgunDamage"));
+		setBulletSpeed(Resources.getInt("shotgunSpeed"));
+		setFiringDelay(Resources.getInt("shotgunDelay"));
+		angleRange=Resources.getInt("shotgunAngleRange");
+		numberOfShots=Resources.getInt("shotgunNumberOfShots");
 	}
 
 	/**

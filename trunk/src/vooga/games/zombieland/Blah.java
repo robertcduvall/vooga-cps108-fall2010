@@ -1,15 +1,9 @@
 package vooga.games.zombieland;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import vooga.engine.core.Game;
-import vooga.engine.state.*;
 import vooga.games.zombieland.gamestates.ZombielandPauseState;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
-
-import com.golden.gamedev.GameLoader;
 
 /**
  * @date 10-8-10
@@ -22,30 +16,28 @@ import com.golden.gamedev.GameLoader;
  *               dropped.
  */
 
-public class Blah extends Game implements Constants{
+public class Blah extends Game implements Constants {
 
 	private static ZombielandPlayState zombielandPlayState;
 	private static ZombielandPauseState zombielandPauseState;
-	
+
 	/**
-	 * We overrode this method because we have specific a subclass ResourceHandler 
-	 * that we implemented for our purpose
+	 * We overrode this method because we have specific a subclass
+	 * ResourceHandler that we implemented for our purpose
 	 */
 	public void initResources() {
-		
+
 		super.initResources();
-		
 		zombielandPauseState = new ZombielandPauseState(this);
 		zombielandPlayState = new ZombielandPlayState(this);
-	
-		setAsPlayGameState(zombielandPlayState);
-		
-		getGameStateManager().addGameState(zombielandPlayState,zombielandPauseState);
-		//TODO add this in control
-//		if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
-//			getGameStateManager().toggle(zombielandPlayState);
-//			getGameStateManager().toggle(zombielandPauseState);
-//		}
+
+		getGameStateManager().addGameState(zombielandPlayState,
+				zombielandPauseState);
+		// TODO add this in control
+		// if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
+		// getGameStateManager().toggle(zombielandPlayState);
+		// getGameStateManager().toggle(zombielandPauseState);
+		// }
 	}
 
 	/**
@@ -55,6 +47,10 @@ public class Blah extends Game implements Constants{
 	 */
 	public static void main(String[] args) {
 		launch(new Blah());
+	}
+
+	public ZombielandPlayState getPlayGameState() {
+		return zombielandPlayState;
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import com.golden.gamedev.object.*;
 
 import vooga.engine.overlay.Stat;
+import vooga.engine.resource.Resources;
+import vooga.engine.util.AnimationUtil;
 import vooga.engine.core.BetterSprite;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
 import vooga.games.zombieland.weapons.AssaultRifle;
@@ -36,30 +38,30 @@ public class Shooter extends BetterSprite implements Constants{
 	private int levelScore;
 
 	public Shooter(String name, String stateName, Blah zombieland, Stat<Integer> initHealth, Stat<Integer> initAmmo, Stat<Integer> initScore) {
-		super(name, ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation("Down")));
+		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation("Down")));
 		game = zombieland;
 		weapons = new Weapon[3];
 		// DEFAULT attributes
-		speed = ZombielandResources.getInt("speed");
-		maxHealth = ZombielandResources.getInt("maxHealth");
-		orientation = ZombielandResources.getInt("orientation");
-		weaponChoice = ZombielandResources.getInt("weaponChoice");
-		levelScore = ZombielandResources.getInt("levelScore");
-		shotgunAmmo = ZombielandResources.getInt("shotgunAmmo");
-		rifleAmmo = ZombielandResources.getInt("rifleAmmo");
-		pistolAmmo = ZombielandResources.getInt("pistolAmmo");
+		speed = Resources.getInt("speed");
+		maxHealth = Resources.getInt("maxHealth");
+		orientation = Resources.getInt("orientation");
+		weaponChoice = Resources.getInt("weaponChoice");
+		levelScore = Resources.getInt("levelScore");
+		shotgunAmmo = Resources.getInt("shotgunAmmo");
+		rifleAmmo = Resources.getInt("rifleAmmo");
+		pistolAmmo = Resources.getInt("pistolAmmo");
 		
 		setupWeapons();
 		
-		int playerDefaultX = ZombielandResources.getInt("playerDefaultX");
-		int playerDefaultY = ZombielandResources.getInt("playerDefaultY");
+		int playerDefaultX = Resources.getInt("playerDefaultX");
+		int playerDefaultY = Resources.getInt("playerDefaultY");
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
 		
-		AnimatedSprite down = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(DOWN));
-		AnimatedSprite up = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(UP));
-		AnimatedSprite left = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(LEFT));
-		AnimatedSprite right = ZombielandResources.getInitializedAnimatedSprite(ZombielandResources.getAnimation(RIGHT));
+		AnimatedSprite down = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(DOWN));
+		AnimatedSprite up = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(UP));
+		AnimatedSprite left = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(LEFT));
+		AnimatedSprite right = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(RIGHT));
 		
 		this.addSprite(DOWN, down);
 		this.addSprite(UP, up);
