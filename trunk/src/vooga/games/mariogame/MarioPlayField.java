@@ -89,14 +89,14 @@ public class MarioPlayField extends PlayField {
 
 	@SuppressWarnings("unchecked")
 	public void setLevel(int level) {
-		myOverlays.getStats().get(2).setStat(level);
+		myOverlays.getStat("level").setStat(level);
 	}
 
 	@SuppressWarnings("unchecked")
 	private void updateStats() {
-		myOverlays.getStats().get(0).setStat(getMario().getHealth()); // update
+		myOverlays.getStat("health").setStat(getMario().getHealth()); // update
 		// lives
-		myOverlays.getStats().get(1).setStat(getMario().getScore()); // update
+		myOverlays.getStat("score").setStat(getMario().getScore()); // update
 		// score
 	}
 
@@ -110,8 +110,7 @@ public class MarioPlayField extends PlayField {
 
 	public void addOverlays(OverlayTracker overlayTracker) {
 		myOverlays = overlayTracker;
-		for (SpriteGroup g : myOverlays.getOverlayGroups())
-			addGroup(g);
+		addGroup(myOverlays.getOverlayGroup("levelOverlays"));
 	}
 
 	public OverlayTracker getOverlays() {
