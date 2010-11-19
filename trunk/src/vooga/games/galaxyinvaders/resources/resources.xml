@@ -23,17 +23,17 @@
 	</Strings>
 
 	<Integers>
-		<Integer name="blockadeSpriteDefaultHP" value=10 />
-		<Integer name="enemySpriteDefaultHP" value=10 />
-		<Integer name="shipMoveDistance" value=5 />
-		<Integer name="enemySpriteDefaultHP" value=10 />
-		<Integer name="itemFrequency" value=7 />
-		<Integer name="bombFrequency" value=10 />
+		<Integer name="blockadeSpriteDefaultHP" value="10" />
+		<Integer name="enemySpriteDefaultHP" value="10" />
+		<Integer name="shipMoveDistance" value="5" />
+		<Integer name="enemySpriteDefaultHP" value="10" />
+		<Integer name="itemFrequency" value="7" />
+		<Integer name="bombFrequency" value="10" />
 	</Integers>
 
 	<Doubles>
-		<Double name="itemSpeed" value=0.1 />
-		<Double name="enemyBombSpeed" value=0.5 />
+		<Double name="itemSpeed" value="0.1" />
+		<Double name="enemyBombSpeed" value="0.5" />
 	</Doubles>
 	
 </Resources>
