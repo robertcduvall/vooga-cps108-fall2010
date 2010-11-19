@@ -3,7 +3,7 @@ package vooga.games.zombieland.weapons;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
-import vooga.games.zombieland.ZombielandResources;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.util.ImageUtil;
@@ -35,7 +35,7 @@ public class Bullet extends BetterSprite{
 		angle = bulletAngle;
 		velocity = bulletSpeed;
 
-		BufferedImage bulletImage = ZombielandResources.getImage("bulletImage");
+		BufferedImage bulletImage = Resources.getImage("bulletImage");
 		getCurrentSprite().setImage(
 				ImageUtil.rotate(bulletImage, (int) angle));
 		
@@ -61,8 +61,8 @@ public class Bullet extends BetterSprite{
 	 */
 	private void correctRightFacingBullet() {
 
-		int bulletsCorrectRightX = ZombielandResources.getInt("bulletsCorrectRightX");
-		int bulletsCorrectRightY = ZombielandResources.getInt("bulletsCorrectRightY");
+		int bulletsCorrectRightX = Resources.getInt("bulletsCorrectRightX");
+		int bulletsCorrectRightY = Resources.getInt("bulletsCorrectRightY");
 
 		if (angle > 135 && angle < 225)
 			correctBulletPlacement(bulletsCorrectRightX, bulletsCorrectRightY);
@@ -73,8 +73,8 @@ public class Bullet extends BetterSprite{
 	 */
 	private void correctUpFacingBullet() {
 
-		int bulletsCorrectUpX = ZombielandResources.getInt("bulletsCorrectUpX");
-		int bulletsCorrectUpY = ZombielandResources.getInt("bulletsCorrectUpY");
+		int bulletsCorrectUpX = Resources.getInt("bulletsCorrectUpX");
+		int bulletsCorrectUpY = Resources.getInt("bulletsCorrectUpY");
 
 		if (angle > 45 && angle < 135)
 			correctBulletPlacement(bulletsCorrectUpX, bulletsCorrectUpY);
@@ -85,8 +85,8 @@ public class Bullet extends BetterSprite{
 	 */
 	private void correctLeftFacingBullet() {
 
-		int bulletsCorrectLeftX = ZombielandResources.getInt("bulletsCorrectLeftX");
-		int bulletsCorrectLeftY = ZombielandResources.getInt("bulletsCorrectLeftY");
+		int bulletsCorrectLeftX = Resources.getInt("bulletsCorrectLeftX");
+		int bulletsCorrectLeftY = Resources.getInt("bulletsCorrectLeftY");
 
 		if (angle > -45 && angle < 45)
 			correctBulletPlacement(bulletsCorrectLeftX, bulletsCorrectLeftY);
@@ -97,8 +97,8 @@ public class Bullet extends BetterSprite{
 	 */
 	private void correctDownFacingBullet() {
 
-		int bulletsCorrectDownX = ZombielandResources.getInt("bulletsCorrectDownX");
-		int bulletsCorrectDownY = ZombielandResources.getInt("bulletsCorrectDownY");
+		int bulletsCorrectDownX = Resources.getInt("bulletsCorrectDownX");
+		int bulletsCorrectDownY = Resources.getInt("bulletsCorrectDownY");
 
 		if (angle > 225 && angle < 315)
 			correctBulletPlacement(bulletsCorrectDownX, bulletsCorrectDownY);

@@ -20,19 +20,10 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.zombieland.collision.BZCollisionManager;
-import vooga.games.zombieland.collision.HICollisionManager;
-import vooga.games.zombieland.collision.PZCollisionManager;
-import vooga.games.zombieland.collision.WallBoundManager;
-import vooga.games.zombieland.items.HealthItem;
-import vooga.games.zombieland.items.Item;
-import vooga.games.zombieland.items.WeaponItem;
-import vooga.games.zombieland.weapons.Bullet;
-import vooga.games.zombieland.Blah;
-import vooga.games.zombieland.Constants;
-import vooga.games.zombieland.Shooter;
-import vooga.games.zombieland.Zombie;
-import vooga.games.zombieland.ZombielandResources;
+import vooga.games.zombieland.*;
+import vooga.games.zombieland.collision.*;
+import vooga.games.zombieland.items.*;
+import vooga.games.zombieland.weapons.*;
 
 public class ZombielandPlayState extends GameState implements Constants{
 
@@ -105,17 +96,17 @@ public class ZombielandPlayState extends GameState implements Constants{
 		playField = new PlayField();
 
 		//Set up the music
-		String audiofile = ZombielandResources.getString("gamemusic");
+		String audiofile = Resources.getString("gamemusic");
 		currentGame.playMusic(audiofile);
 
 		//Set up the game background
-		BufferedImage sandbg = ZombielandResources.getImage("sandbg");
+		BufferedImage sandbg = Resources.getImage("sandbg");
 		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
 				GAME_HEIGHT);
 		playField.setBackground(background);
 
-		String spritegroupslist = ZombielandResources.getString("spritegroupslist");
-		String delim = ZombielandResources.getString("delim");
+		String spritegroupslist = Resources.getString("spritegroupslist");
+		String delim = Resources.getString("delim");
 		String[] spritegroups = spritegroupslist.split(delim);
 		
 		for(int i = 0; i < spritegroups.length; i++)
@@ -137,10 +128,10 @@ public class ZombielandPlayState extends GameState implements Constants{
 		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
 		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
 		
-		int delay = ZombielandResources.getInt("timer");
+		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
 
-		level = ZombielandResources.getInt("startLevel");
+		level = Resources.getInt("startLevel");
 	}
 
 	/**
@@ -176,8 +167,8 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * This method sets the new Delay Time
 	 */
 	private void setNewDelay() {
-		int timeInterval = ZombielandResources.getInt("timeInterval");
-		double delayFactor = ZombielandResources.getDouble("delayFactor");
+		int timeInterval = Resources.getInt("timeInterval");
+		double delayFactor = Resources.getDouble("delayFactor");
 
 		timer.setDelay((long) (timeInterval / level * delayFactor));
 	}
@@ -191,7 +182,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 
 	private boolean moreZombieCanBeAdded() {
 
-		double zombieLimitingFactor = ZombielandResources
+		double zombieLimitingFactor = Resources
 				.getDouble("zombieLimitingFactor");
 
 		return zombiesAppeared < Zombie.zombiesPerLevel() * level
@@ -236,15 +227,15 @@ public class ZombielandPlayState extends GameState implements Constants{
 
 		int choice = random.nextInt(3);
 
-		String weaponchoices = ZombielandResources.getString("weaponchoices");
-		String delim = ZombielandResources.getString("delim");
+		String weaponchoices = Resources.getString("weaponchoices");
+		String delim = Resources.getString("delim");
 
 		String[] options = weaponchoices.split(delim);
 		String option = options[choice];
 
-		BufferedImage itemimage = ZombielandResources.getImage(option);
+		BufferedImage itemimage = Resources.getImage(option);
 		SpriteGroup items = playField.getGroup("Items");
-		int healthOption = ZombielandResources.getInt("healthOption");
+		int healthOption = Resources.getInt("healthOption");
 
 		if (choice == healthOption) {
 			getHealthItem(x, y, option, itemimage, items);
@@ -265,7 +256,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	private void getWeaponItem(double x, double y, String option,
 			BufferedImage itemimage, SpriteGroup items) {
-		int weaponoption = ZombielandResources.getInt(option);
+		int weaponoption = Resources.getInt(option);
 		Item newGun = new WeaponItem(player, new Sprite(itemimage),
 				weaponoption, x, y);
 		items.add(newGun);
@@ -283,7 +274,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	private void getHealthItem(double x, double y, String option,
 			BufferedImage itemimage, SpriteGroup items) {
-		int health = ZombielandResources.getInt(option);
+		int health = Resources.getInt(option);
 		Item healthkit = new HealthItem(player, new Sprite(itemimage), health,
 				x, y);
 		items.add(healthkit);
@@ -376,8 +367,8 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	private void renderGameOver(Graphics2D g) {
 
-		int overlayStringX = ZombielandResources.getInt("overlayStringX");
-		int overlayStringY = ZombielandResources.getInt("overlayStringY");
+		int overlayStringX = Resources.getInt("overlayStringX");
+		int overlayStringY = Resources.getInt("overlayStringY");
 
 		overlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
 		overlayGameOverString.setLocation(overlayStringX, overlayStringY);
