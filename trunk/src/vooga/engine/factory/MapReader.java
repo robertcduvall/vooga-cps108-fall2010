@@ -106,11 +106,11 @@ public class MapReader {
 
 				currentKey = (j < lines.get(k).length()) ? lines.get(k).charAt(j) : ' ';
 				
-				if (myAssociativities.containsKey(currentKey)){
-					String classToCreate = myAssociativities.get(currentKey); 
-					Class<Sprite> op;
+				if (myAssociativities.containsKey(currentKey+"")){
+					String classToCreate = myAssociativities.get(currentKey+""); 
+					Class<? extends Sprite> op;
 					try {
-						op = (Class<Sprite>) Class.forName(classToCreate);
+						op = (Class<? extends Sprite>) Class.forName(classToCreate);
 						Sprite obj = op.newInstance();
 						myPlayfield.add(obj);
 					} catch (Exception e) {
