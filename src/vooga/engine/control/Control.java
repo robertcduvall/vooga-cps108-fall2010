@@ -31,7 +31,7 @@ public class Control{
 	protected Map<Integer, ArrayList<Method>> methodMap;
 	protected Map<Integer, ArrayList<Object[]>> paramMap;
 	protected Map<Integer, ArrayList<Method[]>> methodParamMap;
-	protected ArrayList<Integer> key;
+	protected int key;
 
 	/**
 	 * Default Control Constructor
@@ -39,7 +39,7 @@ public class Control{
 	public Control() {
 		initializeMappings();
 		entities = new ArrayList<BetterSprite>();
-		key = new ArrayList<Integer>();
+		key = 0;
 	}
 
 	/**
@@ -108,19 +108,14 @@ public class Control{
 	/**
 	 * Invoke methods here. Call method each time through game loop
 	 */
-	public void update() {
-		while (key.size() > 0)
-		{
-			int thisKey = key.remove(0);
-			if (methodMap.containsKey(thisKey))
-			{
+	public void update(int key) {
 				try{
 					for (int i = 0; i < entities.size(); i++)
 					{
-						for(int e = 0; e < methodMap.get(thisKey).size(); e++){
-							Method perform = methodMap.get(thisKey).get(e);
-							Object[] paramVals = paramMap.containsKey(thisKey) ? paramMap.get(thisKey).get(e) : new Object[0];
-							Method[] newParams = methodParamMap.containsKey(thisKey) ? methodParamMap.get(thisKey).get(e) : new Method[0];
+						for(int e = 0; e < methodMap.get(key).size(); e++){
+							Method perform = methodMap.get(key).get(e);
+							Object[] paramVals = paramMap.containsKey(key) ? paramMap.get(key).get(e) : new Object[0];
+							Method[] newParams = methodParamMap.containsKey(key) ? methodParamMap.get(key).get(e) : new Method[0];
 							List<Object> objectParameters = new ArrayList<Object>();
 							for (Object parameter : paramVals)
 							{
@@ -130,7 +125,7 @@ public class Control{
 							{
 								objectParameters.add(method.invoke(method.getDeclaringClass()));
 							}
-							perform.invoke(entities.get(i), objectParameters.toArray());
+								perform.invoke(entities.get(i), objectParameters.toArray());
 								
 						}
 					}
@@ -139,10 +134,13 @@ public class Control{
 					System.err.println(e);
 					e.printStackTrace();
 				}
-			}
-		}
+			
 	}
 
+	public void update() {
+		
+	}
+	
 	/**
 	 * Create keyset to map input to method. Can be overwritten to create new control scheme  
 	 * 
