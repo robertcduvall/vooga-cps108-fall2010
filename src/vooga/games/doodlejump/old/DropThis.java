@@ -1,4 +1,4 @@
-package vooga.games.doodlejump;
+package vooga.games.doodlejump.old;
 
 import java.awt.*;
 
@@ -12,11 +12,11 @@ import vooga.engine.core.*;
 import vooga.engine.core.Game;
 //import vooga.engine.core.Sprite;
 
+import vooga.games.doodlejump.DoodleSprite;
 import vooga.games.doodlejump.collisions.*;
 
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
-import com.golden.gamedev.object.Sprite;
 //import com.golden.gamedev.object.Sprite;
 
 import com.golden.gamedev.object.background.*;
