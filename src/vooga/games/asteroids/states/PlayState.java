@@ -34,16 +34,8 @@ public class PlayState extends GameState{
 	}
 	
 	private void initLevel(){
-
-//		PlayField playField = factory.getPlayfield("INSERTFILEPATHERE", game);
-		
-//		playField.addCollisionGroup(bulletGroup, asteroidGroup, new BulletToAsteroidCollision());
-//		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
-//		
-//		addPlayField(playField);
 		BetterSprite playerShip = (BetterSprite)(getGroup("playerShip").getSprites()[0]);
 		initControls(playerShip);
-
 	}
 	
 	private void initControls(BetterSprite player){
@@ -53,5 +45,7 @@ public class PlayState extends GameState{
 		playerControl.addInput(KeyEvent.VK_UP, "thrust", "vooga.games.asteroids.sprites.Ship");
 		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship");
 		myField.addControl(playerControl);
+		this.getUpdateField().add(myField);
+		this.getRenderField().add(myField);
 	}
 }

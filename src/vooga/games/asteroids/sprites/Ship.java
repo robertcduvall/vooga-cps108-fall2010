@@ -16,6 +16,10 @@ public class Ship extends BetterSprite {
 	private double myVelocity;
 	private double myOrientation;
 	
+	public Ship() {
+		this(new Stat<Integer>(3));
+	}
+	
 	public Ship(Stat<Integer> numLives)
 	{
 		myVelocity = 0;
@@ -44,7 +48,7 @@ public class Ship extends BetterSprite {
 	
 	@Override
 	public void update(long elapsedTime){
-		myVelocity -= VELOCITY_REDUCTION;
+		//myVelocity -= VELOCITY_REDUCTION;
 		setMovement(myVelocity, myOrientation);
 		super.update(elapsedTime);
 	}
