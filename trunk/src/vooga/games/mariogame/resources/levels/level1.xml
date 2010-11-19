@@ -19,7 +19,7 @@
 	
 	<Map>
 		<MapGroup name = "map0.txt">
-			<Association char = "F" object = "IndestructibleTile"></Association>
+			<Association char = "F" object = "IndestructibleTile" />
 			<Association char = "D" object = "IndestructibleTile"></Association>
 			<Association char = "B" object = "BreakTile"></Association>
 			<Association char = "C" object = "ChangingTile"></Association>

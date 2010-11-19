@@ -266,17 +266,20 @@ public class LevelParser implements LevelFactory{
 
 			if(isElement(currentNode))
 			{
-				String path = currentNode.getNodeName();
+				String path = ((Element) currentNode).getAttribute("name");
 				reader = new MapReader(path, voogaPlayField);
-				NodeList listOfAssociations = currentNode.getChildNodes();
+				NodeList listOfAssociations = currentNode.getFirstChild().getChildNodes();
 				for(int j = 0; j < listOfAssociations.getLength(); j++)
 				{
-					Element association = (Element) listOfAssociations.item(j);
-
-					String key = association.getAttribute("char");
-					String value = association.getAttribute("object");
-
-					reader.addAssociation(key, value);
+					Node association = listOfAssociations.item(j);
+					if(isElement(association)) {
+						Element associationElement = (Element) listOfAssociations.item(j);
+	
+						String key = associationElement.getAttribute("char");
+						String value = associationElement.getAttribute("object");
+	
+						reader.addAssociation(key, value);
+					}
 				}
 				voogaPlayField = reader.processMap();
 			}
