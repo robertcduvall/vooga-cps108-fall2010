@@ -31,7 +31,8 @@ public class Enemy extends BetterSprite {
 	private int myTempLoc;
 	private boolean myRestart;
 	private int myLives;
-	protected EnemyFailEvent myFailEvent;
+	private final int MONEY = 1;
+	private final int SCORE = 10;
 
 	public Enemy(List<PathPoint> path, int speed, int lives, EnemyFailEvent failEvent) {
 		super(-100, -100);
@@ -59,7 +60,6 @@ public class Enemy extends BetterSprite {
 		} else if (myLives == 1) {
 			setImage(Resources.getImage("duvallFace"));
 		}
-
 	}
 
 	/**
@@ -101,6 +101,14 @@ public class Enemy extends BetterSprite {
 	
 	public int getLives(){
 		return myLives;
+	}
+	
+	public int getScorePerHit(){
+		return SCORE;
+	}
+	
+	public int getMoneyPerHit(){
+		return MONEY;
 	}
 
 	/**
