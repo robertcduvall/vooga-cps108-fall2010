@@ -13,12 +13,17 @@
 		<Image name="ProjectileVertical" path="bullet.jpg" />
 		<Image name="PlayerShipSingle" path="playersingle.png" />
 		<Image name="Laser" path="projectile-blue.png" />
-		<Image name="ZipsterLaser" path="zipster_laser.png"></Image>
+		<Image name="ZipsterLaser" path="zipster_laser.png" />
 		<Image name="SideKick" path="orange-circle.png" />
 		<Image name="ReacherEyeBeam" path="reacher_eye_beam.png" />
 		<Image name="ReacherBeam" path="reacher_beam.png" />
 		<Image name="ReacherRedRay" path="reacher_redray.png" />
 		<Image name="BlackHole" path="black_hole.png" />
+		<Image name="PlayButton" path="playButton.png" />
+		<Image name="QuitButton" path="quitButton.png" />
+		<Image name="BuyMissileButton" path="buyMissileButton.png" />
+		<Image name="BuyBlackHoleButton" path="buyBlackHoleButton.png" />
+		<Image name="NextLevelButton" path="nextLevelButton.png" />
 	</Images>
 
 	<Animations>
@@ -119,16 +124,22 @@
 		<Integer name="levelCompleteY" value="150" />
 		<Integer name="cometX" value="10000" />
 		<Integer name="cometY" value="480" />
-		<Integer name="NumComents" value="500" />
+		<Integer name="NumComets" value="500" />
 		<Integer name="LastLevel" value="3" />
 		<Integer name="PlayerInitialX" value="15" />
 		<Integer name="PlayerInitialY" value="200" />
 		<Integer name="InitialPlayerLives" value="3" />
+		<Integer name="InitialZero" value="0" />
 	</Integers>
 
 	<Doubles>
 		<Double name="cometVX" value="-0.05" />
-		<Double name="bulletSpeed" value="0.15" />
-		<Double name="playerSpeed"" value="0.2" />
+		<Double name="bulletSpeed" value="0.15" /> 
+		<Double name="playerSpeed" value="0.2" />
+		<Double name="projectileSpeed" value="0.15" />
+		<Double name="bossPartSpeed" value="0.05" />
+		<Double name="bossSpeed" value="0.01" />
+		<Double name="enemySpeed" value="0.15" />
 	</Doubles>
+	
 </Resources>

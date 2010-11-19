@@ -132,7 +132,6 @@ public class DropThis extends Game {
 	public void initGameStates() {
 		super.initGameStates();
 		List<GameState> gameStates = new ArrayList<GameState>();
-		GameState[] gameStatesArray = new GameState[gameStates.size()];
 		gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state is Menu.
 		gameStates.add(myPlayState = new PlayState());
 		gameStates.add(myLevelCompleteState = new LevelCompleteState());
@@ -141,6 +140,7 @@ public class DropThis extends Game {
 		gameStates.add(myStartNewLevelState = new StartNewLevelState());
 		gameStates.add(myGameOverState = new GameOverState());
 		// gameStates.add(myPauseGameState = new PauseGameState());
+		GameState[] gameStatesArray = new GameState[gameStates.size()];
 		for (int i = 0; i < gameStates.size(); i++) {
 			gameStatesArray[i] = gameStates.get(i);
 		}
