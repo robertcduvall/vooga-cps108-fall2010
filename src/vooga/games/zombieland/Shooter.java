@@ -93,7 +93,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 *            the angle of the bullet's trajectory
 	 */
 	public void addBulletToGame(Bullet bullet) {
-		((ZombielandPlayState) game.getCurrentState()).addBullet(bullet);
+		((ZombielandPlayState) game.getPlayGameState()).addBullet(bullet);
 
 	}
 

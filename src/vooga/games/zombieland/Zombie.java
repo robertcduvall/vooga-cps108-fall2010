@@ -232,7 +232,7 @@ public class Zombie extends BetterSprite implements Constants {
 				int item = (int) (Math.random() * 100);
 				if (item < itemChance) {
 
-					((ZombielandPlayState) game.getCurrentState())
+					((ZombielandPlayState) game.getPlayGameState())
 							.addRandomItem(getX(), getY());
 				}
 			}
