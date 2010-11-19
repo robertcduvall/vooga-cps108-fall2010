@@ -57,7 +57,7 @@
 		<String name="highscoredbname" value="highscores" />
 		<String name="losexml" value="src/vooga/games/mariogame/resources/levels/losestate.xml" />
 		<String name="winxml" value="src/vooga/games/mariogame/resources/levels/winstate.xml" />	
-		<String name="LevelFilesDirectory" value="src/vooga/games/mariogame/resources/levels/" />	
+		<String name="LevelFilesDirectory" value="src/vooga/games/mariogame/resources/levels" />	
 		<String name="LevelNamesFile" value="levelnames.txt" />	
 		
 	
