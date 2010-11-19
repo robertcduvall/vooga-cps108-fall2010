@@ -38,40 +38,11 @@ public class Blah extends Game implements Constants{
 		zombielandPlayState = new ZombielandPlayState(this);
 	
 		getGameStateManager().addGameState(zombielandPlayState,zombielandPauseState);
-	}
-
-	/**
-	 * Check for null pointer returns
-	 * 
-	 * @return
-	 */
-	public GameState getCurrentState() {
-		return zombielandPlayState;
-	}
-
-	/**
-	 * update all components of the ZombieLand game. This method checks to see
-	 * if more zombies can be added or if the level has been completed.
-	 * updating getGameStateManger() and zombielandPlayState makes the game 
-	 * go twice the speed, which makes the game more fun.
-	 */
-	public void update(long elapsedTime) {
-		
-		if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
-			getGameStateManager().toggle(zombielandPlayState);
-			getGameStateManager().toggle(zombielandPauseState);
-		}
-		
-		getGameStateManager().update(elapsedTime);
-	}
-
-	/**
-	 * render the graphics component in the game.
-	 * rendering both at the same time makes the game run faster.
-	 */
-	public void render(Graphics2D g) {
-		getGameStateManager().render(g);
-		zombielandPlayState.render(g);
+		//TODO add this in control
+//		if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
+//			getGameStateManager().toggle(zombielandPlayState);
+//			getGameStateManager().toggle(zombielandPauseState);
+//		}
 	}
 
 	/**
@@ -80,10 +51,7 @@ public class Blah extends Game implements Constants{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new Blah(), new Dimension(GAME_WIDTH, GAME_HEIGHT),
-				false);
-		game.start();
+		launch(new Blah());
 	}
 
 }
