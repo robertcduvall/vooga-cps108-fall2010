@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 
 import com.golden.gamedev.object.Sprite;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.OverlayString;
-import vooga.engine.player.PlayerSprite;
 import vooga.engine.resource.Resources;
 
 /**
@@ -21,7 +21,7 @@ import vooga.engine.resource.Resources;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class DoodleSprite extends PlayerSprite {
+public class DoodleSprite extends BetterSprite {
 	private boolean died;
 	private ArrayList<BallSprite> balls;
 	private DropThis game;
@@ -29,14 +29,14 @@ public class DoodleSprite extends PlayerSprite {
 	private OverlayString gameOverString;
 
 	public DoodleSprite(String name, String stateName, Sprite s, DropThis game) {
-		super(name, stateName, s);
+		super(name, s);
 		died = false;
 		balls = new ArrayList<BallSprite>();
 		this.game = game;
 	}
 
 	public void moveLeft() {
-		setNewImage(Resources.getImage("doodle_left"));
+		setImage(Resources.getImage("doodle_left"));
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
@@ -46,7 +46,7 @@ public class DoodleSprite extends PlayerSprite {
 	}
 
 	public void moveRight() {
-		setNewImage(Resources.getImage("doodle_right"));
+		setImage(Resources.getImage("doodle_right"));
 		if (isOnScreen()) {
 			setX(getX() + 5);
 		} else {
@@ -77,7 +77,7 @@ public class DoodleSprite extends PlayerSprite {
 
 	public void shoot() {
 		if (bulletDelay <= 0) {
-			setNewImage(Resources.getImage("doodle_up"));
+			setImage(Resources.getImage("doodle_up"));
 			BufferedImage ballImage = Resources.getImage("ball");
 			BallSprite ball = new BallSprite("ball", "flying", new Sprite(
 					ballImage, getX() + getWidth() / 2
