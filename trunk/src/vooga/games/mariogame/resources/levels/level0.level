@@ -1,9 +1,0 @@
-map = src/vooga/games/marioclone/resources/maps/map0.txt
-overlay = src/vooga/games/marioclone/resources/overlay.xml
-music = MarioTheme
-bg = color:139,201,240
-mario = 200,300
-enemy = 400,200
-enemy = 800,300
-enemy = 2000,400
-enemy = 0,500

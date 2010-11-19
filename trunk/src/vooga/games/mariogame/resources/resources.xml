@@ -20,7 +20,7 @@
 	</Images>
 	
 	<Animations>
-		<Animation name="Mario">
+		<Animation name="marioMovement">
 			<Image path="mario1l.png" />
 			<Image path="mario1r.png" />
 			<Image path="mario2l.png" />
