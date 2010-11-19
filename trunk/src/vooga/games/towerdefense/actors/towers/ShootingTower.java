@@ -3,6 +3,7 @@ package vooga.games.towerdefense.actors.towers;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.actors.enemies.*;
 import vooga.games.towerdefense.actors.TowerShot;
 import vooga.games.towerdefense.actors.enemies.Enemy;
 
@@ -38,22 +39,13 @@ public abstract class ShootingTower extends Tower{
 	@Override
 	public void update(long elapsedTime) {
 			timeSinceShot += elapsedTime;
-			if(timeSinceShot>shotDelay){
-				shoot();
-			}
-		
 	}
 	
-	private void shoot(){
-		//TODO add ability to fire a shot
-		if(target!=null){
-			target.gotHit();
-			timeSinceShot=0;
-			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
-			//shotGroup.add(shot);
-		}
-		
+	public boolean canShoot()
+	{
+		return timeSinceShot>shotDelay;
 	}
+	
 	
 	public boolean isValidTarget(Sprite target){
 		return target!=null && target.isActive() && isInRange(target);
@@ -80,8 +72,15 @@ public abstract class ShootingTower extends Tower{
 		return range;
 	}
 	
+	public Enemy getTarget(){
+		return target;
+	}
+	
+	public void resetShot(){
+		timeSinceShot = 0;
+	}
+	
 	public void setTarget(Enemy newTarget){
 		target = newTarget;
 	}
-
 }
