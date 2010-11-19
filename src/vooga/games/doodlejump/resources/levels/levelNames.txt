@@ -1,4 +1,4 @@
 #3 levels
-level1.txt
-level2.txt
-level3.txt
+level1.xml
+level2.xml
+level3.xml
