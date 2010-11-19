@@ -3,6 +3,8 @@
  */
 package vooga.games.asteroids;
 
+import java.awt.event.KeyEvent;
+
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelFactory;
@@ -36,6 +38,12 @@ public class BlahThis extends Game {
 		stateManager.addGameState(playState, pauseState);
 		resumeGame();
 	}
+	
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+	}
+	
 	
 	private void initLevelManager() {
 		//The reason this is not being moved to core.Game class is because you might want to 

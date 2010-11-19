@@ -2,6 +2,11 @@
 <Level name="Asteroids" xmloverlaypath="src/vooga/games/asteroids/resources/overlays.xml">
 
 	<SpriteGroups>
+		<SpriteGroup name="backgroundGroup">
+			<RegularSprite name="backgroundSprite" x="0" y="0" vx="0" vy="0" quantity="1">
+				<Visual name="mainBG"/>
+			</RegularSprite>
+		</SpriteGroup>
 		<SpriteGroup name="playerShip">
 			<Ship name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
 				<Visual name="shipAnimation"/>
@@ -15,7 +20,7 @@
 		</SpriteGroup>
 		
 		<SpriteGroup name="asteroidGroup">
-			<SpawnedSprite name ="asteroid" xRange="800" yRange="600" vxRange="0.2" vyRange="0.2" quantity="5">
+			<SpawnedSprite name ="asteroid" xRange="800" yRange="600" vxRange="0.2" vyRange="0.2" quantity="50">
 				<Visual name="asteroidAnimation"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
