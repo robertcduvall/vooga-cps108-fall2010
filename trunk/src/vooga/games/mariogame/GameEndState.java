@@ -6,7 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import vooga.engine.core.PlayField;
+import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.HighScoreHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -14,6 +16,7 @@ import vooga.engine.state.GameState;
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFontManager;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
 /**
@@ -31,11 +34,11 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 public class GameEndState extends GameState {
 	private Background myBackground;
-	private OverlayString myMessage;
 	private HighScoreHandler myHighScores;
 	private GameFontManager myFontManager;
 	private OverlayString[] myHighScoreOverlays;
 	private Long myScore;
+	private SpriteGroup myOverlays;
 
 	private static final int NUM_SCORES = 5;
 	private int xScoreOverlay = 300;
@@ -60,15 +63,15 @@ public class GameEndState extends GameState {
 		
 		myBackground = new ImageBackground(backgroundImage);
 		myFontManager = fontManager;
-		myMessage = new OverlayString(messageString);
-		myMessage.setFont(myFontManager.getFont("GAMEOVER"));
-		myMessage.setLocation(
-				(Resources.getInt("Width") - myMessage.getWidth()) / 2, 100);
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
 				.getString("highscoredbname"), new File(Resources
 				.getString("highscorefile")));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
+		
+		OverlayCreator overlayCreator = new OverlayCreator();
+		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml");
+		myOverlays = overlayTracker.getOverlayGroup("GameEndGroup");
 	}
 
 	/**
@@ -81,7 +84,6 @@ public class GameEndState extends GameState {
 	private void onEnter() {
 		try {
 			myHighScores.updateScores(myScore, System.currentTimeMillis());
-			System.out.println(myScore);
 		} catch (SQLiteException e) {
 			System.out.println("Error with scoring");
 		}
@@ -131,11 +133,7 @@ public class GameEndState extends GameState {
 			os.render(g);
 		}
 		super.render(g);
-		myMessage.render(g);
-
-		myFontManager.getFont("MENU").drawString(g,
-				"PRESS SPACE TO PLAY AGAIN!", (myBackground.getWidth() / 4),
-				(myBackground.getHeight() / 2) + 50);
+		myOverlays.render(g);
 	}
 
 	public void setScore(Long score) {
