@@ -35,7 +35,7 @@ public class Bullet extends BetterSprite{
 		angle = bulletAngle;
 		velocity = bulletSpeed;
 
-		BufferedImage bulletImage = Resources.getImage("bulletImage");
+		BufferedImage bulletImage = Resources.getImage("bullet");
 		getCurrentSprite().setImage(
 				ImageUtil.rotate(bulletImage, (int) angle));
 		
