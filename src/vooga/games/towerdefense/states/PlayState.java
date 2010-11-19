@@ -12,8 +12,12 @@ import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.games.towerdefense.actors.EasyEnemyGenerator;
+import vooga.games.towerdefense.actors.EnemyGenerator;
 import vooga.games.towerdefense.actors.Player;
+import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.BuildTowerEvent;
+import vooga.games.towerdefense.events.EnemyFailEvent;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.background.ImageBackground;
@@ -63,9 +67,18 @@ public class PlayState extends GameState{
 		playField.addEventPool(eventPool);
 		
 		BuildTowerEvent buildTower = new BuildTowerEvent(playField);
+		
+		
+		
 		eventPool.addEvent(buildTower);
-		BetterSprite player = initPlayer(buildTower);
+		Player player = initPlayer(buildTower);
 		playField.add(player);
+		
+		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(playField);
+		EnemyFailEvent failEvent = new EnemyFailEvent(player);
+		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
+		
+		playField.add(enemyGenerator);
 		
 		playField.addControl(initControl(player));
 		
@@ -79,8 +92,8 @@ public class PlayState extends GameState{
 		return new ImageBackground(backgroundImage);
 	}
 	
-	private BetterSprite initPlayer(BuildTowerEvent buildTowerEvent){
-		BetterSprite player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent);		
+	private Player initPlayer(BuildTowerEvent buildTowerEvent){
+		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent);		
 		return player;
 	}
 	

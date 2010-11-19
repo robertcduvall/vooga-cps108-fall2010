@@ -46,6 +46,9 @@ seems to be completely arbitrary so the only rules we used were the GameWon and
 GameLost rules which could have easily been events instead.
 
 Overlay:
+The Overlays were used basically as before, they are simple to use and did not provide any problem.
+Once we loaded the overlay xml with the overlayCreator, it returned a tracker.  We got the stats, and
+the sprite groups from the tracker, and it worked as expected.
 
 
 Resource: (very helpful)
