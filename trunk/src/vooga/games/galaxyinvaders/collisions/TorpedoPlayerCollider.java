@@ -29,7 +29,7 @@ public class TorpedoPlayerCollider extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
-		playGameState.livesStat.setStat(playGameState.livesStat.getStat()-LIVES_LOST);
+		playGameState.changePlayerLives(-LIVES_LOST);
 		s2.setX(game.getWidth()/2);
 	}
 
