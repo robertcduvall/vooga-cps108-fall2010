@@ -5,12 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
@@ -19,7 +19,6 @@ import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayPanel;
 import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayStatImage;
-import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -51,9 +50,7 @@ import vooga.games.grandius.weapons.BlackHole;
 import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.GameFont;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * Grandius is a side-scrolling space shooter. The object of each level is to destroy all enemies. The player is the red ship on the
@@ -64,7 +61,6 @@ import com.golden.gamedev.object.background.ImageBackground;
  */
 public class DropThis extends Game {
 
-	//private Collection<GameState> gameStates; //TODO is this Collection needed?
 	private GrandiusMenuState myMenuState;
 	private PlayState myPlayState;
 	private LevelCompleteState myLevelCompleteState;
@@ -77,9 +73,7 @@ public class DropThis extends Game {
 //	private PauseGameState myPauseGameState;
 
 	private boolean reacherShieldsDepleted;
-
 	private BetterSprite shipSprite;
-	//private PlayerSprite playerSprite;
 	private Player player;
 
 	private OverlayPanel overlayPanel;
@@ -87,8 +81,7 @@ public class DropThis extends Game {
 	private Stat<Integer> statLives;
 	private Stat<Integer> statScore;
 	private Stat<Integer> statCash;
-
-//	private GrandiusLevelManager levelManager;
+	
 	private GameFont font;
 	private double playerInitialX;
 	private double playerInitialY;
@@ -108,10 +101,7 @@ public class DropThis extends Game {
 		super.initResources();
 		initLevelManager();
 		initEvents();
-		
-		createCollisions(); //TODO will this work here?
-		//levelManager = new GrandiusLevelManager();
-		//levelManager.makeLevels(Resources.getString("levelFilesDirectory"),Resources.getString("levelNamesFile"));
+		createCollisions(); //TODO will this method call work here?
 		
 		//TODO - change to work with new Overlay xml
 		font = fontManager.getFont(getImages("resources/images/font.png", 20, 3),
@@ -127,6 +117,7 @@ public class DropThis extends Game {
 		int screenHeight = Resources.getInt("screenHeight");
 		screen = new Dimension(screenWidth,screenHeight);
 		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
+		shipSprite = new BetterSprite(Resources.getImage("PlayerShipSingle"),playerInitialX,playerInitialY);
 		//levelManager.getLevelFactory().setBackground(new ImageBackground(Resources.getImage("BG"), 640, 480));
 //		TODO - see addPlayer() method in PlayState for the following:
 //		playerInitialX = Resources.getInt("PlayerInitialX");
@@ -139,12 +130,6 @@ public class DropThis extends Game {
 		addOverlays();
 	}
 
-	private void initEvents() {
-		eventPool = new EventPool();
-		eventPool.addEvent(new FireHorizontalEvent(this,player,myPlayState));
-		eventPool.addEvent(new FireVerticalEvent(this,player,myPlayState));
-	}
-
 	private void initLevelManager() {
 		levelManager = new LevelManager(this);
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
@@ -152,16 +137,22 @@ public class DropThis extends Game {
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
 	}
 	
+	private void initEvents() {
+		eventPool = new EventPool();
+		eventPool.addEvent(new FireHorizontalEvent(this,player,myPlayState));
+		eventPool.addEvent(new FireVerticalEvent(this,player,myPlayState));
+	}
+	
 	@Override
 	public void initGameStates() {
 		super.initGameStates();
 		List<GameState> gameStates = new ArrayList<GameState>();
 		GameState[] gameStatesArray = new GameState[gameStates.size()];
-		gameStates.add(myMenuState = new GrandiusMenuState()); //Default GameState is menu.
+		gameStates.add(myMenuState = new GrandiusMenuState(this)); //Default GameState is menu.
 		gameStates.add(myPlayState = new PlayState());
 		gameStates.add(myLevelCompleteState = new LevelCompleteState());
 		gameStates.add(myGameCompleteState = new GameCompleteState());
-		gameStates.add(myShoppingLevelState = new ShoppingLevelState());
+		gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
 		gameStates.add(myStartNewLevelState = new StartNewLevelState());
 		gameStates.add(myGameOverState = new GameOverState());
 		//gameStates.add(myPauseGameState = new PauseGameState());
@@ -172,58 +163,8 @@ public class DropThis extends Game {
 		stateManager.switchTo(myMenuState); //TODO is this needed if menu is default?
 	}
 
-	//TODO this GameState should be implemented using a MenuGameState
-//	private void buildShoppingLevelState() {
-//		shoppingLevelState = new GameState();
-//		int displayX = Resources.getInt("shoppingLevelX");
-//		int displayY = Resources.getInt("shoppingLevelY");
-//
-//		//shoppingLevel1 is an OverlayStat vs. String (displays Stat)
-//		OverlayStat shoppingLevel1 = new OverlayStat("CASH: ", statCash);
-//		shoppingLevel1.setFont(font);
-//		shoppingLevel1.setLocation(displayX,displayY);
-//		shoppingLevelGroup.add(shoppingLevel1);
-//
-//		for(int i=2;i<5;i++){
-//			displayY=displayY*i;
-//			OverlayString shoppingLevel = new OverlayString(Resources.getString("shoppingLevel"+i), font);
-//			shoppingLevel.setLocation(displayX, displayY);
-//			shoppingLevelGroup.add(shoppingLevel);
-//		}
-//		shoppingLevelState.addGroup(backgroundGroup);
-//		shoppingLevelState.addGroup(shoppingLevelGroup);
-//	}
-
-	private void buildLevelCompleteState() {
-		levelCompleteState = new GameState();
-		int displayX = Resources.getInt("levelCompleteX");
-		int displayY = Resources.getInt("levelCompleteY");
-
-		OverlayString levelComplete1 = new OverlayString("LEVEL " + (levelManager.getCurrentLevel()+1) + " COMPLETE", font);
-		levelComplete1.setLocation(displayX,displayY);
-		OverlayString levelComplete2 = new OverlayString(Resources.getString("levelCompleteMessage"), font);
-		levelComplete2.setLocation(displayX,2*displayY);
-
-		levelCompleteState.addGroup(backgroundGroup);
-		levelCompleteGroup.add(levelComplete1);
-		levelCompleteGroup.add(levelComplete2);
-		levelCompleteState.addRenderGroup(levelCompleteGroup);
-	}
-
-	//TODO This GameState should be implemented using a MenuGameState
-//	private void buildMenuState() {
-//		menuState = new GameState();
-//		menuState.addGroup(backgroundGroup);
-//		for(int i=1;i<9;i++){
-//			OverlayString menu = new OverlayString(Resources.getString("menu"+i), font);
-//			menu.setLocation(Resources.getInt("menuX"), Resources.getInt("menuY")*i);
-//			menuGroup.add(menu);
-//		}               
-//		menuState.addRenderGroup(menuGroup);
-//	}
-
 	/**
-	 * Creates different types of collisions and registers them to the playfield.
+	 * Creates different types of collisions and registers them to the PlayState.
 	 */
 	private void createCollisions() {
 		List<BasicCollision> collisionList = new ArrayList<BasicCollision>();
@@ -240,103 +181,102 @@ public class DropThis extends Game {
 		collisionList.add(new BlackHoleEnemyCollision(this));
 		myPlayState.addCollisions(collisionList);
 	}
+	
+//	@Override
+//	public void render(Graphics2D g) {
+//		super.render(g);
+//	}
 
-	@Override
-	public void render(Graphics2D g) {
-		super.render(g);
-	}
-
-	@Override
-	public void update(long elapsedTime) {
-		eventPool.checkEvents(); // TODO - is this the right place?
-		if(levelManager.getCurrentLevel()==0){
-			PlayField playfield=levelManager.loadNextLevel();
-			playfield.setBackground(levelManager.getBackground());
-			for(SpriteGroup group: playfield.getGroups()){
-				playfield.addGroup(group);
-			}
-		}
-		super.update(elapsedTime);
-		if (menuState.isActive()){
-			if(click()){
-				stateManager.switchTo(playState);
-				playSound(Resources.getSound("WatchThisSound"));
-				playSound(Resources.getSound("StartLevelSound"));
-			}
-		}
-
-		if (playState.isActive()) {
-			fireWeapon();
-			updateEntities();
-			checkCheats();
-			checkBossParts();
-			if (checkLevelComplete()) {
-				playfield.clearPlayField();
-				stateManager.switchTo(levelCompleteState);
-			}
-			playfield.update(elapsedTime);
-			if (statLives.getStat().intValue() <= 0) {
-				playfield.clearPlayField();
-				stateManager.switchTo(gameOverState);
-				playSound(Resources.getSound("OhManSound"));
-			}
-		}
-
-		if (levelCompleteState.isActive()){
-			if(levelManager.getCurrentLevel()==LAST_LEVEL){
-				playfield.clearPlayField();
-				stateManager.switchTo(gameCompleteState);
-			}
-			else if(click()){
-				playfield.clearPlayField();
-				stateManager.switchTo(shoppingLevelState);
-			}
-		}
-
-		if (shoppingLevelState.isActive()){
-			//TODO factor out switch to out of if statement
-			//                      SHOPPING_LEVEL_GROUP.update(elapsedTime);
-			int displayX = Resources.getInt("shoppingLevelX");
-			int displayY = Resources.getInt("shoppingLevelY");
-			if(click()){
-				System.out.println("Made it here");
-				if((this.getMouseX()>displayX)){
-					if((this.getMouseY()>displayY*2) &&
-							(this.getMouseY()<displayY*3)){
-						missileActive = true;
-						updateStat(statCash,-500);
-						playfield.clearPlayField();
-						stateManager.switchTo(startNewLevelState);
-					}
-					else if((this.getMouseY()>displayY*3) &&
-							(this.getMouseY()<displayY*4)){
-						blackHoleActive = true;
-						updateStat(statCash,-1000);
-						playfield.clearPlayField();
-						stateManager.switchTo(startNewLevelState);
-					}
-				}
-			}
-			if (keyPressed(KeyEvent.VK_SPACE)){
-				stateManager.switchTo(startNewLevelState);
-			}
-		}
-
-		if (startNewLevelState.isActive()){
-			PlayField playfield=levelManager.loadNextLevel();
-			playfield.clearPlayField();
-			playfield.setBackground(levelManager.getBackground());
-			for(SpriteGroup group: playfield.getGroups()){
-				playfield.addGroup(group);
-			}
-			playerGroup.add(playerSprite);
-			createComets();
-			playfield.addGroup(overlayPanel);
-			playSound(Resources.getSound("StartLevelSound"));
-			stateManager.switchTo(playState);
-		}
-		//stateManager.update(elapsedTime);
-	}
+//	@Override
+//	public void update(long elapsedTime) {
+//		if(levelManager.getCurrentLevel()==0){
+//			PlayField playfield=levelManager.loadNextLevel();
+//			playfield.setBackground(levelManager.getBackground());
+//			for(SpriteGroup group: playfield.getGroups()){
+//				playfield.addGroup(group);
+//			}
+//		}
+//		super.update(elapsedTime);
+//		if (menuState.isActive()){
+//			if(click()){
+//				stateManager.switchTo(playState);
+//				playSound(Resources.getSound("WatchThisSound"));
+//				playSound(Resources.getSound("StartLevelSound"));
+//			}
+//		}
+//
+//		if (playState.isActive()) {
+//			fireWeapon();
+//			updateEntities();
+//			checkCheats();
+//			checkBossParts();
+//			if (checkLevelComplete()) {
+//				playfield.clearPlayField();
+//				stateManager.switchTo(levelCompleteState);
+//			}
+//			playfield.update(elapsedTime);
+//			if (statLives.getStat().intValue() <= 0) {
+//				playfield.clearPlayField();
+//				stateManager.switchTo(gameOverState);
+//				playSound(Resources.getSound("OhManSound"));
+//			}
+//		}
+//
+//		if (levelCompleteState.isActive()){
+//			if(levelManager.getCurrentLevel()==LAST_LEVEL){
+//				playfield.clearPlayField();
+//				stateManager.switchTo(gameCompleteState);
+//			}
+//			else if(click()){
+//				playfield.clearPlayField();
+//				stateManager.switchTo(shoppingLevelState);
+//			}
+//		}
+//
+//		if (shoppingLevelState.isActive()){
+//			//TODO factor out switch to out of if statement
+//			//                      SHOPPING_LEVEL_GROUP.update(elapsedTime);
+//			int displayX = Resources.getInt("shoppingLevelX");
+//			int displayY = Resources.getInt("shoppingLevelY");
+//			if(click()){
+//				System.out.println("Made it here");
+//				if((this.getMouseX()>displayX)){
+//					if((this.getMouseY()>displayY*2) &&
+//							(this.getMouseY()<displayY*3)){
+//						missileActive = true;
+//						updateStat(statCash,-500);
+//						playfield.clearPlayField();
+//						stateManager.switchTo(startNewLevelState);
+//					}
+//					else if((this.getMouseY()>displayY*3) &&
+//							(this.getMouseY()<displayY*4)){
+//						blackHoleActive = true;
+//						updateStat(statCash,-1000);
+//						playfield.clearPlayField();
+//						stateManager.switchTo(startNewLevelState);
+//					}
+//				}
+//			}
+//			if (keyPressed(KeyEvent.VK_SPACE)){
+//				stateManager.switchTo(startNewLevelState);
+//			}
+//		}
+//
+//		if (startNewLevelState.isActive()){
+//			PlayField playfield=levelManager.loadNextLevel();
+//			playfield.clearPlayField();
+//			playfield.setBackground(levelManager.getBackground());
+//			for(SpriteGroup group: playfield.getGroups()){
+//				playfield.addGroup(group);
+//			}
+//			playerGroup.add(playerSprite);
+//			createComets();
+//			playfield.addGroup(overlayPanel);
+//			playSound(Resources.getSound("StartLevelSound"));
+//			stateManager.switchTo(playState);
+//		}
+//		//stateManager.update(elapsedTime);
+//	}
 
 	/**
 	 * Updates the various enemies that are on screen.
