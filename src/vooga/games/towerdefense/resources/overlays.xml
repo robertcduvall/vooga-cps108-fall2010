@@ -1,5 +1,5 @@
 <Overlay>
-<Stat type="Integer" value="selfEsteem"></Stat>
+<Stat type="Integer" value="100" name="selfEsteem"></Stat>
 <Stat type="Integer" value="0" name="score"></Stat>
 <Stat type="Integer" value="100" name="money"></Stat>
 
