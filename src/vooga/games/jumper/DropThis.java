@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import vooga.engine.core.PlayField;
+import vooga.engine.level.LevelField;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
