@@ -40,7 +40,6 @@ public class GalaxyGameState extends GameState{
 	private static final int BLOCKADE_YPOS = 600;
 	private static final int INCREMENT_BLOCKADE_XPOS = 200;
 	private static final double ITEM_SPEED = 0.1;
-	private static final double ENEMY_BOMB_SPEED = 0.5;
 	private static int ITEM_FREQUENCY = 7;
 	private static int BOMB_FREQUENCY = 10;
 	
@@ -142,8 +141,8 @@ public class GalaxyGameState extends GameState{
 	
 	private void initOverlays() {
 		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlays"));
-		livesStat = overlayTracker.getStat("lives");
-		scoreStat = overlayTracker.getStat("score");
+		livesStat = overlayTracker.getStat("lives", new Integer(0));
+		scoreStat = overlayTracker.getStat("score", new Integer(0));
 	}
 	
 	private void initPlayField(){
@@ -192,16 +191,16 @@ public class GalaxyGameState extends GameState{
 	
 	private void spawnBombs() {
 		if(getRandomSeed(1000)<BOMB_FREQUENCY) {
-			spawnEnemyBomb();
+			spawnEnemyBombs();
 		}
 	}
 	
 	
-	private void spawnEnemyBomb() {
+	private void spawnEnemyBombs() {
 		int enemySeed;
-		BetterSprite[] enemySprites = (BetterSprite[]) enemies.getSprites();
+		EnemySprite[] enemySprites = (EnemySprite[]) enemies.getSprites();
 		int count = 0;
-		for(BetterSprite s : enemySprites) {
+		for(EnemySprite s : enemySprites) {
 			if(s!=null) {
 				if(s.isActive())
 					count++;
@@ -214,10 +213,8 @@ public class GalaxyGameState extends GameState{
 				e.printStackTrace();
 				enemySeed = 0;
 			}
-			EnemySprite enemy = (EnemySprite) enemySprites[enemySeed];
-			BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), enemy.getX()+25, enemy.getY()+30);
-			temp.setSpeed(0, ENEMY_BOMB_SPEED);
-			enemyTorpedos.add(temp);
+			EnemySprite enemy = enemySprites[enemySeed];
+			enemyTorpedos.add(enemy.spawnBomb());
 		}
 	}
 	
