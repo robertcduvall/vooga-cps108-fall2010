@@ -40,4 +40,13 @@
 		<MapGroup name = "firstMap" />
 			<Association char = "G" object = "IndestructibleTile"></Association>
 	</Map>
+	
+	<Rules>
+		<Rule>	</Rule>
+	</Rules>
+	
+	<Events>
+		<Event> </Event>
+	</Events>
+	
 </Level>

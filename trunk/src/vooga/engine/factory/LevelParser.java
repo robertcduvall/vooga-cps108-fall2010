@@ -20,6 +20,8 @@ import org.w3c.dom.NodeList;
 import vooga.engine.core.Game;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
+import vooga.engine.event.IEventHandler;
+import vooga.engine.level.Rule;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
@@ -130,34 +132,67 @@ public class LevelParser implements LevelFactory{
 	}
 
 	private void processRuleGroups(NodeList ruleGroupsList) {
-		// TODO Auto-generated method stub
 
 		for(int i = 0; i < ruleGroupsList.getLength(); i++)
 		{
 			if (isElement(ruleGroupsList.item(i)))
 			{
 				Element rule = (Element) ruleGroupsList.item(i);
+				String rulename = rule.getAttribute("name");
+				String implementor = rule.getAttribute("class");
 				
-
-
-				//Element spriteGroup = (Element) spriteGroupsList.item(i);
-				//		String groupName = spriteGroup.getAttribute("name");
-
-				//SpriteGroup newSpriteGroup = new SpriteGroup(groupName);
-				//	NodeList spritesList = spriteGroup.getChildNodes();
-
-				//processSprite(spritesList, newSpriteGroup);
-				//voogaPlayField.addGroup(newSpriteGroup);
+				try {
+					Rule ruleinstance = (Rule) Class.forName(implementor).newInstance();
+					NodeList spriteGroupsList = rule.getChildNodes();
+					SpriteGroup[] ruleObedients = getSpriteGroups(spriteGroupsList);
+					
+					voogaPlayField.addRule(rulename, ruleinstance, ruleObedients);
+				}
+				catch(Exception e)
+				{
+					throw LevelException.RULE_NOT_FOUND_EXCEPTION;
+				}
 			}
 		}
+	}
 
-
+	private SpriteGroup[] getSpriteGroups(NodeList spriteGroupsList) {
+		
+		SpriteGroup[] list = new SpriteGroup[spriteGroupsList.getLength()];
+		
+		for(int i = 0; i < spriteGroupsList.getLength(); i++)
+		{
+			Element spritegroup = (Element) spriteGroupsList.item(i);
+			String groupname = spritegroup.getAttribute("name");
+			SpriteGroup currentGroup = voogaPlayField.getGroup(groupname);
+			list[i] = currentGroup;
+		}
+		
+		return list;
 	}
 
 	private void processEventGroups(NodeList eventGroupsList) {
-		// TODO Auto-generated method stub
-
+		
+		for(int i = 0; i < eventGroupsList.getLength(); i++)
+		{
+			if (isElement(eventGroupsList.item(i)))
+			{
+				Element event = (Element) eventGroupsList.item(i);
+				String implementor = event.getAttribute("class");
+				
+				try {
+					IEventHandler eventinstance = (IEventHandler) 
+													Class.forName(implementor).newInstance();
+					voogaPlayField.addEvent(eventinstance);
+				}
+				catch(Exception e)
+				{
+					throw LevelException.EVENT_NOT_FOUND_EXCEPTION;
+				}
+			}
+		}
 	}
+
 
 
 	//	/**
@@ -247,6 +282,7 @@ public class LevelParser implements LevelFactory{
 			}
 		}
 	}
+	
 
 	//process Stats
 	//process Control
@@ -384,7 +420,12 @@ public class LevelParser implements LevelFactory{
 		for(int i = 0; i < controlsList.getLength(); i++)
 		{
 			if (isElement(controlsList.item(i)))
-			{	
+			{
+				
+				
+				
+				
+				
 			}
 		}	
 	}
