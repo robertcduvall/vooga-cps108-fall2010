@@ -77,7 +77,8 @@ public class DropThis extends Game {
 	private Player player;
 
 	private OverlayPanel overlayPanel;
-	private OverlayStatImage livesIcon;
+	//private OverlayStatImage livesIcon;
+	private BufferedImage livesIcon;
 
 	private GameFont font;
 
@@ -106,7 +107,8 @@ public class DropThis extends Game {
 		//int screenWidth = Resources.getInt("screenWidth");
 		//int screenHeight = Resources.getInt("screenHeight");
 		//screen = new Dimension(screenWidth, screenHeight);
-		livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
+		//livesIcon = new OverlayStatImage(Resources.getImage("PlayerShipSingle"));
+		livesIcon = Resources.getImage("PlayerShipSingle");
 //		reacherShieldsDepleted = false;
 		addOverlays();
 	}
