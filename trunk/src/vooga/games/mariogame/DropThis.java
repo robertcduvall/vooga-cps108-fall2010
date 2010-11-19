@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.io.IOException;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
+import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.PauseGameState;
 import vooga.games.mariogame.GameEndState;
@@ -49,6 +51,7 @@ public class DropThis extends Game {
 		super.initResources();
 		initFonts();
 		initLevelManager();
+		initGameStates();
 	}
 	
 	private void initLevelManager() {
@@ -82,10 +85,15 @@ public class DropThis extends Game {
 
 	public void initGameStates() {
 		super.initGameStates();
+		
+		LevelParser levelParser = new LevelParser();
+		PlayField loseField = levelParser.getPlayfield(Resources.getString("losexml"),this);
+		PlayField winField = levelParser.getPlayfield(Resources.getString("winxml"),this);
+
 		MainMenuState mainMenu = new MainMenuState(Resources.getImage("Mario Menu BG"), fontManager);
 		MainMenuState pauseState = new MainMenuState(Resources.getImage("PauseBG"), fontManager);
-		GameEndState loseState = new GameEndState(Resources.getImage("LoseBG"),"FAIL!", fontManager);
-		GameEndState winState = new GameEndState(Resources.getImage("WinBG"),"YOU WIN!", fontManager);
+		GameEndState loseState = new GameEndState(loseField);
+		GameEndState winState = new GameEndState(winField);
 		MainMenuState levelFinishedState = new MainMenuState(Resources.getImage("LevelFinishedBG"), fontManager);
 		GamePlayState playState = new GamePlayState(this);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);

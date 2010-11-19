@@ -9,11 +9,11 @@
 		<Image name="Grass Tile" path="GrassTile.png"/>
 		<Image name="Gravity Item" path="GravityItem.png"/>
 		<Image name="Space BG" path="spacebg.jpg"/>
-		<Image name="Item Tile 1" path="ItemTile1.jpg"/>
-		<Image name="Item Tile 2" path="ItemTile2.jpg"/>
-		<Image name="Ground Tile" path="ITile.jpg"/>
+		<Image name="Item Tile 1" path="ItemTile1.png"/>
+		<Image name="Item Tile 2" path="ItemTile2.png"/>
+		<Image name="Ground Tile" path="ITile.png"/>
 		<Image name="Level Complete BG" path="levelfinished.jpg"/>
-		<Image name="Mario and Luigi BG" path="mario_and_luigi.jpg"/>
+		<Image name="Win BG" path="mario_and_luigi.jpg"/>
 		<Image name="Mario Menu BG" path="mariomenu.jpg"/>
 		<Image name="Coin" path="super_mario_coin.png"/>
 		<Image name="Pause BG" path="toad_wallpaper.jpg"/>				

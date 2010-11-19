@@ -7,6 +7,7 @@ import vooga.engine.overlay.OverlayTracker;
 import vooga.games.mariogame.tiles.Tile;
 import vooga.engine.core.PlayField;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class MarioPlayField extends PlayField {
@@ -58,8 +59,8 @@ public class MarioPlayField extends PlayField {
 	}
 
 	private void updateItems() {
-		List<ItemSprite> itemList = myTileMap.getNewItems();
-		for (ItemSprite i : itemList) {
+		List<Sprite> itemList = myTileMap.getNewItems();
+		for (Sprite i : itemList) {
 			getGroup("Item Group").add(i);
 		}
 	}

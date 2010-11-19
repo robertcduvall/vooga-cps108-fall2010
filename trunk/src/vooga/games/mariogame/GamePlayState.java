@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-import java.awt.event.KeyEvent;
-
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
@@ -106,14 +104,12 @@ public class GamePlayState extends GameState {
 	}
 
 	public int getScore() {
-		return (Integer) myLevel.getOverlays().getStats().get(1).getStat();
+		return (Integer) myLevel.getOverlays().getStat("Score").getStat();
 	}
 
 	private void switchLevel(int i) {
 		File levelFile = new File(Resources.getString("level"
 				+ Integer.toString(i)));
-		if (levelFile == null)
-			System.out.println("No level here.  Problem?");
 
 		MarioPlayField pf = (MarioPlayField) myLevelFactory
 				.getPlayfield(levelFile);
@@ -152,6 +148,12 @@ public class GamePlayState extends GameState {
 					"vooga.games.marioclone.MarioSprite", (char) i);
 		}
 		*/
+	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

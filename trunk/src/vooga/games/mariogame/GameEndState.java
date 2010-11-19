@@ -2,22 +2,17 @@ package vooga.games.mariogame;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 import vooga.engine.core.PlayField;
-import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayString;
-import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.HighScoreHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.GameFontManager;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * 
@@ -35,7 +30,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 public class GameEndState extends GameState {
 	private Background myBackground;
 	private HighScoreHandler myHighScores;
-	private GameFontManager myFontManager;
+//	private GameFontManager myFontManager;
 	private OverlayString[] myHighScoreOverlays;
 	private Long myScore;
 	private SpriteGroup myOverlays;
@@ -56,22 +51,24 @@ public class GameEndState extends GameState {
 	 *            - resource used to write text
 	 */
 
-	public GameEndState(PlayField gameOver) {
+	public GameEndState(PlayField playfield) {
 		
 		// The gameOver playfield should be constructed from an .xml
 		// file using the LevelParser.
 		
-		myBackground = new ImageBackground(backgroundImage);
-		myFontManager = fontManager;
+		
+		addPlayField(playfield);
+//		myBackground = new ImageBackground(backgroundImage);
+//		myFontManager = fontManager;
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
 				.getString("highscoredbname"), new File(Resources
 				.getString("highscorefile")));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
 		
-		OverlayCreator overlayCreator = new OverlayCreator();
-		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml");
-		myOverlays = overlayTracker.getOverlayGroup("GameEndGroup");
+//		OverlayCreator overlayCreator = new OverlayCreator();
+//		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml");
+//		myOverlays = overlayTracker.getOverlayGroup("GameEndGroup");
 	}
 
 	/**

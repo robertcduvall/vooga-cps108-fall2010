@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import vooga.engine.core.Game;
 import vooga.engine.factory.LevelFactory;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
@@ -102,7 +103,6 @@ public class MarioLevelFactory implements LevelFactory {
 	 * overlay=*location of overlay XML file* music=*key for sound file*
 	 * bg=[color/image]:[R,G,B/*key for image*]
 	 */
-	@Override
 	public PlayField getPlayfield(File levelFactoryFile) {
 
 		MarioPlayField playfield = new MarioPlayField();
@@ -188,5 +188,12 @@ public class MarioLevelFactory implements LevelFactory {
 		int x = Integer.parseInt(coordString[0].trim());
 		int y = Integer.parseInt(coordString[1].trim());
 		return new int[] { x, y };
+	}
+
+	@Override
+	public vooga.engine.core.PlayField getPlayfield(String filepath,
+			Game currentgame) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
