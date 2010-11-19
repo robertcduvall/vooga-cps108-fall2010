@@ -9,6 +9,10 @@
 		<Image name="fastTowerPreview" path="fastTowerPreview.png" />
 		<Image name="sniperTower" path="sniperTower.png" />
 		<Image name="sniperTowerPreview" path="sniperTowerPreview.png" />
+		<Image name="duvallFace" path="duvallFace.png" />
+		<Image name="duvallFaceRed" path="duvallFaceRed.png" />
+		<Image name="duvallFaceBlue" path="duvallFaceBlue.png" />
+		<Image name="duvallFaceYellow" path="duvallFaceYellow.png" />
 	</Images>
 	<Animations></Animations>
 	<Sounds></Sounds>
