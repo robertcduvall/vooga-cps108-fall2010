@@ -1,20 +1,18 @@
-package vooga.games.mariocloneold.tiles;
+package vooga.games.mariogame.tiles;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
-
-import vooga.engine.player.control.ItemSprite;
 
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
 public class ItemTile extends ChangingTile {
 
-	protected ItemSprite myItem;
+	protected Sprite myItem;
 	protected boolean releaseItem;
 
 	public ItemTile(double x, double y, List<BufferedImage> images,
-			ItemSprite item) {
+			Sprite item) {
 		super(x, y, images);
 		myItem = item;
 	}
@@ -29,7 +27,7 @@ public class ItemTile extends ChangingTile {
 	}
 
 	@Override
-	public ItemSprite checkItem() {
+	public Sprite checkItem() {
 		if (releaseItem) {
 			releaseItem = false;
 			return myItem;

@@ -1,10 +1,11 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.resource.HighScoreHandler;
 import vooga.engine.resource.Resources;
@@ -139,5 +140,11 @@ public class GameEndState extends GameState {
 
 	public void setScore(Long score) {
 		myScore = score;
+	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
 	}
 }

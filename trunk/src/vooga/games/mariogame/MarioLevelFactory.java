@@ -1,4 +1,4 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

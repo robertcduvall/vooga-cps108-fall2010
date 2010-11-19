@@ -1,4 +1,4 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import com.golden.gamedev.object.Sprite;
 

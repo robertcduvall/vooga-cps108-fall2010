@@ -4,22 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 
-import com.golden.gamedev.object.GameFontManager;
 import vooga.engine.core.Game;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.MenuGameState;
-<<<<<<< .mine
 import vooga.engine.state.PauseGameState;
+import vooga.games.mariogame.GameEndState;
+import vooga.games.mariogame.MainMenuState;
 
-=======
-import vooga.engine.state.PauseGameState;
-import vooga.games.mariocloneold.GameEndState;
-import vooga.games.mariocloneold.MainMenuState;
->>>>>>> .r1528
-
-import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.GameFont;
+import com.golden.gamedev.object.GameFontManager;
 import com.golden.gamedev.object.font.SystemFont;
 
 /**

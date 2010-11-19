@@ -1,4 +1,4 @@
-package vooga.games.mariocloneold;
+package vooga.games.mariogame;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;

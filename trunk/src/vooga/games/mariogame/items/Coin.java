@@ -1,17 +1,17 @@
-package vooga.games.mariocloneold.items;
+package vooga.games.mariogame.items;
 
-import vooga.engine.player.control.ItemSprite;
+import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public class Coin extends ItemSprite {
+public class Coin extends Sprite {
 
 	private long mySpawnedTime;
 	private boolean isSpawned;
 	private double mySpeed = 1;
 
-	public Coin(Sprite s) {
+	public Coin(BufferedImage s) {
 		super(s);
 	}
 
