@@ -3,31 +3,29 @@ package vooga.games.towerdefense.events;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.overlay.Stat;
+import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.actors.enemies.Enemy;
-import vooga.games.towerdefense.actors.towers.Tower;
 
 
 
 public class EnemyHitEvent implements IEventHandler{
 
+	private static final int SCORE_ADD = 10;
+	private static final int MONEY_ADD = 1;
 	private Queue<Enemy> hitQueue = new LinkedList<Enemy>();
-	private Stat<Integer> myScore;
-	private Stat<Integer> myMoney;
+	private Player myPlayer;
 	
-	public EnemyHitEvent(Stat<Integer> score, Stat<Integer> money){
-		myScore = score;
-		myMoney = money;
+	public EnemyHitEvent(Player player){
+		myPlayer = player;
 	}
 	
 	
 	@Override
 	public void actionPerformed() {
 		for(Enemy enemy: hitQueue){
-			myScore.setStat(myScore.getStat() + 10);
-			myMoney.setStat(myMoney.getStat() + 1);
+			myPlayer.addScore(SCORE_ADD);
+			myPlayer.addMoney(MONEY_ADD);
 			enemy.gotHit();
 		}
 	}
