@@ -1,14 +1,15 @@
 package vooga.games.towerdefense;
 
-import com.golden.gamedev.object.SpriteGroup;
-
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
+import vooga.engine.factory.LevelParser;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.towerdefense.states.MainMenu;
 import vooga.games.towerdefense.states.PlayState;
+
+import com.golden.gamedev.object.SpriteGroup;
 
 
 
@@ -67,6 +68,11 @@ public class DropThis extends Game {
 		gameHeight = Resources.getInt("gameHeight");
 	}
 	
+	public PlayField initLevel(String path) {
+		LevelParser handler = new LevelParser();
+		return handler.getPlayfield(path, this);
+	}
+	
 	@Override
 	public void initGameStates(){
 		OverlayTracker tracker = initOverlays();
@@ -75,7 +81,7 @@ public class DropThis extends Game {
 		//TODO uncomment once prolog error is found and fixed
 		//GameState mainMenu = addGameState(new MainMenu());
 		GameState play = addGameState(new PlayState(tracker));
-		
+		play.addPlayField(initLevel("/resources/level/level.xml"));
 		getGameStateManager().switchTo(play);
 	}
 
