@@ -34,6 +34,7 @@ public class Player extends BetterSprite {
 		this.balance = balance;
 		this.score = score;
 		this.selfEsteem = selfEsteem;
+		this.buildTowerEvent = buildTower;
 	}
 
 	public void move() {
@@ -42,7 +43,6 @@ public class Player extends BetterSprite {
 	}
 
 	public void onClick() {
-		System.out.println("Building Tower");
 		buildTower();
 	}
 
