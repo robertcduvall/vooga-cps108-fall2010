@@ -10,6 +10,7 @@ import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.events.EnemyFailEvent;
 import vooga.games.towerdefense.path.PathPoint;
 
 /**
@@ -30,8 +31,9 @@ public class Enemy extends BetterSprite {
 	private int myTempLoc;
 	private boolean myRestart;
 	private int myLives;
+	protected EnemyFailEvent myFailEvent;
 
-	public Enemy(List<PathPoint> path, int speed, int lives) {
+	public Enemy(List<PathPoint> path, int speed, int lives, EnemyFailEvent failEvent) {
 		super(-100, -100);
 		myPath = path;
 		mySpeed = speed;
@@ -41,6 +43,7 @@ public class Enemy extends BetterSprite {
 		myTempLoc = 0;
 		myRestart = true;
 		myLives = lives;
+		myFailEvent = failEvent;
 		setImage();
 	}
 
@@ -93,7 +96,7 @@ public class Enemy extends BetterSprite {
 	}
 
 	private void finish() {
-		setActive(false);
+		myFailEvent.addEnemy(this);
 	}
 	
 	public int getLives(){

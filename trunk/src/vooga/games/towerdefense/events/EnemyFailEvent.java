@@ -3,28 +3,26 @@ package vooga.games.towerdefense.events;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.overlay.Stat;
+import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.actors.enemies.Enemy;
-import vooga.games.towerdefense.actors.towers.Tower;
 
 
 
 public class EnemyFailEvent implements IEventHandler{
 
 	private Queue<Enemy> failQueue = new LinkedList<Enemy>();
-	private Stat<Integer> mySelfEsteem;
+	private Player myPlayer;
 	
-	public EnemyFailEvent(Stat<Integer> selfEsteem){
-		mySelfEsteem = selfEsteem;
+	public EnemyFailEvent(Player player){
+		myPlayer = player;
 	}
 	
 	
 	@Override
 	public void actionPerformed() {
 		for(Enemy enemy: failQueue){
-			mySelfEsteem.setStat(mySelfEsteem.getStat() - enemy.getLives());
+			myPlayer.removeSelfEsteem(enemy.getLives());
 			enemy.setActive(false);
 		}
 	}
