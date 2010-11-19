@@ -11,25 +11,12 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class MarioPlayField extends PlayField {
-	private TileMap myTileMap;
 	private OverlayTracker myOverlays;
 	private double mySpawnX;
 	private double mySpawnY;
 	private String myMusic;
 
 	public MarioPlayField() {
-		addGroup(new SpriteGroup("Item Group"));
-		addGroup(new SpriteGroup("Mario Group"));
-		addGroup(new SpriteGroup("Enemy Group"));
-		addCollisionGroup(getGroup("Mario Group"), getGroup("Item Group"),
-				new MarioToItemCollision());
-		addCollisionGroup(getGroup("Mario Group"), getGroup("Enemy Group"),
-				new MarioToEnemyCollision());
-	}
-
-	public MarioPlayField(TileMap map) {
-		this();
-		addTileMap(map);
 	}
 
 	private void scrollLevel() {
@@ -45,30 +32,17 @@ public class MarioPlayField extends PlayField {
 		getGroup("Mario Group").add(mario);
 	}
 
-	public void addTileMap(TileMap tileMap) {
-		myTileMap = tileMap;
-		addGroup(tileMap.getTileGroup());
-		addCollisionGroup(getGroup("Mario Group"), myTileMap.getTileGroup(),
-				new MarioToTileCollision());
-		addCollisionGroup(getGroup("Enemy Group"), myTileMap.getTileGroup(),
-				new EnemyToTileCollision());
-	}
-
-	public TileMap getTileMap() {
-		return myTileMap;
-	}
-
+	/*
 	private void updateItems() {
 		List<Sprite> itemList = myTileMap.getNewItems();
 		for (Sprite i : itemList) {
 			getGroup("Item Group").add(i);
 		}
 	}
-
+*/
 	@Override
 	public void update(long elapsedTime) {
-		myTileMap.updateTiles();
-		updateItems();
+		//updateItems();
 		if (getMario().getX() > getMario().getMaxX()) {
 			scrollLevel();
 		}
@@ -104,9 +78,6 @@ public class MarioPlayField extends PlayField {
 	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
-		for (Tile t : myTileMap.getTiles()) {
-			t.render(g);
-		}
 	}
 
 	public void addOverlays(OverlayTracker overlayTracker) {
@@ -119,7 +90,9 @@ public class MarioPlayField extends PlayField {
 	}
 
 	public boolean isFinished() {
-		int backgroundWidth = myTileMap.width * myTileMap.TILE_SIZE;
+		//int backgroundWidth = myTileMap.width * myTileMap.TILE_SIZE;
+		//fix this later
+		int backgroundWidth = 1000;
 		return getMario().getX() > backgroundWidth - 200;
 	}
 
