@@ -51,7 +51,7 @@ public class OverlayBar extends Overlay {
 		String strMax = attributes.get("max");
 		myMaxScore =  Integer.valueOf(strMax);
 		String statLoc = attributes.get("stat");
-		myStat = tracker.getStat(statLoc, new Integer(1));	
+		myStat = (Stat<Integer>)tracker.getStat(statLoc);	
 		String strLength = attributes.get("length");
 		if(strLength !=null){
 			setMaxLength(Integer.valueOf(strLength));
