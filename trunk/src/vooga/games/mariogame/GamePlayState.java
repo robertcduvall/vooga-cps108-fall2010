@@ -2,10 +2,13 @@ package vooga.games.mariogame;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 /**

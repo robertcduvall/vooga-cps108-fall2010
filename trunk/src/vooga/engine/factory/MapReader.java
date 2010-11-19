@@ -1,5 +1,6 @@
 package vooga.engine.factory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import vooga.engine.core.PlayField;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -79,7 +81,7 @@ public class MapReader {
 
 		//	TODO: Need an error check if the pathName is messed up - resources job?
 
-		Scanner lineReader = new Scanner(pathName);
+		Scanner lineReader = new Scanner(new File(pathName));
 
 		while (lineReader.hasNextLine()) {
 			String currentLine = lineReader.nextLine();
@@ -116,7 +118,8 @@ public class MapReader {
 					}
 				}
 				else{
-					throw ClassAssociatedException.CHARACTER_NOT_FOUND;
+					if(currentKey!=' ')
+						throw ClassAssociatedException.CHARACTER_NOT_FOUND;
 				}
 			}
 		}
