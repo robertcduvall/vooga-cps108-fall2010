@@ -14,9 +14,11 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
+import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayPanel;
 import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.collisions.BasicCollision;
@@ -72,6 +74,7 @@ public class DropThis extends Game {
 	private Player player;
 
 	private OverlayPanel overlayPanel;
+	private OverlayTracker overlayTracker;
 	//private OverlayStatImage livesIcon;
 	private BufferedImage livesIcon;
 
@@ -268,16 +271,18 @@ public class DropThis extends Game {
 	//moved updatePlayerLives, updateScoreOnCollision, updateCashOnCollision to Player
 
 	private void addOverlays() {
+		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/grandius/resources/overlays.xml");
 		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
 		livesIcon = Resources.getImage("PlayerShipSingle");
-		OverlayIcon livesCounter = new OverlayIcon(player.getLives(), livesIcon,
-				"Lives");
-		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
-		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
+		player.setLives(overlayTracker.getStat("lives"));
+		player.setScore(overlayTracker.getStat("score"));
+		player.setCash(overlayTracker.getStat("cash"));
+//		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
+//		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
 
-		overlayPanel.add(livesCounter);
-		overlayPanel.add(cashCounter);
-		overlayPanel.add(scoreCounter);
+		overlayPanel.add(overlayTracker.getOverlay("lives"));
+		overlayPanel.add(overlayTracker.getOverlay("cash"));
+		overlayPanel.add(overlayTracker.getOverlay("score"));
 		overlayPanel.initialize();
 		PlayField newField = new PlayField();
 		newField.addGroup(overlayPanel);
