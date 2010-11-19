@@ -9,7 +9,7 @@ import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.PathPoint;
+import vooga.games.towerdefense.path.PathPoint;
 
 /**
  * The enemy sprite class which is defined by a speed, a path, a location, and 

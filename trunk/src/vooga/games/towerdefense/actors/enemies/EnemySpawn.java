@@ -8,7 +8,7 @@ import com.golden.gamedev.util.Utility;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.PathPoint;
+import vooga.games.towerdefense.path.PathPoint;
 
 /**
  * Controls the enemy spawn speeds, path, speed of travel, and the amount of hit points 

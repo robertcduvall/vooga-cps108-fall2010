@@ -1,3 +1,0 @@
-easyLevelBG,images/backgrounds/easyLevel.png
-mediumLevelBG,images/backgrounds/mediumLevel.png
-hardLevelBG,images/backgrounds/hardLevel.png

@@ -1,4 +1,4 @@
-package vooga.games.towerdefense;
+package vooga.games.towerdefense.path;
 
 
 /**
