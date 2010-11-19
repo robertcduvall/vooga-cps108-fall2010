@@ -8,7 +8,6 @@ import vooga.engine.control.MouseControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
-import vooga.engine.event.IEventHandler;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
@@ -20,10 +19,17 @@ import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.util.ImageUtil;
 
-
-
-
-
+/**
+ * The main state of the game in which the user is actively
+ * playing the game. Due to the LevelParser systems currently 
+ * not being functional, we used hardcoded level loading rather 
+ * than xml based level loading so that we could at least get 
+ * something on the screen. As a result, only the one hardcoded 
+ * level is currently implemented. 
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class PlayState extends GameState{	
 	
 	private OverlayTracker myTracker;

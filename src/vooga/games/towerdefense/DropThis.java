@@ -12,8 +12,10 @@ import vooga.games.towerdefense.states.PlayState;
 
 
 /**
- * This is the main class of the game. It creates the different states of the
- * games, and loads all the sprites used in the game.
+ * This is the main class of the game. It creates the different game states,
+ * sets the beginning game state, and loads overlays which are common to 
+ * multiple game states. Initializing the resources, launching the game window,
+ * updating, and rendering are handled by the superclass Game.
  * 
  * 
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
