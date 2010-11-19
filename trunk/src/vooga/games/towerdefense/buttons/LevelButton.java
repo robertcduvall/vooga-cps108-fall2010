@@ -7,8 +7,11 @@ import vooga.widget.*;
 
 public class LevelButton extends Button{
 	
-	public LevelButton(Game game){
+	private String levelName;
+	
+	public LevelButton(Game game, String levelName){
 		super(game);
+		this.levelName = levelName;
 	}
 
 	public LevelButton(Game game, BufferedImage image, double x, double y) {
@@ -18,7 +21,7 @@ public class LevelButton extends Button{
 
 	@Override
 	public void actionPerformed() {
-		// TODO Auto-generated method stub
+		// TODO Launch the next level somehow using levelName
 		
 	}
 
