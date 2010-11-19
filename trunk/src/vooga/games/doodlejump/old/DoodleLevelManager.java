@@ -1,4 +1,4 @@
-package vooga.games.doodlejump;
+package vooga.games.doodlejump.old;
 
 import java.io.File;
 import java.io.FileNotFoundException;

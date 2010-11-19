@@ -1,4 +1,4 @@
-package vooga.games.doodlejump;
+package vooga.games.doodlejump.old;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

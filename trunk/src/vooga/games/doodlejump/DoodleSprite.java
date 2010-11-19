@@ -24,11 +24,11 @@ import vooga.engine.resource.Resources;
 public class DoodleSprite extends BetterSprite {
 	private boolean died;
 	private ArrayList<BallSprite> balls;
-	private DropThis game;
+	private BlahThis game;
 	private int bulletDelay = 20;
 	private OverlayString gameOverString;
 
-	public DoodleSprite(String name, String stateName, Sprite s, DropThis game) {
+	public DoodleSprite(String name, String stateName, Sprite s, BlahThis game) {
 		super(name, s);
 		died = false;
 		balls = new ArrayList<BallSprite>();
@@ -87,7 +87,7 @@ public class DoodleSprite extends BetterSprite {
 			if (getVerticalSpeed() < 0)
 				ball.setVerticalSpeed(-1.5);
 			balls.add(ball);
-			game.ballGroup.add(ball);
+			//game.ballGroup.add(ball);
 			bulletDelay = 20;
 		}
 	}
@@ -103,7 +103,7 @@ public class DoodleSprite extends BetterSprite {
 			ball.render(g);
 		if (gameOverString != null || (died && gameOverString != null)) {
 			gameOverString.render(g);
-			game.gameOver();
+			//game.gameOver();
 		}
 	}
 }
