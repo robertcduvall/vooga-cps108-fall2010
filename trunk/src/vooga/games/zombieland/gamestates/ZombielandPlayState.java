@@ -56,7 +56,6 @@ public class ZombielandPlayState extends GameState implements Constants{
 	public ZombielandPlayState(Blah game) {
 		super();
 		currentGame = game;
-		
 		initialize();
 	}
 	
