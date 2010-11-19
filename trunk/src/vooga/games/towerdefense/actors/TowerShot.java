@@ -7,7 +7,7 @@ import vooga.engine.core.BetterSprite;
 
 /**
  * Represents a shot taken by a Tower at an enemy. Moves at a
- * constant speed to a target destination where enemy was then 
+ * constant speed to a target destination where enemy was, then 
  * disappears.
  * 
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith

@@ -3,11 +3,19 @@ package vooga.games.towerdefense.buttons;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
-import vooga.engine.resource.Resources;
 import vooga.widget.*;
 
+/**
+ * A button designed to launch a level from the main menu.
+ * Currently will launch a level based on String. Once the 
+ * LevelParser is functional.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class LevelButton extends Button{
 	
+	private static final long serialVersionUID = 1L;
 	private String levelName;
 	
 	public LevelButton(Game game){
@@ -16,17 +24,11 @@ public class LevelButton extends Button{
 
 	public LevelButton(Game game, BufferedImage image, double x, double y) {
 		super(game, image, x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void actionPerformed() {
-//		switch levelName;
-//		{
-//			case "easy": 
-//			case "medium":
-//			case "hard":
-//		}
+		//TODO launch game based on levelName
 	}
 	
 	public void setLevel(String levelName){

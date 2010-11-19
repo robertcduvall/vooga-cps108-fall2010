@@ -8,6 +8,15 @@ import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.actors.towers.Normal;
 import vooga.games.towerdefense.actors.towers.Tower;
 
+/**
+ * Represents the player in the game. The player follows 
+ * the cursor and triggers a build tower event whenever 
+ * the player clicks. The image displayed is based on the 
+ * preview image of whatever tower the current tower is.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class Player extends BetterSprite {
 
 
@@ -36,17 +45,6 @@ public class Player extends BetterSprite {
 		currentTower.forceY(getY());
 		buildTowerEvent.addTower(currentTower);
 		changeTowerType(currentTower.clone());
-
-//		if (creditBalance.getStat() >= currentTower.getCost() && offPath()
-//				&& inPlayArea()) {
-//			SingletonEventManager.fireEvent("BuildTowerEvent",
-//					new BuildTowerEvent(this, "BuildTowerEvent", currentTower,
-//							getX(), getY()));
-//			creditBalance.setStat(creditBalance.getStat()
-//					- currentTower.getCost());
-//			changeTowerType(currentTower.clone());
-//
-//		}
 	}
 	
 	public void changeTowerType(Tower newTower){
