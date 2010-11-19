@@ -1,0 +1,39 @@
+<Resources>
+	<Images>
+		<Image name="ship" path="ship.gif" />
+		<Image name="enemy1" path="enemy1.png" />
+		<Image name="enemy1damage" path="enemy1damage.png" />
+		<Image name="barrier" path="barrier.png" />
+		<Image name="health" path="health.png" />
+		<Image name="torpedo" path="torpedo.png" />
+	</Images>
+
+	<Animations>
+
+	</Animations>
+
+	<Sounds>
+
+	</Sounds>
+
+	<Strings>
+		<String name="levelFilesDirectory" value="src/vooga/games/galaxyinvaders/resources/levels" />
+		<String name="levelNamesFile" value="LevelNames.txt" />
+		<String name="Level1" value="levels/level1.xml" />
+	</Strings>
+
+	<Integers>
+		<Integer name="blockadeSpriteDefaultHP" value=10 />
+		<Integer name="enemySpriteDefaultHP" value=10 />
+		<Integer name="shipMoveDistance" value=5 />
+		<Integer name="enemySpriteDefaultHP" value=10 />
+		<Integer name="itemFrequency" value=7 />
+		<Integer name="bombFrequency" value=10 />
+	</Integers>
+
+	<Doubles>
+		<Double name="itemSpeed" value=0.1 />
+		<Double name="enemyBombSpeed" value=0.5 />
+	</Doubles>
+	
+</Resources>
