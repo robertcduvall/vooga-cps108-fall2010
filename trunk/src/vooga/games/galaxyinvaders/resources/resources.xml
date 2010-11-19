@@ -6,6 +6,7 @@
 		<Image name="barrier" path="barrier.png" />
 		<Image name="health" path="health.png" />
 		<Image name="torpedo" path="torpedo.png" />
+		<Image name="background" path="background.jpg" />
 	</Images>
 
 	<Animations>

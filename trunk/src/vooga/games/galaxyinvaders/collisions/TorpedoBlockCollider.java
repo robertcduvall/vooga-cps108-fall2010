@@ -1,6 +1,6 @@
 package vooga.games.galaxyinvaders.collisions;
 
-import vooga.games.galaxyinvaders.BlockadeSprite;
+import vooga.games.galaxyinvaders.sprites.BlockadeSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;

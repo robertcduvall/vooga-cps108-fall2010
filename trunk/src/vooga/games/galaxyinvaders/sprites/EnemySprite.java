@@ -1,4 +1,4 @@
-package vooga.games.galaxyinvaders;
+package vooga.games.galaxyinvaders.sprites;
 
 
 import java.awt.Point;

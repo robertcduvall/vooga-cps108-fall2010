@@ -17,6 +17,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 import vooga.engine.factory.LevelFactory;
 import vooga.engine.resource.Resources;
+import vooga.games.galaxyinvaders.sprites.EnemySprite;
 
 public class GalaxyLevelFactory implements LevelFactory {
 	

@@ -2,7 +2,7 @@ package vooga.games.galaxyinvaders.collisions;
 
 import vooga.engine.core.Game;
 import vooga.games.galaxyinvaders.DropThis;
-import vooga.games.galaxyinvaders.EnemySprite;
+import vooga.games.galaxyinvaders.sprites.EnemySprite;
 import vooga.games.galaxyinvaders.states.GalaxyGameState;
 
 import com.golden.gamedev.object.Sprite;

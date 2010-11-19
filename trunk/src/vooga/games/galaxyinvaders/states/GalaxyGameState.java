@@ -21,15 +21,15 @@ import vooga.engine.resource.Resources;
 import vooga.engine.resource.random.Randomizer;
 import vooga.engine.resource.random.RandomizerException;
 import vooga.engine.state.GameState;
-import vooga.games.galaxyinvaders.BlockadeSprite;
 import vooga.games.galaxyinvaders.DropThis;
-import vooga.games.galaxyinvaders.EnemySprite;
 import vooga.games.galaxyinvaders.GalaxyLevelManager;
-import vooga.games.galaxyinvaders.Ship;
 import vooga.games.galaxyinvaders.collisions.ItemPlayerCollider;
 import vooga.games.galaxyinvaders.collisions.TorpedoBlockCollider;
 import vooga.games.galaxyinvaders.collisions.TorpedoEnemyCollider;
 import vooga.games.galaxyinvaders.collisions.TorpedoPlayerCollider;
+import vooga.games.galaxyinvaders.sprites.BlockadeSprite;
+import vooga.games.galaxyinvaders.sprites.EnemySprite;
+import vooga.games.galaxyinvaders.sprites.Ship;
 
 public class GalaxyGameState extends GameState{
 
