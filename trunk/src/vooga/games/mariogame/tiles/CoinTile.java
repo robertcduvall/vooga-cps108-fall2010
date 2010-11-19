@@ -10,6 +10,10 @@ import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
 public class CoinTile extends ItemTile {
+	
+	public CoinTile(BufferedImage image, double x, double y) {
+		super(image, x, y);
+	}
 
 	public CoinTile(double x, double y, List<BufferedImage> images, Coin coin) {
 		super(x, y, images, coin);

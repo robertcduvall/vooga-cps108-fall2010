@@ -14,7 +14,7 @@ public class ChangingTile extends Tile {
 	private int curImage;
 	private boolean locked;
 
-	public ChangingTile(double x, double y, BufferedImage image) {
+	public ChangingTile(BufferedImage image, double x, double y) {
 		super(image, x, y);
 		this.addImage(image);
 	}

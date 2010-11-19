@@ -7,7 +7,7 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public class IndestructibleTile extends Tile {
 
-	public IndestructibleTile(double x, double y, BufferedImage image) {
+	public IndestructibleTile(BufferedImage image, double x, double y) {
 		super(image, x, y);
 	}
 

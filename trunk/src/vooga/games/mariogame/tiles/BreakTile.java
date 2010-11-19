@@ -7,7 +7,7 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public class BreakTile extends Tile {
 
-	public BreakTile(double x, double y, BufferedImage image) {
+	public BreakTile(BufferedImage image, double x, double y) {
 		super(image, x, y);
 	}
 

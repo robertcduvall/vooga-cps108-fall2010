@@ -19,12 +19,12 @@
 	
 	<Map>
 		<MapGroup name = "src/vooga/games/mariogame/resources/maps/map0.txt">
-			<Association char = "F" object = "vooga.games.mariogame.tiles.IndestructibleTile" />
-			<Association char = "D" object = "vooga.games.mariogame.tiles.IndestructibleTile" />
-			<Association char = "B" object = "vooga.games.mariogame.tiles.BreakTile" />
-			<Association char = "C" object = "vooga.games.mariogame.tiles.ChangingTile" />
-			<Association char = "G" object = "vooga.games.mariogame.tiles.ItemTile" />
-			<Association char = "S" object = "vooga.games.mariogame.tiles.CoinTile" />
+			<Association char = "F" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Grass Tile" />
+			<Association char = "D" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Dirt Tile" />
+			<Association char = "B" object = "vooga.games.mariogame.tiles.BreakTile" image = "Break Tile" />
+			<Association char = "C" object = "vooga.games.mariogame.tiles.ChangingTile" image = "Break Tile" />
+			<Association char = "G" object = "vooga.games.mariogame.tiles.ItemTile" image = "Item Tile 1"/>
+			<Association char = "S" object = "vooga.games.mariogame.tiles.CoinTile" image = "Item Tile 1"/>
 		</MapGroup>	
 	</Map>
 	
