@@ -3,9 +3,9 @@
 
 	<SpriteGroups>
 		<SpriteGroup name="playerShip">
-			<RegularSprite name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
-				<Visual name="shipImage"/>
-			</RegularSprite>
+			<Ship name="playerSprite" x="400" y="300" vx="0" vy="0" quantity="1">
+				<Visual name="shipAnimation"/>
+			</Ship>
 		</SpriteGroup>
 		
 		<SpriteGroup name="shotGroup">
@@ -15,7 +15,7 @@
 		</SpriteGroup>
 		
 		<SpriteGroup name="asteroidGroup">
-			<SpawnedSprite name ="asteroid" xRange="1000" yRange="1000" vxRange="5" vyRange="5" quantity="5">
+			<SpawnedSprite name ="asteroid" xRange="800" yRange="600" vxRange="0.2" vyRange="0.2" quantity="5">
 				<Visual name="asteroidAnimation"/>
 			</SpawnedSprite> 
 		</SpriteGroup>
@@ -34,7 +34,7 @@
 	</CollisionGroups>
 	
 	<Background>
-		<!-- <Visual name = "mainBG" /> -->
+		<Visual name = "mainBG" />
 	</Background>
 
 	<Music>
