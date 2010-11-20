@@ -9,6 +9,18 @@ import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
 
+/**
+ * 
+ * LevelParser will reader a user-defined .xml file to produce a PlayField.
+ * This PlayField can be used in order to create a level for a GameState to render/update.
+ * 
+ * 
+ * @author Cameron McCallie, Jimmy Mu, John Kline, Derek Zhou
+ * @refactored Cameron McCallie, John Kline
+ * @thanks to Ben Getson, UTA, for refactoring advice
+ *
+ */
+
 public class LevelParserBeta implements LevelFactory {
 	
 	
@@ -19,8 +31,6 @@ public class LevelParserBeta implements LevelFactory {
 	private OverlayTracker overlayTracker;
 	private String[] tagsToProcess = {"Level", "SpriteGroups", "Map", "CollisionGroups", "Background", "Music", "Visual", "RegularSprite",
 										"SpawnedSprite", "Stat", "Control"};
-	
-	
 	
 	
 	
@@ -57,6 +67,8 @@ public class LevelParserBeta implements LevelFactory {
 	        tagProcessor.process();
 	    }
 	}
+	
+	
 	
 	@Override
 	public PlayField getPlayfield(String filepath, Game currentgame) {
