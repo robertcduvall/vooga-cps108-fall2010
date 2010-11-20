@@ -1,7 +1,7 @@
 <Overlay>
 
-	<Stat type="Intger" value="0" name="score"></Stat>
-	<Stat type="Intger" value="4" name="lives"></Stat>
+	<Stat type="Integer" value="0" name="score"></Stat>
+	<Stat type="Integer" value="4" name="levelNumber"></Stat>
 
 	<OverlayGroup name="only">
 		<OverlayStat stat="score" label="SCORE: " fontName="gameFontgreen"

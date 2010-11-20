@@ -10,8 +10,8 @@ import vooga.games.doodlejump.states.PlayState;
 
 public class BlahThis extends Game {
 
-	PlayState playState;
-	PauseGameState pauseState;
+	private PlayState playState;
+	private PauseGameState pauseState;
 	private LevelManager levelManager;
 	
 	public void initResources() {
