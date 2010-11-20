@@ -68,13 +68,12 @@ public class DropThis extends Game {
 	private LevelManager levelManager;
 	// private PauseGameState myPauseGameState;
 
-	private BetterSprite shipSprite;
-	private Player player;
+//	private Player player;
 
 	private OverlayPanel overlayPanel;
 	private OverlayTracker overlayTracker;
 	//private OverlayStatImage livesIcon;
-	private BufferedImage livesIcon;
+	//private BufferedImage livesIcon;
 
 	private GameFont font;
 
@@ -84,16 +83,11 @@ public class DropThis extends Game {
 	public void initResources() {
 		super.initResources();
 		createCollisions(); // TODO will this method call work here?
-
 		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
 				getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" + "456789:   -? ABCDEFG"
 						+ "HIJKLMNOPQRSTUVWXYZ ");
-
-		//int screenWidth = Resources.getInt("screenWidth");
-		//int screenHeight = Resources.getInt("screenHeight");
-		//screen = new Dimension(screenWidth, screenHeight);
 		// TODO errors with overlays line>: addOverlays();
 	}
 
@@ -106,7 +100,6 @@ public class DropThis extends Game {
 		String levelNamesFile = Resources.getString("levelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}
-
 
 	/**
 	 * Initialize the different GameStates possible in Grandius.
@@ -157,42 +150,44 @@ public class DropThis extends Game {
 		super.update(elapsedTime);
 	}
 
-	private void addOverlays() {
-		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/grandius/resources/overlays.xml");
-		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		livesIcon = Resources.getImage("playerImage");
-		player.setLives(overlayTracker.getStat("lives"));
-		player.setScore(overlayTracker.getStat("score"));
-		player.setCash(overlayTracker.getStat("cash"));
-//		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
-//		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
-		overlayPanel.add(overlayTracker.getOverlay("lives"));
-		overlayPanel.add(overlayTracker.getOverlay("cash"));
-		overlayPanel.add(overlayTracker.getOverlay("score"));
-		overlayPanel.initialize();
-		PlayField newField = new PlayField();
-		newField.addGroup(overlayPanel);
-		myPlayState.getUpdateField().add(newField);
-		myPlayState.getRenderField().add(newField);
-	}
+	//Moving to PlayState
+//	private void addOverlays() {
+//		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/grandius/resources/overlays.xml");
+//		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
+//		livesIcon = Resources.getImage("playerImage");
+//		player.setLives(overlayTracker.getStat("lives"));
+//		player.setScore(overlayTracker.getStat("score"));
+//		player.setCash(overlayTracker.getStat("cash"));
+////		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
+////		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
+//		overlayPanel.add(overlayTracker.getOverlay("lives"));
+//		overlayPanel.add(overlayTracker.getOverlay("cash"));
+//		overlayPanel.add(overlayTracker.getOverlay("score"));
+//		overlayPanel.initialize();
+//		PlayField newField = new PlayField();
+//		newField.addGroup(overlayPanel);
+//		myPlayState.getUpdateField().add(newField);
+//		myPlayState.getRenderField().add(newField);
+//	}
 
-	private void checkCheats() {
-		if (keyPressed(KeyEvent.VK_ENTER)) {
-			JFrame frame = new JFrame();
-			String userInput = (String) JOptionPane.showInputDialog(frame,
-					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
-			if (userInput.equals(Resources.getString("invincibility")))
-				player.setInvincible();
-			else if (userInput.equals(Resources.getString("skipLevel")))
-				player.skipLevel();
-			else if (userInput.equals(Resources.getString("extraPoints")))
-				player.updateScore(1000000);
-			else if (userInput.equals(Resources.getString("extraCash")))
-				player.updateCash(5000);
-			else if (userInput.equals(Resources.getString("activateMissile")))
-				player.setMissileActive();
-		}
-	}
+	//Moving to PlayState
+//	private void checkCheats() {
+//		if (keyPressed(KeyEvent.VK_ENTER)) {
+//			JFrame frame = new JFrame();
+//			String userInput = (String) JOptionPane.showInputDialog(frame,
+//					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
+//			if (userInput.equals(Resources.getString("invincibility")))
+//				player.setInvincible();
+//			else if (userInput.equals(Resources.getString("skipLevel")))
+//				player.skipLevel();
+//			else if (userInput.equals(Resources.getString("extraPoints")))
+//				player.updateScore(1000000);
+//			else if (userInput.equals(Resources.getString("extraCash")))
+//				player.updateCash(5000);
+//			else if (userInput.equals(Resources.getString("activateMissile")))
+//				player.setMissileActive();
+//		}
+//	}
 
 	//TODO could these two methods be removed somehow? they're used
 	//to deal with collisions...

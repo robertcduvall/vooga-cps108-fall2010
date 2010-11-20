@@ -135,7 +135,7 @@
 	<Doubles>
 		<Double name="cometVX" value="-0.05" />
 		<Double name="bulletSpeed" value="0.15" /> 
-		<Double name="playerSpeed" value="0.2" />
+		<Double name="playerSpeed" value="1.5" />
 		<Double name="projectileSpeed" value="0.15" />
 		<Double name="bossPartSpeed" value="0.05" />
 		<Double name="bossSpeed" value="0.01" />

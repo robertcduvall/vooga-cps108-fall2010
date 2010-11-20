@@ -36,19 +36,19 @@ public class Player extends BetterSprite implements IEventHandler {
 	}
 	
 	public void moveLeft() {
-		this.setHorizontalSpeed(-Resources.getDouble("playerSpeed"));
+		moveX(-Resources.getDouble("playerSpeed"));
 	}
 	
 	public void moveRight() {
-		this.setHorizontalSpeed(Resources.getDouble("playerSpeed"));
+		moveX(Resources.getDouble("playerSpeed"));
 	}
 	
 	public void moveUp() {
-		this.setVerticalSpeed(-Resources.getDouble("playerSpeed"));
+		moveY(-Resources.getDouble("playerSpeed"));
 	}
 	
 	public void moveDown() {
-		this.setVerticalSpeed(Resources.getDouble("playerSpeed"));
+		moveY(Resources.getDouble("playerSpeed"));
 	}
 	
 	public void setLives(Stat<Integer> lives) {
