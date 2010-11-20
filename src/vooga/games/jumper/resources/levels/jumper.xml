@@ -2,16 +2,13 @@
 <Level name="jumper" xmloverlaypath="src/vooga/games/jumper/resources/overlays.xml">
 
 	<SpriteGroups>
-		<SpriteGroup name="backgroundGroup">
-			<RegularSprite name="backgroundSprite" x="0" y="0" vx="0" vy="0" quantity="1">
-				<Visual name="backgroundImage"/>
-			</RegularSprite>
-		</SpriteGroup>
+
 		<SpriteGroup name="doodleSprite">
-			<SpawnedSprite name="playerSprite" xRange="400" yRange="300" vxRange="0" vyRange="0" quantity="1">
+			<SpawnedSprite name="vooga.games.jumper.sprites.DoodleSprite" xRange="400" yRange="300" vxRange="0" vyRange="0" quantity="1">
 				<Visual name="leftDoodle"/>
 			</SpawnedSprite>
 		</SpriteGroup>
+		
 		<SpriteGroup name="blockGroup">
 			<SpawnedSprite name="blockSprite" xRange="400" yRange="300" vxRange="0" vyRange="0" quantity="20">
 				<Visual name="platformGreen"/>
@@ -33,7 +30,7 @@
 	</CollisionGroups>
 	
 	<Background>
-		<Visual name = "backgroundImage" />
+		<Visual path = "backgroundImage" />
 	</Background>
 	<Map>
 	

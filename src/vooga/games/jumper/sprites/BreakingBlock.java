@@ -26,7 +26,7 @@ public class BreakingBlock extends BlockSprite{
 		doodle.setVerticalSpeed(this.getVerticalSpeed()); //doodlespeed = speed of block
 		if(startBreakTime == 0){
 			startBreakTime = GameClock.getTime();
-			
+			//TODO: refactor
 		}else if(Math.abs(breakTimeElapsed-breakTimerRate*1)<10){
 			this.setImage(Resources.getImage("platformBreak1"));
 			
