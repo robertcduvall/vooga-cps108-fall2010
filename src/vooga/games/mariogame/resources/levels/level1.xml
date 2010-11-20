@@ -18,7 +18,7 @@
 	</SpriteGroups>
 	
 	<Map>
-		<MapGroup name = "map0.txt">
+		<MapGroup name = "Map0">
 			<Association char = "F" object = "IndestructibleTile"></Association>
 			<Association char = "D" object = "IndestructibleTile"></Association>
 			<Association char = "B" object = "BreakTile"></Association>
