@@ -184,26 +184,6 @@ public class PlayState extends GameState {
 //		return newField;
 //	}
 	
-	/**
-	 * Adds the necessary CollisionGroups to the PlayState.
-	 */
-	public void initCollisions(List<BasicCollision> collisions) { //TODO find a way to make this method private?
-		PlayField newField = new PlayField();
-		newField.addCollisionGroup(playerGroup, enemyGroup, collisions.get(0));
-		newField.addCollisionGroup(playerGroup, bossPartGroup, collisions.get(1));
-		newField.addCollisionGroup(playerGroup, bossGroup, collisions.get(2));
-		newField.addCollisionGroup(projectileGroup, enemyGroup, collisions.get(3));
-		newField.addCollisionGroup(projectileGroup, bossPartGroup, collisions.get(4));
-		newField.addCollisionGroup(playerGroup, enemyProjectileGroup, collisions.get(5));
-		newField.addCollisionGroup(projectileGroup, bossGroup, collisions.get(6));
-		newField.addCollisionGroup(missileGroup, enemyGroup, collisions.get(7));
-		newField.addCollisionGroup(missileGroup, bossPartGroup, collisions.get(8));
-		newField.addCollisionGroup(missileGroup, bossGroup, collisions.get(9));
-		newField.addCollisionGroup(blackHoleGroup, enemyGroup, collisions.get(10));
-		this.addUpdatePlayField(newField); //TODO right way to do this?
-		this.addRenderPlayField(newField);
-	}
-	
 	public void initControls() {
 		playerControl = new KeyboardControl(player, myGame);
 		playerControl.addInput(KeyEvent.VK_LEFT, "moveLeft", PLAYER_CLASS);

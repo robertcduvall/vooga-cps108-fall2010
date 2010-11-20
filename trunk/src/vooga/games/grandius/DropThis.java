@@ -1,41 +1,16 @@
 package vooga.games.grandius;
 
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import vooga.engine.core.BetterSprite;
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
-import vooga.engine.core.PlayField;
-import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
-import vooga.engine.factory.LevelParser;
-import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayPanel;
-import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.grandius.collisions.BasicCollision;
-import vooga.games.grandius.collisions.BlackHoleEnemyCollision;
-import vooga.games.grandius.collisions.MissileBossCollision;
-import vooga.games.grandius.collisions.MissileBossPartCollision;
-import vooga.games.grandius.collisions.MissileEnemyCollision;
-import vooga.games.grandius.collisions.PlayerBossCollision;
-import vooga.games.grandius.collisions.PlayerBossPartCollision;
-import vooga.games.grandius.collisions.PlayerEnemyCollision;
-import vooga.games.grandius.collisions.PlayerEnemyProjectileCollision;
-import vooga.games.grandius.collisions.ProjectileBossCollision;
-import vooga.games.grandius.collisions.ProjectileBossPartCollision;
-import vooga.games.grandius.collisions.ProjectileEnemyCollision;
-import vooga.games.grandius.events.FireBlackHoleEvent;
-import vooga.games.grandius.events.FireHorizontalEvent;
-import vooga.games.grandius.events.FireMissileEvent;
-import vooga.games.grandius.events.FireVerticalEvent;
+import vooga.engine.state.PauseGameState;
 import vooga.games.grandius.states.GameCompleteState;
 import vooga.games.grandius.states.GameOverState;
 import vooga.games.grandius.states.GrandiusMenuState;
@@ -66,28 +41,36 @@ public class DropThis extends Game {
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
 	private LevelManager levelManager;
-	// private PauseGameState myPauseGameState;
-
-	private OverlayPanel overlayPanel;
-	private OverlayTracker overlayTracker;
-	//private OverlayStatImage livesIcon;
-	//private BufferedImage livesIcon;
+	private Control gameControl;
+	private PauseGameState myPauseGameState;
 
 	private GameFont font;
-
-	private Dimension screen;
 
 	@Override
 	public void initResources() {
 		super.initResources();
+		initControls();
 		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
 				getImages("resources/images/font.png", 20, 3),
 				" !            .,0123" + "456789:   -? ABCDEFG"
 						+ "HIJKLMNOPQRSTUVWXYZ ");
-		// TODO errors with overlays line>: addOverlays();
 	}
 
+	public void initControls() {
+		gameControl = new KeyboardControl(this, this);
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.grandius.DropThis");
+		gameControl.addInput(KeyEvent.VK_U, "unpauseGame", "vooga.games.grandius.DropThis");
+	}
+	
+	public void pauseGame() {
+		this.getGameStateManager().switchTo(myPauseGameState);
+	}
+	
+	public void unpauseGame() {
+		this.getGameStateManager().switchTo(myPlayState);
+	}
+	
 	/**
 	 * Initialize the LevelManager for Grandius.
 	 */
@@ -113,7 +96,7 @@ public class DropThis extends Game {
 		gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
 		gameStates.add(myStartNewLevelState = new StartNewLevelState());
 		gameStates.add(myGameOverState = new GameOverState());
-		// gameStates.add(myPauseGameState = new PauseGameState());
+		gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));
 		GameState[] gameStatesArray = new GameState[gameStates.size()];
 		for (int i = 0; i < gameStates.size(); i++) {
 			gameStatesArray[i] = gameStates.get(i);
@@ -122,50 +105,11 @@ public class DropThis extends Game {
 		stateManager.switchTo(myPlayState);
 	}
 
-//	/**
-//	 * Creates different types of collisions and registers them to the
-//	 * Grandius PlayState.
-//	 */
-//	private void createCollisions() {
-//		List<BasicCollision> collisionList = new ArrayList<BasicCollision>();
-//		collisionList.add(new PlayerEnemyCollision(this));
-//		collisionList.add(new PlayerBossPartCollision(this));
-//		collisionList.add(new PlayerBossCollision(this));
-//		collisionList.add(new ProjectileEnemyCollision(this));
-//		collisionList.add(new ProjectileBossPartCollision(this));
-//		collisionList.add(new PlayerEnemyProjectileCollision(this));
-//		collisionList.add(new ProjectileBossCollision(this));
-//		collisionList.add(new MissileEnemyCollision(this));
-//		collisionList.add(new MissileBossPartCollision(this));
-//		collisionList.add(new MissileBossCollision(this));
-//		collisionList.add(new BlackHoleEnemyCollision(this));
-//		myPlayState.initCollisions(collisionList);
-//	}
-
-//	@Override
-//	public void update(long elapsedTime) {
-//		super.update(elapsedTime);
-//	}
-
-	//Moving to PlayState
-//	private void addOverlays() {
-//		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/grandius/resources/overlays.xml");
-//		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-//		livesIcon = Resources.getImage("playerImage");
-//		player.setLives(overlayTracker.getStat("lives"));
-//		player.setScore(overlayTracker.getStat("score"));
-//		player.setCash(overlayTracker.getStat("cash"));
-////		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
-////		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
-//		overlayPanel.add(overlayTracker.getOverlay("lives"));
-//		overlayPanel.add(overlayTracker.getOverlay("cash"));
-//		overlayPanel.add(overlayTracker.getOverlay("score"));
-//		overlayPanel.initialize();
-//		PlayField newField = new PlayField();
-//		newField.addGroup(overlayPanel);
-//		myPlayState.getUpdateField().add(newField);
-//		myPlayState.getRenderField().add(newField);
-//	}
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+		gameControl.update();
+	}
 
 	//Moving to PlayState
 //	private void checkCheats() {
