@@ -1,5 +1,6 @@
 package vooga.engine.factory;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Constructor;
 import java.util.Map;
@@ -8,6 +9,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.Game;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
@@ -73,7 +78,10 @@ public class LevelParser implements LevelFactory{
 		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
 		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
-
+		voogaPlayField.addOverlayTracker(overlayTracker);
+		
+		
+		
 		//		Node levelRulesSection = xmlDocument.getElementsByTagName("LevelRules").item(0);
 		//		NodeList listOfLevelRules = levelRulesSection.getChildNodes();
 		//		processLevelRules(listOfLevelRules);
@@ -239,6 +247,7 @@ public class LevelParser implements LevelFactory{
 					try {
 						Class userSprite = Class.forName(className);
 						Constructor classConstructor = userSprite.getConstructor();
+						
 						if (!Boolean.parseBoolean(currentElement.getAttribute("random"))) {
 							double x = Double.parseDouble(currentElement.getAttribute("x"));
 							double y = Double.parseDouble(currentElement.getAttribute("y"));
@@ -248,6 +257,16 @@ public class LevelParser implements LevelFactory{
 							int quantity = Integer.parseInt(currentElement.getAttribute("quantity"));
 							for(int j = 0; j < quantity; j++) {
 								BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
+								
+								NodeList listOfVisuals = currentElement.getElementsByTagName("Visual");
+								processVisual(listOfVisuals, spriteToAdd);
+								
+								NodeList listOfControls = currentElement.getElementsByTagName("Control");
+								processControl(listOfControls, spriteToAdd);
+								
+								NodeList listOfStats = currentElement.getElementsByTagName("Stat");
+								processStat(listOfStats, spriteToAdd);
+								
 								spriteToAdd.setLocation(x, y);
 								spriteToAdd.setHorizontalSpeed(vx);
 								spriteToAdd.setVerticalSpeed(vy);	
@@ -266,12 +285,22 @@ public class LevelParser implements LevelFactory{
 							int quantity = Integer.parseInt(currentElement.getAttribute("quantity"));
 							for(int j = 0; j < quantity; j++) {
 								BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
+								
+								NodeList listOfVisuals = currentElement.getElementsByTagName("Visual");
+								processVisual(listOfVisuals, spriteToAdd);
+								
+								NodeList listOfControls = currentElement.getElementsByTagName("Control");
+								processControl(listOfControls, spriteToAdd);
+								
+								NodeList listOfStats = currentElement.getElementsByTagName("Stat");
+								processStat(listOfStats, spriteToAdd);
+								
 								spriteToAdd.setLocation(Math.random()*(xMax-xMin) + xMin,
 													  Math.random()*(yMax-yMin) + yMin);
 								spriteToAdd.setHorizontalSpeed(Math.random()*(vxMax-vxMin) + vxMin);
 								spriteToAdd.setVerticalSpeed(Math.random()*(vyMax-vyMin) + vyMin);	
 								group.add(spriteToAdd);
-							}
+							}	
 						}
 					} catch (Throwable e){
 						e.printStackTrace();
@@ -280,6 +309,66 @@ public class LevelParser implements LevelFactory{
 			}
 		}
 	}
+
+	private void processStat(NodeList listOfStats, BetterSprite spriteToAdd) {
+		
+		for(int statCount = 0; statCount < listOfStats.getLength(); statCount++)
+		{
+			if (isElement(listOfStats.item(statCount)))
+			{
+				Element statElement = (Element) listOfStats.item(statCount);
+				String statName = statElement.getAttribute("name");
+				Stat<?> stat = overlayTracker.getStat(statName);
+				
+				spriteToAdd.setStat(statName, stat);
+			}
+		}	
+	}
+
+	private void processControl(NodeList listOfControls, BetterSprite spriteToAdd) {
+	
+		for(int controlCount = 0; controlCount < listOfControls.getLength(); controlCount++)
+		{
+			if (isElement(listOfControls.item(controlCount)))
+			{
+				Element controlElement = (Element) listOfControls.item(controlCount);
+				
+				String controlName = controlElement.getAttribute("name");
+				String controlsubclassname=controlElement.getAttribute("controlsubclass");
+				String objectclassname = controlElement.getAttribute("class");
+				String objectmethodname = controlElement.getAttribute("methodname");
+				
+				
+				
+				int controlkey = Integer.parseInt(controlElement.getAttribute("controlkey"));
+				
+				
+				
+//				<Control name=”” controlsubclass= ““ controlkey=”” class=”“ methodname=””>
+//					<MethodArgument class=”Integer” />
+//					<MethodArgument class=”Integer” />
+//				</Control>
+				
+				
+//				BufferedImage[] visual = Resources.getVisual(visualName);
+//
+//				newSprite.addAnimatedImages(visualName, visual);
+//				
+//		
+//				Control playerControl = new KeyboardControl(player, game);
+				
+//				playerControl.addInput(KeyEvent.VK_LEFT, "rotateLeft", "vooga.games.asteroids.sprites.Ship", null);
+//				playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship", null);
+//				playerControl.addInput(KeyEvent.VK_UP, "thrust", "vooga.games.asteroids.sprites.Ship", null);
+//				playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship", null);
+//				myField.addControl(playerControl);
+				
+				
+			}
+		}
+		
+	}
+
 
 	private void processMap(NodeList listOfMaps) {
 		MapReader reader;
@@ -311,8 +400,6 @@ public class LevelParser implements LevelFactory{
 		}
 	}
 
-	//process Stats
-	//process Control
 
 
 	/**
