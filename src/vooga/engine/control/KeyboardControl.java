@@ -41,6 +41,16 @@ public class KeyboardControl extends Control{
 	}
 	
 	/**
+	 * Creates a KeyboardControl object with a Game and a single Object which it controls.
+	 * 
+	 * @param initialEntity the PlayerSprite to be controlled
+	 * @param game the Game to which the PlayerSprites belong
+	 */
+	public KeyboardControl(Object entity, Game game){
+		super(entity, game);
+	}
+	
+	/**
 	 * Creates a MouseControl object with a number of players which it controls. The 
 	 * Players are passed in as a List of PlayerSprites	
 	 * 

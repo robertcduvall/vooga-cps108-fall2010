@@ -29,12 +29,14 @@ public class MarioSprite extends BetterSprite {
 	public MarioSprite(){
 	}
 	
+	/*
 	public MarioSprite(String name, BufferedImage[] left) {
 		super(name, left);
 		setStat("Score", new Stat<Integer>(0));
 
 		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
 	}
+	*/
 
 	public void moveRight() {
 		setHorizontalSpeed(speed);

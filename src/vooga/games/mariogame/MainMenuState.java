@@ -62,13 +62,13 @@ public class MainMenuState extends MenuGameState {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-//		initControls(myGame);
+		initControls(myGame);
 	}
 	
 	private void initControls(Game game){
-		Control gameControl = new KeyboardControl(game);
+		Control gameControl = new KeyboardControl(game,game);
 		gameControl.addInput(KeyEvent.VK_SPACE, "resumeGame", "vooga.games.mariogame.DropThis");
-		((PlayField)this.getRenderField().toArray()[0]).addControl(gameControl);
+		getMenuPlayfield().addControl(gameControl);
 	}
 
 }
