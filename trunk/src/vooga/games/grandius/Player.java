@@ -21,6 +21,10 @@ public class Player extends BetterSprite implements IEventHandler {
 	private boolean skipLevel; //TODO should this go in this class?
 	private boolean isInvincible;
 	
+	public Player() {
+		this("PlayerName");
+	}
+	
 	public Player(String label){
 		super(label, new BetterSprite(
 				Resources.getImage("playerImage"),
