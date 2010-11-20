@@ -54,7 +54,7 @@ public class Zipster extends Enemy {
 	 * @return The laser sprite to add to the game field.
 	 */
 	public BetterSprite fireLaser() {
-		BetterSprite laser = new BetterSprite(Resources.getImage("ZipsterLaser"),this.getX()-this.getWidth(),this.getY());
+		BetterSprite laser = new BetterSprite(Resources.getImage("zipsterLaserImage"),this.getX()-this.getWidth(),this.getY());
 		laser.setHorizontalSpeed(-ZIPSTER_LASER_SPEED);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
 		reloaded = false;
@@ -76,7 +76,7 @@ public class Zipster extends Enemy {
 	}
 	
 	public void spinZipster() {
-		//this.setImages(new BufferedImage[]{Resources.getAnimation("SpinningZipster")[spin]});
+		//this.setImages(new BufferedImage[]{Resources.getAnimation("spinningZipsterAnimation")[spin]});
 		setProximateToBlackHole(true);
 		if (spin == 7)
 			spin = 0; 

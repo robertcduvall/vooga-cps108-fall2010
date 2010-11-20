@@ -27,7 +27,7 @@ public class BasicCollision extends BasicCollisionGroup {
 	@Override
 	public void collided(Sprite playerSideSprite, Sprite commonEnemy) {
 		//TODO - add an explosion sound (done)
-		game.playSound(Resources.getSound("ExplosionSound"));
+		game.playSound(Resources.getSound("explosionSound"));
 		// make the explosion image stay longer
 	}
 	

@@ -21,7 +21,7 @@ import vooga.engine.state.BasicTextGameState;
 //}
 public class LevelCompleteState extends BasicTextGameState {
 
-	private static String myLevelCompleteMessage = Resources.getString("LevelCompleteMessage");
+	private static String myLevelCompleteMessage = Resources.getString("levelCompleteMessage");
 	public LevelCompleteState() {
 		super(myLevelCompleteMessage);
 	}

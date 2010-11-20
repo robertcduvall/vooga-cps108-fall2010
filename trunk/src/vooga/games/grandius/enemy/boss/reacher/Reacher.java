@@ -72,7 +72,7 @@ public class Reacher extends GrandiusBoss {
 	}
 
 	public BetterSprite fireTopBeam() {
-		BetterSprite beam = new BetterSprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+this.getHeight()/7);
+		BetterSprite beam = new BetterSprite(Resources.getImage("reacherBeamImage"),this.getX(),this.getY()+this.getHeight()/7);
 		beam.setHorizontalSpeed(-REACHER_BEAM_SPEED);
 		fireTopBeamTimer = new Timer(REACHER_BEAM_RELOAD_TIME);
 		topBeamReloaded = false;
@@ -80,7 +80,7 @@ public class Reacher extends GrandiusBoss {
 	}
 
 	public BetterSprite fireBottomBeam() {
-		BetterSprite beam = new BetterSprite(Resources.getImage("ReacherBeam"),this.getX(),this.getY()+5*this.getHeight()/7);
+		BetterSprite beam = new BetterSprite(Resources.getImage("reacherBeamImage"),this.getX(),this.getY()+5*this.getHeight()/7);
 		beam.setHorizontalSpeed(-REACHER_BEAM_SPEED);
 		fireBottomBeamTimer = new Timer(REACHER_BEAM_RELOAD_TIME);
 		bottomBeamReloaded = false;
@@ -88,7 +88,7 @@ public class Reacher extends GrandiusBoss {
 	}
 
 	public BetterSprite fireRedRay() {
-		BetterSprite redray = new BetterSprite(Resources.getImage("ReacherRedRay"),this.getX()+this.getWidth()/4,this.getY()+3*this.getHeight()/7);
+		BetterSprite redray = new BetterSprite(Resources.getImage("reacherRedRayImage"),this.getX()+this.getWidth()/4,this.getY()+3*this.getHeight()/7);
 		redray.setHorizontalSpeed(-REACHER_REDRAY_SPEED);
 		fireRedRayTimer = new Timer(REACHER_REDRAY_RELOAD_TIME);
 		redRayReloaded = false;
@@ -110,14 +110,14 @@ public class Reacher extends GrandiusBoss {
 		if (getHealth() <= 0) {
 			return true;
 		} else if (getHealth() >= breakpoints[0]) {
-			//this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[3]});
-			this.setImage(Resources.getAnimation("Reacher")[3]);
+			//this.setImages(new BufferedImage[]{Resources.getAnimation("reacherAnimation")[3]});
+			this.setImage(Resources.getAnimation("reacherAnimation")[3]);
 		} else if (getHealth() >= breakpoints[1]) {
 			//this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[4]});
-			this.setImage(Resources.getAnimation("Reacher")[4]);
+			this.setImage(Resources.getAnimation("reacherAnimation")[4]);
 		} else {
 			//this.setImages(new BufferedImage[]{Resources.getAnimation("Reacher")[5]});
-			this.setImage(Resources.getAnimation("Reacher")[5]);
+			this.setImage(Resources.getAnimation("reacherAnimation")[5]);
 		} 
 		return false;
 	}

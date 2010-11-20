@@ -23,7 +23,7 @@ public class PlayerEnemyProjectileCollision extends BasicCollision {
 	public void collided(Sprite player, Sprite laser) {
 		super.collided(player, laser);
 		laser.setActive(false);
-		BufferedImage[] images = Resources.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, player.getX(), player.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);

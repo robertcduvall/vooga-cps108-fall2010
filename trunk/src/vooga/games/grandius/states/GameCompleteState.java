@@ -5,7 +5,7 @@ import vooga.engine.state.BasicTextGameState;
 
 public class GameCompleteState extends BasicTextGameState {
 
-	private static String myGameCompleteMessage = Resources.getString("GameCompleteMessage");
+	private static String myGameCompleteMessage = Resources.getString("gameCompleteMessage");
 	public GameCompleteState() {
 		super(myGameCompleteMessage);
 	}

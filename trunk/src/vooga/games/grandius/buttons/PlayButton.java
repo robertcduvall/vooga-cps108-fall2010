@@ -9,7 +9,7 @@ import vooga.widget.Button;
 public class PlayButton extends Button {
 	private static final int START_X = 220;
 	private static final int START_Y = 0;
-	private static final BufferedImage myImage = Resources.getImage("PlayButton");
+	private static final BufferedImage myImage = Resources.getImage("playButtonImage");
 	
 	public PlayButton(Game game) {
 		super(game, myImage, START_X, START_Y);

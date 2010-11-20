@@ -29,13 +29,13 @@ public class MissileEnemyCollision extends BasicCollision {
 			missile.setActive(false);
 		}
 		enemy.setActive(false);
-		BufferedImage[] images = Resources.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
 		grandius.getPlayState().getRenderField().add(newField);
 		grandius.getPlayState().getUpdateField().add(newField);
-		grandius.playSound(Resources.getSound("LaserSound"));
+		grandius.playSound(Resources.getSound("laserSound"));
 		grandius.getPlayer().updateScore(((Enemy)enemy).getScore());
 		grandius.getPlayer().updateCash(((Enemy)enemy).getCash());
 	}

@@ -34,7 +34,7 @@ public class ProjectileEnemyCollision extends BasicCollision{
 		super.collided(bullet, enemy);
 		bullet.setActive(false);
 		enemy.setActive(false);
-		BufferedImage[] images = Resources.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
