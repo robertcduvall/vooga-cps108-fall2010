@@ -2,6 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
@@ -12,9 +13,9 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class PlayerEnemyProjectileCollision extends BasicCollision {
 
-	private DropThis grandius;
+	private Game grandius;
 	
-	public PlayerEnemyProjectileCollision(DropThis grandius) {
+	public PlayerEnemyProjectileCollision(Game grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
@@ -27,9 +28,9 @@ public class PlayerEnemyProjectileCollision extends BasicCollision {
 		AnimatedSprite explosion = new VolatileSprite(images, player.getX(), player.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
-		grandius.getPlayState().getRenderField().add(newField);
-		grandius.getPlayState().getUpdateField().add(newField);
-		grandius.getPlayer().updatePlayerLives();
+		((DropThis)grandius).getPlayState().getRenderField().add(newField);
+		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
+		((DropThis)grandius).getPlayer().updatePlayerLives();
 	}
 
 	

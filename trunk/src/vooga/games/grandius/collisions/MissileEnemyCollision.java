@@ -2,6 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
@@ -13,9 +14,9 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class MissileEnemyCollision extends BasicCollision {
-	private DropThis grandius;
+	private Game grandius;
 
-	public MissileEnemyCollision(DropThis grandius) {
+	public MissileEnemyCollision(Game grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
@@ -33,10 +34,10 @@ public class MissileEnemyCollision extends BasicCollision {
 		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
-		grandius.getPlayState().getRenderField().add(newField);
-		grandius.getPlayState().getUpdateField().add(newField);
-		grandius.playSound(Resources.getSound("laserSound"));
-		grandius.getPlayer().updateScore(((Enemy)enemy).getScore());
-		grandius.getPlayer().updateCash(((Enemy)enemy).getCash());
+		((DropThis)grandius).getPlayState().getRenderField().add(newField);
+		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
+		((DropThis)grandius).playSound(Resources.getSound("laserSound"));
+		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
+		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 }

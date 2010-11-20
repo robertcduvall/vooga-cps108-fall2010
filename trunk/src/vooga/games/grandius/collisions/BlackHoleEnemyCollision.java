@@ -2,6 +2,7 @@ package vooga.games.grandius.collisions;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
@@ -23,9 +24,9 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  */
 public class BlackHoleEnemyCollision extends BasicCollision{
 
-	private DropThis grandius;
+	private Game grandius;
 	
-	public BlackHoleEnemyCollision(DropThis grandius) {
+	public BlackHoleEnemyCollision(Game grandius) {
 		super(grandius);
 		this.grandius = grandius;
 	}
@@ -43,10 +44,10 @@ public class BlackHoleEnemyCollision extends BasicCollision{
 		AnimatedSprite vortex = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		PlayField newField = new PlayField();
 		newField.add(vortex);
-		grandius.getPlayState().getRenderField().add(newField);
-		grandius.getPlayState().getUpdateField().add(newField);
-		grandius.getPlayer().updateScore(((Enemy)enemy).getScore());
-		grandius.getPlayer().updateCash(((Enemy)enemy).getCash());
+		((DropThis)grandius).getPlayState().getRenderField().add(newField);
+		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
+		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
+		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 
 	
