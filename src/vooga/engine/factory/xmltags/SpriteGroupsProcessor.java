@@ -24,13 +24,9 @@ public class SpriteGroupsProcessor extends NodeListProcessor {
 	
 	
 	public SpriteGroupsProcessor(Document xmlDocument, NodeList children) {
-		myChildren = children;
-		myXMLDocument = xmlDocument;
+		super(xmlDocument, children);
 	}
 	
-	public static boolean isElement(Node node){
-		return (node.getNodeType() == Node.ELEMENT_NODE);
-	}
 	
 	public void process(){
 		for(int i = 0; i < mySpriteGroups.getLength(); i++)
@@ -51,13 +47,11 @@ public class SpriteGroupsProcessor extends NodeListProcessor {
 
 	@Override
 	public int getLength() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Node item(int index) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
