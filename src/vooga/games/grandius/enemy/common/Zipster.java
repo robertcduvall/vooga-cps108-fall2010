@@ -25,15 +25,13 @@ public class Zipster extends Enemy {
 	private static final int SCORE_VALUE = 25;
 	private static final int CASH_VALUE = 1;
 	
-	public Zipster(BufferedImage[] images, double x, double y) {
-		super(images, x, y);
+	public Zipster(double x, double y) {
+		super(Resources.getAnimation("spinningZipsterAnimation"), x, y);
 		this.setScore(SCORE_VALUE);
 		this.setCash(CASH_VALUE);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
 		blackHoleProximate = false;
 		spin = 0;
-//		scoreValue = SCORE_VALUE;
-//		cashValue = CASH_VALUE;
 	}
 	
 	@Override

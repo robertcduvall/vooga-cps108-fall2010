@@ -2,6 +2,7 @@ package vooga.games.grandius.weapons;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.common.Zipster;
 
 import com.golden.gamedev.object.Sprite;
@@ -19,8 +20,9 @@ public class BlackHole extends Sprite {
 	private static final double BLACK_HOLE_INITIAL_SPEED = 0.2;
 	private int swallowedEnemies;
 	
-	public BlackHole(BufferedImage image, double x, double y) {
-		super(image,x,y);
+	public BlackHole(double x, double y) {
+		super(Resources.getImage("blackHoleImage"),x,y);
+		this.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
 		//this.setHorizontalSpeed(BLACK_HOLE_INITIAL_SPEED);
 		speedTimer = new Timer(BLACK_HOLE_SPEED_REDUCTION_TIME);
 		swallowedEnemies = 0;

@@ -83,7 +83,7 @@ public class DropThis extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
-		//createCollisions(); // TODO will this method call work here?
+		createCollisions(); // TODO will this method call work here?
 
 		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
@@ -156,101 +156,6 @@ public class DropThis extends Game {
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 	}
-	
-	// @Override
-	// public void update(long elapsedTime) {
-	// if(levelManager.getCurrentLevel()==0){
-	// PlayField playfield=levelManager.loadNextLevel();
-	// playfield.setBackground(levelManager.getBackground());
-	// for(SpriteGroup group: playfield.getGroups()){
-	// playfield.addGroup(group);
-	// }
-	// }
-	// super.update(elapsedTime);
-	// if (menuState.isActive()){
-	// if(click()){
-	// stateManager.switchTo(playState);
-	// playSound(Resources.getSound("watchThisSound"));
-	// playSound(Resources.getSound("startLevelSound"));
-	// }
-	// }
-	//
-	// if (playState.isActive()) {
-	// fireWeapon();
-	// updateEntities();
-	// checkCheats();
-	// checkBossParts();
-	// if (checkLevelComplete()) {
-	// playfield.clearPlayField();
-	// stateManager.switchTo(levelCompleteState);
-	// }
-	// playfield.update(elapsedTime);
-	// if (statLives.getStat().intValue() <= 0) {
-	// playfield.clearPlayField();
-	// stateManager.switchTo(gameOverState);
-	// playSound(Resources.getSound("ohManSound"));
-	// }
-	// }
-	//
-	// if (levelCompleteState.isActive()){
-	// if(levelManager.getCurrentLevel()==LAST_LEVEL){
-	// playfield.clearPlayField();
-	// stateManager.switchTo(gameCompleteState);
-	// }
-	// else if(click()){
-	// playfield.clearPlayField();
-	// stateManager.switchTo(shoppingLevelState);
-	// }
-	// }
-	//
-	// if (shoppingLevelState.isActive()){
-	// //TODO factor out switch to out of if statement
-	// // SHOPPING_LEVEL_GROUP.update(elapsedTime);
-	// int displayX = Resources.getInt("shoppingLevelX");
-	// int displayY = Resources.getInt("shoppingLevelY");
-	// if(click()){
-	// System.out.println("Made it here");
-	// if((this.getMouseX()>displayX)){
-	// if((this.getMouseY()>displayY*2) &&
-	// (this.getMouseY()<displayY*3)){
-	// missileActive = true;
-	// updateStat(statCash,-500);
-	// playfield.clearPlayField();
-	// stateManager.switchTo(startNewLevelState);
-	// }
-	// else if((this.getMouseY()>displayY*3) &&
-	// (this.getMouseY()<displayY*4)){
-	// blackHoleActive = true;
-	// updateStat(statCash,-1000);
-	// playfield.clearPlayField();
-	// stateManager.switchTo(startNewLevelState);
-	// }
-	// }
-	// }
-	// if (keyPressed(KeyEvent.VK_SPACE)){
-	// stateManager.switchTo(startNewLevelState);
-	// }
-	// }
-	//
-	// if (startNewLevelState.isActive()){
-	// PlayField playfield=levelManager.loadNextLevel();
-	// playfield.clearPlayField();
-	// playfield.setBackground(levelManager.getBackground());
-	// for(SpriteGroup group: playfield.getGroups()){
-	// playfield.addGroup(group);
-	// }
-	// playerGroup.add(playerSprite);
-	// createComets();
-	// playfield.addGroup(overlayPanel);
-	// playSound(Resources.getSound("startLevelSound"));
-	// stateManager.switchTo(playState);
-	// }
-	// //stateManager.update(elapsedTime);
-	// }
-
-//TODO handle key events
-
-	//moved updatePlayerLives, updateScoreOnCollision, updateCashOnCollision to Player
 
 	private void addOverlays() {
 		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/grandius/resources/overlays.xml");
@@ -261,7 +166,6 @@ public class DropThis extends Game {
 		player.setCash(overlayTracker.getStat("cash"));
 //		OverlayStat scoreCounter = new OverlayStat("Score", player.getScore());
 //		OverlayStat cashCounter = new OverlayStat("Cash", player.getCash());
-
 		overlayPanel.add(overlayTracker.getOverlay("lives"));
 		overlayPanel.add(overlayTracker.getOverlay("cash"));
 		overlayPanel.add(overlayTracker.getOverlay("score"));
@@ -293,7 +197,7 @@ public class DropThis extends Game {
 	//TODO could these two methods be removed somehow? they're used
 	//to deal with collisions...
 	public Player getPlayer() {
-		return this.player;
+		return this.myPlayState.getPlayer();
 	}
 	
 	public PlayState getPlayState() {

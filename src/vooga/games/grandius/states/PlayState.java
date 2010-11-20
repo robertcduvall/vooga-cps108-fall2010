@@ -18,6 +18,7 @@ import vooga.engine.state.GameState;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
 import vooga.games.grandius.collisions.BasicCollision;
+import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
 import vooga.games.grandius.events.FireMissileEvent;
@@ -100,14 +101,7 @@ public class PlayState extends GameState {
 	 * Adds the Player to the PlayerGroup SpriteGroup.
 	 */
 	private SpriteGroup addPlayer(SpriteGroup playerGroup) {
-		Stat<Integer> initLives = new Stat<Integer>(3);// = overlayTracker.getStat("initLives", new Integer(0));
-		Stat<Integer> initCash = new Stat<Integer>(0);// = overlayTracker.getStat("initCash", new Integer(0));
-		Stat<Integer> initScore = new Stat<Integer>(0);// = overlayTracker.getStat("initScore", new Integer(0));
-		BetterSprite playerSprite = new BetterSprite(
-				Resources.getImage("playerImage"),
-				Resources.getInt("playerInitialX"),
-				Resources.getInt("playerInitialY"));
-		player = new Player("alive", playerSprite, initLives, initCash, initScore);
+		player = new Player("alivePlayer");
 		player.setActive(true);
 		initControls();
 		playerGroup.add(player);	
@@ -128,12 +122,13 @@ public class PlayState extends GameState {
 		newField.addGroup(playerGroup);
 		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
 		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
-		enemyGroup =                    newField.addGroup(new SpriteGroup("Enemy"));
+		//TODO the createEnemiesGroup() method should be replaced by the use of the level XML file
+		enemyGroup =                    newField.addGroup(createEnemiesGroup());
 		bossPartGroup =                 newField.addGroup(new SpriteGroup("BossPart"));
 		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
 		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
 		blackHoleGroup =                newField.addGroup(new SpriteGroup("BlackHole"));
-		cometsGroup = createCometsGroup();
+		cometsGroup = 					newField.addGroup(createCometsGroup());
 		
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>(); //TODO get rid of the negative signs?
 		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("projectileSpeed"));
@@ -172,11 +167,17 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
-		playerControl.addInput(KeyEvent.VK_ALT, "shoot", PLAYER_CLASS);
+	}
+	
+	private SpriteGroup createEnemiesGroup() {
+		SpriteGroup enemiesGroup = new SpriteGroup("Enemies");
+		Zipster zipster = new Zipster(400, 200);
+		enemiesGroup.add(zipster);
+		return enemiesGroup;
 	}
 	
 	/**
-	 * Creates background "comet sprites" to provide illusion of movement through space.
+	 * Creates background "comets" to provide illusion of movement through space.
 	 */
 	private SpriteGroup createCometsGroup() {
 		SpriteGroup cometGroup = new SpriteGroup("Comets");
@@ -185,13 +186,18 @@ public class PlayState extends GameState {
 			Random valY = new Random();
 			double x = valX.nextDouble();
 			double y = valY.nextDouble();
-			BetterSprite backgroundSprite = new BetterSprite(Resources.getImage("cometImage"),
+			BetterSprite comet = new BetterSprite(Resources.getImage("cometImage"),
 					(x * Resources.getInt("cometX")), 
 					(y * Resources.getInt("cometY")));
-			backgroundSprite.setHorizontalSpeed(Resources.getDouble("cometVX"));
-			cometGroup.add(backgroundSprite);
+			comet.setHorizontalSpeed(Resources.getDouble("cometVX"));
+			cometGroup.add(comet);
 		}
 		return cometGroup;
+	}
+	
+	//TODO this method is being used for collision handling also
+	public Player getPlayer() {
+		return player;
 	}
 		
 }

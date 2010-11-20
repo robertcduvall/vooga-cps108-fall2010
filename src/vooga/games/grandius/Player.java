@@ -18,15 +18,17 @@ public class Player extends BetterSprite implements IEventHandler {
 	// TODO: Good practice here? Use Missile/BlackHole classes?
 	private boolean missileActive;
 	private boolean blackHoleActive;
-	
 	private boolean skipLevel; //TODO should this go in this class?
 	private boolean isInvincible;
 	
-	public Player(String label, BetterSprite sprite, Stat<Integer> initLives, Stat<Integer> initCash, Stat<Integer> initScore){
-		super(label,sprite);
-		//statLives = new Stat<Integer>( Resources.getInt("initialPlayerLives"));
-		//statScore = new Stat<Integer>(Resources.getInt("initialZero"));//TODO get rid of this "InitialZero" variable? 
-		//statCash = new Stat<Integer>(Resources.getInt("initialZero"));
+	public Player(String label){
+		super(label, new BetterSprite(
+				Resources.getImage("playerImage"),
+				Resources.getInt("playerInitialX"),
+				Resources.getInt("playerInitialY")));
+		statLives = new Stat<Integer>( Resources.getInt("initialPlayerLives"));
+		statScore = new Stat<Integer>(Resources.getInt("initialZero"));//TODO get rid of this "InitialZero" variable? 
+		statCash = new Stat<Integer>(Resources.getInt("initialZero"));
 		missileActive = false;
 		blackHoleActive = false;
 		skipLevel = false;

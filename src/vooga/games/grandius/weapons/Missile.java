@@ -1,6 +1,6 @@
 package vooga.games.grandius.weapons;
 
-import java.awt.image.BufferedImage;
+import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -10,8 +10,9 @@ public class Missile extends Sprite{
 	private static final int MAX_HITS = 3;
 	private int hits;
 	
-	public Missile(BufferedImage image, double x, double y) {
-		super(image,x,y);
+	public Missile(double x, double y) {
+		super(Resources.getImage("missileImage"),x,y);
+		this.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
 		hits=0;
 	}
 
