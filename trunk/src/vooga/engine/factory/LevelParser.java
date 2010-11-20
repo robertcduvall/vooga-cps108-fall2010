@@ -266,7 +266,7 @@ public class LevelParser implements LevelFactory{
 
 			if(isElement(currentNode))
 			{
-				String path = ((Element) currentNode).getAttribute("name");
+				String path = ((Element) currentNode).getAttribute("path");
 				reader = new MapReader(path, voogaPlayField);
 				NodeList listOfAssociations = currentNode.getChildNodes();
 				for(int j = 0; j < listOfAssociations.getLength(); j++)
@@ -382,12 +382,7 @@ public class LevelParser implements LevelFactory{
 			if (isElement(backgrounds.item(i))) {
 				Element bgElement = (Element) backgrounds.item(i);
 				voogaPlayField.addImageBackground(bgElement
-						.getAttribute("name"));
-				if (isElement(backgrounds.item(i))) {
-					Element bgElementNode = (Element) backgrounds.item(i);
-					voogaPlayField.addImageBackground(bgElementNode
-							.getAttribute("name"));
-				}
+						.getAttribute("path"));
 			}
 		}
 	}

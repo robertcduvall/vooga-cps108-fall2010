@@ -1,7 +1,6 @@
 package vooga.examples.resource.profile;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,10 +44,6 @@ public class Main {
 	private void init() throws InterruptedException {
 
 		profile = new ColorProfile();
-		// pm.setColor("user1", 0xFFAAFF);
-		// pm.setColor("user2", 0xFFFFFF);
-		// pm.setColor("user3", 0x0000DA);
-		// pm.setColor("user4", 0x334455);
 
 		frame = new JFrame("Profile Example");
 		frame.setSize(400, 400);
