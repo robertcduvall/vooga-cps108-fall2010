@@ -1,10 +1,11 @@
 package vooga.engine.factory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
+import vooga.engine.factory.xmltags.LevelProcessor;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
@@ -29,8 +30,8 @@ public class LevelParserBeta implements LevelFactory {
 	private Game currentGame;
 	private PlayField voogaPlayField;
 	private OverlayTracker overlayTracker;
-	private String[] tagsToProcess = {"Level", "SpriteGroups", "Map", "CollisionGroups", "Background", "Music", "Visual", "RegularSprite",
-										"SpawnedSprite", "Stat", "Control"};
+	//private String[] tagsToProcess = {"Level", "SpriteGroups", "Map", "CollisionGroups", "Background", "Music", "Visual", "RegularSprite",
+	//									"SpawnedSprite", "Stat", "Control"};
 	
 	
 	
@@ -43,7 +44,7 @@ public class LevelParserBeta implements LevelFactory {
 		try {
 			XMLDocumentCreator xmlCreator = new XMLFileParser(xmlLevelFile);
 			Document xmlDocument = xmlCreator.getDocument();
-			processDocument(xmlDocument); 
+			voogaPlayField = processDocument(xmlDocument); 
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
@@ -59,12 +60,14 @@ public class LevelParserBeta implements LevelFactory {
 	 * 2. Add the case to the LevelNodeListFactory class
 	 * 3. Write a class with a process method in the xmltags package
 	 */
-	public void processDocument(Document xmlDocument){
-	    
-        Node node = xmlDocument.getElementsByTagName("Level").item(0);
-        NodeListProcessor levelProcessor = NodeListProcessor.CreateNewNodeListProcessor(node, "Level");
-        levelProcessor.process();
-	    
+	public PlayField processDocument(Document xmlDocument){
+		//for(String tagName : tagsToProcess)
+	   // {
+	        NodeList levelNodeList = xmlDocument.getElementsByTagName("Level");
+	        NodeListProcessor levelProcessor = new LevelProcessor(xmlDocument, levelNodeList);
+	        levelProcessor.process();
+	        return levelProcessor.getPlayField();
+	    //}
 	}
 	
 	
