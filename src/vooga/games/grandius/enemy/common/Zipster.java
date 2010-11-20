@@ -25,6 +25,10 @@ public class Zipster extends Enemy {
 	private static final int SCORE_VALUE = 25;
 	private static final int CASH_VALUE = 1;
 	
+	public Zipster() {
+		this(0,0);
+	}
+	
 	public Zipster(double x, double y) {
 		super(Resources.getAnimation("spinningZipsterAnimation"), x, y);
 		this.setScore(SCORE_VALUE);

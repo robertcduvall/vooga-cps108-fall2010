@@ -82,7 +82,7 @@ public class DropThis extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
-		createCollisions(); // TODO will this method call work here?
+		//createCollisions(); // TODO will this method call work here?
 		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
 				getImages("resources/images/font.png", 20, 3),
