@@ -89,7 +89,6 @@ public class GamePlayState extends GameState {
 	public void update(long t) {
 		super.update(t);
 		myLevel.update(t);
-		myControl.update();
 	}
 
 	/**
@@ -136,7 +135,7 @@ public class GamePlayState extends GameState {
 		Control playerControl = new KeyboardControl((BetterSprite)(myLevel.getGroup("marioGroup").getActiveSprite()), myGame);
 		playerControl.addInput(KeyEvent.VK_D, "moveLeft", "vooga.games.mariogame.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_A, "moveRight", "vooga.games.mariogame.MarioSprite");
-		playerControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.mariogame.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.MarioSprite");
 		myLevel.addControl(playerControl);
 		
 		/*
