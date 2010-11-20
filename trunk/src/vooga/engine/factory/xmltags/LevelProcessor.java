@@ -28,7 +28,7 @@ public class LevelProcessor extends NodeListProcessor {
 	public void process() {
 		SpriteGroupsProcessor spriteGroupsProcessor = 
 			new SpriteGroupsProcessor(myXMLDocument, 
-					myXMLDocument.getElementsByTagName("SpriteGroups"));
+					myXMLDocument.getElementsByTagName("SpriteGroups").item(0).getChildNodes());
 		spriteGroupsProcessor.process();
 //		CollisionGroupsProcessor collisionGroupsProcessor = new CollisionGroupsProcessor(myXMLDocument, myChildren);
 //		collisionGroupsProcessor.process()
