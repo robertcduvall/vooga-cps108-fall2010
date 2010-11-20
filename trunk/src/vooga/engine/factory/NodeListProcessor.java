@@ -19,14 +19,23 @@ import vooga.engine.factory.xmltags.SpriteGroupsProcessor;
 public abstract class NodeListProcessor implements NodeList{
 	
 	
-	protected PlayField myPlayfield;
+	protected PlayField myPlayField;
 	protected Document myXMLDocument;
 	protected NodeList myChildren;
+	
+	public NodeListProcessor(Document xmlDocument, NodeList children) {
+		myXMLDocument = xmlDocument;
+		myChildren = children;
+	}
 	
 	public abstract void process();
 	
 	public static boolean isElement(Node node){
 		return (node.getNodeType() == Node.ELEMENT_NODE);
+	}
+	
+	public PlayField getPlayField() {
+		return myPlayField;
 	}
 
 
