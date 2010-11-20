@@ -1,3 +1,4 @@
+package vooga.games.grandius.retired;
 //TODO this class should be deleted, and levels should follow the XML format, but we want
 // to make sure bosses and bossparts are still supported.
 

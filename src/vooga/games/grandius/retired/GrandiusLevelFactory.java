@@ -1,3 +1,4 @@
+package vooga.games.grandius.retired;
 //TODO this class will be deleted, but we want to make sure its functionality is not
 // lost (with respect to bosses, bossparts, etc)
 
