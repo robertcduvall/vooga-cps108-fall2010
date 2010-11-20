@@ -39,11 +39,6 @@ public class BlahThis extends Game {
 		resumeGame();
 	}
 	
-	@Override
-	public void update(long elapsedTime) {
-		super.update(elapsedTime);
-	}
-	
 	
 	private void initLevelManager() {
 		//The reason this is not being moved to core.Game class is because you might want to 
