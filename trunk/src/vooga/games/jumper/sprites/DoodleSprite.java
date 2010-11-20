@@ -100,10 +100,10 @@ public class DoodleSprite extends BetterSprite {
 		}
 	}
 
-	/**
+/*	*//**
 	 * Accelerate doodle
 	 * @param direction representing the "right" or "left" direction
-	 */	
+	 *//*	
 	public void moveDoodle(String direction){
 		
 		int directionMultiplier = 1;
@@ -131,7 +131,7 @@ public class DoodleSprite extends BetterSprite {
 			}
 			addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION * directionMultiplier, MAX_SPEED * directionMultiplier);
 		}
-	}
+	}*/
 	
 	public void moveLeft(){
 		System.out.println("left");

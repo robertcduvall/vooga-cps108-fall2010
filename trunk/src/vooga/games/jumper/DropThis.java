@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import vooga.engine.core.PlayField;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.level.LevelField;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
@@ -16,7 +17,10 @@ import vooga.engine.resource.Resources;
 import vooga.engine.resource.clock.GameClock;
 import vooga.engine.resource.clock.GameClockException;
 import vooga.engine.state.GameStateManager;
+import vooga.engine.state.PauseGameState;
 import vooga.engine.state.other.Pause;
+import vooga.games.asteroids.states.PlayState;
+import vooga.games.jumper.collisions.DoodleToBlockCollision;
 import vooga.games.jumper.sprites.BlockSprite;
 import vooga.games.jumper.sprites.BreakingBlock;
 import vooga.games.jumper.sprites.DoodleSprite;
@@ -105,46 +109,41 @@ public class DropThis extends vooga.engine.core.Game {
 	private int myBlockCounter = 0;
 	private int myBlockCounterIncrement = 4;
 
+	private LevelManager levelManager;
+
+	PlayState playState;
+	PauseGameState pauseState;
+	
 	/**
 	 *  Initialize all of the game instance variables
 	 */
 	public void initResources() {
 
 		this.hideCursor();
-		
 		super.initResources();
+		initLevelManager();
+		PlayField levelPlayField = levelManager.loadFirstLevel();
+		initGameStates(levelPlayField);
+		resumeGame();
 		
-		BufferedImage leftDoodle = Resources.getImage("leftDoodle");
-		BufferedImage rightDoodle = Resources.getImage("rightDoodle");
-		DoodleSprite player1 = new DoodleSprite(leftDoodle, DOODLE_START, leftDoodle, rightDoodle);
-		myPlayers.add(player1);
-
-		myPlayfield = new PlayField();
-		myBackground = new ImageBackground(Resources.getImage("backgroundImage"), GAME_WIDTH, GAME_HEIGHT);
-		myPlayfield.setBackground(myBackground);
-
-		myPlayfield.addGroup(myBlocks);
-		myPlayfield.addGroup(myPlayers);
-		
-		myNormalCollision = new DoodleToBlockCollision();
-		myPlayfield.addCollisionGroup(myPlayers, myBlocks, myNormalCollision);
-
-		
-		
-		OverlayCreator.setGame(this);
-		myTrack = OverlayCreator.createOverlays("src/vooga/games/jumper/resources/overlays.xml");
-		myScore = myTrack.getStat("score", new Integer(0));
-		myPlayfield.addGroup(myTrack.getOverlayGroup("only"));
-
-		myClock = new GameClock();
-		try {
-			myClock.start();
-		} catch (GameClockException e) {
-			e.printStackTrace();
-		}
 	}
 
+	private void initGameStates(PlayField levelPlayField) {
+		playState = new PlayState(this, levelPlayField);
+		pauseState = new PauseGameState(playState);
+		stateManager.addGameState(playState, pauseState);
+	}
+
+	private void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
+	}	
 	
+	public void resumeGame() {		
+		stateManager.activateOnly(playState);
+	}
 
 	/**
 	 * Returns the width of the Game
@@ -220,7 +219,7 @@ public class DropThis extends vooga.engine.core.Game {
 			setJetpackOn(false);
 		}
 		createNewBlocks();
-		checkForKeyPress();
+		//checkForKeyPress();
 		myPlayfield.update(elapsedTime);
 		//myGameStateManager.update(elapsedTime);
 		
@@ -265,27 +264,27 @@ public class DropThis extends vooga.engine.core.Game {
 	private Long getClockTime(){
 		return(myClock.getTime());
 	}
-
-	/**
+/*
+	*//**
 	 * Listen for key presses to update player's location
-	 */
+	 *//*
 	private void checkForKeyPress(){
 		double jumpHeight = -15.0;
 		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite(); 
 		int collisionNumber = myNormalCollision.getCollisionSide();
 		
-		/**
+		*//**
 		 * If the doodle is standing on a block & the user presses up on the D-Pad...
-		 */
+		 *//*
 		if (collisionNumber == 8 & keyPressed(UP_KEY)){
 			player.setVerticalSpeed(jumpHeight);
 		}
 		
-		/**
+		*//**
 		 * Allow the user to walk to the Doodle left and right...
 		 * 
 		 * TODO:Use the event manager
-		 */
+		 *//*
 		if (keyDown(RIGHT_KEY)){
 			player.moveDoodle("right");
 		}
@@ -297,7 +296,7 @@ public class DropThis extends vooga.engine.core.Game {
 		}
 
 	}
-	
+*/	
 	public static void setJetpackOn(boolean jetpackOn) {
 		DropThis.jetpackOn = jetpackOn;
 		if(jetpackOn == true){

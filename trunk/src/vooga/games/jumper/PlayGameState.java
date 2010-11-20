@@ -38,6 +38,7 @@ public class PlayGameState extends GameState{
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "vooga.games.jumper.sprites.DoodleSprite");
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", "vooga.games.jumper.sprites.DoodleSprite");
 		myField.addControl(playerControl);
-		
+		this.getUpdateField().add(myField);
+		this.getRenderField().add(myField);
 	}
 }
