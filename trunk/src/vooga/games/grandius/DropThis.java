@@ -68,8 +68,6 @@ public class DropThis extends Game {
 	private LevelManager levelManager;
 	// private PauseGameState myPauseGameState;
 
-//	private Player player;
-
 	private OverlayPanel overlayPanel;
 	private OverlayTracker overlayTracker;
 	//private OverlayStatImage livesIcon;
@@ -82,7 +80,6 @@ public class DropThis extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
-		//createCollisions(); // TODO will this method call work here?
 		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
 				getImages("resources/images/font.png", 20, 3),
@@ -125,30 +122,30 @@ public class DropThis extends Game {
 		stateManager.switchTo(myPlayState);
 	}
 
-	/**
-	 * Creates different types of collisions and registers them to the
-	 * Grandius PlayState.
-	 */
-	private void createCollisions() {
-		List<BasicCollision> collisionList = new ArrayList<BasicCollision>();
-		collisionList.add(new PlayerEnemyCollision(this));
-		collisionList.add(new PlayerBossPartCollision(this));
-		collisionList.add(new PlayerBossCollision(this));
-		collisionList.add(new ProjectileEnemyCollision(this));
-		collisionList.add(new ProjectileBossPartCollision(this));
-		collisionList.add(new PlayerEnemyProjectileCollision(this));
-		collisionList.add(new ProjectileBossCollision(this));
-		collisionList.add(new MissileEnemyCollision(this));
-		collisionList.add(new MissileBossPartCollision(this));
-		collisionList.add(new MissileBossCollision(this));
-		collisionList.add(new BlackHoleEnemyCollision(this));
-		myPlayState.initCollisions(collisionList);
-	}
+//	/**
+//	 * Creates different types of collisions and registers them to the
+//	 * Grandius PlayState.
+//	 */
+//	private void createCollisions() {
+//		List<BasicCollision> collisionList = new ArrayList<BasicCollision>();
+//		collisionList.add(new PlayerEnemyCollision(this));
+//		collisionList.add(new PlayerBossPartCollision(this));
+//		collisionList.add(new PlayerBossCollision(this));
+//		collisionList.add(new ProjectileEnemyCollision(this));
+//		collisionList.add(new ProjectileBossPartCollision(this));
+//		collisionList.add(new PlayerEnemyProjectileCollision(this));
+//		collisionList.add(new ProjectileBossCollision(this));
+//		collisionList.add(new MissileEnemyCollision(this));
+//		collisionList.add(new MissileBossPartCollision(this));
+//		collisionList.add(new MissileBossCollision(this));
+//		collisionList.add(new BlackHoleEnemyCollision(this));
+//		myPlayState.initCollisions(collisionList);
+//	}
 
-	@Override
-	public void update(long elapsedTime) {
-		super.update(elapsedTime);
-	}
+//	@Override
+//	public void update(long elapsedTime) {
+//		super.update(elapsedTime);
+//	}
 
 	//Moving to PlayState
 //	private void addOverlays() {

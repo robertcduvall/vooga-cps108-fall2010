@@ -8,7 +8,7 @@
 		<Image name="zipsterImage" path="zipster1.png" />
 		<Image name="playerImage" path="playersingle.png" />
 		<Image name="explosionImage" path="explosion.png" />
-		<Image name="projectileImage" path="projectile.png" />
+		<Image name="laserImage" path="projectile.png" />
 		<Image name="verticalProjectileImage" path="vertical_projectile.png" />
 		<Image name="zipsterLaserImage" path="zipster_laser.png" />
 		<Image name="sidekickImage" path="sidekick.png" />
@@ -37,6 +37,9 @@
 		<Animation name="boomerAnimation">
 			<Image path="boomer1.png" />
 			<Image path="boomer2.png" />
+		</Animation>
+		<Animation name="explosionAnimation">
+			<Image path="explosion.png" />
 		</Animation>
 		<Animation name="eyeExplosionAnimation">
 			<Image path="eye_explosion_1.png" />
@@ -136,7 +139,7 @@
 		<Double name="cometVX" value="-0.05" />
 		<Double name="bulletSpeed" value="0.15" /> 
 		<Double name="playerSpeed" value="1.5" />
-		<Double name="projectileSpeed" value="0.15" />
+		<Double name="laserSpeed" value="0.15" />
 		<Double name="bossPartSpeed" value="0.05" />
 		<Double name="bossSpeed" value="0.01" />
 		<Double name="enemySpeed" value="0.15" />

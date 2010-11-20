@@ -1,7 +1,6 @@
 package vooga.games.grandius.weapons;
 
-import java.awt.image.BufferedImage;
-
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.enemy.common.Zipster;
 
@@ -10,7 +9,7 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
 @SuppressWarnings("serial")
-public class BlackHole extends Sprite {
+public class BlackHole extends BetterSprite {
 	
 	private Timer speedTimer;
 	private double firingVelocity;

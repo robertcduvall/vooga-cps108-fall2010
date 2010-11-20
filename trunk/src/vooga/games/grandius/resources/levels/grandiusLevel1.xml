@@ -2,20 +2,33 @@
 <Level name="easyLevel" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
 
 	<SpriteGroups>
+		<SpriteGroup name="backgroundGroup">
+			<Sprite class="vooga.games.grandius.Background" x="0" y="0" vx="0" vy="0" quantity="1">
+				<Visual name="backgroundImage" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="cometsGroup" />
+		<SpriteGroup name="missileGroup" />
+		<SpriteGroup name="explosionGroup" />
 		<SpriteGroup name="playerGroup">
 			<Sprite class="vooga.games.grandius.Player" random="false" x="400" y="100" vx="0" vy="0" quantity="1" /> <!-- This shouldn't need an x, y, vx, vy, etc. because it's al defined in the Player class. -->
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="50" yMin="100" xMax="100" yMax="200" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="10" />
+			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="400" yMin="50" xMax="600" yMax="500" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="10" />
 		</SpriteGroup>
+		<SpriteGroup name="projectileGroup" />
 	</SpriteGroups>
 
-	<!-- <CollisionGroups>
+	<CollisionGroups>
 		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
 			<SpriteGroup name="playerGroup"></SpriteGroup>
 			<SpriteGroup name="enemyGroup"></SpriteGroup>
 		</CollisionGroup>
-	</CollisionGroups>-->
+		<CollisionGroup subclass="vooga.games.grandius.collisions.ProjectileEnemyCollision">
+			<SpriteGroup name="projectileGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
 	
 	<Background name="BG" />
 	<Music />
