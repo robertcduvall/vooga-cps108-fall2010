@@ -56,5 +56,9 @@ public abstract class MenuGameState extends GameState {
 		addPlayField(menuPlayfield);
 
 	}
+	
+	public PlayField getMenuPlayfield(){
+		return menuPlayfield;
+	}
 
 }
