@@ -42,6 +42,9 @@ public class MapProcessor {
 		}
 	}
 	
+	public static boolean isElement(Node node){
+		return (node.getNodeType() == Node.ELEMENT_NODE);
+	}
 	
 	
 	@Override
