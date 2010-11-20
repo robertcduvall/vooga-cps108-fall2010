@@ -44,6 +44,10 @@
 	</Sounds>
 
 	<Strings>
+		<String name="levelFilesDirectory" value="src/vooga/games/jumper/resources/levels" />
+		<String name="levelNamesFile" value="LevelNames.txt" />
+		<String name="Level1" value="levels/jumper.xml" />
+		
 	</Strings>
 
 	<Integers>

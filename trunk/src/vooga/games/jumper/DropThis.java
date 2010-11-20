@@ -27,6 +27,7 @@ import vooga.games.jumper.sprites.DoodleSprite;
 import vooga.games.jumper.sprites.JetpackBlock;
 import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.sprites.SpringBlock;
+import vooga.games.jumper.states.PlayGameState;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.GameFont;
@@ -111,7 +112,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 	private LevelManager levelManager;
 
-	PlayState playState;
+	PlayGameState playState;
 	PauseGameState pauseState;
 	
 	/**
@@ -129,7 +130,7 @@ public class DropThis extends vooga.engine.core.Game {
 	}
 
 	private void initGameStates(PlayField levelPlayField) {
-		playState = new PlayState(this, levelPlayField);
+		playState = new PlayGameState(this, levelPlayField);
 		pauseState = new PauseGameState(playState);
 		stateManager.addGameState(playState, pauseState);
 	}
@@ -145,190 +146,10 @@ public class DropThis extends vooga.engine.core.Game {
 		stateManager.activateOnly(playState);
 	}
 
-	/**
-	 * Returns the width of the Game
-	 * @return int GameWidth
-	 */
-	public static int getGameWidth() {
-		return GAME_WIDTH;
+
+	public void pauseGame() {
+		stateManager.activateOnly(pauseState);		
 	}
-
-	/**
-	 * Returns the height of the Game
-	 * @return int GameHeight
-	 */
-	public static int getGameHeight() {
-		return GAME_HEIGHT;
-	}
-
-	/**
-	 * Populate the BlockGroup with new BlockSprites
-	 */
-	private void createNewBlocks(){
-		Random myRandom = new Random();
-
-		double randomBlockOccurance = myRandom.nextDouble();
-		Point randomLocation = new Point(myRandom.nextInt(GAME_WIDTH), GAME_HEIGHT);
-
-		//make the correct type of block
-		if (randomBlockOccurance < myBlockFrequency){
-			BlockSprite block;
-
-			//TODO: make a block factory to abstract this ugliness away
-			if (myBlockCounter == myBlockCounterIncrement){
-				block = new NormalBlock(Resources.getImage("platformGray"), randomLocation, 0, myBlockVelocity);
-			} 
-			
-			else if(myBlockCounter == 2*myBlockCounterIncrement){
-				block = new NormalBlock(Resources.getImage("platformRed"), randomLocation, 0, myBlockVelocity*fastBlockSpeedMultiplier);
-			} 
-			
-			else if(myBlockCounter == 3*myBlockCounterIncrement){
-				block = new NormalBlock(Resources.getImage("platformLightBlueWide"), randomLocation, 0, myBlockVelocity);
-			} 
-			
-			else if(myBlockCounter == 4*myBlockCounterIncrement){
-				block = new BreakingBlock(Resources.getImage("platformBreak"), randomLocation, 0, myBlockVelocity);
-			} 
-			
-			else if(myBlockCounter == 5*myBlockCounterIncrement){
-				block = new SpringBlock(Resources.getImage("platformSpringDouble"), randomLocation);				
-			} 
-			
-			else if(myBlockCounter == 6*myBlockCounterIncrement){
-				block = new JetpackBlock(Resources.getImage("jetpack"), randomLocation, 0, myBlockVelocity);
-				myBlockCounter = 0;
-			} 
-			
-			else {
-				block = new NormalBlock(Resources.getImage("platformGreen"), randomLocation, 0, myBlockVelocity);
-			}
-
-			myBlockCounter++;
-			myBlocks.add(block);
-		}
-	}
-
-	/**
-	 * Updates game values
-	 * @param elapsedTime long time elapsed from last update
-	 */
-	public void update(long elapsedTime) {
-
-		if((myClock.getTime()-jetpackStartTime)>totalJetpackTime & jetpackStartTime!=0){
-			setJetpackOn(false);
-		}
-		createNewBlocks();
-		//checkForKeyPress();
-		myPlayfield.update(elapsedTime);
-		//myGameStateManager.update(elapsedTime);
-		
-		myScore.setStat((int) myClock.getTime());
-		
-		myBlockFrequency += BLOCK_FREQUENCY_INCREASE_RATE;
-		myMaxBlockXVelocity += BLOCK_XVELOCITY_INCREASE_RATE;
-		myBlockVelocity -= BLOCK_VELOCITY_INCREASE_RATE;
-	}
-
-	/**
-	 * Ends game by clearing playfield and displaying final score message
-	 * @param g Graphics2D on which to render messages
-	 */
-	private void endGame(Graphics2D g) {
-
-		//stop clock if game is over
-		if (myClock.isRunning()){
-			try {
-				myClock.pause();
-			} catch (GameClockException e) {
-				e.printStackTrace();
-			}
-		}
-		myPlayfield.removeGroup(myPlayers);
-		myPlayfield.removeGroup(myBlocks);
-		myPlayfield.removeGroup(myOverlay);
-
-		Point middle = new Point(GAME_WIDTH / 2, GAME_HEIGHT / 2);
-		Point fontSize = new Point (GAME_WIDTH / 3, GAME_HEIGHT / 20);
-
-		myPlayfield.addGroup(myTrack.getOverlayGroup("game over"));
-	}
-
-	/**
-	 * Updates score based on time survived
-	 */
-	private void updateScore(){
-		myScore.getStat();
-	}
-	
-	private Long getClockTime(){
-		return(myClock.getTime());
-	}
-/*
-	*//**
-	 * Listen for key presses to update player's location
-	 *//*
-	private void checkForKeyPress(){
-		double jumpHeight = -15.0;
-		DoodleSprite player = (DoodleSprite) myPlayers.getActiveSprite(); 
-		int collisionNumber = myNormalCollision.getCollisionSide();
-		
-		*//**
-		 * If the doodle is standing on a block & the user presses up on the D-Pad...
-		 *//*
-		if (collisionNumber == 8 & keyPressed(UP_KEY)){
-			player.setVerticalSpeed(jumpHeight);
-		}
-		
-		*//**
-		 * Allow the user to walk to the Doodle left and right...
-		 * 
-		 * TODO:Use the event manager
-		 *//*
-		if (keyDown(RIGHT_KEY)){
-			player.moveDoodle("right");
-		}
-		if (keyDown(LEFT_KEY)){
-			player.moveDoodle("left");
-		}
-		if (keyDown(CHEAT_KEY)){
-			player.setY(GAME_HEIGHT - player.getHeight());
-		}
-
-	}
-*/	
-	public static void setJetpackOn(boolean jetpackOn) {
-		DropThis.jetpackOn = jetpackOn;
-		if(jetpackOn == true){
-			DropThis.jetpackStartTime = DropThis.myClock.getTime();
-		}
-	}
-
-	public static boolean isJetpackOn() {
-		return jetpackOn;
-	}
-	
-
-	
-	/**
-	 * Render playfield sprites to the screen
-	 * @param g Graphics2D on which to render images 
-	 */
-	public void render(Graphics2D g) {
-		myPlayfield.render(g);
-		//myGameStateManager.render(g);
-
-		
-		
-		DoodleSprite myPlayer = (DoodleSprite) myPlayers.getActiveSprite();
-		if (myPlayer.getVerticalSpeed() < 0 && myPlayer.getY() < 0){
-			endGame(g);
-		}
-		else{
-			updateScore();
-		}
-	}
-
 
 	/**
 	 * Main method which loads the game

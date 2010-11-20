@@ -1,4 +1,4 @@
-package vooga.games.jumper;
+package vooga.games.jumper.states;
 
 import java.awt.event.KeyEvent;
 
