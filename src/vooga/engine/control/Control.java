@@ -3,8 +3,6 @@ package vooga.engine.control;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import vooga.engine.core.BetterSprite;
-
 import vooga.engine.core.Game;
 
 /**
@@ -25,7 +23,7 @@ import vooga.engine.core.Game;
  * @version 1.0
  */
 public class Control{
-	protected List<BetterSprite> entities;
+	protected List<Object> entities;
 	protected Class<?>[] paramTypes;
 	protected Game myGame;
 	protected Map<Integer, ArrayList<Method>> methodMap;
@@ -38,7 +36,7 @@ public class Control{
 	 */
 	public Control() {
 		initializeMappings();
-		entities = new ArrayList<BetterSprite>();
+		entities = new ArrayList<Object>();
 		key = 0;
 	}
 
@@ -58,7 +56,7 @@ public class Control{
 	 * @param initialPlayer First player to add to use this control scheme
 	 * @param game The game which this Control object is a part of
 	 */
-	public Control(BetterSprite initialPlayer, Game game) {
+	public Control(Object initialPlayer, Game game) {
 		this(game);
 		entities.add(initialPlayer);
 	}
@@ -69,7 +67,7 @@ public class Control{
 	 * @param players Initial players to use this scheme
 	 * @param game The game which this Control object is a part of
 	 */
-	public Control(List<BetterSprite> players, Game game) {
+	public Control(List<Object> players, Game game) {
 		this(game);
 		this.entities = players;
 	}
