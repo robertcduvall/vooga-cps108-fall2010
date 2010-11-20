@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
 import vooga.games.jumper.DropThis;
 
 
@@ -53,7 +54,7 @@ public abstract class BlockSprite extends BetterSprite {
 	 * Bounce BlockSprite off wall if it touches the side
 	 */
 	public void bounceOnWall(){
-		if (this.getX() + this.getWidth() > DropThis.getGameWidth() || this.getX() < 0){
+		if (this.getX() + this.getWidth() > Resources.getInt("gameWidth") || this.getX() < 0){
 			this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
 		}
 	}	
