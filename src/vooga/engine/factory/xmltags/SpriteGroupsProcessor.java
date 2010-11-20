@@ -30,11 +30,13 @@ public class SpriteGroupsProcessor extends NodeListProcessor {
 		for (int i = 0; i < myChildren.getLength(); i++) {
 			if (isElement(myChildren.item(i))) {
 				Element spriteGroupElement = (Element)myChildren.item(i);
-				SpriteGroupProcessor spriteGroupProcessor = 
-				new SpriteGroupProcessor(myXMLDocument, 
-						spriteGroupElement.getChildNodes(),
-						spriteGroupElement.getAttribute("name"));
-				spriteGroupProcessor.process();
+				if (spriteGroupElement.getTagName().equals("SpriteGroup")) {
+					SpriteGroupProcessor spriteGroupProcessor = 
+						new SpriteGroupProcessor(myXMLDocument, 
+								spriteGroupElement.getChildNodes(),
+								spriteGroupElement.getAttribute("name"));
+						spriteGroupProcessor.process();
+				}
 			}
 		}
 	}
