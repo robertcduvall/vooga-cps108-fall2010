@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.Stat;
+import vooga.engine.overlay.OverlayPanel;
+import vooga.engine.overlay.OverlayStatImage;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.DropThis;
@@ -50,7 +55,10 @@ public class PlayState extends GameState {
 	private boolean skipLevel = false;
 	
 	private LevelManager myLevelManager;
-	//private OverlayTracker overlayTracker;
+	private OverlayTracker overlayTracker;
+	private OverlayPanel overlayPanel;
+	private OverlayStatImage livesIcon;
+	
 	private KeyboardControl playerControl;
 	private static final String PLAYER_CLASS = Resources.getString("playerClass");
 	private static final double PLAYER_SPEED = Resources.getDouble("playerSpeed");
@@ -62,17 +70,19 @@ public class PlayState extends GameState {
 	
 	@Override
 	public void initialize() {
-		OverlayCreator.setGame(myGame);
-		//overlayTracker = OverlayCreator.createOverlays(Resources.getString("OverlayPath"));
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-		PlayField testField = initPlayField(); //Important that background group is always created first.
+		//PlayField testField = initPlayField(); //Important that background group is always created first.
+		//PlayField spriteField = initSpriteGroups();
+		PlayField newField = myLevelManager.loadFirstLevel();
+		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
+		initControls();
 		initEvents();
 		//TODO create PlayField from level files
-		//PlayField newField = myLevelManager.loadFirstLevel();
-		//this.addUpdatePlayField(newField);
-		//this.addRenderPlayField(newField);
-		this.addUpdatePlayField(testField);
-		this.addRenderPlayField(testField);
+		this.addUpdatePlayField(newField);
+		this.addRenderPlayField(newField);
+		//this.addUpdatePlayField(testField);
+		//this.addRenderPlayField(testField);
+		initOverlays();
 	}
 	
 	@Override
@@ -101,7 +111,8 @@ public class PlayState extends GameState {
 	 * Adds the Player to the PlayerGroup SpriteGroup.
 	 */
 	private SpriteGroup addPlayer(SpriteGroup playerGroup) {
-		player = new Player("alivePlayer");
+//		player = new Player("alivePlayer");
+		
 		player.setActive(true);
 		initControls();
 		playerGroup.add(player);	
@@ -112,7 +123,7 @@ public class PlayState extends GameState {
 	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
 	 * Also adds the necessary SpriteGroup entries to the spriteGroupSpeedMap.
 	 */
-	private PlayField initPlayField() {
+	private PlayField initSpriteGroups() {
 		PlayField newField = new PlayField();
 		backgroundGroup =       		new SpriteGroup("Background");
 		backgroundGroup.add(new BetterSprite(Resources.getImage("backgroundImage")));
@@ -123,7 +134,7 @@ public class PlayState extends GameState {
 		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
 		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
 		//TODO the createEnemiesGroup() method should be replaced by the use of the level XML file
-		enemyGroup =                    newField.addGroup(createEnemiesGroup());
+		enemyGroup =                    newField.addGroup(new SpriteGroup("Enemies"));
 		bossPartGroup =                 newField.addGroup(new SpriteGroup("BossPart"));
 		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
 		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
@@ -140,6 +151,40 @@ public class PlayState extends GameState {
 		
 		return newField;
 	}
+	
+	//Old test playfield method
+//	/**
+//	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
+//	 * Also adds the necessary SpriteGroup entries to the spriteGroupSpeedMap.
+//	 */
+//	private PlayField initPlayField() {
+//		PlayField newField = new PlayField();
+//		backgroundGroup =       		new SpriteGroup("Background");
+//		backgroundGroup.add(new BetterSprite(Resources.getImage("backgroundImage")));
+//		newField.addGroup(backgroundGroup);
+//		playerGroup =            		new SpriteGroup("Player");
+//		playerGroup = addPlayer(playerGroup);
+//		newField.addGroup(playerGroup);
+//		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
+//		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
+//		//TODO the createEnemiesGroup() method should be replaced by the use of the level XML file
+//		enemyGroup =                    newField.addGroup(createEnemiesGroup());
+//		bossPartGroup =                 newField.addGroup(new SpriteGroup("BossPart"));
+//		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
+//		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
+//		blackHoleGroup =                newField.addGroup(new SpriteGroup("BlackHole"));
+//		cometsGroup = 					newField.addGroup(createCometsGroup());
+//		
+//		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>(); //TODO get rid of the negative signs?
+//		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("projectileSpeed"));
+//		spriteGroupSpeedMap.put(enemyProjectileGroup,   -Resources.getDouble("projectileSpeed"));
+//		spriteGroupSpeedMap.put(enemyGroup,             Resources.getDouble("enemySpeed"));
+//		spriteGroupSpeedMap.put(bossPartGroup,          -Resources.getDouble("bossPartSpeed"));
+//		spriteGroupSpeedMap.put(bossGroup,              -Resources.getDouble("bossSpeed"));
+//		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("projectileSpeed"));
+//		
+//		return newField;
+//	}
 	
 	/**
 	 * Adds the necessary CollisionGroups to the PlayState.
@@ -194,6 +239,40 @@ public class PlayState extends GameState {
 		}
 		return cometGroup;
 	}
+	
+	/**
+	 * Initializes Overlays - Lives, Cash, and Score.
+	 */
+	private void initOverlays() {
+		OverlayCreator.setGame(myGame);
+		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlayPath"));
+		player.setLives(overlayTracker.getStat("livesStat", new Integer(0)));
+		player.setScore(overlayTracker.getStat("scoreStat", new Integer(0)));
+		player.setCash(overlayTracker.getStat("cashStat", new Integer(0)));
+		PlayField newField = new PlayField();
+		newField.addGroup(overlayTracker.getOverlayGroup("first"));
+		this.getUpdateField().add(newField);
+		this.getRenderField().add(newField);
+	}
+	
+	//TODO implement this method
+//	private void checkCheats() {
+//		if (keyPressed(KeyEvent.VK_ENTER)) {
+//			JFrame frame = new JFrame();
+//			String userInput = (String) JOptionPane.showInputDialog(frame,
+//					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
+//			if (userInput.equals(Resources.getString("invincibility")))
+//				player.setInvincible();
+//			else if (userInput.equals(Resources.getString("skipLevel")))
+//				player.skipLevel();
+//			else if (userInput.equals(Resources.getString("extraPoints")))
+//				player.updateScore(1000000);
+//			else if (userInput.equals(Resources.getString("extraCash")))
+//				player.updateCash(5000);
+//			else if (userInput.equals(Resources.getString("activateMissile")))
+//				player.setMissileActive();
+//		}
+//	}
 	
 	//TODO this method is being used for collision handling also
 	public Player getPlayer() {

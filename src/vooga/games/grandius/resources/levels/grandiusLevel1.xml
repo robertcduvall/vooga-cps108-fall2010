@@ -11,7 +11,7 @@
 			<Player name="playerSprite" /> <!-- This shouldn't need an x, y, vx, vy, etc. because it's al defined in the Player class. -->
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<SpawnedSprite name="enemySprite" xRange="800" yRange="600" vxRange="-0.05" vyRange="0" quantity="10">
+			<SpawnedSprite name="Zipster" xRange="800" yRange="600" vxRange="-0.05" vyRange="0" quantity="10">
 				<Visual name="Zipster" /> 
 			</SpawnedSprite>
 		</SpriteGroup>
@@ -19,8 +19,8 @@
 
 	<CollisionGroups>
 		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
-			<SpriteGroup name="playerGroup"></SpriteGroup>
-			<SpriteGroup name="enemyGroup"></SpriteGroup>
+			<SpriteGroup name="playerGroup"></CollisionSpriteGroup>
+			<SpriteGroup name="enemyGroup"></CollisionSpriteGroup>
 		</CollisionGroup>
 	</CollisionGroups>
 	
