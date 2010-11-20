@@ -7,17 +7,11 @@ import org.w3c.dom.NodeList;
 import vooga.engine.factory.NodeListProcessor;
 
 public class CollisionGroupsProcessor extends NodeListProcessor {
-
+	
 	public CollisionGroupsProcessor(Document xmlDocument, NodeList children) {
-		myChildren = children;
-		myXMLDocument = xmlDocument;
+		super(xmlDocument, children);
 	}
 	
-	@Override
-	public void process() {
-		
-	}
-
 	@Override
 	public int getLength() {
 		// TODO Auto-generated method stub
@@ -29,6 +23,11 @@ public class CollisionGroupsProcessor extends NodeListProcessor {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+
+	}
 
 }
