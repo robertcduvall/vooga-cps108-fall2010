@@ -1,14 +1,16 @@
 package vooga.games.grandius;
 
+import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
+
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
+import vooga.games.grandius.weapons.BlackHole;
 
 public class Player extends BetterSprite implements IEventHandler {
 
-	private static final double PLAYER_INITIAL_X = Resources.getInt("PlayerInitialX");
-	private static final double PLAYER_INITIAL_Y = Resources.getInt("PlayerInitialY");
 	private Stat<Integer> statLives;
 	private Stat<Integer> statScore;
 	private Stat<Integer> statCash;
@@ -20,15 +22,31 @@ public class Player extends BetterSprite implements IEventHandler {
 	private boolean skipLevel; //TODO should this go in this class?
 	private boolean isInvincible;
 	
-	public Player(String label, BetterSprite sprite){
+	public Player(String label, BetterSprite sprite, Stat<Integer> initLives, Stat<Integer> initCash, Stat<Integer> initScore){
 		super(label,sprite);
-		statLives = new Stat<Integer>( Resources.getInt("InitialPlayerLives"));
-		statScore = new Stat<Integer>(Resources.getInt("InitialZero"));//TODO get rid of this "InitialZero" variable? 
-		statCash = new Stat<Integer>(Resources.getInt("InitialZero"));
+		//statLives = new Stat<Integer>( Resources.getInt("initialPlayerLives"));
+		//statScore = new Stat<Integer>(Resources.getInt("initialZero"));//TODO get rid of this "InitialZero" variable? 
+		//statCash = new Stat<Integer>(Resources.getInt("initialZero"));
 		missileActive = false;
 		blackHoleActive = false;
 		skipLevel = false;
 		isInvincible = false;
+	}
+	
+	public void moveLeft() {
+		this.setHorizontalSpeed(-Resources.getDouble("playerSpeed"));
+	}
+	
+	public void moveRight() {
+		this.setHorizontalSpeed(Resources.getDouble("playerSpeed"));
+	}
+	
+	public void moveUp() {
+		this.setVerticalSpeed(-Resources.getDouble("playerSpeed"));
+	}
+	
+	public void moveDown() {
+		this.setVerticalSpeed(Resources.getDouble("playerSpeed"));
 	}
 	
 	public void setLives(Stat<Integer> lives) {
@@ -75,7 +93,7 @@ public class Player extends BetterSprite implements IEventHandler {
 		int playerLives = (statLives.getStat()).intValue();
 		if (playerLives > 0 && !isInvincible) {
 			updateStat(statLives, (-1));
-			this.setLocation(PLAYER_INITIAL_X, PLAYER_INITIAL_Y);
+			this.setLocation(Resources.getInt("playerInitialX"), Resources.getInt("playerInitialY"));
 		}
 	}
 	

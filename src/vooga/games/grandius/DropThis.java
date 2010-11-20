@@ -14,10 +14,9 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
+import vooga.engine.factory.LevelParser;
 import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayIcon;
 import vooga.engine.overlay.OverlayPanel;
-import vooga.engine.overlay.OverlayStat;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -67,7 +66,6 @@ public class DropThis extends Game {
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
 	private LevelManager levelManager;
-	private EventPool eventPool;
 	// private PauseGameState myPauseGameState;
 
 	private BetterSprite shipSprite;
@@ -85,9 +83,7 @@ public class DropThis extends Game {
 	@Override
 	public void initResources() {
 		super.initResources();
-		initLevelManager();
-		initEvents();
-		createCollisions(); // TODO will this method call work here?
+		//createCollisions(); // TODO will this method call work here?
 
 		// TODO - change this to work with new Overlay XML
 		font = fontManager.getFont(
@@ -111,18 +107,6 @@ public class DropThis extends Game {
 		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}
 
-	/**
-	 * Initialize the specific Events handled in Grandius.
-	 */
-	private void initEvents() {
-		eventPool = new EventPool();
-		//TODO confused about Event implementation...do we need to add the following line?:
-		//eventpool.addEvent(player);
-		eventPool.addEvent(new FireHorizontalEvent(this, player, myPlayState));
-		eventPool.addEvent(new FireVerticalEvent(this, player, myPlayState));
-		eventPool.addEvent(new FireMissileEvent(this, player, myPlayState));
-		eventPool.addEvent(new FireBlackHoleEvent(this, player, myPlayState));
-	}
 
 	/**
 	 * Initialize the different GameStates possible in Grandius.
@@ -130,9 +114,10 @@ public class DropThis extends Game {
 	@Override
 	public void initGameStates() {
 		super.initGameStates();
+		initLevelManager();
 		List<GameState> gameStates = new ArrayList<GameState>();
 		gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
-		gameStates.add(myPlayState = new PlayState());
+		gameStates.add(myPlayState = new PlayState(levelManager, this));
 		gameStates.add(myLevelCompleteState = new LevelCompleteState());
 		gameStates.add(myGameCompleteState = new GameCompleteState());
 		gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
@@ -164,13 +149,12 @@ public class DropThis extends Game {
 		collisionList.add(new MissileBossPartCollision(this));
 		collisionList.add(new MissileBossCollision(this));
 		collisionList.add(new BlackHoleEnemyCollision(this));
-		myPlayState.addCollisions(collisionList);
+		myPlayState.initCollisions(collisionList);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		eventPool.checkEvents();
 	}
 	
 	// @Override
@@ -186,8 +170,8 @@ public class DropThis extends Game {
 	// if (menuState.isActive()){
 	// if(click()){
 	// stateManager.switchTo(playState);
-	// playSound(Resources.getSound("WatchThisSound"));
-	// playSound(Resources.getSound("StartLevelSound"));
+	// playSound(Resources.getSound("watchThisSound"));
+	// playSound(Resources.getSound("startLevelSound"));
 	// }
 	// }
 	//
@@ -204,7 +188,7 @@ public class DropThis extends Game {
 	// if (statLives.getStat().intValue() <= 0) {
 	// playfield.clearPlayField();
 	// stateManager.switchTo(gameOverState);
-	// playSound(Resources.getSound("OhManSound"));
+	// playSound(Resources.getSound("ohManSound"));
 	// }
 	// }
 	//
@@ -258,7 +242,7 @@ public class DropThis extends Game {
 	// playerGroup.add(playerSprite);
 	// createComets();
 	// playfield.addGroup(overlayPanel);
-	// playSound(Resources.getSound("StartLevelSound"));
+	// playSound(Resources.getSound("startLevelSound"));
 	// stateManager.switchTo(playState);
 	// }
 	// //stateManager.update(elapsedTime);
@@ -271,7 +255,7 @@ public class DropThis extends Game {
 	private void addOverlays() {
 		overlayTracker = OverlayCreator.createOverlays("src/vooga/games/grandius/resources/overlays.xml");
 		overlayPanel = new OverlayPanel("GrandiusOverlay", this, true);
-		livesIcon = Resources.getImage("PlayerShipSingle");
+		livesIcon = Resources.getImage("playerImage");
 		player.setLives(overlayTracker.getStat("lives"));
 		player.setScore(overlayTracker.getStat("score"));
 		player.setCash(overlayTracker.getStat("cash"));
@@ -293,15 +277,15 @@ public class DropThis extends Game {
 			JFrame frame = new JFrame();
 			String userInput = (String) JOptionPane.showInputDialog(frame,
 					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
-			if (userInput.equals(Resources.getString("Invincibility")))
+			if (userInput.equals(Resources.getString("invincibility")))
 				player.setInvincible();
-			else if (userInput.equals(Resources.getString("SkipLevel")))
+			else if (userInput.equals(Resources.getString("skipLevel")))
 				player.skipLevel();
-			else if (userInput.equals(Resources.getString("ExtraPoints")))
+			else if (userInput.equals(Resources.getString("extraPoints")))
 				player.updateScore(1000000);
-			else if (userInput.equals(Resources.getString("ExtraCash")))
+			else if (userInput.equals(Resources.getString("extraCash")))
 				player.updateCash(5000);
-			else if (userInput.equals(Resources.getString("ActivateMissile")))
+			else if (userInput.equals(Resources.getString("activateMissile")))
 				player.setMissileActive();
 		}
 	}

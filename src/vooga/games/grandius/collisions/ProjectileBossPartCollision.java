@@ -27,8 +27,8 @@ public class ProjectileBossPartCollision extends BasicCollision {
 		projectile.setActive(false);
 		if (bosspart instanceof ReacherEye && ((ReacherEye) bosspart).deplete(10)) {
 			bosspart.setActive(false);
-			grandius.playSound(Resources.getSound("LargeExplosionSound"));
-			BufferedImage[] images = Resources.getAnimation("EyeExplosion");
+			grandius.playSound(Resources.getSound("largeExplosionSound"));
+			BufferedImage[] images = Resources.getAnimation("eyeExplosionAnimation");
 			AnimatedSprite explosion = new VolatileSprite(images, bosspart.getX(), bosspart.getY());
 			PlayField newField = new PlayField();
 			newField.add(explosion);

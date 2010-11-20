@@ -10,7 +10,7 @@ public class BuyMissileButton extends Button {
 
 	private static final int START_X = 220;
 	private static final int START_Y = 0;
-	private static final BufferedImage myImage = Resources.getImage("BuyMissileButton");
+	private static final BufferedImage myImage = Resources.getImage("buyMissileButtonImage");
 	
 	public BuyMissileButton(Game game) {
 		super(game, myImage, START_X, START_Y);

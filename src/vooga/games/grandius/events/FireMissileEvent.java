@@ -37,10 +37,10 @@ public class FireMissileEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
-		Missile missile = new Missile(Resources.getImage("Missile"),player.getX()+player.getWidth(),player.getY());
-		missile.setHorizontalSpeed(Resources.getDouble("ProjectileSpeed"));
+		Missile missile = new Missile(Resources.getImage("missileImage"),player.getX()+player.getWidth(),player.getY());
+		missile.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
 		playState.getGroup("Missile").add(missile);
-		grandius.playSound(Resources.getSound("MissileSound"));
+		grandius.playSound(Resources.getSound("missileSound"));
 	}
 
 }

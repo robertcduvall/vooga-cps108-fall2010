@@ -10,7 +10,7 @@ public class BuyBlackHoleButton extends Button {
 
 	private static final int START_X = 220;
 	private static final int START_Y = 200;
-	private static final BufferedImage myImage = Resources.getImage("BuyBlackHoleButton");
+	private static final BufferedImage myImage = Resources.getImage("buyBlackHoleButtonImage");
 	
 	public BuyBlackHoleButton(Game game) {
 		super(game, myImage, START_X, START_Y);

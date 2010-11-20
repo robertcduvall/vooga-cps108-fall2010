@@ -31,14 +31,14 @@ public class MissileBossCollision extends BasicCollision {
 		}
 		if (boss instanceof Reacher && ((Reacher) boss).deplete(10)) {
 			boss.setActive(false);
-			BufferedImage[] images = Resources.getAnimation("ReacherExplosion");
+			BufferedImage[] images = Resources.getAnimation("reacherExplosionAnimation");
 			AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
 			PlayField newField = new PlayField();
 			newField.add(explosion);
 			grandius.getPlayState().getRenderField().add(newField);
 			grandius.getPlayState().getUpdateField().add(newField);
 		}
-		BufferedImage[] images = Resources.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);

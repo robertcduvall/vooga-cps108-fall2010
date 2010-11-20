@@ -31,20 +31,19 @@ public class MissileBossPartCollision extends BasicCollision {
 		}
 		if (bossPart instanceof ReacherEye && ((ReacherEye) bossPart).deplete(10)) {
 			bossPart.setActive(false);
-			BufferedImage[] images = Resources.getAnimation("EyeExplosion");
+			BufferedImage[] images = Resources.getAnimation("eyeExplosionAnimation");
 			AnimatedSprite explosion = new VolatileSprite(images, bossPart.getX(), bossPart.getY());
 			PlayField newField = new PlayField();
 			newField.add(explosion);
 			grandius.getPlayState().getRenderField().add(newField);
 			grandius.getPlayState().getUpdateField().add(newField);
 		}
-		BufferedImage[] images = Resources.getAnimation("Explosion");
+		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, bossPart.getX(), bossPart.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
 		grandius.getPlayState().getRenderField().add(newField);
 		grandius.getPlayState().getUpdateField().add(newField);
-		//grandius.playSound(Resources.getMapping("LaserSound"));
 		grandius.getPlayer().updateScore(((Enemy)bossPart).getScore());
 		grandius.getPlayer().updateCash(((Enemy)bossPart).getCash());
 	}

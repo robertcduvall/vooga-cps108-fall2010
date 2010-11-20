@@ -2,18 +2,18 @@
 <Level name="easyLevel" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
 
 	<SpriteGroups>
-		<SpriteGroup name="playerGroup">
-			<RegularSprite name="playerSprite" x="0" y="100" vx="10" vy="20" q="1">
-				<Visual name="PlayerShipSingle" />
+		<SpriteGroup name="backgroundGroup">
+			<RegularSprite name="backgroundSprite" x="0" y="0" vx="0" vy="0" quantity="1">
+				<Visual name="BG" />
 			</RegularSprite>
 		</SpriteGroup>
+		<SpriteGroup name="playerGroup">
+			<Player name="playerSprite" /> <!-- This shouldn't need an x, y, vx, vy, etc. because it's al defined in the Player class. -->
+		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<!--<SpawnedSprite name="enemySprite" xRange="300" yRange="400" vxRange="10" vyRange="-10" quantity="5">
-				<Visual name="Zipster" />
-			</SpawnedSprite>-->
-			<RegularSprite name="enemySprite" x="350" y="50">
-				<Visual name="Zipster" />
-			</RegularSprite>
+			<SpawnedSprite name="enemySprite" xRange="800" yRange="600" vxRange="-0.05" vyRange="0" quantity="10">
+				<Visual name="Zipster" /> 
+			</SpawnedSprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
@@ -25,6 +25,8 @@
 	</CollisionGroups>
 	
 	<Background name="BG" />
+	<Music />
+	<Map />
 	
 	
 </Level>

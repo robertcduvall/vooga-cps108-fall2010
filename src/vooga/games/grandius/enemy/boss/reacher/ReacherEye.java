@@ -62,7 +62,7 @@ public class ReacherEye extends BossPart{
 	 * @return The Beam sprite to add to the play field.
 	 */
 	public BetterSprite fireBeam() {
-		BetterSprite beam = new BetterSprite(Resources.getImage("ReacherEyeBeam"),this.getX()-this.getWidth(),this.getY()+this.getHeight()/3);
+		BetterSprite beam = new BetterSprite(Resources.getImage("reacherEyeBeamImage"),this.getX()-this.getWidth(),this.getY()+this.getHeight()/3);
 		beam.setHorizontalSpeed(-REACHER_EYE_BEAM_SPEED);
 		beamTimer = new Timer(REACHER_EYE_BEAM_RELOAD_TIME);
 		beamReloaded = false;

@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Resources>
 	<Images>
-		<Image name="Comet" path="comet.jpg" />
-		<Image name="Missile" path="missile.jpg" />
-		<Image name="BG2" path="bg2.jpg" />
-		<Image name="BUY" path="buyMissile.jpg" />
-		<Image name="BG" path="background.png" />
-		<Image name="Zipster" path="zipster1.png" />
-		<Image name="PlayerShip" path="playersingle.png" />
-		<Image name="Explosion" path="explosion.png" />
-		<Image name="Projectile" path="projectile.png" />
-		<Image name="ProjectileVertical" path="bullet.jpg" />
-		<Image name="PlayerShipSingle" path="playersingle.png" />
-		<Image name="Laser" path="projectile-blue.png" />
-		<Image name="ZipsterLaser" path="zipster_laser.png" />
-		<Image name="SideKick" path="orange-circle.png" />
-		<Image name="ReacherEyeBeam" path="reacher_eye_beam.png" />
-		<Image name="ReacherBeam" path="reacher_beam.png" />
-		<Image name="ReacherRedRay" path="reacher_redray.png" />
-		<Image name="BlackHole" path="black_hole.png" />
-		<Image name="PlayButton" path="playButton.png" />
-		<Image name="QuitButton" path="quitButton.png" />
-		<Image name="BuyMissileButton" path="buyMissileButton.png" />
-		<Image name="BuyBlackHoleButton" path="buyBlackHoleButton.png" />
-		<Image name="NextLevelButton" path="nextLevelButton.png" />
+		<Image name="cometImage" path="comet.jpg" />
+		<Image name="missileImage" path="missile.jpg" />
+		<Image name="buyMissileImage" path="buyMissile.jpg" />
+		<Image name="backgroundImage" path="background.png" />
+		<Image name="zipsterImage" path="zipster1.png" />
+		<Image name="playerImage" path="playersingle.png" />
+		<Image name="explosionImage" path="explosion.png" />
+		<Image name="projectileImage" path="projectile.png" />
+		<Image name="verticalProjectileImage" path="vertical_projectile.png" />
+		<Image name="zipsterLaserImage" path="zipster_laser.png" />
+		<Image name="sidekickImage" path="sidekick.png" />
+		<Image name="reacherEyeBeamImage" path="reacher_eye_beam.png" />
+		<Image name="reacherBeamImage" path="reacher_beam.png" />
+		<Image name="reacherRedRayImage" path="reacher_redray.png" />
+		<Image name="blackHoleImage" path="black_hole.png" />
+		<Image name="playButtonImage" path="playButton.png" />
+		<Image name="quitButtonImage" path="quitButton.png" />
+		<Image name="buyMissileButtonImage" path="buyMissileButton.png" />
+		<Image name="buyBlackHoleButtonImage" path="buyBlackHoleButton.png" />
+		<Image name="nextLevelButtonImage" path="nextLevelButton.png" />
 	</Images>
 
 	<Animations>
-		<Animation name="SpinningZipster">
+		<Animation name="spinningZipsterAnimation">
 			<Image path="spinning_zipster_0.png" />
 			<Image path="spinning_zipster_1.png" />
 			<Image path="spinning_zipster_2.png" />
@@ -37,21 +34,21 @@
 			<Image path="spinning_zipster_6.png" />
 			<Image path="spinning_zipster_7.png" />
 		</Animation>
-		<Animation name="Boomer">
+		<Animation name="boomerAnimation">
 			<Image path="boomer1.png" />
 			<Image path="boomer2.png" />
 		</Animation>
-		<Animation name="EyeExplosion">
+		<Animation name="eyeExplosionAnimation">
 			<Image path="eye_explosion_1.png" />
 			<Image path="eye_explosion_2.png" />
 		</Animation>
-		<Animation name="ReacherEye">
+		<Animation name="reacherEyeAnimation">
 			<Image path="reacher_eye_shielded.png" />
 			<Image path="reacher_eye_green.png" />
 			<Image path="reacher_eye_yellow.png" />
 			<Image path="reacher_eye_red.png" />
 		</Animation>
-		<Animation name="Reacher">
+		<Animation name="reacherAnimation">
 			<Image path="reacher_shielded_3.png" />
 			<Image path="reacher_shielded_2.png" />
 			<Image path="reacher_shielded_1.png" />
@@ -59,30 +56,30 @@
 			<Image path="reacher_yellow.png" />
 			<Image path="reacher_red.png" />
 		</Animation>
-		<Animation name="ReacherExplosion">
+		<Animation name="reacherExplosionAnimation">
 			<Image path="reacher_explosion_1.png" />
 			<Image path="reacher_explosion_2.png" />
 			<Image path="reacher_explosion_3.png" />
 			<Image path="reacher_explosion_4.png" />
 		</Animation>
-		<Animation name="Vortex">
+		<Animation name="vortexAnimation">
 			<Image path="vortex_1.png" />
 			<Image path="vortex_2.png" />
 		</Animation>
 	</Animations>
 
 	<Sounds>
-		<Sound name="LaserSound" path="laser.wav" />
-		<Sound name="MissileSound" path="missile.wav" />
-		<Sound name="ZipsterLaserSound" path="zipster_laser.wav" />
-		<Sound name="ExplosionSound" path="large_explosion.wav" />
-		<Sound name="LargeExplosionSound" path="large_explosion.wav" />
-		<Sound name="OhManSound" path="oh_man.wav" />
-		<Sound name="ReacherBeamSound" path="reacher_beam.wav" />
-		<Sound name="ReacherEyeBeamSound" path="reacher_eye_beam.wav" />
-		<Sound name="ReacherRedRaySound" path="reacher_redray.wav" />
-		<Sound name="StartLevelSound" path="start_level.wav" />
-		<Sound name="WatchThisSound" path="watch_this.WAV" />
+		<Sound name="laserSound" path="laser.wav" />
+		<Sound name="missileSound" path="missile.wav" />
+		<Sound name="zipsterLaserSound" path="zipster_laser.wav" />
+		<Sound name="explosionSound" path="large_explosion.wav" />
+		<Sound name="largeExplosionSound" path="large_explosion.wav" />
+		<Sound name="ohManSound" path="oh_man.wav" />
+		<Sound name="reacherBeamSound" path="reacher_beam.wav" />
+		<Sound name="reacherEyeBeamSound" path="reacher_eye_beam.wav" />
+		<Sound name="reacherRedRaySound" path="reacher_redray.wav" />
+		<Sound name="startLevelSound" path="start_level.wav" />
+		<Sound name="watchThisSound" path="watch_this.wav" />
 	</Sounds>
 
 	<Strings>
@@ -101,16 +98,19 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/grandius/resources/levels" />
 		<String name="levelNamesFile" value="levelNames.txt" />
 		<String name="resourcesPath" value="src/vooga/games/grandius/resources" />
-		<String name="Level1" value="easyLevel.xml" />
-		<String name="Invincibility" value="superman" />
-		<String name="ExtraPoints" value="highscore" />
-		<String name="ExtraCash" value="showmethemoney" />
-		<String name="SkipLevel" value="getmeouttahere" />
-		<String name="ActivateMissile" value="missiletime" />
-		<String name="StartLevelMessage" value="Here we go!" />
-		<String name="LevelCompleteMessage" value="Well done! Level complete." />
-		<String name="GameOverMessage" value="Oh no! IT'S GAME OVER, MAN!" />
-		<String name="GameCompleteMessage" value="Nice! YOU WON!" />
+		<String name="resourcesLevelXMLPath" value = "src/vooga/games/grandius/resources/levels" />
+		<String name="overlayPath" value="src/vooga/games/grandius/resources/overlays.xml" />
+		<String name="level1" value="grandiusLevel1.xml" />
+		<String name="invincibility" value="superman" />
+		<String name="extraPoints" value="highscore" />
+		<String name="extraCash" value="showmethemoney" />
+		<String name="skipLevel" value="getmeouttahere" />
+		<String name="activateMissile" value="missiletime" />
+		<String name="startLevelMessage" value="Here we go!" />
+		<String name="levelCompleteMessage" value="Well done! Level complete." />
+		<String name="gameOverMessage" value="Oh no! IT'S GAME OVER, MAN!" />
+		<String name="gameCompleteMessage" value="Nice! YOU WON!" />
+		<String name="playerClass" value="vooga.games.grandius.Player" />
 	</Strings>
 
 	<Integers>
@@ -124,12 +124,12 @@
 		<Integer name="levelCompleteY" value="150" />
 		<Integer name="cometX" value="10000" />
 		<Integer name="cometY" value="480" />
-		<Integer name="NumComets" value="500" />
-		<Integer name="LastLevel" value="3" />
-		<Integer name="PlayerInitialX" value="15" />
-		<Integer name="PlayerInitialY" value="200" />
-		<Integer name="InitialPlayerLives" value="3" />
-		<Integer name="InitialZero" value="0" />
+		<Integer name="numComets" value="500" />
+		<Integer name="lastLevel" value="3" />
+		<Integer name="playerInitialX" value="20" />
+		<Integer name="playerInitialY" value="200" />
+		<Integer name="initialPlayerLives" value="3" />
+		<Integer name="initialZero" value="0" />
 	</Integers>
 
 	<Doubles>

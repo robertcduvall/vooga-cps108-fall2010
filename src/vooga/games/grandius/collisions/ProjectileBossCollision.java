@@ -26,8 +26,8 @@ private DropThis grandius;
 		projectile.setActive(false);
 		if (boss instanceof Reacher && ((Reacher) boss).deplete(10)) {
 			boss.setActive(false);
-			grandius.playSound(Resources.getSound("LargeExplosionSound"));
-			BufferedImage[] images = Resources.getAnimation("ReacherExplosion");
+			grandius.playSound(Resources.getSound("largeExplosionSound"));
+			BufferedImage[] images = Resources.getAnimation("reacherExplosionAnimation");
 			AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
 			PlayField newField = new PlayField();
 			newField.add(explosion);

@@ -35,10 +35,10 @@ public class FireHorizontalEvent  implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		Sprite projectile = new Sprite(Resources.getImage("Projectile"),player.getX()+player.getWidth(),player.getY());
-		projectile.setHorizontalSpeed(Resources.getDouble("ProjectileSpeed"));
+		Sprite projectile = new Sprite(Resources.getImage("projectileImage"),player.getX()+player.getWidth(),player.getY());
+		projectile.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
 		playState.getGroup("Projectile").add(projectile);
-		grandius.playSound(Resources.getSound("LaserSound"));	
+		grandius.playSound(Resources.getSound("laserSound"));	
 	}
 
 }

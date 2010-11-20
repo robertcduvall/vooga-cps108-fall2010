@@ -10,7 +10,7 @@ public class NextLevelButton extends Button {
 
 	private static final int START_X = 220;
 	private static final int START_Y = 400;
-	private static final BufferedImage myImage = Resources.getImage("NextLevelButton");
+	private static final BufferedImage myImage = Resources.getImage("nextLevelButtonImage");
 	
 	public NextLevelButton(Game game) {
 		super(game, myImage, START_X, START_Y);

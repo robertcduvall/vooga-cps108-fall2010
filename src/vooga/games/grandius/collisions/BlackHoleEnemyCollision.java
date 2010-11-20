@@ -39,7 +39,7 @@ public class BlackHoleEnemyCollision extends BasicCollision{
 			blackHole.setActive(false);
 		}
 		enemy.setActive(false);
-		BufferedImage[] images = Resources.getAnimation("Vortex");
+		BufferedImage[] images = Resources.getAnimation("vortexAnimation");
 		AnimatedSprite vortex = new VolatileSprite(images, enemy.getX(), enemy.getY());
 		PlayField newField = new PlayField();
 		newField.add(vortex);
