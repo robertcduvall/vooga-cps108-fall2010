@@ -7,53 +7,37 @@ import org.w3c.dom.NodeList;
 
 import vooga.engine.factory.NodeListProcessor;
 
-import com.golden.gamedev.object.SpriteGroup;
-
-
-/**
- * 
- * Creates all SpriteGroups from <SpriteGroups>.
- * 
- * @author Cameron McCallie
- *
- */
-
 public class SpriteGroupsProcessor extends NodeListProcessor {
 
-	
-	
-	
 	public SpriteGroupsProcessor(Document xmlDocument, NodeList children) {
 		super(xmlDocument, children);
 	}
 	
-	
-	public void process(){
-		for(int i = 0; i < mySpriteGroups.getLength(); i++)
-		{
-			if (isElement(mySpriteGroups.item(i)))
-			{
-				Element spriteGroup = (Element) mySpriteGroups.item(i);
-				String groupName = spriteGroup.getAttribute("name");
-
-				SpriteGroup newSpriteGroup = new SpriteGroup(groupName);
-//				NodeList spritesList = spriteGroup.getChildNodes();
-
-				processSprite(spritesList, newSpriteGroup);
-				voogaPlayField.addGroup(newSpriteGroup);
-			}
-		}
-	}
-
 	@Override
 	public int getLength() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Node item(int index) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+	@Override
+	public void process() {
+		for (int i = 0; i < myChildren.getLength(); i++) {
+			if (isElement(myChildren.item(i))) {
+				Element spriteGroupElement = (Element)myChildren.item(i);
+				SpriteGroupProcessor spriteGroupProcessor = 
+				new SpriteGroupProcessor(myXMLDocument, 
+						spriteGroupElement.getChildNodes(),
+						spriteGroupElement.getAttribute("name"));
+				spriteGroupProcessor.process();
+			}
+		}
+	}
+
 }
+
