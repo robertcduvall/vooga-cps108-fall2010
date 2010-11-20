@@ -44,6 +44,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
 	private Collection<Control> myControls;
+	private OverlayTracker myTracker;
 
 
 	public PlayField(Background background){
@@ -121,12 +122,18 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	}
 	/**
 	 * Adds OverlayTracker to the playfield.
+	 * And adds all SpriteGroups from the tracker to the playfield.
 	 * @param overlayTracker
 	 */
 	public void addOverlayTracker(OverlayTracker overlayTracker){
+		myTracker = overlayTracker;
 		for(String overlayKey: overlayTracker.overlayKeySet()){
-			this.add(overlayTracker.getOverlay(overlayKey));
+			this.addGroup(overlayTracker.getOverlayGroup(overlayKey));
 		}
+	}
+	
+	public OverlayTracker getOverlayTracker(){
+		return myTracker;
 	}
 
 
