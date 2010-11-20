@@ -1,5 +1,5 @@
 package vooga.engine.factory.xmltags;
 
-public class SpawnedSprite {
+public class SpawnedSpriteProcessor {
 
 }

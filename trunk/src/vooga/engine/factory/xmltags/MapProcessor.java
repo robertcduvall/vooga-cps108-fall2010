@@ -4,14 +4,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.engine.factory.LevelNodeListFactory;
+import vooga.engine.factory.NodeListProcessor;
 import vooga.engine.factory.MapReader;
 
-public class Map {
+public class MapProcessor {
 
 	public NodeList myMaps;
 	
-	public Map(NodeList nodeList) {
+	public MapProcessor(NodeList nodeList) {
 		myMaps = nodeList;
 	}
 

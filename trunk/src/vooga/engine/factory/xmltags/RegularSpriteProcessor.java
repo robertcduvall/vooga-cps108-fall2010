@@ -7,10 +7,10 @@ import org.w3c.dom.NodeList;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.core.BetterSprite;
-import vooga.engine.factory.LevelNodeListFactory;
+import vooga.engine.factory.NodeListProcessor;
 import vooga.engine.factory.MapReader;
 
-public class RegularSprite extends Sprite{
+public class RegularSpriteProcessor extends SpriteProcessor{
 
 
 
