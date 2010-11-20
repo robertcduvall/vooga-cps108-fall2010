@@ -1,11 +1,10 @@
 package vooga.games.grandius.weapons;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
-import com.golden.gamedev.object.Sprite;
-
 @SuppressWarnings("serial")
-public class Missile extends Sprite{
+public class Missile extends BetterSprite{
 	
 	private static final int MAX_HITS = 3;
 	private int hits;

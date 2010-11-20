@@ -51,7 +51,7 @@ public class PlayState extends GameState {
 	
 	private EventPool eventPool;
 	
-	private boolean reacherShieldsDepleted;
+	//private boolean reacherShieldsDepleted;
 	private boolean skipLevel = false;
 	
 	private LevelManager myLevelManager;
@@ -71,8 +71,6 @@ public class PlayState extends GameState {
 	@Override
 	public void initialize() {
 		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-		//PlayField testField = initPlayField(); //Important that background group is always created first.
-		//PlayField spriteField = initSpriteGroups();
 		PlayField newField = myLevelManager.loadFirstLevel();
 		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
@@ -119,38 +117,38 @@ public class PlayState extends GameState {
 		return playerGroup;
 	}
 	
-	/**
-	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
-	 * Also adds the necessary SpriteGroup entries to the spriteGroupSpeedMap.
-	 */
-	private PlayField initSpriteGroups() {
-		PlayField newField = new PlayField();
-		backgroundGroup =       		new SpriteGroup("Background");
-		backgroundGroup.add(new BetterSprite(Resources.getImage("backgroundImage")));
-		newField.addGroup(backgroundGroup);
-		playerGroup =            		new SpriteGroup("Player");
-		playerGroup = addPlayer(playerGroup);
-		newField.addGroup(playerGroup);
-		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
-		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
-		//TODO the createEnemiesGroup() method should be replaced by the use of the level XML file
-		enemyGroup =                    newField.addGroup(new SpriteGroup("Enemies"));
-		bossPartGroup =                 newField.addGroup(new SpriteGroup("BossPart"));
-		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
-		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
-		blackHoleGroup =                newField.addGroup(new SpriteGroup("BlackHole"));
-		cometsGroup = 					newField.addGroup(createCometsGroup());
-		
-		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>(); //TODO get rid of the negative signs?
-		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("projectileSpeed"));
-		spriteGroupSpeedMap.put(enemyProjectileGroup,   -Resources.getDouble("projectileSpeed"));
-		spriteGroupSpeedMap.put(enemyGroup,             Resources.getDouble("enemySpeed"));
-		spriteGroupSpeedMap.put(bossPartGroup,          -Resources.getDouble("bossPartSpeed"));
-		spriteGroupSpeedMap.put(bossGroup,              -Resources.getDouble("bossSpeed"));
-		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("projectileSpeed"));
-		
-		return newField;
-	}
+//	/**
+//	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
+//	 * Also adds the necessary SpriteGroup entries to the spriteGroupSpeedMap.
+//	 */
+//	private PlayField initSpriteGroups() {
+//		PlayField newField = new PlayField();
+//		backgroundGroup =       		new SpriteGroup("Background");
+//		backgroundGroup.add(new BetterSprite(Resources.getImage("backgroundImage")));
+//		newField.addGroup(backgroundGroup);
+//		playerGroup =            		new SpriteGroup("Player");
+//		playerGroup = addPlayer(playerGroup);
+//		newField.addGroup(playerGroup);
+//		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
+//		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
+//		//TODO the createEnemiesGroup() method should be replaced by the use of the level XML file
+//		enemyGroup =                    newField.addGroup(new SpriteGroup("Enemies"));
+//		bossPartGroup =                 newField.addGroup(new SpriteGroup("BossPart"));
+//		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
+//		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
+//		blackHoleGroup =                newField.addGroup(new SpriteGroup("BlackHole"));
+//		cometsGroup = 					newField.addGroup(createCometsGroup());
+//		
+//		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>(); //TODO get rid of the negative signs?
+//		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("projectileSpeed"));
+//		spriteGroupSpeedMap.put(enemyProjectileGroup,   -Resources.getDouble("projectileSpeed"));
+//		spriteGroupSpeedMap.put(enemyGroup,             Resources.getDouble("enemySpeed"));
+//		spriteGroupSpeedMap.put(bossPartGroup,          -Resources.getDouble("bossPartSpeed"));
+//		spriteGroupSpeedMap.put(bossGroup,              -Resources.getDouble("bossSpeed"));
+//		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("projectileSpeed"));
+//		
+//		return newField;
+//	}
 	
 	//Old test playfield method
 //	/**

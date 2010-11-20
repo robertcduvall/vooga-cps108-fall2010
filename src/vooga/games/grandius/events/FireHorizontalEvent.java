@@ -5,13 +5,12 @@ package vooga.games.grandius.events;
 
 import java.awt.event.KeyEvent;
 
-import com.golden.gamedev.object.Sprite;
-
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
 import vooga.games.grandius.states.PlayState;
+import vooga.games.grandius.weapons.Laser;
 
 /**
  * @author bhawana
@@ -35,9 +34,9 @@ public class FireHorizontalEvent  implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		Sprite projectile = new Sprite(Resources.getImage("projectileImage"),player.getX()+player.getWidth(),player.getY());
-		projectile.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
-		playState.getGroup("Projectile").add(projectile);
+		Laser projectile = new Laser(player.getX()+player.getWidth(),player.getY());
+		projectile.setHorizontalSpeed(Resources.getDouble("laserSpeed"));
+		playState.getGroup("projectileGroup").add(projectile);
 		grandius.playSound(Resources.getSound("laserSound"));	
 	}
 
