@@ -44,7 +44,7 @@ public class PlayState extends GameState{
 		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship", null);
 		playerControl.addInput(KeyEvent.VK_UP, "thrust", "vooga.games.asteroids.sprites.Ship", null);
 		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship", null);
-		myField.addControl(playerControl);
+		myField.addControl("ship", playerControl);
 		this.getUpdateField().add(myField);
 		this.getRenderField().add(myField);
 	}

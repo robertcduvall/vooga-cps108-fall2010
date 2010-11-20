@@ -43,7 +43,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private String myMusic;
 	private Collection<Background> myBackgrounds;
 	private Collection<String> myMusics;
-	private Collection<Control> myControls;
+	private Map<String, Control> myControls;
 	private OverlayTracker myTracker;
 
 
@@ -55,7 +55,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		super();
 		myRuleBook = new HashMap<String, Rule>();
 		myRuleMap = new HashMap<Rule, SpriteGroup[]>();
-		myControls = new ArrayList<Control>();
+		myControls = new HashMap<String, Control>();
 		myEventPool = new EventPool();
 		myMusics = new ArrayList<String>();
 		myBackgrounds = new ArrayList<Background>();
@@ -99,8 +99,8 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 
 
 	private void updateControls(){
-		for(Control control: myControls){
-			control.update();
+		for(String key : myControls.keySet()){
+			myControls.get(key).update();
 		}
 	}
 
@@ -179,8 +179,17 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 * playfield is updated.
 	 * @param control Control to be updated with the PlayField
 	 */
-	public void addControl(Control control){
-		myControls.add(control);
+	public void addControl(String key, Control control){
+		myControls.put(key, control);
+	}
+	
+	/**
+	 * Add a control which will be updated everytime the 
+	 * playfield is updated.
+	 * @param control Control to be updated with the PlayField
+	 */
+	public Control getControl(String key){
+		return myControls.get(key);
 	}
 	
 	/**
