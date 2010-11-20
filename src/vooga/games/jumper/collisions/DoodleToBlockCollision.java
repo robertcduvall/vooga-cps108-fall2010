@@ -1,4 +1,4 @@
-package vooga.games.jumper;
+package vooga.games.jumper.collisions;
 
 
 import java.awt.event.KeyEvent;
