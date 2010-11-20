@@ -34,8 +34,7 @@ public class FireBlackHoleEvent  implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		BlackHole blackhole = new BlackHole(Resources.getImage("blackHoleImage"),player.getX()+player.getWidth(),player.getY());
-		blackhole.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
+		BlackHole blackhole = new BlackHole(player.getX()+player.getWidth(),player.getY());
 		playState.getGroup("BlackHole").add(blackhole);
 		grandius.playSound(Resources.getSound("missileSound"));	
 	}
