@@ -298,7 +298,9 @@ public class LevelParser implements LevelFactory{
 
 			if(isElement(currentNode))
 			{
-				String path = Resources.getString(((Element) currentNode).getAttribute("name"));
+				String pathName = ((Element) currentNode).getAttribute("name");
+				String path = pathName == null ? ((Element) currentNode)
+						.getAttribute("path") : Resources.getString(pathName);
 				reader = new MapReader(path, voogaPlayField);
 				NodeList listOfAssociations = currentNode.getChildNodes();
 				for(int j = 0; j < listOfAssociations.getLength(); j++)
@@ -352,19 +354,18 @@ public class LevelParser implements LevelFactory{
 			if (isElement(backgrounds.item(i))) {
 				Element bgElement = (Element) backgrounds.item(i);
 				voogaPlayField.addImageBackground(bgElement
-						.getAttribute("path"));
+						.getAttribute("name"));
 			}
 		}
 	}
 
 	/**
-	 * Processes the background
+	 * Processes the music
 	 */
 	private void processMusic(NodeList musics) {
 		for (int i = 0; i < musics.getLength(); i++) {
 			if (isElement(musics.item(i))) {
 				Element musicElements = (Element) musics.item(i);
-				// voogaPlayField.addMusic(musicElements.getAttribute("name"));
 				if (isElement(musics.item(i))) {
 					Element musicElement = (Element) musics.item(i);
 					voogaPlayField.addMusic(musicElements.getAttribute("name"));
