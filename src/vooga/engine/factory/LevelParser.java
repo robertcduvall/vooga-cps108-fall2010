@@ -294,14 +294,27 @@ public class LevelParser implements LevelFactory{
 	 * Adds a regular, location-specified Sprite to the given SpriteGroup.
 	 */
 	public void processRegularSprite(Element spriteElement, SpriteGroup group) {
-		BetterSprite newSprite = new BetterSprite();
+		BetterSprite newSprite = null;
+		String spriteName = spriteElement.getAttribute("name");
+		try {
+			Class userSprite = Class.forName(spriteName);
+			Class parameterTypes[] = new Class[1];
+			parameterTypes[0] = String.class;
+			Constructor classConstructor = userSprite.getConstructor(parameterTypes);
+			Object arglist[] = new Object[1];
+			arglist[0] = new String(spriteName);
+			Object returnObject = classConstructor.newInstance(spriteName);
+			newSprite = (BetterSprite)returnObject;
+		} catch (Throwable e){
+			e.printStackTrace();
+		}
 
-		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
-		processVisual(visualsList, newSprite);
-		NodeList statsList = spriteElement.getElementsByTagName("Stat");
-		processStats(statsList, newSprite);
-		NodeList controlsList = spriteElement.getElementsByTagName("Control");
-		processControls(controlsList, newSprite);
+//		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
+//		processVisual(visualsList, newSprite);
+//		NodeList statsList = spriteElement.getElementsByTagName("Stat");
+//		processStats(statsList, newSprite);
+//		NodeList controlsList = spriteElement.getElementsByTagName("Control");
+//		processControls(controlsList, newSprite);
 
 		double x = Double.parseDouble(spriteElement.getAttribute("x"));
 		double y = Double.parseDouble(spriteElement.getAttribute("y"));
