@@ -62,7 +62,7 @@ public class MainMenuState extends MenuGameState {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		initControls(myGame);
+//		initControls(myGame);
 	}
 	
 	private void initControls(Game game){
