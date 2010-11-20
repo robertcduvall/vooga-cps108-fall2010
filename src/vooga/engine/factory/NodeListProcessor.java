@@ -5,10 +5,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.engine.core.PlayField;
-import vooga.engine.factory.xmltags.MapProcessor;
-import vooga.engine.factory.xmltags.SpriteGroupsProcessor;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
+
+import com.golden.gamedev.object.SpriteGroup;
 
 
 /**

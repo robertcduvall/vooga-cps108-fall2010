@@ -238,21 +238,53 @@ public class LevelParser implements LevelFactory{
 	 * Processes the Sprites within a SpriteGroup.
 	 */
 	public void processSprite(NodeList spritesList, SpriteGroup group) {
+		BetterSprite newSprite = null;
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			if (isElement(spritesList.item(i))) {
-				Element currentNode = (Element) spritesList.item(i);
-				if (currentNode.getNodeName().equals("RegularSprite")) {
-					processRegularSprite((Element)currentNode, group);
-				} else if (currentNode.getNodeName().equals("SpawnedSprite")) {
-					processSpawnedSprite((Element)currentNode, group);
-				}
-				else
-				{
-					/*BetterSprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
-					NodeList visualsList = currentNode.getElementsByTagName("Visual");
-					group.add(result);
-					processVisual(visualsList, result);*/
+				Element currentElement = (Element) spritesList.item(i);
+				if (currentElement.getTagName().equals("Sprite")) {
+					String className = currentElement.getAttribute("class");
+					try {
+						Class userSprite = Class.forName(className);
+						Constructor classConstructor = userSprite.getConstructor();
+						if (!Boolean.parseBoolean(currentElement.getAttribute("random"))) {
+							double x = Double.parseDouble(currentElement.getAttribute("x"));
+							double y = Double.parseDouble(currentElement.getAttribute("y"));
+							double vx = Double.parseDouble(currentElement.getAttribute("vx"));
+							double vy = Double.parseDouble(currentElement.getAttribute("vy"));
+			
+							int quantity = Integer.parseInt(currentElement.getAttribute("quantity"));
+							for(int j = 0; j < quantity; j++) {
+								BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
+								spriteToAdd.setLocation(x, y);
+								spriteToAdd.setHorizontalSpeed(vx);
+								spriteToAdd.setVerticalSpeed(vy);	
+								group.add(spriteToAdd);
+							}
+						} else if (Boolean.parseBoolean(currentElement.getAttribute("random"))) {
+							double xMin = Double.parseDouble(currentElement.getAttribute("xMin"));
+							double yMin = Double.parseDouble(currentElement.getAttribute("yMin"));
+							double vxMin = Double.parseDouble(currentElement.getAttribute("vxMin"));
+							double vyMin = Double.parseDouble(currentElement.getAttribute("vyMin"));
+							double xMax = Double.parseDouble(currentElement.getAttribute("xMax"));
+							double yMax = Double.parseDouble(currentElement.getAttribute("yMax"));
+							double vxMax = Double.parseDouble(currentElement.getAttribute("vxMax"));
+							double vyMax = Double.parseDouble(currentElement.getAttribute("vyMax"));
+							
+							int quantity = Integer.parseInt(currentElement.getAttribute("quantity"));
+							for(int j = 0; j < quantity; j++) {
+								BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
+								spriteToAdd.setLocation(Math.random()*(xMax-xMin) + xMin,
+													  Math.random()*(yMax-yMin) + yMin);
+								spriteToAdd.setHorizontalSpeed(Math.random()*(vxMax-vxMin) + vxMin);
+								spriteToAdd.setVerticalSpeed(Math.random()*(vyMax-vyMin) + vyMin);	
+								group.add(spriteToAdd);
+							}
+						}
+					} catch (Throwable e){
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -285,73 +317,11 @@ public class LevelParser implements LevelFactory{
 			}
 		}
 	}
-	
 
 	//process Stats
 	//process Control
 
-	/**
-	 * Adds a regular, location-specified Sprite to the given SpriteGroup.
-	 */
-	public void processRegularSprite(Element spriteElement, SpriteGroup group) {
-		BetterSprite newSprite = null;
-		String spriteName = spriteElement.getAttribute("name");
-		try {
-			Class userSprite = Class.forName(spriteName);
-			Constructor classConstructor = userSprite.getConstructor();
-			Object returnObject = classConstructor.newInstance();
-			newSprite = (BetterSprite) returnObject;
-		} catch (Throwable e){
-			e.printStackTrace();
-		}
 
-//		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
-//		processVisual(visualsList, newSprite);
-//		NodeList statsList = spriteElement.getElementsByTagName("Stat");
-//		processStats(statsList, newSprite);
-//		NodeList controlsList = spriteElement.getElementsByTagName("Control");
-//		processControls(controlsList, newSprite);
-
-		double x = Double.parseDouble(spriteElement.getAttribute("x"));
-		double y = Double.parseDouble(spriteElement.getAttribute("y"));
-		double vx = Double.parseDouble(spriteElement.getAttribute("vx"));
-		double vy = Double.parseDouble(spriteElement.getAttribute("vy"));
-
-		int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
-		for(int j = 0; j < quantity; j++) {
-			newSprite.setLocation(x, y);
-			newSprite.setHorizontalSpeed(vx);
-			newSprite.setVerticalSpeed(vy);	
-			group.add(newSprite);
-		}
-	}
-
-	/**
-	 * Adds or "spawns" [quantity] Sprites with random locations and
-	 * velocities to the given SpriteGroup.
-	 */
-	private void processSpawnedSprite(Element spriteElement, SpriteGroup group) {		
-		NodeList visualsList = spriteElement.getElementsByTagName("Visual");
-		NodeList statsList = spriteElement.getElementsByTagName("Stat");
-		NodeList controlsList = spriteElement.getElementsByTagName("Control");
-
-		double xRange = Double.parseDouble(spriteElement.getAttribute("xRange"));
-		double yRange = Double.parseDouble(spriteElement.getAttribute("yRange"));
-		double vxRange = Double.parseDouble(spriteElement.getAttribute("vxRange"));
-		double vyRange = Double.parseDouble(spriteElement.getAttribute("vyRange"));
-
-		int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
-		for(int j = 0; j < quantity; j++) {
-			BetterSprite newSprite = new BetterSprite();
-			newSprite.setLocation(Math.random()*xRange, Math.random()*yRange);
-			newSprite.setHorizontalSpeed(Math.random()*vxRange);
-			newSprite.setVerticalSpeed(Math.random()*vyRange);	
-			processVisual(visualsList, newSprite);
-			processStats(statsList, newSprite);
-			processControls(controlsList, newSprite);
-			group.add(newSprite);
-		}
-	}
 	/**
 	 * Processes Visuals within a Sprite.
 	 */
