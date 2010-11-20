@@ -30,6 +30,9 @@ public class DoodleSprite extends BetterSprite {
 	private BufferedImage doodleLeftImageJetpack;
 	private BufferedImage doodleRightImageJetpack;
 
+	private int gameHeight = Resources.getInt("gameHeight");
+	private int gameWidth = Resources.getInt("gameWidth");
+	
 	/**
 	 * Create new DoodleSprite
 	 * @param image Sprite Image
@@ -62,7 +65,6 @@ public class DoodleSprite extends BetterSprite {
 	 * Make sure the doodle doesn't fall out of the screen from below
 	 */
 	public void maintainFloor(){
-		int gameHeight = DropThis.getGameHeight();
 		if (getY() + mySpriteHeight > gameHeight){
 			setY(gameHeight - mySpriteHeight);
 		}
@@ -90,9 +92,7 @@ public class DoodleSprite extends BetterSprite {
 	 * Allow doodle to move through wall to the other side
 	 */
 	public void moveThroughWall(){
-		int gameWidth = DropThis.getGameWidth();
-
-		if (getX() + mySpriteWidth > DropThis.getGameWidth()){
+		if (getX() + mySpriteWidth > gameWidth){
 			setX(0);
 		}
 		if (getX() < 0){

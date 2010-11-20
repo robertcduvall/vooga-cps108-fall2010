@@ -48,10 +48,10 @@ import com.golden.gamedev.object.background.ImageBackground;
 /**
  * it seems like the first time you play, only the first brown block will break.  After that they
  * behave as normal blocks and you can only stand on them.
+ * 
+ * @author Brian
  */
 
-
-//TODO: try making it so that the blocks come in waves.  Add side jetpack thrusters.  Add jump capability.
 
 public class DropThis extends vooga.engine.core.Game {
 
@@ -150,6 +150,14 @@ public class DropThis extends vooga.engine.core.Game {
 	public void pauseGame() {
 		stateManager.activateOnly(pauseState);		
 	}
+	
+	public static void setJetpackOn(boolean jetpackOn) {
+		DropThis.jetpackOn = jetpackOn;
+		if(jetpackOn == true){
+			DropThis.jetpackStartTime = DropThis.myClock.getTime();
+		}
+	}
+
 
 	/**
 	 * Main method which loads the game
