@@ -7,26 +7,30 @@ import java.util.concurrent.ArrayBlockingQueue;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.overlay.Stat;
+import vooga.engine.core.BetterSprite;
 import vooga.games.mariogame.items.GravityItem;
 
 @SuppressWarnings("serial")
-public class MarioSprite extends CharacterSprite {
+public class MarioSprite extends BetterSprite {
 
 	private double jumpSpeed = 1;
 	private double speed = .5;
 	private boolean onGround;
 	private boolean killed;
 	private double myMaxX;
+	private Stat<Integer> myHealth;
+	private int myMaxHealth = 3;
+	private double myGravity;
 
 	private Queue<Character> myCheatText;
 	private static final int MAX_CHEAT_LENGTH = 10;
 	private char lastCheatChar;
 
-	public MarioSprite(String name, String stateName, BufferedImage[] left,
-			BufferedImage[] right) {
-		super(name, stateName, left, right);
-		setMaxHealth(3);
-
+	public MarioSprite(){
+	}
+	
+	public MarioSprite(String name, BufferedImage[] left) {
+		super(name, left);
 		setStat("Score", new Stat<Integer>(0));
 
 		myCheatText = new ArrayBlockingQueue<Character>(MAX_CHEAT_LENGTH);
@@ -81,7 +85,7 @@ public class MarioSprite extends CharacterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		if (getY() > this.getBackground().getHeight()) {
-			setHealth(getHealth() - 1);
+			setHealth(myHealth.getStat() - 1);
 			killed = true;
 		}
 
@@ -112,7 +116,7 @@ public class MarioSprite extends CharacterSprite {
 
 	public void actOnItem(Sprite item) {
 		if (item.getClass().equals(GravityItem.class)) {
-			setGravityCoef(((GravityItem) item).getGravity());
+			setGravity(((GravityItem) item).getGravity());
 		}
 	}
 
@@ -120,10 +124,8 @@ public class MarioSprite extends CharacterSprite {
 	public void incScore(int i) {
 		Stat<Integer> stat = (Stat<Integer>) getStat("Score");
 		stat.setStat(stat.getStat() + i);
-		System.out.println(stat.getStat());
 		if((stat.getStat()%100) == 0){
-			System.out.println("incrementing health");
-			setHealth(getHealth()+1);
+			myHealth.setStat(myHealth.getStat() + 1);
 		}
 	}
 
@@ -143,7 +145,6 @@ public class MarioSprite extends CharacterSprite {
 			curCheat += i;
 		if (myCheatText.size() - s.length() < 0)
 			return false;
-		System.out.println(curCheat.substring(myCheatText.size() - s.length()));
 		if (s.equals(curCheat.substring(myCheatText.size() - s.length())))
 			return true;
 		return false;
@@ -157,14 +158,34 @@ public class MarioSprite extends CharacterSprite {
 			lastCheatChar = c;
 		}
 		if (checkCheat("GRVTY"))
-			setGravityCoef(.2);
+			setGravity(.2);
 		else if (checkCheat("NORM"))
-			setGravityCoef(1);
+			setGravity(1.0);
 		else if (checkCheat("MORE"))
 			speed += .1;
 		else if (checkCheat("EROM"))
 			speed -= .1;
 
+	}
+	
+	public double getGravity(){
+		return myGravity;
+	}
+	
+	public void setGravity(Double d){
+		myGravity = d;
+	}
+	
+	public int getMaxHealth(){
+		return myMaxHealth;
+	}
+	
+	public int getHealth(){
+		return myHealth.getStat();
+	}
+	
+	public void setHealth(int i){
+		myHealth.setStat(i);
 	}
 
 }
