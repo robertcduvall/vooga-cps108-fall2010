@@ -1,7 +1,11 @@
 package vooga.engine.factory.xmltags;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import vooga.engine.factory.NodeListProcessor;
+import vooga.engine.overlay.Stat;
 
 /**
  * 
@@ -11,34 +15,36 @@ import org.w3c.dom.NodeList;
  *
  */
 
-public abstract class SpriteProcessor extends SpriteGroupsProcessor {
-	
-	
+public abstract class SpriteProcessor extends NodeListProcessor{
 
-	
-	public SpriteProcessor(NodeList nodeList) {
-		super(nodeList);
+
+
+	public SpriteProcessor(Document xmlDocument, NodeList children) {
+		super(xmlDocument, children);
 	}
-	
+
 	public void process(){
-		for(int i = 0; i < spritesList.getLength(); i++)
+		for(int i = 0; i < myChildren.getLength(); i++)
 		{
-			if (isElement(spritesList.item(i))) {
-				Element currentNode = (Element) spritesList.item(i); //
-				if (currentNode.getNodeName().equals("RegularSprite")) {
-					processRegularSprite((Element)currentNode, group);
-				} else if (currentNode.getNodeName().equals("SpawnedSprite")) {
-					processSpawnedSprite((Element)currentNode, group);
-				}
-//				else
-//				{
-//					BetterSprite result = processX(currentNode.getTagName(), currentNode.getAttributes());
-//					NodeList visualsList = currentNode.getElementsByTagName("Visual");
-//					group.add(result);
-//					processVisual(visualsList, result);
-//				}
+			if (isElement(myChildren.item(i))) {
+				Element currentNode = (Element) myChildren.item(i); 
+				
+				
+				
+
+
 			}
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
