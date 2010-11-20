@@ -1,8 +1,13 @@
 package vooga.games.mariogame;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.state.MenuGameState;
@@ -22,6 +27,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class MainMenuState extends MenuGameState {
 
+	private Game myGame;
 	private ImageBackground myMainMenuBG;
 	private SpriteGroup myOverlays;
 
@@ -34,9 +40,10 @@ public class MainMenuState extends MenuGameState {
 	 * @param fontManager
 	 */
 
-	public MainMenuState(BufferedImage backgroundImage,
+	public MainMenuState(Game game, BufferedImage backgroundImage,
 			GameFontManager fontManager) {
 		super();
+		myGame = game;
 		myMainMenuBG = new ImageBackground(backgroundImage);
 		OverlayCreator overlayCreator = new OverlayCreator();
 		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/MainMenuOverlays.xml");
@@ -55,7 +62,13 @@ public class MainMenuState extends MenuGameState {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		
+		initControls(myGame);
+	}
+	
+	private void initControls(Game game){
+		Control gameControl = new KeyboardControl(game);
+		gameControl.addInput(KeyEvent.VK_SPACE, "resumeGame", "vooga.games.mariogame.DropThis");
+		((PlayField)this.getRenderField().toArray()[0]).addControl(gameControl);
 	}
 
 }

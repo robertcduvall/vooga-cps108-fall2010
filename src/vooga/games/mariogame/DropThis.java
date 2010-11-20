@@ -82,11 +82,11 @@ public class DropThis extends Game {
 		LevelParser levelParser = new LevelParser();
 		PlayField loseField = levelParser.getPlayfield(Resources.getString("losexml"),this);
 		PlayField winField = levelParser.getPlayfield(Resources.getString("winxml"),this);
-		MainMenuState mainMenu = new MainMenuState(Resources.getImage("Mario Menu BG"), fontManager);
-		MainMenuState pauseState = new MainMenuState(Resources.getImage("Pause BG"), fontManager);
+		MainMenuState mainMenu = new MainMenuState(this, Resources.getImage("Mario Menu BG"), fontManager);
+		MainMenuState pauseState = new MainMenuState(this, Resources.getImage("Pause BG"), fontManager);
 		GameEndState loseState = new GameEndState(loseField);
 		GameEndState winState = new GameEndState(winField);
-		MainMenuState levelFinishedState = new MainMenuState(Resources.getImage("Level Complete BG"), fontManager);
+		MainMenuState levelFinishedState = new MainMenuState(this, Resources.getImage("Level Complete BG"), fontManager);
 		GamePlayState playState = new GamePlayState(this,(PlayField)myLevels.toArray()[0]);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
 	}
