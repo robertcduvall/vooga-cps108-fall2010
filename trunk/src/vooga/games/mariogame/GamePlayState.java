@@ -8,6 +8,7 @@ import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
@@ -25,12 +26,10 @@ import vooga.engine.state.GameState;
 public class GamePlayState extends GameState {
 
 	private Game myGame;
-//	MarioLevelFactory myLevelFactory;
-
 	private static final int NUM_LEVELS = 3;
 
 	private int myCurrentLevel;
-	private MarioPlayField myLevel;
+	private PlayField myLevel;
 
 	private KeyboardControl myControl;
 
@@ -50,7 +49,7 @@ public class GamePlayState extends GameState {
 	 *            is the desired height of the game window
 	 */
 
-	public GamePlayState(Game game, MarioPlayField level) {
+	public GamePlayState(Game game, PlayField level) {
 		myGame = game;
 		myLevel = level;
 		init();
@@ -65,9 +64,9 @@ public class GamePlayState extends GameState {
 	 */
 
 	public State nextState() {
-		if (myLevel.getMario() == null || !myLevel.getMario().isActive()) {
+		if (myLevel.getGroup("marioGroup").getActiveSprite() == null) {
 			return State.Lose;
-		} else if (myLevel.isFinished()) {
+		} else if (myLevel.getGroup("marioGroup").getActiveSprite().getX() > 1000) {
 			if (myCurrentLevel >= NUM_LEVELS - 1) {
 				return State.Win;
 			} else {
@@ -99,14 +98,13 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
-//		myLevelFactory = new MarioLevelFactory();
 		myCurrentLevel = 0;
 		switchLevel(0);
 		setUpKeyboard();
 	}
 
 	public int getScore() {
-		return (Integer) myLevel.getOverlays().getStat("Score").getStat();
+		return (Integer) ((BetterSprite)myLevel.getGroup("marioGroup").getActiveSprite()).getStat("Score").getStat();
 	}
 
 	private void switchLevel(int i) {
@@ -117,7 +115,7 @@ public class GamePlayState extends GameState {
 //				.getPlayfield(levelFile);
 //		pf.setLevel(i + 1);
 //		myLevel = pf;
-		myGame.playMusic(myLevel.getMusic());
+//		myGame.playMusic(myLevel.getMusic());
 	}
 
 	/**
@@ -135,7 +133,7 @@ public class GamePlayState extends GameState {
 	}
 
 	private void setUpKeyboard() {
-		Control playerControl = new KeyboardControl(((MarioPlayField) myLevel).getMario(), myGame);
+		Control playerControl = new KeyboardControl((BetterSprite)(myLevel.getGroup("marioGroup").getActiveSprite()), myGame);
 		playerControl.addInput(KeyEvent.VK_D, "moveLeft", "vooga.games.mariogame.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_A, "moveRight", "vooga.games.mariogame.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_W, "jump", "vooga.games.mariogame.MarioSprite");

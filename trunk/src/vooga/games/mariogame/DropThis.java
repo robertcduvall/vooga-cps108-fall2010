@@ -87,7 +87,7 @@ public class DropThis extends Game {
 		GameEndState loseState = new GameEndState(loseField);
 		GameEndState winState = new GameEndState(winField);
 		MainMenuState levelFinishedState = new MainMenuState(Resources.getImage("Level Complete BG"), fontManager);
-		GamePlayState playState = new GamePlayState(this,(MarioPlayField) myLevels.toArray()[0]);
+		GamePlayState playState = new GamePlayState(this,(PlayField)myLevels.toArray()[0]);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
 	}
 }
