@@ -77,7 +77,7 @@ public class PlayState extends GameState{
 		eventPool.addEvent(buildEnemy);
 		playField.add(enemyGenerator);
 		
-		playField.addControl(initControl(player));
+		playField.addControl("player", initControl(player));
 		
 		
 		return playField;

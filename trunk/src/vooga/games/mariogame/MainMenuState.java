@@ -68,7 +68,7 @@ public class MainMenuState extends MenuGameState {
 	private void initControls(Game game){
 		Control gameControl = new KeyboardControl(game,game);
 		gameControl.addInput(KeyEvent.VK_SPACE, "resumeGame", "vooga.games.mariogame.DropThis");
-		getMenuPlayfield().addControl(gameControl);
+		getMenuPlayfield().addControl("resume", gameControl);
 	}
 
 }

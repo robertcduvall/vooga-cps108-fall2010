@@ -136,7 +136,7 @@ public class GamePlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_D, "moveLeft", "vooga.games.mariogame.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_A, "moveRight", "vooga.games.mariogame.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.MarioSprite");
-		myLevel.addControl(playerControl);
+		myLevel.addControl("mario", playerControl);
 		
 		/*
 		for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) {

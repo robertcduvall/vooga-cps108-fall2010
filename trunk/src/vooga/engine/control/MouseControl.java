@@ -2,7 +2,6 @@ package vooga.engine.control;
 
 import java.util.*;
 import vooga.engine.core.Game;
-import vooga.engine.core.BetterSprite;
 
 /**
  * Built-in example of how to extend Control class properly. Also a usable mouse
@@ -30,23 +29,22 @@ public class MouseControl extends Control{
 	}
 
 	/**
-	 * Creates a MouseControl object with a Game and a single PlayerSprite which it controls.
+	 * Creates a MouseControl object with a Game and a single Object which it controls.
 	 * 
-	 * @param initialEntity the PlayerSprite to be controlled
-	 * @param game the Game to which the PlayerSprites belong
+	 * @param initialEntity the Object to be controlled
+	 * @param game the Game to which the Objects belong
 	 */
-	public MouseControl(BetterSprite initialEntity, Game game){
+	public MouseControl(Object initialEntity, Game game){
 		super(initialEntity, game);
 	}
 
 	/**
-	 * Creates a MouseControl object with a number of players which it controls. The 
-	 * Players are passed in as a List of PlayerSprites	
+	 * Creates a MouseControl object with a number of players which it controls.
 	 * 
 	 * @param initialEntities the players to be controlled
-	 * @param game the Game to which the PlayerSprites belong
+	 * @param game the Game to which the Objects belong
 	 */
-	public MouseControl(List<BetterSprite> initialEntities, Game game){
+	public MouseControl(List<Object> initialEntities, Game game){
 		super(initialEntities, game);
 	}
 
