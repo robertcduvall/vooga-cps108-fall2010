@@ -144,4 +144,8 @@ public class DoodleSprite extends BetterSprite {
 	public void moveDown(){
 		System.out.println("down");
 	}
+	
+	public void moveUp(){
+		System.out.println("up");
+	}
 }
