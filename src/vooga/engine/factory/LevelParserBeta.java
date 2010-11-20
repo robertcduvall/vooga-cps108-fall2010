@@ -60,12 +60,11 @@ public class LevelParserBeta implements LevelFactory {
 	 * 3. Write a class with a process method in the xmltags package
 	 */
 	public void processDocument(Document xmlDocument){
-		for(String tagName : tagsToProcess)
-	    {
-	        Node node = xmlDocument.getElementsByTagName(tagName).item(0);
-	        LevelNodeListFactory tagProcessor = LevelNodeListFactory.CreateNewLevelNodeList(node, tagName);
-	        tagProcessor.process();
-	    }
+	    
+        Node node = xmlDocument.getElementsByTagName("Level").item(0);
+        NodeListProcessor levelProcessor = NodeListProcessor.CreateNewNodeListProcessor(node, "Level");
+        levelProcessor.process();
+	    
 	}
 	
 	

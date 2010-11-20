@@ -11,12 +11,12 @@ import org.w3c.dom.NodeList;
  *
  */
 
-public abstract class Sprite extends SpriteGroups {
+public abstract class SpriteProcessor extends SpriteGroupsProcessor {
 	
 	
 
 	
-	public Sprite(NodeList nodeList) {
+	public SpriteProcessor(NodeList nodeList) {
 		super(nodeList);
 	}
 	
