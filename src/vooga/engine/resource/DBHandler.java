@@ -8,7 +8,7 @@ import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteException;
 import com.almworks.sqlite4java.SQLiteStatement;
 
-/**
+/** 
  * DBHandler is a class that allows static access to a database for reading and
  * writing data.
  * 
@@ -23,6 +23,9 @@ import com.almworks.sqlite4java.SQLiteStatement;
  * 
  */
 public class DBHandler {
+	// TODO make non-static
+	
+	
 	private static SQLiteConnection dbConnection_;
 	private static String table_;
 
@@ -155,13 +158,13 @@ public class DBHandler {
 	private static <T> T getColumnElement(SQLiteStatement statement, T t)
 			throws SQLiteException {
 		if (t instanceof Double)
-			return (T) (Object) Double.parseDouble(statement.columnString(0));
+			return (T) (Double) Double.parseDouble(statement.columnString(0));
 		if (t instanceof Integer)
-			return (T) (Object) Integer.parseInt(statement.columnString(0));
+			return (T) (Integer) Integer.parseInt(statement.columnString(0));
 		if (t instanceof String)
-			return (T) (Object) statement.columnString(0);
+			return (T) statement.columnString(0);
 		if (t instanceof Boolean)
-			return (T) (Object) new Boolean(Integer.parseInt(statement
+			return (T) (Boolean) new Boolean(Integer.parseInt(statement
 					.columnString(0)) != 0);
 		throw new RuntimeException(t.getClass().getName()
 				+ "is not a valid type");

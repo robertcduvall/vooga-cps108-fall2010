@@ -2,7 +2,6 @@ package vooga.examples.factory;
 
 import org.w3c.dom.NamedNodeMap;
 
-import vooga.engine.core.Game;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.factory.LevelParser;
 
