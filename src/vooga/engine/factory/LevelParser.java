@@ -1,24 +1,16 @@
 package vooga.engine.factory;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.engine.core.Game;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.level.Rule;
@@ -31,7 +23,6 @@ import vooga.engine.util.XMLFileParser;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.collision.CollisionGroup;
 
 /**
  * LevelParser
@@ -423,11 +414,6 @@ public class LevelParser implements LevelFactory{
 				voogaPlayField.addCollisionGroup(voogaPlayField.getGroup(spriteGroupName0), 
 						voogaPlayField.getGroup(spriteGroupName1),
 						((CollisionManager)createCollisionSubclass(subclassName)));
-
-				voogaPlayField.addCollisionGroup(voogaPlayField.getGroup(spriteGroupName0), 
-						voogaPlayField.getGroup(spriteGroupName1),
-						((CollisionManager)createCollisionSubclass(subclassName)));
-
 			}
 		}
 	}
@@ -436,8 +422,8 @@ public class LevelParser implements LevelFactory{
 		Class<?> subclass;
 		try {
 			subclass = Class.forName(subclassName);
-			Constructor<?> ct = subclass.getConstructor();
-			return ct.newInstance();
+			Constructor<?> ct = subclass.getConstructor(Game.class);
+			return ct.newInstance(this.currentGame);
 		} catch (Throwable t) {
 			System.out.println("Subclass instance creation error");
 		}
