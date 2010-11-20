@@ -298,13 +298,9 @@ public class LevelParser implements LevelFactory{
 		String spriteName = spriteElement.getAttribute("name");
 		try {
 			Class userSprite = Class.forName(spriteName);
-			Class parameterTypes[] = new Class[1];
-			parameterTypes[0] = String.class;
-			Constructor classConstructor = userSprite.getConstructor(parameterTypes);
-			Object arglist[] = new Object[1];
-			arglist[0] = new String(spriteName);
-			Object returnObject = classConstructor.newInstance(spriteName);
-			newSprite = (BetterSprite)returnObject;
+			Constructor classConstructor = userSprite.getConstructor();
+			Object returnObject = classConstructor.newInstance();
+			newSprite = (BetterSprite) returnObject;
 		} catch (Throwable e){
 			e.printStackTrace();
 		}
