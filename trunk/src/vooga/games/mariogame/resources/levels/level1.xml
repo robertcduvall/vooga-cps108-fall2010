@@ -5,26 +5,26 @@
 
 	<SpriteGroups>
 		<SpriteGroup name="marioGroup">
-			<RegularSprite name="Mario" x="10" y="10" vx="0" vy="0" quantity="1">
+			<RegularSprite name="vooga.games.mariogame.MarioSprite" x="10" y="10" vx="0" vy="0" quantity="1">
 				<Visual name= "marioMovement"/>
 			</RegularSprite>
 		</SpriteGroup>
 		
 		<SpriteGroup name="goombaGroup">
-			<SpawnedSprite name="goombaEnemy" xRange="50" yRange="50" vxRange="1" vyRange="1" quantity="3">
+			<SpawnedSprite name="vooga.games.mariogame.Enemy" xRange="50" yRange="50" vxRange="1" vyRange="1" quantity="3">
 				<Visual name="Goomba"/>
 			</SpawnedSprite>
 		</SpriteGroup>
 	</SpriteGroups>
 	
 	<Map>
-		<MapGroup name = "src/vooga/games/mariogame/resources/maps/map0.txt">
-			<Association char = "F" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Grass Tile" />
-			<Association char = "D" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Dirt Tile" />
-			<Association char = "B" object = "vooga.games.mariogame.tiles.BreakTile" image = "Break Tile" />
-			<Association char = "C" object = "vooga.games.mariogame.tiles.ChangingTile" image = "Break Tile" />
-			<Association char = "G" object = "vooga.games.mariogame.tiles.ItemTile" image = "Item Tile 1"/>
-			<Association char = "S" object = "vooga.games.mariogame.tiles.CoinTile" image = "Item Tile 1"/>
+		<MapGroup name = "map0.txt">
+			<Association char = "F" object = "IndestructibleTile"></Association>
+			<Association char = "D" object = "IndestructibleTile"></Association>
+			<Association char = "B" object = "BreakTile"></Association>
+			<Association char = "C" object = "ChangingTile"></Association>
+			<Association char = "G" object = "ItemTile"></Association>
+			<Association char = "S" object = "CoinTile"></Association>
 		</MapGroup>	
 	</Map>
 	
