@@ -18,43 +18,30 @@ import vooga.games.tronupdate.collisions.*;
 
 public class Main extends vooga.engine.core.Game{
 	
-	private LevelManager levelManager;
 	private PlayState playState;
-	private PauseGameState textState;
-	private EventPool ep;
+	private EventPool eventPool;
 	
 	@Override
 	public void initResources() {
 		super.initResources();
-		initLevelManager();
+		setFPS(Resources.getInt("framerate")); 
 		initStates();
 	}
 	
 	private void initStates(){
-		PlayField levelPlayField = levelManager.loadFirstLevel();  
-		
-		playState = new PlayState(this, levelPlayField);
-		textState = new PauseGameState(playState,"can you work ??");  //can't display the image
-
-		levelPlayField.addCollisionGroup((SpriteGroup)(playState.getGroup("playerSpriteGroup")),null,  new PlayerAndBoundariesCollision(0,0,800,600,textState,stateManager));
-		
+		playState = new PlayState(this);
+		playState.activate();
+	//	levelPlayField.addCollisionGroup((SpriteGroup)(playState.getGroup("playerSpriteGroup")),null,  new PlayerAndBoundariesCollision(0,0,800,600,textState,stateManager));
+		//getGameStateManager().addGameState(zombielandPlayState);
 		stateManager.addGameState(playState);
-		stateManager.addGameState(textState);
-		stateManager.activateOnly(playState);
 	}
 	
 	private void iniEvents() {
-		ep = new EventPool();
-		GameOverEvent gp = new GameOverEvent((BetterSprite)(playState.getGroup("playerSpriteGroup").getSprites()[1]),textState,stateManager);
-		ep.addEvent(gp);
+		eventPool = new EventPool();
+	//	GameOverEvent gp = new GameOverEvent((BetterSprite)(playState.getGroup("playerSpriteGroup").getSprites()[1]),textState,stateManager);
+	//	eventPool.addEvent(gp);
 	}
 
-	private void initLevelManager() {
-		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-		String levelNamesFile = Resources.getString("levelNamesFile");
-		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
-	}
 
 	public static void main(String[] args) {
 		launch(new Main());
