@@ -23,6 +23,7 @@ import vooga.games.towerdefense.events.EnemyFailEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
 
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 import com.golden.gamedev.util.ImageUtil;
 
@@ -42,6 +43,7 @@ public class PlayState extends GameState{
 	private PlayField myPlayField;
 	private LevelManager myLevelManager;
 	private OverlayTracker myTracker;
+	private SpriteGroup myEnemyGroup;
 	
 	public PlayState(OverlayTracker tracker, LevelManager levelManager){
 		myLevelManager = levelManager;
@@ -52,6 +54,7 @@ public class PlayState extends GameState{
 	public void initialize() {
 		initPlayField();
 		addOverlays();
+		myPlayField.addGroup(myEnemyGroup);
 		addPlayField(myPlayField);
 	}
 
@@ -75,7 +78,8 @@ public class PlayState extends GameState{
 		Player player = initPlayer(buildTower);
 		myPlayField.add(player);
 		
-		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myPlayField);
+		myEnemyGroup = new SpriteGroup("enemyGroup");
+		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		FindTargetEvent findTarget = new FindTargetEvent(myPlayField);
 		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
