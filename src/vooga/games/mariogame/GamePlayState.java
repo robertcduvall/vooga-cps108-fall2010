@@ -125,6 +125,11 @@ public class GamePlayState extends GameState {
 	public void render(Graphics2D g) {
 		super.render(g);
 		myLevel.render(g);
+		scrollLevel();
+	}
+	
+	public void scrollLevel(){
+		myLevel.getBackground().setToCenter(myLevel.getGroup("marioGroup").getActiveSprite());
 	}
 
 	public int getCurrentLevel() {

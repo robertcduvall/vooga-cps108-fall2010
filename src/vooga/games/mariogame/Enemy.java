@@ -18,11 +18,6 @@ public class Enemy extends BetterSprite {
 
 	private static final double mySpeed = .25;
 	
-	public Enemy() {
-		
-	}
-
-	
 	public Enemy(){
 		
 	}
