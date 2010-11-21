@@ -11,7 +11,11 @@
 		<SpriteGroup name="missileGroup" />
 		<SpriteGroup name="explosionGroup" />
 		<SpriteGroup name="playerGroup">
-			<Sprite class="vooga.games.grandius.Player" random="false" x="400" y="100" vx="0" vy="0" quantity="1" /> <!-- This shouldn't need an x, y, vx, vy, etc. because it's al defined in the Player class. -->
+			<Sprite class="vooga.games.grandius.Player" random="false" x="400" y="100" vx="0" vy="0" quantity="1" >
+				<Stat name="livesStat" />
+				<Stat name="scoreStat" />
+				<Stat name="cashStat" />
+			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
 			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="400" yMin="50" xMax="600" yMax="500" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="10" />
@@ -21,10 +25,9 @@
 
 	<Rules>
 		<Rule name="DeathRule" class="vooga.games.grandius.rules.DeathRule">
-			<SpriteGroup name="cometsGroup" />
-			<SpriteGroup name="missleGroup" />
-			<SpriteGroup name="explosionGroup" />
+			<SpriteGroup name="enemyGroup" />
 			<SpriteGroup name="playerGroup" />
+			<SpriteGroup name="projectileGroup" />
 		</Rule>
 	</Rules>
 
