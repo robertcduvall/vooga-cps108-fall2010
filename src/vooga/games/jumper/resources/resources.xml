@@ -51,8 +51,9 @@
 	</Strings>
 
 	<Integers>
-		<Integer name="gameWidth" value="500" />#Hey guys I'm not sure but I think this info is already stored in the config.properties file--Brian #Nevermind I just realized it will be a pain to access that so this is probably better
+		<Integer name="gameWidth" value="500" />
 		<Integer name="gameHeight" value="800" />
+		<Integer name="distanceFromFloorToBottom" value="75" />
 	</Integers>
 
 	<Doubles>
