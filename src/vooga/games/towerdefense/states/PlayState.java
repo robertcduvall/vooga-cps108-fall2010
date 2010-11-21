@@ -8,8 +8,8 @@ import vooga.engine.control.MouseControl;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayTracker;
-import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.towerdefense.actors.EasyEnemyGenerator;
@@ -36,51 +36,42 @@ import com.golden.gamedev.util.ImageUtil;
  */
 public class PlayState extends GameState{	
 	
-	private OverlayTracker myTracker;
 	private PlayField myPlayField;
+	private LevelManager myLevelManager;
 	
-	public PlayState(OverlayTracker tracker){
-		myTracker = tracker;
+	public PlayState(LevelManager levelManager){
+		myLevelManager = levelManager;
 	}
 
 	@Override
 	public void initialize() {
-		myPlayField = initPlayField();
+		initPlayField();
 		addPlayField(myPlayField);
-		addOverlays();
-	}
-	
-	private void addOverlays() {
-		myPlayField.addGroup(myTracker.getOverlayGroup("play"));
-		
 	}
 
-	private PlayField initPlayField(){
-		PlayField playField = new PlayField();
-		playField.setBackground(initBackground());
+	private void initPlayField(){
+		myPlayField = myLevelManager.loadFirstLevel();
+		myPlayField.setBackground(initBackground());
 		
 		EventPool eventPool = new EventPool();
-		playField.addEventPool(eventPool);
+		myPlayField.addEventPool(eventPool);
 		
-		BuildTowerEvent buildTower = new BuildTowerEvent(playField);
+		BuildTowerEvent buildTower = new BuildTowerEvent(myPlayField);
 		
 		
 		
 		eventPool.addEvent(buildTower);
 		Player player = initPlayer(buildTower);
-		playField.add(player);
+		myPlayField.add(player);
 		
-		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(playField);
+		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myPlayField);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
 		eventPool.addEvent(failEvent);
 		eventPool.addEvent(buildEnemy);
-		playField.add(enemyGenerator);
+		myPlayField.add(enemyGenerator);
 		
-		playField.addControl("player", initControl(player));
-		
-		
-		return playField;
+		myPlayField.addControl("player", initControl(player));
 	}
 	
 	private Background initBackground(){
@@ -90,7 +81,8 @@ public class PlayState extends GameState{
 	}
 	
 	private Player initPlayer(BuildTowerEvent buildTowerEvent){
-		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
+		OverlayTracker tracker =  myPlayField.getOverlayTracker();
+		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, tracker.getStat("money" , new Integer(0)), tracker.getStat("score" , new Integer(0)), tracker.getStat("selfEsteem" , new Integer(0)));		
 		return player;
 	}
 	

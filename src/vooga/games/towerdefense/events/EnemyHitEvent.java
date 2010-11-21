@@ -28,6 +28,7 @@ public class EnemyHitEvent implements IEventHandler{
 			myPlayer.addMoney(MONEY_ADD);
 			enemy.gotHit();
 		}
+		hitQueue.clear();
 	}
 
 	@Override

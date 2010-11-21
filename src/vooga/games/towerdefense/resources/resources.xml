@@ -23,6 +23,9 @@
 		<String name="easyLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/easy.txt" />
 		<String name="mediumLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/medium.txt" />
 		<String name="hardLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/hard.txt" />
+		<String name="levelFilesDirectory" value="src/vooga/games/towerdefense/resources/layouts" />
+		<String name="levelNamesFile" value="levelNames.txt"/>
+		
 	</Strings>
 
 	<Integers>
