@@ -5,11 +5,16 @@ import java.awt.event.KeyEvent;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
+import vooga.engine.resource.Resources;
 import vooga.games.cyberion.events.PlayerFireEvent;
 
 public class PlayerShip extends BetterSprite {
 		vooga.engine.control.KeyboardControl keyboardControl;
 
+		public PlayerShip(){
+			super(Resources.getImage("playerShip"));
+		}
+		
 		public PlayerShip(String name, BetterSprite s) {
 			
 			super(name, s);

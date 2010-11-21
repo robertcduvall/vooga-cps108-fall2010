@@ -25,15 +25,16 @@ public class PlayState extends GameState {
 	private EventPool eventPool;
 	private PlayerShip player;
 	private String PLAYER_CLASS;
+	private PlayField newField;
 
-	public PlayState(LevelManager levelManager, DropThis game) {
-		myLevelManager = levelManager;
+	public PlayState(PlayField pf, DropThis game) {
+		newField = pf;
 		myGame = game;
 	}
 
 	public void initialize() {
 		// spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-		PlayField newField = myLevelManager.loadFirstLevel();
+		//PlayField newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();
