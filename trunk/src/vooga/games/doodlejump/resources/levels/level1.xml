@@ -18,14 +18,14 @@
 
 		<SpriteGroup name="platformGroup">
 			<Sprite name="greenPlatform" x="0" y="0" vx="0"
-				vy="0" quantity="0">
+				vy="0" quantity="1">
 				<Visual name="greenPlatform" />
 			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="monsterGroup">
 			<Sprite name="greenPlatform" x="0" y="0" vx="0"
-				vy="0" quantity="0">
+				vy="0" quantity="1">
 				<Visual name="greenPlatform" />
 			</Sprite>
 		</SpriteGroup>
