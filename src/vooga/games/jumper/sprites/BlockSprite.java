@@ -15,11 +15,6 @@ import vooga.games.jumper.DropThis;
  */
 public abstract class BlockSprite extends BetterSprite {
 	
-	private String myBlockType;
-
-
-	
-
 	/**
 	 * Create new BlockSprite
 	 * @param image Sprite Image
@@ -37,31 +32,6 @@ public abstract class BlockSprite extends BetterSprite {
 		
 	}
 	
-	public void setBlockType(String blockType) {
-		myBlockType = blockType;
-	}
-	
-	public String getBlockType() {
-		return myBlockType;
-	}
-
-	/**
-	 * Overriding Sprite update method to include bouncing off wall
-	 * @param elapsedTime long time elapsed from last update
-	 */
-	public void update(long elapsedTime){
-		move(getHorizontalSpeed(), getVerticalSpeed());
-//		bounceOnWall();
-	}
-
-	/**
-	 * Bounce BlockSprite off wall if it touches the side
-	 */
-	public void bounceOnWall(){
-		if (this.getX() + this.getWidth() > Resources.getInt("gameWidth") || this.getX() < 0){
-			this.setHorizontalSpeed(this.getHorizontalSpeed() * -1);
-		}
-	}	
 	
 	public abstract void handleCollision(DoodleSprite doodle);
 }

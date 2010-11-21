@@ -7,20 +7,18 @@ import vooga.engine.level.Rule;
 import vooga.engine.resource.Resources;
 
 /**
- * Apply gravity to the doodle
+ * Decelerate the doodle
  * 
  * @author Brian
  */
-public class Gravity implements Rule{
+public class Decelerate implements Rule{
 
-	private double MAX_SPEED = Resources.getDouble("MAX_SPEED");
-	private double GRAVITY = Resources.getDouble("GRAVITY");
-
+	private double DECELERATION_FACTOR = Resources.getDouble("DECELERATION_FACTOR");
 	
 	@Override
 	public void enforce(SpriteGroup... groups) {
 		for (SpriteGroup group: groups){
-			applyGravity(group);
+			decelerate(group);
 		}
 	}
 
@@ -28,15 +26,13 @@ public class Gravity implements Rule{
 	public boolean isSatisfied(SpriteGroup... groups) {
 		return true;
 	}
-
-	private void applyGravity(SpriteGroup group) {
-
+	
+	private void decelerate(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
-			if (s!=null && s.getVerticalSpeed() < MAX_SPEED){
-				System.out.println("got here");
-				s.setVerticalSpeed(GRAVITY);
-			}
+			if (s!=null)
+				s.setY(s.getHorizontalSpeed() - DECELERATION_FACTOR);
 		}
 		
 	}
+
 }

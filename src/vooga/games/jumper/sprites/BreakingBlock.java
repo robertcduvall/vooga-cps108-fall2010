@@ -37,7 +37,7 @@ public class BreakingBlock extends BlockSprite{
 			this.setImage(Resources.getImage("platformBreak3"));
 
 			startBreakTime = 0;
-			((BlockSprite)this).setBlockType("blockTypeNormal");
+			//((BlockSprite)this).setBlockType("blockTypeNormal");
 			
 		}
 		doodle.setVerticalSpeed(1.0);
