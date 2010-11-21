@@ -25,7 +25,7 @@ public class FindTargetEvent implements IEventHandler{
 	
 	
 	private Sprite findTarget(ShootingTower tower){		
-		SpriteGroup enemies = playField.getGroup("enemy");
+		SpriteGroup enemies = playField.getGroup("enemyGroup");
 		for(Sprite sprite: enemies.getSprites()){
 			if(tower.isValidTarget(sprite)){
 				return sprite;
@@ -46,7 +46,6 @@ public class FindTargetEvent implements IEventHandler{
 				tower.setTarget((Enemy) findTarget(tower));
 			}
 		}
-		targetQueue.clear();
 	}
 	
 	public void addTower(ShootingTower tower){
