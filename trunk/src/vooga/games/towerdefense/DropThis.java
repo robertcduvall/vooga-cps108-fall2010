@@ -6,6 +6,7 @@ import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.games.towerdefense.states.MainMenu;
 import vooga.games.towerdefense.states.PlayState;
 
 
@@ -69,10 +70,10 @@ public class DropThis extends Game {
 		super.initGameStates();
 		
 		//TODO uncomment once prolog error is found and fixed
-		//GameState mainMenu = addGameState(new MainMenu());
-		GameState play = addGameState(new PlayState(tracker, levelManager));
+		GameState mainMenu = addGameState(new MainMenu());
+		//GameState play = addGameState(new PlayState(tracker, levelManager));
 		//play.addPlayField(initLevel("/resources/level/level.xml"));
-		getGameStateManager().switchTo(play);
+		getGameStateManager().switchTo(mainMenu);
 	}
 
 private OverlayTracker initOverlays() {

@@ -1,26 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <Level name="mainMenuLayout">
 	<SpriteGroups>
 		<SpriteGroup name="buttons">
-			<LevelButton name="easy" x="100" y="400" levelName="easyLevel">
+			<Sprite module="LevelButton" x="100" y="400" levelName="easyLevel">
 				<Visual name="easyButton" />
-			</LevelButton>
-			<LevelButton name="medium" x="300" y="400" levelName="mediumLevel">
+			</Sprite>
+			<Sprite module="LevelButton" x="300" y="400" levelName="mediumLevel">
 				<Visual name="mediumButton" />
-			</LevelButton>
-			<LevelButton name="hard" x="500" y="400" levelName="hardLevel">
+			</Sprite>
+			<Sprite module="LevelButton" x="500" y="400" levelName="hardLevel">
 				<Visual name="hardButton" />
-			</LevelButton>
+			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="title">
-			<Sprite name="title" x="400" y="100">
-				<Visual name="mainMenuTitle" />
+			<Sprite module="BetterSprite" random="false" x="100" y="100" vx="0" vy="0" quantity="1"> 
+				<Visual name="title" />
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
 	
-	<Background name="background">
+	<Backgrounds>
 		<Visual name ="mainMenuBackground" />
-	</Background>
+	</Backgrounds>
 	
 	<Music name="music">
 		<Sound name ="mainMenuMusic" />
