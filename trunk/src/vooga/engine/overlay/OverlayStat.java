@@ -56,6 +56,8 @@ public class OverlayStat extends OverlayString {
 		
 	}
 
-	
+	public Stat<?> getStat(){
+		return myGenTracker;
+	}
 
 }
