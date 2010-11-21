@@ -45,9 +45,9 @@
 		</MapGroup>
 	</Map>
 
-	<Background>
+	<Backgrounds>
 		<Visual name="Space BG" />
-	</Background>
+	</Backgrounds>
 
 	<Music>
 		<Sound name="Level Music" />
