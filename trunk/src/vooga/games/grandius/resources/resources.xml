@@ -91,6 +91,7 @@
 		<Sound name="reacherRedRaySound" path="reacher_redray.wav" />
 		<Sound name="startLevelSound" path="start_level.wav" />
 		<Sound name="watchThisSound" path="watch_this.wav" />
+		<Sound name="walkinOnTheSun" path="walkin_on_the_sun.mid" />
 	</Sounds>
 
 	<Strings>

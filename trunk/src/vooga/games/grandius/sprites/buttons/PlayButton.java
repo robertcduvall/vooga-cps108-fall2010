@@ -22,6 +22,7 @@ public class PlayButton extends Button {
         @Override
         public void actionPerformed() {
                 myGame.startPlayState();
+                myGame.playMusic(Resources.getSound("walkinOnTheSun"));
+                myGame.playSound(Resources.getSound("watchThisSound"));
         }
-
 }
