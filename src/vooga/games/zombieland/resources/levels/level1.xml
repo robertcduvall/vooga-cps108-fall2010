@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Level name="zombielevel1" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml" >
+<Level name="zombielevel1" xmloverlaypath="src/vooga/games/zombieland/resources/rules/level1.xml" >
 
 	<SpriteGroups>
 	
 		<SpriteGroup name="Zombies" >
-			<Sprite class="vooga.games.zombieland.zombie"  random="true" xMin="400" yMin="50" xMax="600" yMax="500" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="1" />
+			<Sprite class="vooga.games.zombieland.Zombie"  random="true" xMin="400" yMin="50" xMax="600" yMax="500" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="1" >
 				<Visual name="zombieattackdown" />
 				<Visual name="zombieattackup" />
 				<Visual name="zombieattackleft" />
@@ -15,6 +15,13 @@
 				<Visual name="zombieleft" />
 				<Visual name="zombieright" />
 				<Visual name="zombiedeath" />
+				<Stat name = "itemChance" />
+				<Stat name = "attackDelay" />
+				<Stat name = "zombieStatMultiplier" />
+				<Stat name = "zombieDamage" />
+				<Stat name = "zombieCurrentHealth" />
+				<Stat name = "speed" />
+				<Stat name = "attackDelayStep" />
 			</Sprite>
 		</SpriteGroup>
 
@@ -25,17 +32,36 @@
 		</SpriteGroup>
 		
 		<SpriteGroup name="Players" >
-			<Sprite class="vooga.games.zombieland.player" random="false" x="350" y="250" vx="0" vy="0" quantity="1" />
+			<Sprite class="vooga.games.zombieland.Shooter" random="false" x="350" y="250" vx="0" vy="0" quantity="1">
 			<Visual name="playerleft" />
 			<Visual name="playerright" />
 			<Visual name="playerup" />
 			<Visual name="playerdown" />
+			<Stat name = "shotgunAmmo" />
+			<Stat name = "rifleAmmo" />
+			<Stat name = "pistolAmmo" />
+			<Stat name="maxHealth" />
+			<Stat name="speed" />
+			<Stat name="orientation" />
+			<Stat name="weaponChoice" />	
+			<Stat name="health" />
+			<Stat name="score" />
+			<Stat name="ammo" />
+			<Stat name="levelScore" />
+			</Sprite>
 		</SpriteGroup>
 		
 	</SpriteGroups>
 	
 	<Rules>
-	
+		<Rule name = "AddItemRule" class = "vooga.games.zombieland.resources.rules.AddItemRule">
+		<SpriteGroup name = "Players" />
+		<SpriteGroup name = "Zombies" />
+		</Rule>
+		<Rule name = "AddZombieRule" class = "vooga.games.zombieland.resources.rules.AddZombieRule">
+		<SpriteGroup name = "Players" />
+		<SpriteGroup name = "Zombies" />
+		</Rule>
 	</Rules>
 	
 	
