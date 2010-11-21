@@ -65,6 +65,7 @@ public class PlayerShip extends BetterSprite {
 		// }
 
 		public void update(long elapsedTime) {
+		
 			listen();
 		}
 
@@ -73,7 +74,7 @@ public class PlayerShip extends BetterSprite {
 		}
 
 		public void moveLeft() {
-
+			System.out.println();
 			setX(getX() - 5);
 		}
 

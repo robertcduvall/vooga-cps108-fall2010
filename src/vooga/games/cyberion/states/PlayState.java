@@ -1,6 +1,10 @@
 package vooga.games.cyberion.states;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+
+import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.background.ColorBackground;
 
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
@@ -37,6 +41,7 @@ public class PlayState extends GameState {
 		// spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
+		newField.setBackground(new ColorBackground(Color.BLACK));
 		initControls();
 		initEvents();
 		this.addUpdatePlayField(newField);
