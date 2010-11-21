@@ -50,16 +50,25 @@ public class DropThis extends Game {
 		initControls();
 	}
 
+	/**
+	 * Initializes the controls relevant to the Game.
+	 */
 	public void initControls() {
 		gameControl = new KeyboardControl(this, this);
 		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.grandius.DropThis");
 		gameControl.addInput(KeyEvent.VK_U, "unpauseGame", "vooga.games.grandius.DropThis");
 	}
 	
+	/**
+	 * Pauses the game.
+	 */
 	public void pauseGame() {
 		this.getGameStateManager().switchTo(myPauseGameState);
 	}
 	
+	/**
+	 * Unpauses the game.
+	 */
 	public void unpauseGame() {
 		this.getGameStateManager().switchTo(myPlayState);
 	}
@@ -85,7 +94,7 @@ public class DropThis extends Game {
 			gameStatesArray[i] = gameStates.get(i);
 		}
 		stateManager.addGameState(gameStatesArray);
-		stateManager.switchTo(myPlayState);
+		//stateManager.switchTo(myPlayState);
 	}
 
 	/**
@@ -104,36 +113,19 @@ public class DropThis extends Game {
 		gameControl.update();
 	}
 
-	//Moving to PlayState
-//	private void checkCheats() {
-//		if (keyPressed(KeyEvent.VK_ENTER)) {
-//			JFrame frame = new JFrame();
-//			String userInput = (String) JOptionPane.showInputDialog(frame,
-//					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
-//			if (userInput.equals(Resources.getString("invincibility")))
-//				player.setInvincible();
-//			else if (userInput.equals(Resources.getString("skipLevel")))
-//				player.skipLevel();
-//			else if (userInput.equals(Resources.getString("extraPoints")))
-//				player.updateScore(1000000);
-//			else if (userInput.equals(Resources.getString("extraCash")))
-//				player.updateCash(5000);
-//			else if (userInput.equals(Resources.getString("activateMissile")))
-//				player.setMissileActive();
-//		}
-//	}
-
-	//TODO could these two methods be removed somehow? they're used
-	//to deal with collisions...
-//	public Player getPlayer() {
-//		return this.myPlayState.getPlayer();
-//	}
-	
+	//TODO could this method be removed somehow? it's used to deal with collisions...
 	public PlayState getPlayState() {
 		return this.myPlayState;
 	}
 	
 	public static void main(String[] args) {
 		launch(new DropThis());
+	}
+
+	/**
+	 * Starts the PlayState.
+	 */
+	public void startPlayState() {
+		stateManager.switchTo(myPlayState);
 	}
 }
