@@ -21,15 +21,17 @@ import vooga.engine.resource.Resources;
 public class DoodleSprite extends BetterSprite {
 	private boolean died;
 	private ArrayList<BallSprite> balls;
-	private BlahThis game;
 	private int bulletDelay = 20;
 	private OverlayString gameOverString;
+	
+	public DoodleSprite(){
+		this("doodle", new Sprite(Resources.getImage("doodleRight"), Resources.getInt("doodleInitialX"), Resources.getInt("doodleInitialY")));
+	}
 
-	public DoodleSprite(String name, String stateName, Sprite s, BlahThis game) {
+	public DoodleSprite(String name, Sprite s) {
 		super(name, s);
 		died = false;
 		balls = new ArrayList<BallSprite>();
-		this.game = game;
 	}
 
 	public void moveLeft() {
@@ -61,22 +63,13 @@ public class DoodleSprite extends BetterSprite {
 		}
 
 		bulletDelay--;
-
-		if (getY() > 850 || died) {
-			gameOverString = new OverlayString("Game over! Enter to Restart.",
-					new Font("SansSerif", Font.BOLD, 36));
-			gameOverString.setX(game.getWidth() / 2 - gameOverString.getWidth()
-					/ 2);
-			gameOverString.setY(game.getHeight() / 2
-					- gameOverString.getHeight() / 2);
-		}
 	}
 
 	public void shoot() {
 		if (bulletDelay <= 0) {
 			setImage(Resources.getImage("doodle_up"));
 			BufferedImage ballImage = Resources.getImage("ball");
-			BallSprite ball = new BallSprite("ball", "flying", new Sprite(
+			BallSprite ball = new BallSprite("ball", new Sprite(
 					ballImage, getX() + getWidth() / 2
 							- ballImage.getWidth() / 2, getY()
 							- ballImage.getHeight()));

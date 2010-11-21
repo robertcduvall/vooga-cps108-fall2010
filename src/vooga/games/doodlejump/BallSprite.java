@@ -12,8 +12,10 @@ import vooga.engine.core.BetterSprite;;
  * 
  */
 public class BallSprite extends BetterSprite {
+	public BallSprite(){
+	}
 
-	public BallSprite(String name, String stateName, Sprite s) {
+	public BallSprite(String name, Sprite s) {
 		super(name, s);
 	}
 
