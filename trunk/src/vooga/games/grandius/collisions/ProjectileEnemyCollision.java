@@ -1,17 +1,9 @@
 package vooga.games.grandius.collisions;
 
-import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.PlayField;
-import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
-import vooga.games.grandius.Explosion;
-import vooga.games.grandius.enemy.common.Enemy;
 
-import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.sprite.VolatileSprite;
 
 /**
  * This class takes care of collisions between a bullet
@@ -24,11 +16,8 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  */
 public class ProjectileEnemyCollision extends BasicCollision{
 
-	private Game grandius;
-	
 	public ProjectileEnemyCollision(Game grandius) {
 		super(grandius);
-		this.grandius = grandius;
 	}
 	
 	@Override
@@ -36,13 +25,8 @@ public class ProjectileEnemyCollision extends BasicCollision{
 		super.collided(bullet, enemy);
 		bullet.setActive(false);
 		enemy.setActive(false);
-//		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
-//		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
-//		((DropThis)grandius).getPlayState().getGroup("explosionGroup").add(explosion);
-//		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
-//		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
-		getPlayer().updateScore(((Enemy)enemy).getScore());
-		getPlayer().updateCash(((Enemy)enemy).getCash());
+//		getPlayer().updateScore(((Enemy)enemy).getScore());
+//		getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 
 	

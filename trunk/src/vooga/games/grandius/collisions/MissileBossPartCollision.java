@@ -7,7 +7,6 @@ import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.enemy.boss.reacher.ReacherEye;
-import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -45,7 +44,7 @@ public class MissileBossPartCollision extends BasicCollision {
 		newField.add(explosion);
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
-		getPlayer().updateScore(((Enemy)bossPart).getScore());
-		getPlayer().updateCash(((Enemy)bossPart).getCash());
+//		getPlayer().updateScore(((Enemy)bossPart).getScore());
+//		getPlayer().updateCash(((Enemy)bossPart).getCash());
 	}
 }
