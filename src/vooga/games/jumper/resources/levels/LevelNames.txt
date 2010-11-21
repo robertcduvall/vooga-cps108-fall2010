@@ -1,2 +1,0 @@
-# Name of levels
-level1.xml

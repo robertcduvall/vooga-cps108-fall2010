@@ -1,8 +1,0 @@
-# There are 3 levels
-
-#Level1
-grandiusLevel1.xml
-
-#Level2
-
-#Level3

@@ -1,8 +1,0 @@
-<Overlay>
-
-<OverlayGroup name="GameEndGroup" >
-<OverlayString xLoc="10" yLoc="100" fontName="Times New Roman" label="HIGH SCORES: " fontSize="32"></OverlayString>
-<OverlayString xLoc="10" yLoc="400" fontName="Times New Roman" label="PRESS SPACE TO PLAY AGAIN!" fontSize="32"></OverlayString>
-</OverlayGroup>
-
-</Overlay>
