@@ -10,10 +10,6 @@ import vooga.engine.resource.Resources;
 import vooga.games.grandius.weapons.BlackHole;
 
 public class Player extends BetterSprite implements IEventHandler {
-
-	private Stat<Integer> statLives;
-	private Stat<Integer> statScore;
-	private Stat<Integer> statCash;
 	
 	// TODO: Good practice here? Use Missile/BlackHole classes?
 	private boolean missileActive;
@@ -30,9 +26,6 @@ public class Player extends BetterSprite implements IEventHandler {
 				Resources.getImage("playerImage"),
 				Resources.getInt("playerInitialX"),
 				Resources.getInt("playerInitialY")));
-		statLives = new Stat<Integer>( Resources.getInt("initialPlayerLives"));
-		statScore = new Stat<Integer>(Resources.getInt("initialZero"));//TODO get rid of this "InitialZero" variable? 
-		statCash = new Stat<Integer>(Resources.getInt("initialZero"));
 		missileActive = false;
 		blackHoleActive = false;
 		skipLevel = false;
@@ -55,29 +48,29 @@ public class Player extends BetterSprite implements IEventHandler {
 		moveY(Resources.getDouble("playerSpeed"));
 	}
 	
-	public void setLives(Stat<Integer> lives) {
-		statLives = lives;
-	}
-	
-	public void setScore(Stat<Integer> score) {
-		statScore = score;
-	}
-	
-	public void setCash(Stat<Integer> cash) {
-		statCash = cash;
-	}
-	
-	public Stat<Integer> getLives() {
-		return this.statLives;
-	}
-	
-	public Stat<Integer> getScore() {
-		return this.statScore;
-	}
-	
-	public Stat<Integer> getCash() {
-		return this.statCash;
-	}
+//	public void setLives(Stat<Integer> lives) {
+//		statLives = lives;
+//	}
+//	
+//	public void setScore(Stat<Integer> score) {
+//		statScore = score;
+//	}
+//	
+//	public void setCash(Stat<Integer> cash) {
+//		statCash = cash;
+//	}
+//	
+//	public Stat<Integer> getLives() {
+//		return this.statLives;
+//	}
+//	
+//	public Stat<Integer> getScore() {
+//		return this.statScore;
+//	}
+//	
+//	public Stat<Integer> getCash() {
+//		return this.statCash;
+//	}
 	
 	@Override
 	public boolean isTriggered() {
@@ -96,9 +89,9 @@ public class Player extends BetterSprite implements IEventHandler {
 	 * collides with enemy or an enemy projectile.
 	 */
 	public void updatePlayerLives() {
-		int playerLives = (statLives.getStat()).intValue();
+		int playerLives = ((Integer)getStat("livesStat").getStat());
 		if (playerLives > 0 && !isInvincible) {
-			updateStat(statLives, (-1));
+			updateStat(((Stat<Integer>)getStat("livesStat")), (-1));
 			this.setLocation(Resources.getInt("playerInitialX"), Resources.getInt("playerInitialY"));
 		}
 	}
@@ -120,14 +113,14 @@ public class Player extends BetterSprite implements IEventHandler {
 	 * Adds the given points to the Stat score.
 	 */
 	public void updateScore(int points) {
-		updateStat(statScore, points);
+		updateStat(((Stat<Integer>)getStat("scoreStat")), points);
 	}
 
 	/**
 	 * Adds the given cash amounts to the Stat cash.
 	 */
 	public void updateCash(int cash) {
-		updateStat(statCash, cash);
+		updateStat(((Stat<Integer>)getStat("cashStat")), cash);
 	}
 
 	public void setInvincible() {

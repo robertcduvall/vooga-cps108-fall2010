@@ -224,9 +224,9 @@ public class PlayState extends GameState {
 	private void initOverlays() {
 		OverlayCreator.setGame(myGame);
 		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlayPath"));
-		player.setLives(overlayTracker.getStat("livesStat", new Integer(0)));
-		player.setScore(overlayTracker.getStat("scoreStat", new Integer(0)));
-		player.setCash(overlayTracker.getStat("cashStat", new Integer(0)));
+//		player.setLives(overlayTracker.getStat("livesStat", new Integer(0)));
+//		player.setScore(overlayTracker.getStat("scoreStat", new Integer(0)));
+//		player.setCash(overlayTracker.getStat("cashStat", new Integer(0)));
 		PlayField newField = new PlayField();
 		newField.addGroup(overlayTracker.getOverlayGroup("first"));
 		this.getUpdateField().add(newField);
