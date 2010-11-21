@@ -1,5 +1,6 @@
 package vooga.games.doodlejump.collisions;
 
+import com.golden.gamedev.Game;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
@@ -12,7 +13,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class DoodleToBrownPlatformCollision extends BasicCollisionGroup {
 
-	public DoodleToBrownPlatformCollision() {
+	public DoodleToBrownPlatformCollision(Game game) {
 		pixelPerfectCollision = true;
 	}
 
