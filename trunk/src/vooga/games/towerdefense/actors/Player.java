@@ -27,6 +27,7 @@ public class Player extends MouseFollower {
 	private Stat<Integer> balance;
 	private Stat<Integer> score;
 	private Stat<Integer> selfEsteem;
+	private final int MONEY_CHEAT = 1000000;
 
 	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
 		super(image, x, y);
@@ -39,6 +40,10 @@ public class Player extends MouseFollower {
 
 	public void onClick() {
 		buildTower();
+	}
+	
+	public void cheatOn() {
+		balance.setStat(MONEY_CHEAT);
 	}
 
 	private void buildTower() {
