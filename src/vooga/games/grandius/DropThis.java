@@ -33,99 +33,99 @@ import com.golden.gamedev.object.GameFont;
  */
 public class DropThis extends Game {
 
-	private GrandiusMenuState myMenuState;
-	private PlayState myPlayState;
-	private LevelCompleteState myLevelCompleteState;
-	private ShoppingLevelState myShoppingLevelState;
-	private StartNewLevelState myStartNewLevelState;
-	private GameCompleteState myGameCompleteState;
-	private GameOverState myGameOverState;
-	private LevelManager levelManager;
-	private Control gameControl;
-	private PauseGameState myPauseGameState;
+        private GrandiusMenuState myMenuState;
+        private PlayState myPlayState;
+        private LevelCompleteState myLevelCompleteState;
+        private ShoppingLevelState myShoppingLevelState;
+        private StartNewLevelState myStartNewLevelState;
+        private GameCompleteState myGameCompleteState;
+        private GameOverState myGameOverState;
+        private LevelManager levelManager;
+        private Control gameControl;
+        private PauseGameState myPauseGameState;
 
-	@Override
-	public void initResources() {
-		super.initResources();
-		initControls();
-	}
+        @Override
+        public void initResources() {
+                super.initResources();
+                initControls();
+        }
 
-	/**
-	 * Initializes the controls relevant to the Game.
-	 */
-	public void initControls() {
-		gameControl = new KeyboardControl(this, this);
-		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.grandius.DropThis");
-		gameControl.addInput(KeyEvent.VK_U, "unpauseGame", "vooga.games.grandius.DropThis");
-	}
-	
-	/**
-	 * Pauses the game.
-	 */
-	public void pauseGame() {
-		this.getGameStateManager().switchTo(myPauseGameState);
-	}
-	
-	/**
-	 * Unpauses the game.
-	 */
-	public void unpauseGame() {
-		this.getGameStateManager().switchTo(myPlayState);
-	}
-	
-	/**
-	 * Initialize the different GameStates possible in Grandius.
-	 */
-	@Override
-	public void initGameStates() {
-		super.initGameStates();
-		initLevelManager();
-		List<GameState> gameStates = new ArrayList<GameState>();
-		gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
-		gameStates.add(myPlayState = new PlayState(levelManager, this));
-		gameStates.add(myLevelCompleteState = new LevelCompleteState());
-		gameStates.add(myGameCompleteState = new GameCompleteState());
-		gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
-		gameStates.add(myStartNewLevelState = new StartNewLevelState());
-		gameStates.add(myGameOverState = new GameOverState());
-		gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));
-		GameState[] gameStatesArray = new GameState[gameStates.size()];
-		for (int i = 0; i < gameStates.size(); i++) {
-			gameStatesArray[i] = gameStates.get(i);
-		}
-		stateManager.addGameState(gameStatesArray);
-		//stateManager.switchTo(myPlayState);
-	}
+        /**
+         * Initializes the controls relevant to the Game.
+         */
+        public void initControls() {
+                gameControl = new KeyboardControl(this, this);
+                gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.grandius.DropThis");
+                gameControl.addInput(KeyEvent.VK_U, "unpauseGame", "vooga.games.grandius.DropThis");
+        }
+        
+        /**
+         * Pauses the game.
+         */
+        public void pauseGame() {
+                this.getGameStateManager().switchTo(myPauseGameState);
+        }
+        
+        /**
+         * Unpauses the game.
+         */
+        public void unpauseGame() {
+                this.getGameStateManager().switchTo(myPlayState);
+        }
+        
+        /**
+         * Initialize the different GameStates possible in Grandius.
+         */
+        @Override
+        public void initGameStates() {
+                super.initGameStates();
+                initLevelManager();
+                List<GameState> gameStates = new ArrayList<GameState>();
+                gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
+                gameStates.add(myPlayState = new PlayState(levelManager, this));
+                gameStates.add(myLevelCompleteState = new LevelCompleteState());
+                gameStates.add(myGameCompleteState = new GameCompleteState());
+                gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
+                gameStates.add(myStartNewLevelState = new StartNewLevelState());
+                gameStates.add(myGameOverState = new GameOverState());
+                gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));
+                GameState[] gameStatesArray = new GameState[gameStates.size()];
+                for (int i = 0; i < gameStates.size(); i++) {
+                        gameStatesArray[i] = gameStates.get(i);
+                }
+                stateManager.addGameState(gameStatesArray);
+                //stateManager.switchTo(myPlayState);
+        }
 
-	/**
-	 * Initialize the LevelManager for Grandius.
-	 */
-	private void initLevelManager() {
-		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-		String levelNamesFile = Resources.getString("levelNamesFile");
-		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
-	}
+        /**
+         * Initialize the LevelManager for Grandius.
+         */
+        private void initLevelManager() {
+                levelManager = new LevelManager(this);
+                String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+                String levelNamesFile = Resources.getString("levelNamesFile");
+                levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
+        }
 
-	@Override
-	public void update(long elapsedTime) {
-		super.update(elapsedTime);
-		gameControl.update();
-	}
+        @Override
+        public void update(long elapsedTime) {
+                super.update(elapsedTime);
+                gameControl.update();
+        }
 
-	//TODO could this method be removed somehow? it's used to deal with collisions...
-	public PlayState getPlayState() {
-		return this.myPlayState;
-	}
-	
-	public static void main(String[] args) {
-		launch(new DropThis());
-	}
+        //TODO could this method be removed somehow? it's used to deal with collisions...
+        public PlayState getPlayState() {
+                return this.myPlayState;
+        }
+        
+        public static void main(String[] args) {
+                launch(new DropThis());
+        }
 
-	/**
-	 * Starts the PlayState.
-	 */
-	public void startPlayState() {
-		stateManager.switchTo(myPlayState);
-	}
+        /**
+         * Starts the PlayState.
+         */
+        public void startPlayState() {
+                stateManager.switchTo(myPlayState);
+        }
 }

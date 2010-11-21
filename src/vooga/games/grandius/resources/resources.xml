@@ -20,7 +20,8 @@
 		<Image name="quitButtonImage" path="quitButton.png" />
 		<Image name="buyMissileButtonImage" path="buyMissileButton.png" />
 		<Image name="buyBlackHoleButtonImage" path="buyBlackHoleButton.png" />
-		<Image name="nextLevelButtonImage" path="nextLevelButton.png" />
+		<Image name="nextLevelButtonImage" path="nextLevelButton.png" />		
+		<Image name="menuImage" path="menu.jpg" />
 	</Images>
 
 	<Animations>
