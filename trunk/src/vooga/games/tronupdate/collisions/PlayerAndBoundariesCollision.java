@@ -15,7 +15,7 @@ public class PlayerAndBoundariesCollision extends CollisionBounds{
 	private GameStateManager gm;
 	
 	public PlayerAndBoundariesCollision(int x, int y, int width,
-			int height,GameState gameOverState,GameStateManager gm) {
+			int height){//,GameState gameOverState,GameStateManager gm) {
 		super(x, y, width, height);
 		this.gameOverState=gameOverState;
 		this.gm=gm;
@@ -27,6 +27,7 @@ public class PlayerAndBoundariesCollision extends CollisionBounds{
 	public void collided(Sprite s) {
 		//s.setSpeed(-0.2, -0.2);
 		//s.setActive(false); //this will prevent collided method being called many times after collision
-		gm.switchTo(gameOverState);
+		//gm.switchTo(gameOverState);
+		s.setActive(false);
 	}
 }
