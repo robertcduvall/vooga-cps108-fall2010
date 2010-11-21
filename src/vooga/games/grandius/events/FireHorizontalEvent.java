@@ -11,7 +11,7 @@ import vooga.games.grandius.weapons.Laser;
  * @author bhawana
  *
  */
-public class FireHorizontalEvent  extends PlayerFiringEvent {
+public class FireHorizontalEvent  extends FiringEvent {
 	
 	public FireHorizontalEvent(DropThis grandius, Player player, PlayState playState){
 		super(grandius, player, playState);

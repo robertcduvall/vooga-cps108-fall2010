@@ -11,7 +11,7 @@ import vooga.games.grandius.weapons.BlackHole;
  * @author bhawana
  *
  */
-public class FireBlackHoleEvent	  extends PlayerFiringEvent {
+public class FireBlackHoleEvent	  extends FiringEvent {
 	
 	public FireBlackHoleEvent(DropThis grandius, Player player, PlayState playState){
 		super(grandius, player, playState);

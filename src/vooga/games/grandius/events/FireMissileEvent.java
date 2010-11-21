@@ -11,7 +11,7 @@ import vooga.games.grandius.weapons.Missile;
  * @author bhawana
  *
  */
-public class FireMissileEvent extends PlayerFiringEvent {
+public class FireMissileEvent extends FiringEvent {
 	private boolean missileActive;
 	
 	public FireMissileEvent(DropThis grandius, Player player, PlayState playState){

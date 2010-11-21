@@ -91,6 +91,7 @@ public class LevelManager {
 	public PlayField loadFirstLevel ()
 	{
 		myCurrentLevel++;
+		System.out.println(myLevelMap.get("Level1"));
 		return myParser.getPlayfield(myLevelMap.get("Level1"),game);
 	}
 	
@@ -147,6 +148,7 @@ public class LevelManager {
 	 */
 	public PlayField loadNextLevel() {
 		myCurrentLevel++;
+		System.out.println(myLevelMap.get("Level"+myCurrentLevel));
 		return myParser.getPlayfield(myLevelMap.get("Level"+myCurrentLevel),game);
 	}
 	

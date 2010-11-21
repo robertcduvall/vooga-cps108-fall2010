@@ -112,6 +112,7 @@
 		<String name="resourcesLevelXMLPath" value = "src/vooga/games/grandius/resources/levels" />
 		<String name="overlayPath" value="src/vooga/games/grandius/resources/overlays.xml" />
 		<String name="level1" value="grandiusLevel1.xml" />
+		<String name="level2" value="level2.xml" />
 		<String name="invincibility" value="superman" />
 		<String name="extraPoints" value="highscore" />
 		<String name="extraCash" value="showmethemoney" />
