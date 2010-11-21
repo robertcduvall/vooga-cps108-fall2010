@@ -39,7 +39,6 @@ public class MainMenuState extends MenuGameState {
 	 * @param height
 	 * @param fontManager
 	 */
-
 	public MainMenuState(Game game, BufferedImage backgroundImage,
 			GameFontManager fontManager) {
 		super();

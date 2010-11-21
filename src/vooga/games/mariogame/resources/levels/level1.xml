@@ -5,13 +5,13 @@
 
 	<SpriteGroups>
 		<SpriteGroup name="marioGroup">
-			<Sprite name="vooga.games.mariogame.MarioSprite" random="false" x="10" y="100" vx="0" vy="0" quantity="1">
+			<Sprite random="false" x="30" y="400" vx="0" vy="0" quantity="1" class="vooga.games.mariogame.MarioSprite">
 				<Visual name= "marioMovement"/>
 			</Sprite>
 		</SpriteGroup>
 		
 		<SpriteGroup name="goombaGroup">
-			<Sprite name="vooga.games.mariogame.Enemy" random="true" xMin="50" yMin="50" xMax="1000" yMax="50" vxMin="1" vyMin="1" vxMax="1" vyMax="1" quantity="3">
+			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50" vxMin="1" vyMin="1" vxMax="1" vyMax="1" quantity="3" class="vooga.games.mariogame.Enemy">
 				<Visual name="Goomba"/>
 			</Sprite>
 		</SpriteGroup>
