@@ -4,7 +4,7 @@
 	<SpriteGroups>
 		<SpriteGroup name="doodleGroup">
 			<Sprite class="vooga.games.doodlejump.DoodleSprite" random="false" x="400" y="300" vx="0" vy="0" quantity="1">
-				<Visual name="doodle" />
+				<Visual name="doodleRight" />
 			</Sprite>
 		</SpriteGroup>
 
@@ -22,7 +22,7 @@
 
 		<SpriteGroup name="monsterGroup">
 			<Sprite class="vooga.games.doodlejump.monsters.FlyingMonster" random="false" x="100" y="100" vx="0" vy="0" quantity="1">
-				<Visual name="greenPlatform" />
+				<Visual name="greenFlyingMonster" />
 			</Sprite>
 		</SpriteGroup>
 

@@ -8,7 +8,9 @@
 		<Image name="defaultPlayOn" path="default-play-on.png" />
 		<Image name="defaultPlay" path="default-play.png" />
 		<Image name="default" path="Default.png" />
+		<Image name="doodleLeft" path="doodle_left.png" />
 		<Image name="doodleRight" path="doodle_right.png" />
+		<Image name="doodleUp" path="doodle_up.png" />
 		<Image name="finishLine" path="finish_line.png" />
 		<Image name="grayPlatform" path="gray_platform.png" />
 		<Image name="greenJumpingMonster" path="green_jumping_monster.png" />
@@ -63,14 +65,6 @@
 			<Image path="brown_platform_breaking_2.png" />
 			<Image path="brown_platform_breaking_3.png" />
 			<Image path="brown_platform_breaking_4.png" />
-		</Animation>
-		<Animation name="doodle">
-			<Image path="doodle_left_crouch.png" />
-			<Image path="doodle_left.png" />
-			<Image path="doodle_right_crouch.png" />
-			<Image path="doodle_right.png" />
-			<Image path="doodle_up_crouch.png" />
-			<Image path="doodle_up.png" />
 		</Animation>
 		<Animation name="greenFlyingMonster">
 			<Image path="green_flying_monster_1.png" />
