@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<Level name="Level 1" xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameOverlays.xml">
+<Level name="Level 1"
+	xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameOverlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="marioGroup">
-			<Sprite random="false" x="30" y="400" vx="0" vy="0" quantity="1" class="vooga.games.mariogame.MarioSprite">
-				<Visual name= "marioMovement"/>
+			<Sprite random="false" x="30" y="400" vx="0" vy="0" quantity="1"
+				class="vooga.games.mariogame.MarioSprite">
+				<Visual name="marioMovement" />
 			</Sprite>
 		</SpriteGroup>
-		
+
 		<SpriteGroup name="goombaGroup">
-			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50" vxMin="1" vyMin="1" vxMax="1" vyMax="1" quantity="3" class="vooga.games.mariogame.Enemy">
-				<Visual name="Goomba"/>
+			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50"
+				vxMin="1" vyMin="1" vxMax="1" vyMax="1" quantity="3"
+				class="vooga.games.mariogame.Enemy">
+				<Visual name="Goomba" />
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
-	
+
 	<CollisionGroups>
-		
+		<CollisionGroup subclass="vooga.games.mariogame.MarioToTileCollision">
+			<SpriteGroup name="marioGroup" />
+			<SpriteGroup name="Extra Group" />
+		</CollisionGroup>
 	</CollisionGroups>
-	
+
 	<Map>
-		<MapGroup name = "Map0">
-			<Association char = "F" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Grass Tile"></Association>
-			<Association char = "D" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Dirt Tile"></Association>
-			<Association char = "B" object = "vooga.games.mariogame.tiles.BreakTile" image = "Break Tile"></Association>
-			<Association char = "C" object = "vooga.games.mariogame.tiles.ChangingTile" image = "Item Tile 1"></Association>
-			<Association char = "G" object = "vooga.games.mariogame.tiles.ItemTile" image = "Item Tile 2"></Association>
-			<Association char = "S" object = "vooga.games.mariogame.tiles.CoinTile" image = "Item Tile 1"></Association>
-		</MapGroup>	
+		<MapGroup name="Map0">
+			<Association char="F"
+				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile"></Association>
+			<Association char="D"
+				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Dirt Tile"></Association>
+			<Association char="B" object="vooga.games.mariogame.tiles.BreakTile"
+				image="Break Tile"></Association>
+			<Association char="C"
+				object="vooga.games.mariogame.tiles.ChangingTile" image="Item Tile 1"></Association>
+			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile"
+				image="Item Tile 2"></Association>
+			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile"
+				image="Item Tile 1"></Association>
+		</MapGroup>
 	</Map>
-	
+
 	<Background>
 		<Visual name="Space BG" />
 	</Background>
-	
+
 	<Music>
-		<Sound name="Level Music"/>
+		<Sound name="Level Music" />
 	</Music>
-	
+
 </Level>

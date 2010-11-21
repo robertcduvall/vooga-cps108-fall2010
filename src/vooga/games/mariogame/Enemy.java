@@ -4,6 +4,8 @@ package vooga.games.mariogame;
 import vooga.engine.core.BetterSprite;
 
 
+import vooga.engine.core.BetterSprite;
+
 /**
  * @author David Herzka, Cameron McCallie, Andrew Brown
  * 
@@ -15,6 +17,10 @@ import vooga.engine.core.BetterSprite;
 public class Enemy extends BetterSprite {
 
 	private static final double mySpeed = .25;
+	
+	public Enemy() {
+		
+	}
 
 	
 	public Enemy(){
@@ -34,11 +40,11 @@ public class Enemy extends BetterSprite {
 	 *            - represents the image used when the sprite turns/moves right
 	 */
 	/*
-	public Enemy(String name, String stateName, BufferedImage[] left,
-			BufferedImage[] right) {
-		super(name, stateName, left, right);
-		setHorizontalSpeed(mySpeed * Math.signum(Math.random() - .5));
-	}
+//	public Enemy(String name, String stateName, BufferedImage[] left,
+//			BufferedImage[] right) {
+//		super(name, stateName, left, right);
+//		setHorizontalSpeed(mySpeed * Math.signum(Math.random() - .5));
+//	}
 	*/
 	/**
 	 * Sends the sprite in the opposite direction with opposite velocity. The
