@@ -26,10 +26,6 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class DropThis extends Game {
 
-	private static final int SECOND = 1000;
-	private static final int EASY = 0;
-	private static final int MEDIUM = 1;
-	private static final int HARD = 2;
 	private int gameWidth;
 	private int gameHeight;
 	
@@ -349,12 +345,6 @@ private OverlayTracker initOverlays() {
 	public static void main(String[] args) {
 		launch(new DropThis());
 	}
-
-	public SpriteGroup getEnemyGroup() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 
 }
