@@ -13,8 +13,9 @@ public class TronPlayer extends BetterSprite {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Position pos;
+	//private Position pos;
 	private Direction dir;
+	private Direction initialDir;
 	
 	private String direction;  //left,right,down,up
 	private String initDirection;
@@ -44,7 +45,6 @@ public class TronPlayer extends BetterSprite {
 	 */
 	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,GridSpace gridSpace,int playerImageWidth, String initialDirection){
 		super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
-
 		playerInitialRow = initialRowPosition;
 		playerInitialCol = initialColPosition;
 
@@ -60,13 +60,20 @@ public class TronPlayer extends BetterSprite {
 		grid = gridSpace;
 
 	}
+	
+	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,GridSpace gridSpace,int playerImageWidth, Direction dir){
+		this(image,initialColPosition,initialRowPosition,gridSpace,playerImageWidth,"");
+		//super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
+		this.dir=dir;
+		this.initialDir=Direction.right;
+	}
 
 
 	public void resetPosition(){
 
-		setPlayerRowandCol(playerInitialRow,playerInitialCol);
+		setPlayerRowandCol(playerInitialRow,playerInitialCol);		
 		direction = initDirection;
-
+		dir=initialDir;
 		blocks = new boolean[grid.getTotalRow()+2][grid.getTotalColumn()+2];
 
 	}
@@ -98,15 +105,15 @@ public class TronPlayer extends BetterSprite {
 	 * set the direction the player is heading
 	 * @param direction
 	 */
-	public void setDirection(String direction){
-		this.direction=direction;
+	public void setDirection(Direction dir){
+		this.dir=dir;
 	}
 	/**
 	 * get the direction the player is heading
 	 * @return
 	 */
-	public String getDirection(){
-		return direction;
+	public Direction getDirection(){
+		return dir;
 	}
 	/**
 	 * set the row and column position for the player
@@ -148,16 +155,12 @@ public class TronPlayer extends BetterSprite {
 		return playerCurrentColumn*playerImageWidth;
 	}
 
-	public void setPlayerColumn(int amount){
+	public void changePlayerColumn(int amount){
 		playerCurrentColumn=playerCurrentColumn+amount;
 	}
 
-	public void setPlayerRow(int amount){
+	public void changePlayerRow(int amount){
 		playerCurrentRow=playerCurrentRow+amount;
-	}
-	public void goUp() {
-
-		moveY(0.9);
 	}
 	
 	/**
@@ -165,24 +168,27 @@ public class TronPlayer extends BetterSprite {
 	 * @return
 	 */
 	public double playerXDirectionMove(){
-		if(direction.equals("left")){
+		if(dir==Direction.left){
 			for(int i=0;i<speedUp;i++){
-				setPlayerColumn(-1);
-				if(playerInbound())
+				//changePlayerColumn(-1);
+				if(playerInbound()){
 					fillBlock(playerCurrentRow,playerCurrentColumn);
-
+				changePlayerColumn(-1);
+				
+				}
 			}
 			return -playerImageWidth;//getPlayerXPosition();
 		}
-		else if(direction.equals("right")){
+		else if(dir==Direction.right){
 			for(int i=0;i<speedUp;i++){
-				setPlayerColumn(1);
+				//changePlayerColumn(1);
 				fillBlock(playerCurrentRow,playerCurrentColumn);
-
+				changePlayerColumn(1);
+				//fillBlock(playerCurrentRow,playerCurrentColumn);
 			}
 			return playerImageWidth;//getPlayerXPosition();
 		}
-		else if(direction.equals("down")){
+		else if(dir==Direction.down){
 			return 0;//getPlayerXPosition();
 		}
 		else{
@@ -194,27 +200,29 @@ public class TronPlayer extends BetterSprite {
 	 * @return
 	 */
 	public double playerYDirectionMove(){
-		if(direction.equals("left")){
+		if(dir==Direction.left){//direction.equals("left")){
 			return 0;//getPlayerYPosition();
 		}
-		else if(direction.equals("right")){
+		else if(dir==Direction.right){
 			return 0;//getPlayerYPosition();
 		}
-		else if(direction.equals("down")){
+		else if(dir==Direction.down){
 			for(int i=0;i<speedUp;i++){
-				setPlayerRow(1);
+				//changePlayerRow(1);
 				fillBlock(playerCurrentRow,playerCurrentColumn);
-				
-
+				changePlayerRow(1);
+				//fillBlock(playerCurrentRow,playerCurrentColumn);
 			}
 			return playerImageWidth;//getPlayerYPosition();
 		}
 		else{ //up
 			for(int i=0;i<speedUp;i++){
-				setPlayerRow(-1);
-				if(playerInbound())
-					fillBlock(playerCurrentRow,playerCurrentColumn);
-
+				//changePlayerRow(-1);
+				if(playerInbound()){
+				  fillBlock(playerCurrentRow,playerCurrentColumn);
+				  changePlayerRow(-1);
+				  //fillBlock(playerCurrentRow,playerCurrentColumn);
+				}
 			}
 			return -playerImageWidth;//getPlayerYPosition();
 		}
@@ -224,9 +232,9 @@ public class TronPlayer extends BetterSprite {
 	 * @param playerDirection
 	 * @return
 	 */
-	public double updatePlayerXPosition(String playerDirection){
+	public double updatePlayerXPosition(Direction playerDirection){
 
-		this.direction=playerDirection;
+		this.dir=playerDirection;
 		return playerXDirectionMove();
 	}
 	/**
@@ -234,8 +242,8 @@ public class TronPlayer extends BetterSprite {
 	 * @param playerDirection
 	 * @return
 	 */
-	public double updatePlayerYPosition(String playerDirection){
-		this.direction=playerDirection;
+	public double updatePlayerYPosition(Direction playerDirection){
+		this.dir=playerDirection;
 		return playerYDirectionMove();
 	}
 
@@ -252,8 +260,8 @@ public class TronPlayer extends BetterSprite {
 	 * handles down turning
 	 */
 	public void down() {
-		if(!getDirection().equals("down")&&!getDirection().equals("up")){
-			setDirection("down");
+		if(!(getDirection()==Direction.down)&&!(getDirection()==Direction.up)){
+			setDirection(Direction.down);
 			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
 			
 			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
@@ -263,8 +271,8 @@ public class TronPlayer extends BetterSprite {
 	 * handles left turning
 	 */
 	public void left() {
-		if(!getDirection().equals("left")&&!getDirection().equals("right")){
-			setDirection("left");
+		if(!(getDirection()==Direction.left)&&!(getDirection()==Direction.right)){
+			setDirection(Direction.left);
 			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
 			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}
@@ -273,8 +281,8 @@ public class TronPlayer extends BetterSprite {
 	 * handles right turning
 	 */
 	public void right() {
-		if(!getDirection().equals("right")&&!getDirection().equals("left")){
-			setDirection("right");
+		if(!(getDirection()==Direction.right)&&!(getDirection()==Direction.left)){
+			setDirection(Direction.right);
 			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
 			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}
@@ -283,11 +291,10 @@ public class TronPlayer extends BetterSprite {
 	 * handles up turning
 	 */
 	public void up() {
-		if(!getDirection().equals("up")&&!getDirection().equals("down")){
-			setDirection("up");
+		if(!(getDirection()==Direction.up)&&!(getDirection()==Direction.down)){
+			setDirection(Direction.up);
 			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
-			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
-		}
+			}
 	}	
 	
 	public void update(long elapsedTime) {
