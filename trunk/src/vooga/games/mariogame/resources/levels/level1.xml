@@ -17,6 +17,10 @@
 		</SpriteGroup>
 	</SpriteGroups>
 	
+	<CollisionGroups>
+		
+	</CollisionGroups>
+	
 	<Map>
 		<MapGroup name = "Map0">
 			<Association char = "F" object = "vooga.games.mariogame.tiles.IndestructibleTile" image = "Grass Tile"></Association>
