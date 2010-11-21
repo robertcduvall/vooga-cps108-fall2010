@@ -3,15 +3,29 @@ package vooga.games.cyberion;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.golden.gamedev.object.GameFont;
+
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
+import vooga.engine.state.PauseGameState;
 import vooga.games.cyberion.sprites.CyberionLevelParser;
+import vooga.games.cyberion.states.GameCompleteState;
+import vooga.games.cyberion.states.GameOverState;
+import vooga.games.cyberion.states.LevelCompleteState;
+import vooga.games.cyberion.states.MenuState;
+import vooga.games.cyberion.states.PlayState;
 
-import com.golden.gamedev.GameLoader;
+
 
 /**
  * Cyberion shooting game
@@ -23,93 +37,80 @@ import com.golden.gamedev.GameLoader;
 
 public class DropThis extends Game {
 
-	MainGameState playGameState;
-	GameStateManager gameStateManager = new GameStateManager();
-	public PlayField myPlayfield = new PlayField();
-	LevelManager levelManager;
-	CyberionLevelParser levelParser;
+	private MenuState myMenuState;
+	private PlayState myPlayState;
+	private PauseGameState myPauseState;
+	private LevelCompleteState myLevelCompleteState;
+	private GameCompleteState myGameCompleteState;
+	private GameOverState myGameOverState;
 
-	
-	// calls other methods and initializes all remaining variables
+	private LevelManager levelManager;
+	private Control gameControl;
+
+	private GameFont font;
 
 	public void initResources() {
 		super.initResources();
-		//initLevelManager();
-		levelParser = new CyberionLevelParser();
-		PlayField levelPlayField = levelParser.getPlayfield("src/vooga/games/cyberion/resources/Level1.xml"	, this);
-		playGameState = new MainGameState(this, levelPlayField);
-		stateManager.addGameState(playGameState);
+		initControls();
 	}
-	
-	private void initLevelManager() {
-		//The reason this is not being moved to core.Game class is because you might want to 
-		//create your own LevelParser in certain cases. In that case, use the following constructor:
-		//levelManager = new LevelManager(this, yourCustomizedParser);
+
+	public void initControls() {
+		gameControl = new KeyboardControl(this, this);
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame",
+				"vooga.games.Cyberion.DropThis");
+		gameControl.addInput(KeyEvent.VK_R, "resumeGame",
+				"vooga.games.Cyberion.DropThis");
+	}
+
+	public void pauseGame() {
+		this.getGameStateManager().switchTo(myPauseState);
+	}
+
+	public void unpauseGame() {
+		this.getGameStateManager().switchTo(myPlayState);
+	}
+
+	public void initGameStates() {
+		super.initGameStates();
+
+		// initialize level manager here?
+		initLevelManager();
+
+		List<GameState> gameStates = new ArrayList<GameState>();
+		gameStates.add(myMenuState = new MenuState(this));
+		gameStates.add(myPlayState = new PlayState(levelManager, this));
+		gameStates.add(myLevelCompleteState = new LevelCompleteState());
+		gameStates.add(myGameCompleteState = new GameCompleteState());
+		gameStates.add(myGameOverState = new GameOverState());
+		gameStates.add(myPauseState = new PauseGameState(myPlayState, "Paused"));
+		GameState[] gameStatesArray = (GameState[]) gameStates.toArray();
+
+		stateManager.addGameState(gameStatesArray);
+		stateManager.switchTo(myMenuState);
+	}
+
+	public void initLevelManager() {
 		levelManager = new LevelManager(this);
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
 		String levelNamesFile = Resources.getString("levelNamesFile");
-		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
+		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}
 
-//	public void initResources() {
-//		
-//		//Resources.initialize(this, "src/vooga/games/cyberion/resources/");
-//		super.initResources();
-//		
-//		LevelManager levelManager = new LevelManager(this);
-//		String levelFilesDirectory = Resources.getString("directory");
-//		String levelNamesFile = Resources.getString("file");
-//		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
-//		
-//		myPlayfield = levelManager.loadFirstLevel();
-//
-//		
-//		//myPlayfield = getCurrentLevel();
-//			
-////		Resources.setGame(this);
-////		loadImages();
-//		
-//		playGameState = new MainGameState(this, myPlayfield);
-////		playGameState.initialize();
-////		playGameState.activate();
-//		gameStateManager.addGameState(playGameState);
-//
-//		OverlayCreator.setGame(this);
-//		
-//
-//	}
-
-//	private void loadImages() {
-//		try {
-//			Resources
-//					.loadImageFile("src/vooga/games/cyberion/resources/game.properties");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
-	// updates sprite groups and checks for collisions
 	public void update(long elapsedTime) {
-		gameStateManager.update(elapsedTime);
-		myPlayfield.update(elapsedTime);
-
+		super.update(elapsedTime);
+		gameControl.update();
 	}
 
 	// renders active sprites
-	public void render(Graphics2D g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		gameStateManager.render(g);
-		myPlayfield.render(g);
-		
-		
-	}
+//	public void render(Graphics2D g) {
+//		g.setColor(Color.BLACK);
+//		g.fillRect(0, 0, getWidth(), getHeight());
+//		gameStateManager.render(g);
+//		myPlayfield.render(g);
+//	}
 
 	public static void main(String[] args) {
-		GameLoader game = new GameLoader();
-		game.setup(new DropThis(), new Dimension(640, 480), false);
-		game.start();
+		launch(new DropThis());
 	}
 
 }
