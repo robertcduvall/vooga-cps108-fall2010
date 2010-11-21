@@ -3,7 +3,6 @@ package vooga.examples.player;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.Game;
-import vooga.games.grandius.Blah;
 import vooga.games.grandius.collisions.BasicCollision;
 
 
