@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Level name="zombielevel1" xmloverlaypath="src/vooga/games/zombieland/resources/rules/level1.xml" >
+<Level name="zombielevel1" xmloverlaypath="src/vooga/games/zombieland/resources/resources.xml" >
 
 	<SpriteGroups>
 	
@@ -54,11 +54,15 @@
 	</SpriteGroups>
 	
 	<Rules>
-		<Rule name = "AddItemRule" class = "vooga.games.zombieland.resources.rules.AddItemRule">
+		<Rule name = "AddItemRule" class = "vooga.games.zombieland.rules.AddItemRule">
 		<SpriteGroup name = "Players" />
 		<SpriteGroup name = "Zombies" />
 		</Rule>
-		<Rule name = "AddZombieRule" class = "vooga.games.zombieland.resources.rules.AddZombieRule">
+		<Rule name = "AddZombieRule" class = "vooga.games.zombieland.rules.AddZombieRule">
+		<SpriteGroup name = "Players" />
+		<SpriteGroup name = "Zombies" />
+		</Rule>
+		<Rule name = "AddZombieRule" class = "vooga.games.zombieland.rules.SetInitialHumanTargetRule">
 		<SpriteGroup name = "Players" />
 		<SpriteGroup name = "Zombies" />
 		</Rule>
@@ -87,7 +91,7 @@
 		</CollisionGroup>
 	</CollisionGroups>
 
-	
+	<Map></Map>
 	<Music>
 		<song name="entersand" />
 	</Music>
