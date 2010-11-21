@@ -161,9 +161,6 @@ public class Control{
 			ArrayList<Method> prevMethods = methodMap.get(listen) == null ? new ArrayList<Method>() : methodMap.get(listen);
 			prevMethods.add(perform);
 			methodMap.put(listen, prevMethods);
-//			ArrayList<Stat<?>[]> prevParams = paramMap.get(listen) == null ? new ArrayList<Stat<?>[]>() : paramMap.get(listen);
-//			prevParams.add(paramVals);
-//			paramMap.put(listen, prevParams);
 		} catch (Throwable e) {
 			System.err.println(e);
 		}
