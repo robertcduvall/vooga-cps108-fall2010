@@ -30,7 +30,7 @@ public class PlayState extends GameState{
 		Control playerControl = new KeyboardControl(player, game);
 		playerControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.galaxyinvaders.sprites.Ship");
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "vooga.games.galaxyinvaders.sprites.Ship");
-		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.galaxyinvaders.Ship");
+		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.galaxyinvaders.sprites.Ship");
 		myField.addControl("ship", playerControl);
 	}
 }

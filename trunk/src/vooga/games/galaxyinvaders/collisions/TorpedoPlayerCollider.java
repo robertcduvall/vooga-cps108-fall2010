@@ -4,6 +4,7 @@ package vooga.games.galaxyinvaders.collisions;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.*;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.Game;
 
 /**
  * This class is an extension of BasicCollisionGroup, it handles collisions 
@@ -16,7 +17,7 @@ public class TorpedoPlayerCollider extends BasicCollisionGroup {
 	
 	private static final int LIVES_LOST = 1;
 	
-	public TorpedoPlayerCollider() {
+	public TorpedoPlayerCollider(Game g) {
 		super();
 		pixelPerfectCollision = true;
 	}

@@ -1,5 +1,6 @@
 package vooga.games.galaxyinvaders.collisions;
 
+import vooga.engine.core.Game;
 import vooga.games.galaxyinvaders.sprites.BlockadeSprite;
 
 import com.golden.gamedev.object.Sprite;
@@ -16,7 +17,7 @@ public class TorpedoBlockCollider extends BasicCollisionGroup {
 
 	private static final int DAMAGE_TAKEN = 2;
 	
-	public TorpedoBlockCollider() {
+	public TorpedoBlockCollider(Game g) {
 		super();
 		pixelPerfectCollision = true;
 	}

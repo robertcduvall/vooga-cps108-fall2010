@@ -1,6 +1,7 @@
 package vooga.games.galaxyinvaders.collisions;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
 
 import com.golden.gamedev.object.Sprite;
@@ -16,7 +17,7 @@ public class ItemPlayerCollider extends BasicCollisionGroup {
 
 	private static int POWER_UP_AMOUNT = 1;
 	
-	public ItemPlayerCollider() {
+	public ItemPlayerCollider(Game g) {
 		super();
 		pixelPerfectCollision = true;
 	}

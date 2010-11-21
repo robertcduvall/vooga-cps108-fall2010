@@ -10,6 +10,7 @@ public class Ship extends BetterSprite{
 	private static final double PLAYER_BOMB_SPEED = 0.8;
 	private static final int INITIAL_SHIP_X = 350;
 	private static final int INITIAL_SHIP_Y = 700;
+	private static final int MOVE_DISTANCE = 5;
 	
 	private SpriteGroup torpedos;
 	
@@ -28,14 +29,14 @@ public class Ship extends BetterSprite{
 		torpedos.add(temp);
 	}
 
-	public void moveLeft(int distance) {
+	public void moveLeft() {
 		if(getX()>0-15)  
-			move(-distance, 0);
+			move(-MOVE_DISTANCE, 0);
 	}
 	
-	public void moveRight(int distance) {
+	public void moveRight() {
 		if(getX()<getWidth()-45)  
-			move(distance, 0);
+			move(MOVE_DISTANCE, 0);
 	}
 	
 	public SpriteGroup getTorpedoGroup(){
