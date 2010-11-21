@@ -45,7 +45,7 @@ public class MissileBossPartCollision extends BasicCollision {
 		newField.add(explosion);
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
-		((DropThis)grandius).getPlayer().updateScore(((Enemy)bossPart).getScore());
-		((DropThis)grandius).getPlayer().updateCash(((Enemy)bossPart).getCash());
+		getPlayer().updateScore(((Enemy)bossPart).getScore());
+		getPlayer().updateCash(((Enemy)bossPart).getCash());
 	}
 }

@@ -46,8 +46,8 @@ public class BlackHoleEnemyCollision extends BasicCollision{
 		newField.add(vortex);
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
-		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
-		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
+		getPlayer().updateScore(((Enemy)enemy).getScore());
+		getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 
 	

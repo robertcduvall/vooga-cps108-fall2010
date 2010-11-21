@@ -30,7 +30,7 @@ public class PlayerEnemyProjectileCollision extends BasicCollision {
 		newField.add(explosion);
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
-		((DropThis)grandius).getPlayer().updatePlayerLives();
+		getPlayer().updatePlayerLives();
 	}
 
 	

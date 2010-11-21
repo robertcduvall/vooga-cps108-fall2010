@@ -36,7 +36,9 @@ public class ProjectileBossPartCollision extends BasicCollision {
 			((DropThis)grandius).getPlayState().getRenderField().add(newField);
 			((DropThis)grandius).getPlayState().getUpdateField().add(newField);
 		}
-		((DropThis)grandius).getPlayer().updateScore(((Enemy)bosspart).getScore());
-		((DropThis)grandius).getPlayer().updateCash(((Enemy)bosspart).getCash());
+//		((DropThis)grandius).getPlayer().updateScore(((Enemy)bosspart).getScore());
+//		((DropThis)grandius).getPlayer().updateCash(((Enemy)bosspart).getCash());
+		getPlayer().updateScore(((Enemy)bosspart).getScore());
+		getPlayer().updateCash(((Enemy)bosspart).getCash());
 	}
 }

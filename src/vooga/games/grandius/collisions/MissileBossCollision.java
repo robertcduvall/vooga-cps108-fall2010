@@ -46,7 +46,7 @@ public class MissileBossCollision extends BasicCollision {
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
 		//((DropThis)grandius).playSound(Resources.getMapping("LaserSound"));
-		((DropThis)grandius).getPlayer().updateScore(((Enemy)boss).getScore());
-		((DropThis)grandius).getPlayer().updateCash(((Enemy)boss).getCash());
+		getPlayer().updateScore(((Enemy)boss).getScore());
+		getPlayer().updateCash(((Enemy)boss).getCash());
 	}
 }
