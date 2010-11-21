@@ -50,11 +50,6 @@ public class DropThis extends Game {
 	public void initResources() {
 		super.initResources();
 		initControls();
-		// TODO - change this to work with new Overlay XML
-		font = fontManager.getFont(
-				getImages("resources/images/font.png", 20, 3),
-				" !            .,0123" + "456789:   -? ABCDEFG"
-						+ "HIJKLMNOPQRSTUVWXYZ ");
 	}
 
 	public void initControls() {
@@ -71,16 +66,6 @@ public class DropThis extends Game {
 		this.getGameStateManager().switchTo(myPlayState);
 	}
 	
-	/**
-	 * Initialize the LevelManager for Grandius.
-	 */
-	private void initLevelManager() {
-		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-		String levelNamesFile = Resources.getString("levelNamesFile");
-		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
-	}
-
 	/**
 	 * Initialize the different GameStates possible in Grandius.
 	 */
@@ -103,6 +88,16 @@ public class DropThis extends Game {
 		}
 		stateManager.addGameState(gameStatesArray);
 		stateManager.switchTo(myPlayState);
+	}
+
+	/**
+	 * Initialize the LevelManager for Grandius.
+	 */
+	private void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}
 
 	@Override

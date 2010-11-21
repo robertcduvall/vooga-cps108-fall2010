@@ -9,7 +9,7 @@
 		<Image name="playerImage" path="playersingle.png" />
 		<Image name="explosionImage" path="explosion.png" />
 		<Image name="laserImage" path="projectile.png" />
-		<Image name="verticalProjectileImage" path="vertical_projectile.png" />
+		<Image name="verticalProjectileImage" path="bullet.jpg" />
 		<Image name="zipsterLaserImage" path="zipster_laser.png" />
 		<Image name="sidekickImage" path="sidekick.png" />
 		<Image name="reacherEyeBeamImage" path="reacher_eye_beam.png" />
