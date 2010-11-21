@@ -127,7 +127,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 */
 	public void addOverlayTracker(OverlayTracker overlayTracker){
 		myTracker = overlayTracker;
-		for(String overlayKey: overlayTracker.overlayKeySet()){
+		for(String overlayKey: overlayTracker.spriteGroupKeySet()){
 			this.addGroup(overlayTracker.getOverlayGroup(overlayKey));
 		}
 	}

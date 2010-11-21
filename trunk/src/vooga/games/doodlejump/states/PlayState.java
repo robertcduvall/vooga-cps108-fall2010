@@ -41,17 +41,16 @@ public class PlayState extends GameState{
 //		playField.addCollisionGroup(shipGroup, asteroidGroup, new ShipToAsteroidCollision());
 //		
 //		addPlayField(playField);
-		BetterSprite playerShip = (BetterSprite)(getGroup("playerShip").getSprites()[0]);
+		BetterSprite playerShip = (BetterSprite)(getGroup("doodleGroup").getSprites()[0]);
 		initControls(playerShip);
 
 	}
 	
 	private void initControls(BetterSprite player){
 		Control playerControl = new KeyboardControl(player, game);
-		playerControl.addInput(KeyEvent.VK_LEFT, "rotateLeft", "vooga.games.asteroids.sprites.Ship");
-		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship");
-		playerControl.addInput(KeyEvent.VK_UP, "thrust", "vooga.games.asteroids.sprites.Ship");
-		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship");
-		myField.addControl("ship", playerControl);
+		playerControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.doodlejump.DoodleSprite");
+		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "vooga.games.doodlejump.DoodleSprite");
+		playerControl.addInput(KeyEvent.VK_SPACE, "shoot", "vooga.games.doodlejump.DoodleSprite");
+		myField.addControl("doodle", playerControl);
 	}
 }
