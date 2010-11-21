@@ -35,8 +35,14 @@ public class PlayState extends GameState {
 		return playField;
 	}
 
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
 	public void setField(PlayField newField) {
 		this.playField = newField;
+		this.addUpdatePlayField(newField);
+		this.addRenderPlayField(newField);
 	}
 
 	public PlayState(LevelManager levelManager, DropThis game) {
@@ -50,7 +56,6 @@ public class PlayState extends GameState {
 		player = (Player) playField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();
-		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
 		this.addUpdatePlayField(playField);
 		this.addRenderPlayField(playField);
 	}
@@ -69,14 +74,15 @@ public class PlayState extends GameState {
 	/**
 	 * Initializes the specific Events handled in the Grandius PlayState.
 	 */
-	private void initEvents() {
+	public void initEvents() {
 		eventPool = new EventPool();
 		eventPool.addEvent(new FireHorizontalEvent(myGame, player, this));
 		eventPool.addEvent(new FireVerticalEvent(myGame, player, this));
 		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
+		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
 		//TODO
-		eventPool.addEvent(new LevelCompleteEvent(this));
+		eventPool.addEvent(new LevelCompleteEvent(myGame, this));
 	}
 		
 	/**

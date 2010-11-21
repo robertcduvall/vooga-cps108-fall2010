@@ -8,10 +8,10 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="cometsGroup">
-			<Sprite class="vooga.games.grandius.Comet" random="true" xMin="0" xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0" vyMax="0" quantity="5000" />
+			<Sprite class="vooga.games.grandius.planetoids.Comet" random="true" xMin="0" xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0" vyMax="0" quantity="5000" />
 		</SpriteGroup>
 		<SpriteGroup name="earthGroup">
-			<Sprite class="vooga.games.grandius.Earth" random="false" x="800" y="20" vx="-0.02" vy="0" quantity="1" />
+			<Sprite class="vooga.games.grandius.planetoids.Earth" random="false" x="800" y="20" vx="-0.02" vy="0" quantity="1" />
 		</SpriteGroup>
 		<SpriteGroup name="missileGroup" />
 		<SpriteGroup name="explosionGroup" />
@@ -23,7 +23,7 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="300" xMax="600" yMin="50" yMax="500" vxMin="-0.5" vxMax="-0.02" vyMin="0" vyMax="0" quantity="10" />
+			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="300" xMax="600" yMin="50" yMax="500" vxMin="-0.04" vxMax="-0.02" vyMin="0" vyMax="0" quantity="10" />
 		</SpriteGroup>
 		<SpriteGroup name="projectileGroup" />
 		<SpriteGroup name="bossPartGroup" />

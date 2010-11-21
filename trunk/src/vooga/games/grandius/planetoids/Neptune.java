@@ -1,4 +1,4 @@
-package vooga.games.grandius;
+package vooga.games.grandius.planetoids;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
