@@ -3,8 +3,8 @@ package vooga.games.mariogame.tiles;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import vooga.games.mariogame.MarioSprite;
 import vooga.games.mariogame.items.Coin;
+import vooga.games.mariogame.sprites.MarioSprite;
 
 import com.golden.gamedev.object.Sprite;
 

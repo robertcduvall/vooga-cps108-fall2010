@@ -11,8 +11,9 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.PauseGameState;
-import vooga.games.mariogame.GameEndState;
-import vooga.games.mariogame.MainMenuState;
+import vooga.games.mariogame.states.GameEndState;
+import vooga.games.mariogame.states.GamePlayState;
+import vooga.games.mariogame.states.MainMenuState;
 
 import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.GameFontManager;

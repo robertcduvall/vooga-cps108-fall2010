@@ -1,4 +1,4 @@
-package vooga.games.mariogame;
+package vooga.games.mariogame.states;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -138,9 +138,9 @@ public class GamePlayState extends GameState {
 
 	private void setUpKeyboard() {
 		Control playerControl = new KeyboardControl((BetterSprite)(myLevel.getGroup("marioGroup").getActiveSprite()), myGame);
-		playerControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.mariogame.MarioSprite");
-		playerControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.mariogame.MarioSprite");
-		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.mariogame.sprites.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.mariogame.sprites.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.sprites.MarioSprite");
 		myLevel.addControl("mario", playerControl);
 		
 		Control gameControl = new KeyboardControl(myGame,myGame);

@@ -1,4 +1,4 @@
-package vooga.games.mariogame;
+package vooga.games.mariogame.states;
 
 import java.awt.Graphics2D;
 import java.io.File;

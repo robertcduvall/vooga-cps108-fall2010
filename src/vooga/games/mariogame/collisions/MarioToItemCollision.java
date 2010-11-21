@@ -1,6 +1,7 @@
-package vooga.games.mariogame;
+package vooga.games.mariogame.collisions;
 
 import vooga.engine.core.Game;
+import vooga.games.mariogame.sprites.MarioSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
