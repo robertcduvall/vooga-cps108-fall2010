@@ -44,6 +44,7 @@ public class DropThis extends Game {
 	private GameOverState myGameOverState;
 
 	private LevelParser levelParser;
+	private LevelManager levelManager;
 	private Control gameControl;
 
 	private GameFont font;
@@ -81,12 +82,12 @@ public class DropThis extends Game {
 		super.initGameStates();
 
 		// initialize level manager here?
-		// initLevelManager();
-		levelParser = new LevelParser();
-		PlayField levelPlayField = levelParser.getPlayfield(
-				"src/vooga/games/cyberion/resources/levels/level1.xml", this);
+		initLevelManager();
+//		levelParser = new LevelParser();
+//		PlayField levelPlayField = levelParser.getPlayfield(
+//				"src/vooga/games/cyberion/resources/levels/level1.xml", this);
 
-		myPlayState = new PlayState(levelPlayField, this);
+		myPlayState = new PlayState(levelManager, this);
 		stateManager.addGameState(myPlayState);
 		stateManager.activateOnly(myPlayState);
 
@@ -104,12 +105,12 @@ public class DropThis extends Game {
 		// stateManager.switchTo(myMenuState);
 	}
 
-	// public void initLevelManager() {
-	// levelManager = new LevelManager(this);
-	// String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-	// String levelNamesFile = Resources.getString("levelNamesFile");
-	// levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
-	// }
+	 public void initLevelManager() {
+	 levelManager = new LevelManager(this);
+	 String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+	 String levelNamesFile = Resources.getString("levelNamesFile");
+	 levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
+	 }
 
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
