@@ -13,6 +13,7 @@ import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.PauseGameState;
 import vooga.games.galaxyinvaders.states.GalaxyGameState;
+import vooga.games.galaxyinvaders.states.PauseState;
 import vooga.games.galaxyinvaders.states.PlayState;
 
 import com.golden.gamedev.object.SpriteGroup;
@@ -43,7 +44,7 @@ public class DropThis extends Game {
 		initLevelManager();
 		playfield = levelManager.loadFirstLevel();
 		play = new PlayState(this, playfield);
-		pause = new PauseGameState(play, Resources.getString("pauseStateText"), Color.WHITE);
+		pause = new PauseState(this, play, Resources.getString("pauseStateText"), Color.WHITE);
 		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.WHITE);
 		stateManager.addGameState(play, pause, gameOver);
 		stateManager.switchTo(pause);
