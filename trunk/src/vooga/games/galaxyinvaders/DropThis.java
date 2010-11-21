@@ -46,6 +46,7 @@ public class DropThis extends Game {
 		play = new PlayState(this, playfield);
 		pause = new PauseState(this, play, Resources.getString("pauseStateText"), Color.WHITE);
 		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.WHITE);
+		this.setAsPlayGameState(play);
 		stateManager.addGameState(play, pause, gameOver);
 		stateManager.switchTo(pause);
 	}
@@ -62,11 +63,12 @@ public class DropThis extends Game {
 		return play;
 	}
 	
-	public void toggle(){
-		stateManager.toggle(pause);
-		stateManager.toggle(play);
+	public void pauseGame(){
+		stateManager.switchTo(pause);
 	}
-	
+	public void resumeGame(){
+		stateManager.switchTo(play);
+	}
 	public void gameOver(){
 		stateManager.switchTo(gameOver);
 	}
