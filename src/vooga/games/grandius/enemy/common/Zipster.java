@@ -20,6 +20,7 @@ public class Zipster extends Enemy {
 	private boolean blackHoleProximate;
 	private int spin;
 	private static final double ZIPSTER_LASER_SPEED = Resources.getDouble("zipsterLaserSpeed");
+	private static final int ZIPSTER_FIRE_RANGE = 400;
 	private static final int ZIPSTER_LASER_RELOAD_TIME = 1000;
 	private static final int SCORE_VALUE = 25;
 	private static final int CASH_VALUE = 1;
@@ -53,7 +54,8 @@ public class Zipster extends Enemy {
 	 */
 	public boolean willFire(BetterSprite playersprite) {
 		return (playersprite.getY() > this.getY() && playersprite.getY() < this.getY()+this.getHeight()
-				&& playersprite.getX() < this.getX() && reloaded && this.isActive() && spin==0);
+				&& Math.abs(playersprite.getX() - this.getX()) < ZIPSTER_FIRE_RANGE && reloaded && 
+				this.isActive() && spin==0 && this.getX() > playersprite.getX());
 	}
 	
 	/**
