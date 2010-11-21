@@ -37,19 +37,18 @@ public class Shooter extends BetterSprite implements Constants{
 	private Stat<Integer> ammo;
 	private int levelScore;
 
-	public Shooter(String name, String stateName, Blah zombieland, Stat<Integer> initHealth, Stat<Integer> initAmmo, Stat<Integer> initScore) {
-		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation("playerright")));
-		game = zombieland;
+	public Shooter() {
+		super();
 		weapons = new Weapon[3];
 		// DEFAULT attributes
-		speed = Resources.getInt("speed");
-		maxHealth = Resources.getInt("maxHealth");
-		orientation = Resources.getInt("orientation");
-		weaponChoice = Resources.getInt("weaponChoice");
-		levelScore = Resources.getInt("levelScore");
-		shotgunAmmo = Resources.getInt("shotgunAmmo");
-		rifleAmmo = Resources.getInt("rifleAmmo");
-		pistolAmmo = Resources.getInt("pistolAmmo");
+//		speed = Resources.getInt("speed");
+//		maxHealth = Resources.getInt("maxHealth");
+//		orientation = Resources.getInt("orientation");
+//		weaponChoice = Resources.getInt("weaponChoice");
+//		levelScore = Resources.getInt("levelScore");
+//		shotgunAmmo = Resources.getInt("shotgunAmmo");
+//		rifleAmmo = Resources.getInt("rifleAmmo");
+//		pistolAmmo = Resources.getInt("pistolAmmo");
 		
 		setupWeapons();
 		
@@ -58,25 +57,30 @@ public class Shooter extends BetterSprite implements Constants{
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
 		
-		AnimatedSprite down = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_DOWN));
-		AnimatedSprite up = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_UP));
-		AnimatedSprite left = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_LEFT));
-		AnimatedSprite right = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_RIGHT));
+//		AnimatedSprite down = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_DOWN));
+//		AnimatedSprite up = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_UP));
+//		AnimatedSprite left = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_LEFT));
+//		AnimatedSprite right = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_RIGHT));
+//		
+//		this.addSprite(PLAYER_DOWN, down);
+//		this.addSprite(PLAYER_UP, up);
+//		this.addSprite(PLAYER_LEFT, left);
+//		this.addSprite(PLAYER_RIGHT, right);
 		
-		this.addSprite(PLAYER_DOWN, down);
-		this.addSprite(PLAYER_UP, up);
-		this.addSprite(PLAYER_LEFT, left);
-		this.addSprite(PLAYER_RIGHT, right);
-		
-		// Setup displays
-		health = initHealth;
-		setStat("health", health);
-		score = initScore;
-		setStat("score", score);
-		ammo = initAmmo;
-		setStat("ammo", ammo);
+//		// Setup displays
+//		health = initHealth;
+//		setStat("health", health);
+//		score = initScore;
+//		setStat("score", score);
+//		ammo = initAmmo;
+//		setStat("ammo", ammo);
 	}
 
+	public void setGame(Blah currentGame)
+	{
+		game = currentGame;
+	}
+	
 	/**
 	 * Creates weapon objects with default ammo
 	 */
