@@ -123,8 +123,7 @@ public class Control{
 							{
 								objectParameters.add(method.invoke(method.getDeclaringClass()));
 							}
-								perform.invoke(entities.get(i), objectParameters.toArray());
-								
+							perform.invoke(entities.get(i), objectParameters.toArray());	
 						}
 					}
 				}

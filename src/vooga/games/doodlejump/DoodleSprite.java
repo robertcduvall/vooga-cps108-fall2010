@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.BetterSprite;
@@ -35,17 +36,19 @@ public class DoodleSprite extends BetterSprite {
 	}
 
 	public void moveLeft() {
-		setImage(Resources.getImage("doodleLeft"));
+		BufferedImage[] doodleImage = {Resources.getImage("doodleLeft")};
+		setImages(doodleImage);
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
-			setX(500);
+			setX(532);
 		}
 
 	}
 
 	public void moveRight() {
-		setImage(Resources.getImage("doodleRight"));
+		BufferedImage[] doodleImage = {Resources.getImage("doodleRight")};
+		setImages(doodleImage);
 		if (isOnScreen()) {
 			setX(getX() + 5);
 		} else {
@@ -67,7 +70,8 @@ public class DoodleSprite extends BetterSprite {
 
 	public void shoot() {
 		if (bulletDelay <= 0) {
-			setImage(Resources.getImage("doodle_up"));
+			BufferedImage[] doodleImage = {Resources.getImage("doodleUp")};
+			setImages(doodleImage);
 			BufferedImage ballImage = Resources.getImage("ball");
 			BallSprite ball = new BallSprite("ball", new Sprite(
 					ballImage, getX() + getWidth() / 2

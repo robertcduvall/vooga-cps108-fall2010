@@ -58,6 +58,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	private Map<String, com.golden.gamedev.object.Sprite> mySprites;
 	private com.golden.gamedev.object.Sprite myCurrentSprite;
 	private Map<String, Stat<?>> myStatMap;
+	private boolean firstRun;
 
 	/**
 	 * Constructs an entity with null image and 0, 0 position and the default
@@ -93,6 +94,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 		addSprite(label, s);
 		myCurrentSprite = s;
 		myStatMap = new HashMap<String, Stat<?>>();
+		firstRun = true;
 	}
 
 	/**
@@ -291,9 +293,20 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	 */
 	@Override
 	public void update(long elapsedTime) {
+		if(firstRun){
+			firstRun();
+			firstRun = false;
+		}
 		myCurrentSprite.update(elapsedTime);
 	}
 
+	/**
+	 * Override this method to do any initializations necessary after the sprite is initialized by the level file.
+	 */
+	public void firstRun(){
+		
+	}
+	
 	/**
 	 * Render the image onto the screen
 	 * 
@@ -327,6 +340,17 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 		myCurrentSprite.setImage(Image);
 	}
 
+	/**
+	 * This method sets a new image array to the current image array only if myCurrentSprite
+	 * is an AnimatedSprite
+	 * 
+	 * @param images the images to set on myCurrentSprite
+	 */
+	public void setImages(BufferedImage[] images){
+		if(myCurrentSprite instanceof AnimatedSprite){
+			((AnimatedSprite) myCurrentSprite).setImages(images);
+		}
+	}
 	/**
 	 * Check whether the myCurrentSprite is on the screen
 	 */

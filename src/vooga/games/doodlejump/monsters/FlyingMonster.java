@@ -14,12 +14,17 @@ import com.golden.gamedev.object.AnimatedSprite;
  * 
  */
 public class FlyingMonster extends BetterSprite {
+	
 	public FlyingMonster(){
 		this(Resources.getAnimation("green_flying_monster"));
 	}
 
 	public FlyingMonster(BufferedImage[] images) {
 		super("flying_monster", images);
+	}
+	
+	@Override
+	public void firstRun(){
 		setHorizontalSpeed(-0.2);
 		setVerticalSpeed(-0.1);
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
