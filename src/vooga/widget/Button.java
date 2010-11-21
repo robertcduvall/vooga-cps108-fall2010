@@ -19,7 +19,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	/**
 	 * Instance of the game in which the Button exists
 	 */
-	private Game myGame;
+	protected Game myGame;
 	
 	/**
 	 * Creates an instance of Button with a game, a null image, and a location of (0,0)
