@@ -143,6 +143,10 @@ public class GamePlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.MarioSprite");
 		myLevel.addControl("mario", playerControl);
 		
+		Control gameControl = new KeyboardControl(myGame,myGame);
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.mariogame.DropThis");
+		myLevel.addControl("pause", gameControl);
+		
 		/*
 		for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) {
 			if (i == KeyEvent.VK_D || i == KeyEvent.VK_A || i == KeyEvent.VK_W)
