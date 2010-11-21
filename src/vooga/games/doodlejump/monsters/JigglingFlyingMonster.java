@@ -16,6 +16,10 @@ public class JigglingFlyingMonster extends BetterSprite {
 
 	public JigglingFlyingMonster(BufferedImage[] images) {
 		super("jiggling_flying_monster", images);
+	}
+
+	@Override
+	public void firstRun(){
 		setHorizontalSpeed(-0.2);
 		setVerticalSpeed(-0.1);
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
@@ -23,7 +27,7 @@ public class JigglingFlyingMonster extends BetterSprite {
 		sprite.setLoopAnim(true);
 		sprite.setAnimate(true);
 	}
-
+	
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);

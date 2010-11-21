@@ -4,6 +4,8 @@
 		<Image name="background" path="background.png" />
 		<Image name="ball" path="ball.png" />
 		<Image name="bigBlueMonster" path="big_blue_monster.png" />
+		<Image name="blueMonsterLeft" path="blue_monster_left.png" />
+		<Image name="blueMonsterRight" path="blue_monster_right.png" />
 		<Image name="darkBluePlatform" path="dark_blue_platform.png" />
 		<Image name="defaultPlayOn" path="default-play-on.png" />
 		<Image name="defaultPlay" path="default-play.png" />
@@ -36,13 +38,10 @@
 		<Image name="shield" path="shield.png" />
 		<Image name="soccerBackground" path="soccer-background.png" />
 		<Image name="spaceBackground" path="space-background.png" />
-		<Image name="springFull" path="spring_full.png" />
-		<Image name="springPlatform" path="spring_platform.png" />
 		<Image name="springShoes" path="spring_shoes.png" />
 		<Image name="trampolineDown" path="trampoline_down.png" />
 		<Image name="trampolinePlatform" path="trampoline_platform.png" />
 		<Image name="trampolineUp" path="trampoline_up.png" />
-		<Image name="trampoline" path="trampoline.png" />
 		<Image name="whitePlatform" path="white_platform.png" />
 
 
@@ -55,10 +54,6 @@
 			<Image path="blue_flying_monster_3.png" />
 			<Image path="blue_flying_monster_4.png" />
 			<Image path="blue_flying_monster_5.png" />
-		</Animation>
-		<Animation name="blueMonster">
-			<Image path="blue_monster_left.png" />
-			<Image path="blue_monster_right.png" />
 		</Animation>
 		<Animation name="brownPlatformBreaking">
 			<Image path="brown_platform_breaking_1.png" />
@@ -82,6 +77,14 @@
 			<Image path="yellow_platform_dying_5.png" />
 			<Image path="yellow_platform_dying_6.png" />
 			<Image path="yellow_platform_dying_7.png" />
+		</Animation>
+		<Animation name="spring">
+			<Image path="spring_full.png" />
+			<Image path="spring_compressed.png" />
+		</Animation>
+		<Animation name="trampoline">
+			<Image path="trampoline.png" />
+			<Image path="trampoline_down.png" />
 		</Animation>
 	</Animations>
 

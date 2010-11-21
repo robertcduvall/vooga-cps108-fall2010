@@ -16,10 +16,14 @@ public class JumpingMonster extends BetterSprite {
 
 	public JumpingMonster(BufferedImage image) {
 		super(image);
+	}
+
+	@Override
+	public void firstRun(){
 		jumpTimer = 20;
 		setVerticalSpeed(-0.2);
 	}
-
+	
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);

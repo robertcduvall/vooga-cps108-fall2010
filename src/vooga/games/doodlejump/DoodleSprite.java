@@ -9,8 +9,10 @@ import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.resource.Resources;
+import vooga.games.doodlejump.states.PlayState;
 
 /**
  * The DoodleSprite class extends PlayerSprite and defines how the main
@@ -21,9 +23,8 @@ import vooga.engine.resource.Resources;
  */
 public class DoodleSprite extends BetterSprite {
 	private boolean died;
-	private ArrayList<BallSprite> balls;
+	private PlayState playState;
 	private int bulletDelay = 20;
-	private OverlayString gameOverString;
 	
 	public DoodleSprite(){
 		this(Resources.getImage("doodleRight"));
@@ -32,7 +33,6 @@ public class DoodleSprite extends BetterSprite {
 	public DoodleSprite(BufferedImage image) {
 		super(image);
 		died = false;
-		balls = new ArrayList<BallSprite>();
 	}
 
 	public void moveLeft() {
@@ -61,10 +61,6 @@ public class DoodleSprite extends BetterSprite {
 		super.update(elapsedTime);
 		if (getVerticalSpeed() < 0.5)
 			setVerticalSpeed(getVerticalSpeed() + 0.01);
-		for (BallSprite ball : balls) {
-			ball.update(elapsedTime);
-		}
-
 		bulletDelay--;
 	}
 
@@ -80,24 +76,21 @@ public class DoodleSprite extends BetterSprite {
 			ball.setVerticalSpeed(-0.7);
 			if (getVerticalSpeed() < 0)
 				ball.setVerticalSpeed(-1.5);
-			balls.add(ball);
-			//game.ballGroup.add(ball);
+			playState.addBall(ball);
 			bulletDelay = 20;
 		}
+	}
+	
+	@Override
+	public void render(Graphics2D g){
+		super.render(g);
 	}
 
 	public void setDied(boolean b) {
 		died = b;
 	}
-
-	@Override
-	public void render(Graphics2D g) {
-		super.render(g);
-		for (BallSprite ball : balls)
-			ball.render(g);
-		if (gameOverString != null || (died && gameOverString != null)) {
-			gameOverString.render(g);
-			//game.gameOver();
-		}
+	
+	public void setPlayState(PlayState p){
+		playState = p;
 	}
 }

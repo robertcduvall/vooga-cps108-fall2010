@@ -23,10 +23,14 @@ public class JigglingMonster extends BetterSprite {
 
 	public JigglingMonster(BufferedImage image) {
 		super(image);
+	}
+
+	@Override
+	public void firstRun(){
 		jiggleTimer = 20;
 		setHorizontalSpeed(-0.2);
 	}
-
+	
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);

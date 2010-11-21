@@ -1,7 +1,9 @@
 package vooga.games.doodlejump.platforms;
 
 import java.awt.image.BufferedImage;
-import com.golden.gamedev.object.Sprite;
+
+import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
 
 /**
  * The LightBluePlatform class extends Sprite and defines a LightBluePlatform
@@ -9,12 +11,20 @@ import com.golden.gamedev.object.Sprite;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class LightBluePlatform extends Sprite {
-	public LightBluePlatform(BufferedImage image, double x, double y) {
-		super(image, x, y);
-		setHorizontalSpeed(-0.1);
+public class LightBluePlatform extends BetterSprite {
+	
+	public LightBluePlatform(){
+		this(Resources.getImage("lightBluePlatform"));
+	}
+	public LightBluePlatform(BufferedImage image) {
+		super(image);
 	}
 
+	@Override
+	public void firstRun(){
+		setHorizontalSpeed(-0.1);
+	}
+	
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
