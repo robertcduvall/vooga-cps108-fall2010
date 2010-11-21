@@ -59,7 +59,7 @@ public class DoodleSprite extends BetterSprite {
 		move(getHorizontalSpeed(), getVerticalSpeed());
 		moveThroughWall();
 		deccelerate();
-		applyGravity();
+//		applyGravity();
 		maintainFloor();
 	}
 
@@ -101,52 +101,13 @@ public class DoodleSprite extends BetterSprite {
 			setX(gameWidth - mySpriteWidth);
 		}
 	}
-
-/*	*//**
-	 * Accelerate doodle
-	 * @param direction representing the "right" or "left" direction
-	 *//*	
-	public void moveDoodle(String direction){
-		
-		int directionMultiplier = 1;
-		if (direction.equals("left")){
-			directionMultiplier = -1;
-		}
-
-		if(DropThis.isJetpackOn()){
-			if (directionMultiplier == 1){
-			setImage(doodleRightImageJetpack);
-			}
-			else{
-				setImage(doodleLeftImageJetpack);
-			}
-			addHorizontalSpeed(	ACCELERATION_TIME, 
-								jetpackMultiplier*X_ACCELERATION * directionMultiplier, 
-								jetpackMultiplier*MAX_SPEED * directionMultiplier
-								);
-		} else{
-			if (directionMultiplier == 1){
-				setImage(doodleRightImage);
-			}
-			else{
-				setImage(doodleLeftImage);
-			}
-			addHorizontalSpeed(ACCELERATION_TIME, X_ACCELERATION * directionMultiplier, MAX_SPEED * directionMultiplier);
-		}
-	}*/
 	
 	public void moveLeft(){	
 		setHorizontalSpeed(-1* MAX_SPEED);
 	}
 	
 	public void moveRight(){
-		System.out.println("right");
 		setHorizontalSpeed(MAX_SPEED);
-//		setImage(doodleRightImage);
-	}
-	
-	public void moveDown(){
-		System.out.println("down");
 	}
 	
 	public void moveUp(){
