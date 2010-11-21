@@ -133,8 +133,8 @@ public class GamePlayState extends GameState {
 
 	private void setUpKeyboard() {
 		Control playerControl = new KeyboardControl((BetterSprite)(myLevel.getGroup("marioGroup").getActiveSprite()), myGame);
-		playerControl.addInput(KeyEvent.VK_D, "moveLeft", "vooga.games.mariogame.MarioSprite");
-		playerControl.addInput(KeyEvent.VK_A, "moveRight", "vooga.games.mariogame.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.mariogame.MarioSprite");
+		playerControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.mariogame.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.MarioSprite");
 		myLevel.addControl("mario", playerControl);
 		

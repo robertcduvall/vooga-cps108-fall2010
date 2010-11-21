@@ -89,6 +89,6 @@ public class DropThis extends Game {
 		MainMenuState levelFinishedState = new MainMenuState(this, Resources.getImage("Level Complete BG"), fontManager);
 		GamePlayState playState = new GamePlayState(this,(PlayField)myLevels.toArray()[0]);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
-		stateManager.switchTo(loseState);
+		stateManager.switchTo(playState);
 	}
 }
