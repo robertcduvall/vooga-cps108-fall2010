@@ -14,8 +14,8 @@ public abstract class Enemy extends BetterSprite {
 	private static final String SCORE = "Score";
 	private static final String CASH = "Cash";
 	
-	public Enemy(BufferedImage image, double x, double y){
-		super(image);
+	public Enemy(BufferedImage[] images, double x, double y){
+		super(images);
 		this.setLocation(x, y);
 	}
 	

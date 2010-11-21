@@ -78,6 +78,10 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
 	}
 		
+	/**
+	 * Checks for an "Enter" key-press and prompts the user for a cheat code, taking
+	 * appropriate action if the cheat is valid.
+	 */
 	private void checkCheats() {
 		if (myGame.keyPressed(KeyEvent.VK_ENTER)) {
 			JFrame frame = new JFrame();
@@ -96,7 +100,9 @@ public class PlayState extends GameState {
 		}
 	}
 	
-	//TODO this method is being used for collision handling also
+	/**
+	 * Returns the PlayState's player; this method is used for collision handling.
+	 */
 	public Player getPlayer() {
 		return player;
 	}
