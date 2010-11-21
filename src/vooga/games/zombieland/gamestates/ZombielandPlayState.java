@@ -58,7 +58,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 		random = new Random();
 	
 		LevelParser parser = new LevelParser();
-		playField = parser.getPlayfield("src/vooga/games/zombieland/resources/rules/level1.xml", currentGame);
+		playField = parser.getPlayfield("src/vooga/games/zombieland/resources/levels/level1.xml", currentGame);
 		
 		//initializePlayer();
 		initEnvironment();
@@ -190,8 +190,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", level, player,
-				currentGame);
+		Zombie newZombie = new Zombie();
 		zombiesAppeared++;
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
