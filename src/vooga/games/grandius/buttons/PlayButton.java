@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
+import vooga.games.grandius.DropThis;
 import vooga.widget.Button;
 
 public class PlayButton extends Button {
@@ -14,13 +15,10 @@ public class PlayButton extends Button {
 	public PlayButton(Game game) {
 		super(game, myImage, START_X, START_Y);
 	}
-
-	//TODO - change actionPerformed to switchTo(PlayState)
+	
 	@Override
 	public void actionPerformed() {
-		System.out.println("Play button activated!");
-		this.setActive(false);
-
+		((DropThis)this.myGame).startPlayState();
 	}
 
 }

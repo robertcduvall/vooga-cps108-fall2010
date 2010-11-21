@@ -1,6 +1,8 @@
 package vooga.games.grandius.states;
 
+import vooga.engine.control.MouseControl;
 import vooga.engine.core.Game;
+import vooga.engine.event.EventPool;
 import vooga.engine.state.MenuGameState;
 import vooga.games.grandius.buttons.PlayButton;
 import vooga.games.grandius.buttons.QuitButton;
@@ -20,6 +22,8 @@ public class GrandiusMenuState extends MenuGameState {
 	private PlayButton myPlayButton;
 	private QuitButton myQuitButton;
 	private Game myGame;
+	private MouseControl menuControl;
+	private EventPool eventPool;
 	
 	public GrandiusMenuState(Game game) {
 		myGame = game;
@@ -31,6 +35,17 @@ public class GrandiusMenuState extends MenuGameState {
 		this.myQuitButton = new QuitButton(myGame);
 		addButton(myPlayButton);
 		addButton(myQuitButton);
+		eventPool = new EventPool();
+		eventPool.addEvent(myPlayButton);
+		eventPool.addEvent(myQuitButton);
 	}
+	
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+		eventPool.checkEvents();
+	}
+	
+
 	
 }
