@@ -25,8 +25,6 @@ import vooga.games.cyberion.states.LevelCompleteState;
 import vooga.games.cyberion.states.MenuState;
 import vooga.games.cyberion.states.PlayState;
 
-
-
 /**
  * Cyberion shooting game
  * 
@@ -82,7 +80,8 @@ public class DropThis extends Game {
 		gameStates.add(myLevelCompleteState = new LevelCompleteState());
 		gameStates.add(myGameCompleteState = new GameCompleteState());
 		gameStates.add(myGameOverState = new GameOverState());
-		gameStates.add(myPauseState = new PauseGameState(myPlayState, "Paused"));
+		gameStates
+				.add(myPauseState = new PauseGameState(myPlayState, "Paused"));
 		GameState[] gameStatesArray = (GameState[]) gameStates.toArray();
 
 		stateManager.addGameState(gameStatesArray);
@@ -102,12 +101,12 @@ public class DropThis extends Game {
 	}
 
 	// renders active sprites
-//	public void render(Graphics2D g) {
-//		g.setColor(Color.BLACK);
-//		g.fillRect(0, 0, getWidth(), getHeight());
-//		gameStateManager.render(g);
-//		myPlayfield.render(g);
-//	}
+	// public void render(Graphics2D g) {
+	// g.setColor(Color.BLACK);
+	// g.fillRect(0, 0, getWidth(), getHeight());
+	// gameStateManager.render(g);
+	// myPlayfield.render(g);
+	// }
 
 	public static void main(String[] args) {
 		launch(new DropThis());
