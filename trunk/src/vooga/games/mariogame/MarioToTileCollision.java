@@ -1,10 +1,15 @@
 package vooga.games.mariogame;
 
+import vooga.engine.core.Game;
 import vooga.games.mariogame.tiles.Tile;
 
 import com.golden.gamedev.object.Sprite;
 
 public class MarioToTileCollision extends BetterCollisionGroup {
+	
+	public MarioToTileCollision(Game game) {
+		
+	}
 
 	@Override
 	public void collided(Sprite mario, Sprite tile) {
