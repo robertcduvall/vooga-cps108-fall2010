@@ -55,7 +55,7 @@ public class EnemySprite extends BetterSprite {
 		if(hitPoints <= 0) {
 			setActive(false);
 		}
-        if (timer.action(time))   move();
+ //       if (timer.action(time))   move();
 	}
 	
     /**
