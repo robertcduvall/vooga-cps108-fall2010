@@ -75,12 +75,13 @@ public class PlayState extends GameState {
 		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();
+		newField.addOverlayTracker(newField.getOverlayTracker());
 		//TODO create PlayField from level files
 		this.addUpdatePlayField(newField);
 		this.addRenderPlayField(newField);
 		//this.addUpdatePlayField(testField);
 		//this.addRenderPlayField(testField);
-		initOverlays();
+		//initOverlays();
 	}
 	
 	@Override
