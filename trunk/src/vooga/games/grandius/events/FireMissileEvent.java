@@ -2,23 +2,20 @@ package vooga.games.grandius.events;
 
 import java.awt.event.KeyEvent;
 
-import vooga.engine.event.IEventHandler;
-import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
 import vooga.games.grandius.states.PlayState;
 import vooga.games.grandius.weapons.Missile;
 
-public class FireMissileEvent implements IEventHandler {
-	private DropThis grandius; 
-	private Player player;
-	private PlayState playState;
+/**
+ * @author bhawana
+ *
+ */
+public class FireMissileEvent extends FiringEvent {
 	private boolean missileActive;
 	
 	public FireMissileEvent(DropThis grandius, Player player, PlayState playState){
-		this.grandius = grandius;
-		this.player = player;
-		this.playState = playState;
+		super(grandius, player, playState);
 		missileActive = false;
 	}
 	
@@ -37,9 +34,9 @@ public class FireMissileEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
-		Missile missile = new Missile(player.getX()+player.getWidth(),player.getY());
-		playState.getGroup("Missile").add(missile);
-		grandius.playSound(Resources.getSound("missileSound"));
+		Missile missile = new Missile(getXLocation(), getYLocation());
+		getGroup("Missile").add(missile);
+		playExplosionSound("missileSound");
 	}
 
 }
