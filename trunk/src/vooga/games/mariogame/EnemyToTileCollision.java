@@ -1,9 +1,15 @@
 package vooga.games.mariogame;
 
+import vooga.engine.core.Game;
+
 import com.golden.gamedev.object.Sprite;
 
 public class EnemyToTileCollision extends BetterCollisionGroup {
 
+	public EnemyToTileCollision(Game game) {
+		super();
+	}
+	
 	@Override
 	public void collided(Sprite enemy, Sprite tile) {
 		int side = getCollisionSide(enemy, tile);

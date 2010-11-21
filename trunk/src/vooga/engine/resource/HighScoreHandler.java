@@ -39,16 +39,8 @@ public class HighScoreHandler {
 		times = new Long[maxScores];
 		try {
 			initSQL();
-		} catch (SQLiteException e) {
-			System.out
-					.println("Error initializing database or database already exists.");
-			// e.printStackTrace();
-		}
-
-		try {
 			populateLists();
 		} catch (SQLiteException e) {
-			// e.printStackTrace();
 		}
 	}
 

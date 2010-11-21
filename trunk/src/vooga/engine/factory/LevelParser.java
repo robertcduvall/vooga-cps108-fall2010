@@ -94,12 +94,6 @@ public class LevelParser implements LevelFactory{
 			processRules(listOfRuleGroups);
 		}
 
-		Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
-		if(collisionGroupsSection!=null) {
-			NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
-			processCollisionGroups(listOfCollisionGroups);
-		}
-
 		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("Backgrounds").item(0);
 		if(backgroundGroupsSection!=null) {
 			NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
@@ -117,6 +111,12 @@ public class LevelParser implements LevelFactory{
 		{
 			NodeList listOfMaps = mapSection.getChildNodes();
 			processMap(listOfMaps);
+		}
+		
+		Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
+		if(collisionGroupsSection!=null) {
+			NodeList listOfCollisionGroups = collisionGroupsSection.getChildNodes();
+			processCollisionGroups(listOfCollisionGroups);
 		}
 		
 
