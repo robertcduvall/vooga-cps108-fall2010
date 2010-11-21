@@ -91,9 +91,6 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 			{
 				rule.enforce(obedients);
 			}
-
-			myRuleBook.get(key).enforce();
-
 		}
 	}
 
