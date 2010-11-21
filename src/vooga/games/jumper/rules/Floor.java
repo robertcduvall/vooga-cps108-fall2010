@@ -6,6 +6,11 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.level.Rule;
 import vooga.engine.resource.Resources;
 
+/**
+ * Make sure the doodle doesn't fall out of the screen from below
+ * 
+ * @author Brian
+ */
 public class Floor implements Rule{
 
 	private int FLOOR_HEIGHT = Resources.getInt("gameHeight") - Resources.getInt("distanceFromFloorToBottom");

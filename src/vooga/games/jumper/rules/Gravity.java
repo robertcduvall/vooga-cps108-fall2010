@@ -5,6 +5,11 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.level.Rule;
 
+/**
+ * Apply gravity to the doodle
+ * 
+ * @author Brian
+ */
 public class Gravity implements Rule{
 
 	@Override
