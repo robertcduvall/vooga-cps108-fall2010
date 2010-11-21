@@ -1,9 +1,11 @@
 package vooga.engine.core;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -41,9 +43,9 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private Map<Rule, SpriteGroup[]> myRuleMap; 
 	private EventPool myEventPool;	
 	private String myMusic;
-	private Collection<Background> myBackgrounds;
-	private Collection<String> myMusics;
-	private Map<String, Control> myControls;
+	private List<Background> myBackgrounds;
+	private List<String> myMusics;
+	private List<Control> myControls;
 	private OverlayTracker myTracker;
 
 
@@ -55,14 +57,13 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		super();
 		myRuleBook = new HashMap<String, Rule>();
 		myRuleMap = new HashMap<Rule, SpriteGroup[]>();
-		myControls = new HashMap<String, Control>();
+		myControls = new ArrayList<Control>();
 		myEventPool = new EventPool();
 		myMusics = new ArrayList<String>();
 		myBackgrounds = new ArrayList<Background>();
 	}
 
-
-
+	
 	@Override
 	public void update(long elapsedTime)
 	{
@@ -99,8 +100,8 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 
 
 	private void updateControls(){
-		for(String key : myControls.keySet()){
-			myControls.get(key).update();
+		for(Control control: myControls){
+			control.update();
 		}
 	}
 
@@ -141,7 +142,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 * Returns the desired music based on the index the user provides.
 	 */
 	public String getMusic(int index){
-		return ((ArrayList<String>) myMusics).get(index);
+		return myMusics.get(index);
 	}
 
 
@@ -164,14 +165,14 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 * Returns the desired background based on the index the user provides.
 	 */
 	public Background getBackground(int index){
-		return ((ArrayList<Background>) myBackgrounds).get(index);
+		return myBackgrounds.get(index);
 	}
 
 	/**
 	 * Makes the background given by the index active in the current playfield.
 	 */
 	public void setBackground(int index){
-		super.setBackground(((ArrayList<Background>)myBackgrounds).get(index));
+		super.setBackground(myBackgrounds.get(index));
 	}
 
 	/**
@@ -179,17 +180,8 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	 * playfield is updated.
 	 * @param control Control to be updated with the PlayField
 	 */
-	public void addControl(String key, Control control){
-		myControls.put(key, control);
-	}
-	
-	/**
-	 * Add a control which will be updated everytime the 
-	 * playfield is updated.
-	 * @param control Control to be updated with the PlayField
-	 */
-	public Control getControl(String key){
-		return myControls.get(key);
+	public void addControl(Control control){
+		myControls.add(control);
 	}
 	
 	/**

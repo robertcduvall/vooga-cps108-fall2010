@@ -1,6 +1,5 @@
 package vooga.games.mariogame;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 
@@ -13,6 +12,7 @@ import vooga.engine.state.GameState;
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class GameEndState extends GameState {
 	private HighScoreHandler myHighScores;
 //	private GameFontManager myFontManager;
 	private OverlayString[] myHighScoreOverlays;
-	private Long myScore;
+	private Long myScore = 0L;
 	private SpriteGroup myOverlays;
 
 	private static final int NUM_SCORES = 5;
@@ -56,8 +56,8 @@ public class GameEndState extends GameState {
 		// The gameOver playfield should be constructed from an .xml
 		// file using the LevelParser.
 		
-		
-		addPlayField(playfield);
+		super(playfield);
+//		addPlayField(playfield);
 //		myBackground = new ImageBackground(backgroundImage);
 //		myFontManager = fontManager;
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
@@ -65,7 +65,6 @@ public class GameEndState extends GameState {
 				.getString("highscorefile")));
 
 		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
-		
 //		OverlayCreator overlayCreator = new OverlayCreator();
 //		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml");
 //		myOverlays = overlayTracker.getOverlayGroup("GameEndGroup");
@@ -118,20 +117,13 @@ public class GameEndState extends GameState {
 		onEnter();
 		super.activate();
 	};
-
-	/**
-	 * Renders the background, message, and overlay within the game state.
-	 */
-
+	
+	@Override
 	public void render(Graphics2D g) {
-		myBackground.render(g);
-		for (OverlayString os : myHighScoreOverlays) {
-			os.setColor(Color.white);
-			os.render(g);
-		}
+		// TODO Auto-generated method stub
 		super.render(g);
-		myOverlays.render(g);
 	}
+
 
 	public void setScore(Long score) {
 		myScore = score;
