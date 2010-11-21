@@ -8,19 +8,19 @@ import vooga.games.tron.players.TronPlayer;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
-public class Player1AndBonusCollision extends BasicCollisionGroup {
-	TronPlayer player1;
+public class PlayerAndBonusCollision extends BasicCollisionGroup {
+	//TronPlayer player1;
 	
-	public Player1AndBonusCollision(TronPlayer player1) {
+	public PlayerAndBonusCollision() {
 		pixelPerfectCollision = true;
-		this.player1=player1;
+		//this.player1=player1;
 	}
 	/**
 	 * determine what happens after the collision
 	 */
     @Override
 	public void collided(Sprite s1, Sprite s2) {
-		player1.setSpeedUp(2);
+		//player1.setSpeedUp(2);
 		
 	}
 	
