@@ -76,11 +76,14 @@ public class LevelParser implements LevelFactory{
 		Element level = (Element) xmlDocument.getFirstChild(); 
 		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
+		OverlayCreator.setGame(currentGame);
 		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
 
 		Node spriteGroupsSection = xmlDocument.getElementsByTagName("SpriteGroups").item(0);
-		NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
-		processSpriteGroups(listOfSpriteGroups);
+		if(spriteGroupsSection !=null){
+			NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
+			processSpriteGroups(listOfSpriteGroups);
+		}
 
 //		Node eventGroupsSection = xmlDocument.getElementsByTagName("Events").item(0);
 //		if(eventGroupsSection!=null) {
@@ -107,7 +110,7 @@ public class LevelParser implements LevelFactory{
 		}
 
 		Node mapSection = xmlDocument.getElementsByTagName("Map").item(0);
-		if(mapSection.hasChildNodes())
+		if(mapSection != null && mapSection.hasChildNodes())
 		{
 			NodeList listOfMaps = mapSection.getChildNodes();
 			processMap(listOfMaps);
@@ -200,6 +203,9 @@ public class LevelParser implements LevelFactory{
 	 */
 	private void processSpriteGroups(NodeList spriteGroupsList) {
 
+		if(spriteGroupsList == null){
+			return;
+		}
 		for(int i = 0; i < spriteGroupsList.getLength(); i++)
 		{
 			if (isElement(spriteGroupsList.item(i)))

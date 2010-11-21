@@ -1,15 +1,12 @@
 package vooga.games.towerdefense;
 
 import vooga.engine.core.Game;
-import vooga.engine.core.PlayField;
-import vooga.engine.factory.LevelParser;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.towerdefense.states.PlayState;
-
-import com.golden.gamedev.object.SpriteGroup;
 
 
 
@@ -28,6 +25,7 @@ public class DropThis extends Game {
 
 	private int gameWidth;
 	private int gameHeight;
+	private LevelManager levelManager;
 	
 
 //	private PlayerCursorControl playerCursorControl, menuPlayerCursorControl,
@@ -64,27 +62,34 @@ public class DropThis extends Game {
 		gameHeight = Resources.getInt("gameHeight");
 	}
 	
-	public PlayField initLevel(String path) {
-		LevelParser handler = new LevelParser();
-		return handler.getPlayfield(path, this);
-	}
-	
 	@Override
 	public void initGameStates(){
-		OverlayTracker tracker = initOverlays();
+		//OverlayTracker tracker = initOverlays();
+		initLevelManager();
 		super.initGameStates();
 		
 		//TODO uncomment once prolog error is found and fixed
 		//GameState mainMenu = addGameState(new MainMenu());
-		GameState play = addGameState(new PlayState(tracker));
+		GameState play = addGameState(new PlayState(levelManager));
 		//play.addPlayField(initLevel("/resources/level/level.xml"));
 		getGameStateManager().switchTo(play);
 	}
 
-private OverlayTracker initOverlays() {
+/*private OverlayTracker initOverlays() {
 		OverlayCreator.setGame(this);
 		return OverlayCreator.createOverlays(Resources.getString("overlayPath"));
-	}
+	}*/
+
+/**
+ * Initialize the LevelManager for TowerDefence.
+ */
+private void initLevelManager() {
+	 levelManager = new LevelManager(this);
+	 String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+	 String levelNamesFile = Resources.getString("levelNamesFile");
+	 levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
+}
+
 
 //
 //	@Override
