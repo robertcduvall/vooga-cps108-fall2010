@@ -52,7 +52,7 @@ public class MouseControl extends Control{
 	public void update(){
 		for (int key : methodMap.keySet())
 		{
-			if (myGame.bsInput.isMouseDown(key))
+			if (myGame.bsInput.isMousePressed(key))
 			{
 				super.update(key);
 			}
