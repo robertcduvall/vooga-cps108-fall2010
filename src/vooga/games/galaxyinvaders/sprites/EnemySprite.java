@@ -33,13 +33,15 @@ public class EnemySprite extends BetterSprite {
 	 * @param sprite see GameEntitySprite
 	 * @param list the path which this enemy is going to follow
 	 */
-	public EnemySprite(String name, BetterSprite sprite, ArrayList<Point> pathmap, int timerNum) {
-		super(name, sprite);
-		hitPoints = DEFAULT_HP;
-		timer = new Timer(timerNum);
-		pathNum = 0;
-		path = pathmap;
-	}
+//	public EnemySprite(String name, BetterSprite sprite, ArrayList<Point> pathmap, int timerNum) {
+//		super(name, sprite);
+//		hitPoints = DEFAULT_HP;
+//		timer = new Timer(timerNum);
+//		pathNum = 0;
+//		path = pathmap;
+//	}
+	
+	
 	
 	/**
 	 * Called every turn by the Game, this method moves the enemy, changes 

@@ -1,27 +1,29 @@
-<Level name="Level1">
+<Level name="Level1" xmloverlaypath="src/vooga/games/galaxyinvaders/resources/overlays.xml">
 
         <SpriteGroups>
                 <SpriteGroup name="player">
-                        <Ship name="ship" x="310" y="650" vx="0" vy="0" q="1">
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.Ship" random="false" x="310" y="650" vx="0" vy="0" quantity="1">
                                 <Visual name="ship" />
-                        </Ship>
+                                <Stat name="livesStat" />
+                				<Stat name="scoreStat" />
+                        </Sprite>
                 </SpriteGroup>
                 <SpriteGroup name="enemies">
-                        <EnemySprite name="enemySprite" xRange="300" yRange="400" vxRange="0" vyRange="0" quantity="20">
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="100" y="100" vx="0" vy="0" quantity="1">
                                 <Visual name="enemy1" />
                                 <Visual name="enemy1damage" />
-                        </EnemySprite>
+                        </Sprite>
                 </SpriteGroup>
                 <SpriteGroup name="blockades">
-                		<BlockadeSprite name="" x="100" y="650" q="1">
+                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="100" y="650" vx="0" vy="0" quantity="1">
                 			<Visual name="barrier" />
-                		</BlockadeSprite>
-                		<BlockadeSprite name="" x="300" y="650" q="1">
+                		</Sprite>
+                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="300" y="650" vx="0" vy="0" quantity="1">
                 			<Visual name="barrier" />
-                		</BlockadeSprite>
-                		<BlockadeSprite name="" x="500" y="650" q="1">
+                		</Sprite>
+                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="500" y="650" vx="0" vy="0" quantity="1">
                 			<Visual name="barrier" />
-                		</BlockadeSprite>
+                		</Sprite>
                 </SpriteGroup>
                 <SpriteGroup name="items">
                 </SpriteGroup>
@@ -51,6 +53,10 @@
                 </CollisionGroup>
         </CollisionGroups>
         
+        <Rules>
+        	
+		</Rules>
+
         <Background>
                <Visual name ="background" />
         </Background>
@@ -58,4 +64,8 @@
         <Music>
 
         </Music>
+        
+        <Map>
+        
+        </Map>
 </Level>

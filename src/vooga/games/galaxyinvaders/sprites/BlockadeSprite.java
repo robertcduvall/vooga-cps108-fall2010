@@ -24,10 +24,10 @@ public class BlockadeSprite extends BetterSprite {
 	 * @param name see GameEntitySprite
 	 * @param spr see GameEntitySprite
 	 */
-	public BlockadeSprite(String name, BetterSprite spr) {
-		super(name, spr);
-		hitPoints = DEFAULT_HP;
-	}
+//	public BlockadeSprite(String name, BetterSprite spr) {
+//		super(name, spr);
+//		hitPoints = DEFAULT_HP;
+//	}
 
 	/**
 	 * Update method, called by Game every turn. If hitPoints are zero, the blockade disappears

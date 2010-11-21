@@ -1,10 +1,7 @@
 package vooga.games.galaxyinvaders.collisions;
 
-import vooga.engine.core.Game;
-import vooga.games.galaxyinvaders.DropThis;
-import vooga.games.galaxyinvaders.sprites.EnemySprite;
-import vooga.games.galaxyinvaders.states.GalaxyGameState;
 
+import vooga.games.galaxyinvaders.sprites.EnemySprite;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
@@ -17,16 +14,11 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	
-	private DropThis game;
-	private GalaxyGameState playGameState;
-	
 	private static final int ENEMY_DAMAGE_TAKEN = 1;
 	private static final int SCORE_PER_HIT = 10;
 	
-	public TorpedoEnemyCollider(DropThis g) {
+	public TorpedoEnemyCollider() {
 		super();
-		game = g;
-		playGameState = game.getPlayGameState();
 		pixelPerfectCollision = true;
 	}
 
@@ -34,7 +26,8 @@ public class TorpedoEnemyCollider extends BasicCollisionGroup {
 	public void collided(Sprite s1, Sprite s2) {
 		s1.setActive(false);
 		((EnemySprite) s2).decrementHitPoints(ENEMY_DAMAGE_TAKEN);
-		playGameState.changePlayerScore(SCORE_PER_HIT);
+//		Integer score = (Integer)((EnemySprite) s2).getStat("score").getStat();
+//		score += SCORE_PER_HIT;
 	}
 	
 

@@ -3,10 +3,14 @@ package vooga.games.galaxyinvaders;
 import java.awt.Color;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
+import vooga.engine.factory.LevelManager;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.PauseGameState;
 import vooga.games.galaxyinvaders.states.GalaxyGameState;
+import vooga.games.galaxyinvaders.states.PlayState;
+
 import com.golden.gamedev.object.SpriteGroup;
 
 
@@ -20,61 +24,36 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class DropThis extends Game {
 
-	//private Background background;
+	private LevelManager levelManager;
 	private PlayField playfield;
 	
-	private GalaxyGameState play;
-	private PauseGameState pause;
+	private GameState play;
+	private GameState pause;
 	private GameState gameOver;
-
-	private SpriteGroup pauseMenu;
-	private SpriteGroup gameOverMenu;
 
 	/**
 	 * Method inherited from Game. Initializes the game state and all the sprites in the game.
 	 */
 	public void initResources() {
 		super.initResources();
-		playfield = new PlayField();	
-		playfield.addColorBackground(Color.BLACK);
+		initLevelManager();
+		playfield = levelManager.loadFirstLevel();
+		play = new PlayState(this, playfield);
+		pause = new PauseGameState(play, Resources.getString("pauseStateText"), Color.WHITE);
+		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.WHITE);
+		stateManager.addGameState(play, pause, gameOver);
 		stateManager.switchTo(pause);
 	}
 
-	public void initGameStates(){
-		super.initGameStates();
-		initializeGameStates();
+	private void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
 	}
 
-	private void initializeGameStates() {
-		pauseMenu = new SpriteGroup("pauseMenu");
-		gameOverMenu = new SpriteGroup("gameOverMenu");
-		play = new GalaxyGameState(this, playfield);
-		pause = new PauseGameState(play, "Welcome to GalaxyInvaders!\n" +
-										"To move, use the left and right arrow keys\n" +
-										"To fire, use the space bar\n" +
-										"To play, or pause and return to the menu, press P", Color.WHITE);
-		gameOver = new BasicTextGameState("Game Over!\n" +
-										"To restart the game, press R", Color.WHITE);
-		stateManager.addGameState(play, pause, gameOver);
-		//initializeMenus(pause, pauseMenu, "pauseMenu");
-		//initializeMenus(gameOver, gameOverMenu, "gameOverMenu");
-	}
-	
-	/*private void initializeMenus(GameState state, SpriteGroup menu, String overlayGroup){
-		//TODO:Re-work GameStates to take advantage of changes
-		state.addGroup(menu);
-		SpriteGroup strings = overlayTracker.getOverlayGroup(overlayGroup);
-		Sprite[] lines = strings.getSprites();
-		int size = strings.getSize();
-		for (int i = 0; i<size; i++)
-		{
-			OverlayString oString = (OverlayString) lines[i];
-			oString.setColor(Color.WHITE);
-			menu.add(oString);
-		}			
-	}*/
 
-	public GalaxyGameState getPlayGameState(){
+	public GameState getPlayGameState(){
 		return play;
 	}
 	

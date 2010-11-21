@@ -1,10 +1,8 @@
-#There are 3 levels
-
 #Level1
-level1.txt
+level1.xml
 
 #Level2
-level2.txt
+level2.xml
 
 #Level3
-level3.txt
+level3.xml

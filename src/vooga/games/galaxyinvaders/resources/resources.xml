@@ -22,6 +22,8 @@
 		<String name="levelNamesFile" value="LevelNames.txt" />
 		<String name="Level1" value="levels/level1.xml" />
 		<String name="overlays" value="src/vooga/games/galaxyinvaders/resources/overlays.xml" />
+		<String name="pauseStateText" value="Welcome to GalaxyInvaders!\n To move, use the left and right arrow keys\n To fire, use the space bar\n To play, or pause and return to the menu, press P" />
+		<String name="gameOverText" value="Game Over!\n To restart the game, press R" />
 	</Strings>
 
 	<Integers>
