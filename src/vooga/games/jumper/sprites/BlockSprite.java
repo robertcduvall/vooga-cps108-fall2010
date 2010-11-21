@@ -32,6 +32,10 @@ public abstract class BlockSprite extends BetterSprite {
 		setSpeed(velocityX, velocityY);
 		
 	}
+
+	public BlockSprite(){
+		
+	}
 	
 	public void setBlockType(String blockType) {
 		myBlockType = blockType;
