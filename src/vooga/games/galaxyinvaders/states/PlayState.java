@@ -43,7 +43,7 @@ public class PlayState extends GameState{
 		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
 	}
 	
-	private void clearEnemies()
+	public void clearEnemies()
 	{
 		SpriteGroup enemies = this.getGroup("enemies");
 		enemies.clear();

@@ -129,7 +129,7 @@ public class GalaxyGameState extends GameState{
 		torpedoCollider = new TorpedoEnemyCollider(game);
 		torpedoPlayerCollider = new TorpedoPlayerCollider(game);
 		itemPlayerCollider = new ItemPlayerCollider(game);
-		torpedoBlockCollider = new TorpedoBlockCollider();
+		torpedoBlockCollider = new TorpedoBlockCollider(game);
 	}
 	
 	private void initBlocks() {
