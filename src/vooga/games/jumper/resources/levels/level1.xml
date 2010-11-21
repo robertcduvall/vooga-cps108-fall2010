@@ -30,6 +30,12 @@
 		<Rule name="Floor" class="vooga.games.jumper.rules.Floor">
 			<SpriteGroup name="doodleSprite" />
 		</Rule>
+		<Rule name="RightWall" class="vooga.games.jumper.rules.RightWall">
+			<SpriteGroup name="doodleSprite" />
+		</Rule>
+		<Rule name="LeftWall" class="vooga.games.jumper.rules.LeftWall">
+			<SpriteGroup name="doodleSprite" />
+		</Rule>
 		
 	</Rules>
 

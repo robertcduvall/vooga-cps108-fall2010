@@ -19,7 +19,7 @@ public class DoodleSprite extends BetterSprite {
 	private double X_DECCELERATION = 1;
 	private double GRAVITY = 0.1;
 	private long ACCELERATION_TIME = 1;
-	private double MAX_SPEED = 1;
+	private double MAX_SPEED = 2.0;
 	private double jetpackMultiplier = 3;
 
 	private int mySpriteWidth = getWidth();
@@ -57,7 +57,6 @@ public class DoodleSprite extends BetterSprite {
 	 */
 	public void update(long elapsedTime){        
 		move(getHorizontalSpeed(), getVerticalSpeed());
-		moveThroughWall();
 		deccelerate();
 	}
 
@@ -71,18 +70,6 @@ public class DoodleSprite extends BetterSprite {
 			setHorizontalSpeed(getHorizontalSpeed() + X_DECCELERATION);
 		if (getHorizontalSpeed() > -1 || getHorizontalSpeed() < 1)
 			setHorizontalSpeed(0);
-	}
-
-	/**
-	 * Allow doodle to move through wall to the other side
-	 */
-	public void moveThroughWall(){
-		if (getX() + mySpriteWidth > gameWidth){
-			setX(0);
-		}
-		if (getX() < 0){
-			setX(gameWidth - mySpriteWidth);
-		}
 	}
 	
 	public void moveLeft(){	
