@@ -17,6 +17,7 @@ import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
 import vooga.games.grandius.events.FireMissileEvent;
 import vooga.games.grandius.events.FireVerticalEvent;
+import vooga.games.grandius.events.LevelCompleteEvent;
 import vooga.games.grandius.events.ZipsterFireEvent;
 
 public class PlayState extends GameState {
@@ -28,7 +29,16 @@ public class PlayState extends GameState {
 	private LevelManager myLevelManager;
 	private KeyboardControl playerControl;
 	private static final String PLAYER_CLASS = Resources.getString("playerClass");
+	PlayField playField;
 	
+	public PlayField getField() {
+		return playField;
+	}
+
+	public void setField(PlayField newField) {
+		this.playField = newField;
+	}
+
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
 		myGame = game;
@@ -36,13 +46,13 @@ public class PlayState extends GameState {
 	
 	@Override
 	public void initialize() {
-		PlayField newField = myLevelManager.loadFirstLevel();
-		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
+		playField = myLevelManager.loadFirstLevel();
+		player = (Player) playField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();
-		eventPool.addEvent(new ZipsterFireEvent(myGame, player, newField.getGroup("enemyGroup"), this));
-		this.addUpdatePlayField(newField);
-		this.addRenderPlayField(newField);
+		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
+		this.addUpdatePlayField(playField);
+		this.addRenderPlayField(playField);
 	}
 	
 	@Override
@@ -65,6 +75,8 @@ public class PlayState extends GameState {
 		eventPool.addEvent(new FireVerticalEvent(myGame, player, this));
 		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
+		//TODO
+		eventPool.addEvent(new LevelCompleteEvent(this));
 	}
 		
 	/**
@@ -105,6 +117,10 @@ public class PlayState extends GameState {
 	 */
 	public Player getPlayer() {
 		return player;
+	}
+
+	public LevelManager getLevelManager() {
+		return myLevelManager;
 	}
 		
 }
