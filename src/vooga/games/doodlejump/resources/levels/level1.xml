@@ -3,31 +3,31 @@
 
 	<SpriteGroups>
 		<SpriteGroup name="doodleGroup">
-			<RegularSprite name="doodleSprite" x="400" y="300" vx="0"
+			<Sprite name="doodleSprite" x="400" y="300" vx="0"
 				vy="0" quantity="1">
 				<Visual name="doodle" />
-			</RegularSprite>
+			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="ballGroup">
-			<RegularSprite name="ballSprite" x="0" y="0" vx="0" vy="0"
+			<Sprite name="ballSprite" x="0" y="0" vx="0" vy="0"
 				quantity="0">
 				<Visual name="ball" />
-			</RegularSprite>
+			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="platformGroup">
-			<RegularSprite name="greenPlatform" x="0" y="0" vx="0"
+			<Sprite name="greenPlatform" x="0" y="0" vx="0"
 				vy="0" quantity="0">
 				<Visual name="greenPlatform" />
-			</RegularSprite>
+			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="monsterGroup">
-			<RegularSprite name="greenPlatform" x="0" y="0" vx="0"
+			<Sprite name="greenPlatform" x="0" y="0" vx="0"
 				vy="0" quantity="0">
 				<Visual name="greenPlatform" />
-			</RegularSprite>
+			</Sprite>
 		</SpriteGroup>
 
 	</SpriteGroups>

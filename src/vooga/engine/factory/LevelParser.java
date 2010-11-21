@@ -244,6 +244,8 @@ public class LevelParser implements LevelFactory{
 				Element currentElement = (Element) spritesList.item(i);
 				if (currentElement.getTagName().equals("Sprite")) {
 					String className = currentElement.getAttribute("class");
+					System.out.println(className);
+					System.out.println(spritesList);
 					try {
 						Class userSprite = Class.forName(className);
 						Constructor classConstructor = userSprite.getConstructor();
