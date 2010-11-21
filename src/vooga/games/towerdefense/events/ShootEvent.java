@@ -1,5 +1,8 @@
 package vooga.games.towerdefense.events;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.DropThis;
@@ -9,34 +12,33 @@ import vooga.games.towerdefense.actors.enemies.Enemy;
 import vooga.games.towerdefense.actors.towers.ShootingTower;
 
 public class ShootEvent implements IEventHandler{
-	private ShootingTower tower;
 	private Player player;
+	private EnemyHitEvent enemyHit;
+	private Queue<ShootingTower> shootQueue = new LinkedList<ShootingTower>();
 	
-	public ShootEvent(Player p)
+	public ShootEvent(Player p, EnemyHitEvent enemyHit)
 	{
 		player = p;
+		this.enemyHit = enemyHit;
 	}
 	
-	public void setTower(ShootingTower t){
-		tower = t;
-	}
-	
-	@Override
 	public boolean isTriggered() {
-		// TODO Auto-generated method stub
-		return false;
+		return !shootQueue.isEmpty();
 	}
 
+	public void addTower(ShootingTower tower){
+		shootQueue.add(tower);
+	}	
+	
 	@Override
 	public void actionPerformed() {
-		if(tower.canShoot()){
+		for(ShootingTower tower: shootQueue){
 			Enemy target = tower.getTarget();
-			target.gotHit();
+			enemyHit.addEnemy(target);
 			tower.resetShot();
-			player.addMoney(target.getMoneyPerHit());
-			player.addScore(target.getScorePerHit());
 			//TowerShot shot = new TowerShot(Resources.getImage("towerShot"),getX(), getY(), target.getX(), target.getY(), shotSpeed);
 		}
+		shootQueue.clear();
 	}
 	
 	
