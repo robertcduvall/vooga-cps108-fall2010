@@ -1,4 +1,4 @@
-package vooga.games.mariogame;
+package vooga.games.mariogame.sprites;
 
 
 import vooga.engine.core.BetterSprite;

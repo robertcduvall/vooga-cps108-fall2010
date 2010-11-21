@@ -1,4 +1,4 @@
-package vooga.games.mariogame;
+package vooga.games.mariogame.collisions;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;

@@ -7,7 +7,7 @@
 	<SpriteGroups>
 		<SpriteGroup name="marioGroup">
 			<Sprite random="false" x="30" y="400" vx="0" vy="0" quantity="1"
-				class="vooga.games.mariogame.MarioSprite">
+				class="vooga.games.mariogame.sprites.MarioSprite">
 				<Visual name="marioMovement" />
 			</Sprite>
 		</SpriteGroup>
@@ -15,28 +15,37 @@
 		<SpriteGroup name="goombaGroup">
 			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50"
 				vxMin=".01" vyMin=".1" vxMax=".01" vyMax=".1" quantity="3"
-				class="vooga.games.mariogame.Enemy">
+				class="vooga.games.mariogame.sprites.Enemy">
 				<Visual name="Goomba" />
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
 	<CollisionGroups>
-		<CollisionGroup subclass="vooga.games.mariogame.MarioToEnemyCollision">
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.MarioToEnemyCollision">
 			<SpriteGroup name="marioGroup" />
 			<SpriteGroup name="goombaGroup" />
 		</CollisionGroup>
 		
-		<CollisionGroup subclass="vooga.games.mariogame.MarioToTileCollision">
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.MarioToTileCollision">
 			<SpriteGroup name="marioGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
 		
-		<CollisionGroup subclass="vooga.games.mariogame.EnemyToTileCollision">
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.EnemyToTileCollision">
 			<SpriteGroup name="goombaGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
 	</CollisionGroups>
+	
+	<!--  
+	<Rules>
+        <Rule name="Gravity" class="vooga.games.mariogame.rule.Gravity">
+            <SpriteGroup name="marioGroup" />
+            <SpriteGroup name="goombaGroup" />
+        </Rule>
+	</Rules>
+	-->
 
 	<Map>
 		<MapGroup name="Map0">
