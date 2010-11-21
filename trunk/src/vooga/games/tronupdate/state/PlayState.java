@@ -4,6 +4,7 @@ package vooga.games.tronupdate.state;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 
@@ -27,9 +28,13 @@ public class PlayState extends GameState{
 	private TronPlayer secondPlayer;
 	private GridSpace gridSpace;	
 	private Control firstPlayerControl;
-	private static final int GRID_WIDTH=Resources.getInt("width")/Resources.getInt("playerimagewidth");
-	private static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
-	private static final String PLAYER_CLASS="vooga.games.tronupdate.items.TronPlayer";
+	private BetterSprite[][] firstPlayerBlocks;
+	private BetterSprite[][] secondPlayerBlocks;
+	
+	public static final int GRID_WIDTH=Resources.getInt("width")/Resources.getInt("playerimagewidth");
+	public static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
+	public static final String PLAYER_CLASS="vooga.games.tronupdate.items.TronPlayer";
+	public static final int PLAYER_IMAGE_WIDTH=Resources.getInt("playerimagewidth");
 	
 	public PlayState(Game game){
 		//super();
@@ -41,7 +46,9 @@ public class PlayState extends GameState{
 	public void initialize() {
 		initializeSprites();
 		initializeControl();
+		initializeBlocks();
 		initializeEnvironment();
+
 		iniEvents();
 		//initializeOverlay();
 	}
@@ -65,7 +72,7 @@ public class PlayState extends GameState{
 
 	private void initializeSprites() {
 	    gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
-		firstPlayer = new TronPlayer(Resources.getImage("lazer1") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,Resources.getInt("playerimagewidth"), "right"); ;
+		firstPlayer = new TronPlayer(Resources.getImage("redlazer") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right"); ;
 		
 	}
 	
@@ -78,8 +85,16 @@ public class PlayState extends GameState{
 		{
 			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
 			playField.addGroup(currentGroup);
+			
 		}
 		playField.getGroup(spritegroups[0]).add(firstPlayer);
+		
+		for(int i=0;i<firstPlayerBlocks.length;i++){
+			for(int j=0;j<firstPlayerBlocks[0].length;j++)
+		playField.getGroup(spritegroups[1]).add(firstPlayerBlocks[i][j]);
+		}
+//		for()
+//			playField.getGroup(spritegroups[1]).add(rightPlayerBlocks);
 	}
 
 	private void initializeControl() {
@@ -107,6 +122,44 @@ public class PlayState extends GameState{
 	//	myField.addControl("player2", playerControl); //??
 	}
 	
+	/**
+	 * fills in the grid spaces behind the players with collidable blocks. 
+	 */
+	public void buildBlockWall(){
+
+		for(int i=0; i<firstPlayerBlocks.length; i++){
+			for(int j=0; j<firstPlayerBlocks[0].length; j++){
+
+				if(firstPlayer.blocks[i][j]==true){
+					firstPlayerBlocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
+				}
+//				if(player2.blocks[i][j]==true){
+//					player2Blocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
+//				}
+			}			
+		}		
+	}
+	/**
+	 * initialize the blocks  
+	 */
+	public void initializeBlocks(){
+		    firstPlayerBlocks=new BetterSprite[GRID_WIDTH+2][GRID_HEIGHT+2];
+			for(int i=0;i<firstPlayer.blocks.length;i++){
+				for(int j=0;j<firstPlayer.blocks[0].length;j++){
+					firstPlayerBlocks[i][j]=new BetterSprite(Resources.getImage("redlazer"),-50,-50);
+					//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
+				}
+			}	
+			
+//			for(int i=0;i<player.blocks.length;i++){
+//				for(int j=0;j<player.blocks[0].length;j++){
+//					rightPlayerBlocks.get(count)[i][j]=new Sprite(getImage("resources/lazer"+count+".png"),-50,-50);
+//					//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
+//				}
+//			}	
+	}
+	
+	
 	public void render(Graphics2D g) {
 		playField.render(g);
 		
@@ -114,8 +167,10 @@ public class PlayState extends GameState{
 	
 	
 	public void update(long elapsedTime) {
-	
+		buildBlockWall();
 		playField.update(elapsedTime);
 		firstPlayerControl.update();
 	}
+	
+	
 }
