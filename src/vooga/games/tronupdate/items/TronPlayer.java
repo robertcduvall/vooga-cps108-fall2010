@@ -2,6 +2,8 @@ package vooga.games.tronupdate.items;
 
 import java.awt.image.BufferedImage;
 
+import com.golden.gamedev.object.AnimatedSprite;
+
 import vooga.engine.core.BetterSprite;
 import vooga.games.tron.GridSpace;
 import vooga.games.tronupdate.util.*;
@@ -151,6 +153,11 @@ public class TronPlayer extends BetterSprite {
 	public void setPlayerRow(int amount){
 		playerCurrentRow=playerCurrentRow+amount;
 	}
+	public void goUp() {
+
+		moveY(0.9);
+	}
+	
 	/**
 	 * routinely update the X-coordinate for the player (keep going in the same X-direction)
 	 * @return
@@ -163,7 +170,7 @@ public class TronPlayer extends BetterSprite {
 					fillBlock(playerCurrentRow,playerCurrentColumn);
 
 			}
-			return getPlayerXPosition();
+			return -playerImageWidth;//getPlayerXPosition();
 		}
 		else if(direction.equals("right")){
 			for(int i=0;i<speedUp;i++){
@@ -171,13 +178,13 @@ public class TronPlayer extends BetterSprite {
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 
 			}
-			return getPlayerXPosition();
+			return playerImageWidth;//getPlayerXPosition();
 		}
 		else if(direction.equals("down")){
-			return getPlayerXPosition();
+			return 0;//getPlayerXPosition();
 		}
 		else{
-			return getPlayerXPosition();
+			return 0;//getPlayerXPosition();
 		}
 	}
 	/**
@@ -186,18 +193,19 @@ public class TronPlayer extends BetterSprite {
 	 */
 	public double playerYDirectionMove(){
 		if(direction.equals("left")){
-			return getPlayerYPosition();
+			return 0;//getPlayerYPosition();
 		}
 		else if(direction.equals("right")){
-			return getPlayerYPosition();
+			return 0;//getPlayerYPosition();
 		}
 		else if(direction.equals("down")){
 			for(int i=0;i<speedUp;i++){
-				setPlayerRow(1);
+				
 				fillBlock(playerCurrentRow,playerCurrentColumn);
+				setPlayerRow(1);
 
 			}
-			return getPlayerYPosition();
+			return playerImageWidth;//getPlayerYPosition();
 		}
 		else{ //up
 			for(int i=0;i<speedUp;i++){
@@ -206,7 +214,7 @@ public class TronPlayer extends BetterSprite {
 					fillBlock(playerCurrentRow,playerCurrentColumn);
 
 			}
-			return getPlayerYPosition();
+			return -playerImageWidth;//getPlayerYPosition();
 		}
 	}
 	/**
@@ -236,4 +244,54 @@ public class TronPlayer extends BetterSprite {
 	public boolean playerInbound(){
 		return playerCurrentRow>=0&&playerCurrentColumn>=0;
 	}
+	
+	public void update(long elapsedTime) {
+		
+		super.update(elapsedTime);
+		move(playerXDirectionMove(),playerYDirectionMove());
+		//buildBlockWall();
+		//setLocation(playerXDirectionMove(),playerYDirectionMove());
+	}
+	/**
+	 * handles down turning
+	 */
+	public void down() {
+		if(!getDirection().equals("down")&&!getDirection().equals("up")){
+			
+			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
+			setDirection("down");
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+		}  		
+	}
+	/**
+	 * handles left turning
+	 */
+	public void left() {
+		if(!getDirection().equals("left")&&!getDirection().equals("right")){
+			setDirection("left");
+			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+		}
+	}
+	/**
+	 * handles right turning
+	 */
+	public void right() {
+		if(!getDirection().equals("right")&&!getDirection().equals("left")){
+			setDirection("right");
+			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+		}
+	}
+	/**
+	 * handles up turning
+	 */
+	public void up() {
+		if(!getDirection().equals("up")&&!getDirection().equals("down")){
+			setDirection("up");
+			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
+			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
+		}
+	}	
+	
 }
