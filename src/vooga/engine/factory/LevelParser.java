@@ -237,7 +237,7 @@ public class LevelParser implements LevelFactory{
 	 * Processes the Sprites within a SpriteGroup.
 	 */
 	public void processSprite(NodeList spritesList, SpriteGroup group) {
-		BetterSprite newSprite = null;
+//		BetterSprite newSprite = null;
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			if (isElement(spritesList.item(i))) {
@@ -245,7 +245,7 @@ public class LevelParser implements LevelFactory{
 				if (currentElement.getTagName().equals("Sprite")) {
 					String className = currentElement.getAttribute("class");
 					try {
-						Class userSprite = Class.forName(className);
+						Class userSprite = Class.forName(className); 
 						Constructor classConstructor = userSprite.getConstructor();
 						
 						if (!Boolean.parseBoolean(currentElement.getAttribute("random"))) {
