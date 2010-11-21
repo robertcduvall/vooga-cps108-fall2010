@@ -7,6 +7,7 @@ import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.widget.Button;
 
+@SuppressWarnings("serial")
 public class PlayButton extends Button {
         private static final int START_X = 220;
         private static final int START_Y = 0;

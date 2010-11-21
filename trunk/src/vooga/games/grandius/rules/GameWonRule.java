@@ -1,6 +1,5 @@
 package vooga.games.grandius.rules;
 
-import vooga.engine.core.BetterSprite;
 import vooga.engine.level.Rule;
 
 import com.golden.gamedev.object.Sprite;

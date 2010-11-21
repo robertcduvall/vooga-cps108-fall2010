@@ -19,8 +19,6 @@ import vooga.games.grandius.states.PlayState;
 import vooga.games.grandius.states.ShoppingLevelState;
 import vooga.games.grandius.states.StartNewLevelState;
 
-import com.golden.gamedev.object.GameFont;
-
 /**
  * Grandius is a side-scrolling space shooter. The object of each level is to
  * destroy all enemies. The player is the red ship on the left side of the

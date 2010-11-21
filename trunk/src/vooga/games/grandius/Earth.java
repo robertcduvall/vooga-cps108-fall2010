@@ -3,6 +3,7 @@ package vooga.games.grandius;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
+@SuppressWarnings("serial")
 public class Earth extends BetterSprite {
 
 	public Earth() {
