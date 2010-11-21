@@ -22,7 +22,6 @@ public abstract class ShootingTower extends Tower{
 	
 
 	private Enemy target;
-	private SpriteGroup potentialTargets;
 	private long timeSinceShot;
 	private SpriteGroup shotGroup;
 	private long shotDelay;
@@ -49,15 +48,6 @@ public abstract class ShootingTower extends Tower{
 	
 	public boolean isValidTarget(Sprite target){
 		return target!=null && target.isActive() && isInRange(target);
-	}
-	
-	private Sprite findTarget(){		
-		for(Sprite sprite: potentialTargets.getSprites()){
-			if(isValidTarget(sprite)){
-				return sprite;
-			}
-		}
-		return null;		
 	}
 	
 	private boolean isInRange(Sprite other){
