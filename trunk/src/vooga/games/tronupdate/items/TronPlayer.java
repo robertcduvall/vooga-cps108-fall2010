@@ -3,6 +3,7 @@ package vooga.games.tronupdate.items;
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.AnimatedSprite;
+import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.BetterSprite;
 import vooga.games.tron.GridSpace;
@@ -18,14 +19,15 @@ public class TronPlayer extends BetterSprite {
 	private String direction;  //left,right,down,up
 	private String initDirection;
 
-	private boolean[][] blocks;
+	public boolean[][] blocks;
 	private GridSpace grid;
+	//private Sprite[][] player1Blocks;
+	
+	private int playerInitialRow;
+	private int playerInitialCol;
 
-	private double playerInitialRow;
-	private double playerInitialCol;
-
-	private double playerCurrentRow;
-	private double playerCurrentColumn;
+	private int playerCurrentRow;
+	private int playerCurrentColumn;
 	private int playerImageWidth;
 	private int speedUp;
 
@@ -40,7 +42,7 @@ public class TronPlayer extends BetterSprite {
 	 * @param playerImageWidth
 	 * @param initialDirection
 	 */
-	public TronPlayer(BufferedImage image,double initialColPosition,double initialRowPosition,GridSpace gridSpace,int playerImageWidth, String initialDirection){
+	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,GridSpace gridSpace,int playerImageWidth, String initialDirection){
 		super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
 
 		playerInitialRow = initialRowPosition;
@@ -52,7 +54,7 @@ public class TronPlayer extends BetterSprite {
 		this.playerImageWidth=playerImageWidth;
 		playerCurrentRow=initialRowPosition;
 		playerCurrentColumn=initialColPosition;
-		blocks=new boolean[(int)gridSpace.getTotalRow()+2][(int)gridSpace.getTotalColumn()+2];
+		blocks=new boolean[gridSpace.getTotalRow()+2][gridSpace.getTotalColumn()+2];
 		speedUp=1;
 		score = 0;
 		grid = gridSpace;
@@ -65,7 +67,7 @@ public class TronPlayer extends BetterSprite {
 		setPlayerRowandCol(playerInitialRow,playerInitialCol);
 		direction = initDirection;
 
-		blocks = new boolean[(int)grid.getTotalRow()+2][(int)grid.getTotalColumn()+2];
+		blocks = new boolean[grid.getTotalRow()+2][grid.getTotalColumn()+2];
 
 	}
 	/**
@@ -74,8 +76,8 @@ public class TronPlayer extends BetterSprite {
 	 * @param col
 	 * 
 	 */
-	public void fillBlock(double row,double col){
-		blocks[(int)row][(int)col]=true;
+	public void fillBlock(int row,int col){
+		blocks[row][col]=true;
 	}
 
 	/**
@@ -111,7 +113,7 @@ public class TronPlayer extends BetterSprite {
 	 * @param currentRow
 	 * @param currentColumn
 	 */
-	public void setPlayerRowandCol(double currentRow,double currentColumn){
+	public void setPlayerRowandCol(int currentRow,int currentColumn){
 		playerCurrentRow=currentRow;
 		playerCurrentColumn=currentColumn;
 		fillBlock(playerCurrentRow,playerCurrentColumn);
@@ -200,9 +202,9 @@ public class TronPlayer extends BetterSprite {
 		}
 		else if(direction.equals("down")){
 			for(int i=0;i<speedUp;i++){
-				
-				fillBlock(playerCurrentRow,playerCurrentColumn);
 				setPlayerRow(1);
+				fillBlock(playerCurrentRow,playerCurrentColumn);
+				
 
 			}
 			return playerImageWidth;//getPlayerYPosition();
@@ -245,21 +247,15 @@ public class TronPlayer extends BetterSprite {
 		return playerCurrentRow>=0&&playerCurrentColumn>=0;
 	}
 	
-	public void update(long elapsedTime) {
-		
-		super.update(elapsedTime);
-		move(playerXDirectionMove(),playerYDirectionMove());
-		//buildBlockWall();
-		//setLocation(playerXDirectionMove(),playerYDirectionMove());
-	}
+
 	/**
 	 * handles down turning
 	 */
 	public void down() {
 		if(!getDirection().equals("down")&&!getDirection().equals("up")){
-			
-			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
 			setDirection("down");
+			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
+			
 			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}  		
 	}
@@ -293,5 +289,14 @@ public class TronPlayer extends BetterSprite {
 			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}
 	}	
+	
+	public void update(long elapsedTime) {
+		
+		super.update(elapsedTime);
+		move(playerXDirectionMove(),playerYDirectionMove());
+		//buildBlockWall();
+		//setLocation(playerXDirectionMove(),playerYDirectionMove());
+	}
+	
 	
 }
