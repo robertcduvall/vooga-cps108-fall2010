@@ -17,15 +17,15 @@ public class DoodleSprite extends BetterSprite {
 
 	private double X_ACCELERATION = 5;
 	private double X_DECCELERATION = 1;
-	private double GRAVITY = 1;
+	private double GRAVITY = 0.1;
 	private long ACCELERATION_TIME = 1;
-	private double MAX_SPEED = 10;
+	private double MAX_SPEED = 1;
 	private double jetpackMultiplier = 3;
 
 	private int mySpriteWidth = getWidth();
 	private int mySpriteHeight = getHeight();
 
-	private BufferedImage doodleLeftImage;
+	private BufferedImage[] doodleLeftImage;
 	private BufferedImage doodleRightImage;
 	private BufferedImage doodleLeftImageJetpack;
 	private BufferedImage doodleRightImageJetpack;
@@ -41,20 +41,22 @@ public class DoodleSprite extends BetterSprite {
 	 * @param right BufferedImage representing Doodle when it is looking right
 	 */
 
-	public DoodleSprite(){
-		
-	}
 	
 	
 	public DoodleSprite(BufferedImage image, Point location, BufferedImage left, BufferedImage right) {
 		super(image, location.x, location.y);  
-		doodleLeftImage = left;
+		doodleLeftImage = new BufferedImage[1];
+		doodleLeftImage[0] = left;
 		doodleRightImage = right;
 		doodleLeftImageJetpack = Resources.getImage("leftJetpackDoodle");
 		doodleRightImageJetpack= Resources.getImage("rightJetpackDoodle");
 
 	}
 
+	public DoodleSprite(){
+		
+	}
+	
 	/**
 	 * Update the doodle
 	 * @param  elapsedTime long time elapsed from last update
@@ -140,6 +142,10 @@ public class DoodleSprite extends BetterSprite {
 	}*/
 	
 	public void moveLeft(){
+		setImages(doodleLeftImage);
+		addHorizontalSpeed(	ACCELERATION_TIME, 
+				jetpackMultiplier*X_ACCELERATION * -1, 
+				jetpackMultiplier*MAX_SPEED * -1);
 		System.out.println("left");
 	}
 	

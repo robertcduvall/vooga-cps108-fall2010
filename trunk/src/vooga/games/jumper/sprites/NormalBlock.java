@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 
 public class NormalBlock extends BlockSprite{
 
+	public NormalBlock(){
+		
+	}
+	
 	public NormalBlock(BufferedImage image, Point location, double velocityX,
 			double velocityY) {
 		super(image, location, velocityX, velocityY);

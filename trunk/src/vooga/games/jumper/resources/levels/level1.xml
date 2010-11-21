@@ -4,10 +4,18 @@
 	<SpriteGroups>
 
 		<SpriteGroup name="doodleSprite">
-			<Sprite class="vooga.games.jumper.sprites.DoodleSprite" random="false" x="400" y="300" vx="0" vy="0" quantity="1">
+			<Sprite class="vooga.games.jumper.sprites.DoodleSprite" random="false" x="400" y="0" vx="0" vy="0" quantity="1">
 				<Visual name = "leftDoodle" />
 			</Sprite>
 		</SpriteGroup>
+		
+		
+		<SpriteGroup name="normalBlock">
+			<Sprite class="vooga.games.jumper.sprites.NormalBlock" random="false" x="400" y="300" vx="0" vy="5" quantity="20">
+				<Visual name="platformGreen"/>
+			</Sprite>
+		</SpriteGroup>
+		
 		
 		
 	</SpriteGroups>
