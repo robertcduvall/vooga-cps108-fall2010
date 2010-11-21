@@ -45,7 +45,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	private String myMusic;
 	private List<Background> myBackgrounds;
 	private List<String> myMusics;
-	private List<Control> myControls;
+	private Map<String, Control> myControls;
 	private OverlayTracker myTracker;
 
 
@@ -57,13 +57,13 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 		super();
 		myRuleBook = new HashMap<String, Rule>();
 		myRuleMap = new HashMap<Rule, SpriteGroup[]>();
-		myControls = new ArrayList<Control>();
+		myControls = new HashMap<String, Control>();
 		myEventPool = new EventPool();
 		myMusics = new ArrayList<String>();
 		myBackgrounds = new ArrayList<Background>();
 	}
 
-	
+
 	@Override
 	public void update(long elapsedTime)
 	{
@@ -100,8 +100,8 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 
 
 	private void updateControls(){
-		for(Control control: myControls){
-			control.update();
+		for(String key : myControls.keySet()){
+			myControls.get(key).update();
 		}
 	}
 
@@ -132,7 +132,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 			this.addGroup(overlayTracker.getOverlayGroup(overlayKey));
 		}
 	}
-	
+
 	public OverlayTracker getOverlayTracker(){
 		return myTracker;
 	}
@@ -178,12 +178,20 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	/**
 	 * Add a control which will be updated everytime the 
 	 * playfield is updated.
+	 * @param key key of the Control object
 	 * @param control Control to be updated with the PlayField
 	 */
-	public void addControl(Control control){
-		myControls.add(control);
+	public void addControl(String key, Control control){
+		myControls.put(key, control);
 	}
-	
+
+	/**
+	 * Get control object.
+	 * @param key is key of the Control object
+	 */
+	public Control getControl(String key){
+		return myControls.get(key);
+	}
 	/**
 	 * Here's to adding a music string
 	 * @param musicname
