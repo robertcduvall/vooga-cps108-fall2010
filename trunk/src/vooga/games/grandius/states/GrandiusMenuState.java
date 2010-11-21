@@ -3,8 +3,8 @@ package vooga.games.grandius.states;
 import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 import vooga.engine.state.MenuGameState;
-import vooga.games.grandius.buttons.PlayButton;
-import vooga.games.grandius.buttons.QuitButton;
+import vooga.games.grandius.sprites.buttons.PlayButton;
+import vooga.games.grandius.sprites.buttons.QuitButton;
 //TODO This GameState should be implemented using a MenuGameState
 //private void buildMenuState() {
 //      menuState = new GameState();

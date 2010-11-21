@@ -3,9 +3,9 @@ package vooga.games.grandius.events;
 import java.awt.event.KeyEvent;
 
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.Player;
+import vooga.games.grandius.sprites.Player;
+import vooga.games.grandius.sprites.weapons.Missile;
 import vooga.games.grandius.states.PlayState;
-import vooga.games.grandius.weapons.Missile;
 
 /**
  * @author bhawana

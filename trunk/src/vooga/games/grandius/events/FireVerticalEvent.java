@@ -6,7 +6,7 @@ import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.Player;
+import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.states.PlayState;
 
 /**

@@ -1,9 +1,9 @@
-package vooga.games.grandius.enemy.boss;
+package vooga.games.grandius.sprites.enemy.boss;
 
 import java.awt.image.BufferedImage;
 
 import vooga.engine.overlay.Stat;
-import vooga.games.grandius.enemy.common.Enemy;
+import vooga.games.grandius.sprites.enemy.common.Enemy;
 
 /**
  * A BossPart is a component of a GradiusBoss that must be destroyed to ultimately

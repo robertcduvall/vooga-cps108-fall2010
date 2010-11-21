@@ -1,4 +1,4 @@
-package vooga.games.grandius.buttons;
+package vooga.games.grandius.sprites.buttons;
 
 import java.awt.image.BufferedImage;
 
@@ -7,20 +7,19 @@ import vooga.engine.resource.Resources;
 import vooga.widget.Button;
 
 @SuppressWarnings("serial")
-public class BuyMissileButton extends Button {
+public class QuitButton extends Button {
 
 	private static final int START_X = 220;
-	private static final int START_Y = 0;
-	private static final BufferedImage myImage = Resources.getImage("buyMissileButtonImage");
+	private static final int START_Y = 200;
+	private static final BufferedImage myImage = Resources.getImage("quitButtonImage");
 	
-	public BuyMissileButton(Game game) {
+	public QuitButton(Game game) {
 		super(game, myImage, START_X, START_Y);
 	}
 
 	@Override
 	public void actionPerformed() {
-		System.out.println("Missile button activated!");
-
+		System.out.println("Quit button activated!");
 	}
 
 }

@@ -1,4 +1,4 @@
-package vooga.games.grandius.enemy.common;
+package vooga.games.grandius.sprites.enemy.common;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
