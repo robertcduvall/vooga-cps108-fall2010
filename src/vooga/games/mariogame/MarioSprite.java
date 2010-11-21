@@ -1,8 +1,6 @@
 package vooga.games.mariogame;
 
-import java.awt.image.BufferedImage;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import com.golden.gamedev.object.Sprite;
 
