@@ -25,17 +25,17 @@ public class DoodleSprite extends BetterSprite {
 	private OverlayString gameOverString;
 	
 	public DoodleSprite(){
-		this("doodle", new Sprite(Resources.getImage("doodleRight"), Resources.getInt("doodleInitialX"), Resources.getInt("doodleInitialY")));
+		this(Resources.getImage("doodleRight"));
 	}
 
-	public DoodleSprite(String name, Sprite s) {
-		super(name, s);
+	public DoodleSprite(BufferedImage image) {
+		super(image);
 		died = false;
 		balls = new ArrayList<BallSprite>();
 	}
 
 	public void moveLeft() {
-		setImage(Resources.getImage("doodle_left"));
+		setImage(Resources.getImage("doodleLeft"));
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
@@ -45,7 +45,7 @@ public class DoodleSprite extends BetterSprite {
 	}
 
 	public void moveRight() {
-		setImage(Resources.getImage("doodle_right"));
+		setImage(Resources.getImage("doodleRight"));
 		if (isOnScreen()) {
 			setX(getX() + 5);
 		} else {
