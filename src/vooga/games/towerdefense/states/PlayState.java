@@ -40,15 +40,23 @@ public class PlayState extends GameState{
 	
 	private PlayField myPlayField;
 	private LevelManager myLevelManager;
+	private OverlayTracker myTracker;
 	
-	public PlayState(LevelManager levelManager){
+	public PlayState(OverlayTracker tracker, LevelManager levelManager){
 		myLevelManager = levelManager;
+		myTracker = tracker;
 	}
 
 	@Override
 	public void initialize() {
 		initPlayField();
+		addOverlays();
 		addPlayField(myPlayField);
+	}
+
+	private void addOverlays() {
+		myPlayField.addGroup(myTracker.getOverlayGroup("play"));
+		
 	}
 
 	private void initPlayField(){
@@ -84,8 +92,7 @@ public class PlayState extends GameState{
 	}
 	
 	private Player initPlayer(BuildTowerEvent buildTowerEvent){
-		OverlayTracker tracker =  myPlayField.getOverlayTracker();
-		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, tracker.getStat("money" , new Integer(0)), tracker.getStat("score" , new Integer(0)), tracker.getStat("selfEsteem" , new Integer(0)));		
+		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
 		return player;
 	}
 	

@@ -77,7 +77,9 @@ public class LevelParser implements LevelFactory{
 		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
 		OverlayCreator.setGame(currentGame);
-		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
+		if(!xmlOverlayPath.equals("")){
+			overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
+		}
 
 		Node spriteGroupsSection = xmlDocument.getElementsByTagName("SpriteGroups").item(0);
 		if(spriteGroupsSection !=null){
@@ -122,8 +124,9 @@ public class LevelParser implements LevelFactory{
 			processCollisionGroups(listOfCollisionGroups);
 		}
 		
-
-		voogaPlayField.addOverlayTracker(overlayTracker);
+		if(overlayTracker!=null){
+			voogaPlayField.addOverlayTracker(overlayTracker);
+		}
 	}
 
 	private void processRules(NodeList rulesList) {

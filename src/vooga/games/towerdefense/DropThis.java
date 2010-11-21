@@ -64,21 +64,21 @@ public class DropThis extends Game {
 	
 	@Override
 	public void initGameStates(){
-		//OverlayTracker tracker = initOverlays();
+		OverlayTracker tracker = initOverlays();
 		initLevelManager();
 		super.initGameStates();
 		
 		//TODO uncomment once prolog error is found and fixed
 		//GameState mainMenu = addGameState(new MainMenu());
-		GameState play = addGameState(new PlayState(levelManager));
+		GameState play = addGameState(new PlayState(tracker, levelManager));
 		//play.addPlayField(initLevel("/resources/level/level.xml"));
 		getGameStateManager().switchTo(play);
 	}
 
-/*private OverlayTracker initOverlays() {
+private OverlayTracker initOverlays() {
 		OverlayCreator.setGame(this);
 		return OverlayCreator.createOverlays(Resources.getString("overlayPath"));
-	}*/
+	}
 
 /**
  * Initialize the LevelManager for TowerDefence.
