@@ -29,8 +29,8 @@ public class FireVerticalEvent implements IEventHandler {
 	@Override
 	public void actionPerformed() {
 		Sprite projectile = new Sprite(Resources.getImage("verticalProjectileImage"),player.getX()+player.getWidth(),player.getY());
-		projectile.setVerticalSpeed(Resources.getDouble("projectileSpeed"));
-		playState.getGroup("Projectile").add(projectile);
+		projectile.setVerticalSpeed(Resources.getDouble("bulletSpeed"));
+		playState.getGroup("projectileGroup").add(projectile);
 		grandius.playSound(Resources.getSound("laserSound"));	
 	}
 
