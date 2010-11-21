@@ -10,6 +10,9 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.state.GameState;
+import vooga.games.galaxyinvaders.DropThis;
+import vooga.games.galaxyinvaders.GameLostEvent;
+import vooga.games.galaxyinvaders.LevelSwitchEvent;
 
 
 public class PlayState extends GameState{
@@ -27,6 +30,7 @@ public class PlayState extends GameState{
 	public void initialize() {
 		BetterSprite ship = (BetterSprite)(getGroup("player").getSprites()[0]);
 		initControls(ship);
+		initEvents();
 	}
 	
 	private void initControls(BetterSprite player){
@@ -44,6 +48,13 @@ public class PlayState extends GameState{
 		myField.addControl("game", gameControl);
 		
 		
+	}
+	
+	private void initEvents(){
+		LevelSwitchEvent levelSwitch = new LevelSwitchEvent(game, this.getGroup("enemies"));
+		myField.addEvent(levelSwitch);
+		GameLostEvent gameLost = new GameLostEvent(game, this.getGroup("player"));
+		myField.addEvent(gameLost);
 	}
 	
 	public void clearEnemies()
