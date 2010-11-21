@@ -1,36 +1,54 @@
 package vooga.games.grandius.events;
 
-import com.golden.gamedev.object.Sprite;
-
+import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
 import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.states.PlayState;
+import vooga.games.grandius.weapons.ZipsterLaser;
 
-public class ZipsterFireEvent extends FiringEvent {
+import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
+
+public class ZipsterFireEvent implements IEventHandler {
+
+	protected DropThis grandius; 
 	private Player player;
-	private Zipster firingZipster;
+	private PlayState playState;
+	private SpriteGroup enemyGroup;
+	private Zipster currentZipster;
 
-	public ZipsterFireEvent(DropThis grandius, Player player, PlayState playState) {
-		super(grandius, player, playState);
+	public ZipsterFireEvent(DropThis grandius, Player player, SpriteGroup enemyGroup, PlayState playState){
+		this.grandius = grandius;
 		this.player = player;
+		this.enemyGroup = enemyGroup;
+		this.playState = playState;
 	}
-	
+
 	@Override
 	public boolean isTriggered() {
-		for(Sprite enemy: getGroup("enemyGroup").getSprites()){
-			if (enemy instanceof Zipster && ((Zipster) enemy).willFire(player)){
-					firingZipster = (Zipster) enemy;
-					return true;
+		return isPlayerProximate();
+	}
+
+	@Override
+	public void actionPerformed() {
+		grandius.playSound(Resources.getSound("zipsterLaserSound"));
+		getGroup("enemyProjectileGroup").add(currentZipster.fireLaser());
+	}
+
+	private boolean isPlayerProximate() {
+		for (Sprite s: enemyGroup.getSprites()) {
+			if (s!=null && ((Zipster)s).willFire(player)) {
+				currentZipster = ((Zipster)s);
+				return true;
 			}
 		}
 		return false;
 	}
 
-	@Override
-	public void actionPerformed() {
-        getGroup("enemyProjectileGroup").add(firingZipster.fireLaser());
-        playExplosionSound("laserSound");
+	public SpriteGroup getGroup(String groupName){
+		return playState.getGroup(groupName);
 	}
 
 }
