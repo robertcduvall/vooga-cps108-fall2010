@@ -1,6 +1,10 @@
 package vooga.games.galaxyinvaders;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
@@ -70,7 +74,7 @@ public class DropThis extends Game {
 		this.finish();
 		DropThis.main(null);
 	}
-	
+
 	public static void switchLevel(){
 		levelManager.loadNextLevel();
 	}
