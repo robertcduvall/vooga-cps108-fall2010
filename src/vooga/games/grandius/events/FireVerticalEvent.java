@@ -13,7 +13,7 @@ import vooga.games.grandius.states.PlayState;
  * @author bhawana
  *
  */
-public class FireVerticalEvent extends FiringEvent {
+public class FireVerticalEvent extends PlayerFiringEvent {
 	
 	public FireVerticalEvent(DropThis grandius, Player player, PlayState playState){
 		super(grandius, player, playState);

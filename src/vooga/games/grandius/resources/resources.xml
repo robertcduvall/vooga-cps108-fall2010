@@ -2,6 +2,7 @@
 <Resources>
 	<Images>
 		<Image name="cometImage" path="comet.jpg" />
+		<Image name="earthImage" path="earth.png" />
 		<Image name="missileImage" path="missile.jpg" />
 		<Image name="buyMissileImage" path="buyMissile.jpg" />
 		<Image name="backgroundImage" path="background.png" />
@@ -22,6 +23,7 @@
 		<Image name="buyBlackHoleButtonImage" path="buyBlackHoleButton.png" />
 		<Image name="nextLevelButtonImage" path="nextLevelButton.png" />		
 		<Image name="menuImage" path="menu.jpg" />
+		<Image name="zipsterImage" path="spinning_zipster_0.png" />
 	</Images>
 
 	<Animations>
@@ -144,6 +146,7 @@
 		<Double name="bossPartSpeed" value="0.05" />
 		<Double name="bossSpeed" value="0.01" />
 		<Double name="enemySpeed" value="0.15" />
+		<Double name="zipsterLaserSpeed" value="-0.15" />
 	</Doubles>
 	
 </Resources>

@@ -1,5 +1,4 @@
 package vooga.games.grandius.enemy.common;
-import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Timer;
 
@@ -8,7 +7,7 @@ import vooga.engine.resource.Resources;
 
 
 /**
- * A Zipster is a common Gradius enemy that can fire a simple laser every second if the player 
+ * A Zipster is a common Grandius enemy that can fire a simple laser every second if the player 
  * moves within range.
  * @author jtk11
  */
@@ -19,8 +18,7 @@ public class Zipster extends Enemy {
 	private boolean reloaded;
 	private boolean blackHoleProximate;
 	private int spin;
-	private static final double ZIPSTER_LASER_SPEED = 0.15;
-	private static final double ZIPSTER_SPEED = 0.015;
+	private static final double ZIPSTER_LASER_SPEED = Resources.getDouble("zipsterLaserSpeed");
 	private static final int ZIPSTER_LASER_RELOAD_TIME = 1000;
 	private static final int SCORE_VALUE = 25;
 	private static final int CASH_VALUE = 1;
@@ -30,12 +28,12 @@ public class Zipster extends Enemy {
 	}
 	
 	public Zipster(double x, double y) {
-		super(Resources.getAnimation("spinningZipsterAnimation"), x, y);
+		super(Resources.getImage("zipsterImage"), x, y);
 		this.setScore(SCORE_VALUE);
 		this.setCash(CASH_VALUE);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
-		blackHoleProximate = false;
-		spin = 0;
+		//blackHoleProximate = false;
+		//spin = 0;
 	}
 	
 	@Override
@@ -43,9 +41,13 @@ public class Zipster extends Enemy {
 		if (fireTimer.action(elapsedTime)) {
 			reloaded = true;
 		}
-		this.updateMovement(elapsedTime);
+		//this.updateMovement(elapsedTime);
 	}
 	
+	/**
+	 * Checks to see if this Zipster can fire on the Player, depending on its location 
+	 * and whether or not the Zipster has reloaded.
+	 */
 	public boolean willFire(BetterSprite playersprite) {
 		return (playersprite.getY() > this.getY() && playersprite.getY() < this.getY()+this.getHeight()
 				&& playersprite.getX() < this.getX() && reloaded && this.isActive() && spin==0);
@@ -53,28 +55,14 @@ public class Zipster extends Enemy {
 	
 	/**
 	 * Fires the Zipster's laser weapon.
-	 * @return The laser sprite to add to the game field.
+	 * @return The laser sprite to add to the enemyProjectile SpriteGroup.
 	 */
 	public BetterSprite fireLaser() {
 		BetterSprite laser = new BetterSprite(Resources.getImage("zipsterLaserImage"),this.getX()-this.getWidth(),this.getY());
-		laser.setHorizontalSpeed(-ZIPSTER_LASER_SPEED);
+		laser.setHorizontalSpeed(ZIPSTER_LASER_SPEED);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
 		reloaded = false;
 		return laser;
-	}
-	
-	//TODO - This should no longer be needed. Use getScore()from superclass.
-//	/**
-//	 * Returns the point value of this enemy.
-//	 * @return
-//	 */
-//	public int getScoreValue()
-//	{
-//		return SCORE_VALUE;
-//	}
-	
-	public double getSpeed() {
-		return ZIPSTER_SPEED;
 	}
 	
 	public void spinZipster() {
