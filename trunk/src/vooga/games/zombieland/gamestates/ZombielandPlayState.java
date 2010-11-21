@@ -18,6 +18,7 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
+import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.*;
@@ -56,7 +57,10 @@ public class ZombielandPlayState extends GameState implements Constants{
 				.createOverlays(XML_PATH);
 		random = new Random();
 	
-		initializePlayer();
+		LevelParser parser = new LevelParser();
+		playField = parser.getPlayfield("src/vooga/games/zombieland/resources/rules/level1.xml", currentGame);
+		
+		//initializePlayer();
 		initEnvironment();
 		initOverlays();
 		setListeners();
@@ -65,16 +69,16 @@ public class ZombielandPlayState extends GameState implements Constants{
 	/**
 	 * Set the player with initial weapons and stats
 	 */
-	private void initializePlayer() {
-
-		Stat<Integer> initHealth = tracker.getStat("initHealth", new Integer(0));
-		Stat<Integer> initAmmo = tracker.getStat("initAmmo", new Integer(0));
-		Stat<Integer> initScore = tracker.getStat("initScore", new Integer(0));
-
-		player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
-				initScore);
-		player.setActive(true);
-	}
+//	private void initializePlayer() {
+//
+//		Stat<Integer> initHealth = tracker.getStat("initHealth", new Integer(0));
+//		Stat<Integer> initAmmo = tracker.getStat("initAmmo", new Integer(0));
+//		Stat<Integer> initScore = tracker.getStat("initScore", new Integer(0));
+//
+//		player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
+//				initScore);
+//		player.setActive(true);
+//	}
 
 //	/**
 //	 * This method returns the Pause string
@@ -92,43 +96,45 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	private void initEnvironment() {
 		playField = new PlayField();
-
-		//Set up the music
-		String audiofile = Resources.getString("gamemusic");
-		currentGame.playMusic(audiofile);
-
-		//Set up the game background
-		BufferedImage sandbg = Resources.getImage("sandbackground");
-		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
-				GAME_HEIGHT);
-		playField.setBackground(background);
-
-		String spritegroupslist = Resources.getString("spritegroupslist");
-		String delim = Resources.getString("delim");
-		String[] spritegroups = spritegroupslist.split(delim);
-		for(int i = 0; i < spritegroups.length; i++)
-		{
-			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
-			playField.addGroup(currentGroup);
-		}
 		
-		//Have not used reflections to be able to call on objects. I 
-		//have not look into how to do that yet.
-		PZCollisionManager playerZombieManager = new PZCollisionManager();
-		playField.getGroup("Players").add(player);
-		WallBoundManager entityWallManager = new WallBoundManager(background);
-		BZCollisionManager bulletZombieManager = new BZCollisionManager();
-		HICollisionManager humanItemManager = new HICollisionManager();
-		
-		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Zombies"), playerZombieManager);
-		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Players"), entityWallManager);
-		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
-		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
-		
-		int delay = Resources.getInt("timer");
-		timer = new Timer(delay);
 
-		level = Resources.getInt("startLevel");
+		
+//		//Set up the music
+//		String audiofile = Resources.getString("gamemusic");
+//		currentGame.playMusic(audiofile);
+//
+//		//Set up the game background
+//		BufferedImage sandbg = Resources.getImage("sandbackground");
+//		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
+//				GAME_HEIGHT);
+//		playField.setBackground(background);
+//
+//		String spritegroupslist = Resources.getString("spritegroupslist");
+//		String delim = Resources.getString("delim");
+//		String[] spritegroups = spritegroupslist.split(delim);
+//		for(int i = 0; i < spritegroups.length; i++)
+//		{
+//			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
+//			playField.addGroup(currentGroup);
+//		}
+//		
+//		//Have not used reflections to be able to call on objects. I 
+//		//have not look into how to do that yet.
+//		PZCollisionManager playerZombieManager = new PZCollisionManager();
+//		playField.getGroup("Players").add(player);
+//		WallBoundManager entityWallManager = new WallBoundManager(background);
+//		BZCollisionManager bulletZombieManager = new BZCollisionManager();
+//		HICollisionManager humanItemManager = new HICollisionManager();
+//		
+//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Zombies"), playerZombieManager);
+//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Players"), entityWallManager);
+//		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
+//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
+//		
+//		int delay = Resources.getInt("timer");
+//		timer = new Timer(delay);
+//
+//		level = Resources.getInt("startLevel");
 	}
 
 	/**

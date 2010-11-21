@@ -9,7 +9,7 @@
 <Stat type="Integer" value="25" name="ZOMBIE_PER_LEVEL" />
 <Stat type="Integer" value="20" name="itemChance" />
 <Stat type="Integer" value="60" name="attackDelay" />
-<Stat type="Double" value="1.5" name="zombieStatMultipler" />
+<Stat type="Double" value="1.5" name="zombieStatMultiplier" />
 <Stat type="Double" value="5" name="zombieDamage" />
 <Stat type="Integer" value="30" name="zombieCurrentHealth" />
 <Stat type="Double" value="-0.5" name="speed" />
@@ -27,7 +27,7 @@
 <Stat type="Integer" value="200" name="health" />
 <Stat type="Integer" value="0" name="score" />
 <Stat type="Integer" value="100" name="ammo" />
-<Stat type="Integer" value="0" name"levelScore" />
+<Stat type="Integer" value="0" name="levelScore" />
 
 
 <!--Overlay Stuff-->
