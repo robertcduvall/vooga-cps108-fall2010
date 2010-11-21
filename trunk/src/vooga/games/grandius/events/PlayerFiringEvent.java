@@ -12,12 +12,12 @@ import vooga.games.grandius.states.PlayState;
  * @author bhawana
  *
  */
-public class FiringEvent implements IEventHandler{
+public class PlayerFiringEvent implements IEventHandler{
 	protected DropThis grandius; 
 	private Player player;
 	private PlayState playState;
 	
-	public FiringEvent(DropThis grandius, Player player, PlayState playState){
+	public PlayerFiringEvent(DropThis grandius, Player player, PlayState playState){
 		this.grandius = grandius;
 		this.player = player;
 		this.playState = playState;

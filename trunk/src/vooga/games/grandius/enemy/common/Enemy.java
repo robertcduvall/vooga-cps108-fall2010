@@ -14,8 +14,8 @@ public abstract class Enemy extends BetterSprite {
 	private static final String SCORE = "Score";
 	private static final String CASH = "Cash";
 	
-	public Enemy(BufferedImage[] images, double x, double y){
-		super(images);
+	public Enemy(BufferedImage image, double x, double y){
+		super(image);
 		this.setLocation(x, y);
 	}
 	
@@ -37,25 +37,3 @@ public abstract class Enemy extends BetterSprite {
 		return (Integer) this.getStat(CASH).getStat();
 	}
 }
-
-//public abstract class Enemy extends AnimatedSprite {
-//	
-//	private static final long serialVersionUID = 1L;
-//	protected int scoreValue;
-//	protected int cashValue;
-//	
-//	public Enemy(BufferedImage[] images, double x, double y)
-//	{
-//		super(images, x, y);
-//	}
-//	
-//	public int getScore()
-//	{
-//		return scoreValue;
-//	}
-//	
-//	public int getCashValue()
-//	{
-//		return cashValue;
-//	}
-//}

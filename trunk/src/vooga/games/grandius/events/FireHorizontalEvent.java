@@ -12,7 +12,7 @@ import vooga.games.grandius.weapons.Laser;
  * @author bhawana
  *
  */
-public class FireHorizontalEvent  extends FiringEvent {
+public class FireHorizontalEvent  extends PlayerFiringEvent {
 	
 	public FireHorizontalEvent(DropThis grandius, Player player, PlayState playState){
 		super(grandius, player, playState);
@@ -26,7 +26,7 @@ public class FireHorizontalEvent  extends FiringEvent {
 	@Override
 	public void actionPerformed() {
 		Laser projectile = new Laser(getXLocation(), getYLocation());
-		projectile.setHorizontalSpeed(Resources.getDouble("laserSpeed"));
+		//projectile.setHorizontalSpeed(Resources.getDouble("laserSpeed"));
 		getGroup("projectileGroup").add(projectile);
 		playExplosionSound("laserSound");
 	}
