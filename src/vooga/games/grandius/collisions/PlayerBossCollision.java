@@ -1,7 +1,6 @@
 package vooga.games.grandius.collisions;
 
 import vooga.engine.core.Game;
-import vooga.games.grandius.DropThis;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -16,12 +15,8 @@ import com.golden.gamedev.object.Sprite;
  */
 public class PlayerBossCollision extends BasicCollision{
 
-	private Game grandius;
-	
-	
 	public PlayerBossCollision(Game grandius) {
 		super(grandius);
-		this.grandius = grandius;
 	}
 	
 	@Override

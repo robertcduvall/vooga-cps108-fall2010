@@ -6,6 +6,7 @@ import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
+import vooga.games.grandius.enemy.common.Enemy;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -35,6 +36,10 @@ public class BasicCollision extends BasicCollisionGroup {
 		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, commonEnemy.getX(), commonEnemy.getY());
 		((DropThis)game).getPlayState().getGroup("explosionGroup").add(explosion);
+		if(!(playerSideSprite instanceof Player)){
+			getPlayer().updateScore(((Enemy)commonEnemy).getScore());
+			getPlayer().updateCash(((Enemy)commonEnemy).getCash());
+		}
 	}
 	
 	public Player getPlayer() {

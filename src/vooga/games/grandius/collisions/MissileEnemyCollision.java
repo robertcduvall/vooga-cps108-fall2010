@@ -6,7 +6,6 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.enemy.common.Enemy;
 import vooga.games.grandius.weapons.Missile;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -37,7 +36,7 @@ public class MissileEnemyCollision extends BasicCollision {
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
 		((DropThis)grandius).playSound(Resources.getSound("laserSound"));
-		getPlayer().updateScore(((Enemy)enemy).getScore());
-		getPlayer().updateCash(((Enemy)enemy).getCash());
+//		getPlayer().updateScore(((Enemy)enemy).getScore());
+//		getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 }
