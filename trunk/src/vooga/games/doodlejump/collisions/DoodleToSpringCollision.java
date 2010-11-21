@@ -3,6 +3,8 @@ package vooga.games.doodlejump.collisions;
 import java.applet.AudioClip;
 import java.net.URL;
 
+import vooga.engine.core.Game;
+
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
@@ -15,7 +17,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class DoodleToSpringCollision extends BasicCollisionGroup {
 
-	public DoodleToSpringCollision() {
+	public DoodleToSpringCollision(Game game) {
 		pixelPerfectCollision = true;
 	}
 
