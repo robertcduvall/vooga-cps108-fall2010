@@ -39,7 +39,11 @@
 		</CollisionGroup>
 	</CollisionGroups>
 	
-	<Background name="BG" />
+	<Backgrounds>
+		<Background name="backgroundImage" />
+	</Backgrounds> 
+	
+	
 	<Music />
 	<Map />
 	
