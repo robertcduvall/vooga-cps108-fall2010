@@ -54,9 +54,7 @@
         </CollisionGroups>
         
         <Rules>
-        	<Rule name="LevelSwitchRule" class="vooga.games.galaxyinvaders.LevelSwitchRule">
-        		<SpriteGroup name="enemies" />
-        	</Rule>
+        
 		</Rules>
 
         <Background>
