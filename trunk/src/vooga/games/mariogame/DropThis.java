@@ -74,8 +74,10 @@ public class DropThis extends Game {
 		stateManager.activateOnly(pauseState);		
 	}
 	
-	public void resumeGame() {	
-		stateManager.activateOnly(playState);
+	public void resumeGame() {
+		System.out.println("resume game");
+		System.out.println("State: "+playState);
+		//stateManager.switchTo(playState);
 	}
 
 	public void initStates() {
@@ -89,6 +91,8 @@ public class DropThis extends Game {
 		MainMenuState levelFinishedState = new MainMenuState(this, Resources.getImage("Level Complete BG"), fontManager);
 		GamePlayState playState = new GamePlayState(this,(PlayField)myLevels.toArray()[0]);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
-		//stateManager.switchTo(playState);
+		stateManager.switchTo(playState);
+		System.out.println("States inited");
+		System.out.println("State: "+playState);
 	}
 }
