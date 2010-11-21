@@ -77,7 +77,6 @@ public class LevelParser implements LevelFactory{
 		//gameClassPath = level.getAttribute("gameclasspath");
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
 		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
-		voogaPlayField.addOverlayTracker(overlayTracker);
 
 		Node spriteGroupsSection = xmlDocument.getElementsByTagName("SpriteGroups").item(0);
 		NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
@@ -119,6 +118,9 @@ public class LevelParser implements LevelFactory{
 			NodeList listOfMaps = mapSection.getChildNodes();
 			processMap(listOfMaps);
 		}
+		
+
+		voogaPlayField.addOverlayTracker(overlayTracker);
 	}
 
 	private void processRules(NodeList rulesList) {

@@ -75,13 +75,11 @@ public class PlayState extends GameState {
 		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();
-		newField.addOverlayTracker(newField.getOverlayTracker());
 		//TODO create PlayField from level files
 		this.addUpdatePlayField(newField);
 		this.addRenderPlayField(newField);
 		//this.addUpdatePlayField(testField);
 		//this.addRenderPlayField(testField);
-		//initOverlays();
 	}
 	
 	@Override
@@ -218,10 +216,12 @@ public class PlayState extends GameState {
 		}
 		return cometGroup;
 	}
+
 	
-	/**
-	 * Initializes Overlays - Lives, Cash, and Score.
-	 */
+//	/**
+//	 * Initializes Overlays - Lives, Cash, and Score.
+//	 */
+/*
 	private void initOverlays() {
 		OverlayCreator.setGame(myGame);
 		overlayTracker = OverlayCreator.createOverlays(Resources.getString("overlayPath"));
@@ -233,6 +233,7 @@ public class PlayState extends GameState {
 		this.getUpdateField().add(newField);
 		this.getRenderField().add(newField);
 	}
+*/
 	
 	//TODO implement this method
 //	private void checkCheats() {
