@@ -92,7 +92,7 @@ public class GalaxyGameState extends GameState{
 	@Override
 	public void initialize() {
 		initSpriteGroups();
-		initControls();
+		//initControls();
 		initColliders();
 		initBlocks();
 		initOverlays();
