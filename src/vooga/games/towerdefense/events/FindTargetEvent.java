@@ -1,25 +1,31 @@
 package vooga.games.towerdefense.events;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
 import vooga.games.towerdefense.DropThis;
 import vooga.games.towerdefense.actors.enemies.Enemy;
 import vooga.games.towerdefense.actors.towers.ShootingTower;
+import vooga.games.towerdefense.actors.towers.Tower;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class FindTargetEvent implements IEventHandler{
 
-	private DropThis game;
+	private PlayField playField;
+	private Collection<ShootingTower> targetQueue = new ArrayList<ShootingTower>();
 	
-	public void setGame(DropThis game){
-		this.game = game;
+	public FindTargetEvent(PlayField playField){
+		this.playField = playField;
 	}
 	
 	
 	private Sprite findTarget(ShootingTower tower){		
-		SpriteGroup enemies = game.getEnemyGroup();
+		SpriteGroup enemies = playField.getGroup("enemy");
 		for(Sprite sprite: enemies.getSprites()){
 			if(tower.isValidTarget(sprite)){
 				return sprite;
@@ -28,21 +34,22 @@ public class FindTargetEvent implements IEventHandler{
 		return null;		
 	}
 
-	@Override
 	public boolean isTriggered() {
-		// TODO Auto-generated method stub
-		return false;
+		return !targetQueue.isEmpty();
 	}
 
 	@Override
 	public void actionPerformed() {
-		ShootingTower[] towersToCheck = (ShootingTower[]) game.getCurrentLevel().getGroup("tower").getSprites();
-		for(int i = 0; i < towersToCheck.length; i++)
-		{
-			if(towersToCheck[i].getTarget()==null)
+		for(ShootingTower tower: targetQueue){
+			if(tower.getTarget()==null)
 			{
-				towersToCheck[i].setTarget((Enemy) findTarget(towersToCheck[i]));
+				tower.setTarget((Enemy) findTarget(tower));
 			}
 		}
+		targetQueue.clear();
+	}
+	
+	public void addTower(ShootingTower tower){
+		targetQueue.add(tower);
 	}
 }
