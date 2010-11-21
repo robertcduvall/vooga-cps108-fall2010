@@ -20,6 +20,7 @@ import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
+import vooga.games.towerdefense.events.FindTargetEvent;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.background.ImageBackground;
@@ -76,13 +77,15 @@ public class PlayState extends GameState{
 		
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myPlayField);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
+		FindTargetEvent findTarget = new FindTargetEvent(myPlayField);
 		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
 		eventPool.addEvent(failEvent);
 		eventPool.addEvent(buildEnemy);
 		myPlayField.add(enemyGenerator);
+		eventPool.addEvent(findTarget);
 		
 		myPlayField.addControl("player", initControl(player));
-		myPlayField.addControl("player", initCheats(player));
+		//myPlayField.addControl("player", initCheats(player));
 	}
 	
 	private Background initBackground(){
