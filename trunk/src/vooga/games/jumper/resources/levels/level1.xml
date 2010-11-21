@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="jumper" xmloverlaypath="src/vooga/games/jumper/resources/overlays.xml">
+
+	<SpriteGroups>
+
+		<SpriteGroup name="doodleSprite">
+			<Sprite class="vooga.games.jumper.sprites.DoodleSprite" random="false" x="400" y="300" vx="0" vy="0" quantity="1">
+				<Visual name = "leftDoodle" />
+			</Sprite>
+		</SpriteGroup>
+		
+		
+	</SpriteGroups>
+	
+	<Events></Events>
+	
+	<Rules></Rules>
+
+	<CollisionGroups>
+		
+	</CollisionGroups>
+	
+	<Backgrounds>
+		<Background name = "backgroundImage" />
+	</Backgrounds>
+	
+	<Music />
+	<Map />
+
+</Level>

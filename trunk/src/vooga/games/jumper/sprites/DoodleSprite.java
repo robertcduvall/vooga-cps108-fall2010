@@ -40,6 +40,12 @@ public class DoodleSprite extends BetterSprite {
 	 * @param left BufferedImage representing Doodle when it is looking left
 	 * @param right BufferedImage representing Doodle when it is looking right
 	 */
+
+	public DoodleSprite(){
+		
+	}
+	
+	
 	public DoodleSprite(BufferedImage image, Point location, BufferedImage left, BufferedImage right) {
 		super(image, location.x, location.y);  
 		doodleLeftImage = left;
