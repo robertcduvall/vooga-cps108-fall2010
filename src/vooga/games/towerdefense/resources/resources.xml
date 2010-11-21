@@ -13,6 +13,11 @@
 		<Image name="duvallFaceRed" path="duvallFaceRed.png" />
 		<Image name="duvallFaceBlue" path="duvallFaceBlue.png" />
 		<Image name="duvallFaceYellow" path="duvallFaceYellow.png" />
+		<Image name="title" path="duvallFaceYellow.png" />
+		<Image name="easyButton" path="duvallFaceRed.png" />
+		<Image name="mediumButton" path="duvallFace.png" />
+		<Image name="hardButton" path="duvallFaceBlue.png" />
+		<Image name="mainMenuBackground" path="backgrounds/easyLevel.png" />
 	</Images>
 	<Animations></Animations>
 	<Sounds></Sounds>
@@ -23,9 +28,9 @@
 		<String name="easyLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/easy.txt" />
 		<String name="mediumLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/medium.txt" />
 		<String name="hardLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/hard.txt" />
+		<String name="moduleMapProperties" value="vooga.games.towerdefense.resources.moduleMap" />
 		<String name="levelFilesDirectory" value="src/vooga/games/towerdefense/resources/layouts" />
 		<String name="levelNamesFile" value="levelNames.txt"/>
-		
 	</Strings>
 
 	<Integers>

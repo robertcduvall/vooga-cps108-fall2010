@@ -38,7 +38,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class LevelParser implements LevelFactory{
 
-	private static final int FIRST_IMAGE = 0;
+	public static final int FIRST_IMAGE = 0;
 	private Game currentGame;
 	private PlayField voogaPlayField;
 	private OverlayTracker overlayTracker;
@@ -496,5 +496,9 @@ public class LevelParser implements LevelFactory{
 
 	public Game getGame(){
 		return currentGame;
+	}
+	
+	public OverlayTracker getOverlayTracker(){
+		return overlayTracker;
 	}
 }
