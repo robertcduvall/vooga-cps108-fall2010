@@ -26,6 +26,11 @@
 		<Rule name="Gravity" class="vooga.games.jumper.rules.Gravity">
 			<SpriteGroup name="doodleSprite" />
 		</Rule>
+		
+		<Rule name="Floor" class="vooga.games.jumper.rules.Floor">
+			<SpriteGroup name="doodleSprite" />
+		</Rule>
+		
 	</Rules>
 
 	<CollisionGroups>

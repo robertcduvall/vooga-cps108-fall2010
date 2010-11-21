@@ -5,25 +5,33 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.level.Rule;
 
-public class Gravity implements Rule{
+public class Floor implements Rule{
 
 	@Override
 	public void enforce(SpriteGroup... groups) {
 		for (SpriteGroup group: groups){
-			applyGravity(group);
+			adjustForFloor(group);
 		}
 	}
 
 	@Override
 	public boolean isSatisfied(SpriteGroup... groups) {
-		return true;
+		for (SpriteGroup group: groups){
+			for (Sprite s: group.getSprites()) {
+	            if (s!=null && s.getY() > 500){
+	                return true;
+	            }
+	        }
+		}
+        return false;
 	}
-
-	private void applyGravity(SpriteGroup group) {
+	
+	private void adjustForFloor(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
 			if (s!=null)
-				s.setVerticalSpeed(2);
+				s.setY(500);
 		}
 		
 	}
+
 }
