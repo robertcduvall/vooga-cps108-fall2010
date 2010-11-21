@@ -44,8 +44,6 @@ public class DropThis extends Game {
 	private Control gameControl;
 	private PauseGameState myPauseGameState;
 
-	private GameFont font;
-
 	@Override
 	public void initResources() {
 		super.initResources();

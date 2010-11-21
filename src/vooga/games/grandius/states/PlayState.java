@@ -1,52 +1,36 @@
 package vooga.games.grandius.states;
 
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import vooga.engine.control.KeyboardControl;
-import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
-import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayPanel;
-import vooga.engine.overlay.OverlayStatImage;
-import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
-import vooga.games.grandius.collisions.BasicCollision;
-import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
 import vooga.games.grandius.events.FireMissileEvent;
 import vooga.games.grandius.events.FireVerticalEvent;
-
-import com.golden.gamedev.object.SpriteGroup;
 
 public class PlayState extends GameState {
 	
 	private static DropThis myGame;
 	
 	//private PlayField myPlayField;
-	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
-	private SpriteGroup playerGroup;
-	private SpriteGroup projectileGroup;
-	private SpriteGroup enemyProjectileGroup;
-	private SpriteGroup enemyGroup;
-	private SpriteGroup bossPartGroup;
-	private SpriteGroup bossGroup;  
-	private SpriteGroup missileGroup;
-	private SpriteGroup blackHoleGroup;
-	private SpriteGroup cometsGroup;
-	private SpriteGroup backgroundGroup; 
+//	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
+//	private SpriteGroup playerGroup;
+//	private SpriteGroup projectileGroup;
+//	private SpriteGroup enemyProjectileGroup;
+//	private SpriteGroup enemyGroup;
+//	private SpriteGroup bossPartGroup;
+//	private SpriteGroup bossGroup;  
+//	private SpriteGroup missileGroup;
+//	private SpriteGroup blackHoleGroup;
+//	private SpriteGroup cometsGroup;
+//	private SpriteGroup backgroundGroup; 
 	private Player player;
 	
 	private EventPool eventPool;
@@ -55,13 +39,13 @@ public class PlayState extends GameState {
 	private boolean skipLevel = false;
 	
 	private LevelManager myLevelManager;
-	private OverlayTracker overlayTracker;
-	private OverlayPanel overlayPanel;
-	private OverlayStatImage livesIcon;
+//	private OverlayTracker overlayTracker;
+//	private OverlayPanel overlayPanel;
+//	private OverlayStatImage livesIcon;
 	
 	private KeyboardControl playerControl;
 	private static final String PLAYER_CLASS = Resources.getString("playerClass");
-	private static final double PLAYER_SPEED = Resources.getDouble("playerSpeed");
+//	private static final double PLAYER_SPEED = Resources.getDouble("playerSpeed");
 	
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
@@ -70,7 +54,7 @@ public class PlayState extends GameState {
 	
 	@Override
 	public void initialize() {
-		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
+		//spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		PlayField newField = myLevelManager.loadFirstLevel();
 		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
@@ -104,17 +88,17 @@ public class PlayState extends GameState {
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
 	}
 	
-	/**
-	 * Adds the Player to the PlayerGroup SpriteGroup.
-	 */
-	private SpriteGroup addPlayer(SpriteGroup playerGroup) {
-//		player = new Player("alivePlayer");
-		
-		player.setActive(true);
-		initControls();
-		playerGroup.add(player);	
-		return playerGroup;
-	}
+//	/**
+//	 * Adds the Player to the PlayerGroup SpriteGroup.
+//	 */
+//	private SpriteGroup addPlayer(SpriteGroup playerGroup) {
+////		player = new Player("alivePlayer");
+//		
+//		player.setActive(true);
+//		initControls();
+//		playerGroup.add(player);	
+//		return playerGroup;
+//	}
 	
 //	/**
 //	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
@@ -191,31 +175,31 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
 	}
 	
-	private SpriteGroup createEnemiesGroup() {
-		SpriteGroup enemiesGroup = new SpriteGroup("Enemies");
-		Zipster zipster = new Zipster(400, 200);
-		enemiesGroup.add(zipster);
-		return enemiesGroup;
-	}
+//	private SpriteGroup createEnemiesGroup() {
+//		SpriteGroup enemiesGroup = new SpriteGroup("Enemies");
+//		Zipster zipster = new Zipster(400, 200);
+//		enemiesGroup.add(zipster);
+//		return enemiesGroup;
+//	}
 	
-	/**
-	 * Creates background "comets" to provide illusion of movement through space.
-	 */
-	private SpriteGroup createCometsGroup() {
-		SpriteGroup cometGroup = new SpriteGroup("Comets");
-		for (int j = 0; j < Resources.getInt("numComets"); j++) {
-			Random valX = new Random();
-			Random valY = new Random();
-			double x = valX.nextDouble();
-			double y = valY.nextDouble();
-			BetterSprite comet = new BetterSprite(Resources.getImage("cometImage"),
-					(x * Resources.getInt("cometX")), 
-					(y * Resources.getInt("cometY")));
-			comet.setHorizontalSpeed(Resources.getDouble("cometVX"));
-			cometGroup.add(comet);
-		}
-		return cometGroup;
-	}
+//	/**
+//	 * Creates background "comets" to provide illusion of movement through space.
+//	 */
+//	private SpriteGroup createCometsGroup() {
+//		SpriteGroup cometGroup = new SpriteGroup("Comets");
+//		for (int j = 0; j < Resources.getInt("numComets"); j++) {
+//			Random valX = new Random();
+//			Random valY = new Random();
+//			double x = valX.nextDouble();
+//			double y = valY.nextDouble();
+//			BetterSprite comet = new BetterSprite(Resources.getImage("cometImage"),
+//					(x * Resources.getInt("cometX")), 
+//					(y * Resources.getInt("cometY")));
+//			comet.setHorizontalSpeed(Resources.getDouble("cometVX"));
+//			cometGroup.add(comet);
+//		}
+//		return cometGroup;
+//	}
 
 	
 //	/**
