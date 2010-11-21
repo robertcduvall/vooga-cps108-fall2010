@@ -59,23 +59,6 @@ public class DoodleSprite extends BetterSprite {
 		move(getHorizontalSpeed(), getVerticalSpeed());
 		moveThroughWall();
 		deccelerate();
-//		applyGravity();
-		maintainFloor();
-	}
-
-	/**
-	 * Make sure the doodle doesn't fall out of the screen from below
-	 */
-	public void maintainFloor(){
-		if (getY() + mySpriteHeight > gameHeight){
-			setY(gameHeight - mySpriteHeight);
-		}
-	}
-	/**
-	 * Apply gravity to the doodle
-	 */
-	public void applyGravity(){
-		addVerticalSpeed(ACCELERATION_TIME, GRAVITY, MAX_SPEED);
 	}
 
 	/**
