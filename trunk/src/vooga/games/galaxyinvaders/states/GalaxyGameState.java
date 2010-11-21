@@ -110,7 +110,7 @@ public class GalaxyGameState extends GameState{
 		players.add(ship);
 	}
 	
-	private void initControls(){
+	/*private void initControls(){
 		shipControl = new KeyboardControl(ship, game);
 		shipControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.galaxyinvaders.sprites.Ship", new Class[] {int.class});
 		shipControl.setParams(KeyEvent.VK_LEFT, MOVE_DISTANCE);
@@ -123,7 +123,7 @@ public class GalaxyGameState extends GameState{
 		gameControl.addInput(KeyEvent.VK_T, "clearEnemies", "vooga.games.galaxyinvaders.states.GalaxyGameState");
 		gameControl.addInput(KeyEvent.VK_P, "toggle", "vooga.games.galaxyinvaders.DropThis");
 		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
-	}
+	}*/
 	
 	private void initColliders() {
 		torpedoCollider = new TorpedoEnemyCollider(game);
@@ -265,11 +265,11 @@ public class GalaxyGameState extends GameState{
 	private boolean isAtBorder(BetterSprite enemy){
 		return enemy.getY() >= MAX_ALLOWED_ENEMY_YPOS;
 	}
-	
+	/*
 	public void clearEnemies(){
 		enemies.clear();
 	}
-	
+	*/
 	/**
 	 * This method changes the player's score by a certain amount. To decrease
 	 * score, enter a negative score as a parameter
