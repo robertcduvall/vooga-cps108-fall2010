@@ -11,9 +11,11 @@ import vooga.games.grandius.Player;
 import vooga.games.grandius.states.PlayState;
 
 public class LevelCompleteEvent implements IEventHandler{
+	private DropThis grandius;
 	private PlayState playState;
 	
-	public LevelCompleteEvent(PlayState playState){
+	public LevelCompleteEvent(DropThis grandius, PlayState playState){
+		this.grandius = grandius;
 		this.playState = playState;
 	}
 
@@ -28,12 +30,12 @@ public class LevelCompleteEvent implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		LevelManager levelManager =  playState.getLevelManager();
-		//if(levelManager.getCurrentLevel()!=2){
 		PlayField newField = playState.getLevelManager().loadNextLevel();
-		playState.getField().clearPlayField();
+		playState.removeEverything();
 		playState.setField(newField);
-		//}
+		playState.setPlayer((Player) newField.getGroup("playerGroup").getSprites()[0]);
+		playState.initControls();
+		playState.initEvents();
+		grandius.setAsPlayGameState(playState);
 	}
-
 }

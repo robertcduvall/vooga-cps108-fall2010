@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Level name="easyLevel" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
 
-        <SpriteGroups>
-                <SpriteGroup name="backgroundGroup">
-                        <Sprite class="vooga.games.grandius.Background" x="0" y="0" vx="0" vy="0" quantity="1">
-                                <Visual name="backgroundImage" />
-                        </Sprite>
-                </SpriteGroup>
-                <SpriteGroup name="cometsGroup">
-                        <Sprite class="vooga.games.grandius.Comet" random="true" xMin="0" xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0" vyMax="0" quantity="5000" />
-                </SpriteGroup>
-                <SpriteGroup name="planetsGroup">
-                        <Sprite class="vooga.games.grandius.Earth" random="false" x="800" y="0" vx="-0.05" vy="0" quantity="1" />
-                        <Sprite class="vooga.games.grandius.Neptune" random="false" x="1800" y="200" vx="-0.05" vy="0" quantity="1" />
-                </SpriteGroup>
-                <SpriteGroup name="missileGroup" />
-                <SpriteGroup name="explosionGroup" />
-                <SpriteGroup name="playerGroup">
-                        <Sprite class="vooga.games.grandius.Player" random="false" x="100" y="200" vx="0" vy="0" quantity="1" >
-                                <Stat name="livesStat" />
-                                <Stat name="scoreStat" />
-                                <Stat name="cashStat" />
-                        </Sprite>
-                </SpriteGroup>
-                <SpriteGroup name="enemyGroup">
-                        <Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="300" xMax="600" yMin="50" yMax="500" vxMin="-0.01" vxMax="-0.03" vyMin="0" vyMax="0" quantity="2" />
-                        <Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="1500" xMax="1800" yMin="50" yMax="500" vxMin="-0.05" vxMax="-0.08" vyMin="0" vyMax="0" quantity="1" />
-                </SpriteGroup>
-                <SpriteGroup name="projectileGroup" />
-                <SpriteGroup name="bossPartGroup" />
-                <SpriteGroup name="bossGroup" />
-                <SpriteGroup name="enemyProjectileGroup" />
-                <SpriteGroup name="blackHoleGroup" />
-        </SpriteGroups>
+	<SpriteGroups>
+		<SpriteGroup name="backgroundGroup">
+			<Sprite class="vooga.games.grandius.Background" x="0" y="0"
+				vx="0" vy="0" quantity="1">
+				<Visual name="backgroundImage" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="cometsGroup">
+			<Sprite class="vooga.games.grandius.planetoids.Comet" random="true" xMin="0"
+				xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0"
+				vyMax="0" quantity="5000" />
+		</SpriteGroup>
+		<SpriteGroup name="planetsGroup">
+			<Sprite class="vooga.games.grandius.planetoids.Earth" random="false" x="800"
+				y="0" vx="-0.05" vy="0" quantity="1" />
+			<Sprite class="vooga.games.grandius.planetoids.Neptune" random="false" x="1800"
+				y="200" vx="-0.05" vy="0" quantity="1" />
+		</SpriteGroup>
+		<SpriteGroup name="missileGroup" />
+		<SpriteGroup name="explosionGroup" />
+		<SpriteGroup name="playerGroup">
+			<Sprite class="vooga.games.grandius.Player" random="false" x="100"
+				y="200" vx="0" vy="0" quantity="1">
+				<Stat name="livesStat" />
+				<Stat name="scoreStat" />
+				<Stat name="cashStat" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="enemyGroup">
+			<Sprite class="vooga.games.grandius.enemy.common.Zipster"
+				random="true" xMin="300" xMax="600" yMin="50" yMax="500" vxMin="-0.01"
+				vxMax="-0.03" vyMin="0" vyMax="0" quantity="2" />
+<!--			<Sprite class="vooga.games.grandius.enemy.common.Zipster"-->
+<!--				random="true" xMin="1500" xMax="1800" yMin="50" yMax="500" vxMin="-0.05"-->
+<!--				vxMax="-0.08" vyMin="0" vyMax="0" quantity="1" />-->
+		</SpriteGroup>
+		<SpriteGroup name="projectileGroup" />
+		<SpriteGroup name="bossPartGroup" />
+		<SpriteGroup name="bossGroup" />
+		<SpriteGroup name="enemyProjectileGroup" />
+		<SpriteGroup name="blackHoleGroup" />
+	</SpriteGroups>
 
-        <Rules>
-                <Rule name="GameOverRule" class="vooga.games.grandius.rules.GameOverRule">
-                        <SpriteGroup name="playerGroup" />
-                </Rule>
-                <Rule name="GameWonRule" class="vooga.games.grandius.rules.GameWonRule">
-                        <SpriteGroup name="enemyGroup" />
-                </Rule>
-<!--            <Rule name="BounceZipsterRule" class="vooga.games.grandius.rules.BounceZipsterRule">-->
-<!--                    <SpriteGroup name="enemyGroup" />-->
-<!--            </Rule>-->
-        </Rules>
+	<Rules>
+		<Rule name="GameOverRule" class="vooga.games.grandius.rules.GameOverRule">
+			<SpriteGroup name="playerGroup" />
+		</Rule>
+		<Rule name="GameWonRule" class="vooga.games.grandius.rules.GameWonRule">
+			<SpriteGroup name="enemyGroup" />
+		</Rule>
+		<!-- <Rule name="BounceZipsterRule" class="vooga.games.grandius.rules.BounceZipsterRule"> -->
+		<!-- <SpriteGroup name="enemyGroup" /> -->
+		<!-- </Rule> -->
+	</Rules>
 
-        <CollisionGroups>
-                <CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
-                        <SpriteGroup name="playerGroup"></SpriteGroup>
-                        <SpriteGroup name="enemyGroup"></SpriteGroup>
-                </CollisionGroup>
-                <CollisionGroup subclass="vooga.games.grandius.collisions.ProjectileEnemyCollision">
-                        <SpriteGroup name="projectileGroup"></SpriteGroup>
-                        <SpriteGroup name="enemyGroup"></SpriteGroup>
-                </CollisionGroup>
-                <CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyProjectileCollision">
-                        <SpriteGroup name="playerGroup"></SpriteGroup>
-                        <SpriteGroup name="enemyProjectileGroup"></SpriteGroup>
-                </CollisionGroup>
-        </CollisionGroups>
-        
-        <Backgrounds>
-                <Background name="backgroundImage" />
-        </Backgrounds> 
-        
-        <Music />
-        <Map />
-        
-        
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
+			<SpriteGroup name="playerGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+		<CollisionGroup
+			subclass="vooga.games.grandius.collisions.ProjectileEnemyCollision">
+			<SpriteGroup name="projectileGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+		<CollisionGroup
+			subclass="vooga.games.grandius.collisions.PlayerEnemyProjectileCollision">
+			<SpriteGroup name="playerGroup"></SpriteGroup>
+			<SpriteGroup name="enemyProjectileGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+
+	<Backgrounds>
+		<Background name="backgroundImage" />
+	</Backgrounds>
+
+	<Music />
+	<Map />
+
+
 </Level>
