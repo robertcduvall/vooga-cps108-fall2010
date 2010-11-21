@@ -1,10 +1,15 @@
 package vooga.games.mariogame;
 
+import vooga.engine.core.Game;
+
 import com.golden.gamedev.object.Sprite;
 
 public class MarioToEnemyCollision extends BetterCollisionGroup {
 	long myLastCollisionTime;
 	
+	public MarioToEnemyCollision(Game game) { 
+		super();
+	}
 	
 	@Override
 	public void collided(Sprite mario, Sprite enemy) {

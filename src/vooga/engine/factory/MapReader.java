@@ -13,6 +13,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * 
@@ -78,6 +79,7 @@ public class MapReader {
 		return myPlayfield;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadMappedSprites(String pathName) throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		myWidth = 0;
@@ -103,6 +105,7 @@ public class MapReader {
 		// and will always be represented as a character.
 		Character currentKey = ' ';
 		myHeight = lines.size();
+		SpriteGroup mapGroup = new SpriteGroup("Map Group");
 		
 		Class<?>[] constructorParams = {BufferedImage.class, double.class, double.class};
 		
@@ -122,7 +125,7 @@ public class MapReader {
 						op = (Class<? extends Sprite>) Class.forName(classToCreate);
 						cons = op.getConstructor(constructorParams);
 						Sprite obj = cons.newInstance(Resources.getImage(image),x,y);
-						myPlayfield.add(obj);
+						mapGroup.add(obj);
 					} catch (Exception e) {
 						throw ClassAssociatedException.CLASS_NOT_FOUND ;
 					}
@@ -133,5 +136,6 @@ public class MapReader {
 				}
 			}
 		}
+		myPlayfield.addGroup(mapGroup);
 	}
 }

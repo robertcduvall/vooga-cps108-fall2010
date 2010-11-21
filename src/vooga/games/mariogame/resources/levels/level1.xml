@@ -14,7 +14,7 @@
 
 		<SpriteGroup name="goombaGroup">
 			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50"
-				vxMin="1" vyMin="1" vxMax="1" vyMax="1" quantity="3"
+				vxMin=".01" vyMin=".1" vxMax=".01" vyMax=".1" quantity="3"
 				class="vooga.games.mariogame.Enemy">
 				<Visual name="Goomba" />
 			</Sprite>
@@ -22,26 +22,36 @@
 	</SpriteGroups>
 
 	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.mariogame.MarioToEnemyCollision">
+			<SpriteGroup name="marioGroup" />
+			<SpriteGroup name="goombaGroup" />
+		</CollisionGroup>
+		
 		<CollisionGroup subclass="vooga.games.mariogame.MarioToTileCollision">
 			<SpriteGroup name="marioGroup" />
-			<SpriteGroup name="Extra Group" />
+			<SpriteGroup name="Map Group" />
+		</CollisionGroup>
+		
+		<CollisionGroup subclass="vooga.games.mariogame.EnemyToTileCollision">
+			<SpriteGroup name="goombaGroup" />
+			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
 	</CollisionGroups>
 
 	<Map>
 		<MapGroup name="Map0">
 			<Association char="F"
-				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile"></Association>
+				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile" />
 			<Association char="D"
-				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Dirt Tile"></Association>
+				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Dirt Tile" />
 			<Association char="B" object="vooga.games.mariogame.tiles.BreakTile"
-				image="Break Tile"></Association>
+				image="Break Tile" />
 			<Association char="C"
-				object="vooga.games.mariogame.tiles.ChangingTile" image="Item Tile 1"></Association>
+				object="vooga.games.mariogame.tiles.ChangingTile" image="Item Tile 1" />
 			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile"
-				image="Item Tile 2"></Association>
+				image="Item Tile 2" />
 			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile"
-				image="Item Tile 1"></Association>
+				image="Item Tile 1" />
 		</MapGroup>
 	</Map>
 

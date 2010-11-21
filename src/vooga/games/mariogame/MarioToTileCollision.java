@@ -4,22 +4,26 @@ import vooga.engine.core.Game;
 import vooga.games.mariogame.tiles.Tile;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
-public class MarioToTileCollision extends BetterCollisionGroup {
+public class MarioToTileCollision extends AdvanceCollisionGroup {
 	
 	public MarioToTileCollision(Game game) {
-		
+		super();
 	}
 
 	@Override
 	public void collided(Sprite mario, Sprite tile) {
 
-		int side = getCollisionSide(mario, tile);
-
-		// printCollisionSide(mario,tile);
-
-		revertPosition1(mario, tile);
-
+//		int side = getCollisionSide(mario, tile);
+		int side = getCollisionSide();
+		
+//		printCollisionSide(mario,tile);
+		printCollisionSide();
+		
+//		revertPosition1(mario, tile);
+		revertPosition1();
+		
 		switch (side) {
 		case (LEFT_RIGHT_COLLISION):
 			mario.setHorizontalSpeed(0);

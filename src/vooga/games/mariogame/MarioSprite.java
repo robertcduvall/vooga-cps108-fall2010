@@ -25,6 +25,8 @@ public class MarioSprite extends BetterSprite {
 	private char lastCheatChar;
 
 	public MarioSprite(){
+		myHealth = new Stat<Integer>(100);
+		
 	}
 	
 	/*
