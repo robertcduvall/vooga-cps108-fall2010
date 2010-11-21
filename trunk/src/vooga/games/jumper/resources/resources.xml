@@ -47,7 +47,6 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/jumper/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
 		<String name="Level1" value="levels/jumper.xml" />
-		
 	</Strings>
 
 	<Integers>
@@ -57,5 +56,8 @@
 	</Integers>
 
 	<Doubles>
+		<Double name="DECELERATION_FACTOR" value=".0005" />
+		<Double name="MAX_SPEED" value="2" />
+		<Double name="GRAVITY" value="5" />
 	</Doubles>
 </Resources>

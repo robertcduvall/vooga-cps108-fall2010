@@ -7,7 +7,7 @@ import vooga.engine.level.Rule;
 import vooga.engine.resource.Resources;
 
 /**
- * Bounce blocks off walls
+ * Bounce BlockSprite off wall if it touches the side
  * 
  * @author Brian
  */
@@ -36,8 +36,9 @@ public class WallBounce implements Rule{
 	
 	private void adjustForFloor(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
-			if (s!=null)
+			if (s!=null){
 				s.setHorizontalSpeed(s.getHorizontalSpeed() * -1);
+			}
 		}
 		
 	}
