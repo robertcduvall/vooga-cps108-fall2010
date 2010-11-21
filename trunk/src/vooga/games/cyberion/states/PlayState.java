@@ -30,11 +30,12 @@ public class PlayState extends GameState {
 	public PlayState(PlayField pf, DropThis game) {
 		newField = pf;
 		myGame = game;
+
 	}
 
 	public void initialize() {
 		// spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
-		//PlayField newField = myLevelManager.loadFirstLevel();
+		// newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();

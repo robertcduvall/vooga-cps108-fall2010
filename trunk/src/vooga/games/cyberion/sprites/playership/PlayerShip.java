@@ -32,7 +32,7 @@ public class PlayerShip extends BetterSprite {
 			this.weaponPower = weaponPower;
 		}
 
-		private EventPool eventManager;
+		private EventPool eventManager = new EventPool();
 
 		public void setEventManager(EventPool em) {
 			eventManager = em;

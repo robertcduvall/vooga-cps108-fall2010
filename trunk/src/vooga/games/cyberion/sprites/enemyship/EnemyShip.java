@@ -43,10 +43,10 @@ public class EnemyShip extends BetterSprite {
 			if (life <= 0)
 				this.setActive(false);
 			//enemies fire randomly with a chance of 3/1000 for every update call
-			if (rnd.nextInt(1000) > 997) {
-				eventManager.addEvent( new EnemyFireEvent(this,
-						"EnemyFireEvent", getX(), getY()));
-			}
+//			if (rnd.nextInt(1000) > 997) {
+//				eventManager.addEvent( new EnemyFireEvent(this,
+//						"EnemyFireEvent", getX(), getY()));
+//			}
 		}
 
 		public void setLife(int life) {
