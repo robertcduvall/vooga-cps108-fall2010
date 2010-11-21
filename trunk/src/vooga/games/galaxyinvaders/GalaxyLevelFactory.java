@@ -50,7 +50,8 @@ public class GalaxyLevelFactory implements LevelFactory {
 	private SpriteGroup makeEnemies(int numberOfEnemies, ArrayList<Point> path, int timer) {
 		SpriteGroup enemies = new SpriteGroup("enemies");
 		for (int i=0; i<numberOfEnemies; i++){
-			EnemySprite e = new EnemySprite("default", new BetterSprite(Resources.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), path, timer);
+			//EnemySprite e = new EnemySprite("default", new BetterSprite(Resources.getImage("enemy1"), (i%4)*50, ((int)(i/4))*50), path, timer);
+			EnemySprite e = new EnemySprite();
 			BetterSprite damaged = new BetterSprite(Resources.getImage("enemy1damage"));
 			//TODO: Check to see if this ever gets used
 			e.addSprite("damaged", damaged);
