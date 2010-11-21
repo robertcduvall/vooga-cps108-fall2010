@@ -28,8 +28,6 @@ public class PlayerEnemyProjectileCollision extends BasicCollision {
 		AnimatedSprite explosion = new VolatileSprite(images, player.getX(), player.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
-		((DropThis)grandius).getPlayState().getRenderField().add(newField);
-		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
 		getPlayer().updatePlayerLives();
 	}
 

@@ -23,7 +23,7 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="300" yMin="50" xMax="600" yMax="500" vxMin="-0.5" vxMax="0" vyMin="0" vyMax="0" quantity="100" />
+			<Sprite class="vooga.games.grandius.enemy.common.Zipster" random="true" xMin="300" xMax="600" yMin="50" yMax="500" vxMin="-0.5" vxMax="-0.02" vyMin="0" vyMax="0" quantity="100" />
 		</SpriteGroup>
 		<SpriteGroup name="projectileGroup" />
 		<SpriteGroup name="bossPartGroup" />
@@ -52,6 +52,10 @@
 		<CollisionGroup subclass="vooga.games.grandius.collisions.ProjectileEnemyCollision">
 			<SpriteGroup name="projectileGroup"></SpriteGroup>
 			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
+		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyProjectileCollision">
+			<SpriteGroup name="playerGroup"></SpriteGroup>
+			<SpriteGroup name="enemyProjectileGroup"></SpriteGroup>
 		</CollisionGroup>
 	</CollisionGroups>
 	

@@ -2,7 +2,6 @@ package vooga.games.grandius.events;
 
 import java.awt.event.KeyEvent;
 
-import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
 import vooga.games.grandius.states.PlayState;
