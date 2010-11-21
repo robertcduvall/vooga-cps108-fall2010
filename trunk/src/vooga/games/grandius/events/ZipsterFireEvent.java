@@ -6,7 +6,6 @@ import vooga.games.grandius.DropThis;
 import vooga.games.grandius.Player;
 import vooga.games.grandius.enemy.common.Zipster;
 import vooga.games.grandius.states.PlayState;
-import vooga.games.grandius.weapons.ZipsterLaser;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
