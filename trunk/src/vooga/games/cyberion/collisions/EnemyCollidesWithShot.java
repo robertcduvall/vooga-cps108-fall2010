@@ -1,6 +1,6 @@
 package vooga.games.cyberion.collisions;
 
-import vooga.games.cyberion.sprites.EnemyShip;
+import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 
 import com.golden.gamedev.engine.BaseAudio;
 import com.golden.gamedev.object.Sprite;

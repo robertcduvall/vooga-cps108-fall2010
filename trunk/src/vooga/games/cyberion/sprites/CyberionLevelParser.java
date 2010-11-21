@@ -7,6 +7,8 @@ import org.w3c.dom.NamedNodeMap;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
+import vooga.games.cyberion.sprites.enemyship.EnemyShip;
+import vooga.games.cyberion.sprites.playership.PlayerShip;
 
 public class CyberionLevelParser extends LevelParser{
 
