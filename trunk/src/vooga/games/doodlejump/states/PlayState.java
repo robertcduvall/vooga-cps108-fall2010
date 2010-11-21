@@ -15,6 +15,7 @@ import vooga.engine.factory.LevelParser;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.OverlayString;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
@@ -46,6 +47,7 @@ public class PlayState extends GameState{
 	
 	private void initLevel(){
 		doodle = (DoodleSprite)(getGroup("doodleGroup").getSprites()[0]);
+		doodle.setPlayState(this);
 		initControls(doodle);
 
 	}
@@ -54,17 +56,11 @@ public class PlayState extends GameState{
 	public void update(long elapsedTime){
 		for (SpriteGroup group : myField.getGroups()) {
 			for (Sprite sprite : group.getSprites()) {
-//				if (group.getName().equals("doodleGroup")){
-//					doodle = (DoodleSprite) (group.getSprites()[0]);
-//				}
-//				if (doodle.getY() < 400 && sprite != null) {
-//					if (group.getName().equals("Doodle Group"))
-//						score.setStat(score.getStat() + 5);
-//					sprite.moveY(400 - doodle.getY());
-//				}
-//				System.out.println(sprite.getClass());
-				if(group.getName().equals("group0") && sprite != null){
-					System.out.println(sprite);
+				if (doodle.getY() < 400 && sprite != null) {
+					if (group.getName().equals("doodleGroup")){
+						doodle.setStat("score", new Stat(((Integer)doodle.getStat("score").getStat()).intValue() + 5));
+					}
+					sprite.moveY(400 - doodle.getY());
 				}
 			}
 		}

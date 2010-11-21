@@ -3,7 +3,7 @@
 
 	<SpriteGroups>
 		<SpriteGroup name="doodleGroup">
-			<Sprite class="vooga.games.doodlejump.DoodleSprite" random="false" x="400" y="300" vx="0" vy="0" quantity="1">
+			<Sprite class="vooga.games.doodlejump.DoodleSprite" random="false" x="400" y="400" vx="0" vy="0" quantity="1">
 				<Visual name="doodleRight" />
 				<Stat name="score" />
 				<Stat name="lives" />
@@ -206,9 +206,9 @@
 		</CollisionGroup>
 	</CollisionGroups>
 
-	<Background>
+	<Backgrounds>
 		<Visual name = "background" />
-	</Background>
+	</Backgrounds>
 
 	<Music>
 		<Sound name="jumpSound" />
