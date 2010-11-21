@@ -20,9 +20,20 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/tronupdate/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
 		<String name="Level1" value="levels/tronupdate.xml" />
+	    <String name="backgroundgamemusic" value="resources/sounds/music.mid" />
+	    <String name="explosion" value="resources/sounds/explosion.wav" />
+	    <String name="gameitemlist" value="player,block,bonus"/>
+	    <String name="delim"	value="," />
 	</Strings>
 	
 	<Integers>
+			<Integer name="framerate"     value="20"	/>
+			<Integer name="width"      value="480"	/>
+			<Integer name="height"     value="480"	/>
+			<Integer name="playerimagewidth"    value="5"	/>		
+			<Integer name="randomblocksize"    value="15"	/>	
+			<Integer name="minumumrandomblock"    value="5"	/>	
+			<Integer name="playerimagewidth"    value="5"	/>		
 	</Integers>
 	
 	<Doubles>
