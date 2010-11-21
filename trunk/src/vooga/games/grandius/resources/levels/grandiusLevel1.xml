@@ -19,6 +19,15 @@
 		<SpriteGroup name="projectileGroup" />
 	</SpriteGroups>
 
+	<Rules>
+		<Rule name="DeathRule" class="vooga.games.grandius.rules.DeathRule">
+			<SpriteGroup name="cometsGroup" />
+			<SpriteGroup name="missleGroup" />
+			<SpriteGroup name="explosionGroup" />
+			<SpriteGroup name="playerGroup" />
+		</Rule>
+	</Rules>
+
 	<CollisionGroups>
 		<CollisionGroup subclass="vooga.games.grandius.collisions.PlayerEnemyCollision">
 			<SpriteGroup name="playerGroup"></SpriteGroup>

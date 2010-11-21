@@ -27,6 +27,11 @@ public class FireBlackHoleEvent  implements IEventHandler{
 		this.playState = playState;
 	}
 	
+	public void FireBackHoleEvent()
+	{
+		
+	}
+	
 	@Override
 	public boolean isTriggered() {
 		return grandius.keyPressed(KeyEvent.VK_B);
