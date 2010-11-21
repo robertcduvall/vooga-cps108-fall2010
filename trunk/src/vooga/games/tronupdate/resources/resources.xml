@@ -1,7 +1,7 @@
 <Resources>
 	<Images>
-		<Image name="lazer1" path="lazer1.png" />
-		<Image name="lazer0" path="lazer0.png" />
+		<Image name="redlazer" path="redlazer.png" />
+		<Image name="bluelazer" path="bluelazer.png" />
 		<Image name="yellowbonus" path="yellowlazer.png" />
 		<Image name="greenplayer" path="greenlazer.png" />
 		<Image name="gamepause" path="gamepause.png" />
