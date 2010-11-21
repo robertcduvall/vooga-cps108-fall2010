@@ -114,7 +114,7 @@ public class DropThis extends Game {
 
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-//		gameControl.update();
+		gameControl.update();
 	}
 
 	// renders active sprites
