@@ -3,8 +3,6 @@ package vooga.games.tronupdate.state;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 
@@ -13,21 +11,33 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.engine.factory.LevelManager;
 import vooga.games.tron.GridSpace;
+import vooga.games.tron.Player1AndBonusCollision;
+import vooga.games.tron.Player2AndBonusCollision;
+import vooga.games.tronupdate.collisions.PlayerAndBoundariesCollision;
+import vooga.games.tron.PlayerAndEnemyCollision;
+import vooga.games.tronupdate.collisions.PlayerAndBonusCollision;
+import vooga.games.tronupdate.events.TronGamePauseEvent;
 import vooga.games.tronupdate.items.TronPlayer;
+import vooga.games.tronupdate.util.Direction;
+import vooga.games.zombieland.collision.BZCollisionManager;
+import vooga.games.zombieland.collision.HICollisionManager;
+import vooga.games.zombieland.collision.PZCollisionManager;
+import vooga.games.zombieland.collision.WallBoundManager;
 
 
 public class PlayState extends GameState{
 	
 	private Game game;
-	PlayField playField;
+	private PlayField playField;
 	private TronPlayer firstPlayer;
 	private TronPlayer secondPlayer;
 	private GridSpace gridSpace;	
 	private Control firstPlayerControl;
+	private Control secondPlayerControl;
 	private BetterSprite[][] firstPlayerBlocks;
 	private BetterSprite[][] secondPlayerBlocks;
 	
@@ -48,12 +58,25 @@ public class PlayState extends GameState{
 		initializeControl();
 		initializeBlocks();
 		initializeEnvironment();
-
-		iniEvents();
+		initializeCollision();
 		//initializeOverlay();
+		initializeEvents();
+		
 	}
 	
-//	private void initLevel(){
+	public void initializeCollision() {
+		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision();   
+		PlayerAndBoundariesCollision playerBoundariesCollision=new PlayerAndBoundariesCollision(0,0,Resources.getInt("width"),Resources.getInt("height"));
+		PlayerAndBonusCollision playerBonusCollision=new PlayerAndBonusCollision();		
+		
+		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("block"), playerEnemyCollision);
+		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("player"), playerBoundariesCollision);
+		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("bonus"), playerBonusCollision);
+		
+		
+	}
+
+//	private void initializeLevel(){
 //		
 //		TronPlayer player =(TronPlayer)(getGroup("playerSpriteGroup").getSprites()[0]);
 //		//TronPlayer leftTronPlayer= new Tronplayer();
@@ -65,18 +88,36 @@ public class PlayState extends GameState{
 //
 //	}
 	
-	private void iniEvents() {
-		// TODO Auto-generated method stub
-		
+	public void initializeEvents() {
+		EventPool eventPool = new EventPool();
+	    playField.addEventPool(eventPool);
+	    TronGamePauseEvent tronGamePauseEvent = new TronGamePauseEvent(game,); 
+	    playField.addEvent(tronGamePauseEvent);
 	}
 
-	private void initializeSprites() {
+	public void initializeSprites() {
 	    gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
-		firstPlayer = new TronPlayer(Resources.getImage("redlazer") , gridSpace.getTotalRow() / 10, gridSpace.getTotalColumn() / 2 , gridSpace,PLAYER_IMAGE_WIDTH, "right"); ;
-		
+		firstPlayer = new TronPlayer(Resources.getImage("redlazer") , initialFirstPlayerXPosition(), initialFirstPlayerYPosition() , gridSpace,PLAYER_IMAGE_WIDTH, Direction.right);
+		secondPlayer = new TronPlayer(Resources.getImage("bluelazer") , initialSecondPlayerXPosition(), initialSecondPlayerYPosition() , gridSpace,PLAYER_IMAGE_WIDTH, Direction.left);
 	}
 	
-	private void initializeEnvironment() {
+	public int initialFirstPlayerXPosition(){
+		return gridSpace.getTotalRow() / 10;
+	}
+	
+	public int initialFirstPlayerYPosition(){
+		return gridSpace.getTotalColumn() / 2;
+	}
+	
+	public int initialSecondPlayerXPosition(){
+		return gridSpace.getTotalRow()*9 / 10;
+	}
+	
+	public int initialSecondPlayerYPosition(){
+		return gridSpace.getTotalColumn() / 2;
+	}
+	
+	public void initializeEnvironment() {
 		playField = new PlayField();
 		String spritegroupslist = Resources.getString("gameitemlist");
 		String delim = Resources.getString("delim");
@@ -88,36 +129,39 @@ public class PlayState extends GameState{
 			
 		}
 		playField.getGroup(spritegroups[0]).add(firstPlayer);
+		playField.getGroup(spritegroups[0]).add(secondPlayer);
 		
 		for(int i=0;i<firstPlayerBlocks.length;i++){
 			for(int j=0;j<firstPlayerBlocks[0].length;j++)
 		playField.getGroup(spritegroups[1]).add(firstPlayerBlocks[i][j]);
 		}
-//		for()
-//			playField.getGroup(spritegroups[1]).add(rightPlayerBlocks);
+		for(int i=0;i<secondPlayerBlocks.length;i++){
+			for(int j=0;j<secondPlayerBlocks[0].length;j++)
+		playField.getGroup(spritegroups[1]).add(secondPlayerBlocks[i][j]);
+		}
+
 	}
 
-	private void initializeControl() {
+	public void initializeControl() {
 		initFirstPlayerControls(firstPlayer);
-		
+		initSecondPlayerControls(secondPlayer);
 	}
 
 
-	private void initFirstPlayerControls(TronPlayer player){
-	//	BetterSprite player1 = (BetterSprite) player; 
+	public void initFirstPlayerControls(TronPlayer player){
 		firstPlayerControl = new KeyboardControl(player, game);
 		firstPlayerControl.addInput(KeyEvent.VK_DOWN, "down", PLAYER_CLASS);
 		firstPlayerControl.addInput(KeyEvent.VK_RIGHT, "right", PLAYER_CLASS);
 		firstPlayerControl.addInput(KeyEvent.VK_UP, "up", PLAYER_CLASS);
 		firstPlayerControl.addInput(KeyEvent.VK_LEFT, "left", PLAYER_CLASS);
-		//myField.addControl("player1", playerControl);//?
 	}
 	
-	private void initPlayer2Controls(BetterSprite player){
-		Control playerControl = new KeyboardControl(player, game);
-		playerControl.addInput(KeyEvent.VK_LEFT, "playerXDirectionMove", PLAYER_CLASS);
-		playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", PLAYER_CLASS);
-		playerControl.addInput(KeyEvent.VK_UP, "thrust", PLAYER_CLASS);
+	public void initSecondPlayerControls(TronPlayer player){
+		secondPlayerControl = new KeyboardControl(player, game);
+		secondPlayerControl.addInput(KeyEvent.VK_S, "down", PLAYER_CLASS);
+		secondPlayerControl.addInput(KeyEvent.VK_D, "right", PLAYER_CLASS);
+		secondPlayerControl.addInput(KeyEvent.VK_W, "up", PLAYER_CLASS);
+		secondPlayerControl.addInput(KeyEvent.VK_A, "left", PLAYER_CLASS);
 //		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship");
 	//	myField.addControl("player2", playerControl); //??
 	}
@@ -133,9 +177,9 @@ public class PlayState extends GameState{
 				if(firstPlayer.blocks[i][j]==true){
 					firstPlayerBlocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
 				}
-//				if(player2.blocks[i][j]==true){
-//					player2Blocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
-//				}
+				if(secondPlayer.blocks[i][j]==true){
+					secondPlayerBlocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
+				}
 			}			
 		}		
 	}
@@ -150,13 +194,13 @@ public class PlayState extends GameState{
 					//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
 				}
 			}	
-			
-//			for(int i=0;i<player.blocks.length;i++){
-//				for(int j=0;j<player.blocks[0].length;j++){
-//					rightPlayerBlocks.get(count)[i][j]=new Sprite(getImage("resources/lazer"+count+".png"),-50,-50);
-//					//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
-//				}
-//			}	
+			secondPlayerBlocks=new BetterSprite[GRID_WIDTH+2][GRID_HEIGHT+2];
+			for(int i=0;i<secondPlayer.blocks.length;i++){
+				for(int j=0;j<secondPlayer.blocks[0].length;j++){
+					secondPlayerBlocks[i][j]=new BetterSprite(Resources.getImage("bluelazer"),-50,-50);
+					//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
+				}
+			}	
 	}
 	
 	
@@ -170,6 +214,7 @@ public class PlayState extends GameState{
 		buildBlockWall();
 		playField.update(elapsedTime);
 		firstPlayerControl.update();
+		secondPlayerControl.update();
 	}
 	
 	
