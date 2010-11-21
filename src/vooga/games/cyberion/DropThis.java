@@ -52,8 +52,9 @@ public class DropThis extends Game {
 	private static final int HEIGHT = 768;
 
 	public void initResources() {
+		
 		super.initResources();
-
+		
 		Resources.loadInt("Height", HEIGHT);
 		Resources.loadInt("Width", WIDTH);
 
