@@ -12,7 +12,6 @@ import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.PauseGameState;
-import vooga.games.tronupdate.events.GameOverEvent;
 import vooga.games.tronupdate.state.PlayState;
 import vooga.games.tronupdate.collisions.*;
 
