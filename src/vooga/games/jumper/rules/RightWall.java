@@ -23,7 +23,7 @@ public class RightWall implements Rule {
 	public void reposition(SpriteGroup groups) {
 		for(Sprite sprite: groups.getSprites()){
 			if (sprite!=null)
-				sprite.setX(LEFT_WALL_POSITION);
+				sprite.setX(LEFT_WALL_POSITION - sprite.getWidth());
 		}
 		
 	}
