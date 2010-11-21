@@ -5,6 +5,7 @@ import java.util.Random;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
+import vooga.engine.resource.Resources;
 import vooga.games.cyberion.events.EnemyFireEvent;
 
 /**
@@ -21,6 +22,11 @@ public class EnemyShip extends BetterSprite {
 		private int weaponPower;
 		private Random rnd;
 		private EventPool eventManager;
+		
+		public EnemyShip()
+		{
+			super(Resources.getImage("enemyShip"));
+		}
 
 		public EnemyShip(BufferedImage image, double x, double y, int life,
 				EventPool eventManager) {

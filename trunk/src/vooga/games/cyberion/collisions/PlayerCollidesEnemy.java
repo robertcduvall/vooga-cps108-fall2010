@@ -10,6 +10,10 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class PlayerCollidesEnemy extends BasicCollisionGroup {
+	
+	public PlayerCollidesEnemy(Game game) {
+		super();
+	}
 
 	@Override
 	public void collided(Sprite player, Sprite enemy) {
