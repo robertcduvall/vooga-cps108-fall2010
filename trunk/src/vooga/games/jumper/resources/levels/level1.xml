@@ -22,7 +22,11 @@
 	
 	<Events></Events>
 	
-	<Rules></Rules>
+	<Rules>
+		<Rule name="Gravity" class="vooga.games.jumper.rules.Gravity">
+			<SpriteGroup name="doodleSprite" />
+		</Rule>
+	</Rules>
 
 	<CollisionGroups>
 		
