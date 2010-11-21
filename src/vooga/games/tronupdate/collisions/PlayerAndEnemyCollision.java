@@ -15,7 +15,6 @@ public class  PlayerAndEnemyCollision extends BasicCollisionGroup {
 	 */
 	public void collided(Sprite s1, Sprite s2) {	
 		s1.setActive(false);   //  this doesn't work in our cases	
-		s2.setActive(false);
-		
+		s2.setActive(false);	
 	}
 }
