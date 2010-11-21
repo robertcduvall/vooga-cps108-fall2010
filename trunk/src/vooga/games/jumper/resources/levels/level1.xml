@@ -10,8 +10,8 @@
 		</SpriteGroup>
 		
 		
-		<SpriteGroup name="normalBlock">
-			<Sprite class="vooga.games.jumper.sprites.NormalBlock" random="false" x="400" y="300" vx="0" vy="5" quantity="20">
+		<SpriteGroup name="normalBlocks">
+			<Sprite class="vooga.games.jumper.sprites.NormalBlock" random="true" xMin="100" xMax="300" yMin="0" yMax="600" vxMin="0" vxMax="1" vyMin="-1" vyMax="1" quantity="50">
 				<Visual name="platformGreen"/>
 			</Sprite>
 		</SpriteGroup>
@@ -35,6 +35,9 @@
 		</Rule>
 		<Rule name="LeftWall" class="vooga.games.jumper.rules.LeftWall">
 			<SpriteGroup name="doodleSprite" />
+		</Rule>
+		<Rule name="WallBounce" class="vooga.games.jumper.rules.WallBounce">
+			<SpriteGroup name="normalBlocks" />
 		</Rule>
 		
 	</Rules>

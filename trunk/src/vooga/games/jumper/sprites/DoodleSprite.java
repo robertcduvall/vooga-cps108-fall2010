@@ -37,8 +37,6 @@ public class DoodleSprite extends BetterSprite {
 	 * Create new DoodleSprite
 	 * @param image Sprite Image
 	 * @param location Point representing starting sprite location
-	 * @param left BufferedImage representing Doodle when it is looking left
-	 * @param right BufferedImage representing Doodle when it is looking right
 	 */
 
 	

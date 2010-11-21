@@ -51,7 +51,7 @@ public abstract class BlockSprite extends BetterSprite {
 	 */
 	public void update(long elapsedTime){
 		move(getHorizontalSpeed(), getVerticalSpeed());
-		bounceOnWall();
+//		bounceOnWall();
 	}
 
 	/**
