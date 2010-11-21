@@ -3,10 +3,11 @@ package vooga.games.towerdefense.actors;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.overlay.Stat;
-import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.actors.towers.Normal;
+import vooga.games.towerdefense.actors.towers.ShootingTower;
 import vooga.games.towerdefense.actors.towers.Tower;
 import vooga.games.towerdefense.events.BuildTowerEvent;
+import vooga.games.towerdefense.events.FindTargetEvent;
 import vooga.widget.MouseFollower;
 
 /**
@@ -24,18 +25,20 @@ public class Player extends MouseFollower {
 	private static final Tower DEFAULT_TOWER = new Normal(0,0);
 	private Tower currentTower;
 	private BuildTowerEvent buildTowerEvent;
+	private FindTargetEvent findTargetEvent;
 	private Stat<Integer> balance;
 	private Stat<Integer> score;
 	private Stat<Integer> selfEsteem;
 	private final int MONEY_CHEAT = 1000000;
 
-	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
+	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, FindTargetEvent findTarget, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
 		super(image, x, y);
 		changeTowerType(DEFAULT_TOWER);
 		this.balance = balance;
 		this.score = score;
 		this.selfEsteem = selfEsteem;
 		this.buildTowerEvent = buildTower;
+		this.findTargetEvent = findTarget;
 	}
 
 	public void onClick() {
@@ -49,6 +52,7 @@ public class Player extends MouseFollower {
 	private void buildTower() {
 		setTowerLocation();
 		buildTowerEvent.addTower(currentTower);
+		findTargetEvent.addTower((ShootingTower) currentTower);
 		changeTowerType(currentTower.clone());
 	}
 	
