@@ -55,19 +55,27 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 public class DropThis extends vooga.engine.core.Game {
 
+	private static final int WIDTH = 500;
+	private static final int HEIGHT = 800;
+	
+	private LevelManager levelManager;
+
+	PlayGameState playState;
+	PauseGameState pauseState;
+	
+
+	
 	private static final int UP_KEY = KeyEvent.VK_UP;
 	private static final int CHEAT_KEY = KeyEvent.VK_C;
 	private static final int LEFT_KEY = KeyEvent.VK_LEFT;
 	private static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
-	private final static int GAME_WIDTH = 500;
-	private final static int GAME_HEIGHT = 800;
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
 	private double BLOCK_XVELOCITY_INCREASE_RATE = 0;
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
 	private double myBlockVelocity = -2.0;
 	private double fastBlockSpeedMultiplier = 2.0;
 
-	private Point DOODLE_START = new Point (GAME_WIDTH / 2, -500);
+	private Point DOODLE_START = new Point (WIDTH / 2, -500);
 
 	private double myMaxBlockXVelocity = 0.4;    
 	private double myBlockFrequency = 0.04;
@@ -110,11 +118,6 @@ public class DropThis extends vooga.engine.core.Game {
 	private int myBlockCounter = 0;
 	private int myBlockCounterIncrement = 4;
 
-	private LevelManager levelManager;
-
-	PlayGameState playState;
-	PauseGameState pauseState;
-	
 	/**
 	 *  Initialize all of the game instance variables
 	 */
@@ -122,6 +125,10 @@ public class DropThis extends vooga.engine.core.Game {
 
 		this.hideCursor();
 		super.initResources();
+
+		Resources.loadInt("gameHeight", HEIGHT);
+		Resources.loadInt("gameWidth", WIDTH);
+		
 		initLevelManager();
 		PlayField levelPlayField = levelManager.loadFirstLevel();
 		initGameStates(levelPlayField);
