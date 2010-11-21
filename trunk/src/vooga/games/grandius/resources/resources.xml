@@ -3,6 +3,7 @@
 	<Images>
 		<Image name="cometImage" path="comet.jpg" />
 		<Image name="earthImage" path="earth.png" />
+		<Image name="neptuneImage" path="neptune.png" />
 		<Image name="missileImage" path="missile.jpg" />
 		<Image name="buyMissileImage" path="buyMissile.jpg" />
 		<Image name="backgroundImage" path="background.png" />
