@@ -3,6 +3,7 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
@@ -15,7 +16,7 @@ import vooga.games.zombieland.gamestates.ZombielandPlayState;
  */
 public class Zombie extends BetterSprite implements Constants {
 
-//	private static final int ZOMBIES_PER_LEVEL = 25;
+	private static final int ZOMBIES_PER_LEVEL = 25;
 //	private static int itemChance;
 //	private static int attackDelay;
 //	private static double zombieStatMultiplier;
@@ -33,47 +34,46 @@ public class Zombie extends BetterSprite implements Constants {
 
 	
 	
-	public Zombie(String name, int level, Shooter player,
-			Blah currentGame) {
+	public Zombie() {
 		super();
 
-//		AnimatedSprite down = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_DOWN));
-//		AnimatedSprite up = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_UP));
-//		AnimatedSprite left = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_LEFT));
-//		AnimatedSprite right = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_RIGHT));
-//		AnimatedSprite attackDown = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKDOWN));
-//		AnimatedSprite attackUp = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKUP));
-//		AnimatedSprite attackLeft = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKLEFT));
-//		AnimatedSprite attackRight = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKRIGHT));
-//		AnimatedSprite death = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(DEATH));
+		AnimatedSprite down = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ZOMBIE_DOWN));
+		AnimatedSprite up = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ZOMBIE_UP));
+		AnimatedSprite left = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ZOMBIE_LEFT));
+		AnimatedSprite right = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ZOMBIE_RIGHT));
+		AnimatedSprite attackDown = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ATTACKDOWN));
+		AnimatedSprite attackUp = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ATTACKUP));
+		AnimatedSprite attackLeft = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ATTACKLEFT));
+		AnimatedSprite attackRight = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(ATTACKRIGHT));
+		AnimatedSprite death = AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(DEATH));
 
-//		addSprite(ZOMBIE_DOWN, down);
-//		addSprite(ZOMBIE_UP, up);
-//		addSprite(ZOMBIE_LEFT, left);
-//		addSprite(ZOMBIE_RIGHT, right);
-//		addSprite(ATTACKDOWN, attackDown);
-//		addSprite(ATTACKUP, attackUp);
-//		addSprite(ATTACKLEFT, attackLeft);
-//		addSprite(ATTACKRIGHT, attackRight);
-//		addSprite(DEATH, death);
+		addSprite(ZOMBIE_DOWN, down);
+		addSprite(ZOMBIE_UP, up);
+		addSprite(ZOMBIE_LEFT, left);
+		addSprite(ZOMBIE_RIGHT, right);
+		addSprite(ATTACKDOWN, attackDown);
+		addSprite(ATTACKUP, attackUp);
+		addSprite(ATTACKLEFT, attackLeft);
+		addSprite(ATTACKRIGHT, attackRight);
+		addSprite(DEATH, death);
 
 //		setHumanTarget(player);
 
@@ -87,7 +87,7 @@ public class Zombie extends BetterSprite implements Constants {
 //		zombieCurrentHealth = Resources.getInt("startZombieHealth");
 //		zombieDamage = Resources.getInt("startZombieDamage");
 
-		updateStats(level);
+		updateStats(1);
 
 		chooseRandomLocation();
 
@@ -107,18 +107,23 @@ public class Zombie extends BetterSprite implements Constants {
 	}
 
 	public void updateStats(int level) {
-		zombieCurrentHealth = (int) (zombieCurrentHealth * level / zombieStatMultiplier);
-		zombieDamage = (int) (zombieDamage + level / zombieStatMultiplier);
+		setStat("zombieCurrentHealth", new Stat<Integer>((int) ((Integer)(readStat("zombieCurrentHealth")) * level / (Integer) readStat("zombieStatMultiplier"))));
+		setStat("zombieDamage", new Stat<Integer>( (int) ((Integer) readStat("zombieDamage") + level / (Integer) readStat("zombieStatMultiplier"))));
 	}
 
 	public double getHealth() {
-		return zombieCurrentHealth;
+		return (Double) readStat("zombieCurrentHealth");
 	}
 
 	public static int zombiesPerLevel() {
 		return ZOMBIES_PER_LEVEL;
 	}
 
+	public Object readStat(String stat)
+	{
+		return getStat(stat).getStat();
+	}
+	
 	/**
 	 * Sets the target for the current zombie. Can be used if at some point we
 	 * have more than one human target
@@ -164,7 +169,7 @@ public class Zombie extends BetterSprite implements Constants {
 	 * @return true if the zombie is ready for the next attack
 	 */
 	public boolean isAbleToAttack() {
-		return attackDelayStep == attackDelay;
+		return readStat("attackDelayStep") == readStat("attackDelay");
 	}
 
 	/**
@@ -173,7 +178,7 @@ public class Zombie extends BetterSprite implements Constants {
 	 * @return damage of the zombie
 	 */
 	public double getDamage() {
-		return zombieDamage;
+		return (Double) readStat("zombieDamage");
 	}
 
 	/**
@@ -197,21 +202,21 @@ public class Zombie extends BetterSprite implements Constants {
 	 *            damage taken by the zombie
 	 */
 	public void calculateDamage(double damage) {
-		zombieCurrentHealth -= damage;
+		setStat("zombieCurrentHealth", new Stat<Double>((Double) readStat("zombieCurrentHealth") - damage));
 	}
 
 	/**
 	 * Update attack step. Used to force intervals between attacks
 	 */
 	public void updateAttackStep() {
-		attackDelayStep++;
+		setStat("attackDelayStep", new Stat<Integer>((Integer) readStat("attackDelayStep")+1));
 	}
 
 	/**
 	 * reset attack step
 	 */
 	public void resetAttackDelayStep() {
-		attackDelayStep = 0;
+		setStat("attackDelayStep", new Stat<Integer>(0));
 	}
 
 	/**
@@ -222,7 +227,7 @@ public class Zombie extends BetterSprite implements Constants {
 	 *            attack direction
 	 */
 	public void setAttackAnimation(String side) {
-		currentAttackAnimation = side;
+		setStat("currentAttackAnimation", new Stat<String> (side));
 	}
 
 	/**
@@ -241,7 +246,7 @@ public class Zombie extends BetterSprite implements Constants {
 				target.updateScore(1);
 
 				int item = (int) (Math.random() * 100);
-				if (item < itemChance) {
+				if (item < (Integer) readStat("itemChance")) {
 
 					((ZombielandPlayState) game.getPlayGameState())
 							.addRandomItem(getX(), getY());
@@ -251,11 +256,11 @@ public class Zombie extends BetterSprite implements Constants {
 		}
 
 		// Attack animation
-		if (!currentAttackAnimation.isEmpty()) {
-			setAsRenderedSprite(currentAttackAnimation);
+		if (!((String) readStat("currentAttackAnimation")).isEmpty()) {
+			setAsRenderedSprite((String) readStat("currentAttackAnimation"));
 			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
-				currentAttackAnimation = "";
+				setStat("currentAttackAnimation", new Stat<String>(""));
 			}
 			return;
 		}
@@ -268,22 +273,22 @@ public class Zombie extends BetterSprite implements Constants {
 		 */
 		String direction = getDirection();
 		if (direction.equals(ZOMBIE_RIGHT)) {
-			moveX(Math.abs(speed));
+			moveX(Math.abs((Integer)readStat("speed")));
 			setAsRenderedSprite(ZOMBIE_RIGHT);
 			return;
 		}
 		if (direction.equals(ZOMBIE_UP)) {
-			moveY(speed);
+			moveY((Integer)readStat("speed"));
 			setAsRenderedSprite(ZOMBIE_UP);
 			return;
 		}
 		if (direction.equals(ZOMBIE_LEFT)) {
-			moveX(speed);
+			moveX((Integer)readStat("speed"));
 			setAsRenderedSprite(ZOMBIE_LEFT);
 			return;
 		}
 		if (direction.equals(ZOMBIE_DOWN)) {
-			moveY(Math.abs(speed));
+			moveY(Math.abs((Integer)readStat("speed")));
 			setAsRenderedSprite(ZOMBIE_DOWN);
 			return;
 		}
