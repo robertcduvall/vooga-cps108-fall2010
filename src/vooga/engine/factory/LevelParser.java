@@ -1,5 +1,6 @@
 package vooga.engine.factory;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Constructor;
@@ -381,7 +382,7 @@ public class LevelParser implements LevelFactory{
 			if(isElement(currentNode))
 			{
 				String pathName = ((Element) currentNode).getAttribute("name");
-				String path = pathName == null ? ((Element) currentNode)
+				String path = pathName.equals("") ? ((Element) currentNode)
 						.getAttribute("path") : Resources.getString(pathName);
 				reader = new MapReader(path, voogaPlayField);
 				NodeList listOfAssociations = currentNode.getChildNodes();
@@ -433,10 +434,16 @@ public class LevelParser implements LevelFactory{
 		for (int i = 0; i < backgrounds.getLength(); i++) {
 			if (isElement(backgrounds.item(i))) {
 				Element bgElement = (Element) backgrounds.item(i);
-				voogaPlayField.addImageBackground(bgElement
-						.getAttribute("name"));
+				String bgName = bgElement.getAttribute("name");
+				if (!bgName.equals(""))
+					voogaPlayField.addImageBackground(bgElement
+							.getAttribute("name"));
+				else
+					voogaPlayField.addColorBackground(new Color(Integer
+							.parseInt(bgElement.getAttribute("color"), 16)));
 			}
 		}
+		voogaPlayField.setBackground(0);
 	}
 
 	/**

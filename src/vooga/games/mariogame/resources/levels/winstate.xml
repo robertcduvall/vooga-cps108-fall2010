@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="Asteroids" xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml">
+<Level name="Win State" xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml">
 
 	<SpriteGroups>
 	</SpriteGroups>
@@ -8,7 +8,7 @@
 	</CollisionGroups>
 	
 	<Background>
-		<Visual path="Win BG" />
+		<Visual name="Win BG" />
 	</Background>
 
 	<Music>
