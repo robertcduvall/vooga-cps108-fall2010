@@ -2,12 +2,12 @@ package vooga.games.towerdefense.actors;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.actors.towers.Normal;
 import vooga.games.towerdefense.actors.towers.Tower;
 import vooga.games.towerdefense.events.BuildTowerEvent;
+import vooga.widget.MouseFollower;
 
 /**
  * Represents the player in the game. The player follows 
@@ -18,7 +18,7 @@ import vooga.games.towerdefense.events.BuildTowerEvent;
  * @author Daniel Koverman
  *
  */
-public class Player extends BetterSprite {
+public class Player extends MouseFollower {
 
 	private static final long serialVersionUID = 1L;
 	private static final Tower DEFAULT_TOWER = new Normal(0,0);
@@ -37,20 +37,19 @@ public class Player extends BetterSprite {
 		this.buildTowerEvent = buildTower;
 	}
 
-	public void move() {
-		forceX(Resources.getGame().bsInput.getMouseX());
-		forceY(Resources.getGame().bsInput.getMouseY());
-	}
-
 	public void onClick() {
 		buildTower();
 	}
 
 	private void buildTower() {
-		currentTower.forceX(getX());
-		currentTower.forceY(getY());
+		setTowerLocation();
 		buildTowerEvent.addTower(currentTower);
 		changeTowerType(currentTower.clone());
+	}
+	
+	private void setTowerLocation(){
+		currentTower.forceX(getX()+getWidth()/2-currentTower.getWidth()/2);
+		currentTower.forceY(getY()+getHeight()/2-currentTower.getWidth()/2);
 	}
 	
 	public void changeTowerType(Tower newTower){
