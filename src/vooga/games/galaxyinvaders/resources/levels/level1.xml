@@ -2,7 +2,7 @@
 
         <SpriteGroups>
                 <SpriteGroup name="player">
-                        <Sprite class="vooga.games.galaxyinvaders.sprites.Ship" random="false" x="310" y="650" vx="0" vy="0" quantity="1">
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.Ship" random="false" x="310" y="700" vx="0" vy="0" quantity="1">
                                 <Visual name="ship" />
                                 <Stat name="livesStat" />
                 				<Stat name="scoreStat" />
@@ -15,13 +15,13 @@
                         </Sprite>
                 </SpriteGroup>
                 <SpriteGroup name="blockades">
-                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="100" y="650" vx="0" vy="0" quantity="1">
+                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="100" y="620" vx="0" vy="0" quantity="1">
                 			<Visual name="barrier" />
                 		</Sprite>
-                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="300" y="650" vx="0" vy="0" quantity="1">
+                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="300" y="620" vx="0" vy="0" quantity="1">
                 			<Visual name="barrier" />
                 		</Sprite>
-                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="500" y="650" vx="0" vy="0" quantity="1">
+                		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="500" y="620" vx="0" vy="0" quantity="1">
                 			<Visual name="barrier" />
                 		</Sprite>
                 </SpriteGroup>

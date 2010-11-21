@@ -31,7 +31,7 @@ public class PauseState extends PauseGameState {
 		Collection<PlayField> playfields = this.getUpdateField();
 		for (PlayField playfield : playfields)
 		{
-			playfield.addControl("start", gameControl);
+			playfield.addControl("game", gameControl);
 		}
 	}
 
