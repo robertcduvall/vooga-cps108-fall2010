@@ -64,16 +64,16 @@ public class DropThis extends Game {
 	public void initControls() {
 		gameControl = new KeyboardControl(this, this);
 		gameControl.addInput(KeyEvent.VK_P, "pauseGame",
-				"vooga.games.Cyberion.DropThis");
+				"vooga.games.cyberion.DropThis");
 		gameControl.addInput(KeyEvent.VK_R, "resumeGame",
-				"vooga.games.Cyberion.DropThis");
+				"vooga.games.cyberion.DropThis");
 	}
 
 	public void pauseGame() {
 		this.getGameStateManager().switchTo(myPauseState);
 	}
 
-	public void unpauseGame() {
+	public void resumeGame() {
 		this.getGameStateManager().switchTo(myPlayState);
 	}
 
@@ -112,7 +112,7 @@ public class DropThis extends Game {
 	// }
 
 	public void update(long elapsedTime) {
-//		super.update(elapsedTime);
+		super.update(elapsedTime);
 //		gameControl.update();
 	}
 
