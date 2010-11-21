@@ -1,4 +1,4 @@
-package vooga.games.grandius.buttons;
+package vooga.games.grandius.sprites.buttons;
 
 import java.awt.image.BufferedImage;
 
@@ -7,19 +7,20 @@ import vooga.engine.resource.Resources;
 import vooga.widget.Button;
 
 @SuppressWarnings("serial")
-public class QuitButton extends Button {
+public class BuyBlackHoleButton extends Button {
 
 	private static final int START_X = 220;
 	private static final int START_Y = 200;
-	private static final BufferedImage myImage = Resources.getImage("quitButtonImage");
+	private static final BufferedImage myImage = Resources.getImage("buyBlackHoleButtonImage");
 	
-	public QuitButton(Game game) {
+	public BuyBlackHoleButton(Game game) {
 		super(game, myImage, START_X, START_Y);
 	}
 
 	@Override
 	public void actionPerformed() {
-		System.out.println("Quit button activated!");
+		System.out.println("Black hole button activated!");
+
 	}
 
 }

@@ -7,7 +7,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.factory.LevelManager;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.Player;
+import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.states.PlayState;
 
 public class LevelCompleteEvent implements IEventHandler{

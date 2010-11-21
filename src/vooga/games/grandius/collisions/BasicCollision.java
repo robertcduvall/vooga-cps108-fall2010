@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.Player;
-import vooga.games.grandius.enemy.common.Enemy;
+import vooga.games.grandius.sprites.Player;
+import vooga.games.grandius.sprites.enemy.common.Enemy;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;

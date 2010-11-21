@@ -1,11 +1,11 @@
-package vooga.games.grandius.enemy.boss.reacher;
+package vooga.games.grandius.sprites.enemy.boss.reacher;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.enemy.boss.GrandiusBoss;
+import vooga.games.grandius.sprites.enemy.boss.GrandiusBoss;
 
 import com.golden.gamedev.object.Timer;
 

@@ -1,4 +1,4 @@
-package vooga.games.grandius.weapons;
+package vooga.games.grandius.sprites.weapons;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;

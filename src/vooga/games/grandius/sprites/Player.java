@@ -1,4 +1,4 @@
-package vooga.games.grandius;
+package vooga.games.grandius.sprites;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;

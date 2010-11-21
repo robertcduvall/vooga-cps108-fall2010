@@ -12,13 +12,13 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.Player;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
 import vooga.games.grandius.events.FireMissileEvent;
 import vooga.games.grandius.events.FireVerticalEvent;
 import vooga.games.grandius.events.LevelCompleteEvent;
 import vooga.games.grandius.events.ZipsterFireEvent;
+import vooga.games.grandius.sprites.Player;
 
 public class PlayState extends GameState {
 	private static DropThis myGame;

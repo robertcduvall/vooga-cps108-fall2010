@@ -1,4 +1,4 @@
-package vooga.games.grandius.buttons;
+package vooga.games.grandius.sprites.buttons;
 
 import java.awt.image.BufferedImage;
 

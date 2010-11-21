@@ -1,4 +1,4 @@
-package vooga.games.grandius.enemy.boss;
+package vooga.games.grandius.sprites.enemy.boss;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
-import vooga.games.grandius.enemy.common.Enemy;
+import vooga.games.grandius.sprites.enemy.common.Enemy;
 
 /**
  * A GrandiusBoss is the final enemy in a Grandius Level. It is composed of many

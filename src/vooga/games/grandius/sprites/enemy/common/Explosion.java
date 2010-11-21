@@ -1,4 +1,4 @@
-package vooga.games.grandius.enemy.common;
+package vooga.games.grandius.sprites.enemy.common;
 
 import java.awt.image.BufferedImage;
 

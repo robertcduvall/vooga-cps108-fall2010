@@ -1,8 +1,8 @@
-package vooga.games.grandius.weapons;
+package vooga.games.grandius.sprites.weapons;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.enemy.common.Zipster;
+import vooga.games.grandius.sprites.enemy.common.Zipster;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;

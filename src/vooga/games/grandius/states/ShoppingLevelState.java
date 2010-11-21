@@ -2,9 +2,9 @@ package vooga.games.grandius.states;
 
 import vooga.engine.core.Game;
 import vooga.engine.state.MenuGameState;
-import vooga.games.grandius.buttons.BuyBlackHoleButton;
-import vooga.games.grandius.buttons.BuyMissileButton;
-import vooga.games.grandius.buttons.NextLevelButton;
+import vooga.games.grandius.sprites.buttons.BuyBlackHoleButton;
+import vooga.games.grandius.sprites.buttons.BuyMissileButton;
+import vooga.games.grandius.sprites.buttons.NextLevelButton;
 //TODO this GameState should be implemented using a MenuGameState
 //private void buildShoppingLevelState() {
 //	shoppingLevelState = new GameState();
