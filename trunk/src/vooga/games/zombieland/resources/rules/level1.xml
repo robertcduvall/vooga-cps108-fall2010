@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Level name="zombielevel1" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml" >
+
+	<SpriteGroups>
+	
+		<SpriteGroup name="Zombies" >
+			<Sprite class="vooga.games.zombieland.zombie"  random="true" xMin="400" yMin="50" xMax="600" yMax="500" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="1" />
+				<Visual name="zombieattackdown" />
+				<Visual name="zombieattackup" />
+				<Visual name="zombieattackleft" />
+				<Visual name="zombieattackright" />
+				<Visual name="zombieup" />
+				<Visual name="zombiedown" />
+				<Visual name="zombieleft" />
+				<Visual name="zombieright" />
+				<Visual name="zombiedeath" />
+			</Sprite>
+		</SpriteGroup>
+
+		<SpriteGroup name="Bullets" >
+		</SpriteGroup>
+		
+		<SpriteGroup name="Items" >
+		</SpriteGroup>
+		
+		<SpriteGroup name="Players" >
+			<Sprite class="vooga.games.zombieland.player" random="false" x="350" y="250" vx="0" vy="0" quantity="1" />
+			<Visual name="playerleft" />
+			<Visual name="playerright" />
+			<Visual name="playerup" />
+			<Visual name="playerdown" />
+		</SpriteGroup>
+		
+	</SpriteGroups>
+	
+	<Rules>
+	
+	</Rules>
+	
+	
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.zombieland.collisions.BZCollisionManager">
+			<SpriteGroup name="Bullets" />
+			<SpriteGroup name="Zombies" />
+		</CollisionGroup>
+	
+		<CollisionGroup subclass="vooga.games.zombieland.collisions.HICollisionManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Items" />
+		</CollisionGroup>
+	
+		<CollisionGroup subclass="vooga.games.zombieland.collisions.PZCollisionManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Zombies" />
+		</CollisionGroup>
+	
+		<CollisionGroup subclass="vooga.games.zombieland.collisions.WallBoundManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Zombies" />
+		</CollisionGroup>
+	</CollisionGroups>
+
+	
+	<Music>
+		<song name="entersand" />
+	</Music>
+
+	<Backgrounds>
+		<Background name="greybackground" />
+	</Backgrounds>
+
+</Level>
