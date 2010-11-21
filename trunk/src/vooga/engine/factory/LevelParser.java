@@ -1,5 +1,6 @@
 package vooga.engine.factory;
 
+
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -12,9 +13,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.engine.control.Control;
-import vooga.engine.control.KeyboardControl;
-import vooga.engine.core.Game;
-
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
@@ -31,7 +29,9 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
 
 /**
- * LevelParser
+ * The LevelParser class can be used to process a LevelXML file and turn it into a PlayField.
+ * The LevelParser handles SpriteGroups, CollisionGroups, Backgrounds,
+ * Music, Maps, and Events.
  * 
  * @author Derek, Cameron, Jimmy, John
  *
@@ -40,7 +40,6 @@ import com.golden.gamedev.object.SpriteGroup;
 public class LevelParser implements LevelFactory{
 
 	private static final int FIRST_IMAGE = 0;
-	private String gameClassPath;
 	private Game currentGame;
 	private PlayField voogaPlayField;
 	private OverlayTracker overlayTracker;
@@ -80,12 +79,6 @@ public class LevelParser implements LevelFactory{
 		String xmlOverlayPath = level.getAttribute("xmloverlaypath");
 		overlayTracker = OverlayCreator.createOverlays(xmlOverlayPath); //Getting a "prolog" error from this line.
 		voogaPlayField.addOverlayTracker(overlayTracker);
-		
-		
-		
-		//		Node levelRulesSection = xmlDocument.getElementsByTagName("LevelRules").item(0);
-		//		NodeList listOfLevelRules = levelRulesSection.getChildNodes();
-		//		processLevelRules(listOfLevelRules);
 
 		Node spriteGroupsSection = xmlDocument.getElementsByTagName("SpriteGroups").item(0);
 		NodeList listOfSpriteGroups = spriteGroupsSection.getChildNodes();
@@ -95,14 +88,14 @@ public class LevelParser implements LevelFactory{
 		Node eventGroupsSection = xmlDocument.getElementsByTagName("Events").item(0);
 		if(eventGroupsSection!=null) {
 			NodeList listOfEventGroups = eventGroupsSection.getChildNodes();
-			processEventGroups(listOfEventGroups);
+			processEvents(listOfEventGroups);
 		}
 
 		//process Rules
 		Node ruleGroupsSection = xmlDocument.getElementsByTagName("Rules").item(0);
 		if(ruleGroupsSection!=null) {
 			NodeList listOfRuleGroups = ruleGroupsSection.getChildNodes();
-			processRuleGroups(listOfRuleGroups);
+			processRules(listOfRuleGroups);
 		}
 
 		Node collisionGroupsSection = xmlDocument.getElementsByTagName("CollisionGroups").item(0);
@@ -111,10 +104,10 @@ public class LevelParser implements LevelFactory{
 			processCollisionGroups(listOfCollisionGroups);
 		}
 
-		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("Background").item(0);
+		Node backgroundGroupsSection = xmlDocument.getElementsByTagName("Backgrounds").item(0);
 		if(backgroundGroupsSection!=null) {
 			NodeList listOfBackgrounds = backgroundGroupsSection.getChildNodes();
-			processBackground(listOfBackgrounds);
+			processBackgrounds(listOfBackgrounds);
 		}
 
 		Node musicGroupSection = xmlDocument.getElementsByTagName("Music").item(0);
@@ -131,13 +124,13 @@ public class LevelParser implements LevelFactory{
 		}
 	}
 
-	private void processRuleGroups(NodeList ruleGroupsList) {
+	private void processRules(NodeList rulesList) {
 
-		for(int i = 0; i < ruleGroupsList.getLength(); i++)
+		for(int i = 0; i < rulesList.getLength(); i++)
 		{
-			if (isElement(ruleGroupsList.item(i)))
+			if (isElement(rulesList.item(i)))
 			{
-				Element rule = (Element) ruleGroupsList.item(i);
+				Element rule = (Element) rulesList.item(i);
 				String rulename = rule.getAttribute("name");
 				String implementor = rule.getAttribute("class");
 				
@@ -171,13 +164,13 @@ public class LevelParser implements LevelFactory{
 		return list;
 	}
 
-	private void processEventGroups(NodeList eventGroupsList) {
+	private void processEvents(NodeList eventList) {
 		
-		for(int i = 0; i < eventGroupsList.getLength(); i++)
+		for(int i = 0; i < eventList.getLength(); i++)
 		{
-			if (isElement(eventGroupsList.item(i)))
+			if (isElement(eventList.item(i)))
 			{
-				Element event = (Element) eventGroupsList.item(i);
+				Element event = (Element) eventList.item(i);
 				String implementor = event.getAttribute("class");
 				
 				try {
@@ -192,26 +185,6 @@ public class LevelParser implements LevelFactory{
 			}
 		}
 	}
-
-
-
-	//	/**
-	//	 * Processes a Level's LevelRules.
-	//	 */
-	//	private void processLevelRules(NodeList listOfLevelRules){
-	//		int length = listOfLevelRules.getLength();
-	//        for (int i = 0; i < length; i++) {
-	//        	Node node = listOfLevelRules.item(i);
-	//        	if (isElement(node) && node.getNodeName().equals("CollisionGroup")) {
-	//            	NodeList collisionGroupList = node.getChildNodes();
-	//            	processCollisionGroups(collisionGroupList);
-	//            	
-	//        	} else if (isElement(node) && node.getNodeName().equals("Rule")) {
-	//        		NodeList rulesList = node.getChildNodes();
-	//            	processRules(rulesList);
-	//        	}
-	//        }
-	//	}
 
 	/**
 	 * Processes the SpriteGroups within the LevelObjects section.
@@ -237,7 +210,6 @@ public class LevelParser implements LevelFactory{
 	 * Processes the Sprites within a SpriteGroup.
 	 */
 	public void processSprite(NodeList spritesList, SpriteGroup group) {
-//		BetterSprite newSprite = null;
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			if (isElement(spritesList.item(i))) {
@@ -245,9 +217,8 @@ public class LevelParser implements LevelFactory{
 				if (currentElement.getTagName().equals("Sprite")) {
 					String className = currentElement.getAttribute("class");
 					try {
-						Class userSprite = Class.forName(className); 
-						Constructor classConstructor = userSprite.getConstructor();
-						
+						Class<?> userSprite = Class.forName(className);
+						Constructor<?> classConstructor = userSprite.getConstructor();
 						if (!Boolean.parseBoolean(currentElement.getAttribute("random"))) {
 							double x = Double.parseDouble(currentElement.getAttribute("x"));
 							double y = Double.parseDouble(currentElement.getAttribute("y"));
@@ -337,38 +308,33 @@ public class LevelParser implements LevelFactory{
 				String controlsubclassname=controlElement.getAttribute("controlsubclass");
 				String objectclassname = controlElement.getAttribute("class");
 				String objectmethodname = controlElement.getAttribute("methodname");
-				
-				
-				
 				int controlkey = Integer.parseInt(controlElement.getAttribute("controlkey"));
-				
-				
-				
-//				<Control name=”” controlsubclass= ““ controlkey=”” class=”“ methodname=””>
-//					<MethodArgument class=”Integer” />
-//					<MethodArgument class=”Integer” />
-//				</Control>
-				
-				
-//				BufferedImage[] visual = Resources.getVisual(visualName);
-//
-//				newSprite.addAnimatedImages(visualName, visual);
-//				
-//		
-//				Control playerControl = new KeyboardControl(player, game);
-				
-//				playerControl.addInput(KeyEvent.VK_LEFT, "rotateLeft", "vooga.games.asteroids.sprites.Ship", null);
-//				playerControl.addInput(KeyEvent.VK_RIGHT, "rotateRight", "vooga.games.asteroids.sprites.Ship", null);
-//				playerControl.addInput(KeyEvent.VK_UP, "thrust", "vooga.games.asteroids.sprites.Ship", null);
-//				playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship", null);
-//				myField.addControl(playerControl);
-				
-				
+				NodeList methodArguments = controlElement.getElementsByTagName("MethodArgument");
+				Class<?>[] paramTypes = getParamTypes(methodArguments);
+				try {
+					Class controlClass = Class.forName(controlsubclassname);
+					Constructor<Control> ct = controlClass.getConstructor(Object.class, Game.class);
+					Control newControl = ct.newInstance(spriteToAdd, currentGame);
+					newControl.addInput(controlkey, objectmethodname, objectclassname, paramTypes);
+				} catch (Exception e) {
+					throw LevelException.CONTROL_PARSING_EXCEPTION;
+				}	
 			}
 		}
 		
 	}
-
+	
+	private Class[] getParamTypes(NodeList list) {
+		Class[] returnArray = new Class[list.getLength()];
+		for (int i = 0; i < list.getLength(); i++) {
+			try {
+				returnArray[i] = Class.forName(((Element)list.item(i)).getAttribute("class"));
+			} catch (Throwable e) {
+				throw LevelException.CONTROL_PARSING_EXCEPTION_CLASS_NOT_FOUND;
+			}
+		}
+		return returnArray;
+	}
 
 	private void processMap(NodeList listOfMaps) {
 		MapReader reader;
@@ -399,9 +365,7 @@ public class LevelParser implements LevelFactory{
 			}
 		}
 	}
-
-
-
+	
 	/**
 	 * Processes Visuals within a Sprite.
 	 */
@@ -427,7 +391,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes the background
 	 */
-	private void processBackground(NodeList backgrounds) {
+	private void processBackgrounds(NodeList backgrounds) {
 		for (int i = 0; i < backgrounds.getLength(); i++) {
 			if (isElement(backgrounds.item(i))) {
 				Element bgElement = (Element) backgrounds.item(i);
@@ -449,11 +413,8 @@ public class LevelParser implements LevelFactory{
 	private void processMusic(NodeList musics) {
 		for (int i = 0; i < musics.getLength(); i++) {
 			if (isElement(musics.item(i))) {
-				Element musicElements = (Element) musics.item(i);
-				if (isElement(musics.item(i))) {
-					Element musicElement = (Element) musics.item(i);
-					voogaPlayField.addMusic(musicElements.getAttribute("name"));
-				}
+				Element musicElement = (Element) musics.item(i);
+				voogaPlayField.addMusic(musicElement.getAttribute("name"));
 			}
 		}
 	}
@@ -476,23 +437,6 @@ public class LevelParser implements LevelFactory{
 	}
 
 	/**
-	 * Processes Controls within a Sprite.
-	 */
-	private void processControls(NodeList controlsList, BetterSprite newSprite) {
-		for(int i = 0; i < controlsList.getLength(); i++)
-		{
-			if (isElement(controlsList.item(i)))
-			{
-				
-				
-				
-				
-				
-			}
-		}	
-	}
-
-	/**
 	 * Processes the CollisionGroups.
 	 */
 	private void processCollisionGroups(NodeList collisionGroupList) {
@@ -511,6 +455,9 @@ public class LevelParser implements LevelFactory{
 		}
 	}
 
+	/**
+	 * Utility method that is used by processCollisionGroups().
+	 */
 	private Object createCollisionSubclass(String subclassName) {
 		Class<?> subclass;
 		try {
@@ -532,23 +479,4 @@ public class LevelParser implements LevelFactory{
 	public Game getGame(){
 		return currentGame;
 	}
-	/*
-	private BetterSprite processX(String classname, NamedNodeMap attributes)
-	{
-		try
-		{
-			Class<?> op = this.getClass();
-			String methodname = "process" + classname;
-			Method m = op.getMethod(methodname, NamedNodeMap.class);
-			Object result = m.invoke(attributes);
-			return (BetterSprite) result;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			System.exit(1);
-			// compiler is :)
-			return null;
-		}
-	}*/
 }
