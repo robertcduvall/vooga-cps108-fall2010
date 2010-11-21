@@ -23,6 +23,9 @@
 	    <String name="backgroundgamemusic" value="resources/sounds/music.mid" />
 	    <String name="explosion" value="resources/sounds/explosion.wav" />
 	    <String name="gameitemlist" value="player,block,bonus"/>
+	    <String name="player" value="player"/>
+	    <String name="block" value="block"/>
+	    <String name="bonus" value="bonus"/>
 	    <String name="delim"	value="," />
 	</Strings>
 	
