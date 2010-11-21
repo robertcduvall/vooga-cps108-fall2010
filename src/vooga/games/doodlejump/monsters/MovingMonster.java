@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
 import com.golden.gamedev.object.Sprite;
@@ -16,11 +17,13 @@ import com.golden.gamedev.object.Sprite;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class MovingMonster extends Sprite {
+public class MovingMonster extends BetterSprite {
 
-	public MovingMonster(BufferedImage image, double x, double y) {
-		super(image, x, y);
-		setHorizontalSpeed(-0.2);
+	public MovingMonster() {
+		this("blueMonster");
+	}
+	public MovingMonster(String label) {
+		super(label, new BetterSprite(Resources.getAnimation(label)));
 	}
 
 	@Override
