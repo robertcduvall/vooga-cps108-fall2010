@@ -15,19 +15,19 @@ import vooga.games.zombieland.gamestates.ZombielandPlayState;
  */
 public class Zombie extends BetterSprite implements Constants {
 
-	private static final int ZOMBIES_PER_LEVEL = 25;
-	private static int itemChance;
-	private static int attackDelay;
-	private static double zombieStatMultiplier;
-
-	private double zombieDamage;
-	private int zombieCurrentHealth;
+//	private static final int ZOMBIES_PER_LEVEL = 25;
+//	private static int itemChance;
+//	private static int attackDelay;
+//	private static double zombieStatMultiplier;
+//
+//	private double zombieDamage;
+//	private int zombieCurrentHealth;
 
 	private Shooter target;
-	private double speed;
-
-	private int attackDelayStep;
-	private String currentAttackAnimation;
+//	private double speed;
+//
+//	private int attackDelayStep;
+//	private String currentAttackAnimation;
 
 	private Blah game;
 

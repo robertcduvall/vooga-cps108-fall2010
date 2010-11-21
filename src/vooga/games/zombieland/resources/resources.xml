@@ -195,7 +195,6 @@
 		<Integer name="startZombieHealth"      value="30"	/>
 		<Integer name="startlevel"         	   value="1"	/>
 		<Integer name="startzombiesAppeared"   value="0"	/>
-		<Integer name="startzombieDamage"      value="5"	/>
 		<Integer name="maxHealth"         	   value="200"	/>
 		<Integer name="zombieFrameSize"        value="3"	/>
 		<Integer name="playerFrameSize"        value="4"	/>
