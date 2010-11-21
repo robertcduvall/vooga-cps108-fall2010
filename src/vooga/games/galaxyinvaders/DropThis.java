@@ -76,7 +76,7 @@ public class DropThis extends Game {
 		DropThis.main(null);
 	}
 
-	public static void switchLevel(){
+	public void switchLevel(){
 		levelManager.loadNextLevel();
 	}
 	
