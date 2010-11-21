@@ -18,31 +18,12 @@ import vooga.games.grandius.events.FireVerticalEvent;
 public class PlayState extends GameState {
 	
 	private static DropThis myGame;
-	
-	//private PlayField myPlayField;
 //	private Map<SpriteGroup, Double> spriteGroupSpeedMap;
-//	private SpriteGroup playerGroup;
-//	private SpriteGroup projectileGroup;
-//	private SpriteGroup enemyProjectileGroup;
-//	private SpriteGroup enemyGroup;
-//	private SpriteGroup bossPartGroup;
-//	private SpriteGroup bossGroup;  
-//	private SpriteGroup missileGroup;
-//	private SpriteGroup blackHoleGroup;
-//	private SpriteGroup cometsGroup;
-//	private SpriteGroup backgroundGroup; 
 	private Player player;
-	
 	private EventPool eventPool;
-	
 	//private boolean reacherShieldsDepleted;
 	private boolean skipLevel = false;
-	
 	private LevelManager myLevelManager;
-//	private OverlayTracker overlayTracker;
-//	private OverlayPanel overlayPanel;
-//	private OverlayStatImage livesIcon;
-	
 	private KeyboardControl playerControl;
 	private static final String PLAYER_CLASS = Resources.getString("playerClass");
 //	private static final double PLAYER_SPEED = Resources.getDouble("playerSpeed");
@@ -59,11 +40,8 @@ public class PlayState extends GameState {
 		player = (Player) newField.getGroup("playerGroup").getSprites()[0];
 		initControls();
 		initEvents();
-		//TODO create PlayField from level files
 		this.addUpdatePlayField(newField);
 		this.addRenderPlayField(newField);
-		//this.addUpdatePlayField(testField);
-		//this.addRenderPlayField(testField);
 	}
 	
 	@Override
@@ -87,51 +65,6 @@ public class PlayState extends GameState {
 		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
 	}
-	
-//	/**
-//	 * Adds the Player to the PlayerGroup SpriteGroup.
-//	 */
-//	private SpriteGroup addPlayer(SpriteGroup playerGroup) {
-////		player = new Player("alivePlayer");
-//		
-//		player.setActive(true);
-//		initControls();
-//		playerGroup.add(player);	
-//		return playerGroup;
-//	}
-	
-//	/**
-//	 * Creates the different SpriteGroups and registers them to the PlayState's PlayField. 
-//	 * Also adds the necessary SpriteGroup entries to the spriteGroupSpeedMap.
-//	 */
-//	private PlayField initSpriteGroups() {
-//		PlayField newField = new PlayField();
-//		backgroundGroup =       		new SpriteGroup("Background");
-//		backgroundGroup.add(new BetterSprite(Resources.getImage("backgroundImage")));
-//		newField.addGroup(backgroundGroup);
-//		playerGroup =            		new SpriteGroup("Player");
-//		playerGroup = addPlayer(playerGroup);
-//		newField.addGroup(playerGroup);
-//		projectileGroup =               newField.addGroup(new SpriteGroup("Projectile"));
-//		enemyProjectileGroup =  		newField.addGroup(new SpriteGroup("EnemyProjectile"));
-//		//TODO the createEnemiesGroup() method should be replaced by the use of the level XML file
-//		enemyGroup =                    newField.addGroup(new SpriteGroup("Enemies"));
-//		bossPartGroup =                 newField.addGroup(new SpriteGroup("BossPart"));
-//		bossGroup =                     newField.addGroup(new SpriteGroup("Boss"));
-//		missileGroup =                  newField.addGroup(new SpriteGroup("Missile"));
-//		blackHoleGroup =                newField.addGroup(new SpriteGroup("BlackHole"));
-//		cometsGroup = 					newField.addGroup(createCometsGroup());
-//		
-//		spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>(); //TODO get rid of the negative signs?
-//		spriteGroupSpeedMap.put(projectileGroup,        Resources.getDouble("projectileSpeed"));
-//		spriteGroupSpeedMap.put(enemyProjectileGroup,   -Resources.getDouble("projectileSpeed"));
-//		spriteGroupSpeedMap.put(enemyGroup,             Resources.getDouble("enemySpeed"));
-//		spriteGroupSpeedMap.put(bossPartGroup,          -Resources.getDouble("bossPartSpeed"));
-//		spriteGroupSpeedMap.put(bossGroup,              -Resources.getDouble("bossSpeed"));
-//		spriteGroupSpeedMap.put(missileGroup,           Resources.getDouble("projectileSpeed"));
-//		
-//		return newField;
-//	}
 	
 	//Old test playfield method
 //	/**
@@ -174,13 +107,6 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
 	}
-	
-//	private SpriteGroup createEnemiesGroup() {
-//		SpriteGroup enemiesGroup = new SpriteGroup("Enemies");
-//		Zipster zipster = new Zipster(400, 200);
-//		enemiesGroup.add(zipster);
-//		return enemiesGroup;
-//	}
 	
 //	/**
 //	 * Creates background "comets" to provide illusion of movement through space.

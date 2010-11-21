@@ -48,30 +48,6 @@ public class Player extends BetterSprite implements IEventHandler {
 		moveY(Resources.getDouble("playerSpeed"));
 	}
 	
-//	public void setLives(Stat<Integer> lives) {
-//		statLives = lives;
-//	}
-//	
-//	public void setScore(Stat<Integer> score) {
-//		statScore = score;
-//	}
-//	
-//	public void setCash(Stat<Integer> cash) {
-//		statCash = cash;
-//	}
-//	
-//	public Stat<Integer> getLives() {
-//		return this.statLives;
-//	}
-//	
-//	public Stat<Integer> getScore() {
-//		return this.statScore;
-//	}
-//	
-//	public Stat<Integer> getCash() {
-//		return this.statCash;
-//	}
-	
 	@Override
 	public boolean isTriggered() {
 		// TODO Auto-generated method stub
