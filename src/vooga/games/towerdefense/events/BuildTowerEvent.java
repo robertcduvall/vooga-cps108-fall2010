@@ -30,7 +30,7 @@ public class BuildTowerEvent implements IEventHandler{
 		for(Tower tower: buildQueue){
 			buildTower(tower);
 		}
-		
+		buildQueue.clear();
 	}
 
 	@Override
