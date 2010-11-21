@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
 
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
@@ -13,11 +12,9 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class PlayerEnemyProjectileCollision extends BasicCollision {
 
-	private Game grandius;
 	
 	public PlayerEnemyProjectileCollision(Game grandius) {
 		super(grandius);
-		this.grandius = grandius;
 	}
 	
 	@Override

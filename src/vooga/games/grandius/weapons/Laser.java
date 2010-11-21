@@ -3,6 +3,7 @@ package vooga.games.grandius.weapons;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
+@SuppressWarnings("serial")
 public class Laser extends BetterSprite {
 
 	public Laser(double x, double y) {

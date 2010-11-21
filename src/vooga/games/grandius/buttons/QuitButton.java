@@ -6,6 +6,7 @@ import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.widget.Button;
 
+@SuppressWarnings("serial")
 public class QuitButton extends Button {
 
 	private static final int START_X = 220;

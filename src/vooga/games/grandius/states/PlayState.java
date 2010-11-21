@@ -24,7 +24,7 @@ public class PlayState extends GameState {
 	private Player player;
 	private EventPool eventPool;
 	//private boolean reacherShieldsDepleted;
-	private boolean skipLevel = false;
+//	private boolean skipLevel = false;
 	private LevelManager myLevelManager;
 	private KeyboardControl playerControl;
 	private static final String PLAYER_CLASS = Resources.getString("playerClass");

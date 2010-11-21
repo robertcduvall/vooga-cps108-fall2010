@@ -1,14 +1,11 @@
 package vooga.games.grandius;
 
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
-
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.weapons.BlackHole;
 
+@SuppressWarnings("serial")
 public class Player extends BetterSprite implements IEventHandler {
 	
 	// TODO: Good practice here? Use Missile/BlackHole classes?
