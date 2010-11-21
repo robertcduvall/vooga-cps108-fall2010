@@ -12,7 +12,9 @@ import vooga.engine.state.GameState;
 import vooga.games.zombieland.Blah;
 
 public class TronGamePauseState extends GameState{
-
+	public TronGamePauseState(){
+		
+	}
 	@Override
 	public void initialize() {
 		
