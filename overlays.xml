@@ -1,0 +1,12 @@
+<Overlay>
+
+<Stat type="Integer" value="50"></Stat>
+<Stat type="Integer" value="70"></Stat>
+<Stat type="Integer" value="4"></Stat>
+<Stat type="Integer" value="0"></Stat>
+
+<OverlayGroup>
+<OverlayStat stat="2" label="SCORE : " xLoc = "0" yLoc = "0"></OverlayStat>
+</OverlayGroup>
+
+</Overlay>
