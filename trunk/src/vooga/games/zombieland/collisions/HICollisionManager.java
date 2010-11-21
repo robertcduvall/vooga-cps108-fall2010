@@ -1,4 +1,4 @@
-package vooga.games.zombieland.collision;
+package vooga.games.zombieland.collisions;
 
 import vooga.games.zombieland.items.Item;
 

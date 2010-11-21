@@ -21,7 +21,7 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.*;
-import vooga.games.zombieland.collision.*;
+import vooga.games.zombieland.collisions.*;
 import vooga.games.zombieland.items.*;
 import vooga.games.zombieland.weapons.*;
 
