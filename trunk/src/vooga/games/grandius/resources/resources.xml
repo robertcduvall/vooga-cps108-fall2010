@@ -6,7 +6,6 @@
 		<Image name="missileImage" path="missile.jpg" />
 		<Image name="buyMissileImage" path="buyMissile.jpg" />
 		<Image name="backgroundImage" path="background.png" />
-		<Image name="zipsterImage" path="zipster1.png" />
 		<Image name="playerImage" path="playersingle.png" />
 		<Image name="explosionImage" path="explosion.png" />
 		<Image name="laserImage" path="projectile.png" />
@@ -23,10 +22,15 @@
 		<Image name="buyBlackHoleButtonImage" path="buyBlackHoleButton.png" />
 		<Image name="nextLevelButtonImage" path="nextLevelButton.png" />		
 		<Image name="menuImage" path="menu.jpg" />
-		<Image name="zipsterImage" path="spinning_zipster_0.png" />
 	</Images>
 
 	<Animations>
+		<Animation name="zipsterAnimation">
+			<Image path="zipster_0.png" />
+			<Image path="zipster_1.png" />
+			<Image path="zipster_2.png" />
+			<Image path="zipster_1.png" />
+		</Animation>
 		<Animation name="spinningZipsterAnimation">
 			<Image path="spinning_zipster_0.png" />
 			<Image path="spinning_zipster_1.png" />

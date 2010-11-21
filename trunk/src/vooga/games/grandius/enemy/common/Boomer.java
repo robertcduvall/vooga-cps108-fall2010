@@ -18,8 +18,8 @@ public class Boomer extends Enemy {
 	
 	private int color;
 	
-	public Boomer(BufferedImage image, double x, double y) {
-		super(image, x, y);
+	public Boomer(BufferedImage[] images, double x, double y) {
+		super(images, x, y);
 		this.color = BOOMER_BLUE;
 		this.setHorizontalSpeed(-0.04);
 		this.setScore(SCORE_VALUE);

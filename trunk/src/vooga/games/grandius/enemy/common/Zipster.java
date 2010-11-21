@@ -1,9 +1,10 @@
 package vooga.games.grandius.enemy.common;
 
-import com.golden.gamedev.object.Timer;
-
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
+
+import com.golden.gamedev.object.AnimatedSprite;
+import com.golden.gamedev.object.Timer;
 
 
 /**
@@ -28,7 +29,9 @@ public class Zipster extends Enemy {
 	}
 	
 	public Zipster(double x, double y) {
-		super(Resources.getImage("zipsterImage"), x, y);
+		super(Resources.getAnimation("zipsterAnimation"), x, y);
+		((AnimatedSprite)this.getCurrentSprite()).setAnimate(true);
+		((AnimatedSprite)this.getCurrentSprite()).setLoopAnim(true);
 		this.setScore(SCORE_VALUE);
 		this.setCash(CASH_VALUE);
 		fireTimer = new Timer(ZIPSTER_LASER_RELOAD_TIME);
@@ -38,10 +41,10 @@ public class Zipster extends Enemy {
 	
 	@Override
 	public void update(long elapsedTime) {
+		super.update(elapsedTime);
 		if (fireTimer.action(elapsedTime)) {
 			reloaded = true;
 		}
-		//this.updateMovement(elapsedTime);
 	}
 	
 	/**

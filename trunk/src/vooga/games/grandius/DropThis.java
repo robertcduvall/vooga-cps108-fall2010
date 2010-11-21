@@ -92,7 +92,7 @@ public class DropThis extends Game {
 			 gameStatesArray[i] = gameStates.get(i);
 		 }
 		 stateManager.addGameState(gameStatesArray);
-		 //stateManager.switchTo(myPlayState);
+		 //stateManager.switchTo(myGameCompleteState);
 	 }
 
 	 /**
@@ -111,6 +111,9 @@ public class DropThis extends Game {
 		 gameControl.update();
 	 }
 
+	 /**
+	  * Returns the Grandius PlayState for use in collision management.
+	  */
 	 //TODO could this method be removed somehow? it's used to deal with collisions...
 	 public PlayState getPlayState() {
 		 return this.myPlayState;
@@ -123,6 +126,9 @@ public class DropThis extends Game {
 		 stateManager.switchTo(myPlayState);
 	 }
 
+	 /**
+	  * Main launching method for Grandius.
+	  */
 	 public static void main(String[] args) {
 		 launch(new DropThis());
 	 }
