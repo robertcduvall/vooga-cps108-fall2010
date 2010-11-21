@@ -226,8 +226,7 @@ public class LevelParser implements LevelFactory{
 				String groupName = spriteGroup.getAttribute("name");
 
 				SpriteGroup newSpriteGroup = new SpriteGroup(groupName);
-				NodeList spritesList = spriteGroup.getChildNodes();
-
+				NodeList spritesList = spriteGroup.getElementsByTagName("Sprite");
 				processSprite(spritesList, newSpriteGroup);
 				voogaPlayField.addGroup(newSpriteGroup);
 			}
@@ -245,8 +244,6 @@ public class LevelParser implements LevelFactory{
 				Element currentElement = (Element) spritesList.item(i);
 				if (currentElement.getTagName().equals("Sprite")) {
 					String className = currentElement.getAttribute("class");
-					System.out.println(className);
-					System.out.println(spritesList);
 					try {
 						Class userSprite = Class.forName(className);
 						Constructor classConstructor = userSprite.getConstructor();

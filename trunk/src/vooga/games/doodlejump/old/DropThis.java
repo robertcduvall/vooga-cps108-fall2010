@@ -194,8 +194,7 @@ public class DropThis extends Game {
 	 */
 	public void initDoodle() {
 		// doodle (main player)
-		doodle = new DoodleSprite("doodle", "normal", new Sprite(
-				getImage("resources/images/doodle_right.png"), 325, 550), this);
+		doodle = new DoodleSprite("doodle", "normal", , 325, 550), this);
 		doodle.setVerticalSpeed(0.5);
 		doodleGroup.add(doodle);
 		doodleKeyboardControl = new KeyboardControl(doodle, this);

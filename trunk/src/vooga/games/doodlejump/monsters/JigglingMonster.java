@@ -2,6 +2,9 @@ package vooga.games.doodlejump.monsters;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
+
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -10,11 +13,16 @@ import com.golden.gamedev.object.Sprite;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class JigglingMonster extends Sprite {
+public class JigglingMonster extends BetterSprite {
 	private int jiggleTimer;
+	private static final String[] monsterNames = {"greenMonster", "bigBlueMonster", "redMonster", "purpleMonster"};
+	
+	public JigglingMonster(){
+		this(Resources.getImage(monsterNames[(int) (Math.random() * 4)]));
+	}
 
-	public JigglingMonster(BufferedImage image, double x, double y) {
-		super(image, x, y);
+	public JigglingMonster(BufferedImage image) {
+		super(image);
 		jiggleTimer = 20;
 		setHorizontalSpeed(-0.2);
 	}

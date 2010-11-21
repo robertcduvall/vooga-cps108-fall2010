@@ -3,29 +3,25 @@
 
 	<SpriteGroups>
 		<SpriteGroup name="doodleGroup">
-			<Sprite name="doodleSprite" x="400" y="300" vx="0"
-				vy="0" quantity="1">
+			<Sprite class="vooga.games.doodlejump.DoodleSprite" random="false" x="400" y="300" vx="0" vy="0" quantity="1">
 				<Visual name="doodle" />
 			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="ballGroup">
-			<Sprite name="ballSprite" x="0" y="0" vx="0" vy="0"
-				quantity="0">
+			<Sprite class="vooga.games.doodlejump.BallSprite" random="false" x="0" y="0" vx="0" vy="0" quantity="0">
 				<Visual name="ball" />
 			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="platformGroup">
-			<Sprite name="greenPlatform" x="0" y="0" vx="0"
-				vy="0" quantity="1">
+			<Sprite class="vooga.engine.core.BetterSprite" random="false" x="50" y="50" vx="0" vy="0" quantity="1">
 				<Visual name="greenPlatform" />
 			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="monsterGroup">
-			<Sprite name="greenPlatform" x="0" y="0" vx="0"
-				vy="0" quantity="1">
+			<Sprite class="vooga.games.doodlejump.monsters.FlyingMonster" random="false" x="100" y="100" vx="0" vy="0" quantity="1">
 				<Visual name="greenPlatform" />
 			</Sprite>
 		</SpriteGroup>

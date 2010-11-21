@@ -8,6 +8,7 @@
 		<Image name="defaultPlayOn" path="default-play-on.png" />
 		<Image name="defaultPlay" path="default-play.png" />
 		<Image name="default" path="Default.png" />
+		<Image name="doodleRight" path="doodle_right.png" />
 		<Image name="finishLine" path="finish_line.png" />
 		<Image name="grayPlatform" path="gray_platform.png" />
 		<Image name="greenJumpingMonster" path="green_jumping_monster.png" />

@@ -2,6 +2,9 @@ package vooga.games.doodlejump.monsters;
 
 import java.awt.image.BufferedImage;
 
+import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
+
 import com.golden.gamedev.object.AnimatedSprite;
 
 /**
@@ -10,15 +13,19 @@ import com.golden.gamedev.object.AnimatedSprite;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class FlyingMonster extends AnimatedSprite {
+public class FlyingMonster extends BetterSprite {
+	public FlyingMonster(){
+		this(Resources.getAnimation("green_flying_monster"));
+	}
 
-	public FlyingMonster(BufferedImage[] images, double x, double y) {
-		super(images, x, y);
+	public FlyingMonster(BufferedImage[] images) {
+		super("flying_monster", images);
 		setHorizontalSpeed(-0.2);
 		setVerticalSpeed(-0.1);
-		setAnimationFrame(0, 4);
-		setLoopAnim(true);
-		setAnimate(true);
+		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
+		sprite.setAnimationFrame(0, 4);
+		sprite.setLoopAnim(true);
+		sprite.setAnimate(true);
 	}
 
 	@Override
