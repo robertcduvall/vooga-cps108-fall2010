@@ -127,9 +127,9 @@ public class DropThis extends Game {
 
 	//TODO could these two methods be removed somehow? they're used
 	//to deal with collisions...
-	public Player getPlayer() {
-		return this.myPlayState.getPlayer();
-	}
+//	public Player getPlayer() {
+//		return this.myPlayState.getPlayer();
+//	}
 	
 	public PlayState getPlayState() {
 		return this.myPlayState;

@@ -37,7 +37,7 @@ public class MissileEnemyCollision extends BasicCollision {
 		((DropThis)grandius).getPlayState().getRenderField().add(newField);
 		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
 		((DropThis)grandius).playSound(Resources.getSound("laserSound"));
-		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
-		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
+		getPlayer().updateScore(((Enemy)enemy).getScore());
+		getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 }

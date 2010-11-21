@@ -36,11 +36,13 @@ public class ProjectileEnemyCollision extends BasicCollision{
 		super.collided(bullet, enemy);
 		bullet.setActive(false);
 		enemy.setActive(false);
-		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
-		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
-		((DropThis)grandius).getPlayState().getGroup("explosionGroup").add(explosion);
-		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
-		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
+//		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
+//		AnimatedSprite explosion = new VolatileSprite(images, enemy.getX(), enemy.getY());
+//		((DropThis)grandius).getPlayState().getGroup("explosionGroup").add(explosion);
+//		((DropThis)grandius).getPlayer().updateScore(((Enemy)enemy).getScore());
+//		((DropThis)grandius).getPlayer().updateCash(((Enemy)enemy).getCash());
+		getPlayer().updateScore(((Enemy)enemy).getScore());
+		getPlayer().updateCash(((Enemy)enemy).getCash());
 	}
 
 	
