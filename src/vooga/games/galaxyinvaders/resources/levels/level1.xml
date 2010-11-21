@@ -58,7 +58,7 @@
 		</Rules>
 
         <Background>
-               <Visual name ="background" />
+               <Visual name="background" />
         </Background>
         
         <Music>
