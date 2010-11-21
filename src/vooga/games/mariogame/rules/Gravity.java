@@ -13,6 +13,9 @@ import vooga.engine.level.Rule;
  */
 public class Gravity implements Rule{
 
+	public Gravity(){
+		
+	}
 	
 	@Override
 	public void enforce(SpriteGroup... groups) {
@@ -29,7 +32,7 @@ public class Gravity implements Rule{
 	private void applyGravity(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
 			if (s!=null)
-				s.setVerticalSpeed(1.5);
+				s.setVerticalSpeed(.5);
 		}	
 	}
 

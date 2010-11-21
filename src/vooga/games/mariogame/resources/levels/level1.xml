@@ -14,7 +14,7 @@
 
 		<SpriteGroup name="goombaGroup">
 			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50"
-				vxMin=".01" vyMin=".1" vxMax=".01" vyMax=".1" quantity="3"
+				vxMin=".05" vyMin="0" vxMax=".15" vyMax="0" quantity="3"
 				class="vooga.games.mariogame.sprites.Enemy">
 				<Visual name="Goomba" />
 			</Sprite>
@@ -38,14 +38,12 @@
 		</CollisionGroup>
 	</CollisionGroups>
 	
-	<!--  
 	<Rules>
-        <Rule name="Gravity" class="vooga.games.mariogame.rule.Gravity">
+        <Rule name="Gravity" class="vooga.games.mariogame.rules.Gravity">
             <SpriteGroup name="marioGroup" />
             <SpriteGroup name="goombaGroup" />
         </Rule>
 	</Rules>
-	-->
 
 	<Map>
 		<MapGroup name="Map0">

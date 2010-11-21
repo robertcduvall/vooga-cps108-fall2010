@@ -18,8 +18,8 @@ import com.golden.gamedev.object.AnimatedSprite;
 @SuppressWarnings("serial")
 public class CharacterSprite extends BetterSprite {
 
-	private static final double GRAVITY = .0025;
-	private double myGravityCoef = 1;
+//	private static final double GRAVITY = .0025;
+//	private double myGravityCoef = 1;
 	public Integer myMaxHealth = 100;
 
 	public CharacterSprite(String name, String stateName,
@@ -67,8 +67,10 @@ public class CharacterSprite extends BetterSprite {
 			setAsRenderedSprite("Left");
 
 		super.update(elapsedTime);
-		setVerticalSpeed(getVerticalSpeed() + getGravityCoef() * GRAVITY
-				* elapsedTime);
+		
+//		This is now taken care of in the rule.Gravity class
+//		setVerticalSpeed(getVerticalSpeed() + getGravityCoef() * GRAVITY
+//				* elapsedTime);
 
 		((AnimatedSprite) getCurrentSprite())
 				.setAnimate(!(getHorizontalSpeed() == 0));
@@ -79,12 +81,12 @@ public class CharacterSprite extends BetterSprite {
 
 	}
 
-	protected void setGravityCoef(double gravityCoef) {
-		this.myGravityCoef = gravityCoef;
-	}
-
-	protected double getGravityCoef() {
-		return myGravityCoef;
-	}
+//	protected void setGravityCoef(double gravityCoef) {
+//		this.myGravityCoef = gravityCoef;
+//	}
+//
+//	protected double getGravityCoef() {
+//		return myGravityCoef;
+//	}
 
 }
