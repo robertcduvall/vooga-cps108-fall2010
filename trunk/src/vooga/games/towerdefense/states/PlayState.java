@@ -1,9 +1,11 @@
 package vooga.games.towerdefense.states;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.control.MouseControl;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
@@ -72,6 +74,7 @@ public class PlayState extends GameState{
 		myPlayField.add(enemyGenerator);
 		
 		myPlayField.addControl("player", initControl(player));
+		myPlayField.addControl("player", initCheats(player));
 	}
 	
 	private Background initBackground(){
@@ -93,5 +96,12 @@ public class PlayState extends GameState{
 		
 		return playerControl;
 	}
-
+	
+	public Control initCheats(BetterSprite player){
+		KeyboardControl playerControl = new KeyboardControl(player, Resources.getGame());	
+		playerControl.addInput(KeyEvent.VK_H, "cheatOn", "vooga.games.towerdefense.actors.Player");
+		//playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.actors.Player");
+		
+		return playerControl;
+	}
 }
