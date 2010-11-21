@@ -24,7 +24,7 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class DropThis extends Game {
 
-	private LevelManager levelManager;
+	private static LevelManager levelManager;
 	private PlayField playfield;
 	
 	private GameState play;
@@ -69,6 +69,10 @@ public class DropThis extends Game {
 	public void startNewGame(){
 		this.finish();
 		DropThis.main(null);
+	}
+	
+	public static void switchLevel(){
+		levelManager.loadNextLevel();
 	}
 	
 	/**
