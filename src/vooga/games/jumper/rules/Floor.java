@@ -29,7 +29,6 @@ public class Floor implements Rule {
 
 	/**
 	 * Check to see if the rule is satisfied.
-	 * 
 	 * @param any number of type SpriteGroup
 	 * @return true if sprite from sprite group hits floor
 	 */
@@ -47,7 +46,7 @@ public class Floor implements Rule {
 	}
 	
 	/**
-	 * Sets the sprites' y value to the floor's
+	 * Sets the SpriteGroup Y-value to the floor Y-value
 	 * 
 	 * @param type SpriteGroup
 	 * 
