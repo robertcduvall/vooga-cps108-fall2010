@@ -88,6 +88,7 @@ public class MarioSprite extends BetterSprite {
 		setHealth(getHealth() - 1);
 		setMaxX(0);
 		Gravity.reset();
+		isBig = false;
 	}
 
 
