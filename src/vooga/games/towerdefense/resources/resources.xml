@@ -37,6 +37,8 @@
 	<Integers>
 		<Integer name="gameWidth" value="1050" />
 		<Integer name="gameHeight" value="600" />
+		<Integer name="playFieldWidth" value="575" />
+		<Integer name="playFieldHeight" value="450" />
 	</Integers>
 	
 </Resources>

@@ -3,6 +3,7 @@ package vooga.games.towerdefense.actors;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.overlay.Stat;
+import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.actors.towers.Normal;
 import vooga.games.towerdefense.actors.towers.ShootingTower;
 import vooga.games.towerdefense.actors.towers.Tower;
@@ -52,7 +53,7 @@ public class Player extends MouseFollower {
 	}
 
 	private void buildTower() {
-		if(canBuild())
+		if(canBuild() && withinBounds(Resources.getInt("playFieldWidth"),Resources.getInt("playFieldHeight")))
 		{
 			setTowerLocation();
 			buildTowerEvent.addTower(currentTower);
@@ -69,6 +70,10 @@ public class Player extends MouseFollower {
 	private void setTowerLocation(){
 		currentTower.forceX(getX()+getWidth()/2-currentTower.getWidth()/2);
 		currentTower.forceY(getY()+getHeight()/2-currentTower.getWidth()/2);
+	}
+	
+	public boolean withinBounds(int width, int height){
+		return getX()<width && getY()<height && getX()>0 && getY()>0;
 	}
 	
 	public void changeTowerType(Tower newTower){
