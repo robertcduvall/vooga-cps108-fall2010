@@ -1,9 +1,11 @@
 package vooga.games.tronupdate.state;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.golden.gamedev.object.SpriteGroup;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 import vooga.engine.overlay.OverlayCreator;
@@ -19,6 +21,7 @@ public class TronGamePauseState extends GameState{
 	private GameStateManager gameStateManager;
 	private EventPool eventPool;
 	private Game game;
+	private PlayField playField;
 	
 	public TronGamePauseState(Game game, GameStateManager gameStateManager){
 		this.gameStateManager = gameStateManager;
@@ -27,14 +30,25 @@ public class TronGamePauseState extends GameState{
 	
 	@Override
 	public void initialize() {
+		playField = new PlayField();
+		playField.addColorBackground(Color.WHITE);
+		playField.setBackground(0);
+		initEvent();
+	}
+	
+	private void initEvent(){
 		eventPool = new EventPool();
 		TronGameResumeEvent tronGameResumeEvent = new TronGameResumeEvent(game,gameStateManager);
 		eventPool.addEvent(tronGameResumeEvent);
 	}
 	
+	public void render(Graphics2D g) {
+		playField.render(g);	
+	}
 
 	public void update(long elapsedTime){
 		super.update(elapsedTime);
+		
 	//	playerControl.update();
 		eventPool.checkEvents();
 	}
