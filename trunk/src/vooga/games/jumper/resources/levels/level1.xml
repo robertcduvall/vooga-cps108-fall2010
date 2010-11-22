@@ -44,7 +44,10 @@
 	</Rules>
 
 	<CollisionGroups>
-
+		<CollisionGroup subclass="vooga.games.jumper.collisions.DoodleToBlockCollision">
+			<SpriteGroup name="doodleSprite" />
+			<SpriteGroup name="normalBlocks" />
+		</CollisionGroup>
 	</CollisionGroups>
 	
 	<Backgrounds>

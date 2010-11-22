@@ -1,16 +1,12 @@
 package vooga.games.jumper.collisions;
 
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-
+import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.games.jumper.sprites.BlockSprite;
 import vooga.games.jumper.sprites.DoodleSprite;
 
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 /**
@@ -20,11 +16,15 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  *
  */
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
-//	KeyListener myKeyListener;
+
+	private Game myGame;
+	
 	/**
 	 * Create new Collision constructor
 	 */
-	public DoodleToBlockCollision(){
+	public DoodleToBlockCollision(Game jumper){
+		super();
+		myGame = jumper;
 		pixelPerfectCollision = true;
 	}
 	
