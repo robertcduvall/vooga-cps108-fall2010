@@ -48,6 +48,13 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 			doodle.setHorizontalSpeed(-1);
 		}
 		*/	
+	/**
+	 * This method is to change the image of the sprite if it collides with
+	 * an specific sprite.  An example is if the main character touches a 
+	 * powerup, the character's image will change to reflect this.
+	 * @param Sprite
+	 * @param Strite
+	 */
 	public void changeSpriteImage(Sprite spr, String str){
 		spr.setImage(Resources.getImage(str));
 	}
