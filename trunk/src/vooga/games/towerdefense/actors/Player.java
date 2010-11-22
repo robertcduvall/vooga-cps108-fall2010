@@ -61,7 +61,7 @@ public class Player extends MouseFollower {
 	}
 
 	private void buildTower() {
-		if(canBuild() && withinBounds())
+		if(hasMoneyToBuild() && withinBounds())
 		{
 			setTowerLocation();
 			buildTowerEvent.addTower(currentTower);
@@ -71,7 +71,7 @@ public class Player extends MouseFollower {
 		}
 	}
 	
-	private boolean canBuild(){
+	private boolean hasMoneyToBuild(){
 		return getMoney()>=currentTower.getCost();
 	}
 	
@@ -91,15 +91,14 @@ public class Player extends MouseFollower {
 	}
 	
 	public boolean withinBounds(){
-		/*
+		
 		for(PathPoint p: pathPoints)
 		{
-			if(this.getOffsetX()==p.getX() || this.getOffsetY()==p.getY())
+			if(onPathPoints(p.getX(), p.getY()))
 			{
-				System.out.println(p.getX()==this.getOffsetX());
 				return false;
 			}
-		}*/
+		}
 		return getOffsetX()<WIDTH_BOUNDS && getOffsetY()<HEIGHT_BOUNDS && getOffsetX()>0 && getOffsetY()>0;
 	}
 	
@@ -134,5 +133,17 @@ public class Player extends MouseFollower {
 
 	public void addPathBoundary(List<PathPoint> pathPoints) {
 		this.pathPoints = pathPoints;
+	}
+	
+	private boolean onPathPoints(double x, double y) {
+		if((x+5)>getOffsetX() && getOffsetX()>(x-5))
+		{
+			if((y+5)>getOffsetY() && getOffsetY()>(y-5))
+			{
+				System.out.println("Y");
+				return true;
+			}
+		}
+		return false;
 	}
 }
