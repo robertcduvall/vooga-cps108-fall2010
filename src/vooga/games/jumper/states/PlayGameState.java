@@ -11,7 +11,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.jumper.events.InfiniteBlocks;
+import vooga.games.jumper.events.InfiniteBlocksEvent;
 import vooga.games.jumper.sprites.BlockSprite;
 
 import com.golden.gamedev.object.Sprite;
@@ -52,7 +52,7 @@ public class PlayGameState extends GameState{
 	private void initEvents() {
 		eventPool = new EventPool();
 		//doesn't see to do anything..
-		eventPool.addEvent(new InfiniteBlocks(this));
+		eventPool.addEvent(new InfiniteBlocksEvent(this));
 	}
 	
 	private void initLevel(){
