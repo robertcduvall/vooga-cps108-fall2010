@@ -58,12 +58,11 @@ public class Player extends MouseFollower {
 		if(!crossBorder() && this.getImage()!=null)
 		{
 			this.setImage(null);
-		}
-		
-		if(recrossBorder() && crossBorder() && this.getImage()==null)
+		}else if(crossBorder() && this.getImage()==null)
 		{
 			this.setImage(currentTower.getPreviewImage());
 		}
+		
 		super.update(elapsedTime);
 	}
 	
@@ -102,7 +101,7 @@ public class Player extends MouseFollower {
 	
 	private double getOffsetY()
 	{
-		return getY()+getHeight()/2-currentTower.getWidth()/2;
+		return getY()+getHeight()/2-currentTower.getHeight()/2;
 	}
 	
 	public boolean withinBounds(){
@@ -110,21 +109,13 @@ public class Player extends MouseFollower {
 	}
 	
 	public boolean crossBorder(){
-		if((WIDTH_BOUNDS)>(getOffsetX()+currentTower.getPreviewImage().getWidth()/2-currentTower.getWidth()/2))
+		if((WIDTH_BOUNDS)>(getOffsetX()) - currentTower.getWidth()/2)
 		{
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean recrossBorder(){
-		if((WIDTH_BOUNDS)>(getOffsetX()-currentTower.getPreviewImage().getWidth()/2+currentTower.getWidth()/2))
-		{
-			return true;
-		}
-		return false;
-	}
-	
+		
 	public boolean checkOnPath(){
 		for(PathPoint p: pathPoints)
 		{

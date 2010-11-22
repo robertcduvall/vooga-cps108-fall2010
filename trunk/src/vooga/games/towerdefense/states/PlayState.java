@@ -135,7 +135,8 @@ public class PlayState extends GameState{
 		eventPool.addEvent(enemyHit);
 		
 		myPlayField.addControl("player", initControl(player));
-		//myPlayField.addControl("player", initCheats(player));
+		myPlayField.addControl("playerCheats", initControlKeyBoard(player));
+		myPlayField.addControl("pause", initControlPause());
 	}
 	
 	private Background initBackground(){
@@ -163,11 +164,17 @@ public class PlayState extends GameState{
 		return playerControl;
 	}
 	
-	public Control initCheats(BetterSprite player){
+	public Control initControlKeyBoard(BetterSprite player){
 		KeyboardControl playerControl = new KeyboardControl(player, Resources.getGame());	
 		playerControl.addInput(KeyEvent.VK_H, "cheatOn", "vooga.games.towerdefense.actors.Player");
-		//playerControl.addInput(MouseEvent.MOUSE_MOVED, "move", "vooga.games.towerdefense.actors.Player");
 		
 		return playerControl;
+	}
+	
+	public Control initControlPause(){
+		KeyboardControl pauseControl = new KeyboardControl(this, Resources.getGame());	
+		pauseControl.addInput(KeyEvent.VK_P, "pause", "vooga.games.towerdefense.Pauser");
+		
+		return pauseControl;
 	}
 }

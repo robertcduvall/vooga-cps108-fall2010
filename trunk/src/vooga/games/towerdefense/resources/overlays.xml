@@ -28,5 +28,9 @@
 <OverlayStat label="SCORE : " stat="1" fontName="gameFontorange" xLoc="515" yLoc="250"></OverlayStat>
 </OverlayGroup>
 
+<OverlayGroup name="pause">
+<OverlayString label="PAUSED" fontName="gameFontgreen" xLoc="330" yLoc="300"></OverlayString>
+</OverlayGroup>
+
 
 </Overlay>
