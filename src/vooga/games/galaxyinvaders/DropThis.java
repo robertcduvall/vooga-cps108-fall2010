@@ -69,7 +69,6 @@ public class DropThis extends Game {
 		//TODO: figure out why it cannot find this file path. i've tried lots of different paths. 
 		//TODO: i don't get that exception when i use the following path:
 		String filepath = "src/vooga/games/galaxyinvaders/resources/levels/level"+levelNum+".txt";
-		System.out.println(filepath);
 		ArrayList<Point> points = PathPointParser.getPathPoints(filepath);
 		int timerNum = PathPointParser.getTimerNum();
 		for(Sprite s : group) {
