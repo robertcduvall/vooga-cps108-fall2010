@@ -13,9 +13,8 @@ import vooga.engine.core.BetterSprite;
 
 public class PlayerShot extends BetterSprite {
 
-	
-	public PlayerShot() {
-		super();
+	public PlayerShot(BufferedImage image) {
+		super(image);
 	}
 
 }

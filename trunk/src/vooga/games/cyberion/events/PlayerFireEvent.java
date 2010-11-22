@@ -23,11 +23,10 @@ public class PlayerFireEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
-		PlayerShot sprite = new PlayerShot();
+		PlayerShot sprite = new PlayerShot(myGame.getImage("src\\vooga\\games\\cyberion\\resources\\images\\playerShot.PNG"));
 		sprite.setX(player.getX());
 		sprite.setY(player.getY());
-		sprite.setVerticalSpeed(2);
-		System.out.println("being here");
+		sprite.setVerticalSpeed(-0.5);
 		playState.getPlayField().add(sprite);
 	}
 
