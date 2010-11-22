@@ -10,6 +10,7 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
@@ -39,8 +40,6 @@ public class GamePlayState extends GameState {
 	private Game myGame;
 	private static final int NUM_LEVELS = 3;
 
-	private int myCurrentLevel;
-
 	private KeyboardControl myControl;
 	private EventPool myEvents;
 	private LevelManager levelManager;
@@ -64,7 +63,8 @@ public class GamePlayState extends GameState {
 
 	public GamePlayState(Game game) {
 		myGame = game;
-		init();
+		initLevelManager();
+		initLevel();
 	}
 	
 	private void initLevelManager() {
@@ -73,7 +73,6 @@ public class GamePlayState extends GameState {
 		String levelNamesFile = Resources.getString("LevelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
 		myLevels = levelManager.getAllPlayFields();
-		myCurrentLevel = 0;
 	}
 
 	/**
@@ -85,11 +84,35 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void update(long t) {
-		System.out.println(getLevel().getMusic(0));
+		System.out.println("Current level: "+levelManager.getCurrentLevel());
+		System.out.println("Current playfield: "+getLevel());
 
 		super.update(t);
 		getLevel().update(t);
 		myEvents.checkEvents();
+		if(((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite()).getMaxX() > 3000){
+			nextLevel();
+		}
+	}
+	
+	private void nextLevel(){
+		System.out.println("switching level");
+		cloneStats();
+		removeEverything();
+		initLevel();
+	}
+	
+	private void cloneStats(){
+		MarioSprite mario = ((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite());
+		int health = mario.getHealth();
+		int score = mario.getScore();
+		levelManager.loadNextLevel();
+		mario = ((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite());
+		mario.setHealth(health);
+		mario.setScore(score);
+		mario.getStat("level");
+		Stat<Integer> stat = ((Stat<Integer>) mario.getStat("level"));
+		stat.setStat(levelManager.getCurrentLevel()+1);
 	}
 
 	/**
@@ -97,11 +120,9 @@ public class GamePlayState extends GameState {
 	 * backgrounds, enemies, and tiles for the start of the game.
 	 */
 
-	public void init() {
-		initLevelManager();
+	public void initLevel() {
 		SoundPlayer.setGame(myGame);
 		SoundPlayer.playMusic(getLevel().getMusic(0));
-		myCurrentLevel = 0;
 		setUpKeyboard();
 		initOverlays();
 		initEvents();
@@ -141,10 +162,6 @@ public class GamePlayState extends GameState {
 		getLevel().getBackground().setToCenter(getLevel().getGroup("marioGroup").getActiveSprite());
 	}
 
-	public int getCurrentLevel() {
-		return myCurrentLevel;
-	}
-
 	private void setUpKeyboard() {
 		Control playerControl = new KeyboardControl((BetterSprite)(getLevel().getGroup("marioGroup").getActiveSprite()), myGame);
 		playerControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.mariogame.sprites.MarioSprite");
@@ -168,7 +185,7 @@ public class GamePlayState extends GameState {
 	}
 	
 	private PlayField getLevel(){
-		return (PlayField)myLevels.toArray()[myCurrentLevel];
+		return (PlayField)myLevels.toArray()[levelManager.getCurrentLevel()];
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package vooga.games.mariogame.sprites;
 
 import java.util.Queue;
+import java.util.Collection;
+import java.util.ArrayList;
 
 import com.golden.gamedev.object.Sprite;
 
