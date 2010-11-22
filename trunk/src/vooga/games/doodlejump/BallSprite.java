@@ -2,7 +2,8 @@ package vooga.games.doodlejump;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.core.BetterSprite;;
+import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
 
 /**
  * The BallSprite class extends GameEntitySprite and defines how the balls that
@@ -22,7 +23,7 @@ public class BallSprite extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getY() < 0)
+		if (getY() < Resources.getDouble("minScreenY"))
 			setActive(false);
 	}
 }

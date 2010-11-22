@@ -26,17 +26,12 @@ public class MovingMonster extends BetterSprite {
 	public MovingMonster(String label) {
 		super(label, new BetterSprite(Resources.getAnimation(label)));
 	}
-	
-	@Override
-	public void firstRun(){
-		setHorizontalSpeed(-0.2);
-	}
 
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getX() < 0 || getX() > 532 - getWidth()) {
-			if (getX() < 0){
+		if (getX() < Resources.getDouble("minScreenX")|| getX() > Resources.getDouble("maxScreenX") - getWidth()) {
+			if (getX() < Resources.getDouble("minScreenX")){
 				BufferedImage[] doodleImage = { Resources.getImage("blueMonsterRight") };
 				setImages(doodleImage);
 			}

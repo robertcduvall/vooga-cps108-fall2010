@@ -37,7 +37,7 @@ public class DoodleToSpringCollision extends BasicCollisionGroup {
 			((AnimatedSprite) spr.getCurrentSprite()).setAnimate(true);
 			((AnimatedSprite) spr.getCurrentSprite()).setAnimationFrame(1, 1);
 			doodle.setVerticalSpeed(-1.7);
-			SoundPlayer.playSound(Resources.getSound("springSound"));
+			//SoundPlayer.playSound(Resources.getSound("springSound"));
 		}
 	}
 }

@@ -25,8 +25,6 @@ public class FlyingMonster extends BetterSprite {
 	
 	@Override
 	public void firstRun(){
-		setHorizontalSpeed(-0.2);
-		setVerticalSpeed(-0.1);
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		sprite.setAnimationFrame(0, 4);
 		sprite.setLoopAnim(true);
@@ -36,7 +34,7 @@ public class FlyingMonster extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getX() < 0 || getX() > 532 - getWidth()) {
+		if (getX() < Resources.getDouble("minScreenX") || getX() > Resources.getDouble("maxScreenX") - getWidth()) {
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 		}
 	}

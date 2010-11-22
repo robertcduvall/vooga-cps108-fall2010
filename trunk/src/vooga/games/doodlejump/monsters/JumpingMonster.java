@@ -20,8 +20,7 @@ public class JumpingMonster extends BetterSprite {
 
 	@Override
 	public void firstRun(){
-		jumpTimer = 20;
-		setVerticalSpeed(-0.2);
+		jumpTimer = Resources.getInt("jumpTime");
 	}
 	
 	@Override
@@ -30,7 +29,7 @@ public class JumpingMonster extends BetterSprite {
 		jumpTimer--;
 		if (jumpTimer < 0) {
 			setVerticalSpeed(getVerticalSpeed() * -1);
-			jumpTimer = 20;
+			jumpTimer = Resources.getInt("jumpTime");
 		}
 	}
 }
