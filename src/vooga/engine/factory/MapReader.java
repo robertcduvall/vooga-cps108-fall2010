@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -34,7 +35,7 @@ public class MapReader {
 	private static int myHeight;
 	private static String path;
 	private static Map<String, String> mySpriteClasses;
-	private static Map<String, String> mySpriteImages;
+	private static Map<String, List<String>> mySpriteImages;
 	// This is the pixel size of each object in the text file.
 	private static int SPRITE_SIZE = 64;
 
@@ -50,7 +51,7 @@ public class MapReader {
 		path = pathName;
 		myPlayfield = level;
 		mySpriteClasses = new HashMap<String, String>();
-		mySpriteImages = new HashMap<String, String>();
+		mySpriteImages = new HashMap<String, List<String>>();
 
 	}
 
@@ -64,9 +65,14 @@ public class MapReader {
 
 
 
-	public void addAssociation(String key, String className, String imageName){
+	public void addAssociationClass(String key, String className){
 		mySpriteClasses.put(key, className);
-		mySpriteImages.put(key, imageName);
+	}
+	
+	public void addAssociationImage(String key, String imageName) {
+		if (!mySpriteImages.containsKey(key))
+			mySpriteImages.put(key, new ArrayList<String>());
+		mySpriteImages.get(key).add(imageName);
 	}
 
 	public PlayField processMap(){
@@ -107,7 +113,7 @@ public class MapReader {
 		myHeight = lines.size();
 		SpriteGroup mapGroup = new SpriteGroup("Map Group");
 		
-		Class<?>[] constructorParams = {BufferedImage.class, double.class, double.class};
+		Class<?>[] constructorParams = {double.class, double.class, BufferedImage[].class};
 		
 		for (int j = 0; j < myWidth; j++) {
 			for (int k = 0; k < myHeight; k++) {
@@ -118,13 +124,16 @@ public class MapReader {
 				
 				if (mySpriteClasses.containsKey(currentKey+"")){
 					String classToCreate = mySpriteClasses.get(currentKey+""); 
-					String image = mySpriteImages.get(currentKey+"");
+					List<String> imageNames = mySpriteImages.get(currentKey+"");
+					BufferedImage[] images = new BufferedImage[imageNames.size()];
+					for(int i = 0; i < imageNames.size(); i++)
+						images[i] = Resources.getImage(imageNames.get(i));
 					Class<? extends Sprite> op;
 					Constructor<? extends Sprite> cons;
 					try {
 						op = (Class<? extends Sprite>) Class.forName(classToCreate);
 						cons = op.getConstructor(constructorParams);
-						Sprite obj = cons.newInstance(Resources.getImage(image),x,y);
+						Sprite obj = cons.newInstance(x,y,images);
 						mapGroup.add(obj);
 					} catch (Exception e) {
 						throw ClassAssociatedException.CLASS_NOT_FOUND ;

@@ -13,8 +13,8 @@ public abstract class Tile extends Sprite {
 		active, inactive, removed
 	};
 
-	public Tile(BufferedImage image, double x, double y) {
-		super(image, x, y);
+	public Tile(double x, double y, BufferedImage... images) {
+		super(images[0], x, y);
 	}
 
 	public abstract void actOnCollision(Sprite sprite);

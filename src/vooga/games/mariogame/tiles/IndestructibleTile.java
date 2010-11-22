@@ -7,8 +7,8 @@ import com.golden.gamedev.object.Sprite;
 @SuppressWarnings("serial")
 public class IndestructibleTile extends Tile {
 
-	public IndestructibleTile(BufferedImage image, double x, double y) {
-		super(image, x, y);
+	public IndestructibleTile(double x, double y, BufferedImage... images) {
+		super(x, y, images);
 	}
 
 	public void actOnCollision(Sprite sprite) {

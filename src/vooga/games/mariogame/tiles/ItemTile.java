@@ -11,14 +11,13 @@ public class ItemTile extends ChangingTile {
 	protected Sprite myItem;
 	protected boolean releaseItem;
 
-	public ItemTile(double x, double y, List<BufferedImage> images,
-			Sprite item) {
+	public ItemTile(double x, double y, Sprite item, BufferedImage... images) {
 		super(x, y, images);
 		myItem = item;
 	}
 
-	public ItemTile(BufferedImage image, double x, double y) {
-		super(image,x,y);
+	public ItemTile(double x, double y, BufferedImage... images) {
+		super(x, y, images);
 	}
 
 	@Override
@@ -38,6 +37,5 @@ public class ItemTile extends ChangingTile {
 		}
 		return null;
 	}
-	
 
 }

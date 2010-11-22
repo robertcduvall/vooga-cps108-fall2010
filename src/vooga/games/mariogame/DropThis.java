@@ -10,7 +10,6 @@ import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.PauseGameState;
 import vooga.games.mariogame.states.GameEndState;
 import vooga.games.mariogame.states.GamePlayState;
 import vooga.games.mariogame.states.MainMenuState;
