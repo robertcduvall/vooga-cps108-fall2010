@@ -82,7 +82,11 @@ public class PlayState extends GameState {
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this));
 		eventPool.addEvent(new ZipsterBrokeThroughEvent(myGame, playField.getGroup("enemyGroup")));
 	}
-		
+	
+	public EventPool getEventPool() {
+		return eventPool;
+	}
+	
 	/**
 	 * Initializes the controls relevant to the Player.
 	 */
