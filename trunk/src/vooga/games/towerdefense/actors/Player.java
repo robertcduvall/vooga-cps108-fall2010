@@ -1,6 +1,7 @@
 package vooga.games.towerdefense.actors;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
@@ -10,6 +11,7 @@ import vooga.games.towerdefense.actors.towers.Tower;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
 import vooga.games.towerdefense.events.ShootEvent;
+import vooga.games.towerdefense.path.PathPoint;
 import vooga.widget.MouseFollower;
 
 /**
@@ -24,6 +26,8 @@ import vooga.widget.MouseFollower;
 public class Player extends MouseFollower {
 
 	private static final long serialVersionUID = 1L;
+	private static final int WIDTH_BOUNDS = Resources.getInt("playFieldWidth");
+	private static final int HEIGHT_BOUNDS = Resources.getInt("playFieldHeight");
 	private final int MONEY_CHEAT = 1000000;
 	private Tower currentTower;
 	private BuildTowerEvent buildTowerEvent;
@@ -32,8 +36,12 @@ public class Player extends MouseFollower {
 	private Stat<Integer> balance;
 	private Stat<Integer> score;
 	private Stat<Integer> selfEsteem;
+	private List<PathPoint> pathPoints;
 
-	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, FindTargetEvent findTarget, ShootEvent shootEvent, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
+	public Player(BufferedImage image, double x, double y, 
+			BuildTowerEvent buildTower, FindTargetEvent findTarget, 
+			ShootEvent shootEvent, Stat<Integer> balance, 
+			Stat<Integer> score,Stat<Integer> selfEsteem) {
 		super(image, x, y);
 		changeTowerType(new Normal(0,0, shootEvent));
 		this.balance = balance;
@@ -53,7 +61,7 @@ public class Player extends MouseFollower {
 	}
 
 	private void buildTower() {
-		if(canBuild() && withinBounds(Resources.getInt("playFieldWidth"),Resources.getInt("playFieldHeight")))
+		if(canBuild() && withinBounds())
 		{
 			setTowerLocation();
 			buildTowerEvent.addTower(currentTower);
@@ -68,12 +76,31 @@ public class Player extends MouseFollower {
 	}
 	
 	private void setTowerLocation(){
-		currentTower.forceX(getX()+getWidth()/2-currentTower.getWidth()/2);
-		currentTower.forceY(getY()+getHeight()/2-currentTower.getWidth()/2);
+		currentTower.forceX(getOffsetX());
+		currentTower.forceY(getOffsetY());
 	}
 	
-	public boolean withinBounds(int width, int height){
-		return getX()<width && getY()<height && getX()>0 && getY()>0;
+	private double getOffsetX()
+	{
+		return getX()+getWidth()/2-currentTower.getWidth()/2;
+	}
+	
+	private double getOffsetY()
+	{
+		return getY()+getHeight()/2-currentTower.getWidth()/2;
+	}
+	
+	public boolean withinBounds(){
+		/*
+		for(PathPoint p: pathPoints)
+		{
+			if(this.getOffsetX()==p.getX() || this.getOffsetY()==p.getY())
+			{
+				System.out.println(p.getX()==this.getOffsetX());
+				return false;
+			}
+		}*/
+		return getOffsetX()<WIDTH_BOUNDS && getOffsetY()<HEIGHT_BOUNDS && getOffsetX()>0 && getOffsetY()>0;
 	}
 	
 	public void changeTowerType(Tower newTower){
@@ -103,5 +130,9 @@ public class Player extends MouseFollower {
 	
 	public void addScore(int amount){
 		score.setStat(score.getStat() + amount);
+	}
+
+	public void addPathBoundary(List<PathPoint> pathPoints) {
+		this.pathPoints = pathPoints;
 	}
 }

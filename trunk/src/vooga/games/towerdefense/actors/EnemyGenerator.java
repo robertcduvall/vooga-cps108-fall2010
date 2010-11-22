@@ -59,6 +59,10 @@ public abstract class EnemyGenerator extends BetterSprite{
 		createEnemies(elapsedTime);
 	}
 	
+	public List<PathPoint> getPathPoint() {
+		return myPath;
+	}
+	
 	protected abstract void createEnemies(long elapsedTime);
 
 	
