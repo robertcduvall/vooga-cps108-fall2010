@@ -3,8 +3,10 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
+import vooga.games.zombieland.events.AddRandomItemEvent;
 import vooga.games.zombieland.gamestates.PlayState;
 
 /**
@@ -25,14 +27,14 @@ public class Zombie extends BetterSprite implements Constants {
 	private int zombieCurrentHealth;
 
 	private Shooter target;
+	private AddRandomItemEvent randomItemEvent;
 	private double speed;
-
+	
 	private int attackDelayStep;
 	private String currentAttackAnimation;
 
-	private Blah game;
-
 	public Zombie(String name, int level, Shooter player, PlayState state) {
+		
 		super(name, AnimationUtil
 				.getInitializedAnimatedSprite(Resources
 						.getAnimation(ZOMBIE_DOWN)));
@@ -220,35 +222,24 @@ public class Zombie extends BetterSprite implements Constants {
 	 */
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+		
+		//check death and death animation
 		if (isDead()) {
-			setAsRenderedSprite("ZombieDeath");
-			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
-			// When the death animation is finished
-			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
-				// Kill zombie
-				setActive(false);
-				// Update score
-				target.updateScore(1);
-
-				int item = (int) (Math.random() * 100);
-				if (item < itemChance) {
-
-					state.addRandomItem(getX(), getY());
-				}
-			}
+			performDeathAnimation();
 			return;
 		}
 
 		// Attack animation
 		if (!currentAttackAnimation.isEmpty()) {
-			setAsRenderedSprite(currentAttackAnimation);
-			AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
-			if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
-				currentAttackAnimation = "";
-			}
+			setZombieAnimation();
 			return;
 		}
 
+		//update movement
+		updateMovement();
+	}
+
+	private void updateMovement() {
 		/*
 		 * Movement control Speed is inherently negative. This is due to the
 		 * coordinate system: the positive x axis is to the right and the
@@ -276,6 +267,41 @@ public class Zombie extends BetterSprite implements Constants {
 			setAsRenderedSprite(ZOMBIE_DOWN);
 			return;
 		}
+	}
+
+	private void setZombieAnimation() {
+		setAsRenderedSprite(currentAttackAnimation);
+		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
+		if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
+			currentAttackAnimation = "";
+		}
+	}
+	
+	/**
+	 * This method sets up the drop item event
+	 * @param listener
+	 */
+	public void setDropItemListener(IEventHandler listener)
+	{
+		randomItemEvent = (AddRandomItemEvent) listener;
+	}
+
+	private void performDeathAnimation() {
+		setAsRenderedSprite("ZombieDeath");
+		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
+		// When the death animation is finished
+		if (sprite.getFrame() == sprite.getFinishAnimationFrame()) {
+			// Kill zombie
+			setActive(false);
+			// Update score
+			target.updateScore(1);
+
+			int item = (int) (Math.random() * 100);
+			if (item < itemChance) {
+				randomItemEvent.addRandomItem(getX(), getY());
+			}
+		}
+		return;
 	}
 
 }

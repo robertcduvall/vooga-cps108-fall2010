@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Level name="zombielevel1" xmloverlaypath="src/vooga/games/zombieland/resources/overlays.xml" >
+<Level name="baseLevel" xmloverlaypath="src/vooga/games/zombieland/resources/overlays.xml" >
 
 	<SpriteGroups>
 	
