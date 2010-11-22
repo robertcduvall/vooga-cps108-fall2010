@@ -25,14 +25,17 @@
 	</Images>
 
 	<Animations>
-		<Animation name="marioMovement">
+		<Animation name="marioLeft">
 			<Image path="mario1l.png" />
-			<Image path="mario1r.png" />
 			<Image path="mario2l.png" />
-			<Image path="mario2r.png" />
 			<Image path="mario3l.png" />
-			<Image path="mario3r.png" />
 			<Image path="mario4l.png" />
+		</Animation>
+		
+		<Animation name="marioRight">
+			<Image path="mario1r.png" />
+			<Image path="mario2r.png" />
+			<Image path="mario3r.png" />
 			<Image path="mario4r.png" />
 		</Animation>
 

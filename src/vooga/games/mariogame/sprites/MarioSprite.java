@@ -4,6 +4,7 @@ import java.util.Queue;
 import java.util.Collection;
 import java.util.ArrayList;
 
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.overlay.Stat;
@@ -38,11 +39,18 @@ public class MarioSprite extends BetterSprite {
 	}
 	*/
 
+	private void showAnimation(String direction) {
+		setAsRenderedSprite(direction);
+		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
+	}
+	
 	public void moveRight() {
+		showAnimation("marioRight");
 		setHorizontalSpeed(speed);
 	}
 
 	public void moveLeft() {
+		showAnimation("marioLeft");
 		setHorizontalSpeed(-speed);
 	}
 
