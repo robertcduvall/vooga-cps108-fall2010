@@ -11,8 +11,8 @@ import vooga.engine.state.GameState;
 
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.background.ImageBackground;
 
 /**
  * 
@@ -35,7 +35,7 @@ public class GameEndState extends GameState {
 	private Long myScore = 0L;
 	private SpriteGroup myOverlays;
 
-	private static final int NUM_SCORES = 5;
+	private static final int NUM_SCORES = 10;
 	private int xScoreOverlay = 300;
 	private int yScoreOverlay = 600;
 
@@ -96,15 +96,14 @@ public class GameEndState extends GameState {
 	 */
 
 	private void createHighScoreOverlay(int x, int y) {
+		PlayField field = getRenderField().toArray(new PlayField[0])[0];
+		
 		myHighScoreOverlays[0] = new OverlayString("High Scores:");
 		myHighScoreOverlays[0].setLocation(x, y);
-		for (int j = 0; j < myHighScores.getNames().length; j++) {
-			y += 20;
-			myHighScoreOverlays[j + 1] = new OverlayString(String.format(
-					"%d. %d (set on %tD at %tr)", j + 1, myHighScores
-							.getScores()[j], myHighScores.getTimes()[j],
-					myHighScores.getTimes()[j]));
-			myHighScoreOverlays[j + 1].setLocation(x, y);
+		
+		for (int j = 1; j <= myHighScores.getNames().length; j++) {
+			System.out.println("score"+String.valueOf(j));
+			field.getOverlayTracker().getStat("score"+String.valueOf(j)).setStat(myHighScores.getScores()[j-1]);
 		}
 	}
 
