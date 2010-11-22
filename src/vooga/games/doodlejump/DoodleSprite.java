@@ -29,7 +29,7 @@ public class DoodleSprite extends BetterSprite {
 	
 	private boolean died;
 	private PlayState playState;
-	private int bulletDelay = 20;
+	private int bulletDelay = Resources.getInt("bulletDelay");
 	private double maxHeight;
 	private boolean levelComplete = false;
 
@@ -49,7 +49,7 @@ public class DoodleSprite extends BetterSprite {
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
-			setX(400);
+			setX(MAXIMUM_SCREEN_X);
 		}
 
 	}
@@ -76,16 +76,18 @@ public class DoodleSprite extends BetterSprite {
 		if (bulletDelay <= 0) {
 			BufferedImage[] doodleImage = { Resources.getImage("doodleUp") };
 			setImages(doodleImage);
-			BufferedImage ballImage = Resources.getImage("ball");
-			BallSprite ball = new BallSprite("ball", new Sprite(ballImage,
-					getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY()
-							- ballImage.getHeight()));
-			//ball.setVerticalSpeed(-0.7);
-			//if (getVerticalSpeed() < 0)
-				ball.setVerticalSpeed(-1.5);
-			playState.addBall(ball);
-			bulletDelay = 20;
+			makeBall();
+			bulletDelay = Resources.getInt("bulletDelay");
 		}
+	}
+	
+	private void makeBall(){
+		BufferedImage ballImage = Resources.getImage("ball");
+		BallSprite ball = new BallSprite("ball", new Sprite(ballImage,
+				getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY()
+						- ballImage.getHeight()));
+		ball.setVerticalSpeed(-1.5);
+		playState.addBall(ball);
 	}
 
 	@Override

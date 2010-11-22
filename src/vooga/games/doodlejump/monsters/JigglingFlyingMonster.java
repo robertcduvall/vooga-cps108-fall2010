@@ -20,8 +20,7 @@ public class JigglingFlyingMonster extends BetterSprite {
 
 	@Override
 	public void firstRun(){
-		setHorizontalSpeed(-0.2);
-		setVerticalSpeed(-0.1);
+		jiggleTimer = Resources.getInt("jiggleTime");
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		sprite.setAnimationFrame(0, 4);
 		sprite.setLoopAnim(true);
@@ -34,7 +33,7 @@ public class JigglingFlyingMonster extends BetterSprite {
 		jiggleTimer--;
 		if (jiggleTimer < 0) {
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
-			jiggleTimer = 20;
+			jiggleTimer = Resources.getInt("jiggleTime");
 		}
 	}
 }

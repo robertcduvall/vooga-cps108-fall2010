@@ -27,8 +27,7 @@ public class JigglingMonster extends BetterSprite {
 
 	@Override
 	public void firstRun(){
-		jiggleTimer = 20;
-		setHorizontalSpeed(-0.2);
+		jiggleTimer = Resources.getInt("jiggleTime");
 	}
 	
 	@Override
@@ -37,7 +36,7 @@ public class JigglingMonster extends BetterSprite {
 		jiggleTimer--;
 		if (jiggleTimer < 0) {
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
-			jiggleTimer = 20;
+			jiggleTimer = Resources.getInt("jiggleTime");
 		}
 	}
 }

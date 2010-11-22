@@ -37,11 +37,6 @@ public class BlahThis extends Game {
 	}
 
 	private void initLevelManager() {
-		// The reason this is not being moved to core.Game class is because you
-		// might want to
-		// create your own LevelParser in certain cases. In that case, use the
-		// following constructor:
-		// levelManager = new LevelManager(this, yourCustomizedParser);
 		levelManager = new LevelManager(this);
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
 		String levelNamesFile = Resources.getString("levelNamesFile");
@@ -66,7 +61,6 @@ public class BlahThis extends Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		launch(new BlahThis());
 	}
 

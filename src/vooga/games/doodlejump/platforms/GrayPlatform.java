@@ -24,7 +24,7 @@ public class GrayPlatform extends BetterSprite {
 	
 	@Override
 	public void firstRun(){
-		changeDirection = 300;
+		changeDirection = Resources.getInt("changeDirection");
 		setVerticalSpeed(-0.1);
 	}
 
@@ -34,7 +34,7 @@ public class GrayPlatform extends BetterSprite {
 		changeDirection--;
 		if (changeDirection <= 0) {
 			setVerticalSpeed(getVerticalSpeed() * -1);
-			changeDirection = 300;
+			changeDirection = Resources.getInt("changeDirection");
 		}
 	}
 }

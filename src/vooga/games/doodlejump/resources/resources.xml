@@ -102,6 +102,12 @@
 	</Strings>
 
 	<Integers>
+		<Integer name="jiggleTime" value="20" />
+		<Integer name="jumpTime" value="20" />
+		<Integer name="changeDirection" value="300" />
+		<Integer name="gameDelay" value="90" />
+		<Integer name="scoreIncrement" value="5" />
+		<Integer name="bulletDelay" value="20" />
 	</Integers>
 
 	<Doubles>

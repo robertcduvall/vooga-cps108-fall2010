@@ -169,43 +169,43 @@
 				<Visual name="blueFlyingMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.MovingMonster"
-				random="false" x="70" y="-400" vx="0" vy="0" quantity="1">
+				random="false" x="70" y="-400" vx="-0.2" vy="0" quantity="1">
 				<Visual name="blueMonsterLeft" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.MovingMonster"
-				random="false" x="70" y="-1300" vx="0" vy="0" quantity="1">
+				random="false" x="70" y="-1300" vx="-0.2" vy="0" quantity="1">
 				<Visual name="blueMonsterLeft" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingMonster"
-				random="false" x="50" y="-700" vx="0" vy="0" quantity="1">
+				random="false" x="50" y="-700" vx="-0.2" vy="0" quantity="1">
 				<Visual name="greenMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingMonster"
-				random="false" x="500" y="-350" vx="0" vy="0" quantity="1">
+				random="false" x="500" y="-350" vx="-0.2" vy="0" quantity="1">
 				<Visual name="redMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingMonster"
-				random="false" x="50" y="-1600" vx="0" vy="0" quantity="1">
+				random="false" x="50" y="-1600" vx="-0.2" vy="0" quantity="1">
 				<Visual name="greenMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingMonster"
-				random="false" x="50" y="-1575" vx="0" vy="0" quantity="1">
+				random="false" x="50" y="-1575" vx="-0.2" vy="0" quantity="1">
 				<Visual name="greenMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingMonster"
-				random="false" x="500" y="-1250" vx="0" vy="0" quantity="1">
+				random="false" x="500" y="-1250" vx="-0.2" vy="0" quantity="1">
 				<Visual name="redMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingMonster"
-				random="false" x="500" y="-1250" vx="0" vy="0" quantity="1">
+				random="false" x="500" y="-1250" vx="-0.2" vy="0" quantity="1">
 				<Visual name="bigBlueMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.FlyingMonster"
-				random="false" x="1" y="-1000" vx="0" vy="0" quantity="1">
+				random="false" x="1" y="-1000" vx="-0.2" vy="-0.1" quantity="1">
 				<Visual name="greenFlyingMonster" />
 			</Sprite>
 			<Sprite class="vooga.games.doodlejump.monsters.JumpingMonster"
-				random="false" x="150" y="-1700" vx="0" vy="0" quantity="1">
+				random="false" x="150" y="-1700" vx="0" vy="-0.2" quantity="1">
 				<Visual name="greenJumpingMonster" />
 			</Sprite>
 		</SpriteGroup>

@@ -28,7 +28,7 @@ public class LightBluePlatform extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getX() < 0 || getX() > 532 - getWidth())
+		if (getX() < Resources.getDouble("minScreenX") || getX() > Resources.getDouble("maxScreenX") - getWidth())
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 	}
 }

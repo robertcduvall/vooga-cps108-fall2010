@@ -24,7 +24,6 @@ public class DoodleToFinishLineCollision extends BasicCollisionGroup {
 
 	@Override
 	public void collided(Sprite doodle, Sprite finishLine) {
-
 		((DoodleSprite) doodle).setLevelComplete();
 	}
 }

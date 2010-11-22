@@ -14,8 +14,6 @@ The obstacles that appear in DoodleGame are a variety of monsters. The monsters 
 
 CONTROLS
 
-The controls for DoodleGame are simple. First, press enter to start the game.  Then, to move left press the left arrow, to move right press the right arrow and to shoot a ball press the spacebar.
+The controls for DoodleGame are simple. First, click the start button to start the game.  Then, to move left press the left arrow, to move right press the right arrow and to shoot a ball press the spacebar.
 
-From the main menu press enter to start the game.
-
-During game play, to pause the game press P. If the game is paused press P to resume.
+During game play, to pause the game press P. If the game is paused click the resume button to resume.  After the game is over, click the play button to play again.

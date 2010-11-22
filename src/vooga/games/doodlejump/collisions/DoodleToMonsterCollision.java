@@ -30,7 +30,6 @@ public class DoodleToMonsterCollision extends BasicCollisionGroup {
 			if (doodle.getVerticalSpeed() < 0) {
 				((DoodleSprite) doodle).setDied(true);
 				((DoodleSprite) doodle).setVerticalSpeed(((DoodleSprite) doodle).getVerticalSpeed() * -1);
-				//monster.setActive(false);
 				SoundPlayer.playSound(Resources.getSound("buzzerSound"));
 			} else {
 				doodle.setVerticalSpeed(-0.5);

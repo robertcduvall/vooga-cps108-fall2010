@@ -21,7 +21,6 @@ public class DoodleToWhitePlatformCollision extends BasicCollisionGroup {
 
 	@Override
 	public void collided(Sprite doodle, Sprite white_platform) {
-		// TODO Auto-generated method stub
 		if (doodle.getVerticalSpeed() > 0
 				&& doodle.getY() + doodle.getHeight() - 15 < white_platform
 						.getY() && !((DoodleSprite) doodle).getDied()) {
