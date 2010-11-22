@@ -5,6 +5,7 @@ import java.net.URL;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
+import vooga.games.doodlejump.DoodleSprite;
 
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -27,7 +28,7 @@ public class DoodleToSpringCollision extends BasicCollisionGroup {
 		BetterSprite spr = (BetterSprite) spring;
 		if (doodle.getVerticalSpeed() > 0
 				&& doodle.getY() + doodle.getHeight() - 10 < spr.getY()
-				&& !((AnimatedSprite) spr.getCurrentSprite()).isAnimate()) {
+				&& !((AnimatedSprite) spr.getCurrentSprite()).isAnimate() && !((DoodleSprite) doodle).getDied()) {
 			spr.moveY(-12);
 			((AnimatedSprite) spr.getCurrentSprite()).setAnimationFrame(0, 1);
 			((AnimatedSprite) spr.getCurrentSprite()).setLoopAnim(false);

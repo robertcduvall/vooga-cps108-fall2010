@@ -17,9 +17,6 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-
-import vooga.games.asteroids.collisions.BulletToAsteroidCollision;
-import vooga.games.asteroids.collisions.ShipToAsteroidCollision;
 import vooga.games.doodlejump.BallSprite;
 import vooga.games.doodlejump.DoodleSprite;
 
@@ -55,16 +52,13 @@ public class PlayState extends GameState {
 	public void update(long elapsedTime) {
 		for (SpriteGroup group : myField.getGroups()) {
 			for (Sprite sprite : group.getSprites()) {
-				if (doodle.getY() < doodle.getMaxHeight() && sprite != null) {
-					System.out.println("getY: " + doodle.getY()
-							+ " max height: " + doodle.getMaxHeight());
+				if (doodle.getY() < 400 && sprite != null) {
 					// if (!group.getName().equals("doodleGroup")){
-					sprite.moveY(doodle.getMaxHeight() - doodle.getY());
+					sprite.moveY(400 - doodle.getY());
 					// }
 					if (group.getName().equals("doodleGroup")) {
-						doodle.setStat("score", new Stat(((Integer) doodle
-								.getStat("score").getStat()).intValue() + 5));
-						doodle.setMaxHeight(doodle.getY());
+						((Stat<Integer>)doodle.getStat("score")).setStat(((Stat<Integer>)doodle.getStat("score")).getStat() + 5);
+						//doodle.setMaxHeight(doodle.getY());
 					}
 				}
 			}

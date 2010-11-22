@@ -1,5 +1,8 @@
 package vooga.games.doodlejump.collisions;
 
+import java.applet.AudioClip;
+import java.net.URL;
+
 import vooga.engine.core.Game;
 import vooga.games.doodlejump.*;
 
@@ -21,12 +24,17 @@ public class DoodleToMonsterCollision extends BasicCollisionGroup {
 
 	@Override
 	public void collided(Sprite doodle, Sprite monster) {
-		if (doodle.getVerticalSpeed() < 0) {
-			((DoodleSprite) doodle).setDied(true);
-			monster.setActive(false);
-		} else {
-			doodle.setVerticalSpeed(-0.5);
-			monster.setActive(false);
+		if(!((DoodleSprite) doodle).getDied()){
+			if (doodle.getVerticalSpeed() < 0) {
+				((DoodleSprite) doodle).setDied(true);
+				//monster.setActive(false);
+				URL spring_url = getClass().getResource("../resources/sounds/buzzer_sound.wav");
+				AudioClip clip = java.applet.Applet.newAudioClip(spring_url);
+				clip.play();
+			} else {
+				doodle.setVerticalSpeed(-0.5);
+				monster.setActive(false);
+			}
 		}
 	}
 }
