@@ -20,8 +20,8 @@ import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.util.GridSpace;
 import vooga.games.tronupdate.collisions.PlayerAndBoundariesCollision;
-import vooga.games.tron.PlayerAndEnemyCollision;
-import vooga.games.tron.bonus.SpeedBonus;
+import vooga.games.tronupdate.collisions.PlayerAndEnemyCollision;
+
 import vooga.games.tronupdate.collisions.PlayerAndBonusCollision;
 import vooga.games.tronupdate.events.TronGamePauseEvent;
 import vooga.games.tronupdate.items.Bonus;
@@ -73,13 +73,14 @@ public class TronGamePlayState extends GameState{
 		initializeCollision();
 		//initializeOverlay();
 		initializeEvents();
+		game.playMusic(Resources.getSound("backgroundmusic"));
 		
 	}
 	
 	public void initializeCollision() {
-		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision();   
-		PlayerAndBoundariesCollision playerBoundariesCollision=new PlayerAndBoundariesCollision(0,0,Resources.getInt("width"),Resources.getInt("height"));
-		PlayerAndBonusCollision playerBonusCollision=new PlayerAndBonusCollision();		
+		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision(game);   
+		PlayerAndBoundariesCollision playerBoundariesCollision=new PlayerAndBoundariesCollision(0,0,Resources.getInt("width"),Resources.getInt("height"),game);
+		PlayerAndBonusCollision playerBonusCollision=new PlayerAndBonusCollision(game);		
 		
 		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("block"), playerEnemyCollision);
 		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("player"), playerBoundariesCollision);
