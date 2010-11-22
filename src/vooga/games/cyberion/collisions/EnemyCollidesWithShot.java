@@ -1,6 +1,7 @@
 package vooga.games.cyberion.collisions;
 
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
+import vooga.games.cyberion.sprites.playershot.PlayerShot;
 
 import com.golden.gamedev.engine.BaseAudio;
 import com.golden.gamedev.object.Sprite;
@@ -13,15 +14,18 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 
 	public EnemyCollidesWithShot() {
 //		this.bsSound = bsSound;
+		super();
 	}
 
 	@Override
 	public void collided(Sprite playershot, Sprite enemy) {
-		collided(playershot, (EnemyShip) enemy);
+		collided((PlayerShot)playershot, (EnemyShip) enemy);
+	
 
 	}
 //when a playershot collides with an enemy, enemy's life decreases, shot disappears, and a sound is played
 	public void collided(Sprite playershot, EnemyShip enemy) {
+		
 		enemy.setLife(enemy.getLife() - 1);
 		playershot.setActive(false);
 //		bsSound.play("vooga/games/cyberion/Resources/explosion.wav");

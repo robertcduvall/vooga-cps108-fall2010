@@ -2,6 +2,8 @@ package vooga.games.cyberion.events;
 
 import java.awt.event.KeyEvent;
 
+import com.golden.gamedev.object.SpriteGroup;
+
 import vooga.engine.event.IEventHandler;
 import vooga.games.cyberion.DropThis;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
@@ -27,7 +29,9 @@ public class PlayerFireEvent implements IEventHandler {
 		sprite.setX(player.getX());
 		sprite.setY(player.getY());
 		sprite.setVerticalSpeed(-0.5);
-		playState.getPlayField().add(sprite);
+		playState.getPlayField().getGroup("playerShot").add(sprite);
+	
+//		playState.getPlayField().addGroup(temp);
 	}
 
 	/**
