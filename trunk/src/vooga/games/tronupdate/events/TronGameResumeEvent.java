@@ -25,6 +25,6 @@ public class TronGameResumeEvent implements IEventHandler {
 
 	@Override
 	public boolean isTriggered() {
-		return game.keyPressed(KeyEvent.VK_C);
+		return game.keyPressed(KeyEvent.VK_R);
     }
 }
