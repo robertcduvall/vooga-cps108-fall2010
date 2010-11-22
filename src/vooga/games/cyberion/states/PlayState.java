@@ -82,7 +82,7 @@ public class PlayState extends GameState {
 	}
 
 	/**
-	 * Initializes the specific Events handled in the Grandius PlayState.
+	 * Initializes the specific Events handled in the PlayState.
 	 */
 	public void initEvents() {
 		eventPool = new EventPool();
