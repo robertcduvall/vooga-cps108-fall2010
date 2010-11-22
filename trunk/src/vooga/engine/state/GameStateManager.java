@@ -184,4 +184,13 @@ public class GameStateManager {
 
 	}
 	
+	/**
+	 * Retrieves the game state at the specified index
+	 * @param index location of the game state in GameStateManager arraylist
+	 * @return gamestate
+	 */
+	public GameState getGameState(int index){
+		return currentGameStates.get(index);
+	}
+	
 }
