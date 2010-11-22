@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
@@ -62,9 +63,9 @@ public class DropThis extends vooga.engine.core.Game {
 
 	PlayGameState playState;
 	PauseGameState pauseState;
-	
 
 	
+
 	private static final int UP_KEY = KeyEvent.VK_UP;
 	private static final int CHEAT_KEY = KeyEvent.VK_C;
 	private static final int LEFT_KEY = KeyEvent.VK_LEFT;
@@ -72,7 +73,7 @@ public class DropThis extends vooga.engine.core.Game {
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
 	private double BLOCK_XVELOCITY_INCREASE_RATE = 0;
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
-	private double myBlockVelocity = -2.0;
+	private double blockVelocity = -2.0;
 	private double fastBlockSpeedMultiplier = 2.0;
 
 	private Point DOODLE_START = new Point (WIDTH / 2, -500);
@@ -128,6 +129,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 		Resources.loadInt("gameHeight", HEIGHT);
 		Resources.loadInt("gameWidth", WIDTH);
+		
 		
 		initLevelManager();
 		PlayField levelPlayField = levelManager.loadFirstLevel();
