@@ -62,7 +62,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 		
 		//initializePlayer();
 		initEnvironment();
-		initOverlays();
+//		initOverlays();
 		setListeners();
 	}
 	
@@ -142,18 +142,18 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * OverlayHealthBar, the OverlayScoreString, the overlayAmmoString, the
 	 * OverlayLevelString, overllayPauseString.
 	 */
-	public void initOverlays() {
-		
-		
-		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
-		statLevel = tracker.getStat("initLevel", new Integer(0));
-	
-		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
-		overlayLevelStat.setActive(false);
-		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
-		overlayGameOverString.setActive(false);
-		playField.addGroup(overlays);
-	}
+//	public void initOverlays() {
+//		
+//		
+//		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
+//		statLevel = tracker.getStat("initLevel", new Integer(0));
+//	
+//		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
+//		overlayLevelStat.setActive(false);
+//		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
+//		overlayGameOverString.setActive(false);
+//		playField.addGroup(overlays);
+//	}
 
 	private boolean levelCompleted() {
 		return player.getLevelScore() == zombiesAppeared;

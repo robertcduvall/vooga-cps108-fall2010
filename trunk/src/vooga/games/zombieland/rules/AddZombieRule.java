@@ -22,7 +22,6 @@ public class AddZombieRule implements Rule{
 	@Override
 	public void enforce(SpriteGroup... groups) {
 		
-		SpriteGroup humangroup = groups[0];
 		Shooter human = (Shooter) groups[0].getActiveSprite();
 		
 		SpriteGroup zombiegroup = groups[1];

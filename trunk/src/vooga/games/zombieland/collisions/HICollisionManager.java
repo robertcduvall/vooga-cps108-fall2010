@@ -1,5 +1,6 @@
 package vooga.games.zombieland.collisions;
 
+import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.items.Item;
 
 import com.golden.gamedev.object.Sprite;
@@ -12,6 +13,13 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 
 public class HICollisionManager extends BasicCollisionGroup{
+	
+	Blah currentGame;
+	
+	public HICollisionManager(Blah game)
+	{
+		currentGame = game;
+	}
 	
 	/**
 	 * processes the collision
