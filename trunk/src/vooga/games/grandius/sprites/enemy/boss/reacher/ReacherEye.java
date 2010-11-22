@@ -98,25 +98,6 @@ public class ReacherEye extends BossPart{
 		return false;
 	}
 	
-	//TODO - these methods no longer needed. Use getScore()& getCash()from superclass.
-//	/**
-//	 * Returns the point value of this enemy.
-//	 * @return
-//	 */
-//	public int getScoreValue()
-//	{
-//		return SCORE_VALUE;
-//	}
-//	
-//	/**
-//	 * Returns the cash value of this enemy.
-//	 * @return
-//	 */
-//	public int getCashValue()
-//	{
-//		return CASH_VALUE;
-//	}
-	
 	/**
 	 * Returns the speed of the ReacherEye.
 	 * @return The speed.

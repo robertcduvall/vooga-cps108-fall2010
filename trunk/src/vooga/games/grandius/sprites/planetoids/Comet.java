@@ -11,6 +11,6 @@ public class Comet extends BetterSprite {
 	}
 	
 	public Comet(double x, double y) {
-		super(Resources.getImage("cometImage"), x, y);
+		super(x, y);
 	}
 }

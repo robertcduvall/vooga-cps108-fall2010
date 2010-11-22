@@ -75,16 +75,11 @@ public class DropThis extends Game {
 		 super.initGameStates();
 		 initLevelManager();
 		 List<GameState> gameStates = new ArrayList<GameState>();
-//		 gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
 		 gameStates.add(new GrandiusMenuState(this)); // Default state.
 		 gameStates.add(myPlayState = new PlayState(levelManager, this));
-//		 gameStates.add(myLevelCompleteState = new LevelCompleteState(this));
 		 gameStates.add(new LevelCompleteState(this));
-//		 gameStates.add(myGameCompleteState = new GameCompleteState(this));
 		 gameStates.add(new GameCompleteState(this));
-//		 gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
 		 gameStates.add(new ShoppingLevelState(this));
-//		 gameStates.add(myGameOverState = new GameOverState(this));
 		 gameStates.add(new GameOverState(this));
 		 gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));
 		 GameState[] gameStatesArray = new GameState[gameStates.size()];
@@ -92,7 +87,6 @@ public class DropThis extends Game {
 			 gameStatesArray[i] = gameStates.get(i);
 		 }
 		 stateManager.addGameState(gameStatesArray);
-		 //stateManager.switchTo(myGameCompleteState);
 	 }
 
 	 /**
@@ -105,6 +99,9 @@ public class DropThis extends Game {
 		 levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	 }
 
+	 /**
+	  * Updates Grandius (overrides Game.update() to account for updating gameControl).
+	  */
 	 @Override
 	 public void update(long elapsedTime) {
 		 super.update(elapsedTime);
@@ -116,13 +113,6 @@ public class DropThis extends Game {
 	  */
 	 public PlayState getPlayState() {
 		 return this.myPlayState;
-	 }
-
-	 /**
-	  * Starts the PlayState.
-	  */
-	 public void startPlayState() {
-		 stateManager.switchTo(myPlayState);
 	 }
 
 	 /**

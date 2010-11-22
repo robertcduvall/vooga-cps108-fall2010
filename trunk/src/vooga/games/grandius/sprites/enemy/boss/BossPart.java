@@ -43,14 +43,6 @@ public abstract class BossPart extends Enemy {
 		setStat(SHIELDS, shieldValue);
 	}
 
-
-
-//	@Override
-//	public int getScore() {
-//		// TODO Auto-generated method stub
-//		return 250;
-//	}
-	
 	public int getHealth(){
 		return (Integer) this.getStat(HEALTH).getStat();
 	}
