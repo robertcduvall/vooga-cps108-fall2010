@@ -8,12 +8,12 @@ import vooga.games.cyberion.states.PlayState;
 
 public class EnemyFireEvent implements IEventHandler {
 
-	private DropThis myGame;
+
 	private EnemyShip enemy;
 	private PlayState playState;
 
-	public EnemyFireEvent(DropThis myGame, EnemyShip enemy, PlayState playState) {
-		this.myGame = myGame;
+	public EnemyFireEvent(EnemyShip enemy, PlayState playState) {
+	
 		this.enemy = enemy;
 		this.playState = playState;
 	}

@@ -48,7 +48,7 @@ public abstract class GameState {
 	 * @param gamestate
 	 */
 	public GameState(GameState gamestate) {
-	    this();
+		this();
 		addState(gamestate);
 	}
 
@@ -89,10 +89,11 @@ public abstract class GameState {
 	 * 
 	 */
 	public abstract void initialize();
-	//TODO suggestion: if you are going to require everyone to define an 
-	//initialize method, presumably you expect everyone to call it during
-	//construction. If this is the case, could you make all the constructors 
-	//of GameState call initialize? --Daniel Koverman
+
+	// TODO suggestion: if you are going to require everyone to define an
+	// initialize method, presumably you expect everyone to call it during
+	// construction. If this is the case, could you make all the constructors
+	// of GameState call initialize? --Daniel Koverman
 
 	/**
 	 * Returns the boolean value of the GameState's active variable.
@@ -182,7 +183,9 @@ public abstract class GameState {
 
 	/**
 	 * Adds a playfield to an rendered and updated in an existing GameState
-	 * @param playfield to be rendered and updated
+	 * 
+	 * @param playfield
+	 *            to be rendered and updated
 	 */
 	public void addPlayField(PlayField playfield) {
 		addUpdatePlayField(playfield);
@@ -192,7 +195,9 @@ public abstract class GameState {
 
 	/**
 	 * Adds a playfield to an rendered in an existing GameState
-	 * @param playfield to be rendered
+	 * 
+	 * @param playfield
+	 *            to be rendered
 	 */
 	public void addRenderPlayField(PlayField playfield) {
 		myRenderField.add(playfield);
@@ -201,7 +206,9 @@ public abstract class GameState {
 
 	/**
 	 * Adds a playfield to an updated in an existing GameState
-	 * @param playfield to be updated
+	 * 
+	 * @param playfield
+	 *            to be updated
 	 */
 	public void addUpdatePlayField(PlayField playfield) {
 		myUpdateField.add(playfield);
@@ -216,23 +223,31 @@ public abstract class GameState {
 		myRenderField.clear();
 		myUpdateField.clear();
 	}
-	
+
 	/**
-	 * Get a SpriteGroup out of the GameState if it exists.  If it does not exist than this method will return null
-	 * @param name the name of the SpriteGroup
+	 * Get a SpriteGroup out of the GameState if it exists. If it does not exist
+	 * than this method will return null
+	 * 
+	 * @param name
+	 *            the name of the SpriteGroup
 	 * @return SpriteGroup with that name
 	 */
-	public SpriteGroup getGroup(String name){
-		for (PlayField playfield: myUpdateField){
-			SpriteGroup group = playfield.getGroup(name);	
-			if (group!=null){
+	public SpriteGroup getGroup(String name) {
+		for (PlayField playfield : myUpdateField) {
+			SpriteGroup group = playfield.getGroup(name);
+			if (group != null) {
 				return group;
 			}
 		}
-		return null;//TODO:throw exception instead
+		return null;// TODO:throw exception instead
 	}
 
-	
+	public void addGroup(SpriteGroup group) {
+		PlayField pf = new PlayField();
+		pf.addGroup(group);
+		addPlayField(pf);
+	}
+
 	/**
 	 * Equals function for GameStates
 	 * 
@@ -240,16 +255,17 @@ public abstract class GameState {
 	 * @return boolean
 	 */
 	@Override
-	public boolean equals(Object obj){
-		if (this == obj){
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if(!(obj instanceof GameState))
+		if (!(obj instanceof GameState))
 			return false;
-		
+
 		GameState other = (GameState) obj;
-		// Two GameStates are the same if they have the same update and render groups, and the same layer
-		return  myUpdateField.equals(other.getUpdateField()) &&
-				myRenderField.equals(other.getRenderField());
+		// Two GameStates are the same if they have the same update and render
+		// groups, and the same layer
+		return myUpdateField.equals(other.getUpdateField())
+				&& myRenderField.equals(other.getRenderField());
 	}
 }

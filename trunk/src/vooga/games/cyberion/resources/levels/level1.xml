@@ -58,6 +58,16 @@
 			<Visual name="bonus" />
 			</Sprite>
 		</SpriteGroup>
+		<SpriteGroup name="playerShot">
+			<Sprite class="vooga.games.cyberion.sprites.playershot.PlayerShot" random="true" xMin="0" yMin="-100" xMax="640" yMax="-100" vxMin="0" vyMin="0" vxMax="0" vyMax="0" quantity="1">
+			<Visual name="playerShot" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="enemyShot">
+			<Sprite class="vooga.games.cyberion.sprites.enemyshot.EnemyShot" random="true" xMin="0" yMin="-200" xMax="640" yMax="-200" vxMin="0" vyMin="0" vxMax="0" vyMax="0" quantity="1">
+			<Visual name="enemyShot" />
+			</Sprite>
+		</SpriteGroup>
 	</SpriteGroups>
 
 	<CollisionGroups>
