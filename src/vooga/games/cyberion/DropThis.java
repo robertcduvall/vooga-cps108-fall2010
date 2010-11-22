@@ -13,12 +13,15 @@ import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
+import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.PauseGameState;
+import vooga.games.cyberion.events.GameOverEvent;
+import vooga.games.cyberion.rules.Dead;
 import vooga.games.cyberion.sprites.CyberionLevelParser;
 import vooga.games.cyberion.states.GameCompleteState;
 import vooga.games.cyberion.states.GameOverState;
@@ -42,6 +45,7 @@ public class DropThis extends Game {
 	private LevelCompleteState myLevelCompleteState;
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
+	private EventPool eventPool;
 
 	private LevelParser levelParser;
 	private LevelManager levelManager;
@@ -53,9 +57,9 @@ public class DropThis extends Game {
 	private static final int HEIGHT = 768;
 
 	public void initResources() {
-		
+
 		super.initResources();
-		
+
 		Resources.loadInt("Height", HEIGHT);
 		Resources.loadInt("Width", WIDTH);
 
@@ -82,12 +86,13 @@ public class DropThis extends Game {
 		super.initGameStates();
 
 		initLevelManager();
-
 		myPlayState = new PlayState(levelManager, this);
 		stateManager.addGameState(myPlayState);
 		stateManager.addGameState(myMenuState = new MenuState(this));
-		stateManager.addGameState(myLevelCompleteState = new LevelCompleteState());
-		stateManager.addGameState(myGameCompleteState = new GameCompleteState());
+		stateManager
+				.addGameState(myLevelCompleteState = new LevelCompleteState());
+		stateManager
+				.addGameState(myGameCompleteState = new GameCompleteState());
 		stateManager.addGameState(myGameOverState = new GameOverState());
 		stateManager.activateOnly(myMenuState);
 
@@ -105,19 +110,19 @@ public class DropThis extends Game {
 		// stateManager.switchTo(myMenuState);
 	}
 
-	 public void initLevelManager() {
-	 levelManager = new LevelManager(this);
-	 String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-	 String levelNamesFile = Resources.getString("levelNamesFile");
-	 levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
-	 }
+	public void initLevelManager() {
+		levelManager = new LevelManager(this);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
+	}
 
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		gameControl.update();
 	}
-	
-	public void setPlayState(){
+
+	public void setPlayState() {
 		stateManager.switchTo(myPlayState);
 	}
 

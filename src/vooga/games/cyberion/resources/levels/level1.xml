@@ -65,8 +65,8 @@
 		</SpriteGroup>
 		<SpriteGroup name="playerShot">
 			<Sprite class="vooga.games.cyberion.sprites.playershot.PlayerShot"
-				random="true" xMin="0" yMin="-100" xMax="640" yMax="-100" vxMin="0"
-				vyMin="0" vxMax="0" vyMax="0" quantity="1">
+				random="true" xMin="-50" yMin="1000" xMax="-50" yMax="1000" vxMin="0"
+				vyMin="0" vxMax="0" vyMax="0" quantity="4">
 				<Visual name="playerShot" />
 			</Sprite>
 		</SpriteGroup>
