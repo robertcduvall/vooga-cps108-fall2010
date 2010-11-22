@@ -4,6 +4,7 @@
 		<Image name="easyLevelBackground" path="backgrounds/easyLevel.png" />
 		<Image name="mediumLevelBackground" path="backgrounds/mediumLevel.png" />
 		<Image name="hardLevelBackground" path="backgrounds/hardLevel.png" />
+		<Image name="mainMenuBackground" path="backgrounds/mainMenu.png" />
 		<Image name="towerPreview" path="towerPreview.png" />
 		<Image name="normalTower" path="normalTower.png" />
 		<Image name="normalTowerPreview" path="normalTowerPreview.png" />
@@ -15,11 +16,10 @@
 		<Image name="duvallFaceRed" path="duvallFaceRed.png" />
 		<Image name="duvallFaceBlue" path="duvallFaceBlue.png" />
 		<Image name="duvallFaceYellow" path="duvallFaceYellow.png" />
-		<Image name="title" path="duvallFaceYellow.png" />
-		<Image name="easyButton" path="duvallFaceRed.png" />
-		<Image name="mediumButton" path="duvallFace.png" />
-		<Image name="hardButton" path="duvallFaceBlue.png" />
-		<Image name="mainMenuBackground" path="backgrounds/easyLevel.png" />
+		<Image name="title" path="title.png" />
+		<Image name="easyButton" path="easyButton.png" />
+		<Image name="mediumButton" path="mediumButton.png" />
+		<Image name="hardButton" path="hardButton.png" />
 		<Image name="towerShot" path="purpleShot.png" />
 		<Image name="1" path="number1.png" />
 		<Image name="2" path="number2.png" />
