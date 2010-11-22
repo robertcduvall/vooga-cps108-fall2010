@@ -1,6 +1,5 @@
 package vooga.games.zombieland;
 
-
 import com.golden.gamedev.object.*;
 
 import vooga.engine.overlay.Stat;
@@ -8,11 +7,7 @@ import vooga.engine.resource.Resources;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.games.zombieland.events.AddBulletsEvent;
-import vooga.games.zombieland.weapons.AssaultRifle;
-import vooga.games.zombieland.weapons.Bullet;
-import vooga.games.zombieland.weapons.Pistol;
-import vooga.games.zombieland.weapons.ShotGun;
-import vooga.games.zombieland.weapons.Weapon;
+import vooga.games.zombieland.weapons.*;
 
 /**
  * Player class. Contains all properties and abilities of the player
@@ -21,11 +16,8 @@ import vooga.games.zombieland.weapons.Weapon;
  * 
  */
 @SuppressWarnings("serial")
-public class Shooter extends BetterSprite implements Constants{
+public class Shooter extends BetterSprite implements Constants {
 
-	private static int shotgunAmmo;
-	private static int rifleAmmo;
-	private static int pistolAmmo;
 	private int maxHealth;
 	private int speed;
 	private double orientation;
@@ -37,47 +29,30 @@ public class Shooter extends BetterSprite implements Constants{
 
 	public Shooter() {
 		super();
-		weapons = new Weapon[3];
 		// DEFAULT attributes
 		speed = Resources.getInt("speed");
 		maxHealth = Resources.getInt("maxHealth");
 		orientation = Resources.getInt("orientation");
 		weaponChoice = Resources.getInt("weaponChoice");
 		levelScore = Resources.getInt("levelScore");
-		shotgunAmmo = Resources.getInt("shotgunAmmo");
-		rifleAmmo = Resources.getInt("rifleAmmo");
-		pistolAmmo = Resources.getInt("pistolAmmo");
-		
+
 		setupWeapons();
-		
+
 		int playerDefaultX = Resources.getInt("playerDefaultX");
 		int playerDefaultY = Resources.getInt("playerDefaultY");
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
-		
-//		AnimatedSprite down = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_DOWN));
-//		AnimatedSprite up = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_UP));
-//		AnimatedSprite left = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_LEFT));
-//		AnimatedSprite right = AnimationUtil.getInitializedAnimatedSprite(Resources.getAnimation(PLAYER_RIGHT));
-		
-//		this.addSprite(PLAYER_DOWN, down);
-//		this.addSprite(PLAYER_UP, up);
-//		this.addSprite(PLAYER_LEFT, left);
-//		this.addSprite(PLAYER_RIGHT, right);
-		
-		// Setup displays
-//		health = (Stat<Integer>) getStat("initHealth");
-//		setStat("health", health);
-//		score = (Stat<Integer>) getStat("initScore");
-//		setStat("score", score);
-//		ammo = (Stat<Integer>) getStat("initAmmo");
-//		setStat("ammo", ammo);
 	}
 
 	/**
 	 * Creates weapon objects with default ammo
 	 */
 	private void setupWeapons() {
+
+		weapons = new Weapon[3];
+		int shotgunAmmo = Resources.getInt("shotgunAmmo");
+		int rifleAmmo = Resources.getInt("rifleAmmo");
+		int pistolAmmo = Resources.getInt("pistolAmmo");
 		weapons[0] = new Pistol(this, pistolAmmo);
 		weapons[1] = new AssaultRifle(this, rifleAmmo);
 		weapons[2] = new ShotGun(this, shotgunAmmo);
@@ -85,13 +60,13 @@ public class Shooter extends BetterSprite implements Constants{
 
 	/**
 	 * This method sets the bullet listener for the player
+	 * 
 	 * @param bulletlistener
 	 */
-	public void setBulletListener(IEventHandler bulletlistener)
-	{
+	public void setBulletListener(IEventHandler bulletlistener) {
 		addbullets = (AddBulletsEvent) bulletlistener;
 	}
-	
+
 	/**
 	 * Add a bullet sprite to the game world. Used by weapons to create bullets
 	 * 
@@ -104,12 +79,7 @@ public class Shooter extends BetterSprite implements Constants{
 		addbullets.addBullet(bullet);
 
 	}
-//
-//	public void setState(PlayState state)
-//	{
-//		this.state = state;
-//	}
-	
+
 	private void showAnimation(String direction) {
 		setAsRenderedSprite(direction);
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
@@ -177,9 +147,10 @@ public class Shooter extends BetterSprite implements Constants{
 
 	@SuppressWarnings("unchecked")
 	public void setAmmo() {
-		((Stat<Integer>)getStat("initAmmo")).setStat(weapons[weaponChoice].getAmmo());
+		((Stat<Integer>) getStat("initAmmo")).setStat(weapons[weaponChoice]
+				.getAmmo());
 	}
-	
+
 	/**
 	 * Gets the remaining ammo count on the current weapon
 	 * 
@@ -223,7 +194,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 * @return true if the player's health is 0
 	 */
 	public boolean healthIsZero() {
-		return ((Integer)getHealth().getStat() <= 0);
+		return ((Integer) getHealth().getStat() <= 0);
 	}
 
 	/**
@@ -232,15 +203,15 @@ public class Shooter extends BetterSprite implements Constants{
 	public void setHealth(int number) {
 		getHealth().setStat(number);
 	}
-	
+
 	/**
 	 * update the health of the shooter
 	 * 
 	 * @param d
 	 */
 	public void updateHealth(double d) {
-		int health = (Integer)getHealth().getStat();
-		getHealth().setStat(new Integer(health + (int)d));
+		int health = (Integer) getHealth().getStat();
+		getHealth().setStat(new Integer(health + (int) d));
 		if (getHealth().getStat() > maxHealth)
 			setHealth(maxHealth);
 	}
@@ -252,7 +223,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	@SuppressWarnings("unchecked")
 	public Stat<Integer> getHealth() {
-		return (Stat<Integer>)getStat("initHealth");
+		return (Stat<Integer>) getStat("initHealth");
 	}
 
 	/**
@@ -262,7 +233,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	@SuppressWarnings("unchecked")
 	public Stat<Integer> getScore() {
-		return (Stat<Integer>)getStat("initScore");
+		return (Stat<Integer>) getStat("initScore");
 	}
 
 	/**
