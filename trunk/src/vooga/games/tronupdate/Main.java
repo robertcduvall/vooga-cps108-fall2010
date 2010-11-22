@@ -33,7 +33,10 @@ public class Main extends vooga.engine.core.Game{
 		TronGamePlayState playState = new TronGamePlayState(this,stateManager);
 		LoadState menuState = new LoadState(this,stateManager);
 		SetNumMatchesState setNumMatchesState= new SetNumMatchesState(this,stateManager);
-		menuState.activate(); playState.deactivate(); pauseState.deactivate();gameOverState.deactivate();
+		menuState.activate(); 
+		playState.deactivate(); 
+		pauseState.deactivate();
+		gameOverState.deactivate();
 		
 		stateManager.addGameState(playState,0);
 		stateManager.addGameState(pauseState,1);
