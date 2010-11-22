@@ -133,6 +133,10 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	public OverlayTracker getOverlayTracker(){
 		return myTracker;
 	}
+	
+	public Rule getRule(String ruleName){
+		return myRuleBook.get(ruleName);		
+	}
 
 
 	/**
