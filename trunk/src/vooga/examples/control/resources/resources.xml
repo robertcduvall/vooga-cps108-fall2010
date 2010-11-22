@@ -1,0 +1,25 @@
+<Resources>
+	<Images>
+		<Image name="duvall" path="duvallFace.png" />
+		<Image name="background" path="background.png" />
+	</Images>
+	
+	<Animations>
+	</Animations>
+	
+	<Sounds>
+		<Sound name="explode" path="explosion.wav" />
+	</Sounds>
+	
+	<Strings>
+		<String name="helloMessage" value="Hello World!" />
+		<String name="Level1" value="blueLevel.xml" />
+		<String name="settingsOverlay" value="src/vooga/examples/control/resources/PreferencesOverlay.xml" />
+	</Strings>
+	
+	<Integers>
+	</Integers>
+	
+	<Doubles>
+	</Doubles>
+</Resources>

@@ -1,0 +1,12 @@
+<Level name="Level1">
+	<SpriteGroups>
+		<SpriteGroup name="playerGroup">
+			<Sprite name="playerSprite" x="0" y="100" vx="10" vy="20">
+				<Visual name="downAnim" />
+			</Sprite>
+		</SpriteGroup>
+	</SpriteGroups>
+	<Background>
+		<Visual name ="background" />
+	</Background>
+</Level>

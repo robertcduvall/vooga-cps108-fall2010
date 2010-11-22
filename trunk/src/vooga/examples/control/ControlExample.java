@@ -28,10 +28,12 @@ public class ControlExample extends Control{
 	public void update(){
 		int input = 0;
 		//input = Joystick.getCompassDirection() OBTAIN DATA FROM PERIPHERAL
-		while (!key.contains(input))
+		for (int key : methodMap.keySet())
 		{
-			key.add(input);
+			if (key == input)
+			{
+				super.update(key);
+			}
 		}
-		super.update();
 	}
 }
