@@ -1,0 +1,7 @@
+<Overlay>
+
+<OverlayGroup name="preferenceMenu">
+<OverlayString xLoc="200" yLoc="50" fontName="Times New Roman" label="Control Panel" fontSize="32"></OverlayString>
+</OverlayGroup>
+
+</Overlay>
