@@ -5,7 +5,7 @@
 <Stat type="Integer" value="100" name = "initAmmo" />
 <Stat type="Integer" value ="1" name = "initLevel" />
 
-<!--Zombie specific stats-->
+<!--
 <Stat type="Integer" value="25" name="ZOMBIE_PER_LEVEL" />
 <Stat type="Integer" value="20" name="itemChance" />
 <Stat type="Integer" value="60" name="attackDelay" />
@@ -16,7 +16,6 @@
 <Stat type="Double" value="60" name="attackDelayStep" />
 <Stat type="String" value="" name="currentAttackAnimation" />
 
-<!--Player specific stats-->
 <Stat type="Integer" value="40" name="shotgunAmmo" />
 <Stat type="Integer" value="100" name="rifleAmmo" />
 <Stat type="Integer" value="99999" name="pistolAmmo" />
@@ -29,8 +28,7 @@
 <Stat type="Integer" value="100" name="ammo" />
 <Stat type="Integer" value="0" name="levelScore" />
 
-
-<!--Overlay Stuff-->
+-->
 <OverlayGroup name = "PlayStateOverlays">
 <OverlayBar xLoc="80" yLoc="18" stat="initHealth" max="200" color="green" backColor="black"></OverlayBar>
 <OverlayString label="Health: " fontName="gameFontBlack" xLoc="5" yLoc="10"></OverlayString>

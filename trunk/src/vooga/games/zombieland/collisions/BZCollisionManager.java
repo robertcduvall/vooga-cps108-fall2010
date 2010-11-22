@@ -22,9 +22,9 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
  */
 public class BZCollisionManager extends PreciseCollisionGroup implements Constants{
 	
-	Blah currentGame;
+	Game currentGame;
 	
-	public BZCollisionManager(Blah game)
+	public BZCollisionManager(Game game)
 	{
 		currentGame = game;
 	}
