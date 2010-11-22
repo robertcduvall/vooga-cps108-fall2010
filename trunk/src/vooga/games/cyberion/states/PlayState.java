@@ -15,7 +15,6 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
 import vooga.games.cyberion.DropThis;
 import vooga.games.cyberion.events.EnemyFireEvent;
-import vooga.games.cyberion.events.PlayerFireBombEvent;
 import vooga.games.cyberion.events.PlayerFireEvent;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
@@ -42,6 +41,7 @@ public class PlayState extends GameState {
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
 		myGame = game;
+	
 
 	}
 
@@ -56,17 +56,20 @@ public class PlayState extends GameState {
 
 	public PlayState nextLevel() {
 		this.removeEverything();
-		if (myLevelManager.getCurrentLevel() == myLevelManager.getNumLevels()) {
+		if (myLevelManager.getCurrentLevel()==myLevelManager.getNumLevels())
+		{
 			System.out.println("END");
 			return null;
-		} else {
-			newField = myLevelManager.loadNextLevel();
-			player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
-			enemy = newField.getGroup("enemyGroup").getSprites();
-			initControls();
-			initEvents();
-			addPlayField(newField);
-			return this;
+		}
+		else
+		{
+		newField = myLevelManager.loadNextLevel();
+		newField.getGroup("playerGroup").add(player);
+		enemy = newField.getGroup("enemyGroup").getSprites();
+		initControls();
+		initEvents();
+		addPlayField(newField);
+		return this;
 		}
 	}
 
@@ -82,7 +85,6 @@ public class PlayState extends GameState {
 	public void initEvents() {
 		eventPool = new EventPool();
 		eventPool.addEvent(new PlayerFireEvent(myGame, player, this));
-		eventPool.addEvent(new PlayerFireBombEvent(myGame, player, this));
 		eventPool.addEvent(new EnemyFireEvent(myGame, enemy, this));
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this, newField
 				.getGroup("enemyGroup")));
