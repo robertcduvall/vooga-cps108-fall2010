@@ -39,6 +39,7 @@ public class PauseGameState extends GameState {
 
 		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
 				basicTextPlayfield.getBackground().getHeight() / 2);
+		basicTextPlayfield.add(pauseOverlay);
 		addPlayField(basicTextPlayfield);
 	}
 
@@ -55,6 +56,7 @@ public class PauseGameState extends GameState {
 
 		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
 				basicTextPlayfield.getBackground().getHeight() / 2);
+		basicTextPlayfield.add(pauseOverlay);
 		addPlayField(basicTextPlayfield);
 	}
 
@@ -73,6 +75,7 @@ public class PauseGameState extends GameState {
 
 		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
 				basicTextPlayfield.getBackground().getHeight() / 2);
+		basicTextPlayfield.add(pauseOverlay);
 		addPlayField(basicTextPlayfield);
 	}
 

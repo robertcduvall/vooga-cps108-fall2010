@@ -32,7 +32,7 @@ public class BasicTextGameState extends GameState {
 
 		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
 				basicTextPlayfield.getBackground().getHeight() / 2);
-
+		basicTextPlayfield.add(textOverlay);
 		addPlayField(basicTextPlayfield);
 
 	}
@@ -48,7 +48,7 @@ public class BasicTextGameState extends GameState {
 
 		setMessagePosition(basicTextPlayfield.getBackground().getWidth() / 2,
 				basicTextPlayfield.getBackground().getHeight() / 2);
-
+		basicTextPlayfield.add(textOverlay);
 		addPlayField(basicTextPlayfield);
 	}
 
@@ -63,7 +63,7 @@ public class BasicTextGameState extends GameState {
 		this(pauseMessage);
 
 		setMessagePosition(x, y);
-
+		
 		addPlayField(basicTextPlayfield);
 
 	}
