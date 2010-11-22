@@ -28,6 +28,7 @@
 	    <String name="block" value="block"/>
 	    <String name="bonus" value="bonus"/>
 	    <String name="delim"	value="," />
+	    <String name="overlayFileURL" value="src/vooga/games/tronupdate/resources/overlays.xml"/>
 	</Strings>
 	
 	<Integers>

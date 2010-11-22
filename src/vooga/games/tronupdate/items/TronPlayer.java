@@ -29,8 +29,8 @@ public class TronPlayer extends BetterSprite {
 	private int playerCurrentColumn;
 	private int playerImageWidth;
 	private int speedUp;
-
-	public int score;
+	private boolean isAI;
+	private int score;
 
 	/**
 	 * constructor
@@ -75,6 +75,14 @@ public class TronPlayer extends BetterSprite {
 		grid = new GridSpace(GRID_WIDTH,GRID_HEIGHT);
 		//blocks = new boolean[grid.getTotalRow()+2][grid.getTotalColumn()+2];
 
+	}
+	
+	public void setAsAI(boolean flag){
+		isAI=flag;
+	}
+	
+	public boolean isAI(){
+		return isAI;
 	}
 	/**
 	 * mark the block if it is filled by items in the game 
