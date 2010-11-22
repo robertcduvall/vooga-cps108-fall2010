@@ -11,14 +11,12 @@ import com.golden.gamedev.object.collision.CollisionBounds;
 
 public class PlayerAndBoundariesCollision extends CollisionBounds{
 	
-	private GameState gameOverState;
 	private GameStateManager gm;
 	
 	public PlayerAndBoundariesCollision(int x, int y, int width,
 			int height){//,GameState gameOverState,GameStateManager gm) {
 		super(x, y, width, height);
-		this.gameOverState=gameOverState;
-		this.gm=gm;
+
 	}
 	/**
 	 * determines what happens after the collision
