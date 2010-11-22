@@ -24,7 +24,7 @@ public class QuitButton extends Button {
 	}
 
 	public void actionPerformed() {
-		System.out.println("Quit button activated!");
+		System.exit(1);
 		this.setActive(false);
 
 	}
