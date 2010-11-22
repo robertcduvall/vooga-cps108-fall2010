@@ -58,6 +58,6 @@
 	<Doubles>
 		<Double name="DECELERATION_FACTOR" value=".0005" />
 		<Double name="MAX_SPEED" value="2" />
-		<Double name="GRAVITY" value="5" />
+		<Double name="GRAVITY" value=".05" />
 	</Doubles>
 </Resources>
