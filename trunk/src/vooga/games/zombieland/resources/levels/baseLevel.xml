@@ -54,7 +54,7 @@
 	</Music>
 
 	<Backgrounds>
-		<Background name="greybackground" />
+		<Background name="sandbackground" />
 	</Backgrounds>
 
 </Level>
