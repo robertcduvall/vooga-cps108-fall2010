@@ -58,7 +58,7 @@ public class PlayState extends GameState implements Constants{
 		levelTracker = OverlayCreator.createOverlays(STATES_XML_PATH);
 		LevelParser parser = new LevelParser();
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
-
+		currentGame.playMusic(Resources.getSound("entersand"));
 		setupPlayer();
 		resetLevel();
 		initOverlays();
