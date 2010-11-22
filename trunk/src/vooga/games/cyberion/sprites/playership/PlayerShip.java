@@ -13,6 +13,7 @@ public class PlayerShip extends BetterSprite {
 
 		public PlayerShip(){
 			super(Resources.getImage("playerShip"));
+			
 		}
 		
 		public PlayerShip(String name, BetterSprite s) {
@@ -40,16 +41,16 @@ public class PlayerShip extends BetterSprite {
 
 		public vooga.engine.control.KeyboardControl setKeyboardControl(KeyboardControl kb) {
 			keyboardControl = kb;
-			keyboardControl.addInput(KeyEvent.VK_LEFT, "moveLeft",
-					"vooga.games.cyberion.sprites.PlayerShip", null);
-			keyboardControl.addInput(KeyEvent.VK_RIGHT, "moveRight",
-					"vooga.games.cyberion.sprites.PlayerShip", null);
-			keyboardControl.addInput(KeyEvent.VK_DOWN, "moveDown",
-					"vooga.games.cyberion.sprites.PlayerShip", null);
-			keyboardControl.addInput(KeyEvent.VK_UP, "moveUp",
-					"vooga.games.cyberion.sprites.PlayerShip", null);
-			keyboardControl.addInput(KeyEvent.VK_SPACE, "fire",
-					"vooga.games.cyberion.sprites.PlayerShip", null);
+//			keyboardControl.addInput(KeyEvent.VK_LEFT, "moveLeft",
+//					"vooga.games.cyberion.sprites.PlayerShip", null);
+//			keyboardControl.addInput(KeyEvent.VK_RIGHT, "moveRight",
+//					"vooga.games.cyberion.sprites.PlayerShip", null);
+//			keyboardControl.addInput(KeyEvent.VK_DOWN, "moveDown",
+//					"vooga.games.cyberion.sprites.PlayerShip", null);
+//			keyboardControl.addInput(KeyEvent.VK_UP, "moveUp",
+//					"vooga.games.cyberion.sprites.PlayerShip", null);
+//			keyboardControl.addInput(KeyEvent.VK_SPACE, "fire",
+//					"vooga.games.cyberion.sprites.PlayerShip", null);
 			return keyboardControl;
 		}
 
