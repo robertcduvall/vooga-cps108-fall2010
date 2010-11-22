@@ -10,8 +10,8 @@ import vooga.widget.Button;
 @SuppressWarnings("serial")
 public class ShoppingLevelButton extends Button {
 
-	private static final int START_X = 275;
-	private static final int START_Y = 100;
+	private static final int START_X = 300;
+	private static final int START_Y = 300;
 	private static final BufferedImage myImage = Resources.getImage("shoppingButton");
 	private DropThis myGame;
 	
