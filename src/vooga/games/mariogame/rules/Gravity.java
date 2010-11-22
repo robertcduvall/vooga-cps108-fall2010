@@ -8,7 +8,7 @@ import vooga.engine.level.Rule;
 /**
  * Rule that applies gravity to the sprite groups listed in the level.xml document
  * 
- * @author Cameron McCallie
+ * @author Cameron McCallie, Andrew Brown, David Herzka
  *
  */
 public class Gravity implements Rule{
@@ -41,6 +41,10 @@ public class Gravity implements Rule{
 	
 	public static void setGravityCoef(double coef) {
 		GRAVITY_COEF = coef;
+	}
+	
+	public static void reset(){
+		GRAVITY_COEF = 1;
 	}
 
 }

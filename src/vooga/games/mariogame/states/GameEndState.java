@@ -1,13 +1,18 @@
 package vooga.games.mariogame.states;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
+import vooga.engine.core.Game;
 import vooga.engine.overlay.OverlayString;
 import vooga.engine.resource.HighScoreHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.engine.util.SoundPlayer;
 
 import com.almworks.sqlite4java.SQLiteException;
 import com.golden.gamedev.object.Background;
@@ -29,7 +34,9 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class GameEndState extends GameState {
 	private HighScoreHandler myHighScores;
+	private PlayField myPlayfield;
 	private GamePlayState myPlayState;
+	private Game myGame;
 
 	private static final int NUM_SCORES = 10;
 
@@ -45,12 +52,13 @@ public class GameEndState extends GameState {
 	 *            - resource used to write text
 	 */
 
-	public GameEndState(PlayField playfield, GamePlayState playState) {
+	public GameEndState(Game game, PlayField playfield, GamePlayState playState) {
 		
 		
 		super(playfield);
-		
+		myPlayfield = playfield;
 		myPlayState = playState;
+		myGame = game;
 
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
 				.getString("highscoredbname"), new File(Resources
@@ -98,6 +106,7 @@ public class GameEndState extends GameState {
 	public void activate() {
 		onEnter();
 		super.activate();
+		SoundPlayer.playMusic(myPlayfield.getMusic(0));
 	};
 	
 	@Override
@@ -109,6 +118,12 @@ public class GameEndState extends GameState {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		
+		initControls();
+	}
+	
+	private void initControls(){
+		Control gameControl = new KeyboardControl(myGame,myGame);
+		gameControl.addInput(KeyEvent.VK_SPACE, "restartGame", "vooga.games.mariogame.DropThis");
+		((PlayField)this.getUpdateField().toArray()[0]).addControl("start", gameControl);
 	}
 }

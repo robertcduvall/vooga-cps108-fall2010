@@ -23,7 +23,6 @@ public class Enemy extends BetterSprite {
 	}
 	
 	public void startAnimation(){
-		System.out.println("starting animation");
 		setAsRenderedSprite("Goomba");
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
 		((AnimatedSprite) getCurrentSprite()).setLoopAnim(true);
