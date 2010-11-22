@@ -2,7 +2,6 @@ package vooga.games.cyberion.sprites.playership;
 
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.BetterSprite;
-import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 
 public class PlayerShip extends BetterSprite {
@@ -10,20 +9,20 @@ public class PlayerShip extends BetterSprite {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	KeyboardControl keyboardControl;
+
+	private int life;
+	private int weaponPower;
+	private KeyboardControl keyboardControl;
 
 	public PlayerShip() {
 		super();
+		this.life = Resources.getInt("playerLife");
+		this.weaponPower = Resources.getInt("playerWeaponPower");
 	}
 
 	public PlayerShip(String name, BetterSprite s) {
-
 		super(name, s);
-
 	}
-
-	private int life = 3;
-	private int weaponPower = 1;
 
 	public int getWeaponPower() {
 		return weaponPower;
@@ -31,12 +30,6 @@ public class PlayerShip extends BetterSprite {
 
 	public void setWeaponPower(int weaponPower) {
 		this.weaponPower = weaponPower;
-	}
-
-	private EventPool eventPool = new EventPool();
-
-	public void setEventManager(EventPool em) {
-		eventPool = em;
 	}
 
 	public KeyboardControl setKeyboardControl(KeyboardControl kb) {
