@@ -75,7 +75,7 @@ public class PlayerShip extends BetterSprite {
 		}
 
 		public void moveLeft() {
-			System.out.println();
+			
 			setX(getX() - 5);
 		}
 
@@ -93,6 +93,7 @@ public class PlayerShip extends BetterSprite {
 		}
 
 		public void fire() {
+			
 			eventManager.addEvent( new PlayerFireEvent(this, "PlayerFireEvent", getX(), getY(), weaponPower));
 		}
 

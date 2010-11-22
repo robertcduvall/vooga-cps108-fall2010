@@ -50,7 +50,6 @@ public class PlayState extends GameState {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		playerControl.update();
 		eventPool.checkEvents();
 	}
 
@@ -67,6 +66,7 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
+		playerControl.addInput(KeyEvent.VK_SPACE, "fire", PLAYER_CLASS);
 		newField.addControl("playerGroup", playerControl);
 	}
 

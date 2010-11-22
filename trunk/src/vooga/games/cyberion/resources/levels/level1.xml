@@ -48,8 +48,8 @@
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
 			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip"
-				random="true" xMin="0" xMax="640" yMin="0" yMax="100000" vxMin="0"
-				vxMax="0" vyMin="-1" vyMax="-1" quantity="1000">
+				random="true" xMin="0" xMax="640" yMin="0" yMax="1000" vxMin="0"
+				vxMax="0" vyMin="-.1" vyMax="-.1" quantity="100000">
 				<Visual name="enemyShip" />
 			</Sprite>
 		</SpriteGroup>
