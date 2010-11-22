@@ -20,7 +20,7 @@ import vooga.widget.MouseFollower;
  * the player clicks. The image displayed is based on the 
  * preview image of whatever tower the current tower is.
  * 
- * @author Daniel Koverman
+ * @author Derek Zhou, Daniel Koverman, Justin Goldsmith 
  *
  */
 public class Player extends MouseFollower {
