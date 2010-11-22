@@ -2,7 +2,7 @@ package vooga.games.jumper.events;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.core.Game;
+
 import vooga.engine.event.IEventHandler;
 import vooga.games.jumper.DropThis;
 import vooga.games.jumper.states.PlayGameState;
