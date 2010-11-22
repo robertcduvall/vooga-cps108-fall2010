@@ -3,6 +3,7 @@ package vooga.games.cyberion.sprites.playershot;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.resource.Resources;
 
 /**
  * Super PlayerShot class for various player shots to inherit
@@ -12,6 +13,11 @@ import vooga.engine.core.BetterSprite;
  */
 
 public class PlayerShot extends BetterSprite {
+	public PlayerShot()
+	{
+		super(Resources.getImage("playerShot"));
+		
+	}
 
 	public PlayerShot(BufferedImage image) {
 		super(image);
