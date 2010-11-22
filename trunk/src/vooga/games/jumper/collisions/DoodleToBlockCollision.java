@@ -33,8 +33,6 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	 * @param doodle DoodleSprite in SpriteGroup
 	 * @param block BlockSprite in SpriteGroup
 	 */
-
-	
 	public void collided(Sprite doodle, Sprite block) {
 		if(super.getCollisionSide() == 8){
 			((BlockSprite) block).handleCollision((DoodleSprite) doodle);
