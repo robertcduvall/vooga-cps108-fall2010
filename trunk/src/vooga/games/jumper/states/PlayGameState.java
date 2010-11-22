@@ -45,6 +45,7 @@ public class PlayGameState extends GameState{
 	private void initLevel(){
 		BetterSprite doodleSprite = (BetterSprite)(getGroup("doodleSprite").getSprites()[0]);
 		initControls(doodleSprite);
+		initEvents();
 	}
 
 	private void initControls(BetterSprite player) {
