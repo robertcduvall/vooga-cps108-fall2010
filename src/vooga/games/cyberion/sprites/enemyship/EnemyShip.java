@@ -26,6 +26,7 @@ public class EnemyShip extends BetterSprite {
 		public EnemyShip()
 		{
 			super(Resources.getImage("enemyShip"));
+			setLife(1);
 		}
 
 		public EnemyShip(BufferedImage image, double x, double y, int life,

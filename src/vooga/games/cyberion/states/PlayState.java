@@ -10,6 +10,7 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
+import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
 import vooga.games.cyberion.DropThis;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
@@ -30,6 +31,9 @@ public class PlayState extends GameState {
 	private PlayerShip player;
 	private String PLAYER_CLASS = "vooga.games.cyberion.sprites.playership.PlayerShip";
 	private PlayField newField;
+	
+	public static Stat<Integer> myLives;
+	public static Stat<Integer> myScore;
 
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
