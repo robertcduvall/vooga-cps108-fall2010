@@ -33,6 +33,14 @@
 			<Stat name = "initHealth" />
 			<Stat name = "initScore" />
 			<Stat name = "initAmmo" />
+			<Stat name = "speed" />
+			<Stat name = "maxHealth" />
+			<Stat name= "orientation" />
+			<Stat name= "weaponChoice" />
+			<Stat name = "levelScore" />
+			<Stat name = "shotgunAmmo" />
+			<Stat name = "rifleAmmo" />
+			<Stat name="pistolAmmo" />			
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>

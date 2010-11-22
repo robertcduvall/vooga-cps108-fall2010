@@ -23,35 +23,34 @@ import vooga.games.zombieland.weapons.Weapon;
  */
 public class Shooter extends BetterSprite implements Constants{
 
-	private static int shotgunAmmo;
-	private static int rifleAmmo;
-	private static int pistolAmmo;
-	private int maxHealth;
+//	private static int shotgunAmmo;
+//	private static int rifleAmmo;
+//	private static int pistolAmmo;
+//	private int maxHealth;
 	private Blah game;
-	private int speed;
-	private double orientation;
+//	private int speed;
+//	private double orientation;
 	private int weaponChoice;
 	private Weapon[] weapons;
-	private Stat<Integer> health;
-	private Stat<Integer> score;
-	private Stat<Integer> ammo;
-	private int levelScore;
+//	private Stat<Integer> health;
+//	private Stat<Integer> score;
+//	private Stat<Integer> ammo;
+//	private int levelScore;
 
 	public Shooter() {
 		super();
 		weapons = new Weapon[3];
 		// DEFAULT attributes
-		speed = Resources.getInt("speed");
-		maxHealth = Resources.getInt("maxHealth");
-		orientation = Resources.getInt("orientation");
-		weaponChoice = Resources.getInt("weaponChoice");
-		levelScore = Resources.getInt("levelScore");
-		shotgunAmmo = Resources.getInt("shotgunAmmo");
-		rifleAmmo = Resources.getInt("rifleAmmo");
-		pistolAmmo = Resources.getInt("pistolAmmo");
+//		speed = Resources.getInt("speed");
+//		maxHealth = Resources.getInt("maxHealth");
+//		orientation = Resources.getInt("orientation");
+//		weaponChoice = Resources.getInt("weaponChoice");
+//		levelScore = Resources.getInt("levelScore");
+//		shotgunAmmo = Resources.getInt("shotgunAmmo");
+//		rifleAmmo = Resources.getInt("rifleAmmo");
+//		pistolAmmo = Resources.getInt("pistolAmmo");
 		
 		setupWeapons();
-		
 		int playerDefaultX = Resources.getInt("playerDefaultX");
 		int playerDefaultY = Resources.getInt("playerDefaultY");
 		this.setX(playerDefaultX);
@@ -67,27 +66,38 @@ public class Shooter extends BetterSprite implements Constants{
 //		this.addSprite(PLAYER_LEFT, left);
 //		this.addSprite(PLAYER_RIGHT, right);
 		
-//		// Setup displays
-		health = new Stat<Integer>((Integer) getStat("initHealth").getStat());
-		setStat("health", health);
-		score = new Stat<Integer>((Integer) getStat("initScore").getStat());
-		setStat("score", score);
-		ammo = new Stat<Integer>((Integer) getStat("initAmmo").getStat());
-		setStat("ammo", ammo);
+////		// Setup displays
+//		health = new Stat<Integer>((Integer) getStat("initHealth").getStat());
+//		setStat("health", health);
+//		score = new Stat<Integer>((Integer) getStat("initScore").getStat());
+//		setStat("score", score);
+//		ammo = new Stat<Integer>((Integer) getStat("initAmmo").getStat());
+//		setStat("ammo", ammo);
 	}
 
-	public void setGame(Blah currentGame)
+	public void g(Blah currentGame)
 	{
 		game = currentGame;
+	}
+	
+	public int getIntStat(String statname)
+	{
+		return (Integer) getStat(statname).getStat();
+	}
+	
+	public void setIntStat(String statname, int value)
+	{
+		Stat<Integer> stat = (Stat<Integer>) getStat(statname);
+		stat.setStat(value);
 	}
 	
 	/**
 	 * Creates weapon objects with default ammo
 	 */
 	private void setupWeapons() {
-		weapons[0] = new Pistol(this, pistolAmmo);
-		weapons[1] = new AssaultRifle(this, rifleAmmo);
-		weapons[2] = new ShotGun(this, shotgunAmmo);
+		weapons[0] = new Pistol(this, getIntStat("pistolAmmo"));
+		weapons[1] = new AssaultRifle(this, getIntStat("rifleAmmo"));
+		weapons[2] = new ShotGun(this, getIntStat("shotgunAmmo"));
 	}
 
 	/**
@@ -112,8 +122,9 @@ public class Shooter extends BetterSprite implements Constants{
 	 * Move the shooter left and play the corresponding animation.
 	 */
 	public void goLeft() {
-		orientation = 180;
+		setIntStat("orientation" , 180);
 		showAnimation(PLAYER_LEFT);
+		int speed = getIntStat("speed");
 		moveX(speed);
 	}
 
@@ -121,8 +132,9 @@ public class Shooter extends BetterSprite implements Constants{
 	 * Move the shooter right and play the corresponding animation.
 	 */
 	public void goRight() {
-		orientation = 0;
+		setIntStat("orientation" , 180);
 		showAnimation(PLAYER_RIGHT);
+		int speed = getIntStat("speed");
 		moveX(Math.abs(speed));
 	}
 
@@ -130,8 +142,9 @@ public class Shooter extends BetterSprite implements Constants{
 	 * Move the shooter up and play the corresponding animation.
 	 */
 	public void goUp() {
-		orientation = 270;
+		setIntStat("orientation", 270);
 		showAnimation(PLAYER_UP);
+		int speed = getIntStat("speed");
 		moveY(speed);
 	}
 
@@ -139,8 +152,9 @@ public class Shooter extends BetterSprite implements Constants{
 	 * Move the shooter down and play the corresponding animation.
 	 */
 	public void goDown() {
-		orientation = 90;
+		setIntStat("orientation" , 90);
 		showAnimation(PLAYER_DOWN);
+		int speed = getIntStat("speed");
 		moveY(Math.abs(speed));
 	}
 
@@ -169,7 +183,7 @@ public class Shooter extends BetterSprite implements Constants{
 	}
 
 	public void setAmmo() {
-		ammo.setStat(weapons[weaponChoice].getAmmo());
+		setIntStat("initAmmo" , weapons[weaponChoice].getAmmo());	
 	}
 	
 	/**
@@ -191,23 +205,6 @@ public class Shooter extends BetterSprite implements Constants{
 		weapons[weapon].addAmmo(amount);
 	}
 
-	/**
-	 * Get the ammo as an object that's able to be displayed using overlays
-	 * 
-	 * @return ammo stat object
-	 */
-	public Stat<Integer> getStatAmmo() {
-		return ammo;
-	}
-
-	/**
-	 * Get the direction the player is facing (in degrees)
-	 * 
-	 * @return player orientation
-	 */
-	public double getOrientation() {
-		return orientation;
-	}
 
 	/**
 	 * Checks the player's health to see if he's still alive
@@ -215,14 +212,14 @@ public class Shooter extends BetterSprite implements Constants{
 	 * @return true if the player's health is 0
 	 */
 	public boolean healthIsZero() {
-		return (health.getStat() <= 0);
+		return ( getIntStat("initHealth")<= 0);
 	}
 
 	/**
 	 * Set health of the shooter
 	 */
 	public void setHealth(int number) {
-		health.setStat(number);
+		setIntStat("initHealth" , number);
 	}
 	
 	/**
@@ -230,36 +227,24 @@ public class Shooter extends BetterSprite implements Constants{
 	 * 
 	 * @param d
 	 */
-	public void updateHealth(double d) {
-		health.setStat((int) (health.getStat() + d));
-		if (health.getStat() > maxHealth)
-			setHealth(maxHealth);
-		health.setStat(health.getStat());
+	public void updateHealth(int d) {
+		
+		int currentHealth = getIntStat("initHealth");
+		setHealth(currentHealth + d);
+		
+		if(getIntStat("initHealth") > getIntStat("maxHealth"))
+				setHealth( getIntStat("maxHealth"));
+		
+//		health.setStat(health.getStat());
 	}
 
-	/**
-	 * Get the health stat object
-	 * 
-	 * @return health stat objec
-	 */
-	public Stat<Integer> getHealth() {
-		return health;
-	}
 
-	/**
-	 * Get the score stat object
-	 * 
-	 * @return score stat object
-	 */
-	public Stat<Integer> getScore() {
-		return score;
-	}
 
 	/**
 	 * Resets the score so that it can start counting new level's score from 0.
 	 */
 	public void resetLevelScore() {
-		levelScore = 0;
+		setIntStat("levelScore" , 0);
 	}
 
 	/**
@@ -268,15 +253,25 @@ public class Shooter extends BetterSprite implements Constants{
 	 * @return levelScore The current level's score
 	 */
 	public int getLevelScore() {
-		return levelScore;
+		return getIntStat("levelScore");
 	}
 
+	/**
+	 * Returns the orientation of the player
+	 * @return
+	 */
+	public int getOrientation()
+	{
+		return getIntStat("orientation");
+	}
+	
 	/**
 	 * update score
 	 */
 	public void updateScore(int number) {
-		score.setStat(score.getStat() + number);
-		levelScore += number;
+		int score = getIntStat("initScore");
+		score = score + number;
+		setIntStat("score", score);
 	}
 
 	/**
