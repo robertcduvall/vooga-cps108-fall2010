@@ -33,8 +33,8 @@ public class PlayerCollidesEnemy extends BasicCollisionGroup {
 		} else {
 			player.setWeaponPower(1);
 		}
-		if (Integer.parseInt(stat.getStat().toString())>0){
-			stat.setStat(Integer.parseInt(stat.getStat().toString())-1); 
+		if (stat.getStat()>0){
+			stat.setStat(stat.getStat()-1); 
 			player.forceX(320);
 			player.forceY(440);
 		}
