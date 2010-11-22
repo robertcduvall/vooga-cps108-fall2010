@@ -32,9 +32,6 @@ public class PlayState extends GameState {
 	private String PLAYER_CLASS = "vooga.games.cyberion.sprites.playership.PlayerShip";
 	private PlayField newField;
 	
-	public static Stat<Integer> myLives;
-	public static Stat<Integer> myScore;
-
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
 		myGame = game;
@@ -42,11 +39,8 @@ public class PlayState extends GameState {
 	}
 
 	public void initialize() {
-		// spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
-		//player.setEventManager(eventPool);
-		newField.setBackground(new ColorBackground(Color.BLACK));
 		initControls();
 		initEvents();
 		addPlayField(newField);

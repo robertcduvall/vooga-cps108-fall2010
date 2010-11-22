@@ -2,7 +2,7 @@ package vooga.games.cyberion.sprites.bonus;
 
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.object.Sprite;
+import vooga.engine.core.BetterSprite;
 
 /**
  * Super bonus class for various bonus to inheritz
@@ -11,7 +11,12 @@ import com.golden.gamedev.object.Sprite;
  *
  */
 
-public class Bonus extends Sprite {
+public class Bonus extends BetterSprite {
+	
+	public Bonus()
+	{
+		super();
+	}
 
 	public Bonus(BufferedImage image, int x, int y) {
 		super(image, x, y);

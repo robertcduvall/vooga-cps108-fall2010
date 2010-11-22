@@ -81,11 +81,7 @@ public class DropThis extends Game {
 	public void initGameStates() {
 		super.initGameStates();
 
-		// initialize level manager here?
 		initLevelManager();
-//		levelParser = new LevelParser();
-//		PlayField levelPlayField = levelParser.getPlayfield(
-//				"src/vooga/games/cyberion/resources/levels/level1.xml", this);
 
 		myPlayState = new PlayState(levelManager, this);
 		stateManager.addGameState(myPlayState);

@@ -1,12 +1,19 @@
 package vooga.games.cyberion.collisions;
 
 
+import vooga.engine.core.Game;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class PlayerCollidesWithBonus extends BasicCollisionGroup {
+	
+	public PlayerCollidesWithBonus(Game game)
+	{
+		super();
+	}
+	
 	public void collided(Sprite player, Sprite bonus) {
 		collided((PlayerShip) player, bonus);
 	}
