@@ -28,6 +28,11 @@ public class PlayGameState extends GameState{
 	private int keyLeft = Resources.getInt("left key");
 	private int keyRight = Resources.getInt("right key");
 	
+	/**
+	 * Create new PlayGameState
+	 * @params game, playfield, dropthis
+	 */
+	
 	public PlayGameState(Game game, PlayField field, DropThis dropThis){
 		super(field);
 		myDropThis = dropThis;
@@ -35,11 +40,19 @@ public class PlayGameState extends GameState{
 		myField = field;
 	}
 	
+	/**
+	 * Initialize the level
+	 */
 	
 	@Override
 	public void initialize() {
 		initLevel();
 	}
+	
+	/**
+	 * Initialize the game's events
+	 * Add the events to the eventpool
+	 */
 	
 	private void initEvents() {
 		eventPool = new EventPool();
@@ -48,11 +61,20 @@ public class PlayGameState extends GameState{
 		eventPool.addEvent(new DeathEvent(myDropThis, this));
 	}
 	
+	/**
+	 * Create doodlesprite and the game's control scheme
+	 * Initialize the events
+	 */
+	
 	private void initLevel(){
 		BetterSprite doodleSprite = (BetterSprite)(getGroup("doodleSprite").getSprites()[0]);
 		initControls(doodleSprite);
 		initEvents();
 	}
+	
+	/**
+	 * Initialize the game's controls
+	 */
 	
 	private void initControls(BetterSprite player) {
 		playerControl = new KeyboardControl(player, myGame);
