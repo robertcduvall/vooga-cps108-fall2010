@@ -25,7 +25,7 @@ public class Gravity implements Rule{
 	}
 
 	@Override
-	public boolean isSatisfied(SpriteGroup... groups) {
+	public boolean appliesTo(SpriteGroup... groups) {
 		return true;
 	}
 
