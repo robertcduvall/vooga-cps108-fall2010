@@ -40,7 +40,7 @@ public class InfiniteBlocksEvent implements IEventHandler {
 		int randomX = random.nextInt(xMax - xMin) + xMin;
 		int randomY = random.nextInt(yMax - yMin) + yMax;
 		Point initPoint = new Point(randomX, randomY);
-		NormalBlock addBlock = new NormalBlock(Resources.getImage("platformGreen"), initPoint, xVelocity, yVelocity);
+		NormalBlock addBlock = new NormalBlock(Resources.getImage("platformWhite"), initPoint, xVelocity, yVelocity);
 		playState.getGroup("normalBlocks").add(addBlock);
 		System.out.println(initPoint);
 	}
