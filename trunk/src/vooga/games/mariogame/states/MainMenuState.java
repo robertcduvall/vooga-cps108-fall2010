@@ -2,22 +2,12 @@ package vooga.games.mariogame.states;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayTracker;
-import vooga.engine.resource.HighScoreHandler;
-import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
-
-import com.golden.gamedev.object.GameFontManager;
-import com.golden.gamedev.object.background.ImageBackground;
-import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * 
@@ -31,8 +21,6 @@ import com.golden.gamedev.object.SpriteGroup;
 public class MainMenuState extends MenuGameState {
 
 	private Game myGame;
-	private ImageBackground myMainMenuBG;
-	private SpriteGroup myOverlays;
 	private PlayField myPlayfield;
 	
 	public MainMenuState(Game game, PlayField playfield, GamePlayState playState) {
@@ -52,14 +40,12 @@ public class MainMenuState extends MenuGameState {
 
 	@Override
 	public void render(Graphics2D g) {
-		// TODO Auto-generated method stub
 		super.render(g);
 		myPlayfield.render(g);
 	}
 	
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
 	}
 	
 	private void initControls(){

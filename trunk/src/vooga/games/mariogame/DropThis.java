@@ -45,9 +45,6 @@ public class DropThis extends Game {
 		initStates();
 
 	}
-	
-	
-	
 
 	private void initFonts() {
 		fontManager = new GameFontManager();
