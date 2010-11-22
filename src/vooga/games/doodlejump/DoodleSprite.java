@@ -22,11 +22,23 @@ import vooga.games.doodlejump.states.PlayState;
  * 
  */
 public class DoodleSprite extends BetterSprite {
-	private static final double MAXIMUM_SCREEN_X = Resources.getDouble("maxScreenX");
-	private static final double MINIMUM_SCREEN_X = Resources.getDouble("minScreenX");
-	private static final double MAXIMUM_SCREEN_Y = Resources.getDouble("maxScreenY");
-	private static final double MINIMUM_SCREEN_Y = Resources.getDouble("minScreenY");
-	
+	private static final double MAXIMUM_SCREEN_X = Resources
+			.getDouble("maxScreenX");
+	private static final double MINIMUM_SCREEN_X = Resources
+			.getDouble("minScreenX");
+	private static final double MAXIMUM_SCREEN_Y = Resources
+			.getDouble("maxScreenY");
+	private static final double MINIMUM_SCREEN_Y = Resources
+			.getDouble("minScreenY");
+
+	private static final int DELTA_MOVEMENT = 5;
+	private static final double DOODLE_VERTICAL_SPEED = 0.5;
+	private static final double DELTA_VERTICAL_SPEED = 0.01;
+	private static final double BALL_VERTICAL_SPEED = -1.5;
+	private static final int ZERO_BULLET_DELAY = 0;
+	private static final int BALL_INITIAL_X = 2;
+	private static final int BALL_INITIAL_Y = 2;
+
 	private boolean died;
 	private PlayState playState;
 	private int bulletDelay = Resources.getInt("bulletDelay");
@@ -47,7 +59,7 @@ public class DoodleSprite extends BetterSprite {
 		BufferedImage[] doodleImage = { Resources.getImage("doodleLeft") };
 		setImages(doodleImage);
 		if (isOnScreen()) {
-			setX(getX() - 5);
+			setX(getX() - DELTA_MOVEMENT);
 		} else {
 			setX(MAXIMUM_SCREEN_X);
 		}
@@ -58,7 +70,7 @@ public class DoodleSprite extends BetterSprite {
 		BufferedImage[] doodleImage = { Resources.getImage("doodleRight") };
 		setImages(doodleImage);
 		if (isOnScreen()) {
-			setX(getX() + 5);
+			setX(getX() + DELTA_MOVEMENT);
 		} else {
 			setX(MINIMUM_SCREEN_X);
 		}
@@ -67,26 +79,26 @@ public class DoodleSprite extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getVerticalSpeed() < 0.5)
-			setVerticalSpeed(getVerticalSpeed() + 0.01);
+		if (getVerticalSpeed() < DOODLE_VERTICAL_SPEED)
+			setVerticalSpeed(getVerticalSpeed() + DELTA_VERTICAL_SPEED);
 		bulletDelay--;
 	}
 
 	public void shoot() {
-		if (bulletDelay <= 0) {
+		if (bulletDelay <= ZERO_BULLET_DELAY) {
 			BufferedImage[] doodleImage = { Resources.getImage("doodleUp") };
 			setImages(doodleImage);
 			makeBall();
 			bulletDelay = Resources.getInt("bulletDelay");
 		}
 	}
-	
-	private void makeBall(){
+
+	private void makeBall() {
 		BufferedImage ballImage = Resources.getImage("ball");
-		BallSprite ball = new BallSprite("ball", new Sprite(ballImage,
-				getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY()
-						- ballImage.getHeight()));
-		ball.setVerticalSpeed(-1.5);
+		BallSprite ball = new BallSprite("ball", new Sprite(ballImage, getX()
+				+ getWidth() / BALL_INITIAL_X - ballImage.getWidth()
+				/ BALL_INITIAL_Y, getY() - ballImage.getHeight()));
+		ball.setVerticalSpeed(BALL_VERTICAL_SPEED);
 		playState.addBall(ball);
 	}
 
@@ -98,8 +110,8 @@ public class DoodleSprite extends BetterSprite {
 	public void setDied(boolean b) {
 		died = b;
 	}
-	
-	public boolean getDied(){
+
+	public boolean getDied() {
 		return died;
 	}
 
@@ -122,12 +134,12 @@ public class DoodleSprite extends BetterSprite {
 	public boolean isLevelComplete() {
 		return levelComplete;
 	}
-	
+
 	public void setLevelComplete() {
 		levelComplete = true;
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		levelComplete = false;
 		died = false;
 	}
