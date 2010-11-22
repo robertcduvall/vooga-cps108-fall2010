@@ -28,7 +28,7 @@ public class LevelCompleteEvent implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		if (playState.getLevelManager().getCurrentLevel()!=2) {
+		if (playState.getLevelManager().getCurrentLevel()!=4) {
 			PlayField newField = playState.getLevelManager().loadNextLevel();
 			playState.removeEverything();
 			playState.setField(newField);

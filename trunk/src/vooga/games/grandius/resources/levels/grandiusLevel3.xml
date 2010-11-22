@@ -37,10 +37,10 @@
 		<SpriteGroup name="enemyGroup">
 			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
 			random="true" xMin="500" xMax="900" yMin="50" yMax="500" vxMin="-0.04" 
-			vxMax="-0.055" vyMin="0" vyMax="0" quantity="60" />
+			vxMax="-0.055" vyMin="0" vyMax="0" quantity="40" />
 			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
 			random="true" xMin="1300" xMax="1700" yMin="50" yMax="500" vxMin="-0.06" 
-			vxMax="-0.075" vyMin="0" vyMax="0" quantity="50" />
+			vxMax="-0.075" vyMin="0" vyMax="0" quantity="40" />
 			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
 			random="true" xMin="2200" xMax="2900" yMin="50" yMax="500" vxMin="-0.095" 
 			vxMax="-0.11" vyMin="0" vyMax="0" quantity="30" />
