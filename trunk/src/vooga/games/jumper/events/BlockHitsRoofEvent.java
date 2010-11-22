@@ -6,6 +6,12 @@ import vooga.engine.event.IEventHandler;
 import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
+/**
+ * When a block hits the roof, remove it from the sprite group
+ * @author Cody
+ * 
+ *
+ */
 public class BlockHitsRoofEvent implements IEventHandler {
 
 	private PlayGameState playState;
