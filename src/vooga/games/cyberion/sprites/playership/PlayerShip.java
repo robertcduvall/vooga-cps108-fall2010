@@ -21,7 +21,7 @@ public class PlayerShip extends BetterSprite {
 	}
 
 	private int life;
-	private int weaponPower;
+	private int weaponPower = 1;
 
 	public int getWeaponPower() {
 		return weaponPower;
