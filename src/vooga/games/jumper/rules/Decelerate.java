@@ -16,6 +16,9 @@ public class Decelerate implements Rule{
 	private double DECELERATION_FACTOR = Resources.getDouble("DECELERATION_FACTOR");
 	
 	@Override
+	/** set type SpriteGroup to be enforced by this rule.
+	 * @param any number of type SpriteGroup
+	 */
 	public void enforce(SpriteGroup... groups) {
 		for (SpriteGroup group: groups){
 			decelerate(group);
@@ -23,6 +26,12 @@ public class Decelerate implements Rule{
 	}
 
 	@Override
+	/**
+	 * Check to see if the rule is satisfied.
+	 * @param any number of type SpriteGroup
+	 * @return true if the rule is actively triggered for
+	 * the SpriteGroup or SpriteGroups.
+	 */
 	public boolean isSatisfied(SpriteGroup... groups) {
 		return true;
 	}
