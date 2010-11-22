@@ -46,6 +46,9 @@ public class BlahThis extends Game {
 		stateManager.switchTo(playState);
 	}
 	
+	public void restartGame(){
+		launch(new BlahThis());
+	}
 	/**
 	 * @param args
 	 */
