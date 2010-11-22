@@ -38,7 +38,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 	PlayGameState playState;
 	PauseGameState pauseState;
-	PauseGameState deathState;
+	BasicTextGameState deathState;
 	BasicTextGameState endState;
 	
 	private Control gameControl;
@@ -71,9 +71,8 @@ public class DropThis extends vooga.engine.core.Game {
 	private void initGameStates(PlayField pf) {
 		playState = new PlayGameState(this, pf, this);
 		pauseState = new PauseGameState(playState, "THE GAME IS PAUSED", Color.BLUE);
-		deathState = new PauseGameState(playState, "GAME OVER", Color.BLUE);
-		endState = new BasicTextGameState("YOU LOST!!!", Color.red);
-		stateManager.addGameState(playState, pauseState, endState);
+		deathState = new BasicTextGameState("YOU LOST", Color.BLUE);
+		stateManager.addGameState(playState, pauseState, deathState);
 	}
 
 	/**
