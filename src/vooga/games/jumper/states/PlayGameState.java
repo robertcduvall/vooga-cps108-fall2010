@@ -65,7 +65,6 @@ public class PlayGameState extends GameState{
 		Control playerControl = new KeyboardControl(player, myGame);
 		playerControl.addInput(Resources.getInt(keyLeft), moveLeft, Resources.getString("DoodleSprite"));
 		playerControl.addInput(Resources.getInt(keyRight), moveRight, Resources.getString("DoodleSprite"));
-		playerControl.addInput(Resources.getInt(keyUp), moveUp, Resources.getString("DoodleSprite"));
 		myField.addControl(doodleKey, playerControl);
 		this.getUpdateField().add(myField);
 		this.getRenderField().add(myField);
