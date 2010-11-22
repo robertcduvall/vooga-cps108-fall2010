@@ -49,46 +49,57 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip" random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".1" quantity="1000">
+			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip"
+				random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0"
+				vyMin=".1" vxMax="0" vyMax=".1" quantity="1000">
 				<Visual name="enemyShip" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="bonusGroup">
-			<Sprite class="vooga.games.cyberion.sprites.bonus.Bonus" random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".1" quantity="100">
-			<Visual name="bonus" />
+			<Sprite class="vooga.games.cyberion.sprites.bonus.Bonus"
+				random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0"
+				vyMin=".1" vxMax="0" vyMax=".1" quantity="100">
+				<Visual name="bonus" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="playerShot">
-			<Sprite class="vooga.games.cyberion.sprites.playershot.PlayerShot" random="true" xMin="0" yMin="-100" xMax="640" yMax="-100" vxMin="0" vyMin="0" vxMax="0" vyMax="0" quantity="1">
-			<Visual name="playerShot" />
+			<Sprite class="vooga.games.cyberion.sprites.playershot.PlayerShot"
+				random="true" xMin="0" yMin="-100" xMax="640" yMax="-100" vxMin="0"
+				vyMin="0" vxMax="0" vyMax="0" quantity="1">
+				<Visual name="playerShot" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyShot">
-			<Sprite class="vooga.games.cyberion.sprites.enemyshot.EnemyShot" random="true" xMin="0" yMin="-200" xMax="640" yMax="-200" vxMin="0" vyMin="0" vxMax="0" vyMax="0" quantity="1">
-			<Visual name="enemyShot" />
+			<Sprite class="vooga.games.cyberion.sprites.enemyshot.EnemyShot"
+				random="true" xMin="0" yMin="-200" xMax="640" yMax="-200" vxMin="0"
+				vyMin="0" vxMax="0" vyMax="0" quantity="1">
+				<Visual name="enemyShot" />
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
 
 	<CollisionGroups>
+	
 		<CollisionGroup subclass="vooga.games.cyberion.collisions.PlayerCollidesEnemy">
 			<SpriteGroup name="playerGroup"></SpriteGroup>
 			<SpriteGroup name="enemyGroup"></SpriteGroup>
 		</CollisionGroup>
-		<CollisionGroup subclass="vooga.games.cyberion.collisions.PlayerCollidesWithBonus">
+		<CollisionGroup
+			subclass="vooga.games.cyberion.collisions.PlayerCollidesWithBonus">
 			<SpriteGroup name="playerGroup"></SpriteGroup>
 			<SpriteGroup name="bonusGroup"></SpriteGroup>
 		</CollisionGroup>
-
+		
+		
 	</CollisionGroups>
 
 	<Backgrounds>
 		<Background name="bg" />
 	</Backgrounds>
-	
+
 	<Rules>
 		<Rule name="Dead" class="vooga.games.cyberion.rules.Dead">
-		<SpriteGroup name="playerGroup" />
+			<SpriteGroup name="playerGroup" />
 		</Rule>
 		<Rule name="NextLevel" class="vooga.games.cyberion.rules.NextLevel">
 		<SpriteGroup name="enemyGroup" />
