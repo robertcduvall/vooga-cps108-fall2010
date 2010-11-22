@@ -14,39 +14,35 @@ import vooga.games.zombieland.items.HealthItem;
 import vooga.games.zombieland.items.Item;
 import vooga.games.zombieland.items.WeaponItem;
 
-public class AddRandomItemEvent implements IEventHandler{
+public class AddRandomItemEvent implements IEventHandler {
 
-	Random random; 
+	Random random;
 	PlayField playField;
 	Shooter player;
 	SpriteGroup items;
-	
-	public AddRandomItemEvent( PlayField playField, Shooter human, SpriteGroup items)
-	{
+
+	public AddRandomItemEvent(PlayField playField, Shooter human,
+			SpriteGroup items) {
 		random = new Random();
 		this.playField = playField;
 		player = human;
 		this.items = items;
 	}
-	
+
 	@Override
 	public boolean isTriggered() {
-		
 		return false;
 	}
 
 	@Override
-	public void actionPerformed() {		
+	public void actionPerformed() {
 	}
-	
 
 	/**
 	 * Spawn a random item at position (x,y)
 	 * 
-	 * @param x
-	 *            x coordinate
-	 * @param y
-	 *            y coordinate
+	 * @param x x coordinate
+	 * @param y y coordinate
 	 */
 	public void addRandomItem(double x, double y) {
 

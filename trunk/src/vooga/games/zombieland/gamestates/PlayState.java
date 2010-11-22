@@ -1,16 +1,12 @@
 package vooga.games.zombieland.gamestates;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
-import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.OverlayString;
-import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.*;
 import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
@@ -20,13 +16,9 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
 import vooga.games.zombieland.*;
-import vooga.games.zombieland.events.AddBulletsEvent;
-import vooga.games.zombieland.events.AddRandomItemEvent;
-import vooga.games.zombieland.events.AddZombieEvent;
-import vooga.games.zombieland.events.LevelEndEvent;
+import vooga.games.zombieland.events.*;
 
-
-public class PlayState extends GameState implements Constants{
+public class PlayState extends GameState implements Constants {
 
 	private static final String PLAY_XML_PATH = "src/vooga/games/zombieland/resources/levels/baselevel.xml";
 
@@ -39,8 +31,6 @@ public class PlayState extends GameState implements Constants{
 	private KeyboardControl control2;
 	private EventPool eventPool;
 
-
-	private OverlayString overlayGameOverString;
 	AddZombieEvent addZombies;
 	private OverlayTracker levelTracker;
 	private int level;
@@ -50,7 +40,7 @@ public class PlayState extends GameState implements Constants{
 	}
 
 	/**
-	 * setup 
+	 * setup
 	 */
 	public void initialize() {
 
@@ -82,17 +72,18 @@ public class PlayState extends GameState implements Constants{
 
 		eventPool = new EventPool();
 		SpriteGroup items = playField.getGroup("Items");
-		AddRandomItemEvent additems = new AddRandomItemEvent(playField, player, items);
-		
+		AddRandomItemEvent additems = new AddRandomItemEvent(playField, player,
+				items);
+
 		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
 
-		
-		LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies, additems);
+		LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,
+				additems);
 
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		AddBulletsEvent addbullets = new AddBulletsEvent(bullets);
 		player.setBulletListener(addbullets);
-		
+
 		eventPool.addEvent(additems);
 		eventPool.addEvent(addbullets);
 		eventPool.addEvent(addZombies);
@@ -100,24 +91,22 @@ public class PlayState extends GameState implements Constants{
 
 		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
-		
+
 		SoundPlayer.playMusic(playField.getMusic(0));
 	}
 
 	/**
 	 * This method returns the current level in play.
+	 * 
 	 * @return
 	 */
-	public int getLevel()
-	{
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(int newlevel)
-	{
+	public void setLevel(int newlevel) {
 		level = newlevel;
 	}
-
 
 	/**
 	 * This method initializes the overlay system: the overlayHealthString, the
@@ -126,28 +115,28 @@ public class PlayState extends GameState implements Constants{
 	 */
 	private void initOverlays() {
 
-		OverlayStat overlayLevelStat = (OverlayStat) levelTracker.getOverlay("levels");
+		OverlayStat overlayLevelStat = (OverlayStat) levelTracker
+				.getOverlay("levels");
 		overlayLevelStat.setActive(false);
 	}
 
 	/**
 	 * Get the int level stat
+	 * 
 	 * @return
 	 */
-	public Stat<Integer> getStatLevel()
-	{
+	public Stat<Integer> getStatLevel() {
 		return levelTracker.getStat("initLevel", new Integer(0));
 	}
 
 	/**
 	 * get the OverlayStat object for the level stat
+	 * 
 	 * @return
 	 */
-	public OverlayStat getLevelStatOverlay()
-	{
+	public OverlayStat getLevelStatOverlay() {
 		return (OverlayStat) levelTracker.getOverlay("levels");
 	}
-
 
 	/**
 	 * This method sets the new Delay Time
@@ -158,7 +147,6 @@ public class PlayState extends GameState implements Constants{
 
 		timer.setDelay((long) (timeInterval / level * delayFactor));
 	}
-
 
 	/**
 	 * set up listeners for keyboard controls
@@ -173,13 +161,16 @@ public class PlayState extends GameState implements Constants{
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS);
 
-		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS,
+				new Class[] { int.class });
 		control.setParams(KeyEvent.VK_1, 0);
 
-		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS,
+				new Class[] { int.class });
 		control.setParams(KeyEvent.VK_2, 1);
 
-		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS,
+				new Class[] { int.class });
 		control.setParams(KeyEvent.VK_3, 2);
 
 		control2.addInput(KeyEvent.VK_P, "pause", MAIN_CLASS);
@@ -187,10 +178,10 @@ public class PlayState extends GameState implements Constants{
 
 	/**
 	 * This method gets the current control for the game.
+	 * 
 	 * @return
 	 */
-	public KeyboardControl getPlayGameControl()
-	{
+	public KeyboardControl getPlayGameControl() {
 		return control;
 	}
 
@@ -204,7 +195,7 @@ public class PlayState extends GameState implements Constants{
 			playField.update(elapsedTime);
 			control.update();
 			control2.update();
-			
+
 			if (timer.action(elapsedTime)) {
 				getLevelStatOverlay().setActive(false);
 				addZombies.timeUp();
@@ -235,7 +226,6 @@ public class PlayState extends GameState implements Constants{
 	private boolean gameOver() {
 		return !(player.isActive());
 	}
-
 
 	/**
 	 * Stop the game altogether

@@ -7,18 +7,17 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.event.IEventHandler;
 import vooga.games.zombieland.Zombie;
 
-public class AddZombieEvent implements IEventHandler{
+public class AddZombieEvent implements IEventHandler {
 
 	private Stack<Zombie> zombieStack = new Stack<Zombie>();
 	private SpriteGroup zombies;
 	private boolean timer;
-	
-	public AddZombieEvent(SpriteGroup group)
-	{
+
+	public AddZombieEvent(SpriteGroup group) {
 		zombies = group;
 		timer = false;
 	}
-	
+
 	@Override
 	public boolean isTriggered() {
 		return !zombieStack.isEmpty() && timer;
@@ -28,20 +27,19 @@ public class AddZombieEvent implements IEventHandler{
 	public void actionPerformed() {
 		timer = false;
 		buildEnemy(zombieStack.pop());
-		
+
 	}
 
-	private void buildEnemy(Zombie enemy){
+	private void buildEnemy(Zombie enemy) {
 		zombies.add(enemy);
 	}
-	
-	public void addEnemy(Zombie enemy){
+
+	public void addEnemy(Zombie enemy) {
 		zombieStack.add(enemy);
 	}
-	
-	public void timeUp()
-	{
+
+	public void timeUp() {
 		timer = true;
 	}
-	
+
 }

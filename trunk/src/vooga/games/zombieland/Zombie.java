@@ -22,23 +22,21 @@ public class Zombie extends BetterSprite implements Constants {
 	private static int itemChance;
 	private static int attackDelay;
 	private static double zombieStatMultiplier;
-	
+
 	private double zombieDamage;
 	private int zombieCurrentHealth;
 
 	private Shooter target;
 	private AddRandomItemEvent randomItemEvent;
 	private double speed;
-	
+
 	private int attackDelayStep;
 	private String currentAttackAnimation;
 
 	public Zombie(String name, int level, Shooter player, PlayState state) {
-		
-		super(name, AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ZOMBIE_DOWN)));
 
+		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources
+				.getAnimation(ZOMBIE_DOWN)));
 
 		addSprite(ZOMBIE_DOWN, initializeSprites(ZOMBIE_DOWN));
 		addSprite(ZOMBIE_UP, initializeSprites(ZOMBIE_UP));
@@ -55,8 +53,7 @@ public class Zombie extends BetterSprite implements Constants {
 		currentAttackAnimation = "";
 		attackDelay = Resources.getInt("zombieAttackDelay");
 		itemChance = Resources.getInt("itemChance");
-		zombieStatMultiplier = Resources
-				.getDouble("zombieStatMultiplier");
+		zombieStatMultiplier = Resources.getDouble("zombieStatMultiplier");
 
 		speed = Resources.getDouble("zombieSpeed");
 		zombieCurrentHealth = Resources.getInt("startZombieHealth");
@@ -70,9 +67,8 @@ public class Zombie extends BetterSprite implements Constants {
 	}
 
 	private AnimatedSprite initializeSprites(String sprite) {
-		return AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(sprite));
+		return AnimationUtil.getInitializedAnimatedSprite(Resources
+				.getAnimation(sprite));
 	}
 
 	private void chooseRandomLocation() {
@@ -200,8 +196,8 @@ public class Zombie extends BetterSprite implements Constants {
 	 */
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		
-		//check death and death animation
+
+		// check death and death animation
 		if (isDead()) {
 			performDeathAnimation();
 			return;
@@ -213,7 +209,7 @@ public class Zombie extends BetterSprite implements Constants {
 			return;
 		}
 
-		//update movement
+		// update movement
 		updateMovement();
 	}
 
@@ -254,13 +250,13 @@ public class Zombie extends BetterSprite implements Constants {
 			currentAttackAnimation = "";
 		}
 	}
-	
+
 	/**
 	 * This method sets up the drop item event
+	 * 
 	 * @param listener
 	 */
-	public void setDropItemListener(IEventHandler listener)
-	{
+	public void setDropItemListener(IEventHandler listener) {
 		randomItemEvent = (AddRandomItemEvent) listener;
 	}
 

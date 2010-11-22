@@ -10,8 +10,7 @@ public class CreditMenu extends MenuState {
 
 	@Override
 	public void initialize() {
-		// TODO fix mouse input overlap problem. Ex: click on credit and jumping
-		// to help1 instead of main as directed
+		// TODO fix mouse input overlap problem.
 		// getMouseControl().addInput(MouseEvent.BUTTON1, "main", MAIN_CLASS);
 		getKeyboardControl().addInput(KeyEvent.VK_ESCAPE, "main", MAIN_CLASS);
 		super.initialize("zombielandcredit");

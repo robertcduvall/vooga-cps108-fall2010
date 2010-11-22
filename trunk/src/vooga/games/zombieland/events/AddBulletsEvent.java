@@ -5,19 +5,17 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.event.IEventHandler;
 import vooga.games.zombieland.weapons.Bullet;
 
-
-public class AddBulletsEvent implements IEventHandler{
+public class AddBulletsEvent implements IEventHandler {
 
 	SpriteGroup bullets;
-	
-	public AddBulletsEvent(SpriteGroup bullets)
-	{
+
+	public AddBulletsEvent(SpriteGroup bullets) {
 		this.bullets = bullets;
 	}
-	
+
 	@Override
 	public boolean isTriggered() {
-		//this is specially triggered by the player
+		// this is specially triggered by the player
 		return false;
 	}
 
@@ -25,9 +23,8 @@ public class AddBulletsEvent implements IEventHandler{
 	public void actionPerformed() {
 		return;
 	}
-	
-	public void addBullet(Bullet bullet)
-	{
+
+	public void addBullet(Bullet bullet) {
 		bullets.add(bullet);
 	}
 
