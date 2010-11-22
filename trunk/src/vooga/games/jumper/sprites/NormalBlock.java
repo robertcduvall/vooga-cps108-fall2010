@@ -17,7 +17,6 @@ public class NormalBlock extends BlockSprite{
 
 	@Override
 	public void handleCollision(DoodleSprite doodle) {
-		System.out.println("shouldgoup");
 		doodle.setVerticalSpeed(this.getVerticalSpeed()); //stand on block
 	}
 
