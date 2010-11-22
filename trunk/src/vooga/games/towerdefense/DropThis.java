@@ -73,7 +73,7 @@ public class DropThis extends Game {
 		GameState mainMenu = addGameState(new MainMenu());
 		GameState play = addGameState(new PlayState(tracker, levelManager));
 		//play.addPlayField(initLevel("/resources/level/level.xml"));
-		getGameStateManager().switchTo(mainMenu);
+		getGameStateManager().switchTo(play);
 	}
 
 private OverlayTracker initOverlays() {
