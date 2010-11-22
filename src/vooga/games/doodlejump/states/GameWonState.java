@@ -8,7 +8,6 @@ import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
-import vooga.games.doodlejump.buttons.PlayButton;
 import vooga.games.doodlejump.buttons.RestartButton;
 
 public class GameWonState extends MenuGameState{
