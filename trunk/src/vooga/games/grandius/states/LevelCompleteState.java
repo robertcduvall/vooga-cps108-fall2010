@@ -4,10 +4,13 @@ import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 import vooga.engine.state.MenuGameState;
 import vooga.games.grandius.sprites.buttons.NextLevelButton;
+import vooga.games.grandius.sprites.buttons.ShoppingLevelButton;
+
 
 public class LevelCompleteState extends MenuGameState {
 
 	private NextLevelButton myNextLevelButton;
+	private ShoppingLevelButton myShoppingLevelButton;
 	private Game myGame;
     private EventPool eventPool;
     
@@ -18,9 +21,12 @@ public class LevelCompleteState extends MenuGameState {
 	@Override
 	public void initialize() {
 		this.myNextLevelButton = new NextLevelButton(myGame);
+		this.myShoppingLevelButton = new ShoppingLevelButton(myGame);
         addButton(myNextLevelButton);
+        addButton(myShoppingLevelButton);
         eventPool = new EventPool();
         eventPool.addEvent(myNextLevelButton);
+        eventPool.addEvent(myShoppingLevelButton);
 	}
 	
 	@Override
