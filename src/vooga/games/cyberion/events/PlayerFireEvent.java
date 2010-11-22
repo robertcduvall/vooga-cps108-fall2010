@@ -1,53 +1,42 @@
 package vooga.games.cyberion.events;
 
+import java.awt.event.KeyEvent;
+
 import vooga.engine.event.IEventHandler;
+import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.sprites.playership.PlayerShip;
+import vooga.games.cyberion.sprites.playershot.PlayerShot;
+import vooga.games.cyberion.states.PlayState;
 
 public class PlayerFireEvent implements IEventHandler {
-	private Object obj;
-	private String eventName;
-	private double x;
-	private double y;
-	private int weaponPower;
 
-	public PlayerFireEvent(Object source, String eventName, double x, double y,
-			int weaponPower) {
-		obj = source;
-		this.eventName = eventName;
-		this.x = x;
-		this.y = y;
-		this.weaponPower = weaponPower;
+	private DropThis myGame;
+	private PlayerShip player;
+	private PlayState playState;
+
+	public PlayerFireEvent(DropThis myGame, PlayerShip player,
+			PlayState playState) {
+		this.myGame = myGame;
+		this.player = player;
+		this.playState = playState;
 	}
 
-	public Object getSource() {
-		return obj;
-	}
-
-	public String getName() {
-		return eventName;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public int getWeaponPower() {
-		return weaponPower;
-	}
-	
 	@Override
 	public void actionPerformed() {
-		System.exit(0);
+		PlayerShot sprite = new PlayerShot();
+		sprite.setX(player.getX());
+		sprite.setY(player.getY());
+		sprite.setVerticalSpeed(2);
+		System.out.println("being here");
+		playState.getPlayField().add(sprite);
 	}
+
 	/**
 	 * User defines the condition when the event will be triggered
 	 */
 	@Override
 	public boolean isTriggered() {
-		return true;
+		return myGame.keyPressed(KeyEvent.VK_SPACE);
 	}
 
 }
