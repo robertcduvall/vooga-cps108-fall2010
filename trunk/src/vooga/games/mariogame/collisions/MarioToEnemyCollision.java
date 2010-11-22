@@ -24,7 +24,7 @@ public class MarioToEnemyCollision extends BetterCollisionGroup {
 				thisEnemy.setActive(false);
 				thisMario.jump(true);
 			} else {
-				thisMario.setHealth(thisMario.getHealth() - 1);
+				thisMario.respawn();
 				thisEnemy.bounce();
 			}
 			myLastCollisionTime = thisCollisionTime;
