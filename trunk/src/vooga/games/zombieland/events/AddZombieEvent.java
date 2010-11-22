@@ -9,7 +9,7 @@ import vooga.games.zombieland.Zombie;
 
 public class AddZombieEvent implements IEventHandler{
 
-	private Stack<Zombie> zombieQueue = new Stack<Zombie>();
+	private Stack<Zombie> zombieStack = new Stack<Zombie>();
 	private SpriteGroup zombies;
 	private boolean timer;
 	
@@ -21,14 +21,13 @@ public class AddZombieEvent implements IEventHandler{
 	
 	@Override
 	public boolean isTriggered() {
-		
-		return !zombieQueue.isEmpty() && timer;
+		return !zombieStack.isEmpty() && timer;
 	}
 
 	@Override
 	public void actionPerformed() {
 		timer = false;
-		buildEnemy(zombieQueue.pop());
+		buildEnemy(zombieStack.pop());
 		
 	}
 
@@ -37,7 +36,7 @@ public class AddZombieEvent implements IEventHandler{
 	}
 	
 	public void addEnemy(Zombie enemy){
-		zombieQueue.add(enemy);
+		zombieStack.add(enemy);
 	}
 	
 	public void timeUp()
