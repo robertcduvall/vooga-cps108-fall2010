@@ -100,16 +100,10 @@ public class DropThis extends vooga.engine.core.Game {
 	private static long jetpackStartTime = 0;
 	private long totalJetpackTime = 3000;
 
-	
-
-
-
 	private DoodleToBlockCollision myNormalCollision;
 
 	private Background myBackground;
-
 	private GameFont myFont;
-
 	private static GameClock myClock;
 
 	private Stat<Integer> myScore;
