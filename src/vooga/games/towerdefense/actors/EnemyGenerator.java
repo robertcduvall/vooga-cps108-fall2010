@@ -10,6 +10,7 @@ import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
+import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.path.PathPoint;
 
 /**
@@ -22,12 +23,14 @@ public abstract class EnemyGenerator extends BetterSprite{
 	protected List<PathPoint> myPath;
 	protected EnemyFailEvent myFailEvent;
 	protected BuildEnemyEvent myBuildEvent;
+	protected EnemyHitEvent myHitEvent;
 	
 	
-	public EnemyGenerator(String resourcePathName, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent){
+	public EnemyGenerator(String resourcePathName, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent, EnemyHitEvent hitEvent){
 		myFailEvent = failEvent;
 		myPath = createPath(resourcePathName);
 		myBuildEvent = buildEvent;
+		myHitEvent = hitEvent;
 	}
 
 

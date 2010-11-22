@@ -4,6 +4,7 @@ import vooga.games.towerdefense.actors.enemies.Enemy;
 import vooga.games.towerdefense.actors.enemies.EnemySpawn;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
+import vooga.games.towerdefense.events.EnemyHitEvent;
 
 import com.golden.gamedev.object.Timer;
 
@@ -17,8 +18,8 @@ public class EasyEnemyGenerator extends EnemyGenerator{
 	private Timer gameTimer;
 	private int spawnSpeed;
 	
-	public EasyEnemyGenerator(String resourcePathName, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent) {
-		super(resourcePathName, failEvent, buildEvent);
+	public EasyEnemyGenerator(String resourcePathName, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent, EnemyHitEvent hitEvent) {
+		super(resourcePathName, failEvent, buildEvent, hitEvent);
 		hit1 = new Timer(SECOND * 5);
 		hit2 = new Timer(SECOND * 6);
 		hit3 = new Timer(SECOND * 7);
@@ -30,16 +31,16 @@ public class EasyEnemyGenerator extends EnemyGenerator{
 	@Override
 	protected void createEnemies(long elapsedTime) {
 		if (hit1.action(elapsedTime)) {
-			myBuildEvent.addEnemy(new Enemy(myPath, 50, 1, myFailEvent));
+			myBuildEvent.addEnemy(new Enemy(myPath, 50, 1, myFailEvent, myHitEvent));
 		}
 		if (hit2.action(elapsedTime)) {
-			myBuildEvent.addEnemy(new Enemy(myPath, 80, 2, myFailEvent));
+			myBuildEvent.addEnemy(new Enemy(myPath, 80, 2, myFailEvent, myHitEvent));
 		}
 		if (hit3.action(elapsedTime)) {
-			myBuildEvent.addEnemy(new Enemy(myPath, 40, 3, myFailEvent));
+			myBuildEvent.addEnemy(new Enemy(myPath, 40, 3, myFailEvent, myHitEvent));
 		}
 		if (spawn.action(elapsedTime)) {
-			myBuildEvent.addEnemy(new EnemySpawn(myPath, spawnSpeed, myFailEvent, myBuildEvent));
+			myBuildEvent.addEnemy(new EnemySpawn(myPath, spawnSpeed, myFailEvent, myBuildEvent, myHitEvent));
 		}
 		if (gameTimer.action(elapsedTime)) {
 			long delay = spawn.getDelay() / 2;

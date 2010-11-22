@@ -17,6 +17,7 @@ import vooga.engine.state.GameState;
 import vooga.games.towerdefense.actors.EasyEnemyGenerator;
 import vooga.games.towerdefense.actors.EnemyGenerator;
 import vooga.games.towerdefense.actors.Player;
+import vooga.games.towerdefense.collisions.ShotToEnemyCollision;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
@@ -46,6 +47,7 @@ public class PlayState extends GameState{
 	private LevelManager myLevelManager;
 	private OverlayTracker myTracker;
 	private SpriteGroup myEnemyGroup;
+	private SpriteGroup myShotGroup;
 	
 	public PlayState(OverlayTracker tracker, LevelManager levelManager){
 		myLevelManager = levelManager;
@@ -57,7 +59,15 @@ public class PlayState extends GameState{
 		initPlayField();
 		addOverlays();
 		myPlayField.addGroup(myEnemyGroup);
+		myPlayField.addGroup(myShotGroup);
 		addPlayField(myPlayField);
+		initCollisions();
+	}
+
+	private void initCollisions() {
+		ShotToEnemyCollision testCollision = new ShotToEnemyCollision();
+		myPlayField.addCollisionGroup(myShotGroup, myEnemyGroup, testCollision);
+		
 	}
 
 	private void addOverlays() {
@@ -78,14 +88,19 @@ public class PlayState extends GameState{
 		
 		eventPool.addEvent(buildTower);
 		Player player = initPlayer(buildTower, findTarget, shootEvent);
-		myPlayField.add(player);
+		SpriteGroup playerGroup = new SpriteGroup("player");
+		playerGroup.add(player);
+		myPlayField.addGroup(playerGroup);
 		EnemyHitEvent enemyHit = new EnemyHitEvent(player);
-		shootEvent.setHitEvent(enemyHit, myPlayField);
+		
 		myEnemyGroup = new SpriteGroup("enemyGroup");
+		myShotGroup = new SpriteGroup("shotGroup");
+		
+		shootEvent.setHitEvent(enemyHit, myShotGroup);
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		
-		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
+		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
 		myPlayField.add(enemyGenerator);
 		
 		eventPool.addEvent(failEvent);
