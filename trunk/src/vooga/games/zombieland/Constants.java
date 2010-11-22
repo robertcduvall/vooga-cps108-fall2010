@@ -14,6 +14,7 @@ public interface Constants {
 	
 	//File Paths
 	public static final String PLAYER_CLASS = "vooga.games.zombieland.Shooter";
+	public static final String MAIN_CLASS = "vooga.games.zombieland.Blah";
 	public static final String XML_PATH="src/vooga/games/zombieland/resources/overlays.xml";
 	public static final String DEFAULT_RESOURCE_DIRECTORY="src/vooga/games/zombieland/resources/";
 	public static final String RESOURCE_FILENAME="game.properties";

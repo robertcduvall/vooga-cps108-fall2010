@@ -1,10 +1,11 @@
 package vooga.games.zombieland;
 
 import java.awt.event.KeyEvent;
-import vooga.engine.core.Game;
-import vooga.games.zombieland.gamestates.ZombielandPauseState;
-import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.Game;
+import vooga.engine.state.GameState;
+import vooga.games.zombieland.gamestates.*;
 /**
  * @date 10-8-10
  * @author Aaron Choi, Jimmy Mu, Yang Su
@@ -18,9 +19,15 @@ import vooga.games.zombieland.gamestates.ZombielandPlayState;
 
 public class Blah extends Game implements Constants {
 
-	private static ZombielandPlayState zombielandPlayState;
-	private static ZombielandPauseState zombielandPauseState;
-
+	private static ZombielandPlayState playState;
+	private static PauseState pauseState;
+	private static MainMenu mainMenu;
+	private static HelpMenu1 helpMenu1;
+	private static HelpMenu2 helpMenu2;
+	private static CreditMenu creditMenu;
+	
+	private KeyboardControl control;
+	
 	/**
 	 * We overrode this method because we have specific a subclass
 	 * ResourceHandler that we implemented for our purpose
@@ -28,19 +35,35 @@ public class Blah extends Game implements Constants {
 	public void initResources() {
 
 		super.initResources();
-		zombielandPauseState = new ZombielandPauseState(this);
-		zombielandPlayState = new ZombielandPlayState(this);
-		zombielandPlayState.activate();
-		getGameStateManager().addGameState(zombielandPlayState);
-//		getGameStateManager().addGameState(zombielandPlayState,
-//				zombielandPauseState);
-		// TODO add this in control
-		// if (bsInput.getKeyPressed() == KeyEvent.VK_P) {
-		// getGameStateManager().toggle(zombielandPlayState);
-		// getGameStateManager().toggle(zombielandPauseState);
-		// }
+		pauseState = new PauseState(this);
+		playState = new ZombielandPlayState(this);
+		mainMenu = new MainMenu(this);
+		helpMenu1 = new HelpMenu1(this);
+		helpMenu2 = new HelpMenu2(this);
+		creditMenu = new CreditMenu(this);
+
+		getGameStateManager().addGameState(mainMenu,helpMenu1,helpMenu2,creditMenu,pauseState);
 	}
 
+	public void pause() {
+		getGameStateManager().activateOnly(pauseState);
+	}
+	public void main() {
+		getGameStateManager().activateOnly(mainMenu);
+	}
+	public void help1() {
+		getGameStateManager().activateOnly(helpMenu1);
+	}
+	public void help2() {
+		getGameStateManager().activateOnly(helpMenu2);
+	}
+	public void credit() {
+		getGameStateManager().activateOnly(creditMenu);
+	}
+	public void play() {
+		getGameStateManager().activateOnly(playState);
+	}
+	
 	/**
 	 * Runs the game
 	 * 
@@ -51,7 +74,7 @@ public class Blah extends Game implements Constants {
 	}
 
 	public ZombielandPlayState getPlayGameState() {
-		return zombielandPlayState;
+		return playState;
 	}
 
 }
