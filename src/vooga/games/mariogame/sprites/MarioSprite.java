@@ -130,7 +130,7 @@ public class MarioSprite extends BetterSprite {
 
 	@SuppressWarnings("unchecked")
 	public void incScore(int i) {
-		Stat<Integer> stat = (Stat<Integer>) getStat("Score");
+		Stat<Integer> stat = (Stat<Integer>) getStat("score");
 		stat.setStat(stat.getStat() + i);
 		if((stat.getStat()%100) == 0){
 			setHealth(getHealth() + 1);
