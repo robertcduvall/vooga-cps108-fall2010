@@ -19,15 +19,15 @@ public class PlayerCollidesWithShot extends BasicCollisionGroup {
 //decreases the player' life and weapon power, sets enemy shot to inactive.
 	public void collided(PlayerShip playerShip, Sprite enemyShot) {
 		playerShip.setLife(playerShip.getLife() - 1);
-		Stat<Integer> intStat = new Stat(Integer.parseInt(playerShip.getStat("livesStat").getStat().toString())-1);
-		playerShip.setStat("livesStat",intStat); 
+		Stat<Integer> intStat = (Stat<Integer>) playerShip.getStat("livesStat");
 		if (playerShip.getWeaponPower() > 1) {
 			playerShip.setWeaponPower(playerShip.getWeaponPower() - 1);
 		} else {
 			playerShip.setWeaponPower(1);
 		}
 		enemyShot.setActive(false);
-		if (Integer.parseInt(playerShip.getStat("livesStat").getStat().toString())>0){
+		if (intStat.getStat()>0){
+			intStat.setStat(intStat.getStat()-1); 
 			playerShip.forceX(320);
 			playerShip.forceY(440);
 		}
