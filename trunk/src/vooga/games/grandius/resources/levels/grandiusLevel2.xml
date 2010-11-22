@@ -33,12 +33,12 @@
 	</SpriteGroups>
 
 	<Rules>
-		<Rule name="GameOverRule" class="vooga.games.grandius.rules.GameOverRule">
-			<SpriteGroup name="playerGroup" />
-		</Rule>
-		<Rule name="GameWonRule" class="vooga.games.grandius.rules.GameWonRule">
-			<SpriteGroup name="enemyGroup" />
-		</Rule>
+<!--		<Rule name="GameOverRule" class="vooga.games.grandius.rules.GameOverRule">-->
+<!--			<SpriteGroup name="playerGroup" />-->
+<!--		</Rule>-->
+<!--		<Rule name="GameWonRule" class="vooga.games.grandius.rules.GameWonRule">-->
+<!--			<SpriteGroup name="enemyGroup" />-->
+<!--		</Rule>-->
 <!--		<Rule name="BounceZipsterRule" class="vooga.games.grandius.rules.BounceZipsterRule">-->
 <!--			<SpriteGroup name="enemyGroup" />-->
 <!--		</Rule>-->

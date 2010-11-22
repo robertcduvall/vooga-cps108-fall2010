@@ -22,20 +22,19 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
  */
 public class BasicCollision extends BasicCollisionGroup {
 
-	//TODO the collision classes can definitely be cleaned up - lots of repeated code right now.
-	private Game game;
+	protected Game myGame;
 	
 	public BasicCollision(Game grandius) {
 		super();
-		this.game = grandius;
+		this.myGame = grandius;
 	}
 	
 	@Override
 	public void collided(Sprite playerSideSprite, Sprite commonEnemy) {
-		game.playSound(Resources.getSound("explosionSound"));
+		myGame.playSound(Resources.getSound("explosionSound"));
 		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, commonEnemy.getX(), commonEnemy.getY());
-		((DropThis)game).getPlayState().getGroup("explosionGroup").add(explosion);
+		((DropThis)myGame).getPlayState().getGroup("explosionGroup").add(explosion);
 		if(!(playerSideSprite instanceof Player)){
 			getPlayer().updateScore(((Enemy)commonEnemy).getScore());
 			getPlayer().updateCash(((Enemy)commonEnemy).getCash());
@@ -43,7 +42,7 @@ public class BasicCollision extends BasicCollisionGroup {
 	}
 	
 	public Player getPlayer() {
-		return ((DropThis)game).getPlayState().getPlayer();
+		return ((DropThis)myGame).getPlayState().getPlayer();
 	}
 	
 }

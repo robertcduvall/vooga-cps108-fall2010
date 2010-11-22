@@ -66,9 +66,6 @@ public class PlayState extends GameState {
 		playerControl.update();
 		eventPool.checkEvents();
 		checkCheats();
-//		updateScreenSprites(); //TODO is this method needed?
-		//updateEntities();
-		//checkBossParts(); //TODO turn into rules?
 	}
 	
 	/**
@@ -81,7 +78,6 @@ public class PlayState extends GameState {
 		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
 		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
-		//TODO
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this));
 	}
 		
@@ -108,13 +104,11 @@ public class PlayState extends GameState {
 			if (userInput.equals(Resources.getString("invincibility")))
 				player.setInvincible();
 			else if (userInput.equals(Resources.getString("skipLevel")))
-				player.skipLevel();
+				System.out.println("skipping level");//player.skipLevel(); //TODO finish this
 			else if (userInput.equals(Resources.getString("extraPoints")))
 				player.updateScore(1000000);
 			else if (userInput.equals(Resources.getString("extraCash")))
 				player.updateCash(5000);
-			else if (userInput.equals(Resources.getString("activateMissile")))
-				player.setMissileActive();
 		}
 	}
 	

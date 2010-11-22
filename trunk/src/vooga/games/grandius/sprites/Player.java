@@ -1,17 +1,12 @@
 package vooga.games.grandius.sprites;
 
 import vooga.engine.core.BetterSprite;
-import vooga.engine.event.IEventHandler;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 
 @SuppressWarnings("serial")
-public class Player extends BetterSprite implements IEventHandler {
+public class Player extends BetterSprite { 
 	
-	// TODO: Good practice here? Use Missile/BlackHole classes?
-	private boolean missileActive;
-	private boolean blackHoleActive;
-	private boolean skipLevel; //TODO should this go in this class?
 	private boolean isInvincible;
 	
 	public Player() {
@@ -23,9 +18,6 @@ public class Player extends BetterSprite implements IEventHandler {
 				Resources.getImage("playerImage"),
 				Resources.getInt("playerInitialX"),
 				Resources.getInt("playerInitialY")));
-		missileActive = false;
-		blackHoleActive = false;
-		skipLevel = false;
 		isInvincible = false;
 	}
 	
@@ -45,28 +37,18 @@ public class Player extends BetterSprite implements IEventHandler {
 		moveY(Resources.getDouble("playerSpeed"));
 	}
 	
-	@Override
-	public boolean isTriggered() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void actionPerformed() {
-		// TODO Auto-generated method stub
-
-	}
-	
 	/**
 	 * Decrements the number of lives the player has. Called when Player
 	 * collides with enemy or an enemy projectile.
 	 */
-	public void updatePlayerLives() {
+	@SuppressWarnings("unchecked")
+	public int updatePlayerLives() {
 		int playerLives = ((Integer)getStat("livesStat").getStat());
 		if (playerLives > 0 && !isInvincible) {
 			updateStat(((Stat<Integer>)getStat("livesStat")), (-1));
 			this.setLocation(Resources.getInt("playerInitialX"), Resources.getInt("playerInitialY"));
 		}
+		return (Integer)getStat("livesStat").getStat();
 	}
 	
 	/**
@@ -85,6 +67,7 @@ public class Player extends BetterSprite implements IEventHandler {
 	/**
 	 * Adds the given points to the Stat score.
 	 */
+	@SuppressWarnings("unchecked")
 	public void updateScore(int points) {
 		updateStat(((Stat<Integer>)getStat("scoreStat")), points);
 	}
@@ -92,23 +75,12 @@ public class Player extends BetterSprite implements IEventHandler {
 	/**
 	 * Adds the given cash amounts to the Stat cash.
 	 */
+	@SuppressWarnings("unchecked")
 	public void updateCash(int cash) {
 		updateStat(((Stat<Integer>)getStat("cashStat")), cash);
 	}
 
 	public void setInvincible() {
 		this.isInvincible = true;
-	}
-	
-	public void skipLevel() {
-		this.skipLevel = true;
-	}
-	
-	public void setMissileActive() {
-		this.missileActive = true;
-	}
-	
-	public void setBlackHoleActive() {
-		this.blackHoleActive = true;
 	}
 }

@@ -14,7 +14,7 @@ import com.golden.gamedev.object.Sprite;
  * @author bhawana
  */
 public class PlayerEnemyCollision extends BasicCollision{
-
+	
 	public PlayerEnemyCollision(Game grandius) {
 		super(grandius);
 	}
@@ -22,7 +22,10 @@ public class PlayerEnemyCollision extends BasicCollision{
 	@Override
 	public void collided(Sprite playerSprite, Sprite enemy) {
 		super.collided(playerSprite, enemy);
-		getPlayer().updatePlayerLives();
+		int livesLeft = getPlayer().updatePlayerLives();
+		if (livesLeft <= 0)
+			myGame.getGameStateManager().switchTo(myGame.getGameStateManager().getGameState(1));
+			
 	}
 
 	
