@@ -2,6 +2,7 @@ package vooga.games.doodlejump.rules;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.level.Rule;
+import vooga.games.doodlejump.DoodleSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -14,15 +15,19 @@ public class LevelWonRule implements Rule{
 	
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		System.out.println("You lose");		
+		System.out.println("Level Complete");		
 	}
 
 	@Override
 	public boolean isSatisfied(SpriteGroup ...groups) {
-		SpriteGroup group = groups[0];
-		for (Sprite s: group.getSprites()) {
-			//TODO: check to see if doodleSprite's Score Stat = 1000
+
+		for (SpriteGroup group : groups) {
+			if (group.getName().equals("doodleGroup")) {
+				for (Sprite sprite : group.getSprites()) {
+					return ((DoodleSprite) sprite).isLevelComplete();
+				}
+			}
 		}
-		return true;
+		return false;
 	}
 }

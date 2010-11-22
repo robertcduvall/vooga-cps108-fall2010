@@ -26,6 +26,7 @@ public class DoodleSprite extends BetterSprite {
 	private PlayState playState;
 	private int bulletDelay = 20;
 	private double maxHeight;
+	private boolean levelComplete = false;
 
 	public DoodleSprite() {
 		this(Resources.getImage("doodleRight"));
@@ -105,5 +106,13 @@ public class DoodleSprite extends BetterSprite {
 
 	public double getMaxHeight() {
 		return maxHeight;
+	}
+
+	public boolean isLevelComplete() {
+		return levelComplete;
+	}
+	
+	public void setLevelComplete() {
+		levelComplete = true;
 	}
 }
