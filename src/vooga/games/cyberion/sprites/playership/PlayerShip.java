@@ -8,7 +8,8 @@ import vooga.engine.resource.Resources;
 
 public class PlayerShip extends BetterSprite {
 	KeyboardControl keyboardControl;
-
+	
+	
 	public PlayerShip() {
 		super();
 
@@ -20,7 +21,7 @@ public class PlayerShip extends BetterSprite {
 
 	}
 
-	private int life;
+	private int life=1;
 	private int weaponPower = 1;
 
 	public int getWeaponPower() {

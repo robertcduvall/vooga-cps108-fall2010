@@ -29,17 +29,17 @@ public class Dead implements Rule {
 
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		gameStateManager.switchTo(gameOverState);
+//		gameStateManager.switchTo(gameOverState);
 	}
 
 	@Override
 	public boolean isSatisfied(SpriteGroup... groups) {
 
-		BetterSprite tempSprite = (BetterSprite) groups[0].getSprites()[0];
-		int tempInt = (Integer) tempSprite.getStat("livesStat").getStat();
-		if (tempInt == 0) {
-			return true;
-		}
+//		BetterSprite tempSprite = (BetterSprite) groups[0].getSprites()[0];
+//		int tempInt = (Integer) tempSprite.getStat("livesStat").getStat();
+//		if (tempInt == 0) {
+//			return true;
+//		}
 		return false;
 	}
 
