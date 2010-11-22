@@ -11,7 +11,7 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 /**
  * Collision detection for Player landing on blocks
- * @author Brian
+ * @author Brian, Devon, Cody
  * 
  *
  */
@@ -20,7 +20,8 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	private Game myGame;
 	
 	/**
-	 * Create new Collision constructor
+	 * construct new Doodle to Block collision
+	 * @param Game jumper
 	 */
 	public DoodleToBlockCollision(Game jumper){
 		super();
