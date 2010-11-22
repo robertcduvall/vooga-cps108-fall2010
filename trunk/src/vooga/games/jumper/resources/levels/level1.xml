@@ -11,7 +11,7 @@
 		
 		
 		<SpriteGroup name="normalBlocks">
-			<Sprite class="vooga.games.jumper.sprites.NormalBlock" random="true" xMin="0" xMax="500" yMin="1000" yMax="2000" vxMin="-1" vxMax="1" vyMin="-3" vyMax="0" quantity="50">
+			<Sprite class="vooga.games.jumper.sprites.NormalBlock" random="true" xMin="0" xMax="500" yMin="1000" yMax="2000" vxMin="-1" vxMax="1" vyMin="-0.3" vyMax="0" quantity="25">
 				<Visual name="platformGreen"/>
 			</Sprite>
 		</SpriteGroup>
