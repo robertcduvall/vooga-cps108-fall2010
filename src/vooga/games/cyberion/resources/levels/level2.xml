@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="Level1" xmloverlaypath="src/vooga/games/cyberion/resources/overlays.xml">
+<Level name="Level2" xmloverlaypath="src/vooga/games/cyberion/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="starGroup">
@@ -49,12 +49,12 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip" random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0" vyMin=".2" vxMax="0" vyMax=".10" quantity="2000">
+			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip" random="true" xMin="0" yMin="0" xMax="640" yMax="-200000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".15" quantity="2000">
 				<Visual name="enemyShip2" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="bonusGroup">
-			<Sprite class="vooga.games.cyberion.sprites.bonus.Bonus" random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".1" quantity="100">
+			<Sprite class="vooga.games.cyberion.sprites.bonus.Bonus" random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".15" quantity="100">
 			<Visual name="bonus" />
 			</Sprite>
 		</SpriteGroup>
