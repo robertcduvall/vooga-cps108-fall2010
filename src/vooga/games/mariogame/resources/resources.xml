@@ -59,8 +59,9 @@
 		<String name="winxml" value="src/vooga/games/mariogame/resources/levels/winstate.xml" />	
 		<String name="LevelFilesDirectory" value="src/vooga/games/mariogame/resources/levels" />	
 		<String name="LevelNamesFile" value="levelnames.txt" />	
-		<String name="Map0" value="src/vooga/games/mariogame/resources/maps/map0.txt" />	
-		
+		<String name="Map0" value="src/vooga/games/mariogame/resources/maps/map0.txt" />
+		<String name="Map1" value="src/vooga/games/mariogame/resources/maps/map1.txt" />
+		<String name="Map2" value="src/vooga/games/mariogame/resources/maps/map2.txt" />
 	
 	</Strings>
 	

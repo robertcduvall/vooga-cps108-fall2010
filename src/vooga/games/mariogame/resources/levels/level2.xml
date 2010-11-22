@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<Level name="Level 1"
+<Level name="Level 2"
 	xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameOverlays.xml">
 
 	<SpriteGroups>
@@ -17,7 +17,7 @@
 
 		<SpriteGroup name="goombaGroup">
 			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50"
-				vxMin=".05" vyMin="0" vxMax=".15" vyMax="0" quantity="3"
+				vxMin=".05" vyMin="0" vxMax=".15" vyMax="0" quantity="10"
 				class="vooga.games.mariogame.sprites.Enemy">
 				<Visual name="Goomba" />
 			</Sprite>
@@ -25,25 +25,22 @@
 	</SpriteGroups>
 
 	<CollisionGroups>
-		<CollisionGroup
-			subclass="vooga.games.mariogame.collisions.MarioToEnemyCollision">
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.MarioToEnemyCollision">
 			<SpriteGroup name="marioGroup" />
 			<SpriteGroup name="goombaGroup" />
 		</CollisionGroup>
-
-		<CollisionGroup
-			subclass="vooga.games.mariogame.collisions.MarioToTileCollision">
+		
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.MarioToTileCollision">
 			<SpriteGroup name="marioGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
-
-		<CollisionGroup
-			subclass="vooga.games.mariogame.collisions.EnemyToTileCollision">
+		
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.EnemyToTileCollision">
 			<SpriteGroup name="goombaGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
 	</CollisionGroups>
-
+	
 	<Rules>
         <Rule name="Gravity" class="vooga.games.mariogame.rules.Gravity">
             <SpriteGroup name="marioGroup" />
@@ -52,10 +49,10 @@
 			<Rule name="OffScreen" class="vooga.games.mariogame.rules.OffScreen">
             <SpriteGroup name="marioGroup" />
         </Rule>
-	</Rules>
+     </Rules>
 
 	<Map>
-		<MapGroup name="Map0">
+		<MapGroup name="Map1">
 			<Association char="F"
 				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile" />
 			<Association char="D"
@@ -64,11 +61,8 @@
 				image="Break Tile" />
 			<Association char="C"
 				object="vooga.games.mariogame.tiles.ChangingTile" image="Item Tile 1" />
-			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile">
-				<Image name="Item Tile 1" />
-				<Image name="Item Tile 2" />
-			</Association>
-
+			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile"
+				image="Item Tile 2" />
 			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile"
 				image="Item Tile 1" />
 		</MapGroup>
