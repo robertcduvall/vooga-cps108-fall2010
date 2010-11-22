@@ -35,7 +35,7 @@ public class FireMissileEvent extends FiringEvent {
 	@Override
 	public void actionPerformed() {
 		Missile missile = new Missile(getXLocation(), getYLocation());
-		getGroup("Missile").add(missile);
+		getGroup("missileGroup").add(missile);
 		playExplosionSound("missileSound");
 	}
 

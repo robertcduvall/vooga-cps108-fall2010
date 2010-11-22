@@ -11,7 +11,7 @@ public class Missile extends BetterSprite{
 	
 	public Missile(double x, double y) {
 		super(Resources.getImage("missileImage"),x,y);
-		this.setHorizontalSpeed(Resources.getDouble("projectileSpeed"));
+		this.setHorizontalSpeed(Resources.getDouble("bulletSpeed"));
 		hits=0;
 	}
 
