@@ -16,6 +16,7 @@ public class BlahThis extends Game {
 	private PauseState pauseState;
 	private StartMenuState startMenuState;
 	private LevelManager levelManager;
+	private boolean showStart = true;
 	
 	public void initResources() {
 		super.initResources();
@@ -24,7 +25,10 @@ public class BlahThis extends Game {
 		pauseState = new PauseState(this);
 		startMenuState = new StartMenuState(this);
 		stateManager.addGameState(playState, pauseState, startMenuState);
-		stateManager.switchTo(startMenuState);
+		if(showStart)
+			stateManager.switchTo(startMenuState);
+		else
+			stateManager.switchTo(playState);
 	}
 	
 	private void initLevelManager() {
@@ -47,7 +51,8 @@ public class BlahThis extends Game {
 	}
 	
 	public void restartGame(){
-		launch(new BlahThis());
+		showStart = false;
+		initResources();
 	}
 	/**
 	 * @param args

@@ -10,7 +10,6 @@ public class GameWonEvent implements IEventHandler{
 	private DoodleSprite myDoodle;
 	private Game myGame;
 	private GameState myGameWonState;
-	private GameWonRule myGameWonRule;
 	
 	public GameWonEvent(DoodleSprite doodle, Game game, GameState GameWonState) {
 		myDoodle = doodle;
@@ -24,6 +23,6 @@ public class GameWonEvent implements IEventHandler{
 
 	@Override
 	public boolean isTriggered() {
-		return myGameWonRule.isSatisfied();
+		return myDoodle.isLevelComplete();
 	}
 }
