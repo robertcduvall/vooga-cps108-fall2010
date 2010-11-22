@@ -59,6 +59,9 @@ public class PlayState extends GameState{
 	
 	public void changeLevel(String xmlFilePath, String backgroundImageKey, String pathPointsKey){
 		this.removeEverything();
+		for(String key:myTracker.statKeySet()){
+			myTracker.getStat(key).reset();
+		}
 		Level level = new Level(myTracker, xmlFilePath, backgroundImageKey, pathPointsKey);
 		addPlayField(level.getPlayField());
 	}

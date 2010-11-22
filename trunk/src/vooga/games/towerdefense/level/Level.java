@@ -13,8 +13,8 @@ import vooga.engine.event.EventPool;
 import vooga.engine.level.Rule;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.actors.EasyEnemyGenerator;
 import vooga.games.towerdefense.actors.EnemyGenerator;
-import vooga.games.towerdefense.actors.MediumEnemyGenerator;
 import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.actors.towers.Fast;
 import vooga.games.towerdefense.actors.towers.Normal;
@@ -109,7 +109,7 @@ public class Level extends PlayField{
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		
-		myEnemyGenerator = new MediumEnemyGenerator(myPathPointsKey, failEvent, buildEnemy, enemyHit);
+		myEnemyGenerator = new EasyEnemyGenerator(myPathPointsKey, failEvent, buildEnemy, enemyHit);
 		player.addPathBoundary(myEnemyGenerator.getPath());
 		
 		TowerSwitchButton normalTower = initButton(Resources.getImage("normalTower"), 880, 260, player, new Normal(0,0, shootEvent));
