@@ -1,9 +1,11 @@
 <Overlay>
 
 <Stat type="Integer" value="3" name="livesStat"></Stat>
+<Stat type="Integer" value="0" name="scoreStat"></Stat>
 
 <OverlayGroup name="info">
 <OverlayStat name="lives" stat="livesStat" label="LIVES : " xLoc = "10" yLoc = "10" color="green"></OverlayStat>
+<OverlayStat name="score" stat="scoreStat" label="SCORE : " xLoc = "150" yLoc = "10" color="green"></OverlayStat>
 </OverlayGroup>
 
 </Overlay>
