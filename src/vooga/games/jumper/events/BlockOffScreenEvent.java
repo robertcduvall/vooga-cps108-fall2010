@@ -8,11 +8,8 @@ import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
 /**
- * When a block hits the roof, remove it from the sprite group
- * 
- * @author Cody
- * 
- * 
+ * Removes blocks from sprite group when they reach the top of the screen.
+ * @author Cody, Devon, Brian
  */
 public class BlockOffScreenEvent implements IEventHandler {
 
@@ -21,11 +18,18 @@ public class BlockOffScreenEvent implements IEventHandler {
 	private PlayGameState playState;
 	NormalBlock blockToBeRemoved;
 
+	/**
+	 * Sets the gamestate for this event
+	 * @param gamestate
+	 */
 	public BlockOffScreenEvent(PlayGameState gamestate) {
 		playState = gamestate;
 	}
 
 	@Override
+	/**
+	 * Becomes true if the block has reached the top of the screen and is ready to be removed.
+	 */
 	public boolean isTriggered() {
 		for (Sprite s : playState.getGroup("normalBlocks").getSprites()) {
 
@@ -40,6 +44,9 @@ public class BlockOffScreenEvent implements IEventHandler {
 	}
 
 	@Override
+	/**
+	 * removes the block that has been designated to be removed.
+	 */
 	public void actionPerformed() {
 		BLOCK_APPEARANCE_RATE_MULTIPLIER += BLOCK_APPEARANCE_RATE_MULTIPLIER_INCREMENT;
 		playState.getGroup("normalBlocks").remove(blockToBeRemoved);
