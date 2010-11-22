@@ -60,7 +60,7 @@ public class Player extends MouseFollower {
 			this.setImage(null);
 		}
 		
-		if(crossBorder() && this.getImage()==null)
+		if(recrossBorder() && crossBorder() && this.getImage()==null)
 		{
 			this.setImage(currentTower.getPreviewImage());
 		}
@@ -110,7 +110,15 @@ public class Player extends MouseFollower {
 	}
 	
 	public boolean crossBorder(){
-		if((WIDTH_BOUNDS)>(getOffsetX()))
+		if((WIDTH_BOUNDS)>(getOffsetX()+currentTower.getPreviewImage().getWidth()/2-currentTower.getWidth()/2))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean recrossBorder(){
+		if((WIDTH_BOUNDS)>(getOffsetX()-currentTower.getPreviewImage().getWidth()/2+currentTower.getWidth()/2))
 		{
 			return true;
 		}
