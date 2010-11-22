@@ -15,7 +15,8 @@ public class LevelWonRule implements Rule{
 	
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		System.out.println("Level Complete");		
+		//System.out.println("Level Complete");
+		
 	}
 
 	@Override
