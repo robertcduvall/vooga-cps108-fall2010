@@ -65,7 +65,7 @@
 		<String name="level2"
 			value="src/vooga/games/mariogame/resources/levels/level3.xml" />
 		<String name="highscorefile"
-			value="src/vooga/games/marioclone/resources/highscores.db" />
+			value="src/vooga/games/mariogame/resources/highscores.db" />
 		<String name="highscoredbname" value="highscores" />
 		<String name="losexml"
 			value="src/vooga/games/mariogame/resources/levels/losestate.xml" />

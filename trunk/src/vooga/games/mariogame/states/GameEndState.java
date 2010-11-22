@@ -28,16 +28,10 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 
 public class GameEndState extends GameState {
-	private Background myBackground;
 	private HighScoreHandler myHighScores;
-//	private GameFontManager myFontManager;
-	private OverlayString[] myHighScoreOverlays;
-	private Long myScore = 0L;
-	private SpriteGroup myOverlays;
+	private GamePlayState myPlayState;
 
 	private static final int NUM_SCORES = 10;
-	private int xScoreOverlay = 300;
-	private int yScoreOverlay = 600;
 
 	/**
 	 * This constructor creates a GameEndState with a background, string of
@@ -51,23 +45,16 @@ public class GameEndState extends GameState {
 	 *            - resource used to write text
 	 */
 
-	public GameEndState(PlayField playfield) {
+	public GameEndState(PlayField playfield, GamePlayState playState) {
 		
-		// The gameOver playfield should be constructed from an .xml
-		// file using the LevelParser.
 		
 		super(playfield);
-//		addPlayField(playfield);
-//		myBackground = new ImageBackground(backgroundImage);
-//		myFontManager = fontManager;
+		
+		myPlayState = playState;
+
 		myHighScores = new HighScoreHandler(NUM_SCORES, Resources
 				.getString("highscoredbname"), new File(Resources
 				.getString("highscorefile")));
-
-		myHighScoreOverlays = new OverlayString[NUM_SCORES + 1];
-//		OverlayCreator overlayCreator = new OverlayCreator();
-//		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameEndOverlays.xml");
-//		myOverlays = overlayTracker.getOverlayGroup("GameEndGroup");
 	}
 
 	/**
@@ -79,12 +66,12 @@ public class GameEndState extends GameState {
 
 	private void onEnter() {
 		try {
-			myHighScores.updateScores(myScore, System.currentTimeMillis());
+			myHighScores.updateScores(myPlayState.getScore(), System.currentTimeMillis());
 		} catch (SQLiteException e) {
 			System.out.println("Error with scoring");
 		}
 
-		createHighScoreOverlay(xScoreOverlay, yScoreOverlay);
+		createHighScoreOverlay();
 	}
 
 	/**
@@ -95,12 +82,8 @@ public class GameEndState extends GameState {
 	 * @paramy y: y coordinate for overlay
 	 */
 
-	private void createHighScoreOverlay(int x, int y) {
+	private void createHighScoreOverlay() {
 		PlayField field = getRenderField().toArray(new PlayField[0])[0];
-		
-		myHighScoreOverlays[0] = new OverlayString("High Scores:");
-		myHighScoreOverlays[0].setLocation(x, y);
-		
 		for (int j = 1; j <= myHighScores.getNames().length; j++) {
 			System.out.println("score"+String.valueOf(j));
 			field.getOverlayTracker().getStat("score"+String.valueOf(j)).setStat(myHighScores.getScores()[j-1]);
@@ -121,11 +104,6 @@ public class GameEndState extends GameState {
 	public void render(Graphics2D g) {
 		// TODO Auto-generated method stub
 		super.render(g);
-	}
-
-
-	public void setScore(Long score) {
-		myScore = score;
 	}
 
 	@Override

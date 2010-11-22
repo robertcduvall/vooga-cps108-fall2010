@@ -22,13 +22,7 @@ public class MarioToTileCollision extends BetterCollisionGroup {
 		}
 
 		int side = getCollisionSide(mario, tile);
-//		int side = getCollisionSide();
-		
-//		printCollisionSide(mario,tile);
-//		printCollisionSide();
-		
 		revertPosition1(mario, tile);
-//		revertPosition1();
 		
 		switch (side) {
 		case (LEFT_RIGHT_COLLISION):

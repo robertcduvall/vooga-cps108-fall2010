@@ -84,14 +84,14 @@
 			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile">
 				<Image name="Item Tile 1" />
 				<Image name="Item Tile 2" />
-				<Item relY="-64" class="vooga.games.mariogame.items.GravityItem"> 
+				<Item relY="-64" vx=".1" class="vooga.games.mariogame.items.GravityItem"> 
 					<Visual name="Gravity Item" />
 				</Item>
 			</Association>
-			<Association char="S" object="vooga.games.mariogame.tiles.ItemTile">
+			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile">
 				<Image name="Item Tile 1" />
 				<Image name="Item Tile 2" />
-				<Item relY="-64" vy="-.7" class="vooga.games.mariogame.items.Coin"> 
+				<Item relY="-64" class="vooga.games.mariogame.items.Coin"> 
 					<Visual name="Coin" />
 				</Item>
 			</Association>
