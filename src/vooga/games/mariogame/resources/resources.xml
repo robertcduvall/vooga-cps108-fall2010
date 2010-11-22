@@ -72,6 +72,10 @@
 			value="src/vooga/games/mariogame/resources/levels/losestate.xml" />
 		<String name="winxml"
 			value="src/vooga/games/mariogame/resources/levels/winstate.xml" />
+		<String name="mainmenuxml"
+			value="src/vooga/games/mariogame/resources/levels/mainmenu.xml" />
+		<String name="pausexml"
+			value="src/vooga/games/mariogame/resources/levels/pause.xml" />
 		<String name="LevelFilesDirectory" value="src/vooga/games/mariogame/resources/levels" />
 		<String name="LevelNamesFile" value="levelnames.txt" />
 		<String name="Map0"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="MainMenu State" xmloverlaypath="src/vooga/games/mariogame/resources/overlays/MainMenuOverlays.xml">
+
+	<SpriteGroups>
+	</SpriteGroups>
+
+	<CollisionGroups>	
+	</CollisionGroups>
+	
+	<Backgrounds>
+		<Visual name="Mario Menu BG"/>
+	</Backgrounds>
+	
+	<Map>
+	</Map>
+
+</Level>
