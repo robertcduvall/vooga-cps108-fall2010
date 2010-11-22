@@ -10,7 +10,7 @@ public class Dead implements Rule{
 
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		
+		System.out.println("gg");
 	}
 
 	@Override

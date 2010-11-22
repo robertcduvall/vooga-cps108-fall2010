@@ -38,9 +38,7 @@ public class PlayerCollidesEnemy extends BasicCollisionGroup {
 			player.forceX(320);
 			player.forceY(440);
 		}
-		else{
-			
-		}
+		
 	}
 
 }
