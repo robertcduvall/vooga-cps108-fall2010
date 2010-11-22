@@ -1,14 +1,11 @@
 package vooga.games.mariogame.events;
 
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
-
+import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.SoundPlayer;
-import vooga.engine.core.Game;
-import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.DropThis;
+import vooga.games.mariogame.sprites.MarioSprite;
 
 /**
  * Lose rule is enforced when Mario has 0 lives remaining.
