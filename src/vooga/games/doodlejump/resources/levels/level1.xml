@@ -2,7 +2,7 @@
 <Level name="Doodle" xmloverlaypath="src/vooga/games/doodlejump/resources/overlays.xml">
 
 	<Rules>
-		<Rule name="LevelWonRule" class="vooga.games.grandius.rules.LevelWonRule">
+		<Rule name="levelWonRule" class="vooga.games.doodlejump.rules.LevelWonRule">
 			<SpriteGroup name="doodleGroup" />
 		</Rule>
 	</Rules>
