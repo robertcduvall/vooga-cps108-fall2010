@@ -20,7 +20,7 @@
 	<Strings>
 		<String name="levelFilesDirectory" value="src/vooga/games/cyberion/resources/levels" />
 		<String name="levelNamesFile" value="levels.txt" />
-		<String name="Level1" value="levelOne.xml" />
+		<String name="Level1" value="level1.xml" />
 	</Strings>
 	
 	<Integers>
