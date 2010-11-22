@@ -13,6 +13,7 @@ import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.engine.util.SoundPlayer;
 import vooga.engine.event.EventPool;
 import vooga.examples.event.demo2.HumanKilledbyZombieEvent;
 import vooga.games.mariogame.sprites.MarioSprite;
@@ -64,6 +65,7 @@ public class GamePlayState extends GameState {
 		init();
 	}
 
+
 	/**
 	 * This method is called in the MarioClone update method in order to check
 	 * if any state transitions need to happen.
@@ -83,9 +85,11 @@ public class GamePlayState extends GameState {
 				switchLevel(myCurrentLevel);
 				return State.FinishedLevel;
 			}
-		} else
+		} else{
 			return State.Continue;
+		}
 	}
+	
 
 	/**
 	 * This method is responsible for updating the main game playfield, which
@@ -96,6 +100,8 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void update(long t) {
+		System.out.println(myLevel.getMusic(0));
+
 		super.update(t);
 		myLevel.update(t);
 		myEvents.checkEvents();
@@ -107,6 +113,8 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
+		SoundPlayer.setGame(myGame);
+		SoundPlayer.playMusic(myLevel.getMusic(0));
 		myCurrentLevel = 0;
 		switchLevel(0);
 		setUpKeyboard();
