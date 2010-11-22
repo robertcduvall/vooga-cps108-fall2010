@@ -39,43 +39,16 @@ public class Zombie extends BetterSprite implements Constants {
 				.getInitializedAnimatedSprite(Resources
 						.getAnimation(ZOMBIE_DOWN)));
 
-		AnimatedSprite down = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ZOMBIE_DOWN));
-		AnimatedSprite up = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ZOMBIE_UP));
-		AnimatedSprite left = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ZOMBIE_LEFT));
-		AnimatedSprite right = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ZOMBIE_RIGHT));
-		AnimatedSprite attackDown = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ATTACKDOWN));
-		AnimatedSprite attackUp = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ATTACKUP));
-		AnimatedSprite attackLeft = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ATTACKLEFT));
-		AnimatedSprite attackRight = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(ATTACKRIGHT));
-		AnimatedSprite death = AnimationUtil
-				.getInitializedAnimatedSprite(Resources
-						.getAnimation(DEATH));
 
-		addSprite(ZOMBIE_DOWN, down);
-		addSprite(ZOMBIE_UP, up);
-		addSprite(ZOMBIE_LEFT, left);
-		addSprite(ZOMBIE_RIGHT, right);
-		addSprite(ATTACKDOWN, attackDown);
-		addSprite(ATTACKUP, attackUp);
-		addSprite(ATTACKLEFT, attackLeft);
-		addSprite(ATTACKRIGHT, attackRight);
-		addSprite(DEATH, death);
+		addSprite(ZOMBIE_DOWN, initializeSprites(ZOMBIE_DOWN));
+		addSprite(ZOMBIE_UP, initializeSprites(ZOMBIE_UP));
+		addSprite(ZOMBIE_LEFT, initializeSprites(ZOMBIE_LEFT));
+		addSprite(ZOMBIE_RIGHT, initializeSprites(ZOMBIE_RIGHT));
+		addSprite(ATTACKDOWN, initializeSprites(ATTACKDOWN));
+		addSprite(ATTACKUP, initializeSprites(ATTACKUP));
+		addSprite(ATTACKLEFT, initializeSprites(ATTACKLEFT));
+		addSprite(ATTACKRIGHT, initializeSprites(ATTACKRIGHT));
+		addSprite(DEATH, initializeSprites(DEATH));
 
 		setHumanTarget(player);
 
@@ -94,6 +67,12 @@ public class Zombie extends BetterSprite implements Constants {
 		chooseRandomLocation();
 
 		this.setActive(true);
+	}
+
+	private AnimatedSprite initializeSprites(String sprite) {
+		return AnimationUtil
+				.getInitializedAnimatedSprite(Resources
+						.getAnimation(sprite));
 	}
 
 	private void chooseRandomLocation() {
