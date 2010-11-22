@@ -19,7 +19,7 @@ public class NormalBlock extends BlockSprite{
 
 	@Override
 	public void handleCollision(DoodleSprite doodle) {
-		doodle.setY(getY() - DOODLE_HEIGHT);
+		doodle.setY(getY() - DOODLE_HEIGHT/2);
 	}
 
 }
