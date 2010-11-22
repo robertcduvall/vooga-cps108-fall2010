@@ -5,6 +5,7 @@ import vooga.engine.state.MenuGameState;
 import vooga.games.grandius.sprites.buttons.BuyBlackHoleButton;
 import vooga.games.grandius.sprites.buttons.BuyMissileButton;
 import vooga.games.grandius.sprites.buttons.NextLevelButton;
+import vooga.engine.event.EventPool;
 
 public class ShoppingLevelState extends MenuGameState {
 
@@ -12,6 +13,7 @@ public class ShoppingLevelState extends MenuGameState {
 	private BuyBlackHoleButton myBuyBlackHoleButton;
 	private NextLevelButton myNextLevelButton;
 	private Game myGame;
+	private EventPool eventPool;
 	 //TODO distinguish between initialize() and constructor in terms of what they need to do
 	public ShoppingLevelState(Game game) {
 		this.myGame = game;
@@ -27,4 +29,9 @@ public class ShoppingLevelState extends MenuGameState {
 		addButton(myNextLevelButton);
 	}
 	
+	@Override
+    public void update(long elapsedTime) {
+            super.update(elapsedTime);
+            eventPool.checkEvents();
+	}
 }

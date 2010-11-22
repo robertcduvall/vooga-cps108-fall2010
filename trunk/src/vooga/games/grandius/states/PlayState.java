@@ -76,7 +76,7 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new FireHorizontalEvent(myGame, player, this));
 		eventPool.addEvent(new FireVerticalEvent(myGame, player, this));
-		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
+//		eventPool.addEvent(new FireMissileEvent(myGame, player, this));		Now, only added when purchased.
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
 		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this));
