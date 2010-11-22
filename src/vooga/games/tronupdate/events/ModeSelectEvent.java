@@ -22,7 +22,11 @@ public class ModeSelectEvent implements IEventHandler{
 	@Override
 	public void actionPerformed() {
 		gm.getGameState(2).removeEverything();
-		
+		//remove the playstate and start a new playstate
+		GameState state = gm.getGameState(0);//playState
+		state.removeEverything();
+		state.initialize();
+		//
 		if(isSingle()){
 			Mode.setSinglePlayer();	
 			gm.switchTo(gm.getGameState(4));//index 4 means setNumMatchesState

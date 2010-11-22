@@ -24,6 +24,7 @@ public class GameOverEvent implements IEventHandler {
 
 	@Override
 	public boolean isTriggered() {
+		
 		return game.keyPressed(KeyEvent.VK_SPACE);
 	}
 

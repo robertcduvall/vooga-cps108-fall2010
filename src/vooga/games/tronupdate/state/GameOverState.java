@@ -5,6 +5,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.events.GameOverEvent;
+import vooga.games.tronupdate.events.SwitchLevelEvent;
 import vooga.games.tronupdate.events.TronGameResumeEvent;
 
 public class GameOverState extends GameState{
@@ -21,8 +22,9 @@ public class GameOverState extends GameState{
 	@Override
 	public void initialize() {
 		eventPool = new EventPool();
-		GameOverEvent gameOverEvent = new GameOverEvent(game,gameStateManager);
-		eventPool.addEvent(gameOverEvent);
+		//GameOverEvent gameOverEvent = new GameOverEvent(game,gameStateManager);
+		SwitchLevelEvent event = new SwitchLevelEvent(game,gameStateManager);
+		eventPool.addEvent(event);
 	}
 
 	

@@ -23,12 +23,13 @@ public class SwitchLevelEvent implements IEventHandler{
 		GameState state = gm.getGameState(0);//playState
 		state.removeEverything();
 		state.initialize();
+		
 		gm.switchTo(state);
 	}
 
 	@Override
 	public boolean isTriggered() {
-		return true;
+		return game.keyPressed(KeyEvent.VK_SPACE); //press space to start the game or new level
 	}
 	
 	

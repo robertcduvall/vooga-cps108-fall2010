@@ -5,11 +5,15 @@ package vooga.games.tronupdate.collisions;
  */
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
+
+import vooga.games.tronupdate.events.GameOverEvent;
 import vooga.games.tronupdate.events.SwitchLevelEvent;
+import vooga.games.tronupdate.items.TronPlayer;
 
 public class PlayerAndBoundariesCollision extends CollisionBounds{
 	
@@ -32,11 +36,13 @@ public class PlayerAndBoundariesCollision extends CollisionBounds{
 		//gm.switchTo(gameOverState);
 		s.setActive(false);
 		game.playSound(Resources.getSound("explosionSound"));
-		handleCollision();
-		//gameStateManager.switchTo(gameStateManager.getGameState(2));
+		TronPlayer tronplayer = (TronPlayer)s;
+		if(tronplayer.isAI()){
+			gameStateManager.switchTo(gameStateManager.getGameState(2));  //computer loses,switch to a new level			
+		}
+		else{
+			gameStateManager.switchTo(gameStateManager.getGameState(3));//human loses game, start from menu.
+		}
 	}
-	private void handleCollision(){
-		SwitchLevelEvent event = new SwitchLevelEvent(game,gameStateManager);
-		event.actionPerformed();
-	}
+
 }
