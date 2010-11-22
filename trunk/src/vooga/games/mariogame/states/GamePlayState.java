@@ -3,6 +3,7 @@ package vooga.games.mariogame.states;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.Collection;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -15,6 +16,7 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
 import vooga.engine.event.EventPool;
+import vooga.engine.factory.LevelManager;
 import vooga.examples.event.demo2.HumanKilledbyZombieEvent;
 import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.events.LoseEvent;
@@ -42,6 +44,8 @@ public class GamePlayState extends GameState {
 
 	private KeyboardControl myControl;
 	private EventPool myEvents;
+	private LevelManager levelManager;
+	public Collection<PlayField> myLevels;
 
 	public enum State {
 		Win, Lose, Continue, FinishedLevel
@@ -59,37 +63,19 @@ public class GamePlayState extends GameState {
 	 *            is the desired height of the game window
 	 */
 
-	public GamePlayState(Game game, PlayField level) {
+	public GamePlayState(Game game) {
 		myGame = game;
-		myLevel = level;
 		init();
 	}
-
-
-	/**
-	 * This method is called in the MarioClone update method in order to check
-	 * if any state transitions need to happen.
-	 * 
-	 * @return This method returns one of three state types: win, loss, or
-	 *         continue, depending on the given game conditions.
-	 */
-
-	public State nextState() {
-		if (myLevel.getGroup("marioGroup").getActiveSprite() == null) {
-			return State.Lose;
-		} else if (myLevel.getGroup("marioGroup").getActiveSprite().getX() > 1000) {
-			if (myCurrentLevel >= NUM_LEVELS - 1) {
-				return State.Win;
-			} else {
-				myCurrentLevel++;
-				switchLevel(myCurrentLevel);
-				return State.FinishedLevel;
-			}
-		} else{
-			return State.Continue;
-		}
-	}
 	
+	private void initLevelManager() {
+		levelManager = new LevelManager(myGame);
+		String levelFilesDirectory = Resources.getString("LevelFilesDirectory");
+		String levelNamesFile = Resources.getString("LevelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+		myLevels = levelManager.getAllPlayFields();
+		myLevel = (PlayField)myLevels.toArray()[0];
+	}
 
 	/**
 	 * This method is responsible for updating the main game playfield, which
@@ -113,10 +99,10 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void init() {
+		initLevelManager();
 		SoundPlayer.setGame(myGame);
 		SoundPlayer.playMusic(myLevel.getMusic(0));
 		myCurrentLevel = 0;
-		switchLevel(0);
 		setUpKeyboard();
 		initOverlays();
 		initEvents();
@@ -139,17 +125,6 @@ public class GamePlayState extends GameState {
 
 	public int getScore() {
 		return (Integer) ((BetterSprite)myLevel.getGroup("marioGroup").getActiveSprite()).getStat("Score").getStat();
-	}
-
-	private void switchLevel(int i) {
-//		File levelFile = new File(Resources.getString("level"
-//				+ Integer.toString(i)));
-//
-//		MarioPlayField pf = (MarioPlayField) myLevelFactory
-//				.getPlayfield(levelFile);
-//		pf.setLevel(i + 1);
-//		myLevel = pf;
-//		myGame.playMusic(myLevel.getMusic());
 	}
 
 	/**
