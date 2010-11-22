@@ -5,15 +5,15 @@
 			<Sprite module="LevelButton" x="100" y="400" levelName="easyLevel">
 				<Visual name="easyButton" />
 			</Sprite>
-			<Sprite module="LevelButton" x="300" y="400" levelName="mediumLevel">
+			<Sprite module="LevelButton" x="400" y="400" levelName="mediumLevel">
 				<Visual name="mediumButton" />
 			</Sprite>
-			<Sprite module="LevelButton" x="500" y="400" levelName="hardLevel">
+			<Sprite module="LevelButton" x="700" y="400" levelName="hardLevel">
 				<Visual name="hardButton" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="title">
-			<Sprite module="BetterSprite" random="false" x="100" y="100" vx="0" vy="0" quantity="1"> 
+			<Sprite module="BetterSprite" random="false" x="150" y="100" vx="0" vy="0" quantity="1"> 
 				<Visual name="title" />
 			</Sprite>
 		</SpriteGroup>
