@@ -187,8 +187,10 @@ public class TronPlayer extends BetterSprite {
 		}
 		else if(dir==Direction.right){
 			for(int i=0;i<speedUp;i++){
+				if(playerInbound()){
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 				changePlayerColumn(1);
+				}
 			}
 			return speedUp*playerImageWidth;//getPlayerXPosition();
 		}
@@ -212,8 +214,10 @@ public class TronPlayer extends BetterSprite {
 		}
 		else if(dir==Direction.down){
 			for(int i=0;i<speedUp;i++){
+				if(playerInbound()){
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 				changePlayerRow(1);
+				}
 			}
 			return speedUp*playerImageWidth;//getPlayerYPosition();
 		}

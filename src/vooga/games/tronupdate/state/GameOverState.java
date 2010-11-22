@@ -21,6 +21,10 @@ public class GameOverState extends GameState{
 	
 	@Override
 	public void initialize() {
+		GameState state = gameStateManager.getGameState(0);//playState
+		state.deactivate();
+		state.removeEverything();
+		state.initialize();
 		eventPool = new EventPool();
 		//GameOverEvent gameOverEvent = new GameOverEvent(game,gameStateManager);
 		SwitchLevelEvent event = new SwitchLevelEvent(game,gameStateManager);
