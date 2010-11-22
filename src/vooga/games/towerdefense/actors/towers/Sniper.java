@@ -3,7 +3,7 @@ package vooga.games.towerdefense.actors.towers;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
-import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.events.ShootEvent;
 
 /**
  * This tower is a sniper. It has a huge range and a fast shot speed but a long delay between shots.
@@ -21,12 +21,12 @@ public class Sniper extends ShootingTower{
 	public final static int COST = 80;
 	public final static double SHOT_SPEED = 2;
 	
-	public Sniper(double x, double y) {
-		super(IMAGE, x, y, PREVIEW_IMAGE, COST, RANGE, SHOT_SPEED, SHOT_DELAY);
+	public Sniper(double x, double y, ShootEvent shootEvent) {
+		super(IMAGE, x, y, PREVIEW_IMAGE, COST, RANGE, SHOT_SPEED, SHOT_DELAY, shootEvent);
 	}
 	
 	public Tower clone(){
-		return new Sniper(getX(), getY());
+		return new Sniper(getX(), getY(), getShootEvent());
 	}
 }
 

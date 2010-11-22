@@ -74,12 +74,13 @@ public class PlayState extends GameState{
 		
 		BuildTowerEvent buildTower = new BuildTowerEvent(myPlayField);
 		FindTargetEvent findTarget = new FindTargetEvent(myPlayField);
+		ShootEvent shootEvent = new ShootEvent();
 		
 		eventPool.addEvent(buildTower);
-		Player player = initPlayer(buildTower, findTarget);
+		Player player = initPlayer(buildTower, findTarget, shootEvent);
 		myPlayField.add(player);
 		EnemyHitEvent enemyHit = new EnemyHitEvent(player);
-		ShootEvent shootEvent = new ShootEvent(player, enemyHit);
+		shootEvent.setHitEvent(enemyHit);
 		myEnemyGroup = new SpriteGroup("enemyGroup");
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
@@ -103,8 +104,8 @@ public class PlayState extends GameState{
 		return new ImageBackground(backgroundImage);
 	}
 	
-	private Player initPlayer(BuildTowerEvent buildTowerEvent, FindTargetEvent findTarget){
-		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, findTarget, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
+	private Player initPlayer(BuildTowerEvent buildTowerEvent, FindTargetEvent findTarget, ShootEvent shootEvent){
+		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, findTarget, shootEvent, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
 		return player;
 	}
 	

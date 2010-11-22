@@ -8,6 +8,7 @@ import vooga.games.towerdefense.actors.towers.ShootingTower;
 import vooga.games.towerdefense.actors.towers.Tower;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
+import vooga.games.towerdefense.events.ShootEvent;
 import vooga.widget.MouseFollower;
 
 /**
@@ -22,23 +23,24 @@ import vooga.widget.MouseFollower;
 public class Player extends MouseFollower {
 
 	private static final long serialVersionUID = 1L;
-	private static final Tower DEFAULT_TOWER = new Normal(0,0);
+	private final int MONEY_CHEAT = 1000000;
 	private Tower currentTower;
 	private BuildTowerEvent buildTowerEvent;
 	private FindTargetEvent findTargetEvent;
+	private ShootEvent shootEvent;
 	private Stat<Integer> balance;
 	private Stat<Integer> score;
 	private Stat<Integer> selfEsteem;
-	private final int MONEY_CHEAT = 1000000;
 
-	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, FindTargetEvent findTarget, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
+	public Player(BufferedImage image, double x, double y, BuildTowerEvent buildTower, FindTargetEvent findTarget, ShootEvent shootEvent, Stat<Integer> balance, Stat<Integer> score ,Stat<Integer> selfEsteem) {
 		super(image, x, y);
-		changeTowerType(DEFAULT_TOWER);
+		changeTowerType(new Normal(0,0, shootEvent));
 		this.balance = balance;
 		this.score = score;
 		this.selfEsteem = selfEsteem;
 		this.buildTowerEvent = buildTower;
 		this.findTargetEvent = findTarget;
+		this.shootEvent = shootEvent;
 	}
 
 	public void onClick() {
