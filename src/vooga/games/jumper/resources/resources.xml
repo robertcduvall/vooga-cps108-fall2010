@@ -47,6 +47,7 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/jumper/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
 		<String name="Level1" value="levels/jumper.xml" />
+		<String name="DoodleSprite" value="vooga.games.jumper.sprites.DoodleSprite" />
 	</Strings>
 
 	<Integers>
