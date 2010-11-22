@@ -16,7 +16,6 @@ public class MarioSprite extends BetterSprite {
 	private boolean onGround;
 	private boolean killed;
 	private double myMaxX;
-	private Stat<Integer> myHealth;
 	private int myMaxHealth = 3;
 	private double myGravity;
 
@@ -24,9 +23,7 @@ public class MarioSprite extends BetterSprite {
 	private static final int MAX_CHEAT_LENGTH = 10;
 	private char lastCheatChar;
 
-	public MarioSprite(){
-		myHealth = new Stat<Integer>(100);
-		
+	public MarioSprite(){		
 	}
 	
 	/*
@@ -78,6 +75,7 @@ public class MarioSprite extends BetterSprite {
 	
 	public void respawn(){
 		setLocation(0, 0);
+		setHealth(getHealth() - 1);
 		//getBackground().setLocation(0, 0);
 		setKilled(false);
 		setMaxX(0);
@@ -95,7 +93,7 @@ public class MarioSprite extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		if (getY() > this.getBackground().getHeight()) {
-			setHealth(myHealth.getStat() - 1);
+			setHealth(getHealth() - 1);
 			killed = true;
 		}
 
@@ -135,18 +133,18 @@ public class MarioSprite extends BetterSprite {
 		Stat<Integer> stat = (Stat<Integer>) getStat("Score");
 		stat.setStat(stat.getStat() + i);
 		if((stat.getStat()%100) == 0){
-			myHealth.setStat(myHealth.getStat() + 1);
+			setHealth(getHealth() + 1);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public void setScore(int i) {
-		Stat<Integer> stat = ((Stat<Integer>) getStat("Score"));
+		Stat<Integer> stat = ((Stat<Integer>) getStat("score"));
 		stat.setStat(i);
 	}
 
 	public Integer getScore() {
-		return (Integer) getStat("Score").getStat();
+		return (Integer) getStat("score").getStat();
 	}
 
 	private boolean checkCheat(String s) {
@@ -191,11 +189,12 @@ public class MarioSprite extends BetterSprite {
 	}
 	
 	public int getHealth(){
-		return myHealth.getStat();
+		return (Integer) this.getStat("health").getStat();
 	}
 	
 	public void setHealth(int i){
-		myHealth.setStat(i);
+		Stat<Integer> stat = ((Stat<Integer>) getStat("health"));
+		stat.setStat(i);
 	}
 
 }
