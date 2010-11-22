@@ -30,7 +30,7 @@ public class EnemyFireEvent implements IEventHandler {
 	public boolean isTriggered() {
 		for (Sprite s : enemy) {
 			if (s != null && s.getY() > 50 && Math.random() > .99
-					&& s.getY() < 600) {
+					&& s.getY() < 600 && s.isActive()) {
 				((EnemyShip) s).setShooting(false);
 				EnemyShot sprite = new EnemyShot();
 				sprite.setX(s.getX());
