@@ -18,13 +18,16 @@ import com.golden.gamedev.object.Timer;
  */
 public class EnemySprite extends BetterSprite {
 
-	private static final int DEFAULT_HP = 2;
-	private static final double ENEMY_BOMB_SPEED = 0.5;
 	private int pathNum;
     private Timer timer;
     private ArrayList<Point> path;    
 	private int hitPoints;
 	
+	
+	public EnemySprite() {
+		pathNum = 0;
+    	hitPoints = Resources.getInt("enemySpriteDefaultHP");
+	}
 	
 	/**
 	 * Called every turn by the Game, this method moves the enemy, changes 
@@ -32,8 +35,8 @@ public class EnemySprite extends BetterSprite {
 	 */
 	public void update(long time) {
 		super.update(time);
-		if(hitPoints < DEFAULT_HP) {
-			setAsRenderedSprite("damaged");
+		if(hitPoints < Resources.getInt("enemySpriteDefaultHP")) {
+			setAsRenderedSprite("enemy1damage");
 		}
 		if(hitPoints <= 0) {
 			setActive(false);
@@ -55,9 +58,7 @@ public class EnemySprite extends BetterSprite {
     
     public void setPathPointsAndTimerNum(ArrayList<Point> pathmap, int num) {
     	path = pathmap;
-    	pathNum = num;
-    	hitPoints = DEFAULT_HP;
-    	timer = new Timer(pathNum);
+    	timer = new Timer(num);
     }
     
     
@@ -78,7 +79,7 @@ public class EnemySprite extends BetterSprite {
 	public BetterSprite spawnBomb()
 	{
 		BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), this.getX()+25, this.getY()+30);
-		temp.setSpeed(0, ENEMY_BOMB_SPEED);
+		temp.setSpeed(0, Resources.getDouble("enemyBombSpeed"));
 		return temp;
 	}
 
