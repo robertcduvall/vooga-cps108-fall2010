@@ -4,7 +4,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.level.Rule;
 
-public class InfiniteBlocks implements Rule {
+public class InfiniteBlockRule implements Rule {
 
 	
 	@Override
