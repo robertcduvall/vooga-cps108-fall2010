@@ -1,12 +1,12 @@
-                                                                                      !
-                                                                                      !
-                                                                                      !
-       BBBBBBCCCCCCCCCCCCCCSSSSSCCCCCCCCCCCCCCCCCCCCCCCCC                             !
-                                                                           C          !
-                                                                          CC          !
-             SGCCCSSSSSCCCCCGCCCC            DDDDBBBCCCCCCCCCCCCC        CCC          !
-                                                                        CCCC          !
-                                                                       CCCCC          !
+                                                                                       
+                                                                                       
+                                                                                       
+       BBBBBBCCCCCCCCCCCCCCSSSSSCCCCCCCCCCCCCCCCCCCCCCCCC                              
+                                                                           C           
+                                                                          CC      !    
+             SGCCCSSSSSCCCCCGCCCC            DDDDBBBCCCCCCCCCCCCC        CCC      
+                                                                        CCCC           
+                                                                       CCCCC           
 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF    FF    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD    DD    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD    DD    DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
