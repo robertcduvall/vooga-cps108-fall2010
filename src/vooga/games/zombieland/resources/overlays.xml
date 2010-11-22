@@ -5,30 +5,6 @@
 <Stat type="Integer" value="100" name = "initAmmo" />
 <Stat type="Integer" value ="1" name = "initLevel" />
 
-<!--
-<Stat type="Integer" value="25" name="ZOMBIE_PER_LEVEL" />
-<Stat type="Integer" value="20" name="itemChance" />
-<Stat type="Integer" value="60" name="attackDelay" />
-<Stat type="Double" value="1.5" name="zombieStatMultiplier" />
-<Stat type="Double" value="5" name="zombieDamage" />
-<Stat type="Integer" value="30" name="zombieCurrentHealth" />
-<Stat type="Double" value="-0.5" name="speed" />
-<Stat type="Double" value="60" name="attackDelayStep" />
-<Stat type="String" value="" name="currentAttackAnimation" />
-
-<Stat type="Integer" value="40" name="shotgunAmmo" />
-<Stat type="Integer" value="100" name="rifleAmmo" />
-<Stat type="Integer" value="99999" name="pistolAmmo" />
-<Stat type="Integer" value="200" name="maxHealth" />
-<Stat type="Integer" value="-1" name="speed" />
-<Stat type="Double" value="90" name="orientation" />
-<Stat type="Integer" value="0" name="weaponChoice" />	
-<Stat type="Integer" value="200" name="health" />
-<Stat type="Integer" value="0" name="score" />
-<Stat type="Integer" value="100" name="ammo" />
-<Stat type="Integer" value="0" name="levelScore" />
-
--->
 <OverlayGroup name = "PlayStateOverlays">
 <OverlayBar xLoc="80" yLoc="18" stat="initHealth" max="200" color="green" backColor="black"></OverlayBar>
 <OverlayString label="Health: " fontName="gameFontBlack" xLoc="5" yLoc="10"></OverlayString>

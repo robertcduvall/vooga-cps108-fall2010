@@ -42,7 +42,7 @@ public class Blah extends Game implements Constants {
 		helpMenu2 = new HelpMenu2(this);
 		creditMenu = new CreditMenu(this);
 
-		getGameStateManager().addGameState(mainMenu,helpMenu1,helpMenu2,creditMenu,pauseState);
+		getGameStateManager().addGameState(mainMenu,helpMenu1,helpMenu2,creditMenu,pauseState, playState);
 	}
 
 	public void pause() {
