@@ -61,7 +61,7 @@ Constants {
 	private void processDamage(Zombie currentZombie, Shooter currentPlayer) {
 		if (currentZombie.isAbleToAttack()) {
 			currentZombie.resetAttackDelayStep();
-			currentPlayer.updateHealth(-currentZombie.getDamage());
+			currentPlayer.updateHealth((int) -currentZombie.getDamage());
 		} else
 			currentZombie.updateAttackStep();
 	}
