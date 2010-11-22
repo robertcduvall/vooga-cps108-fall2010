@@ -75,7 +75,7 @@ public class Blah extends Game implements Constants {
 	}
 
 	public void reset() {
-		getGameStateManager().getGameState(playState).initialize();
+		getPlayGameState().initialize();
 		credit();
 	}
 

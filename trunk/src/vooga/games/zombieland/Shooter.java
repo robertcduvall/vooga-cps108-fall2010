@@ -8,6 +8,8 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.event.IEventHandler;
+import vooga.games.zombieland.events.AddBulletsEvent;
 import vooga.games.zombieland.gamestates.PlayState;
 import vooga.games.zombieland.weapons.AssaultRifle;
 import vooga.games.zombieland.weapons.Bullet;
@@ -36,6 +38,7 @@ public class Shooter extends BetterSprite implements Constants{
 	private Stat<Integer> score;
 	private Stat<Integer> ammo;
 	private int levelScore;
+	private AddBulletsEvent addbullets;
 
 	@SuppressWarnings("unchecked")
 	public Shooter() {
@@ -87,6 +90,15 @@ public class Shooter extends BetterSprite implements Constants{
 	}
 
 	/**
+	 * This method sets the bullet listener for the player
+	 * @param bulletlistener
+	 */
+	public void setBulletListener(IEventHandler bulletlistener)
+	{
+		addbullets = (AddBulletsEvent) bulletlistener;
+	}
+	
+	/**
 	 * Add a bullet sprite to the game world. Used by weapons to create bullets
 	 * 
 	 * @param bullet
@@ -95,7 +107,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 *            the angle of the bullet's trajectory
 	 */
 	public void addBulletToGame(Bullet bullet) {
-		state.addBullet(bullet);
+		addbullets.addBullet(bullet);
 
 	}
 
