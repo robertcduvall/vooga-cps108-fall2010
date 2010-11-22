@@ -85,6 +85,12 @@
 	<Backgrounds>
 		<Background name="bg" />
 	</Backgrounds>
+	
+	<Rules>
+		<Rule name="Dead" class="vooga.games.cyberion.rules.Dead">
+		<SpriteGroup name="playerGroup" />
+		</Rule>
+	</Rules>
 
 	<Music>
 	</Music>
