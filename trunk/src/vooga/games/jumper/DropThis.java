@@ -12,7 +12,6 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.PauseGameState;
 import vooga.games.jumper.states.PlayGameState;
-import vooga.games.jumper.states.StartingMenuGameState;
 
 
 
@@ -40,7 +39,7 @@ public class DropThis extends vooga.engine.core.Game {
 	PlayGameState playState;
 	PauseGameState pauseState;
 	PauseGameState deathState;
-	StartingMenuGameState menuState;
+	BasicTextGameState endState;
 	
 	private Control gameControl;
 
@@ -69,8 +68,8 @@ public class DropThis extends vooga.engine.core.Game {
 		playState = new PlayGameState(this, pf, this);
 		pauseState = new PauseGameState(playState, "THE GAME IS PAUSED", Color.BLUE);
 		deathState = new PauseGameState(playState, "GAME OVER", Color.BLUE);
-		menuState = new StartingMenuGameState(this);
-		stateManager.addGameState(playState, pauseState);
+		endState = new BasicTextGameState("YOU LOST!!!", Color.red);
+		stateManager.addGameState(playState, pauseState, endState);
 	}
 
 	private void initControls(){
@@ -97,7 +96,7 @@ public class DropThis extends vooga.engine.core.Game {
 	public void deathGame() {
 		stateManager.activateOnly(deathState);
 	}
-
+	
 	/**
 	 * Main method which loads the game
 	 * @param args String[] of arguments from the command line
