@@ -90,6 +90,9 @@
 		<Rule name="Dead" class="vooga.games.cyberion.rules.Dead">
 		<SpriteGroup name="playerGroup" />
 		</Rule>
+		<Rule name="NextLevel" class="vooga.games.cyberion.rules.NextLevel">
+		<SpriteGroup name="enemyGroup" />
+		</Rule>
 	</Rules>
 
 	<Music>

@@ -47,7 +47,7 @@ public class EnemyShip extends BetterSprite {
 		public void update(long elapsedTime) {
 			super.update(elapsedTime);
 
-			if (life <= 0)
+			if ((life <= 0) || (getY()>Resources.getInt("maxY")))
 				this.setActive(false);
 //			enemies fire randomly with a chance of 3/1000 for every update call
 //			if (rnd.nextInt(1000) > 997) {
