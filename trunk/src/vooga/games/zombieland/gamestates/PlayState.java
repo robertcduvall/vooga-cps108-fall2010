@@ -18,6 +18,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.engine.util.SoundPlayer;
 import vooga.games.zombieland.*;
 import vooga.games.zombieland.events.AddBulletsEvent;
 import vooga.games.zombieland.events.AddRandomItemEvent;
@@ -100,6 +101,8 @@ public class PlayState extends GameState implements Constants{
 
 		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
+		
+		SoundPlayer.playMusic(playField.getMusic(0));
 	}
 
 	/**
