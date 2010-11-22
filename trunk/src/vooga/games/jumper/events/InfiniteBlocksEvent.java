@@ -9,6 +9,7 @@ import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
 public class InfiniteBlocksEvent implements IEventHandler {
+	
 	Random random = new Random();
 	int xMax = Resources.getInt("gameWidth");
 	int xMin = 0;
