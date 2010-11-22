@@ -1,6 +1,5 @@
 package vooga.games.zombieland.gamestates;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -10,11 +9,9 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
-import com.golden.gamedev.object.background.ImageBackground;
 
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayStat;
-import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
@@ -40,9 +37,7 @@ public class PlayState extends GameState implements Constants{
 	private EventPool eventPool;
 	private Random random;
 
-	private OverlayString overlayGameOverString;
 	private OverlayStat overlayLevelStat;
-	private OverlayTracker tracker;
 	private OverlayTracker levelTracker;
 
 	private AddZombieEvent addZombies;
@@ -60,8 +55,6 @@ public class PlayState extends GameState implements Constants{
 	 */
 	public void initialize() {
 		OverlayCreator.setGame(currentGame);
-		tracker = OverlayCreator
-		.createOverlays(XML_PATH);
 		levelTracker = OverlayCreator.createOverlays(STATES_XML_PATH);
 		random = new Random();
 		LevelParser parser = new LevelParser();
@@ -121,6 +114,8 @@ public class PlayState extends GameState implements Constants{
 	 */
 	private void initOverlays() {
 		statLevel = levelTracker.getStat("initLevel", new Integer(0));
+		level=0;
+		statLevel.setStat(1);
 		overlayLevelStat = levelTracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
 	}
@@ -277,22 +272,6 @@ public class PlayState extends GameState implements Constants{
 	 */
 	private boolean gameOver() {
 		return !(player.isActive());
-	}
-
-	/**
-	 * Render game over screen
-	 * 
-	 * @param g
-	 */
-	private void renderGameOver(Graphics2D g) {
-
-		int overlayStringX = Resources.getInt("overlayStringX");
-		int overlayStringY = Resources.getInt("overlayStringY");
-
-		overlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
-		overlayGameOverString.setLocation(overlayStringX, overlayStringY);
-		overlayGameOverString.render(g);
-		endGame();
 	}
 
 	/**
