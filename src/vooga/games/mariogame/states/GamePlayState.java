@@ -40,7 +40,6 @@ public class GamePlayState extends GameState {
 	private static final int NUM_LEVELS = 3;
 
 	private int myCurrentLevel;
-	private PlayField myLevel;
 
 	private KeyboardControl myControl;
 	private EventPool myEvents;
@@ -74,7 +73,7 @@ public class GamePlayState extends GameState {
 		String levelNamesFile = Resources.getString("LevelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
 		myLevels = levelManager.getAllPlayFields();
-		myLevel = (PlayField)myLevels.toArray()[0];
+		myCurrentLevel = 0;
 	}
 
 	/**
@@ -86,10 +85,10 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void update(long t) {
-		System.out.println(myLevel.getMusic(0));
+		System.out.println(getLevel().getMusic(0));
 
 		super.update(t);
-		myLevel.update(t);
+		getLevel().update(t);
 		myEvents.checkEvents();
 	}
 
@@ -101,7 +100,7 @@ public class GamePlayState extends GameState {
 	public void init() {
 		initLevelManager();
 		SoundPlayer.setGame(myGame);
-		SoundPlayer.playMusic(myLevel.getMusic(0));
+		SoundPlayer.playMusic(getLevel().getMusic(0));
 		myCurrentLevel = 0;
 		setUpKeyboard();
 		initOverlays();
@@ -110,7 +109,7 @@ public class GamePlayState extends GameState {
 	
 	public void initEvents(){
 		myEvents = new EventPool();
-		LoseEvent lose = new LoseEvent((MarioSprite)myLevel.getGroup("marioGroup").getActiveSprite(),myGame);
+		LoseEvent lose = new LoseEvent((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite(),myGame);
 		myEvents.addEvent(lose);
 	}
 	
@@ -124,7 +123,7 @@ public class GamePlayState extends GameState {
 	}
 
 	public int getScore() {
-		return (Integer) ((BetterSprite)myLevel.getGroup("marioGroup").getActiveSprite()).getStat("Score").getStat();
+		return (Integer) ((BetterSprite)getLevel().getGroup("marioGroup").getActiveSprite()).getStat("Score").getStat();
 	}
 
 	/**
@@ -134,12 +133,12 @@ public class GamePlayState extends GameState {
 
 	public void render(Graphics2D g) {
 		super.render(g);
-		myLevel.render(g);
+		getLevel().render(g);
 		scrollLevel();
 	}
 	
 	public void scrollLevel(){
-		myLevel.getBackground().setToCenter(myLevel.getGroup("marioGroup").getActiveSprite());
+		getLevel().getBackground().setToCenter(getLevel().getGroup("marioGroup").getActiveSprite());
 	}
 
 	public int getCurrentLevel() {
@@ -147,15 +146,15 @@ public class GamePlayState extends GameState {
 	}
 
 	private void setUpKeyboard() {
-		Control playerControl = new KeyboardControl((BetterSprite)(myLevel.getGroup("marioGroup").getActiveSprite()), myGame);
+		Control playerControl = new KeyboardControl((BetterSprite)(getLevel().getGroup("marioGroup").getActiveSprite()), myGame);
 		playerControl.addInput(KeyEvent.VK_D, "moveRight", "vooga.games.mariogame.sprites.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.mariogame.sprites.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.sprites.MarioSprite");
-		myLevel.addControl("mario", playerControl);
+		getLevel().addControl("mario", playerControl);
 		
 		Control gameControl = new KeyboardControl(myGame,myGame);
 		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.mariogame.DropThis");
-		myLevel.addControl("pause", gameControl);
+		getLevel().addControl("pause", gameControl);
 		
 		/*
 		for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) {
@@ -166,6 +165,10 @@ public class GamePlayState extends GameState {
 					"vooga.games.marioclone.MarioSprite", (char) i);
 		}
 		*/
+	}
+	
+	private PlayField getLevel(){
+		return (PlayField)myLevels.toArray()[myCurrentLevel];
 	}
 
 	@Override
