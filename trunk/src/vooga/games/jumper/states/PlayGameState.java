@@ -11,6 +11,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.games.jumper.events.BlockOffScreenEvent;
 import vooga.games.jumper.events.InfiniteBlocksEvent;
 import vooga.games.jumper.sprites.BlockSprite;
 
@@ -44,14 +45,11 @@ public class PlayGameState extends GameState{
 		initLevel();
 	}
 	
-	public void addSprites(BlockSprite block) {
-		myField.add(block);
-	}
-	
-	
 	private void initEvents() {
 		eventPool = new EventPool();
 		eventPool.addEvent(new InfiniteBlocksEvent(this));
+		eventPool.addEvent(new BlockOffScreenEvent(this));
+		System.out.println(this.getGroup("normalBlocks").getSize());
 	}
 	
 	private void initLevel(){
