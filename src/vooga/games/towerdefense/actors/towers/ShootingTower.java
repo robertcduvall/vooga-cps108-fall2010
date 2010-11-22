@@ -49,6 +49,11 @@ public abstract class ShootingTower extends Tower{
 		return timeSinceShot>shotDelay;
 	}
 	
+	public ShootEvent getShootEvent()
+	{
+		return shootEvent;
+	}
+	
 	
 	public boolean isValidTarget(Sprite target){
 		return target!=null && target.isActive() && isInRange(target);
