@@ -1,11 +1,11 @@
-package vooga.games.mariogame.tiles;
+package vooga.engine.factory;
 
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public abstract class Tile extends Sprite {
+public abstract class MapTile extends Sprite {
 
 	private State state;
 
@@ -13,7 +13,7 @@ public abstract class Tile extends Sprite {
 		active, inactive, removed
 	};
 
-	public Tile(double x, double y, BufferedImage... images) {
+	public MapTile(double x, double y, BufferedImage... images) {
 		super(images[0], x, y);
 	}
 

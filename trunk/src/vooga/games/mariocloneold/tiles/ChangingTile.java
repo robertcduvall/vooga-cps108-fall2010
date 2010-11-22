@@ -8,7 +8,7 @@ import java.util.List;
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public class ChangingTile extends Tile {
+public class ChangingTile extends MapTile {
 
 	private List<BufferedImage> images = new ArrayList<BufferedImage>();
 	private int curImage;

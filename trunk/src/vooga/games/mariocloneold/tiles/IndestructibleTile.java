@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public class IndestructibleTile extends Tile {
+public class IndestructibleTile extends MapTile {
 
 	public IndestructibleTile(double x, double y, BufferedImage image) {
 		super(image, x, y);

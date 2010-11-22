@@ -6,10 +6,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import vooga.engine.factory.MapTile;
+
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public class ChangingTile extends Tile {
+public class ChangingTile extends MapTile {
 
 	private List<BufferedImage> images = new ArrayList<BufferedImage>();
 	private int curImage;

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 
@@ -18,15 +19,16 @@ import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * 
- * This class can be used to read in .txt files that serve as a map for placement of different Sprites.
- * This is a unique implementation of a level.
+ * This class can be used to read in .txt files that serve as a map for
+ * placement of different Sprites. This is a unique implementation of a level.
  * 
  * 
  * @example
  * 
  * @author David Herzka - original author for MarioClone game
- * @author Cameron McCallie, Derek Zhou- ported the MarioClone version to be reusable by all
- *
+ * @author Cameron McCallie, Derek Zhou- ported the MarioClone version to be
+ *         reusable by all
+ * 
  */
 public class MapReader {
 
@@ -36,46 +38,47 @@ public class MapReader {
 	private static String path;
 	private static Map<String, String> mySpriteClasses;
 	private static Map<String, List<String>> mySpriteImages;
+	private static Map<String, BetterSprite> mySpriteItems;
 	// This is the pixel size of each object in the text file.
 	private static int SPRITE_SIZE = 64;
 
-
 	/**
-	 * This MapReader will be instantiated by the LevelParser class if it contains a <Map> tag.
-	 * This tag will store all information about Sprites unique to the mapping representation of the text file.
-	 * This constructor returns the PlayField that is represented by the current level from the LevelParser. This
-	 * constructor will update the PlayField based on all the information in the <Map> tag.
+	 * This MapReader will be instantiated by the LevelParser class if it
+	 * contains a <Map> tag. This tag will store all information about Sprites
+	 * unique to the mapping representation of the text file. This constructor
+	 * returns the PlayField that is represented by the current level from the
+	 * LevelParser. This constructor will update the PlayField based on all the
+	 * information in the <Map> tag.
 	 */
 
-	public MapReader(String pathName, PlayField level){
+	public MapReader(String pathName, PlayField level) {
 		path = pathName;
 		myPlayfield = level;
 		mySpriteClasses = new HashMap<String, String>();
 		mySpriteImages = new HashMap<String, List<String>>();
-
+		mySpriteItems = new HashMap<String, BetterSprite>();
 	}
 
 	/**
-	 * Spaces each sprite exactly the size of the sprite (in pixels) away from the previous sprite.
+	 * Spaces each sprite exactly the size of the sprite (in pixels) away from
+	 * the previous sprite.
 	 * 
 	 */
 	private double spritesToPixels(int coord) {
 		return coord * SPRITE_SIZE;
 	}
 
-
-
-	public void addAssociationClass(String key, String className){
+	public void addAssociationClass(String key, String className) {
 		mySpriteClasses.put(key, className);
 	}
-	
+
 	public void addAssociationImage(String key, String imageName) {
 		if (!mySpriteImages.containsKey(key))
 			mySpriteImages.put(key, new ArrayList<String>());
 		mySpriteImages.get(key).add(imageName);
 	}
 
-	public PlayField processMap(){
+	public PlayField processMap() {
 		try {
 			loadMappedSprites(path);
 		} catch (IOException e) {
@@ -91,7 +94,8 @@ public class MapReader {
 		myWidth = 0;
 		myHeight = 0;
 
-		//	TODO: Need an error check if the pathName is messed up - resources job?
+		// TODO: Need an error check if the pathName is messed up - resources
+		// job?
 
 		Scanner lineReader = new Scanner(new File(pathName));
 
@@ -102,7 +106,8 @@ public class MapReader {
 			if (!currentLine.startsWith("#")) {
 				lines.add(currentLine);
 
-				//Ensures that myWidth is equal to the length of the longest line in the map
+				// Ensures that myWidth is equal to the length of the longest
+				// line in the map
 				myWidth = Math.max(myWidth, currentLine.length());
 			}
 		}
@@ -112,39 +117,61 @@ public class MapReader {
 		Character currentKey = ' ';
 		myHeight = lines.size();
 		SpriteGroup mapGroup = new SpriteGroup("Map Group");
-		
-		Class<?>[] constructorParams = {double.class, double.class, BufferedImage[].class};
-		
+
+		// Class<?>[] constructorParams = {double.class, double.class,
+		// BufferedImage[].class};
+
 		for (int j = 0; j < myWidth; j++) {
 			for (int k = 0; k < myHeight; k++) {
 				double x = spritesToPixels(j);
 				double y = spritesToPixels(k);
 
-				currentKey = (j < lines.get(k).length()) ? lines.get(k).charAt(j) : ' ';
-				
-				if (mySpriteClasses.containsKey(currentKey+"")){
-					String classToCreate = mySpriteClasses.get(currentKey+""); 
-					List<String> imageNames = mySpriteImages.get(currentKey+"");
-					BufferedImage[] images = new BufferedImage[imageNames.size()];
-					for(int i = 0; i < imageNames.size(); i++)
+				currentKey = (j < lines.get(k).length()) ? lines.get(k).charAt(
+						j) : ' ';
+
+				if (mySpriteClasses.containsKey(currentKey + "")) {
+					String classToCreate = mySpriteClasses.get(currentKey + "");
+					List<String> imageNames = mySpriteImages.get(currentKey
+							+ "");
+					BufferedImage[] images = new BufferedImage[imageNames
+							.size()];
+					for (int i = 0; i < imageNames.size(); i++)
 						images[i] = Resources.getImage(imageNames.get(i));
+					Class<?>[] constructorParams;
+					boolean hasItem = mySpriteItems.containsKey(currentKey + "");
+					if (hasItem) {
+						constructorParams = new Class<?>[]{ double.class,
+								double.class, BetterSprite.class,
+								BufferedImage[].class };
+					} else {
+						constructorParams = new Class<?>[]{ double.class,
+								double.class, BufferedImage[].class };
+					}
 					Class<? extends Sprite> op;
 					Constructor<? extends Sprite> cons;
 					try {
-						op = (Class<? extends Sprite>) Class.forName(classToCreate);
+						op = (Class<? extends Sprite>) Class
+								.forName(classToCreate);
 						cons = op.getConstructor(constructorParams);
-						Sprite obj = cons.newInstance(x,y,images);
+						Sprite obj = null;
+						if(hasItem)
+							obj = cons.newInstance(x, y, mySpriteItems.get(currentKey+""));
+						else
+							obj = cons.newInstance(x, y, images);
 						mapGroup.add(obj);
 					} catch (Exception e) {
-						throw ClassAssociatedException.CLASS_NOT_FOUND ;
+						throw ClassAssociatedException.CLASS_NOT_FOUND;
 					}
-				}
-				else{
-					if(currentKey!=' ')
+				} else {
+					if (currentKey != ' ')
 						throw ClassAssociatedException.CHARACTER_NOT_FOUND;
 				}
 			}
 		}
 		myPlayfield.addGroup(mapGroup);
+	}
+
+	public void addAssociationItem(String key, BetterSprite item) {
+		mySpriteItems.put(key, item);
 	}
 }

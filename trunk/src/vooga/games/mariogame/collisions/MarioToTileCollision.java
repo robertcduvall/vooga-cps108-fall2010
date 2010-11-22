@@ -1,8 +1,8 @@
 package vooga.games.mariogame.collisions;
 
 import vooga.engine.core.Game;
+import vooga.engine.factory.MapTile;
 import vooga.games.mariogame.sprites.MarioSprite;
-import vooga.games.mariogame.tiles.Tile;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -33,7 +33,7 @@ public class MarioToTileCollision extends BetterCollisionGroup {
 			break;
 		case (TOP_BOTTOM_COLLISION):
 			mario.setVerticalSpeed(0);
-			((Tile) tile).actOnCollision(mario);
+			((MapTile) tile).actOnCollision(mario);
 			break;
 		case (BOTTOM_TOP_COLLISION):
 			mario.setVerticalSpeed(0);
