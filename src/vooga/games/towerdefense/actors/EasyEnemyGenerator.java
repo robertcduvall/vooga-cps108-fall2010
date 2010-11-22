@@ -10,7 +10,7 @@ import com.golden.gamedev.object.Timer;
 
 public class EasyEnemyGenerator extends EnemyGenerator{
 
-	private static final int SECOND = 100;
+	private static final int SECOND = 1000;
 	private Timer hit1;
 	private Timer hit2;
 	private Timer hit3;
