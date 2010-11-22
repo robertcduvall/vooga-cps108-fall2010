@@ -13,6 +13,13 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
 import vooga.games.doodlejump.buttons.PlayButton;
 
+/**
+ * The StartMenuState class extends MenuGameState and creates a menu that
+ * BlahThis can be started from.
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ * 
+ */
 public class StartMenuState extends MenuGameState {
 
 	private Game myGame;
@@ -40,7 +47,7 @@ public class StartMenuState extends MenuGameState {
 		getMenuPlayfield().update(elapsedTime);
 		myEventPool.checkEvents();
 	}
-	
+
 	/**
 	 * Method called to render fonts to the screen, as well as the background.
 	 */

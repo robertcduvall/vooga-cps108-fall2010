@@ -5,12 +5,20 @@ import vooga.engine.event.IEventHandler;
 import vooga.engine.state.GameState;
 import vooga.games.doodlejump.DoodleSprite;
 
-public class DoodleDiedEvent implements IEventHandler{
+/**
+ * The DoodleDiedEvent implement IEventHandler and activates myGameOverState
+ * when Doodle Dies
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ * 
+ */
+public class DoodleDiedEvent implements IEventHandler {
 	private DoodleSprite myDoodle;
 	private Game myGame;
 	private GameState myGameOverState;
-	
-	public DoodleDiedEvent(DoodleSprite doodle, Game game, GameState gameOverState) {
+
+	public DoodleDiedEvent(DoodleSprite doodle, Game game,
+			GameState gameOverState) {
 		myDoodle = doodle;
 		myGame = game;
 		myGameOverState = gameOverState;
