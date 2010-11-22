@@ -15,17 +15,21 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class DoodleToWhitePlatformCollision extends BasicCollisionGroup {
 
+	private static final int ZERO_VERTICAL_SPEED = 0;
+	private static final int SUBTRACT_HEIGHT = 15;
+	private static final double DOODLE_VERTICAL_SPEED = -0.5;
+
 	public DoodleToWhitePlatformCollision(Game game) {
 		pixelPerfectCollision = true;
 	}
 
 	@Override
 	public void collided(Sprite doodle, Sprite white_platform) {
-		if (doodle.getVerticalSpeed() > 0
-				&& doodle.getY() + doodle.getHeight() - 15 < white_platform
+		if (doodle.getVerticalSpeed() > ZERO_VERTICAL_SPEED
+				&& doodle.getY() + doodle.getHeight() - SUBTRACT_HEIGHT < white_platform
 						.getY() && !((DoodleSprite) doodle).getDied()) {
 			white_platform.setActive(false);
-			doodle.setVerticalSpeed(-0.5);
+			doodle.setVerticalSpeed(DOODLE_VERTICAL_SPEED);
 		}
 	}
 

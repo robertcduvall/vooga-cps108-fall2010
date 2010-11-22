@@ -20,17 +20,23 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class DoodleToGreenPlatformCollision extends BasicCollisionGroup {
 
+	private static final int ZERO_VERTICAL_SPEED = 0;
+	private static final int SUBTRACT_HEIGHT = 15;
+	private static final double DOODLE_VERTICAL_SPEED = -0.6;
+
+	private static final String JUMP_SOUND_STRING = "jumpSound";
+
 	public DoodleToGreenPlatformCollision(Game game) {
 		pixelPerfectCollision = true;
 	}
 
 	@Override
 	public void collided(Sprite doodle, Sprite green_platform) {
-		if (doodle.getVerticalSpeed() > 0
-				&& doodle.getY() + doodle.getHeight() - 15 < green_platform
+		if (doodle.getVerticalSpeed() > ZERO_VERTICAL_SPEED
+				&& doodle.getY() + doodle.getHeight() - SUBTRACT_HEIGHT < green_platform
 						.getY() && !((DoodleSprite) doodle).getDied()) {
-			doodle.setVerticalSpeed(-0.6);
-			SoundPlayer.playSound(Resources.getSound("jumpSound"));
+			doodle.setVerticalSpeed(DOODLE_VERTICAL_SPEED);
+			SoundPlayer.playSound(Resources.getSound(JUMP_SOUND_STRING));
 		}
 	}
 }
