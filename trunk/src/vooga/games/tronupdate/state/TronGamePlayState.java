@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -52,15 +53,20 @@ public class TronGamePlayState extends GameState{
 	private Queue<SpeedUpBonus> bonusList;
 	private SpeedUpBonus prev=null;
 	private AI ai;
-	//private int currentLevel;
+	private int currentLevel=0;//0,1,2
+	private int totalLevel=3;
 	//private OverlayTracker tracker;
 	
-	
+	private boolean[][] levelBlocks;
+	private int totalRow,totalCol;
 	
 	public static final int GRID_WIDTH=Resources.getInt("width")/Resources.getInt("playerimagewidth");
 	public static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
 	public static final String PLAYER_CLASS="vooga.games.tronupdate.items.TronPlayer";
 	public static final int PLAYER_IMAGE_WIDTH=Resources.getInt("playerimagewidth");
+	private static final int RANDOM_BLOCK_SIZE = 15;
+	private static final int MINIMUM_RANDOM_BLOCKS = 5;
+	private static final int RANDOM_LEVEL_BLOCKS = 3;
 	
 	public TronGamePlayState(Game game){
 		//super();
@@ -73,7 +79,16 @@ public class TronGamePlayState extends GameState{
 		this.game = game;
 		this.stateManager=stateManager;
 	}
+	public int getCurrentLevel(){
+		return currentLevel;
+	}
+	public void setLevel(int level){
+		currentLevel=level;
+	}
 
+	public int getTotalLevel(){
+		return totalLevel;
+	}
 	@Override
 	public void initialize() {
 		initializeSprites();
@@ -158,6 +173,43 @@ public class TronGamePlayState extends GameState{
 		for(SpeedUpBonus bonus:bonusList){
 			bonus.setActive(false);
 			playField.getGroup(spritegroups[2]).add(bonus);
+		}
+		
+		createRandomLevelBlocks();
+	}
+	
+	/**
+	 * create random obstacle blocks for the level
+	 */
+	public void createRandomLevelBlocks(){	
+		if(currentLevel==0){
+		int randomNumberOfBlocks = (int)Math.ceil(Math.random() * RANDOM_LEVEL_BLOCKS) + MINIMUM_RANDOM_BLOCKS;
+
+		for (int i = 0; i < randomNumberOfBlocks; i++){
+			int randomRow = (int)Math.floor(Math.random()*totalRow);
+			int randomCol = (int)Math.floor(Math.random()*totalCol);
+			int randomWidth = (int)Math.ceil(Math.random()*RANDOM_BLOCK_SIZE);
+			int randomHeight = (int)Math.ceil(Math.random()*RANDOM_BLOCK_SIZE);
+
+
+
+			randomHeight = (randomRow+randomHeight>=totalRow)? totalRow-randomRow:randomHeight;
+			randomWidth = (randomCol+randomWidth>=totalCol)? totalCol-randomCol:randomWidth;
+
+			for(int index1=0;index1<randomHeight;index1++){
+				for(int index2 = 0;index2<randomWidth;index2++){
+					playField.getGroup(Resources.getString("block")).add(new BetterSprite(Resources.getImage("greenlazer"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
+				//	blocksGroup.add(new Sprite(Resources.getImage("lazer_green"),(randomCol+index1)*PLAYER_IMAGE_WIDTH,(randomRow+index2)*PLAYER_IMAGE_WIDTH));
+					levelBlocks[randomRow+index1][randomCol+index2] = true;
+				}		
+			}
+		}	
+		}
+		else if (currentLevel==1){
+			
+		}
+		else if (currentLevel==2){
+			
 		}
 	}
 	
@@ -245,8 +297,19 @@ public class TronGamePlayState extends GameState{
 			for(int i=0;i<GRID_WIDTH;i++){
 				Arrays.fill(blocksTaken[i],false);
 			}
+			
+			totalRow = firstPlayer.grid.getTotalRow();
+			totalCol = firstPlayer.grid.getTotalColumn();
+			levelBlocks = new boolean[totalRow][totalCol];
+			for(int i=0;i<totalRow;i++){
+				Arrays.fill(levelBlocks[i],false);
+			}
+			
+			
 	}
 	
+
+
 	
 	public void render(Graphics2D g) {
 		playField.render(g);

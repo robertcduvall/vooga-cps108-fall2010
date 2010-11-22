@@ -3,7 +3,7 @@
 		<Image name="redlazer" path="redlazer.png" />
 		<Image name="bluelazer" path="bluelazer.png" />
 		<Image name="yellowbonus" path="yellowlazer.png" />
-		<Image name="greenplayer" path="greenlazer.png" />
+		<Image name="greenlazer" path="greenlazer.png" />
 		<Image name="gamepause" path="gamepause.png" />
 		<Image name="gamestart" path="gamestart.png" />
 	</Images>
