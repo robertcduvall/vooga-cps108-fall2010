@@ -27,7 +27,7 @@ import vooga.games.zombieland.collisions.*;
 import vooga.games.zombieland.items.*;
 import vooga.games.zombieland.weapons.*;
 
-public class ZombielandPlayState extends GameState implements Constants{
+public class ZombielandPlayState extends GameState implements Constants {
 
 	private static Blah currentGame;
 
@@ -48,49 +48,49 @@ public class ZombielandPlayState extends GameState implements Constants{
 	public ZombielandPlayState(Blah game) {
 		currentGame = game;
 	}
-	
+
 	/**
-	 * setup 
+	 * setup
 	 */
 	public void initialize() {
 		OverlayCreator.setGame(currentGame);
-		tracker = OverlayCreator
-				.createOverlays(XML_PATH);
+		tracker = OverlayCreator.createOverlays(XML_PATH);
 		random = new Random();
-	
+
 		LevelParser parser = new LevelParser();
-		playField = parser.getPlayfield("src/vooga/games/zombieland/resources/levels/level1.xml", currentGame);
-		
+		playField = parser.getPlayfield(
+				"src/vooga/games/zombieland/resources/levels/level1.xml",
+				currentGame);
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
 		
-		//initializePlayer();
+		// initializePlayer();
 		initEnvironment();
 		initOverlays();
 		setListeners();
 	}
-	
+
 	/**
 	 * Set the player with initial weapons and stats
 	 */
-//	private void initializePlayer() {
-//
-//		Stat<Integer> initHealth = tracker.getStat("initHealth", new Integer(0));
-//		Stat<Integer> initAmmo = tracker.getStat("initAmmo", new Integer(0));
-//		Stat<Integer> initScore = tracker.getStat("initScore", new Integer(0));
-//
-//		player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
-//				initScore);
-//		player.setActive(true);
-//	}
+	// private void initializePlayer() {
+	//
+	// Stat<Integer> initHealth = tracker.getStat("initHealth", new Integer(0));
+	// Stat<Integer> initAmmo = tracker.getStat("initAmmo", new Integer(0));
+	// Stat<Integer> initScore = tracker.getStat("initScore", new Integer(0));
+	//
+	// player = new Shooter("Hero", "Down", currentGame, initHealth, initAmmo,
+	// initScore);
+	// player.setActive(true);
+	// }
 
-//	/**
-//	 * This method returns the Pause string
-//	 * 
-//	 * @return
-//	 */
-//	public OverlayString getOverlayPauseString() {
-//		return overlayPauseString;
-//	}
+	// /**
+	// * This method returns the Pause string
+	// *
+	// * @return
+	// */
+	// public OverlayString getOverlayPauseString() {
+	// return overlayPauseString;
+	// }
 
 	/**
 	 * This method initializes the zombies, bullets, players, overlays
@@ -98,42 +98,45 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * associate these managers with playField.
 	 */
 	private void initEnvironment() {
-//		playField = new PlayField();
-		
+		// playField = new PlayField();
 
-		
-//		//Set up the music
-//		String audiofile = Resources.getString("gamemusic");
-//		currentGame.playMusic(audiofile);
-//
-//		//Set up the game background
-//		BufferedImage sandbg = Resources.getImage("sandbackground");
-//		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
-//				GAME_HEIGHT);
-//		playField.setBackground(background);
-//
-//		String spritegroupslist = Resources.getString("spritegroupslist");
-//		String delim = Resources.getString("delim");
-//		String[] spritegroups = spritegroupslist.split(delim);
-//		for(int i = 0; i < spritegroups.length; i++)
-//		{
-//			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
-//			playField.addGroup(currentGroup);
-//		}
-//		
-//		//Have not used reflections to be able to call on objects. I 
-//		//have not look into how to do that yet.
-//		PZCollisionManager playerZombieManager = new PZCollisionManager();
-//		playField.getGroup("Players").add(player);
-//		WallBoundManager entityWallManager = new WallBoundManager(background);
-//		BZCollisionManager bulletZombieManager = new BZCollisionManager();
-//		HICollisionManager humanItemManager = new HICollisionManager();
-//		
-//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Zombies"), playerZombieManager);
-//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Players"), entityWallManager);
-//		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
-//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
-//		
+		// //Set up the music
+		// String audiofile = Resources.getString("gamemusic");
+		// currentGame.playMusic(audiofile);
+		//
+		// //Set up the game background
+		// BufferedImage sandbg = Resources.getImage("sandbackground");
+		// ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
+		// GAME_HEIGHT);
+		// playField.setBackground(background);
+		//
+		// String spritegroupslist = Resources.getString("spritegroupslist");
+		// String delim = Resources.getString("delim");
+		// String[] spritegroups = spritegroupslist.split(delim);
+		// for(int i = 0; i < spritegroups.length; i++)
+		// {
+		// SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
+		// playField.addGroup(currentGroup);
+		// }
+		//
+		// //Have not used reflections to be able to call on objects. I
+		// //have not look into how to do that yet.
+		// PZCollisionManager playerZombieManager = new PZCollisionManager();
+		// playField.getGroup("Players").add(player);
+		// WallBoundManager entityWallManager = new
+		// WallBoundManager(background);
+		// BZCollisionManager bulletZombieManager = new BZCollisionManager();
+		// HICollisionManager humanItemManager = new HICollisionManager();
+		//
+		// playField.addCollisionGroup(playField.getGroup("Players"),
+		// playField.getGroup("Zombies"), playerZombieManager);
+		// playField.addCollisionGroup(playField.getGroup("Players"),
+		// playField.getGroup("Players"), entityWallManager);
+		// playField.addCollisionGroup(playField.getGroup("Bullets"),
+		// playField.getGroup("Zombies"), bulletZombieManager);
+		// playField.addCollisionGroup(playField.getGroup("Players"),
+		// playField.getGroup("Items"), humanItemManager);
+		//
 		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
 
@@ -146,14 +149,14 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * OverlayLevelString, overllayPauseString.
 	 */
 	public void initOverlays() {
-		
-		
+
 		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
 		statLevel = tracker.getStat("initLevel", new Integer(0));
-	
+
 		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
-		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
+		overlayGameOverString = tracker.getOverlay("gameOver",
+				overlayGameOverString);
 		overlayGameOverString.setActive(false);
 		playField.addGroup(overlays);
 	}
@@ -188,16 +191,16 @@ public class ZombielandPlayState extends GameState implements Constants{
 				* zombieLimitingFactor;
 	}
 
-//	/**
-//	 * Add a zombie to the world. The position is randomly picked. The health
-//	 * and damage will increase every level.
-//	 */
-//	public void addZombie() {
-//		Zombie newZombie = new Zombie();
-//		zombiesAppeared++;
-//		SpriteGroup zombies = playField.getGroup("Zombies");
-//		zombies.add(newZombie);
-//	}
+	/**
+	 * Add a zombie to the world. The position is randomly picked. The health
+	 * and damage will increase every level.
+	 */
+	public void addZombie() {
+		Zombie newZombie = new Zombie();
+		zombiesAppeared++;
+		SpriteGroup zombies = playField.getGroup("Zombies");
+		zombies.add(newZombie);
+	}
 
 	/**
 	 * Load the image for a bullet with the correct orientation with respect to
@@ -291,15 +294,20 @@ public class ZombielandPlayState extends GameState implements Constants{
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
 
-		
-		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS,
+				new Class[] { int.class });
 		control.setParams(KeyEvent.VK_1, 0);
-		
-		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+
+		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS,
+				new Class[] { int.class });
 		control.setParams(KeyEvent.VK_2, 1);
-		
-		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
+
+		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS,
+				new Class[] { int.class });
 		control.setParams(KeyEvent.VK_3, 2);
+		
+		control.addInput(KeyEvent.VK_ESCAPE, "pause", MAIN_CLASS);
+		control.addInput(KeyEvent.VK_P, "pause", MAIN_CLASS);
 	}
 
 	/**
@@ -307,32 +315,29 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * if more zombies can be added or if the level has been completed.
 	 */
 	public void update(long elapsedTime) {
-	
-//		if (isActive()) {
-//			playField.update(elapsedTime);
-//			control.update();
-//			if (moreZombieCanBeAdded()) {
-//				if (timer.action(elapsedTime)) {
-//					addZombie();
-//				}
-//			} else if (levelCompleted()) {
-//				statLevel.setStat(level + 1);
-//				overlayLevelStat.update(elapsedTime);
-//				overlayLevelStat.setActive(true);
-//				playField.update(elapsedTime);
-//	
-//				if (timer.action(elapsedTime)) {
-//	
-//					setNewDelay();
-//					resetZombiesCount();
-//	
-//					level++;
-//	
-//					player.resetLevelScore();
-//					overlayLevelStat.setActive(false);
-//				}
-//			}
-//		}
+		super.update(elapsedTime);
+		control.update();
+		if (moreZombieCanBeAdded()) {
+			if (timer.action(elapsedTime)) {
+				addZombie();
+			}
+		} else if (levelCompleted()) {
+			statLevel.setStat(level + 1);
+			overlayLevelStat.update(elapsedTime);
+			overlayLevelStat.setActive(true);
+			playField.update(elapsedTime);
+
+			if (timer.action(elapsedTime)) {
+
+				setNewDelay();
+				resetZombiesCount();
+
+				level++;
+
+				player.resetLevelScore();
+				overlayLevelStat.setActive(false);
+			}
+		}
 	}
 
 	/**
