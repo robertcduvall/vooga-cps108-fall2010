@@ -6,6 +6,11 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.level.Rule;
 import vooga.engine.resource.Resources;
 
+/**
+ * Allow DoodleSprite to move through the left wall
+ * 
+ * @author Cody
+ */
 public class LeftWall implements Rule {
 
 	private final int LEFT_WALL_POSITION = 0;
