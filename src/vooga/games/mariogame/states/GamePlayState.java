@@ -149,7 +149,7 @@ public class GamePlayState extends GameState {
 	}
 
 	public int getScore() {
-		return (Integer) ((BetterSprite)getLevel().getGroup("marioGroup").getActiveSprite()).getStat("Score").getStat();
+		return (Integer) ((BetterSprite)getLevel().getGroup("marioGroup").getActiveSprite()).getStat("score").getStat();
 	}
 
 	/**

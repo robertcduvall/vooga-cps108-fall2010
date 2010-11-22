@@ -25,7 +25,7 @@ public class OffScreen implements Rule{
     @Override
     public boolean isSatisfied(SpriteGroup ...groups) {
     	MarioSprite mario = (MarioSprite) groups[0].getSprites()[0];
-    	if(mario != null && mario.isOnScreen())
+    	if(mario != null && mario.getY()<=mario.getBackground().getHeight())
     		return false;
     	return true;
     }

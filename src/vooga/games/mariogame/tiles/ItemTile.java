@@ -26,7 +26,7 @@ public class ItemTile extends ChangingTile {
 	public void actOnCollision(Sprite sprite) {
 		if (!isLocked()) {
 			super.actOnCollision(sprite);
-			((MarioSprite) sprite).incScore(10);
+//			((MarioSprite) sprite).incScore(10);
 			releaseItem = true;
 			lock();
 		}
