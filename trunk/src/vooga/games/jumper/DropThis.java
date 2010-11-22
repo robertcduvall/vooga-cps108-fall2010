@@ -133,8 +133,8 @@ public class DropThis extends vooga.engine.core.Game {
 		
 	}
 
-	private void initGameStates(PlayField levelPlayField) {
-		playState = new PlayGameState(this, levelPlayField);
+	private void initGameStates(PlayField pf) {
+		playState = new PlayGameState(this, pf);
 		pauseState = new PauseGameState(playState);
 		stateManager.addGameState(playState, pauseState);
 	}

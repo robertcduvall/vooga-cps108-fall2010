@@ -19,7 +19,7 @@ public class Gravity implements Rule{
 	
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		for (SpriteGroup group: groups){
+		for (SpriteGroup group: groups) {
 			applyGravity(group);
 		}
 	}
