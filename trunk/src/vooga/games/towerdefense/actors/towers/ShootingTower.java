@@ -46,7 +46,7 @@ public abstract class ShootingTower extends Tower{
 	
 	public boolean canShoot()
 	{
-		return timeSinceShot>shotDelay;
+		return timeSinceShot>shotDelay && getTarget()!=null;
 	}
 	
 	public ShootEvent getShootEvent()
