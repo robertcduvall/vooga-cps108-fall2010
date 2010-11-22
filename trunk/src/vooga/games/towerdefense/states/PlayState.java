@@ -19,13 +19,16 @@ import vooga.games.towerdefense.actors.MediumEnemyGenerator;
 import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.buttons.TowerSwitchButton;
 import vooga.games.towerdefense.collisions.ShotToEnemyCollision;
+import vooga.games.towerdefense.events.AfterCounterEvent;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
 import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
 import vooga.games.towerdefense.events.ShootEvent;
+import vooga.widget.counter.Counter;
 import vooga.widget.Button;
+
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -45,11 +48,14 @@ import com.golden.gamedev.util.ImageUtil;
  */
 public class PlayState extends GameState{	
 	
+	
+	private static final int SECOND = 1000;
 	private PlayField myPlayField;
 	private LevelManager myLevelManager;
 	private OverlayTracker myTracker;
 	private SpriteGroup myEnemyGroup;
 	private SpriteGroup myShotGroup;
+	private EnemyGenerator myEnemyGenerator;
 	
 	public PlayState(OverlayTracker tracker, LevelManager levelManager){
 		myLevelManager = levelManager;
@@ -62,6 +68,9 @@ public class PlayState extends GameState{
 		addOverlays();
 		myPlayField.addGroup(myEnemyGroup);
 		myPlayField.addGroup(myShotGroup);
+		Counter counter = new Counter(10, SECOND, SECOND*2, 150, new AfterCounterEvent(myPlayField, myEnemyGenerator));
+		counter.setLocation(Resources.getInt("playFieldWidth")/2 - 75,Resources.getInt("playFieldHeight")/2 - 75);
+		myPlayField.add(counter);
 		addPlayField(myPlayField);
 		initCollisions();
 	}
@@ -102,9 +111,8 @@ public class PlayState extends GameState{
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		
-		EnemyGenerator enemyGenerator = new MediumEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
-		player.addPathBoundary(enemyGenerator.getPath());
-		myPlayField.add(enemyGenerator);
+		myEnemyGenerator = new MediumEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
+		player.addPathBoundary(myEnemyGenerator.getPath());
 		
 		eventPool.addEvent(failEvent);
 		eventPool.addEvent(buildEnemy);

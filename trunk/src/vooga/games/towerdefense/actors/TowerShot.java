@@ -27,8 +27,7 @@ public class TowerShot extends BetterSprite{
 	}
 	
 	public void update(long elapsedTime){
-		moveTo(elapsedTime, destination.x, destination.y, speed);
-		//setActive(!moveTo(elapsedTime, destination.x, destination.y, speed));
+		setActive(!moveTo(elapsedTime, destination.x, destination.y, speed));
 	}
 
 }
