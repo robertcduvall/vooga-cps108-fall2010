@@ -54,6 +54,10 @@
 		<Integer name="gameWidth" value="500" />
 		<Integer name="gameHeight" value="800" />
 		<Integer name="distanceFromFloorToBottom" value="75" />
+		<Integer name="leftKey" value="37" />
+		<Integer name="rightKey" value="39" />
+		<Integer name="upKey" value="38" />
+		<Integer name="cheatKey" value="67" />
 	</Integers>
 
 	<Doubles>
