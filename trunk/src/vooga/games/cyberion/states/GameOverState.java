@@ -31,8 +31,6 @@ public class GameOverState extends MenuGameState {
 	@Override
 	public void initialize() {
 		eventPool = new EventPool();
-		
-
 		this.myQuitButton = new QuitButton(myGame);
 
 		addButton(myQuitButton);

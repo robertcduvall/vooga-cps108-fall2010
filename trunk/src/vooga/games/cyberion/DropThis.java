@@ -94,6 +94,8 @@ public class DropThis extends Game {
 		stateManager
 				.addGameState(myGameCompleteState = new GameCompleteState());
 		stateManager.addGameState(myGameOverState = new GameOverState(this));
+		stateManager.addGameState(myPauseState = new PauseGameState(
+				myPlayState, "Paused"));
 		stateManager.activateOnly(myMenuState);
 		((Dead) myPlayState.getPlayField().getRule("Dead"))
 				.setGameStateManager(stateManager, myGameOverState);
