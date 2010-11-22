@@ -20,8 +20,6 @@
 		
 	</SpriteGroups>
 	
-	<Events></Events>
-	
 	<Rules>
 		<Rule name="Gravity" class="vooga.games.jumper.rules.Gravity">
 			<SpriteGroup name="doodleSprite" />
@@ -41,9 +39,7 @@
 		</Rule>
 		<Rule name="Decelerate" class="vooga.games.jumper.rules.Decelerate">
 			<SpriteGroup name="doodleSprite" />
-		</Rule>		
-		
-		
+		</Rule>				
 	</Rules>
 
 	<CollisionGroups>
@@ -57,7 +53,4 @@
 		<Background name = "backgroundImage" />
 	</Backgrounds>
 	
-	<Music />
-	<Map />
-
 </Level>

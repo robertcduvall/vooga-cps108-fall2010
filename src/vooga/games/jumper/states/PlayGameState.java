@@ -10,7 +10,7 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.jumper.DropThis;
 import vooga.games.jumper.events.BlockOffScreenEvent;
-import vooga.games.jumper.events.DeathEvent;
+import vooga.games.jumper.events.EndGameEvent;
 import vooga.games.jumper.events.InfiniteBlocksEvent;
 
 public class PlayGameState extends GameState{
@@ -46,7 +46,7 @@ public class PlayGameState extends GameState{
 		eventPool.addEvent(new InfiniteBlocksEvent(this));
 		eventPool.addEvent(new BlockOffScreenEvent(this));
 		eventPool.addEvent(new DeathEvent(myDropThis, this));
-		System.out.println(this.getGroup("normalBlocks").getSize());
+		eventPool.addEvent(new EndGameEvent(myGame));
 	}
 	
 	private void initLevel(){
