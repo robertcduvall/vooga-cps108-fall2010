@@ -20,16 +20,16 @@ public class PauseState extends GameState implements Constants {
 	public PauseState(Blah g) {
 		OverlayCreator.setGame(g);
 		game = g;
-		tracker = OverlayCreator.createOverlays(XML_PATH);
+		tracker = OverlayCreator.createOverlays(PAUSE_XML_PATH);
 
 	}
 
 	public void initialize() {
-		int pauseX = Resources.getInt("overlayPauseStringX");
-		int pauseY = Resources.getInt("overlayPauseStringY");
+//		int pauseX = Resources.getInt("overlayPauseStringX");
+//		int pauseY = Resources.getInt("overlayPauseStringY");
 		overlayPauseString = tracker.getOverlay("pause", overlayPauseString);
-		overlayPauseString.setX(pauseX);
-		overlayPauseString.setY(pauseY);
+//		overlayPauseString.setX(pauseX);
+//		overlayPauseString.setY(pauseY);
 
 		PlayField p = new PlayField();
 		p.add(overlayPauseString);

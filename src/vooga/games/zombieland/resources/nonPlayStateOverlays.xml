@@ -1,0 +1,10 @@
+<Overlay>
+
+<OverlayGroup name = "PauseStateOverlays">
+<OverlayString name= "pause" label="PAUSE" fontName="gameFontRed" xLoc="260" yLoc="230"></OverlayString>
+</OverlayGroup>
+<OverlayGroup name = "GameOverOverlays">
+<OverlayString name = "gameOver" label="Game Over" fontName="gameFontBlack" xLoc="260" yLoc="230"></OverlayString>
+</OverlayGroup>
+
+</Overlay>
