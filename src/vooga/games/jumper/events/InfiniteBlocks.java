@@ -25,7 +25,6 @@ public class InfiniteBlocks implements IEventHandler {
 	public void actionPerformed() {
 		Point point = new Point(100, 100);
 		NormalBlock addBlock = new NormalBlock(Resources.getImage("platformGreen"), point, -3, 0);
-		playState.addSprites(addBlock);
-
+		playState.getGroup("normalBlocks").add(addBlock);
 	}
 }
