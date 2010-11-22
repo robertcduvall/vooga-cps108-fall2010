@@ -64,9 +64,12 @@ public class TronGamePlayState extends GameState{
 	public static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
 	public static final String PLAYER_CLASS="vooga.games.tronupdate.items.TronPlayer";
 	public static final int PLAYER_IMAGE_WIDTH=Resources.getInt("playerimagewidth");
-	private static final int RANDOM_BLOCK_SIZE = 15;
-	private static final int MINIMUM_RANDOM_BLOCKS = 5;
-	private static final int RANDOM_LEVEL_BLOCKS = 3;
+	
+	private static int RANDOM_BLOCK_SIZE = 5;//15;
+	private static int MINIMUM_RANDOM_BLOCKS = 5;
+	private static int RANDOM_LEVEL_BLOCKS = 3;
+	
+	//int numBlocks,int minumumBlocks,int blockSize
 	
 	public TronGamePlayState(Game game){
 		//super();
@@ -174,22 +177,29 @@ public class TronGamePlayState extends GameState{
 			bonus.setActive(false);
 			playField.getGroup(spritegroups[2]).add(bonus);
 		}
-		
-		createRandomLevelBlocks();
+		if(currentLevel==0){
+		createRandomLevelBlocks(RANDOM_BLOCK_SIZE,MINIMUM_RANDOM_BLOCKS,RANDOM_LEVEL_BLOCKS);
+		}
+		else if (currentLevel==1){
+			
+		}
+		else if (currentLevel==2){
+			
+		}
 	}
 	
 	/**
 	 * create random obstacle blocks for the level
 	 */
-	public void createRandomLevelBlocks(){	
-		if(currentLevel==0){
-		int randomNumberOfBlocks = (int)Math.ceil(Math.random() * RANDOM_LEVEL_BLOCKS) + MINIMUM_RANDOM_BLOCKS;
+	public void createRandomLevelBlocks(int numBlocks,int minumumBlocks,int blockSize){	
+		
+		int randomNumberOfBlocks = (int)Math.ceil(Math.random() * numBlocks) + minumumBlocks;
 
 		for (int i = 0; i < randomNumberOfBlocks; i++){
 			int randomRow = (int)Math.floor(Math.random()*totalRow);
 			int randomCol = (int)Math.floor(Math.random()*totalCol);
-			int randomWidth = (int)Math.ceil(Math.random()*RANDOM_BLOCK_SIZE);
-			int randomHeight = (int)Math.ceil(Math.random()*RANDOM_BLOCK_SIZE);
+			int randomWidth = (int)Math.ceil(Math.random()*blockSize);
+			int randomHeight = (int)Math.ceil(Math.random()*blockSize);
 
 
 
@@ -204,13 +214,8 @@ public class TronGamePlayState extends GameState{
 				}		
 			}
 		}	
-		}
-		else if (currentLevel==1){
-			
-		}
-		else if (currentLevel==2){
-			
-		}
+		
+		
 	}
 	
 	/**
