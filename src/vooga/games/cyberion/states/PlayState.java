@@ -41,6 +41,7 @@ public class PlayState extends GameState {
 		// spriteGroupSpeedMap = new HashMap<SpriteGroup, Double>();
 		newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
+		//player.setEventManager(eventPool);
 		newField.setBackground(new ColorBackground(Color.BLACK));
 		initControls();
 		initEvents();

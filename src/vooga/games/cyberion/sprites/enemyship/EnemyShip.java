@@ -36,6 +36,12 @@ public class EnemyShip extends BetterSprite {
 			rnd = new Random();
 			this.eventManager = eventManager;
 		}
+		
+		private EventPool eventPool = new EventPool();
+
+		public void setEventManager(EventPool em) {
+			eventPool = em;
+		}
 
 		public void update(long elapsedTime) {
 			super.update(elapsedTime);

@@ -12,7 +12,7 @@ public class PlayerShip extends BetterSprite {
 		vooga.engine.control.KeyboardControl keyboardControl;
 
 		public PlayerShip(){
-			super(Resources.getImage("playerShip"));
+			super();
 			
 		}
 		
@@ -33,10 +33,10 @@ public class PlayerShip extends BetterSprite {
 			this.weaponPower = weaponPower;
 		}
 
-		private EventPool eventManager = new EventPool();
+		private EventPool eventPool = new EventPool();
 
 		public void setEventManager(EventPool em) {
-			eventManager = em;
+			eventPool = em;
 		}
 
 		public vooga.engine.control.KeyboardControl setKeyboardControl(KeyboardControl kb) {
@@ -75,7 +75,7 @@ public class PlayerShip extends BetterSprite {
 		}
 
 		public void moveLeft() {
-			
+			System.out.println();
 			setX(getX() - 5);
 		}
 
@@ -89,12 +89,11 @@ public class PlayerShip extends BetterSprite {
 		}
 
 		public void listen() {
-			eventManager.addEvent(new PlayerFireEvent(this, "PlayerMoveEvent",  getX(), getY(), weaponPower));
+			eventPool.addEvent(new PlayerFireEvent(this, "PlayerMoveEvent",  getX(), getY(), weaponPower));
 		}
 
 		public void fire() {
-			
-			eventManager.addEvent( new PlayerFireEvent(this, "PlayerFireEvent", getX(), getY(), weaponPower));
+			eventPool.addEvent( new PlayerFireEvent(this, "PlayerFireEvent", getX(), getY(), weaponPower));
 		}
 
 		public boolean isAlive() {
