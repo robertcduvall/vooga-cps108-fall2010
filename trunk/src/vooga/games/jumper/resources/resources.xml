@@ -47,17 +47,17 @@
 		<String name="levelFilesDirectory" value="src/vooga/games/jumper/resources/levels" />
 		<String name="levelNamesFile" value="LevelNames.txt" />
 		<String name="Level1" value="levels/jumper.xml" />
-		<String name="DoodleSprite" value="vooga.games.jumper.sprites.DoodleSprite" />
+		<String name="DoodleSprite" value="vooga/games/jumper/sprites/DoodleSprite" />
 	</Strings>
 
 	<Integers>
 		<Integer name="gameWidth" value="500" />
 		<Integer name="gameHeight" value="800" />
 		<Integer name="distanceFromFloorToBottom" value="75" />
-		<Integer name="leftKey" value="37" />
-		<Integer name="rightKey" value="39" />
-		<Integer name="upKey" value="38" />
-		<Integer name="cheatKey" value="67" />
+		<Integer name="left key" value="37" />
+		<Integer name="right key" value="39" />
+		<Integer name="up key" value="38" />
+		<Integer name="cheat key" value="67" />
 	</Integers>
 
 	<Doubles>
