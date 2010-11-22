@@ -28,7 +28,7 @@ public class PlayState extends GameState {
 	private KeyboardControl playerControl;
 	private EventPool eventPool;
 	private PlayerShip player;
-	private String PLAYER_CLASS;
+	private String PLAYER_CLASS = "vooga.games.cyberion.sprites.playership.PlayerShip";
 	private PlayField newField;
 
 	public PlayState(LevelManager levelManager, DropThis game) {
@@ -44,8 +44,7 @@ public class PlayState extends GameState {
 		newField.setBackground(new ColorBackground(Color.BLACK));
 		initControls();
 		initEvents();
-		this.addUpdatePlayField(newField);
-		this.addRenderPlayField(newField);
+		addPlayField(newField);
 	}
 
 	@Override
@@ -68,6 +67,7 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
+		newField.addControl("playerGroup", playerControl);
 	}
 
 	// TODO this method is being used for collision handling also
