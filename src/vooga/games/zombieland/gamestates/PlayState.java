@@ -47,58 +47,35 @@ public class PlayState extends GameState implements Constants{
 
 	private AddZombieEvent addZombies;
 	private LevelEndEvent endLevel;
-	
+
 	private Stat<Integer> statLevel;
 	private int level;
-//	private int zombiesAppeared;
 
 	public PlayState(Blah game) {
 		currentGame = game;
 	}
-	
+
 	/**
 	 * setup 
 	 */
 	public void initialize() {
 		OverlayCreator.setGame(currentGame);
 		tracker = OverlayCreator
-				.createOverlays(XML_PATH);
-		levelTracker = OverlayCreator.createOverlays(PAUSE_XML_PATH);
+		.createOverlays(XML_PATH);
+		levelTracker = OverlayCreator.createOverlays(STATES_XML_PATH);
 		random = new Random();
-        LevelParser parser = new LevelParser();
-        playField = parser.getPlayfield(
-                        "src/vooga/games/zombieland/resources/levels/level1.xml",
-                        currentGame);
-        player = (Shooter) playField.getGroup("Players").getSprites()[0];
-        player.setState(this);
-//		initializePlayer();
-        initOverlays();
-		initEnvironment();
+		LevelParser parser = new LevelParser();
+		playField = parser.getPlayfield(
+				"src/vooga/games/zombieland/resources/levels/level1.xml",
+				currentGame);
+		player = (Shooter) playField.getGroup("Players").getSprites()[0];
+		player.setState(this);
 		
+		initOverlays();
+		initEnvironment();
+
 		setListeners();
 	}
-	
-	/**
-	 * Set the player with initial weapons and stats
-	 */
-//	private void initializePlayer() {
-//
-//		Stat<Integer> initHealth = tracker.getStat("initHealth", new Integer(0));
-//		Stat<Integer> initAmmo = tracker.getStat("initAmmo", new Integer(0));
-//		Stat<Integer> initScore = tracker.getStat("initScore", new Integer(0));
-//
-//		player = new Shooter();
-//		player.setActive(true);
-//	}
-
-//	/**
-//	 * This method returns the Pause string
-//	 * 
-//	 * @return
-//	 */
-//	public OverlayString getOverlayPauseString() {
-//		return overlayPauseString;
-//	}
 
 	/**
 	 * This method initializes the zombies, bullets, players, overlays
@@ -106,54 +83,19 @@ public class PlayState extends GameState implements Constants{
 	 * associate these managers with playField.
 	 */
 	private void initEnvironment() {
-//		playField = new PlayField();
-//
-//		//Set up the music
-//		String audiofile = Resources.getString("gamemusic");
-//		currentGame.playMusic(audiofile);
-//
-//		//Set up the game background
-//		BufferedImage sandbg = Resources.getImage("sandbackground");
-//		ImageBackground background = new ImageBackground(sandbg, GAME_WIDTH,
-//				GAME_HEIGHT);
-//		playField.setBackground(background);
-//
-//		String spritegroupslist = Resources.getString("spritegroupslist");
-//		String delim = Resources.getString("delim");
-//		String[] spritegroups = spritegroupslist.split(delim);
-//		for(int i = 0; i < spritegroups.length; i++)
-//		{
-//			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
-//			playField.addGroup(currentGroup);
-//		}
-//		
-		//Have not used reflections to be able to call on objects. I 
-		//have not look into how to do that yet.
-//		PZCollisionManager playerZombieManager = new PZCollisionManager();
-//		playField.getGroup("Players").add(player);
-//		WallBoundManager entityWallManager = new WallBoundManager(background);
-//		BZCollisionManager bulletZombieManager = new BZCollisionManager();
-//		HICollisionManager humanItemManager = new HICollisionManager();
-//		
-//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Zombies"), playerZombieManager);
-//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Players"), entityWallManager);
-//		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
-//		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
-		
+
 		eventPool = new EventPool();
 		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
 		endLevel = new LevelEndEvent(player, this, levelZombies());
-		createZombies();
-		
-		
-		
+		createZombies();	
+
 		eventPool.addEvent(addZombies);
 		eventPool.addEvent(endLevel);
-		
+
 		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
 
-		
+
 	}
 
 	public void createZombies() {
@@ -178,21 +120,10 @@ public class PlayState extends GameState implements Constants{
 	 * OverlayLevelString, overllayPauseString.
 	 */
 	private void initOverlays() {
-//		
-//		
-//		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
 		statLevel = levelTracker.getStat("initLevel", new Integer(0));
-//	
 		overlayLevelStat = levelTracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
-//		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
-//		overlayGameOverString.setActive(false);
-//		playField.addGroup(overlays);
 	}
-
-//	private boolean levelCompleted() {
-//		return player.getLevelScore() == zombiesAppeared;
-//	}
 
 	/**
 	 * This method sets the new Delay Time
@@ -203,33 +134,6 @@ public class PlayState extends GameState implements Constants{
 
 		timer.setDelay((long) (timeInterval / level * delayFactor));
 	}
-
-//	/**
-//	 * Make the zombieCount start back from zero.
-//	 */
-//	private void resetZombiesCount() {
-//		zombiesAppeared = 0;
-//	}
-
-//	private boolean moreZombieCanBeAdded() {
-//
-//		double zombieLimitingFactor = Resources
-//				.getDouble("zombieLimitingFactor");
-//
-//		return zombiesAppeared < Zombie.zombiesPerLevel() * level
-//				* zombieLimitingFactor;
-//	}
-
-	/**
-	 * Add a zombie to the world. The position is randomly picked. The health
-	 * and damage will increase every level.
-	 */
-//	public void addZombie() {
-//		Zombie newZombie = new Zombie("New", level, player, this);
-//		zombiesAppeared++;
-//		SpriteGroup zombies = playField.getGroup("Zombies");
-//		zombies.add(newZombie);
-//	}
 
 	/**
 	 * Load the image for a bullet with the correct orientation with respect to
@@ -324,16 +228,16 @@ public class PlayState extends GameState implements Constants{
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
 
-		
+
 		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
 		control.setParams(KeyEvent.VK_1, 0);
-		
+
 		control.addInput(KeyEvent.VK_2, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
 		control.setParams(KeyEvent.VK_2, 1);
-		
+
 		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
 		control.setParams(KeyEvent.VK_3, 2);
-		
+
 		control2.addInput(KeyEvent.VK_P, "pause", MAIN_CLASS);
 	}
 
@@ -342,34 +246,14 @@ public class PlayState extends GameState implements Constants{
 	 * if more zombies can be added or if the level has been completed.
 	 */
 	public void update(long elapsedTime) {
-	
-		if (isActive()) {
-			playField.update(elapsedTime);
-			control.update();
-			control2.update();
-				if (timer.action(elapsedTime)) {
-					overlayLevelStat.setActive(false);
-					addZombies.timeUp();
-				}
-				eventPool.checkEvents();
-//				if (levelCompleted()) {
-//				statLevel.setStat(level + 1);
-//				overlayLevelStat.update(elapsedTime);
-//				overlayLevelStat.setActive(true);
-//				playField.update(elapsedTime);
-//	
-//				if (timer.action(elapsedTime)) {
-//	
-//					setNewDelay();
-//					resetZombiesCount();
-//	
-//					level++;
-//	
-//					player.resetLevelScore();
-//					overlayLevelStat.setActive(false);
-//				}
-//			}
+		playField.update(elapsedTime);
+		control.update();
+		control2.update();
+		if (timer.action(elapsedTime)) {
+			overlayLevelStat.setActive(false);
+			addZombies.timeUp();
 		}
+		eventPool.checkEvents();
 	}
 
 	/**
@@ -381,7 +265,7 @@ public class PlayState extends GameState implements Constants{
 			overlayLevelStat.render(g);
 		}
 		if (gameOver()) {
-			renderGameOver(g);
+			endGame();
 		}
 	}
 
@@ -415,7 +299,7 @@ public class PlayState extends GameState implements Constants{
 	 * Stop the game altogether
 	 */
 	private void endGame() {
-		currentGame.finish();
+		currentGame.end();
 	}
 
 }

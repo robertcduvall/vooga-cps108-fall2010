@@ -11,25 +11,26 @@ import vooga.engine.state.GameState;
 import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.Constants;
 
-public class PauseState extends GameState implements Constants {
+public class EndGameState extends GameState implements Constants {
 
 	private OverlayTracker tracker;
-	private OverlayString overlayPauseString;
+	private OverlayString overlayGameOverString;
 	private Blah game;
 
-	public PauseState(Blah g) {
+	public EndGameState(Blah g) {
 		OverlayCreator.setGame(g);
 		game = g;
 		tracker = OverlayCreator.createOverlays(STATES_XML_PATH);
+
 	}
 
 	public void initialize() {
-		overlayPauseString = tracker.getOverlay("pause", overlayPauseString);
-		
+		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
+
 		PlayField p = new PlayField();
-		p.add(overlayPauseString);
+		p.add(overlayGameOverString);
 		KeyboardControl control = new KeyboardControl(game,game);
-		control.addInput(KeyEvent.VK_ESCAPE, "play", MAIN_CLASS);
+		control.addInput(KeyEvent.VK_ESCAPE, "reset", MAIN_CLASS);
 		p.addControl("pause", control);
 		this.addPlayField(p);
 	}

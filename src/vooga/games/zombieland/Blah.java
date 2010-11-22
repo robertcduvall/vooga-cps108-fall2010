@@ -6,6 +6,7 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.gamestates.*;
+
 /**
  * @date 10-8-10
  * @author Aaron Choi, Jimmy Mu, Yang Su
@@ -21,13 +22,12 @@ public class Blah extends Game implements Constants {
 
 	private static PlayState playState;
 	private static PauseState pauseState;
+	private static EndGameState endGameState;
 	private static MainMenu mainMenu;
 	private static HelpMenu1 helpMenu1;
 	private static HelpMenu2 helpMenu2;
 	private static CreditMenu creditMenu;
-	
-	private KeyboardControl control;
-	
+
 	/**
 	 * We overrode this method because we have specific a subclass
 	 * ResourceHandler that we implemented for our purpose
@@ -41,29 +41,44 @@ public class Blah extends Game implements Constants {
 		helpMenu1 = new HelpMenu1(this);
 		helpMenu2 = new HelpMenu2(this);
 		creditMenu = new CreditMenu(this);
+		endGameState = new EndGameState(this);
+		getGameStateManager().addGameState(mainMenu, helpMenu1, helpMenu2,
+				creditMenu, pauseState, playState, endGameState);
+	}
 
-		getGameStateManager().addGameState(mainMenu,helpMenu1,helpMenu2,creditMenu,pauseState, playState);
+	public void play() {
+		getGameStateManager().switchTo(playState);
 	}
 
 	public void pause() {
-		getGameStateManager().activateOnly(pauseState);
+		getGameStateManager().switchTo(pauseState);
 	}
+
 	public void main() {
-		getGameStateManager().activateOnly(mainMenu);
+		getGameStateManager().switchTo(mainMenu);
 	}
+
 	public void help1() {
-		getGameStateManager().activateOnly(helpMenu1);
+		getGameStateManager().switchTo(helpMenu1);
 	}
+
 	public void help2() {
-		getGameStateManager().activateOnly(helpMenu2);
+		getGameStateManager().switchTo(helpMenu2);
 	}
+
 	public void credit() {
-		getGameStateManager().activateOnly(creditMenu);
+		getGameStateManager().switchTo(creditMenu);
 	}
-	public void play() {
-		getGameStateManager().activateOnly(playState);
+
+	public void end() {
+		getGameStateManager().switchTo(endGameState);
 	}
-	
+
+	public void reset() {
+		getGameStateManager().getGameState(playState).initialize();
+		credit();
+	}
+
 	/**
 	 * Runs the game
 	 * 
