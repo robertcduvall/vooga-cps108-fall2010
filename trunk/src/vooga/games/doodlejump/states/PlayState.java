@@ -53,6 +53,7 @@ public class PlayState extends GameState {
 		gameOverState = new GameOverMenuState(game);
 		gameWonState = new GameWonState(game);
 		game.getGameStateManager().addGameState(gameOverState);
+		game.getGameStateManager().addGameState(gameWonState);
 		myField = myLevelManager.loadFirstLevel();
 		initLevel();
 		this.addPlayField(myField);
