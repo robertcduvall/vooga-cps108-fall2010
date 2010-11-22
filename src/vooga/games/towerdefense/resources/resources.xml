@@ -18,6 +18,7 @@
 		<Image name="mediumButton" path="duvallFace.png" />
 		<Image name="hardButton" path="duvallFaceBlue.png" />
 		<Image name="mainMenuBackground" path="backgrounds/easyLevel.png" />
+		<Image name="towerShot" path="purpleShot.png" />
 	</Images>
 	<Animations></Animations>
 	<Sounds></Sounds>
