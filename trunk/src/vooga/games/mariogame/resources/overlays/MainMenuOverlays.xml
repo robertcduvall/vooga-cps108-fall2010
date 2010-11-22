@@ -1,10 +1,10 @@
 <Overlay>
 
 <OverlayGroup name="MainMenuGroup" >
-<OverlayString xLoc="10" yLoc="100" fontName="gameFontred" label="WELCOME TO MARIOCLONE!" fontSize="32"></OverlayString>
-<OverlayString xLoc="10" yLoc="200" fontName="gameFontred" label="PRESS A AND D TO MOVE LEFT AND RIGHT." fontSize="32"></OverlayString>
-<OverlayString xLoc="10" yLoc="300" fontName="gameFontred" label="PRESS W TO JUMP AND S TO CROUCH." fontSize="32"></OverlayString>
-<OverlayString xLoc="10" yLoc="400" fontName="gameFontred" label="PRESS SPACE TO PLAY AND P TO PAUSE!" fontSize="32"></OverlayString>
+<OverlayString xLoc="10" yLoc="430" fontName="gameFontred" label="WELCOME TO MARIOCLONE!" fontSize="32"></OverlayString>
+<OverlayString xLoc="10" yLoc="460" fontName="gameFontred" label="PRESS A AND D TO MOVE LEFT AND RIGHT." fontSize="32"></OverlayString>
+<OverlayString xLoc="10" yLoc="490" fontName="gameFontred" label="PRESS W TO JUMP." fontSize="32"></OverlayString>
+<OverlayString xLoc="10" yLoc="520" fontName="gameFontred" label="PRESS SPACE TO PLAY AND P TO PAUSE!" fontSize="32"></OverlayString>
 </OverlayGroup>
 
 </Overlay>
