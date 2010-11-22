@@ -22,7 +22,10 @@ import vooga.games.doodlejump.states.PlayState;
  * 
  */
 public class DoodleSprite extends BetterSprite {
-	private static final double MINIMUM_SCREEN_Y = Resources.getDouble("maxScreenY");
+	private static final double MAXIMUM_SCREEN_Y = Resources.getDouble("maxScreenY");
+	private static final double MAXIMUM_SCREEN_X = Resources.getDouble("maxScreenX");
+	private static final double MINIMUM_SCREEN_Y = Resources.getDouble("minScreenY");
+	private static final double MINIMUM_SCREEN_X = Resources.getDouble("minScreenX");
 	
 	private boolean died;
 	private PlayState playState;
@@ -46,7 +49,7 @@ public class DoodleSprite extends BetterSprite {
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
-			setX(532);
+			setX(MAXIMUM_SCREEN_X);
 		}
 
 	}
@@ -57,7 +60,7 @@ public class DoodleSprite extends BetterSprite {
 		if (isOnScreen()) {
 			setX(getX() + 5);
 		} else {
-			setX(0);
+			setX(MINIMUM_SCREEN_X);
 		}
 	}
 
