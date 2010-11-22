@@ -19,12 +19,16 @@ public class Dead implements Rule {
 
 	}
 
+	public void setGameStateManager(GameStateManager manager) {
+		gameStateManager = manager;
+	}
+
 	@Override
 	public void enforce(SpriteGroup... groups) {
 		System.out.println("gg");
-		
+
 		gameStateManager.activateOnly(gameStateManager.getGameState(4));
-		}
+	}
 
 	@Override
 	public boolean isSatisfied(SpriteGroup... groups) {
