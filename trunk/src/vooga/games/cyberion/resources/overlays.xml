@@ -5,8 +5,8 @@
 <Stat type="Integer" value="4"></Stat>
 <Stat type="Integer" value="0"></Stat>
 
-<OverlayGroup>
-<OverlayStat stat="2" label="SCORE : " xLoc = "0" yLoc = "0"></OverlayStat>
+<OverlayGroup name="info">
+<OverlayStat name="lives" stat="livesStat" label="LIVES : " xLoc = "10" yLoc = "10" color="green"></OverlayStat>
 </OverlayGroup>
 
 </Overlay>

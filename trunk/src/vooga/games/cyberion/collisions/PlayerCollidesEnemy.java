@@ -3,7 +3,6 @@ package vooga.games.cyberion.collisions;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
-import vooga.games.cyberion.MainGameState;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 import vooga.games.cyberion.states.PlayState;
