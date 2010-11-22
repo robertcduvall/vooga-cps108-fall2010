@@ -230,7 +230,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 * Set health of the shooter
 	 */
 	public void setHealth(int number) {
-		setStat("initHealth", new Stat<Integer>(number));
+		getHealth().setStat(number);
 	}
 	
 	/**
