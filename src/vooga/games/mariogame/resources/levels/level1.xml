@@ -46,7 +46,7 @@
             <SpriteGroup name="marioGroup" />
             <SpriteGroup name="goombaGroup" />
         </Rule>
-        <Rule name="Death" class="vooga.games.mariogame.rules.Death">
+        <Rule name="OffScreen" class="vooga.games.mariogame.rules.OffScreen">
             <SpriteGroup name="marioGroup" />
         </Rule>
 	</Rules>
