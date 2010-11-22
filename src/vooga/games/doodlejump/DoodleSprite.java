@@ -93,7 +93,11 @@ public class DoodleSprite extends BetterSprite {
 	}
 	
 	public boolean getDied(){
-		return died;
+		return (doodleFell() && died);
+	}
+
+	private boolean doodleFell() {
+		return (getY() > 800);
 	}
 
 	public void setPlayState(PlayState p) {
