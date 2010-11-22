@@ -66,14 +66,26 @@
 			<Association char="B" object="vooga.games.mariogame.tiles.BreakTile"
 				image="Break Tile" />
 			<Association char="C"
-				object="vooga.games.mariogame.tiles.ChangingTile" image="Item Tile 1" />
+				object="vooga.games.mariogame.tiles.ChangingTile">
+				<Image name="Changing Tile 1" />
+				<Image name="Changing Tile 2" />
+				<Image name="Changing Tile 3" />
+				<Image name="Changing Tile 4" />
+			</Association>
 			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile">
 				<Image name="Item Tile 1" />
 				<Image name="Item Tile 2" />
+				<Item relY="-64" vx=".1" class="vooga.games.mariogame.items.GravityItem"> 
+					<Visual name="Gravity Item" />
+				</Item>
 			</Association>
-
-			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile"
-				image="Item Tile 1" />
+			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile">
+				<Image name="Item Tile 1" />
+				<Image name="Item Tile 2" />
+				<Item relY="-64" class="vooga.games.mariogame.items.Coin"> 
+					<Visual name="Coin" />
+				</Item>
+			</Association>
 		</MapGroup>
 	</Map>
 
