@@ -8,6 +8,11 @@ import vooga.engine.resource.Resources;
 import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
+/**
+ * Create random blocks
+ * 
+ * @author Cody
+ */
 public class InfiniteBlocksEvent implements IEventHandler {
 	
 	Random random = new Random();
@@ -16,7 +21,7 @@ public class InfiniteBlocksEvent implements IEventHandler {
 	int yMax = Resources.getInt("gameHeight");
 	int yMin = 0;
 	double xVelocity = 0;
-	double yVelocity = -3;
+	double yVelocity = -0.2;
 
 	private PlayGameState playState;
 	
