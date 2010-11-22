@@ -1,14 +1,17 @@
 package vooga.games.cyberion.states;
 
+import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.background.ImageBackground;
+
 import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.MenuGameState;
-//import vooga.games.cyberion.buttons.GameOverButton;
+import vooga.games.cyberion.buttons.PlayButton;
+import vooga.games.cyberion.buttons.QuitButton;
 
 /**
- * Game over state for cyberion
+ * Cyberion specific menu game state
  * 
  * @author Harris.He
  * 
@@ -16,7 +19,8 @@ import vooga.engine.state.MenuGameState;
 
 public class GameOverState extends MenuGameState {
 
-	//private GameOverButton myGameOverButton;
+	private PlayButton myPlayButton;
+	private QuitButton myQuitButton;
 	private Game myGame;
 	private EventPool eventPool;
 
@@ -26,10 +30,14 @@ public class GameOverState extends MenuGameState {
 
 	@Override
 	public void initialize() {
-		//this.myGameOverButton = new GameOverButton(myGame);
-		//addButton(myGameOverButton);
-		//eventPool = new EventPool();
-		//eventPool.addEvent(myGameOverButton);
+		eventPool = new EventPool();
+		
+
+		this.myQuitButton = new QuitButton(myGame);
+
+		addButton(myQuitButton);
+
+		eventPool.addEvent(myQuitButton);
 	}
 
 	@Override
