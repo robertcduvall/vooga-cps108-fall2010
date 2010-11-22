@@ -12,8 +12,6 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.MapTile;
-import vooga.engine.overlay.OverlayCreator;
-import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -40,9 +38,9 @@ import com.golden.gamedev.object.SpriteGroup;
 public class GamePlayState extends GameState {
 
 	private Game myGame;
-	private static final int NUM_LEVELS = 3;
+//	private static final int NUM_LEVELS = 3;
 
-	private KeyboardControl myControl;
+//	private KeyboardControl myControl;
 	private EventPool myEvents;
 	private LevelManager levelManager;
 	public Collection<PlayField> myLevels;
@@ -103,6 +101,7 @@ public class GamePlayState extends GameState {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void cloneStats(){
 		MarioSprite mario = ((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite());
 		int health = mario.getHealth();
@@ -138,13 +137,13 @@ public class GamePlayState extends GameState {
 	}
 
 	public void initOverlays() {
-		OverlayTracker overlayTracker = OverlayCreator
-				.createOverlays("src/vooga/games/mariogame/resources/overlays/GameOverlays.xml");
+//		OverlayTracker overlayTracker = OverlayCreator
+//				.createOverlays("src/vooga/games/mariogame/resources/overlays/GameOverlays.xml");
 //		SpriteGroup myOverlays = overlayTracker
 //				.getOverlayGroup("MainMenuGroup");
-		PlayField overlayField = new PlayField();
-		this.getRenderField().add(overlayField);
-		this.getUpdateField().add(overlayField);
+//		PlayField overlayField = new PlayField();
+//		this.getRenderField().add(overlayField);
+//		this.getUpdateField().add(overlayField);
 	}
 
 	public int getScore() {

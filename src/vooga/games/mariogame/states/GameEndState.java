@@ -47,7 +47,6 @@ public class GameEndState extends GameState {
 	 * @param fontManager
 	 *            - resource used to write text
 	 */
-
 	public GameEndState(Game game, PlayField playfield, GamePlayState playState) {
 		
 		
