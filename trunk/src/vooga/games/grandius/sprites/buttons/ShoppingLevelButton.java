@@ -22,7 +22,6 @@ public class ShoppingLevelButton extends Button {
 	
 	@Override
 	public void actionPerformed() {
-		// TODO Auto-generated method stub
 		myGame.getGameStateManager().switchTo(myGame.getGameStateManager().getGameState(2));
 
 	}
