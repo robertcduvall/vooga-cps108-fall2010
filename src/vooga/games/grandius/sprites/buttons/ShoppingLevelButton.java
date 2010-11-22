@@ -1,0 +1,30 @@
+package vooga.games.grandius.sprites.buttons;
+
+import java.awt.image.BufferedImage;
+
+import vooga.engine.core.Game;
+import vooga.engine.resource.Resources;
+import vooga.games.grandius.DropThis;
+import vooga.widget.Button;
+
+@SuppressWarnings("serial")
+public class ShoppingLevelButton extends Button {
+
+	private static final int START_X = 275;
+	private static final int START_Y = 100;
+	private static final BufferedImage myImage = Resources.getImage("shoppingButton");
+	private DropThis myGame;
+	
+	public ShoppingLevelButton(Game game) {
+		super(game, myImage, START_X, START_Y);
+		myGame = (DropThis)game;
+	}
+	
+	@Override
+	public void actionPerformed() {
+		// TODO Auto-generated method stub
+		myGame.getGameStateManager().switchTo(myGame.getGameStateManager().getGameState(2));
+
+	}
+
+}

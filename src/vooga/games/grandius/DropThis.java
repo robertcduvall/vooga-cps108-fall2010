@@ -75,13 +75,13 @@ public class DropThis extends Game {
 		 super.initGameStates();
 		 initLevelManager();
 		 List<GameState> gameStates = new ArrayList<GameState>();
-		 gameStates.add(new GrandiusMenuState(this)); // Default state.
-		 gameStates.add(myPlayState = new PlayState(levelManager, this));
-		 gameStates.add(new LevelCompleteState(this));
-		 gameStates.add(new GameCompleteState(this));
-		 gameStates.add(new ShoppingLevelState(this));
-		 gameStates.add(new GameOverState(this));
-		 gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));
+		 gameStates.add(new GrandiusMenuState(this)); // Default state.					//6
+		 gameStates.add(myPlayState = new PlayState(levelManager, this));				//5
+		 gameStates.add(new LevelCompleteState(this));									//4
+		 gameStates.add(new GameCompleteState(this)); 									//3
+		 gameStates.add(new ShoppingLevelState(this)); 									//2
+		 gameStates.add(new GameOverState(this)); 										//1
+		 gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));  //0
 		 GameState[] gameStatesArray = new GameState[gameStates.size()];
 		 for (int i = 0; i < gameStates.size(); i++) {
 			 gameStatesArray[i] = gameStates.get(i);

@@ -105,8 +105,9 @@ public class PlayState extends GameState {
 					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
 			if (userInput.equals(Resources.getString("invincibility")))
 				player.setInvincible();
-			else if (userInput.equals(Resources.getString("skipLevel")))
-				System.out.println("skipping level");//player.skipLevel(); //TODO finish this
+			else if (userInput.equals(Resources.getString("skipLevel"))) {
+				new LevelCompleteEvent(myGame, this).actionPerformed();
+			}
 			else if (userInput.equals(Resources.getString("extraPoints")))
 				player.updateScore(1000000);
 			else if (userInput.equals(Resources.getString("extraCash")))
