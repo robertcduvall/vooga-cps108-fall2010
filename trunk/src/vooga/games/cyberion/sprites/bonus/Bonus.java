@@ -8,13 +8,17 @@ import vooga.engine.core.BetterSprite;
  * Super bonus class for various bonus to inheritz
  * 
  * @author Harris.He
- *
+ * 
  */
 
 public class Bonus extends BetterSprite {
-	
-	public Bonus()
-	{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Bonus() {
 		super();
 	}
 

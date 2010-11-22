@@ -12,6 +12,11 @@ import vooga.engine.resource.Resources;
 
 public class EnemyShot extends BetterSprite {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public EnemyShot() {
 		super(Resources.getImage("enemyShot"));
 

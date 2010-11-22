@@ -1,7 +1,6 @@
 package vooga.games.cyberion.events;
 
 import vooga.engine.event.IEventHandler;
-import vooga.engine.state.GameStateManager;
 import vooga.games.cyberion.DropThis;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 

@@ -1,6 +1,5 @@
 package vooga.games.cyberion.collisions;
 
-
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
@@ -9,21 +8,23 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class PlayerCollidesWithBonus extends BasicCollisionGroup {
-	
-	public PlayerCollidesWithBonus(Game game)
-	{
+
+	public PlayerCollidesWithBonus(Game game) {
 		super();
 	}
-	
+
 	public void collided(Sprite player, Sprite bonus) {
 		collided((PlayerShip) player, bonus);
 	}
-//grants an increase in weapon power when player collides with a bonus sprite
+
+	// grants an increase in weapon power when player collides with a bonus
+	// sprite
+	@SuppressWarnings("unchecked")
 	public void collided(PlayerShip player, Sprite bonus) {
 		Stat<Integer> score = (Stat<Integer>) player.getStat("scoreStat");
-		score.setStat(score.getStat()+50);
+		score.setStat(score.getStat() + 50);
 		Stat<Integer> stat = (Stat<Integer>) player.getStat("livesStat");
-		stat.setStat(stat.getStat()+1); 
+		stat.setStat(stat.getStat() + 1);
 
 		int power = player.getWeaponPower();
 		if (power < 3) {

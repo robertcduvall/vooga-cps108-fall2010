@@ -22,6 +22,7 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 
 	// when a playershot collides with an enemy, enemy's life decreases, shot
 	// disappears, and a sound is played
+	@SuppressWarnings("unchecked")
 	public void collided(Sprite playershot, EnemyShip enemy) {
 		if (enemy.isOnScreen()) {
 			Stat<Integer> score = (Stat<Integer>) enemy.getStat("scoreStat");
