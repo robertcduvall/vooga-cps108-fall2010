@@ -74,6 +74,7 @@ public class PlayGameState extends GameState{
 	
 	/**
 	 * Initialize the game's controls
+	 * @params BetterSprite
 	 */
 	
 	private void initControls(BetterSprite player) {
