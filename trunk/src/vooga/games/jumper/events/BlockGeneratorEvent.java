@@ -16,6 +16,7 @@ import vooga.games.jumper.states.PlayGameState;
  */
 public class BlockGeneratorEvent implements IEventHandler {
 
+	private static int blockCounter;
 	Random random = new Random();
 	
 	int xMax = Resources.getInt("gameWidth");
@@ -73,9 +74,18 @@ public class BlockGeneratorEvent implements IEventHandler {
 		int randomX = random.nextInt(xMax - xMin) + xMin;
 		int randomY = random.nextInt(yMax - yMin) + yMax;
 		Point initPoint = new Point(randomX, randomY);
-		NormalBlock addBlock = new NormalBlock(
+		NormalBlock addBlock;
+		if (blockCounter == 1) {
+			addBlock = new NormalBlock(
 				Resources.getImage("platformGreen"), initPoint, xVelocity,
 				yVelocity);
+			blockCounter=0;
+		}
+		else {
+			addBlock = new NormalBlock(
+				Resources.getImage("platformWhite"), initPoint, xVelocity,yVelocity);
+			blockCounter++;
+		}
 		if (!isOverlap(initPoint.x, initPoint.y)) {
 			playState.getGroup("normalBlocks").add(addBlock);
 		}
