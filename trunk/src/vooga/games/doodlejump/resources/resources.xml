@@ -28,13 +28,14 @@
 		<Image name="pauseCoverResume" path="pause-cover-resume.png" />
 		<Image name="pauseCover" path="pause-cover.png" />
 		<Image name="playAgain" path="play-again.png" />
-		<Image name="playOn" path="play-on.png" />
+		<Image name="playButtonOn" path="play-on.png" />
+		<Image name="playButton" path="play.png" />
 		<Image name="propeller" path="propeller.png" />
 		<Image name="purpleMonster" path="purple_monster.png" />
 		<Image name="redMonster" path="red_monster.png" />
 		<Image name="redPlatform" path="red_platform.png" />
 		<Image name="resumeOn" path="resume-on.png" />
-		<Image name="resume" path="resume.png" />
+		<Image name="resumeButton" path="resume.png" />
 		<Image name="shield" path="shield.png" />
 		<Image name="soccerBackground" path="soccer-background.png" />
 		<Image name="spaceBackground" path="space-background.png" />
@@ -105,5 +106,9 @@
 	<Doubles>
 		<Double name="doodleInitialX" value="325" />
 		<Double name="doodleInitialY" value="500" />
+		<Double name="playButtonX" value="400" />
+		<Double name="playButtonY" value="600" />
+		<Double name="playButtonX" value="250" />
+		<Double name="playButtonY" value="400" />
 	</Doubles>
 </Resources> 
