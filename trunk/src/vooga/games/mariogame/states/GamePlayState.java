@@ -12,16 +12,16 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.MapTile;
-import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
-import vooga.games.mariogame.events.LoseEvent;
-import vooga.games.mariogame.sprites.MarioSprite;
-import vooga.games.mariogame.events.NextLevelEvent;
 import vooga.games.mariogame.DropThis;
+import vooga.games.mariogame.events.LoseEvent;
+import vooga.games.mariogame.events.NextLevelEvent;
+import vooga.games.mariogame.sprites.MarioSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -166,7 +166,7 @@ public class GamePlayState extends GameState {
 	
 	public void scrollLevel(){
 		MarioSprite mario = (MarioSprite) getLevel().getGroup("marioGroup").getActiveSprite();
-		if(mario.getX() > mario.getMaxX())
+		if(mario.getX() >= mario.getMaxX())
 			getLevel().getBackground().setToCenter(mario);
 	}
 
