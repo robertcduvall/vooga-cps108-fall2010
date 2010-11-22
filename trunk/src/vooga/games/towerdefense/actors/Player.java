@@ -38,6 +38,7 @@ public class Player extends MouseFollower {
 	private Stat<Integer> score;
 	private Stat<Integer> selfEsteem;
 	private List<PathPoint> pathPoints;
+	private BufferedImage image;
 
 	public Player(BufferedImage image, double x, double y, 
 			BuildTowerEvent buildTower, FindTargetEvent findTarget, 
@@ -52,7 +53,20 @@ public class Player extends MouseFollower {
 		this.findTargetEvent = findTarget;
 		this.shootEvent = shootEvent;
 	}
-
+	
+	public void update(long elapsedTime){
+		if(!crossBorder() && this.getImage()!=null)
+		{
+			this.setImage(null);
+		}
+		
+		if(crossBorder() && this.getImage()==null)
+		{
+			this.setImage(currentTower.getPreviewImage());
+		}
+		super.update(elapsedTime);
+	}
+	
 	public void onClick() {
 		buildTower();
 	}
@@ -62,7 +76,7 @@ public class Player extends MouseFollower {
 	}
 
 	private void buildTower() {
-		if(hasMoneyToBuild() && withinBounds())
+		if(hasMoneyToBuild() && withinBounds() && checkOnPath())
 		{
 			setTowerLocation();
 			buildTowerEvent.addTower(currentTower);
@@ -92,7 +106,18 @@ public class Player extends MouseFollower {
 	}
 	
 	public boolean withinBounds(){
-		
+		return getOffsetX()<WIDTH_BOUNDS && getOffsetY()<HEIGHT_BOUNDS && getOffsetX()>0 && getOffsetY()>0;
+	}
+	
+	public boolean crossBorder(){
+		if((WIDTH_BOUNDS)>(getOffsetX()))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkOnPath(){
 		for(PathPoint p: pathPoints)
 		{
 			if(onPathPoints(p.getX(), p.getY()))
@@ -100,7 +125,7 @@ public class Player extends MouseFollower {
 				return false;
 			}
 		}
-		return getOffsetX()<WIDTH_BOUNDS && getOffsetY()<HEIGHT_BOUNDS && getOffsetX()>0 && getOffsetY()>0;
+		return true;
 	}
 	
 	public void changeTowerType(Tower newTower){
