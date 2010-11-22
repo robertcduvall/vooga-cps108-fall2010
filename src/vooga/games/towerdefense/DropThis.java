@@ -6,7 +6,7 @@ import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.engine.state.GameStateManager;
+import vooga.games.towerdefense.states.GameOverState;
 import vooga.games.towerdefense.states.MainMenu;
 import vooga.games.towerdefense.states.PauseState;
 import vooga.games.towerdefense.states.PlayState;
@@ -75,6 +75,7 @@ public class DropThis extends Game {
 		GameState mainMenu = addGameState(new MainMenu());
 		PlayState play = (PlayState) addGameState(new PlayState(tracker));
 		GameState pause = addGameState(new PauseState(play, tracker));
+		addGameState(new GameOverState());
 		getGameStateManager().switchTo(mainMenu);
 	}
 

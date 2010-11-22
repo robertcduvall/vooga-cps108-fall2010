@@ -17,9 +17,11 @@
 		<Image name="duvallFaceBlue" path="duvallFaceBlue.png" />
 		<Image name="duvallFaceYellow" path="duvallFaceYellow.png" />
 		<Image name="title" path="title.png" />
+		<Image name="gameOver" path="gameOver.png" />
 		<Image name="easyButton" path="easyButton.png" />
 		<Image name="mediumButton" path="mediumButton.png" />
 		<Image name="hardButton" path="hardButton.png" />
+		<Image name="restartButton" path="restartButton.png" />
 		<Image name="towerShot" path="purpleShot.png" />
 		<Image name="1" path="number1.png" />
 		<Image name="2" path="number2.png" />
@@ -38,6 +40,7 @@
 	<Doubles></Doubles>
 	<Strings>
 		<String name="mainMenuLayoutPath" value="src/vooga/games/towerdefense/resources/layouts/mainMenu.xml" />
+		<String name="gameOverLayoutPath" value="src/vooga/games/towerdefense/resources/layouts/gameOver.xml" />
 		<String name="overlayPath" value="src/vooga/games/towerdefense/resources/overlays.xml" />
 		<String name="easyLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/easy.txt" />
 		<String name="mediumLevelPathPoints" value="src/vooga/games/towerdefense/resources/levels/medium.txt" />

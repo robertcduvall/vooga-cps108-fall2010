@@ -63,6 +63,10 @@ public class Player extends MouseFollower {
 			this.setImage(currentTower.getPreviewImage());
 		}
 		
+		if(selfEsteem.getStat()<=0){
+			
+		}
+		
 		super.update(elapsedTime);
 	}
 	

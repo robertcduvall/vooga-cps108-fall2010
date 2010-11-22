@@ -30,9 +30,6 @@ public class MainMenu extends GameState{
 	@Override
 	public void initialize() {
 			ModularLevelParser layoutReader = new ModularLevelParser("moduleMapProperties");
-			EventPool eventPool = new EventPool();
-			PlayField playField = layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame());
-			playField.addEventPool(eventPool);
 			addPlayField(layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame()));
 	}
 	
