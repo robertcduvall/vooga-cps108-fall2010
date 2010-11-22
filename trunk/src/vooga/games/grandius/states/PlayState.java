@@ -76,7 +76,7 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new FireHorizontalEvent(myGame, player, this));
 		eventPool.addEvent(new FireVerticalEvent(myGame, player, this));
-//		eventPool.addEvent(new FireMissileEvent(myGame, player, this));		Now, only added when purchased.
+		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
 		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this));
@@ -107,6 +107,8 @@ public class PlayState extends GameState {
 			JFrame frame = new JFrame();
 			String userInput = (String) JOptionPane.showInputDialog(frame,
 					"Enter a cheat code:", "Cheats", JOptionPane.PLAIN_MESSAGE);
+			if(userInput == null)
+				return;
 			if (userInput.equals(Resources.getString("invincibility")))
 				player.setInvincible();
 			else if (userInput.equals(Resources.getString("skipLevel"))) {
