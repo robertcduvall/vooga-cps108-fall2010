@@ -7,11 +7,21 @@ import vooga.engine.event.IEventHandler;
 import vooga.games.jumper.DropThis;
 import vooga.games.jumper.states.PlayGameState;
 
+/**
+ * Event handler for the death of the main Doodle character.
+ * @author Devon, Brian, Cody
+ */
 public class DeathEvent implements IEventHandler {
 	
 	private PlayGameState playState;
 	private DropThis myGame;
 	
+	/**
+	 * Constructor for this death event.  Sets the game and the
+	 * gamestate that this event applies to.
+	 * @param dropThis
+	 * @param gamestate
+	 */
 	public DeathEvent(DropThis dropThis, PlayGameState gamestate) {
 		playState = gamestate;
 		myGame = dropThis;
@@ -19,7 +29,7 @@ public class DeathEvent implements IEventHandler {
 
 	
 	/**
-	 * Event is trigged when doodle hits the roof
+	 * Returns true if the Doodle reaches the top of the screen.
 	 */
 	@Override
 	public boolean isTriggered() {
@@ -32,10 +42,12 @@ public class DeathEvent implements IEventHandler {
 		return false;
 	}
 	
-	/**
-	 * When the event is triggered, activate the deathGame GameState
-	 */
+	
 
+	/**
+	 * When this event returns true, the action performed is to end
+	 * the game.
+	 */
 	@Override
 	public void actionPerformed() {
 		// TODO Auto-generated method stub
