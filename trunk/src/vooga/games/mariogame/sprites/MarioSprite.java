@@ -87,9 +87,7 @@ public class MarioSprite extends BetterSprite {
 	public void respawn(){
 		setLocation(0, 0);
 		setHealth(getHealth() - 1);
-		//getBackground().setLocation(0, 0);
 		setMaxX(0);
-		//setGravityCoef(1);
 	}
 
 
@@ -119,6 +117,7 @@ public class MarioSprite extends BetterSprite {
 			System.out.println("current x: "+x);
 			setX(myMaxX - halfScreen);
 		}
+		setOnGround(false);
 	}
 
 	public double getMaxX() {
