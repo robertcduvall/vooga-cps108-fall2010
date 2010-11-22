@@ -160,8 +160,8 @@
 		<Integer name="shotgunDamage"        	value="5"	/>
 		<Integer name="shotgunSpeed"         	value="3"	/>
 		<Integer name="shotgunDelay"         	value="15"	/>
-		<Integer name="shotgunAngleRange"       value="20"	/>
-		<Integer name="shotgunNumberOfShots"    value="3"	/>
+		<Integer name="shotgunAngleRange"       value="40"	/>
+		<Integer name="shotgunNumberOfShots"    value="5"	/>
 
 		<Integer name="zombieAttackDelay"       value="60"	/>
 		<Integer name="itemChance"         		value="20"	/>

@@ -13,9 +13,9 @@ import vooga.engine.resource.Resources;
 public class ShotGun extends Weapon {
 
 	// The angular spread of the shotgun bullets
-	private static double angleRange = 20;
+	private static double angleRange;
 	// The number of shots fired in each round
-	private static int numberOfShots = 3;
+	private static int numberOfShots;
 
 	public ShotGun(Shooter shooter, int ammo) {
 		super(shooter, ammo);
