@@ -7,7 +7,6 @@ import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.SoundPlayer;
 import vooga.engine.core.Game;
-import vooga.games.mariogame.items.GravityItem;
 import vooga.games.mariogame.rules.Gravity;
 import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.states.GamePlayState;

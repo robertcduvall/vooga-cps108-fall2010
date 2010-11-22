@@ -1,6 +1,7 @@
 package vooga.games.mariogame.collisions;
 
 import vooga.engine.core.Game;
+import vooga.games.mariogame.items.Item;
 import vooga.games.mariogame.sprites.MarioSprite;
 
 import com.golden.gamedev.object.Sprite;
@@ -15,7 +16,7 @@ public class MarioToItemCollision extends AdvanceCollisionGroup {
 
 	@Override
 	public void collided(Sprite mario, Sprite item) {
-		((MarioSprite) mario).actOnItem(item);
+		((MarioSprite) mario).actOnItem((Item) item);
 		item.setActive(false);
 	}
 

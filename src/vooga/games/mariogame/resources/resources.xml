@@ -39,6 +39,20 @@
 			<Image path="mario3r.png" />
 			<Image path="mario4r.png" />
 		</Animation>
+		
+		<Animation name="marioLeftBig">
+			<Image path="mario1lB.png" />
+			<Image path="mario2lB.png" />
+			<Image path="mario3lB.png" />
+			<Image path="mario4lB.png" />
+		</Animation>
+		
+		<Animation name="marioRightBig">
+			<Image path="mario1rB.png" />
+			<Image path="mario2rB.png" />
+			<Image path="mario3rB.png" />
+			<Image path="mario4rB.png" />
+		</Animation>
 
 		<Animation name="Goomba">
 			<Image path="goomba1.png" />
