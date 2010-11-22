@@ -24,12 +24,10 @@ public class OffScreen implements Rule{
 
     @Override
     public boolean isSatisfied(SpriteGroup ...groups) {
-        SpriteGroup group = groups[0];
-        for (Sprite mario: group.getSprites()) {
-        	if(mario != null && mario.isOnScreen())
-        		return false;
-        }
-        return true;
+    	MarioSprite mario = (MarioSprite) groups[0].getSprites()[0];
+    	if(mario != null && mario.isOnScreen())
+    		return false;
+    	return true;
     }
 
 
