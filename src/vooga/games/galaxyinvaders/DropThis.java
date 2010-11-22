@@ -53,7 +53,7 @@ public class DropThis extends Game {
 		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.RED);
 		this.setAsPlayGameState(play);
 		stateManager.addGameState(play, pause, gameOver);
-		stateManager.activateOnly(play);
+		stateManager.activateOnly(pause);
 	}
 
 	private void initLevelManager() {
@@ -66,8 +66,6 @@ public class DropThis extends Game {
 
 	private void processEnemyPathPoints(Sprite[] group) {
 		int levelNum = levelManager.getCurrentLevel();
-		//TODO: figure out why it cannot find this file path. i've tried lots of different paths. 
-		//TODO: i don't get that exception when i use the following path:
 		String filepath = "src/vooga/games/galaxyinvaders/resources/levels/level"+levelNum+".txt";
 		ArrayList<Point> points = PathPointParser.getPathPoints(filepath);
 		int timerNum = PathPointParser.getTimerNum();
@@ -75,6 +73,14 @@ public class DropThis extends Game {
 			if(s!=null) {
 				((EnemySprite) s).setPathPointsAndTimerNum(points, timerNum);
 			}
+		}
+	}
+	
+	
+	public void update(long elapsed) {
+		super.update(elapsed);
+		if(keyPressed(KeyEvent.VK_P)) {
+			stateManager.activateOnly(play);
 		}
 	}
 	
@@ -86,6 +92,8 @@ public class DropThis extends Game {
 		stateManager.switchTo(pause);
 	}
 	public void resumeGame(){
+		
+		System.out.println("play activate");
 		stateManager.switchTo(play);
 	}
 	public void gameOver(){
@@ -99,7 +107,7 @@ public class DropThis extends Game {
 
 	public void switchLevel(){
 		playfield = levelManager.loadNextLevel();
-//		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
+		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
 	}
 	
 	/**

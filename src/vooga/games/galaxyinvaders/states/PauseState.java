@@ -21,20 +21,20 @@ public class PauseState extends PauseGameState {
 			Color color) {
 		super(previousGameState, pauseMessage, color);
 		this.game = game;
-		initControls();
+//		initControls();
 	}
 	
-	private void initControls()
-	{
-		Control gameControl = new KeyboardControl(game, game);
-		gameControl.addInput(KeyEvent.VK_P, "resumeGame", "vooga.games.galaxyinvaders.DropThis");
-		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
-		Collection<PlayField> playfields = this.getUpdateField();
-		for (PlayField playfield : playfields)
-		{
-			playfield.setBackground(new ColorBackground(Color.BLACK));
-			playfield.addControl("game", gameControl);
-		}
-	}
+//	private void initControls()
+//	{
+//		Control gameControl = new KeyboardControl(game, game);
+//		gameControl.addInput(KeyEvent.VK_P, "resumeGame", "vooga.games.galaxyinvaders.DropThis");
+//		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
+//		Collection<PlayField> playfields = this.getUpdateField();
+//		for (PlayField playfield : playfields)
+//		{
+//			playfield.setBackground(new ColorBackground(Color.BLACK));
+//			playfield.addControl("game", gameControl);
+//		}
+//	}
 
 }
