@@ -13,7 +13,10 @@ import vooga.engine.resource.Resources;
  * 
  */
 public class BallSprite extends BetterSprite {
-	public BallSprite(){
+
+	private static final String MIN_SCREEN_Y_STRING = "minScreenY";
+
+	public BallSprite() {
 	}
 
 	public BallSprite(String name, Sprite s) {
@@ -23,7 +26,11 @@ public class BallSprite extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getY() < Resources.getDouble("minScreenY"))
+		isOffScreen();
+	}
+
+	private void isOffScreen() {
+		if (getY() < Resources.getDouble(MIN_SCREEN_Y_STRING))
 			setActive(false);
 	}
 }

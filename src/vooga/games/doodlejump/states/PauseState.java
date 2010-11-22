@@ -27,6 +27,7 @@ import vooga.games.doodlejump.buttons.ResumeButton;
  */
 public class PauseState extends MenuGameState {
 
+	private static final String PAUSE_COVER_STRING = "pauseCover";
 	private Game myGame;
 	private ResumeButton myResumeButton;
 	private EventPool myEventPool;
@@ -41,7 +42,8 @@ public class PauseState extends MenuGameState {
 	public void initialize() {
 		myResumeButton = new ResumeButton(myGame);
 		myEventPool = new EventPool();
-		mainBackground = new ImageBackground(Resources.getImage("pauseCover"));
+		mainBackground = new ImageBackground(
+				Resources.getImage(PAUSE_COVER_STRING));
 		addButton(myResumeButton);
 		myEventPool.addEvent(myResumeButton);
 	}

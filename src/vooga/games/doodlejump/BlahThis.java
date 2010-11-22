@@ -17,6 +17,8 @@ import vooga.games.doodlejump.states.StartMenuState;
  */
 public class BlahThis extends Game {
 
+	private static final String LEVEL_FILES_DIRECTORY_STRING = "levelFilesDirectory";
+	private static final String LEVEL_NAMES_FILE_STRING = "levelNamesFile";
 	private PlayState playState;
 	private PauseState pauseState;
 	private StartMenuState startMenuState;
@@ -26,6 +28,10 @@ public class BlahThis extends Game {
 	public void initResources() {
 		super.initResources();
 		initLevelManager();
+		initStates();
+	}
+
+	private void initStates() {
 		playState = new PlayState(this, levelManager);
 		pauseState = new PauseState(this);
 		startMenuState = new StartMenuState(this);
@@ -38,8 +44,9 @@ public class BlahThis extends Game {
 
 	private void initLevelManager() {
 		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
-		String levelNamesFile = Resources.getString("levelNamesFile");
+		String levelFilesDirectory = Resources
+				.getString(LEVEL_FILES_DIRECTORY_STRING);
+		String levelNamesFile = Resources.getString(LEVEL_NAMES_FILE_STRING);
 		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}
 

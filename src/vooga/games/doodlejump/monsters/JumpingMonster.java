@@ -8,10 +8,15 @@ import vooga.engine.resource.Resources;
 import com.golden.gamedev.object.Sprite;
 
 public class JumpingMonster extends BetterSprite {
+
+	private static final String GREEN_JUMPING_MONSTER_STRING = "greenJumpingMonster";
+	private static final String JUMP_TIME_STRING = "jumpTime";
+	private static final int MULTIPLY_VERTICAL_SPEED = -1;
+
 	private int jumpTimer;
-	
-	public JumpingMonster(){
-		this(Resources.getImage("greenJumpingMonster"));
+
+	public JumpingMonster() {
+		this(Resources.getImage(GREEN_JUMPING_MONSTER_STRING));
 	}
 
 	public JumpingMonster(BufferedImage image) {
@@ -19,17 +24,21 @@ public class JumpingMonster extends BetterSprite {
 	}
 
 	@Override
-	public void firstRun(){
-		jumpTimer = Resources.getInt("jumpTime");
+	public void firstRun() {
+		jumpTimer = Resources.getInt(JUMP_TIME_STRING);
 	}
-	
+
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		jumpTimer--;
+		makeMonsterJump();
+	}
+
+	private void makeMonsterJump() {
 		if (jumpTimer < 0) {
-			setVerticalSpeed(getVerticalSpeed() * -1);
-			jumpTimer = Resources.getInt("jumpTime");
+			setVerticalSpeed(getVerticalSpeed() * MULTIPLY_VERTICAL_SPEED);
+			jumpTimer = Resources.getInt(JUMP_TIME_STRING);
 		}
 	}
 }

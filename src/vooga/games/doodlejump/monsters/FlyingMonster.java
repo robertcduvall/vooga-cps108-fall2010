@@ -14,17 +14,23 @@ import com.golden.gamedev.object.AnimatedSprite;
  * 
  */
 public class FlyingMonster extends BetterSprite {
+
+	private static final String GREEN_FLYING_MONSTER_STRING = "green_flying_monster";
+	private static final String FLYING_MONSTER_STRING = "flying_monster";
+	private static final String MIN_SCREEN_X_STRING = "minScreenX";
+	private static final String MAX_SCREEN_X_STRING = "maxScreenX";
+	private static final int MULTIPLY_HORIZONTAL_SPEED = -1;
 	
-	public FlyingMonster(){
-		this(Resources.getAnimation("green_flying_monster"));
+	public FlyingMonster() {
+		this(Resources.getAnimation(GREEN_FLYING_MONSTER_STRING));
 	}
 
 	public FlyingMonster(BufferedImage[] images) {
-		super("flying_monster", images);
+		super(FLYING_MONSTER_STRING, images);
 	}
-	
+
 	@Override
-	public void firstRun(){
+	public void firstRun() {
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		sprite.setAnimationFrame(0, 4);
 		sprite.setLoopAnim(true);
@@ -34,8 +40,14 @@ public class FlyingMonster extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getX() < Resources.getDouble("minScreenX") || getX() > Resources.getDouble("maxScreenX") - getWidth()) {
-			setHorizontalSpeed(getHorizontalSpeed() * -1);
+		checkInBounds();
+	}
+
+	private void checkInBounds() {
+		if (getX() < Resources.getDouble(MIN_SCREEN_X_STRING)
+				|| getX() > Resources.getDouble(MAX_SCREEN_X_STRING)
+						- getWidth()) {
+			setHorizontalSpeed(getHorizontalSpeed() * MULTIPLY_HORIZONTAL_SPEED);
 		}
 	}
 }
