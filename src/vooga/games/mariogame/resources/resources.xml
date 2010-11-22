@@ -12,6 +12,7 @@
 		<Image name="Item Tile 1" path="ItemTile1.png" />
 		<Image name="Item Tile 2" path="ItemTile2.png" />
 		<Image name="Ground Tile" path="ITile.png" />
+		<Image name="Flag Tile" path="FlagTile.png" />
 		<Image name="Level Complete BG" path="levelfinished.jpg" />
 		<Image name="Win BG" path="mario_and_luigi.jpg" />
 		<Image name="Mario Menu BG" path="mariomenu.jpg" />

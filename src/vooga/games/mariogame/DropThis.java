@@ -33,6 +33,7 @@ public class DropThis extends Game {
 	MainMenuState pauseState;
 	GamePlayState playState;
 	GameEndState loseState;
+	GameEndState winState;
 	public GameFontManager fontManager;
 	public String myName;
 
@@ -74,6 +75,10 @@ public class DropThis extends Game {
 	public void loseGame(){
 		stateManager.switchTo(loseState);
 	}
+	
+	public void winGame(){
+		stateManager.switchTo(winState);
+	}
 
 	public void initStates() {
 		LevelParser levelParser = new LevelParser();
@@ -82,7 +87,7 @@ public class DropThis extends Game {
 		MainMenuState mainMenu = new MainMenuState(this, Resources.getImage("Mario Menu BG"), fontManager);
 		pauseState = new MainMenuState(this, Resources.getImage("Pause BG"), fontManager);
 		loseState = new GameEndState(loseField);
-		GameEndState winState = new GameEndState(winField);
+		winState = new GameEndState(winField);
 		MainMenuState levelFinishedState = new MainMenuState(this, Resources.getImage("Level Complete BG"), fontManager);
 		playState = new GamePlayState(this);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);

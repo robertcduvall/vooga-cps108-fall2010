@@ -60,6 +60,8 @@
 				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile" />
 			<Association char="D"
 				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Dirt Tile" />
+			<Association char="!"
+				object="vooga.games.mariogame.tiles.FlagTile" image="Flag Tile" />
 			<Association char="B" object="vooga.games.mariogame.tiles.BreakTile"
 				image="Break Tile" />
 			<Association char="C"

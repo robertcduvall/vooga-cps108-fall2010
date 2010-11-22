@@ -172,6 +172,10 @@ public class LevelManager {
 		return myCurrentLevel;
 	}
 	
+	public int getNumLevels(){
+		return myLevelMap.keySet().size();
+	}
+	
 	
 	/**
 	 * Returns the name of the current level.

@@ -3,6 +3,7 @@ package vooga.games.mariogame.collisions;
 import vooga.engine.core.Game;
 import vooga.engine.factory.MapTile;
 import vooga.games.mariogame.sprites.MarioSprite;
+import vooga.games.mariogame.tiles.FlagTile;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -14,6 +15,11 @@ public class MarioToTileCollision extends BetterCollisionGroup {
 
 	@Override
 	public void collided(Sprite mario, Sprite tile) {
+		
+		if(tile instanceof FlagTile){
+			((MapTile) tile).actOnCollision(mario);
+			return;
+		}
 
 		int side = getCollisionSide(mario, tile);
 //		int side = getCollisionSide();
