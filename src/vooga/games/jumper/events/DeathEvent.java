@@ -17,6 +17,10 @@ public class DeathEvent implements IEventHandler {
 		myGame = dropThis;
 	}
 
+	
+	/**
+	 * Event is trigged when doodle hits the roof
+	 */
 	@Override
 	public boolean isTriggered() {
 		
@@ -27,6 +31,10 @@ public class DeathEvent implements IEventHandler {
 		}
 		return false;
 	}
+	
+	/**
+	 * When the event is triggered, activate the deathGame GameState
+	 */
 
 	@Override
 	public void actionPerformed() {
