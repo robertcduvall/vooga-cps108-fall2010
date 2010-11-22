@@ -70,6 +70,7 @@ public class DropThis extends vooga.engine.core.Game {
 	private static final int CHEAT_KEY = KeyEvent.VK_C;
 	private static final int LEFT_KEY = KeyEvent.VK_LEFT;
 	private static final int RIGHT_KEY = KeyEvent.VK_RIGHT;
+	
 	private double BLOCK_FREQUENCY_INCREASE_RATE = 0.000001;
 	private double BLOCK_XVELOCITY_INCREASE_RATE = 0;
 	private double BLOCK_VELOCITY_INCREASE_RATE = 0.001;
