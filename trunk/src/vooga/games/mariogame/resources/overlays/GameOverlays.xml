@@ -6,7 +6,7 @@
 
 <OverlayGroup>
 <OverlayStat color="0" stat="score" label="SCORE: " xLoc="24" yLoc="5"></OverlayStat>
-<OverlayStat color="0" stat="health" label ="LIVES: " xLoc="824" yLoc = "5" ></OverlayStat>
+<OverlayIcon image="Mario" width="25" height="25" color="0" stat="health" label ="LIVES: " xLoc="824" yLoc = "5" ></OverlayIcon>
 <OverlayStat color="0" stat="level" label = "LEVEL: " xLoc = "424" yLoc = "5"></OverlayStat>
 </OverlayGroup>
 
