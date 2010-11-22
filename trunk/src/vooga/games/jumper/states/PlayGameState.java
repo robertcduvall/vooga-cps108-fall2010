@@ -8,6 +8,7 @@ import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.jumper.events.InfiniteBlocks;
 import vooga.games.jumper.sprites.BlockSprite;
@@ -19,6 +20,11 @@ public class PlayGameState extends GameState{
 	private Game myGame;
 	private PlayField myField;
 	private EventPool eventPool;
+	
+	private String moveLeft = "moveLeft";
+	private String moveRight = "moveRight";
+	private String moveUp = "moveUp";
+	private String doodleKey = "doodle";
 	
 	public PlayGameState(Game game, PlayField field){
 		super(field);
@@ -50,12 +56,12 @@ public class PlayGameState extends GameState{
 
 	private void initControls(BetterSprite player) {
 		Control playerControl = new KeyboardControl(player, myGame);
-		playerControl.addInput(KeyEvent.VK_LEFT, "moveLeft", "vooga.games.jumper.sprites.DoodleSprite");
-		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", "vooga.games.jumper.sprites.DoodleSprite");
-		playerControl.addInput(KeyEvent.VK_UP, "moveUp", "vooga.games.jumper.sprites.DoodleSprite");
-		myField.addControl("doodle", playerControl);
-		this.getUpdateField().add(myField);
-		this.getRenderField().add(myField);
+		playerControl.addInput(KeyEvent.VK_LEFT, moveLeft, Resources.getString("DoodleSprite"));
+		playerControl.addInput(KeyEvent.VK_RIGHT, moveRight, Resources.getString("DoodleSprite"));
+		playerControl.addInput(KeyEvent.VK_UP, moveUp, Resources.getString("DoodleSprite"));
+		myField.addControl(doodleKey, playerControl);
+		getUpdateField().add(myField);
+		getRenderField().add(myField);
 	}
 	
 	@Override
