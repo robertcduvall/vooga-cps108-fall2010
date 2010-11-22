@@ -102,7 +102,6 @@ public class DoodleSprite extends BetterSprite {
 	}
 
 	public boolean doodleFell() {
-		System.out.println(getY());
 		return (getY() > MAXIMUM_SCREEN_Y);
 	}
 

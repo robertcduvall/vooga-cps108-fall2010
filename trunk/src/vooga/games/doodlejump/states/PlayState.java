@@ -23,6 +23,7 @@ import vooga.games.doodlejump.BallSprite;
 import vooga.games.doodlejump.BlahThis;
 import vooga.games.doodlejump.DoodleSprite;
 import vooga.games.doodlejump.events.DoodleDiedEvent;
+import vooga.games.doodlejump.events.GameWonEvent;
 import vooga.games.doodlejump.events.LevelWonEvent;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
@@ -38,6 +39,7 @@ public class PlayState extends GameState {
 	private DoodleSprite doodle;
 	private LevelManager myLevelManager;
 	private GameOverMenuState gameOverState;
+	private GameWonState gameWonState;
 	private EventPool eventPool;
 	private int startDelay;
 
@@ -49,6 +51,7 @@ public class PlayState extends GameState {
 	@Override
 	public void initialize() {
 		gameOverState = new GameOverMenuState(game);
+		gameWonState = new GameWonState(game);
 		game.getGameStateManager().addGameState(gameOverState);
 		myField = myLevelManager.loadFirstLevel();
 		initLevel();
@@ -119,7 +122,7 @@ public class PlayState extends GameState {
 	
 	private void initEvents(){
 		eventPool = new EventPool();
-		eventPool.addEvent(new LevelWonEvent(doodle, this));
+		eventPool.addEvent(new GameWonEvent(doodle, game, gameWonState));
 		eventPool.addEvent(new DoodleDiedEvent(doodle, game, gameOverState));
 	}
 }

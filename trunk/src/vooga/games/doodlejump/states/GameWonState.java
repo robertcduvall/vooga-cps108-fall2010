@@ -1,35 +1,49 @@
 package vooga.games.doodlejump.states;
 
-import vooga.engine.control.Control;
-import vooga.engine.control.KeyboardControl;
-import vooga.engine.core.BetterSprite;
+import java.awt.Graphics2D;
+
+import com.golden.gamedev.object.background.ImageBackground;
+
 import vooga.engine.core.Game;
-import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
-import vooga.widget.Button;
-
-
-import vooga.engine.overlay.OverlayString;
-import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 import vooga.engine.state.MenuGameState;
+import vooga.games.doodlejump.buttons.PlayButton;
 import vooga.games.doodlejump.buttons.RestartButton;
 
 public class GameWonState extends MenuGameState{
 
-	private RestartButton myRestartButton;
 	private Game myGame;
-	
-	public GameWonState (Game game){
+	private RestartButton myPlayButton;
+	private EventPool myEventPool;
+	private ImageBackground mainBackground;
+
+	public GameWonState(Game game) {
 		super();
-		this.myGame = game;
-	}
-	
-	@Override
-	public void initialize() {
-		this.myRestartButton = new RestartButton(myGame);
-		addButton(myRestartButton);
+		myGame = game;
 	}
 
+	@Override
+	public void initialize() {
+		myPlayButton = new RestartButton(myGame);
+		mainBackground = new ImageBackground(Resources.getImage("defaultPlay"));
+		myEventPool = new EventPool();
+		addButton(myPlayButton);
+		myEventPool.addEvent(myPlayButton);
+	}
+
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+		getMenuPlayfield().update(elapsedTime);
+		myEventPool.checkEvents();
+	}
+	
+	/**
+	 * Method called to render fonts to the screen, as well as the background.
+	 */
+	public void render(Graphics2D g) {
+		super.render(g);
+		mainBackground.render(g);
+	}
 }

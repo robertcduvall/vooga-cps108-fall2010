@@ -9,11 +9,12 @@ import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
 import vooga.games.doodlejump.buttons.PlayButton;
+import vooga.games.doodlejump.buttons.RestartButton;
 
 public class GameOverMenuState extends MenuGameState{
 
 	private Game myGame;
-	private PlayButton myPlayButton;
+	private RestartButton myPlayButton;
 	private EventPool myEventPool;
 	private ImageBackground mainBackground;
 
@@ -24,7 +25,7 @@ public class GameOverMenuState extends MenuGameState{
 
 	@Override
 	public void initialize() {
-		myPlayButton = new PlayButton(myGame);
+		myPlayButton = new RestartButton(myGame);
 		mainBackground = new ImageBackground(Resources.getImage("defaultPlay"));
 		myEventPool = new EventPool();
 		addButton(myPlayButton);
