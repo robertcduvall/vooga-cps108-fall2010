@@ -15,8 +15,8 @@ public class InfiniteBlocksEvent implements IEventHandler {
 	int xMin = 0;
 	int yMax = Resources.getInt("gameHeight");
 	int yMin = 0;
-	double xVelocity = -3;
-	double yVelocity = 0;
+	double xVelocity = 0;
+	double yVelocity = -3;
 
 	private PlayGameState playState;
 	

@@ -51,7 +51,6 @@ public class PlayGameState extends GameState{
 	
 	private void initEvents() {
 		eventPool = new EventPool();
-		//doesn't see to do anything..
 		eventPool.addEvent(new InfiniteBlocksEvent(this));
 	}
 	
