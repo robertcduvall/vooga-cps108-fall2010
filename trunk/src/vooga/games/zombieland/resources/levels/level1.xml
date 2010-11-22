@@ -15,6 +15,15 @@
 				<Visual name="zombieleft" />
 				<Visual name="zombieright" />
 				<Visual name="zombiedeath" />
+				<Stat name="ZOMBIE_PER_LEVEL" />
+				<Stat name="itemChance" />
+				<Stat name="attackDelay" />
+				<Stat name="zombieStatMultiplier" />
+				<Stat name="zombieDamage" />
+				<Stat name="zombieCurrentHealth" />
+				<Stat name="speed" />
+				<Stat name="attackDelayStep" />
+				<Stat name="currentAttackAnimation" />
 			</Sprite>
 		</SpriteGroup>
 
