@@ -33,6 +33,7 @@ public class DropThis extends Game {
 
 	MainMenuState pauseState;
 	GamePlayState playState;
+	GameEndState loseState;
 	public GameFontManager fontManager;
 	private LevelManager levelManager;
 	public Collection<PlayField> myLevels;
@@ -73,22 +74,24 @@ public class DropThis extends Game {
 	}
 
 	public void pauseGame() {
-		System.out.println("pausing game");
 		stateManager.switchTo(pauseState);		
 	}
 	
 	public void resumeGame() {
 		stateManager.switchTo(playState);
 	}
+	
+	public void loseGame(){
+		stateManager.switchTo(loseState);
+	}
 
 	public void initStates() {
-		System.out.println("creating states");
 		LevelParser levelParser = new LevelParser();
 		PlayField loseField = levelParser.getPlayfield(Resources.getString("losexml"),this);
 		PlayField winField = levelParser.getPlayfield(Resources.getString("winxml"),this);
 		MainMenuState mainMenu = new MainMenuState(this, Resources.getImage("Mario Menu BG"), fontManager);
 		pauseState = new MainMenuState(this, Resources.getImage("Pause BG"), fontManager);
-		GameEndState loseState = new GameEndState(loseField);
+		loseState = new GameEndState(loseField);
 		GameEndState winState = new GameEndState(winField);
 		MainMenuState levelFinishedState = new MainMenuState(this, Resources.getImage("Level Complete BG"), fontManager);
 		playState = new GamePlayState(this,(PlayField)myLevels.toArray()[0]);

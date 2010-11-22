@@ -7,9 +7,9 @@
 	<CollisionGroups>	
 	</CollisionGroups>
 	
-	<Background>
-		<Visual color="CC00FF"/>
-	</Background>
+	<Backgrounds>
+		<Visual name="Lose BG"/>
+	</Backgrounds>
 
 	<Music>
 	</Music>

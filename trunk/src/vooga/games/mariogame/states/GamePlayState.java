@@ -13,6 +13,10 @@ import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.engine.event.EventPool;
+import vooga.examples.event.demo2.HumanKilledbyZombieEvent;
+import vooga.games.mariogame.sprites.MarioSprite;
+import vooga.games.mariogame.events.LoseEvent;
 
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -36,6 +40,7 @@ public class GamePlayState extends GameState {
 	private PlayField myLevel;
 
 	private KeyboardControl myControl;
+	private EventPool myEvents;
 
 	public enum State {
 		Win, Lose, Continue, FinishedLevel
@@ -93,6 +98,7 @@ public class GamePlayState extends GameState {
 	public void update(long t) {
 		super.update(t);
 		myLevel.update(t);
+		myEvents.checkEvents();
 	}
 
 	/**
@@ -105,6 +111,13 @@ public class GamePlayState extends GameState {
 		switchLevel(0);
 		setUpKeyboard();
 		initOverlays();
+		initEvents();
+	}
+	
+	public void initEvents(){
+		myEvents = new EventPool();
+		LoseEvent lose = new LoseEvent((MarioSprite)myLevel.getGroup("marioGroup").getActiveSprite(),myGame);
+		myEvents.addEvent(lose);
 	}
 	
 	public void initOverlays(){
