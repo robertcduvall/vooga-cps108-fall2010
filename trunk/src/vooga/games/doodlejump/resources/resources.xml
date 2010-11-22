@@ -104,6 +104,8 @@
 	</Integers>
 
 	<Doubles>
+		<Double name="maxScreenX" value="532" />
+		<Double name="maxScreenY" value="800" />
 		<Double name="doodleInitialX" value="325" />
 		<Double name="doodleInitialY" value="500" />
 		<Double name="playButtonX" value="400" />
