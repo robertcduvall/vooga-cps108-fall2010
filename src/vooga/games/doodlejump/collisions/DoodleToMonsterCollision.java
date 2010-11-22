@@ -20,19 +20,26 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
  */
 public class DoodleToMonsterCollision extends BasicCollisionGroup {
 
+	private static final int ZERO_VERTICAL_SPEED = 0;
+	private static final int MULTIPLY_VERTICAL_SPEED = -1;
+	private static final double DOODLE_VERTICAL_SPEED = -0.5;
+	private static final String BUZZER_SOUND_STRING = "buzzerSound";
+
 	public DoodleToMonsterCollision(Game game) {
 		pixelPerfectCollision = true;
 	}
 
 	@Override
 	public void collided(Sprite doodle, Sprite monster) {
-		if(!((DoodleSprite) doodle).getDied()){
-			if (doodle.getVerticalSpeed() < 0) {
+		if (!((DoodleSprite) doodle).getDied()) {
+			if (doodle.getVerticalSpeed() < ZERO_VERTICAL_SPEED) {
 				((DoodleSprite) doodle).setDied(true);
-				((DoodleSprite) doodle).setVerticalSpeed(((DoodleSprite) doodle).getVerticalSpeed() * -1);
-				SoundPlayer.playSound(Resources.getSound("buzzerSound"));
+				((DoodleSprite) doodle)
+						.setVerticalSpeed(((DoodleSprite) doodle)
+								.getVerticalSpeed() * MULTIPLY_VERTICAL_SPEED);
+				SoundPlayer.playSound(Resources.getSound(BUZZER_SOUND_STRING));
 			} else {
-				doodle.setVerticalSpeed(-0.5);
+				doodle.setVerticalSpeed(DOODLE_VERTICAL_SPEED);
 				monster.setActive(false);
 			}
 		}
