@@ -21,32 +21,12 @@
 			<Visual name="playerdown" />
 			<Stat name = "initHealth" />
 			<Stat name = "initScore" />
-			<Stat name = "initAmmo" />
-			<Stat name = "speed" />
-			<Stat name = "maxHealth" />
-			<Stat name= "orientation" />
-			<Stat name= "weaponChoice" />
-			<Stat name = "levelScore" />
-			<Stat name = "shotgunAmmo" />
-			<Stat name = "rifleAmmo" />
-			<Stat name="pistolAmmo" />			
+			<Stat name = "initAmmo" />			
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
 	
 	<Rules>
-		<Rule name = "AddItemRule" class = "vooga.games.zombieland.rules.AddItemRule">
-		<SpriteGroup name = "Players" />
-		<SpriteGroup name = "Zombies" />
-		</Rule>
-		<Rule name = "AddZombieRule" class = "vooga.games.zombieland.rules.AddZombieRule">
-		<SpriteGroup name = "Players" />
-		<SpriteGroup name = "Zombies" />
-		</Rule>
-		<Rule name = "AddZombieRule" class = "vooga.games.zombieland.rules.SetInitialHumanTargetRule">
-		<SpriteGroup name = "Players" />
-		<SpriteGroup name = "Zombies" />
-		</Rule>
 	</Rules>
 	
 	
