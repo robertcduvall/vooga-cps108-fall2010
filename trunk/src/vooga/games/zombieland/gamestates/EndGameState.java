@@ -1,12 +1,10 @@
 package vooga.games.zombieland.gamestates;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.*;
 import vooga.engine.overlay.*;
-import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.Constants;

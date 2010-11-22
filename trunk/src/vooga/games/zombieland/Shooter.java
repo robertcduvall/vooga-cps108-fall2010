@@ -1,16 +1,13 @@
 package vooga.games.zombieland;
 
-import java.util.ResourceBundle;
 
 import com.golden.gamedev.object.*;
 
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
-import vooga.engine.util.AnimationUtil;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.games.zombieland.events.AddBulletsEvent;
-import vooga.games.zombieland.gamestates.PlayState;
 import vooga.games.zombieland.weapons.AssaultRifle;
 import vooga.games.zombieland.weapons.Bullet;
 import vooga.games.zombieland.weapons.Pistol;
@@ -23,24 +20,21 @@ import vooga.games.zombieland.weapons.Weapon;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
+@SuppressWarnings("serial")
 public class Shooter extends BetterSprite implements Constants{
 
 	private static int shotgunAmmo;
 	private static int rifleAmmo;
 	private static int pistolAmmo;
 	private int maxHealth;
-	private PlayState state;
 	private int speed;
 	private double orientation;
 	private int weaponChoice;
 	private Weapon[] weapons;
-	private Stat<Integer> health;
-	private Stat<Integer> score;
 	private Stat<Integer> ammo;
 	private int levelScore;
 	private AddBulletsEvent addbullets;
 
-	@SuppressWarnings("unchecked")
 	public Shooter() {
 		super();
 		weapons = new Weapon[3];
@@ -110,11 +104,11 @@ public class Shooter extends BetterSprite implements Constants{
 		addbullets.addBullet(bullet);
 
 	}
-
-	public void setState(PlayState state)
-	{
-		this.state = state;
-	}
+//
+//	public void setState(PlayState state)
+//	{
+//		this.state = state;
+//	}
 	
 	private void showAnimation(String direction) {
 		setAsRenderedSprite(direction);

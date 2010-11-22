@@ -1,6 +1,5 @@
 package vooga.games.zombieland.gamestates;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.object.Sprite;

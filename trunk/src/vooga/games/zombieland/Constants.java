@@ -1,7 +1,5 @@
 package vooga.games.zombieland;
 
-import vooga.engine.resource.Resources;
-
 /**
  * Keeps the shared paths/constants
  * @author Yang

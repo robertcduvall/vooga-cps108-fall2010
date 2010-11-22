@@ -12,6 +12,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
+@SuppressWarnings("serial")
 public abstract class Item extends BetterSprite {
 
 	private Shooter myPlayer;

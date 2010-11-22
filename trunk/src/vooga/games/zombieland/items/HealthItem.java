@@ -8,6 +8,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  *
  */
+@SuppressWarnings("serial")
 public class HealthItem extends Item {
 	private int bonusHealth;
 

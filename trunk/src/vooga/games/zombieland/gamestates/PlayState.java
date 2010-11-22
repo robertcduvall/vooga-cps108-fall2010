@@ -71,7 +71,6 @@ public class PlayState extends GameState implements Constants{
 
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
-		player.setState(this);
 	}
 
 	/**
@@ -166,11 +165,11 @@ public class PlayState extends GameState implements Constants{
 
 		control = new KeyboardControl(player, currentGame);
 		control2 = new KeyboardControl(currentGame, currentGame);
-		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS, null);
-		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS, null);
+		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS);
+		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS);
+		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS);
+		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS);
+		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS);
 
 		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
 		control.setParams(KeyEvent.VK_1, 0);

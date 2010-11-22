@@ -10,6 +10,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
+@SuppressWarnings("serial")
 public class WeaponItem extends Item {
 	private int bonusAmmo;
 	private int weaponID;
