@@ -3,6 +3,7 @@ package vooga.games.mariogame.tiles;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
+import vooga.games.mariogame.sprites.MarioSprite;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -25,6 +26,7 @@ public class ItemTile extends ChangingTile {
 	public void actOnCollision(Sprite sprite) {
 		if (!isLocked()) {
 			super.actOnCollision(sprite);
+			((MarioSprite) sprite).incScore(10);
 			releaseItem = true;
 			lock();
 		}
