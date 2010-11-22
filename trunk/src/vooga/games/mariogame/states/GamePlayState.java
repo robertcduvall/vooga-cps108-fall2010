@@ -2,28 +2,28 @@ package vooga.games.mariogame.states;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.Collection;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.core.BetterSprite;
+import vooga.engine.event.EventPool;
+import vooga.engine.factory.LevelManager;
+import vooga.engine.factory.MapTile;
 import vooga.engine.overlay.Stat;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
-import vooga.engine.event.EventPool;
-import vooga.engine.factory.LevelManager;
-import vooga.examples.event.demo2.HumanKilledbyZombieEvent;
-import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.events.LoseEvent;
+import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.events.NextLevelEvent;
 import vooga.games.mariogame.DropThis;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 /**
@@ -68,12 +68,12 @@ public class GamePlayState extends GameState {
 		initLevelManager();
 		initLevel();
 	}
-	
+
 	private void initLevelManager() {
 		levelManager = new LevelManager(myGame);
 		String levelFilesDirectory = Resources.getString("LevelFilesDirectory");
 		String levelNamesFile = Resources.getString("LevelNamesFile");
-		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
+		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 		myLevels = levelManager.getAllPlayFields();
 	}
 
@@ -86,6 +86,7 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void update(long t) {
+		checkForItems();
 		super.update(t);
 		getLevel().update(t);
 		myEvents.checkEvents();
@@ -127,19 +128,21 @@ public class GamePlayState extends GameState {
 		initOverlays();
 		initEvents();
 	}
-	
-	public void initEvents(){
+
+	public void initEvents() {
 		myEvents = new EventPool();
 		LoseEvent lose = new LoseEvent((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite(),myGame);
 		NextLevelEvent nextLevel = new NextLevelEvent((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite(), this);
 		myEvents.addEvent(lose);
 		myEvents.addEvent(nextLevel);
 	}
-	
-	public void initOverlays(){
+
+	public void initOverlays() {
 		OverlayCreator overlayCreator = new OverlayCreator();
-		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameOverlays.xml");
-		SpriteGroup myOverlays = overlayTracker.getOverlayGroup("MainMenuGroup");
+		OverlayTracker overlayTracker = overlayCreator
+				.createOverlays("src/vooga/games/mariogame/resources/overlays/GameOverlays.xml");
+		SpriteGroup myOverlays = overlayTracker
+				.getOverlayGroup("MainMenuGroup");
 		PlayField overlayField = new PlayField();
 		this.getRenderField().add(overlayField);
 		this.getUpdateField().add(overlayField);
@@ -159,6 +162,7 @@ public class GamePlayState extends GameState {
 		getLevel().render(g);
 		scrollLevel();
 	}
+
 	
 	public void scrollLevel(){
 		getLevel().getBackground().setToCenter(getLevel().getGroup("marioGroup").getActiveSprite());
@@ -170,20 +174,19 @@ public class GamePlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_A, "moveLeft", "vooga.games.mariogame.sprites.MarioSprite");
 		playerControl.addInput(KeyEvent.VK_W, "jumpCmd", "vooga.games.mariogame.sprites.MarioSprite");
 		getLevel().addControl("mario", playerControl);
-		
-		Control gameControl = new KeyboardControl(myGame,myGame);
-		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.mariogame.DropThis");
+
+		Control gameControl = new KeyboardControl(myGame, myGame);
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame",
+				"vooga.games.mariogame.DropThis");
 		getLevel().addControl("pause", gameControl);
-		
+
 		/*
-		for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) {
-			if (i == KeyEvent.VK_D || i == KeyEvent.VK_A || i == KeyEvent.VK_W)
-				continue;
-			myControl.setParams(new Class[] { char.class });
-			myControl.addInput(i, "cheat",
-					"vooga.games.marioclone.MarioSprite", (char) i);
-		}
-		*/
+		 * for (int i = KeyEvent.VK_A; i <= KeyEvent.VK_Z; i++) { if (i ==
+		 * KeyEvent.VK_D || i == KeyEvent.VK_A || i == KeyEvent.VK_W) continue;
+		 * myControl.setParams(new Class[] { char.class });
+		 * myControl.addInput(i, "cheat", "vooga.games.marioclone.MarioSprite",
+		 * (char) i); }
+		 */
 	}
 	
 	private PlayField getLevel(){
@@ -197,7 +200,19 @@ public class GamePlayState extends GameState {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	private void checkForItems() {
+		SpriteGroup items = getLevel().getGroup("itemGroup");
+		for (Sprite sprite : getLevel().getGroup("Map Group").getSprites()) {
+			if (sprite != null) {
+				Sprite item = ((MapTile) sprite).checkItem();
+				if (item != null) {
+					items.add(item);
+				}
+			}
+		}
 	}
 
 }

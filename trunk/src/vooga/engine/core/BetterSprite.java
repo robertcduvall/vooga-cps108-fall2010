@@ -106,6 +106,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 		this(DEFAULT_STATE_NAME, new AnimatedSprite(images));
 	}
 
+	
 	/**
 	 * Construct an entity from an array of BufferedImages to create an animated sprite
 	 * 
@@ -143,6 +144,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	public BetterSprite(double x, double y) {
 		this(null, x, y);
 	}
+	
 	
 	/**
 	 * Constructs an entity with given image located at specified coordinates

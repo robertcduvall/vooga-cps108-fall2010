@@ -1,17 +1,18 @@
 package vooga.games.mariogame.tiles;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
+
+import vooga.engine.core.BetterSprite;
 
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
 public class ItemTile extends ChangingTile {
 
-	protected Sprite myItem;
+	protected BetterSprite myItem;
 	protected boolean releaseItem;
 
-	public ItemTile(double x, double y, Sprite item, BufferedImage... images) {
+	public ItemTile(double x, double y, BetterSprite item, BufferedImage... images) {
 		super(x, y, images);
 		myItem = item;
 	}
