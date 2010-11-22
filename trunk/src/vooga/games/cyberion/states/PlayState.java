@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ColorBackground;
 
 import vooga.engine.control.KeyboardControl;
@@ -13,7 +14,9 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
 import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.events.EnemyFireEvent;
 import vooga.games.cyberion.events.PlayerFireEvent;
+import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
@@ -36,9 +39,10 @@ public class PlayState extends GameState {
 	private KeyboardControl playerControl;
 	private EventPool eventPool;
 	private PlayerShip player;
+	private Sprite[] enemy;
 	private String PLAYER_CLASS = "vooga.games.cyberion.sprites.playership.PlayerShip";
 	private PlayField newField;
-	
+
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
 		myGame = game;
@@ -48,6 +52,8 @@ public class PlayState extends GameState {
 	public void initialize() {
 		newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
+		enemy = (Sprite[]) newField.getGroup("enemyGroup").getSprites();
+		System.out.println(enemy);
 		initControls();
 		initEvents();
 		addPlayField(newField);
@@ -65,6 +71,7 @@ public class PlayState extends GameState {
 	public void initEvents() {
 		eventPool = new EventPool();
 		eventPool.addEvent(new PlayerFireEvent(myGame, player, this));
+		eventPool.addEvent(new EnemyFireEvent(myGame, enemy, this));
 	}
 
 	public void initControls() {
@@ -80,8 +87,8 @@ public class PlayState extends GameState {
 	public PlayerShip getPlayer() {
 		return player;
 	}
-	
-	public PlayField getPlayField(){
+
+	public PlayField getPlayField() {
 		return newField;
 	}
 
