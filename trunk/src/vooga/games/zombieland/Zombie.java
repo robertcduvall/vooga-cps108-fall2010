@@ -19,7 +19,8 @@ public class Zombie extends BetterSprite implements Constants {
 	private static int itemChance;
 	private static int attackDelay;
 	private static double zombieStatMultiplier;
-
+	
+	private PlayState state;
 	private double zombieDamage;
 	private int zombieCurrentHealth;
 
@@ -31,7 +32,7 @@ public class Zombie extends BetterSprite implements Constants {
 
 	private Blah game;
 
-	public Zombie(String name, int level, Shooter player) {
+	public Zombie(String name, int level, Shooter player, PlayState state) {
 		super(name, AnimationUtil
 				.getInitializedAnimatedSprite(Resources
 						.getAnimation(ZOMBIE_DOWN)));
@@ -90,6 +91,7 @@ public class Zombie extends BetterSprite implements Constants {
 
 		chooseRandomLocation();
 
+		this.state = state;
 		this.setActive(true);
 	}
 
@@ -231,8 +233,7 @@ public class Zombie extends BetterSprite implements Constants {
 				int item = (int) (Math.random() * 100);
 				if (item < itemChance) {
 
-					((PlayState) game.getPlayGameState())
-							.addRandomItem(getX(), getY());
+					state.addRandomItem(getX(), getY());
 				}
 			}
 			return;

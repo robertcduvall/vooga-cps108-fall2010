@@ -27,7 +27,7 @@ public class Shooter extends BetterSprite implements Constants{
 	private static int rifleAmmo;
 	private static int pistolAmmo;
 	private int maxHealth;
-	private Blah game;
+	private PlayState state;
 	private int speed;
 	private double orientation;
 	private int weaponChoice;
@@ -95,10 +95,15 @@ public class Shooter extends BetterSprite implements Constants{
 	 *            the angle of the bullet's trajectory
 	 */
 	public void addBulletToGame(Bullet bullet) {
-		((PlayState) game.getPlayGameState()).addBullet(bullet);
+		state.addBullet(bullet);
 
 	}
 
+	public void setState(PlayState state)
+	{
+		this.state = state;
+	}
+	
 	private void showAnimation(String direction) {
 		setAsRenderedSprite(direction);
 		((AnimatedSprite) getCurrentSprite()).setAnimate(true);
@@ -229,10 +234,9 @@ public class Shooter extends BetterSprite implements Constants{
 	 */
 	public void updateHealth(double d) {
 		int health = (Integer)getHealth().getStat();
-		getHealth().setStat((int) (health + d));
+		getHealth().setStat(new Integer(health + (int)d));
 		if (getHealth().getStat() > maxHealth)
 			setHealth(maxHealth);
-		getHealth().setStat(getHealth().getStat());
 	}
 
 	/**
@@ -275,7 +279,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 * update score
 	 */
 	public void updateScore(int number) {
-		score.setStat(score.getStat() + number);
+		getScore().setStat(getScore().getStat() + number);
 		levelScore += number;
 	}
 
