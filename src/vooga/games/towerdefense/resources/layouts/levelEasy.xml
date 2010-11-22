@@ -3,7 +3,7 @@
 
 	<SpriteGroup name="enemyGenerators">
 			<Sprite module="EasyEnemyGenerator" pathKey="easyLevelPathPoints">
-				<Event module="BuildEnemyEvent"
+				<Event module="BuildEnemyEvent" />
 			</Sprite>
 			<Sprite module="LevelButton" x="300" y="400" levelName="mediumLevel">
 				<Visual name="mediumButton" />

@@ -99,7 +99,7 @@ public class PlayState extends GameState{
 	}
 	
 	private Background initBackground(){
-		BufferedImage backgroundImage = Resources.getImage("background");
+		BufferedImage backgroundImage = Resources.getImage("easyLevelBackground");
 		backgroundImage = ImageUtil.resize(backgroundImage, Resources.getInt("gameWidth"), Resources.getInt("gameHeight"));
 		return new ImageBackground(backgroundImage);
 	}
