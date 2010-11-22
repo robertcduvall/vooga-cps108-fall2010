@@ -43,13 +43,14 @@ public class PlayState extends GameState implements Constants{
 	private OverlayString overlayGameOverString;
 	private OverlayStat overlayLevelStat;
 	private OverlayTracker tracker;
+	private OverlayTracker levelTracker;
 
 	private AddZombieEvent addZombies;
 	private LevelEndEvent endLevel;
 	
 	private Stat<Integer> statLevel;
 	private int level;
-	private int zombiesAppeared;
+//	private int zombiesAppeared;
 
 	public PlayState(Blah game) {
 		currentGame = game;
@@ -62,6 +63,7 @@ public class PlayState extends GameState implements Constants{
 		OverlayCreator.setGame(currentGame);
 		tracker = OverlayCreator
 				.createOverlays(XML_PATH);
+		levelTracker = OverlayCreator.createOverlays(PAUSE_XML_PATH);
 		random = new Random();
         LevelParser parser = new LevelParser();
         playField = parser.getPlayfield(
@@ -166,8 +168,8 @@ public class PlayState extends GameState implements Constants{
 		endLevel.updateDeaths(levelZombies());
 	}
 
-	public double levelZombies() {
-		return Zombie.zombiesPerLevel() * level* (Double)Resources.getDouble("zombieLimitingFactor");
+	public int levelZombies() {
+		return (int) (Zombie.zombiesPerLevel() * level* (Double)Resources.getDouble("zombieLimitingFactor"));
 	}
 
 	/**
@@ -179,9 +181,9 @@ public class PlayState extends GameState implements Constants{
 //		
 //		
 //		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
-		statLevel = tracker.getStat("initLevel", new Integer(0));
+		statLevel = levelTracker.getStat("initLevel", new Integer(0));
 //	
-		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
+		overlayLevelStat = levelTracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
 //		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
 //		overlayGameOverString.setActive(false);
@@ -202,12 +204,12 @@ public class PlayState extends GameState implements Constants{
 		timer.setDelay((long) (timeInterval / level * delayFactor));
 	}
 
-	/**
-	 * Make the zombieCount start back from zero.
-	 */
-	private void resetZombiesCount() {
-		zombiesAppeared = 0;
-	}
+//	/**
+//	 * Make the zombieCount start back from zero.
+//	 */
+//	private void resetZombiesCount() {
+//		zombiesAppeared = 0;
+//	}
 
 //	private boolean moreZombieCanBeAdded() {
 //

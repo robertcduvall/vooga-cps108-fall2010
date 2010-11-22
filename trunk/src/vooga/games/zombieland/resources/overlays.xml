@@ -3,7 +3,7 @@
 <Stat type="Integer" value="200" name = "initHealth" />
 <Stat type="Integer" value="0" name = "initScore" />
 <Stat type="Integer" value="100" name = "initAmmo" />
-<Stat type="Integer" value ="1" name = "initLevel" />
+
 
 <OverlayGroup name = "PlayStateOverlays">
 <OverlayBar xLoc="80" yLoc="18" stat="initHealth" max="200" color="green" backColor="black"></OverlayBar>
@@ -11,7 +11,7 @@
 
 <OverlayStat name = "kills" label="Kills: " stat="initScore" fontName="gameFontBlack" xLoc="385" yLoc="12"></OverlayStat> 
 <OverlayStat name = "ammos" label="Ammo: " stat="initAmmo" fontName="gameFontBlue" xLoc="470" yLoc="12"></OverlayStat> 
-<OverlayStat name = "levels" label="Level " stat="initLevel" fontName="gameFontBlack" xLoc="260" yLoc="180"></OverlayStat> 
+
 
 </OverlayGroup>
 
