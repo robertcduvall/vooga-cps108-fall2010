@@ -7,18 +7,18 @@
 				<Visual name="backgroundImage" />
 			</Sprite>
 		</SpriteGroup>
+		<SpriteGroup name="planetsGroup">
+			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="false" x="900"
+				y="0" vx="-0.03" vy="0" quantity="1">
+					<Visual name="neptuneImage" />
+				</Sprite>
+		</SpriteGroup>
 		<SpriteGroup name="cometsGroup">
 			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="true" xMin="0"
 				xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0"
 				vyMax="0" quantity="3000" >
 				<Visual name="comet2Image" />
 			</Sprite>
-		</SpriteGroup>
-		<SpriteGroup name="planetsGroup">
-			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="false" x="900"
-				y="0" vx="-0.03" vy="0" quantity="1">
-					<Visual name="neptuneImage" />
-				</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="missileGroup" />
 		<SpriteGroup name="explosionGroup" />
