@@ -12,13 +12,10 @@ import vooga.games.towerdefense.actors.enemies.Enemy;
 import vooga.games.towerdefense.actors.towers.ShootingTower;
 
 public class ShootEvent implements IEventHandler{
-	private Player player;
 	private EnemyHitEvent enemyHit;
 	private Queue<ShootingTower> shootQueue = new LinkedList<ShootingTower>();
 	
-	public ShootEvent(Player p, EnemyHitEvent enemyHit)
-	{
-		player = p;
+	public void setHitEvent(EnemyHitEvent enemyHit){
 		this.enemyHit = enemyHit;
 	}
 	
