@@ -19,8 +19,6 @@ import vooga.games.tronupdate.state.TronGamePlayState;
 import vooga.games.tronupdate.collisions.*;
 
 public class Main extends vooga.engine.core.Game{
-	
-	
 	@Override
 	public void initResources() {
 		super.initResources();
@@ -28,19 +26,18 @@ public class Main extends vooga.engine.core.Game{
 		initStates();
 	}
 	
+	
+	
 	private void initStates(){
 		TronGamePauseState pauseState =new TronGamePauseState(this,stateManager);
 		GameOverState gameOverState =new GameOverState(this,stateManager);
 		TronGamePlayState playState = new TronGamePlayState(this,stateManager);
 		MenuState menuState = new MenuState(this,stateManager);
-		//playState.activate();
-		menuState.activate();
+		menuState.activate(); playState.deactivate(); pauseState.deactivate();
 		stateManager.addGameState(playState,0);
 		stateManager.addGameState(pauseState,1);
 		stateManager.addGameState(gameOverState,2);
 		stateManager.addGameState(menuState,3);
-		
-		
 	}
 
 	public static void main(String[] args) {
