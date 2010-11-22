@@ -10,7 +10,7 @@ import vooga.engine.control.MouseControl;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
-import vooga.engine.factory.LevelManager;
+import vooga.engine.level.Rule;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.actors.EnemyGenerator;
@@ -29,6 +29,7 @@ import vooga.games.towerdefense.events.EnemyFailEvent;
 import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
 import vooga.games.towerdefense.events.ShootEvent;
+import vooga.games.towerdefense.rules.GameLost;
 import vooga.widget.counter.Counter;
 import vooga.widget.levelparse.ModularLevelParser;
 
@@ -132,6 +133,9 @@ public class Level extends PlayField{
 		myPlayField.addControl("player", initControl(player));
 		myPlayField.addControl("playerCheats", initControlKeyBoard(player));
 		myPlayField.addControl("pause", initControlPause());
+		
+		SpriteGroup[] playerGroups = new SpriteGroup[]{playerGroup};
+		myPlayField.addRule("gameOver", initGameLostRule(), playerGroups);
 	}
 	
 	private Background initBackground(){
@@ -171,6 +175,10 @@ public class Level extends PlayField{
 		pauseControl.addInput(KeyEvent.VK_P, "pause", "vooga.games.towerdefense.Pauser");
 		
 		return pauseControl;
+	}
+	
+	public Rule initGameLostRule(){
+		return new GameLost();
 	}
 
 }
