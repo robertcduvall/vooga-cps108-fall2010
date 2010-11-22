@@ -108,9 +108,9 @@
 		<Double name="maxScreenY" value="800" />
 		<Double name="doodleInitialX" value="325" />
 		<Double name="doodleInitialY" value="500" />
-		<Double name="playButtonX" value="400" />
-		<Double name="playButtonY" value="600" />
-		<Double name="playButtonX" value="250" />
-		<Double name="playButtonY" value="400" />
+		<Double name="playButtonX" value="160" />
+		<Double name="playButtonY" value="350" />
+		<Double name="resumeButtonX" value="280" />
+		<Double name="resumeButtonY" value="300" />
 	</Doubles>
 </Resources> 

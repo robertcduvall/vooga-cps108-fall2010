@@ -22,6 +22,7 @@ import vooga.engine.state.GameState;
 import vooga.games.doodlejump.BallSprite;
 import vooga.games.doodlejump.BlahThis;
 import vooga.games.doodlejump.DoodleSprite;
+import vooga.games.doodlejump.rules.DoodleDiedEvent;
 import vooga.games.doodlejump.rules.LevelWonEvent;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
@@ -36,7 +37,9 @@ public class PlayState extends GameState {
 	PlayField myField;
 	private DoodleSprite doodle;
 	private LevelManager myLevelManager;
+	private GameOverMenuState gameOverState;
 	private EventPool eventPool;
+	private int startDelay;
 
 	public PlayState(Game game, LevelManager levelManager) {
 		myLevelManager = levelManager;
@@ -45,9 +48,15 @@ public class PlayState extends GameState {
 
 	@Override
 	public void initialize() {
+		gameOverState = new GameOverMenuState(game);
+		game.getGameStateManager().addGameState(gameOverState);
 		myField = myLevelManager.loadFirstLevel();
 		initLevel();
 		this.addPlayField(myField);
+	}
+	
+	public void onActivate(){
+		startDelay = 100;
 	}
 	
 	public void nextLevel(){
@@ -69,19 +78,25 @@ public class PlayState extends GameState {
 
 	@Override
 	public void update(long elapsedTime) {
-		for (SpriteGroup group : myField.getGroups()) {
-			for (Sprite sprite : group.getSprites()) {
-				if (doodle.getY() < doodle.getMaxHeight() && sprite != null) {
-					scrollLevel(sprite);
-					if (group.getName().equals("doodleGroup")) {
-						((Stat<Integer>)doodle.getStat("score")).setStat(((Stat<Integer>)doodle.getStat("score")).getStat() + 5);
-						//doodle.setMaxHeight(doodle.getY());
+		if(startDelay != 0 && startDelay < 99)
+			startDelay--;
+		else{
+			if(startDelay != 0){
+				startDelay--;
+			}
+			for (SpriteGroup group : myField.getGroups()) {
+				for (Sprite sprite : group.getSprites()) {
+					if (doodle.getY() < doodle.getMaxHeight() && sprite != null) {
+						scrollLevel(sprite);
+						if (group.getName().equals("doodleGroup")) {
+							((Stat<Integer>)doodle.getStat("score")).setStat(((Stat<Integer>)doodle.getStat("score")).getStat() + 5);
+						}
 					}
 				}
 			}
+			super.update(elapsedTime);
+			eventPool.checkEvents();
 		}
-		super.update(elapsedTime);
-		eventPool.checkEvents();
 	}
 
 	private void scrollLevel(Sprite sprite) {
@@ -98,12 +113,13 @@ public class PlayState extends GameState {
 				"vooga.games.doodlejump.DoodleSprite");
 		myField.addControl("doodle", playerControl);
 		Control gameControl = new KeyboardControl(game, game);
-		gameControl.addInput(KeyEvent.VK_P, "pauseResumeGame", "vooga.games.doodlejump.BlahThis");
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.doodlejump.BlahThis");
 		myField.addControl("game", gameControl);
 	}
 	
 	private void initEvents(){
 		eventPool = new EventPool();
 		eventPool.addEvent(new LevelWonEvent(doodle, this));
+		eventPool.addEvent(new DoodleDiedEvent(doodle, game, gameOverState));
 	}
 }

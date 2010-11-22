@@ -13,6 +13,7 @@ public class DoodleDiedEvent implements IEventHandler{
 	public DoodleDiedEvent(DoodleSprite doodle, Game game, GameState gameOverState) {
 		myDoodle = doodle;
 		myGame = game;
+		myGameOverState = gameOverState;
 	}
 
 	@Override
@@ -22,6 +23,6 @@ public class DoodleDiedEvent implements IEventHandler{
 
 	@Override
 	public boolean isTriggered() {
-		return myDoodle.getDied();
+		return myDoodle.doodleFell();
 	}
 }
