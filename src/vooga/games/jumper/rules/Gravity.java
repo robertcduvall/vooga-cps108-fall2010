@@ -32,9 +32,9 @@ public class Gravity implements Rule{
 	private void applyGravity(SpriteGroup group) {
 
 		for(Sprite s: group.getSprites()){
+			
 			if (s!=null && s.getVerticalSpeed() < MAX_SPEED){
-				System.out.println("got here");
-				s.setVerticalSpeed(GRAVITY);
+				s.setVerticalSpeed(s.getVerticalSpeed() + GRAVITY);
 			}
 		}
 		

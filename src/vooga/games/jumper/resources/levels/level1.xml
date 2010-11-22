@@ -39,14 +39,12 @@
 		<Rule name="WallBounce" class="vooga.games.jumper.rules.WallBounce">
 			<SpriteGroup name="normalBlocks" />
 		</Rule>
-		<Rule name="Decelerate" class="vooga.games.jumper.rules.Decelerate">
-			<SpriteGroup name="doodleSprite" />
-		</Rule>
+		
 		
 	</Rules>
 
 	<CollisionGroups>
-		
+
 	</CollisionGroups>
 	
 	<Backgrounds>
