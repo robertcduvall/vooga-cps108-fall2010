@@ -106,6 +106,8 @@
 	<Doubles>
 		<Double name="maxScreenX" value="532" />
 		<Double name="maxScreenY" value="800" />
+		<Double name="minScreenX" value="0" />
+		<Double name="minScreenY" value="0" />
 		<Double name="doodleInitialX" value="325" />
 		<Double name="doodleInitialY" value="500" />
 		<Double name="playButtonX" value="160" />
