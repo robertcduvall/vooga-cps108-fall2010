@@ -11,35 +11,54 @@ import vooga.engine.resource.Resources;
  * 
  * @author Brian
  */
-public class Floor implements Rule{
+public class Floor implements Rule {
 
-	private int FLOOR_HEIGHT = Resources.getInt("gameHeight") - Resources.getInt("distanceFromFloorToBottom");
+	private int FLOOR_HEIGHT = Resources.getInt("gameHeight")
+			- Resources.getInt("distanceFromFloorToBottom");
 	
+	/** set type SpriteGroup to be enforced by this rule.
+	 * @param any number of type SpriteGroup
+	 */
+
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		for (SpriteGroup group: groups){
+		for (SpriteGroup group : groups) {
 			adjustForFloor(group);
 		}
 	}
 
+	/**
+	 * Check to see if the rule is satisfied.
+	 * 
+	 * @param any number of type SpriteGroup
+	 * @return true if sprite from sprite group hits floor
+	 */
+
 	@Override
 	public boolean isSatisfied(SpriteGroup... groups) {
-		for (SpriteGroup group: groups){
-			for (Sprite s: group.getSprites()) {
-	            if (s!=null && s.getY() > FLOOR_HEIGHT){
-	                return true;
-	            }
-	        }
+		for (SpriteGroup group : groups) {
+			for (Sprite s : group.getSprites()) {
+				if (s != null && s.getY() > FLOOR_HEIGHT) {
+					return true;
+				}
+			}
 		}
-        return false;
+		return false;
 	}
 	
+	/**
+	 * Sets the sprites' y value to the floor's
+	 * 
+	 * @param type SpriteGroup
+	 * 
+	 */
+
 	private void adjustForFloor(SpriteGroup group) {
-		for(Sprite s: group.getSprites()){
-			if (s!=null)
+		for (Sprite s : group.getSprites()) {
+			if (s != null)
 				s.setY(FLOOR_HEIGHT);
 		}
-		
+
 	}
 
 }

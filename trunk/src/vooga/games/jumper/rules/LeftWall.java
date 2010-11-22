@@ -15,6 +15,10 @@ public class LeftWall implements Rule {
 
 	private final int LEFT_WALL_POSITION = 0;
 	private final int RIGHT_WALL_POSITION = Resources.getInt("gameWidth");
+	
+	/** set type SpriteGroup to be enforced by this rule.
+	 * @param any number of type SpriteGroup
+	 */
 
 	@Override
 	public void enforce(SpriteGroup... groups) {
@@ -22,6 +26,13 @@ public class LeftWall implements Rule {
 			reposition(group);
 		}
 	}
+	
+	/**
+	 * Sets the sprites' x value to right wall
+	 * 
+	 * @param type SpriteGroup
+	 * 
+	 */
 
 	public void reposition(SpriteGroup groups) {
 		for(Sprite sprite: groups.getSprites()){
@@ -30,6 +41,13 @@ public class LeftWall implements Rule {
 		}
 		
 	}
+	
+	/**
+	 * Check to see if the rule is satisfied.
+	 * 
+	 * @param any number of type SpriteGroup
+	 * @return true if sprite from sprites hit the left wall
+	 */
 
 	@Override
 	public boolean isSatisfied(SpriteGroup... groups) {
