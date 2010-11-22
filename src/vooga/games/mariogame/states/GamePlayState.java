@@ -9,8 +9,12 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+
+import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * 
@@ -100,6 +104,16 @@ public class GamePlayState extends GameState {
 		myCurrentLevel = 0;
 		switchLevel(0);
 		setUpKeyboard();
+		initOverlays();
+	}
+	
+	public void initOverlays(){
+		OverlayCreator overlayCreator = new OverlayCreator();
+		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/GameOverlays.xml");
+		SpriteGroup myOverlays = overlayTracker.getOverlayGroup("MainMenuGroup");
+		PlayField overlayField = new PlayField();
+		this.getRenderField().add(overlayField);
+		this.getUpdateField().add(overlayField);
 	}
 
 	public int getScore() {
