@@ -22,6 +22,8 @@ import vooga.games.doodlejump.states.PlayState;
  * 
  */
 public class DoodleSprite extends BetterSprite {
+	private static final double MINIMUM_SCREEN_Y = Resources.getDouble("maxScreenY");
+	
 	private boolean died;
 	private PlayState playState;
 	private int bulletDelay = 20;
@@ -97,7 +99,7 @@ public class DoodleSprite extends BetterSprite {
 	}
 
 	private boolean doodleFell() {
-		return (getY() > 800);
+		return (getY() > MINIMUM_SCREEN_Y);
 	}
 
 	public void setPlayState(PlayState p) {
