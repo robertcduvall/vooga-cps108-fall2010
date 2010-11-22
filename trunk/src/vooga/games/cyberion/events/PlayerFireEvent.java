@@ -24,6 +24,8 @@ public class PlayerFireEvent implements IEventHandler {
 		this.playState = playState;
 	}
 
+	
+	
 	@Override
 	public void actionPerformed() {
 		PlayerShot sprite = new PlayerShot(playState.getPlayField()
