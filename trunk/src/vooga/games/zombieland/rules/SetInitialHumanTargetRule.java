@@ -23,8 +23,10 @@ public class SetInitialHumanTargetRule implements Rule{
 		
 		for(Sprite zombie: zombieGroup.getSprites())
 		{
-			((Zombie) zombie).setHumanTarget(human);
-			
+			if(zombie != null)
+			{
+				((Zombie) zombie).setHumanTarget(human);
+			}
 		}
 	}
 
