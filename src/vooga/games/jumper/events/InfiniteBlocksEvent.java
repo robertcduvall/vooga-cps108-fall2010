@@ -9,12 +9,16 @@ import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
 public class InfiniteBlocksEvent implements IEventHandler {
-	Point initPoint = new Point(100, 100);
+	Random random = new Random();
+	int xMax = Resources.getInt("gameWidth");
+	int xMin = 0;
+	int yMax = Resources.getInt("gameHeight");
+	int yMin = 0;
 	double xVelocity = -3;
 	double yVelocity = 0;
 
 	private PlayGameState playState;
-	Random random = new Random();
+	
 
 	public InfiniteBlocksEvent(PlayGameState gamestate) {
 		playState = gamestate;
@@ -27,7 +31,11 @@ public class InfiniteBlocksEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
+		int randomX = random.nextInt(xMax - xMin) + xMin;
+		int randomY = random.nextInt(yMax - yMin) + yMax;
+		Point initPoint = new Point(randomX, randomY);
 		NormalBlock addBlock = new NormalBlock(Resources.getImage("platformGreen"), initPoint, xVelocity, yVelocity);
 		playState.getGroup("normalBlocks").add(addBlock);
+		System.out.println(initPoint);
 	}
 }
