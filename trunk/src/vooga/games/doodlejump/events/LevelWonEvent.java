@@ -18,6 +18,10 @@ import com.golden.gamedev.object.SpriteGroup;
  * 
  */
 public class LevelWonEvent implements IEventHandler {
+
+	private static final int INVALID_LEVEL = 4;
+	private static final int FIRST_SPRITE_GROUP = 0;
+	private static final String DOODLE_GROUP_STRING = "doodleGroup";
 	private DoodleSprite doodle;
 	private PlayState playState;
 	private BlahThis game;
@@ -30,13 +34,13 @@ public class LevelWonEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
-		if (playState.getLevelManager().getCurrentLevel() != 4) {
+		if (playState.getLevelManager().getCurrentLevel() != INVALID_LEVEL) {
 			doodle.reset();
 			PlayField newField = playState.getLevelManager().loadNextLevel();
 			playState.removeEverything();
 			playState.setField(newField);
-			playState.setDoodle((DoodleSprite) newField.getGroup("doodleGroup")
-					.getSprites()[0]);
+			playState.setDoodle((DoodleSprite) newField.getGroup(
+					DOODLE_GROUP_STRING).getSprites()[FIRST_SPRITE_GROUP]);
 			playState.initControls();
 			playState.initEvents();
 			// game.setAsPlayGameState(playState);

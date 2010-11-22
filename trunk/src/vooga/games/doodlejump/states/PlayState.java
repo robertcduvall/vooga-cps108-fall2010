@@ -54,6 +54,10 @@ public class PlayState extends GameState {
 	private static final String SCORE_INCREMENT_STRING = "scoreIncrement";
 	private static final String BALL_GROUP_STRING = "ballGroup";
 
+	private static final int FIRST_SPRITE = 0;
+	private static final int ZERO_START_DELAY = 0;
+	private static final int SUBTRACT_FROM_START_DELAY = 1;
+
 	private Game game;
 	PlayField myField;
 	private DoodleSprite doodle;
@@ -85,7 +89,7 @@ public class PlayState extends GameState {
 
 	private void initLevel() {
 		doodle = (DoodleSprite) (myField.getGroup(DOODLE_GROUP_STRING)
-				.getSprites()[0]);
+				.getSprites()[FIRST_SPRITE]);
 		doodle.setPlayState(this);
 		initControls();
 		initEvents();
@@ -115,10 +119,11 @@ public class PlayState extends GameState {
 
 	@Override
 	public void update(long elapsedTime) {
-		if (startDelay != 0
+		if (startDelay != ZERO_START_DELAY
 				&& startDelay <= Resources.getInt(GAME_DELAY_STRING)) {
 			startDelay--;
-			if (startDelay != Resources.getInt(GAME_DELAY_STRING) - 1)
+			if (startDelay != Resources.getInt(GAME_DELAY_STRING)
+					- SUBTRACT_FROM_START_DELAY)
 				return;
 		}
 		for (SpriteGroup group : myField.getGroups()) {
