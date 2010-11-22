@@ -6,7 +6,6 @@ import java.awt.Color;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.PauseGameState;
 import vooga.games.jumper.states.PausedGameState;
 import vooga.games.jumper.states.PlayGameState;
 
@@ -67,19 +66,6 @@ public class DropThis extends vooga.engine.core.Game {
 	public void resumeGame() {		
 		stateManager.activateOnly(playState);
 	}
-
-
-	public void pauseGame() {
-		stateManager.activateOnly(pausedState);		
-	}
-	
-//	public static void setJetpackOn(boolean jetpackOn) {
-//		DropThis.jetpackOn = jetpackOn;
-//		if(jetpackOn == true){
-//			DropThis.jetpackStartTime = DropThis.myClock.getTime();
-//		}
-//	}
-
 
 	/**
 	 * Main method which loads the game

@@ -21,8 +21,6 @@ public class PausedGameState extends PauseGameState{
 	
 	@Override
 	public void initialize(){
-		System.out.println("initializing");
-		
 		myEventPool = new EventPool();
 		
 		myEventPool.addEvent(new ResumeEvent(myGame, this));

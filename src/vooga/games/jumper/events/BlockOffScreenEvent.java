@@ -17,6 +17,7 @@ import vooga.games.jumper.states.PlayGameState;
 public class BlockOffScreenEvent implements IEventHandler {
 
 	private double BLOCK_APPEARANCE_RATE_MULTIPLIER = Resources.getDouble("BLOCK_APPEARANCE_RATE_MULTIPLIER");
+	private double BLOCK_APPEARANCE_RATE_MULTIPLIER_INCREMENT = Resources.getDouble("BLOCK_APPEARANCE_RATE_MULTIPLIER_INCREMENT");
 	private PlayGameState playState;
 	NormalBlock blockToBeRemoved;
 
@@ -40,7 +41,7 @@ public class BlockOffScreenEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
-		BLOCK_APPEARANCE_RATE_MULTIPLIER += 0.0009;
+		BLOCK_APPEARANCE_RATE_MULTIPLIER += BLOCK_APPEARANCE_RATE_MULTIPLIER_INCREMENT;
 		playState.getGroup("normalBlocks").remove(blockToBeRemoved);
 	}
 

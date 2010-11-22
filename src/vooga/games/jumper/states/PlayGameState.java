@@ -1,8 +1,5 @@
 package vooga.games.jumper.states;
 
-import java.awt.event.KeyEvent;
-import java.util.ResourceBundle;
-
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.BetterSprite;
@@ -14,9 +11,6 @@ import vooga.engine.state.GameState;
 import vooga.games.jumper.events.BlockOffScreenEvent;
 import vooga.games.jumper.events.InfiniteBlocksEvent;
 import vooga.games.jumper.events.PauseEvent;
-import vooga.games.jumper.sprites.BlockSprite;
-
-import com.golden.gamedev.object.Sprite;
 
 public class PlayGameState extends GameState{
 	
@@ -26,14 +20,12 @@ public class PlayGameState extends GameState{
 	
 	private String moveLeft = "moveLeft";
 	private String moveRight = "moveRight";
-	private String moveUp = "moveUp";
 	private String doodleKey = "doodle";
 
-	private String keyLeft = "left key";
-	private String keyRight = "right key";
-	private String keyUp = "up key";
-
-
+	private String doodleSprite = Resources.getString("DoodleSprite");
+	private int keyLeft = Resources.getInt("left key");
+	private int keyRight = Resources.getInt("right key");
+	
 	public PlayGameState(Game game, PlayField field){
 		super(field);
 		myGame = game;
@@ -59,12 +51,11 @@ public class PlayGameState extends GameState{
 		initControls(doodleSprite);
 		initEvents();
 	}
-	//Resources.getString("DoodleSprite")
 
 	private void initControls(BetterSprite player) {
 		Control playerControl = new KeyboardControl(player, myGame);
-		playerControl.addInput(Resources.getInt(keyLeft), moveLeft, Resources.getString("DoodleSprite"));
-		playerControl.addInput(Resources.getInt(keyRight), moveRight, Resources.getString("DoodleSprite"));
+		playerControl.addInput(keyLeft, moveLeft, doodleSprite);
+		playerControl.addInput(keyRight, moveRight, doodleSprite);
 		myField.addControl(doodleKey, playerControl);
 		this.getUpdateField().add(myField);
 		this.getRenderField().add(myField);

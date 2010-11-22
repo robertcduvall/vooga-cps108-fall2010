@@ -11,12 +11,10 @@ import vooga.games.jumper.states.PlayGameState;
 public class PauseEvent implements IEventHandler{
 
 	private DropThis myGame;
-	private PlayGameState myState;
 	private GameStateManager myGSM;
 	
-	public PauseEvent(Game myGame2, PlayGameState playState){
-		myGame = (DropThis) myGame2;
-		myState = playState;
+	public PauseEvent(Game game, PlayGameState playState){
+		myGame = (DropThis) game;
 		myGSM = myGame.getGameStateManager();
 	}
 	
@@ -28,8 +26,7 @@ public class PauseEvent implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		myGSM.activateOnly(myGSM.getGameState(0));
-		System.out.println("pause");
+		myGSM.activateOnly(myGSM.getGameState(0));//switch to the pause state
 	}
 
 }
