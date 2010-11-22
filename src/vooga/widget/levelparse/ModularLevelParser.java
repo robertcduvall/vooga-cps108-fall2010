@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import vooga.engine.core.BetterSprite;
-import vooga.engine.core.Game;
+import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.widget.levelparse.modules.SpriteModule;
@@ -41,9 +41,15 @@ import com.golden.gamedev.object.SpriteGroup;
 public class ModularLevelParser extends LevelParser{
 	
 	private String moduleMapPathKey;
+	private EventPool eventPool;
 	
 	public ModularLevelParser(String moduleMapPathKey){
 		this.moduleMapPathKey = moduleMapPathKey;
+		eventPool = new EventPool();
+	}
+	
+	public void setEventPool(EventPool eventPool){
+		this.eventPool = eventPool;
 	}
 	
 	/**
@@ -70,10 +76,11 @@ public class ModularLevelParser extends LevelParser{
 						Constructor<?> moduleConstructor = moduleClass.getConstructor();
 						SpriteModule module = (SpriteModule) moduleConstructor.newInstance();
 						module.setOverlayTracker(getOverlayTracker());
+						module.setEventPool(eventPool);
 						for(BetterSprite sprite: module.getSprites(currentElement)){
 							group.add(sprite);
 						}
-//						
+						this.getIncompletePlayfield().addEventPool(eventPool);
 					} catch (Throwable e){
 						e.printStackTrace();
 					}

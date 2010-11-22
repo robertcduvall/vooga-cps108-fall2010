@@ -14,11 +14,7 @@ import vooga.widget.levelparse.modules.SpriteModule;
 
 public class LevelButtonModule extends SpriteModule{
 	
-	private EventPool eventPool;
 	
-	public void setEventPool(EventPool eventPool){
-		this.eventPool = eventPool;
-	}
 
 	@Override
 	public Collection<BetterSprite> getSprites(Element spriteElement) {
@@ -33,7 +29,7 @@ public class LevelButtonModule extends SpriteModule{
 		NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
 		processVisual(listOfVisuals, button);
 		betterSprites.add(button);
-		eventPool.addEvent(button);
+		getEventPool().addEvent(button);
 		return betterSprites;
 	}
 
