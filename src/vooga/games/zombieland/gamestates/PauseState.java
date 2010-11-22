@@ -35,7 +35,6 @@ public class PauseState extends GameState implements Constants {
 		p.add(overlayPauseString);
 		KeyboardControl control = new KeyboardControl(game,game);
 		control.addInput(KeyEvent.VK_ESCAPE, "play", MAIN_CLASS);
-		control.addInput(KeyEvent.VK_P, "play", MAIN_CLASS);
 		p.addControl("pause", control);
 		this.addPlayField(p);
 	}

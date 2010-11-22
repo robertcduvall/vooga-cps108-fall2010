@@ -18,10 +18,13 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
+import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.zombieland.*;
+import vooga.games.zombieland.events.AddZombieEvent;
+import vooga.games.zombieland.events.LevelEndEvent;
 import vooga.games.zombieland.items.*;
 import vooga.games.zombieland.weapons.*;
 
@@ -33,12 +36,17 @@ public class PlayState extends GameState implements Constants{
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
-	Random random;
+	private KeyboardControl control2;
+	private EventPool eventPool;
+	private Random random;
 
 	private OverlayString overlayGameOverString;
 	private OverlayStat overlayLevelStat;
 	private OverlayTracker tracker;
 
+	private AddZombieEvent addZombies;
+	private LevelEndEvent endLevel;
+	
 	private Stat<Integer> statLevel;
 	private int level;
 	private int zombiesAppeared;
@@ -62,8 +70,9 @@ public class PlayState extends GameState implements Constants{
         player = (Shooter) playField.getGroup("Players").getSprites()[0];
         player.setState(this);
 //		initializePlayer();
+        initOverlays();
 		initEnvironment();
-		initOverlays();
+		
 		setListeners();
 	}
 	
@@ -128,11 +137,37 @@ public class PlayState extends GameState implements Constants{
 //		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Players"), entityWallManager);
 //		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
 //		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
-//		
+		
+		eventPool = new EventPool();
+		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
+		endLevel = new LevelEndEvent(player, this, levelZombies());
+		createZombies();
+		
+		
+		
+		eventPool.addEvent(addZombies);
+		eventPool.addEvent(endLevel);
+		
 		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
 
-		level = Resources.getInt("startLevel");
+		
+	}
+
+	public void createZombies() {
+		statLevel.setStat(level + 1);
+		level++;
+		overlayLevelStat.setActive(true);
+
+		for (int i = 0; i< levelZombies(); i++)
+		{
+			addZombies.addEnemy(new Zombie("New", level, player, this));
+		}
+		endLevel.updateDeaths(levelZombies());
+	}
+
+	public double levelZombies() {
+		return Zombie.zombiesPerLevel() * level* (Double)Resources.getDouble("zombieLimitingFactor");
 	}
 
 	/**
@@ -140,7 +175,7 @@ public class PlayState extends GameState implements Constants{
 	 * OverlayHealthBar, the OverlayScoreString, the overlayAmmoString, the
 	 * OverlayLevelString, overllayPauseString.
 	 */
-	public void initOverlays() {
+	private void initOverlays() {
 //		
 //		
 //		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
@@ -153,14 +188,14 @@ public class PlayState extends GameState implements Constants{
 //		playField.addGroup(overlays);
 	}
 
-	private boolean levelCompleted() {
-		return player.getLevelScore() == zombiesAppeared;
-	}
+//	private boolean levelCompleted() {
+//		return player.getLevelScore() == zombiesAppeared;
+//	}
 
 	/**
 	 * This method sets the new Delay Time
 	 */
-	private void setNewDelay() {
+	public void setNewDelay() {
 		int timeInterval = Resources.getInt("timeInterval");
 		double delayFactor = Resources.getDouble("delayFactor");
 
@@ -174,25 +209,25 @@ public class PlayState extends GameState implements Constants{
 		zombiesAppeared = 0;
 	}
 
-	private boolean moreZombieCanBeAdded() {
-
-		double zombieLimitingFactor = Resources
-				.getDouble("zombieLimitingFactor");
-
-		return zombiesAppeared < Zombie.zombiesPerLevel() * level
-				* zombieLimitingFactor;
-	}
+//	private boolean moreZombieCanBeAdded() {
+//
+//		double zombieLimitingFactor = Resources
+//				.getDouble("zombieLimitingFactor");
+//
+//		return zombiesAppeared < Zombie.zombiesPerLevel() * level
+//				* zombieLimitingFactor;
+//	}
 
 	/**
 	 * Add a zombie to the world. The position is randomly picked. The health
 	 * and damage will increase every level.
 	 */
-	public void addZombie() {
-		Zombie newZombie = new Zombie("New", level, player, this);
-		zombiesAppeared++;
-		SpriteGroup zombies = playField.getGroup("Zombies");
-		zombies.add(newZombie);
-	}
+//	public void addZombie() {
+//		Zombie newZombie = new Zombie("New", level, player, this);
+//		zombiesAppeared++;
+//		SpriteGroup zombies = playField.getGroup("Zombies");
+//		zombies.add(newZombie);
+//	}
 
 	/**
 	 * Load the image for a bullet with the correct orientation with respect to
@@ -280,6 +315,7 @@ public class PlayState extends GameState implements Constants{
 	public void setListeners() {
 
 		control = new KeyboardControl(player, currentGame);
+		control2 = new KeyboardControl(currentGame, currentGame);
 		control.addInput(KeyEvent.VK_LEFT, "goLeft", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_RIGHT, "goRight", PLAYER_CLASS, null);
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS, null);
@@ -295,6 +331,8 @@ public class PlayState extends GameState implements Constants{
 		
 		control.addInput(KeyEvent.VK_3, "switchWeapons", PLAYER_CLASS, new Class[] {int.class});
 		control.setParams(KeyEvent.VK_3, 2);
+		
+		control2.addInput(KeyEvent.VK_P, "pause", MAIN_CLASS);
 	}
 
 	/**
@@ -306,27 +344,29 @@ public class PlayState extends GameState implements Constants{
 		if (isActive()) {
 			playField.update(elapsedTime);
 			control.update();
-			if (moreZombieCanBeAdded()) {
+			control2.update();
 				if (timer.action(elapsedTime)) {
-					addZombie();
-				}
-			} else if (levelCompleted()) {
-				statLevel.setStat(level + 1);
-				overlayLevelStat.update(elapsedTime);
-				overlayLevelStat.setActive(true);
-				playField.update(elapsedTime);
-	
-				if (timer.action(elapsedTime)) {
-	
-					setNewDelay();
-					resetZombiesCount();
-	
-					level++;
-	
-					player.resetLevelScore();
 					overlayLevelStat.setActive(false);
+					addZombies.timeUp();
 				}
-			}
+				eventPool.checkEvents();
+//				if (levelCompleted()) {
+//				statLevel.setStat(level + 1);
+//				overlayLevelStat.update(elapsedTime);
+//				overlayLevelStat.setActive(true);
+//				playField.update(elapsedTime);
+//	
+//				if (timer.action(elapsedTime)) {
+//	
+//					setNewDelay();
+//					resetZombiesCount();
+//	
+//					level++;
+//	
+//					player.resetLevelScore();
+//					overlayLevelStat.setActive(false);
+//				}
+//			}
 		}
 	}
 
