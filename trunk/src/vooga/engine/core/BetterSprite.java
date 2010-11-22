@@ -285,6 +285,20 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 		myStatMap.put(name, t);
 	}
 
+	public Stat<Integer> getIntStat(String statname) {
+		//TODO: Implement Method
+		return new Stat<Integer>(0);
+	}
+	public void setIntStat(String statname, int stat) {
+		//TODO: Implement Method
+	}
+	public Stat<Double> getDoubleStat(String statname) {
+		//TODO: Implement Method
+		return new Stat<Double>(0.0);
+	}
+	public void setDoubleStat(String statname) {
+		//TODO: Implement Method
+	}
 
 
 
