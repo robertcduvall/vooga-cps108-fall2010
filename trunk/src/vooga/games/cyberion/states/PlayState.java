@@ -18,12 +18,7 @@ import vooga.games.cyberion.events.EnemyFireEvent;
 import vooga.games.cyberion.events.PlayerFireEvent;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
-import vooga.games.grandius.events.FireBlackHoleEvent;
-import vooga.games.grandius.events.FireHorizontalEvent;
-import vooga.games.grandius.events.FireMissileEvent;
-import vooga.games.grandius.events.FireVerticalEvent;
-import vooga.games.grandius.events.LevelCompleteEvent;
-import vooga.games.grandius.events.ZipsterFireEvent;
+import vooga.games.cyberion.events.LevelCompleteEvent;
 
 /**
  * Player state
@@ -58,6 +53,16 @@ public class PlayState extends GameState {
 		initEvents();
 		addPlayField(newField);
 	}
+	
+	public void nextLevel() {
+		newField = myLevelManager.loadNextLevel();
+		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
+		enemy = newField.getGroup("enemyGroup").getSprites();
+		System.out.println(enemy);
+		initControls();
+		initEvents();
+		addPlayField(newField);
+	}
 
 	@Override
 	public void update(long elapsedTime) {
@@ -72,6 +77,7 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new PlayerFireEvent(myGame, player, this));
 		eventPool.addEvent(new EnemyFireEvent(myGame, enemy, this));
+		eventPool.addEvent(new LevelCompleteEvent(myGame, this, newField.getGroup("enemyGroup")));
 	}
 
 	public void initControls() {
