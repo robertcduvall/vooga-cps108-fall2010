@@ -16,6 +16,10 @@ import vooga.games.cyberion.states.PlayState;
  */
 
 public class PlayButton extends Button {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int START_X = 250;
 	private static final int START_Y = 100;
 	private static final BufferedImage myImage = Resources

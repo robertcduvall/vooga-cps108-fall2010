@@ -6,11 +6,14 @@ import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 
 public class PlayerShip extends BetterSprite {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	KeyboardControl keyboardControl;
 
 	public PlayerShip() {
 		super();
-
 	}
 
 	public PlayerShip(String name, BetterSprite s) {
@@ -19,7 +22,7 @@ public class PlayerShip extends BetterSprite {
 
 	}
 
-	private int life = 1;
+	private int life = 3;
 	private int weaponPower = 1;
 
 	public int getWeaponPower() {
@@ -41,20 +44,20 @@ public class PlayerShip extends BetterSprite {
 		return keyboardControl;
 	}
 
-	public void moveRight() {
-			setX(getX() + 5);
+	public void moveLeft() {
+		moveX(-Resources.getDouble("playerSpeed"));
 	}
 
-	public void moveLeft() {
-			setX(getX() - 5);
+	public void moveRight() {
+		moveX(Resources.getDouble("playerSpeed"));
 	}
 
 	public void moveUp() {
-			setY(getY() - 5);
+		moveY(-Resources.getDouble("playerSpeed"));
 	}
 
 	public void moveDown() {
-			setY(getY() + 5);
+		moveY(Resources.getDouble("playerSpeed"));
 	}
 
 	public boolean isAlive() {
