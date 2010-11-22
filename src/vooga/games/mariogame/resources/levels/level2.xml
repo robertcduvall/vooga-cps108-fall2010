@@ -26,31 +26,34 @@
 	</SpriteGroups>
 
 	<CollisionGroups>
-		<CollisionGroup subclass="vooga.games.mariogame.collisions.MarioToEnemyCollision">
+		<CollisionGroup
+			subclass="vooga.games.mariogame.collisions.MarioToEnemyCollision">
 			<SpriteGroup name="marioGroup" />
 			<SpriteGroup name="goombaGroup" />
 		</CollisionGroup>
-		
-		<CollisionGroup subclass="vooga.games.mariogame.collisions.MarioToTileCollision">
+
+		<CollisionGroup
+			subclass="vooga.games.mariogame.collisions.MarioToTileCollision">
 			<SpriteGroup name="marioGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
-		
-		<CollisionGroup subclass="vooga.games.mariogame.collisions.EnemyToTileCollision">
+
+		<CollisionGroup
+			subclass="vooga.games.mariogame.collisions.EnemyToTileCollision">
 			<SpriteGroup name="goombaGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
 	</CollisionGroups>
-	
+
 	<Rules>
-        <Rule name="Gravity" class="vooga.games.mariogame.rules.Gravity">
-            <SpriteGroup name="marioGroup" />
-            <SpriteGroup name="goombaGroup" />
-        </Rule>
-			<Rule name="OffScreen" class="vooga.games.mariogame.rules.OffScreen">
-            <SpriteGroup name="marioGroup" />
-        </Rule>
-     </Rules>
+		<Rule name="Gravity" class="vooga.games.mariogame.rules.Gravity">
+			<SpriteGroup name="marioGroup" />
+			<SpriteGroup name="goombaGroup" />
+		</Rule>
+		<Rule name="OffScreen" class="vooga.games.mariogame.rules.OffScreen">
+			<SpriteGroup name="marioGroup" />
+		</Rule>
+	</Rules>
 
 	<Map>
 		<MapGroup name="Map1">
@@ -58,16 +61,31 @@
 				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile" />
 			<Association char="D"
 				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Dirt Tile" />
+			<Association char="!" object="vooga.games.mariogame.tiles.FlagTile"
+				image="Flag Tile" />
 			<Association char="B" object="vooga.games.mariogame.tiles.BreakTile"
 				image="Break Tile" />
 			<Association char="C"
-				object="vooga.games.mariogame.tiles.ChangingTile" image="Item Tile 1" />
-			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile"
-				image="Item Tile 2" />
-			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile"
-				image="Item Tile 1" />
-			<Association char="!"
-				object="vooga.games.mariogame.tiles.FlagTile" image="Flag Tile" />
+				object="vooga.games.mariogame.tiles.ChangingTile">
+				<Image name="Changing Tile 1" />
+				<Image name="Changing Tile 2" />
+				<Image name="Changing Tile 3" />
+				<Image name="Changing Tile 4" />
+			</Association>
+			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile">
+				<Image name="Item Tile 1" />
+				<Image name="Item Tile 2" />
+				<Item relY="-64" vx=".1" class="vooga.games.mariogame.items.GravityItem">
+					<Visual name="Gravity Item" />
+				</Item>
+			</Association>
+			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile">
+				<Image name="Item Tile 1" />
+				<Image name="Item Tile 2" />
+				<Item relY="-64" class="vooga.games.mariogame.items.Coin">
+					<Visual name="Coin" />
+				</Item>
+			</Association>
 		</MapGroup>
 	</Map>
 
