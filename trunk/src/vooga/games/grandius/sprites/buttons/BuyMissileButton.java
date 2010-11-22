@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.states.PlayState;
 import vooga.games.grandius.events.FireMissileEvent;
 import vooga.widget.Button;
 
@@ -27,6 +26,7 @@ public class BuyMissileButton extends Button {
 				game.getPlayState());
 		missileEvent.setMissileActive(true);
 		game.getPlayState().getEventPool().addEvent(missileEvent);
+		new NextLevelButton(myGame).actionPerformed();
 
 	}
 
