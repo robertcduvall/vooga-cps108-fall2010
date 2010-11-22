@@ -32,6 +32,13 @@ import vooga.games.grandius.events.FireVerticalEvent;
 import vooga.games.grandius.events.LevelCompleteEvent;
 import vooga.games.grandius.events.ZipsterFireEvent;
 
+/**
+ * The PlayState class extends GameState and allows for the actual game to be
+ * played.
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ * 
+ */
 public class PlayState extends GameState {
 
 	private Game game;
@@ -58,18 +65,18 @@ public class PlayState extends GameState {
 		initLevel();
 		this.addPlayField(myField);
 	}
-	
-	public void onActivate(){
+
+	public void onActivate() {
 		startDelay = 100;
 	}
-	
-	public void nextLevel(){
+
+	public void nextLevel() {
 		doodle.reset();
 		myField.clearPlayField();
 		myField = myLevelManager.loadNextLevel();
 	}
-	
-	public LevelManager getLevelManager(){
+
+	public LevelManager getLevelManager() {
 		return myLevelManager;
 	}
 
@@ -86,10 +93,10 @@ public class PlayState extends GameState {
 
 	@Override
 	public void update(long elapsedTime) {
-		if(startDelay != 0 && startDelay < 99)
+		if (startDelay != 0 && startDelay < 99)
 			startDelay--;
-		else{
-			if(startDelay != 0){
+		else {
+			if (startDelay != 0) {
 				startDelay--;
 			}
 			for (SpriteGroup group : myField.getGroups()) {
@@ -97,7 +104,9 @@ public class PlayState extends GameState {
 					if (doodle.getY() < doodle.getMaxHeight() && sprite != null) {
 						scrollLevel(sprite);
 						if (group.getName().equals("doodleGroup")) {
-							((Stat<Integer>)doodle.getStat("score")).setStat(((Stat<Integer>)doodle.getStat("score")).getStat() + 5);
+							((Stat<Integer>) doodle.getStat("score"))
+									.setStat(((Stat<Integer>) doodle
+											.getStat("score")).getStat() + 5);
 						}
 					}
 				}
@@ -121,11 +130,12 @@ public class PlayState extends GameState {
 				"vooga.games.doodlejump.DoodleSprite");
 		myField.addControl("doodle", playerControl);
 		Control gameControl = new KeyboardControl(game, game);
-		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.doodlejump.BlahThis");
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame",
+				"vooga.games.doodlejump.BlahThis");
 		myField.addControl("game", gameControl);
 	}
-	
-	public void initEvents(){
+
+	public void initEvents() {
 		eventPool = new EventPool();
 		eventPool.addEvent(new GameWonEvent(doodle, game, gameWonState));
 		eventPool.addEvent(new DoodleDiedEvent(doodle, game, gameOverState));
@@ -136,8 +146,8 @@ public class PlayState extends GameState {
 	public void setField(PlayField newField) {
 		myField = newField;
 	}
-	
-	public void setDoodle(DoodleSprite doodleSprite){
+
+	public void setDoodle(DoodleSprite doodleSprite) {
 		doodle = doodleSprite;
 	}
 }

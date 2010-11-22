@@ -10,8 +10,8 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import vooga.games.doodlejump.DoodleSprite;
 
 /**
- * The DoodleToGreenPlatformCollision class extends BasicCollisionGroup and
- * defines what happens when Doodle collides with a Green Platform
+ * The DoodleToFinishLineCollision class extends BasicCollisionGroup and
+ * defines what happens when Doodle collides with the Finish Line
  * 
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 

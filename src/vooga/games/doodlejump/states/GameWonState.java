@@ -10,7 +10,15 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
 import vooga.games.doodlejump.buttons.RestartButton;
 
-public class GameWonState extends MenuGameState{
+/**
+ * The GameWonState class extends MenuGameState and describes what happens when
+ * the game ends. A Play Button is added to the background which will restart
+ * the game.
+ * 
+ * @author Adam Cue, Marcus Molchany, Nick Straub
+ * 
+ */
+public class GameWonState extends MenuGameState {
 
 	private Game myGame;
 	private RestartButton myPlayButton;
@@ -37,7 +45,7 @@ public class GameWonState extends MenuGameState{
 		getMenuPlayfield().update(elapsedTime);
 		myEventPool.checkEvents();
 	}
-	
+
 	/**
 	 * Method called to render fonts to the screen, as well as the background.
 	 */
