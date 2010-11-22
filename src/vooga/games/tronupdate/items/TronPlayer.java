@@ -98,7 +98,7 @@ public class TronPlayer extends BetterSprite {
 	 * @param rate
 	 */
 	public void setSpeedUp(int rate){
-		speedUp=speedUp*2;
+		speedUp=speedUp+rate;
 	}
 	/**
 	 * set the direction the player is heading
@@ -175,14 +175,14 @@ public class TronPlayer extends BetterSprite {
 
 				}
 			}
-			return -playerImageWidth;//getPlayerXPosition();
+			return -speedUp*playerImageWidth;//getPlayerXPosition();
 		}
 		else if(dir==Direction.right){
 			for(int i=0;i<speedUp;i++){
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 				changePlayerColumn(1);
 			}
-			return playerImageWidth;//getPlayerXPosition();
+			return speedUp*playerImageWidth;//getPlayerXPosition();
 		}
 		else if(dir==Direction.down){
 			return 0;//getPlayerXPosition();
@@ -207,7 +207,7 @@ public class TronPlayer extends BetterSprite {
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 				changePlayerRow(1);
 			}
-			return playerImageWidth;//getPlayerYPosition();
+			return speedUp*playerImageWidth;//getPlayerYPosition();
 		}
 		else{ //up
 			for(int i=0;i<speedUp;i++){
@@ -216,7 +216,7 @@ public class TronPlayer extends BetterSprite {
 					changePlayerRow(-1);
 				}
 			}
-			return -playerImageWidth;
+			return -speedUp*playerImageWidth;
 		}
 	}
 	/**

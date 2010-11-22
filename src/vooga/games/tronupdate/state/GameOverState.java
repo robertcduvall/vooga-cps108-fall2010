@@ -1,6 +1,8 @@
 package vooga.games.tronupdate.state;
 
+import vooga.engine.event.EventPool;
 import vooga.engine.state.GameState;
+import vooga.games.tronupdate.events.TronGameResumeEvent;
 
 public class GameOverState extends GameState{
 
@@ -10,4 +12,11 @@ public class GameOverState extends GameState{
 		
 	}
 
+	
+
+	public void update(long elapsedTime){
+		super.update(elapsedTime);
+	//	playerControl.update();
+	//	eventPool.checkEvents();
+	}
 }

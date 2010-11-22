@@ -11,10 +11,9 @@ import vooga.engine.core.BetterSprite;
 import vooga.games.tronupdate.util.*;
 
 
-public class Bonus extends BetterSprite{
+public abstract class Bonus extends BetterSprite{
 	private static final long serialVersionUID = 1L;
-	Position pos;
-
+	
 	private double col;
 	private double row;
 	private double BounsImageWidth;
@@ -54,6 +53,8 @@ public class Bonus extends BetterSprite{
 		return col;
 	}
 	
+	public abstract void act();
+	public abstract boolean isConsumed();
 	
 	
 }

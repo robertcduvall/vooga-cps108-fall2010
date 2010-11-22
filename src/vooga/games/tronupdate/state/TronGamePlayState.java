@@ -3,6 +3,9 @@ package vooga.games.tronupdate.state;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+import java.util.Queue;
+
 import com.golden.gamedev.object.SpriteGroup;
 
 
@@ -18,8 +21,11 @@ import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.util.GridSpace;
 import vooga.games.tronupdate.collisions.PlayerAndBoundariesCollision;
 import vooga.games.tron.PlayerAndEnemyCollision;
+import vooga.games.tron.bonus.SpeedBonus;
 import vooga.games.tronupdate.collisions.PlayerAndBonusCollision;
 import vooga.games.tronupdate.events.TronGamePauseEvent;
+import vooga.games.tronupdate.items.Bonus;
+import vooga.games.tronupdate.items.SpeedUpBonus;
 import vooga.games.tronupdate.items.TronPlayer;
 import vooga.games.tronupdate.util.Direction;
 
@@ -37,6 +43,9 @@ public class TronGamePlayState extends GameState{
 	private BetterSprite[][] firstPlayerBlocks;
 	private BetterSprite[][] secondPlayerBlocks;
 	private EventPool eventPool; 
+	private Queue<SpeedUpBonus> bonusList;
+	private boolean toSpawnBonus=true;
+	private SpeedUpBonus prev=null;
 	
 	public static final int GRID_WIDTH=Resources.getInt("width")/Resources.getInt("playerimagewidth");
 	public static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
@@ -140,6 +149,26 @@ public class TronGamePlayState extends GameState{
 		for(int i=0;i<secondPlayerBlocks.length;i++){
 			for(int j=0;j<secondPlayerBlocks[0].length;j++)
 		playField.getGroup(spritegroups[1]).add(secondPlayerBlocks[i][j]);
+		}	
+		
+		createRandomBonus();
+		for(SpeedUpBonus bonus:bonusList){
+			bonus.setActive(false);
+			playField.getGroup(spritegroups[2]).add(bonus);
+		}
+
+	}
+	
+	/**
+	 * create random bonuses for the level
+	 */
+	public void createRandomBonus(){
+		bonusList=new LinkedList<SpeedUpBonus>();
+ 
+		for (int i = 0; i < 4; i++){		
+			int randomX = (int)Math.ceil(Math.random()* GRID_WIDTH);
+			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
+			bonusList.add(new SpeedUpBonus(Resources.getImage("yellowbonus"), randomX,randomY,PLAYER_IMAGE_WIDTH));	
 		}
 
 	}
@@ -164,8 +193,6 @@ public class TronGamePlayState extends GameState{
 		secondPlayerControl.addInput(KeyEvent.VK_D, "right", PLAYER_CLASS);
 		secondPlayerControl.addInput(KeyEvent.VK_W, "up", PLAYER_CLASS);
 		secondPlayerControl.addInput(KeyEvent.VK_A, "left", PLAYER_CLASS);
-//		playerControl.addInput(KeyEvent.VK_SPACE, "fire", "vooga.games.asteroids.sprites.Ship");
-	//	myField.addControl("player2", playerControl); //??
 	}
 	
 	/**
@@ -215,10 +242,25 @@ public class TronGamePlayState extends GameState{
 	
 	public void update(long elapsedTime) {
 		buildBlockWall();
+		
+		if(Math.random()<0.04&&!bonusList.isEmpty()){
+		spawnBonus();
+		}
 		playField.update(elapsedTime);
 		eventPool.checkEvents();
 		firstPlayerControl.update();
 		secondPlayerControl.update();
+	}
+
+	public void spawnBonus() {
+		if(prev==null||prev.isConsumed()){
+		SpeedUpBonus b=bonusList.poll();
+		prev=b;
+		b.setActive(true);
+
+		}
+
+		
 	}
 	
 	
