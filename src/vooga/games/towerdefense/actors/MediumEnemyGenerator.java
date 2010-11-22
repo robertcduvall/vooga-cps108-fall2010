@@ -9,7 +9,7 @@ import vooga.games.towerdefense.events.EnemyHitEvent;
 import com.golden.gamedev.object.Timer;
 
 public class MediumEnemyGenerator extends EasyEnemyGenerator{
-	private static final int SECOND = 500;
+	private static final int SECOND = 1000;
 	private Timer hit1;
 	private Timer hit2;
 	private Timer hit3;
