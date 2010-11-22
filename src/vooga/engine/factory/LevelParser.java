@@ -58,6 +58,7 @@ public class LevelParser implements LevelFactory{
 	private void createLevelPlayfield(String xmlLevelFile)
 	{
 		try {
+			//System.out.println(xmlLevelFile);
 			XMLDocumentCreator xmlCreator = new XMLFileParser(xmlLevelFile);
 			Document xmlDocument = xmlCreator.getDocument();
 			processLevel(xmlDocument); // This nests into specific cases and processes a level

@@ -7,21 +7,23 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.PauseGameState;
 import vooga.games.doodlejump.BlahThis;
 import vooga.games.doodlejump.states.PlayState;
+import vooga.games.doodlejump.states.StartMenuState;
 
 public class BlahThis extends Game {
 
 	private PlayState playState;
 	private PauseGameState pauseState;
+	private StartMenuState startMenuState;
 	private LevelManager levelManager;
 	
 	public void initResources() {
 		super.initResources();
 		initLevelManager();
-		PlayField levelPlayField = levelManager.loadFirstLevel();
-		playState = new PlayState(this, levelPlayField);
+		playState = new PlayState(this, levelManager);
 		pauseState = new PauseGameState(playState);
-		stateManager.addGameState(playState, pauseState);
-		resumeGame();
+		startMenuState = new StartMenuState(this);
+		stateManager.addGameState(playState, pauseState, startMenuState);
+		stateManager.switchTo(startMenuState);
 	}
 	
 	private void initLevelManager() {
@@ -34,12 +36,17 @@ public class BlahThis extends Game {
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
 	}
 
-	public void pauseGame() {
-		stateManager.activateOnly(pauseState);		
+	public void pauseResumeGame() {
+		if(pauseState.isActive()){
+			stateManager.switchTo(playState);
+		}
+		else{
+			stateManager.switchTo(pauseState);	
+		}
 	}
 	
 	public void resumeGame() {		
-		stateManager.activateOnly(playState);
+		stateManager.switchTo(playState);
 	}
 	
 	/**

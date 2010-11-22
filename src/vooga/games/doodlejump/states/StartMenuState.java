@@ -1,11 +1,15 @@
 package vooga.games.doodlejump.states;
 
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+
+import com.golden.gamedev.object.background.ImageBackground;
 
 import vooga.widget.Button;
 import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 
+import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
 import vooga.games.doodlejump.buttons.PlayButton;
 
@@ -14,15 +18,18 @@ public class StartMenuState extends MenuGameState {
 	private Game myGame;
 	private PlayButton myPlayButton;
 	private EventPool myEventPool;
+	private ImageBackground mainBackground;
 
 	public StartMenuState(Game game) {
+		super();
 		myGame = game;
-		myPlayButton = new PlayButton(myGame);
-
 	}
 
 	@Override
 	public void initialize() {
+		myPlayButton = new PlayButton(myGame);
+		mainBackground = new ImageBackground(Resources.getImage("defaultPlay"));
+		myEventPool = new EventPool();
 		addButton(myPlayButton);
 		myEventPool.addEvent(myPlayButton);
 	}
@@ -30,7 +37,16 @@ public class StartMenuState extends MenuGameState {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
+		getMenuPlayfield().update(elapsedTime);
 		myEventPool.checkEvents();
+	}
+	
+	/**
+	 * Method called to render fonts to the screen, as well as the background.
+	 */
+	public void render(Graphics2D g) {
+		super.render(g);
+		mainBackground.render(g);
 	}
 
 }
