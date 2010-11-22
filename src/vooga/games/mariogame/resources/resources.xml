@@ -22,6 +22,7 @@
 		<Image name="Changing Tile 2" path="ChangingTile2.png" />
 		<Image name="Changing Tile 3" path="ChangingTile3.png" />
 		<Image name="Changing Tile 4" path="ChangingTile4.png" />
+		<Image name="Mario" path="mario1r.png" />
 	</Images>
 
 	<Animations>

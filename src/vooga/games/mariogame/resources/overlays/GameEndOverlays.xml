@@ -1,30 +1,30 @@
 <Overlay>
 
 	<OverlayGroup name="GameEndGroup">
-		<OverlayString xLoc="10" yLoc="90" fontName="Times New Roman"
+		<OverlayString xLoc="10" yLoc="90" fontName="gameFontgreen"
 			label="HIGH SCORES: " fontSize="32"></OverlayString>
-		<OverlayString xLoc="10" yLoc="400" fontName="Times New Roman"
+		<OverlayString xLoc="10" yLoc="400" fontName="gameFontorange"
 			label="PRESS SPACE TO PLAY AGAIN!" fontSize="32"></OverlayString>
 
-		<OverlayStat color="0" stat="score1" label="1. " xLoc="10"
-			yLoc="120" />
-		<OverlayStat color="0" stat="score2" label="2. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score1" label=" 1. " xLoc="10"
+			yLoc="120" /> 
+		<OverlayStat fontName="gameFontred" stat="score2" label=" 2. " xLoc="10"
 			yLoc="140" />
-		<OverlayStat color="0" stat="score3" label="3. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score3" label=" 3. " xLoc="10"
 			yLoc="160" />
-		<OverlayStat color="0" stat="score4" label="4. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score4" label=" 4. " xLoc="10"
 			yLoc="180" />
-		<OverlayStat color="0" stat="score5" label="5. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score5" label=" 5. " xLoc="10"
 			yLoc="200" />
-		<OverlayStat color="0" stat="score6" label="6. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score6" label=" 6. " xLoc="10"
 			yLoc="220" />
-		<OverlayStat color="0" stat="score7" label="7. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score7" label=" 7. " xLoc="10"
 			yLoc="240" />
-		<OverlayStat color="0" stat="score8" label="8. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score8" label=" 8. " xLoc="10"
 			yLoc="260" />
-		<OverlayStat color="0" stat="score9" label="9. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score9" label=" 9. " xLoc="10"
 			yLoc="280" />
-		<OverlayStat color="0" stat="score10" label="10. " xLoc="10"
+		<OverlayStat fontName="gameFontred" stat="score10" label="10. " xLoc="10"
 			yLoc="300" />
 	</OverlayGroup>
 
