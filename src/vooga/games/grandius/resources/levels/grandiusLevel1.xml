@@ -61,6 +61,11 @@
 			<SpriteGroup name="playerGroup"></SpriteGroup>
 			<SpriteGroup name="enemyProjectileGroup"></SpriteGroup>
 		</CollisionGroup>
+		<CollisionGroup
+			subclass="vooga.games.grandius.collisions.MissileEnemyCollision">
+			<SpriteGroup name="missileGroup"></SpriteGroup>
+			<SpriteGroup name="enemyGroup"></SpriteGroup>
+		</CollisionGroup>
 	</CollisionGroups>
 
 	<Backgrounds>

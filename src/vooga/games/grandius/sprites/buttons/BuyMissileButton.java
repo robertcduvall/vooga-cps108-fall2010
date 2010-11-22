@@ -22,10 +22,11 @@ public class BuyMissileButton extends Button {
 
 	@Override
 	public void actionPerformed() {
-		FireMissileEvent missileEvent = new FireMissileEvent((DropThis)myGame, ((PlayState)myGame.getPlayGameState()).getPlayer(),
-				(PlayState)myGame.getPlayGameState());
+		DropThis game = (DropThis)myGame;
+		FireMissileEvent missileEvent = new FireMissileEvent(game, game.getPlayState().getPlayer(),
+				game.getPlayState());
 		missileEvent.setMissileActive(true);
-		((PlayState)this.myGame.getPlayGameState()).getEventPool().addEvent(missileEvent);
+		game.getPlayState().getEventPool().addEvent(missileEvent);
 
 	}
 
