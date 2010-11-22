@@ -41,6 +41,7 @@ public class PlayState extends GameState {
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
 		myGame = game;
+	
 
 	}
 
@@ -53,7 +54,7 @@ public class PlayState extends GameState {
 		initEvents();
 		addPlayField(newField);
 	}
-	
+
 	public void nextLevel() {
 		newField = myLevelManager.loadNextLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
@@ -77,7 +78,8 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new PlayerFireEvent(myGame, player, this));
 		eventPool.addEvent(new EnemyFireEvent(myGame, enemy, this));
-		eventPool.addEvent(new LevelCompleteEvent(myGame, this, newField.getGroup("enemyGroup")));
+		eventPool.addEvent(new LevelCompleteEvent(myGame, this, newField
+				.getGroup("enemyGroup")));
 	}
 
 	public void initControls() {
