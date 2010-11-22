@@ -1,5 +1,8 @@
 package vooga.games.cyberion.collisions;
 
+import vooga.engine.core.Game;
+import vooga.engine.resource.Resources;
+
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
@@ -7,6 +10,13 @@ import com.golden.gamedev.object.collision.CollisionBounds;
 public class PlayerCollidesWall extends CollisionBounds {
 
 	private Background bg;
+	
+//	public PlayerCollidesWall(Game game)
+//	{
+//		super(0,0,Resources.getInt("Width"),Resources.getInt("Height"));
+//		bg.setSize(Resources.getInt("Width"), Resources.getInt("Height"));
+//	}
+
 
 	public PlayerCollidesWall(Background bg) {
 		super(bg);
