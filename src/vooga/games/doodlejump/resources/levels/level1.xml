@@ -301,6 +301,7 @@
 	<Music>
 		<Sound name="jumpSound" />
 		<Sound name="springSound" />
+		<Sound name="buzzerSound" />
 	</Music>
 
 	<Map>

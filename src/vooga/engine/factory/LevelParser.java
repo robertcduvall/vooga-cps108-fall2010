@@ -217,7 +217,6 @@ public class LevelParser implements LevelFactory{
 			{
 				Element spriteGroup = (Element) spriteGroupsList.item(i);
 				String groupName = spriteGroup.getAttribute("name");
-
 				SpriteGroup newSpriteGroup = new SpriteGroup(groupName);
 				NodeList spritesList = spriteGroup.getElementsByTagName("Sprite");
 				processSprite(spritesList, newSpriteGroup);

@@ -5,6 +5,8 @@ import java.net.URL;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
+import vooga.engine.resource.Resources;
+import vooga.engine.util.SoundPlayer;
 import vooga.games.doodlejump.DoodleSprite;
 
 import com.golden.gamedev.object.*;
@@ -35,9 +37,7 @@ public class DoodleToSpringCollision extends BasicCollisionGroup {
 			((AnimatedSprite) spr.getCurrentSprite()).setAnimate(true);
 			((AnimatedSprite) spr.getCurrentSprite()).setAnimationFrame(1, 1);
 			doodle.setVerticalSpeed(-1.7);
-			URL spring_url = getClass().getResource("../resources/sounds/spring_sound.wav");
-			AudioClip clip = java.applet.Applet.newAudioClip(spring_url);
-			clip.play();
+			SoundPlayer.playSound(Resources.getSound("springSound"));
 		}
 	}
 }
