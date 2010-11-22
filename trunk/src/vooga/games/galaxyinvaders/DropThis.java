@@ -5,22 +5,16 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import vooga.engine.control.Control;
-import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
-import vooga.engine.state.PauseGameState;
 import vooga.games.galaxyinvaders.sprites.EnemySprite;
-import vooga.games.galaxyinvaders.states.GalaxyGameState;
 import vooga.games.galaxyinvaders.states.PauseState;
 import vooga.games.galaxyinvaders.states.PlayState;
-
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 
 
 /**
@@ -80,7 +74,8 @@ public class DropThis extends Game {
 	public void update(long elapsed) {
 		super.update(elapsed);
 		if(keyPressed(KeyEvent.VK_P)) {
-			stateManager.activateOnly(play);
+			stateManager.toggle(play);
+			stateManager.toggle(pause);
 		}
 	}
 	
