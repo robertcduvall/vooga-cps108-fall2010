@@ -14,7 +14,7 @@ import vooga.engine.state.GameState;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
-import vooga.games.grandius.events.FireMissileEvent;
+//import vooga.games.grandius.events.FireMissileEvent;
 import vooga.games.grandius.events.FireVerticalEvent;
 import vooga.games.grandius.events.LevelCompleteEvent;
 import vooga.games.grandius.events.ZipsterBrokeThroughEvent;
@@ -76,7 +76,7 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new FireHorizontalEvent(myGame, player, this));
 		eventPool.addEvent(new FireVerticalEvent(myGame, player, this));
-		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
+//		eventPool.addEvent(new FireMissileEvent(myGame, player, this));
 		eventPool.addEvent(new FireBlackHoleEvent(myGame, player, this));
 		eventPool.addEvent(new ZipsterFireEvent(myGame, player, playField.getGroup("enemyGroup"), this));
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this));
