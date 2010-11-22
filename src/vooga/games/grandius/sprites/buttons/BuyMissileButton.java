@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
+import vooga.games.grandius.DropThis;
+import vooga.games.grandius.states.PlayState;
+import vooga.games.grandius.events.FireMissileEvent;
 import vooga.widget.Button;
 
 @SuppressWarnings("serial")
@@ -19,7 +22,10 @@ public class BuyMissileButton extends Button {
 
 	@Override
 	public void actionPerformed() {
-		System.out.println("Missile button activated!");
+		FireMissileEvent missileEvent = new FireMissileEvent((DropThis)myGame, ((PlayState)myGame.getPlayGameState()).getPlayer(),
+				(PlayState)myGame.getPlayGameState());
+		missileEvent.setMissileActive(true);
+		((PlayState)this.myGame.getPlayGameState()).getEventPool().addEvent(missileEvent);
 
 	}
 
