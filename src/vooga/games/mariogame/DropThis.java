@@ -3,11 +3,9 @@ package vooga.games.mariogame;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
-import java.util.Collection;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.games.mariogame.states.GameEndState;

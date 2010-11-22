@@ -6,18 +6,14 @@ import java.io.File;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
-import vooga.engine.core.PlayField;
 import vooga.engine.core.Game;
-import vooga.engine.overlay.OverlayString;
+import vooga.engine.core.PlayField;
 import vooga.engine.resource.HighScoreHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
 
 import com.almworks.sqlite4java.SQLiteException;
-import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * 
@@ -90,6 +86,7 @@ public class GameEndState extends GameState {
 	 * @paramy y: y coordinate for overlay
 	 */
 
+	@SuppressWarnings("unchecked")
 	private void createHighScoreOverlay() {
 		PlayField field = getRenderField().toArray(new PlayField[0])[0];
 		for (int j = 1; j <= myHighScores.getNames().length; j++) {

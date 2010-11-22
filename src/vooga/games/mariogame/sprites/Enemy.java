@@ -16,8 +16,6 @@ import com.golden.gamedev.object.AnimatedSprite;
 
 @SuppressWarnings("serial")
 public class Enemy extends BetterSprite {
-
-	private static final double mySpeed = .25;
 	
 	public Enemy(){
 	}

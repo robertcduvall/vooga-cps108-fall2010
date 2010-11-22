@@ -2,8 +2,6 @@ package vooga.games.mariogame.events;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.resource.Resources;
-import vooga.engine.util.SoundPlayer;
 import vooga.games.mariogame.DropThis;
 import vooga.games.mariogame.sprites.MarioSprite;
 

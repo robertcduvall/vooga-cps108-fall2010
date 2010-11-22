@@ -1,8 +1,5 @@
 package vooga.games.mariogame.items;
 
-import java.awt.image.BufferedImage;
-
-import vooga.engine.core.BetterSprite;
 
 @SuppressWarnings("serial")
 public class Coin extends Item {
