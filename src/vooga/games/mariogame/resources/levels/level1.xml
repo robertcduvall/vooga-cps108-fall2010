@@ -55,8 +55,7 @@
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
 
-		<CollisionGroup
-			subclass="vooga.games.mariogame.collisions.ItemToTileCollision">
+		<CollisionGroup subclass="vooga.games.mariogame.collisions.ItemToTileCollision">
 			<SpriteGroup name="itemGroup" />
 			<SpriteGroup name="Map Group" />
 		</CollisionGroup>
@@ -101,7 +100,14 @@
 				<Image name="Item Tile 1" />
 				<Image name="Item Tile 2" />
 				<Item relY="-64" type="Big">
-					<Visual name="Gravity Item" />
+					<Visual name="Red Mushroom" />
+				</Item>
+			</Association>
+			<Association char="E" object="vooga.games.mariogame.tiles.ItemTile">
+				<Image name="Item Tile 1" />
+				<Image name="Item Tile 2" />
+				<Item relY="-64" type="Life">
+					<Visual name="Green Mushroom" />
 				</Item>
 			</Association>
 			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile">
