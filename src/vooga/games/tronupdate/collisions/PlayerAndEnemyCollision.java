@@ -6,6 +6,7 @@ package vooga.games.tronupdate.collisions;
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
+import vooga.games.tronupdate.events.SwitchLevelEvent;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -28,6 +29,11 @@ public class  PlayerAndEnemyCollision extends BasicCollisionGroup {
 		s2.setActive(false);
 		
 		game.playSound(Resources.getSound("explosionSound"));
-		gameStateManager.switchTo(gameStateManager.getGameState(2));
+		handleCollision();
+		//gameStateManager.switchTo(gameStateManager.getGameState(2));
+	}
+	private void handleCollision(){
+		SwitchLevelEvent event = new SwitchLevelEvent(game,gameStateManager);
+		event.actionPerformed();
 	}
 }

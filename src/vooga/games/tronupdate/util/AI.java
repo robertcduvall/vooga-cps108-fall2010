@@ -2,12 +2,14 @@ package vooga.games.tronupdate.util;
 
 import java.util.*;
 
-import vooga.games.tron.players.TronPlayer;
+import vooga.games.tronupdate.items.TronPlayer;
+import vooga.engine.control.Control;
+import vooga.engine.core.Game;
 
-public class AI {
+public class AI{
 	private int preventRange = 10;
 	private int counter = 0;
-	
+	private Game game;
 	
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
@@ -15,38 +17,46 @@ public class AI {
 	//temporary implementation
 	private TronPlayer myPlayer;
 	
-	private AI(){
-	}
-	
 	public void setPlayer(TronPlayer player){
 		myPlayer = player;
 	}
 	
-	public void aiUpdate(List<TronPlayer> tronPlayerList,boolean[][] levelBlocks){
+	//public void aiUpdate(List<TronPlayer> tronPlayerList,boolean[][] levelBlocks){
+	public void aiUpdate(boolean[][] blocks){
 		//counter++;
-		int row = myPlayer.blocks.length;
-		int col = myPlayer.blocks[0].length;
+		//int row = myPlayer.blocks.length;
+		//int col = myPlayer.blocks[0].length;
+		
+		int row = blocks.length;
+		int col = blocks[0].length;
 		
 		boolean[][] blocksTaken = new boolean[row][col];
+		blocksTaken = blocks;
 		
-		for(int i=0;i<blocksTaken.length;i++){
+		/*for(int i=0;i<blocksTaken.length;i++){
 			Arrays.fill(blocksTaken[i],false);
 		}
 		
 		for(int i=0;i<row;i++){
 			for(int j=0;j<col;j++){
-				if(levelBlocks[i][j]) blocksTaken[i][j]=true;
+				if(firstBlocks[i][j]) blocksTaken[i][j]=true;
 			}
 		}
+		for(int i=0;i<row;i++){
+			for(int j=0;j<col;j++){
+				if(secondBlocks[i][j]) blocksTaken[i][j]=true;
+			}
+		}*/
 		
-		for(TronPlayer player: tronPlayerList){
+		/*for(TronPlayer player: tronPlayerList){
 			for(int i=0;i<row;i++){
 				for(int j=0;j<col;j++){
 					if(player.blocks[i][j]) blocksTaken[i][j]=true;
 				}
 			}
-		}
-		String direction = myPlayer.getDirection();
+		}*/
+		Direction direction = myPlayer.getDirection();
+		
 		int currentRow  = (int) myPlayer.getPlayerRow();
 		int currentCol = (int) myPlayer.getPlayerColumn();
 		//if(counter==5){
@@ -55,8 +65,8 @@ public class AI {
 		//}
 	}
 	
-	public void react(int row,int col, String direction, boolean[][] blocksTaken){
-		if(direction.equals("up")){
+	public void react(int row,int col, Direction direction, boolean[][] blocksTaken){
+		if(direction.equals(Direction.up)){
 			boolean obstacleUp = false;
 			for(int i=1;i<=preventRange;i++){
 				if(row-i<0) {
@@ -68,7 +78,7 @@ public class AI {
 			}
 			if(obstacleUp)	handleLeftRight();			
 		}
-		else if(direction.equals("down")){
+		else if(direction.equals(Direction.down)){
 			boolean obstacleDown = false;
 			for(int i=1;i<=preventRange;i++){
 				if(row+i>=blocksTaken.length) {
@@ -80,7 +90,7 @@ public class AI {
 			}
 			if(obstacleDown) handleLeftRight();
 		}
-		else if(direction.equals("left")){
+		else if(direction.equals(Direction.left)){
 			boolean obstacleLeft = false;
 			for(int i=1;i<=preventRange;i++){
 				if(col-i<0) {
@@ -155,47 +165,33 @@ public class AI {
 			down(); upDownDirection = "down";
 		}
 	}	
-	
-	
 	/**
 	 * performs down turning
 	 */
 	//@Override
 	public void down() {
-		if(!myPlayer.getDirection().equals("down")&&!myPlayer.getDirection().equals("up")){
-			myPlayer.setDirection("down");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
-		}  		
+		myPlayer.down();		
 	}
 	//@Override
 	/**
 	 * performs left turning 
 	 */
 	public void left() {
-		if(!myPlayer.getDirection().equals("left")&&!myPlayer.getDirection().equals("right")){
-			myPlayer.setDirection("left");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
-		}
+		myPlayer.left();
 	}
 	//@Override
 	/**
 	 * performs right turning
 	 */
 	public void right() {
-		if(!myPlayer.getDirection().equals("right")&&!myPlayer.getDirection().equals("left")){
-			myPlayer.setDirection("right");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
-		}
+		myPlayer.right();
 	}
 	//@Override
 	/**
 	 * performs up turning
 	 */
 	public void up() {
-		if(!myPlayer.getDirection().equals("up")&&!myPlayer.getDirection().equals("down")){
-			myPlayer.setDirection("up");
-			myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
-		}
+		myPlayer.up();
 	}
 	
 }
