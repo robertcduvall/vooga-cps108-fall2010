@@ -447,7 +447,9 @@ public class LevelParser implements LevelFactory{
 		for (int i = 0; i < musics.getLength(); i++) {
 			if (isElement(musics.item(i))) {
 				Element musicElement = (Element) musics.item(i);
-				voogaPlayField.addMusic(musicElement.getAttribute("name"));
+				String musicName = musicElement.getAttribute("name");
+				String musicToAdd = Resources.getSound(musicName);
+				voogaPlayField.addMusic(musicToAdd);
 			}
 		}
 	}
