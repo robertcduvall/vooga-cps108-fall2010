@@ -95,10 +95,11 @@ public class DoodleSprite extends BetterSprite {
 	}
 	
 	public boolean getDied(){
-		return (doodleFell() && died);
+		return died;
 	}
 
-	private boolean doodleFell() {
+	public boolean doodleFell() {
+		System.out.println(getY());
 		return (getY() > MINIMUM_SCREEN_Y);
 	}
 

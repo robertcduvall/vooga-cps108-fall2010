@@ -21,7 +21,6 @@ public class PlayButton extends Button {
 	
 	public PlayButton(Game game) {
 		super(game, PLAY_BUTTON_IMAGE, PLAY_BUTTON_X, PLAY_BUTTON_Y);
-		System.out.println("Hello");
 		myGame = (BlahThis) game;
 	}
 
