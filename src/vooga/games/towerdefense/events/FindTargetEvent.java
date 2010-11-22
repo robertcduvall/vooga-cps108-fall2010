@@ -41,7 +41,7 @@ public class FindTargetEvent implements IEventHandler{
 	@Override
 	public void actionPerformed() {
 		for(ShootingTower tower: targetQueue){
-			if(tower.getTarget()==null)
+			if(!tower.checkTargetValid(tower.getTarget()))
 			{
 				tower.setTarget((Enemy) findTarget(tower));
 			}
