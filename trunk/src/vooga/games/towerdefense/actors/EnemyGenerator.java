@@ -59,7 +59,7 @@ public abstract class EnemyGenerator extends BetterSprite{
 		createEnemies(elapsedTime);
 	}
 	
-	public List<PathPoint> getPathPoint() {
+	public List<PathPoint> getPath() {
 		return myPath;
 	}
 	
