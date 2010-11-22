@@ -27,7 +27,7 @@ import vooga.games.zombieland.collisions.*;
 import vooga.games.zombieland.items.*;
 import vooga.games.zombieland.weapons.*;
 
-public class ZombielandPlayState extends GameState implements Constants {
+public class PlayState extends GameState implements Constants {
 
 	private static Blah currentGame;
 
@@ -45,7 +45,7 @@ public class ZombielandPlayState extends GameState implements Constants {
 	private int level;
 	private int zombiesAppeared;
 
-	public ZombielandPlayState(Blah game) {
+	public PlayState(Blah game) {
 		currentGame = game;
 	}
 
@@ -196,7 +196,7 @@ public class ZombielandPlayState extends GameState implements Constants {
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie();
+		Zombie newZombie = new Zombie(player);
 		zombiesAppeared++;
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);

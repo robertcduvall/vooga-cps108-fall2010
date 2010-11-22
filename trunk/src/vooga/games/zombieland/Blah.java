@@ -19,7 +19,7 @@ import vooga.games.zombieland.gamestates.*;
 
 public class Blah extends Game implements Constants {
 
-	private static ZombielandPlayState playState;
+	private static PlayState playState;
 	private static PauseState pauseState;
 	private static MainMenu mainMenu;
 	private static HelpMenu1 helpMenu1;
@@ -36,7 +36,7 @@ public class Blah extends Game implements Constants {
 
 		super.initResources();
 		pauseState = new PauseState(this);
-		playState = new ZombielandPlayState(this);
+		playState = new PlayState(this);
 		mainMenu = new MainMenu(this);
 		helpMenu1 = new HelpMenu1(this);
 		helpMenu2 = new HelpMenu2(this);
@@ -73,7 +73,7 @@ public class Blah extends Game implements Constants {
 		launch(new Blah());
 	}
 
-	public ZombielandPlayState getPlayGameState() {
+	public PlayState getPlayGameState() {
 		return playState;
 	}
 

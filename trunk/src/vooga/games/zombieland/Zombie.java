@@ -6,7 +6,7 @@ import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
-import vooga.games.zombieland.gamestates.ZombielandPlayState;
+import vooga.games.zombieland.gamestates.PlayState;
 
 /**
  * Zombie Class. Contains all behavior and controls for zombies in the game
@@ -225,7 +225,7 @@ public class Zombie extends BetterSprite implements Constants {
 				int item = (int) (Math.random() * 100);
 				if (item < itemChance) {
 
-					((ZombielandPlayState) game.getPlayGameState())
+					((PlayState) game.getPlayGameState())
 							.addRandomItem(getX(), getY());
 				}
 			}
