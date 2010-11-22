@@ -1,4 +1,4 @@
-package vooga.games.doodlejump.rules;
+package vooga.games.doodlejump.events;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
