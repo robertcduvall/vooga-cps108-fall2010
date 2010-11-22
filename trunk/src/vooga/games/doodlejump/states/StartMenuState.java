@@ -22,6 +22,8 @@ import vooga.games.doodlejump.buttons.PlayButton;
  */
 public class StartMenuState extends MenuGameState {
 
+	private static final String DEFAULT_PLAY_STRING = "defaultPlay";
+
 	private Game myGame;
 	private PlayButton myPlayButton;
 	private EventPool myEventPool;
@@ -35,7 +37,8 @@ public class StartMenuState extends MenuGameState {
 	@Override
 	public void initialize() {
 		myPlayButton = new PlayButton(myGame);
-		mainBackground = new ImageBackground(Resources.getImage("defaultPlay"));
+		mainBackground = new ImageBackground(
+				Resources.getImage(DEFAULT_PLAY_STRING));
 		myEventPool = new EventPool();
 		addButton(myPlayButton);
 		myEventPool.addEvent(myPlayButton);

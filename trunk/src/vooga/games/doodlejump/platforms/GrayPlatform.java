@@ -12,19 +12,23 @@ import vooga.engine.resource.Resources;
  * 
  */
 public class GrayPlatform extends BetterSprite {
+
+	private static final String GRAY_PLATFORM_STRING = "grayPlatform";
+	private static final String CHANGE_DIRECTION_STRING = "changeDirection";
+
 	private int changeDirection;
-	
-	public GrayPlatform(){
-		this(Resources.getImage("grayPlatform"));
+
+	public GrayPlatform() {
+		this(Resources.getImage(GRAY_PLATFORM_STRING));
 	}
 
 	public GrayPlatform(BufferedImage image) {
 		super(image);
 	}
-	
+
 	@Override
-	public void firstRun(){
-		changeDirection = Resources.getInt("changeDirection");
+	public void firstRun() {
+		changeDirection = Resources.getInt(CHANGE_DIRECTION_STRING);
 		setVerticalSpeed(-0.1);
 	}
 
@@ -34,7 +38,7 @@ public class GrayPlatform extends BetterSprite {
 		changeDirection--;
 		if (changeDirection <= 0) {
 			setVerticalSpeed(getVerticalSpeed() * -1);
-			changeDirection = Resources.getInt("changeDirection");
+			changeDirection = Resources.getInt(CHANGE_DIRECTION_STRING);
 		}
 	}
 }

@@ -20,9 +20,17 @@ import com.golden.gamedev.object.Sprite;
  */
 public class MovingMonster extends BetterSprite {
 
+	private static final String BLUE_MONSTER_LEFT_STRING = "blueMonsterLeft";
+	private static final String BLUE_MONSTER_RIGHT_STRING = "blueMonsterRight";
+	private static final int MULTIPLY_HORIZONTAL_SPEED = -1;
+
+	private static final String MIN_SCREEN_X_STRING = "minScreenX";
+	private static final String MAX_SCREEN_X_STRING = "maxScreenX";
+
 	public MovingMonster() {
-		this("blueMonsterLeft");
+		this(BLUE_MONSTER_LEFT_STRING);
 	}
+
 	public MovingMonster(String label) {
 		super(label, new BetterSprite(Resources.getAnimation(label)));
 	}
@@ -30,16 +38,27 @@ public class MovingMonster extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getX() < Resources.getDouble("minScreenX")|| getX() > Resources.getDouble("maxScreenX") - getWidth()) {
-			if (getX() < Resources.getDouble("minScreenX")){
-				BufferedImage[] doodleImage = { Resources.getImage("blueMonsterRight") };
-				setImages(doodleImage);
-			}
-			else{
-				BufferedImage[] doodleImage = { Resources.getImage("blueMonsterLeft") };
-				setImages(doodleImage);
-			}
-			setHorizontalSpeed(getHorizontalSpeed() * -1);
+		checkInBounds();
+	}
+
+	private void checkInBounds() {
+		if (getX() < Resources.getDouble(MIN_SCREEN_X_STRING)
+				|| getX() > Resources.getDouble(MAX_SCREEN_X_STRING)
+						- getWidth()) {
+			setMonsterImage();
+			setHorizontalSpeed(getHorizontalSpeed() * MULTIPLY_HORIZONTAL_SPEED);
+		}
+	}
+
+	private void setMonsterImage() {
+		if (getX() < Resources.getDouble(MIN_SCREEN_X_STRING)) {
+			BufferedImage[] doodleImage = { Resources
+					.getImage(BLUE_MONSTER_RIGHT_STRING) };
+			setImages(doodleImage);
+		} else {
+			BufferedImage[] doodleImage = { Resources
+					.getImage(BLUE_MONSTER_LEFT_STRING) };
+			setImages(doodleImage);
 		}
 	}
 }

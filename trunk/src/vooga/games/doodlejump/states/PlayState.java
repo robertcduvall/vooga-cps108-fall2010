@@ -41,6 +41,19 @@ import vooga.games.grandius.events.ZipsterFireEvent;
  */
 public class PlayState extends GameState {
 
+	private static final String GAME_DELAY_STRING = "gameDelay";
+	private static final String DOODLE_GROUP_STRING = "doodleGroup";
+	private static final String DOODLE_VOOGA_PATH_STRING = "vooga.games.doodlejump.DoodleSprite";
+	private static final String GAME_VOOGA_PATH_STRING = "vooga.games.doodlejump.BlahThis";
+	private static final String MOVE_LEFT_STRING = "moveLeft";
+	private static final String MOVE_RIGHT_STRING = "moveRight";
+	private static final String SHOOT_STRING = "shoot";
+	private static final String PAUSE_STRING = "pauseGame";
+	private static final String GAME_STRING = "game";
+	private static final String SCORE_STRING = "score";
+	private static final String SCORE_INCREMENT_STRING = "scoreIncrement";
+	private static final String BALL_GROUP_STRING = "ballGroup";
+
 	private Game game;
 	PlayField myField;
 	private DoodleSprite doodle;
@@ -67,11 +80,12 @@ public class PlayState extends GameState {
 	}
 
 	public void onActivate() {
-		startDelay = Resources.getInt("gameDelay");
+		startDelay = Resources.getInt(GAME_DELAY_STRING);
 	}
 
 	private void initLevel() {
-		doodle = (DoodleSprite) (myField.getGroup("doodleGroup").getSprites()[0]);
+		doodle = (DoodleSprite) (myField.getGroup(DOODLE_GROUP_STRING)
+				.getSprites()[0]);
 		doodle.setPlayState(this);
 		initControls();
 		initEvents();
@@ -79,38 +93,39 @@ public class PlayState extends GameState {
 
 	public void initControls() {
 		Control playerControl = new KeyboardControl(doodle, game);
-		playerControl.addInput(KeyEvent.VK_LEFT, "moveLeft",
-		"vooga.games.doodlejump.DoodleSprite");
-		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight",
-		"vooga.games.doodlejump.DoodleSprite");
-		playerControl.addInput(KeyEvent.VK_SPACE, "shoot",
-		"vooga.games.doodlejump.DoodleSprite");
+		playerControl.addInput(KeyEvent.VK_LEFT, MOVE_LEFT_STRING,
+				DOODLE_VOOGA_PATH_STRING);
+		playerControl.addInput(KeyEvent.VK_RIGHT, MOVE_RIGHT_STRING,
+				DOODLE_VOOGA_PATH_STRING);
+		playerControl.addInput(KeyEvent.VK_SPACE, SHOOT_STRING,
+				DOODLE_VOOGA_PATH_STRING);
 		myField.addControl("doodle", playerControl);
 		Control gameControl = new KeyboardControl(game, game);
-		gameControl.addInput(KeyEvent.VK_P, "pauseGame",
-		"vooga.games.doodlejump.BlahThis");
-		myField.addControl("game", gameControl);
+		gameControl.addInput(KeyEvent.VK_P, PAUSE_STRING,
+				GAME_VOOGA_PATH_STRING);
+		myField.addControl(GAME_STRING, gameControl);
 	}
 
 	public void initEvents() {
 		eventPool = new EventPool();
 		eventPool.addEvent(new GameWonEvent(doodle, game, gameWonState));
 		eventPool.addEvent(new DoodleDiedEvent(doodle, game, gameOverState));
-		//eventPool.addEvent(new LevelWonEvent(doodle, this, (BlahThis) game));
+		// eventPool.addEvent(new LevelWonEvent(doodle, this, (BlahThis) game));
 	}
 
 	@Override
 	public void update(long elapsedTime) {
-		if (startDelay != 0 && startDelay <= Resources.getInt("gameDelay")) {
+		if (startDelay != 0
+				&& startDelay <= Resources.getInt(GAME_DELAY_STRING)) {
 			startDelay--;
-			if(startDelay != Resources.getInt("gameDelay") - 1)
+			if (startDelay != Resources.getInt(GAME_DELAY_STRING) - 1)
 				return;
 		}
 		for (SpriteGroup group : myField.getGroups()) {
 			for (Sprite sprite : group.getSprites()) {
 				if (doodle.getY() < doodle.getMaxHeight() && sprite != null) {
 					scrollLevel(sprite);
-					if (group.getName().equals("doodleGroup")) {
+					if (group.getName().equals(DOODLE_GROUP_STRING)) {
 						incrementScore();
 					}
 				}
@@ -124,9 +139,9 @@ public class PlayState extends GameState {
 		sprite.moveY(doodle.getMaxHeight() - doodle.getY());
 	}
 
-	private void incrementScore(){
-		Stat<Integer> stat = (Stat<Integer>) (doodle.getStat("score"));
-		stat.setStat(stat.getStat() + Resources.getInt("scoreIncrement"));
+	private void incrementScore() {
+		Stat<Integer> stat = (Stat<Integer>) (doodle.getStat(SCORE_STRING));
+		stat.setStat(stat.getStat() + Resources.getInt(SCORE_INCREMENT_STRING));
 	}
 
 	public void setField(PlayField newField) {
@@ -142,6 +157,6 @@ public class PlayState extends GameState {
 	}
 
 	public void addBall(BallSprite ball) {
-		myField.getGroup("ballGroup").add(ball);
+		myField.getGroup(BALL_GROUP_STRING).add(ball);
 	}
 }

@@ -20,6 +20,7 @@ import vooga.games.doodlejump.buttons.RestartButton;
  */
 public class GameWonState extends MenuGameState {
 
+	private static final String DEFAULT_PLAY_STRING = "defaultPlay";
 	private Game myGame;
 	private RestartButton myPlayButton;
 	private EventPool myEventPool;
@@ -33,7 +34,8 @@ public class GameWonState extends MenuGameState {
 	@Override
 	public void initialize() {
 		myPlayButton = new RestartButton(myGame);
-		mainBackground = new ImageBackground(Resources.getImage("defaultPlay"));
+		mainBackground = new ImageBackground(
+				Resources.getImage(DEFAULT_PLAY_STRING));
 		myEventPool = new EventPool();
 		addButton(myPlayButton);
 		myEventPool.addEvent(myPlayButton);

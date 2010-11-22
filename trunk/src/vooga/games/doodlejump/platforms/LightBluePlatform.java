@@ -13,8 +13,12 @@ import vooga.engine.resource.Resources;
  */
 public class LightBluePlatform extends BetterSprite {
 	
+	private static final String LIGHT_BLUE_PLATFORM_STRING = "lightBluePlatform";
+	private static final String MIN_SCREEN_X_STRING = "minScreenX";
+	private static final String MAX_SCREEN_X_STRING = "maxScreenX";
+
 	public LightBluePlatform(){
-		this(Resources.getImage("lightBluePlatform"));
+		this(Resources.getImage(LIGHT_BLUE_PLATFORM_STRING));
 	}
 	public LightBluePlatform(BufferedImage image) {
 		super(image);
@@ -28,7 +32,10 @@ public class LightBluePlatform extends BetterSprite {
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
-		if (getX() < Resources.getDouble("minScreenX") || getX() > Resources.getDouble("maxScreenX") - getWidth())
+		checkInBounds();
+	}
+	private void checkInBounds() {
+		if (getX() < Resources.getDouble(MIN_SCREEN_X_STRING) || getX() > Resources.getDouble(MAX_SCREEN_X_STRING) - getWidth())
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 	}
 }
