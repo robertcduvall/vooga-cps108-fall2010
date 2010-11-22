@@ -14,6 +14,7 @@
     <Sounds>
 		<Sound name="explosionSound" path="explosion.wav" />
 		<Sound name="backgroundmusic" path="music.mid" />
+		<Sound name="bonussound" path="bonussound.wav" />
 	</Sounds>
 	
     <Strings>
