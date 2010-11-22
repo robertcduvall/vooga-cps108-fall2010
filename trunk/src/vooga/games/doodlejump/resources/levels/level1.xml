@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Level name="Doodle" xmloverlaypath="src/vooga/games/doodlejump/resources/overlays.xml">
 
+	<Rules>
+		<Rule name="LevelWonRule" class="vooga.games.grandius.rules.LevelWonRule">
+			<SpriteGroup name="doodleGroup" />
+		</Rule>
+	</Rules>
+	
 	<SpriteGroups>
-
 
 		<SpriteGroup name="ballGroup">
 			<Sprite class="vooga.games.doodlejump.BallSprite" random="false"
@@ -124,10 +129,6 @@
 				random="false" x="200" y="-1700" vx="0" vy="0" quantity="1">
 				<Visual name="lightBluePlatform" />
 			</Sprite>
-			<Sprite class="vooga.engine.core.BetterSprite" random="false"
-				x="0" y="-1600" vx="0" vy="0" quantity="1">
-				<Visual name="finishLine" />
-			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="whitePlatformGroup">
@@ -136,6 +137,14 @@
 				<Visual name="whitePlatform" />
 			</Sprite>
 		</SpriteGroup>
+
+		<SpriteGroup name="finishLineGroup">
+			<Sprite class="vooga.engine.core.BetterSprite" random="false"
+				x="0" y="-1600" vx="0" vy="0" quantity="1">
+				<Visual name="finishLine" />
+			</Sprite>
+		</SpriteGroup>
+
 
 		<SpriteGroup name="monsterGroup">
 			<Sprite class="vooga.games.doodlejump.monsters.JigglingFlyingMonster"
@@ -263,6 +272,12 @@
 			subclass="vooga.games.doodlejump.collisions.DoodleToMonsterCollision">
 			<SpriteGroup name="doodleGroup" />
 			<SpriteGroup name="monsterGroup" />
+		</CollisionGroup>
+
+		<CollisionGroup
+			subclass="vooga.games.doodlejump.collisions.DoodleToFinishLineCollision">
+			<SpriteGroup name="doodleGroup" />
+			<SpriteGroup name="finishLineGroup" />
 		</CollisionGroup>
 	</CollisionGroups>
 
