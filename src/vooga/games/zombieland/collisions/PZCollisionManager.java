@@ -1,5 +1,6 @@
 package vooga.games.zombieland.collisions;
 
+import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.Constants;
 import vooga.games.zombieland.Shooter;
 import vooga.games.zombieland.Zombie;
@@ -15,6 +16,14 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 public class PZCollisionManager extends PreciseCollisionGroup implements
 Constants {
+	
+	Blah currentGame;
+	
+	public PZCollisionManager(Blah game)
+	{
+		currentGame = game;
+	}
+	
 	/**
 	 * Initiates post-collision behavior for the zombie
 	 */

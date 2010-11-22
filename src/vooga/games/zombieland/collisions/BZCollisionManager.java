@@ -1,6 +1,7 @@
 package vooga.games.zombieland.collisions;
 
 
+import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.Zombie;
 import vooga.games.zombieland.weapons.Bullet;
 import vooga.games.zombieland.Constants;
@@ -9,6 +10,8 @@ import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.Game;
+
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 /**
@@ -18,6 +21,14 @@ import com.golden.gamedev.object.collision.PreciseCollisionGroup;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  */
 public class BZCollisionManager extends PreciseCollisionGroup implements Constants{
+	
+	Blah currentGame;
+	
+	public BZCollisionManager(Blah game)
+	{
+		currentGame = game;
+	}
+	
 	/**
 	 * Initiates post-collision behavior for the zombie and the bullet
 	 */
