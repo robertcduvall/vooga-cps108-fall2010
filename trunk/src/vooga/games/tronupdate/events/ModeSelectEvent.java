@@ -22,10 +22,15 @@ public class ModeSelectEvent implements IEventHandler{
 	@Override
 	public void actionPerformed() {
 		gm.getGameState(2).removeEverything();
-		gm.switchTo(gm.getGameState(0));//index 0 means PlayState
 		
-		if(isSingle()) Mode.setSinglePlayer();
-		else if(isMultiple()) Mode.setMultiplePlayer(); 
+		if(isSingle()){
+			Mode.setSinglePlayer();	
+			gm.switchTo(gm.getGameState(4));//index 4 means setNumMatchesState
+		}
+		else if(isMultiple()){
+			Mode.setMultiplePlayer(); 
+			gm.switchTo(gm.getGameState(0));//index 0 means PlayState
+		}
 	}
 	
 	private boolean isSingle(){

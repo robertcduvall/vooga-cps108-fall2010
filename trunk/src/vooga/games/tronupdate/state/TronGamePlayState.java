@@ -1,14 +1,13 @@
 package vooga.games.tronupdate.state;
 
-
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import com.golden.gamedev.object.SpriteGroup;
-
-
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
@@ -22,6 +21,7 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.util.GridSpace;
+import vooga.games.tronupdate.util.Mode;
 import vooga.games.tronupdate.collisions.PlayerAndBoundariesCollision;
 import vooga.games.tronupdate.collisions.PlayerAndEnemyCollision;
 
@@ -31,6 +31,7 @@ import vooga.games.tronupdate.items.Bonus;
 import vooga.games.tronupdate.items.SpeedUpBonus;
 import vooga.games.tronupdate.items.TronPlayer;
 import vooga.games.tronupdate.util.Direction;
+import vooga.games.tronupdate.util.AI;
 
 
 
@@ -46,10 +47,12 @@ public class TronGamePlayState extends GameState{
 	private Control secondPlayerControl;
 	private BetterSprite[][] firstPlayerBlocks;
 	private BetterSprite[][] secondPlayerBlocks;
+	private boolean[][] blocksTaken;
 	private EventPool eventPool; 
 	private Queue<SpeedUpBonus> bonusList;
 	private SpeedUpBonus prev=null;
-	
+	private AI ai;
+	//private int currentLevel;
 	//private OverlayTracker tracker;
 	
 	
@@ -78,10 +81,9 @@ public class TronGamePlayState extends GameState{
 		initializeBlocks();
 		initializeEnvironment();
 		initializeCollision();
-		initializeOverlay();
+		//initializeOverlay();
 		initializeEvents();
 		game.playMusic(Resources.getSound("backgroundmusic"));
-		
 	}
 	
 	public void initializeOverlay(){
@@ -89,7 +91,6 @@ public class TronGamePlayState extends GameState{
 		OverlayTracker tracker = OverlayCreator.createOverlays("src/vooga/games/tronupdate/resources/overlays.xml");
 		playField.addGroup(tracker.getOverlayGroup("second"));
 	}
-	
 	
 	public void initializeCollision() {
 		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision(game,stateManager);   
@@ -99,13 +100,12 @@ public class TronGamePlayState extends GameState{
 		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("block"), playerEnemyCollision);
 		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("player"), playerBoundariesCollision);
 		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("bonus"), playerBonusCollision);
-		
-		
 	}
 	
 	public void initializeEvents() {
 		eventPool = new EventPool();
 	    TronGamePauseEvent tronGamePauseEvent = new TronGamePauseEvent(game,stateManager); 
+	    
 	    eventPool.addEvent(tronGamePauseEvent);
 	}
 
@@ -133,6 +133,8 @@ public class TronGamePlayState extends GameState{
 	
 	public void initializeEnvironment() {
 		playField = new PlayField();
+		playField.addColorBackground(Color.WHITE);
+		playField.setBackground(0);
 		String spritegroupslist = Resources.getString("gameitemlist");
 		String delim = Resources.getString("delim");
 		String[] spritegroups = spritegroupslist.split(delim);
@@ -152,13 +154,11 @@ public class TronGamePlayState extends GameState{
 			for(int j=0;j<secondPlayerBlocks[0].length;j++)
 		playField.getGroup(spritegroups[1]).add(secondPlayerBlocks[i][j]);
 		}	
-		
 		createRandomBonus();
 		for(SpeedUpBonus bonus:bonusList){
 			bonus.setActive(false);
 			playField.getGroup(spritegroups[2]).add(bonus);
 		}
-
 	}
 	
 	/**
@@ -189,25 +189,33 @@ public class TronGamePlayState extends GameState{
 	
 	public void initSecondPlayerControls(TronPlayer player){
 		secondPlayerControl = new KeyboardControl(player, game);
-		secondPlayerControl.addInput(KeyEvent.VK_S, "down", PLAYER_CLASS);
-		secondPlayerControl.addInput(KeyEvent.VK_D, "right", PLAYER_CLASS);
-		secondPlayerControl.addInput(KeyEvent.VK_W, "up", PLAYER_CLASS);
-		secondPlayerControl.addInput(KeyEvent.VK_A, "left", PLAYER_CLASS);
+		if(Mode.isSingle()){
+			//secondPlayerControl = new KeyboardControl(player, game);
+			secondPlayerControl.addInput(KeyEvent.VK_S, "down", PLAYER_CLASS);
+			secondPlayerControl.addInput(KeyEvent.VK_D, "right", PLAYER_CLASS);
+			secondPlayerControl.addInput(KeyEvent.VK_W, "up", PLAYER_CLASS);
+			secondPlayerControl.addInput(KeyEvent.VK_A, "left", PLAYER_CLASS);	
+		}
+		else{
+			ai = new AI();
+			ai.setPlayer(secondPlayer);
+		}
 	}
 	
 	/**
 	 * fills in the grid spaces behind the players with collidable blocks. 
 	 */
-	public void buildBlockWall(){
-
+	public void updateBlocks(){
 		for(int i=0; i<firstPlayerBlocks.length; i++){
 			for(int j=0; j<firstPlayerBlocks[0].length; j++){
 
 				if(firstPlayer.grid.isGridTaken(i, j)){
 					firstPlayerBlocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
+					blocksTaken[i][j]=true;
 				}
 				if(secondPlayer.grid.isGridTaken(i, j)){
 					secondPlayerBlocks[i][j].setLocation(j*PLAYER_IMAGE_WIDTH, i*PLAYER_IMAGE_WIDTH);
+					blocksTaken[i][j]=true;
 				}
 			}			
 		}		
@@ -231,17 +239,20 @@ public class TronGamePlayState extends GameState{
 					//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
 				}
 			}	
+			blocksTaken = new boolean[GRID_WIDTH][GRID_HEIGHT];
+			for(int i=0;i<GRID_WIDTH;i++){
+				Arrays.fill(blocksTaken[i],false);
+			}
 	}
 	
 	
 	public void render(Graphics2D g) {
 		playField.render(g);
-		
 	}
 	
-	
 	public void update(long elapsedTime) {
-		buildBlockWall();
+		updateBlocks();
+		
 		
 		if(Math.random()<0.04&&!bonusList.isEmpty()){
 		spawnBonus();
@@ -249,7 +260,10 @@ public class TronGamePlayState extends GameState{
 		playField.update(elapsedTime);
 		eventPool.checkEvents();
 		firstPlayerControl.update();
-		secondPlayerControl.update();
+		if(Mode.isSingle()) secondPlayerControl.update();
+		if(Mode.isMultiple()){
+			ai.aiUpdate(blocksTaken);
+		}
 	}
 
 	public void spawnBonus() {
@@ -257,10 +271,7 @@ public class TronGamePlayState extends GameState{
 		SpeedUpBonus b=bonusList.poll();
 		prev=b;
 		b.setActive(true);
-
 		}
-
-		
 	}
 	
 	

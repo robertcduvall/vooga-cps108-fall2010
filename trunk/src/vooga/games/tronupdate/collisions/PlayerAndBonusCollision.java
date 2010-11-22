@@ -30,7 +30,6 @@ public class PlayerAndBonusCollision extends BasicCollisionGroup {
 		bonus.act();
 		TronPlayer player = (TronPlayer)s1;
 		player.setSpeedUp(1);
-		
 	}
 	
 

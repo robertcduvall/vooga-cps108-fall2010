@@ -11,7 +11,7 @@ import vooga.engine.core.Game;
 import vooga.engine.overlay.*;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
-import vooga.games.tronupdate.events.MenuSelectEvent;
+import vooga.games.tronupdate.events.ModeSelectEvent;
 
 
 public class LoadState extends GameState{
@@ -35,7 +35,7 @@ public class LoadState extends GameState{
 	
 	private void initializeEvents(){
 		eventPool = new EventPool();
-		eventPool.addEvent(new MenuSelectEvent(game,gameStateManager));
+		eventPool.addEvent(new ModeSelectEvent(game,gameStateManager));
 	}	
 	
 	public void render(Graphics2D g) {
