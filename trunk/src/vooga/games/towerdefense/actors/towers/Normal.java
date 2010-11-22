@@ -3,6 +3,7 @@ package vooga.games.towerdefense.actors.towers;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.resource.Resources;
+import vooga.games.towerdefense.events.ShootEvent;
 
 /**
  * This is a standard tower. All attributes are balanced.
@@ -20,12 +21,12 @@ public class Normal extends ShootingTower{
 	public final static double RANGE = 150;
 	public final static double SHOT_SPEED = 1;
 	
-	public Normal(double x, double y) {
-		super(IMAGE, x, y, PREVIEW_IMAGE, COST, RANGE, SHOT_SPEED, SHOT_DELAY);
+	public Normal(double x, double y, ShootEvent shootEvent) {
+		super(IMAGE, x, y, PREVIEW_IMAGE, COST, RANGE, SHOT_SPEED, SHOT_DELAY, shootEvent);
 	}
 	
 	public Tower clone(){
-		return new Normal(getX(), getY());
+		return new Normal(getX(), getY(), getShootEvent());
 	}
 
 }
