@@ -17,6 +17,7 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  */
 public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 
+	private static final int TOP_COLLISION_SIDE = 8;
 	private Game myGame;
 	
 	/**
@@ -35,20 +36,13 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 	 * @param block BlockSprite in SpriteGroup
 	 */
 	public void collided(Sprite doodle, Sprite block) {
-		if(super.getCollisionSide() == 8){
+		if(super.getCollisionSide() == TOP_COLLISION_SIDE){
 			((BlockSprite) block).handleCollision((DoodleSprite) doodle);
 		}
 		
 
 		}
-		//How to disallow horizontally walking through blocks?  Btw, is there a more elegant way to
-		//allow different actions based on different vals of getCollisionSide()? --devon
-		/* else if(super.getCollisionSide() == 2){
-			doodle.setHorizontalSpeed(1);
-		} else if(super.getCollisionSide() == 4){
-			doodle.setHorizontalSpeed(-1);
-		}
-		*/	
+			
 	/**
 	 * Changes the image of the sprite if it collides with
 	 * an specific sprite.  An example is if the main character touches a 

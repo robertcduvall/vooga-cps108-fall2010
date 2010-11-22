@@ -34,12 +34,18 @@ import vooga.games.jumper.states.PlayGameState;
 
 public class DropThis extends vooga.engine.core.Game {
 
+	private static final String GAME_OVER_MESSSAGE = "YOU LOST";
+
+	private static final String PAUSE_GAME_MESSAGE = "THE GAME IS PAUSED";
+
 	private LevelManager levelManager;
 
 	PlayGameState playState;
 	PauseGameState pauseState;
 	BasicTextGameState deathState;
 	BasicTextGameState endState;
+	
+	
 	
 	private Control gameControl;
 
@@ -70,8 +76,8 @@ public class DropThis extends vooga.engine.core.Game {
 	
 	private void initGameStates(PlayField pf) {
 		playState = new PlayGameState(this, pf, this);
-		pauseState = new PauseGameState(playState, "THE GAME IS PAUSED", Color.BLUE);
-		deathState = new BasicTextGameState("YOU LOST", Color.BLUE);
+		pauseState = new PauseGameState(playState, PAUSE_GAME_MESSAGE, Color.BLUE);
+		deathState = new BasicTextGameState(GAME_OVER_MESSSAGE, Color.BLUE);
 		stateManager.addGameState(playState, pauseState, deathState);
 	}
 
