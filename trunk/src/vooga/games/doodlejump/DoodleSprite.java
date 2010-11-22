@@ -22,10 +22,10 @@ import vooga.games.doodlejump.states.PlayState;
  * 
  */
 public class DoodleSprite extends BetterSprite {
-	private static final double MAXIMUM_SCREEN_Y = Resources.getDouble("maxScreenY");
 	private static final double MAXIMUM_SCREEN_X = Resources.getDouble("maxScreenX");
-	private static final double MINIMUM_SCREEN_Y = Resources.getDouble("minScreenY");
 	private static final double MINIMUM_SCREEN_X = Resources.getDouble("minScreenX");
+	private static final double MAXIMUM_SCREEN_Y = Resources.getDouble("maxScreenY");
+	private static final double MINIMUM_SCREEN_Y = Resources.getDouble("minScreenY");
 	
 	private boolean died;
 	private PlayState playState;
@@ -103,7 +103,7 @@ public class DoodleSprite extends BetterSprite {
 
 	public boolean doodleFell() {
 		System.out.println(getY());
-		return (getY() > MINIMUM_SCREEN_Y);
+		return (getY() > MAXIMUM_SCREEN_Y);
 	}
 
 	public void setPlayState(PlayState p) {
