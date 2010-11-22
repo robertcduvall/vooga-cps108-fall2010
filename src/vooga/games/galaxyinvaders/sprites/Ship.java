@@ -3,7 +3,10 @@ package vooga.games.galaxyinvaders.sprites;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
+import vooga.games.galaxyinvaders.DropThis;
+import vooga.games.galaxyinvaders.states.PlayState;
 
 public class Ship extends BetterSprite{
 
@@ -26,7 +29,10 @@ public class Ship extends BetterSprite{
 	public void fire() {
 		BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), getX()+25, getY()-35);
 		temp.setSpeed(0, -PLAYER_BOMB_SPEED);
+		//TODO: better way to do this?
+		PlayField playfield = PlayState.getPlayField();
 		torpedos.add(temp);
+		playfield.addGroup(torpedos);
 	}
 
 	public void moveLeft() {

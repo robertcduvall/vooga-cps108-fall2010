@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Collection;
 
+import com.golden.gamedev.object.background.ColorBackground;
+
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
@@ -25,12 +27,12 @@ public class PauseState extends PauseGameState {
 	private void initControls()
 	{
 		Control gameControl = new KeyboardControl(game, game);
-		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
-		gameControl.addInput(KeyEvent.VK_P, "resumeGame", "vooga.games.galaxyinvaders.DropThis");
+		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.galaxyinvaders.DropThis");
 		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
 		Collection<PlayField> playfields = this.getUpdateField();
 		for (PlayField playfield : playfields)
 		{
+			playfield.setBackground(new ColorBackground(Color.BLACK));
 			playfield.addControl("game", gameControl);
 		}
 	}

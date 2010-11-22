@@ -20,7 +20,7 @@ import vooga.games.galaxyinvaders.LevelSwitchEvent;
 public class PlayState extends GameState{
 	
 	private Game game;
-	PlayField myField;
+	static PlayField myField;
 	
 	public PlayState(Game game, PlayField field){
 		super(field);
@@ -61,5 +61,9 @@ public class PlayState extends GameState{
 	public void clearEnemies() {
 		SpriteGroup enemies = this.getGroup("enemies");
 		enemies.clear();
+	}
+	
+	public static PlayField getPlayField(){
+		return myField;
 	}
 }
