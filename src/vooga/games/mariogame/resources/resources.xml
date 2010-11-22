@@ -2,23 +2,27 @@
 
 <Resources>
 	<Images>
-		<Image name="Lose BG" path="bowser.jpg"/>
-		<Image name="Break Tile" path="BreakTile.png"/>		
-		<Image name="Dirt Tile" path="DirtTile.png"/>
-		<Image name="Font" path="font.png"/>
-		<Image name="Grass Tile" path="GrassTile.png"/>
-		<Image name="Gravity Item" path="GravityItem.png"/>
-		<Image name="Space BG" path="spacebg.jpg"/>
-		<Image name="Item Tile 1" path="ItemTile1.png"/>
-		<Image name="Item Tile 2" path="ItemTile2.png"/>
-		<Image name="Ground Tile" path="ITile.png"/>
-		<Image name="Level Complete BG" path="levelfinished.jpg"/>
-		<Image name="Win BG" path="mario_and_luigi.jpg"/>
-		<Image name="Mario Menu BG" path="mariomenu.jpg"/>
-		<Image name="Coin" path="super_mario_coin.png"/>
-		<Image name="Pause BG" path="toad_wallpaper.jpg"/>				
+		<Image name="Lose BG" path="bowser.jpg" />
+		<Image name="Break Tile" path="BreakTile.png" />
+		<Image name="Dirt Tile" path="DirtTile.png" />
+		<Image name="Font" path="font.png" />
+		<Image name="Grass Tile" path="GrassTile.png" />
+		<Image name="Gravity Item" path="GravityItem.png" />
+		<Image name="Space BG" path="spacebg.jpg" />
+		<Image name="Item Tile 1" path="ItemTile1.png" />
+		<Image name="Item Tile 2" path="ItemTile2.png" />
+		<Image name="Ground Tile" path="ITile.png" />
+		<Image name="Level Complete BG" path="levelfinished.jpg" />
+		<Image name="Win BG" path="mario_and_luigi.jpg" />
+		<Image name="Mario Menu BG" path="mariomenu.jpg" />
+		<Image name="Coin" path="super_mario_coin.png" />
+		<Image name="Pause BG" path="toad_wallpaper.jpg" />
+		<Image name="Changing Tile 1" path="ChangingTile1.png" />
+		<Image name="Changing Tile 2" path="ChangingTile2.png" />
+		<Image name="Changing Tile 3" path="ChangingTile3.png" />
+		<Image name="Changing Tile 4" path="ChangingTile4.png" />
 	</Images>
-	
+
 	<Animations>
 		<Animation name="marioMovement">
 			<Image path="mario1l.png" />
@@ -28,17 +32,17 @@
 			<Image path="mario3l.png" />
 			<Image path="mario3r.png" />
 			<Image path="mario4l.png" />
-			<Image path="mario4r.png" />			
+			<Image path="mario4r.png" />
 		</Animation>
-		
+
 		<Animation name="Goomba">
-			<Image path="goomba1.png"/>
-			<Image path="goomba2.png"/>
-			<Image path="goomba3.png"/>
-			<Image path="goomba4.png"/>
+			<Image path="goomba1.png" />
+			<Image path="goomba2.png" />
+			<Image path="goomba3.png" />
+			<Image path="goomba4.png" />
 		</Animation>
 	</Animations>
-	
+
 	<Sounds>
 		<Sound name="Level Music" path="mario1.mid" />
 		<Sound name="Level Finish" path="SMAS_SMB_Course_Clear.mid" />
@@ -48,26 +52,32 @@
 		<Sound name="Game Over 2" path="smb_gameover.wav" />
 		<Sound name="Mario Dies" path="smb_mariodie.wav" />
 	</Sounds>
-	
+
 	<Strings>
-		<String name="level0" value="src/vooga/games/mariogame/resources/levels/level1.xml" />
-		<String name="level1" value="src/vooga/games/mariogame/resources/levels/level2.xml" />
-		<String name="level2" value="src/vooga/games/mariogame/resources/levels/level3.xml" />
-		<String name="highscorefile" value="src/vooga/games/marioclone/resources/highscores.db" />
+		<String name="level0"
+			value="src/vooga/games/mariogame/resources/levels/level1.xml" />
+		<String name="level1"
+			value="src/vooga/games/mariogame/resources/levels/level2.xml" />
+		<String name="level2"
+			value="src/vooga/games/mariogame/resources/levels/level3.xml" />
+		<String name="highscorefile"
+			value="src/vooga/games/marioclone/resources/highscores.db" />
 		<String name="highscoredbname" value="highscores" />
-		<String name="losexml" value="src/vooga/games/mariogame/resources/levels/losestate.xml" />
-		<String name="winxml" value="src/vooga/games/mariogame/resources/levels/winstate.xml" />	
-		<String name="LevelFilesDirectory" value="src/vooga/games/mariogame/resources/levels" />	
-		<String name="LevelNamesFile" value="levelnames.txt" />	
-		<String name="Map0" value="src/vooga/games/mariogame/resources/maps/map0.txt" />
+		<String name="losexml"
+			value="src/vooga/games/mariogame/resources/levels/losestate.xml" />
+		<String name="winxml"
+			value="src/vooga/games/mariogame/resources/levels/winstate.xml" />
+		<String name="LevelFilesDirectory" value="src/vooga/games/mariogame/resources/levels" />
+		<String name="LevelNamesFile" value="levelnames.txt" />
+		<String name="Map0"
+			value="src/vooga/games/mariogame/resources/maps/map0.txt" />
 		<String name="Map1" value="src/vooga/games/mariogame/resources/maps/map1.txt" />
 		<String name="Map2" value="src/vooga/games/mariogame/resources/maps/map2.txt" />
-	
 	</Strings>
-	
+
 	<Integers>
 		<Integer name="Width" value="1024" />
-		<Integer name="Height" value="768" />	
+		<Integer name="Height" value="768" />
 	</Integers>
-	
+
 </Resources>

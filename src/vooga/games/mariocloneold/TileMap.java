@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import vooga.engine.factory.MapTile;
+import vooga.engine.factory.MapTile.State;
 import vooga.engine.player.control.ItemSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.mariogame.items.Coin;
@@ -18,8 +20,6 @@ import vooga.games.mariogame.tiles.ChangingTile;
 import vooga.games.mariogame.tiles.CoinTile;
 import vooga.games.mariogame.tiles.IndestructibleTile;
 import vooga.games.mariogame.tiles.ItemTile;
-import vooga.games.mariogame.tiles.Tile;
-import vooga.games.mariogame.tiles.Tile.State;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -28,20 +28,20 @@ public class TileMap {
 
 	public int TILE_SIZE = 64;
 
-	private List<Tile> tiles;
+	private List<MapTile> tiles;
 	private SpriteGroup tileGroup;
 	public int width;
 	public int height;
 
 	public TileMap(File file) throws IOException {
-		tiles = new CopyOnWriteArrayList<Tile>();
+		tiles = new CopyOnWriteArrayList<MapTile>();
 		tileGroup = new SpriteGroup("Tile Group");
 		loadTiles(file);
 	}
 
 	public List<ItemSprite> getNewItems() {
 		List<ItemSprite> list = new ArrayList<ItemSprite>();
-		for (Tile t : tiles) {
+		for (MapTile t : tiles) {
 			ItemSprite item = t.checkItem();
 			if (item != null)
 				list.add(item);
@@ -49,23 +49,23 @@ public class TileMap {
 		return list;
 	}
 
-	public List<Tile> getTiles() {
+	public List<MapTile> getTiles() {
 		return tiles;
 	}
 
 	public void updateTiles() {
-		for (Tile t : tiles) {
+		for (MapTile t : tiles) {
 			if (t.getState() == State.removed)
 				removeTile(t);
 		}
 	}
 
-	private void removeTile(Tile t) {
+	private void removeTile(MapTile t) {
 		tiles.remove(t);
 		tileGroup.remove(t);
 	}
 
-	private void addTile(Tile t) {
+	private void addTile(MapTile t) {
 		tiles.add(t);
 		tileGroup.add(t);
 	}

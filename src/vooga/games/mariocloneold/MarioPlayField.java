@@ -3,9 +3,9 @@ package vooga.games.mariogame;
 import java.awt.Graphics2D;
 import java.util.List;
 
+import vooga.engine.factory.MapTile;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.player.control.ItemSprite;
-import vooga.games.mariogame.tiles.Tile;
 
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
@@ -104,7 +104,7 @@ public class MarioPlayField extends PlayField {
 	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
-		for (Tile t : myTileMap.getTiles()) {
+		for (MapTile t : myTileMap.getTiles()) {
 			t.render(g);
 		}
 	}

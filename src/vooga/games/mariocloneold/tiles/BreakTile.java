@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
-public class BreakTile extends Tile {
+public class BreakTile extends MapTile {
 
 	public BreakTile(double x, double y, BufferedImage image) {
 		super(image, x, y);
