@@ -28,8 +28,7 @@ public class PlayerFireEvent implements IEventHandler {
 	public void actionPerformed() {
 
 		for (int i = 0; i <= player.getWeaponPower(); i++) {
-			PlayerShot sprite = new PlayerShot(playState.getPlayField()
-					.getGroup("playerShot").getActiveSprite().getImage());
+			PlayerShot sprite = new PlayerShot(Resources.getImage("playerShot"));
 			PlayerShot s = sprite;
 
 			s.setX(player.getX() + 15 * i);
