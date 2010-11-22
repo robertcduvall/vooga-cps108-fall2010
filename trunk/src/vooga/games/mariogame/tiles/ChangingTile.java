@@ -2,6 +2,7 @@ package vooga.games.mariogame.tiles;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,14 +15,9 @@ public class ChangingTile extends Tile {
 	private int curImage;
 	private boolean locked;
 
-	public ChangingTile(BufferedImage image, double x, double y) {
-		super(image, x, y);
-		this.addImage(image);
-	}
-
-	public ChangingTile(double x, double y, List<BufferedImage> images) {
-		super(images.get(0), x, y);
-		this.images = images;
+	public ChangingTile(double x, double y, BufferedImage... images) {
+		super(x, y, images);
+		this.images.addAll(Arrays.asList(images));
 	}
 
 	public void addImage(BufferedImage image) {

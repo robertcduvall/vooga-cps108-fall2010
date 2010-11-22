@@ -5,9 +5,8 @@ import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.tiles.Tile;
 
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
-public class MarioToTileCollision extends AdvanceCollisionGroup {
+public class MarioToTileCollision extends BetterCollisionGroup {
 	
 	public MarioToTileCollision(Game game) {
 		super();
@@ -16,14 +15,14 @@ public class MarioToTileCollision extends AdvanceCollisionGroup {
 	@Override
 	public void collided(Sprite mario, Sprite tile) {
 
-//		int side = getCollisionSide(mario, tile);
-		int side = getCollisionSide();
+		int side = getCollisionSide(mario, tile);
+//		int side = getCollisionSide();
 		
 //		printCollisionSide(mario,tile);
-		printCollisionSide();
+//		printCollisionSide();
 		
-//		revertPosition1(mario, tile);
-		revertPosition1();
+		revertPosition1(mario, tile);
+//		revertPosition1();
 		
 		switch (side) {
 		case (LEFT_RIGHT_COLLISION):
