@@ -22,6 +22,7 @@ public class GameWonState extends MenuGameState{
 	private Game myGame;
 	
 	public GameWonState (Game game){
+		super();
 		this.myGame = game;
 	}
 	
