@@ -34,7 +34,7 @@ public class LevelEndEvent implements IEventHandler{
 		target.resetLevelScore();
 		
 	}
-	public void updateDeaths(double deaths)
+	public void updateDeaths(int deaths)
 	{
 		levelDeaths += deaths;
 	}
