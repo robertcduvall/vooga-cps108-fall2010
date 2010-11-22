@@ -22,7 +22,9 @@ public class PlayerCollidesWithBonus extends BasicCollisionGroup {
 	public void collided(PlayerShip player, Sprite bonus) {
 		Stat<Integer> score = (Stat<Integer>) player.getStat("scoreStat");
 		score.setStat(score.getStat()+50);
-		
+		Stat<Integer> stat = (Stat<Integer>) player.getStat("livesStat");
+		stat.setStat(stat.getStat()+1); 
+
 		int power = player.getWeaponPower();
 		if (power < 3) {
 			power = power + 1;
