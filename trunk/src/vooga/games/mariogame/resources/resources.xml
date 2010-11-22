@@ -23,6 +23,8 @@
 		<Image name="Changing Tile 3" path="ChangingTile3.png" />
 		<Image name="Changing Tile 4" path="ChangingTile4.png" />
 		<Image name="Mario" path="mario1r.png" />
+		<Image name="Red Mushroom" path="redmushroom.png" />
+		<Image name="Green Mushroom" path="greenmushroom.png" />
 	</Images>
 
 	<Animations>
@@ -32,25 +34,25 @@
 			<Image path="mario3l.png" />
 			<Image path="mario4l.png" />
 		</Animation>
-		
+
 		<Animation name="marioRight">
 			<Image path="mario1r.png" />
 			<Image path="mario2r.png" />
 			<Image path="mario3r.png" />
 			<Image path="mario4r.png" />
 		</Animation>
-		
+
 		<Animation name="marioLeftBig">
 			<Image path="mario1lB.png" />
 			<Image path="mario2lB.png" />
-			<!--<Image path="mario3lB.png" />-->
+			<Image path="mario3lB.png" />
 			<Image path="mario4lB.png" />
 		</Animation>
-		
+
 		<Animation name="marioRightBig">
 			<Image path="mario1rB.png" />
-			<!--<Image path="mario2rB.png" />-->
-			<!--<Image path="mario3rB.png" />-->
+			<Image path="mario2rB.png" />
+			<Image path="mario3rB.png" />
 			<Image path="mario4rB.png" />
 		</Animation>
 
@@ -94,8 +96,10 @@
 		<String name="LevelNamesFile" value="levelnames.txt" />
 		<String name="Map0"
 			value="src/vooga/games/mariogame/resources/maps/map0.txt" />
-		<String name="Map1" value="src/vooga/games/mariogame/resources/maps/map1.txt" />
-		<String name="Map2" value="src/vooga/games/mariogame/resources/maps/map2.txt" />
+		<String name="Map1"
+			value="src/vooga/games/mariogame/resources/maps/map1.txt" />
+		<String name="Map2"
+			value="src/vooga/games/mariogame/resources/maps/map2.txt" />
 	</Strings>
 
 	<Integers>

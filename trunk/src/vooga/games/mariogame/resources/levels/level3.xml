@@ -10,6 +10,8 @@
 				class="vooga.games.mariogame.sprites.MarioSprite">
 				<Visual name="marioLeft" />
 				<Visual name="marioRight" />
+				<Visual name="marioLeftBig" />
+				<Visual name="marioRightBig" />
 				<Stat name="health" />
 				<Stat name="score" />
 				<Stat name="level" />
@@ -90,14 +92,28 @@
 			<Association char="G" object="vooga.games.mariogame.tiles.ItemTile">
 				<Image name="Item Tile 1" />
 				<Image name="Item Tile 2" />
-				<Item relY="-64" vx=".3" class="vooga.games.mariogame.items.GravityItem">
+				<Item relY="-64" vx=".3" type="Gravity">
 					<Visual name="Gravity Item" />
+				</Item>
+			</Association>
+			<Association char="A" object="vooga.games.mariogame.tiles.ItemTile">
+				<Image name="Item Tile 1" />
+				<Image name="Item Tile 2" />
+				<Item relY="-64" type="Big">
+					<Visual name="Red Mushroom" />
+				</Item>
+			</Association>
+			<Association char="E" object="vooga.games.mariogame.tiles.ItemTile">
+				<Image name="Item Tile 1" />
+				<Image name="Item Tile 2" />
+				<Item relY="-64" type="Life">
+					<Visual name="Green Mushroom" />
 				</Item>
 			</Association>
 			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile">
 				<Image name="Item Tile 1" />
 				<Image name="Item Tile 2" />
-				<Item relY="-64" class="vooga.games.mariogame.items.Coin">
+				<Item relY="-64" vy="-1" type="Coin" lifetime="100">
 					<Visual name="Coin" />
 				</Item>
 			</Association>

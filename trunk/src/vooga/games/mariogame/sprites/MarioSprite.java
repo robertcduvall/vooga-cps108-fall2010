@@ -21,7 +21,7 @@ public class MarioSprite extends BetterSprite {
 
 	private Queue<Character> myCheatText;
 	private static final int MAX_CHEAT_LENGTH = 10;
-	private static final long BIG_TIME = 3000L;
+	private static final long BIG_TIME = 10000L;
 	private char lastCheatChar;
 	private boolean isBig;
 	private long bigStart;
@@ -140,6 +140,8 @@ public class MarioSprite extends BetterSprite {
 		} else if(item.getType().equals("Big")) {
 			isBig = true;
 			bigStart = System.currentTimeMillis();
+		} else if(item.getType().equals("Life")) {
+			setHealth(getHealth()+1);
 		}
 	}
 
