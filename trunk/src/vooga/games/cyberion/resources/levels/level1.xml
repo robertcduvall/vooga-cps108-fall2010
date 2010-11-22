@@ -53,6 +53,7 @@
 				random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0"
 				vyMin=".1" vxMax="0" vyMax=".1" quantity="1000">
 				<Visual name="enemyShip" />
+				<Stat name="scoreStat" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="bonusGroup">

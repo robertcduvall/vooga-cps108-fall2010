@@ -27,7 +27,7 @@ public class PlayerFireEvent implements IEventHandler {
 	@Override
 	public void actionPerformed() {
 
-		for (int i = 0; i <= player.getWeaponPower(); i++) {
+		for (int i = 0; i < player.getWeaponPower(); i++) {
 			PlayerShot sprite = new PlayerShot(Resources.getImage("playerShot"));
 			PlayerShot s = sprite;
 

@@ -2,6 +2,7 @@ package vooga.games.cyberion.collisions;
 
 import vooga.engine.core.Game;
 import vooga.engine.overlay.Stat;
+import vooga.engine.resource.Resources;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playershot.PlayerShot;
 
@@ -27,7 +28,10 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 	}
 //when a playershot collides with an enemy, enemy's life decreases, shot disappears, and a sound is played
 	public void collided(Sprite playershot, EnemyShip enemy) {
-	
+		if (enemy.isOnScreen()){
+				Stat<Integer> score = (Stat<Integer>) enemy.getStat("scoreStat");
+				score.setStat(score.getStat()+10);
+		}
 		enemy.setLife(enemy.getLife() - 1);
 		playershot.setActive(false);
 //		bsSound.play("vooga/games/cyberion/Resources/explosion.wav");
