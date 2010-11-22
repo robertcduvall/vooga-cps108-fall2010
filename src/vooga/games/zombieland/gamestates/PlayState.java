@@ -60,6 +60,7 @@ public class PlayState extends GameState implements Constants{
                         "src/vooga/games/zombieland/resources/levels/level1.xml",
                         currentGame);
         player = (Shooter) playField.getGroup("Players").getSprites()[0];
+        player.setState(this);
 //		initializePlayer();
 		initEnvironment();
 		initOverlays();
@@ -140,16 +141,16 @@ public class PlayState extends GameState implements Constants{
 	 * OverlayLevelString, overllayPauseString.
 	 */
 	public void initOverlays() {
-		
-		
-		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
+//		
+//		
+//		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
 		statLevel = tracker.getStat("initLevel", new Integer(0));
-	
+//	
 		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
 		overlayLevelStat.setActive(false);
-		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
-		overlayGameOverString.setActive(false);
-		playField.addGroup(overlays);
+//		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
+//		overlayGameOverString.setActive(false);
+//		playField.addGroup(overlays);
 	}
 
 	private boolean levelCompleted() {
@@ -187,7 +188,7 @@ public class PlayState extends GameState implements Constants{
 	 * and damage will increase every level.
 	 */
 	public void addZombie() {
-		Zombie newZombie = new Zombie("New", level, player);
+		Zombie newZombie = new Zombie("New", level, player, this);
 		zombiesAppeared++;
 		SpriteGroup zombies = playField.getGroup("Zombies");
 		zombies.add(newZombie);
