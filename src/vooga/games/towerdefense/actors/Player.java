@@ -52,10 +52,18 @@ public class Player extends MouseFollower {
 	}
 
 	private void buildTower() {
-		setTowerLocation();
-		buildTowerEvent.addTower(currentTower);
-		findTargetEvent.addTower((ShootingTower) currentTower);
-		changeTowerType(currentTower.clone());
+		if(canBuild())
+		{
+			setTowerLocation();
+			buildTowerEvent.addTower(currentTower);
+			addMoney(-(currentTower.getCost()));
+			findTargetEvent.addTower((ShootingTower) currentTower);
+			changeTowerType(currentTower.clone());
+		}
+	}
+	
+	private boolean canBuild(){
+		return getMoney()>=currentTower.getCost();
 	}
 	
 	private void setTowerLocation(){
@@ -82,6 +90,10 @@ public class Player extends MouseFollower {
 	
 	public int getScore(){
 		return score.getStat();		
+	}
+	
+	public int getMoney(){
+		return balance.getStat();		
 	}
 	
 	public void addScore(int amount){
