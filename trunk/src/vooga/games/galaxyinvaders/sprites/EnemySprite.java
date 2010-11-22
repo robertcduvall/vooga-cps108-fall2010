@@ -3,9 +3,11 @@ package vooga.games.galaxyinvaders.sprites;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
+import vooga.games.galaxyinvaders.states.PlayState;
 
 import com.golden.gamedev.object.Timer;
 
@@ -20,6 +22,7 @@ public class EnemySprite extends BetterSprite {
 
 	private int pathNum;
     private Timer timer;
+    private Timer bombTimer;
     private ArrayList<Point> path;    
 	private int hitPoints;
 	
@@ -27,6 +30,7 @@ public class EnemySprite extends BetterSprite {
 	public EnemySprite() {
 		pathNum = 0;
     	hitPoints = Resources.getInt("enemySpriteDefaultHP");
+    	bombTimer = new Timer(5000);
 	}
 	
 	/**
@@ -42,6 +46,7 @@ public class EnemySprite extends BetterSprite {
 			setActive(false);
 		}
         if (timer.action(time))   move();
+        if (bombTimer.action(time))	  spawnBomb();
 	}
 	
     /**
@@ -76,11 +81,11 @@ public class EnemySprite extends BetterSprite {
 	 * 
 	 * @return BetterSprite the bomb being dropped
 	 */
-	public BetterSprite spawnBomb()
+	public void spawnBomb()
 	{
 		BetterSprite temp = new BetterSprite(Resources.getImage("torpedo"), this.getX()+25, this.getY()+30);
 		temp.setSpeed(0, Resources.getDouble("enemyBombSpeed"));
-		return temp;
+		PlayState.getPlayField().getGroup("enemyTorpedos").add(temp);
 	}
 
 	
