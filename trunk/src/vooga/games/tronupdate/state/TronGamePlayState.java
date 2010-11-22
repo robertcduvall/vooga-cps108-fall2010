@@ -167,7 +167,7 @@ public class TronGamePlayState extends GameState{
 	public void createRandomBonus(){
 		bonusList=new LinkedList<SpeedUpBonus>();
  
-		for (int i = 0; i < 4; i++){		
+		for (int i = 0; i < 10; i++){		
 			int randomX = (int)Math.ceil(Math.random()* GRID_WIDTH);
 			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
 			bonusList.add(new SpeedUpBonus(Resources.getImage("yellowbonus"), randomX,randomY,PLAYER_IMAGE_WIDTH));	
@@ -190,6 +190,7 @@ public class TronGamePlayState extends GameState{
 	public void initSecondPlayerControls(TronPlayer player){
 		secondPlayerControl = new KeyboardControl(player, game);
 		if(Mode.isSingle()){
+			secondPlayer.setAsAI(false);
 			//secondPlayerControl = new KeyboardControl(player, game);
 			secondPlayerControl.addInput(KeyEvent.VK_S, "down", PLAYER_CLASS);
 			secondPlayerControl.addInput(KeyEvent.VK_D, "right", PLAYER_CLASS);
@@ -198,6 +199,7 @@ public class TronGamePlayState extends GameState{
 		}
 		else{
 			ai = new AI();
+			secondPlayer.setAsAI(true);
 			ai.setPlayer(secondPlayer);
 		}
 	}

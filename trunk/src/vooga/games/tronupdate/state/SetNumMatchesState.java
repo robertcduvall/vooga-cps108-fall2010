@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.GameState;
 import vooga.engine.overlay.*;
@@ -32,8 +33,9 @@ public class SetNumMatchesState extends GameState{
 	
 	private void initializeOverlay(){
 		OverlayCreator.setGame(game);
-		OverlayTracker tracker = OverlayCreator.createOverlays("src/vooga/games/tronupdate/resources/overlays.xml");
+		OverlayTracker tracker = OverlayCreator.createOverlays(Resources.getString("overlayFileURL"));
 		playField.addGroup(tracker.getOverlayGroup("SetNumMatches"));
+		//playField.addGroup(tracker.getStat("zero"));//.getOverlayGroup("SetNumMatches"));
 		initializeEvents();
 	}
 	

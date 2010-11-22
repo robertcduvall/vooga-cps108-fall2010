@@ -28,6 +28,7 @@ public class LoadState extends GameState{
 	@Override
 	public void initialize() {
 		//initializeOverlay();
+
 		playField = new PlayField();
 		playField.setBackground(new ImageBackground(Resources.getImage("gamestart")));
 		initializeEvents();
