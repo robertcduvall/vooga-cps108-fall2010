@@ -1,10 +1,9 @@
 package vooga.games.mariogame.rules;
 
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
-
 import vooga.engine.level.Rule;
 import vooga.games.mariogame.sprites.MarioSprite;
+
+import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * OffScreen rule is enforced when Mario is off the screen.

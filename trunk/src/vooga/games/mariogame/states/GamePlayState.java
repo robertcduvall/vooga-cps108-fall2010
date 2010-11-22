@@ -138,11 +138,10 @@ public class GamePlayState extends GameState {
 	}
 
 	public void initOverlays() {
-		OverlayCreator overlayCreator = new OverlayCreator();
-		OverlayTracker overlayTracker = overlayCreator
+		OverlayTracker overlayTracker = OverlayCreator
 				.createOverlays("src/vooga/games/mariogame/resources/overlays/GameOverlays.xml");
-		SpriteGroup myOverlays = overlayTracker
-				.getOverlayGroup("MainMenuGroup");
+//		SpriteGroup myOverlays = overlayTracker
+//				.getOverlayGroup("MainMenuGroup");
 		PlayField overlayField = new PlayField();
 		this.getRenderField().add(overlayField);
 		this.getUpdateField().add(overlayField);

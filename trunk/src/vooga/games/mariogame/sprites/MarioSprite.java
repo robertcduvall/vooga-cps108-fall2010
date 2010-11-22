@@ -1,7 +1,5 @@
 package vooga.games.mariogame.sprites;
 
-import java.util.Queue;
-
 import vooga.engine.core.BetterSprite;
 import vooga.engine.overlay.Stat;
 import vooga.games.mariogame.items.Item;
@@ -19,10 +17,10 @@ public class MarioSprite extends BetterSprite {
 	private int myMaxHealth = 3;
 	private boolean myLevelFinished = false;
 
-	private Queue<Character> myCheatText;
-	private static final int MAX_CHEAT_LENGTH = 10;
+//	private Queue<Character> myCheatText;
+//	private static final int MAX_CHEAT_LENGTH = 10;
 	private static final long BIG_TIME = 10000L;
-	private char lastCheatChar;
+//	private char lastCheatChar;
 	private boolean isBig;
 	private long bigStart;
 
@@ -164,16 +162,16 @@ public class MarioSprite extends BetterSprite {
 		return (Integer) getStat("score").getStat();
 	}
 
-	private boolean checkCheat(String s) {
-		String curCheat = "";
-		for (char i : myCheatText)
-			curCheat += i;
-		if (myCheatText.size() - s.length() < 0)
-			return false;
-		if (s.equals(curCheat.substring(myCheatText.size() - s.length())))
-			return true;
-		return false;
-	}
+//	private boolean checkCheat(String s) {
+//		String curCheat = "";
+//		for (char i : myCheatText)
+//			curCheat += i;
+//		if (myCheatText.size() - s.length() < 0)
+//			return false;
+//		if (s.equals(curCheat.substring(myCheatText.size() - s.length())))
+//			return true;
+//		return false;
+//	}
 
 	/*
 	public void cheat(char c) {
@@ -203,6 +201,7 @@ public class MarioSprite extends BetterSprite {
 		return (Integer) this.getStat("health").getStat();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setHealth(int i){
 		Stat<Integer> stat = ((Stat<Integer>) getStat("health"));
 		stat.setStat(i);
