@@ -24,7 +24,7 @@ public class LevelButtonModule extends SpriteModule{
 		button.forceX(x);
 		double y = Double.parseDouble(spriteElement.getAttribute("y"));
 		button.forceY(y);
-		String levelName = spriteElement.getAttribute("LevelName");
+		String levelName = spriteElement.getAttribute("levelName");
 		button.setLevel(levelName);
 		NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
 		processVisual(listOfVisuals, button);

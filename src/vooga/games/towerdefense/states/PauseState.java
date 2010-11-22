@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -24,8 +25,12 @@ public class PauseState extends PauseGameState {
 	@Override
 	public void initialize() {
 		super.initialize();
-		getPlayField().addControl("unPause", addControls());
-		getPlayField().addGroup(myTracker.getOverlayGroup("pause"));
+		PlayField playField = new PlayField();
+		
+		playField.addControl("unPause", addControls());
+		playField.addGroup(myTracker.getOverlayGroup("pause"));
+		
+		addPlayField(playField);
 	}
 
 	private Control addControls() {

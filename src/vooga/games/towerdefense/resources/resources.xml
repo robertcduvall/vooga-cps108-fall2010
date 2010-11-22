@@ -2,6 +2,8 @@
 
 	<Images>
 		<Image name="easyLevelBackground" path="backgrounds/easyLevel.png" />
+		<Image name="mediumLevelBackground" path="backgrounds/mediumLevel.png" />
+		<Image name="hardLevelBackground" path="backgrounds/hardLevel.png" />
 		<Image name="towerPreview" path="towerPreview.png" />
 		<Image name="normalTower" path="normalTower.png" />
 		<Image name="normalTowerPreview" path="normalTowerPreview.png" />
@@ -43,6 +45,9 @@
 		<String name="moduleMapProperties" value="vooga.games.towerdefense.resources.moduleMap" />
 		<String name="levelFilesDirectory" value="src/vooga/games/towerdefense/resources/layouts" />
 		<String name="levelNamesFile" value="levelNames.txt"/>
+		<String name="easyLevelXML" value="src/vooga/games/towerdefense/resources/levels/levelEasy.xml" />
+		<String name="mediumLevelXML" value="src/vooga/games/towerdefense/resources/levels/levelMedium.xml" />
+		<String name="hardLevelXML" value="src/vooga/games/towerdefense/resources/levels/levelHard.xml" />
 	</Strings>
 
 	<Integers>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="easyLevel">
+
+	<SpriteGroup name="enemyGenerators">
+			<Sprite module="EasyEnemyGenerator" pathKey="easyLevelPathPoints">
+				<Event module="BuildEnemyEvent" />
+			</Sprite>
+			<Sprite module="LevelButton" x="300" y="400" levelName="mediumLevel">
+				<Visual name="mediumButton" />
+			</Sprite>
+			<Sprite module="LevelButton" x="500" y="400" levelName="hardLevel">
+				<Visual name="hardButton" />
+			</Sprite>
+		</SpriteGroup>
+
+	<Backgrounds>
+		<Visual name ="easyLevelBackground" />
+	</Backgrounds>
+
+</Level>
