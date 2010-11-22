@@ -122,25 +122,6 @@ public class Reacher extends GrandiusBoss {
 		return false;
 	}
 	
-	//TODO - these methods no longer needed. Use getScore()& getCash()from superclass.
-//	/**
-//	 * Returns the point value of this enemy.
-//	 * @return
-//	 */
-//	public int getScoreValue()
-//	{
-//		return SCORE_VALUE;
-//	}
-//
-//	/**
-//	 * Returns the cash value of this enemy.
-//	 * @return
-//	 */
-//	public int getCashValue()
-//	{
-//		return CASH_VALUE;
-//	}
-	
 	public double getSpeed() {
 		return REACHER_SPEED;
 	}

@@ -31,7 +31,7 @@ public class BasicCollision extends BasicCollisionGroup {
 	
 	@Override
 	public void collided(Sprite playerSideSprite, Sprite commonEnemy) {
-		myGame.playSound(Resources.getSound("explosionSound"));
+		//myGame.playSound(Resources.getSound("explosionSound")); Sort of loud...
 		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, commonEnemy.getX(), commonEnemy.getY());
 		((DropThis)myGame).getPlayState().getGroup("explosionGroup").add(explosion);

@@ -9,7 +9,6 @@ import vooga.engine.overlay.Stat;
  * An Enemy is any adversary of the player.
  */
 public abstract class Enemy extends BetterSprite {
-	//TODO - what is serialVersionUID for?
 	private static final long serialVersionUID = 1L;
 	private static final String SCORE = "Score";
 	private static final String CASH = "Cash";
