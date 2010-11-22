@@ -7,9 +7,9 @@
 	<CollisionGroups>	
 	</CollisionGroups>
 	
-	<Background>
+	<Backgrounds>
 		<Visual name="Win BG" />
-	</Background>
+	</Backgrounds>
 
 	<Music>
 	</Music>

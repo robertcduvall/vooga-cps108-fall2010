@@ -65,6 +65,8 @@
 				image="Item Tile 2" />
 			<Association char="S" object="vooga.games.mariogame.tiles.CoinTile"
 				image="Item Tile 1" />
+			<Association char="!"
+				object="vooga.games.mariogame.tiles.FlagTile" image="Flag Tile" />
 		</MapGroup>
 	</Map>
 

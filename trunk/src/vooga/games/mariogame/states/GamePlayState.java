@@ -21,6 +21,8 @@ import vooga.engine.factory.LevelManager;
 import vooga.examples.event.demo2.HumanKilledbyZombieEvent;
 import vooga.games.mariogame.sprites.MarioSprite;
 import vooga.games.mariogame.events.LoseEvent;
+import vooga.games.mariogame.events.NextLevelEvent;
+import vooga.games.mariogame.DropThis;
 
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -84,22 +86,20 @@ public class GamePlayState extends GameState {
 	 */
 
 	public void update(long t) {
-		System.out.println("Current level: "+levelManager.getCurrentLevel());
-		System.out.println("Current playfield: "+getLevel());
-
 		super.update(t);
 		getLevel().update(t);
 		myEvents.checkEvents();
-		if(((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite()).getMaxX() > 3000){
-			nextLevel();
-		}
 	}
 	
-	private void nextLevel(){
-		System.out.println("switching level");
-		cloneStats();
-		removeEverything();
-		initLevel();
+	public void nextLevel(){
+		if(lastLevel()){
+			((DropThis) myGame).winGame();
+		}
+		else{
+			cloneStats();
+			removeEverything();
+			initLevel();
+		}
 	}
 	
 	private void cloneStats(){
@@ -131,7 +131,9 @@ public class GamePlayState extends GameState {
 	public void initEvents(){
 		myEvents = new EventPool();
 		LoseEvent lose = new LoseEvent((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite(),myGame);
+		NextLevelEvent nextLevel = new NextLevelEvent((MarioSprite)getLevel().getGroup("marioGroup").getActiveSprite(), this);
 		myEvents.addEvent(lose);
+		myEvents.addEvent(nextLevel);
 	}
 	
 	public void initOverlays(){
@@ -186,6 +188,10 @@ public class GamePlayState extends GameState {
 	
 	private PlayField getLevel(){
 		return (PlayField)myLevels.toArray()[levelManager.getCurrentLevel()];
+	}
+	
+	private boolean lastLevel(){
+		return levelManager.getCurrentLevel() == (levelManager.getNumLevels()-1);
 	}
 
 	@Override
