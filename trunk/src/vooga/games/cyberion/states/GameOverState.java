@@ -5,7 +5,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.MenuGameState;
-import vooga.games.cyberion.buttons.GameOverButton;
+//import vooga.games.cyberion.buttons.GameOverButton;
 
 /**
  * Game over state for cyberion
@@ -16,7 +16,7 @@ import vooga.games.cyberion.buttons.GameOverButton;
 
 public class GameOverState extends MenuGameState {
 
-	private GameOverButton myGameOverButton;
+	//private GameOverButton myGameOverButton;
 	private Game myGame;
 	private EventPool eventPool;
 
@@ -26,10 +26,10 @@ public class GameOverState extends MenuGameState {
 
 	@Override
 	public void initialize() {
-		this.myGameOverButton = new GameOverButton(myGame);
-		addButton(myGameOverButton);
-		eventPool = new EventPool();
-		eventPool.addEvent(myGameOverButton);
+		//this.myGameOverButton = new GameOverButton(myGame);
+		//addButton(myGameOverButton);
+		//eventPool = new EventPool();
+		//eventPool.addEvent(myGameOverButton);
 	}
 
 	@Override

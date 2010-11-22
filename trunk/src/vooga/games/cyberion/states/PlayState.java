@@ -49,20 +49,20 @@ public class PlayState extends GameState {
 		newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
 		enemy = newField.getGroup("enemyGroup").getSprites();
-		System.out.println(enemy);
 		initControls();
 		initEvents();
 		addPlayField(newField);
 	}
 
-	public void nextLevel() {
+	public PlayState nextLevel() {
+		this.removeEverything();
 		newField = myLevelManager.loadNextLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
 		enemy = newField.getGroup("enemyGroup").getSprites();
-		System.out.println(enemy);
 		initControls();
 		initEvents();
 		addPlayField(newField);
+		return this;
 	}
 
 	@Override
