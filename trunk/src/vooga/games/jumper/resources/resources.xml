@@ -42,10 +42,6 @@
 
 	<Sounds>
 	</Sounds>
-	
-	<Objects>
-		<Object name="VK_UP" path="KeyEvent.VK_UP" />
-	</Objects>
 
 	<Strings>
 		<String name="levelFilesDirectory" value="src/vooga/games/jumper/resources/levels" />
