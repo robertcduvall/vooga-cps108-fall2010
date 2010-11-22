@@ -56,8 +56,7 @@ public class PlayState extends GameState{
 		myField.addEvent(gameLost);
 	}
 	
-	public void clearEnemies()
-	{
+	public void clearEnemies() {
 		SpriteGroup enemies = this.getGroup("enemies");
 		enemies.clear();
 	}
