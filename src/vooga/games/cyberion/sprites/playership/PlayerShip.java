@@ -65,10 +65,6 @@ public class PlayerShip extends BetterSprite {
 		// this.bsInput = bsInput;
 		// }
 
-		public void update(long elapsedTime) {
-		
-			listen();
-		}
 
 		public void moveRight() {
 			if (getX()<Resources.getInt("maxX"))
@@ -90,13 +86,6 @@ public class PlayerShip extends BetterSprite {
 			setY(getY() + 5);
 		}
 
-		public void listen() {
-			eventPool.addEvent(new PlayerFireEvent(this, "PlayerMoveEvent",  getX(), getY(), weaponPower));
-		}
-
-		public void fire() {
-			eventPool.addEvent( new PlayerFireEvent(this, "PlayerFireEvent", getX(), getY(), weaponPower));
-		}
 
 		public boolean isAlive() {
 			return getLife() > 0 ? true : false;
