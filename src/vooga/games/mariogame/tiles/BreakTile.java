@@ -15,7 +15,7 @@ public class BreakTile extends MapTile {
 
 	@Override
 	public void actOnCollision(Sprite sprite) {
-		setState(State.removed);
+		setActive(false);
 	}
 
 }
