@@ -24,6 +24,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
+import vooga.games.mariogame.items.Item;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.SpriteGroup;
@@ -333,6 +334,33 @@ public class LevelParser implements LevelFactory{
 		}
 		return spritesToAdd;
 	}
+	
+	private Item processItem(Element itemElement) {
+		String x = itemElement.getAttribute("relX");
+		String y = itemElement.getAttribute("relY");
+		String vx = itemElement.getAttribute("vx");
+		String vy = itemElement.getAttribute("vy");
+		String type = itemElement.getAttribute("type");
+		String lifetime = itemElement.getAttribute("lifetime");
+		
+		Item itemToAdd = new Item(type);
+		
+		NodeList listOfVisuals = itemElement.getElementsByTagName("Visual");
+		processVisual(listOfVisuals, itemToAdd);
+		
+		NodeList listOfControls = itemElement.getElementsByTagName("Control");
+		processControl(listOfControls, itemToAdd);
+		
+		NodeList listOfStats = itemElement.getElementsByTagName("Stat");
+		processStat(listOfStats, itemToAdd);
+		
+		if(!x.equals("")) itemToAdd.setX(Double.parseDouble(x));
+		if(!y.equals("")) itemToAdd.setY(Double.parseDouble(y));
+		if(!vx.equals("")) itemToAdd.setHorizontalSpeed(Double.parseDouble(vx));
+		if(!vy.equals("")) itemToAdd.setVerticalSpeed(Double.parseDouble(vy));
+		if(!lifetime.equals("")) itemToAdd.setLifetime(Long.parseLong(lifetime));
+		return itemToAdd;
+	}
 
 	private void processStat(NodeList listOfStats, BetterSprite spriteToAdd) {
 		
@@ -422,7 +450,8 @@ public class LevelParser implements LevelFactory{
 								if(type.equals("Image")) {
 									reader.addAssociationImage(key, extraElement.getAttribute("name"));
 								} else if(type.equals("Item")) {
-									reader.addAssociationItem(key,processSprite(extraElement).get(0));
+									String itemType = extraElement.getAttribute("type");
+									reader.addAssociationItem(key,processItem(extraElement));
 								}
 							}
 						}

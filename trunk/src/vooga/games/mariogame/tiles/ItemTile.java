@@ -2,18 +2,17 @@ package vooga.games.mariogame.tiles;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.core.BetterSprite;
-import vooga.games.mariogame.sprites.MarioSprite;
+import vooga.games.mariogame.items.Item;
 
 import com.golden.gamedev.object.Sprite;
 
 @SuppressWarnings("serial")
 public class ItemTile extends ChangingTile {
 
-	protected BetterSprite myItem;
+	protected Item myItem;
 	protected boolean releaseItem;
 
-	public ItemTile(double x, double y, BetterSprite item, BufferedImage... images) {
+	public ItemTile(double x, double y, Item item, BufferedImage... images) {
 		super(x, y, images);
 		myItem = item;
 	}
@@ -26,7 +25,6 @@ public class ItemTile extends ChangingTile {
 	public void actOnCollision(Sprite sprite) {
 		if (!isLocked()) {
 			super.actOnCollision(sprite);
-//			((MarioSprite) sprite).incScore(10);
 			releaseItem = true;
 			lock();
 		}
@@ -35,6 +33,7 @@ public class ItemTile extends ChangingTile {
 	@Override
 	public Sprite checkItem() {
 		if (releaseItem) {
+			myItem.spawn();
 			releaseItem = false;
 			return myItem;
 		}

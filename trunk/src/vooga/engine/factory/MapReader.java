@@ -13,6 +13,7 @@ import java.util.Scanner;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
+import vooga.games.mariogame.items.Item;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -38,7 +39,7 @@ public class MapReader {
 	private static String path;
 	private static Map<String, String> mySpriteClasses;
 	private static Map<String, List<String>> mySpriteImages;
-	private static Map<String, BetterSprite> mySpriteItems;
+	private static Map<String, Item> mySpriteItems;
 	// This is the pixel size of each object in the text file.
 	private static int SPRITE_SIZE = 64;
 
@@ -56,7 +57,7 @@ public class MapReader {
 		myPlayfield = level;
 		mySpriteClasses = new HashMap<String, String>();
 		mySpriteImages = new HashMap<String, List<String>>();
-		mySpriteItems = new HashMap<String, BetterSprite>();
+		mySpriteItems = new HashMap<String, Item>();
 	}
 
 	/**
@@ -141,7 +142,7 @@ public class MapReader {
 					boolean hasItem = mySpriteItems.containsKey(currentKey + "");
 					if (hasItem) {
 						constructorParams = new Class<?>[]{ double.class,
-								double.class, BetterSprite.class,
+								double.class, Item.class,
 								BufferedImage[].class };
 					} else {
 						constructorParams = new Class<?>[]{ double.class,
@@ -155,10 +156,10 @@ public class MapReader {
 						cons = op.getConstructor(constructorParams);
 						Sprite obj = null;
 						if(hasItem) {
-							BetterSprite templateItem = mySpriteItems.get(currentKey+"");
-							Class c = templateItem.getClass();
-							Constructor itemCons = c.getConstructor(new Class[]{BetterSprite.class,double.class,double.class});
-							Object item = itemCons.newInstance(templateItem,x,y);
+							Item templateItem = mySpriteItems.get(currentKey+"");
+//							Class c = templateItem.getClass();
+//							Constructor itemCons = c.getConstructor(new Class[]{BetterSprite.class,double.class,double.class});
+							Item item = new Item(templateItem,x,y);
 							obj = cons.newInstance(x, y, item, images);
 						}
 						else
@@ -176,7 +177,7 @@ public class MapReader {
 		myPlayfield.addGroup(mapGroup);
 	}
 
-	public void addAssociationItem(String key, BetterSprite item) {
+	public void addAssociationItem(String key, Item item) {
 		mySpriteItems.put(key, item);
 	}
 }

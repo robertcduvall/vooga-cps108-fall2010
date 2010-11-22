@@ -1,16 +1,13 @@
 package vooga.games.mariogame.sprites;
 
 import java.util.Queue;
-import java.util.Collection;
-import java.util.ArrayList;
+
+import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.Stat;
+import vooga.games.mariogame.items.Item;
+import vooga.games.mariogame.rules.Gravity;
 
 import com.golden.gamedev.object.AnimatedSprite;
-import com.golden.gamedev.object.Sprite;
-
-import vooga.engine.overlay.Stat;
-import vooga.engine.core.BetterSprite;
-import vooga.games.mariogame.items.GravityItem;
-import vooga.games.mariogame.rules.Gravity;
 
 @SuppressWarnings("serial")
 public class MarioSprite extends BetterSprite {
@@ -24,7 +21,10 @@ public class MarioSprite extends BetterSprite {
 
 	private Queue<Character> myCheatText;
 	private static final int MAX_CHEAT_LENGTH = 10;
+	private static final long BIG_TIME = 3000L;
 	private char lastCheatChar;
+	private boolean isBig;
+	private long bigStart;
 
 	public MarioSprite(){		
 	}
@@ -44,12 +44,14 @@ public class MarioSprite extends BetterSprite {
 	}
 	
 	public void moveRight() {
-		showAnimation("marioRight");
+		if(isBig) showAnimation("marioRightBig");
+		else showAnimation("marioRight");
 		setHorizontalSpeed(speed);
 	}
 
 	public void moveLeft() {
-		showAnimation("marioLeft");
+		if(isBig) showAnimation("marioLeftBig");
+		else showAnimation("marioLeft");
 		setHorizontalSpeed(-speed);
 	}
 
@@ -94,6 +96,10 @@ public class MarioSprite extends BetterSprite {
 
 	@Override
 	public void update(long elapsedTime) {
+		if(isBig && System.currentTimeMillis()-bigStart > BIG_TIME) {
+			isBig = false;
+		}
+		
 		if (getY() > this.getBackground().getHeight()) {
 			setHealth(getHealth() - 1);
 		}
@@ -128,9 +134,12 @@ public class MarioSprite extends BetterSprite {
 		myMaxX = maxX;
 	}
 
-	public void actOnItem(Sprite item) {
-		if (item.getClass().equals(GravityItem.class)) {
-			Gravity.setGravityCoef(((GravityItem) item).getGravity());
+	public void actOnItem(Item item) {
+		if (item.getType().equals("Gravity")) {
+			Gravity.setGravityCoef(.5);
+		} else if(item.getType().equals("Big")) {
+			isBig = true;
+			bigStart = System.currentTimeMillis();
 		}
 	}
 
