@@ -36,6 +36,11 @@ public class Decelerate implements Rule{
 		return true;
 	}
 	
+	/**
+	 * Action triggered by the rule.  Slows the speed of the
+	 * input SpriteGroup
+	 * @param group
+	 */
 	private void decelerate(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
 			if (s!=null){
