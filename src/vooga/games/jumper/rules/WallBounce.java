@@ -15,12 +15,23 @@ public class WallBounce implements Rule{
 
 	private int GAME_WIDTH = Resources.getInt("gameWidth");
 	
+	/** set type SpriteGroup to be enforced by this rule.
+	 * @param any number of type SpriteGroup
+	 */
+	
 	@Override
 	public void enforce(SpriteGroup... groups) {
 		for (SpriteGroup group: groups){
-			adjustForFloor(group);
+			adjustForWall(group);
 		}
 	}
+	
+	/**
+	 * Check to see if the rule is satisfied.
+	 * 
+	 * @param any number of type SpriteGroup
+	 * @return true if sprite from sprite group hits any wall
+	 */
 
 	@Override
 	public boolean isSatisfied(SpriteGroup... groups) {
@@ -34,7 +45,14 @@ public class WallBounce implements Rule{
         return false;
 	}
 	
-	private void adjustForFloor(SpriteGroup group) {
+	/**
+	 * Sets the sprites' x velocity to reverse
+	 * 
+	 * @param type SpriteGroup
+	 * 
+	 */
+	
+	private void adjustForWall(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
 			if (s!=null){
 				s.setHorizontalSpeed(s.getHorizontalSpeed() * -1);
