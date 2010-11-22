@@ -92,6 +92,7 @@
 	<Sounds>
 		<Sound name="jumpSound" path="jump_sound.wav" />
 		<Sound name="springSound" path="spring_sound.wav" />
+		<Sound name="buzzerSound" path="buzzer_sound.wav" />
 	</Sounds>
 
 	<Strings>
