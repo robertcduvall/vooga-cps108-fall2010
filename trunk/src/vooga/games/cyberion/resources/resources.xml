@@ -1,6 +1,6 @@
 <Resources>
 	<Images>
-		<Image name="starImage" path="star.png" />
+		<Image name="starImage" path="star.png" ></Image>
 		<Image name="playerShot" path="playerShot.png" />
 		<Image name="enemyShot" path="enemyShot.png" />
 		<Image name="playerShip" path="playerShip.png" />
@@ -8,7 +8,9 @@
 		<Image name="bonus" path="bonus.png" />
 		<Image name="bg" path="bg.png" />
 		<Image name="playButton" path="play.png" />
-		<Image name="quitButton" path="quit.png" />
+		<Image name="quitButton" path="quit.png" /><Image
+			name="planetImage" path="planet.png">
+</Image>
 	</Images>
 	
 	<Animations>
