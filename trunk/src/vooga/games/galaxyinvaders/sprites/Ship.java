@@ -41,7 +41,7 @@ public class Ship extends BetterSprite{
 	}
 	
 	public void moveRight() {
-		if(getX()<getWidth()-45)  
+		if(getX()<Resources.getGame().getWidth()-45)  
 			move(MOVE_DISTANCE, 0);
 	}
 	
