@@ -48,7 +48,6 @@ public class TronGamePlayState extends GameState{
 	private BetterSprite[][] secondPlayerBlocks;
 	private EventPool eventPool; 
 	private Queue<SpeedUpBonus> bonusList;
-	private boolean toSpawnBonus=true;
 	private SpeedUpBonus prev=null;
 	
 	//private OverlayTracker tracker;
@@ -93,8 +92,8 @@ public class TronGamePlayState extends GameState{
 	
 	
 	public void initializeCollision() {
-		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision(game);   
-		PlayerAndBoundariesCollision playerBoundariesCollision=new PlayerAndBoundariesCollision(0,0,Resources.getInt("width"),Resources.getInt("height"),game);
+		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision(game,stateManager);   
+		PlayerAndBoundariesCollision playerBoundariesCollision=new PlayerAndBoundariesCollision(0,0,Resources.getInt("width"),Resources.getInt("height"),game,stateManager);
 		PlayerAndBonusCollision playerBonusCollision=new PlayerAndBonusCollision(game);		
 		
 		playField.addCollisionGroup(playField.getGroup("player"), playField.getGroup("block"), playerEnemyCollision);
