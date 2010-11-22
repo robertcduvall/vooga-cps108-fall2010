@@ -42,6 +42,5 @@ public class InfiniteBlocksEvent implements IEventHandler {
 		Point initPoint = new Point(randomX, randomY);
 		NormalBlock addBlock = new NormalBlock(Resources.getImage("platformWhite"), initPoint, xVelocity, yVelocity);
 		playState.getGroup("normalBlocks").add(addBlock);
-		System.out.println(initPoint);
 	}
 }
