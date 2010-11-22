@@ -17,25 +17,42 @@ import vooga.games.jumper.states.PlayGameState;
 public class BlockGeneratorEvent implements IEventHandler {
 
 	Random random = new Random();
+	
 	int xMax = Resources.getInt("gameWidth");
 	int xMin = 0;
 	int yMax = Resources.getInt("gameHeight");
 	int yMin = 0;
 	double xVelocity = 0;
 	double yVelocity = -0.2;
+	//Minimum space between blocks.
 	private final int MINIMUM_SPACE = 20;
 
 	private PlayGameState playState;
 
+	/**
+	 * Sets the gamestate that this event applies to.
+	 * @param gamestate
+	 */
 	public BlockGeneratorEvent(PlayGameState gamestate) {
 		playState = gamestate;
 	}
 
 	@Override
+	/**
+	 * Returns true if a block is to be created.
+	 */
 	public boolean isTriggered() {
 		return true;
 	}
 
+	/**
+	 * Prevents blocks from generating over existing blocks.
+	 * @param x
+	 * @param y
+	 * @return true if the proposed block to be 
+	 * generated would overlap with an existing
+	 * block.
+	 */
 	public boolean isOverlap(int x, int y) {
 		for (Sprite s : playState.getGroup("normalBlocks").getSprites()) {
 			if (s != null && x > s.getX() - MINIMUM_SPACE
@@ -49,6 +66,9 @@ public class BlockGeneratorEvent implements IEventHandler {
 	}
 
 	@Override
+	/**
+	 * If the event is triggered, generates a block.
+	 */
 	public void actionPerformed() {
 		int randomX = random.nextInt(xMax - xMin) + xMin;
 		int randomY = random.nextInt(yMax - yMin) + yMax;
