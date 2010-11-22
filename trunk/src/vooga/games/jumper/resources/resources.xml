@@ -62,7 +62,7 @@
 
 	<Doubles>
 		<Double name="DECELERATION_FACTOR" value=".5" />
-		<Double name="MAX_SPEED" value="2" />
+		<Double name="MAX_SPEED" value="1" />
 		<Double name="GRAVITY" value=".05" />
 		<Double name="DOODLE_HEIGHT" value="40" />
 		<Double name="BLOCK_APPEARANCE_RATE_MULTIPLIER" value="1.0009" />

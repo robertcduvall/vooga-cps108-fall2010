@@ -9,6 +9,7 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.PauseGameState;
 import vooga.games.jumper.states.PlayGameState;
 import vooga.games.jumper.states.StartingMenuGameState;
@@ -25,10 +26,10 @@ import vooga.games.jumper.states.StartingMenuGameState;
  */
 
 /**
- * it seems like the first time you play, only the first brown block will break.  After that they
- * behave as normal blocks and you can only stand on them.
  * 
- * @author Brian
+ * @author Cody Kolodziejzyk
+ * @author Brian Simel
+ * @author Devon Townsend
  */
 
 
@@ -38,6 +39,7 @@ public class DropThis extends vooga.engine.core.Game {
 
 	PlayGameState playState;
 	PauseGameState pauseState;
+	PauseGameState deathState;
 	StartingMenuGameState menuState;
 	
 	private Control gameControl;
@@ -64,8 +66,9 @@ public class DropThis extends vooga.engine.core.Game {
 //	}
 
 	private void initGameStates(PlayField pf) {
-		playState = new PlayGameState(this, pf);
+		playState = new PlayGameState(this, pf, this);
 		pauseState = new PauseGameState(playState, "THE GAME IS PAUSED", Color.BLUE);
+		deathState = new PauseGameState(playState, "GAME OVER", Color.BLUE);
 		menuState = new StartingMenuGameState(this);
 		stateManager.addGameState(playState, pauseState);
 	}
@@ -89,6 +92,10 @@ public class DropThis extends vooga.engine.core.Game {
 	
 	public void pauseGame() {	
 		stateManager.activateOnly(pauseState);
+	}
+	
+	public void deathGame() {
+		stateManager.activateOnly(deathState);
 	}
 
 	/**
