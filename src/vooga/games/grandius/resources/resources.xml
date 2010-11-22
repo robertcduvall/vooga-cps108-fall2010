@@ -7,6 +7,9 @@
 		<Image name="comet4Image" path="comet_4.jpg" />
 		<Image name="earthImage" path="earth.png" />
 		<Image name="neptuneImage" path="neptune.png" />
+		<Image name="marsImage" path="mars.png" />
+		<Image name="asteroidImage" path="asteroid.png" />
+		<Image name="jupiterImage" path="jupiter.png" />
 		<Image name="missileImage" path="missile.jpg" />
 		<Image name="buyMissileImage" path="buyMissile.jpg" />
 		<Image name="backgroundImage" path="background.png" />

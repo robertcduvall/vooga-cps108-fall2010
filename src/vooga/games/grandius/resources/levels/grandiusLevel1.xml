@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="easyLevel" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
+<Level name="level1" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="backgroundGroup">
@@ -9,15 +9,17 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="cometsGroup">
-			<Sprite class="vooga.games.grandius.sprites.planetoids.Comet" random="true" xMin="0"
+			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="true" xMin="0"
 				xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0"
 				vyMax="0" quantity="1000" >
 				<Visual name="comet1Image" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="planetsGroup">
-			<Sprite class="vooga.games.grandius.sprites.planetoids.Earth" random="false" x="800"
-				y="0" vx="-0.05" vy="0" quantity="1" />
+			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="false" x="800"
+				y="0" vx="-0.05" vy="0" quantity="1">
+					<Visual name="earthImage" />
+				</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="missileGroup" />
 		<SpriteGroup name="explosionGroup" />

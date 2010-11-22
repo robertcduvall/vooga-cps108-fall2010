@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="level2" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
+<Level name="level3" xmloverlaypath="src/vooga/games/grandius/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="backgroundGroup">
@@ -10,14 +10,18 @@
 		<SpriteGroup name="cometsGroup">
 			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="true" xMin="0"
 				xMax="10000" yMin="0" yMax="600" vxMin="-0.5" vxMax="-0.02" vyMin="0"
-				vyMax="0" quantity="3000" >
-				<Visual name="comet2Image" />
+				vyMax="0" quantity="5000" >
+				<Visual name="comet3Image" />
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="planetsGroup">
-			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="false" x="1300"
+			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="false" x="1100"
 				y="0" vx="-0.03" vy="0" quantity="1">
-					<Visual name="neptuneImage" />
+					<Visual name="marsImage" />
+				</Sprite>
+			<Sprite class="vooga.games.grandius.sprites.Planetoid" random="true" xMin="500" xMax="800"
+				yMin="0" yMax="500" vxMin="-0.02" vxMax="-0.035" vyMin="0" vyMax="0" quantity="10">
+					<Visual name="asteroidImage" />
 				</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="missileGroup" />
@@ -33,13 +37,19 @@
 		<SpriteGroup name="enemyGroup">
 			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
 			random="true" xMin="500" xMax="900" yMin="50" yMax="500" vxMin="-0.04" 
-			vxMax="-0.055" vyMin="0" vyMax="0" quantity="50" />
+			vxMax="-0.055" vyMin="0" vyMax="0" quantity="60" />
 			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
 			random="true" xMin="1300" xMax="1700" yMin="50" yMax="500" vxMin="-0.06" 
-			vxMax="-0.075" vyMin="0" vyMax="0" quantity="40" />
+			vxMax="-0.075" vyMin="0" vyMax="0" quantity="50" />
 			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
-			random="true" xMin="2000" xMax="2900" yMin="50" yMax="500" vxMin="-0.08" 
-			vxMax="-0.1" vyMin="0" vyMax="0" quantity="40" />
+			random="true" xMin="2200" xMax="2900" yMin="50" yMax="500" vxMin="-0.095" 
+			vxMax="-0.11" vyMin="0" vyMax="0" quantity="30" />
+			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
+			random="true" xMin="3000" xMax="3500" yMin="50" yMax="500" vxMin="-0.12" 
+			vxMax="-0.13" vyMin="0" vyMax="0" quantity="60" />
+			<Sprite class="vooga.games.grandius.sprites.enemy.common.Zipster" 
+			random="true" xMin="4000" xMax="5000" yMin="50" yMax="500" vxMin="-0.15" 
+			vxMax="-0.2" vyMin="0" vyMax="0" quantity="20" />
 		</SpriteGroup>
 		<SpriteGroup name="projectileGroup" />
 		<SpriteGroup name="bossPartGroup" />
