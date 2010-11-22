@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<Level name="Level 1"
+<Level name="Level 3"
 	xmloverlaypath="src/vooga/games/mariogame/resources/overlays/GameOverlays.xml">
 
 	<SpriteGroups>
@@ -17,7 +17,7 @@
 
 		<SpriteGroup name="goombaGroup">
 			<Sprite random="true" xMin="50" yMin="50" xMax="1000" yMax="50"
-				vxMin=".05" vyMin="0" vxMax=".15" vyMax="0" quantity="3"
+				vxMin=".05" vyMin="0" vxMax=".15" vyMax="0" quantity="15"
 				class="vooga.games.mariogame.sprites.Enemy">
 				<Visual name="Goomba" />
 			</Sprite>
@@ -55,7 +55,7 @@
 	</Rules>
 
 	<Map>
-		<MapGroup name="Map0">
+		<MapGroup name="Map2">
 			<Association char="F"
 				object="vooga.games.mariogame.tiles.IndestructibleTile" image="Grass Tile" />
 			<Association char="D"
