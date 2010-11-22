@@ -8,7 +8,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
 import vooga.engine.core.BetterSprite;
-import vooga.games.zombieland.gamestates.ZombielandPlayState;
+import vooga.games.zombieland.gamestates.PlayState;
 import vooga.games.zombieland.weapons.AssaultRifle;
 import vooga.games.zombieland.weapons.Bullet;
 import vooga.games.zombieland.weapons.Pistol;
@@ -111,7 +111,7 @@ public class Shooter extends BetterSprite implements Constants{
 	 *            the angle of the bullet's trajectory
 	 */
 	public void addBulletToGame(Bullet bullet) {
-		((ZombielandPlayState) game.getPlayGameState()).addBullet(bullet);
+		((PlayState) game.getPlayGameState()).addBullet(bullet);
 
 	}
 
