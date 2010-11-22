@@ -8,11 +8,11 @@ import vooga.engine.resource.Resources;
 import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
-public class InfiniteBlocks implements IEventHandler {
+public class InfiniteBlocksEvent implements IEventHandler {
 	private PlayGameState playState;
 	Random random = new Random();
 
-	public InfiniteBlocks(PlayGameState gamestate) {
+	public InfiniteBlocksEvent(PlayGameState gamestate) {
 		playState = gamestate;
 	}
 
