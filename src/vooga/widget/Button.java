@@ -66,7 +66,6 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 */
 	@Override
 	public boolean isTriggered() {
-		System.out.println("checking");
 		return myGame.click() && myGame.checkPosMouse(this, true);
 	}
 

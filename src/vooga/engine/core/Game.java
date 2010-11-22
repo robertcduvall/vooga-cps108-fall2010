@@ -11,6 +11,7 @@ import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
+import vooga.engine.util.SoundPlayer;
 
 /**
  * Extension of the Golden T game to automate some Vooga API functionality. <br />
@@ -55,6 +56,7 @@ public class Game extends com.golden.gamedev.Game {
 			System.out.println("Failed to load resources.xml");
 		}
 		initGameStates();
+		initSoundPlayer();
 		//setCurrentLevel(INITIAL_LEVEL);
 	}
 
@@ -66,6 +68,10 @@ public class Game extends com.golden.gamedev.Game {
 	@Override
 	public void render(Graphics2D g) {
 		stateManager.render(g);
+	}
+	
+	public void initSoundPlayer(){
+		SoundPlayer.setGame(this);
 	}
 
 	/**
