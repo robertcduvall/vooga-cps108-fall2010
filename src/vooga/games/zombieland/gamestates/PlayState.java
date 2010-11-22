@@ -222,7 +222,7 @@ public class PlayState extends GameState implements Constants{
 			getLevelStatOverlay().render(g);
 		}
 		if (gameOver()) {
-			renderGameOver(g);
+			endGame();
 		}
 	}
 
@@ -236,27 +236,12 @@ public class PlayState extends GameState implements Constants{
 		return !(player.isActive());
 	}
 
-	/**
-	 * Render game over screen
-	 * 
-	 * @param g
-	 */
-	private void renderGameOver(Graphics2D g) {
-
-		int overlayStringX = Resources.getInt("overlayStringX");
-		int overlayStringY = Resources.getInt("overlayStringY");
-
-		overlayGameOverString = new OverlayString("GAME OVER", Color.BLACK);
-		overlayGameOverString.setLocation(overlayStringX, overlayStringY);
-		overlayGameOverString.render(g);
-		endGame();
-	}
 
 	/**
 	 * Stop the game altogether
 	 */
 	private void endGame() {
-		currentGame.finish();
+		currentGame.end();
 	}
 
 }
