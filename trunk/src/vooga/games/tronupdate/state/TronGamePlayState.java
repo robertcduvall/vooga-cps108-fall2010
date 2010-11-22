@@ -16,25 +16,18 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.util.GridSpace;
-import vooga.games.tron.Player1AndBonusCollision;
-import vooga.games.tron.Player2AndBonusCollision;
 import vooga.games.tronupdate.collisions.PlayerAndBoundariesCollision;
 import vooga.games.tron.PlayerAndEnemyCollision;
 import vooga.games.tronupdate.collisions.PlayerAndBonusCollision;
 import vooga.games.tronupdate.events.TronGamePauseEvent;
 import vooga.games.tronupdate.items.TronPlayer;
 import vooga.games.tronupdate.util.Direction;
-import vooga.games.zombieland.collision.BZCollisionManager;
-import vooga.games.zombieland.collision.HICollisionManager;
-import vooga.games.zombieland.collision.PZCollisionManager;
-import vooga.games.zombieland.collision.WallBoundManager;
 
 
 public class TronGamePlayState extends GameState{
 	
 	private Game game;
 	private GameStateManager stateManager;
-	private GameState tronGamePauseState;
 	private PlayField playField;
 	private TronPlayer firstPlayer;
 	private TronPlayer secondPlayer;
@@ -43,6 +36,7 @@ public class TronGamePlayState extends GameState{
 	private Control secondPlayerControl;
 	private BetterSprite[][] firstPlayerBlocks;
 	private BetterSprite[][] secondPlayerBlocks;
+	private EventPool eventPool; 
 	
 	public static final int GRID_WIDTH=Resources.getInt("width")/Resources.getInt("playerimagewidth");
 	public static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
@@ -51,15 +45,14 @@ public class TronGamePlayState extends GameState{
 	
 	public TronGamePlayState(Game game){
 		//super();
-		this(game,null,null);
+		this(game,null);
 		
 	}
 	
-	public TronGamePlayState(Game game, GameStateManager stateManager, GameState tronGamePauseState){
+	public TronGamePlayState(Game game, GameStateManager stateManager){
 		//super();
 		this.game = game;
 		this.stateManager=stateManager;
-		this.tronGamePauseState=tronGamePauseState;
 	}
 
 	@Override
@@ -99,11 +92,9 @@ public class TronGamePlayState extends GameState{
 //	}
 	
 	public void initializeEvents() {
-		EventPool eventPool = new EventPool();
-	    playField.addEventPool(eventPool);
-	    TronGamePauseEvent tronGamePauseEvent = new TronGamePauseEvent(game,tronGamePauseState,stateManager); 
-	    playField.addEvent(tronGamePauseEvent);
-	    //TO-DO
+		eventPool = new EventPool();
+	    TronGamePauseEvent tronGamePauseEvent = new TronGamePauseEvent(game,stateManager); 
+	    eventPool.addEvent(tronGamePauseEvent);
 	}
 
 	public void initializeSprites() {
@@ -225,6 +216,7 @@ public class TronGamePlayState extends GameState{
 	public void update(long elapsedTime) {
 		buildBlockWall();
 		playField.update(elapsedTime);
+		eventPool.checkEvents();
 		firstPlayerControl.update();
 		secondPlayerControl.update();
 	}
