@@ -14,8 +14,8 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.towerdefense.actors.EasyEnemyGenerator;
 import vooga.games.towerdefense.actors.EnemyGenerator;
+import vooga.games.towerdefense.actors.MediumEnemyGenerator;
 import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.collisions.ShotToEnemyCollision;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
@@ -100,7 +100,7 @@ public class PlayState extends GameState{
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		
-		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
+		EnemyGenerator enemyGenerator = new MediumEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
 		player.addPathBoundary(enemyGenerator.getPathPoint());
 		myPlayField.add(enemyGenerator);
 		
