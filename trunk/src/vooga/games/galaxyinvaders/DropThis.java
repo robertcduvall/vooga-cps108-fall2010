@@ -1,7 +1,9 @@
 package vooga.games.galaxyinvaders;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -12,10 +14,12 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.PauseGameState;
+import vooga.games.galaxyinvaders.sprites.EnemySprite;
 import vooga.games.galaxyinvaders.states.GalaxyGameState;
 import vooga.games.galaxyinvaders.states.PauseState;
 import vooga.games.galaxyinvaders.states.PlayState;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 
@@ -43,12 +47,13 @@ public class DropThis extends Game {
 		super.initResources();
 		initLevelManager();
 		playfield = levelManager.loadFirstLevel();
+		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
 		play = new PlayState(this, playfield);
-		pause = new PauseState(this, play, Resources.getString("pauseStateText"), Color.WHITE);
-		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.WHITE);
+		pause = new PauseState(this, play, Resources.getString("pauseStateText"), Color.RED);
+		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.RED);
 		this.setAsPlayGameState(play);
 		stateManager.addGameState(play, pause, gameOver);
-		stateManager.switchTo(pause);
+		stateManager.activateOnly(gameOver);
 	}
 
 	private void initLevelManager() {
@@ -59,6 +64,19 @@ public class DropThis extends Game {
 	}
 
 
+	private void processEnemyPathPoints(Sprite[] group) {
+		int levelNum = levelManager.getCurrentLevel();
+		String filepath = "vooga/games/galaxyinvaders/resources/levels/level"+levelNum+".txt";
+		System.out.println(filepath);
+		ArrayList<Point> points = PathPointParser.getPathPoints("resources/levels/level"+levelNum+".txt");
+		int timerNum = PathPointParser.getTimerNum();
+		for(Sprite s : group) {
+			if(s!=null) {
+				((EnemySprite) s).setPathPointsAndTimerNum(points, timerNum);
+			}
+		}
+	}
+	
 	public GameState getPlayGameState(){
 		return play;
 	}
@@ -79,7 +97,8 @@ public class DropThis extends Game {
 	}
 
 	public void switchLevel(){
-		levelManager.loadNextLevel();
+		playfield = levelManager.loadNextLevel();
+		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
 	}
 	
 	/**

@@ -30,7 +30,7 @@ public class PlayState extends GameState{
 	public void initialize() {
 		BetterSprite ship = (BetterSprite)(getGroup("player").getSprites()[0]);
 		initControls(ship);
-		initEvents();
+	//	initEvents();
 	}
 	
 	private void initControls(BetterSprite player){
@@ -47,10 +47,9 @@ public class PlayState extends GameState{
 		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
 		myField.addControl("game", gameControl);
 		
-		
 	}
 	
-	private void initEvents(){
+	private void initEvents() {
 		LevelSwitchEvent levelSwitch = new LevelSwitchEvent(game, this.getGroup("enemies"));
 		myField.addEvent(levelSwitch);
 		GameLostEvent gameLost = new GameLostEvent(game, this.getGroup("player"));
