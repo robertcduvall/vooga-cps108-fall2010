@@ -11,7 +11,7 @@ import vooga.engine.state.GameState;
 import vooga.games.jumper.DropThis;
 import vooga.games.jumper.events.BlockOffScreenEvent;
 import vooga.games.jumper.events.DeathEvent;
-import vooga.games.jumper.events.InfiniteBlocksEvent;
+import vooga.games.jumper.events.BlockGeneratorEvent;
 
 public class PlayGameState extends GameState{
 	
@@ -56,7 +56,7 @@ public class PlayGameState extends GameState{
 	
 	private void initEvents() {
 		eventPool = new EventPool();
-		eventPool.addEvent(new InfiniteBlocksEvent(this));
+		eventPool.addEvent(new BlockGeneratorEvent(this));
 		eventPool.addEvent(new BlockOffScreenEvent(this));
 		eventPool.addEvent(new DeathEvent(myDropThis, this));
 	}
