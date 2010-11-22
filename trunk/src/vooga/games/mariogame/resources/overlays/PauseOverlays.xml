@@ -1,6 +1,7 @@
 <Overlay>
 
 <OverlayGroup name="MainMenuGroup" >
+	<OverlayString xLoc="300" yLoc="350" fontName="gameFontred" label="PRESS SPACE TO UNPAUSE" fontSize="32"></OverlayString>
 </OverlayGroup>
 
 </Overlay>
