@@ -19,6 +19,17 @@
 		<Image name="hardButton" path="duvallFaceBlue.png" />
 		<Image name="mainMenuBackground" path="backgrounds/easyLevel.png" />
 		<Image name="towerShot" path="purpleShot.png" />
+		<Image name="1" path="number1.png" />
+		<Image name="2" path="number2.png" />
+		<Image name="3" path="number3.png" />
+		<Image name="4" path="number4.png" />
+		<Image name="5" path="number5.png" />
+		<Image name="6" path="number6.png" />		
+		<Image name="7" path="number7.png" />
+		<Image name="8" path="number8.png" />
+		<Image name="9" path="number9.png" />
+		<Image name="10" path="number10.png" />
+		<Image name="go" path="go.gif" />
 	</Images>
 	<Animations></Animations>
 	<Sounds></Sounds>

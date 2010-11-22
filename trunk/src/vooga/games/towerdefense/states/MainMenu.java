@@ -1,5 +1,7 @@
 package vooga.games.towerdefense.states;
 
+import vooga.engine.core.PlayField;
+import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.widget.levelparse.ModularLevelParser;
@@ -28,6 +30,10 @@ public class MainMenu extends GameState{
 	@Override
 	public void initialize() {
 			ModularLevelParser layoutReader = new ModularLevelParser("moduleMapProperties");
+			EventPool eventPool = new EventPool();
+			layoutReader.
+			PlayField playField = layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame());
+			playField.addEventPool(eventPool);
 			addPlayField(layoutReader.getPlayfield(Resources.getString("mainMenuLayoutPath"), Resources.getGame()));
 	}
 	
