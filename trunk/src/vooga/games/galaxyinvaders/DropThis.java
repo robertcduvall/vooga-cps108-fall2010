@@ -47,13 +47,13 @@ public class DropThis extends Game {
 		super.initResources();
 		initLevelManager();
 		playfield = levelManager.loadFirstLevel();
-		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
+	//	processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
 		play = new PlayState(this, playfield);
 		pause = new PauseState(this, play, Resources.getString("pauseStateText"), Color.RED);
 		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.RED);
 		this.setAsPlayGameState(play);
 		stateManager.addGameState(play, pause, gameOver);
-		stateManager.activateOnly(gameOver);
+		stateManager.activateOnly(play);
 	}
 
 	private void initLevelManager() {
@@ -66,9 +66,10 @@ public class DropThis extends Game {
 
 	private void processEnemyPathPoints(Sprite[] group) {
 		int levelNum = levelManager.getCurrentLevel();
-		String filepath = "vooga/games/galaxyinvaders/resources/levels/level"+levelNum+".txt";
+		//TODO: figure out why it cannot find this file path. i've tried lots of different paths. 
+		String filepath = "levels/level"+levelNum+".txt";
 		System.out.println(filepath);
-		ArrayList<Point> points = PathPointParser.getPathPoints("resources/levels/level"+levelNum+".txt");
+		ArrayList<Point> points = PathPointParser.getPathPoints(filepath);
 		int timerNum = PathPointParser.getTimerNum();
 		for(Sprite s : group) {
 			if(s!=null) {
@@ -98,7 +99,7 @@ public class DropThis extends Game {
 
 	public void switchLevel(){
 		playfield = levelManager.loadNextLevel();
-		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
+//		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
 	}
 	
 	/**
