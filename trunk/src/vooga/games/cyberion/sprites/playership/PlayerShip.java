@@ -71,20 +71,22 @@ public class PlayerShip extends BetterSprite {
 		}
 
 		public void moveRight() {
+			if (getX()<Resources.getInt("maxX"))
 			setX(getX() + 5);
 		}
 
 		public void moveLeft() {
-			System.out.println();
+			if (getX()>0)
 			setX(getX() - 5);
 		}
 
 		public void moveUp() {
+			if (getY()>0)
 			setY(getY() - 5);
 		}
 
 		public void moveDown() {
-
+			if (getY()<Resources.getInt("maxY"))
 			setY(getY() + 5);
 		}
 

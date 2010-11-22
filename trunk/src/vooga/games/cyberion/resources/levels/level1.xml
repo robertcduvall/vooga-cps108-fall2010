@@ -69,6 +69,7 @@
 			<SpriteGroup name="playerGroup"></SpriteGroup>
 			<SpriteGroup name="bonusGroup"></SpriteGroup>
 		</CollisionGroup>
+
 	</CollisionGroups>
 
 	<Backgrounds>
