@@ -23,6 +23,8 @@
 		<Image name="buyBlackHoleButtonImage" path="buyBlackHoleButton.png" />
 		<Image name="nextLevelButtonImage" path="nextLevelButton.png" />		
 		<Image name="menuImage" path="menu.jpg" />
+		<Image name="helpButtonImage" path="helpButton.png" />
+		<Image name="returnButtonImage" path="returnButton.png" />
 	</Images>
 
 	<Animations>
@@ -92,6 +94,7 @@
 		<Sound name="startLevelSound" path="start_level.wav" />
 		<Sound name="watchThisSound" path="watch_this.wav" />
 		<Sound name="walkinOnTheSun" path="walkin_on_the_sun.mid" />
+		<Sound name="pulpFiction" path="pulpfiction.mid" />
 	</Sounds>
 
 	<Strings>

@@ -1,14 +1,12 @@
 package vooga.games.grandius.events;
 
-import com.golden.gamedev.object.Sprite;
-
-import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.factory.LevelManager;
 import vooga.games.grandius.DropThis;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.states.PlayState;
+
+import com.golden.gamedev.object.Sprite;
 
 public class LevelCompleteEvent implements IEventHandler{
 	private DropThis grandius;

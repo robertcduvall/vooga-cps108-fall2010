@@ -9,8 +9,8 @@ import vooga.widget.Button;
 
 @SuppressWarnings("serial")
 public class PlayButton extends Button {
-        private static final int START_X = 220;
-        private static final int START_Y = 0;
+        private static final int START_X = 350;
+        private static final int START_Y = 200;
         private static final BufferedImage myImage = Resources.getImage("playButtonImage");
 		private DropThis myGame;
         
