@@ -20,7 +20,9 @@ import vooga.games.towerdefense.actors.Player;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.BuildTowerEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
+import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
+import vooga.games.towerdefense.events.ShootEvent;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -71,22 +73,25 @@ public class PlayState extends GameState{
 		myPlayField.addEventPool(eventPool);
 		
 		BuildTowerEvent buildTower = new BuildTowerEvent(myPlayField);
-		
-		
+		FindTargetEvent findTarget = new FindTargetEvent(myPlayField);
 		
 		eventPool.addEvent(buildTower);
-		Player player = initPlayer(buildTower);
+		Player player = initPlayer(buildTower, findTarget);
 		myPlayField.add(player);
-		
+		EnemyHitEvent enemyHit = new EnemyHitEvent(player);
+		ShootEvent shootEvent = new ShootEvent(player, enemyHit);
 		myEnemyGroup = new SpriteGroup("enemyGroup");
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
-		FindTargetEvent findTarget = new FindTargetEvent(myPlayField);
+		
 		EnemyGenerator enemyGenerator = new EasyEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy);
+		myPlayField.add(enemyGenerator);
+		
 		eventPool.addEvent(failEvent);
 		eventPool.addEvent(buildEnemy);
-		myPlayField.add(enemyGenerator);
 		eventPool.addEvent(findTarget);
+		eventPool.addEvent(shootEvent);
+		eventPool.addEvent(enemyHit);
 		
 		myPlayField.addControl("player", initControl(player));
 		//myPlayField.addControl("player", initCheats(player));
@@ -98,8 +103,8 @@ public class PlayState extends GameState{
 		return new ImageBackground(backgroundImage);
 	}
 	
-	private Player initPlayer(BuildTowerEvent buildTowerEvent){
-		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
+	private Player initPlayer(BuildTowerEvent buildTowerEvent, FindTargetEvent findTarget){
+		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, findTarget, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
 		return player;
 	}
 	

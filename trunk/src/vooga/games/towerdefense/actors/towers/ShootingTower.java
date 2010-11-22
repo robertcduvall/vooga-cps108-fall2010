@@ -2,10 +2,8 @@ package vooga.games.towerdefense.actors.towers;
 
 import java.awt.image.BufferedImage;
 
-import vooga.engine.resource.Resources;
-import vooga.games.towerdefense.actors.enemies.*;
-import vooga.games.towerdefense.actors.TowerShot;
 import vooga.games.towerdefense.actors.enemies.Enemy;
+import vooga.games.towerdefense.events.ShootEvent;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -28,17 +26,22 @@ public abstract class ShootingTower extends Tower{
 	private long shotDelay;
 	private double range;
 	private double shotSpeed;
+	private ShootEvent shootEvent;
 
-	public ShootingTower(BufferedImage image, double x, double y, BufferedImage previewImage, int cost, double range,  double shotSpeed, long shotDelay){
+	public ShootingTower(BufferedImage image, double x, double y, BufferedImage previewImage, int cost, double range,  double shotSpeed, long shotDelay, ShootEvent shootEvent){
 		super(image, x, y, previewImage, cost);
 		this.range = range;
 		this.shotSpeed = shotSpeed;
 		this.shotDelay = shotDelay;
+		this.shootEvent = shootEvent;
 	}
 	
 	@Override
 	public void update(long elapsedTime) {
 			timeSinceShot += elapsedTime;
+			if(canShoot()){
+				shootEvent.addTower(this);
+			}
 	}
 	
 	public boolean canShoot()
@@ -58,6 +61,11 @@ public abstract class ShootingTower extends Tower{
 			}
 		}
 		return null;		
+	}
+	
+	public boolean checkTargetValid(Sprite spriteToCheck)
+	{
+		return spriteToCheck!=null && isInRange(spriteToCheck);
 	}
 	
 	private boolean isInRange(Sprite other){
