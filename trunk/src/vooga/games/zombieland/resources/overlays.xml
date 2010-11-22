@@ -13,12 +13,9 @@
 <OverlayStat name = "ammos" label="Ammo: " stat="initAmmo" fontName="gameFontBlue" xLoc="470" yLoc="12"></OverlayStat> 
 <OverlayStat name = "levels" label="Level " stat="initLevel" fontName="gameFontBlack" xLoc="260" yLoc="180"></OverlayStat> 
 
-<OverlayString name = "gameOver" label="Game Over" fontName="gameFontBlack" xLoc="260" yLoc="50"></OverlayString>
 </OverlayGroup>
 
-<OverlayGroup name = "PauseStateOverlays">
-<OverlayString name= "pause" label="PAUSE" fontName="gameFontRed" xLoc="260" yLoc="50"></OverlayString>
-</OverlayGroup>
+
 
 </Overlay>
 

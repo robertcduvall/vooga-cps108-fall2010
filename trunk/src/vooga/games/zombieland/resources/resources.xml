@@ -128,7 +128,7 @@
 		<String name="overlayLevelString"		value="Level:" /> 
 		<String name="gamemusic"				value="resources/sounds/entersand.mid" />
 		<String name="delim"					value="," />	
-		<String name="weaponchoices"			value="assualtRifle,shotGun,health" />
+		<String name="weaponchoices"			value="assaultrifle,shotgun,health" />
 		<String name="spritegroupslist"			value="Zombies,Bullets,Items,Players,Overlays" />
 		<String name="VK_LEFT"					value="goLeft" />
 		<String name="VK_RIGHT"					value="goRight" />
@@ -200,8 +200,8 @@
 		<Integer name="playerFrameSize"        value="4"	/>
 
 		<Integer name="timeInterval"           value="2000"	/>
-		<Integer name="assaultRifle"      value="1"	/>
-		<Integer name="shotGun"           value="2"	/>
+		<Integer name="assaultrifle"      value="1"	/>
+		<Integer name="shotgun"           value="2"	/>
 		<Integer name="health"            value="100"	/>
 
 		<Integer name="bulletsCorrectRightX"   value="-25"	/>
