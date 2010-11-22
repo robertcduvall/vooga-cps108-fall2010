@@ -68,6 +68,8 @@ public class PlayState extends GameState {
 		enemy = newField.getGroup("enemyGroup").getSprites();
 		initControls();
 		initEvents();
+		Stat<Integer> tempStat = (Stat<Integer>) player.getStat("levelStat");
+		tempStat.setStat(tempStat.getStat()+1); 
 		addPlayField(newField);
 		return this;
 		}
