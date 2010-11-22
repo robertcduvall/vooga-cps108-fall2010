@@ -552,4 +552,8 @@ public class LevelParser implements LevelFactory{
 	public OverlayTracker getOverlayTracker(){
 		return overlayTracker;
 	}
+	
+	public PlayField getIncompletePlayfield(){
+		return voogaPlayField;
+	}
 }

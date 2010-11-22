@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 import vooga.engine.control.Control;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
+import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelException;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.overlay.OverlayTracker;
@@ -36,11 +37,20 @@ import vooga.engine.resource.Resources;
 public abstract class SpriteModule {
 
 	private OverlayTracker overlayTracker;
+	private EventPool eventPool;
 
 	public abstract Collection<BetterSprite> getSprites(Element spriteElement);
 	
 	public void setOverlayTracker(OverlayTracker overlayTracker){
 		this.overlayTracker = overlayTracker;
+	}
+	
+	public void setEventPool(EventPool eventPool){
+		this.eventPool = eventPool;
+	}
+	
+	public EventPool getEventPool(){
+		return eventPool;
 	}
 
 	/**
