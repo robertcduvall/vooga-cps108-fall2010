@@ -13,7 +13,7 @@ import vooga.engine.level.Rule;
  */
 public class Gravity implements Rule{
 	
-	private static final double GRAVITY_CONSTANT = 0.5;
+	private static final double GRAVITY_CONSTANT = 0.05;
 
 	public Gravity(){
 		
