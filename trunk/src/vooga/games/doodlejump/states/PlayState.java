@@ -52,10 +52,8 @@ public class PlayState extends GameState {
 	public void update(long elapsedTime) {
 		for (SpriteGroup group : myField.getGroups()) {
 			for (Sprite sprite : group.getSprites()) {
-				if (doodle.getY() < 400 && sprite != null) {
-					// if (!group.getName().equals("doodleGroup")){
-					sprite.moveY(400 - doodle.getY());
-					// }
+				if (doodle.getY() < doodle.getMaxHeight() && sprite != null) {
+					scrollLevel(sprite);
 					if (group.getName().equals("doodleGroup")) {
 						((Stat<Integer>)doodle.getStat("score")).setStat(((Stat<Integer>)doodle.getStat("score")).getStat() + 5);
 						//doodle.setMaxHeight(doodle.getY());
@@ -64,6 +62,10 @@ public class PlayState extends GameState {
 			}
 		}
 		super.update(elapsedTime);
+	}
+
+	private void scrollLevel(Sprite sprite) {
+		sprite.moveY(doodle.getMaxHeight() - doodle.getY());
 	}
 
 	private void initControls(BetterSprite player) {
