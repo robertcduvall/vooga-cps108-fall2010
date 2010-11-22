@@ -49,7 +49,7 @@ public class DoodleSprite extends BetterSprite {
 		if (isOnScreen()) {
 			setX(getX() - 5);
 		} else {
-			setX(MAXIMUM_SCREEN_X);
+			setX(400);
 		}
 
 	}
@@ -80,8 +80,8 @@ public class DoodleSprite extends BetterSprite {
 			BallSprite ball = new BallSprite("ball", new Sprite(ballImage,
 					getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY()
 							- ballImage.getHeight()));
-			ball.setVerticalSpeed(-0.7);
-			if (getVerticalSpeed() < 0)
+			//ball.setVerticalSpeed(-0.7);
+			//if (getVerticalSpeed() < 0)
 				ball.setVerticalSpeed(-1.5);
 			playState.addBall(ball);
 			bulletDelay = 20;
