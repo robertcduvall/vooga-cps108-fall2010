@@ -1,7 +1,6 @@
 package vooga.games.zombieland.collisions;
 
 
-import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.Zombie;
 import vooga.games.zombieland.weapons.Bullet;
 import vooga.games.zombieland.Constants;
@@ -9,7 +8,6 @@ import vooga.games.zombieland.Constants;
 import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;

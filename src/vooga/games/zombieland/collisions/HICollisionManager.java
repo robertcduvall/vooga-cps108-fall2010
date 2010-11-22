@@ -1,7 +1,6 @@
 package vooga.games.zombieland.collisions;
 
 import vooga.engine.core.Game;
-import vooga.games.zombieland.Blah;
 import vooga.games.zombieland.items.Item;
 
 import com.golden.gamedev.object.Sprite;

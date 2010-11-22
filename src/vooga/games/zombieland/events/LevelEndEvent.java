@@ -1,8 +1,5 @@
 package vooga.games.zombieland.events;
 
-import java.util.Stack;
-
-import com.golden.gamedev.object.Timer;
 
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
@@ -18,14 +15,12 @@ public class LevelEndEvent implements IEventHandler{
 	private AddZombieEvent addZombies;
 	private AddRandomItemEvent addItems;
 	
-	private int level;
 	private double levelDeaths;
 	
 	
 	public LevelEndEvent(Shooter player, PlayState currentState,  IEventHandler addzombies, AddRandomItemEvent additems)
 	{
 		state = currentState;
-		level = currentState.getLevel();
 		levelDeaths = levelZombies();
 		target = player;
 		addZombies = (AddZombieEvent) addzombies;

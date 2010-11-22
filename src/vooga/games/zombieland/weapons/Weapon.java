@@ -1,6 +1,5 @@
 package vooga.games.zombieland.weapons;
 
-import java.util.ResourceBundle;
 
 import vooga.games.zombieland.Shooter;
 

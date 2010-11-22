@@ -15,6 +15,7 @@ import vooga.games.zombieland.gamestates.PlayState;
  * @author Jimmy Mu, Aaron Choi, Yang Su
  * 
  */
+@SuppressWarnings("serial")
 public class Zombie extends BetterSprite implements Constants {
 
 	private static final int ZOMBIES_PER_LEVEL = 25;
@@ -22,7 +23,6 @@ public class Zombie extends BetterSprite implements Constants {
 	private static int attackDelay;
 	private static double zombieStatMultiplier;
 	
-	private PlayState state;
 	private double zombieDamage;
 	private int zombieCurrentHealth;
 
@@ -93,7 +93,6 @@ public class Zombie extends BetterSprite implements Constants {
 
 		chooseRandomLocation();
 
-		this.state = state;
 		this.setActive(true);
 	}
 

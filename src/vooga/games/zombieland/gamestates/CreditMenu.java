@@ -1,7 +1,6 @@
 package vooga.games.zombieland.gamestates;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import vooga.games.zombieland.Blah;
 
 public class CreditMenu extends MenuState {
