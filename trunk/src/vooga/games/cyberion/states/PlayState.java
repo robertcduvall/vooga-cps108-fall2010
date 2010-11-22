@@ -15,6 +15,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
 import vooga.games.cyberion.DropThis;
 import vooga.games.cyberion.events.EnemyFireEvent;
+import vooga.games.cyberion.events.GameOverEvent;
 import vooga.games.cyberion.events.PlayerFireEvent;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
@@ -90,6 +91,7 @@ public class PlayState extends GameState {
 		eventPool.addEvent(new EnemyFireEvent(myGame, enemy, this));
 		eventPool.addEvent(new LevelCompleteEvent(myGame, this, newField
 				.getGroup("enemyGroup")));
+		eventPool.addEvent(new GameOverEvent(myGame, player));
 	}
 
 	public void initControls() {

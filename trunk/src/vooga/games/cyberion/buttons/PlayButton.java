@@ -6,6 +6,7 @@ import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.widget.Button;
 import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.states.PlayState;
 
 /**
  * Play button
@@ -17,9 +18,10 @@ import vooga.games.cyberion.DropThis;
 public class PlayButton extends Button {
 	private static final int START_X = 250;
 	private static final int START_Y = 100;
-	private static final BufferedImage myImage = Resources.getImage("playButton");
+	private static final BufferedImage myImage = Resources
+			.getImage("playButton");
 	private DropThis myGame;
-	
+
 	public PlayButton(Game game) {
 		super(game, myImage, START_X, START_Y);
 		myGame = (DropThis) game;
@@ -29,8 +31,12 @@ public class PlayButton extends Button {
 	@Override
 	public void actionPerformed() {
 		myGame.setPlayState();
-		//this.setActive(false);
-
+		// this.setActive(false);
+		PlayState pgs = (PlayState) myGame.getGameStateManager()
+				.getGameState(4);
+		pgs.initialize();
+		myGame.getGameStateManager().switchTo(pgs);
+		myGame.setPlayState();
 	}
 
 }

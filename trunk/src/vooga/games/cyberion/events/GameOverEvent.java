@@ -2,22 +2,26 @@ package vooga.games.cyberion.events;
 
 import vooga.engine.event.IEventHandler;
 import vooga.engine.state.GameStateManager;
+import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.sprites.playership.PlayerShip;
 
 public class GameOverEvent implements IEventHandler {
-	GameStateManager gameStateManager;
+	private DropThis myGame;
+	private PlayerShip player;
 
-	public GameOverEvent(GameStateManager manager) {
-		gameStateManager = manager;
+	public GameOverEvent(DropThis myGame, PlayerShip player) {
+		this.myGame = myGame;
+		this.player = player;
 	}
 
 	@Override
 	public boolean isTriggered() {
-
-		return true;
+		return player.getLife() == 0;
 	}
 
 	@Override
 	public void actionPerformed() {
-		gameStateManager.activateOnly(gameStateManager.getGameState(4));
+		myGame.getGameStateManager().switchTo(
+				myGame.getGameStateManager().getGameState(1));
 	}
 }
