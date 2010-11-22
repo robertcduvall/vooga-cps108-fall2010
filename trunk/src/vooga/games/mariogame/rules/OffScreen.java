@@ -7,20 +7,19 @@ import vooga.engine.level.Rule;
 import vooga.games.mariogame.sprites.MarioSprite;
 
 /**
- * Death rule is enforced when Mario is off the screen or out of lives.
+ * OffScreen rule is enforced when Mario is off the screen.
  * 
  * @author Cameron McCallie
  *
  */
 
-public class Death implements Rule{
+public class OffScreen implements Rule{
 
     @Override
     public void enforce(SpriteGroup... groups) {
     	//TODO: Make this pull up the game over BG
     	MarioSprite mario = (MarioSprite) groups[0].getSprites()[0];
     	mario.respawn();
-        System.out.println("Game over");
     }
 
     @Override
