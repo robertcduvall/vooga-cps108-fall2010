@@ -23,10 +23,15 @@ public class Death implements Rule{
 
     @Override
     public boolean isSatisfied(SpriteGroup ...groups) {
+    	System.out.println("checking Death");
         SpriteGroup group = groups[0];
         for (Sprite mario: group.getSprites()) {
+        	/*
             if (mario!=null && mario.isActive()) //&& !(((BetterSprite)mario).getStat("lives").getStat().equals(new Integer(0))))
                 return false;
+            */
+        	if(mario.isOnScreen())
+        		return false;
         }
         return true;
     }
