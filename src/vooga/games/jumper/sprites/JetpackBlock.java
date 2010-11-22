@@ -15,7 +15,7 @@ public class JetpackBlock extends BlockSprite{
 	@Override
 	public void handleCollision(DoodleSprite doodle) {
 		this.setActive(false);
-		DropThis.setJetpackOn(true);
+		//DropThis.setJetpackOn(true);
 
 	}
 

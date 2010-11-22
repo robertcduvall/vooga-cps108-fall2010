@@ -10,9 +10,7 @@ public class NormalBlock extends BlockSprite{
 
 	private static final double DOODLE_HEIGHT = Resources.getDouble("DOODLE_HEIGHT");
 
-	public NormalBlock(){
-		
-	}
+	public NormalBlock(){}
 	
 	public NormalBlock(BufferedImage image, Point location, double velocityX,
 			double velocityY) {
@@ -22,7 +20,6 @@ public class NormalBlock extends BlockSprite{
 	@Override
 	public void handleCollision(DoodleSprite doodle) {
 		doodle.setY(getY() - DOODLE_HEIGHT);
-//		doodle.setVerticalSpeed(this.getVerticalSpeed()); //stand on block
 	}
 
 }
