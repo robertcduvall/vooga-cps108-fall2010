@@ -188,16 +188,16 @@ public class ZombielandPlayState extends GameState implements Constants{
 				* zombieLimitingFactor;
 	}
 
-	/**
-	 * Add a zombie to the world. The position is randomly picked. The health
-	 * and damage will increase every level.
-	 */
-	public void addZombie() {
-		Zombie newZombie = new Zombie();
-		zombiesAppeared++;
-		SpriteGroup zombies = playField.getGroup("Zombies");
-		zombies.add(newZombie);
-	}
+//	/**
+//	 * Add a zombie to the world. The position is randomly picked. The health
+//	 * and damage will increase every level.
+//	 */
+//	public void addZombie() {
+//		Zombie newZombie = new Zombie();
+//		zombiesAppeared++;
+//		SpriteGroup zombies = playField.getGroup("Zombies");
+//		zombies.add(newZombie);
+//	}
 
 	/**
 	 * Load the image for a bullet with the correct orientation with respect to
@@ -308,31 +308,31 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 */
 	public void update(long elapsedTime) {
 	
-		if (isActive()) {
-			playField.update(elapsedTime);
-			control.update();
-			if (moreZombieCanBeAdded()) {
-				if (timer.action(elapsedTime)) {
-					addZombie();
-				}
-			} else if (levelCompleted()) {
-				statLevel.setStat(level + 1);
-				overlayLevelStat.update(elapsedTime);
-				overlayLevelStat.setActive(true);
-				playField.update(elapsedTime);
-	
-				if (timer.action(elapsedTime)) {
-	
-					setNewDelay();
-					resetZombiesCount();
-	
-					level++;
-	
-					player.resetLevelScore();
-					overlayLevelStat.setActive(false);
-				}
-			}
-		}
+//		if (isActive()) {
+//			playField.update(elapsedTime);
+//			control.update();
+//			if (moreZombieCanBeAdded()) {
+//				if (timer.action(elapsedTime)) {
+//					addZombie();
+//				}
+//			} else if (levelCompleted()) {
+//				statLevel.setStat(level + 1);
+//				overlayLevelStat.update(elapsedTime);
+//				overlayLevelStat.setActive(true);
+//				playField.update(elapsedTime);
+//	
+//				if (timer.action(elapsedTime)) {
+//	
+//					setNewDelay();
+//					resetZombiesCount();
+//	
+//					level++;
+//	
+//					player.resetLevelScore();
+//					overlayLevelStat.setActive(false);
+//				}
+//			}
+//		}
 	}
 
 	/**

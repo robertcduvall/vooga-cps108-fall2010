@@ -25,7 +25,7 @@ public class AddZombieRule implements Rule{
 		Shooter human = (Shooter) groups[0].getActiveSprite();
 		
 		SpriteGroup zombiegroup = groups[1];
-		Zombie newZombie = new Zombie();
+		Zombie newZombie = new Zombie(human);
 		newZombie.setHumanTarget(human);
 		zombiegroup.add(newZombie);
 	}
