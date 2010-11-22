@@ -99,6 +99,22 @@
 				<Visual name="greenPlatform" />
 			</Sprite>
 			<Sprite class="vooga.engine.core.BetterSprite" random="false"
+				x="300" y="-850" vx="0" vy="0" quantity="1">
+				<Visual name="greenPlatform" />
+			</Sprite>
+			<Sprite class="vooga.engine.core.BetterSprite" random="false"
+				x="50" y="-880" vx="0" vy="0" quantity="1">
+				<Visual name="greenPlatform" />
+			</Sprite>
+			<Sprite class="vooga.engine.core.BetterSprite" random="false"
+				x="200" y="-1500" vx="0" vy="0" quantity="1">
+				<Visual name="greenPlatform" />
+			</Sprite>
+			<Sprite class="vooga.engine.core.BetterSprite" random="false"
+				x="450" y="-915" vx="0" vy="0" quantity="1">
+				<Visual name="greenPlatform" />
+			</Sprite>
+			<Sprite class="vooga.engine.core.BetterSprite" random="false"
 				x="400" y="-1000" vx="0" vy="0" quantity="1">
 				<Visual name="greenPlatform" />
 			</Sprite>
