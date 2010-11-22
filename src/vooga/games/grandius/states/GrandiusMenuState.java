@@ -4,7 +4,6 @@ import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
 import vooga.engine.state.MenuGameState;
 import vooga.games.grandius.sprites.buttons.PlayButton;
-import vooga.games.grandius.sprites.buttons.QuitButton;
 //TODO This GameState should be implemented using a MenuGameState
 //private void buildMenuState() {
 //      menuState = new GameState();
@@ -19,7 +18,7 @@ import vooga.games.grandius.sprites.buttons.QuitButton;
 public class GrandiusMenuState extends MenuGameState {
 
         private PlayButton myPlayButton;
-        private QuitButton myQuitButton;
+        //private QuitButton myQuitButton;
         private Game myGame;
         private EventPool eventPool;
         
@@ -30,12 +29,9 @@ public class GrandiusMenuState extends MenuGameState {
         @Override
         public void initialize() {
                 this.myPlayButton = new PlayButton(myGame);
-                this.myQuitButton = new QuitButton(myGame);
                 addButton(myPlayButton);
-                addButton(myQuitButton);
                 eventPool = new EventPool();
                 eventPool.addEvent(myPlayButton);
-                eventPool.addEvent(myQuitButton);
         }
         
         @Override
