@@ -94,11 +94,13 @@ public class Shooter extends BetterSprite implements Constants{
 	/**
 	 * Creates weapon objects with default ammo
 	 */
-	private void setupWeapons() {
-		weapons[0] = new Pistol(this, getIntStat("pistolAmmo"));
-		weapons[1] = new AssaultRifle(this, getIntStat("rifleAmmo"));
-		weapons[2] = new ShotGun(this, getIntStat("shotgunAmmo"));
+	public void setupWeapons() {
+		weapons[0] = new Pistol(this, 40);
+		weapons[1] = new AssaultRifle(this, 100);
+		weapons[2] = new ShotGun(this, 99999);
+	
 	}
+	
 
 	/**
 	 * Add a bullet sprite to the game world. Used by weapons to create bullets
