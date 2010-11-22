@@ -18,6 +18,7 @@ public class JigglingMonster extends BetterSprite {
 	private static final String JIGGLE_TIME_STRING = "jiggleTime";
 	private static final int NUMBER_OF_MONSTERS = 4;
 	private static final int MULTIPLY_HORIZONTAL_SPEED = -1;
+	private static final int ZERO_JIGGLE_TIMER = 0;
 
 	private int jiggleTimer;
 	private static final String[] monsterNames = { "greenMonster",
@@ -46,7 +47,7 @@ public class JigglingMonster extends BetterSprite {
 	}
 
 	private void makeMonsterJiggle() {
-		if (jiggleTimer < 0) {
+		if (jiggleTimer < ZERO_JIGGLE_TIMER) {
 			setHorizontalSpeed(getHorizontalSpeed() * MULTIPLY_HORIZONTAL_SPEED);
 			jiggleTimer = Resources.getInt(JIGGLE_TIME_STRING);
 		}

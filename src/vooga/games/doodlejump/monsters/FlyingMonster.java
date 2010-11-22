@@ -20,7 +20,9 @@ public class FlyingMonster extends BetterSprite {
 	private static final String MIN_SCREEN_X_STRING = "minScreenX";
 	private static final String MAX_SCREEN_X_STRING = "maxScreenX";
 	private static final int MULTIPLY_HORIZONTAL_SPEED = -1;
-	
+	private static final int INITIAL_ANIMATION_FRAME = 0;
+	private static final int FINAL_ANIMATION_FRAME = 4;
+
 	public FlyingMonster() {
 		this(Resources.getAnimation(GREEN_FLYING_MONSTER_STRING));
 	}
@@ -32,7 +34,7 @@ public class FlyingMonster extends BetterSprite {
 	@Override
 	public void firstRun() {
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
-		sprite.setAnimationFrame(0, 4);
+		sprite.setAnimationFrame(INITIAL_ANIMATION_FRAME, FINAL_ANIMATION_FRAME);
 		sprite.setLoopAnim(true);
 		sprite.setAnimate(true);
 	}

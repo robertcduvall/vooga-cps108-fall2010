@@ -12,6 +12,7 @@ public class JumpingMonster extends BetterSprite {
 	private static final String GREEN_JUMPING_MONSTER_STRING = "greenJumpingMonster";
 	private static final String JUMP_TIME_STRING = "jumpTime";
 	private static final int MULTIPLY_VERTICAL_SPEED = -1;
+	private static final int ZERO_JUMP_TIMER = 0;
 
 	private int jumpTimer;
 
@@ -36,7 +37,7 @@ public class JumpingMonster extends BetterSprite {
 	}
 
 	private void makeMonsterJump() {
-		if (jumpTimer < 0) {
+		if (jumpTimer < ZERO_JUMP_TIMER) {
 			setVerticalSpeed(getVerticalSpeed() * MULTIPLY_VERTICAL_SPEED);
 			jumpTimer = Resources.getInt(JUMP_TIME_STRING);
 		}
