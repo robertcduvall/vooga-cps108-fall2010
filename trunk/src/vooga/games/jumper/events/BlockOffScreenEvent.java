@@ -3,6 +3,7 @@ package vooga.games.jumper.events;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
 import vooga.games.jumper.sprites.NormalBlock;
 import vooga.games.jumper.states.PlayGameState;
 
@@ -15,7 +16,7 @@ import vooga.games.jumper.states.PlayGameState;
  */
 public class BlockOffScreenEvent implements IEventHandler {
 
-	private double BLOCK_APPEARANCE_RATE_MULTIPLIER = 1.0009;
+	private double BLOCK_APPEARANCE_RATE_MULTIPLIER = Resources.getDouble("BLOCK_APPEARANCE_RATE_MULTIPLIER");
 	private PlayGameState playState;
 	NormalBlock blockToBeRemoved;
 
