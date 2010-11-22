@@ -157,7 +157,7 @@ public class TronPlayer extends Sprite {
 	 * @return
 	 */
 	public double playerXDirectionMove(){
-		if(direction.equals("left")){
+		if(direction.equals("left")){     //refactor the "left" string
 			for(int i=0;i<speedUp;i++){
 				setPlayerColumn(-1);
 				if(playerInbound())
