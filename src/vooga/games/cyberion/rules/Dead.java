@@ -6,11 +6,12 @@ import vooga.engine.level.Rule;
 import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.core.BetterSprite;
+import vooga.games.cyberion.states.GameOverState;
 import vooga.games.cyberion.states.MenuState;
 
 public class Dead implements Rule {
 	GameStateManager gameStateManager;
-	MenuState menuState;
+	GameOverState gameOverState;
 
 	public Dead() {
 		super();
@@ -21,14 +22,14 @@ public class Dead implements Rule {
 
 	}
 
-	public void setGameStateManager(GameStateManager manager, MenuState state) {
+	public void setGameStateManager(GameStateManager manager, GameOverState state) {
 		gameStateManager = manager;
-		menuState = state;
+		gameOverState = state;
 	}
 
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		gameStateManager.switchTo(menuState);
+		gameStateManager.switchTo(gameOverState);
 	}
 
 	@Override
