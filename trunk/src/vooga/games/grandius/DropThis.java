@@ -81,8 +81,8 @@ public class DropThis extends Game {
 		 List<GameState> gameStates = new ArrayList<GameState>();
 		 gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
 		 gameStates.add(myPlayState = new PlayState(levelManager, this));
-		 gameStates.add(myLevelCompleteState = new LevelCompleteState());
-		 gameStates.add(myGameCompleteState = new GameCompleteState());
+		 gameStates.add(myLevelCompleteState = new LevelCompleteState(this));
+		 gameStates.add(myGameCompleteState = new GameCompleteState(this));
 		 gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
 		 gameStates.add(myStartNewLevelState = new StartNewLevelState());
 		 gameStates.add(myGameOverState = new GameOverState());
@@ -90,6 +90,7 @@ public class DropThis extends Game {
 		 GameState[] gameStatesArray = new GameState[gameStates.size()];
 		 for (int i = 0; i < gameStates.size(); i++) {
 			 gameStatesArray[i] = gameStates.get(i);
+			 GameState test = gameStatesArray[i];
 		 }
 		 stateManager.addGameState(gameStatesArray);
 		 //stateManager.switchTo(myGameCompleteState);

@@ -28,12 +28,17 @@ public class LevelCompleteEvent implements IEventHandler{
 
 	@Override
 	public void actionPerformed() {
-		PlayField newField = playState.getLevelManager().loadNextLevel();
-		playState.removeEverything();
-		playState.setField(newField);
-		playState.setPlayer((Player) newField.getGroup("playerGroup").getSprites()[0]);
-		playState.initControls();
-		playState.initEvents();
-		grandius.setAsPlayGameState(playState);
+		if (playState.getLevelManager().getCurrentLevel()!=2) {
+			PlayField newField = playState.getLevelManager().loadNextLevel();
+			playState.removeEverything();
+			playState.setField(newField);
+			playState.setPlayer((Player) newField.getGroup("playerGroup").getSprites()[0]);
+			playState.initControls();
+			playState.initEvents();
+			grandius.setAsPlayGameState(playState);
+			grandius.getGameStateManager().switchTo(grandius.getGameStateManager().getGameState(5)); //index of 5 = LevelCompleteState...apparently (backwards?)
+		} else {
+			grandius.getGameStateManager().switchTo(grandius.getGameStateManager().getGameState(4)); //index of 4 = GameCompleteState...apparently (backwards?)
+		}
 	}
 }

@@ -7,19 +7,18 @@ import vooga.engine.resource.Resources;
 import vooga.widget.Button;
 
 @SuppressWarnings("serial")
-public class QuitButton extends Button {
+public class AboutButton extends Button {
 
-	private static final int START_X = 150;
-	private static final int START_Y = 100;
-	private static final BufferedImage myImage = Resources.getImage("quitButtonImage");
+	private static final int START_X = 20;
+	private static final int START_Y = 40;
+	private static final BufferedImage myImage = Resources.getImage("aboutButtonImage");
 	
-	public QuitButton(Game game) {
+	public AboutButton(Game game) {
 		super(game, myImage, START_X, START_Y);
 	}
 
 	@Override
 	public void actionPerformed() {
-		System.exit(1);
+		System.out.println("Have fun!");
 	}
-
 }
