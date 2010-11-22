@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Document;
@@ -234,42 +235,20 @@ public class LevelParser implements LevelFactory{
 			if (isElement(spritesList.item(i))) {
 				Element currentElement = (Element) spritesList.item(i);
 				if (currentElement.getTagName().equals("Sprite")) {
-					group.add(processSprite(currentElement));
+					for(BetterSprite sprite : processSprite(currentElement))
+						group.add(sprite);
 				}
 			}
 		}
 	}
 	
-	private BetterSprite processSprite(Element spriteElement) {
+	private List<BetterSprite> processSprite(Element spriteElement) {
 		String className = spriteElement.getAttribute("class");
-		BetterSprite spriteToAdd = null;
+		List<BetterSprite> spritesToAdd = new ArrayList<BetterSprite>();
 		try {
 			Class<?> userSprite = Class.forName(className);
 			Constructor<?> classConstructor = userSprite.getConstructor();
-			if (!Boolean.parseBoolean(spriteElement.getAttribute("random"))) {
-				double x = Double.parseDouble(spriteElement.getAttribute("x"));
-				double y = Double.parseDouble(spriteElement.getAttribute("y"));
-				double vx = Double.parseDouble(spriteElement.getAttribute("vx"));
-				double vy = Double.parseDouble(spriteElement.getAttribute("vy"));
-
-				int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
-				for(int j = 0; j < quantity; j++) {
-					spriteToAdd = (BetterSprite)classConstructor.newInstance();
-					
-					NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
-					processVisual(listOfVisuals, spriteToAdd);
-					
-					NodeList listOfControls = spriteElement.getElementsByTagName("Control");
-					processControl(listOfControls, spriteToAdd);
-					
-					NodeList listOfStats = spriteElement.getElementsByTagName("Stat");
-					processStat(listOfStats, spriteToAdd);
-					
-					spriteToAdd.setLocation(x, y);
-					spriteToAdd.setHorizontalSpeed(vx);
-					spriteToAdd.setVerticalSpeed(vy);	
-				}
-			} else if (Boolean.parseBoolean(spriteElement.getAttribute("random"))) {
+			if (Boolean.parseBoolean(spriteElement.getAttribute("random"))) {
 				double xMin = Double.parseDouble(spriteElement.getAttribute("xMin"));
 				double yMin = Double.parseDouble(spriteElement.getAttribute("yMin"));
 				double vxMin = Double.parseDouble(spriteElement.getAttribute("vxMin"));
@@ -281,7 +260,7 @@ public class LevelParser implements LevelFactory{
 				
 				int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
 				for(int j = 0; j < quantity; j++) {
-					spriteToAdd = (BetterSprite)classConstructor.newInstance();
+					BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
 					
 					NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
 					processVisual(listOfVisuals, spriteToAdd);
@@ -296,12 +275,64 @@ public class LevelParser implements LevelFactory{
 										  Math.random()*(yMax-yMin) + yMin);
 					spriteToAdd.setHorizontalSpeed(Math.random()*(vxMax-vxMin) + vxMin);
 					spriteToAdd.setVerticalSpeed(Math.random()*(vyMax-vyMin) + vyMin);	
+					
+					spritesToAdd.add(spriteToAdd);
+				}
+			} 
+			else if(spriteElement.getNodeName().equals("Item")) {
+				String x = spriteElement.getAttribute("relX");
+				String y = spriteElement.getAttribute("relY");
+				String vx = spriteElement.getAttribute("vx");
+				String vy = spriteElement.getAttribute("vy");
+				
+				BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
+				
+				NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
+				processVisual(listOfVisuals, spriteToAdd);
+				
+				NodeList listOfControls = spriteElement.getElementsByTagName("Control");
+				processControl(listOfControls, spriteToAdd);
+				
+				NodeList listOfStats = spriteElement.getElementsByTagName("Stat");
+				processStat(listOfStats, spriteToAdd);
+				
+				if(!x.equals("")) spriteToAdd.setX(Double.parseDouble(x));
+				if(!y.equals("")) spriteToAdd.setY(Double.parseDouble(y));
+				if(!vx.equals("")) spriteToAdd.setHorizontalSpeed(Double.parseDouble(vx));
+				if(!vy.equals("")) spriteToAdd.setVerticalSpeed(Double.parseDouble(vy));
+				
+				spritesToAdd.add(spriteToAdd);
+			}
+			else {
+				double x = Double.parseDouble(spriteElement.getAttribute("x"));
+				double y = Double.parseDouble(spriteElement.getAttribute("y"));
+				double vx = Double.parseDouble(spriteElement.getAttribute("vx"));
+				double vy = Double.parseDouble(spriteElement.getAttribute("vy"));
+
+				int quantity = Integer.parseInt(spriteElement.getAttribute("quantity"));
+				for(int j = 0; j < quantity; j++) {
+					BetterSprite spriteToAdd = (BetterSprite)classConstructor.newInstance();
+					
+					NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
+					processVisual(listOfVisuals, spriteToAdd);
+					
+					NodeList listOfControls = spriteElement.getElementsByTagName("Control");
+					processControl(listOfControls, spriteToAdd);
+					
+					NodeList listOfStats = spriteElement.getElementsByTagName("Stat");
+					processStat(listOfStats, spriteToAdd);
+					
+					spriteToAdd.setLocation(x, y);
+					spriteToAdd.setHorizontalSpeed(vx);
+					spriteToAdd.setVerticalSpeed(vy);	
+					
+					spritesToAdd.add(spriteToAdd);
 				}	
 			}
 		} catch (Throwable e){
 			e.printStackTrace();
 		}
-		return spriteToAdd;
+		return spritesToAdd;
 	}
 
 	private void processStat(NodeList listOfStats, BetterSprite spriteToAdd) {
@@ -392,7 +423,7 @@ public class LevelParser implements LevelFactory{
 								if(type.equals("Image")) {
 									reader.addAssociationImage(key, extraElement.getAttribute("name"));
 								} else if(type.equals("Item")) {
-									reader.addAssociationItem(key,processSprite(extraElement));
+									reader.addAssociationItem(key,processSprite(extraElement).get(0));
 								}
 							}
 						}
