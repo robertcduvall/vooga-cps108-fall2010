@@ -204,6 +204,11 @@ public class GamePlayState extends GameState {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void restart(){
+		initLevelManager();
+		initLevel();
+	}
 
 	private void checkForItems() {
 		SpriteGroup items = getLevel().getGroup("itemGroup");

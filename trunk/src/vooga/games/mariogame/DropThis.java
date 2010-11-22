@@ -64,6 +64,11 @@ public class DropThis extends Game {
 		fontManager.putFont("MENU", menuFont);
 	}
 
+	public void restartGame() {
+		playState.restart();
+		stateManager.switchTo(playState);
+	}
+	
 	public void pauseGame() {
 		stateManager.switchTo(pauseState);		
 	}
@@ -91,8 +96,8 @@ public class DropThis extends Game {
 		
 		PlayField loseField = levelParser.getPlayfield(Resources.getString("losexml"),this);
 		PlayField winField = levelParser.getPlayfield(Resources.getString("winxml"),this);
-		loseState = new GameEndState(loseField,playState);
-		winState = new GameEndState(winField,playState);
+		loseState = new GameEndState(this,loseField,playState);
+		winState = new GameEndState(this,winField,playState);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
 		stateManager.switchTo(mainMenu);
 	}

@@ -12,6 +12,7 @@
 	</Backgrounds>
 
 	<Music>
+		<Sound name="Game Over 1" />
 	</Music>
 	
 	<Map>

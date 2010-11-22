@@ -21,7 +21,6 @@ public class LoseEvent implements IEventHandler{
 
 	private MarioSprite myMario;
 	private Game myGame;
-	private String myLoseNoise;
 	
 	/**
 	 * Constructor. User can pass objects or variables through this constructor.
@@ -31,14 +30,12 @@ public class LoseEvent implements IEventHandler{
 	public LoseEvent(MarioSprite mario, Game game){
 		myMario=mario;
 		myGame=game;
-		myLoseNoise = Resources.getSound("Game Over 1");
 	}
 	/**
 	 * User defines what to do after event has been triggered.
 	 */
 	@Override
 	public void actionPerformed() {
-		SoundPlayer.playMusic(myLoseNoise);
 		((DropThis)myGame).loseGame();
 	}
 	/**

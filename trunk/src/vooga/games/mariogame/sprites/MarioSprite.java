@@ -20,7 +20,6 @@ public class MarioSprite extends BetterSprite {
 	private boolean onGround;
 	private double myMaxX;
 	private int myMaxHealth = 3;
-	private double myGravity;
 	private boolean myLevelFinished = false;
 
 	private Queue<Character> myCheatText;
@@ -88,6 +87,7 @@ public class MarioSprite extends BetterSprite {
 		setLocation(0, 0);
 		setHealth(getHealth() - 1);
 		setMaxX(0);
+		Gravity.reset();
 	}
 
 
@@ -164,6 +164,7 @@ public class MarioSprite extends BetterSprite {
 		return false;
 	}
 
+	/*
 	public void cheat(char c) {
 		if (c != lastCheatChar) {
 			if (myCheatText.size() == MAX_CHEAT_LENGTH)
@@ -181,14 +182,7 @@ public class MarioSprite extends BetterSprite {
 			speed -= .1;
 
 	}
-	
-	public double getGravity(){
-		return myGravity;
-	}
-	
-	public void setGravity(Double d){
-		myGravity = d;
-	}
+	*/
 	
 	public int getMaxHealth(){
 		return myMaxHealth;
