@@ -13,19 +13,16 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 public class EnemyCollidesWithShot extends BasicCollisionGroup {
 
-	private BaseAudio bsSound;
-
 	public EnemyCollidesWithShot(Game game) {
-//		this.bsSound = bsSound;
 		super();
 	}
 
 	@Override
 	public void collided(Sprite playershot, Sprite enemy) {
 		collided((PlayerShot)playershot, (EnemyShip) enemy);
-	
 
 	}
+	
 //when a playershot collides with an enemy, enemy's life decreases, shot disappears, and a sound is played
 	public void collided(Sprite playershot, EnemyShip enemy) {
 		if (enemy.isOnScreen()){
@@ -34,7 +31,6 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 		}
 		enemy.setLife(enemy.getLife() - 1);
 		playershot.setActive(false);
-//		bsSound.play("vooga/games/cyberion/Resources/explosion.wav");
 	}
 
 }

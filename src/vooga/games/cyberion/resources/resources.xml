@@ -29,5 +29,5 @@
 	</Integers>
 	
 	<Doubles>
-	<Double value="2" name="playerSpeed"></Double></Doubles>
+	<Double value="5" name="playerSpeed"></Double></Doubles>
 </Resources>
