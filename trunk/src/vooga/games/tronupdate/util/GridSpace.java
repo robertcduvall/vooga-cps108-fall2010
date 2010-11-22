@@ -33,6 +33,9 @@ public class GridSpace {
 	}		
 	
 	public void fillGrid(int row,int col){
+		if((row>=totalRow||col>=totalColumn || row<0 || col<0)){
+		return;
+		}
 		gridsTaken[row][col] = true;
 	}
 	
