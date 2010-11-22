@@ -7,11 +7,18 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.buttons.LevelButton;
 import vooga.widget.levelparse.modules.SpriteModule;
 
 public class LevelButtonModule extends SpriteModule{
+	
+	private EventPool eventPool;
+	
+	public void setEventPool(EventPool eventPool){
+		this.eventPool = eventPool;
+	}
 
 	@Override
 	public Collection<BetterSprite> getSprites(Element spriteElement) {
@@ -26,6 +33,7 @@ public class LevelButtonModule extends SpriteModule{
 		NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
 		processVisual(listOfVisuals, button);
 		betterSprites.add(button);
+		eventPool.addEvent(button);
 		return betterSprites;
 	}
 
