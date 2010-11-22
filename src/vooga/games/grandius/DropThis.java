@@ -17,7 +17,6 @@ import vooga.games.grandius.states.GrandiusMenuState;
 import vooga.games.grandius.states.LevelCompleteState;
 import vooga.games.grandius.states.PlayState;
 import vooga.games.grandius.states.ShoppingLevelState;
-import vooga.games.grandius.states.StartNewLevelState;
 
 /**
  * Grandius is a side-scrolling space shooter. The object of each level is to
@@ -31,17 +30,14 @@ import vooga.games.grandius.states.StartNewLevelState;
  */
 public class DropThis extends Game {
 
-	private GrandiusMenuState myMenuState;
 	private PlayState myPlayState;
-	private LevelCompleteState myLevelCompleteState;
-	private ShoppingLevelState myShoppingLevelState;
-	private StartNewLevelState myStartNewLevelState;
-	private GameCompleteState myGameCompleteState;
-	private GameOverState myGameOverState;
 	private LevelManager levelManager;
 	private Control gameControl;
 	private PauseGameState myPauseGameState;
 
+	/**
+	 * Initializes Grandius Resources.
+	 */
 	@Override
 	public void initResources() {
 		super.initResources();
@@ -79,18 +75,21 @@ public class DropThis extends Game {
 		 super.initGameStates();
 		 initLevelManager();
 		 List<GameState> gameStates = new ArrayList<GameState>();
-		 gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
+//		 gameStates.add(myMenuState = new GrandiusMenuState(this)); // Default state.
+		 gameStates.add(new GrandiusMenuState(this)); // Default state.
 		 gameStates.add(myPlayState = new PlayState(levelManager, this));
-		 gameStates.add(myLevelCompleteState = new LevelCompleteState(this));
-		 gameStates.add(myGameCompleteState = new GameCompleteState(this));
-		 gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
-		 gameStates.add(myStartNewLevelState = new StartNewLevelState());
-		 gameStates.add(myGameOverState = new GameOverState());
+//		 gameStates.add(myLevelCompleteState = new LevelCompleteState(this));
+		 gameStates.add(new LevelCompleteState(this));
+//		 gameStates.add(myGameCompleteState = new GameCompleteState(this));
+		 gameStates.add(new GameCompleteState(this));
+//		 gameStates.add(myShoppingLevelState = new ShoppingLevelState(this));
+		 gameStates.add(new ShoppingLevelState(this));
+//		 gameStates.add(myGameOverState = new GameOverState(this));
+		 gameStates.add(new GameOverState(this));
 		 gameStates.add(myPauseGameState = new PauseGameState(myPlayState, "Paused"));
 		 GameState[] gameStatesArray = new GameState[gameStates.size()];
 		 for (int i = 0; i < gameStates.size(); i++) {
 			 gameStatesArray[i] = gameStates.get(i);
-			 GameState test = gameStatesArray[i];
 		 }
 		 stateManager.addGameState(gameStatesArray);
 		 //stateManager.switchTo(myGameCompleteState);
@@ -115,7 +114,6 @@ public class DropThis extends Game {
 	 /**
 	  * Returns the Grandius PlayState for use in collision management.
 	  */
-	 //TODO could this method be removed somehow? it's used to deal with collisions...
 	 public PlayState getPlayState() {
 		 return this.myPlayState;
 	 }

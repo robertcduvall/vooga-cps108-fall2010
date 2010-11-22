@@ -12,7 +12,6 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class PlayerEnemyProjectileCollision extends BasicCollision {
 
-	
 	public PlayerEnemyProjectileCollision(Game grandius) {
 		super(grandius);
 	}
@@ -25,7 +24,9 @@ public class PlayerEnemyProjectileCollision extends BasicCollision {
 		AnimatedSprite explosion = new VolatileSprite(images, player.getX(), player.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
-		getPlayer().updatePlayerLives();
+		int livesLeft = getPlayer().updatePlayerLives();
+		if (livesLeft <= 0)
+			myGame.getGameStateManager().switchTo(myGame.getGameStateManager().getGameState(1));
 	}
 
 	

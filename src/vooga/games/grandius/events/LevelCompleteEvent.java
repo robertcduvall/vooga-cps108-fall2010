@@ -36,9 +36,9 @@ public class LevelCompleteEvent implements IEventHandler{
 			playState.initControls();
 			playState.initEvents();
 			grandius.setAsPlayGameState(playState);
-			grandius.getGameStateManager().switchTo(grandius.getGameStateManager().getGameState(5)); //index of 5 = LevelCompleteState...apparently (backwards?)
+			grandius.getGameStateManager().switchTo(grandius.getGameStateManager().getGameState(4)); //index of 5 = LevelCompleteState...apparently (backwards?)
 		} else {
-			grandius.getGameStateManager().switchTo(grandius.getGameStateManager().getGameState(4)); //index of 4 = GameCompleteState...apparently (backwards?)
+			grandius.getGameStateManager().switchTo(grandius.getGameStateManager().getGameState(3)); //index of 4 = GameCompleteState...apparently (backwards?)
 		}
 	}
 }

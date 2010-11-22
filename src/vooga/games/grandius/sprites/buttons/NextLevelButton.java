@@ -22,7 +22,7 @@ public class NextLevelButton extends Button {
 
 	@Override
 	public void actionPerformed() {
-		myGame.getGameStateManager().switchTo(myGame.getGameStateManager().getGameState(6));
+		myGame.getGameStateManager().switchTo(myGame.getGameStateManager().getGameState(5));
 	}
 
 }
