@@ -5,18 +5,21 @@ package vooga.games.tronupdate.collisions;
  */
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameStateManager;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
 
 public class PlayerAndBoundariesCollision extends CollisionBounds{
 	
 	private Game game;
+	private GameStateManager gameStateManager;
 	
 	public PlayerAndBoundariesCollision(int x, int y, int width,
-			int height,Game game){//,GameState gameOverState,GameStateManager gm) {
+			int height,Game game,GameStateManager gameStateManager){//,GameState gameOverState,GameStateManager gm) {
 		super(x, y, width, height);
 		this.game = game;
-
+		this.gameStateManager=gameStateManager;
 	}
 	/**
 	 * determines what happens after the collision
@@ -28,5 +31,6 @@ public class PlayerAndBoundariesCollision extends CollisionBounds{
 		//gm.switchTo(gameOverState);
 		s.setActive(false);
 		game.playSound(Resources.getSound("explosionSound"));
+		gameStateManager.switchTo(gameStateManager.getGameState(2));
 	}
 }

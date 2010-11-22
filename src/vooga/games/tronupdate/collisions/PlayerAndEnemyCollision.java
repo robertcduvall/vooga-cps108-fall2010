@@ -5,6 +5,7 @@ package vooga.games.tronupdate.collisions;
  */
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameStateManager;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -12,10 +13,12 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 public class  PlayerAndEnemyCollision extends BasicCollisionGroup {
 	
 	private Game game;
+	private GameStateManager gameStateManager;
 	
-	public PlayerAndEnemyCollision(Game game) {
+	public PlayerAndEnemyCollision(Game game,GameStateManager gameStateManager) {
 		this.game=game;
 		pixelPerfectCollision = true;
+		this.gameStateManager=gameStateManager;
 	}
 	/**
 	 * handles the collision
@@ -23,6 +26,8 @@ public class  PlayerAndEnemyCollision extends BasicCollisionGroup {
 	public void collided(Sprite s1, Sprite s2) {	
 		s1.setActive(false);   //  this doesn't work in our cases	
 		s2.setActive(false);
+		
 		game.playSound(Resources.getSound("explosionSound"));
+		gameStateManager.switchTo(gameStateManager.getGameState(2));
 	}
 }
