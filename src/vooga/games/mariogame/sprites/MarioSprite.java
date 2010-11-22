@@ -75,6 +75,14 @@ public class MarioSprite extends BetterSprite {
 	public void setOnGround(boolean b) {
 		onGround = b;
 	}
+	
+	public void respawn(){
+		setLocation(0, 0);
+		//getBackground().setLocation(0, 0);
+		setKilled(false);
+		setMaxX(0);
+		//setGravityCoef(1);
+	}
 
 	public boolean isKilled() {
 		return killed;
