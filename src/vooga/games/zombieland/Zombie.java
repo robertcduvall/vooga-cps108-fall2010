@@ -3,6 +3,7 @@ package vooga.games.zombieland;
 import com.golden.gamedev.object.AnimatedSprite;
 
 import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
 import vooga.games.zombieland.gamestates.ZombielandPlayState;
@@ -111,9 +112,22 @@ public class Zombie extends BetterSprite implements Constants {
 	}
 
 	public double getHealth() {
-		return zombieCurrentHealth;
+		return getIntStat("zombieCurrentHealth");
 	}
 
+	public int getIntStat(String statname)
+	{
+		return (Integer) getStat(statname).getStat();
+	}
+	
+	public void setIntStat(String statname, int value)
+	{
+		int stat  = getIntStat(statname);
+		stat += value;
+		Stat<Integer> intstat = (Stat<Integer>) getStat(statname);	
+		intstat.setStat(stat);
+	}
+	
 	public static int zombiesPerLevel() {
 		return ZOMBIES_PER_LEVEL;
 	}
