@@ -15,6 +15,9 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
+import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
@@ -28,6 +31,7 @@ import vooga.games.tronupdate.items.Bonus;
 import vooga.games.tronupdate.items.SpeedUpBonus;
 import vooga.games.tronupdate.items.TronPlayer;
 import vooga.games.tronupdate.util.Direction;
+
 
 
 public class TronGamePlayState extends GameState{
@@ -46,6 +50,10 @@ public class TronGamePlayState extends GameState{
 	private Queue<SpeedUpBonus> bonusList;
 	private boolean toSpawnBonus=true;
 	private SpeedUpBonus prev=null;
+	
+	//private OverlayTracker tracker;
+	
+	
 	
 	public static final int GRID_WIDTH=Resources.getInt("width")/Resources.getInt("playerimagewidth");
 	public static final int GRID_HEIGHT=Resources.getInt("height")/Resources.getInt("playerimagewidth");
@@ -71,11 +79,18 @@ public class TronGamePlayState extends GameState{
 		initializeBlocks();
 		initializeEnvironment();
 		initializeCollision();
-		//initializeOverlay();
+		initializeOverlay();
 		initializeEvents();
 		game.playMusic(Resources.getSound("backgroundmusic"));
 		
 	}
+	
+	public void initializeOverlay(){
+		OverlayCreator.setGame(game);
+		OverlayTracker tracker = OverlayCreator.createOverlays("src/vooga/games/tronupdate/resources/overlays.xml");
+		playField.addGroup(tracker.getOverlayGroup("second"));
+	}
+	
 	
 	public void initializeCollision() {
 		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision(game);   
@@ -88,18 +103,6 @@ public class TronGamePlayState extends GameState{
 		
 		
 	}
-
-//	private void initializeLevel(){
-//		
-//		TronPlayer player =(TronPlayer)(getGroup("playerSpriteGroup").getSprites()[0]);
-//		//TronPlayer leftTronPlayer= new Tronplayer();
-//		initPlayer1Controls(player);
-//	//	BetterSprite player2 =(BetterSprite)(getGroup("playerSpriteGroup").getSprites()[1]);
-//		//initPlayer2Controls(player2);
-//		//BetterSprite playerrandom = new BetterSprite();
-//		
-//
-//	}
 	
 	public void initializeEvents() {
 		eventPool = new EventPool();
@@ -138,7 +141,6 @@ public class TronGamePlayState extends GameState{
 		{
 			SpriteGroup currentGroup = new SpriteGroup(spritegroups[i]);
 			playField.addGroup(currentGroup);
-			
 		}
 		playField.getGroup(spritegroups[0]).add(firstPlayer);
 		playField.getGroup(spritegroups[0]).add(secondPlayer);
@@ -171,14 +173,12 @@ public class TronGamePlayState extends GameState{
 			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
 			bonusList.add(new SpeedUpBonus(Resources.getImage("yellowbonus"), randomX,randomY,PLAYER_IMAGE_WIDTH));	
 		}
-
 	}
 
 	public void initializeControl() {
 		initFirstPlayerControls(firstPlayer);
 		initSecondPlayerControls(secondPlayer);
 	}
-
 
 	public void initFirstPlayerControls(TronPlayer player){
 		firstPlayerControl = new KeyboardControl(player, game);
