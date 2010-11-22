@@ -9,7 +9,9 @@ import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
+import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelFactory;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 
 import vooga.engine.core.BetterSprite;
@@ -18,23 +20,40 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.doodlejump.BallSprite;
+import vooga.games.doodlejump.BlahThis;
 import vooga.games.doodlejump.DoodleSprite;
+import vooga.games.doodlejump.rules.LevelWonEvent;
+import vooga.games.grandius.events.FireBlackHoleEvent;
+import vooga.games.grandius.events.FireHorizontalEvent;
+import vooga.games.grandius.events.FireMissileEvent;
+import vooga.games.grandius.events.FireVerticalEvent;
+import vooga.games.grandius.events.LevelCompleteEvent;
+import vooga.games.grandius.events.ZipsterFireEvent;
 
 public class PlayState extends GameState {
 
 	private Game game;
 	PlayField myField;
 	private DoodleSprite doodle;
+	private LevelManager myLevelManager;
+	private EventPool eventPool;
 
-	public PlayState(Game game, PlayField field) {
-		super(field);
+	public PlayState(Game game, LevelManager levelManager) {
+		myLevelManager = levelManager;
 		this.game = game;
-		myField = field;
 	}
 
 	@Override
 	public void initialize() {
+		myField = myLevelManager.loadFirstLevel();
 		initLevel();
+		this.addPlayField(myField);
+	}
+	
+	public void nextLevel(){
+		doodle.reset();
+		myField.clearPlayField();
+		myField = myLevelManager.loadNextLevel();
 	}
 
 	public void addBall(BallSprite ball) {
@@ -42,10 +61,10 @@ public class PlayState extends GameState {
 	}
 
 	private void initLevel() {
-		doodle = (DoodleSprite) (getGroup("doodleGroup").getSprites()[0]);
+		doodle = (DoodleSprite) (myField.getGroup("doodleGroup").getSprites()[0]);
 		doodle.setPlayState(this);
 		initControls(doodle);
-
+		initEvents();
 	}
 
 	@Override
@@ -62,6 +81,7 @@ public class PlayState extends GameState {
 			}
 		}
 		super.update(elapsedTime);
+		eventPool.checkEvents();
 	}
 
 	private void scrollLevel(Sprite sprite) {
@@ -77,5 +97,13 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_SPACE, "shoot",
 				"vooga.games.doodlejump.DoodleSprite");
 		myField.addControl("doodle", playerControl);
+		Control gameControl = new KeyboardControl(game, game);
+		gameControl.addInput(KeyEvent.VK_P, "pauseResumeGame", "vooga.games.doodlejump.BlahThis");
+		myField.addControl("game", gameControl);
+	}
+	
+	private void initEvents(){
+		eventPool = new EventPool();
+		eventPool.addEvent(new LevelWonEvent(doodle, this));
 	}
 }

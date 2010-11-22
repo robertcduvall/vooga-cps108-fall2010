@@ -27,6 +27,7 @@ public class DoodleToMonsterCollision extends BasicCollisionGroup {
 		if(!((DoodleSprite) doodle).getDied()){
 			if (doodle.getVerticalSpeed() < 0) {
 				((DoodleSprite) doodle).setDied(true);
+				((DoodleSprite) doodle).setVerticalSpeed(((DoodleSprite) doodle).getVerticalSpeed() * -1);
 				//monster.setActive(false);
 				URL spring_url = getClass().getResource("../resources/sounds/buzzer_sound.wav");
 				AudioClip clip = java.applet.Applet.newAudioClip(spring_url);

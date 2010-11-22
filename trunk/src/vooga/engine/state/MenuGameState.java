@@ -49,7 +49,7 @@ public abstract class MenuGameState extends GameState {
 	 * @param button
 	 */
 	public void addButton(Button button) {
-
+		System.out.println(button);
 		menuPlayfield.add(button);
 		menuPlayfield.add(button);
 

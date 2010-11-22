@@ -115,4 +115,9 @@ public class DoodleSprite extends BetterSprite {
 	public void setLevelComplete() {
 		levelComplete = true;
 	}
+	
+	public void reset(){
+		levelComplete = false;
+		died = false;
+	}
 }

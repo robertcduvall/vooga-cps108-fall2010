@@ -2,9 +2,6 @@
 <Level name="Doodle" xmloverlaypath="src/vooga/games/doodlejump/resources/overlays.xml">
 
 	<Rules>
-		<Rule name="levelWonRule" class="vooga.games.doodlejump.rules.LevelWonRule">
-			<SpriteGroup name="doodleGroup" />
-		</Rule>
 	</Rules>
 	
 	<SpriteGroups>
@@ -229,7 +226,7 @@
 
 		<SpriteGroup name="doodleGroup">
 			<Sprite class="vooga.games.doodlejump.DoodleSprite" random="false"
-				x="400" y="400" vx="0" vy="0" quantity="1">
+				x="400" y="300" vx="0" vy="0" quantity="1">
 				<Visual name="doodleRight" />
 				<Stat name="score" />
 				<Stat name="lives" />
