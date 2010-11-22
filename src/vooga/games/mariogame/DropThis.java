@@ -34,8 +34,6 @@ public class DropThis extends Game {
 	GamePlayState playState;
 	GameEndState loseState;
 	public GameFontManager fontManager;
-	private LevelManager levelManager;
-	public Collection<PlayField> myLevels;
 	public String myName;
 
 	public static void main(String[] args) throws IOException {
@@ -45,18 +43,11 @@ public class DropThis extends Game {
 	public void initResources() {
 		initFonts();
 		super.initResources();
-		initLevelManager();
 		initStates();
 
 	}
 	
-	private void initLevelManager() {
-		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString("LevelFilesDirectory");
-		String levelNamesFile = Resources.getString("LevelNamesFile");
-		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);
-		myLevels = levelManager.getAllPlayFields();
-	}
+	
 	
 
 	private void initFonts() {
@@ -93,7 +84,7 @@ public class DropThis extends Game {
 		loseState = new GameEndState(loseField);
 		GameEndState winState = new GameEndState(winField);
 		MainMenuState levelFinishedState = new MainMenuState(this, Resources.getImage("Level Complete BG"), fontManager);
-		playState = new GamePlayState(this,(PlayField)myLevels.toArray()[0]);
+		playState = new GamePlayState(this);
 		stateManager.addGameState(mainMenu, pauseState, loseState, winState, levelFinishedState, playState);
 		stateManager.switchTo(mainMenu);
 	}
