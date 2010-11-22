@@ -93,7 +93,6 @@ public class GameEndState extends GameState {
 	private void createHighScoreOverlay() {
 		PlayField field = getRenderField().toArray(new PlayField[0])[0];
 		for (int j = 1; j <= myHighScores.getNames().length; j++) {
-			System.out.println("score"+String.valueOf(j));
 			field.getOverlayTracker().getStat("score"+String.valueOf(j)).setStat(myHighScores.getScores()[j-1]);
 		}
 	}
