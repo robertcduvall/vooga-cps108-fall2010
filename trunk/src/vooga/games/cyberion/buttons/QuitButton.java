@@ -14,10 +14,10 @@ import vooga.widget.Button;
  */
 
 public class QuitButton extends Button {
-	private static final int START_X = 220;
-	private static final int START_Y = 0;
+	private static final int START_X = 250;
+	private static final int START_Y = 300;
 	private static final BufferedImage myImage = Resources
-			.getImage("playButtonImage");
+			.getImage("quitButton");
 
 	public QuitButton(Game game) {
 		super(game, myImage, START_X, START_Y);
