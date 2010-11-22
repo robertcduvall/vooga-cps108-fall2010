@@ -5,6 +5,7 @@ import java.util.List;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.events.BuildEnemyEvent;
 import vooga.games.towerdefense.events.EnemyFailEvent;
+import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.path.PathPoint;
 
 import com.golden.gamedev.util.Utility;
@@ -20,8 +21,8 @@ public class EnemySpawn extends Enemy {
 	
 	private BuildEnemyEvent myBuildEvent;
 
-	public EnemySpawn(List<PathPoint> path, int speed, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent) {
-		super(path, speed, 10, failEvent);
+	public EnemySpawn(List<PathPoint> path, int speed, EnemyFailEvent failEvent, BuildEnemyEvent buildEvent, EnemyHitEvent hitEvent) {
+		super(path, speed, 10, failEvent, hitEvent);
 		myBuildEvent = buildEvent;
 		
 	}
@@ -35,7 +36,7 @@ public class EnemySpawn extends Enemy {
 	public void gotHit() {
 		setActive(false);
 		for(int i = 0; i< 5; i++){
-			Enemy temp = new Enemy(myPath, Utility.getRandom(20, 80), Utility.getRandom(1, 3), myFailEvent);
+			Enemy temp = new Enemy(myPath, Utility.getRandom(20, 80), Utility.getRandom(1, 3), myFailEvent, myHitEvent);
 			temp.myLoc = myLoc-(i*5);
 			myBuildEvent.addEnemy(temp);
 		}

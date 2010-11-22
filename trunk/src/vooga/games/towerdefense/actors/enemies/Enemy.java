@@ -3,14 +3,10 @@ package vooga.games.towerdefense.actors.enemies;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.golden.gamedev.object.Sprite;
-
 import vooga.engine.core.BetterSprite;
-import vooga.engine.core.Game;
-import vooga.engine.overlay.Stat;
-import vooga.engine.resource.Resources;
 import vooga.engine.resource.Resources;
 import vooga.games.towerdefense.events.EnemyFailEvent;
+import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.path.PathPoint;
 
 /**
@@ -34,8 +30,9 @@ public class Enemy extends BetterSprite {
 	private final int MONEY = 1;
 	private final int SCORE = 10;
 	protected EnemyFailEvent myFailEvent;
+	protected EnemyHitEvent myHitEvent;
 
-	public Enemy(List<PathPoint> path, int speed, int lives, EnemyFailEvent failEvent) {
+	public Enemy(List<PathPoint> path, int speed, int lives, EnemyFailEvent failEvent, EnemyHitEvent hitEvent) {
 		super(-100, -100);
 		myPath = path;
 		mySpeed = speed;
@@ -46,6 +43,7 @@ public class Enemy extends BetterSprite {
 		myRestart = true;
 		myLives = lives;
 		myFailEvent = failEvent;
+		myHitEvent = hitEvent;
 		setImage();
 	}
 
@@ -121,6 +119,10 @@ public class Enemy extends BetterSprite {
 		}
 		myLives--;
 		setImage();
+	}
+	
+	public void kill(){
+		myHitEvent.addEnemy(this);
 	}
 
 	private int[] getDistance() {
