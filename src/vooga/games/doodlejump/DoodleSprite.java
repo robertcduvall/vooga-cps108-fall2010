@@ -90,6 +90,10 @@ public class DoodleSprite extends BetterSprite {
 	public void setDied(boolean b) {
 		died = b;
 	}
+	
+	public boolean getDied(){
+		return died;
+	}
 
 	public void setPlayState(PlayState p) {
 		playState = p;

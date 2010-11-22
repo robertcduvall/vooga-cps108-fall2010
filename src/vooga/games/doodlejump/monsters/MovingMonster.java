@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 
+import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -20,20 +21,29 @@ import com.golden.gamedev.object.Sprite;
 public class MovingMonster extends BetterSprite {
 
 	public MovingMonster() {
-		this("blueMonster");
+		this("blueMonsterLeft");
 	}
 	public MovingMonster(String label) {
 		super(label, new BetterSprite(Resources.getAnimation(label)));
+	}
+	
+	@Override
+	public void firstRun(){
+		setHorizontalSpeed(-0.2);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		if (getX() < 0 || getX() > 532 - getWidth()) {
-			if (getX() < 0)
-				setImage(Resources.getImage("blue_monster_right"));
-			else
-				setImage(Resources.getImage("blue_monster_left"));
+			if (getX() < 0){
+				BufferedImage[] doodleImage = { Resources.getImage("blueMonsterRight") };
+				setImages(doodleImage);
+			}
+			else{
+				BufferedImage[] doodleImage = { Resources.getImage("blueMonsterLeft") };
+				setImages(doodleImage);
+			}
 			setHorizontalSpeed(getHorizontalSpeed() * -1);
 		}
 	}

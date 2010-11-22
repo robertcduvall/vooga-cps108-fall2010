@@ -2,6 +2,7 @@ package vooga.games.doodlejump.collisions;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
+import vooga.games.doodlejump.DoodleSprite;
 
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -24,7 +25,7 @@ public class DoodleToTrampolineCollision extends BasicCollisionGroup {
 		BetterSprite tramp = (BetterSprite) trampoline;
 		if (doodle.getVerticalSpeed() > 0
 				&& doodle.getY() + doodle.getHeight() - 10 < tramp.getY()
-				&& !((AnimatedSprite) tramp.getCurrentSprite()).isAnimate()) {
+				&& !((AnimatedSprite) tramp.getCurrentSprite()).isAnimate() && !((DoodleSprite) doodle).getDied()) {
 			((AnimatedSprite) tramp.getCurrentSprite()).setAnimationFrame(0, 1);
 			((AnimatedSprite) tramp.getCurrentSprite()).setLoopAnim(false);
 			((AnimatedSprite) tramp.getCurrentSprite()).setAnimate(true);

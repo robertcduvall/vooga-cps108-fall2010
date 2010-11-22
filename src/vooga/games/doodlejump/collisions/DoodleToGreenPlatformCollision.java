@@ -4,6 +4,7 @@ import java.applet.AudioClip;
 import java.net.URL;
 
 import vooga.engine.core.Game;
+import vooga.games.doodlejump.DoodleSprite;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
@@ -29,7 +30,7 @@ public class DoodleToGreenPlatformCollision extends BasicCollisionGroup {
 		 */
 		if (doodle.getVerticalSpeed() > 0
 				&& doodle.getY() + doodle.getHeight() - 15 < green_platform
-						.getY()) {
+						.getY() && !((DoodleSprite) doodle).getDied()) {
 			URL jump_url = getClass().getResource("../resources/sounds/jump_sound.wav");
 			doodle.setVerticalSpeed(-0.6);
 			AudioClip clip = java.applet.Applet.newAudioClip(jump_url);
