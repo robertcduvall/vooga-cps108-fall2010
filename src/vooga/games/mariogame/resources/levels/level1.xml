@@ -9,6 +9,9 @@
 			<Sprite random="false" x="30" y="400" vx="0" vy="0" quantity="1"
 				class="vooga.games.mariogame.sprites.MarioSprite">
 				<Visual name="marioMovement" />
+				<Stat name="health" />
+				<Stat name="score" />
+				<Stat name="level" />
 			</Sprite>
 		</SpriteGroup>
 

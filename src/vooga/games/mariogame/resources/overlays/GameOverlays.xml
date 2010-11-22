@@ -1,13 +1,13 @@
 <Overlay>
 
-<Stat type="Integer" value="3" name="healthStat"></Stat> 
-<Stat type="Integer" value="0" name="scoreStat"></Stat>
-<Stat type="Integer" value="1" name="levelStat"></Stat>
+<Stat type="Integer" value="3" name="health"></Stat> 
+<Stat type="Integer" value="0" name="score"></Stat>
+<Stat type="Integer" value="1" name="level"></Stat>
 
 <OverlayGroup>
-<OverlayStat color="0" stat="scoreStat" label="SCORE: " xLoc="24" yLoc="5"></OverlayStat>
-<OverlayStat color="0" stat="healthStat" label ="LIVES: " xLoc="824" yLoc = "5" ></OverlayStat>
-<OverlayStat color="0" stat="levelStat" label = "LEVEL: " xLoc = "424" yLoc = "5"></OverlayStat>
+<OverlayStat color="0" stat="score" label="SCORE: " xLoc="24" yLoc="5"></OverlayStat>
+<OverlayStat color="0" stat="health" label ="LIVES: " xLoc="824" yLoc = "5" ></OverlayStat>
+<OverlayStat color="0" stat="level" label = "LEVEL: " xLoc = "424" yLoc = "5"></OverlayStat>
 </OverlayGroup>
 
 </Overlay>
