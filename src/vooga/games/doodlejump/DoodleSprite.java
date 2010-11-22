@@ -25,18 +25,20 @@ public class DoodleSprite extends BetterSprite {
 	private boolean died;
 	private PlayState playState;
 	private int bulletDelay = 20;
-	
-	public DoodleSprite(){
+	private double maxHeight;
+
+	public DoodleSprite() {
 		this(Resources.getImage("doodleRight"));
 	}
 
 	public DoodleSprite(BufferedImage image) {
 		super(image);
 		died = false;
+		setMaxHeight(Resources.getDouble("doodleInitialY"));
 	}
 
 	public void moveLeft() {
-		BufferedImage[] doodleImage = {Resources.getImage("doodleLeft")};
+		BufferedImage[] doodleImage = { Resources.getImage("doodleLeft") };
 		setImages(doodleImage);
 		if (isOnScreen()) {
 			setX(getX() - 5);
@@ -47,7 +49,7 @@ public class DoodleSprite extends BetterSprite {
 	}
 
 	public void moveRight() {
-		BufferedImage[] doodleImage = {Resources.getImage("doodleRight")};
+		BufferedImage[] doodleImage = { Resources.getImage("doodleRight") };
 		setImages(doodleImage);
 		if (isOnScreen()) {
 			setX(getX() + 5);
@@ -66,12 +68,11 @@ public class DoodleSprite extends BetterSprite {
 
 	public void shoot() {
 		if (bulletDelay <= 0) {
-			BufferedImage[] doodleImage = {Resources.getImage("doodleUp")};
+			BufferedImage[] doodleImage = { Resources.getImage("doodleUp") };
 			setImages(doodleImage);
 			BufferedImage ballImage = Resources.getImage("ball");
-			BallSprite ball = new BallSprite("ball", new Sprite(
-					ballImage, getX() + getWidth() / 2
-							- ballImage.getWidth() / 2, getY()
+			BallSprite ball = new BallSprite("ball", new Sprite(ballImage,
+					getX() + getWidth() / 2 - ballImage.getWidth() / 2, getY()
 							- ballImage.getHeight()));
 			ball.setVerticalSpeed(-0.7);
 			if (getVerticalSpeed() < 0)
@@ -80,17 +81,25 @@ public class DoodleSprite extends BetterSprite {
 			bulletDelay = 20;
 		}
 	}
-	
+
 	@Override
-	public void render(Graphics2D g){
+	public void render(Graphics2D g) {
 		super.render(g);
 	}
 
 	public void setDied(boolean b) {
 		died = b;
 	}
-	
-	public void setPlayState(PlayState p){
+
+	public void setPlayState(PlayState p) {
 		playState = p;
+	}
+
+	public void setMaxHeight(double max) {
+		maxHeight = max;
+	}
+
+	public double getMaxHeight() {
+		return maxHeight;
 	}
 }

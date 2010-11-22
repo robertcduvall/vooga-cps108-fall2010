@@ -100,10 +100,10 @@
 	</Strings>
 
 	<Integers>
-		<Integer name="doodleInitialX" value="325" />
-		<Integer name="doodleInitialY" value="500" />
 	</Integers>
 
 	<Doubles>
+		<Double name="doodleInitialX" value="325" />
+		<Double name="doodleInitialY" value="500" />
 	</Doubles>
 </Resources> 
