@@ -101,7 +101,7 @@ public class PlayState extends GameState{
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);
 		
 		EnemyGenerator enemyGenerator = new MediumEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
-		player.addPathBoundary(enemyGenerator.getPathPoint());
+		player.addPathBoundary(enemyGenerator.getPath());
 		myPlayField.add(enemyGenerator);
 		
 		eventPool.addEvent(failEvent);
