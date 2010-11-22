@@ -17,6 +17,10 @@ import vooga.engine.state.GameState;
 import vooga.games.towerdefense.actors.EnemyGenerator;
 import vooga.games.towerdefense.actors.MediumEnemyGenerator;
 import vooga.games.towerdefense.actors.Player;
+import vooga.games.towerdefense.actors.towers.Fast;
+import vooga.games.towerdefense.actors.towers.Normal;
+import vooga.games.towerdefense.actors.towers.Sniper;
+import vooga.games.towerdefense.actors.towers.Tower;
 import vooga.games.towerdefense.buttons.TowerSwitchButton;
 import vooga.games.towerdefense.collisions.ShotToEnemyCollision;
 import vooga.games.towerdefense.events.AfterCounterEvent;
@@ -27,8 +31,6 @@ import vooga.games.towerdefense.events.EnemyHitEvent;
 import vooga.games.towerdefense.events.FindTargetEvent;
 import vooga.games.towerdefense.events.ShootEvent;
 import vooga.widget.counter.Counter;
-import vooga.widget.Button;
-
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -114,6 +116,18 @@ public class PlayState extends GameState{
 		myEnemyGenerator = new MediumEnemyGenerator("easyLevelPathPoints", failEvent, buildEnemy, enemyHit);
 		player.addPathBoundary(myEnemyGenerator.getPath());
 		
+		TowerSwitchButton normalTower = initButton(Resources.getImage("normalTower"), 880, 260, player, new Normal(0,0, shootEvent));
+		TowerSwitchButton fastTower = initButton(Resources.getImage("fastTower"), 880, 360, player, new Fast(0,0, shootEvent));
+		TowerSwitchButton sniperTower = initButton(Resources.getImage("sniperTower"), 880, 460, player, new Sniper(0,0, shootEvent));
+		
+		myPlayField.add(normalTower);
+		myPlayField.add(fastTower);
+		myPlayField.add(sniperTower);
+		
+		eventPool.addEvent(normalTower);
+		eventPool.addEvent(fastTower);
+		eventPool.addEvent(sniperTower);
+		
 		eventPool.addEvent(failEvent);
 		eventPool.addEvent(buildEnemy);
 		eventPool.addEvent(findTarget);
@@ -133,6 +147,12 @@ public class PlayState extends GameState{
 	private Player initPlayer(BuildTowerEvent buildTowerEvent, FindTargetEvent findTarget, ShootEvent shootEvent){
 		Player player = new Player(Resources.getImage("towerPreview"), 0 , 0, buildTowerEvent, findTarget, shootEvent, myTracker.getStat("money" , new Integer(0)), myTracker.getStat("score" , new Integer(0)), myTracker.getStat("selfEsteem" , new Integer(0)));		
 		return player;
+	}
+	
+	private TowerSwitchButton initButton(BufferedImage bi, double x, double y, Player player, Tower tower){
+		TowerSwitchButton normalTower = new TowerSwitchButton(Resources.getGame(), bi, x, y, player);
+		normalTower.setTower(tower);
+		return normalTower;
 	}
 	
 	public Control initControl(BetterSprite player){

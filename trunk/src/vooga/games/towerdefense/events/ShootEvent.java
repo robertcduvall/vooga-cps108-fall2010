@@ -34,7 +34,8 @@ public class ShootEvent implements IEventHandler{
 		for(ShootingTower tower: shootQueue){
 			Enemy target = tower.getTarget();
 			tower.resetShot();
-			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),tower.getX(), tower.getY(), target.getX(), target.getY(), .4);
+			System.out.println(tower.getShotSpeed());
+			TowerShot shot = new TowerShot(Resources.getImage("towerShot"),tower.getX(), tower.getY(), target.getX(), target.getY(), tower.getShotSpeed());
 			shotGroup.add(shot);
 		}
 		shootQueue.clear();

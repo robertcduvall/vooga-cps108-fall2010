@@ -85,6 +85,10 @@ public abstract class ShootingTower extends Tower{
 		return range;
 	}
 	
+	public double getShotSpeed(){
+		return shotSpeed;
+	}
+	
 	public Enemy getTarget(){
 		return target;
 	}
