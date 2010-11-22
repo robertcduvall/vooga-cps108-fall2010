@@ -1,7 +1,7 @@
 <Resources>
 
 	<Images>
-		<Image name="background" path="backgrounds/easyLevel.png" />
+		<Image name="easyLevelBackground" path="backgrounds/easyLevel.png" />
 		<Image name="towerPreview" path="towerPreview.png" />
 		<Image name="normalTower" path="normalTower.png" />
 		<Image name="normalTowerPreview" path="normalTowerPreview.png" />
