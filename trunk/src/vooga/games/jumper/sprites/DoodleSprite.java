@@ -49,27 +49,6 @@ public class DoodleSprite extends BetterSprite {
 		
 	}
 	
-	/**
-	 * Update the doodle
-	 * @param  elapsedTime long time elapsed from last update
-	 */
-	public void update(long elapsedTime){        
-		move(getHorizontalSpeed(), getVerticalSpeed());
-		deccelerate();
-	}
-
-	/**
-	 * Slow doodle down by a fixed amount so that it decelerates when no key is pressed
-	 */
-	public void deccelerate(){
-		if (getHorizontalSpeed() > 0)
-			setHorizontalSpeed(getHorizontalSpeed() - X_DECCELERATION);
-		if (getHorizontalSpeed() < 0)
-			setHorizontalSpeed(getHorizontalSpeed() + X_DECCELERATION);
-		if (getHorizontalSpeed() > -1 || getHorizontalSpeed() < 1)
-			setHorizontalSpeed(0);
-	}
-	
 	public void moveLeft(){	
 		setHorizontalSpeed(-1* MAX_SPEED);
 	}

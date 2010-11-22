@@ -29,10 +29,16 @@ public class Decelerate implements Rule{
 	
 	private void decelerate(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
-			if (s!=null)
-				s.setY(s.getHorizontalSpeed() - DECELERATION_FACTOR);
+			if (s!=null){
+				double horizontalSpeed = s.getHorizontalSpeed();
+				if (horizontalSpeed > 0)
+					s.setHorizontalSpeed(s.getHorizontalSpeed() - DECELERATION_FACTOR);					
+				if (horizontalSpeed < 0)
+					s.setHorizontalSpeed(s.getHorizontalSpeed() + DECELERATION_FACTOR);
+				if (horizontalSpeed > -1 || horizontalSpeed < 1)
+					s.setHorizontalSpeed(0);
+			}
 		}
-		
 	}
 
 }
