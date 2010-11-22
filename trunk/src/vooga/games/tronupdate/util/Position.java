@@ -1,5 +1,5 @@
 package vooga.games.tronupdate.util;
-
+//what is this used for?
 public class Position {
 	private int XPos;
 	private int YPos;
