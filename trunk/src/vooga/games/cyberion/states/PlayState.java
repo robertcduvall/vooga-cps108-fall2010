@@ -52,7 +52,7 @@ public class PlayState extends GameState {
 	public void initialize() {
 		newField = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
-		enemy = (Sprite[]) newField.getGroup("enemyGroup").getSprites();
+		enemy = newField.getGroup("enemyGroup").getSprites();
 		System.out.println(enemy);
 		initControls();
 		initEvents();

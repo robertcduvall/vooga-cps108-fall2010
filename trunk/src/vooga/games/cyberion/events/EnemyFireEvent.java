@@ -20,6 +20,7 @@ public class EnemyFireEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
+
 	}
 
 	/**
@@ -28,15 +29,17 @@ public class EnemyFireEvent implements IEventHandler {
 	@Override
 	public boolean isTriggered() {
 		for (Sprite s : enemy) {
-			if (s.getY() > 100) {
-				EnemyShot sprite = new EnemyShot(playState.getPlayField()
-						.getGroup("enemyShot").getActiveSprite().getImage());
+			if (s != null && s.getY() > 50 && Math.random() > .99
+					&& s.getY() < 600) {
+				((EnemyShip) s).setShooting(false);
+				EnemyShot sprite = new EnemyShot();
 				sprite.setX(s.getX());
 				sprite.setY(s.getY());
-				sprite.setVerticalSpeed(2);
-				playState.getPlayField().add(sprite);
+				sprite.setVerticalSpeed(.2);
+				playState.getPlayField().getGroup("enemyShot").add(sprite);
+
 			}
 		}
-		return false;
+		return true;
 	}
 }
