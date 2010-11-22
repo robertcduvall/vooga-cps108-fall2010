@@ -41,14 +41,14 @@ public class Shooter extends BetterSprite implements Constants{
 		super();
 		weapons = new Weapon[3];
 		// DEFAULT attributes
-//		speed = Resources.getInt("speed");
-//		maxHealth = Resources.getInt("maxHealth");
-//		orientation = Resources.getInt("orientation");
-//		weaponChoice = Resources.getInt("weaponChoice");
-//		levelScore = Resources.getInt("levelScore");
-//		shotgunAmmo = Resources.getInt("shotgunAmmo");
-//		rifleAmmo = Resources.getInt("rifleAmmo");
-//		pistolAmmo = Resources.getInt("pistolAmmo");
+		speed = Resources.getInt("speed");
+		maxHealth = Resources.getInt("maxHealth");
+		orientation = Resources.getInt("orientation");
+		weaponChoice = Resources.getInt("weaponChoice");
+		levelScore = Resources.getInt("levelScore");
+		shotgunAmmo = Resources.getInt("shotgunAmmo");
+		rifleAmmo = Resources.getInt("rifleAmmo");
+		pistolAmmo = Resources.getInt("pistolAmmo");
 		
 		setupWeapons();
 		
@@ -68,12 +68,12 @@ public class Shooter extends BetterSprite implements Constants{
 //		this.addSprite(PLAYER_RIGHT, right);
 		
 //		// Setup displays
-//		health = initHealth;
-//		setStat("health", health);
-//		score = initScore;
-//		setStat("score", score);
-//		ammo = initAmmo;
-//		setStat("ammo", ammo);
+		health = new Stat<Integer>((Integer) getStat("initHealth").getStat());
+		setStat("health", health);
+		score = new Stat<Integer>((Integer) getStat("initScore").getStat());
+		setStat("score", score);
+		ammo = new Stat<Integer>((Integer) getStat("initAmmo").getStat());
+		setStat("ammo", ammo);
 	}
 
 	public void setGame(Blah currentGame)

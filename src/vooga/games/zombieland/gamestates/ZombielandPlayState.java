@@ -21,6 +21,7 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
+import vooga.games.grandius.sprites.Player;
 import vooga.games.zombieland.*;
 import vooga.games.zombieland.collisions.*;
 import vooga.games.zombieland.items.*;
@@ -60,9 +61,11 @@ public class ZombielandPlayState extends GameState implements Constants{
 		LevelParser parser = new LevelParser();
 		playField = parser.getPlayfield("src/vooga/games/zombieland/resources/levels/level1.xml", currentGame);
 		
+		player = (Shooter) playField.getGroup("Players").getSprites()[0];
+		
 		//initializePlayer();
 		initEnvironment();
-//		initOverlays();
+		initOverlays();
 		setListeners();
 	}
 	
@@ -95,7 +98,7 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * associate these managers with playField.
 	 */
 	private void initEnvironment() {
-		playField = new PlayField();
+//		playField = new PlayField();
 		
 
 		
@@ -131,10 +134,10 @@ public class ZombielandPlayState extends GameState implements Constants{
 //		playField.addCollisionGroup(playField.getGroup("Bullets"), playField.getGroup("Zombies"), bulletZombieManager);
 //		playField.addCollisionGroup(playField.getGroup("Players"), playField.getGroup("Items"), humanItemManager);
 //		
-//		int delay = Resources.getInt("timer");
-//		timer = new Timer(delay);
-//
-//		level = Resources.getInt("startLevel");
+		int delay = Resources.getInt("timer");
+		timer = new Timer(delay);
+
+		level = Resources.getInt("startLevel");
 	}
 
 	/**
@@ -142,18 +145,18 @@ public class ZombielandPlayState extends GameState implements Constants{
 	 * OverlayHealthBar, the OverlayScoreString, the overlayAmmoString, the
 	 * OverlayLevelString, overllayPauseString.
 	 */
-//	public void initOverlays() {
-//		
-//		
-//		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
-//		statLevel = tracker.getStat("initLevel", new Integer(0));
-//	
-//		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
-//		overlayLevelStat.setActive(false);
-//		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
-//		overlayGameOverString.setActive(false);
-//		playField.addGroup(overlays);
-//	}
+	public void initOverlays() {
+		
+		
+		SpriteGroup overlays = tracker.getOverlayGroup("PlayStateOverlays");
+		statLevel = tracker.getStat("initLevel", new Integer(0));
+	
+		overlayLevelStat = tracker.getOverlay("levels", overlayLevelStat);
+		overlayLevelStat.setActive(false);
+		overlayGameOverString = tracker.getOverlay("gameOver", overlayGameOverString);
+		overlayGameOverString.setActive(false);
+		playField.addGroup(overlays);
+	}
 
 	private boolean levelCompleted() {
 		return player.getLevelScore() == zombiesAppeared;

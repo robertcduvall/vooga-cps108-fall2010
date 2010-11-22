@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Level name="zombielevel1" xmloverlaypath="src/vooga/games/zombieland/resources/resources.xml" >
+<Level name="zombielevel1" xmloverlaypath="src/vooga/games/zombieland/resources/overlays.xml" >
 
 	<SpriteGroups>
 	
@@ -15,13 +15,6 @@
 				<Visual name="zombieleft" />
 				<Visual name="zombieright" />
 				<Visual name="zombiedeath" />
-				<Stat name = "itemChance" />
-				<Stat name = "attackDelay" />
-				<Stat name = "zombieStatMultiplier" />
-				<Stat name = "zombieDamage" />
-				<Stat name = "zombieCurrentHealth" />
-				<Stat name = "speed" />
-				<Stat name = "attackDelayStep" />
 			</Sprite>
 		</SpriteGroup>
 
@@ -37,17 +30,9 @@
 			<Visual name="playerright" />
 			<Visual name="playerup" />
 			<Visual name="playerdown" />
-			<Stat name = "shotgunAmmo" />
-			<Stat name = "rifleAmmo" />
-			<Stat name = "pistolAmmo" />
-			<Stat name="maxHealth" />
-			<Stat name="speed" />
-			<Stat name="orientation" />
-			<Stat name="weaponChoice" />	
-			<Stat name="health" />
-			<Stat name="score" />
-			<Stat name="ammo" />
-			<Stat name="levelScore" />
+			<Stat name = "initHealth" />
+			<Stat name = "initScore" />
+			<Stat name = "initAmmo" />
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
