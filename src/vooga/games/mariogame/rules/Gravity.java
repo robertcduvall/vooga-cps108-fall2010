@@ -12,6 +12,8 @@ import vooga.engine.level.Rule;
  *
  */
 public class Gravity implements Rule{
+	
+	private static final double GRAVITY_CONSTANT = 0.5;
 
 	public Gravity(){
 		
@@ -32,7 +34,7 @@ public class Gravity implements Rule{
 	private void applyGravity(SpriteGroup group) {
 		for(Sprite s: group.getSprites()){
 			if (s!=null)
-				s.setVerticalSpeed(.5);
+				s.setVerticalSpeed(s.getVerticalSpeed() + GRAVITY_CONSTANT);
 		}	
 	}
 
