@@ -15,6 +15,14 @@ import vooga.games.jumper.states.PlayGameState;
  */
 public class InfiniteBlocksEvent implements IEventHandler {
 	
+	/*
+	 bad design... must be refactored
+	 */
+	private static int blockCounter = 0;
+	/*
+	 * 
+	 */
+	
 	Random random = new Random();
 	int xMax = Resources.getInt("gameWidth");
 	int xMin = 0;
@@ -32,7 +40,14 @@ public class InfiniteBlocksEvent implements IEventHandler {
 
 	@Override
 	public boolean isTriggered() {
-		return true;
+		//poor design...needs to be refactored 	//
+		blockCounter++;                        	//
+		if(blockCounter==15) {              	//
+			blockCounter=0; 					//
+			return true;						
+		} else {								//
+			return false;						//
+		}										//
 	}
 
 	@Override
