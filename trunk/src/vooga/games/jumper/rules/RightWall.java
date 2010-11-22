@@ -22,8 +22,6 @@ public class RightWall implements Rule {
 		for (SpriteGroup group: groups) {
 			reposition(group);
 		}
-		// TODO Auto-generated method stub
-
 	}
 
 	public void reposition(SpriteGroup groups) {

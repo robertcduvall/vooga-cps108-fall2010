@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
-import vooga.engine.resource.Resources;
-import vooga.games.jumper.DropThis;
 
 
 /**
