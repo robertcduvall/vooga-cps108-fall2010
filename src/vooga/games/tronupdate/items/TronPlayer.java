@@ -1,29 +1,27 @@
 package vooga.games.tronupdate.items;
 
 import java.awt.image.BufferedImage;
-
-import com.golden.gamedev.object.AnimatedSprite;
-import com.golden.gamedev.object.Sprite;
+import static vooga.games.tronupdate.state.TronGamePlayState.*;
 
 import vooga.engine.core.BetterSprite;
-import vooga.games.tron.GridSpace;
+import vooga.games.tronupdate.util.GridSpace;
 import vooga.games.tronupdate.util.*;
 
 public class TronPlayer extends BetterSprite {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	//private Position pos;
 	private Direction dir;
 	private Direction initialDir;
-	
+
 	private String direction;  //left,right,down,up
 	private String initDirection;
 
-	public boolean[][] blocks;
-	private GridSpace grid;
+	//public boolean[][] blocks;
+	public GridSpace grid;
 	//private Sprite[][] player1Blocks;
-	
+
 	private int playerInitialRow;
 	private int playerInitialCol;
 
@@ -43,7 +41,7 @@ public class TronPlayer extends BetterSprite {
 	 * @param playerImageWidth
 	 * @param initialDirection
 	 */
-	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,GridSpace gridSpace,int playerImageWidth, String initialDirection){
+	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,int playerImageWidth, String initialDirection){
 		super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
 		playerInitialRow = initialRowPosition;
 		playerInitialCol = initialColPosition;
@@ -54,15 +52,15 @@ public class TronPlayer extends BetterSprite {
 		this.playerImageWidth=playerImageWidth;
 		playerCurrentRow=initialRowPosition;
 		playerCurrentColumn=initialColPosition;
-		blocks=new boolean[gridSpace.getTotalRow()+2][gridSpace.getTotalColumn()+2];
+		//blocks=new boolean[gridSpace.getTotalRow()+2][gridSpace.getTotalColumn()+2];
 		speedUp=1;
 		score = 0;
-		grid = gridSpace;
+		grid = new GridSpace(GRID_WIDTH,GRID_HEIGHT);
 
 	}
-	
-	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,GridSpace gridSpace,int playerImageWidth, Direction dir){
-		this(image,initialColPosition,initialRowPosition,gridSpace,playerImageWidth,"");
+
+	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,int playerImageWidth, Direction dir){
+		this(image,initialColPosition,initialRowPosition,playerImageWidth,"");
 		//super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);
 		this.dir=dir;
 		this.initialDir=Direction.right;
@@ -74,7 +72,8 @@ public class TronPlayer extends BetterSprite {
 		setPlayerRowandCol(playerInitialRow,playerInitialCol);		
 		direction = initDirection;
 		dir=initialDir;
-		blocks = new boolean[grid.getTotalRow()+2][grid.getTotalColumn()+2];
+		grid = new GridSpace(GRID_WIDTH,GRID_HEIGHT);
+		//blocks = new boolean[grid.getTotalRow()+2][grid.getTotalColumn()+2];
 
 	}
 	/**
@@ -84,7 +83,7 @@ public class TronPlayer extends BetterSprite {
 	 * 
 	 */
 	public void fillBlock(int row,int col){
-		blocks[row][col]=true;
+		grid.fillGrid(row,col);
 	}
 
 	/**
@@ -162,7 +161,7 @@ public class TronPlayer extends BetterSprite {
 	public void changePlayerRow(int amount){
 		playerCurrentRow=playerCurrentRow+amount;
 	}
-	
+
 	/**
 	 * routinely update the X-coordinate for the player (keep going in the same X-direction)
 	 * @return
@@ -170,21 +169,18 @@ public class TronPlayer extends BetterSprite {
 	public double playerXDirectionMove(){
 		if(dir==Direction.left){
 			for(int i=0;i<speedUp;i++){
-				//changePlayerColumn(-1);
 				if(playerInbound()){
 					fillBlock(playerCurrentRow,playerCurrentColumn);
-				changePlayerColumn(-1);
-				
+					changePlayerColumn(-1);
+
 				}
 			}
 			return -playerImageWidth;//getPlayerXPosition();
 		}
 		else if(dir==Direction.right){
 			for(int i=0;i<speedUp;i++){
-				//changePlayerColumn(1);
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 				changePlayerColumn(1);
-				//fillBlock(playerCurrentRow,playerCurrentColumn);
 			}
 			return playerImageWidth;//getPlayerXPosition();
 		}
@@ -208,23 +204,19 @@ public class TronPlayer extends BetterSprite {
 		}
 		else if(dir==Direction.down){
 			for(int i=0;i<speedUp;i++){
-				//changePlayerRow(1);
 				fillBlock(playerCurrentRow,playerCurrentColumn);
 				changePlayerRow(1);
-				//fillBlock(playerCurrentRow,playerCurrentColumn);
 			}
 			return playerImageWidth;//getPlayerYPosition();
 		}
 		else{ //up
 			for(int i=0;i<speedUp;i++){
-				//changePlayerRow(-1);
 				if(playerInbound()){
-				  fillBlock(playerCurrentRow,playerCurrentColumn);
-				  changePlayerRow(-1);
-				  //fillBlock(playerCurrentRow,playerCurrentColumn);
+					fillBlock(playerCurrentRow,playerCurrentColumn);
+					changePlayerRow(-1);
 				}
 			}
-			return -playerImageWidth;//getPlayerYPosition();
+			return -playerImageWidth;
 		}
 	}
 	/**
@@ -254,7 +246,7 @@ public class TronPlayer extends BetterSprite {
 	public boolean playerInbound(){
 		return playerCurrentRow>=0&&playerCurrentColumn>=0;
 	}
-	
+
 
 	/**
 	 * handles down turning
@@ -263,7 +255,7 @@ public class TronPlayer extends BetterSprite {
 		if(!(getDirection()==Direction.down)&&!(getDirection()==Direction.up)){
 			setDirection(Direction.down);
 			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
-			
+
 			//myPlayer.setLocation(myPlayer.updatePlayerXPosition(myPlayer.getDirection()), myPlayer.updatePlayerYPosition(myPlayer.getDirection()));
 		}  		
 	}
@@ -294,16 +286,16 @@ public class TronPlayer extends BetterSprite {
 		if(!(getDirection()==Direction.up)&&!(getDirection()==Direction.down)){
 			setDirection(Direction.up);
 			move(updatePlayerXPosition(getDirection()),updatePlayerYPosition(getDirection()));
-			}
+		}
 	}	
-	
+
 	public void update(long elapsedTime) {
-		
+
 		super.update(elapsedTime);
 		move(playerXDirectionMove(),playerYDirectionMove());
 		//buildBlockWall();
 		//setLocation(playerXDirectionMove(),playerYDirectionMove());
 	}
-	
-	
+
+
 }
