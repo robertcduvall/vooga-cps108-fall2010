@@ -25,6 +25,8 @@
 		<Image name="menuImage" path="menu.jpg" />
 		<Image name="helpButtonImage" path="helpButton.png" />
 		<Image name="returnButtonImage" path="returnButton.png" />
+		<Image name="aboutButtonImage" path="aboutButton.png" />
+		<Image name="quitButtonImage" path="quitButton.png" />
 	</Images>
 
 	<Animations>
