@@ -49,7 +49,7 @@ public class DoodleToBlockCollision extends AdvanceCollisionGroup {
 		}
 		*/	
 	/**
-	 * This method is to change the image of the sprite if it collides with
+	 * Changes the image of the sprite if it collides with
 	 * an specific sprite.  An example is if the main character touches a 
 	 * powerup, the character's image will change to reflect this.
 	 * @param Sprite
