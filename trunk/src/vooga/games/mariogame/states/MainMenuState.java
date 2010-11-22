@@ -3,6 +3,7 @@ package vooga.games.mariogame.states;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -10,6 +11,8 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.resource.HighScoreHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.MenuGameState;
 
 import com.golden.gamedev.object.GameFontManager;
@@ -30,50 +33,39 @@ public class MainMenuState extends MenuGameState {
 	private Game myGame;
 	private ImageBackground myMainMenuBG;
 	private SpriteGroup myOverlays;
-
-	/**
-	 * This constructs a MainMenuState with dimensions for the screen, as well
-	 * as a font manager used to render fonts to the screen
-	 * 
-	 * @param width
-	 * @param height
-	 * @param fontManager
-	 */
-	public MainMenuState(Game game, BufferedImage backgroundImage,
-			GameFontManager fontManager) {
+	private PlayField myPlayfield;
+	
+	public MainMenuState(Game game, PlayField playfield, GamePlayState playState) {
+		
+		
 		super();
+		myPlayfield = playfield;
 		myGame = game;
-		myMainMenuBG = new ImageBackground(backgroundImage);
-		OverlayCreator overlayCreator = new OverlayCreator();
-		OverlayTracker overlayTracker = overlayCreator.createOverlays("src/vooga/games/mariogame/resources/overlays/MainMenuOverlays.xml");
-		myOverlays = overlayTracker.getOverlayGroup("MainMenuGroup");
+		initControls();
+	}
+	
+	@Override
+	public void update(long t) {
+		super.update(t);
+		myPlayfield.update(t);
 	}
 
-	/**
-	 * Method called to render fonts to the screen, as well as the background.
-	 */
+	@Override
 	public void render(Graphics2D g) {
+		// TODO Auto-generated method stub
 		super.render(g);
-		myMainMenuBG.render(g);
-		myOverlays.render(g);
+		myPlayfield.render(g);
 	}
-
+	
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		initControls(myGame);
 	}
 	
-	@Override
-	public void update(long elapsedTime){
-		super.update(elapsedTime);
-		getMenuPlayfield().update(elapsedTime);
-	}
-	
-	private void initControls(Game game){
-		Control gameControl = new KeyboardControl(game,game);
+	private void initControls(){
+		Control gameControl = new KeyboardControl(myGame,myGame);
 		gameControl.addInput(KeyEvent.VK_SPACE, "resumeGame", "vooga.games.mariogame.DropThis");
-		getMenuPlayfield().addControl("start", gameControl);
+		myPlayfield.addControl("start", gameControl);
 	}
 
 }
