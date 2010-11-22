@@ -13,6 +13,66 @@
                                 <Visual name="enemy1" />
                                 <Visual name="enemy1damage" />
                         </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="160" y="100" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="220" y="100" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="280" y="100" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="100" y="160" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="160" y="160" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="220" y="160" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="280" y="160" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="100" y="220" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="160" y="220" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="220" y="220" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="280" y="220" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="100" y="280" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="160" y="280" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="220" y="280" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
+                        <Sprite class="vooga.games.galaxyinvaders.sprites.EnemySprite" random="false" x="280" y="280" vx="0" vy="0" quantity="1">
+                                <Visual name="enemy1" />
+                                <Visual name="enemy1damage" />
+                        </Sprite>
                 </SpriteGroup>
                 <SpriteGroup name="blockades">
                 		<Sprite class="vooga.games.galaxyinvaders.sprites.BlockadeSprite" random="false" x="100" y="620" vx="0" vy="0" quantity="1">
