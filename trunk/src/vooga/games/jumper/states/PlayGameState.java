@@ -1,6 +1,7 @@
 package vooga.games.jumper.states;
 
 import java.awt.event.KeyEvent;
+import java.util.ResourceBundle;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -25,7 +26,12 @@ public class PlayGameState extends GameState{
 	private String moveRight = "moveRight";
 	private String moveUp = "moveUp";
 	private String doodleKey = "doodle";
-	
+
+	private String keyLeft = "left key";
+	private String keyRight = "right key";
+	private String keyUp = "up key";
+
+
 	public PlayGameState(Game game, PlayField field){
 		super(field);
 		myGame = game;
@@ -56,12 +62,12 @@ public class PlayGameState extends GameState{
 
 	private void initControls(BetterSprite player) {
 		Control playerControl = new KeyboardControl(player, myGame);
-		playerControl.addInput(KeyEvent.VK_LEFT, moveLeft, Resources.getString("DoodleSprite"));
-		playerControl.addInput(KeyEvent.VK_RIGHT, moveRight, Resources.getString("DoodleSprite"));
-		playerControl.addInput(KeyEvent.VK_UP, moveUp, Resources.getString("DoodleSprite"));
+		playerControl.addInput(Resources.getInt(keyLeft), moveLeft, Resources.getString("DoodleSprite"));
+		playerControl.addInput(Resources.getInt(keyRight), moveRight, Resources.getString("DoodleSprite"));
+		playerControl.addInput(Resources.getInt(keyUp), moveUp, Resources.getString("DoodleSprite"));
 		myField.addControl(doodleKey, playerControl);
-		getUpdateField().add(myField);
-		getRenderField().add(myField);
+		this.getUpdateField().add(myField);
+		this.getRenderField().add(myField);
 	}
 	
 	@Override
