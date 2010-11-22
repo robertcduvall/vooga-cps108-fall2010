@@ -1,41 +1,52 @@
 package vooga.games.cyberion.collisions;
 
 import vooga.engine.core.Game;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
+import vooga.games.cyberion.sprites.playership.PlayerShip;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import com.golden.gamedev.object.collision.CollisionBounds;
+import com.golden.gamedev.object.collision.CollisionShape;
 
-public class PlayerCollidesWall extends CollisionBounds {
+public class PlayerCollidesWall extends BasicCollisionGroup {
 
-	private Background bg;
-	
-//	public PlayerCollidesWall(Game game)
-//	{
-//		super(0,0,Resources.getInt("Width"),Resources.getInt("Height"));
-//		bg.setSize(Resources.getInt("Width"), Resources.getInt("Height"));
-//	}
+	private Game game;
 
-
-	public PlayerCollidesWall(Background bg) {
-		super(bg);
-		this.bg = bg;
+	public PlayerCollidesWall(Game game) {
+		super();
+		this.game = game;
 	}
-	//prevents player from going off the screen
+
 	@Override
-	public void collided(Sprite player) {
-		if (isCollisionSide(BOTTOM_COLLISION)) {
-			player.setY(bg.getHeight() - player.getHeight());
+	public boolean isCollide(Sprite s1, Sprite s2, CollisionShape shape1,
+			CollisionShape shape2) {
+		System.out.println("collide");
+		return s1.getX() < 0 || s1.getY() < 0 || s1.getX() > game.getWidth()
+				|| s1.getY() > game.getHeight();
+	}
+
+	public void collided(Sprite player1, Sprite player2) {
+		collided((PlayerShip) player1, (PlayerShip) player2);
+	}
+
+	// grants an increase in weapon power when player collides with a bonus
+	// sprite
+	public void collided(PlayerShip player1, PlayerShip player2) {
+		if (player1.getX() < 0) {
+			player1.setX(0);
 		}
-		if (isCollisionSide(TOP_COLLISION)) {
-			player.setY(0);
+		if (player1.getX() > game.getWidth()) {
+			player1.setX(game.getWidth());
 		}
-		if (isCollisionSide(LEFT_COLLISION)) {
-			player.setX(0);
+		if (player1.getY() < 0) {
+			player1.setY(0);
 		}
-		if (isCollisionSide(RIGHT_COLLISION)) {
-			player.setX(bg.getWidth() - player.getWidth());
+		if (player1.getY() > game.getHeight()) {
+			player1.setY(game.getHeight());
 		}
 	}
+
 }

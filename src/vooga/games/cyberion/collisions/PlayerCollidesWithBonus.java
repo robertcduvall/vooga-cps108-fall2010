@@ -31,7 +31,6 @@ public class PlayerCollidesWithBonus extends BasicCollisionGroup {
 		}
 		player.setWeaponPower(power);
 		bonus.setActive(false);
-
 	}
 
 }
