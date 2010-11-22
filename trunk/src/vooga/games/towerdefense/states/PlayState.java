@@ -80,7 +80,7 @@ public class PlayState extends GameState{
 		Player player = initPlayer(buildTower, findTarget, shootEvent);
 		myPlayField.add(player);
 		EnemyHitEvent enemyHit = new EnemyHitEvent(player);
-		shootEvent.setHitEvent(enemyHit);
+		shootEvent.setHitEvent(enemyHit, myPlayField);
 		myEnemyGroup = new SpriteGroup("enemyGroup");
 		BuildEnemyEvent buildEnemy = new BuildEnemyEvent(myEnemyGroup);
 		EnemyFailEvent failEvent = new EnemyFailEvent(player);

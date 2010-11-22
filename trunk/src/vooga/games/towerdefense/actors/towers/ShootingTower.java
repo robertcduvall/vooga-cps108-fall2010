@@ -70,7 +70,7 @@ public abstract class ShootingTower extends Tower{
 	
 	public boolean checkTargetValid(Sprite spriteToCheck)
 	{
-		return spriteToCheck!=null && isInRange(spriteToCheck);
+		return spriteToCheck!=null && isInRange(spriteToCheck) && spriteToCheck.isActive();
 	}
 	
 	private boolean isInRange(Sprite other){
