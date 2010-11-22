@@ -34,66 +34,35 @@ public class Zombie extends BetterSprite implements Constants {
 
 	
 	
-	public Zombie() {
+	public Zombie(Shooter player) {
 		super();
-
-//		AnimatedSprite down = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_DOWN));
-//		AnimatedSprite up = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_UP));
-//		AnimatedSprite left = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_LEFT));
-//		AnimatedSprite right = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ZOMBIE_RIGHT));
-//		AnimatedSprite attackDown = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKDOWN));
-//		AnimatedSprite attackUp = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKUP));
-//		AnimatedSprite attackLeft = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKLEFT));
-//		AnimatedSprite attackRight = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(ATTACKRIGHT));
-//		AnimatedSprite death = AnimationUtil
-//				.getInitializedAnimatedSprite(Resources
-//						.getAnimation(DEATH));
-
-//		addSprite(ZOMBIE_DOWN, down);
-//		addSprite(ZOMBIE_UP, up);
-//		addSprite(ZOMBIE_LEFT, left);
-//		addSprite(ZOMBIE_RIGHT, right);
-//		addSprite(ATTACKDOWN, attackDown);
-//		addSprite(ATTACKUP, attackUp);
-//		addSprite(ATTACKLEFT, attackLeft);
-//		addSprite(ATTACKRIGHT, attackRight);
-//		addSprite(DEATH, death);
-
-//		setHumanTarget(player);
-
-//		currentAttackAnimation = "";
-//		attackDelay = Resources.getInt("zombieAttackDelay");
-//		itemChance = Resources.getInt("itemChance");
-//		zombieStatMultiplier = Resources
-//				.getDouble("zombieStatMultiplier");
-//
-//		speed = Resources.getDouble("zombieSpeed");
-//		zombieCurrentHealth = Resources.getInt("startZombieHealth");
-//		zombieDamage = Resources.getInt("startZombieDamage");
-
+		initialzeVisuals();
+		initializeStats();
+		setHumanTarget(player);
 		updateStats(1);
-
 		chooseRandomLocation();
-
-//		game = currentGame;
-
 		this.setActive(true);
+	}
+
+	private void initialzeVisuals() {
+		addSprite(ZOMBIE_DOWN, new AnimatedSprite(Resources.getAnimation("down")));
+		addSprite(ZOMBIE_UP, new AnimatedSprite(Resources.getAnimation("up")));
+		addSprite(ZOMBIE_LEFT, new AnimatedSprite(Resources.getAnimation("left")));
+		addSprite(ZOMBIE_RIGHT, new AnimatedSprite(Resources.getAnimation("right")));
+		addSprite(ATTACKDOWN, new AnimatedSprite(Resources.getAnimation("down")));
+		addSprite(ATTACKUP, new AnimatedSprite(Resources.getAnimation("attackUp")));
+		addSprite(ATTACKLEFT, new AnimatedSprite(Resources.getAnimation("attackLeft")));
+		addSprite(ATTACKRIGHT, new AnimatedSprite(Resources.getAnimation("attackRight")));
+		addSprite(DEATH, new AnimatedSprite(Resources.getAnimation("down")));
+	}
+
+	private void initializeStats() {
+		setStat("currentAttackAnimation" , new Stat<String>(""));
+		setStat("itemChance" , new Stat<Integer>(Resources.getInt("itemChance")));
+		setStat("zombieStatMultipler" , new Stat<Double>(Resources.getDouble("zombieStatMultiplier")));
+		setStat("speed" , new Stat<Double>(Resources.getDouble("zombieSpeed")));
+		setStat("zombieCurrentHealth", new Stat<Double>(Resources.getDouble("startZombieHealth")));
+		setStat("zombieDamage", new Stat<Integer>(Resources.getInt("startZombieDamage")));
 	}
 
 	public void setGame(Blah currentGame)

@@ -5,26 +5,6 @@
 	<SpriteGroups>
 	
 		<SpriteGroup name="Zombies" >
-			<Sprite class="vooga.games.zombieland.Zombie"  random="true" xMin="400" yMin="50" xMax="600" yMax="500" vxMin="0" vyMin="0" vxMax="3" vyMax="3" quantity="1" >
-				<Visual name="zombieattackdown" />
-				<Visual name="zombieattackup" />
-				<Visual name="zombieattackleft" />
-				<Visual name="zombieattackright" />
-				<Visual name="zombieup" />
-				<Visual name="zombiedown" />
-				<Visual name="zombieleft" />
-				<Visual name="zombieright" />
-				<Visual name="zombiedeath" />
-				<Stat name="ZOMBIE_PER_LEVEL" />
-				<Stat name="itemChance" />
-				<Stat name="attackDelay" />
-				<Stat name="zombieStatMultiplier" />
-				<Stat name="zombieDamage" />
-				<Stat name="zombieCurrentHealth" />
-				<Stat name="speed" />
-				<Stat name="attackDelayStep" />
-				<Stat name="currentAttackAnimation" />
-			</Sprite>
 		</SpriteGroup>
 
 		<SpriteGroup name="Bullets" >
