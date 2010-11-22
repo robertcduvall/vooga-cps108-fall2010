@@ -9,8 +9,13 @@ import vooga.engine.core.BetterSprite;
 //creates an extension of sprite whose position is based on elapsed time
 //change in position gives the illusion the ship is moving upwards
 public class StarSprite extends BetterSprite {
-	
-	public StarSprite(){
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public StarSprite() {
 		super(Resources.getImage("starImage"));
 	}
 

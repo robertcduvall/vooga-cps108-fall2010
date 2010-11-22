@@ -6,7 +6,6 @@ import java.util.Random;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
-import vooga.games.cyberion.events.EnemyFireEvent;
 
 /**
  * General enemy class for various enemy to inherit
@@ -17,6 +16,10 @@ import vooga.games.cyberion.events.EnemyFireEvent;
 
 public class EnemyShip extends BetterSprite {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int life;
 	private int armor;
 	private int weaponPower;
@@ -51,9 +54,9 @@ public class EnemyShip extends BetterSprite {
 		if ((life <= 0) || (getY() > Resources.getInt("maxY")))
 			this.setActive(false);
 		// enemies fire randomly with a chance of 3/1000 for every update call
-//		if (this != null && rnd.nextInt(1000) > 997) {
-//			shoot();
-//		}
+		// if (this != null && rnd.nextInt(1000) > 997) {
+		// shoot();
+		// }
 	}
 
 	private void shoot() {

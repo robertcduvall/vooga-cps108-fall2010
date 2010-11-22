@@ -1,9 +1,6 @@
 package vooga.games.cyberion.events;
 
 import java.awt.event.KeyEvent;
-
-import com.golden.gamedev.object.SpriteGroup;
-
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.games.cyberion.DropThis;

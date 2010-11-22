@@ -13,10 +13,14 @@ import vooga.engine.resource.Resources;
  */
 
 public class PlayerShot extends BetterSprite {
-	public PlayerShot()
-	{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public PlayerShot() {
 		super(Resources.getImage("playerShot"));
-		
+
 	}
 
 	public PlayerShot(BufferedImage image) {

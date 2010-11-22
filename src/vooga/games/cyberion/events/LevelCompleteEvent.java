@@ -3,11 +3,8 @@ package vooga.games.cyberion.events;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.overlay.Stat;
 import vooga.games.cyberion.DropThis;
-import vooga.games.cyberion.sprites.playership.PlayerShip;
 import vooga.games.cyberion.states.PlayState;
 
 public class LevelCompleteEvent implements IEventHandler {
