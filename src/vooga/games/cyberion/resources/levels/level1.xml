@@ -7,14 +7,13 @@
 				random="false" x="200" y="0" vx="0" vy="0.5" quantity="1">
 				<Visual name="starImage" />
 			</Sprite>
-			<Sprite class="vooga.games.cyberion.sprites.bgsprites.StarSprite"
+			<Sprite class="vooga.games.cyberion.sprites.bgsprites.StarSprite" random="false" x="100" y="87" vx="0" vy="0.7" quantity="1">
+				<Visual name="starImage" />
+			</Sprite><Sprite class="vooga.games.cyberion.sprites.bgsprites.StarSprite"
 				random="false" x="10" y="13" vx="0" vy="0.9" quantity="1">
 				<Visual name="starImage" />
 			</Sprite>
-			<Sprite class="vooga.games.cyberion.sprites.bgsprites.StarSprite"
-				random="false" x="100" y="87" vx="0" vy="0.7" quantity="1">
-				<Visual name="starImage" />
-			</Sprite>
+			
 			<Sprite class="vooga.games.cyberion.sprites.bgsprites.StarSprite"
 				random="false" x="300" y="400" vx="0" vy="0.8" quantity="1">
 				<Visual name="starImage" />
@@ -50,7 +49,7 @@
 			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
-			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip" random="true" xMin="0" yMin="0" xMax="640" yMax="-1000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".1" quantity="10">
+			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip" random="true" xMin="0" yMin="0" xMax="640" yMax="-1000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".1" quantity="2000">
 				<Visual name="enemyShip" />
 				<Stat name="scoreStat" />
 			</Sprite>
@@ -74,6 +73,11 @@
 				random="true" xMin="0" yMin="-200" xMax="640" yMax="-200" vxMin="0"
 				vyMin="0" vxMax="0" vyMax="0" quantity="1">
 				<Visual name="enemyShot" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="planetGroup">
+			<Sprite class="vooga.games.cyberion.sprites.bgsprites.PlanetSprite" random="true" xMin="0" yMin="0" xMax="640" yMax="-100000" vxMin="0" vyMin=".1" vxMax="0" vyMax=".1" quantity="100">
+				<Visual name="planetImage"></Visual>
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
