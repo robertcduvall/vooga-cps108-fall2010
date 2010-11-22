@@ -24,21 +24,18 @@ public class PlayerFireEvent implements IEventHandler {
 		this.playState = playState;
 	}
 
-	
-	
 	@Override
 	public void actionPerformed() {
-		PlayerShot sprite = new PlayerShot(playState.getPlayField()
-				.getGroup("playerShot").getActiveSprite().getImage());
 
 		for (int i = 0; i <= player.getWeaponPower(); i++) {
-
+			PlayerShot sprite = new PlayerShot(playState.getPlayField()
+					.getGroup("playerShot").getActiveSprite().getImage());
 			PlayerShot s = sprite;
 
 			s.setX(player.getX() + 15 * i);
 			s.setY(player.getY());
 			s.setVerticalSpeed(-0.5);
-			playState.getPlayField().getGroup("playerShot");
+			playState.getPlayField().getGroup("playerShot").add(s);
 		}
 	}
 
