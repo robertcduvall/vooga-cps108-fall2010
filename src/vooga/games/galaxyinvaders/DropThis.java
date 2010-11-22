@@ -33,7 +33,7 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class DropThis extends Game {
 
-	private static LevelManager levelManager;
+	private LevelManager levelManager;
 	private PlayField playfield;
 	
 	private GameState play;
@@ -47,7 +47,7 @@ public class DropThis extends Game {
 		super.initResources();
 		initLevelManager();
 		playfield = levelManager.loadFirstLevel();
-	//	processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
+		processEnemyPathPoints(playfield.getGroup("enemies").getSprites());
 		play = new PlayState(this, playfield);
 		pause = new PauseState(this, play, Resources.getString("pauseStateText"), Color.RED);
 		gameOver = new BasicTextGameState(Resources.getString("gameOverText"), Color.RED);
@@ -67,7 +67,8 @@ public class DropThis extends Game {
 	private void processEnemyPathPoints(Sprite[] group) {
 		int levelNum = levelManager.getCurrentLevel();
 		//TODO: figure out why it cannot find this file path. i've tried lots of different paths. 
-		String filepath = "levels/level"+levelNum+".txt";
+		//TODO: i don't get that exception when i use the following path:
+		String filepath = "src/vooga/games/galaxyinvaders/resources/levels/level"+levelNum+".txt";
 		System.out.println(filepath);
 		ArrayList<Point> points = PathPointParser.getPathPoints(filepath);
 		int timerNum = PathPointParser.getTimerNum();
