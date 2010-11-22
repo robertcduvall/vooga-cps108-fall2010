@@ -73,5 +73,9 @@ public class PlayState extends GameState {
 	public PlayerShip getPlayer() {
 		return player;
 	}
+	
+	public PlayField getPlayField(){
+		return newField;
+	}
 
 }
