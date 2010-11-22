@@ -129,6 +129,8 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new GameWonEvent(doodle, game, gameWonState));
 		eventPool.addEvent(new DoodleDiedEvent(doodle, game, gameOverState));
+		eventPool.addEvent(new LevelWonEvent(doodle, this, (BlahThis) game));
+
 	}
 
 	public void setField(PlayField newField) {
