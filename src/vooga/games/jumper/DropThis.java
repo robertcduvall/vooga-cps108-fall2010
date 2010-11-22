@@ -2,12 +2,16 @@
 package vooga.games.jumper;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
-import vooga.games.jumper.states.PausedGameState;
+import vooga.engine.state.PauseGameState;
 import vooga.games.jumper.states.PlayGameState;
+import vooga.games.jumper.states.StartingMenuGameState;
 
 
 
@@ -33,7 +37,10 @@ public class DropThis extends vooga.engine.core.Game {
 	private LevelManager levelManager;
 
 	PlayGameState playState;
-	PausedGameState pausedState;
+	PauseGameState pauseState;
+	StartingMenuGameState menuState;
+	
+	private Control gameControl;
 
 	/**
 	 *  Initialize all of the game instance variables
@@ -46,16 +53,29 @@ public class DropThis extends vooga.engine.core.Game {
 		initLevelManager();
 		PlayField levelPlayField = levelManager.loadFirstLevel();
 		initGameStates(levelPlayField);
+		initControls();
+//		loadMenuScreen();
 		resumeGame();
 		
 	}
+	
+//	private void loadMenuScreen(){
+//		stateManager.activateOnly(menuState);
+//	}
 
 	private void initGameStates(PlayField pf) {
 		playState = new PlayGameState(this, pf);
-		pausedState = new PausedGameState(playState, "THE GAME IS PAUSED", Color.BLUE, this);
-		stateManager.addGameState(playState, pausedState);
+		pauseState = new PauseGameState(playState, "THE GAME IS PAUSED", Color.BLUE);
+		menuState = new StartingMenuGameState(this);
+		stateManager.addGameState(playState, pauseState);
 	}
 
+	private void initControls(){
+		 gameControl = new KeyboardControl(this, this);
+		 gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.jumper.DropThis");
+		 gameControl.addInput(KeyEvent.VK_R, "resumeGame", "vooga.games.jumper.DropThis");
+	}
+	
 	private void initLevelManager() {
 		levelManager = new LevelManager(this);
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
@@ -66,6 +86,10 @@ public class DropThis extends vooga.engine.core.Game {
 	public void resumeGame() {		
 		stateManager.activateOnly(playState);
 	}
+	
+	public void pauseGame() {	
+		stateManager.activateOnly(pauseState);
+	}
 
 	/**
 	 * Main method which loads the game
@@ -74,5 +98,11 @@ public class DropThis extends vooga.engine.core.Game {
 	public static void main(String[] args) {
 		launch(new DropThis());
 	}
+	
+	 @Override
+	 public void update(long elapsedTime) {
+		 super.update(elapsedTime);
+		 gameControl.update();
+	 }
 }
 
