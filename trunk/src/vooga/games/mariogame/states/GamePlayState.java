@@ -165,7 +165,9 @@ public class GamePlayState extends GameState {
 
 	
 	public void scrollLevel(){
-		getLevel().getBackground().setToCenter(getLevel().getGroup("marioGroup").getActiveSprite());
+		MarioSprite mario = (MarioSprite) getLevel().getGroup("marioGroup").getActiveSprite();
+		if(mario.getX() > mario.getMaxX())
+			getLevel().getBackground().setToCenter(mario);
 	}
 
 	private void setUpKeyboard() {

@@ -113,6 +113,10 @@ public class MarioSprite extends BetterSprite {
 
 		int halfScreen = getBackground().getWidth() / 2;
 		if ((myMaxX - halfScreen) >= getX()) {
+			System.out.println("hit left wall");
+			System.out.println("maxX: "+myMaxX);
+			System.out.println("width: "+getBackground().getWidth());
+			System.out.println("current x: "+x);
 			setX(myMaxX - halfScreen);
 		}
 	}
