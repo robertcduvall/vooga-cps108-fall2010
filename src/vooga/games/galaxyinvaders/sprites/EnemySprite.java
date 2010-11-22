@@ -25,23 +25,6 @@ public class EnemySprite extends BetterSprite {
     private ArrayList<Point> path;    
 	private int hitPoints;
 	
-	/**
-	 * This is the constructor for the EnemySprite class. It is similar to GameEntitySprite's 
-	 * constructor, but with an extra field which determines the path it will travel.
-	 * 
-	 * @param name see GameEntitySprite
-	 * @param sprite see GameEntitySprite
-	 * @param list the path which this enemy is going to follow
-	 */
-//	public EnemySprite(String name, BetterSprite sprite, ArrayList<Point> pathmap, int timerNum) {
-//		super(name, sprite);
-//		hitPoints = DEFAULT_HP;
-//		timer = new Timer(timerNum);
-//		pathNum = 0;
-//		path = pathmap;
-//	}
-	
-	
 	
 	/**
 	 * Called every turn by the Game, this method moves the enemy, changes 
@@ -69,6 +52,15 @@ public class EnemySprite extends BetterSprite {
         pathNum++;
     }
 	
+    
+    public void setPathPointsAndTimerNum(ArrayList<Point> pathmap, int num) {
+    	path = pathmap;
+    	pathNum = num;
+    	hitPoints = DEFAULT_HP;
+    	timer = new Timer(pathNum);
+    }
+    
+    
 	/**
 	 * Decreases hitPoints by a certain amount
 	 * 
