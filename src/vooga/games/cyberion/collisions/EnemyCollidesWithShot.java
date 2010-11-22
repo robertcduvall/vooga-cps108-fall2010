@@ -1,5 +1,6 @@
 package vooga.games.cyberion.collisions;
 
+import vooga.engine.core.Game;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playershot.PlayerShot;
 
@@ -12,7 +13,7 @@ public class EnemyCollidesWithShot extends BasicCollisionGroup {
 
 	private BaseAudio bsSound;
 
-	public EnemyCollidesWithShot() {
+	public EnemyCollidesWithShot(Game game) {
 //		this.bsSound = bsSound;
 		super();
 	}
