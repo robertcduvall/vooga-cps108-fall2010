@@ -39,6 +39,7 @@
 		<Integer name="gameHeight" value="600" />
 		<Integer name="playFieldWidth" value="700" />
 		<Integer name="playFieldHeight" value="600" />
+		<Integer name="pathWidth" value="15" />
 	</Integers>
 	
 </Resources>

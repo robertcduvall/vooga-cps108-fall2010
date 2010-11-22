@@ -28,6 +28,7 @@ public class Player extends MouseFollower {
 	private static final long serialVersionUID = 1L;
 	private static final int WIDTH_BOUNDS = Resources.getInt("playFieldWidth");
 	private static final int HEIGHT_BOUNDS = Resources.getInt("playFieldHeight");
+	private static final int PATH_WIDTH = Resources.getInt("pathWidth");
 	private final int MONEY_CHEAT = 1000000;
 	private Tower currentTower;
 	private BuildTowerEvent buildTowerEvent;
@@ -136,11 +137,10 @@ public class Player extends MouseFollower {
 	}
 	
 	private boolean onPathPoints(double x, double y) {
-		if((x+5)>getOffsetX() && getOffsetX()>(x-5))
+		if((x+PATH_WIDTH)>getOffsetX() && getOffsetX()>(x-PATH_WIDTH))
 		{
-			if((y+5)>getOffsetY() && getOffsetY()>(y-5))
+			if((y+PATH_WIDTH)>getOffsetY() && getOffsetY()>(y-PATH_WIDTH))
 			{
-				System.out.println("Y");
 				return true;
 			}
 		}
