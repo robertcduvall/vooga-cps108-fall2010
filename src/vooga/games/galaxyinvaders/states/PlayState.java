@@ -1,8 +1,10 @@
 package vooga.games.galaxyinvaders.states;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.background.ColorBackground;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
