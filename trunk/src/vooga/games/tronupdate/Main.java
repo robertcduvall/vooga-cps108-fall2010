@@ -12,12 +12,13 @@ import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.PauseGameState;
-import vooga.games.tronupdate.state.PlayState;
+import vooga.games.tronupdate.state.TronGamePauseState;
+import vooga.games.tronupdate.state.TronGamePlayState;
 import vooga.games.tronupdate.collisions.*;
 
 public class Main extends vooga.engine.core.Game{
 	
-	private PlayState playState;
+	private TronGamePlayState playState;
 	private EventPool eventPool;
 	
 	@Override
@@ -28,18 +29,20 @@ public class Main extends vooga.engine.core.Game{
 	}
 	
 	private void initStates(){
-		playState = new PlayState(this);
+		TronGamePauseState pauseState =new TronGamePauseState(this,stateManager);
+		playState = new TronGamePlayState(this,stateManager);
 		playState.activate();
 	//	levelPlayField.addCollisionGroup((SpriteGroup)(playState.getGroup("playerSpriteGroup")),null,  new PlayerAndBoundariesCollision(0,0,800,600,textState,stateManager));
 		//getGameStateManager().addGameState(zombielandPlayState);
-		stateManager.addGameState(playState);
+		stateManager.addGameState(playState,0);
+		stateManager.addGameState(pauseState,1);
 	}
-	
-	private void iniEvents() {
-		eventPool = new EventPool();
-	//	GameOverEvent gp = new GameOverEvent((BetterSprite)(playState.getGroup("playerSpriteGroup").getSprites()[1]),textState,stateManager);
-	//	eventPool.addEvent(gp);
-	}
+//	
+//	private void iniEvents() {
+//		eventPool = new EventPool();
+//	//	GameOverEvent gp = new GameOverEvent((BetterSprite)(playState.getGroup("playerSpriteGroup").getSprites()[1]),textState,stateManager);
+//	//	eventPool.addEvent(gp);
+//	}
 
 
 	public static void main(String[] args) {
