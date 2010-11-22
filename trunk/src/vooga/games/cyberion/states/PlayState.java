@@ -13,7 +13,14 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
 import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.events.PlayerFireEvent;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
+import vooga.games.grandius.events.FireBlackHoleEvent;
+import vooga.games.grandius.events.FireHorizontalEvent;
+import vooga.games.grandius.events.FireMissileEvent;
+import vooga.games.grandius.events.FireVerticalEvent;
+import vooga.games.grandius.events.LevelCompleteEvent;
+import vooga.games.grandius.events.ZipsterFireEvent;
 
 /**
  * Player state
@@ -57,6 +64,7 @@ public class PlayState extends GameState {
 	 */
 	public void initEvents() {
 		eventPool = new EventPool();
+		eventPool.addEvent(new PlayerFireEvent(myGame, player, this));
 	}
 
 	public void initControls() {
@@ -65,7 +73,6 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
-		playerControl.addInput(KeyEvent.VK_SPACE, "fire", PLAYER_CLASS);
 		newField.addControl("playerGroup", playerControl);
 	}
 
