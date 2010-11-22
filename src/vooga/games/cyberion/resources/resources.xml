@@ -7,6 +7,8 @@
 		<Image name="enemyShip" path="enemyShip.png" />
 		<Image name="bonus" path="bonus.png" />
 		<Image name="bg" path="bg.png" />
+		<Image name="playButton" path="play.png" />
+		<Image name="quitButton" path="quit.png" />
 	</Images>
 	
 	<Animations>

@@ -85,7 +85,11 @@ public class DropThis extends Game {
 
 		myPlayState = new PlayState(levelManager, this);
 		stateManager.addGameState(myPlayState);
-		stateManager.activateOnly(myPlayState);
+		stateManager.addGameState(myMenuState = new MenuState(this));
+		stateManager.addGameState(myLevelCompleteState = new LevelCompleteState());
+		stateManager.addGameState(myGameCompleteState = new GameCompleteState());
+		stateManager.addGameState(myGameOverState = new GameOverState());
+		stateManager.activateOnly(myMenuState);
 
 		// List<GameState> gameStates = new ArrayList<GameState>();
 		// gameStates.add(myMenuState = new MenuState(this));
@@ -111,6 +115,10 @@ public class DropThis extends Game {
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		gameControl.update();
+	}
+	
+	public void setPlayState(){
+		stateManager.switchTo(myPlayState);
 	}
 
 	// renders active sprites
