@@ -32,8 +32,8 @@ public class SoundPlayer {
 	 * @param audioFilePath
 	 *            File path to the music file. Resources supplies the filepath.
 	 */
-	public void playMusic(String audioFilePath) {
-		game.playMusic(audioFilePath);
+	public static void playMusic(String audioFilePath) {
+		game.bsMusic.play(audioFilePath);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class SoundPlayer {
 	 * @param audioFilePath
 	 *            File path to the music file. Resources supplies the filepath.
 	 */
-	public void playSound(String audioFilePath) {
+	public static void playSound(String audioFilePath) {
 		game.playSound(audioFilePath);
 	}
 
