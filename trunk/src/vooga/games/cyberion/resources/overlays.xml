@@ -1,9 +1,6 @@
 <Overlay>
 
 <Stat type="Integer" value="3" name="livesStat"></Stat>
-<Stat type="Integer" value="70"></Stat>
-<Stat type="Integer" value="4"></Stat>
-<Stat type="Integer" value="0"></Stat>
 
 <OverlayGroup name="info">
 <OverlayStat name="lives" stat="livesStat" label="LIVES : " xLoc = "10" yLoc = "10" color="green"></OverlayStat>

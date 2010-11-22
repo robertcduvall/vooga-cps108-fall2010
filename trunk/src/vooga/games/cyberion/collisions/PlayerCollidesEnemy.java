@@ -27,14 +27,14 @@ public class PlayerCollidesEnemy extends BasicCollisionGroup {
 
 		//player.setLife(player.getLife() - 1);
 		//System.out.println(Integer.parseInt(player.getStat("livesStat").getStat().toString()));
-		Stat<Integer> intStat = new Stat(Integer.parseInt(player.getStat("livesStat").getStat().toString())-1);
-		player.setStat("livesStat",intStat); 
+		Stat<Integer> stat = (Stat<Integer>) player.getStat("livesStat");
 		if (player.getWeaponPower() > 1) {
 			player.setWeaponPower(player.getWeaponPower() - 1);
 		} else {
 			player.setWeaponPower(1);
 		}
-		if (Integer.parseInt(player.getStat("livesStat").getStat().toString())>0){
+		if (Integer.parseInt(stat.getStat().toString())>0){
+			stat.setStat(Integer.parseInt(stat.getStat().toString())-1); 
 			player.forceX(320);
 			player.forceY(440);
 		}
