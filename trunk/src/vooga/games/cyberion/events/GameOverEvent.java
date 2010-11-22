@@ -6,8 +6,8 @@ import vooga.engine.state.GameStateManager;
 public class GameOverEvent implements IEventHandler {
 	GameStateManager gameStateManager;
 
-	public GameOverEvent(GameStateManager gm) {
-		gameStateManager = gm;
+	public GameOverEvent(GameStateManager manager) {
+		gameStateManager = manager;
 	}
 
 	@Override

@@ -25,9 +25,9 @@ public class Dead implements Rule {
 
 	@Override
 	public void enforce(SpriteGroup... groups) {
-		System.out.println("gg");
-
+		gameStateManager.deactivateAll();
 		gameStateManager.activateOnly(gameStateManager.getGameState(4));
+		System.out.println(gameStateManager.getGameState(4).isActive());
 	}
 
 	@Override
