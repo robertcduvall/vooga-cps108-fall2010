@@ -79,8 +79,13 @@ public class BlockGeneratorEvent implements IEventHandler {
 			addBlock = new NormalBlock(
 				Resources.getImage("platformGreen"), initPoint, xVelocity,
 				yVelocity);
-			blockCounter=0;
-		}
+			blockCounter++;
+		}else if (blockCounter == 2) {
+			addBlock = new NormalBlock(
+					Resources.getImage("platformLightBlue"), initPoint, xVelocity,
+					yVelocity);
+				blockCounter=0;
+			}
 		else {
 			addBlock = new NormalBlock(
 				Resources.getImage("platformWhite"), initPoint, xVelocity,yVelocity);
