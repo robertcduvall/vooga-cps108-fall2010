@@ -64,6 +64,10 @@ public class DropThis extends vooga.engine.core.Game {
 //		stateManager.activateOnly(menuState);
 //	}
 
+	/**
+	 * Initialize the game states.
+	 */
+	
 	private void initGameStates(PlayField pf) {
 		playState = new PlayGameState(this, pf, this);
 		pauseState = new PauseGameState(playState, "THE GAME IS PAUSED", Color.BLUE);
@@ -72,11 +76,19 @@ public class DropThis extends vooga.engine.core.Game {
 		stateManager.addGameState(playState, pauseState, endState);
 	}
 
+	/**
+	 * Create new game control and assign certain keys to activate gamestates
+	 */
+	
 	private void initControls(){
 		 gameControl = new KeyboardControl(this, this);
 		 gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.jumper.DropThis");
 		 gameControl.addInput(KeyEvent.VK_R, "resumeGame", "vooga.games.jumper.DropThis");
 	}
+	
+	/**
+	 * Initialize the level parser
+	 */
 	
 	private void initLevelManager() {
 		levelManager = new LevelManager(this);
@@ -85,13 +97,25 @@ public class DropThis extends vooga.engine.core.Game {
 		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
 	}	
 	
+	/**
+	 * Active the playstate gamestate
+	 */
+	
 	public void resumeGame() {		
 		stateManager.activateOnly(playState);
 	}
 	
+	/**
+	 * Activate the pausestate gamestate
+	 */
+	
 	public void pauseGame() {	
 		stateManager.activateOnly(pauseState);
 	}
+	
+	/**
+	 * Activate the deathstate gamestate
+	 */
 	
 	public void deathGame() {
 		stateManager.activateOnly(deathState);
