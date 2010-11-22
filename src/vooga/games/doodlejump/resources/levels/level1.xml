@@ -101,6 +101,10 @@
 				<Visual name="greenPlatform" />
 			</Sprite>
 			<Sprite class="vooga.engine.core.BetterSprite" random="false"
+				x="200" y="-1050" vx="0" vy="0" quantity="1">
+				<Visual name="greenPlatform" />
+			</Sprite>
+			<Sprite class="vooga.engine.core.BetterSprite" random="false"
 				x="325" y="-1100" vx="0" vy="0" quantity="1">
 				<Visual name="greenPlatform" />
 			</Sprite>
