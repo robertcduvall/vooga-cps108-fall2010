@@ -1,9 +1,8 @@
 package vooga.games.mariogame.tiles;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
+import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
 import vooga.games.mariogame.items.Coin;
 import vooga.games.mariogame.sprites.MarioSprite;
@@ -17,7 +16,7 @@ public class CoinTile extends ItemTile {
 		this(x, y, new Coin(Resources.getImage("Coin")),images);
 	}
 
-	public CoinTile(double x, double y, Coin coin, BufferedImage... images) {
+	public CoinTile(double x, double y, BetterSprite coin, BufferedImage... images) {
 		super(x, y, coin, images);
 	}
 

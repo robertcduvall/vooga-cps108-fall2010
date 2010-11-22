@@ -154,8 +154,13 @@ public class MapReader {
 								.forName(classToCreate);
 						cons = op.getConstructor(constructorParams);
 						Sprite obj = null;
-						if(hasItem)
-							obj = cons.newInstance(x, y, mySpriteItems.get(currentKey+""));
+						if(hasItem) {
+							BetterSprite templateItem = mySpriteItems.get(currentKey+"");
+							Class c = templateItem.getClass();
+							Constructor itemCons = c.getConstructor(new Class[]{BetterSprite.class,double.class,double.class});
+							Object item = itemCons.newInstance(templateItem,x,y);
+							obj = cons.newInstance(x, y, item, images);
+						}
 						else
 							obj = cons.newInstance(x, y, images);
 						mapGroup.add(obj);

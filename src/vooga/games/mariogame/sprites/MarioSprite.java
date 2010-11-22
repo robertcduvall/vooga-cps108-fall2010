@@ -9,6 +9,7 @@ import com.golden.gamedev.object.Sprite;
 import vooga.engine.overlay.Stat;
 import vooga.engine.core.BetterSprite;
 import vooga.games.mariogame.items.GravityItem;
+import vooga.games.mariogame.rules.Gravity;
 
 @SuppressWarnings("serial")
 public class MarioSprite extends BetterSprite {
@@ -118,7 +119,7 @@ public class MarioSprite extends BetterSprite {
 
 	public void actOnItem(Sprite item) {
 		if (item.getClass().equals(GravityItem.class)) {
-			setGravity(((GravityItem) item).getGravity());
+			Gravity.setGravityCoef(((GravityItem) item).getGravity());
 		}
 	}
 

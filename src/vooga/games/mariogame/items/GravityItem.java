@@ -2,12 +2,26 @@ package vooga.games.mariogame.items;
 
 import java.awt.image.BufferedImage;
 
-import com.golden.gamedev.object.Sprite;
+import vooga.engine.core.BetterSprite;
 
 @SuppressWarnings("serial")
-public class GravityItem extends Sprite {
+public class GravityItem extends BetterSprite {
 
 	private double myGravity;
+	
+	public GravityItem(BetterSprite sprite, double absX, double absY) {
+		this();
+		setX(sprite.getX()+absX);
+		setY(sprite.getY()+absY);
+		setVerticalSpeed(sprite.getVerticalSpeed());
+		setHorizontalSpeed(sprite.getHorizontalSpeed());
+		setImage(sprite.getImage());
+		setActive(sprite.isActive());
+	}
+	
+	public GravityItem() {
+		this(null,.5);
+	}
 
 	public GravityItem(BufferedImage s, double gravity) {
 		super(s);
