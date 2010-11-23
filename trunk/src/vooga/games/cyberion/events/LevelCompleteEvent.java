@@ -3,26 +3,30 @@ package vooga.games.cyberion.events;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
+import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.factory.LevelManager;
 import vooga.games.cyberion.DropThis;
 import vooga.games.cyberion.states.PlayState;
+import vooga.games.grandius.sprites.Player;
 
 public class LevelCompleteEvent implements IEventHandler {
 
-	private DropThis myGame;
+	private DropThis cyberion;
 	private PlayState playState;
-	private SpriteGroup spriteGroup;
+	private LevelManager levelmanager;
 
-	public LevelCompleteEvent(DropThis game, PlayState state, SpriteGroup group) {
-		myGame = game;
-		playState = state;
-		spriteGroup = group;
+	public LevelCompleteEvent(DropThis cyberion, LevelManager levelmanager,
+			PlayState playState) {
+		this.cyberion = cyberion;
+		this.levelmanager = levelmanager;
+		this.playState = playState;
 	}
 
 	@Override
 	public boolean isTriggered() {
-		for (Sprite tempSprite : spriteGroup.getSprites()) {
-			if (tempSprite != null && tempSprite.isActive())
+		for (Sprite s : playState.getGroup("enemyGroup").getSprites()) {
+			if (s != null && s.isActive())
 				return false;
 		}
 		return true;
@@ -30,8 +34,9 @@ public class LevelCompleteEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
-		PlayState newState = playState.nextLevel();
-		myGame.setAsPlayGameState(newState);
-		myGame.setPlayState();
+		cyberion.getGameStateManager().switchTo(
+				cyberion.getGameStateManager().getGameState(3));
+//		System.out.println(cyberion.getGameStateManager().getGameState(2));
 	}
+
 }

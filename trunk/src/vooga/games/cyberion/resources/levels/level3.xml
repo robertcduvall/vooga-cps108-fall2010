@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Level name="Level3">
+<Level name="Level3" xmloverlaypath="src/vooga/games/cyberion/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="starGroup">
@@ -40,12 +40,19 @@
 				<Visual name="starImage" />
 			</Sprite>
 		</SpriteGroup>
-		<SpriteGroup name="playerGroup">
+				<SpriteGroup name="playerGroup">
+			<Sprite class="vooga.games.cyberion.sprites.playership.PlayerShip"
+				random="false" x="320" y="440" vx="0" vy="0" quantity="1">
+				<Visual name="playerShip" />
+				<Stat name="livesStat" />
+				<Stat name="scoreStat" />
+				<Stat name="levelStat" />
+			</Sprite>
 		</SpriteGroup>
 		<SpriteGroup name="enemyGroup">
 			<Sprite class="vooga.games.cyberion.sprites.enemyship.EnemyShip"
-				random="true" xMin="0" yMin="0" xMax="640" yMax="-250000" vxMin="0"
-				vyMin=".1" vxMax="0" vyMax=".1" quantity="3000">
+				random="true" xMin="0" yMin="0" xMax="640" yMax="-1000" vxMin="0"
+				vyMin=".1" vxMax="0" vyMax=".1" quantity="10">
 				<Visual name="enemyShip" />
 				<Stat name="scoreStat" />
 			</Sprite>
@@ -105,12 +112,6 @@
 	<Backgrounds>
 		<Background name="bg" />
 	</Backgrounds>
-
-	<Rules>
-		<Rule name="Dead" class="vooga.games.cyberion.rules.Dead">
-			<SpriteGroup name="playerGroup" />
-		</Rule>
-	</Rules>
 
 	<Music>
 	</Music>

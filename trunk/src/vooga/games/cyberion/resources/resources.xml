@@ -11,6 +11,7 @@
 		<Image name="quitButton" path="quit.png" /><Image
 			name="planetImage" path="planet.png">
 </Image>
+		<Image name="nextLevelButtonImage" path="play.png"></Image>
 	</Images>
 	
 	<Animations>

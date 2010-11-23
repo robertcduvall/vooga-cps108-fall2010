@@ -1,26 +1,37 @@
 package vooga.games.cyberion.states;
 
-import vooga.engine.resource.Resources;
-import vooga.engine.state.BasicTextGameState;
+import vooga.engine.core.Game;
+import vooga.engine.event.EventPool;
+import vooga.engine.state.MenuGameState;
+import vooga.games.cyberion.buttons.NextLevelButton;
 
 /**
  * Level complete state for cyberion
  * 
  * @author Harris.He
- *
+ * 
  */
 
+public class LevelCompleteState extends MenuGameState {
+	private NextLevelButton myNextLevelButton;
+	private Game myGame;
+	private EventPool eventPool;
 
-public class LevelCompleteState extends BasicTextGameState{
-	private static String myLevelCompleteMessage = Resources
-			.getString("levelCompleteMessage");
-
-	public LevelCompleteState() {
-		super(myLevelCompleteMessage);
+	public LevelCompleteState(Game game) {
+		myGame = game;
 	}
-	
-	//ToDo: load new level file, and start the game again
-//	public void startNewLevel(){
-//		
-//	}
+
+	@Override
+	public void initialize() {
+		this.myNextLevelButton = new NextLevelButton(myGame);
+		addButton(myNextLevelButton);
+		eventPool = new EventPool();
+		eventPool.addEvent(myNextLevelButton);
+	}
+
+	@Override
+	public void update(long elapsedTime) {
+		super.update(elapsedTime);
+		eventPool.checkEvents();
+	}
 }
