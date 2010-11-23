@@ -20,6 +20,7 @@ import vooga.games.cyberion.events.PlayerFireEvent;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 import vooga.games.cyberion.events.LevelCompleteEvent;
+import vooga.games.grandius.sprites.Player;
 
 /**
  * Player state
@@ -37,42 +38,39 @@ public class PlayState extends GameState {
 	private PlayerShip player;
 	private Sprite[] enemy;
 	private String PLAYER_CLASS = "vooga.games.cyberion.sprites.playership.PlayerShip";
-	private PlayField newField;
+	private PlayField playfield;
 
 	public PlayState(LevelManager levelManager, DropThis game) {
 		myLevelManager = levelManager;
 		myGame = game;
-	
-
 	}
 
 	public void initialize() {
-		newField = myLevelManager.loadFirstLevel();
-		player = (PlayerShip) newField.getGroup("playerGroup").getSprites()[0];
-		enemy = newField.getGroup("enemyGroup").getSprites();
+		// System.out.println("initialize called");
+		playfield = myLevelManager.loadFirstLevel();
+		player = (PlayerShip) playfield.getGroup("playerGroup").getSprites()[0];
+		enemy = playfield.getGroup("enemyGroup").getSprites();
 		initControls();
 		initEvents();
-		addPlayField(newField);
+		addPlayField(playfield);
 	}
 
 	public PlayState nextLevel() {
 		this.removeEverything();
-		if (myLevelManager.getCurrentLevel()==myLevelManager.getNumLevels())
-		{
+		if (myLevelManager.getCurrentLevel() == myLevelManager.getNumLevels()) {
 			System.out.println("END");
 			return null;
-		}
-		else
-		{
-		newField = myLevelManager.loadNextLevel();
-		newField.getGroup("playerGroup").add(player);
-		enemy = newField.getGroup("enemyGroup").getSprites();
-		initControls();
-		initEvents();
-		Stat<Integer> tempStat = (Stat<Integer>) player.getStat("levelStat");
-		tempStat.setStat(tempStat.getStat()+1); 
-		addPlayField(newField);
-		return this;
+		} else {
+			playfield = myLevelManager.loadNextLevel();
+			playfield.getGroup("playerGroup").add(player);
+			enemy = playfield.getGroup("enemyGroup").getSprites();
+			initControls();
+			initEvents();
+			Stat<Integer> tempStat = (Stat<Integer>) player
+					.getStat("levelStat");
+			tempStat.setStat(tempStat.getStat() + 1);
+			addPlayField(playfield);
+			return this;
 		}
 	}
 
@@ -89,8 +87,8 @@ public class PlayState extends GameState {
 		eventPool = new EventPool();
 		eventPool.addEvent(new PlayerFireEvent(myGame, player, this));
 		eventPool.addEvent(new EnemyFireEvent(myGame, enemy, this));
-		eventPool.addEvent(new LevelCompleteEvent(myGame, this, newField
-				.getGroup("enemyGroup")));
+		eventPool
+				.addEvent(new LevelCompleteEvent(myGame, myLevelManager, this));
 		eventPool.addEvent(new GameOverEvent(myGame, player));
 	}
 
@@ -100,7 +98,7 @@ public class PlayState extends GameState {
 		playerControl.addInput(KeyEvent.VK_RIGHT, "moveRight", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_UP, "moveUp", PLAYER_CLASS);
 		playerControl.addInput(KeyEvent.VK_DOWN, "moveDown", PLAYER_CLASS);
-		newField.addControl("playerGroup", playerControl);
+		playfield.addControl("playerGroup", playerControl);
 	}
 
 	// TODO this method is being used for collision handling also
@@ -109,7 +107,10 @@ public class PlayState extends GameState {
 	}
 
 	public PlayField getPlayField() {
-		return newField;
+		return playfield;
 	}
 
+	public void setField(PlayField playfield) {
+		this.playfield = playfield;
+	}
 }

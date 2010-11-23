@@ -16,6 +16,7 @@ public class PlayerShip extends BetterSprite {
 
 	public PlayerShip() {
 		super();
+		System.out.println("called");
 		this.life = Resources.getInt("playerLife");
 		this.weaponPower = Resources.getInt("playerWeaponPower");
 	}
