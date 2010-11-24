@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
 
 
 /**
@@ -59,6 +60,42 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	public Button(Game game, double x, double y){
 		this(game, null, x, y);
 	}
+
+	/**
+	 * Creates an instance of Button with a null image and a location of (0,0)
+	 */
+	public Button(){
+		this(Resources.getGame(), null, 0, 0);
+	}
+	
+	/**
+	 * Creates an instance of Button with a specified image and a location of (0,0)
+	 * @param image Which represents the image of the button
+	 */
+	public Button (BufferedImage image){
+		this(Resources.getGame(), image, 0, 0); 
+	}
+	
+	/**
+	 * Creates an instance of Button with a specified image and location
+	 * @param image Which represents the image of the button
+	 * @param x Which represents the X-coordinate of the button
+	 * @param y Which represents the Y-coordinate of the button
+	 */
+	public Button (BufferedImage image, double x, double y){
+		super(image, x, y);
+		myGame = Resources.getGame();
+	}
+	
+	/**
+	 * Creates an instance of Button at a specified location with a null image
+	 * @param x Which represents the X-coordinate of the button
+	 * @param y Which represents the Y-coordinate of the button
+	 */
+	public Button(double x, double y){
+		this(Resources.getGame(), null, x, y);
+	}
+
 	
 	/**
 	 * Decides when button has been triggered
