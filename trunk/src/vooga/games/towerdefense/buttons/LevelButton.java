@@ -22,12 +22,12 @@ public class LevelButton extends Button{
 	private static final long serialVersionUID = 1L;
 	private String levelName;
 	
-	public LevelButton(Game game){
-		super(game);
+	public LevelButton(){
+		super();
 	}
 
-	public LevelButton(Game game, BufferedImage image, double x, double y) {
-		super(game, image, x, y);
+	public LevelButton(BufferedImage image, double x, double y) {
+		super(image, x, y);
 	}
 
 	@Override

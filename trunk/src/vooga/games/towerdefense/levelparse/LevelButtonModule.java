@@ -19,7 +19,7 @@ public class LevelButtonModule extends SpriteModule{
 	@Override
 	public Collection<BetterSprite> getSprites(Element spriteElement) {
 		Collection<BetterSprite> betterSprites = new ArrayList<BetterSprite>();
-		LevelButton button = new LevelButton(Resources.getGame());
+		LevelButton button = new LevelButton();
 		double x = Double.parseDouble(spriteElement.getAttribute("x"));
 		button.forceX(x);
 		double y = Double.parseDouble(spriteElement.getAttribute("y"));

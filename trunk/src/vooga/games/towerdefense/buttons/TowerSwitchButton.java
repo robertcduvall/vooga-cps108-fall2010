@@ -12,13 +12,13 @@ public class TowerSwitchButton extends Button {
 	private Tower tower;
 	private Player player;
 	
-	public TowerSwitchButton(Game game, Player player){
-		super(game);
+	public TowerSwitchButton(Player player){
+		super();
 		this.player = player;
 	}
 
-	public TowerSwitchButton(Game game, BufferedImage image, double x, double y, Player  player) {
-		super(game, image, x, y);
+	public TowerSwitchButton(BufferedImage image, double x, double y, Player  player) {
+		super(image, x, y);
 		this.player = player;
 	}
 
