@@ -50,7 +50,6 @@ public class DeathEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		// TODO Auto-generated method stub
 		myGame.deathGame();
 	}
 

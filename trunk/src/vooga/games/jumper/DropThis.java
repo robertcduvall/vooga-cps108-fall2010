@@ -24,13 +24,6 @@ import vooga.games.jumper.states.PlayGameState;
  * @author BrianSimel & CodyKolodziejzyk & DevonTownsend
  */
 
-/**
- * 
- * @author Cody Kolodziejzyk
- * @author Brian Simel
- * @author Devon Townsend
- */
-
 
 public class DropThis extends vooga.engine.core.Game {
 
