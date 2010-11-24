@@ -150,7 +150,7 @@ public class Level extends PlayField{
 	}
 	
 	private TowerSwitchButton initButton(BufferedImage bi, double x, double y, Player player, Tower tower){
-		TowerSwitchButton normalTower = new TowerSwitchButton(Resources.getGame(), bi, x, y, player);
+		TowerSwitchButton normalTower = new TowerSwitchButton(bi, x, y, player);
 		normalTower.setTower(tower);
 		return normalTower;
 	}

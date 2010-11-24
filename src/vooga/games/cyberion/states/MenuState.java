@@ -28,7 +28,7 @@ public class MenuState extends MenuGameState {
 	public void initialize() {
 		eventPool = new EventPool();
 		this.myPlayButton = new PlayButton(myGame);
-		this.myQuitButton = new QuitButton(myGame);
+		this.myQuitButton = new QuitButton();
 		addButton(myPlayButton);
 		addButton(myQuitButton);
 		eventPool.addEvent(myPlayButton);

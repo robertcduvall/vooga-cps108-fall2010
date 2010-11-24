@@ -23,8 +23,8 @@ public class ConfigButton extends Button {
 	private static final BufferedImage myImage = Resources
 			.getImage("playButtonImage");
 
-	public ConfigButton(Game game) {
-		super(game, myImage, START_X, START_Y);
+	public ConfigButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	public void actionPerformed() {
