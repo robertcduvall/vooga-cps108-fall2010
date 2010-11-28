@@ -6,8 +6,31 @@
 <Stat type="Integer" value="0" name="three"></Stat>
 
 <OverlayGroup name="SetNumMatches">
-<OverlayString xLoc="50" yLoc="100" fontName="Time New Roman" label="Please Select How Many Matches You Want: " fontSize="16">
-</OverlayString>
+<OverlayString xLoc="50" yLoc="100" fontName="Time New Roman" label="Please Select How Many Matches You Want: " fontSize="16"></OverlayString>
+<OverlayString xLoc="50" yLoc="150" fontName="Time New Roman" label="2" fontSize="16"></OverlayString>
 </OverlayGroup>
 
+<OverlayGroup name="load">
+<OverlayString xLoc="100" yLoc="100" fontnAme="Time New Roman" label="Welcome to Tron!" fontSize="32" color="green"></OverlayString>
+<OverlayString xLoc="100" yLoc="200" fontName="Time New Roman" label="Press s for single-player mode" fontSize="16" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="300" fontName="Time New Roman" label="Press m for multiple-player mode" fontSize="16" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="400" fontName="Time New Roman" label="Press d to watch a demo game" fontSize="16" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="500" fontName="Time New Roman" label="Press h for help" fontSize="16" color="red"></OverlayString>
+</OverlayGroup>
+
+<OverlayGroup name="SetLevel">
+<OverlayString xLoc="50" yLoc="100" fontName="Time New Roman" label="Please Select Which Level You Want to go: " fontSize="16" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="150" fontName="Time New Roman" label="1" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="250" fontName="Time New Roman" label="2" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="350" fontName="Time New Roman" label="3" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="450" fontName="Time New Roman" label="4" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="550" fontName="Time New Roman" label="5" fontSize="32" color="red"></OverlayString>
+</OverlayGroup>
+
+
+<OverlayGroup name="Help">
+<OverlayString xLoc="100" yLoc="100" fontName="Time New Roman" label="Arrows for Player No. 1" fontSize="64" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="400" fontName="Time New Roman" label="A,S,D,W for player No. 2" fontSize="64" color="red"></OverlayString>
+<OverlayString xLoc="150" yLoc="700" fontName="Time New Roman" label="Press Space to go back" fontSize="32" color="red"></OverlayString>
+</OverlayGroup>
 </Overlay>

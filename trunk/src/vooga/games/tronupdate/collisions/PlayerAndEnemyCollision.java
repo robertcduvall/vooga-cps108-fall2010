@@ -30,5 +30,4 @@ public class  PlayerAndEnemyCollision extends BasicCollisionGroup {
 		game.playSound(Resources.getSound("explosionSound"));	
 		gameStateManager.switchTo(gameStateManager.getGameState(2));
 	}
-
 }

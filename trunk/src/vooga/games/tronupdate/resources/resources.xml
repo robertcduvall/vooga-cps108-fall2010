@@ -33,12 +33,18 @@
 	
 	<Integers>
 			<Integer name="framerate"     value="20"	/>
-			<Integer name="width"      value="480"	/>
-			<Integer name="height"     value="480"	/>
+			<Integer name="width"      value="900"	/>
+			<Integer name="height"     value="600"	/>
 			<Integer name="playerimagewidth"    value="5"	/>		
 			<Integer name="randomblocksize"    value="15"	/>	
 			<Integer name="minumumrandomblock"    value="5"	/>	
-			<Integer name="playerimagewidth"    value="5"	/>		
+			<Integer name="playerimagewidth"    value="5"	/>	
+			<Integer name="PlayState" value="0" />	
+			<Integer name="PauseState" value="1"	/>
+			<Integer name="GameOverState" value="2"	/>
+			<Integer name="LoadState" value="3"	/>
+			<Integer name="SetLevelState" value="4" />
+			<Integer name="HelpState" value="5" />
 	</Integers>
 	
 	<Doubles>
