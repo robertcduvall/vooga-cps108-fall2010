@@ -26,7 +26,6 @@ public class GameOverState extends GameState{
 		state.removeEverything();
 		state.initialize();
 		eventPool = new EventPool();
-		//GameOverEvent gameOverEvent = new GameOverEvent(game,gameStateManager);
 		SwitchLevelEvent event = new SwitchLevelEvent(game,gameStateManager);
 		eventPool.addEvent(event);
 	}

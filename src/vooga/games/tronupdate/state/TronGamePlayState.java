@@ -30,6 +30,7 @@ import vooga.games.tronupdate.collisions.PlayerAndEnemyCollision;
 
 import vooga.games.tronupdate.collisions.PlayerAndBonusCollision;
 import vooga.games.tronupdate.events.TronGamePauseEvent;
+import vooga.games.tronupdate.events.InvokeHelpEvent;
 import vooga.games.tronupdate.items.Bonus;
 import vooga.games.tronupdate.items.SpeedUpBonus;
 import vooga.games.tronupdate.items.TronPlayer;
@@ -39,7 +40,6 @@ import vooga.games.tronupdate.util.AI;
 
 
 public class TronGamePlayState extends GameState{
-
 	private Game game;
 	private GameStateManager stateManager;
 	private PlayField playField;
@@ -56,8 +56,7 @@ public class TronGamePlayState extends GameState{
 	private SpeedUpBonus prev=null;
 	private AI ai;
 	private int currentLevel=0;//0,1,2
-	private int totalLevel=3;
-	//private OverlayTracker tracker;
+	private int totalLevel=3;	
 	public Timer timer = new Timer(50);
 	private boolean[][] levelBlocks;
 	private int totalRow,totalCol;
@@ -73,9 +72,7 @@ public class TronGamePlayState extends GameState{
 	private static int blockSize = 3;
 
 	public TronGamePlayState(Game game){
-		//super();
 		this(game,null);
-
 	}
 
 	public TronGamePlayState(Game game, GameStateManager stateManager){
@@ -106,11 +103,11 @@ public class TronGamePlayState extends GameState{
 		game.playMusic(Resources.getSound("backgroundmusic"));
 	}
 
-	public void initializeOverlay(){
+	/*public void initializeOverlay(){
 		OverlayCreator.setGame(game);
 		OverlayTracker tracker = OverlayCreator.createOverlays("src/vooga/games/tronupdate/resources/overlays.xml");
 		playField.addGroup(tracker.getOverlayGroup("second"));
-	}
+	}*/
 
 	public void initializeCollision() {
 		PlayerAndEnemyCollision playerEnemyCollision=new PlayerAndEnemyCollision(game,stateManager);   
@@ -125,30 +122,33 @@ public class TronGamePlayState extends GameState{
 	public void initializeEvents() {
 		eventPool = new EventPool();
 		TronGamePauseEvent tronGamePauseEvent = new TronGamePauseEvent(game,stateManager); 
-
+		InvokeHelpEvent invokeHelpEvent = new InvokeHelpEvent(game,stateManager,Resources.getInt("PlayState"));
+		
 		eventPool.addEvent(tronGamePauseEvent);
+		eventPool.addEvent(invokeHelpEvent);
 	}
 
+	
 	public void initializeSprites() {
-		gridSpace=new GridSpace(GRID_WIDTH,GRID_HEIGHT);
+		gridSpace=new GridSpace(GRID_HEIGHT,GRID_WIDTH);
 		firstPlayer = new TronPlayer(Resources.getImage("redlazer") , initialFirstPlayerXPosition(), initialFirstPlayerYPosition() ,PLAYER_IMAGE_WIDTH, Direction.right);
 		secondPlayer = new TronPlayer(Resources.getImage("bluelazer") , initialSecondPlayerXPosition(), initialSecondPlayerYPosition() ,PLAYER_IMAGE_WIDTH, Direction.left);
 	}
 
 	public int initialFirstPlayerXPosition(){
-		return gridSpace.getTotalRow() / 10;
+		return gridSpace.getTotalColumn() / 10;
 	}
 
 	public int initialFirstPlayerYPosition(){
-		return gridSpace.getTotalColumn() / 2;
+		return gridSpace.getTotalRow() / 2;
 	}
 
 	public int initialSecondPlayerXPosition(){
-		return gridSpace.getTotalRow()*9 / 10;
+		return gridSpace.getTotalColumn()*9 / 10;
 	}
 
 	public int initialSecondPlayerYPosition(){
-		return gridSpace.getTotalColumn() / 2;
+		return gridSpace.getTotalRow() / 2;
 	}
 
 	public void initializeEnvironment() {
@@ -207,8 +207,6 @@ public class TronGamePlayState extends GameState{
 			int randomWidth = (int)Math.ceil(Math.random()*blockSize);
 			int randomHeight = (int)Math.ceil(Math.random()*blockSize);
 
-
-
 			randomHeight = (randomRow+randomHeight>=totalRow)? totalRow-randomRow:randomHeight;
 			randomWidth = (randomCol+randomWidth>=totalCol)? totalCol-randomCol:randomWidth;
 
@@ -220,8 +218,6 @@ public class TronGamePlayState extends GameState{
 				}		
 			}
 		}	
-
-
 	}
 
 	/**
@@ -233,7 +229,7 @@ public class TronGamePlayState extends GameState{
 		for (int i = 0; i < 20; i++){		
 			int randomX = (int)Math.ceil(Math.random()* GRID_WIDTH);
 			int randomY = (int)Math.ceil(Math.random()* GRID_HEIGHT);    	
-			bonusList.add(new SpeedUpBonus(Resources.getImage("yellowbonus"), randomX,randomY,PLAYER_IMAGE_WIDTH));	
+			bonusList.add(new SpeedUpBonus(Resources.getImage("yellowbonus"), randomY, randomX,PLAYER_IMAGE_WIDTH));	
 		}
 	}
 
@@ -284,33 +280,26 @@ public class TronGamePlayState extends GameState{
 				}
 			}			
 		}
-		
-			
-				playField.getGroup(Resources.getString("block")).add(new BetterSprite(Resources.getImage("greenlazer"),i*PLAYER_IMAGE_WIDTH,j*PLAYER_IMAGE_WIDTH));
-				
-			
+	playField.getGroup(Resources.getString("block")).add(new BetterSprite(Resources.getImage("greenlazer"),i*PLAYER_IMAGE_WIDTH,j*PLAYER_IMAGE_WIDTH));
 	}
 	/**
 	 * initialize the blocks  
 	 */
 	public void initializeBlocks(){
-		//  firstPlayerBlocks=new BetterSprite[GRID_WIDTH+2][GRID_HEIGHT+2];
-		firstPlayerBlocks=new BetterSprite[GRID_WIDTH][GRID_HEIGHT];
+		firstPlayerBlocks=new BetterSprite[GRID_HEIGHT][GRID_WIDTH];
 		for(int i=0;i<firstPlayer.grid.getTotalRow();i++){
 			for(int j=0;j<firstPlayer.grid.getTotalColumn();j++){
 				firstPlayerBlocks[i][j]=new BetterSprite(Resources.getImage("redlazer"),-50,-50);
-				//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
 			}
 		}	
-		secondPlayerBlocks=new BetterSprite[GRID_WIDTH][GRID_HEIGHT];
+		secondPlayerBlocks=new BetterSprite[GRID_HEIGHT][GRID_WIDTH];
 		for(int i=0;i<secondPlayer.grid.getTotalRow();i++){
 			for(int j=0;j<secondPlayer.grid.getTotalColumn();j++){
 				secondPlayerBlocks[i][j]=new BetterSprite(Resources.getImage("bluelazer"),-50,-50);
-				//blocksGroup.add(tronPlayerBlocksList.get(count)[i][j]);
 			}
 		}	
-		blocksTaken = new boolean[GRID_WIDTH][GRID_HEIGHT];
-		for(int i=0;i<GRID_WIDTH;i++){
+		blocksTaken = new boolean[GRID_HEIGHT][GRID_WIDTH];
+		for(int i=0;i<GRID_HEIGHT;i++){
 			Arrays.fill(blocksTaken[i],false);
 		}
 
@@ -320,13 +309,8 @@ public class TronGamePlayState extends GameState{
 		for(int i=0;i<totalRow;i++){
 			Arrays.fill(levelBlocks[i],false);
 		}
-
-
 	}
-
-
-
-
+	
 	public void render(Graphics2D g) {
 		playField.render(g);
 	}
@@ -363,6 +347,4 @@ public class TronGamePlayState extends GameState{
 			b.setActive(true);
 		}
 	}
-
-
 }

@@ -11,13 +11,10 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.BasicTextGameState;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
-import vooga.games.tronupdate.state.GameOverState;
 import vooga.engine.state.PauseGameState;
-import vooga.games.tronupdate.state.LoadState;
-import vooga.games.tronupdate.state.TronGamePauseState;
-import vooga.games.tronupdate.state.TronGamePlayState;
 import vooga.games.tronupdate.collisions.*;
-import vooga.games.tronupdate.state.SetNumMatchesState;
+import vooga.games.tronupdate.state.*;
+
 
 public class Main extends vooga.engine.core.Game{
 	@Override
@@ -31,18 +28,20 @@ public class Main extends vooga.engine.core.Game{
 		TronGamePauseState pauseState =new TronGamePauseState(this,stateManager);
 		GameOverState gameOverState =new GameOverState(this,stateManager);
 		TronGamePlayState playState = new TronGamePlayState(this,stateManager);
-		LoadState menuState = new LoadState(this,stateManager);
-		SetNumMatchesState setNumMatchesState= new SetNumMatchesState(this,stateManager);
-		menuState.activate(); 
+		LoadState loadState = new LoadState(this,stateManager);
+		SetLevelState setLevelState= new SetLevelState(this,stateManager);
+		HelpState helpState = new HelpState(this,stateManager);
+		loadState.activate(); 
 		playState.deactivate(); 
 		pauseState.deactivate();
 		gameOverState.deactivate();
 		
-		stateManager.addGameState(playState,0);
-		stateManager.addGameState(pauseState,1);
-		stateManager.addGameState(gameOverState,2);
-		stateManager.addGameState(menuState,3);
-		stateManager.addGameState(setNumMatchesState,4);
+		stateManager.addGameState(playState,Resources.getInt("PlayState"));
+		stateManager.addGameState(pauseState,Resources.getInt("PauseState"));
+		stateManager.addGameState(gameOverState,Resources.getInt("GameOverState"));
+		stateManager.addGameState(loadState,Resources.getInt("LoadState"));
+		stateManager.addGameState(setLevelState,Resources.getInt("SetLevelState"));
+		stateManager.addGameState(helpState,Resources.getInt("HelpState"));
 	}
 
 	public static void main(String[] args) {

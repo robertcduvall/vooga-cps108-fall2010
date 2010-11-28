@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.GameState;
 import vooga.games.tronupdate.util.Mode;
@@ -11,7 +12,7 @@ import vooga.games.tronupdate.util.Mode;
 public class ModeSelectEvent implements IEventHandler{
 	private GameStateManager gm;
 	private Game game;
-	private boolean single,multiple;
+	//private boolean single,multiple;
 
 
 	public ModeSelectEvent(Game game,GameStateManager gm){
@@ -21,32 +22,33 @@ public class ModeSelectEvent implements IEventHandler{
 	
 	@Override
 	public void actionPerformed() {
-		gm.getGameState(2).removeEverything();
-		//remove the playstate and start a new playstate
-		GameState state = gm.getGameState(0);//playState
-		state.removeEverything();
-		state.initialize();
-		//
 		if(isSingle()){
 			Mode.setSinglePlayer();	
-			gm.switchTo(gm.getGameState(4));//index 4 means setNumMatchesState
+			gm.switchTo(gm.getGameState(Resources.getInt("SetLevelState")));//index 4 means setNumMatchesState
 		}
 		else if(isMultiple()){
 			Mode.setMultiplePlayer(); 
-			gm.switchTo(gm.getGameState(0));//index 0 means PlayState
+			gm.switchTo(gm.getGameState(Resources.getInt("PlayState")));//index 0 means PlayState
+		}
+		else{
+			Mode.setAI();
+			gm.switchTo(gm.getGameState(0));
 		}
 	}
 	
 	private boolean isSingle(){
-		return game.keyPressed(KeyEvent.VK_A);
+		return game.keyPressed(KeyEvent.VK_S);
 	}
 	private boolean isMultiple(){
-		return game.keyPressed(KeyEvent.VK_B);
+		return game.keyPressed(KeyEvent.VK_M);
+	}
+	private boolean isAI(){
+		return game.keyPressed(KeyEvent.VK_D);
 	}
 	
 	@Override
 	public boolean isTriggered() 
 	{		
-		return (isSingle() || isMultiple());
+		return (isSingle() || isMultiple() || isAI());
 	}
 }	

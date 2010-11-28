@@ -55,10 +55,10 @@ public class TronPlayer extends BetterSprite {
 		//blocks=new boolean[gridSpace.getTotalRow()+2][gridSpace.getTotalColumn()+2];
 		speedUp=1;
 		score = 0;
-		grid = new GridSpace(GRID_WIDTH,GRID_HEIGHT);
-
+		grid = new GridSpace(GRID_HEIGHT,GRID_WIDTH);
 	}
 
+	
 	public TronPlayer(BufferedImage image,int initialColPosition,int initialRowPosition,int playerImageWidth, Direction dir){
 		this(image,initialColPosition,initialRowPosition,playerImageWidth,"");
 		//super(image,initialColPosition*playerImageWidth,initialRowPosition*playerImageWidth);

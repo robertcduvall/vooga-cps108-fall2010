@@ -48,8 +48,6 @@ public class TronGamePauseState extends GameState{
 
 	public void update(long elapsedTime){
 		super.update(elapsedTime);
-		
-	//	playerControl.update();
 		eventPool.checkEvents();
 	}
 	
