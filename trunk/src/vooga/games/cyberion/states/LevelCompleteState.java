@@ -14,16 +14,14 @@ import vooga.games.cyberion.buttons.NextLevelButton;
 
 public class LevelCompleteState extends MenuGameState {
 	private NextLevelButton myNextLevelButton;
-	private Game myGame;
 	private EventPool eventPool;
 
-	public LevelCompleteState(Game game) {
-		myGame = game;
+	public LevelCompleteState() {
 	}
 
 	@Override
 	public void initialize() {
-		this.myNextLevelButton = new NextLevelButton(myGame);
+		this.myNextLevelButton = new NextLevelButton();
 		addButton(myNextLevelButton);
 		eventPool = new EventPool();
 		eventPool.addEvent(myNextLevelButton);

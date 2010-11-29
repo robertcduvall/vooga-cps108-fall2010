@@ -27,11 +27,10 @@ public class RestartButton extends Button {
 	private static final double RESTART_BUTTON_Y = Resources
 			.getDouble("playButtonY");
 
-	private BlahThis myGame;
+	private BlahThis myGame = (BlahThis) Resources.getGame();
 
 	public RestartButton(Game game) {
-		super(game, RESTART_BUTTON_IMAGE, RESTART_BUTTON_X, RESTART_BUTTON_Y);
-		myGame = (BlahThis) game;
+		super(RESTART_BUTTON_IMAGE, RESTART_BUTTON_X, RESTART_BUTTON_Y);
 	}
 
 	@Override

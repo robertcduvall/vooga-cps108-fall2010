@@ -33,8 +33,8 @@ public class BlahThis extends Game {
 
 	private void initStates() {
 		playState = new PlayState(this, levelManager);
-		pauseState = new PauseState(this);
-		startMenuState = new StartMenuState(this);
+		pauseState = new PauseState();
+		startMenuState = new StartMenuState();
 		stateManager.addGameState(playState, pauseState, startMenuState);
 		if (showStart)
 			stateManager.switchTo(startMenuState);

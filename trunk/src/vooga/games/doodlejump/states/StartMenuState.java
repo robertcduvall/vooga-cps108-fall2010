@@ -29,14 +29,13 @@ public class StartMenuState extends MenuGameState {
 	private EventPool myEventPool;
 	private ImageBackground mainBackground;
 
-	public StartMenuState(Game game) {
+	public StartMenuState() {
 		super();
-		myGame = game;
 	}
 
 	@Override
 	public void initialize() {
-		myPlayButton = new PlayButton(myGame);
+		myPlayButton = new PlayButton();
 		mainBackground = new ImageBackground(
 				Resources.getImage(DEFAULT_PLAY_STRING));
 		myEventPool = new EventPool();

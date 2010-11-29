@@ -75,15 +75,14 @@ public class DropThis extends Game {
 		super.initGameStates();
 
 		initLevelManager();
-		stateManager.addGameState(myMenuState = new MenuState(this), 0);
+		stateManager.addGameState(myMenuState = new MenuState(), 0);
 		myPlayState = new PlayState(levelManager, this);
 		stateManager.addGameState(myPlayState);
 		stateManager
-				.addGameState(myLevelCompleteState = new LevelCompleteState(
-						this));
+				.addGameState(myLevelCompleteState = new LevelCompleteState());
 		stateManager
 				.addGameState(myGameCompleteState = new GameCompleteState());
-		stateManager.addGameState(myGameOverState = new GameOverState(this));
+		stateManager.addGameState(myGameOverState = new GameOverState());
 		stateManager.addGameState(myPauseState = new PauseGameState(
 				myPlayState, "Paused"));
 		stateManager.activateOnly(myMenuState);
