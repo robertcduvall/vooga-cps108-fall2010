@@ -20,7 +20,9 @@
 	</SpriteGroups>
 	
 	<Backgrounds>
-		<Visual name ="mainMenuBackground" />
+		<Background module="ImageBackground" widthKey="gameWidth" heightKey="gameHeight">
+			<Visual name ="mainMenuBackground"/>
+		</Background>
 	</Backgrounds>
 	
 	<Music name="music">

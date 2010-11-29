@@ -34,24 +34,9 @@ import vooga.engine.resource.Resources;
  * @author Daniel Koverman
  *
  */
-public abstract class SpriteModule {
-
-	private OverlayTracker overlayTracker;
-	private EventPool eventPool;
+public abstract class SpriteModule extends Module{
 
 	public abstract Collection<BetterSprite> getSprites(Element spriteElement);
-	
-	public void setOverlayTracker(OverlayTracker overlayTracker){
-		this.overlayTracker = overlayTracker;
-	}
-	
-	public void setEventPool(EventPool eventPool){
-		this.eventPool = eventPool;
-	}
-	
-	public EventPool getEventPool(){
-		return eventPool;
-	}
 
 	/**
 	 * Processes Visuals within a Sprite.
@@ -79,7 +64,7 @@ public abstract class SpriteModule {
 			if (LevelParser.isElement(listOfStats.item(statCount))) {
 				Element statElement = (Element) listOfStats.item(statCount);
 				String statName = statElement.getAttribute("name");
-				Stat<?> stat = overlayTracker.getStat(statName);
+				Stat<?> stat = getOverlayTracker().getStat(statName);
 
 				spriteToAdd.setStat(statName, stat);
 			}

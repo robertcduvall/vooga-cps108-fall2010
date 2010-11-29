@@ -1,0 +1,20 @@
+<Resources>
+	<Images>
+		<Image name="mainMenuBackground" path="backgrounds/mainMenu.png" />
+		<Image name="muddyBackground" path="backgrounds/muddy.png" />
+		<Image name="titleText" path="title.png" />
+		<Image name="playButton" path="playButton.png" />
+		<Image name="player" path="neutralFace.png" />
+	</Images>
+	<Animations></Animations>
+	<Strings>
+		<String name="mainMenuLayout" value="src/vooga/games/digger/resources/layouts/mainMenu.xml" />
+		<String name="level1XML" value="src/vooga/games/digger/resources/levels/level1.xml" />
+		<String name="moduleMapProperties" value="vooga.games.digger.resources.moduleMap" />
+	</Strings>
+	<Integers>
+		<Integer name="gameWidth" value="400" />
+		<Integer name="gameHeight" value="600" />
+	</Integers>
+	<Doubles></Doubles>
+</Resources>

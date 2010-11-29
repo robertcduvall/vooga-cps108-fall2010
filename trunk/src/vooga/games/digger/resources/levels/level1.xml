@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="mainMenuLayout">
+	<SpriteGroups>
+		<SpriteGroup name="player">
+			<Sprite module="Player" x="200" y="300"> 
+				<Visual name="player"/>
+				<Control module="KeyboardControl">
+					<Input method="moveUp" key="VK_W"/>
+					<Input method="moveLeft" key="VK_A"/>
+					<Input method="moveDown" key="VK_S"/>
+					<Input method="moveRight" key="VK_D"/>
+				</Control>
+			</Sprite>
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<Backgrounds>
+		<Background module="ImageBackground" widthKey="gameWidth" heightKey="gameHeight">
+			<Visual name ="muddyBackground"/>
+		</Background>
+	</Backgrounds>
+
+	
+</Level>
