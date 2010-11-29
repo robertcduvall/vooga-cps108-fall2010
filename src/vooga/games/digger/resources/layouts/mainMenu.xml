@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="mainMenuLayout">
+	<SpriteGroups>
+		<SpriteGroup name="buttons">
+			<Sprite module="SwitchStateButton" x="100" y="490" stateName="play">
+				<Visual name="playButton"/>
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="title">
+			<Sprite module="BetterSprite" x="50" y="30"> 
+				<Visual name="titleText"/>
+			</Sprite>
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<Backgrounds>
+		<Background module="ImageBackground" widthKey="gameWidth" heightKey="gameHeight">
+			<Visual name ="mainMenuBackground"/>
+		</Background>
+	</Backgrounds>
+
+	
+</Level>

@@ -487,7 +487,7 @@ public class LevelParser implements LevelFactory{
 	/**
 	 * Processes the background
 	 */
-	private void processBackgrounds(NodeList backgrounds) {
+	public void processBackgrounds(NodeList backgrounds) {
 		for (int i = 0; i < backgrounds.getLength(); i++) {
 			if (isElement(backgrounds.item(i))) {
 				Element bgElement = (Element) backgrounds.item(i);

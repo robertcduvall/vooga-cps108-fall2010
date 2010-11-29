@@ -10,8 +10,10 @@ import vooga.engine.core.BetterSprite;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
+import vooga.widget.levelparse.modules.BackgroundModule;
 import vooga.widget.levelparse.modules.SpriteModule;
 
+import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
 
 /**
@@ -40,12 +42,13 @@ import com.golden.gamedev.object.SpriteGroup;
  */
 public class ModularLevelParser extends LevelParser{
 	
-	private String moduleMapPathKey;
+	private ResourceBundle resources;
 	private EventPool eventPool;
 	
 	public ModularLevelParser(String moduleMapPathKey){
-		this.moduleMapPathKey = moduleMapPathKey;
+		resources = ResourceBundle.getBundle(Resources.getString(moduleMapPathKey));
 		eventPool = new EventPool();
+		
 	}
 	
 	public void setEventPool(EventPool eventPool){
@@ -57,13 +60,6 @@ public class ModularLevelParser extends LevelParser{
 	 */
 	@Override
 	public void processSprite(NodeList spritesList, SpriteGroup group) {
-		ResourceBundle resources = null;
-		try{
-		resources = ResourceBundle.getBundle(Resources.getString(moduleMapPathKey));
-		} catch(NullPointerException e){
-			System.out.println("Could not find " + moduleMapPathKey);
-			e.printStackTrace();
-		}
 		for(int i = 0; i < spritesList.getLength(); i++)
 		{
 			if (isElement(spritesList.item(i))) {
@@ -81,6 +77,29 @@ public class ModularLevelParser extends LevelParser{
 							group.add(sprite);
 						}
 						this.getIncompletePlayfield().addEventPool(eventPool);
+					} catch (Throwable e){
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void processBackgrounds(NodeList backgrounds){
+		for (int i = 0; i < backgrounds.getLength(); i++) {
+			if (isElement(backgrounds.item(i))) {
+				Element backgroundElement = ((Element) backgrounds.item((i)));
+				if (backgroundElement.getTagName().equals("Background")) {
+					String moduleName = backgroundElement.getAttribute("module");
+					
+					try {
+						Class<?> moduleClass = Class.forName(resources.getString(moduleName));
+						Constructor<?> moduleConstructor = moduleClass.getConstructor();
+						BackgroundModule module = (BackgroundModule) moduleConstructor.newInstance();
+						for(Background background: module.getBackgrounds(backgroundElement)){
+							getIncompletePlayfield().setBackground(background);
+						}
 					} catch (Throwable e){
 						e.printStackTrace();
 					}
