@@ -22,50 +22,13 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 */
 	protected Game myGame;
 	
-	/**
-	 * Creates an instance of Button with a game, a null image, and a location of (0,0)
-	 * @param game Which represents the game 
-	 */
-	public Button(Game game){
-		this(game, null, 0, 0);
-	}
 	
-	/**
-	 * Creates an instance of Button with a game and an image and a location of (0,0)
-	 * @param game Which represents the game 
-	 * @param image Which represents the image of the button
-	 */
-	public Button (Game game, BufferedImage image){
-		this(game, image, 0, 0); 
-	}
-	
-	/**
-	 * Creates an instance of Button with a specified game, image, and location
-	 * @param game Which represents the game 
-	 * @param image Which represents the image of the button
-	 * @param x Which represents the X-coordinate of the button
-	 * @param y Which represents the Y-coordinate of the button
-	 */
-	public Button (Game game, BufferedImage image, double x, double y){
-		super(image, x, y);
-		myGame = game;
-	}
-	
-	/**
-	 * Creates an instance of Button at a specified location with a game and a null image
-	 * @param game Which represents the game 
-	 * @param x Which represents the X-coordinate of the button
-	 * @param y Which represents the Y-coordinate of the button
-	 */
-	public Button(Game game, double x, double y){
-		this(game, null, x, y);
-	}
-
 	/**
 	 * Creates an instance of Button with a null image and a location of (0,0)
 	 */
 	public Button(){
-		this(Resources.getGame(), null, 0, 0);
+		this(null, 0, 0);
+		myGame = Resources.getGame();
 	}
 	
 	/**
@@ -73,7 +36,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * @param image Which represents the image of the button
 	 */
 	public Button (BufferedImage image){
-		this(Resources.getGame(), image, 0, 0); 
+		this(image, 0, 0);
 	}
 	
 	/**
@@ -93,7 +56,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * @param y Which represents the Y-coordinate of the button
 	 */
 	public Button(double x, double y){
-		this(Resources.getGame(), null, x, y);
+		this(null, x, y);
 	}
 
 	
@@ -103,7 +66,8 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 */
 	@Override
 	public boolean isTriggered() {
-		return myGame.click() && myGame.checkPosMouse(this, true);
+		Game game = Resources.getGame();
+		return game.click() && game.checkPosMouse(this, true);
 	}
 
 	/**
