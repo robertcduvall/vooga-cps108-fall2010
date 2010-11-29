@@ -24,11 +24,10 @@ public class PlayButton extends Button {
 	private static final int START_Y = 100;
 	private static final BufferedImage myImage = Resources
 			.getImage("playButton");
-	private DropThis myGame;
+	private DropThis myGame = (DropThis) Resources.getGame();
 
-	public PlayButton(Game game) {
-		super(game, myImage, START_X, START_Y);
-		myGame = (DropThis) game;
+	public PlayButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	// TODO - change actionPerformed to switchTo(PlayState)

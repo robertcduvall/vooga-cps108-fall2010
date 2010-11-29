@@ -27,11 +27,10 @@ public class ResumeButton extends Button {
 	private static final double RESUME_BUTTON_Y = Resources
 			.getDouble("resumeButtonY");
 
-	private BlahThis myGame;
+	private BlahThis myGame = (BlahThis) Resources.getGame();
 
-	public ResumeButton(Game game) {
-		super(game, RESUME_BUTTON_IMAGE, RESUME_BUTTON_X, RESUME_BUTTON_Y);
-		myGame = (BlahThis) game;
+	public ResumeButton() {
+		super(RESUME_BUTTON_IMAGE, RESUME_BUTTON_X, RESUME_BUTTON_Y);
 	}
 
 	@Override

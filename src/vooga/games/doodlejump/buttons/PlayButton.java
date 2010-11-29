@@ -27,11 +27,10 @@ public class PlayButton extends Button {
 	private static final double PLAY_BUTTON_Y = Resources
 			.getDouble("playButtonY");
 
-	private BlahThis myGame;
+	private BlahThis myGame = (BlahThis) Resources.getGame();
 
-	public PlayButton(Game game) {
-		super(game, PLAY_BUTTON_IMAGE, PLAY_BUTTON_X, PLAY_BUTTON_Y);
-		myGame = (BlahThis) game;
+	public PlayButton() {
+		super(PLAY_BUTTON_IMAGE, PLAY_BUTTON_X, PLAY_BUTTON_Y);
 	}
 
 	@Override

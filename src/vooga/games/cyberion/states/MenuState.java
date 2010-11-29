@@ -17,17 +17,15 @@ public class MenuState extends MenuGameState {
 
 	private PlayButton myPlayButton;
 	private QuitButton myQuitButton;
-	private Game myGame;
 	private EventPool eventPool;
 
-	public MenuState(Game game) {
-		myGame = game;
+	public MenuState() {
 	}
 
 	@Override
 	public void initialize() {
 		eventPool = new EventPool();
-		this.myPlayButton = new PlayButton(myGame);
+		this.myPlayButton = new PlayButton();
 		this.myQuitButton = new QuitButton();
 		addButton(myPlayButton);
 		addButton(myQuitButton);

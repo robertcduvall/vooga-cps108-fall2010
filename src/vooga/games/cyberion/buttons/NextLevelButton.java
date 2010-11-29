@@ -18,11 +18,10 @@ public class NextLevelButton extends Button {
 	private static final int START_Y = 200;
 	private static final BufferedImage myImage = Resources
 			.getImage("nextLevelButtonImage");
-	private DropThis myGame;
+	private DropThis myGame = (DropThis) Resources.getGame();
 
-	public NextLevelButton(Game game) {
-		super(game, myImage, START_X, START_Y);
-		myGame = (DropThis) game;
+	public NextLevelButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	@Override
