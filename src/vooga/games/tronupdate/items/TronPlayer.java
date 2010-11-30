@@ -308,6 +308,4 @@ public class TronPlayer extends BetterSprite {
 		//buildBlockWall();
 		//setLocation(playerXDirectionMove(),playerYDirectionMove());
 	}
-
-
 }
