@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
@@ -22,7 +23,7 @@ public class TronGamePauseEvent implements IEventHandler {
 	@Override
 	public void actionPerformed() {
 
-		gm.switchTo(gm.getGameState(1));//index 1 means pauseState
+		gm.switchTo(gm.getGameState(Resources.getInt("PauseState")));//index 1 means pauseState
 		System.out.println("Game is paused!");
 		
 	}

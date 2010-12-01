@@ -7,14 +7,13 @@ import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.GameState;
+import vooga.games.tronupdate.state.PlayState;
 import vooga.games.tronupdate.util.Mode;
 
 public class ModeSelectEvent implements IEventHandler{
 	private GameStateManager gm;
 	private Game game;
 	//private boolean single,multiple;
-
-
 	public ModeSelectEvent(Game game,GameStateManager gm){
 		this.game=game;
 		this.gm=gm;
@@ -24,16 +23,14 @@ public class ModeSelectEvent implements IEventHandler{
 	public void actionPerformed() {
 		if(isSingle()){
 			Mode.setSinglePlayer();	
-			gm.switchTo(gm.getGameState(Resources.getInt("SetLevelState")));//index 4 means setNumMatchesState
 		}
 		else if(isMultiple()){
 			Mode.setMultiplePlayer(); 
-			gm.switchTo(gm.getGameState(Resources.getInt("PlayState")));//index 0 means PlayState
 		}
 		else{
 			Mode.setAI();
-			gm.switchTo(gm.getGameState(0));
 		}
+		gm.switchTo(gm.getGameState(6));
 	}
 	
 	private boolean isSingle(){
