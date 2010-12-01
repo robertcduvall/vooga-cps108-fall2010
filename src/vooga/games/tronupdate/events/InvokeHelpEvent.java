@@ -3,6 +3,7 @@ package vooga.games.tronupdate.events;
 import java.awt.event.KeyEvent;
 
 import vooga.engine.core.Game;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.event.IEventHandler;
 import vooga.games.tronupdate.util.GameStats;
@@ -26,7 +27,7 @@ public class InvokeHelpEvent implements IEventHandler{
 	
 	@Override
 	public void actionPerformed(){ 
-		gm.switchTo(gm.getGameState(5));
+		gm.switchTo(gm.getGameState(Resources.getInt("HelpState")));
 		GameStats.setOriginalState(original);
 		System.out.println("Going to the help page!");
 	}

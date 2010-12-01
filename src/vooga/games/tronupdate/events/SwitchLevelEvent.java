@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.EventPool;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.state.GameState;
@@ -23,7 +24,7 @@ public class SwitchLevelEvent implements IEventHandler{
 	
 	@Override
 	public void actionPerformed() {
-		GameState state = gm.getGameState(0);//playState
+		GameState state = gm.getGameState(Resources.getInt("PlayState"));
 		TronGamePlayState playstate = (TronGamePlayState)state;
 		playstate.setLevel(level%playstate.getTotalLevel());
 		level++;

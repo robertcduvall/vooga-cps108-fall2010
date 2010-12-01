@@ -10,6 +10,13 @@
 <OverlayString xLoc="50" yLoc="150" fontName="Time New Roman" label="2" fontSize="16"></OverlayString>
 </OverlayGroup>
 
+<OverlayGroup name="Play">
+<OverlayString xLoc="0" yLoc="0" fontName="Time New Roman" label="Level: 1" fontSize="16"></OverlayString>
+<OverlayString xLoc="300" yLoc="0" fontName="Time New Roman" label="Life: 4" fontSize="16"></OverlayString>
+</OverlayGroup>
+
+
+
 <OverlayGroup name="load">
 <OverlayString xLoc="100" yLoc="100" fontnAme="Time New Roman" label="Welcome to Tron!" fontSize="32" color="green"></OverlayString>
 <OverlayString xLoc="100" yLoc="200" fontName="Time New Roman" label="Press s for single-player mode" fontSize="16" color="red"></OverlayString>
@@ -29,8 +36,10 @@
 
 
 <OverlayGroup name="Help">
-<OverlayString xLoc="100" yLoc="100" fontName="Time New Roman" label="Arrows for Player No. 1" fontSize="64" color="red"></OverlayString>
-<OverlayString xLoc="100" yLoc="400" fontName="Time New Roman" label="A,S,D,W for player No. 2" fontSize="64" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="100" fontName="Time New Roman" label="Arrows for Player No. 1" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="200" fontName="Time New Roman" label="A,S,D,W for player No. 2" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="300" fontName="Time New Roman" label="Press p to pause" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="100" yLoc="400" fontName="Time New Roman" label="Press r to resume the game" fontSize="32" color="red"></OverlayString>
 <OverlayString xLoc="150" yLoc="700" fontName="Time New Roman" label="Press Space to go back" fontSize="32" color="red"></OverlayString>
 </OverlayGroup>
 </Overlay>

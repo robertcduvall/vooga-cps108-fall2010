@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 
@@ -19,7 +20,7 @@ public class TronGameResumeEvent implements IEventHandler {
 	}
 	@Override
 	public void actionPerformed() {
-		gm.switchTo(gm.getGameState(0));//0 index is playstate 
+		gm.switchTo(gm.getGameState(Resources.getInt("PlayState"))); 
 		System.out.println("Game is resumed!");
 	}
 

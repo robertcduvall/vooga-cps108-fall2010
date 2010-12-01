@@ -31,10 +31,15 @@ public class Main extends vooga.engine.core.Game{
 		LoadState loadState = new LoadState(this,stateManager);
 		SetLevelState setLevelState= new SetLevelState(this,stateManager);
 		HelpState helpState = new HelpState(this,stateManager);
+		
+		PlayState trialState = new PlayState(this,stateManager);
+		
 		loadState.activate(); 
 		playState.deactivate(); 
 		pauseState.deactivate();
 		gameOverState.deactivate();
+		
+		trialState.deactivate();
 		
 		stateManager.addGameState(playState,Resources.getInt("PlayState"));
 		stateManager.addGameState(pauseState,Resources.getInt("PauseState"));
@@ -42,6 +47,8 @@ public class Main extends vooga.engine.core.Game{
 		stateManager.addGameState(loadState,Resources.getInt("LoadState"));
 		stateManager.addGameState(setLevelState,Resources.getInt("SetLevelState"));
 		stateManager.addGameState(helpState,Resources.getInt("HelpState"));
+		
+		stateManager.addGameState(trialState,6);
 	}
 
 	public static void main(String[] args) {

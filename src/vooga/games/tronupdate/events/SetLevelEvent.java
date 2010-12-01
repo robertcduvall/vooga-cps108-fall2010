@@ -3,6 +3,7 @@ package vooga.games.tronupdate.events;
 import com.golden.gamedev.engine.input.AWTInput;
 
 import vooga.engine.core.Game;
+import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.event.IEventHandler;
 import vooga.games.tronupdate.util.GameStats;
@@ -21,7 +22,7 @@ public class SetLevelEvent implements IEventHandler{
 	@Override
 	public void actionPerformed(){
 		GameStats.setLevel(Level);
-		gm.switchTo(gm.getGameState(0));
+		gm.switchTo(gm.getGameState(Resources.getInt("PlayState")));
 	}
 	
 	public int getLevel(){
