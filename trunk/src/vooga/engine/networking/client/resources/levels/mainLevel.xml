@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="TicTacToe" xmloverlaypath="">
+
+	<Rules>
+	</Rules>
+	
+	<SpriteGroups>
+		<SpriteGroup name="xGroup" />
+		<SpriteGroup name="oGroup" />
+	</SpriteGroups>
+
+	<CollisionGroups>
+	</CollisionGroups>
+
+	<Backgrounds>
+		<Visual name="background" />
+	</Backgrounds>
+
+	<Music>
+	</Music>
+
+	<Map>
+	</Map>
+
+</Level>

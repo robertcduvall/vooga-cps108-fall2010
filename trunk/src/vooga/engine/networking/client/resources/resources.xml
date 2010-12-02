@@ -1,0 +1,31 @@
+
+<Resources>
+	<Images>
+		<Image name="background" path="grid.png" />
+		<Image name="O" path="o.png" />
+		<Image name="X" path="x.png" />
+	</Images>
+
+	<Animations>
+	</Animations>
+
+	<Sounds>
+	</Sounds>
+
+	<Strings>
+		<String name="levelFilesDirectory" value="src/vooga/engine/networking/client/resources/levels" />
+		<String name="levelNamesFile" value="levelNames.txt" />
+		<String name="Level1" value="levels/mainLevel.xml" />
+	</Strings>
+
+	<Integers>
+		<Integer name="squareDimension" value="108" />
+		<Integer name="xOffsetX" value="9" />
+		<Integer name="xOffsetY" value="9" />
+		<Integer name="oOffsetX" value="11" />
+		<Integer name="oOffsetY" value="14" />
+	</Integers>
+
+	<Doubles>
+	</Doubles>
+</Resources> 
