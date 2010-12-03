@@ -4,6 +4,7 @@
 		<Image name="background" path="grid.png" />
 		<Image name="O" path="o.png" />
 		<Image name="X" path="x.png" />
+		<Image name="gameWonBackground" path="gameWonBackground.png" />
 	</Images>
 
 	<Animations>
@@ -16,6 +17,8 @@
 		<String name="levelFilesDirectory" value="src/vooga/engine/networking/client/resources/levels" />
 		<String name="levelNamesFile" value="levelNames.txt" />
 		<String name="Level1" value="levels/mainLevel.xml" />
+		<String name="gameWonXml" value="src/vooga/engine/networking/client/resources/levels/gameWon.xml" />
+		<String name="waitXml" value="src/vooga/engine/networking/client/resources/levels/waitingLevel.xml" />	
 	</Strings>
 
 	<Integers>
@@ -24,6 +27,15 @@
 		<Integer name="xOffsetY" value="9" />
 		<Integer name="oOffsetX" value="11" />
 		<Integer name="oOffsetY" value="14" />
+		<Integer name="portNum" value="1234" />
+		<Integer name="error" value="-1" />
+		<Integer name="wait" value="-2" />
+		<Integer name="yourTurn" value="-3" />
+		<Integer name="theirTurn" value="-4" />
+		<Integer name="theyWon" value="-5" />
+		<Integer name="theyQuit" value="-6" />
+		<Integer name="theyTied" value="-7" />
+		<Integer name="gameOver" value="-8" />
 	</Integers>
 
 	<Doubles>
