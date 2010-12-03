@@ -26,20 +26,8 @@ public class TicTacToeDaemon extends Thread {
 				System.exit(1);
 			}
 			try {
-				System.out.println("Waiting for client on port " +
-						port.getLocalPort() + "...");
 				clientSocket = port.accept();
-				System.out.println("Just connected to "
-						+ clientSocket.getRemoteSocketAddress());
-				DataInputStream in =
-					new DataInputStream(clientSocket.getInputStream());
-				System.out.println(in.readUTF());
-				DataOutputStream out =
-					new DataOutputStream(clientSocket.getOutputStream());
-				out.writeUTF("Thank you for connecting to "
-						+ clientSocket.getLocalSocketAddress() + "\nGoodbye!");
-				clientSocket.close();
-				//new TicTacToePlayer(this, clientSocket).start();
+				new TicTacToePlayer(this, clientSocket).start();
 			}
 			catch(SocketTimeoutException s)
 			{
@@ -58,7 +46,7 @@ public class TicTacToeDaemon extends Thread {
 		if(playerWaiting == null){
 			playerWaiting = p;
 			thisGame = null;
-			p.send("PLSWAIT");
+			p.send("wait");
 			while (playerWaiting != null) {
 				try {
 					wait();

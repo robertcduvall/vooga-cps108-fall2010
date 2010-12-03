@@ -4,20 +4,12 @@ import java.io.*;
 import java.net.*;
 
 import vooga.engine.networking.GameSocket;
+import vooga.engine.resource.Resources;
 
 public class TicTacToeConnection extends GameSocket {
-	static final int PORTNUM = 1234;
-	static final int ERROR = -1;
-	static final int PLSWAIT = -2;
-	static final int YOURTURN = -3;
-	static final int THEIRTURN = -4;
-	static final int THEYWON = -5;
-	static final int THEYQUIT = -6;
-	static final int THEYTIED = -7;
-	static final int GAMEOVER = -8;
 	
 	public TicTacToeConnection() throws UnknownHostException, IOException{
-		super(new Socket("localhost", PORTNUM));
+		super(new Socket("localhost", Resources.getInt("portNum")));
 	}
 	
 
@@ -29,7 +21,7 @@ public class TicTacToeConnection extends GameSocket {
 			String sentData = receive();
 			System.out.println("Received: " + sentData);
 			if (sentData == null)
-				return GAMEOVER;
+				return Resources.getInt("gameOver");
 			sentData = sentData.trim();
 			try {
 				return (new Integer(sentData)).intValue();
@@ -47,23 +39,23 @@ public class TicTacToeConnection extends GameSocket {
 
 	private int getStatus(String s) {
 		s = s.trim();
-		if (s.startsWith("PLSWAIT"))
-			return PLSWAIT;
-		if (s.startsWith("THEIRTURN"))
-			return THEIRTURN;
-		if (s.startsWith("YOURTURN"))
-			return YOURTURN;
-		if (s.startsWith("THEYWON"))
-			return THEYWON;
-		if (s.startsWith("THEYQUIT"))
-			return THEYQUIT;
-		if (s.startsWith("THEYTIED"))
-			return THEYTIED;
-		if (s.startsWith("GAMEOVER"))
-			return GAMEOVER;
+		if (s.startsWith("wait"))
+			return Resources.getInt("wait");
+		if (s.startsWith("theirTurn"))
+			return Resources.getInt("theirTurn");
+		if (s.startsWith("yourTurn"))
+			return Resources.getInt("yourTurn");
+		if (s.startsWith("theyWon"))
+			return Resources.getInt("theyWon");
+		if (s.startsWith("theyQuit"))
+			return Resources.getInt("theyQuit");
+		if (s.startsWith("theyTied"))
+			return Resources.getInt("theyTied");
+		if (s.startsWith("gameOver"))
+			return Resources.getInt("gameOver");
 		
 		System.out.println("received invalid status from server: " + s);
-		return ERROR;
+		return Resources.getInt("error");
 	}
 
 	public void sendMove(int col) {

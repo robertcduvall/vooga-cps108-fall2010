@@ -1,7 +1,9 @@
 package vooga.engine.networking.client;
 
 import vooga.engine.core.Game;
+import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
+import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.networking.client.states.*;
 
@@ -22,7 +24,18 @@ public class TicTacToe extends Game {
 	}
 
 	private void initStates() {
-		playState = new PlayState(this, levelManager);
+		TicTacToeConnection connection = null;
+		try{
+			connection = new TicTacToeConnection();
+		}
+		catch(Exception e){
+			System.exit(1);
+		}
+		playState = new PlayState(this, levelManager, connection);
+		LevelParser levelParser = new LevelParser();
+		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
+		WaitingState waitState = new WaitingState(this, connection, waitField, playState);
+		stateManager.addGameState(waitState);
 //		pauseState = new PauseState(this);
 //		startMenuState = new StartMenuState(this);
 //		stateManager.addGameState(playState, pauseState, startMenuState);
@@ -31,7 +44,7 @@ public class TicTacToe extends Game {
 //		else
 //			stateManager.switchTo(playState);
 		stateManager.addGameState(playState);
-		stateManager.switchTo(playState);
+		stateManager.switchTo(waitState);
 	}
 
 	private void initLevelManager() {
