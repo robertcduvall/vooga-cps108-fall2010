@@ -21,6 +21,9 @@ public class Login extends JFrame {
 	private JButton signInButton = null;
 	private JButton registerButton = null;
 	private JTextPane registerText = null;
+	
+	private String username;
+	private String password;
 	/**
 	 * This is the default constructor
 	 */
@@ -126,6 +129,14 @@ public class Login extends JFrame {
 			signInButton = new JButton();
 			signInButton.setBounds(new Rectangle(108, 72, 87, 25));
 			signInButton.setText("Sign In");
+			signInButton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					username = usernameField.getText();
+					password = passwordField.getText();
+					//Verify username + password combination;
+					System.out.println(username+" is logging in with pw: "+password.toString());
+				}
+			});
 		}
 		return signInButton;
 	}
@@ -140,6 +151,12 @@ public class Login extends JFrame {
 			registerButton = new JButton();
 			registerButton.setBounds(new Rectangle(107, 130, 90, 27));
 			registerButton.setText("Register");
+			registerButton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					//TODO Create new Profile
+					System.out.println("Create new profile");
+				}
+			});
 		}
 		return registerButton;
 	}
