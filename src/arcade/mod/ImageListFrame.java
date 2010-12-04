@@ -25,7 +25,7 @@ public class ImageListFrame extends AbstractListFrame {
 		myFileChooser = new JFileChooser();
 		
 		makeComponents();
-		
+				
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -62,7 +62,7 @@ public class ImageListFrame extends AbstractListFrame {
 		
 		myIcon = new ImageIcon(myFilepath);
 		
-		iconLabel.setIcon(myIcon);
+		//iconLabel.setIcon(myIcon);
 		
 	}
 
