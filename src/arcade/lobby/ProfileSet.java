@@ -2,6 +2,7 @@ package arcade.lobby;
 
 import java.util.Iterator;
 
+
 public class ProfileSet implements Iterable<Profile> {
 	public DatabaseAdapter myDbAdapter;
 	public String myTable;
