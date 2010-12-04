@@ -54,15 +54,12 @@ public class View extends JFrame {
     public void createFrames(String category) {
     	    	
     	centralPanel.removeAll();
-    	
-    	JButton tempButton = new JButton("lol");
-    	
-    	centralPanel.add(tempButton);
-    	
-    	centralPanel.repaint();
     	    	
-    	//centralPanel.add(new ImageListFrame("lol","/Users/brentsodman/Pictures/photo1.jpg"));
+    	centralPanel.add(new ImageListFrame("lol","/Users/brentsodman/Pictures/photo1.jpg"));
 
+    	centralPanel.validate();
+
+    	
     	/*Collection<AbstractListFrame> frames = myController.getFrames(category);
     	
     	for (AbstractListFrame alf : frames){
