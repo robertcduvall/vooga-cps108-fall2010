@@ -2,12 +2,12 @@ package arcade.mod;
 
 import java.util.Collection;
 
-public class ModController {
+public class Controller {
 
 	Model myModel;
 	
-	public ModController(){
-		ModView modView = new ModView(this);
+	public Controller(){
+		View modView = new View(this);
 		myModel = new Model();
 	}
 	
@@ -17,6 +17,6 @@ public class ModController {
 	
 	//temporary main method until arcade adds a button to call us
 	public static void main(String[] args){
-		ModController mod = new ModController();
+		Controller mod = new Controller();
 	}	
 }

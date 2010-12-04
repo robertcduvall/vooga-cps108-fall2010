@@ -11,12 +11,12 @@ public class ModView extends JFrame {
 
     private static final long serialVersionUID = 1L;
    
-    ModController myController;
+    Controller myController;
    
     Collection<String> myCategories = new ArrayList<String>();
    
     
-    public ModView(ModController controller) {
+    public ModView(Controller controller) {
         myController = controller;
     	initializeOnStart();
     }
