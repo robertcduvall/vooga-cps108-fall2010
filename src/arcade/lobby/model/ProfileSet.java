@@ -1,4 +1,4 @@
-package arcade.lobby;
+package arcade.lobby.model;
 
 import java.util.Iterator;
 

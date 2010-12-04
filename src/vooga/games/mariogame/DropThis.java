@@ -49,7 +49,7 @@ public class DropThis extends Game {
 	private void initFonts() {
 		fontManager = new GameFontManager();
 		GameFont menuFont = fontManager.getFont(getImages(
-"resources/images/font.png", 20, 3),
+				"resources/images/font.png", 20, 3),
 				" !            .,0123456789:   -? ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
 		SystemFont gameOverFont = new SystemFont(new Font(Font.SANS_SERIF,
 				Font.BOLD, 200));
