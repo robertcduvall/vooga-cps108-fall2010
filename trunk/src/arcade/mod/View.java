@@ -7,16 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class ModView extends JFrame {
+public class View extends JFrame {
 
     private static final long serialVersionUID = 1L;
    
-    Controller myController;
+    ModController myController;
    
     Collection<String> myCategories = new ArrayList<String>();
    
     
-    public ModView(Controller controller) {
+    public View(ModController controller) {
         myController = controller;
     	initializeOnStart();
     }
