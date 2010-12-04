@@ -24,10 +24,24 @@ public abstract class BasicAds {
 	protected long startTime;
 	protected long endTime;
 
+	/**
+	 * sets ads name
+	 * 
+	 * @param name
+	 */
 	public BasicAds(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * sets rendering area
+	 * 
+	 * @param name
+	 * @param xMin
+	 * @param xMax
+	 * @param yMin
+	 * @param yMax
+	 */
 	public BasicAds(String name, int xMin, int xMax, int yMin, int yMax) {
 		this.name = name;
 		this.xMin = xMin;
@@ -115,7 +129,6 @@ public abstract class BasicAds {
 		this.endTime = endTime;
 	}
 
-	
 	/**
 	 * get ads's duration
 	 * 

@@ -16,7 +16,18 @@ package arcade.ads;
 
 public interface IRelatedAds {
 
+	/**
+	 * get ads' category
+	 * 
+	 * @return
+	 */
 	public String getCategory();
 
+	/**
+	 * set ads' category
+	 * 
+	 * @param categ
+	 * @return
+	 */
 	public String setCategory(String categ);
 }

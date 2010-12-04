@@ -92,34 +92,66 @@ public class AdsManager {
 		RotateThread thread = new RotateThread(ads, index);
 	}
 
+	/**
+	 * adjust ads so that it fits in the window
+	 */
 	public void fitWindow() {
 
 	}
 
+	/**
+	 * update ads
+	 */
 	public void update() {
 
 	}
 
+	/**
+	 * render ads
+	 */
 	public void render() {
 
 	}
 
+	/**
+	 * retrieve new ads from web server
+	 */
 	public void retrieve() {
 
 	}
 
+	/**
+	 * move to the next ads
+	 * 
+	 * @return
+	 */
 	public static int nextAds() {
 		return (index == ads.size() - 1 ? 0 : index + 1);
 	}
 
+	/**
+	 * move to the previous ads
+	 * 
+	 * @return
+	 */
 	public static int prevAds() {
 		return (index == 0 ? ads.size() - 1 : index - 1);
 	}
 
+	/**
+	 * set timer
+	 * 
+	 * @param time
+	 */
 	public void setTime(Time time) {
 		this.currentTime = time;
 	}
 
+	/**
+	 * get current time
+	 * 
+	 * @return
+	 */
 	public Time getTime() {
 		return currentTime;
 	}
