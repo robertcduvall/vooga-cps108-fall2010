@@ -1,4 +1,4 @@
-package arcade.lobby;
+package arcade.lobby.model;
 
 public class DatabaseAdapter {	
 	

@@ -405,8 +405,8 @@ public class LevelParser implements LevelFactory{
 		
 	}
 	
-	private Class[] getParamTypes(NodeList list) {
-		Class[] returnArray = new Class[list.getLength()];
+	private Class<?>[] getParamTypes(NodeList list) {
+		Class<?>[] returnArray = new Class[list.getLength()];
 		for (int i = 0; i < list.getLength(); i++) {
 			try {
 				returnArray[i] = Class.forName(((Element)list.item(i)).getAttribute("class"));
@@ -434,12 +434,11 @@ public class LevelParser implements LevelFactory{
 				{
 					Node association = listOfAssociations.item(j);
 					if(isElement(association)) {
-						Element associationElement = (Element) listOfAssociations.item(j);
-	
+						Element associationElement = (Element) listOfAssociations.item(j);	
 						String key = associationElement.getAttribute("char");
 						String value = associationElement.getAttribute("object");
 						String image = associationElement.getAttribute("image");
-						reader.addAssociationClass(key, value);
+						reader.addAssociationClass(key, value);	
 						if(image!="") reader.addAssociationImage(key, image);
 						NodeList associationExtras = associationElement.getChildNodes();
 						for(int k = 0; k < associationExtras.getLength(); k++) {
@@ -450,7 +449,6 @@ public class LevelParser implements LevelFactory{
 								if(type.equals("Image")) {
 									reader.addAssociationImage(key, extraElement.getAttribute("name"));
 								} else if(type.equals("Item")) {
-									String itemType = extraElement.getAttribute("type");
 									reader.addAssociationItem(key,processItem(extraElement));
 								}
 							}
