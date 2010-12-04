@@ -1,6 +1,6 @@
 package arcade.store.account;
 
-public class PremiumShopAccount extends ShopAccount{
+public class PremiumShopAccount extends UserShopAccount{
 
 	public PremiumShopAccount(String user, String id) {
 		super(user, id);

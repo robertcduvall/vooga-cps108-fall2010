@@ -1,4 +1,4 @@
-package arcade.store;
+package arcade.store.addendum;
 
 public class CommunityBulletin {
 

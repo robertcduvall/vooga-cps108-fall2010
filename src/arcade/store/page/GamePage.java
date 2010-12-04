@@ -3,7 +3,7 @@ package arcade.store.page;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-import arcade.store.account.ShopAccount;
+import arcade.store.account.UserShopAccount;
 
 public class GamePage {
 	
@@ -33,12 +33,12 @@ public class GamePage {
 		return gameName;
 	}
 	
-	public void processOrder(ShopAccount user)
+	public void processOrder(UserShopAccount user)
 	{
 		//TODO: fill in here!
 	}
 	
-	private boolean hasPrivilege(ShopAccount user)
+	private boolean hasPrivilege(UserShopAccount user)
 	{
 		//TODO : fill in here!
 		return false;

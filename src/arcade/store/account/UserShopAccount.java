@@ -10,7 +10,7 @@ import arcade.store.page.GamePage;
  * @date 11-02-10
  * @description: This is a shop account that a player has. 
  */
-public class ShopAccount {
+public class UserShopAccount {
 
 	private String accountID;
 	private String userName;
@@ -20,7 +20,7 @@ public class ShopAccount {
 	private Set<String> boughtGames;
 	private Stack<GamePage> visitedPages;
 
-	public ShopAccount(String user, String id) {
+	public UserShopAccount(String user, String id) {
 		userName = user;
 		accountID = id;
 
@@ -34,6 +34,11 @@ public class ShopAccount {
 	{
 
 	}
+	
+	public boolean purchaseGame()
+	{
+		return false;
+	}
 
 	/**
 	 * Overrides all the information from one account to another.
@@ -41,7 +46,7 @@ public class ShopAccount {
 	 * privileges, games, and credits.
 	 * @param newAccount
 	 */
-	public void transferInformation(ShopAccount newAccount)
+	public void transferInformation(UserShopAccount newAccount)
 	{
 		pasteAccountInformation(newAccount);
 	}
@@ -52,7 +57,7 @@ public class ShopAccount {
 	 * 
 	 * @return
 	 */
-	private void pasteAccountInformation(ShopAccount newAccount)
+	private void pasteAccountInformation(UserShopAccount newAccount)
 	{
 		//transfer credits
 		for(String credit : shopCredits.keySet())
@@ -117,13 +122,13 @@ public class ShopAccount {
 		}
 	}
 
-	public void addGame(GamePage game) {
+	private void addGame(GamePage game) {
 
 		boughtGames.add(game.getGameTitle());
 
 	}
 
-	public void addGame(String title) {
+	private void addGame(String title) {
 
 		boughtGames.add(title);
 	}
@@ -143,6 +148,11 @@ public class ShopAccount {
 		shopPrivileges.add(privilege);
 	}
 
+	/**
+	 * May not eventually need this!
+	 * @param privilege
+	 * @return
+	 */
 	public boolean hasPrivilege(String privilege)
 	{
 		return shopPrivileges.contains(privilege);
