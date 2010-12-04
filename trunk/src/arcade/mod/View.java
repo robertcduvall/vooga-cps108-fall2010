@@ -11,12 +11,12 @@ public class View extends JFrame {
 
     private static final long serialVersionUID = 1L;
    
-    ModController myController;
+    Controller myController;
    
     Collection<String> myCategories = new ArrayList<String>();
    
     
-    public View(ModController controller) {
+    public View(Controller controller) {
         myController = controller;
     	initializeOnStart();
     }
