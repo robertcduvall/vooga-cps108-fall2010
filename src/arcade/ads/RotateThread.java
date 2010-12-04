@@ -2,6 +2,17 @@ package arcade.ads;
 
 import java.util.List;
 
+/**
+ * This class helps rotate ads
+ * 
+ * @author Hao He (hh89@duke.edu)
+ * @author Nick Straub (njs7@duke.edu)
+ * @author Scott Winkleman (saw26@duke.edu)
+ * @author Kate Yang (kly2@duke.edu)
+ * 
+ * @version 1.0
+ */
+
 public class RotateThread extends Thread {
 	private List<BasicAds> ads;
 	private int index;

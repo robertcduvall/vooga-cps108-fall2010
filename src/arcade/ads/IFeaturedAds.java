@@ -16,7 +16,16 @@ package arcade.ads;
 
 public interface IFeaturedAds {
 
+	/**
+	 * return ads' ranking
+	 * @return
+	 */
 	public String getRanking();
 
+	/**
+	 * set ads' ranking
+	 * @param rank
+	 * @return
+	 */
 	public String setRanking(int rank);
 }
