@@ -14,7 +14,6 @@ public class ImageListFrame extends AbstractListFrame {
 	ImageIcon myIcon;
 	JLabel iconLabel;
 
-	
 	JFileChooser myFileChooser;
 	
 	public ImageListFrame( String name, String filepath ) {
