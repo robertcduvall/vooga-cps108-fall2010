@@ -5,21 +5,20 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import arcade.wall.ReviewAction;
+import arcade.wall.WallController;
 
 public class WallDemo extends JPanel {
+	WallController controller;
 	static JFrame frame;
 
 	JPanel entryPanel;
 	JPanel displayPanel;
 
 	JButton reviewButton;
-	static JLabel commentsLabel;
+	JLabel commentsLabel;
 
-	//TODO - made a bunch of things public / static so as to use them in ReviewAction class
-	//Best way to handle this???
 	static JTextField commentEntryField;
-	public static JComboBox gameChoices;
+	JComboBox gameChoices;
 	
 	public static final String myName = "gamer13";
 	public static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
@@ -27,26 +26,27 @@ public class WallDemo extends JPanel {
 			"Tron", "MarioClone" };
 
 	public WallDemo() {
+		controller = new WallController();
 		entryPanel = new JPanel();
 		displayPanel = new JPanel();
 
 		reviewButton = new JButton("Review");
-		reviewButton.addActionListener(new ReviewAction());
-//		reviewButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				commentsLabel.setText("<html>" + 
-//									  commentsLabel.getText() +  
-//									  "<br/>" + 
-//									  commentEntryField.getText() + "  ---" + myName +
-//									  "</html>");
-//			}
-//		});
+		reviewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.addComment(choices[gameChoices.getSelectedIndex()],
+									  commentEntryField.getText(), myName);
+				commentsLabel.setText("<html>" + 
+									  commentsLabel.getText() +  
+									  "<br/>" + 
+									  commentEntryField.getText() + "  ---" + myName +
+									  "</html>");
+			}
+		});
 		commentEntryField = new JTextField(17);
 		gameChoices = new JComboBox();
 		gameChoices = new JComboBox(choices);
 		gameChoices.setSelectedIndex(0);
-		commentsLabel = new JLabel();
-//		commentsLabel = new JLabel("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
+		commentsLabel = new JLabel("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
 		gameChoices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 			    if ("comboBoxChanged".equals(event.getActionCommand())) {
@@ -67,16 +67,10 @@ public class WallDemo extends JPanel {
 		this.add(entryPanel);
 		this.add(displayPanel);
 	}
-	
-
-	public static JLabel getCommentsLabel() {
-		return commentsLabel;
-	}
 
 	public static JTextField getCommentEntryField() {
 		return commentEntryField;
 	}
-
 
 	public static void main(String s[]) {
 		frame = new JFrame("WallDemo");
