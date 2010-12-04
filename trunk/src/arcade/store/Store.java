@@ -135,7 +135,7 @@ public class Store {
 	 * figure out a override mechanism 
 	 * to allow special accesses etc.
 	 */
-	public void overrideStoreLogic()
+	public void overrideInstanceStoreLogic(UserShopAccount account) //TODO: need two params?
 	{
 		
 	}
@@ -145,7 +145,7 @@ public class Store {
 	 * that it previously does not have
 	 * @param account
 	 */
-	public void overrideStoreLogic(UserShopAccount account)
+	public void overrideAllStoreLogic(UserShopAccount account)
 	{
 		
 	}
