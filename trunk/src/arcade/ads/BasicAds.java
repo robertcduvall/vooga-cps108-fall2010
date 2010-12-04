@@ -16,9 +16,25 @@ package arcade.ads;
 
 public abstract class BasicAds {
 
-	private String name;
-	private long startTime;
-	private long endTime;
+	protected String name;
+	protected int xMin;
+	protected int xMax;
+	protected int yMin;
+	protected int yMax;
+	protected long startTime;
+	protected long endTime;
+
+	public BasicAds(String name) {
+		this.name = name;
+	}
+
+	public BasicAds(String name, int xMin, int xMax, int yMin, int yMax) {
+		this.name = name;
+		this.xMin = xMin;
+		this.xMax = xMax;
+		this.yMin = yMin;
+		this.yMax = yMax;
+	}
 
 	/**
 	 * action when user clicks on the ads
@@ -39,6 +55,11 @@ public abstract class BasicAds {
 	 * render ads
 	 */
 	public abstract void render();
+
+	/**
+	 * check if ad is active
+	 */
+	public abstract boolean isActive();
 
 	/**
 	 * get ads's name
@@ -92,5 +113,15 @@ public abstract class BasicAds {
 	 */
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
+	}
+
+	
+	/**
+	 * get ads's duration
+	 * 
+	 * @return
+	 */
+	public long getDuration() {
+		return getEndTime() - getStartTime();
 	};
 }
