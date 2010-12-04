@@ -15,13 +15,10 @@ public class ModView extends JFrame {
    
     Collection<String> myCategories = new ArrayList<String>();
    
-    public ModView() {
-       
-    }
-   
     
     public ModView(ModController controller) {
         myController = controller;
+    	initializeOnStart();
     }
     
    
