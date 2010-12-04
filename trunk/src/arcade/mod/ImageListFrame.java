@@ -54,6 +54,7 @@ public class ImageListFrame extends AbstractListFrame {
 			
 		});
 		
+		add(fileButton);
 		add(iconLabel);
 		
 	}

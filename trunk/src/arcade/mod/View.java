@@ -62,7 +62,7 @@ public class View extends JFrame {
         //myCategories = myController.getCategories();
         myCategories.add("placeholder");
        
-        JComboBox categoryBox = new JComboBox((String[])myCategories.toArray());
+        JComboBox categoryBox = new JComboBox(myCategories.toArray());
         categoryBox.setSelectedIndex(0);
         categoryBox.addActionListener(new ActionListener() {
            

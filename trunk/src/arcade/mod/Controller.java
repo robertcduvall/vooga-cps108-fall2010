@@ -11,7 +11,7 @@ public class Controller {
 		myModel = new Model();
 	}
 	
-	public Collection<String> getCatagories(){
+	public Collection<String> getCategories(){
 		return myModel.getCategories();
 	}
 	
