@@ -13,8 +13,8 @@ public class GameOverButton extends Button {
 	private static final int START_Y = 100;
 	private static final BufferedImage myImage = Resources.getImage("gameOverButtonImage");
 	
-	public GameOverButton(Game game) {
-		super(game, myImage, START_X, START_Y);
+	public GameOverButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	@Override

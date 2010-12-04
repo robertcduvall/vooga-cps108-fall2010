@@ -11,12 +11,12 @@ public class GoButton extends Button{
 	private static final long serialVersionUID = 1L;
 	private String levelName;
 	
-	public GoButton(Game game){
-		super(game);
+	public GoButton(){
+		super();
 	}
 
-	public GoButton(Game game, BufferedImage image, double x, double y) {
-		super(game, image, x, y);
+	public GoButton(BufferedImage image, double x, double y) {
+		super(image, x, y);
 	}
 
 	@Override

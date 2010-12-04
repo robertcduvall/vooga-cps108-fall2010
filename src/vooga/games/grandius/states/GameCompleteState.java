@@ -17,7 +17,7 @@ public class GameCompleteState extends MenuGameState {
 	
 	@Override
 	public void initialize() {
-		this.myQuitButton = new QuitButton(myGame);
+		this.myQuitButton = new QuitButton();
         addButton(myQuitButton);
         eventPool = new EventPool();
         eventPool.addEvent(myQuitButton);

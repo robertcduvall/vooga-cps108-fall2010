@@ -15,7 +15,7 @@ public class PlayButton extends Button {
 		private DropThis myGame;
         
         public PlayButton(Game game) {
-                super(game, myImage, START_X, START_Y);
+                super(myImage, START_X, START_Y);
                 myGame = (DropThis) game;
         }
         

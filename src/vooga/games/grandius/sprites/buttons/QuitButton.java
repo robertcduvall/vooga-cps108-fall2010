@@ -13,8 +13,8 @@ public class QuitButton extends Button {
 	private static final int START_Y = 100;
 	private static final BufferedImage myImage = Resources.getImage("quitButtonImage");
 	
-	public QuitButton(Game game) {
-		super(game, myImage, START_X, START_Y);
+	public QuitButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	@Override

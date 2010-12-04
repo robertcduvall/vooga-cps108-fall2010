@@ -17,7 +17,7 @@ public class GameOverState extends MenuGameState {
 	
 	@Override
 	public void initialize() {
-		this.myGameOverButton = new GameOverButton(myGame);
+		this.myGameOverButton = new GameOverButton();
         addButton(myGameOverButton);
         eventPool = new EventPool();
         eventPool.addEvent(myGameOverButton);

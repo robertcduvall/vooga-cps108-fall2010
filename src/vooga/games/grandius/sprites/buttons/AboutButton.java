@@ -13,8 +13,8 @@ public class AboutButton extends Button {
 	private static final int START_Y = 40;
 	private static final BufferedImage myImage = Resources.getImage("aboutButtonImage");
 	
-	public AboutButton(Game game) {
-		super(game, myImage, START_X, START_Y);
+	public AboutButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	@Override
