@@ -13,6 +13,7 @@ public class View extends JFrame {
    
     Controller myController;
    
+    JPanel centralPane;
     Collection<String> myCategories = new ArrayList<String>();
    
     
@@ -24,24 +25,37 @@ public class View extends JFrame {
    
     public void initializeOnStart() {
        
+    	setSize(800,600);
+    	
         JPanel contentPane = new JPanel(new BorderLayout());
        
         contentPane.add(makeCategoryBox(), BorderLayout.NORTH);
         contentPane.add(makeButton(), BorderLayout.SOUTH);
        
-        //handle central jpanel
        
-        JPanel centralPane = new JPanel(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-       
-        //JList
-       
-       
+        centralPane = new JPanel();
+        centralPane.setLayout(new BoxLayout(centralPane, BoxLayout.PAGE_AXIS));
+               
+        
         contentPane.add(centralPane, BorderLayout.CENTER);
        
-        //end central jpanel
        
-        pack();
+        add(contentPane);
+        
         setVisible(true);
+        
+    }
+    
+    public void createFrames(String category) {
+    	
+    	centralPane.removeAll();
+    	
+    	Collection<AbstractListFrame> frames = myController.getFrames(category);
+    	
+    	for (AbstractListFrame alf : frames){
+    		centralPane.add(alf);
+    	}
+    	
     }
 
     private JButton makeButton() {
@@ -61,6 +75,7 @@ public class View extends JFrame {
     private JComboBox makeCategoryBox() {
         //myCategories = myController.getCategories();
         myCategories.add("placeholder");
+        myCategories.add("placeholder2");
        
         JComboBox categoryBox = new JComboBox(myCategories.toArray());
         categoryBox.setSelectedIndex(0);
@@ -68,7 +83,8 @@ public class View extends JFrame {
            
             public void actionPerformed(ActionEvent e)
             {
-                //change based on box
+            	JComboBox comboBox = (JComboBox)e.getSource();
+            	View.this.createFrames((String)comboBox.getSelectedItem());
             }
            
         });
