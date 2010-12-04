@@ -13,7 +13,6 @@ import vooga.engine.event.EventPool;
 
 import vooga.games.tronupdate.events.ModeSelectEvent;
 import vooga.games.tronupdate.events.InvokeHelpEvent;
-import vooga.games.tronupdate.buttons.*;
 
 public class LoadState extends GameState{
 	private Game game;

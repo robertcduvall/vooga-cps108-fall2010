@@ -21,7 +21,7 @@ public class GrandiusMenuState extends MenuGameState {
         public void initialize() {
                 this.myPlayButton = new PlayButton(myGame);
                 addButton(myPlayButton);
-                this.myAboutButton = new AboutButton(myGame);
+                this.myAboutButton = new AboutButton();
                 addButton(myAboutButton);
                 eventPool = new EventPool();
                 eventPool.addEvent(myPlayButton);

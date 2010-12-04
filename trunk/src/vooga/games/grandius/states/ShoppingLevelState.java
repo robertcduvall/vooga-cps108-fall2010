@@ -22,8 +22,8 @@ public class ShoppingLevelState extends MenuGameState {
 	@Override
 	public void initialize() {
 		eventPool = new EventPool();
-		this.myBuyMissileButton = new BuyMissileButton(myGame);
-		this.myBuyBlackHoleButton = new BuyBlackHoleButton(myGame);
+		this.myBuyMissileButton = new BuyMissileButton();
+		this.myBuyBlackHoleButton = new BuyBlackHoleButton();
 		this.myNextLevelButton = new NextLevelButton(myGame);
 		addButton(myBuyMissileButton);
 		addButton(myBuyBlackHoleButton);

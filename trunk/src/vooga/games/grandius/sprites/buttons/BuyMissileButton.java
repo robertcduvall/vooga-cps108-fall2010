@@ -15,8 +15,8 @@ public class BuyMissileButton extends Button {
 	private static final int START_Y = 0;
 	private static final BufferedImage myImage = Resources.getImage("buyMissileButtonImage");
 	
-	public BuyMissileButton(Game game) {
-		super(game, myImage, START_X, START_Y);
+	public BuyMissileButton() {
+		super(myImage, START_X, START_Y);
 	}
 
 	@Override
