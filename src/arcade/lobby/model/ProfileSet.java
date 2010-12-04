@@ -18,11 +18,38 @@ public class ProfileSet implements Iterable<Profile> {
 	public Profile getProfile(String userName) {
 		return null;
 	}
+	
+	public Profile getProfile(int row) {
+		return null;
+	}
 
 	@Override
 	public Iterator<Profile> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Iterator<Profile>(){
+
+			int mySize = size();
+			int myLoc = 0;
+			
+			@Override
+			public boolean hasNext() {
+				return myLoc < mySize;
+			}
+
+			@Override
+			public Profile next() {
+				myLoc++;
+				return getProfile(myLoc);
+			}
+
+			@Override
+			/**
+			 * This method will not be implemented
+			 */
+			public void remove() {
+				throw(new UnsupportedOperationException());
+			}
+			
+		};
 	}
 
 }
