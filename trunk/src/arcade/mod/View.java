@@ -13,7 +13,7 @@ public class View extends JFrame {
    
     Controller myController;
    
-    JPanel centralPane;
+    JPanel centralPanel;
     Collection<String> myCategories = new ArrayList<String>();
    
     
@@ -32,12 +32,17 @@ public class View extends JFrame {
         contentPane.add(makeCategoryBox(), BorderLayout.NORTH);
         contentPane.add(makeButton(), BorderLayout.SOUTH);
        
-       
-        centralPane = new JPanel();
-        centralPane.setLayout(new BoxLayout(centralPane, BoxLayout.PAGE_AXIS));
-               
+        //JScrollPane scrollPane = new JScrollPane();
         
-        contentPane.add(centralPane, BorderLayout.CENTER);
+        centralPanel = new JPanel();
+        centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
+       
+        centralPanel.setBackground(Color.GREEN);
+        
+        
+        //scrollPane.add(centralPanel);
+        
+        contentPane.add(centralPanel, BorderLayout.CENTER);
        
        
         add(contentPane);
@@ -47,14 +52,22 @@ public class View extends JFrame {
     }
     
     public void createFrames(String category) {
+    	    	
+    	centralPanel.removeAll();
     	
-    	centralPane.removeAll();
+    	JButton tempButton = new JButton("lol");
     	
-    	Collection<AbstractListFrame> frames = myController.getFrames(category);
+    	centralPanel.add(tempButton);
+    	
+    	centralPanel.repaint();
+    	    	
+    	//centralPanel.add(new ImageListFrame("lol","/Users/brentsodman/Pictures/photo1.jpg"));
+
+    	/*Collection<AbstractListFrame> frames = myController.getFrames(category);
     	
     	for (AbstractListFrame alf : frames){
-    		centralPane.add(alf);
-    	}
+    		centralPanel.add(alf);
+    	}*/
     	
     }
 
