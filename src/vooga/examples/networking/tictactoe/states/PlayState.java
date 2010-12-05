@@ -52,7 +52,7 @@ public class PlayState extends GameState{
 
 	public void initControls(){
 		Control gameControl = new MouseControl(this, game);
-		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", "vooga.examples.networking.states.PlayState");
+		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", "vooga.examples.tictactoe.networking.states.PlayState");
 		field.addControl("game", gameControl);
 	}
 	
