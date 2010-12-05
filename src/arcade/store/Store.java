@@ -1,5 +1,8 @@
 package arcade.store;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import arcade.store.account.GuestShopAccount;
 import arcade.store.account.StoreShopAccount;
 import arcade.store.account.UserShopAccount;
@@ -16,6 +19,7 @@ public class Store {
 	
 	private UserShopAccount currentActiveAccount;
 	
+	private Map<String, String> tags;
 	
 	public Store()
 	{
@@ -26,6 +30,8 @@ public class Store {
 		
 		//by default, a GUEST user is registered with the store
 		currentActiveAccount = new GuestShopAccount(GUEST_USER_NAME, GUEST_USER_ID);
+		
+		tags = new HashMap<String, String>();
 	}
 	
 	/**
@@ -150,4 +156,12 @@ public class Store {
 		
 	}
 	
+	public void putTag(String tagKey, String tagValue) {
+		tags.put(tagKey, tagValue);
+	}
+	
+	public String getTag(String key) {
+		//TODO: check to make sure you are not going to return null pointer
+		return tags.get(key);
+	}
 }
