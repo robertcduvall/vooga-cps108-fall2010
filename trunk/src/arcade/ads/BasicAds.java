@@ -1,5 +1,7 @@
 package arcade.ads;
 
+import vooga.engine.core.BetterSprite;
+
 /**
  * This is simple class will provide general functionality for all ads, such as
  * name, start and end date, maximum vies, onClick, onMouseOver, update, and
@@ -14,7 +16,8 @@ package arcade.ads;
  * @version 1.0
  */
 
-public abstract class BasicAds {
+public abstract class BasicAds extends BetterSprite
+{
 
 	protected String name;
 	protected int xMin;
@@ -29,7 +32,8 @@ public abstract class BasicAds {
 	 * 
 	 * @param name
 	 */
-	public BasicAds(String name) {
+	public BasicAds(String name)
+	{
 		this.name = name;
 	}
 
@@ -42,7 +46,8 @@ public abstract class BasicAds {
 	 * @param yMin
 	 * @param yMax
 	 */
-	public BasicAds(String name, int xMin, int xMax, int yMin, int yMax) {
+	public BasicAds(String name, int xMin, int xMax, int yMin, int yMax)
+	{
 		this.name = name;
 		this.xMin = xMin;
 		this.xMax = xMax;
@@ -60,15 +65,15 @@ public abstract class BasicAds {
 	 */
 	public abstract void onMouseOver();
 
-	/**
-	 * update ads
-	 */
-	public abstract void update();
+	// /**
+	// * update ads
+	// */
+	// public abstract void update();
 
-	/**
-	 * render ads
-	 */
-	public abstract void render();
+	// /**
+	// * render ads
+	// */
+	// public abstract void render();
 
 	/**
 	 * check if ad is active
@@ -80,7 +85,8 @@ public abstract class BasicAds {
 	 * 
 	 * @return ads's name
 	 */
-	public String getName() {
+	public String getName()
+	{
 		return this.name;
 	};
 
@@ -89,7 +95,8 @@ public abstract class BasicAds {
 	 * 
 	 * @param name
 	 */
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	};
 
@@ -98,7 +105,8 @@ public abstract class BasicAds {
 	 * 
 	 * @return ads's start time
 	 */
-	public long getStartTime() {
+	public long getStartTime()
+	{
 		return this.startTime;
 	};
 
@@ -107,7 +115,8 @@ public abstract class BasicAds {
 	 * 
 	 * @param startTime
 	 */
-	public void setStartTime(long startTime) {
+	public void setStartTime(long startTime)
+	{
 		this.startTime = startTime;
 	};
 
@@ -116,7 +125,8 @@ public abstract class BasicAds {
 	 * 
 	 * @return ads's end time
 	 */
-	public long getEndTime() {
+	public long getEndTime()
+	{
 		return endTime;
 	};
 
@@ -125,7 +135,8 @@ public abstract class BasicAds {
 	 * 
 	 * @param endTime
 	 */
-	public void setEndTime(long endTime) {
+	public void setEndTime(long endTime)
+	{
 		this.endTime = endTime;
 	}
 
@@ -134,7 +145,8 @@ public abstract class BasicAds {
 	 * 
 	 * @return
 	 */
-	public long getDuration() {
+	public long getDuration()
+	{
 		return getEndTime() - getStartTime();
 	};
 }
