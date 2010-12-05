@@ -5,7 +5,7 @@ import java.io.*;
 import vooga.engine.networking.GameSocket;
 
 public class TicTacToeDaemon extends Thread {
-	public static final int PORTNUM = 1225;
+	public static final int PORTNUM = 1226;
 	private ServerSocket port;
 	private TicTacToePlayer playerWaiting;
 	private ServerGame thisGame;
