@@ -3,12 +3,13 @@ package arcade.store;
 import java.util.HashMap;
 import java.util.Map;
 
+import arcade.store.organizer.Organizer;
 import arcade.store.page.StorePage;
 
 public class StoreLibrary {
 
 	private static Map<String, StorePage> pageCatalogue;
-	
+	private static Map<String, Organizer> pageOrganizer;
 	public StoreLibrary()
 	{
 		pageCatalogue = new HashMap<String, StorePage>();
