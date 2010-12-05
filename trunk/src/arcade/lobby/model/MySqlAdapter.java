@@ -2,8 +2,10 @@ package arcade.lobby.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Map;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
 
 
 public class MySqlAdapter implements DatabaseAdapter {
@@ -12,7 +14,6 @@ public class MySqlAdapter implements DatabaseAdapter {
 
 	public MySqlAdapter(String host, String dbName, String user, String pass) {
 		connect(host, dbName, user, pass);
-		selectDB(dbName);
 	}
 
 	private boolean connect(String host, String dbName, String user, String pass){
@@ -41,14 +42,22 @@ public class MySqlAdapter implements DatabaseAdapter {
 			System.out.println(e);
 		}
 	}
-	private boolean selectDB(String dbName) {
-		return false;
-
-	}
 
 	@Override
 	public String[] getColumn(String tableName, String columnName) {
-		// TODO Auto-generated method stub
+		String sql = String.format("SELECT %s FROM %s", columnName, tableName);
+		try {
+			PreparedStatement ps = myDBConnection.prepareStatement(sql);
+			ResultSet rs = ps.getResultSet();
+			String[] result = new String[rs.getFetchSize()];
+			while(rs.next()) {
+				result[rs.getRow()] = rs.getString(0);
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
