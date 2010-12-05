@@ -17,7 +17,7 @@ public class FilepathListFrame extends AbstractListFrame {
 	private JFileChooser myFileChooser;
 	private JLabel filepathLabel;
 	
-	private static final int DEFAULT_HEIGHT = 70;
+	
 	
 	public FilepathListFrame() {
 		//do nothing
