@@ -1,16 +1,9 @@
 package vooga.games.grandius.collisions;
 
-import java.awt.image.BufferedImage;
-
 import vooga.engine.core.Game;
-import vooga.engine.core.PlayField;
-import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
 import vooga.games.grandius.sprites.weapons.Missile;
 
-import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.sprite.VolatileSprite;
 
 public class MissileEnemyCollision extends BasicCollision {
 	private Game grandius;
