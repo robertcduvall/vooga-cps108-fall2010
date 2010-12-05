@@ -1,10 +1,10 @@
-package vooga.engine.networking.client.states;
+package vooga.examples.networking.states;
 
 import java.awt.Graphics2D;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.engine.networking.client.TicTacToeConnection;
+import vooga.examples.networking.TicTacToeConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 

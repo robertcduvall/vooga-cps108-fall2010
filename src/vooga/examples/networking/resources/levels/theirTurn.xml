@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="TheirTurnState" xmloverlaypath="src/vooga/engine/networking/client/resources/overlays/TheirTurnOverlays.xml">
+<Level name="TheirTurnState" xmloverlaypath="src/vooga/examples/networking/resources/overlays/TheirTurnOverlays.xml">
 
 	<SpriteGroups>
 	</SpriteGroups>

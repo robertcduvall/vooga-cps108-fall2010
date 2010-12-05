@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="ErrorState" xmloverlaypath="src/vooga/engine/networking/client/resources/overlays/ErrorOverlays.xml">
+<Level name="ErrorState" xmloverlaypath="src/vooga/examples/networking/resources/overlays/ErrorOverlays.xml">
 
 	<SpriteGroups>
 	</SpriteGroups>

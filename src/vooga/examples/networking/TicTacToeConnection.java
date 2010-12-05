@@ -1,4 +1,4 @@
-package vooga.engine.networking.client;
+package vooga.examples.networking;
 
 import java.io.*;
 import java.net.*;
