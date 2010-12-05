@@ -1,13 +1,22 @@
 package arcade.lobby.view;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import arcade.lobby.model.Profile;
 import java.awt.Rectangle;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Dimension;
+
+import java.io.File;
 
 public class HomePage extends JPanel {
 
@@ -24,9 +33,10 @@ public class HomePage extends JPanel {
 	private JTextField nicknameField = null;
 	private JButton editNameButton = null;
 	private JButton editBirthdayButton = null;
-	private JButton jButton = null;
 	private JButton editEmailButton = null;
-	private JButton editNickNameButton = null;
+	private JButton SaveButton = null;
+	
+	private final String dateRegex = "^(\\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$";
 	/**
 	 * This is the default constructor
 	 */
@@ -43,7 +53,7 @@ public class HomePage extends JPanel {
 	 */
 	private void initialize() {
 		getIconLabel();
-		this.setSize(389, 278);
+		this.setSize(385, 187);
 		this.setLayout(null);
 		this.add(getNameLabel(), null);
 		this.add(getBirthdayLabel(), null);
@@ -57,19 +67,22 @@ public class HomePage extends JPanel {
 		this.add(getEditNameButton(), null);
 		this.add(getEditBirthdayButton(), null);
 		this.add(getEditEmailButton(), null);
-		this.add(getEditNickNameButton(), null);
+		this.add(getSaveButton(), null);
 	}
 
 	private void getIconLabel() {
 		iconLabel = new JLabel();
-		iconLabel.setBounds(new Rectangle(248, 9, 136, 93));
-		iconLabel.setIcon(new ImageIcon("gameOver.png"));
-		iconLabel.setVisible(true);
+		iconLabel.setBounds(new Rectangle(274, 5, 110, 96));
+		try {
+			iconLabel.setIcon(new ImageIcon(ImageIO.read(new File("../VOOGA/src/vooga/games/grandius/resources/images/missile.jpg"))));
+		}
+		catch(Exception e) {
+		}
 	}
 
 	private JLabel getNicknameLabel() {
 		nicknameLabel = new JLabel();
-		nicknameLabel.setBounds(new Rectangle(8, 98, 66, 24));
+		nicknameLabel.setBounds(new Rectangle(9, 95, 65, 20));
 		nicknameLabel.setText("Nickname:");
 		return nicknameLabel;
 	}
@@ -82,7 +95,7 @@ public class HomePage extends JPanel {
 	private JLabel getNameLabel() {
 		if (nameLabel == null) {
 			nameLabel = new JLabel();
-			nameLabel.setBounds(new Rectangle(9, 6, 42, 21));
+			nameLabel.setBounds(new Rectangle(9, 5, 40, 20));
 			nameLabel.setText("Name:");
 		}
 		return nameLabel;
@@ -96,7 +109,7 @@ public class HomePage extends JPanel {
 	private JLabel getBirthdayLabel() {
 		if (birthdayLabel == null) {
 			birthdayLabel = new JLabel();
-			birthdayLabel.setBounds(new Rectangle(9, 33, 52, 23));
+			birthdayLabel.setBounds(new Rectangle(9, 35, 53, 20));
 			birthdayLabel.setText("Birthday:");
 		}
 		return birthdayLabel;
@@ -110,7 +123,7 @@ public class HomePage extends JPanel {
 	private JLabel getEmailLabel() {
 		if (emailLabel == null) {
 			emailLabel = new JLabel();
-			emailLabel.setBounds(new Rectangle(9, 65, 42, 25));
+			emailLabel.setBounds(new Rectangle(9, 65, 40, 20));
 			emailLabel.setText("Email:");
 		}
 		return emailLabel;
@@ -124,7 +137,7 @@ public class HomePage extends JPanel {
 	private JTextField getNameField() {
 		if (nameField == null) {
 			nameField = new JTextField();
-			nameField.setBounds(new Rectangle(59, 6, 147, 24));
+			nameField.setBounds(new Rectangle(59, 5, 145, 20));
 			nameField.setText(myProfile.getFullName());
 			nameField.setEditable(false);
 		}
@@ -139,7 +152,7 @@ public class HomePage extends JPanel {
 	private JTextField getBirthdayField() {
 		if (birthdayField == null) {
 			birthdayField = new JTextField();
-			birthdayField.setBounds(new Rectangle(57, 35, 147, 25));
+			birthdayField.setBounds(new Rectangle(57, 35, 145, 20));
 			birthdayField.setText(myProfile.getBirthday());
 			birthdayField.setEditable(false);
 		}
@@ -154,7 +167,7 @@ public class HomePage extends JPanel {
 	private JTextField getEmailField() {
 		if (emailField == null) {
 			emailField = new JTextField();
-			emailField.setBounds(new Rectangle(58, 67, 149, 24));
+			emailField.setBounds(new Rectangle(58, 65, 145, 20));
 			emailField.setText(myProfile.getEmail());
 			emailField.setEditable(false);
 		}
@@ -169,7 +182,7 @@ public class HomePage extends JPanel {
 	private JTextField getNicknameField() {
 		if (nicknameField == null) {
 			nicknameField = new JTextField();
-			nicknameField.setBounds(new Rectangle(68, 96, 140, 23));
+			nicknameField.setBounds(new Rectangle(68, 95, 140, 20));
 			nicknameField.setText(myProfile.getUserName());
 			nicknameField.setEditable(false);
 		}
@@ -184,7 +197,7 @@ public class HomePage extends JPanel {
 	private JButton getEditNameButton() {
 		if (editNameButton == null) {
 			editNameButton = new JButton();
-			editNameButton.setBounds(new Rectangle(211, 8, 59, 23));
+			editNameButton.setBounds(new Rectangle(211, 5, 59, 20));
 			editNameButton.setText("edit");
 			editNameButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -203,7 +216,7 @@ public class HomePage extends JPanel {
 	private JButton getEditBirthdayButton() {
 		if (editBirthdayButton == null) {
 			editBirthdayButton = new JButton();
-			editBirthdayButton.setBounds(new Rectangle(210, 37, 58, 23));
+			editBirthdayButton.setBounds(new Rectangle(210, 35, 58, 20));
 			editBirthdayButton.setText("edit");
 			editBirthdayButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -215,19 +228,6 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes jButton	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getButton() {
-		if (jButton == null) {
-			jButton = new JButton();
-			jButton.setBounds(new Rectangle(210, 68, 37, 24));
-		}
-		return jButton;
-	}
-
-	/**
 	 * This method initializes editEmailButton	
 	 * 	
 	 * @return javax.swing.JButton	
@@ -235,7 +235,7 @@ public class HomePage extends JPanel {
 	private JButton getEditEmailButton() {
 		if (editEmailButton == null) {
 			editEmailButton = new JButton();
-			editEmailButton.setBounds(new Rectangle(211, 69, 57, 22));
+			editEmailButton.setBounds(new Rectangle(211, 65, 57, 20));
 			editEmailButton.setText("edit");
 			editEmailButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -247,22 +247,40 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes editNickNameButton	
+	 * This method initializes SaveButton	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getEditNickNameButton() {
-		if (editNickNameButton == null) {
-			editNickNameButton = new JButton();
-			editNickNameButton.setBounds(new Rectangle(211, 97, 57, 21));
-			editNickNameButton.setText("edit");
-			editNickNameButton.addActionListener(new java.awt.event.ActionListener() {
+	private JButton getSaveButton() {
+		if (SaveButton == null) {
+			SaveButton = new JButton();
+			SaveButton.setBounds(new Rectangle(109, 143, 93, 34));
+			SaveButton.setText("Save");
+			SaveButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					nicknameField.setEditable(true);
+					nameField.setEditable(false);
+					birthdayField.setEditable(false);
+					emailField.setEditable(false);
+					String name = nameField.getText();
+					myProfile.setName(name.substring(0, name.indexOf(" ")),
+							name.substring(name.indexOf(" "), name.length()));
+					myProfile.setEmail(emailField.getText());
+					DateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+					try {
+						if(Pattern.matches(dateRegex, birthdayField.getText()))
+							myProfile.setBirthday(sdf.parse(birthdayField.getText()));
+						else
+							birthdayField.setText(myProfile.getBirthday());
+					}
+					catch (ParseException parseEx) {
+						//TODO incorrect date format
+						birthdayField.setText(myProfile.getBirthday());
+					}
+					//TODO save to database
 				}
 			});
 		}
-		return editNickNameButton;
+		return SaveButton;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="-4,26"
