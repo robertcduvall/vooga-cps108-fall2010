@@ -1,8 +1,8 @@
-package arcade.store.page;
+package arcade.store.organizer;
 
 import java.util.List;
 
-public interface ISearchablePage {
+public interface IOrganizablePage {
 
 	public String getGameName();
 	public List<String> getTags();

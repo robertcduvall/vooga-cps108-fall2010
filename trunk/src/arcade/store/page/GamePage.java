@@ -7,8 +7,9 @@ import java.util.*;
 import javax.swing.JFrame;
 
 import arcade.store.account.UserShopAccount;
+import arcade.store.organizer.IOrganizablePage;
 
-public class GamePage extends StorePage implements ISearchablePage{
+public class GamePage extends StorePage implements IOrganizablePage{
 	
 	private String gameName;
 	
