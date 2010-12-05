@@ -1,5 +1,7 @@
 package arcade.lobby.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 public class ProfileSet implements Iterable<Profile> {
@@ -11,8 +13,13 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public int size() {
-		String[] col = myDbAdapter.getColumn(myTable,0);
-		return col.length;
+		ResultSet col = myDbAdapter.getColumn(myTable,0);
+		try {
+			return col.getFetchSize();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 	public Profile getProfile(String userName) {
