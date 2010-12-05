@@ -12,7 +12,8 @@ import arcade.store.organizer.IOrganizablePage;
 public class GamePage extends StorePage {
 
 	private String gameName;
-
+	private String developerName;
+	
 	private BufferedImage coverImage;
 
 	private String description;
