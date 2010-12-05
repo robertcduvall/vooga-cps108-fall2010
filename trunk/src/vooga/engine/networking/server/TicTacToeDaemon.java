@@ -2,8 +2,10 @@ package vooga.engine.networking.server;
 import java.net.*;
 import java.io.*;
 
+import vooga.engine.networking.GameSocket;
+
 public class TicTacToeDaemon extends Thread {
-	public static final int PORTNUM = 1234;
+	public static final int PORTNUM = 1225;
 	private ServerSocket port;
 	private TicTacToePlayer playerWaiting;
 	private ServerGame thisGame;
@@ -11,6 +13,7 @@ public class TicTacToeDaemon extends Thread {
 	public TicTacToeDaemon() {
 		try {
 			port = new ServerSocket(PORTNUM);
+
 		}
 		catch (IOException e) {
 			System.out.println("Couldn't access port " + PORTNUM + ": " + e);
