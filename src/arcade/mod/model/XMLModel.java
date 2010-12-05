@@ -66,13 +66,12 @@ public class XMLModel implements Model{
 	 * @author anonymous [http://www.exampledepot.com/egs/javax.xml.transform/WriteDom.html]
 	 */
 	@Override
-	public void writeResources(String filePath) {
+	public void writeResources(File file) {
 		    try {
 		        // Prepare the DOM document for writing
 		        Source source = new DOMSource(document);
 
 		        // Prepare the output file
-		        File file = new File(filePath);
 		        Result result = new StreamResult(file);
 
 		        // Write the DOM document to the file
