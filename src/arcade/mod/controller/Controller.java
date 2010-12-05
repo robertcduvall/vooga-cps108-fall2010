@@ -1,14 +1,9 @@
 package arcade.mod.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import arcade.mod.model.Model;
 import arcade.mod.model.ResourceNode;
