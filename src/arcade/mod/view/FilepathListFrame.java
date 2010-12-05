@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
+import arcade.mod.model.ResourceNode;
+
 public class FilepathListFrame extends AbstractListFrame {
 
 	private String myName;
@@ -17,22 +19,24 @@ public class FilepathListFrame extends AbstractListFrame {
 	
 	private static final int DEFAULT_HEIGHT = 100;
 	
-	public FilepathListFrame( String name, String filepath) {
+	public FilepathListFrame() {
+		//do nothing
+	}
+	
+	public FilepathListFrame( ResourceNode node ) {
 		
 		super();
 		
-		myName = name;
-		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
 				
-		restrictSize(700, DEFAULT_HEIGHT);
+		restrictSize(DEFAULT_HEIGHT);
 
 		makeComponents();
 				
 	}
 	
-	public FilepathListFrame newInstance(String name, String filepath) {
-		return new FilepathListFrame(name, filepath);
+	public FilepathListFrame newInstance(ResourceNode node) {
+		return new FilepathListFrame(node);
 	}
 	
 	@Override
@@ -64,6 +68,14 @@ public class FilepathListFrame extends AbstractListFrame {
 		add(label);
 		add(fileButton);
 		add(filepathLabel);
+		
+	}
+
+	@Override
+	public void handleNode(ResourceNode node) {
+		
+		myName = node.getAttribute("name");
+		myFilepath = node.getAttribute("path");
 		
 	}
 

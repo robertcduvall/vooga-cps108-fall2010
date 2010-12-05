@@ -10,6 +10,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import arcade.mod.model.ResourceNode;
+
 import com.sun.medialib.mlib.Image;
 
 
@@ -24,24 +26,26 @@ public class ImageListFrame extends AbstractListFrame {
 	
 	private final int DEFAULT_HEIGHT = 300;
 	
-	public ImageListFrame( String name, String filepath) {
+	public ImageListFrame() {
+		//do nothing
+	}
+	
+	public ImageListFrame( ResourceNode node ) {
 		
 		super();
 		
-		myName = name;
-		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
 				
 		this.setLayout(new BorderLayout());
 		
-		restrictSize(700, DEFAULT_HEIGHT);
+		restrictSize(DEFAULT_HEIGHT);
 
 		makeComponents();
 				
 	}
 	
-	public ImageListFrame newInstance(String name, String filepath) {
-		return new ImageListFrame(name, filepath);
+	public ImageListFrame newInstance(ResourceNode node) {
+		return new ImageListFrame(node);
 	}
 
 
@@ -89,6 +93,14 @@ public class ImageListFrame extends AbstractListFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	@Override
+	public void handleNode(ResourceNode node) {
+		
+		myName = node.getAttribute("name");
+		myFilepath = node.getAttribute("path");
 		
 	}
 
