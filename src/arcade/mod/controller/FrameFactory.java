@@ -5,38 +5,48 @@ import java.util.Map;
 
 import arcade.mod.model.ResourceNode;
 import arcade.mod.view.AbstractListFrame;
+import arcade.mod.view.ConstantListFrame;
 import arcade.mod.view.FilepathListFrame;
 import arcade.mod.view.ImageListFrame;
+import arcade.mod.view.StringListFrame;
 
 /**
- * Create a ListFrame object based on a specified resource type.  Right now these are hard coded from a map,
- * but eventually we would like to abstract to make this process more data driven
+ * Create a ListFrame object based on a specified resource type. Right now these
+ * are hard coded from a map, but eventually we would like to abstract to make
+ * this process more data driven
+ * 
  * @author Brian
  * @author Brent
  * @author Daniel
  * @author Vitor
- *
+ * 
  */
 public class FrameFactory {
-	
-	private Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>(); 
-	
+
+	private Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>();
+
 	/**
 	 * Creates a new instance of FrameFactory and populates the map
 	 */
-	public FrameFactory(){
-		//TODO:abstract this to make it more extendable
+	public FrameFactory() {
+		// TODO:abstract this to make it more extendable
 		myMappings.put("Images", new ImageListFrame());
 		myMappings.put("Sounds", new FilepathListFrame());
+		myMappings.put("Strings", new StringListFrame());
+		myMappings.put("Doubles", new ConstantListFrame());
+		myMappings.put("Integers", new ConstantListFrame());
 	}
-	
+
 	/**
 	 * Creates a ListFrame from a ResourceNode for use in the Controller
-	 * @param resourceType respresents the type of resource (i.e.image, sound, etc.)
-	 * @param node ResourceNode to be converted
+	 * 
+	 * @param resourceType
+	 *            respresents the type of resource (i.e.image, sound, etc.)
+	 * @param node
+	 *            ResourceNode to be converted
 	 * @return AbstractListFrame to be used for the user interface
 	 */
-	public AbstractListFrame createFrame(String resourceType, ResourceNode node){
+	public AbstractListFrame createFrame(String resourceType, ResourceNode node) {
 		return myMappings.get(resourceType).newInstance(node);
 	}
 }
