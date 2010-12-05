@@ -1,6 +1,8 @@
-package arcade.mod;
+package arcade.mod.view;
 
 import javax.swing.*;
+
+import arcade.mod.controller.Controller;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
