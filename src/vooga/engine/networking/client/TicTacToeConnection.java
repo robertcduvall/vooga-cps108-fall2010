@@ -65,13 +65,9 @@ public class TicTacToeConnection extends GameSocket {
 	public void sendIQUIT() {
 		send("IQUIT");
 	}
-
-	public void sendIWON() {
-		send("IWON");
-	}
-
-	public void sendITIED() {
-		send("ITIED");
+	
+	public void sendGAMEOVER(){
+		send("GAMEOVER");
 	}
 }
 
