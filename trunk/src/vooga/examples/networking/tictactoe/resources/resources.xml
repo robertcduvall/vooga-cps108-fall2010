@@ -32,7 +32,7 @@
 		<Integer name="xOffsetY" value="9" />
 		<Integer name="oOffsetX" value="11" />
 		<Integer name="oOffsetY" value="14" />
-		<Integer name="portNum" value="1226" />
+		<Integer name="portNum" value="1234" />
 		<Integer name="error" value="-1" />
 		<Integer name="wait" value="-2" />
 		<Integer name="yourTurn" value="-3" />

@@ -37,8 +37,5 @@ public class VoogaServer {
 		}
 		//new VoogaDaemon(2, "vooga.engine.networking.server.TicTacToeGame", "vooga.engine.networking.server.TicTacToePlayer").start();
 		System.out.println("Vooga server up and running...");
-		System.out.println("VoogaServer: still going...");
-
-		
 	}
 }
