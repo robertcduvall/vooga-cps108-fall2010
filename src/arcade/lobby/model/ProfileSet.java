@@ -12,10 +12,11 @@ public class ProfileSet implements Iterable<Profile> {
 	public ProfileSet(String host, String dbName, String tableName,
 			String user, String pass) {
 		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
+		myTable = tableName;
 	}
 
 	public int size() {
-		String[] col = myDbAdapter.getColumn(myTable, 0);
+		String[] col = myDbAdapter.getColumn(myTable, "User_Name");
 		return col.length;
 	}
 
@@ -34,7 +35,11 @@ public class ProfileSet implements Iterable<Profile> {
 		Map<String, String> row = myDbAdapter.getRow(myTable, userName);
 		Profile userProf = new Profile(userName);
 		userProf.setName(row.get("First_Name"), row.get("Last_Name"));
-		userProf.setBirthday(new Date(Long.parseLong(row.get("Birthday"))));
+		try {
+			userProf.setBirthday(new Date(Long.parseLong(row.get("Birthday"))));
+		} catch (NumberFormatException e) {
+//			e.printStackTrace();
+		}
 		userProf.setEmail(row.get("Email"));
 		userProf.setAvatar(row.get("Avatar_Url"));
 		return userProf;
@@ -58,8 +63,7 @@ public class ProfileSet implements Iterable<Profile> {
 
 			@Override
 			public Profile next() {
-				myLoc++;
-				return getProfile(myLoc);
+				return getProfile(myLoc++);
 			}
 
 			@Override

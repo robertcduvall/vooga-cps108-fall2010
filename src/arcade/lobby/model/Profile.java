@@ -52,7 +52,11 @@ public class Profile {
 	}
 	
 	public String getBirthday() {
-		return mySDF.format(myBirthday);
+		try {
+			return mySDF.format(myBirthday);
+		} catch(Exception e) {
+			return "";
+		}
 	}
 	
 	public String getEmail() {
