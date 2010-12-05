@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
+/**
+ * 
+ * @author Adam Cue, Devon Townsend, Cody K
+ *
+ */
 public class GameSocket extends Thread{
 	private BufferedReader inStream;
 	protected PrintStream outStream;
