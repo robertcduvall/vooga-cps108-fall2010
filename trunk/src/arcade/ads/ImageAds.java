@@ -17,7 +17,7 @@ import java.awt.Image;
  */
 public abstract class ImageAds extends BasicAds {
 
-	private Image img;
+	protected Image img;
 	private int xMin;
 	private int xMax;
 	private int yMin;
