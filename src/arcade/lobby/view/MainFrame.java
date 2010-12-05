@@ -1,10 +1,7 @@
 package arcade.lobby.view;
 
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import java.awt.Rectangle;
-import java.awt.GridBagLayout;
 
 import arcade.lobby.view.HomePage;
 import arcade.lobby.model.Profile;
@@ -57,6 +54,7 @@ public class MainFrame extends JFrame {
 	 */
 	private JPanel getJPanel() {
 		if (jPanel == null) {
+			//TODO load from database
 			Profile bob = new Profile("bob");
 			bob.setName("Bob", "Smith");
 			bob.setBirthday(new Date(89, 6, 10));
