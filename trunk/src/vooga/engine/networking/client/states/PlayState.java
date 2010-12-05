@@ -12,6 +12,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.TicTacToeConnection;
+import vooga.engine.networking.client.events.GameLostEvent;
 import vooga.engine.networking.client.events.GameTiedEvent;
 import vooga.engine.networking.client.events.GameWonEvent;
 import vooga.engine.resource.Resources;
@@ -31,8 +32,7 @@ public class PlayState extends GameState{
 	private TheirTurnState theirTurnState;
 	private TicTacToeConnection connection;
 	private boolean myTurn, theirTurn;
-	private boolean won, theyWon;
-	private boolean tied, theyTied;
+	private boolean won, tied, lost, quit;
 	private int oMove;
 	
 	public PlayState(Game game, LevelManager levelManager, TicTacToeConnection connection){
@@ -78,6 +78,7 @@ public class PlayState extends GameState{
 		game.getGameStateManager().addGameState(errorState);
 		eventPool = new EventPool();
 		eventPool.addEvent(new GameWonEvent(field, this));
+		eventPool.addEvent(new GameLostEvent(field, this));
 		eventPool.addEvent(new GameTiedEvent(field, this));
 	}
 	
@@ -131,6 +132,7 @@ public class PlayState extends GameState{
 		int pieceX = col * Resources.getInt("squareDimension") + Resources.getInt("oOffsetX");
 		int pieceY = row * Resources.getInt("squareDimension") + Resources.getInt("oOffsetY");
 		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
+		eventPool.checkEvents();
 	}
 	
 	public void setWon(boolean didWin){
@@ -141,17 +143,17 @@ public class PlayState extends GameState{
 		tied = didTie;
 	}
 	
+	public void setLost(boolean didLose){
+		lost = didLose;
+	}
+	
 	public void setOMove(int move){
 		oMove = move;
 	}
 	
 	public void checkMessages(int status){
-		if(status == Resources.getInt("theyWon"))
-			theyWon = true;
-		else if(status == Resources.getInt("theyQuit"))
-			game.getGameStateManager().switchTo(theyQuitState);
-		else if(status == Resources.getInt("theyTied"))
-			theyTied = true;
+		if(status == Resources.getInt("theyQuit"))
+			quit = true;
 		else if(status == Resources.getInt("error"))
 			game.getGameStateManager().switchTo(errorState);
 		else if(status == Resources.getInt("theirTurn")){
@@ -169,21 +171,23 @@ public class PlayState extends GameState{
 	@Override
 	public void update(long elapsedTime){
 		if(won){
-			connection.sendIWON();
+			connection.sendGAMEOVER();
 			game.getGameStateManager().switchTo(gameWonState);
 			return;
 		}
 		if(tied){
-			connection.sendITIED();
+			connection.sendGAMEOVER();
 			game.getGameStateManager().switchTo(tieState);
 			return;
 		}
-		if(theyWon){
+		if(lost){
+			connection.sendGAMEOVER();
 			game.getGameStateManager().switchTo(youLostState);
 			return;
 		}
-		if(theyTied){
-			game.getGameStateManager().switchTo(tieState);
+		if(quit){
+			connection.sendGAMEOVER();
+			game.getGameStateManager().switchTo(theyQuitState);
 			return;
 		}
 		if(theirTurn){
