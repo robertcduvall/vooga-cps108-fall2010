@@ -1,23 +1,24 @@
 package arcade.mod.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
+import arcade.mod.model.ResourceNode;
 import arcade.mod.view.AbstractListFrame;
+import arcade.mod.view.FilepathListFrame;
+import arcade.mod.view.ImageListFrame;
 
 public class FrameFactory {
 	
-	private final static String categoriesPropertyFile = "src/arcade/mod/categoryType.properties";
+	private Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>(); 
 	
-	public static AbstractListFrame createFrame(String resourceType) throws FileNotFoundException, IOException{
-		Properties props = new Properties();
-		props.load(new FileInputStream(categoriesPropertyFile));
-		Set<Object> set = props.keySet();
-		
-		
+	public FrameFactory(){
+		myMappings.put("Images", new ImageListFrame());
+		myMappings.put("Filepath", new FilepathListFrame());
+	}
+	
+	public AbstractListFrame createFrame(String resourceType, ResourceNode node){
+		myMappings.get(resourceType).newInstance(node);
 		return null;	
 	}
 }
