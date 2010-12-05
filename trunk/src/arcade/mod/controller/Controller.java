@@ -50,10 +50,9 @@ public class Controller {
 		return frames;
 	}
 	
-	public void save(String filePath){
-		//view.requestSaveLocation
-		
-		//TODO: something...ANYTHING!!!
+	public void save(){
+		File saveFile = myView.requestSaveLocation();
+		myModel.writeResources(saveFile);
 	}
 	
 	//temporary main method until arcade adds a button to call us

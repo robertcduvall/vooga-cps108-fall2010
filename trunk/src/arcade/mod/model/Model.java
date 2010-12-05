@@ -1,5 +1,6 @@
 package arcade.mod.model;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface Model {
 	
 	public List<ResourceNode> getResourcesFromCategory(String category);
 	
-	public void writeResources(String filePath);
+	public void writeResources(File file);
 
 	
 }
