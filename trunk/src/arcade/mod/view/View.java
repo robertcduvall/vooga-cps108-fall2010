@@ -58,18 +58,21 @@ public class View extends JFrame {
     	    	
     	centralPanel.removeAll();
     	    	
-    	ImageListFrame temp = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
-    	ImageListFrame temp2 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
-    	ImageListFrame temp3 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
-    	ImageListFrame temp4 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
-    	ImageListFrame temp5 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
+    	ImageListFrame temp = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
+    	ImageListFrame temp2 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
+    	ImageListFrame temp3 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
+    	ImageListFrame temp4 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
+    	ImageListFrame temp5 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
 
+    	
+    	FilepathListFrame temp6 = new FilepathListFrame("lol", "/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
     	
     	centralPanel.add(temp);
     	centralPanel.add(temp2);
     	centralPanel.add(temp3);
     	centralPanel.add(temp4);
     	centralPanel.add(temp5);
+    	centralPanel.add(temp6);
     	
     	centralPanel.validate();
     	
