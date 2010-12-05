@@ -1,8 +1,10 @@
 package arcade.mod.view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -17,19 +19,23 @@ public class ImageListFrame extends AbstractListFrame {
 
 	JFileChooser myFileChooser;
 	
-	public ImageListFrame( String name, String filepath ) {
+	public ImageListFrame( String name, String filepath, int height, int width) {
 		
 		super();
 		
 		myName = name;
 		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
+				
+		this.setMinimumSize(new Dimension(height,width));
+		this.setMaximumSize(new Dimension(height,width));
+		this.setPreferredSize(new Dimension(height,width));
+
 		
 		makeComponents();
 				
 	}
 
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void makeComponents() {
@@ -47,7 +53,9 @@ public class ImageListFrame extends AbstractListFrame {
 				
 				myFileChooser.showDialog(ImageListFrame.this, "Select");
 				File file = myFileChooser.getSelectedFile();
+				
 				myFilepath = file.getPath();
+				
 				ImageListFrame.this.changeIcon();
 				
 			}
@@ -61,10 +69,15 @@ public class ImageListFrame extends AbstractListFrame {
 
 	public void changeIcon() {
 		
+		
 		myIcon = new ImageIcon(myFilepath);
 		
-		//iconLabel.setIcon(myIcon);
-		
+		try {
+			iconLabel.setIcon(myIcon);
+		} catch (Throwable e) {
+			System.out.println(myIcon);	
+		}
+	
 	}
 
 }

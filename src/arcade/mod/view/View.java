@@ -16,6 +16,7 @@ public class View extends JFrame {
     Controller myController;
    
     JPanel centralPanel;
+    JScrollPane centralScrollPane;
     Collection<String> myCategories = new ArrayList<String>();
    
     
@@ -34,17 +35,17 @@ public class View extends JFrame {
         contentPane.add(makeCategoryBox(), BorderLayout.NORTH);
         contentPane.add(makeButton(), BorderLayout.SOUTH);
        
-        //JScrollPane scrollPane = new JScrollPane();
         
         centralPanel = new JPanel();
+                
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
        
-        centralPanel.setBackground(Color.GREEN);
+        centralScrollPane = new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        
+        centralScrollPane.setBackground(Color.GREEN);
         
         
-        //scrollPane.add(centralPanel);
-        
-        contentPane.add(centralPanel, BorderLayout.CENTER);
+        contentPane.add(centralScrollPane, BorderLayout.CENTER);
        
        
         add(contentPane);
@@ -57,10 +58,20 @@ public class View extends JFrame {
     	    	
     	centralPanel.removeAll();
     	    	
-    	centralPanel.add(new ImageListFrame("lol","/Users/brentsodman/Pictures/photo1.jpg"));
+    	ImageListFrame temp = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
+    	ImageListFrame temp2 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
+    	ImageListFrame temp3 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
+    	ImageListFrame temp4 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
+    	ImageListFrame temp5 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
 
+    	
+    	centralPanel.add(temp);
+    	centralPanel.add(temp2);
+    	centralPanel.add(temp3);
+    	centralPanel.add(temp4);
+    	centralPanel.add(temp5);
+    	
     	centralPanel.validate();
-
     	
     	/*Collection<AbstractListFrame> frames = myController.getFrames(category);
     	
@@ -85,8 +96,14 @@ public class View extends JFrame {
     }
 
     private JComboBox makeCategoryBox() {
-        myCategories = myController.getCategories();
-        myCategories.add("placeholder");
+    	
+    	Collection<Object> categoryObjects = myController.getCategories();
+    	
+    	for (Object obj : categoryObjects){
+    		myCategories.add(obj.toString());
+    	}
+    	
+    	myCategories.add("placeholder");
         myCategories.add("placeholder2");
        
         JComboBox categoryBox = new JComboBox(myCategories.toArray());
