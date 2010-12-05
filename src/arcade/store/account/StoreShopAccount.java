@@ -16,13 +16,13 @@ public class StoreShopAccount {
 	private final static String GAME_CREDITS_KEY= "gamecredits";
 	private final static String TIME_CREDITS_KEY = "timecredits";
 	
-	Map<String, UserShopAccount> storeClients;
+	Map<String, PremiumShopAccount> storeClients;
 	Map<String, Double> storeCredits;
 	
 	public StoreShopAccount()
 	{
 		//how do you relay old information from a database?
-		storeClients = new HashMap<String, UserShopAccount>();
+		storeClients = new HashMap<String, PremiumShopAccount>();
 		storeCredits = new HashMap<String, Double>();
 	}
 	
@@ -31,9 +31,9 @@ public class StoreShopAccount {
 		return storeClients.size();
 	}
 	
-	public void addShopAccount(UserShopAccount account)
+	public void addShopAccount(PremiumShopAccount account)
 	{
-		String name = account.getUser();
+		String name = account.getUserName();
 		storeClients.put(name, account);
 	}
 	
@@ -72,13 +72,16 @@ public class StoreShopAccount {
 		//TODO: how do you insure that all the keys for credits
 		//are registered in the parser...so that you won't
 		//miss a credit key?
+		
+		//TODO: only register premium user? How do you go about doing that?
+		//making sure that guests are not registered
 		for(String credit : storeCredits.keySet())
 		{
 			double storecredit = storeCredits.get(credit);
 			
 			for(String client: storeClients.keySet())
 			{
-				UserShopAccount account = storeClients.get(client);
+				PremiumShopAccount account = storeClients.get(client);
 				storecredit += account.getCredits(credit);
 			}
 			

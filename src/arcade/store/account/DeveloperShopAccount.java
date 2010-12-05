@@ -1,5 +1,7 @@
 package arcade.store.account;
 
+import arcade.store.page.GamePage;
+
 /**
  * 
  * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
@@ -20,14 +22,96 @@ package arcade.store.account;
 
 public class DeveloperShopAccount extends UserShopAccount{
 
+	private int numberOfClients;
+	
 	public DeveloperShopAccount(String user, String id) {
 		super(user, id);
-		// TODO Auto-generated constructor stub
+		
+		numberOfClients = 0;
 	}
 
+	@Override
+	public void purchaseGame(GamePage page) {
+		// TODO Auto-generated method stub
+		//checkReward() here!
+	}
+
+	@Override
+	public void transactCredits(String creditname, double change) {
+		// TODO Auto-generated method stub
+		//checkReward() here!
+	}
+
+	@Override
+	public void transferInformation(PremiumShopAccount newAccount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Removing an unliked mod
+	 * @param modName
+	 */
+	public void removeMod(String modName, GamePage page)
+	{
+		
+	}
 	
+	/**
+	 * This method allows the user to 
+	 * @param modName
+	 * @param page
+	 */
+	public void certifyMod(String modName, GamePage page)
+	{
+		
+	}
 	
+	/**
+	 * This method allows the developer to uncertify mods
+	 * @param modName
+	 * @param page
+	 */
+	public void uncertifyMod(String modName, GamePage page)
+	{
+		
+	}
 	
+	/**
+	 * This method allows the developer to upload game to the library
+	 */
+	public void uploadGame()
+	{
+		//check for getRewarded() here
+	}
 	
+	/**
+	 * This method specifies the specific perks the developer has
+	 */
+	private boolean getRewarded()
+	{
+		//TODO: write in the means by which developers get rewarded 
+		// check the number of downloads
+		return false;
+	}
 	
+	/**
+	 * This method returns the number of downloads for a game page
+	 * @param page
+	 */
+	private void getNumberOfDownloads(GamePage page)
+	{
+		
+	}
+	
+	/**
+	 * This method returns the number of downloads for a game
+	 * based on the title name
+	 * @param gameTitle
+	 */
+	private void getNumberOfDownloads(String gameTitle)
+	{
+		
+		
+	}
 }
