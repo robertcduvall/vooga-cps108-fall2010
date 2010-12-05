@@ -4,20 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Panel;
-import java.text.DateFormat;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
+
+import arcade.lobby.model.Validator;
 
 public class RegisterPanel extends JPanel {
 
@@ -136,119 +133,35 @@ public class RegisterPanel extends JPanel {
 			submitButton.setText("Submit");
 			submitButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					checkEmpty();
-					checkEmailFormat();
-					checkPasswords();
-					checkBirthDay();
+					if(!checkEmpty()){
+						JOptionPane.showMessageDialog(thisPanel, "No Fields can be left blank.");
+						return;
+					}
+					if(!Validator.checkEmailFormat(textMap.get("email").getText())){
+						JOptionPane.showMessageDialog(thisPanel, "The email address is not valid.");
+						return;
+					}
+					if(!checkPasswords()){
+						JOptionPane.showMessageDialog(thisPanel, "The Passwords are not the Same");
+						return;
+					}
+					if(!Validator.isValidDate(textMap.get("birthday").getText())){
+						JOptionPane.showMessageDialog(thisPanel, "The birthdate is not a valid date.");
+						return;
+					}
 				}
-
-				private boolean checkBirthDay() {
-					String date = textMap.get("birthday").getText();
-					String[] parts = date.split("/");
-					if(parts.length != 3){
-						return false;
-					}
-					String mm = parts[0];
-					String dd = parts[1];
-					String yy = parts[2];
-					
-					if(mm.length() != 2){
-						return false;
-					}
-					if(dd.length() != 2){
-						return false;
-					}
-					if(yy.length() != 4){
-						return false;
-					}
-					for(String str:parts){
-						if(!allDigits(str)){
-							return false;
-						}
-					}
-					
-					int month = Integer.valueOf(parts[0]);
-					int day = Integer.valueOf(parts[1]);
-					int year = Integer.valueOf(parts[2]);
-					
-					if(month > 12 || month < 1){
-						return false;
-					}
-					
-					if(day > 31 || day < 1){
-						return false;
-					}
-					
-					return true;
-				}
-			
-				private boolean allDigits(String str){
-					for(char c: str.toCharArray()){
-						if(!Character.isDigit(c)){
-							return false;
-						}
-					}
-					return true;
-				}
-				
 
 				private boolean checkPasswords() {
 					String pass1 = textMap.get("password1").getText();
 					String pass2 = textMap.get("password2").getText();
 					boolean toReturn = pass1.equals(pass2);
-					if(!toReturn){
-						JOptionPane.showMessageDialog(thisPanel, "The Passwords are not the Same");
-					}
 					return toReturn;
-				}
-
-				private boolean checkEmailFormat() {
-					boolean failed = true;
-					String input = textMap.get("email").getText();
-					 //Checks for email addresses starting with
-				      //inappropriate symbols like dots or @ signs.
-				      Pattern p = Pattern.compile("^\\.|^\\@");
-				      Matcher m = p.matcher(input);
-				      if (m.find())
-				         failed =  false;
-				      //Checks for email addresses that start with
-				      //www. and prints a message if it does.
-				      p = Pattern.compile("^www\\.");
-				      m = p.matcher(input);
-				      if (m.find()) {
-				    	  failed =  false;
-				      }
-				      p = Pattern.compile("[^A-Za-z0-9\\.\\@_\\-~#]+");
-				      m = p.matcher(input);
-				      StringBuffer sb = new StringBuffer();
-				      boolean result = m.find();
-				      boolean deletedIllegalChars = false;
-
-				      while(result) {
-				         deletedIllegalChars = true;
-				         m.appendReplacement(sb, "");
-				         result = m.find();
-				      }
-
-				      // Add the last segment of input to the new String
-				      m.appendTail(sb);
-
-				      input = sb.toString();
-
-				      if (deletedIllegalChars) {
-				    	  failed =  false;
-				      }
-				      if(!failed){
-				    	  JOptionPane.showMessageDialog(thisPanel, "Email Address Not Valid");
-				      }
-				   return failed;
 				}
 
 				private boolean checkEmpty() {
 					for(String str : textMap.keySet()){
 						JTextField temp = textMap.get(str);
 						if(temp.getText().equals("")){
-							JOptionPane.showMessageDialog(thisPanel, "No Fields can be left blank.");
 							return false;
 						}
 					}
