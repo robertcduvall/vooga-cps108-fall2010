@@ -2,6 +2,8 @@ package arcade.store.control;
 
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import arcade.store.StoreModel;
 import arcade.store.gui.GamePurchaseView;
 import arcade.store.gui.MainPageView;
@@ -21,6 +23,7 @@ public class Control {
 	
 	public void processPurchaseButton()
 	{
+		
 		// TODO
 	}
 	
@@ -28,18 +31,20 @@ public class Control {
 	public void populateMainPage(List<IItemInfo> list)
 	{
 		
-		//** TODO
+
+		
 		
 	}
 	
 	public void organize(String label)
 	{
-		//TODO
+		List<IItemInfo> list = model.organize(label);
+		populateMainPage(list);
 	}
 	
 	public void showDialogBox()
 	{
-	
+		
 		//** TODO
 	}
 	
@@ -47,11 +52,13 @@ public class Control {
 	{
 		IItemInfo item = model.getItemInfo(tagName);
 		
-		GamePurchaseView view = new GamePurchasView(this);
+		GamePurchaseView view = new GamePurchaseView(this);
 		
-		view.getDescriptionField().setText(item.getDescription(());
-		
-		
+		view.getDescriptionField().setText(item.getDescription());
+		view.getCoverArt().setIcon( item.getImages().get(item.COVER_IMAGE));
+	
+		view.getTitleField().setText(item.getTitle());
+		view.getPriceField().setText(item.getPrice());
 	}
 	
 	
