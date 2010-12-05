@@ -18,6 +18,7 @@ public class View extends JFrame {
     JPanel centralPanel;
     JScrollPane centralScrollPane;
     Collection<String> myCategories;
+    String currentCategory;
    
     
     public View(Controller controller) {
@@ -40,13 +41,9 @@ public class View extends JFrame {
                 
         centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
        
-        centralScrollPane = new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
-        centralScrollPane.setBackground(Color.GREEN);
-        
+        centralScrollPane = new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);        
         
         contentPane.add(centralScrollPane, BorderLayout.CENTER);
-       
        
         add(contentPane);
         
@@ -54,11 +51,12 @@ public class View extends JFrame {
         
     }
     
-    public void createFrames(String category) {
+    public void createFrames() {
     	    	
     	centralPanel.removeAll();
     	    	
-    	ImageListFrame temp = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
+    	//this shit was for testing
+    	/*ImageListFrame temp = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
     	ImageListFrame temp2 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
     	ImageListFrame temp3 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
     	ImageListFrame temp4 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
@@ -72,16 +70,21 @@ public class View extends JFrame {
     	centralPanel.add(temp3);
     	centralPanel.add(temp4);
     	centralPanel.add(temp5);
-    	centralPanel.add(temp6);
+    	centralPanel.add(temp6);*/
     	
-    	centralPanel.validate();
     	
-    	/*Collection<AbstractListFrame> frames = myController.getFrames(category);
+    	Collection<AbstractListFrame> frames = myController.getFrames();
     	
     	for (AbstractListFrame alf : frames){
     		centralPanel.add(alf);
-    	}*/
+    	}
     	
+    	centralPanel.validate();
+    	
+    }
+    
+    public String getCurrentCategory() {
+    	return currentCategory;
     }
 
     private JButton makeButton() {
@@ -112,7 +115,8 @@ public class View extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
             	JComboBox comboBox = (JComboBox)e.getSource();
-            	View.this.createFrames((String)comboBox.getSelectedItem());
+            	View.this.currentCategory = (String)comboBox.getSelectedItem();
+            	View.this.createFrames();
             }
            
         });
