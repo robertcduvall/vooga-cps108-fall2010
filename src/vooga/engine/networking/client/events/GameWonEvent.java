@@ -28,6 +28,7 @@ public class GameWonEvent implements IEventHandler {
 
 	@Override
 	public void actionPerformed() {
+		System.out.println("WINNER");
 		playState.setWon(true);
 	}
 

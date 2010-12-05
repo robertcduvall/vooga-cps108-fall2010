@@ -8,13 +8,14 @@ import vooga.engine.networking.client.TicTacToeConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
-public class WaitingState extends GameState{
+public class TheirTurnState extends GameState{
 	private Game game;
 	private TicTacToeConnection connection;
 	private PlayField field;
 	private PlayState playState;
+	private int checkDelay = 1;
 
-	public WaitingState(Game game, TicTacToeConnection connection, PlayField field, PlayState playState){
+	public TheirTurnState(Game game, TicTacToeConnection connection, PlayField field, PlayState playState){
 		this.game = game;
 		this.connection = connection;
 		this.field = field;
@@ -23,10 +24,16 @@ public class WaitingState extends GameState{
 	
 	@Override
 	public void update(long t) {
-		int status = connection.getTheirMove();
-		if(status != Resources.getInt("wait")){
-			playState.checkMessages(status);
-			game.getGameStateManager().switchTo(playState);
+		if(checkDelay == 0){
+			int status = connection.getTheirMove();
+			if(status != Resources.getInt("theirTurn")){
+				checkDelay = 1;
+				playState.checkMessages(status);
+				game.getGameStateManager().switchTo(playState);
+			}
+		}
+		else{
+			checkDelay--;
 		}
 		super.update(t);
 		field.update(t);
