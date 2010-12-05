@@ -67,6 +67,7 @@ public class ImageListFrame extends AbstractListFrame {
 				File file = myFileChooser.getSelectedFile();
 				
 				myFilepath = file.getPath();
+				myNode.setAttribute("path", myFilepath);
 				
 				ImageListFrame.this.changeIcon();
 				

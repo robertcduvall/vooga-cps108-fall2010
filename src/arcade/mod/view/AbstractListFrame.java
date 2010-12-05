@@ -10,6 +10,7 @@ import arcade.mod.model.ResourceNode;
 public abstract class AbstractListFrame extends JPanel {
 
 	protected final int WIDTH = 750;
+	protected ResourceNode myNode;
 	
 	public AbstractListFrame() {
 		//do nothing
@@ -18,6 +19,8 @@ public abstract class AbstractListFrame extends JPanel {
 	public AbstractListFrame(ResourceNode node) {
 				
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		myNode = node;
 		
 		handleNode(node);
 		
