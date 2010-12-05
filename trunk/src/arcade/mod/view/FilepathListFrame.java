@@ -17,7 +17,7 @@ public class FilepathListFrame extends AbstractListFrame {
 	
 	private static final int DEFAULT_HEIGHT = 100;
 	
-	public FilepathListFrame( String name, String filepath, int width) {
+	public FilepathListFrame( String name, String filepath) {
 		
 		super();
 		
@@ -25,10 +25,14 @@ public class FilepathListFrame extends AbstractListFrame {
 		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
 				
-		restrictSize(width, DEFAULT_HEIGHT);
+		restrictSize(700, DEFAULT_HEIGHT);
 
 		makeComponents();
 				
+	}
+	
+	public FilepathListFrame newInstance(String name, String filepath) {
+		return new FilepathListFrame(name, filepath);
 	}
 	
 	@Override

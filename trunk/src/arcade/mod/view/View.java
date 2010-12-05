@@ -7,6 +7,7 @@ import arcade.mod.controller.Controller;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.*;
 
 public class View extends JFrame {
@@ -73,12 +74,22 @@ public class View extends JFrame {
         saveButton.addActionListener(new ActionListener() {
            
             public void actionPerformed(ActionEvent e){
-                //handle saving
+                myController.save();
             }
            
         });
        
         return saveButton;
+    }
+    
+    public File requestSaveLocation () {
+    	
+    	JFileChooser saveChooser = new JFileChooser(); 
+    	
+    	saveChooser.showSaveDialog(this);
+    	
+    	return saveChooser.getSelectedFile();
+    	
     }
 
     private JComboBox makeCategoryBox() {
