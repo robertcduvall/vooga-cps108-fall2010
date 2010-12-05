@@ -71,6 +71,7 @@ public class Login extends JFrame {
 		if (usernameField == null) {
 			usernameField = new JTextField();
 			usernameField.setBounds(new Rectangle(80, 8, 167, 25));
+			usernameField.setText("Username");
 		}
 		return usernameField;
 	}
@@ -84,6 +85,7 @@ public class Login extends JFrame {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
 			passwordField.setBounds(new Rectangle(80, 38, 167, 25));
+			passwordField.setText("Password");
 		}
 		return passwordField;
 	}
@@ -131,8 +133,8 @@ public class Login extends JFrame {
 			signInButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					username = usernameField.getText();
-					password = passwordField.getText();
-					//Verify username + password combination;
+					password = new String(passwordField.getPassword());
+					//Verify username + password combination and login
 					System.out.println(username+" is logging in with pw: "+password.toString());
 				}
 			});
