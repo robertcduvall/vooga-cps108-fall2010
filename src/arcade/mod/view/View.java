@@ -51,36 +51,16 @@ public class View extends JFrame {
         
     }
     
-    public void createFrames() {
-    	    	
+    
+    public void changeFrames(Collection<AbstractListFrame> frames){
+    	
     	centralPanel.removeAll();
-    	    	
-    	//this shit was for testing
-    	/*ImageListFrame temp = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
-    	ImageListFrame temp2 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
-    	ImageListFrame temp3 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
-    	ImageListFrame temp4 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
-    	ImageListFrame temp5 = new ImageListFrame("lol","/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
-
-    	
-    	FilepathListFrame temp6 = new FilepathListFrame("lol", "/Users/brentsodman/Pictures/icons/arkangel.png", centralPanel.getWidth());
-    	
-    	centralPanel.add(temp);
-    	centralPanel.add(temp2);
-    	centralPanel.add(temp3);
-    	centralPanel.add(temp4);
-    	centralPanel.add(temp5);
-    	centralPanel.add(temp6);*/
-    	
-    	
-    	Collection<AbstractListFrame> frames = myController.getFrames();
     	
     	for (AbstractListFrame alf : frames){
     		centralPanel.add(alf);
     	}
     	
     	centralPanel.validate();
-    	
     }
     
     public String getCurrentCategory() {
@@ -116,7 +96,8 @@ public class View extends JFrame {
             {
             	JComboBox comboBox = (JComboBox)e.getSource();
             	View.this.currentCategory = (String)comboBox.getSelectedItem();
-            	View.this.createFrames();
+            	
+            	myController.framesHaveChanged();
             }
            
         });
