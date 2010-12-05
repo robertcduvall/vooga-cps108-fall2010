@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import com.sun.medialib.mlib.Image;
@@ -18,10 +19,9 @@ public class ImageListFrame extends AbstractListFrame {
 	String myFilepath;
 	ImageIcon myIcon;
 	JLabel iconLabel;
-
 	JFileChooser myFileChooser;
 	
-	private final int DEFAULT_HEIGHT = 200;
+	private final int DEFAULT_HEIGHT = 300;
 	
 	public ImageListFrame( String name, String filepath, int width) {
 		
@@ -31,11 +31,8 @@ public class ImageListFrame extends AbstractListFrame {
 		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
 				
-		this.setMinimumSize(new Dimension(width,DEFAULT_HEIGHT));
-		this.setMaximumSize(new Dimension(width,DEFAULT_HEIGHT));
-		this.setPreferredSize(new Dimension(width,DEFAULT_HEIGHT));
+		restrictSize(width, DEFAULT_HEIGHT);
 
-		
 		makeComponents();
 				
 	}
@@ -44,7 +41,7 @@ public class ImageListFrame extends AbstractListFrame {
 	@Override
 	public void makeComponents() {
 
-		JLabel iconLabel = new JLabel();
+		iconLabel = new JLabel();
 		iconLabel.setText(myName);
 
 		changeIcon();
@@ -66,33 +63,28 @@ public class ImageListFrame extends AbstractListFrame {
 			
 		});
 		
-		add(fileButton);
 		add(iconLabel);
-		
+		add(fileButton);
+
 	}
 
 	public void changeIcon() {
 		
-		myIcon = createImageIcon(myFilepath, "lol");
 		
 		try {
+			System.out.println(myFilepath);
+
+			myIcon = new ImageIcon(ImageIO.read(new File(myFilepath)));
+		
 			iconLabel.setIcon(myIcon);
+			
+			this.validate();
 		} catch (Throwable e) {
-			//do nothing because its a null pointer
+			e.printStackTrace();
 		}
 		
 	}
-	
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected ImageIcon createImageIcon(String path, String description) {
-	    java.net.URL imgURL = getClass().getResource(path);
-	    if (imgURL != null) {
-	        return new ImageIcon(imgURL, description);
-	    } else {
-	        System.err.println("Couldn't find file: " + path);
-	        return null;
-	    }
-	}
+
 
 
 }
