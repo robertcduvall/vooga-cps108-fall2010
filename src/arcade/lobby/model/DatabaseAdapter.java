@@ -9,11 +9,13 @@ public class DatabaseAdapter {
 		selectDB(dbName);
 	}
 	
-	private void connect(String host, String user, String pass) {
+	private boolean connect(String host, String user, String pass) {
+		return false;
 		
 	}
 	
-	private void selectDB(String dbName) {
+	private boolean selectDB(String dbName) {
+		return false;
 		
 	}
 	
@@ -29,6 +31,10 @@ public class DatabaseAdapter {
 	
 	public ResultSet getRow(String pkName) {
 		return null;
+	}
+
+	public boolean insert(String[] columns, String[] values) {
+		return false;		
 	}
 	
 }
