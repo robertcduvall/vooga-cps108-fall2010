@@ -2,6 +2,7 @@ package arcade.lobby.model;
 
 import java.sql.Date;
 
+
 public class Profile {
 	private String myUserName;
 	private String myFirstName;
