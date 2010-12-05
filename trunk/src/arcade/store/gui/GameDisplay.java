@@ -1,4 +1,4 @@
-package arcade.store;
+package arcade.store.gui;
 
 import javax.swing.*;
 

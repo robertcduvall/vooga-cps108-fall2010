@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import arcade.store.account.GuestShopAccount;
+import arcade.store.account.PremiumShopAccount;
 import arcade.store.account.StoreShopAccount;
 import arcade.store.account.UserShopAccount;
 import arcade.store.logic.StoreLogic;
@@ -106,9 +107,9 @@ public class Store {
 	}
 	
 	//how do you ensure that one user won't override another?
-	public void registerNewShopAccount(UserShopAccount newAccount)
+	public void registerNewShopAccount(PremiumShopAccount newAccount)
 	{
-		if(userNameAlreadyExist(newAccount.getUser()))
+		if(userNameAlreadyExist(newAccount.getUserName()))
 		{
 			//TODO: fill this in!!
 			//do something here! 

@@ -3,6 +3,7 @@ package arcade.store.account;
 import java.util.*;
 
 import arcade.store.page.GamePage;
+import arcade.store.page.StorePage;
 
 /**
  * 
@@ -10,35 +11,33 @@ import arcade.store.page.GamePage;
  * @date 11-02-10
  * @description: This is a shop account that a player has. 
  */
-public class UserShopAccount {
+public abstract class UserShopAccount {
 
 	private String accountID;
 	private String userName;
+	private Stack<StorePage> visitedPages;
 
-	private Map<String, Double> shopCredits;
-	private Set<String> shopPrivileges;
-	private Set<String> boughtGames;
-	private Stack<GamePage> visitedPages;
 
 	public UserShopAccount(String user, String id) {
 		userName = user;
 		accountID = id;
 
-		boughtGames = new HashSet<String>();
-		shopCredits = new HashMap<String, Double>();
-		shopPrivileges = new HashSet<String>();
-		visitedPages = new Stack<GamePage>();
+		visitedPages = new Stack<StorePage>();
 	}
 
-	public void update()
-	{
+	/**
+	 * Tthis method overrides how a game is purchased
+	 * @param page
+	 */
+	public abstract void purchaseGame(GamePage page);
 
-	}
-	
-	public boolean purchaseGame(String game)
-	{
-		return false;
-	}
+	/**
+	 * This method transact a change on a specific credit name
+	 * @param creditname
+	 * @param change
+	 */
+	public abstract void transactCredits(String creditname, double change);
+
 
 	/**
 	 * Overrides all the information from one account to another.
@@ -46,31 +45,8 @@ public class UserShopAccount {
 	 * privileges, games, and credits.
 	 * @param newAccount
 	 */
-	public void transferInformation(UserShopAccount newAccount)
-	{
-		pasteAccountInformation(newAccount);
-	}
-
-	/**
-	 * Give this account's information to another. 
-	 * Adds current information the new account
-	 * 
-	 * @return
-	 */
-	private void pasteAccountInformation(UserShopAccount newAccount)
-	{
-		//transfer credits
-		for(String credit : shopCredits.keySet())
-			newAccount.addCredits(credit, shopCredits.get(credit));
-
-		//transfer privileges
-		for(String privilege: shopPrivileges)
-			newAccount.addPrivilege(privilege);
-
-		//transfer games owned
-		for(String game: boughtGames)
-			newAccount.addGame(game);
-	}
+	public abstract void transferInformation(PremiumShopAccount newAccount);
+	
 
 
 	public void recordGamePage(GamePage currentPage)
@@ -78,7 +54,7 @@ public class UserShopAccount {
 		visitedPages.add(currentPage);
 	}
 
-	public GamePage goToPreviousGamePage()
+	public StorePage goToPreviousGamePage()
 	{
 		return visitedPages.pop();
 	}
@@ -87,78 +63,19 @@ public class UserShopAccount {
 		return accountID;
 	}
 
-	public String getUser()	{
+	public String getUserName()	{
 		return userName;
 	}
 
-
-	public void addCredits(String creditname, double amount) {
-
-		if(!shopCredits.containsValue(creditname))
-		{
-			shopCredits.put(creditname, amount);
-		}
-		else
-		{
-			double creditvalue = shopCredits.get(creditname);
-			shopCredits.put(creditname, amount + creditvalue);
-		}
-	}
-
-	public boolean hasCredit(String creditname){
-
-		return shopCredits.containsKey(creditname);
-	}
-
-	public double getCredits(String creditname) {
-
-		if(!shopCredits.containsKey(creditname))
-		{
-			return 0;
-		}
-		else
-		{
-			return shopCredits.get(creditname);
-		}
-	}
-
-	private void addGame(GamePage game) {
-
-		boughtGames.add(game.getGameTitle());
-
-	}
-
-	private void addGame(String title) {
-
-		boughtGames.add(title);
-	}
-
-	public boolean hasGame(GamePage game) {
-
-		return boughtGames.contains(game.getGameTitle());
-	}
-
-	public boolean hasGame(String title){
-
-		return boughtGames.contains(title);
-	}
-
-	public void addPrivilege(String privilege){
-
-		shopPrivileges.add(privilege);
-	}
-
-	/**
-	 * May not eventually need this!
-	 * @param privilege
-	 * @return
-	 */
-	public boolean hasPrivilege(String privilege)
+	public void resetUserName(String name)
 	{
-		return shopPrivileges.contains(privilege);
+		userName = name;
 	}
-
-
+	
+	public void resetUserID(String userID)
+	{
+		accountID = userID;
+	}
 
 
 
