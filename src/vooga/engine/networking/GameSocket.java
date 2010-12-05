@@ -30,10 +30,19 @@ public class GameSocket extends Thread{
 		}
 	}
 
+	/**
+	 * 
+	 * @param s
+	 */
 	public void send(String s) {
 		outStream.println(s);
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public String receive() throws IOException {
 		return inStream.readLine();
 	}
@@ -42,10 +51,17 @@ public class GameSocket extends Thread{
 
 	}
 
+	/**
+	 * 
+	 * 
+	 */
 	public boolean isConnected() {
 		return ((inStream != null) && (outStream != null) && (socket != null));
 	}
 
+	/**
+	 * 
+	 */
 	public void closeConnections() {
 		try {
 			socket.close();
