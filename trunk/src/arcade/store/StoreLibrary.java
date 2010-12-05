@@ -32,7 +32,7 @@ public class StoreLibrary {
 	
 	/**
 	 * Provide a write out to an XML file to keep the current history.
-	 * TODO: how do you write back to something
+	 * TODO: how do y
 	 */
 	public static void recordToHistory()
 	{
