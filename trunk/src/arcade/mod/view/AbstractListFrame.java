@@ -1,4 +1,4 @@
-package arcade.mod;
+package arcade.mod.view;
 
 import java.awt.Color;
 

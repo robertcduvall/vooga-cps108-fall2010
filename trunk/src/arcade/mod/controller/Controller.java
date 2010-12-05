@@ -1,4 +1,4 @@
-package arcade.mod;
+package arcade.mod.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import arcade.mod.model.Model;
 import arcade.mod.model.XMLModel;
+import arcade.mod.view.View;
 
 public class Controller {
 
