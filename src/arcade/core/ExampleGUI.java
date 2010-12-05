@@ -153,6 +153,40 @@ public class ExampleGUI extends JFrame{
 	    setVisible(true);
     }
 	
+	protected void makeCustomPanel() {
+		JPanel basic = new JPanel();
+	    basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
+	    add(basic);
+
+	    JPanel topPanel = new JPanel(new BorderLayout(0, 0));
+	    topPanel.setMaximumSize(new Dimension(450, 20));
+	    JLabel hint = new JLabel("Rating Systems");
+	    hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
+	    topPanel.add(hint);
+
+	    ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
+	    Image scaled = icon.getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+	    icon = new ImageIcon(scaled);
+	    JLabel label = new JLabel(icon);
+	    label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	    topPanel.add(label, BorderLayout.EAST);
+	    
+	    //hint.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+	    JSeparator separator = new JSeparator();
+	    separator.setForeground(Color.gray);
+
+	    topPanel.add(separator, BorderLayout.SOUTH);
+	    
+	    topPanel.add(basic);
+	    
+	    setSize(new Dimension(450, 350));
+	    setResizable(false);
+	    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    setLocationRelativeTo(null);
+	    setVisible(true);
+    }
+	
 	private class RedeemButtonHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
