@@ -24,7 +24,7 @@ public class ImageListFrame extends AbstractListFrame {
 	
 	private final int DEFAULT_HEIGHT = 300;
 	
-	public ImageListFrame( String name, String filepath, int width) {
+	public ImageListFrame( String name, String filepath) {
 		
 		super();
 		
@@ -34,10 +34,14 @@ public class ImageListFrame extends AbstractListFrame {
 				
 		this.setLayout(new BorderLayout());
 		
-		restrictSize(width, DEFAULT_HEIGHT);
+		restrictSize(700, DEFAULT_HEIGHT);
 
 		makeComponents();
 				
+	}
+	
+	public ImageListFrame newInstance(String name, String filepath) {
+		return new ImageListFrame(name, filepath);
 	}
 
 
