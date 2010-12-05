@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 import arcade.mod.model.Model;
 import arcade.mod.model.ResourceNode;
 import arcade.mod.model.XMLModel;
+import arcade.mod.view.AbstractListFrame;
 import arcade.mod.view.View;
 
 public class Controller {
@@ -38,14 +39,20 @@ public class Controller {
 	
 	public void framesHaveChanged(){
 		List<ResourceNode> nodes = myModel.getResourcesFromCategory(myView.getCurrentCategory());
-		myView.changeFrames(convertToView());
+		myView.changeFrames(convertToView(nodes));
 	}
 	
-	private Collection<AbstractListFrame> convertToView(){
+	private Collection<AbstractListFrame> convertToView(List<ResourceNode> nodes){
+		List<AbstractListFrame> frames = new ArrayList<AbstractListFrame>();
+		for (ResourceNode node: nodes){
+			frames.add(FrameFactory.createFrame(myView.getCurrentCategory()));
+		}
+		return frames;
+	}
+	
+	public void save(String filePath){
+		//view.requestSaveLocation
 		
-	}
-	
-	public void saveAs(String filePath){
 		//TODO: something...ANYTHING!!!
 	}
 	
