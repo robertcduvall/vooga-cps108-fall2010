@@ -27,7 +27,11 @@ public class Profile {
 		myEmail = email;
 	}
 	
-	public String getName() {
+	public String getUserName() {
+		return myUserName;
+	}
+	
+	public String getFullName() {
 		return myFirstName + " "+myLastName;
 	}
 	
