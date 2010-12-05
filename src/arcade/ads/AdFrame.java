@@ -105,9 +105,10 @@ public class AdFrame extends JFrame
 		BufferedImage img = null;
 		try
 		{
-			img = ImageIO.read(new File("resources/duke.png"));
+			img = ImageIO.read(new File("C:/Users/Harris/workspace/vooga/src/arcade/ads/resources/duke.png"));
 		} catch (IOException e)
 		{
+			System.out.println("werwe");
 		}
 
 		manager.add(new DukeAds("duke", img));
