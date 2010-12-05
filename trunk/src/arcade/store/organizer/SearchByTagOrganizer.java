@@ -5,7 +5,7 @@ import java.util.List;
 
 import arcade.store.page.StorePage;
 
-public class SearchByTagOrganizer implements IOrganizer {
+public class SearchByTagOrganizer extends SearchOrganizer {
 
 	@Override
 	public List<StorePage> organize(List<StorePage> list, String criteria) {
