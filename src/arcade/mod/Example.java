@@ -12,7 +12,7 @@ public class Example extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
-	private JButton bryanButton = null;
+	private JButton brianButton = null;
 	private JSlider LevelOfExcellence = null;
 
 	/**
@@ -43,7 +43,7 @@ public class Example extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.add(getBryanButton(), null);
+			jContentPane.add(getBrianButton(), null);
 			jContentPane.add(getLevelOfExcellence(), null);
 		}
 		return jContentPane;
@@ -54,18 +54,18 @@ public class Example extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBryanButton() {
-		if (bryanButton == null) {
-			bryanButton = new JButton();
-			bryanButton.setText("Brian is sweet");
-			bryanButton.setBounds(new Rectangle(148, 67, 115, 26));
-			bryanButton.addActionListener(new java.awt.event.ActionListener() {
+	private JButton getBrianButton() {
+		if (brianButton == null) {
+			brianButton = new JButton();
+			brianButton.setText("Brian is sweet");
+			brianButton.setBounds(new Rectangle(148, 67, 115, 26));
+			brianButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("Level of Excellence = " + LevelOfExcellence.getValue()); // TODO Auto-generated Event stub actionPerformed()
 				}
 			});
 		}
-		return bryanButton;
+		return brianButton;
 	}
 
 	/**
