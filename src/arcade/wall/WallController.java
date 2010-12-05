@@ -2,6 +2,7 @@ package arcade.wall;
 
 public class WallController {
 	WallModel model = new WallModel();
+	WallView view = new WallView("Gamer13", this);
 	
 	public String addComment(String game, String comment, String user){
 		model.addComment(game, comment, user);
