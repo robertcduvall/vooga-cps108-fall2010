@@ -147,7 +147,7 @@ public class Menu {
         frame.setSize(450, 260);
         frame.setVisible(true);
         
-		MySqlAdapter myDbAdapter = new MySqlAdapter("jdbc:mysql://voogaarcade.db.7093929.hostedresource.com/voogaarcade" , "voogaarcade", "voogaarcade", "Vooga108");
+		MySqlAdapter myDbAdapter = new MySqlAdapter("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "voogaarcade", "Vooga108");
 		
     }
 
