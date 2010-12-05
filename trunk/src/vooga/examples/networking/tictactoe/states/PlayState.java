@@ -1,4 +1,4 @@
-package vooga.examples.networking.states;
+package vooga.examples.networking.tictactoe.states;
 
 import java.awt.event.MouseEvent;
 
@@ -11,10 +11,10 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
-import vooga.examples.networking.TicTacToeConnection;
-import vooga.examples.networking.events.GameLostEvent;
-import vooga.examples.networking.events.GameTiedEvent;
-import vooga.examples.networking.events.GameWonEvent;
+import vooga.examples.networking.tictactoe.TicTacToeConnection;
+import vooga.examples.networking.tictactoe.events.GameLostEvent;
+import vooga.examples.networking.tictactoe.events.GameTiedEvent;
+import vooga.examples.networking.tictactoe.events.GameWonEvent;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.control.*;

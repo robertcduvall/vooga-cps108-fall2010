@@ -1,4 +1,4 @@
-package vooga.examples.networking;
+package vooga.examples.networking.tictactoe;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
@@ -6,6 +6,8 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.examples.networking.states.*;
+import vooga.examples.networking.tictactoe.states.PlayState;
+import vooga.examples.networking.tictactoe.states.WaitingState;
 
 public class TicTacToe extends Game {
 
