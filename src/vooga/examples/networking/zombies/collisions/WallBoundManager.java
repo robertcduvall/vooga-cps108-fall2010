@@ -1,4 +1,4 @@
-package vooga.games.zombieland.collisions;
+package vooga.examples.networking.zombies.collisions;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;

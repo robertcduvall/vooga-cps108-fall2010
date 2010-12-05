@@ -1,4 +1,4 @@
-package vooga.games.zombieland.items;
+package vooga.examples.networking.zombies.items;
 
 import vooga.games.zombieland.Shooter;
 
