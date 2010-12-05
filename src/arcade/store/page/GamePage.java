@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import arcade.store.account.UserShopAccount;
 
-public class GamePage extends StorePage{
+public class GamePage extends StorePage implements ISearchablePage{
 	
 	private String gameName;
 	
@@ -53,6 +53,24 @@ public class GamePage extends StorePage{
 	public void processOnEvent(InputEvent event) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public String getGameName() {
+		return gameName;
+	}
+
+
+	@Override
+	public List<String> getTags() {
+		return tags;
+	}
+
+
+	@Override
+	public String getGenre() {
+		return genre;
 	}
 	
 	
