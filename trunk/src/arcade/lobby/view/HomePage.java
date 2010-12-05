@@ -4,11 +4,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import arcade.lobby.model.Profile;
+import arcade.lobby.model.Validator;
+
 import java.awt.Rectangle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -17,12 +18,15 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HomePage extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Profile myProfile;
+	private HomePage myHomePage = this;
 	private JLabel nameLabel = null;
 	private JLabel birthdayLabel = null;
 	private JLabel emailLabel = null;
@@ -36,8 +40,11 @@ public class HomePage extends JPanel {
 	private JButton editBirthdayButton = null;
 	private JButton editEmailButton = null;
 	private JButton SaveButton = null;
+	private JButton avatarButton = null;
+	private JTextField urlField = null;
+	private JLabel urlLabel = null;
 	
-	private final String dateRegex = "^(\\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$";
+//	private final String dateRegex = "^(\\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$";
 	/**
 	 * This is the default constructor
 	 */
@@ -54,6 +61,7 @@ public class HomePage extends JPanel {
 	 */
 	private void initialize() {
 		getIconLabel();
+		getURLLabel();
 		this.setSize(385, 187);
 		this.setLayout(null);
 		this.add(getNameLabel(), null);
@@ -69,22 +77,27 @@ public class HomePage extends JPanel {
 		this.add(getEditBirthdayButton(), null);
 		this.add(getEditEmailButton(), null);
 		this.add(getSaveButton(), null);
+		this.add(getAvatarButton(), null);
+		this.add(getUrlField(), null);
+		this.add(urlLabel, null);
+	}
+
+	private void getURLLabel() {
+		urlLabel = new JLabel();
+		urlLabel.setBounds(new Rectangle(244, 107, 32, 19));
+		urlLabel.setText("URL:");
 	}
 
 	private void getIconLabel() {
 		iconLabel = new JLabel();
-		iconLabel.setBounds(new Rectangle(274, 5, 110, 96));
-		try {
-			iconLabel.setIcon(new ImageIcon(ImageIO.read(new URL("http://mystuffspace.com/graphic/blue-playboy-bunny.gif"))));
-		}
-		catch(Exception e) {
-		}
+		iconLabel.setBounds(new Rectangle(280, 7, 100, 96));
+		updateIcon();
 	}
 
 	private JLabel getNicknameLabel() {
 		nicknameLabel = new JLabel();
-		nicknameLabel.setBounds(new Rectangle(9, 95, 65, 20));
-		nicknameLabel.setText("Nickname:");
+		nicknameLabel.setBounds(new Rectangle(9, 95, 63, 20));
+		nicknameLabel.setText("Username:");
 		return nicknameLabel;
 	}
 
@@ -138,7 +151,7 @@ public class HomePage extends JPanel {
 	private JTextField getNameField() {
 		if (nameField == null) {
 			nameField = new JTextField();
-			nameField.setBounds(new Rectangle(59, 5, 145, 20));
+			nameField.setBounds(new Rectangle(60, 5, 145, 20));
 			nameField.setText(myProfile.getFullName());
 			nameField.setEditable(false);
 		}
@@ -153,7 +166,7 @@ public class HomePage extends JPanel {
 	private JTextField getBirthdayField() {
 		if (birthdayField == null) {
 			birthdayField = new JTextField();
-			birthdayField.setBounds(new Rectangle(57, 35, 145, 20));
+			birthdayField.setBounds(new Rectangle(60, 35, 145, 20));
 			birthdayField.setText(myProfile.getBirthday());
 			birthdayField.setEditable(false);
 		}
@@ -168,7 +181,7 @@ public class HomePage extends JPanel {
 	private JTextField getEmailField() {
 		if (emailField == null) {
 			emailField = new JTextField();
-			emailField.setBounds(new Rectangle(58, 65, 145, 20));
+			emailField.setBounds(new Rectangle(60, 65, 145, 20));
 			emailField.setText(myProfile.getEmail());
 			emailField.setEditable(false);
 		}
@@ -183,7 +196,7 @@ public class HomePage extends JPanel {
 	private JTextField getNicknameField() {
 		if (nicknameField == null) {
 			nicknameField = new JTextField();
-			nicknameField.setBounds(new Rectangle(68, 95, 140, 20));
+			nicknameField.setBounds(new Rectangle(70, 95, 135, 20));
 			nicknameField.setText(myProfile.getUserName());
 			nicknameField.setEditable(false);
 		}
@@ -198,7 +211,7 @@ public class HomePage extends JPanel {
 	private JButton getEditNameButton() {
 		if (editNameButton == null) {
 			editNameButton = new JButton();
-			editNameButton.setBounds(new Rectangle(211, 5, 59, 20));
+			editNameButton.setBounds(new Rectangle(215, 5, 55, 20));
 			editNameButton.setText("edit");
 			editNameButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -217,7 +230,7 @@ public class HomePage extends JPanel {
 	private JButton getEditBirthdayButton() {
 		if (editBirthdayButton == null) {
 			editBirthdayButton = new JButton();
-			editBirthdayButton.setBounds(new Rectangle(210, 35, 58, 20));
+			editBirthdayButton.setBounds(new Rectangle(215, 35, 55, 20));
 			editBirthdayButton.setText("edit");
 			editBirthdayButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -236,7 +249,7 @@ public class HomePage extends JPanel {
 	private JButton getEditEmailButton() {
 		if (editEmailButton == null) {
 			editEmailButton = new JButton();
-			editEmailButton.setBounds(new Rectangle(211, 65, 57, 20));
+			editEmailButton.setBounds(new Rectangle(215, 65, 55, 20));
 			editEmailButton.setText("edit");
 			editEmailButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -255,20 +268,28 @@ public class HomePage extends JPanel {
 	private JButton getSaveButton() {
 		if (SaveButton == null) {
 			SaveButton = new JButton();
-			SaveButton.setBounds(new Rectangle(109, 143, 93, 34));
+			SaveButton.setBounds(new Rectangle(81, 132, 93, 34));
 			SaveButton.setText("Save");
 			SaveButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					nameField.setEditable(false);
+					updateName();
+					updateEmail();
+					updateBirthday();
+					updateAvatar();
+					updateIcon();
+					//TODO save to database
+				}
+
+				private void updateAvatar() {
+					urlField.setEditable(false);
+					myProfile.setAvatar(urlField.getText());
+				}
+
+				private void updateBirthday() {
 					birthdayField.setEditable(false);
-					emailField.setEditable(false);
-					String name = nameField.getText();
-					myProfile.setName(name.substring(0, name.indexOf(" ")),
-							name.substring(name.indexOf(" "), name.length()));
-					myProfile.setEmail(emailField.getText());
-					DateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+					DateFormat sdf = Validator.getDateFormat();
 					try {
-						if(Pattern.matches(dateRegex, birthdayField.getText()))
+						if(Validator.isValidDate(birthdayField.getText()))
 							myProfile.setBirthday(sdf.parse(birthdayField.getText()));
 						else
 							birthdayField.setText(myProfile.getBirthday());
@@ -277,11 +298,67 @@ public class HomePage extends JPanel {
 						//TODO incorrect date format
 						birthdayField.setText(myProfile.getBirthday());
 					}
-					//TODO save to database
+				}
+
+				private void updateEmail() {
+					emailField.setEditable(false);
+					myProfile.setEmail(emailField.getText());
+				}
+
+				private void updateName() {
+					nameField.setEditable(false);
+					String name = nameField.getText();
+					myProfile.setName(name.substring(0, name.indexOf(" ")),
+							name.substring(name.indexOf(" "), name.length()));
 				}
 			});
 		}
 		return SaveButton;
+	}
+
+	/**
+	 * This method initializes avatarButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getAvatarButton() {
+		if (avatarButton == null) {
+			avatarButton = new JButton();
+			avatarButton.setBounds(new Rectangle(278, 133, 102, 31));
+			avatarButton.setText("New Avatar");
+			avatarButton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					urlField.setEditable(true);
+				}
+			});
+		}
+		return avatarButton;
+	}
+
+	/**
+	 * This method initializes urlField	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getUrlField() {
+		if (urlField == null) {
+			urlField = new JTextField();
+			urlField.setBounds(new Rectangle(278, 105, 104, 24));
+			urlField.setText(myProfile.getAvatar());
+			urlField.setEditable(false);
+		}
+		return urlField;
+	}
+	
+	private void updateIcon() {
+		try {
+			iconLabel.setIcon(new ImageIcon(ImageIO.read(new URL(myProfile.getAvatar()))));
+		} catch(MalformedURLException mue) {
+			System.out.println("Invalid avatar URL!");
+		} catch(IOException ioe) {
+			System.out.println("Invalid avatar image!");
+		}
+		iconLabel.updateUI();
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="-4,26"
