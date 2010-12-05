@@ -6,7 +6,7 @@ public class TicTacToeDaemon extends Thread {
 	public static final int PORTNUM = 1234;
 	private ServerSocket port;
 	private TicTacToePlayer playerWaiting;
-	private Game thisGame;
+	private ServerGame thisGame;
 
 	public TicTacToeDaemon() {
 		try {
@@ -41,8 +41,8 @@ public class TicTacToeDaemon extends Thread {
 		}
 	}
 
-	public synchronized Game waitForGame(TicTacToePlayer p) {
-		Game retval = null;
+	public synchronized ServerGame waitForGame(TicTacToePlayer p) {
+		ServerGame retval = null;
 		if(playerWaiting == null){
 			playerWaiting = p;
 			thisGame = null;
@@ -58,7 +58,7 @@ public class TicTacToeDaemon extends Thread {
 			return thisGame;
 		}
 		else{
-			thisGame = new Game(playerWaiting, p);
+			thisGame = new ServerGame(playerWaiting, p);
 			retval = thisGame;
 			playerWaiting = null;
 			notify();
