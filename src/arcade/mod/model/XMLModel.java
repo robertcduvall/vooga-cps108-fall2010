@@ -8,6 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -52,6 +60,27 @@ public class XMLModel implements Model{
 			nodes.addAll(root.getChildren());
 		}
 		return nodes;		
+	}
+
+	/**
+	 * @author anonymous [http://www.exampledepot.com/egs/javax.xml.transform/WriteDom.html]
+	 */
+	@Override
+	public void writeResources(String filePath) {
+		    try {
+		        // Prepare the DOM document for writing
+		        Source source = new DOMSource(document);
+
+		        // Prepare the output file
+		        File file = new File(filePath);
+		        Result result = new StreamResult(file);
+
+		        // Write the DOM document to the file
+		        Transformer xformer = TransformerFactory.newInstance().newTransformer();
+		        xformer.transform(source, result);
+		    } catch (TransformerConfigurationException e) {
+		    } catch (TransformerException e) {
+		    }
 	}
 	
 	
