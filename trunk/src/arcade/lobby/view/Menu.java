@@ -5,8 +5,6 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -17,6 +15,9 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
+
+import arcade.lobby.model.MySqlAdapter;
+
 
 public class Menu {
 	
@@ -145,6 +146,9 @@ public class Menu {
         //Display the window.
         frame.setSize(450, 260);
         frame.setVisible(true);
+        
+		MySqlAdapter myDbAdapter = new MySqlAdapter("jdbc:mysql://voogaarcade.db.7093929.hostedresource.com/voogaarcade" , "voogaarcade", "voogaarcade", "Vooga108");
+		
     }
 
     public static void main(String[] args) {
