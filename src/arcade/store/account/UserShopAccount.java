@@ -35,7 +35,7 @@ public class UserShopAccount {
 
 	}
 	
-	public boolean purchaseGame()
+	public boolean purchaseGame(String game)
 	{
 		return false;
 	}
