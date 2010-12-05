@@ -3,6 +3,8 @@ package arcade.store.items;
 import java.awt.Image;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public interface IItemInfo {
 
 	public final int COVER_IMAGE = 0;
@@ -17,7 +19,9 @@ public interface IItemInfo {
 	
 	public String getRating();
 	
-	public List<Image> getImage(); 
+	public String getGenre();
+	
+	public List<ImageIcon> getImages(); 
 	
 	
 }
