@@ -36,7 +36,7 @@ public class Controller {
 	public Controller() {
 		myFactory = new FrameFactory();
 		myView = new View(this);
-		File xmlFile = myView.loadFile(); //TODO replace null with file
+		File xmlFile = myView.loadFile();
 		try {
 			myModel = new XMLModel(xmlFile);
 		} catch (Exception e) {

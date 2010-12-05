@@ -36,17 +36,20 @@ public class XMLModel implements Model{
 	
 	public XMLModel(File file) throws ParserConfigurationException, SAXException, IOException{
 		XMLDocumentCreator xmlCreator = new XMLFileParser(file);
-        document = xmlCreator.getDocument();
+        document = xmlCreator.getDocument();        
 	}
 
 
 	@Override
 	public Collection<String> getCategories() {
 		Collection<String> categories = new HashSet<String>();
-		NodeList firstChildren = document.getChildNodes();
+		Node root = document.getFirstChild();
+		NodeList firstChildren = root.getChildNodes();
 		for (int i = 0; i < firstChildren.getLength(); i++) {
 			Node node = firstChildren.item(i);
-			categories.add(node.getLocalName());			
+			if(node.getNodeType()==Node.ELEMENT_NODE){
+			categories.add(node.getNodeName());	
+			}
 		}
 		return categories;
 	}
