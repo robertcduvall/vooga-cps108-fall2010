@@ -19,7 +19,6 @@ public class MySqlAdapter implements DatabaseAdapter {
 
 	private boolean connect(String host, String user, String pass){
 		try {
-			Class.forName("oracle.jdbc.OracleDriver"); // Or any other driver
 			myDBConnection = DriverManager.getConnection(host, user, pass);
 		} catch (Exception x) {
 			System.out.println("Connection failed");
