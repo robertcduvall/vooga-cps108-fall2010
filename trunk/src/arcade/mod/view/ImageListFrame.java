@@ -28,7 +28,7 @@ public class ImageListFrame extends AbstractListFrame {
 	
 	public ImageListFrame( ResourceNode node ) {
 		
-		super();
+		super(node);
 		
 		myFileChooser = new JFileChooser();
 				

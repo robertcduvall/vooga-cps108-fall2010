@@ -17,7 +17,7 @@ public class FilepathListFrame extends AbstractListFrame {
 	private JFileChooser myFileChooser;
 	private JLabel filepathLabel;
 	
-	private static final int DEFAULT_HEIGHT = 100;
+	private static final int DEFAULT_HEIGHT = 70;
 	
 	public FilepathListFrame() {
 		//do nothing
@@ -25,7 +25,7 @@ public class FilepathListFrame extends AbstractListFrame {
 	
 	public FilepathListFrame( ResourceNode node ) {
 		
-		super();
+		super(node);
 		
 		myFileChooser = new JFileChooser();
 				
@@ -74,6 +74,8 @@ public class FilepathListFrame extends AbstractListFrame {
 
 	@Override
 	public void handleNode(ResourceNode node) {
+		
+		System.out.println(node.getAttribute("name"));
 		
 		myName = node.getAttribute("name");
 		myFilepath = node.getAttribute("path");

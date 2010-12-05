@@ -35,7 +35,10 @@ public class XMLNode implements ResourceNode{
 	private List<ResourceNode> wrapNodeList(NodeList nodeList){
 		List<ResourceNode> resourceNodes = new ArrayList<ResourceNode>();
 		for(int i=0; i<nodeList.getLength(); i++){
+			
+			if ( nodeList.item(i).getNodeType() == Node.ELEMENT_NODE ){
 			resourceNodes.add(new XMLNode(nodeList.item(i)));
+			}
 		}
 		
 		return resourceNodes;
