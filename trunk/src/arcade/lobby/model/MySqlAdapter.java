@@ -13,7 +13,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 	private static Connection myDBConnection;
 
 	public MySqlAdapter(String host, String dbName, String user, String pass) {
-		connect(host, user, pass);
+		String url = "jdbc:mysql://"+host+"/"+dbName;
+		connect(url, user, pass);
 	}
 
 	private boolean connect(String host, String user, String pass){
