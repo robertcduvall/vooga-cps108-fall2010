@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import com.sun.medialib.mlib.Image;
+
 
 
 public class ImageListFrame extends AbstractListFrame {
@@ -19,7 +21,9 @@ public class ImageListFrame extends AbstractListFrame {
 
 	JFileChooser myFileChooser;
 	
-	public ImageListFrame( String name, String filepath, int height, int width) {
+	private final int DEFAULT_HEIGHT = 200;
+	
+	public ImageListFrame( String name, String filepath, int width) {
 		
 		super();
 		
@@ -27,9 +31,9 @@ public class ImageListFrame extends AbstractListFrame {
 		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
 				
-		this.setMinimumSize(new Dimension(height,width));
-		this.setMaximumSize(new Dimension(height,width));
-		this.setPreferredSize(new Dimension(height,width));
+		this.setMinimumSize(new Dimension(width,DEFAULT_HEIGHT));
+		this.setMaximumSize(new Dimension(width,DEFAULT_HEIGHT));
+		this.setPreferredSize(new Dimension(width,DEFAULT_HEIGHT));
 
 		
 		makeComponents();
@@ -69,15 +73,26 @@ public class ImageListFrame extends AbstractListFrame {
 
 	public void changeIcon() {
 		
-		
-		myIcon = new ImageIcon(myFilepath);
+		myIcon = createImageIcon(myFilepath, "lol");
 		
 		try {
 			iconLabel.setIcon(myIcon);
 		} catch (Throwable e) {
-			System.out.println(myIcon);	
+			//do nothing because its a null pointer
 		}
-	
+		
 	}
+	
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	protected ImageIcon createImageIcon(String path, String description) {
+	    java.net.URL imgURL = getClass().getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL, description);
+	    } else {
+	        System.err.println("Couldn't find file: " + path);
+	        return null;
+	    }
+	}
+
 
 }

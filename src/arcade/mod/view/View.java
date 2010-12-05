@@ -58,11 +58,11 @@ public class View extends JFrame {
     	    	
     	centralPanel.removeAll();
     	    	
-    	ImageListFrame temp = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
-    	ImageListFrame temp2 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
-    	ImageListFrame temp3 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
-    	ImageListFrame temp4 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
-    	ImageListFrame temp5 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth(), 200);
+    	ImageListFrame temp = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
+    	ImageListFrame temp2 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
+    	ImageListFrame temp3 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
+    	ImageListFrame temp4 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
+    	ImageListFrame temp5 = new ImageListFrame("lol","/vooga/src/vooga/games/cyberion/resources/images/enemyShip.PNG", centralPanel.getWidth());
 
     	
     	centralPanel.add(temp);
@@ -97,11 +97,11 @@ public class View extends JFrame {
 
     private JComboBox makeCategoryBox() {
     	
-    	Collection<Object> categoryObjects = myController.getCategories();
+    	/*Collection<Object> categoryObjects = myController.getCategories();
     	
     	for (Object obj : categoryObjects){
     		myCategories.add(obj.toString());
-    	}
+    	}*/
     	
     	myCategories.add("placeholder");
         myCategories.add("placeholder2");
