@@ -1,5 +1,6 @@
 package arcade.lobby.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -10,6 +11,8 @@ public class Profile {
 	private String myEmail;
 	private Date myBirthday;
 	private String myAvatarURL;
+	private SimpleDateFormat mySDF = new SimpleDateFormat("yyyy-mm-dd");
+	// TODO Add more fields (table columns)
 	
 	public Profile(String userName) {
 		myUserName = userName;
@@ -49,7 +52,7 @@ public class Profile {
 	}
 	
 	public String getBirthday() {
-		return myBirthday.toString();
+		return mySDF.format(myBirthday);
 	}
 	
 	public String getEmail() {
