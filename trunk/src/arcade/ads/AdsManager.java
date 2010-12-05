@@ -1,8 +1,11 @@
 package arcade.ads;
 
+import java.awt.Graphics;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JPanel;
 
 /**
  * Ads manager helps ads distributor to place ads in their framework. It can add
@@ -154,5 +157,9 @@ public class AdsManager {
 	 */
 	public Time getTime() {
 		return currentTime;
+	}
+
+	public void setGraphics(Graphics g) {
+		
 	}
 }
