@@ -32,7 +32,7 @@ public class AdsManager
 	private int yMin;
 	private int yMax;
 	private Time currentTime;
-	private Graphics gs;
+	private Graphics2D gs;
 
 	/**
 	 * Initialize ads pool
@@ -131,7 +131,7 @@ public class AdsManager
 	{
 		for (BasicAds ad : ads)
 		{
-			ad.render((Graphics2D) gs);
+			ad.render(gs);
 		}
 	}
 
@@ -185,6 +185,6 @@ public class AdsManager
 
 	public void setGraphics(Graphics gs)
 	{
-		this.gs = gs;
+		this.gs = (Graphics2D) gs;
 	}
 }
