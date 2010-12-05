@@ -5,24 +5,31 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import arcade.mod.model.ResourceNode;
+
 public abstract class AbstractListFrame extends JPanel {
 
 	protected final int WIDTH = 750;
-	protected final int HEIGHT = 200;
-		
+	
 	public AbstractListFrame() {
-				
-		this.setSize(WIDTH, HEIGHT);
+		//do nothing
+	}
 		
+	public AbstractListFrame(ResourceNode node) {
+				
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		handleNode(node);
 		
 	}
 	
-	protected void restrictSize(int width, int height){
-		this.setMinimumSize(new Dimension(width,height));
-		this.setMaximumSize(new Dimension(width,height));
-		this.setPreferredSize(new Dimension(width,height));
+	protected void restrictSize(int height){
+		this.setMinimumSize(new Dimension(WIDTH,height));
+		this.setMaximumSize(new Dimension(WIDTH,height));
+		this.setPreferredSize(new Dimension(WIDTH,height));
 	}
+	
+	public abstract void handleNode(ResourceNode node);
 	
 	public abstract void makeComponents();
 	
