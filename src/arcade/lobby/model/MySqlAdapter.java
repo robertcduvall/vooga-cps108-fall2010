@@ -1,6 +1,6 @@
 package arcade.lobby.model;
 
-import java.sql.ResultSet;
+import java.util.Map;
 
 public class MySqlAdapter implements DatabaseAdapter {
 
@@ -20,19 +20,19 @@ public class MySqlAdapter implements DatabaseAdapter {
 	}
 
 	@Override
-	public ResultSet getColumn(String tableName, String columnName) {
+	public String[] getColumn(String tableName, String columnName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultSet getColumn(String tableName, int columnIndex) {
+	public String[] getColumn(String tableName, int columnIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultSet getRow(String pkName) {
+	public Map<String, String> getRow(String pkName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
