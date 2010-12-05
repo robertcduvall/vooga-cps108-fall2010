@@ -26,7 +26,7 @@ public class XMLNode implements ResourceNode{
 		NamedNodeMap attributeNodeList = node.getAttributes();
 		for(int i=0; i<attributeNodeList.getLength(); i++){
 			Node attribute  = attributeNodeList.item(i);
-			attributeNames.add(attribute.getLocalName());
+			attributeNames.add(attribute.getNodeName());
 		}
 		return attributeNames;
 	}
@@ -58,7 +58,7 @@ public class XMLNode implements ResourceNode{
 	@Override
 	public String getDescription() {
 		Node child = node.getFirstChild();
-		while(child!= null && child.getLocalName().equalsIgnoreCase(DESCRIPTION_TAG)){
+		while(child!= null && child.getNodeName().equalsIgnoreCase(DESCRIPTION_TAG)){
 			child = child.getNextSibling();
 		}
 		return child.getTextContent();
