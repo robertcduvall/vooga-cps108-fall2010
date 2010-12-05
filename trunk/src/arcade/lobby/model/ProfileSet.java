@@ -22,7 +22,24 @@ public class ProfileSet implements Iterable<Profile> {
 		return -1;
 	}
 	
+	public boolean addProfile(Profile profile) {
+		//TODO add column names
+		String[] columns = {};
+		//TODO add values in same order as columns
+		String[] values = new String[columns.length];
+		return myDbAdapter.insert(columns,values);
+	}
+	
 	public Profile getProfile(String userName) {
+		ResultSet row = myDbAdapter.getRow(userName);
+		Profile userProf = new Profile(userName);
+		try {
+			userProf.setName(row.getString("fName"),row.getString("lName"));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
