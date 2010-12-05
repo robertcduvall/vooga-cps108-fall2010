@@ -7,7 +7,7 @@ import arcade.store.page.StorePage;
 public class SearchOrganizer implements IOrganizer {
 
 	@Override
-	public List<StorePage> organize(List<StorePage> list) {
+	public List<StorePage> organize(List<StorePage> list, String criteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

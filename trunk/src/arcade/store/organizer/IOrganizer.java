@@ -6,6 +6,6 @@ import arcade.store.page.StorePage;
 
 public interface IOrganizer {
 
-	public List<StorePage> organize(List<StorePage> list);
+	public List<StorePage> organize(List<StorePage> list, String criteria);
 
 }
