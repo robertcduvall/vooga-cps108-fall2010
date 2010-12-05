@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 
 import java.io.File;
+import java.net.URL;
 
 public class HomePage extends JPanel {
 
@@ -74,7 +75,7 @@ public class HomePage extends JPanel {
 		iconLabel = new JLabel();
 		iconLabel.setBounds(new Rectangle(274, 5, 110, 96));
 		try {
-			iconLabel.setIcon(new ImageIcon(ImageIO.read(new File("../VOOGA/src/vooga/games/grandius/resources/images/missile.jpg"))));
+			iconLabel.setIcon(new ImageIcon(ImageIO.read(new URL("http://mystuffspace.com/graphic/blue-playboy-bunny.gif"))));
 		}
 		catch(Exception e) {
 		}
