@@ -1,6 +1,6 @@
 package arcade.lobby.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 public class Profile {
@@ -9,7 +9,7 @@ public class Profile {
 	private String myLastName;
 	private String myEmail;
 	private Date myBirthday;
-	// TODO Add more fields (table columns)
+	private String myAvatarURL;
 	
 	public Profile(String userName) {
 		myUserName = userName;
@@ -28,12 +28,24 @@ public class Profile {
 		myEmail = email;
 	}
 	
+	public void setAvatar(String avatarURL) {
+		myAvatarURL = avatarURL;
+	}
+	
 	public String getUserName() {
 		return myUserName;
 	}
 	
 	public String getFullName() {
 		return myFirstName + " "+myLastName;
+	}
+	
+	public String getFirstName() {
+		return myFirstName;
+	}
+	
+	public String getLastName() {
+		return myLastName;
 	}
 	
 	public String getBirthday() {
@@ -44,5 +56,8 @@ public class Profile {
 		return myEmail;
 	}
 	
-
+	public String getAvatar() {
+		return myAvatarURL;
+	}
+	
 }
