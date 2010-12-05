@@ -20,11 +20,8 @@ public class TicTacToe extends Game {
 
 	public void initResources() {
 		super.initResources();
-		System.out.println("TickTacToe: 1");
 		initLevelManager();
-		System.out.println("TickTacToe: 2");
 		initStates();
-		System.out.println("TickTacToe: 3");
 
 	}
 
@@ -34,7 +31,7 @@ public class TicTacToe extends Game {
 			connection = new TicTacToeConnection();
 		}
 		catch(Exception e){
-			System.out.println("TickTacToe Error: "+ e.getMessage());
+			System.out.println("TicTacToe Error: "+ e.getMessage());
 			System.exit(1);
 		}
 		playState = new PlayState(this, levelManager, connection);

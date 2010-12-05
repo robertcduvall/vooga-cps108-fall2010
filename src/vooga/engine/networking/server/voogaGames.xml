@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Games>
-	<Game name="TicTacToe" numberOfPlayers="2" serverGame="TicTacToeGame" serverPlayer="TicTacToePlayer" />
+	<Game name="TicTacToe" numberOfPlayers="2" serverGame="vooga.engine.networking.server.games.TicTacToeGame" serverPlayer="vooga.engine.networking.server.games.TicTacToePlayer" />
 </Games>

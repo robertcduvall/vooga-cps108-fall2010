@@ -1,6 +1,9 @@
-package vooga.engine.networking.server;
+package vooga.engine.networking.server.games;
 
 import java.io.IOException;
+
+import vooga.engine.networking.server.ServerGame;
+import vooga.engine.networking.server.ServerPlayer;
 
 public class TicTacToeGame extends ServerGame{
 	public static final int ERROR = -1;
