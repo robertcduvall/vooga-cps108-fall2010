@@ -70,13 +70,14 @@ public class MySqlAdapter implements DatabaseAdapter {
 			keys += s+",";
 			values += "'"+row.get(s)+"',";
 		}
-		keys.substring(0, keys.length()-1);
-		values.substring(0, values.length()-1);
+		keys = keys.substring(0, keys.length()-1);
+		values = values.substring(0, values.length()-1);
 		keys += ")";
 		values += ")";
 	
 		try{
-			String sql = "INSERT INTO "+tableName+" "+ keys +"VALUES "+values;
+			String sql = "INSERT INTO "+tableName+" "+ keys +" VALUES "+values;
+			System.out.println(sql);
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
