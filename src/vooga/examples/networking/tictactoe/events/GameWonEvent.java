@@ -1,11 +1,11 @@
-package vooga.examples.networking.events;
+package vooga.examples.networking.tictactoe.events;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.examples.networking.states.PlayState;
+import vooga.examples.networking.tictactoe.states.PlayState;
 import vooga.engine.resource.Resources;
 
 /**
@@ -15,31 +15,32 @@ import vooga.engine.resource.Resources;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class GameLostEvent implements IEventHandler {
+public class GameWonEvent implements IEventHandler {
 	private PlayField field;
 	private PlayState playState;
 
-	public GameLostEvent(PlayField field, PlayState playState) {
+	public GameWonEvent(PlayField field, PlayState playState) {
 		this.field = field;
 		this.playState = playState;
 	}
 
 	@Override
 	public void actionPerformed() {
-		playState.setLost(true);
+		System.out.println("WINNER");
+		playState.setWon(true);
 	}
 
 	@Override
 	public boolean isTriggered() {
-		SpriteGroup oGroup = field.getGroup("oGroup");
+		SpriteGroup xGroup = field.getGroup("xGroup");
 		int horizontalInARow = 0, verticalInARow = 0, diagonalPositiveInARow = 0, diagonalNegativeInARow = 0;
-		for(Sprite piece : oGroup.getSprites()){
+		for(Sprite piece : xGroup.getSprites()){
 			if(piece == null)
 				continue;
 			int pieceX = ((int) (piece.getX())) / Resources.getInt("squareDimension");
 			int pieceY = ((int) (piece.getY())) / Resources.getInt("squareDimension");
 			System.out.println("PIECEY:" + pieceY);
-			for(Sprite otherPiece : oGroup.getSprites()){
+			for(Sprite otherPiece : xGroup.getSprites()){
 				if(otherPiece == null)
 					continue;
 				int otherPieceX = (int) (otherPiece.getX() / Resources.getInt("squareDimension"));

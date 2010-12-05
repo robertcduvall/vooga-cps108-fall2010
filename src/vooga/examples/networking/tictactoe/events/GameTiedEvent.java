@@ -1,10 +1,10 @@
-package vooga.examples.networking.events;
+package vooga.examples.networking.tictactoe.events;
 
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.examples.networking.states.PlayState;
+import vooga.examples.networking.tictactoe.states.PlayState;
 
 /**
  * The DoodleDiedEvent implement IEventHandler and activates myGameOverState

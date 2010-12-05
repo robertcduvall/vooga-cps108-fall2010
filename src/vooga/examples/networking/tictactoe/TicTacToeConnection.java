@@ -1,4 +1,4 @@
-package vooga.examples.networking;
+package vooga.examples.networking.tictactoe;
 
 import java.io.*;
 import java.net.*;

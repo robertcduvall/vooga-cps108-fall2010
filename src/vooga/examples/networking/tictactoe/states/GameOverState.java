@@ -1,4 +1,4 @@
-package vooga.examples.networking.states;
+package vooga.examples.networking.tictactoe.states;
 
 import java.awt.Graphics2D;
 import vooga.engine.core.Game;
