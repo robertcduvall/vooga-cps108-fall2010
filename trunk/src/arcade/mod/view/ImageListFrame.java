@@ -1,5 +1,6 @@
 package arcade.mod.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +32,8 @@ public class ImageListFrame extends AbstractListFrame {
 		myFilepath = filepath;
 		myFileChooser = new JFileChooser();
 				
+		this.setLayout(new BorderLayout());
+		
 		restrictSize(width, DEFAULT_HEIGHT);
 
 		makeComponents();
@@ -63,8 +66,8 @@ public class ImageListFrame extends AbstractListFrame {
 			
 		});
 		
-		add(iconLabel);
-		add(fileButton);
+		add(iconLabel, BorderLayout.CENTER);
+		add(fileButton, BorderLayout.SOUTH);
 
 	}
 
