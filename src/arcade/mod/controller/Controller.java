@@ -45,7 +45,7 @@ public class Controller {
 	private Collection<AbstractListFrame> convertToView(List<ResourceNode> nodes){
 		List<AbstractListFrame> frames = new ArrayList<AbstractListFrame>();
 		for (ResourceNode node: nodes){
-			frames.add(FrameFactory.createFrame(myView.getCurrentCategory()));
+			frames.add(FrameFactory.createFrame(myView.getCurrentCategory(), node));
 		}
 		return frames;
 	}

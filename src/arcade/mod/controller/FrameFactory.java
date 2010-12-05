@@ -10,15 +10,14 @@ import arcade.mod.view.ImageListFrame;
 
 public class FrameFactory {
 	
-	private Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>(); 
+	private static Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>(); 
 	
 	public FrameFactory(){
 		myMappings.put("Images", new ImageListFrame());
 		myMappings.put("Filepath", new FilepathListFrame());
 	}
 	
-	public AbstractListFrame createFrame(String resourceType, ResourceNode node){
-		myMappings.get(resourceType).newInstance(node);
-		return null;	
+	public static AbstractListFrame createFrame(String resourceType, ResourceNode node){
+		return myMappings.get(resourceType).newInstance(node);
 	}
 }
