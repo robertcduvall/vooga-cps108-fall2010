@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -147,7 +149,13 @@ public class Menu {
         frame.setSize(450, 260);
         frame.setVisible(true);
         
-		MySqlAdapter myDbAdapter = new MySqlAdapter("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "voogaarcade", "Vooga108");
+		MySqlAdapter myDbAdapter = new MySqlAdapter("jdbc:mysql://voogaarcade.db.7093929.hostedresource.com/voogaarcade" , "voogaarcade", "voogaarcade", "Vooga108");
+		Map<String,String> user = new HashMap<String,String>();
+		user.put("User_Name", "uscfan1781");
+		user.put("First_Name", "Andrew");
+		user.put("Last_Name", "Brown");
+		user.put("Email", "andrew.brown@duke.edu");
+		myDbAdapter.insert("Users", user);
 		
     }
 
