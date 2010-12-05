@@ -1,5 +1,7 @@
 package arcade.lobby.model;
 
+import java.sql.ResultSet;
+
 public class DatabaseAdapter {	
 	
 	public DatabaseAdapter(String host, String dbName, String user, String pass)  {
@@ -15,14 +17,18 @@ public class DatabaseAdapter {
 		
 	}
 	
-	public String[] getColumn(String tableName, String columnName) {
+	public ResultSet getColumn(String tableName, String columnName) {
 		return null;
 		
 	}
 	
-	public String[] getColumn(String tableName, int columnIndex) {
+	public ResultSet getColumn(String tableName, int columnIndex) {
 		return null;
 		
+	}
+	
+	public ResultSet getRow(String pkName) {
+		return null;
 	}
 	
 }

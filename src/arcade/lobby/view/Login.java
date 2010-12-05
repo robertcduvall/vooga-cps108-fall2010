@@ -1,14 +1,13 @@
 package arcade.lobby.view;
 
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import java.awt.Dimension;
-import javax.swing.JTextField;
 import java.awt.Rectangle;
-import javax.swing.JPasswordField;
-import javax.swing.JTextPane;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class Login extends JFrame {
 
