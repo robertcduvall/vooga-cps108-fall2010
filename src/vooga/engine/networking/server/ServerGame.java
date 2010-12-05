@@ -4,13 +4,15 @@ package vooga.engine.networking.server;
 import java.io.*;
 import java.util.*;
 
+import java.io.*;
+import java.util.*;
+
 public class ServerGame {
 	public static final int ERROR = -1;
-	public static final int IWON = -2;
+	public static final int GAMEOVER = -2;
 	public static final int IQUIT = -3;
-	public static final int ITIED = -4;
-	public static final int YOURTURN = -5;
-	public static final int SENTSTRING = -6;
+	public static final int YOURTURN = -4;
+	public static final int SENTSTRING = -5;
 	private TicTacToePlayer player1;
 	private TicTacToePlayer player2;
 	private List<Integer> p1MessageQueue;
@@ -39,31 +41,25 @@ public class ServerGame {
 				if (!theirTurn){
 					currentPlayer.send("yourTurn");
 					message = currentPlayer.receive();
-					message = message.toUpperCase();
-					message = message.trim();
-					if (message.startsWith("IQUIT")){
+					if(message == null){
 						sendStatus(currentPlayer, IQUIT);
 						playGame = false;
 					}
-					else if (message.startsWith("IWON")){
-//						sentString = currentPlayer.receive();
-//						sentString = sentString.toUpperCase();
-//						sentString = sentString.trim();
-						sendStatus(currentPlayer, IWON);
-//						sendStatus(currentPlayer, SENTSTRING);
-						playGame = false;
-					}
-					else if (message.startsWith("ITIED")){
-//						sentString = currentPlayer.receive();
-//						sentString = sentString.toUpperCase();
-//						sentString = sentString.trim();
-						sendStatus(currentPlayer, ITIED);
-//						sendStatus(currentPlayer, SENTSTRING);
-						playGame = false;
-					}
-					else {
-						sentString = message;
-						sendStatus(currentPlayer, SENTSTRING);
+					else{
+						message = message.toUpperCase();
+						message = message.trim();
+						if (message.startsWith("IQUIT")){
+							sendStatus(currentPlayer, IQUIT);
+							playGame = false;
+						}
+						else if(message.startsWith("GAMEOVER")){
+							sendStatus(currentPlayer, GAMEOVER);
+							playGame = false;
+						}
+						else {
+							sentString = message;
+							sendStatus(currentPlayer, SENTSTRING);
+						}
 					}
 				}
 				else {
@@ -72,26 +68,11 @@ public class ServerGame {
 				if (playGame){
 					currentPlayer.send("theirTurn");
 					int stat = getStatus(currentPlayer);
-					if (stat == IWON) {
-						currentPlayer.send("theyWon");
-						if (getStatus(currentPlayer) != SENTSTRING){
-							System.out.println("Received Bad Status");
-							currentPlayer.closeConnections();
-						}
-						currentPlayer.send(sentString);
-						playGame = false;
-					}
-					else if (stat == ITIED){
-						currentPlayer.send("theyTied");
-						if (getStatus(currentPlayer) != SENTSTRING){
-							System.out.println("Received Bad Status");
-							currentPlayer.closeConnections();
-						}
-						currentPlayer.send(sentString);
-						playGame = false;
-					}
-					else if (stat == IQUIT) {
+					if (stat == IQUIT) {
 						currentPlayer.send("theyQuit");
+						playGame = false;
+					}
+					else if(stat == GAMEOVER){
 						playGame = false;
 					}
 					else if (stat == SENTSTRING) {
