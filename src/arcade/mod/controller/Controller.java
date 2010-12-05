@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
 import arcade.mod.model.Model;
+import arcade.mod.model.ResourceNode;
 import arcade.mod.model.XMLModel;
 import arcade.mod.view.View;
 
@@ -30,6 +32,10 @@ public class Controller {
 	
 	public Collection<String> getCategories(){
 		return myModel.getCategories();
+	}
+	
+	public List<ResourceNode> getResourcesFromCategory(String category){
+		return myModel.getResourcesFromCategory(category);
 	}
 	
 	//temporary main method until arcade adds a button to call us
