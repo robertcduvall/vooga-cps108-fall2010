@@ -1,11 +1,7 @@
 package vooga.games.grandius.events;
 
 import vooga.engine.event.IEventHandler;
-import vooga.engine.resource.Resources;
 import vooga.games.grandius.DropThis;
-import vooga.games.grandius.sprites.Player;
-import vooga.games.grandius.sprites.enemy.common.Zipster;
-import vooga.games.grandius.states.PlayState;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
