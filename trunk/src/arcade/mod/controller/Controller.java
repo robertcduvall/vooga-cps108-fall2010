@@ -2,6 +2,7 @@ package arcade.mod.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,8 +28,13 @@ public class Controller {
 		}
 	}
 	
-	public Collection<String> getCategories(){
-		return myModel.getCategories();
+	public Collection<Object> getCategories(){
+		Collection<String> strings = myModel.getCategories();
+		Collection<Object> objects = new ArrayList<Object>();
+		for (String s: strings){
+			objects.add(new StringObject(s));
+		}
+		return objects;
 	}
 	
 	//temporary main method until arcade adds a button to call us
