@@ -29,7 +29,7 @@ public abstract class AbstractListFrame extends JPanel {
 		this.setPreferredSize(new Dimension(WIDTH,height));
 	}
 	
-	public abstract void newInstance(ResourceNode node);
+	public abstract AbstractListFrame newInstance(ResourceNode node);
 	
 	public abstract void handleNode(ResourceNode node);
 	
