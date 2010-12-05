@@ -12,6 +12,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.TicTacToeConnection;
+import vooga.engine.networking.client.events.GameTiedEvent;
 import vooga.engine.networking.client.events.GameWonEvent;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
@@ -22,16 +23,23 @@ public class PlayState extends GameState{
 	private PlayField field;
 	private LevelManager levelManager;
 	private EventPool eventPool;
-	private GameState gameWonState;
+	private GameOverState gameWonState;
+	private GameOverState youLostState;
+	private GameOverState theyQuitState;
+	private GameOverState tieState;
+	private GameOverState errorState;
+	private TheirTurnState theirTurnState;
 	private TicTacToeConnection connection;
-	private boolean xTurn;
-	private boolean won;
+	private boolean myTurn, theirTurn;
+	private boolean won, theyWon;
+	private boolean tied, theyTied;
+	private int oMove;
 	
 	public PlayState(Game game, LevelManager levelManager, TicTacToeConnection connection){
 		this.game = game;
 		this.levelManager = levelManager;
 		this.connection = connection;
-		xTurn = true;
+		//xTurn = true;
 	}
 
 	@Override
@@ -51,10 +59,26 @@ public class PlayState extends GameState{
 	public void initLevel(){
 		LevelParser levelParser = new LevelParser();
 		PlayField gameWonField = levelParser.getPlayfield(Resources.getString("gameWonXml"), game);
-		gameWonState = new GameWonState(game, gameWonField);
+		gameWonState = new GameOverState(game, gameWonField);
 		game.getGameStateManager().addGameState(gameWonState);
+		PlayField theirTurnField = levelParser.getPlayfield(Resources.getString("theirTurnXml"), game);
+		theirTurnState = new TheirTurnState(game, connection, theirTurnField, this);
+		game.getGameStateManager().addGameState(theirTurnState);
+		PlayField youLostField = levelParser.getPlayfield(Resources.getString("youLostXml"), game);
+		youLostState = new GameOverState(game, youLostField);
+		game.getGameStateManager().addGameState(youLostState);
+		PlayField theyQuitField = levelParser.getPlayfield(Resources.getString("theyQuitXml"), game);
+		theyQuitState = new GameOverState(game, theyQuitField);
+		game.getGameStateManager().addGameState(theyQuitState);
+		PlayField tieField = levelParser.getPlayfield(Resources.getString("tieXml"), game);
+		tieState = new GameOverState(game, tieField);
+		game.getGameStateManager().addGameState(tieState);
+		PlayField errorField = levelParser.getPlayfield(Resources.getString("errorXml"), game);
+		errorState = new GameOverState(game, errorField);
+		game.getGameStateManager().addGameState(errorState);
 		eventPool = new EventPool();
 		eventPool.addEvent(new GameWonEvent(field, this));
+		eventPool.addEvent(new GameTiedEvent(field, this));
 	}
 	
 	public void addPiece(){
@@ -62,8 +86,10 @@ public class PlayState extends GameState{
 		int mouseY = game.bsInput.getMouseY();
 		int pieceX = (mouseX / Resources.getInt("squareDimension")) * Resources.getInt("squareDimension");
 		int pieceY = (mouseY / Resources.getInt("squareDimension")) * Resources.getInt("squareDimension");
-		pieceX = xTurn ? pieceX + Resources.getInt("xOffsetX") : pieceX + Resources.getInt("oOffsetX");
-		pieceY = xTurn ? pieceY + Resources.getInt("xOffsetY") : pieceY + Resources.getInt("oOffsetY");
+//		pieceX = xTurn ? pieceX + Resources.getInt("xOffsetX") : pieceX + Resources.getInt("oOffsetX");
+//		pieceY = xTurn ? pieceY + Resources.getInt("xOffsetY") : pieceY + Resources.getInt("oOffsetY");
+		pieceX = pieceX + Resources.getInt("xOffsetX");
+		pieceY = pieceY + Resources.getInt("xOffsetY");
 		SpriteGroup xGroup = field.getGroup("xGroup");
 		SpriteGroup oGroup = field.getGroup("oGroup");
 		boolean add = true;
@@ -84,26 +110,90 @@ public class PlayState extends GameState{
 				add = false;
 		}
 		if(add){
-			if(xTurn){
+			//if(xTurn){
 				xGroup.add(new BetterSprite(Resources.getImage("X"), pieceX, pieceY));
-			}
-			else{
-				oGroup.add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
-			}
+				eventPool.checkEvents();
+				int col = pieceX / Resources.getInt("squareDimension");
+				int row = pieceY / Resources.getInt("squareDimension");
+				myTurn = false;
+				connection.sendMove(col * 10 + row);
+//			}
+//			else{
+//				oGroup.add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
+//			}
 		}
-		xTurn = !xTurn;
+		//xTurn = !xTurn;
+	}
+	
+	public void placeOpposingPiece(){
+		int col = oMove < 10 ? 0 : oMove / 10;
+		int row = oMove % 10;
+		int pieceX = col * Resources.getInt("squareDimension") + Resources.getInt("oOffsetX");
+		int pieceY = row * Resources.getInt("squareDimension") + Resources.getInt("oOffsetY");
+		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
 	}
 	
 	public void setWon(boolean didWin){
 		won = didWin;
 	}
 	
+	public void setTied(boolean didTie){
+		tied = didTie;
+	}
+	
+	public void setOMove(int move){
+		oMove = move;
+	}
+	
+	public void checkMessages(int status){
+		if(status == Resources.getInt("theyWon"))
+			theyWon = true;
+		else if(status == Resources.getInt("theyQuit"))
+			game.getGameStateManager().switchTo(theyQuitState);
+		else if(status == Resources.getInt("theyTied"))
+			theyTied = true;
+		else if(status == Resources.getInt("error"))
+			game.getGameStateManager().switchTo(errorState);
+		else if(status == Resources.getInt("theirTurn")){
+			theirTurn = true;
+		}
+		else if(status == Resources.getInt("yourTurn")){
+			myTurn = true;
+		}
+		else{
+			oMove = status;
+			placeOpposingPiece();
+		}
+	}
+	
 	@Override
 	public void update(long elapsedTime){
 		if(won){
+			connection.sendIWON();
 			game.getGameStateManager().switchTo(gameWonState);
+			return;
+		}
+		if(tied){
+			connection.sendITIED();
+			game.getGameStateManager().switchTo(tieState);
+			return;
+		}
+		if(theyWon){
+			game.getGameStateManager().switchTo(youLostState);
+			return;
+		}
+		if(theyTied){
+			game.getGameStateManager().switchTo(tieState);
+			return;
+		}
+		if(theirTurn){
+			game.getGameStateManager().switchTo(theirTurnState);
+			theirTurn = false;
+			return;
 		}
 		super.update(elapsedTime);
-		eventPool.checkEvents();
+		if(connection.isConnected() && !myTurn){
+			checkMessages(connection.getTheirMove());
+		}
 	}
 }

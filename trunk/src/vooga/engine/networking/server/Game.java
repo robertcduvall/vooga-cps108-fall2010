@@ -1,5 +1,6 @@
 package vooga.engine.networking.server;
 
+
 import java.io.*;
 import java.util.*;
 
@@ -36,7 +37,7 @@ class Game {
 			}
 			while (playGame){
 				if (!theirTurn){
-					currentPlayer.send("YOURTURN");
+					currentPlayer.send("yourTurn");
 					message = currentPlayer.receive();
 					message = message.toUpperCase();
 					message = message.trim();
@@ -45,19 +46,20 @@ class Game {
 						playGame = false;
 					}
 					else if (message.startsWith("IWON")){
-						sentString = currentPlayer.receive();
-						sentString = sentString.toUpperCase();
-						sentString = sentString.trim();
+//						sentString = currentPlayer.receive();
+//						sentString = sentString.toUpperCase();
+//						sentString = sentString.trim();
 						sendStatus(currentPlayer, IWON);
-						sendStatus(currentPlayer, SENTSTRING);
+//						sendStatus(currentPlayer, SENTSTRING);
 						playGame = false;
 					}
 					else if (message.startsWith("ITIED")){
-						sentString = currentPlayer.receive();
-						sentString = sentString.toUpperCase();
-						sentString = sentString.trim();
+//						sentString = currentPlayer.receive();
+//						sentString = sentString.toUpperCase();
+//						sentString = sentString.trim();
 						sendStatus(currentPlayer, ITIED);
-						sendStatus(currentPlayer, SENTSTRING);
+//						sendStatus(currentPlayer, SENTSTRING);
+						playGame = false;
 					}
 					else {
 						sentString = message;
@@ -68,10 +70,10 @@ class Game {
 					theirTurn = false;
 				}
 				if (playGame){
-					currentPlayer.send("THEIRTURN");
+					currentPlayer.send("theirTurn");
 					int stat = getStatus(currentPlayer);
 					if (stat == IWON) {
-						currentPlayer.send("THEYWON");
+						currentPlayer.send("theyWon");
 						if (getStatus(currentPlayer) != SENTSTRING){
 							System.out.println("Received Bad Status");
 							currentPlayer.closeConnections();
@@ -80,7 +82,7 @@ class Game {
 						playGame = false;
 					}
 					else if (stat == ITIED){
-						currentPlayer.send("THEYTIED");
+						currentPlayer.send("theyTied");
 						if (getStatus(currentPlayer) != SENTSTRING){
 							System.out.println("Received Bad Status");
 							currentPlayer.closeConnections();
@@ -89,14 +91,14 @@ class Game {
 						playGame = false;
 					}
 					else if (stat == IQUIT) {
-						currentPlayer.send("THEYQUIT");
+						currentPlayer.send("theyQuit");
 						playGame = false;
 					}
 					else if (stat == SENTSTRING) {
 						currentPlayer.send(sentString);
 					}
 					else if (stat == ERROR) {
-						currentPlayer.send("ERROR");
+						currentPlayer.send("error");
 						currentPlayer.closeConnections();
 						playGame = false;
 					}

@@ -9,7 +9,7 @@ import vooga.engine.resource.Resources;
 public class TicTacToeConnection extends GameSocket {
 	
 	public TicTacToeConnection() throws UnknownHostException, IOException{
-		super(new Socket("localhost", Resources.getInt("portNum")));
+		super(new Socket("10.0.1.5", Resources.getInt("portNum")));
 	}
 	
 
