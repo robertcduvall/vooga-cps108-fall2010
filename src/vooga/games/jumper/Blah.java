@@ -25,7 +25,7 @@ import vooga.games.jumper.states.PlayGameState;
  */
 
 
-public class DropThis extends vooga.engine.core.Game {
+public class Blah extends vooga.engine.core.Game {
 
 	private static final String GAME_OVER_MESSSAGE = "YOU LOST";
 
@@ -124,7 +124,7 @@ public class DropThis extends vooga.engine.core.Game {
 	 * @param args String[] of arguments from the command line
 	 */    
 	public static void main(String[] args) {
-		launch(new DropThis());
+		launch(new Blah());
 	}
 	
 	 @Override

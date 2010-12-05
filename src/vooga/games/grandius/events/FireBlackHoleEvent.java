@@ -2,7 +2,7 @@ package vooga.games.grandius.events;
 
 import java.awt.event.KeyEvent;
 
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.sprites.weapons.BlackHole;
 import vooga.games.grandius.states.PlayState;
@@ -13,7 +13,7 @@ import vooga.games.grandius.states.PlayState;
  */
 public class FireBlackHoleEvent	  extends FiringEvent {
 	
-	public FireBlackHoleEvent(DropThis grandius, Player player, PlayState playState){
+	public FireBlackHoleEvent(Blah grandius, Player player, PlayState playState){
 		super(grandius, player, playState);
 
 	}

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.sprites.enemy.common.Enemy;
 
@@ -34,7 +34,7 @@ public class BasicCollision extends BasicCollisionGroup {
 		//myGame.playSound(Resources.getSound("explosionSound")); Sort of loud...
 		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, commonEnemy.getX(), commonEnemy.getY());
-		((DropThis)myGame).getPlayState().getGroup("explosionGroup").add(explosion);
+		((Blah)myGame).getPlayState().getGroup("explosionGroup").add(explosion);
 		if(!(playerSideSprite instanceof Player)){
 			getPlayer().updateScore(((Enemy)commonEnemy).getScore());
 			getPlayer().updateCash(((Enemy)commonEnemy).getCash());
@@ -42,7 +42,7 @@ public class BasicCollision extends BasicCollisionGroup {
 	}
 	
 	public Player getPlayer() {
-		return ((DropThis)myGame).getPlayState().getPlayer();
+		return ((Blah)myGame).getPlayState().getPlayer();
 	}
 	
 }

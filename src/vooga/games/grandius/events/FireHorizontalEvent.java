@@ -2,7 +2,7 @@ package vooga.games.grandius.events;
 
 import java.awt.event.KeyEvent;
 
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.sprites.weapons.Laser;
 import vooga.games.grandius.states.PlayState;
@@ -13,7 +13,7 @@ import vooga.games.grandius.states.PlayState;
  */
 public class FireHorizontalEvent  extends FiringEvent {
 	
-	public FireHorizontalEvent(DropThis grandius, Player player, PlayState playState){
+	public FireHorizontalEvent(Blah grandius, Player player, PlayState playState){
 		super(grandius, player, playState);
 	}
 	

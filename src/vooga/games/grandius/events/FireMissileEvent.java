@@ -2,7 +2,7 @@ package vooga.games.grandius.events;
 
 import java.awt.event.KeyEvent;
 
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.sprites.weapons.Missile;
 import vooga.games.grandius.states.PlayState;
@@ -14,7 +14,7 @@ import vooga.games.grandius.states.PlayState;
 public class FireMissileEvent extends FiringEvent {
 	private boolean missileActive;
 	
-	public FireMissileEvent(DropThis grandius, Player player, PlayState playState){
+	public FireMissileEvent(Blah grandius, Player player, PlayState playState){
 		super(grandius, player, playState);
 		missileActive = false;
 	}

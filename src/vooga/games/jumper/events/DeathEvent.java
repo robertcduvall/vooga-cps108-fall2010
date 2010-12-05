@@ -4,7 +4,7 @@ import com.golden.gamedev.object.Sprite;
 
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.jumper.DropThis;
+import vooga.games.jumper.Blah;
 import vooga.games.jumper.states.PlayGameState;
 
 /**
@@ -14,7 +14,7 @@ import vooga.games.jumper.states.PlayGameState;
 public class DeathEvent implements IEventHandler {
 	
 	private PlayGameState playState;
-	private DropThis myGame;
+	private Blah myGame;
 	
 	/**
 	 * Constructor for this death event.  Sets the game and the
@@ -22,7 +22,7 @@ public class DeathEvent implements IEventHandler {
 	 * @param dropThis
 	 * @param gamestate
 	 */
-	public DeathEvent(DropThis dropThis, PlayGameState gamestate) {
+	public DeathEvent(Blah dropThis, PlayGameState gamestate) {
 		playState = gamestate;
 		myGame = dropThis;
 	}

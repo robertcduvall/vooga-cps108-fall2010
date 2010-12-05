@@ -7,11 +7,11 @@ import vooga.engine.event.IEventHandler;
 
 public class LevelSwitchEvent implements IEventHandler{
 
-	DropThis game;
+	Blah game;
 	SpriteGroup enemies;
 	
 	public LevelSwitchEvent(Game g, SpriteGroup e){
-		game = (DropThis) g;
+		game = (Blah) g;
 		enemies = e;
 	}
 	

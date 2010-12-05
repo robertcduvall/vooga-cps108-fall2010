@@ -25,7 +25,7 @@ import com.golden.gamedev.object.Sprite;
  * @author Drew Sternesky, Kate Yang, Nick Hawthorne
  *
  */
-public class DropThis extends Game {
+public class Blah extends Game {
 
 	private LevelManager levelManager;
 	private PlayField playfield;
@@ -97,7 +97,7 @@ public class DropThis extends Game {
 	
 	public void startNewGame(){
 		this.finish();
-		DropThis.main(null);
+		Blah.main(null);
 	}
 
 	public void switchLevel(){
@@ -111,7 +111,7 @@ public class DropThis extends Game {
 	 * @param args do nothing
 	 */
 	public static void main(String[] args) {
-		launch(new DropThis());
+		launch(new Blah());
 	}
 
 }

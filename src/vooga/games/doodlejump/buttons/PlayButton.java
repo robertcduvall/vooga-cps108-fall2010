@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import vooga.widget.Button;
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
-import vooga.games.doodlejump.BlahThis;
+import vooga.games.doodlejump.Blah;
 
 /**
  * The PlayButton class extends button and creates a button that allows for
@@ -27,7 +27,7 @@ public class PlayButton extends Button {
 	private static final double PLAY_BUTTON_Y = Resources
 			.getDouble("playButtonY");
 
-	private BlahThis myGame = (BlahThis) Resources.getGame();
+	private Blah myGame = (Blah) Resources.getGame();
 
 	public PlayButton() {
 		super(PLAY_BUTTON_IMAGE, PLAY_BUTTON_X, PLAY_BUTTON_Y);

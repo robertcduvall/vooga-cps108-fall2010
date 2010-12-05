@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
 import vooga.games.cyberion.states.PlayState;
-import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.Blah;
 import vooga.widget.Button;
 
 public class NextLevelButton extends Button {
@@ -18,7 +18,7 @@ public class NextLevelButton extends Button {
 	private static final int START_Y = 200;
 	private static final BufferedImage myImage = Resources
 			.getImage("nextLevelButtonImage");
-	private DropThis myGame = (DropThis) Resources.getGame();
+	private Blah myGame = (Blah) Resources.getGame();
 
 	public NextLevelButton() {
 		super(myImage, START_X, START_Y);

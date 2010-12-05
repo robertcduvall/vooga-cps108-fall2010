@@ -20,7 +20,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.doodlejump.BallSprite;
-import vooga.games.doodlejump.BlahThis;
+import vooga.games.doodlejump.Blah;
 import vooga.games.doodlejump.DoodleSprite;
 import vooga.games.doodlejump.events.DoodleDiedEvent;
 import vooga.games.doodlejump.events.GameWonEvent;

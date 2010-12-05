@@ -8,7 +8,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.jumper.DropThis;
+import vooga.games.jumper.Blah;
 import vooga.games.jumper.events.BlockOffScreenEvent;
 import vooga.games.jumper.events.DeathEvent;
 import vooga.games.jumper.events.BlockGeneratorEvent;
@@ -16,7 +16,7 @@ import vooga.games.jumper.events.BlockGeneratorEvent;
 public class PlayGameState extends GameState{
 	
 	private Game myGame;
-	private DropThis myDropThis;
+	private Blah myDropThis;
 	private PlayField myField;
 	private EventPool eventPool;
 	public Control playerControl;
@@ -33,7 +33,7 @@ public class PlayGameState extends GameState{
 	 * @params game, playfield, dropthis
 	 */
 	
-	public PlayGameState(Game game, PlayField field, DropThis dropThis){
+	public PlayGameState(Game game, PlayField field, Blah dropThis){
 		super(field);
 		myDropThis = dropThis;
 		myGame = game;

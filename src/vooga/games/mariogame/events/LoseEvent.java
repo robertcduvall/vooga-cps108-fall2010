@@ -2,7 +2,7 @@ package vooga.games.mariogame.events;
 
 import vooga.engine.core.Game;
 import vooga.engine.event.IEventHandler;
-import vooga.games.mariogame.DropThis;
+import vooga.games.mariogame.Blah;
 import vooga.games.mariogame.sprites.MarioSprite;
 
 /**
@@ -31,7 +31,7 @@ public class LoseEvent implements IEventHandler{
 	 */
 	@Override
 	public void actionPerformed() {
-		((DropThis)myGame).loseGame();
+		((Blah)myGame).loseGame();
 	}
 	/**
 	 * User defines the condition when the event will be triggered

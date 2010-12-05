@@ -11,7 +11,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.events.FireBlackHoleEvent;
 import vooga.games.grandius.events.FireHorizontalEvent;
 //import vooga.games.grandius.events.FireMissileEvent;
@@ -22,7 +22,7 @@ import vooga.games.grandius.events.ZipsterFireEvent;
 import vooga.games.grandius.sprites.Player;
 
 public class PlayState extends GameState {
-	private static DropThis myGame;
+	private static Blah myGame;
 	private Player player;
 	private EventPool eventPool;
 	//private boolean reacherShieldsDepleted;
@@ -46,7 +46,7 @@ public class PlayState extends GameState {
 		this.addRenderPlayField(newField);
 	}
 
-	public PlayState(LevelManager levelManager, DropThis game) {
+	public PlayState(LevelManager levelManager, Blah game) {
 		myLevelManager = levelManager;
 		myGame = game;
 	}

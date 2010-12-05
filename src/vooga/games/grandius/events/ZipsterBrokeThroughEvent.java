@@ -1,17 +1,17 @@
 package vooga.games.grandius.events;
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 public class ZipsterBrokeThroughEvent implements IEventHandler {
 
-	protected DropThis grandius; 
+	protected Blah grandius; 
 	private SpriteGroup enemyGroup;
 
-	public ZipsterBrokeThroughEvent(DropThis grandius, SpriteGroup enemyGroup){
+	public ZipsterBrokeThroughEvent(Blah grandius, SpriteGroup enemyGroup){
 		this.grandius = grandius;
 		this.enemyGroup = enemyGroup;
 	}

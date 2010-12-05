@@ -16,7 +16,7 @@ import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
-import vooga.games.mariogame.DropThis;
+import vooga.games.mariogame.Blah;
 import vooga.games.mariogame.events.LoseEvent;
 import vooga.games.mariogame.events.NextLevelEvent;
 import vooga.games.mariogame.sprites.MarioSprite;
@@ -92,7 +92,7 @@ public class GamePlayState extends GameState {
 	
 	public void nextLevel(){
 		if(lastLevel()){
-			((DropThis) myGame).winGame();
+			((Blah) myGame).winGame();
 		}
 		else{
 			cloneStats();

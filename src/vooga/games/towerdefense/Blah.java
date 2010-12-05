@@ -24,7 +24,7 @@ import vooga.games.towerdefense.states.PlayState;
  * @author Derek Zhou, Daniel Koverman, Justin Goldsmith
  * 
  */
-public class DropThis extends Game {
+public class Blah extends Game {
 
 	private int gameWidth;
 	private int gameHeight;
@@ -352,7 +352,7 @@ private void initLevelManager() {
 //	}
 
 	public static void main(String[] args) {
-		launch(new DropThis());
+		launch(new Blah());
 	}
 
 	

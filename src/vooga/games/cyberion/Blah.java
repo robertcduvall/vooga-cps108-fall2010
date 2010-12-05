@@ -26,7 +26,7 @@ import vooga.games.cyberion.states.PlayState;
  * @see http://www.istisoft.net/online/cyberion/cyberion.html
  */
 
-public class DropThis extends Game {
+public class Blah extends Game {
 
 	private MenuState myMenuState;
 	private PlayState myPlayState;
@@ -105,7 +105,7 @@ public class DropThis extends Game {
 	}
 
 	public static void main(String[] args) {
-		launch(new DropThis());
+		launch(new Blah());
 	}
 
 }

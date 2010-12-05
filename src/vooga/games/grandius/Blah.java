@@ -28,7 +28,7 @@ import vooga.games.grandius.states.ShoppingLevelState;
  * @author Se-Gil Feldsott, John Kline, Bhawana Singh
  * @version 3.0
  */
-public class DropThis extends Game {
+public class Blah extends Game {
 
 	private PlayState myPlayState;
 	private LevelManager levelManager;
@@ -119,6 +119,6 @@ public class DropThis extends Game {
 	  * Main launching method for Grandius.
 	  */
 	 public static void main(String[] args) {
-		 launch(new DropThis());
+		 launch(new Blah());
 	 }
 }

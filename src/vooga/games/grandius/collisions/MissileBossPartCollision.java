@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.enemy.boss.reacher.ReacherEye;
 import vooga.games.grandius.sprites.weapons.Missile;
 
@@ -35,15 +35,15 @@ public class MissileBossPartCollision extends BasicCollision {
 			AnimatedSprite explosion = new VolatileSprite(images, bossPart.getX(), bossPart.getY());
 			PlayField newField = new PlayField();
 			newField.add(explosion);
-			((DropThis)grandius).getPlayState().getRenderField().add(newField);
-			((DropThis)grandius).getPlayState().getUpdateField().add(newField);
+			((Blah)grandius).getPlayState().getRenderField().add(newField);
+			((Blah)grandius).getPlayState().getUpdateField().add(newField);
 		}
 		BufferedImage[] images = Resources.getAnimation("explosionAnimation");
 		AnimatedSprite explosion = new VolatileSprite(images, bossPart.getX(), bossPart.getY());
 		PlayField newField = new PlayField();
 		newField.add(explosion);
-		((DropThis)grandius).getPlayState().getRenderField().add(newField);
-		((DropThis)grandius).getPlayState().getUpdateField().add(newField);
+		((Blah)grandius).getPlayState().getRenderField().add(newField);
+		((Blah)grandius).getPlayState().getUpdateField().add(newField);
 //		getPlayer().updateScore(((Enemy)bossPart).getScore());
 //		getPlayer().updateCash(((Enemy)bossPart).getCash());
 	}
