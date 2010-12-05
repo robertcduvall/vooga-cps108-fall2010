@@ -126,22 +126,12 @@ public class ExampleGUI extends JFrame{
 	    JTextPane pane = new JTextPane();
 
 	    pane.setContentType("text/html");
-	    String text = "<p><b>Closing windows using the mouse wheel</b></p>" +
-	        "<p>Clicking with the mouse wheel on an editor tab closes the window. " +
-	        "This method works also with dockable windows or Log window tabs.</p>";
+	    String text = "hello world";
 	    pane.setText(text);
 	    pane.setEditable(false);
 	    textPanel.add(pane);
 
 	    basic.add(textPanel);
-
-	    JPanel boxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
-
-	    JCheckBox box = new JCheckBox("Show Tips at startup");
-	    box.setMnemonic(KeyEvent.VK_S);
-
-	    boxPanel.add(box);
-	    basic.add(boxPanel);
 
 	    JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
