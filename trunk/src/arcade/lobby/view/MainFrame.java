@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
 	private JPanel jPanel = null;
+	private Menu myMenu = new Menu();
 
 	/**
 	 * This is the default constructor
@@ -30,7 +31,8 @@ public class MainFrame extends JFrame {
 	private void initialize() {
 		this.setSize(467, 246);
 		this.setContentPane(getJContentPane());
-		this.setTitle("JFrame");
+		this.setTitle("Home Page");
+		this.setJMenuBar(myMenu.setUpMenu());
 	}
 
 	/**
@@ -59,6 +61,7 @@ public class MainFrame extends JFrame {
 			bob.setName("Bob", "Smith");
 			bob.setBirthday(new Date(89, 6, 10));
 			bob.setEmail("abc123@cs.duke.edu");
+			bob.setAvatar("http://mystuffspace.com/graphic/blue-playboy-bunny.gif");
 			jPanel = new HomePage(bob);
 		}
 		return jPanel;
