@@ -13,6 +13,8 @@ public class FrameFactory {
 	private static Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>(); 
 	
 	public FrameFactory(){
+		
+		//TODO:abstract this to make it more extendable
 		myMappings.put("Images", new ImageListFrame());
 		myMappings.put("Filepath", new FilepathListFrame());
 	}
