@@ -18,14 +18,36 @@ import javax.swing.JFrame;
 public abstract class StorePage {
 
 	private Map<String, StorePage> pageLinks;
+	private Map<String, String> pageInformation;
 	private JFrame surface;
 	
 	public StorePage(JFrame gui)
 	{
 		pageLinks = new HashMap<String, StorePage>();
+		pageInformation = new HashMap<String, String>();
 		surface = gui;
 	}
-		
+
+	/**
+	 * Check for the information inside the information tag
+	 * @param key
+	 * @return
+	 */
+	public String getInformation(String key)
+	{
+		return pageInformation.get(key);
+	}
+	
+	/**
+	 * Adds this page information for the parser
+	 * @param tag
+	 * @param info
+	 */
+	public void addInformation(String tag, String info)
+	{
+		pageInformation.put(tag, info);
+	}
+	
 	public void addLink(String pageName, StorePage page)
 	{
 		pageLinks.put(pageName, page);
