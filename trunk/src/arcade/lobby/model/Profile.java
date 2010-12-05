@@ -3,13 +3,15 @@ package arcade.lobby.model;
 import java.text.DateFormat;
 import java.util.Date;
 
+import arcade.lobby.controller.Validator;
+
 
 public class Profile {
 	private String myUserName;
 	private String myFirstName;
 	private String myLastName;
 	private String myEmail;
-	private Date myBirthday;
+	private String myBirthday;
 	private String myAvatarURL;
 	private DateFormat mySDF = Validator.getDateFormat();
 	// TODO Add more fields (table columns)
@@ -23,7 +25,7 @@ public class Profile {
 		myLastName = last;
 	}
 	
-	public void setBirthday(Date date) {
+	public void setBirthday(String date) {
 		myBirthday = date;
 	}
 	
@@ -52,11 +54,7 @@ public class Profile {
 	}
 	
 	public String getBirthday() {
-		try {
-			return mySDF.format(myBirthday);
-		} catch(Exception e) {
-			return "";
-		}
+		return myBirthday;
 	}
 	
 	public String getEmail() {

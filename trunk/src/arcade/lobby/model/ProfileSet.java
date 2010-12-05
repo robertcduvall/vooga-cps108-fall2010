@@ -33,11 +33,11 @@ public class ProfileSet implements Iterable<Profile> {
 
 	public Profile getProfile(String userName) {
 		Map<String, String> row = myDbAdapter.getRow(myTable, userName);
-		if(row.get("User_Name")==null) return null;
+		if(row==null) return null;
 		Profile userProf = new Profile(userName);
 		userProf.setName(row.get("First_Name"), row.get("Last_Name"));
 		try {
-			userProf.setBirthday(new Date(Long.parseLong(row.get("Birthday"))));
+			userProf.setBirthday(row.get("Birthday"));
 		} catch (NumberFormatException e) {
 //			e.printStackTrace();
 		}

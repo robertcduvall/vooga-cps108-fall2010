@@ -3,8 +3,8 @@ package arcade.lobby.view;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
-import arcade.lobby.model.Validator;
 
 import java.awt.Rectangle;
 import java.text.DateFormat;
@@ -43,8 +43,9 @@ public class HomePage extends JPanel {
 	private JButton avatarButton = null;
 	private JTextField urlField = null;
 	private JLabel urlLabel = null;
-	
-//	private final String dateRegex = "^(\\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$";
+
+	// private final String dateRegex =
+	// "^(\\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$";
 	/**
 	 * This is the default constructor
 	 */
@@ -102,9 +103,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes nameField	
-	 * 	
-	 * @return javax.swing.JLabel	
+	 * This method initializes nameField
+	 * 
+	 * @return javax.swing.JLabel
 	 */
 	private JLabel getNameLabel() {
 		if (nameLabel == null) {
@@ -116,9 +117,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes birthdayField	
-	 * 	
-	 * @return javax.swing.JLabel	
+	 * This method initializes birthdayField
+	 * 
+	 * @return javax.swing.JLabel
 	 */
 	private JLabel getBirthdayLabel() {
 		if (birthdayLabel == null) {
@@ -130,9 +131,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes emailPane	
-	 * 	
-	 * @return javax.swing.JTextPane	
+	 * This method initializes emailPane
+	 * 
+	 * @return javax.swing.JTextPane
 	 */
 	private JLabel getEmailLabel() {
 		if (emailLabel == null) {
@@ -144,9 +145,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes nameField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes nameField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getNameField() {
 		if (nameField == null) {
@@ -159,9 +160,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes birthdayField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes birthdayField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getBirthdayField() {
 		if (birthdayField == null) {
@@ -174,9 +175,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes emailField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes emailField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getEmailField() {
 		if (emailField == null) {
@@ -189,9 +190,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes nicknameField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes nicknameField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getNicknameField() {
 		if (nicknameField == null) {
@@ -204,66 +205,69 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes editNameButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes editNameButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEditNameButton() {
 		if (editNameButton == null) {
 			editNameButton = new JButton();
 			editNameButton.setBounds(new Rectangle(215, 5, 55, 20));
 			editNameButton.setText("edit");
-			editNameButton.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					nameField.setEditable(true);
-				}
-			});
+			editNameButton
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							nameField.setEditable(true);
+						}
+					});
 		}
 		return editNameButton;
 	}
 
 	/**
-	 * This method initializes editBirthdayButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes editBirthdayButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEditBirthdayButton() {
 		if (editBirthdayButton == null) {
 			editBirthdayButton = new JButton();
 			editBirthdayButton.setBounds(new Rectangle(215, 35, 55, 20));
 			editBirthdayButton.setText("edit");
-			editBirthdayButton.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					birthdayField.setEditable(true);
-				}
-			});
+			editBirthdayButton
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							birthdayField.setEditable(true);
+						}
+					});
 		}
 		return editBirthdayButton;
 	}
 
 	/**
-	 * This method initializes editEmailButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes editEmailButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEditEmailButton() {
 		if (editEmailButton == null) {
 			editEmailButton = new JButton();
 			editEmailButton.setBounds(new Rectangle(215, 65, 55, 20));
 			editEmailButton.setText("edit");
-			editEmailButton.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					emailField.setEditable(true);
-				}
-			});
+			editEmailButton
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							emailField.setEditable(true);
+						}
+					});
 		}
 		return editEmailButton;
 	}
 
 	/**
-	 * This method initializes SaveButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes SaveButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getSaveButton() {
 		if (SaveButton == null) {
@@ -277,7 +281,7 @@ public class HomePage extends JPanel {
 					updateBirthday();
 					updateAvatar();
 					updateIcon();
-					//TODO save to database
+					// TODO save to database
 				}
 
 				private void updateAvatar() {
@@ -287,17 +291,13 @@ public class HomePage extends JPanel {
 
 				private void updateBirthday() {
 					birthdayField.setEditable(false);
-					DateFormat sdf = Validator.getDateFormat();
-					try {
-						if(Validator.isValidDate(birthdayField.getText()))
-							myProfile.setBirthday(sdf.parse(birthdayField.getText()));
-						else
-							birthdayField.setText(myProfile.getBirthday());
-					}
-					catch (ParseException parseEx) {
-						//TODO incorrect date format
+					
+
+					if (Validator.isValidDate(birthdayField.getText()))
+						myProfile.setBirthday(birthdayField.getText());
+					else
 						birthdayField.setText(myProfile.getBirthday());
-					}
+
 				}
 
 				private void updateEmail() {
@@ -317,9 +317,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes avatarButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes avatarButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getAvatarButton() {
 		if (avatarButton == null) {
@@ -336,9 +336,9 @@ public class HomePage extends JPanel {
 	}
 
 	/**
-	 * This method initializes urlField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes urlField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getUrlField() {
 		if (urlField == null) {
@@ -349,16 +349,17 @@ public class HomePage extends JPanel {
 		}
 		return urlField;
 	}
-	
+
 	private void updateIcon() {
 		try {
-			iconLabel.setIcon(new ImageIcon(ImageIO.read(new URL(myProfile.getAvatar()))));
-		} catch(MalformedURLException mue) {
+			iconLabel.setIcon(new ImageIcon(ImageIO.read(new URL(myProfile
+					.getAvatar()))));
+		} catch (MalformedURLException mue) {
 			System.out.println("Invalid avatar URL!");
-		} catch(IOException ioe) {
+		} catch (IOException ioe) {
 			System.out.println("Invalid avatar image!");
 		}
 		iconLabel.updateUI();
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="-4,26"
+} // @jve:decl-index=0:visual-constraint="-4,26"

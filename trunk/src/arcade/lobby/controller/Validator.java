@@ -1,14 +1,18 @@
-package arcade.lobby.model;
+package arcade.lobby.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 
 public class Validator {
+	
+	public static ProfileSet profileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Users", "voogaarcade", "Vooga108");
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -93,6 +97,14 @@ public class Validator {
 	   return failed;
 	}
 	
+
+	public static boolean checkUsername(String user){
+		Profile profile = profileSet.getProfile(user);
+		return profile == null;
+	}
+	
+	
+
 	public static SimpleDateFormat getDateFormat() {
 		return sdf;
 	}
