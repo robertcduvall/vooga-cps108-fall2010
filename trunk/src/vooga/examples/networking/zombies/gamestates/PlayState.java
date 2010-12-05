@@ -1,4 +1,4 @@
-package vooga.games.zombieland.gamestates;
+package vooga.examples.networking.zombies.gamestates;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;

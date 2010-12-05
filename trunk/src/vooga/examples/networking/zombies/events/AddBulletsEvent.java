@@ -1,4 +1,4 @@
-package vooga.games.zombieland.events;
+package vooga.examples.networking.zombies.events;
 
 import com.golden.gamedev.object.SpriteGroup;
 

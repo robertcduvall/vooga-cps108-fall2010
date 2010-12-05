@@ -1,4 +1,4 @@
-package vooga.games.zombieland;
+package vooga.examples.networking.zombies;
 
 import com.golden.gamedev.object.AnimatedSprite;
 

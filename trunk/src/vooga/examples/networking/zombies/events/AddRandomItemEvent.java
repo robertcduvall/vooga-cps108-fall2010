@@ -1,4 +1,4 @@
-package vooga.games.zombieland.events;
+package vooga.examples.networking.zombies.events;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;

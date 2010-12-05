@@ -1,4 +1,4 @@
-package vooga.games.zombieland.weapons;
+package vooga.examples.networking.zombies.weapons;
 
 import java.awt.image.BufferedImage;
 

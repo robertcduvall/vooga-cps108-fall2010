@@ -1,4 +1,4 @@
-package vooga.games.zombieland.events;
+package vooga.examples.networking.zombies.events;
 
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;

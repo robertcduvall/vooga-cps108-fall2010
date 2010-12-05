@@ -1,4 +1,4 @@
-package vooga.games.zombieland.collisions;
+package vooga.examples.networking.zombies.collisions;
 
 import vooga.engine.core.Game;
 import vooga.games.zombieland.items.Item;
