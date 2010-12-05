@@ -66,7 +66,7 @@ public class StoreModel {
 	 * @param currentPage
 	 * @return
 	 */
-	public List<IItemInfo> organize(String criteria, StorePage currentPage){
+	public List<IItemInfo> organize(String criteria){
 
 		String className = organizerBundle.getString(criteria);
 
