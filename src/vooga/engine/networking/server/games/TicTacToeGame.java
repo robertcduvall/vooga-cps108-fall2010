@@ -14,7 +14,8 @@ public class TicTacToeGame extends ServerGame{
 	private String sentString;
 	
 	public TicTacToeGame(ServerPlayer[] players){
-		super(players);
+		//super(players);
+		super(players[0], players[1]);
 	}
 
 	@Override
@@ -23,12 +24,14 @@ public class TicTacToeGame extends ServerGame{
 		boolean playGame = true;
 		boolean theirTurn = false;
 		try {
-			if (currentPlayer != players.get(0))
+//			if (currentPlayer = players.get(0))
+//				theirTurn = true;
+			if(currentPlayer == player2)
 				theirTurn = true;
-//			else if (currentPlayer != player1){
-//				System.out.println("Illegal call to playGame!");
-//				return;
-//			}
+			else if (currentPlayer != player1){
+				System.out.println("Illegal call to playGame!");
+				return;
+			}
 			while (playGame){
 				if (!theirTurn){
 					currentPlayer.send("yourTurn");
