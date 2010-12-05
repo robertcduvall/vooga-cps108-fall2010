@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.enemy.boss.reacher.Reacher;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -27,13 +27,13 @@ private Game grandius;
 		projectile.setActive(false);
 		if (boss instanceof Reacher && ((Reacher) boss).deplete(10)) {
 			boss.setActive(false);
-			((DropThis)grandius).playSound(Resources.getSound("largeExplosionSound"));
+			((Blah)grandius).playSound(Resources.getSound("largeExplosionSound"));
 			BufferedImage[] images = Resources.getAnimation("reacherExplosionAnimation");
 			AnimatedSprite explosion = new VolatileSprite(images, boss.getX(), boss.getY());
 			PlayField newField = new PlayField();
 			newField.add(explosion);
-			((DropThis)grandius).getPlayState().getRenderField().add(newField);
-			((DropThis)grandius).getPlayState().getUpdateField().add(newField);
+			((Blah)grandius).getPlayState().getRenderField().add(newField);
+			((Blah)grandius).getPlayState().getUpdateField().add(newField);
 		}
 	}
 }

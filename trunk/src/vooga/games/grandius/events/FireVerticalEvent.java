@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.states.PlayState;
 
@@ -15,7 +15,7 @@ import vooga.games.grandius.states.PlayState;
  */
 public class FireVerticalEvent extends FiringEvent {
 	
-	public FireVerticalEvent(DropThis grandius, Player player, PlayState playState){
+	public FireVerticalEvent(Blah grandius, Player player, PlayState playState){
 		super(grandius, player, playState);
 	}
 	

@@ -3,7 +3,7 @@ package vooga.games.doodlejump;
 import vooga.engine.core.Game;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.resource.Resources;
-import vooga.games.doodlejump.BlahThis;
+import vooga.games.doodlejump.Blah;
 import vooga.games.doodlejump.states.PauseState;
 import vooga.games.doodlejump.states.PlayState;
 import vooga.games.doodlejump.states.StartMenuState;
@@ -15,7 +15,7 @@ import vooga.games.doodlejump.states.StartMenuState;
  * @author Adam Cue, Marcus Molchany, Nick Straub
  * 
  */
-public class BlahThis extends Game {
+public class Blah extends Game {
 
 	private static final String LEVEL_FILES_DIRECTORY_STRING = "levelFilesDirectory";
 	private static final String LEVEL_NAMES_FILE_STRING = "levelNamesFile";
@@ -68,7 +68,7 @@ public class BlahThis extends Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		launch(new BlahThis());
+		launch(new Blah());
 	}
 
 }

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.events.FireMissileEvent;
 import vooga.widget.Button;
 
@@ -21,7 +21,7 @@ public class BuyMissileButton extends Button {
 
 	@Override
 	public void actionPerformed() {
-		DropThis game = (DropThis)myGame;
+		Blah game = (Blah)myGame;
 		FireMissileEvent missileEvent = new FireMissileEvent(game, game.getPlayState().getPlayer(),
 				game.getPlayState());
 		missileEvent.setMissileActive(true);

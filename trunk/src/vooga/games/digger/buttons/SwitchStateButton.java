@@ -1,6 +1,6 @@
 package vooga.games.digger.buttons;
 
-import vooga.games.digger.DropThis;
+import vooga.games.digger.Blah;
 import vooga.widget.Button;
 
 public class SwitchStateButton extends Button{
@@ -14,7 +14,7 @@ public class SwitchStateButton extends Button{
 
 	@Override
 	public void actionPerformed() {
-		((DropThis)myGame).switchGameState(stateName);
+		((Blah)myGame).switchGameState(stateName);
 	}
 
 }

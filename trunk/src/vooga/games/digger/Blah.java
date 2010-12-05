@@ -14,11 +14,11 @@ import vooga.games.digger.states.PlayState;
  * @author Daniel Koverman
  *
  */
-public class DropThis extends Game {
+public class Blah extends Game {
 	public Map<String, GameState> stateMap;
 	
 	public static void main(String[] args){
-		launch(new DropThis());
+		launch(new Blah());
 	}
 	
 	public void switchGameState(String stateName){

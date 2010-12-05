@@ -3,18 +3,18 @@ package vooga.games.cyberion.events;
 import java.awt.event.KeyEvent;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
-import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.Blah;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 import vooga.games.cyberion.sprites.playershot.PlayerShot;
 import vooga.games.cyberion.states.PlayState;
 
 public class PlayerFireEvent implements IEventHandler {
 
-	private DropThis myGame;
+	private Blah myGame;
 	private PlayerShip player;
 	private PlayState playState;
 
-	public PlayerFireEvent(DropThis myGame, PlayerShip player,
+	public PlayerFireEvent(Blah myGame, PlayerShip player,
 			PlayState playState) {
 		this.myGame = myGame;
 		this.player = player;

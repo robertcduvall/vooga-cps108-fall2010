@@ -2,7 +2,7 @@ package vooga.games.grandius.events;
 
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.sprites.enemy.common.Zipster;
 import vooga.games.grandius.states.PlayState;
@@ -12,13 +12,13 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class ZipsterFireEvent implements IEventHandler {
 
-	protected DropThis grandius; 
+	protected Blah grandius; 
 	private Player player;
 	private PlayState playState;
 	private SpriteGroup enemyGroup;
 	private Zipster currentZipster;
 
-	public ZipsterFireEvent(DropThis grandius, Player player, SpriteGroup enemyGroup, PlayState playState){
+	public ZipsterFireEvent(Blah grandius, Player player, SpriteGroup enemyGroup, PlayState playState){
 		this.grandius = grandius;
 		this.player = player;
 		this.enemyGroup = enemyGroup;

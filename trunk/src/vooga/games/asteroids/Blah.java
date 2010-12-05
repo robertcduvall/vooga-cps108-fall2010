@@ -18,7 +18,7 @@ import vooga.games.asteroids.states.PlayState;
  * @author CPS108 Fall10
  *
  */
-public class BlahThis extends Game {
+public class Blah extends Game {
 
 	/**
 	 * 
@@ -62,7 +62,7 @@ public class BlahThis extends Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		launch(new BlahThis());
+		launch(new Blah());
 	}
 
 }

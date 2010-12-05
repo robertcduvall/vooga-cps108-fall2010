@@ -26,7 +26,7 @@ import com.golden.gamedev.object.font.SystemFont;
  * 
  */
 
-public class DropThis extends Game {
+public class Blah extends Game {
 
 	MainMenuState pauseState;
 	GamePlayState playState;
@@ -36,7 +36,7 @@ public class DropThis extends Game {
 	public String myName;
 
 	public static void main(String[] args) throws IOException {
-		launch(new DropThis());
+		launch(new Blah());
 	}
 
 	public void initResources() {

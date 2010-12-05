@@ -6,17 +6,17 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.factory.LevelManager;
-import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.Blah;
 import vooga.games.cyberion.states.PlayState;
 import vooga.games.grandius.sprites.Player;
 
 public class LevelCompleteEvent implements IEventHandler {
 
-	private DropThis cyberion;
+	private Blah cyberion;
 	private PlayState playState;
 	private LevelManager levelmanager;
 
-	public LevelCompleteEvent(DropThis cyberion, LevelManager levelmanager,
+	public LevelCompleteEvent(Blah cyberion, LevelManager levelmanager,
 			PlayState playState) {
 		this.cyberion = cyberion;
 		this.levelmanager = levelmanager;

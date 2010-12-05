@@ -16,6 +16,7 @@ import vooga.engine.state.GameState;
 
 import vooga.games.asteroids.collisions.BulletToAsteroidCollision;
 import vooga.games.asteroids.collisions.ShipToAsteroidCollision;
+import vooga.games.asteroids.sprites.Ship;
 
 public class PlayState extends GameState{
 	

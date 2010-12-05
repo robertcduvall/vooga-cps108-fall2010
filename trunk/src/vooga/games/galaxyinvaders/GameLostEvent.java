@@ -8,11 +8,11 @@ import vooga.games.galaxyinvaders.sprites.Ship;
 
 public class GameLostEvent implements IEventHandler{
 
-	DropThis game;
+	Blah game;
 	Ship ship;
 	
 	public GameLostEvent(Game g, SpriteGroup s){
-		game = (DropThis) g;
+		game = (Blah) g;
 		ship = (Ship) s.getActiveSprite();
 	}
 	

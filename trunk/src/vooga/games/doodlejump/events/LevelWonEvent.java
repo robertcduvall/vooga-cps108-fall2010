@@ -2,7 +2,7 @@ package vooga.games.doodlejump.events;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
-import vooga.games.doodlejump.BlahThis;
+import vooga.games.doodlejump.Blah;
 import vooga.games.doodlejump.DoodleSprite;
 import vooga.games.doodlejump.states.PlayState;
 
@@ -24,9 +24,9 @@ public class LevelWonEvent implements IEventHandler {
 	private static final String DOODLE_GROUP_STRING = "doodleGroup";
 	private DoodleSprite doodle;
 	private PlayState playState;
-	private BlahThis game;
+	private Blah game;
 
-	public LevelWonEvent(DoodleSprite doodle, PlayState playState, BlahThis game) {
+	public LevelWonEvent(DoodleSprite doodle, PlayState playState, Blah game) {
 		this.doodle = doodle;
 		this.playState = playState;
 		this.game = game;

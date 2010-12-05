@@ -2,17 +2,17 @@ package vooga.games.grandius.events;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.states.PlayState;
 
 import com.golden.gamedev.object.Sprite;
 
 public class LevelCompleteEvent implements IEventHandler{
-	private DropThis grandius;
+	private Blah grandius;
 	private PlayState playState;
 	
-	public LevelCompleteEvent(DropThis grandius, PlayState playState){
+	public LevelCompleteEvent(Blah grandius, PlayState playState){
 		this.grandius = grandius;
 		this.playState = playState;
 	}

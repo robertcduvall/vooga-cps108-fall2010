@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.widget.Button;
 
 @SuppressWarnings("serial")
@@ -12,11 +12,11 @@ public class PlayButton extends Button {
         private static final int START_X = 350;
         private static final int START_Y = 400;
         private static final BufferedImage myImage = Resources.getImage("playButtonImage");
-		private DropThis myGame;
+		private Blah myGame;
         
         public PlayButton(Game game) {
                 super(myImage, START_X, START_Y);
-                myGame = (DropThis) game;
+                myGame = (Blah) game;
         }
         
         @Override

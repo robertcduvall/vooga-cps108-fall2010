@@ -4,7 +4,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
-import vooga.games.grandius.DropThis;
+import vooga.games.grandius.Blah;
 import vooga.games.grandius.sprites.Player;
 import vooga.games.grandius.states.PlayState;
 
@@ -13,11 +13,11 @@ import vooga.games.grandius.states.PlayState;
  *
  */
 public class FiringEvent implements IEventHandler{
-	protected DropThis grandius; 
+	protected Blah grandius; 
 	private Player player;
 	private PlayState playState;
 	
-	public FiringEvent(DropThis grandius, Player player, PlayState playState){
+	public FiringEvent(Blah grandius, Player player, PlayState playState){
 		this.grandius = grandius;
 		this.player = player;
 		this.playState = playState;

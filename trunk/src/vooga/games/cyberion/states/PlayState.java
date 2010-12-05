@@ -13,7 +13,7 @@ import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.Stat;
 import vooga.engine.state.GameState;
-import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.Blah;
 import vooga.games.cyberion.events.EnemyFireEvent;
 import vooga.games.cyberion.events.GameOverEvent;
 import vooga.games.cyberion.events.PlayerFireEvent;
@@ -32,7 +32,7 @@ import vooga.games.grandius.sprites.Player;
 public class PlayState extends GameState {
 
 	private LevelManager myLevelManager;
-	private DropThis myGame;
+	private Blah myGame;
 	private KeyboardControl playerControl;
 	private EventPool eventPool;
 	private PlayerShip player;
@@ -40,7 +40,7 @@ public class PlayState extends GameState {
 	private String PLAYER_CLASS = "vooga.games.cyberion.sprites.playership.PlayerShip";
 	private PlayField playfield;
 
-	public PlayState(LevelManager levelManager, DropThis game) {
+	public PlayState(LevelManager levelManager, Blah game) {
 		myLevelManager = levelManager;
 		myGame = game;
 	}

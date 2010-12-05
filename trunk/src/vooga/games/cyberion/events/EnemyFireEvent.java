@@ -3,7 +3,7 @@ package vooga.games.cyberion.events;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.cyberion.DropThis;
+import vooga.games.cyberion.Blah;
 import vooga.games.cyberion.sprites.enemyship.EnemyShip;
 import vooga.games.cyberion.sprites.enemyshot.EnemyShot;
 import vooga.games.cyberion.states.PlayState;
@@ -13,7 +13,7 @@ public class EnemyFireEvent implements IEventHandler {
 	private Sprite[] enemy;
 	private PlayState playState;
 
-	public EnemyFireEvent(DropThis myGame, Sprite[] enemy, PlayState playState) {
+	public EnemyFireEvent(Blah myGame, Sprite[] enemy, PlayState playState) {
 		this.enemy = enemy;
 		this.playState = playState;
 	}

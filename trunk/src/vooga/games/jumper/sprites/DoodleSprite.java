@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.resource.Resources;
-import vooga.games.jumper.DropThis;
+import vooga.games.jumper.Blah;
 
 /**
  * This class represents the Doodle which is the main character of the game
