@@ -1,4 +1,4 @@
-package vooga.engine.networking.client.states;
+package vooga.examples.networking.states;
 
 import java.awt.Graphics2D;
 import vooga.engine.core.Game;

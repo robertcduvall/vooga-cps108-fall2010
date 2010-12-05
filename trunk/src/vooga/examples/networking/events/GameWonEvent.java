@@ -1,14 +1,12 @@
-package vooga.engine.networking.client.events;
+package vooga.examples.networking.events;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.networking.client.states.PlayState;
+import vooga.examples.networking.states.PlayState;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 
 /**
  * The DoodleDiedEvent implement IEventHandler and activates myGameOverState
@@ -35,7 +33,7 @@ public class GameWonEvent implements IEventHandler {
 	@Override
 	public boolean isTriggered() {
 		SpriteGroup xGroup = field.getGroup("xGroup");
-		int horizontalInARow = 0, verticalInARow = 0, diagonalInARow = 0;
+		int horizontalInARow = 0, verticalInARow = 0, diagonalPositiveInARow = 0, diagonalNegativeInARow = 0;
 		for(Sprite piece : xGroup.getSprites()){
 			if(piece == null)
 				continue;
@@ -51,15 +49,20 @@ public class GameWonEvent implements IEventHandler {
 					verticalInARow++;
 				if(pieceY == otherPieceY)
 					horizontalInARow++;
-				if(Math.abs(pieceX - otherPieceX) == Math.abs(pieceY - otherPieceY))
-					diagonalInARow++;
+				if(Math.abs(pieceX - otherPieceX) == Math.abs(pieceY - otherPieceY)){
+					if(pieceX - otherPieceX == pieceY - otherPieceY)
+						diagonalPositiveInARow++;
+					if(pieceX == otherPieceX || (pieceX - otherPieceX != pieceY - otherPieceY))
+						diagonalNegativeInARow++;
+				}
 			}
-			if(horizontalInARow == 3 || verticalInARow == 3 || diagonalInARow == 3){
+			if(horizontalInARow == 3 || verticalInARow == 3 || diagonalPositiveInARow == 3 || diagonalNegativeInARow == 3){
 				return true;
 			}
 			horizontalInARow = 0;
 			verticalInARow = 0;
-			diagonalInARow = 0;
+			diagonalPositiveInARow = 0;
+			diagonalNegativeInARow = 0;
 		}
 		return false;
 	}

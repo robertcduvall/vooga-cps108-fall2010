@@ -1,4 +1,4 @@
-package vooga.engine.networking.client.states;
+package vooga.examples.networking.states;
 
 import java.awt.event.MouseEvent;
 
@@ -11,10 +11,10 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
-import vooga.engine.networking.client.TicTacToeConnection;
-import vooga.engine.networking.client.events.GameLostEvent;
-import vooga.engine.networking.client.events.GameTiedEvent;
-import vooga.engine.networking.client.events.GameWonEvent;
+import vooga.examples.networking.TicTacToeConnection;
+import vooga.examples.networking.events.GameLostEvent;
+import vooga.examples.networking.events.GameTiedEvent;
+import vooga.examples.networking.events.GameWonEvent;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.control.*;
@@ -52,7 +52,7 @@ public class PlayState extends GameState{
 
 	public void initControls(){
 		Control gameControl = new MouseControl(this, game);
-		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", "vooga.engine.networking.client.states.PlayState");
+		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", "vooga.examples.networking.states.PlayState");
 		field.addControl("game", gameControl);
 	}
 	

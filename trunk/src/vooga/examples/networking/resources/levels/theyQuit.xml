@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="TheyQuitState" xmloverlaypath="src/vooga/engine/networking/client/resources/overlays/TheyQuitOverlays.xml">
+<Level name="TheyQuitState" xmloverlaypath="src/vooga/examples/networking/resources/overlays/TheyQuitOverlays.xml">
 
 	<SpriteGroups>
 	</SpriteGroups>

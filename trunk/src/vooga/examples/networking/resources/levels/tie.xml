@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="TieState" xmloverlaypath="src/vooga/engine/networking/client/resources/overlays/TieOverlays.xml">
+<Level name="TieState" xmloverlaypath="src/vooga/examples/networking/resources/overlays/TieOverlays.xml">
 
 	<SpriteGroups>
 	</SpriteGroups>

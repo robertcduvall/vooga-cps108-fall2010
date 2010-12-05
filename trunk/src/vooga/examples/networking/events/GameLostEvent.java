@@ -1,11 +1,11 @@
-package vooga.engine.networking.client.events;
+package vooga.examples.networking.events;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
-import vooga.engine.networking.client.states.PlayState;
+import vooga.examples.networking.states.PlayState;
 import vooga.engine.resource.Resources;
 
 /**
@@ -32,12 +32,13 @@ public class GameLostEvent implements IEventHandler {
 	@Override
 	public boolean isTriggered() {
 		SpriteGroup oGroup = field.getGroup("oGroup");
-		int horizontalInARow = 0, verticalInARow = 0, diagonalInARow = 0;
+		int horizontalInARow = 0, verticalInARow = 0, diagonalPositiveInARow = 0, diagonalNegativeInARow = 0;
 		for(Sprite piece : oGroup.getSprites()){
 			if(piece == null)
 				continue;
-			int pieceX = (int) (piece.getX() / Resources.getInt("squareDimension"));
-			int pieceY = (int) (piece.getY() / Resources.getInt("squareDimension"));
+			int pieceX = ((int) (piece.getX())) / Resources.getInt("squareDimension");
+			int pieceY = ((int) (piece.getY())) / Resources.getInt("squareDimension");
+			System.out.println("PIECEY:" + pieceY);
 			for(Sprite otherPiece : oGroup.getSprites()){
 				if(otherPiece == null)
 					continue;
@@ -47,16 +48,20 @@ public class GameLostEvent implements IEventHandler {
 					verticalInARow++;
 				if(pieceY == otherPieceY)
 					horizontalInARow++;
-				if(Math.abs(pieceX - otherPieceX) == Math.abs(pieceY - otherPieceY))
-					diagonalInARow++;
+				if(Math.abs(pieceX - otherPieceX) == Math.abs(pieceY - otherPieceY)){
+					if(pieceX - otherPieceX == pieceY - otherPieceY)
+						diagonalPositiveInARow++;
+					if(pieceX == otherPieceX || (pieceX - otherPieceX != pieceY - otherPieceY))
+						diagonalNegativeInARow++;
+				}
 			}
-			if(horizontalInARow == 3 || verticalInARow == 3 || diagonalInARow == 3){
+			if(horizontalInARow == 3 || verticalInARow == 3 || diagonalPositiveInARow == 3 || diagonalNegativeInARow == 3){
 				return true;
 			}
 			horizontalInARow = 0;
 			verticalInARow = 0;
-			diagonalInARow = 0;
-			//System.out.println(xGroup.getSize());
+			diagonalPositiveInARow = 0;
+			diagonalNegativeInARow = 0;
 		}
 		return false;
 	}
