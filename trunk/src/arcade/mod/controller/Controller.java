@@ -18,9 +18,10 @@ import arcade.mod.view.View;
 public class Controller {
 
 	Model myModel;
+	View myView;
 	
 	public Controller() {
-		View modView = new View(this);
+		myView = new View(this);
 		File xmlFile = null; //TODO replace null with file
 		try {
 			myModel = new XMLModel(xmlFile);
@@ -34,8 +35,13 @@ public class Controller {
 		return myModel.getCategories();
 	}
 	
-	public List<ResourceNode> getResourcesFromCategory(String category){
-		return myModel.getResourcesFromCategory(category);
+	
+	public List<ResourceNode> getFrames(){
+		return myModel.getResourcesFromCategory(myView.getCurrentCategory());
+	}
+	
+	public void saveAs(String filePath){
+		//TODO: something...ANYTHING!!!
 	}
 	
 	//temporary main method until arcade adds a button to call us
