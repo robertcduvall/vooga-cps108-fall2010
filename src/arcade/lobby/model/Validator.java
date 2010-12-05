@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 
 public class Validator {
 
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public static boolean isValidDate(String date) {
 		// set date format, this can be changed to whatever format
 		// you want, MM-dd-yyyy, MM.dd.yyyy, dd.MM.yyyy etc.
 		// you can read more about it here:
 		// http://java.sun.com/j2se/1.4.2/docs/api/index.html
-
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		
 
 		// declare and initialize testDate variable, this is what will hold
 		// our converted string
@@ -93,6 +93,8 @@ public class Validator {
 	   return failed;
 	}
 	
-	
+	public static SimpleDateFormat getDateFormat() {
+		return sdf;
+	}
 	
 }
