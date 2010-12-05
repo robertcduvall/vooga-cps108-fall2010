@@ -6,7 +6,7 @@ import arcade.store.page.GamePage;
 
 public interface Organizer {
 
-	public List<GamePage> organize(List<GamePage> list);
+	public List<IOrganizablePage> organize(List<IOrganizablePage> list);
 	
 	
 }
