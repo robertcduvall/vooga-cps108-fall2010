@@ -4,7 +4,7 @@ package vooga.engine.networking.server;
 import java.io.*;
 import java.util.*;
 
-class Game {
+public class ServerGame {
 	public static final int ERROR = -1;
 	public static final int IWON = -2;
 	public static final int IQUIT = -3;
@@ -17,7 +17,7 @@ class Game {
 	private List<Integer> p2MessageQueue;
 	private String sentString;
 
-	public Game(TicTacToePlayer p1, TicTacToePlayer p2) {
+	public ServerGame(TicTacToePlayer p1, TicTacToePlayer p2) {
 		player1 = p1;
 		player2 = p2;
 		p1MessageQueue = new ArrayList<Integer>();
