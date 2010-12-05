@@ -3,10 +3,10 @@ package arcade.store;
 import java.util.HashMap;
 import java.util.Map;
 
-import arcade.store.account.GuestShopAccount;
 import arcade.store.account.PremiumShopAccount;
 import arcade.store.account.StoreShopAccount;
 import arcade.store.account.UserShopAccount;
+import arcade.store.addendum.GuestShopAccount;
 import arcade.store.logic.StoreLogic;
 
 public class Store {
@@ -29,8 +29,8 @@ public class Store {
 		storeLogic = new StoreLogic();
 		storeAccount = new StoreShopAccount();
 		
-		//by default, a GUEST user is registered with the store
-		currentActiveAccount = new GuestShopAccount(GUEST_USER_NAME, GUEST_USER_ID);
+//		//by default, a GUEST user is registered with the store
+//		currentActiveAccount = new GuestShopAccount(GUEST_USER_NAME, GUEST_USER_ID);
 		
 		tags = new HashMap<String, String>();
 	}

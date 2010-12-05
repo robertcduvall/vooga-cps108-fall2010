@@ -1,5 +1,8 @@
 package arcade.store.account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import arcade.store.page.GamePage;
 
 /**
@@ -23,11 +26,13 @@ import arcade.store.page.GamePage;
 public class DeveloperShopAccount extends UserShopAccount{
 
 	private int numberOfClients;
+	List<GamePage> developedGames;
 	
 	public DeveloperShopAccount(String user, String id) {
 		super(user, id);
 		
 		numberOfClients = 0;
+		developedGames = new ArrayList<GamePage>();
 	}
 
 	@Override
@@ -48,6 +53,12 @@ public class DeveloperShopAccount extends UserShopAccount{
 		
 	}
 
+	public void registerDevelopedGame(GamePage page)
+	{
+		if(!developedGames.contains(page))
+			developedGames.add(page);
+	}
+	
 	/**
 	 * Removing an unliked mod
 	 * @param modName
@@ -82,6 +93,7 @@ public class DeveloperShopAccount extends UserShopAccount{
 	 */
 	public void uploadGame()
 	{
+		//TODO: how do developers upload games?
 		//check for getRewarded() here
 	}
 	
@@ -95,23 +107,30 @@ public class DeveloperShopAccount extends UserShopAccount{
 		return false;
 	}
 	
-	/**
-	 * This method returns the number of downloads for a game page
-	 * @param page
-	 */
-	private void getNumberOfDownloads(GamePage page)
-	{
-		
-	}
 	
 	/**
 	 * This method returns the number of downloads for a game
 	 * based on the title name
 	 * @param gameTitle
 	 */
-	private void getNumberOfDownloads(String gameTitle)
+	public void getNumberOfDownloads(String gameTitle)
 	{
+		//TODO: get this done
+		//do you want to keep 
+	}
+	
+	public int getTotalNumberOfDownloads()
+	{
+		int total = 0;
 		
+		for(GamePage page : developedGames)
+			total += page.getNumberOfBuyers();
 		
+		return total;
+	}
+	
+	private int getNumberOfDownloads(GamePage page)
+	{
+		return page.getNumberOfBuyers();
 	}
 }
