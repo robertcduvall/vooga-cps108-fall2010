@@ -113,5 +113,15 @@ public class View extends JFrame {
         return categoryBox;
        
     }
+    
+    public File loadFile() {
+    	
+    	JFileChooser loadChooser = new JFileChooser();
+    	
+    	loadChooser.showOpenDialog(this);
+    	
+    	return loadChooser.getSelectedFile();
+    	
+    }
    
 }
