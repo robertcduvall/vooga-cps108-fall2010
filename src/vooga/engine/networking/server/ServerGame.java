@@ -1,107 +1,29 @@
 package vooga.engine.networking.server;
 
 
-import java.io.*;
 import java.util.*;
 
-import java.io.*;
-import java.util.*;
+public abstract class ServerGame {
+	protected List<ServerPlayer> players;
+	protected List<List<Integer>> messageQueues;
 
-public class ServerGame {
-	public static final int ERROR = -1;
-	public static final int GAMEOVER = -2;
-	public static final int IQUIT = -3;
-	public static final int YOURTURN = -4;
-	public static final int SENTSTRING = -5;
-	private TicTacToePlayer player1;
-	private TicTacToePlayer player2;
-	private List<Integer> p1MessageQueue;
-	private List<Integer> p2MessageQueue;
-	private String sentString;
-
-	public ServerGame(TicTacToePlayer p1, TicTacToePlayer p2) {
-		player1 = p1;
-		player2 = p2;
-		p1MessageQueue = new ArrayList<Integer>();
-		p2MessageQueue = new ArrayList<Integer>();
-	}
-
-	public void playGame(TicTacToePlayer currentPlayer) {
-		String message;
-		boolean playGame = true;
-		boolean theirTurn = false;
-		try {
-			if (currentPlayer == player2)
-				theirTurn = true;
-			else if (currentPlayer != player1){
-				System.out.println("Illegal call to playGame!");
-				return;
-			}
-			while (playGame){
-				if (!theirTurn){
-					currentPlayer.send("yourTurn");
-					message = currentPlayer.receive();
-					if(message == null){
-						sendStatus(currentPlayer, IQUIT);
-						playGame = false;
-					}
-					else{
-						message = message.toUpperCase();
-						message = message.trim();
-						if (message.startsWith("IQUIT")){
-							sendStatus(currentPlayer, IQUIT);
-							playGame = false;
-						}
-						else if(message.startsWith("GAMEOVER")){
-							sendStatus(currentPlayer, GAMEOVER);
-							playGame = false;
-						}
-						else {
-							sentString = message;
-							sendStatus(currentPlayer, SENTSTRING);
-						}
-					}
-				}
-				else {
-					theirTurn = false;
-				}
-				if (playGame){
-					currentPlayer.send("theirTurn");
-					int stat = getStatus(currentPlayer);
-					if (stat == IQUIT) {
-						currentPlayer.send("theyQuit");
-						playGame = false;
-					}
-					else if(stat == GAMEOVER){
-						playGame = false;
-					}
-					else if (stat == SENTSTRING) {
-						currentPlayer.send(sentString);
-					}
-					else if (stat == ERROR) {
-						currentPlayer.send("error");
-						currentPlayer.closeConnections();
-						playGame = false;
-					}
-					else {
-						System.out.println("Received Bad Status");
-						sendStatus(currentPlayer,ERROR);
-						currentPlayer.closeConnections();
-						playGame = false;
-					}
-				}
-			}
-			currentPlayer.closeConnections();
-			return;
-		}
-		catch (IOException e) {
-			System.out.println("I/O Error: " + e);
-			System.exit(1);
+	public ServerGame(ServerPlayer[] players) {
+		this.players = Arrays.asList(players);
+		messageQueues = new ArrayList<List<Integer>>();
+		for(int i = 0; i < players.length; i++){
+			messageQueues.add(new ArrayList<Integer>());
 		}
 	}
 
-	private synchronized int getStatus(TicTacToePlayer me) {
-		List<Integer> ourMessages = ((me == player1) ? p1MessageQueue : p2MessageQueue);
+	public abstract void playGame(ServerPlayer currentPlayer);
+
+	protected synchronized int getStatus(ServerPlayer me) {
+		List<Integer> ourMessages = null;
+		for(int i = 0; i < players.size(); i++){
+			if(players.get(i) == me){
+				ourMessages = messageQueues.get(i);
+			}
+		}
 		while (ourMessages.isEmpty()) {
 			try {
 				wait();
@@ -128,8 +50,13 @@ public class ServerGame {
 		}
 	}
 
-	private synchronized void sendStatus(TicTacToePlayer me, int message) {
-		List<Integer> theirMessage = ((me == player1) ?  p2MessageQueue : p1MessageQueue);
+	protected synchronized void sendStatus(ServerPlayer me, int message) {
+		List<Integer> theirMessage = null;
+		for(int i = 0; i < players.size(); i++){
+			if(players.get(i) == me){
+				theirMessage = messageQueues.get(i);
+			}
+		}
 		theirMessage.add(new Integer(message));
 		notify();
 	}

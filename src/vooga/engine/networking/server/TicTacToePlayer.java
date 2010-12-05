@@ -1,25 +1,16 @@
 package vooga.engine.networking.server;
 import java.net.*;
-import java.io.*;
 
-import vooga.engine.networking.GameSocket;
-
-class TicTacToePlayer extends GameSocket{
-	private TicTacToeDaemon daemon = null;
-
-	public TicTacToePlayer(TicTacToeDaemon server, Socket sock) {
-		super(sock);
-		daemon = server;
+public class TicTacToePlayer extends ServerPlayer{
+	public TicTacToePlayer(VoogaDaemon server, Socket sock) {
+		super(server, sock);
 	}
-
+	
 	public void run() {
-		daemon.waitForGame(this).playGame(this);
+		daemon.waitForGame(this, "wait").playGame(this);
 	}
 
 	public void closeConnections() {
-		super.closeConnections();
-		if (outStream != null) {
-			send("GAMEOVER");
-		}
+		closeConnections("GAMEOVER");
 	}
 }
