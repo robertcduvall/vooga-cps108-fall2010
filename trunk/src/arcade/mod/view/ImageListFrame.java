@@ -12,10 +12,6 @@ import javax.swing.*;
 
 import arcade.mod.model.ResourceNode;
 
-import com.sun.medialib.mlib.Image;
-
-
-
 public class ImageListFrame extends AbstractListFrame {
 
 	String myName;

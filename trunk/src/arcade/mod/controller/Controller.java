@@ -18,13 +18,14 @@ public class Controller {
 	
 	public Controller() {
 		myView = new View(this);
-		File xmlFile = null; //TODO replace null with file
+		File xmlFile = myView.loadFile(); //TODO replace null with file
 		try {
 			myModel = new XMLModel(xmlFile);
 		} catch (Exception e) {
 			//TODO show dialogue in view
 			e.printStackTrace();
 		}
+		myView.initializeOnStart();
 	}
 	
 	public Collection<String> getCategories(){

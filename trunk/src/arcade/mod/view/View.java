@@ -24,7 +24,6 @@ public class View extends JFrame {
     
     public View(Controller controller) {
         myController = controller;
-    	initializeOnStart();
     }
     
    
