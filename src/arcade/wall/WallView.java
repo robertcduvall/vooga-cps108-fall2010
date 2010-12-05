@@ -11,6 +11,7 @@ public class WallView {
 	WallController myController;
 	String myGamerName;
 	
+	
 	static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
 			"Tron", "MarioClone" };
@@ -31,10 +32,20 @@ public class WallView {
 			public void windowClosing(WindowEvent e) {System.exit(0);}
 		});
 		JPanel panel = createJPanel();
+		JComponent comments = createCommentsArea();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frame.getContentPane().add(comments, BorderLayout.SOUTH);
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	private JComponent createCommentsArea(){
+		JTextArea comments = new JTextArea(5,5);
+		comments.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(comments);	
+		return scrollPane;
+	}
+	
 
 	private JPanel createJPanel() {
 		JPanel returnPanel = new JPanel();
