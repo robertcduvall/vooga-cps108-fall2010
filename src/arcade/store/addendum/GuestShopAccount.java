@@ -1,5 +1,7 @@
-package arcade.store.account;
+package arcade.store.addendum;
 
+import arcade.store.account.PremiumShopAccount;
+import arcade.store.account.UserShopAccount;
 import arcade.store.page.GamePage;
 
 /**
