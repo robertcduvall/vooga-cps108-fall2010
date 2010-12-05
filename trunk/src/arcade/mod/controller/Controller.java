@@ -36,8 +36,13 @@ public class Controller {
 	}
 	
 	
-	public List<ResourceNode> getFrames(){
-		return myModel.getResourcesFromCategory(myView.getCurrentCategory());
+	public void framesHaveChanged(){
+		List<ResourceNode> nodes = myModel.getResourcesFromCategory(myView.getCurrentCategory());
+		myView.changeFrames(convertToView());
+	}
+	
+	private Collection<AbstractListFrame> convertToView(){
+		
 	}
 	
 	public void saveAs(String filePath){
