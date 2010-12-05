@@ -84,9 +84,6 @@ public class View extends JFrame {
     private JComboBox makeCategoryBox() {
     	
     	Collection<String> myCategories = myController.getCategories();
-    	
-    	myCategories.add("placeholder");
-        myCategories.add("placeholder2");
        
         JComboBox categoryBox = new JComboBox(myCategories.toArray());
         categoryBox.setSelectedIndex(0);
@@ -95,7 +92,7 @@ public class View extends JFrame {
             public void actionPerformed(ActionEvent e)
             {
             	JComboBox comboBox = (JComboBox)e.getSource();
-            	View.this.currentCategory = (String)comboBox.getSelectedItem();
+            	currentCategory = (String)comboBox.getSelectedItem();
             	
             	myController.framesHaveChanged();
             }
