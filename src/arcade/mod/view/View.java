@@ -85,7 +85,7 @@ public class View extends JFrame {
     }
 
     private JComboBox makeCategoryBox() {
-        //myCategories = myController.getCategories();
+        myCategories = myController.getCategories();
         myCategories.add("placeholder");
         myCategories.add("placeholder2");
        
