@@ -24,7 +24,12 @@ public class StoreLibrary {
 		return pageCatalogue.get(pageName);
 	}
 	
-
+	public static void removePage(String pageName) {
+		if (pageCatalogue.containsKey(pageName)) {
+			pageCatalogue.remove(pageName);
+		}
+	}
+	
 	/**
 	 * Provide a write out to an XML file to keep the current history.
 	 * TODO: how do you write back to something
