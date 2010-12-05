@@ -57,4 +57,28 @@ public class GamePage extends StorePage {
 		return genre;
 	}
 
+	public void setDeveloperName(String developerName) {
+		this.developerName = developerName;
+	}
+
+	public String getDeveloperName() {
+		return developerName;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
 }
