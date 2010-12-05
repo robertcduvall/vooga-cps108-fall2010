@@ -21,7 +21,7 @@ public class SearchPage extends StorePage{
 	}
 	
 	
-	public StorePage goToLink(String linkName){
+	public StorePage getStorePage(String linkName){
 		
 		if(!linkExist(linkName))
 		{

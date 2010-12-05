@@ -10,9 +10,11 @@ public class StoreLibrary {
 
 	private static Map<String, StorePage> pageCatalogue;
 	private static Map<String, Organizer> pageOrganizer;
+	
 	public StoreLibrary()
 	{
 		pageCatalogue = new HashMap<String, StorePage>();
+		pageOrganizer = new HashMap<String, Organizer>();
 	}
 	
 	public static void addPage(String pageName, StorePage page)
