@@ -8,5 +8,7 @@ public interface Model {
 	public Collection<String> getCategories();
 	
 	public List<ResourceNode> getResourcesFromCategory(String category);
+	
+	public void writeResources(String filePath);
 
 }
