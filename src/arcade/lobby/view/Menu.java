@@ -150,12 +150,7 @@ public class Menu {
         frame.setVisible(true);
         
 		MySqlAdapter myDbAdapter = new MySqlAdapter("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "voogaarcade", "Vooga108");
-		Map<String,String> user = new HashMap<String,String>();
-		user.put("User_Name", "uscfan1781");
-		user.put("First_Name", "Andrew");
-		user.put("Last_Name", "Brown");
-		user.put("Email", "andrew.brown@duke.edu");
-		myDbAdapter.insert("Users", user);
+		System.out.println(myDbAdapter.getRow("Users", "test1"));
 		
     }
 

@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -58,7 +60,32 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public Map<String, String> getRow(String tableName, String pkName) {
 		// TODO Auto-generated method stub
-		return null;
+		ResultSet rs;
+		Map<String,String> map;
+		try{
+			String sql = "SELECT * FROM "+tableName+" WHERE User_Name='"+ pkName +"'";
+			System.out.println(sql);
+			PreparedStatement ps = myDBConnection.prepareStatement(sql);
+			ps.executeQuery();
+			rs = ps.getResultSet();
+			
+			rs.next();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int count = rsmd.getColumnCount();
+			map = new HashMap<String,String>();
+			for(int i=1; i<count; i++){
+				String value = rs.getString(i);
+				String label = rsmd.getColumnLabel(i);
+				map.put(label, value);
+			}
+			ps.close();
+
+		}
+		catch(Throwable e){
+			System.out.println(e);
+			return null;
+		}
+		return map;
 	}
 
 	@Override
