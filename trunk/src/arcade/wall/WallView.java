@@ -1,4 +1,4 @@
-package arcade.wall.gui;
+package arcade.wall;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,79 +7,64 @@ import javax.swing.*;
 
 import arcade.wall.WallController;
 
-public class WallView extends JPanel {
+public class WallView {
 	WallController myController;
-	static JFrame frame;
-
-	JPanel entryPanel;
-	JPanel displayPanel;
-
-	JButton reviewButton;
-	JLabel commentsLabel;
-
-	static JTextField commentEntryField;
-	JComboBox gameChoices;
+	String myGamerName;
 	
-	public static final String myName = "gamer13";
-	public static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
+	static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
 			"Tron", "MarioClone" };
 
-	public WallView(WallController controller) {
+	public WallView(String gamerName, WallController controller) {
 		myController = controller;
-		entryPanel = new JPanel();
-		displayPanel = new JPanel();
+		myGamerName = gamerName;
+		createJFrame(gamerName);
+	}
 
-		reviewButton = new JButton("Review");
-		reviewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.addComment(choices[gameChoices.getSelectedIndex()],
-									  commentEntryField.getText(), myName);
-				commentsLabel.setText("<html>" + 
-									  commentsLabel.getText() +  
-									  "<br/>" + 
-									  commentEntryField.getText() + "  ---" + myName +
-									  "</html>");
-			}
+//	public static JTextField getCommentEntryField() {
+//		return commentEntryField;
+//	}
+	
+	private void createJFrame(String gamerName) {
+		JFrame frame = new JFrame(gamerName + "'s Wall");
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {System.exit(0);}
 		});
-		commentEntryField = new JTextField(17);
-		gameChoices = new JComboBox();
-		gameChoices = new JComboBox(choices);
+		JPanel panel = createJPanel();
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	private JPanel createJPanel() {
+		JPanel returnPanel = new JPanel();
+		
+		JPanel entryPanel = new JPanel();
+		JPanel displayPanel = new JPanel();
+		
+		JButton reviewButton = new JButton("Review");
+		JComboBox gameChoices = new JComboBox(choices);
 		gameChoices.setSelectedIndex(0);
-		commentsLabel = new JLabel("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
-		gameChoices.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-			    if ("comboBoxChanged".equals(event.getActionCommand())) {
-			        commentsLabel.setText("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
-			    }
-			}
-		});
+		JTextField commentEntryField = new JTextField(17);
+		JLabel commentsLabel = new JLabel("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
+		
+		//Add action listeners to ComboBox and Button
+		gameChoices.addActionListener(new GameComboBoxListener(commentsLabel, gameChoices));
+		reviewButton.addActionListener(new ReviewButtonListener(myController, gameChoices, commentsLabel,
+									   commentEntryField, myGamerName));
 		
 		entryPanel.add(gameChoices);
 		entryPanel.add(commentEntryField);
 		entryPanel.add(reviewButton);
 		//entryPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		displayPanel.add(commentsLabel);
-
-		this.setLayout(new GridLayout(2,2,5,5));
-		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		this.add(entryPanel);
-		this.add(displayPanel);
+		
+		returnPanel.setLayout(new GridLayout(2,2,5,5));
+		//returnPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		returnPanel.add(entryPanel);
+		returnPanel.add(displayPanel);
+		return returnPanel;
 	}
 
-	public static JTextField getCommentEntryField() {
-		return commentEntryField;
-	}
-
-	public static void main(String s[]) {
-		frame = new JFrame("WallDemo");
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {System.exit(0);}
-		});
-
-		frame.getContentPane().add(new WallView(), BorderLayout.CENTER);
-		frame.pack();
-		frame.setVisible(true);
-	}
 }
