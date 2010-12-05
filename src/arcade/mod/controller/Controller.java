@@ -28,13 +28,8 @@ public class Controller {
 		}
 	}
 	
-	public Collection<Object> getCategories(){
-		Collection<String> strings = myModel.getCategories();
-		Collection<Object> objects = new ArrayList<Object>();
-		for (String s: strings){
-			objects.add(new StringObject(s));
-		}
-		return objects;
+	public Collection<String> getCategories(){
+		return myModel.getCategories();
 	}
 	
 	//temporary main method until arcade adds a button to call us

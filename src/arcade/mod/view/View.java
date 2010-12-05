@@ -17,7 +17,7 @@ public class View extends JFrame {
    
     JPanel centralPanel;
     JScrollPane centralScrollPane;
-    Collection<String> myCategories = new ArrayList<String>();
+    Collection<String> myCategories;
    
     
     public View(Controller controller) {
@@ -97,11 +97,7 @@ public class View extends JFrame {
 
     private JComboBox makeCategoryBox() {
     	
-    	/*Collection<Object> categoryObjects = myController.getCategories();
-    	
-    	for (Object obj : categoryObjects){
-    		myCategories.add(obj.toString());
-    	}*/
+    	Collection<String> categories = myController.getCategories();
     	
     	myCategories.add("placeholder");
         myCategories.add("placeholder2");
