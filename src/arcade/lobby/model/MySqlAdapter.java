@@ -1,12 +1,8 @@
 package arcade.lobby.model;
 
-import java.util.Map;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.util.Map;
 
 public class MySqlAdapter implements DatabaseAdapter {
 	
@@ -45,13 +41,13 @@ public class MySqlAdapter implements DatabaseAdapter {
 	}
 
 	@Override
-	public Map<String, String> getRow(String pkName) {
+	public Map<String, String> getRow(String tableName, String pkName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean insert(String[] columns, String[] values) {
+	public boolean insert(String tableName, Map<String,String> row) {
 		// TODO Auto-generated method stub
 		return false;
 	}

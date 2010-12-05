@@ -8,8 +8,8 @@ public interface DatabaseAdapter {
 	
 	public String[] getColumn(String tableName, int columnIndex);
 	
-	public Map<String,String> getRow(String pkName);
+	Map<String, String> getRow(String tableName, String pkName);
 
-	public boolean insert(String[] columns, String[] values);
+	boolean insert(String tableName, Map<String, String> row);
 	
 }
