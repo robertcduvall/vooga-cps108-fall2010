@@ -5,7 +5,6 @@ import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
-import vooga.examples.networking.states.*;
 import vooga.examples.networking.tictactoe.states.PlayState;
 import vooga.examples.networking.tictactoe.states.WaitingState;
 
@@ -21,8 +20,12 @@ public class TicTacToe extends Game {
 
 	public void initResources() {
 		super.initResources();
+		System.out.println("TickTacToe: 1");
 		initLevelManager();
+		System.out.println("TickTacToe: 2");
 		initStates();
+		System.out.println("TickTacToe: 3");
+
 	}
 
 	private void initStates() {
@@ -31,6 +34,7 @@ public class TicTacToe extends Game {
 			connection = new TicTacToeConnection();
 		}
 		catch(Exception e){
+			System.out.println("TickTacToe Error: "+ e.getMessage());
 			System.exit(1);
 		}
 		playState = new PlayState(this, levelManager, connection);

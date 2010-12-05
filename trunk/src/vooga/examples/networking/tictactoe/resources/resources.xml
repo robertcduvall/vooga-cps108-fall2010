@@ -14,16 +14,16 @@
 	</Sounds>
 
 	<Strings>
-		<String name="levelFilesDirectory" value="src/vooga/examples/networking/resources/levels" />
+		<String name="levelFilesDirectory" value="src/vooga/examples/networking/tictactoe/resources/levels" />
 		<String name="levelNamesFile" value="levelNames.txt" />
 		<String name="Level1" value="levels/mainLevel.xml" />
-		<String name="gameWonXml" value="src/vooga/examples/networking/resources/levels/gameWon.xml" />
-		<String name="waitXml" value="src/vooga/examples/networking/resources/levels/waitingLevel.xml" />
-		<String name="theirTurnXml" value="src/vooga/examples/networking/resources/levels/theirTurn.xml" />
-		<String name="youLostXml" value="src/vooga/examples/networking/resources/levels/youLost.xml" />
-		<String name="theyQuitXml" value="src/vooga/examples/networking/resources/levels/theyQuit.xml" />
-		<String name="tieXml" value="src/vooga/examples/networking/resources/levels/tie.xml" />
-		<String name="errorXml" value="src/vooga/examples/networking/resources/levels/error.xml" />	
+		<String name="gameWonXml" value="src/vooga/examples/networking/tictactoe/resources/levels/gameWon.xml" />
+		<String name="waitXml" value="src/vooga/examples/networking/tictactoe/resources/levels/waitingLevel.xml" />
+		<String name="theirTurnXml" value="src/vooga/examples/networking/tictactoe/resources/levels/theirTurn.xml" />
+		<String name="youLostXml" value="src/vooga/examples/networking/tictactoe/resources/levels/youLost.xml" />
+		<String name="theyQuitXml" value="src/vooga/examples/networking/tictactoe/resources/levels/theyQuit.xml" />
+		<String name="tieXml" value="src/vooga/examples/networking/tictactoe/resources/levels/tie.xml" />
+		<String name="errorXml" value="src/vooga/examples/networking/tictactoe/resources/levels/error.xml" />	
 	</Strings>
 
 	<Integers>
@@ -32,7 +32,7 @@
 		<Integer name="xOffsetY" value="9" />
 		<Integer name="oOffsetX" value="11" />
 		<Integer name="oOffsetY" value="14" />
-		<Integer name="portNum" value="1234" />
+		<Integer name="portNum" value="1226" />
 		<Integer name="error" value="-1" />
 		<Integer name="wait" value="-2" />
 		<Integer name="yourTurn" value="-3" />
