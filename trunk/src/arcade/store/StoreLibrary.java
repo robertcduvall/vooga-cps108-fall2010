@@ -3,18 +3,18 @@ package arcade.store;
 import java.util.HashMap;
 import java.util.Map;
 
-import arcade.store.organizer.Organizer;
+import arcade.store.organizer.IOrganizer;
 import arcade.store.page.StorePage;
 
 public class StoreLibrary {
 
 	private static Map<String, StorePage> pageCatalogue;
-	private static Map<String, Organizer> pageOrganizer;
+	private static Map<String, IOrganizer> pageOrganizer;
 	
 	public StoreLibrary()
 	{
 		pageCatalogue = new HashMap<String, StorePage>();
-		pageOrganizer = new HashMap<String, Organizer>();
+		pageOrganizer = new HashMap<String, IOrganizer>();
 	}
 	
 	public static void addPage(String pageName, StorePage page)
