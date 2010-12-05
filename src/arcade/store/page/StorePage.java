@@ -11,7 +11,7 @@ import javax.swing.JFrame;
  * 
  * @author Drew Sternsky, Jimmy Mu, Marcus Molchany
  * @date 12-03-10
- * @description This is a bsic store page, the back end version of a generic GUI store page.
+ * @description This is a basic store page, the back end version of a generic GUI store page.
  * 			
  */
 
