@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
 
-public class HomePage extends JPanel {
+public class ProfilePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Profile myProfile;
@@ -39,7 +39,7 @@ public class HomePage extends JPanel {
 	/**
 	 * This is the default constructor
 	 */
-	public HomePage(Profile profile) {
+	public ProfilePanel(Profile profile) {
 		super();
 		myProfile = profile;
 		initialize();

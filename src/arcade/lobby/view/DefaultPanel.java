@@ -33,6 +33,7 @@ public class DefaultPanel extends JPanel {
 		this.setSize(338, 239);
 		this.setLayout(new BorderLayout());
 		this.add(title, BorderLayout.CENTER);
+		Main.MainFrame.getJMenuBar().setVisible(true);
 	}
 
 }

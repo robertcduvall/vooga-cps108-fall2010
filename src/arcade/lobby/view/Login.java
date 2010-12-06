@@ -3,7 +3,6 @@ package arcade.lobby.view;
 import java.awt.Rectangle;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -11,11 +10,9 @@ import javax.swing.JTextPane;
 
 import arcade.lobby.controller.Validator;
 
-public class Login extends JFrame {
+public class Login extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JFrame thisFrame = this;
-	private JPanel jContentPane = null;
 	private JTextField usernameField = null;
 	private JPasswordField passwordField = null;
 	private JTextPane usernameText = null;
@@ -41,29 +38,15 @@ public class Login extends JFrame {
 	 */
 	private void initialize() {
 		this.setSize(400, 300);
-		this.setContentPane(getJContentPane());
-		this.setTitle("Login");
-		
-	}
-
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJContentPane() {
-		if (jContentPane == null) {
-			jContentPane = new JPanel();
-			jContentPane.setLayout(null);
-			jContentPane.add(getUsernameField(), null);
-			jContentPane.add(getPasswordField(), null);
-			jContentPane.add(getUsernameText(), null);
-			jContentPane.add(getPasswordText(), null);
-			jContentPane.add(getSignInButton(), null);
-			jContentPane.add(getRegisterButton(), null);
-			jContentPane.add(getRegisterText(), null);
-		}
-		return jContentPane;
+		this.setLayout(null);
+		this.add(getUsernameField(), null);
+		this.add(getPasswordField(), null);
+		this.add(getUsernameText(), null);
+		this.add(getPasswordText(), null);
+		this.add(getSignInButton(), null);
+		this.add(getRegisterButton(), null);
+		this.add(getRegisterText(), null);
+		Main.MainFrame.getJMenuBar().setVisible(false);
 	}
 
 	/**
@@ -143,9 +126,7 @@ public class Login extends JFrame {
 					if(!Validator.checkUsername(username)){
 						System.out.println("user exists");
 						Main.ProfileSet.setUser(username);
-						jContentPane = new DefaultPanel();
-						setContentPane();
-						thisFrame.getJMenuBar().setVisible(true);
+						Main.MainFrame.setContentPane(new DefaultPanel());
 					}
 					else{
 						System.out.println("This username does not exist");
@@ -168,9 +149,7 @@ public class Login extends JFrame {
 			registerButton.setText("Register");
 			registerButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					//TODO Create new Profile
-					jContentPane = new RegisterPanel(thisFrame);
-					setContentPane();
+					Main.MainFrame.setContentPane(new RegisterPanel());
 					System.out.println("Create new profile");
 				}
 			});
@@ -178,10 +157,11 @@ public class Login extends JFrame {
 		return registerButton;
 	}
 	
+	/*
 	private void setContentPane(){
 		this.setContentPane(jContentPane);
 	}
-
+*/
 	/**
 	 * This method initializes registerText	
 	 * 	
