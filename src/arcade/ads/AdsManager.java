@@ -98,7 +98,7 @@ public class AdsManager {
 	 * rotate ads
 	 */
 	public void rotate() {
-		thread.run();
+		thread.start();
 	}
 
 	/**
@@ -120,7 +120,6 @@ public class AdsManager {
 	 */
 	public void render() {
 		if (ads != null) {
-			System.out.print(index);
 			ads.get(index).render(gs);
 		}
 	}
@@ -183,7 +182,7 @@ public class AdsManager {
 	}
 
 	public void runAdsThread() {
-		adsthread.run();
+		adsthread.start();
 	}
 
 }
