@@ -40,12 +40,12 @@ public class AdFrame extends JFrame {
 
 	public AdFrame(AdsManager manager) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		setLayout(new FlowLayout());
 		myManager = manager;
 
 		setTitle("Ads");
 
-		setLayout(new FlowLayout());
+		setLayout(new GridLayout(2, 1));
 
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new FlowLayout());
@@ -53,14 +53,17 @@ public class AdFrame extends JFrame {
 		// this.add(panel1);
 
 		JPanel panel2 = new JPanel();
-		// this.add(panel2);
+		panel2.setLayout(new FlowLayout());
+		panel2.setBounds(0, 0, 800, 600);
 		getContentPane().add(panel1);
 		getContentPane().add(panel2);
+		getContentPane().setSize(800, 600);
 
 		pack();
 		setVisible(true);
 
 		myManager.setGraphics(panel2.getGraphics());
+
 		myManager.runAdsThread();
 		// myManager.update();
 		// myManager.render();
@@ -101,18 +104,18 @@ public class AdFrame extends JFrame {
 	public static void main(String args[]) {
 		AdsManager manager = new AdsManager();
 		manager.setAds("src/arcade/ads/resources/adGroup1.xml");
-//		BufferedImage img = null;
-//		try
-//		{
-//			img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/arcade/ads/resources/duke.png"));
-//		} catch (IOException e)
-//		{
-//			System.out.println("werwe");
-//		}
-//
-//		manager.add(new DukeAds("duke", img));
+		// BufferedImage img = null;
+		// try
+		// {
+		// img = ImageIO.read(new
+		// File(System.getProperty("user.dir")+"/src/arcade/ads/resources/duke.png"));
+		// } catch (IOException e)
+		// {
+		// System.out.println("werwe");
+		// }
+		//
+		// manager.add(new DukeAds("duke", img));
 		System.out.println(manager.retrieve());
-
 
 		new AdFrame(manager);
 	}
