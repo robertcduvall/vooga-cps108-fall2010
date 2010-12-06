@@ -2,12 +2,12 @@ package arcade.store.organizer;
 
 import java.util.List;
 
-import arcade.store.page.StorePage;
+import arcade.store.items.IItemInfo;
 
 public class SearchOrganizer implements IOrganizer {
 
 	@Override
-	public List<StorePage> organize(List<StorePage> list, String criteria) {
+	public List<IItemInfo> organize(List<IItemInfo> list, String criteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

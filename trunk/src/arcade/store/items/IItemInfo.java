@@ -23,5 +23,7 @@ public interface IItemInfo {
 	
 	public List<ImageIcon> getImages(); 
 	
+	public List<String> getTags();
+	
 	
 }
