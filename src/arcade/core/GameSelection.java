@@ -100,7 +100,8 @@ public class GameSelection extends Tab {
 							}
 						}
 					}
-					
+					if (panel.getComponents().length ==1)
+						panel.add(new JLabel("No Games Found With Those Search Terms"));
 					
 				}
 				catch (Throwable e1) {
