@@ -20,7 +20,7 @@ import vooga.examples.networking.zombies.events.*;
 
 public class PlayState extends GameState implements Constants {
 
-	private static final String PLAY_XML_PATH = "src/vooga/examples/networking/zombies/resources/levels/baselevel.xml";
+	private static final String PLAY_XML_PATH = "src/vooga/examples/networking/zombies/resources/levels/baseLevel.xml";
 
 	private static Blah currentGame;
 
