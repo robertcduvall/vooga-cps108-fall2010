@@ -24,14 +24,26 @@ public class XMLNode implements ResourceNode {
 	public static final String DESCRIPTION_TAG = "Description";
 	private Node node;
 
+	/**
+	 * Creates a new XMLNode object from a node in the XMLFile
+	 * @param node
+	 */
 	public XMLNode(Node node) {
 		this.node = node;
 	}
 
+	/**
+	 * Get this XMLNode's children
+	 * @return a list of this XMLNode's children
+	 */
 	public List<ResourceNode> getChildren() {
 		return wrapNodeList(node.getChildNodes());
 	}
 
+	/**
+	 * Get all of the attributes of this XMLNode
+	 * @return all of the attributes of this XMLNode
+	 */
 	public Collection<String> getAttributes() {
 		Collection<String> attributeNames = new ArrayList<String>();
 		NamedNodeMap attributeNodeList = node.getAttributes();
@@ -55,6 +67,10 @@ public class XMLNode implements ResourceNode {
 		return resourceNodes;
 	}
 
+	/**
+	 * Get a specified attribute out of the XML
+	 * @return string attribute
+	 */
 	@Override
 	public String getAttribute(String attributeName) {
 		NamedNodeMap attributeNodeList = node.getAttributes();
@@ -66,6 +82,11 @@ public class XMLNode implements ResourceNode {
 			return "";
 	}
 
+	/**
+	 * Set an attribute to a value
+	 * @param attribute to set
+	 * @param value to set attribute to
+	 */
 	@Override
 	public void setAttribute(String attributeName, String value) {
 		NamedNodeMap attributeNodeList = node.getAttributes();
@@ -73,6 +94,10 @@ public class XMLNode implements ResourceNode {
 		attribute.setNodeValue(value);
 	}
 
+	/**
+	 * Get description of this XMLNode
+	 * @return description of the element node
+	 */
 	@Override
 	public String getDescription() {
 
@@ -88,6 +113,10 @@ public class XMLNode implements ResourceNode {
 			return NO_DESCRIPTION;
 	}
 
+	/**
+	 * Get this node in tree
+	 * @return node
+	 */
 	@Override
 	public Node getNode() {
 		return node;

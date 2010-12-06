@@ -6,13 +6,11 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 import arcade.mod.model.ResourceNode;
-import arcade.mod.model.XMLNode;
 /**
  * Abstract List Frames are the graphical display of the Resource Nodes derived from the model.
  * These List Frames are reduced to the core graphical data needed for the GUI so as to avoid coupling
  * between the Model and View
  * 
- *
  */
 public abstract class AbstractListFrame extends JPanel {
 	protected static final int HEIGHT = 70;
