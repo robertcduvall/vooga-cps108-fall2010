@@ -8,29 +8,25 @@ import java.util.ResourceBundle;
 import arcade.store.account.UserShopAccount;
 import arcade.store.control.Control;
 import arcade.store.items.IItemInfo;
+import arcade.store.items.ItemFactory;
 import arcade.store.organizer.IOrganizer;
-import arcade.store.page.StorePage;
 
 public class StoreModel {
 
+	private static final String GAMES_DIRECTORY = "/src/arcade/store/gui/resources/games/";
+	
 	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	private UserShopAccount currentUser;
 	private Map<String, IItemInfo> storeCatalogue;
 	private Control controller;
 	
-	public StoreModel(Map<String, IItemInfo> catalogue, Control control)
+	public StoreModel(Control control)
 	{
-		storeCatalogue = catalogue;
+		storeCatalogue = ItemFactory.getAllItems(GAMES_DIRECTORY);
 		controller = control;
 		
 		//currentUser = Security.getCurrentUser();
 		
-		//get store catalogue here!
-	}
-	
-	public void registerCatalogue(Map<String, IItemInfo> catalogue)
-	{
-		storeCatalogue = catalogue;
 	}
 	
 	public IItemInfo getItemInfo(String name)
@@ -39,9 +35,9 @@ public class StoreModel {
 	}
 	
 	
-	public void processPurchase(IItemInfo item)
+	public void processPurchase(String item)
 	{
-		currentUser.purchaseItem(item);
+//		currentUser.purchaseItem(item);
 	}
 	
 	public List<IItemInfo> getAllItems()

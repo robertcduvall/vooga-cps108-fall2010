@@ -194,6 +194,7 @@ public class GamePurchaseView {
 		}
 		return descriptionField;
 	}
+
 	
 
 }
