@@ -22,7 +22,6 @@ public class TicTacToe extends Game {
 		super.initResources();
 		initLevelManager();
 		initStates();
-
 	}
 
 	private void initStates() {

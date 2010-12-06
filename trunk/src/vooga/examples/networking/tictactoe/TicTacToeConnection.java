@@ -4,40 +4,18 @@ import java.io.*;
 import java.net.*;
 
 import vooga.engine.networking.GameSocket;
+import vooga.engine.networking.client.NetworkConnection;
 import vooga.engine.resource.Resources;
 
-public class TicTacToeConnection extends GameSocket {
+public class TicTacToeConnection extends NetworkConnection {
 	
-	public TicTacToeConnection() throws UnknownHostException, IOException{
-		super(new Socket("localhost", Resources.getInt("portNum")));
+	public TicTacToeConnection() throws UnknownHostException, IOException {
+		super();
 	}
 	
 
-	public int getTheirMove() {
-		if (!isConnected()) 
-			throw new NullPointerException("Attempted to read closed socket!");
-
-		try {
-			String sentData = receive();
-			System.out.println("Received: " + sentData);
-			if (sentData == null)
-				return Resources.getInt("gameOver");
-			sentData = sentData.trim();
-			try {
-				return (new Integer(sentData)).intValue();
-			}
-			catch (NumberFormatException e) {
-				return getStatus(sentData);
-			}
-		}
-		catch (IOException e) {
-			System.out.println("I/O Error: " + e);
-			System.exit(1);
-			return 0;
-		}
-	}
-
-	private int getStatus(String s) {
+	/*
+	private int statStringToInt(String s) {
 		s = s.trim();
 		if (s.startsWith("wait"))
 			return Resources.getInt("wait");
@@ -57,9 +35,10 @@ public class TicTacToeConnection extends GameSocket {
 		System.out.println("received invalid status from server: " + s);
 		return Resources.getInt("error");
 	}
+	*/
 
 	public void sendMove(int col) {
-		send(Integer.toString(col));
+		sendData(col);
 	}
 
 	public void sendIQUIT() {
