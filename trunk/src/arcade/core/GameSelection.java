@@ -17,6 +17,7 @@ public class GameSelection extends Tab {
 			"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
 			"towerdefense", "zombieland" };
 	public static JPanel panel;
+	public static JTextField searchArea;
 	public static String currentGame = "";
 
 	public GameSelection() {
@@ -60,9 +61,9 @@ public class GameSelection extends Tab {
 	
 	public JComponent addSearchFunction() {
 		JPanel search = new JPanel(new FlowLayout());
-		JTextField searchArea = new JTextField("Enter Search Terms", 25);
+		searchArea = new JTextField("Enter Search Terms", 25);
 		JButton searchButton = new JButton("Search");
-		searchButton.addActionListener(new SearchButtonListener(searchArea.getText()));
+		searchButton.addActionListener(new SearchButtonListener());
 		search.add(searchArea);
 		search.add(searchButton);
 		return search;
@@ -73,14 +74,14 @@ public class GameSelection extends Tab {
 		ResourceBundle resources;
   	   List<String> rightGames = new ArrayList<String>();
   	   String[] searchTerms;
-		public SearchButtonListener(String searchTerms)
+		public SearchButtonListener()
 		{
-			this.searchTerms = searchTerms.split(" ");
+			searchTerms = searchArea.getText().split(" ");
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			searchTerms = searchArea.getText().split(" ");
      	   panel.removeAll();
      	   panel.setLayout(new GridLayout(0,3));
      	   panel.add(addSearchFunction());
