@@ -14,7 +14,10 @@ public class GameParser {
 			
 			String gamePropertiesFile = "vooga.games." + game + ".resources.game";
 			properties = ResourceBundle.getBundle(gamePropertiesFile);
-			gameMap.put("splash", new String[]{properties.getString("splashImage")});
+			if (properties.getString("splashImage") != null)
+				gameMap.put("splash", new String[]{properties.getString("splashImage")});
+			else
+				gameMap.put("splash", new String[]{"vooga/games/asteroids/resources/images/asteroid.gif"});
 			gameMap.put("name", new String[]{properties.getString("name")});
 			gameMap.put("genre", new String[]{properties.getString("genre")});
 			gameMap.put("description", new String[]{properties.getString("description")});
