@@ -30,6 +30,16 @@ public class ProfileSet implements Iterable<Profile> {
 		row.put("Email", profile.getEmail());
 		return myDbAdapter.insert(myTable, row);
 	}
+	
+	public boolean addUpdate(Profile profile) {
+		Map<String, String> row = new HashMap<String, String>();
+		row.put("First_Name", profile.getFirstName());
+		row.put("Last_Name", profile.getLastName());
+		row.put("Birthday", profile.getBirthday());
+		row.put("Avatar_Url", profile.getAvatar());
+		row.put("Email", profile.getEmail());
+		return myDbAdapter.update(myTable, profile.getUserName(), row);
+	}
 
 	public Profile getProfile(String userName) {
 		Map<String, String> row = myDbAdapter.getRow(myTable, userName);
