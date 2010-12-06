@@ -28,7 +28,7 @@ public class PauseState extends PauseGameState {
 	{
 		Control gameControl = new KeyboardControl(game, game);
 //		gameControl.addInput(KeyEvent.VK_P, "resumeGame", "vooga.games.galaxyinvaders.DropThis");
-		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
+		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.Blah");
 		Collection<PlayField> playfields = this.getUpdateField();
 		for (PlayField playfield : playfields)
 		{

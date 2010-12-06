@@ -177,7 +177,7 @@ public class GamePlayState extends GameState {
 
 		Control gameControl = new KeyboardControl(myGame, myGame);
 		gameControl.addInput(KeyEvent.VK_P, "pauseGame",
-				"vooga.games.mariogame.DropThis");
+				"vooga.games.mariogame.Blah");
 		getLevel().addControl("pause", gameControl);
 
 		/*

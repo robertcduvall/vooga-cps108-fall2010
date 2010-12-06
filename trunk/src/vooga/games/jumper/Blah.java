@@ -80,8 +80,8 @@ public class Blah extends vooga.engine.core.Game {
 	
 	private void initControls(){
 		 gameControl = new KeyboardControl(this, this);
-		 gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.jumper.DropThis");
-		 gameControl.addInput(KeyEvent.VK_R, "resumeGame", "vooga.games.jumper.DropThis");
+		 gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.jumper.Blah");
+		 gameControl.addInput(KeyEvent.VK_R, "resumeGame", "vooga.games.jumper.Blah");
 	}
 	
 	/**
