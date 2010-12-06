@@ -11,6 +11,8 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +58,37 @@ public class AdFrame extends JFrame {
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new FlowLayout());
 		panel2.setPreferredSize(adDimension);
+		panel2.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("clicked");
+				myManager.getCurrentAd().onClick();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				System.out.println("over");
+				myManager.getCurrentAd().onMouseOver();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
 		
