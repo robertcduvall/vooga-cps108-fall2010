@@ -17,12 +17,14 @@ import arcade.security.resourcesbundle.StaticFileResources;
 @SuppressWarnings("serial")
 public class LogInFrame extends JFrame {
 	
-	private JButton submitButton;
-	private JButton cancelButton;
+	private JButton submitButton,cancelButton,signUpButton;
 	private String username;
 	private char[] password;
-	JTextField text1;
-	JPasswordField text_pass;
+	JTextField usernameField;
+	JPasswordField passwordField;
+	
+	private int maxPasswordLength = 5;
+	private int maxUserNameLength = 5;
 	//JProgressBar progressbar;
 
 	public LogInFrame(){
@@ -32,23 +34,27 @@ public class LogInFrame extends JFrame {
 		this.addMouseListener(m1);
 		this.addMouseMotionListener(m1);
 		setSize(270, 150);
+		//setSize(800,3000);
 		this.setLayout(new MigLayout());
 		this.setBackground(Color.white);
 		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));
 		JLabel label1=new JLabel(LabelResources.getLabel("UserId"));		
 		JLabel label2=new JLabel(LabelResources.getLabel("Password"));
-		text1=new JTextField(5);	
-		text_pass=new JPasswordField(5);
-		add(image,"cell 0 0 2 1");
+		usernameField=new JTextField(maxUserNameLength);	
+		passwordField=new JPasswordField(maxPasswordLength);
+		add(image,"cell 0 0 3 1");
 		add(label1,"cell 0 1");
-		add(text1,"cell 1 1,wrap");
+		add(usernameField,"cell 1 1,wrap");
 		add(label2,"cell 0 2");
-		add(text_pass,"wrap");
-		submitButton=new SecurityButton(LabelResources.getLabel("LoginframeSubmit"),new ImageIcon(StaticFileResources.getPath("loginsubmit")),"Log in");
-		cancelButton=new SecurityButton(LabelResources.getLabel("LoginframeCancel"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
+		add(passwordField,"wrap");
+		submitButton = new SecurityButton(LabelResources.getLabel("LoginframeSubmit"),new ImageIcon(StaticFileResources.getPath("loginsubmit")),"Log in");
+		cancelButton = new SecurityButton(LabelResources.getLabel("LoginframeCancel"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
+		signUpButton = new SecurityButton(LabelResources.getLabel("LoginframeSignup"),"Sign up");
+		signUpButton.requestFocus(true);
 		submitButton.requestFocus(true);
 		add(submitButton,"");
 		add(cancelButton,"wrap");
+		add(signUpButton);
 		this.setLocationRelativeTo(this);
 		this.setUndecorated(true);   //no frameworks		
 		pack();
@@ -98,8 +104,8 @@ public class LogInFrame extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			username=text1.getText();
-			password=text_pass.getPassword();
+			username=usernameField.getText();
+			password=passwordField.getPassword();
 			if(checkPassword(null)){
 				
 				try {
@@ -111,8 +117,8 @@ public class LogInFrame extends JFrame {
 
 			}
 			else{			
-				text_pass.selectAll();
-				text_pass.requestFocus(true);
+				passwordField.selectAll();
+				passwordField.requestFocus(true);
 			}
 		}
 
@@ -155,7 +161,6 @@ public class LogInFrame extends JFrame {
 	}
 
 	public boolean checkPassword(char[] input){
-
 		return true;			
 	}
 

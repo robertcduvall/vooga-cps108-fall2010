@@ -38,11 +38,12 @@ public class GuestConfigurationFrame extends UserConfigurationFrame
 
 	//TODO: Need to tell this class what user it is modifying so it can change their privileges.
 	Guest guest;
+	String username;
 	
 	JCheckBox adminButton;
 	JCheckBox forumButton;
 	JCheckBox retailButton;
-
+	
 	
 	public GuestConfigurationFrame(){
 		super(LabelResources.getLabel("GuestInternalFrame"),true,true,true,true);
@@ -80,7 +81,13 @@ public class GuestConfigurationFrame extends UserConfigurationFrame
 	}
 
 
-
+	public void setUser(String name){
+		username = name;
+	}
+	public void setUser(Guest g){
+		guest = g;
+	}
+	
 	public JMenuBar createMenuBar() {
 		JMenuBar menubar=new JMenuBar();
 		JMenu menu=new JMenu("Options");
@@ -94,9 +101,6 @@ public class GuestConfigurationFrame extends UserConfigurationFrame
 		menubar.add(menu);
 		return menubar;
 	}
-
-
-
 
 	/**
 	 * create tabs, no duplicates and select the already chosen one 
@@ -143,8 +147,6 @@ public class GuestConfigurationFrame extends UserConfigurationFrame
 //			    tabpane.setSelectedIndex(tabIndex);	
 //		}
 	}
-
-	
 
 	protected JComponent makeTextPanel(String text) {
 		JPanel panel = new JPanel(false);

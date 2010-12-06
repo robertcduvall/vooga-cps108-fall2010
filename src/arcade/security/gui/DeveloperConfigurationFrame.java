@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.user.Developer;
+import arcade.security.user.Guest;
 /**
  * 
  * 
@@ -38,10 +39,12 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame
 
 	//TODO: Need to tell this class what user it is modifying so it can change their privileges.
 	Developer developer;
+	String username;
 	
 	JCheckBox adminButton;
 	JCheckBox forumButton;
 	JCheckBox retailButton;
+
 	
 	public DeveloperConfigurationFrame(){
 		super(LabelResources.getLabel("DeveloperInternalFrame"),true,true,true,true);
@@ -53,6 +56,8 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame
 		this.setLayout(new BorderLayout());  
 		currentContentPane=this.getContentPane();	 //get the current container,so new component can be added on when the mouse clicked  	
      	pack();
+     	
+     	
 
 		adminButton = new JCheckBox(LabelResources.getLabel("AdminPrivilegeButton"));
      	adminButton.setSelected(true);
@@ -95,6 +100,12 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame
 		return menubar;
 	}
 
+	public void setUser(String name){
+		username = name;
+	}
+	public void setUser(Developer d){
+		developer = d;
+	}
 	/**
 	 * create tabs, no duplicates and select the already chosen one 
 	 * @author ml146

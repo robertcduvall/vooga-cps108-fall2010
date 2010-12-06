@@ -23,6 +23,7 @@ public class UserConfigurationFrame extends JInternalFrame {
 	public void setParentFrame(JFrame parentFrame){
 		this.parentFrame=parentFrame;
 	}
+	
 	public JFrame getParentFrame(){
 		return parentFrame;
 	}
