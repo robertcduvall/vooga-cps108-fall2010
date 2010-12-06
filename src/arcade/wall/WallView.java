@@ -10,7 +10,7 @@ import arcade.wall.WallController;
 public class WallView {
 	WallController myController;
 	String myGamerName;
-	
+	JComponent myCommentBox;
 	
 	static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
@@ -21,31 +21,19 @@ public class WallView {
 		myGamerName = gamerName;
 		createJFrame(gamerName);
 	}
-
-//	public static JTextField getCommentEntryField() {
-//		return commentEntryField;
-//	}
 	
 	private void createJFrame(String gamerName) {
 		JFrame frame = new JFrame(gamerName + "'s Wall");
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {System.exit(0);}
 		});
+		myCommentBox = createCommentsArea();
 		JPanel panel = createJPanel();
-		JComponent comments = createCommentsArea();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		frame.getContentPane().add(comments, BorderLayout.SOUTH);
+		frame.getContentPane().add(myCommentBox, BorderLayout.SOUTH);
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
-	private JComponent createCommentsArea(){
-		JTextArea comments = new JTextArea(5,5);
-		comments.setEditable(false);
-		JScrollPane scrollPane = new JScrollPane(comments);	
-		return scrollPane;
-	}
-	
 
 	private JPanel createJPanel() {
 		JPanel returnPanel = new JPanel();
@@ -61,7 +49,7 @@ public class WallView {
 		
 		//Add action listeners to ComboBox and Button
 		gameChoices.addActionListener(new GameComboBoxListener(commentsLabel, gameChoices));
-		reviewButton.addActionListener(new ReviewButtonListener(myController, gameChoices, commentsLabel,
+		reviewButton.addActionListener(new ReviewButtonListener(myController, gameChoices, myCommentBox,
 									   commentEntryField, myGamerName));
 		
 		entryPanel.add(gameChoices);
@@ -78,4 +66,11 @@ public class WallView {
 		return returnPanel;
 	}
 
+	private JComponent createCommentsArea(){
+		JTextArea comments = new JTextArea(5,5);
+		comments.setEditable(false);
+		return comments;
+		//JScrollPane scrollPane = new JScrollPane(comments);	
+		//return scrollPane;
+	}
 }

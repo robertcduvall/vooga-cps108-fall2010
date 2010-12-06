@@ -5,22 +5,23 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import javax.swing.JComponent;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ReviewButtonListener implements ActionListener {
 
 	private WallController myController;
 	private JComboBox myComboBox;
-	private JLabel myLabel;
+	private JComponent myLabel;
 	private JTextField myTextField;
 	private String myGamerName;
 
 	public ReviewButtonListener(WallController controller, JComboBox comboBox, 
-								JLabel label, JTextField textField, String gamerName) {
+								JComponent commentBox, JTextField textField, String gamerName) {
 		myController = controller;
 		myComboBox = comboBox;
-		myLabel = label;
+		myLabel = commentBox;
 		myTextField = textField;
 		myGamerName = gamerName;
 	}
@@ -29,18 +30,11 @@ public class ReviewButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		List<String> comments = myController.addComment(WallView.choices[myComboBox.getSelectedIndex()],
 				myTextField.getText(), myGamerName);
-		String gameComments = "";
-		for(String comment : comments){
-			gameComments = gameComments + "\n" + comment;
+		String input = "";
+		for (String comment: comments) {
+			input += comment + "\n";
 		}
-		//TODO - how to make every game comment display on a new line??
-		myLabel.setText("<html>" + 
-				myLabel.getText() +  
-				"<br/>" + 
-				gameComments +
-				//myTextField.getText() + "  ---" + myGamerName +
-		"</html>");
-
+		((JTextArea)myLabel).setText(input);
 	}
 
 }
