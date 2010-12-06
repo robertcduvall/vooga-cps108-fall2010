@@ -1,9 +1,11 @@
-package arcade.lobby.view;
+package arcade.lobby.controller;
 
 import javax.swing.JFrame;
 
 import arcade.lobby.model.MySqlAdapter;
 import arcade.lobby.model.ProfileSet;
+import arcade.lobby.view.LoginPanel;
+import arcade.lobby.view.Menu;
 
 public class Main {
 	public static ProfileSet ProfileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Users", "voogaarcade", "Vooga108");
@@ -31,10 +33,9 @@ public class Main {
 	        MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        MainFrame.setSize(400, 300);
 	        
-	        Menu userMenu = new Menu();
-	        MainFrame.setJMenuBar(userMenu.setUpMenu());
+	        MainFrame.setJMenuBar(new Menu());
 	        
-	        MainFrame.setContentPane(new Login());
+	        MainFrame.setContentPane(new LoginPanel());
 	        
 	        MainFrame.setVisible(true);
 	        

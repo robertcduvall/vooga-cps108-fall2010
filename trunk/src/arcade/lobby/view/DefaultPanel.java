@@ -6,6 +6,8 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import arcade.lobby.controller.Main;
+
 public class DefaultPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
