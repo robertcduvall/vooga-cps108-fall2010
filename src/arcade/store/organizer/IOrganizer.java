@@ -3,7 +3,6 @@ package arcade.store.organizer;
 import java.util.List;
 
 import arcade.store.items.IItemInfo;
-import arcade.store.page.StorePage;
 
 public interface IOrganizer {
 

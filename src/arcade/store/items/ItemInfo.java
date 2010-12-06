@@ -1,6 +1,7 @@
 package arcade.store.items;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -14,6 +15,7 @@ public class ItemInfo implements IItemInfo {
 	private String rating;
 	private List<ImageIcon> images;
 	private String genre;
+	private List<String> tags;
 
 	
 	public ItemInfo(String description, String price, String title, String numberOfBuyer,
@@ -25,6 +27,7 @@ public class ItemInfo implements IItemInfo {
 		this.rating = rating;
 		this.images = images;
 		this.genre = genre;
+		this.tags = new ArrayList<String>();
 	}
 	@Override
 	public String getDescription() {
@@ -57,6 +60,10 @@ public class ItemInfo implements IItemInfo {
 	@Override
 	public List<ImageIcon> getImages() {
 		return images;
+	}
+	@Override
+	public List<String> getTags() {
+		return tags;
 	}
 
 }
