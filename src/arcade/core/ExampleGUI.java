@@ -105,7 +105,7 @@ public class ExampleGUI extends Tab{
 //		startB.setAlignmentX(CENTER_ALIGNMENT);
 //		
 //		top.add(label);
-		center.add(new GameView("zombieland"));
+		center.add(new GameView("cyberion"));
 //		bottom.add(new Box.Filler(new Dimension(0, 20),
 //				new Dimension(0, 20),
 //				new Dimension(0, 20)));
