@@ -49,9 +49,9 @@ public class DukeAds extends ImageAds
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.startTime= Long.parseLong(attributes.getNamedItem("startTime").getNodeValue());
-		this.endTime= Long.parseLong(attributes.getNamedItem("endTime").getNodeValue());
-
+		this.startTime = Long.parseLong(attributes.getNamedItem("startTime").getNodeValue());
+		this.endTime = Long.parseLong(attributes.getNamedItem("endTime").getNodeValue());
+		this.targetURL = attributes.getNamedItem("targetURL").getNodeValue();
 	}
 	
 	
