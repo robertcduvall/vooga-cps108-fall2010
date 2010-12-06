@@ -13,9 +13,9 @@ import arcade.store.organizer.IOrganizer;
 
 public class StoreModel {
 
-	private static final String GAMES_DIRECTORY = "/src/arcade/store/gui/resources/games/";
+	private static final String GAMES_DIRECTORY = "C:/Users/dhs9/workspace cs108/vooga/src/arcade/store/gui/resources/games";
 	
-	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
+//	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	private UserShopAccount currentUser;
 	private Map<String, IItemInfo> storeCatalogue;
 	private Control controller;
@@ -23,6 +23,7 @@ public class StoreModel {
 	public StoreModel(Control control)
 	{
 		storeCatalogue = ItemFactory.getAllItems(GAMES_DIRECTORY);
+		System.out.println(storeCatalogue.size());
 		controller = control;
 		
 		//currentUser = Security.getCurrentUser();
@@ -62,21 +63,21 @@ public class StoreModel {
 	 * @param currentPage
 	 * @return
 	 */
-	public List<IItemInfo> organize(String criteria){
-
-		String className = organizerBundle.getString(criteria);
-
-		try {
-			IOrganizer organizer = (IOrganizer) Class.forName(className).newInstance();
-			return organizer.organize(getAllItems(), criteria);
-		} 
-		catch (Exception e)
-		{
-			//currentPage.paintSomething();
-			//TODO: figure out what happens when this does not work
-			return getAllItems();
-		}	
-	}
+//	public List<IItemInfo> organize(String criteria){
+//
+//		String className = organizerBundle.getString(criteria);
+//
+//		try {
+//			IOrganizer organizer = (IOrganizer) Class.forName(className).newInstance();
+//			return organizer.organize(getAllItems(), criteria);
+//		} 
+//		catch (Exception e)
+//		{
+//			//currentPage.paintSomething();
+//			//TODO: figure out what happens when this does not work
+//			return getAllItems();
+//		}	
+//	}
 
 	
 	
