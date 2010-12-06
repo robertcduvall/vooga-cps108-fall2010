@@ -59,7 +59,7 @@ public class LoginPanel extends JPanel {
 		if (usernameField == null) {
 			usernameField = new JTextField();
 			usernameField.setBounds(new Rectangle(80, 8, 167, 25));
-			usernameField.setText("Username");
+			//usernameField.setText("Username");
 		}
 		return usernameField;
 	}
@@ -73,7 +73,7 @@ public class LoginPanel extends JPanel {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
 			passwordField.setBounds(new Rectangle(80, 38, 167, 25));
-			passwordField.setText("Password");
+			//passwordField.setText("Password");
 		}
 		return passwordField;
 	}
@@ -146,7 +146,7 @@ public class LoginPanel extends JPanel {
 	private JButton getRegisterButton() {
 		if (registerButton == null) {
 			registerButton = new JButton();
-			registerButton.setBounds(new Rectangle(107, 130, 90, 27));
+			registerButton.setBounds(new Rectangle(107, 150, 90, 27));
 			registerButton.setText("Register");
 			registerButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -157,12 +157,7 @@ public class LoginPanel extends JPanel {
 		}
 		return registerButton;
 	}
-	
-	/*
-	private void setContentPane(){
-		this.setContentPane(jContentPane);
-	}
-*/
+
 	/**
 	 * This method initializes registerText	
 	 * 	
@@ -171,7 +166,7 @@ public class LoginPanel extends JPanel {
 	private JTextPane getRegisterText() {
 		if (registerText == null) {
 			registerText = new JTextPane();
-			registerText.setBounds(new Rectangle(50, 106, 195, 23));
+			registerText.setBounds(new Rectangle(50, 106, 195, 40));
 			registerText.setText("Need a username? Register Now!");
 			registerText.setEditable(false);
 		}

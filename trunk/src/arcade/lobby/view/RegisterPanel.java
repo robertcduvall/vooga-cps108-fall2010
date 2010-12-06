@@ -202,4 +202,4 @@ public class RegisterPanel extends JPanel {
 		return submitButton;
 	}
 
-} // @jve:decl-index=0:visual-constraint="1,5"
+}
