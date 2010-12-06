@@ -61,13 +61,11 @@ public class AdFrame extends JFrame {
 		panel2.addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("clicked");
 				myManager.getCurrentAd().onClick();
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				System.out.println("over");
 				myManager.getCurrentAd().onMouseOver();
 			}
 

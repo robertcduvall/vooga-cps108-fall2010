@@ -37,15 +37,15 @@ public abstract class ImageAds extends BasicAds {
 	}
 
 	public ImageAds(String name, Image img, int xMin, int xMax, int yMin,
-			int yMax) {
-		super(name, xMin, xMax, yMin, yMax);
+			int yMax, String targetURL) {
+		super(name, xMin, xMax, yMin, yMax, targetURL);
 
 	}
 
 	@Override
 	public void onClick() {
 		//open url
-		openBrowser("http://www.duke.edu");
+		openBrowser();
 	}
 
 	@Override

@@ -28,6 +28,7 @@ public abstract class BasicAds extends BetterSprite
 	protected int yMax;
 	protected long startTime;
 	protected long endTime;
+	protected String targetURL;
 
 	public BasicAds()
 	{
@@ -53,13 +54,14 @@ public abstract class BasicAds extends BetterSprite
 	 * @param yMin
 	 * @param yMax
 	 */
-	public BasicAds(String name, int xMin, int xMax, int yMin, int yMax)
+	public BasicAds(String name, int xMin, int xMax, int yMin, int yMax, String targetURL)
 	{
 		this.name = name;
 		this.xMin = xMin;
 		this.xMax = xMax;
 		this.yMin = yMin;
 		this.yMax = yMax;
+		this.targetURL = targetURL;
 	}
 
 	/**
@@ -162,18 +164,18 @@ public abstract class BasicAds extends BetterSprite
 		
 	}
 	
-	public void openBrowser(String url){
+	public void openBrowser(){
 		String os = System.getProperty("os.name").toLowerCase();
         Runtime rt = Runtime.getRuntime();
 		try{ 
 		    if (os.indexOf( "win" ) >= 0) {
 	 
 		        // this doesn't support showing urls in the form of "page.html#nameLink" 
-		        rt.exec( "rundll32 url.dll,FileProtocolHandler " + url);
+		        rt.exec( "rundll32 url.dll,FileProtocolHandler " + targetURL);
 	 
 		    } else if (os.indexOf( "mac" ) >= 0) {
 	 
-		        rt.exec( "open " + url);
+		        rt.exec( "open " + targetURL);
 	 
 	            } else if (os.indexOf( "nix") >=0 || os.indexOf( "nux") >=0) {
 	 
@@ -185,7 +187,7 @@ public abstract class BasicAds extends BetterSprite
 		        // Build a command string which looks like "browser1 "url" || browser2 "url" ||..."
 		        StringBuffer cmd = new StringBuffer();
 		        for (int i=0; i<browsers.length; i++)
-		            cmd.append( (i==0  ? "" : " || " ) + browsers[i] +" \"" + url + "\" ");
+		            cmd.append( (i==0  ? "" : " || " ) + browsers[i] +" \"" + targetURL + "\" ");
 	 
 		        rt.exec(new String[] { "sh", "-c", cmd.toString() });
 	 
