@@ -31,7 +31,7 @@ public class ProfileSet implements Iterable<Profile> {
 		return myDbAdapter.insert(myTable, row);
 	}
 	
-	public boolean addUpdate(Profile profile) {
+	public boolean updateProfile(Profile profile) {
 		Map<String, String> row = new HashMap<String, String>();
 		row.put("First_Name", profile.getFirstName());
 		row.put("Last_Name", profile.getLastName());
