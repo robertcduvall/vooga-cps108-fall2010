@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,20 +46,21 @@ public class AdFrame extends JFrame {
 
 		setTitle("Ads");
 
-		setLayout(new GridLayout(2, 1));
+		setLayout(new BorderLayout());
 
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new FlowLayout());
 		makeButtons(panel1);
+		panel1.setPreferredSize(new Dimension(70, 70));
 		// this.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new FlowLayout());
-		panel2.setBounds(0, 0, 800, 600);
-		getContentPane().add(panel1);
-		getContentPane().add(panel2);
+		panel2.setPreferredSize(new Dimension(800, 600));
+		getContentPane().add(panel1, BorderLayout.PAGE_START);
+		getContentPane().add(panel2, BorderLayout.CENTER);
 		getContentPane().setSize(800, 600);
-
+		
 		pack();
 		setVisible(true);
 
