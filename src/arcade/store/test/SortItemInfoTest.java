@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import arcade.store.items.IItemInfo;
 import arcade.store.items.ItemInfo;
+import arcade.store.organizer.FilterByTitleOrganizer;
+import arcade.store.organizer.FilterOrganizer;
 import arcade.store.organizer.SortByTitleOrganizer;
 import arcade.store.organizer.SortOrganizer;
 
@@ -24,6 +26,7 @@ public class SortItemInfoTest {
 
 		ArrayList<IItemInfo> itemInfoList = new ArrayList<IItemInfo>();
 		SortOrganizer sortOrganizer = new SortByTitleOrganizer();
+		FilterOrganizer filterOrganizer = new FilterByTitleOrganizer();
 		
 		itemInfoList.add(a);
 		itemInfoList.add(b);
@@ -38,6 +41,14 @@ public class SortItemInfoTest {
 		List<IItemInfo> sortedItemInfoList = sortOrganizer.organize(itemInfoList, "x");
 		
 		for (IItemInfo info : sortedItemInfoList) {
+			System.out.println(info.getTitle());
+		}
+		
+		System.out.println("\n");
+		
+		List<IItemInfo> filteredItemInfoList = filterOrganizer.organize(itemInfoList, "W");
+
+		for (IItemInfo info : filteredItemInfoList) {
 			System.out.println(info.getTitle());
 		}
 	}
