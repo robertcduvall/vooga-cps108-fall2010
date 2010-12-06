@@ -12,19 +12,21 @@ import arcade.store.items.IItemInfo;
 public class Control {
 
 	private StoreModel model;
-	private MainPageView page;
+	private MainPageView view;
 	
-	public Control(StoreModel model, MainPageView page)
-	{
+
+	
+	public void setModel(StoreModel model) {
 		this.model = model;
-		this.page = page;
-		
+	}
+	
+	public void setView(MainPageView view) {
+		this.view = view;
 	}
 	
 	public void processPurchaseButton()
 	{
-		
-		// TODO
+//		model.processPurchase(item);
 	}
 	
 	
