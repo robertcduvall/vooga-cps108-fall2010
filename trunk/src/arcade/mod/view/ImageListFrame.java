@@ -35,8 +35,10 @@ public class ImageListFrame extends FilepathListFrame {
 
 	@Override
 	public void handleFileChange() {
-
+		
 		try {
+			stringLabel.setText(myFilepath);
+			
 			System.out.println(myFilepath);
 
 			myIcon = new ImageIcon(ImageIO.read(new File(myFilepath)));

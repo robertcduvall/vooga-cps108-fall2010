@@ -5,7 +5,6 @@ import java.util.Map;
 
 import arcade.mod.model.ResourceNode;
 import arcade.mod.view.AbstractListFrame;
-import arcade.mod.view.ConstantListFrame;
 import arcade.mod.view.DoubleListFrame;
 import arcade.mod.view.FilepathListFrame;
 import arcade.mod.view.ImageListFrame;
