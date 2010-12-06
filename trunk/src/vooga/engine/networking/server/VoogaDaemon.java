@@ -5,9 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
+import vooga.engine.networking.GameSocket;
+
 public class VoogaDaemon extends Thread{
 	public static final int PORTNUM = 1234;
+	public static final int CHATPORTNUM = 1235;
 	private ServerSocket port;
+	private ServerSocket chatPort;
 	private ServerPlayer[] playersWaiting;
 	private ServerPlayer playerWaiting;
 	private ServerGame thisGame;
@@ -18,6 +22,7 @@ public class VoogaDaemon extends Thread{
 	public VoogaDaemon(int numberOfPlayers, String serverGame, String serverPlayer) {
 		try {
 			port = new ServerSocket(PORTNUM);
+			chatPort = new ServerSocket(CHATPORTNUM);
 			playersWaiting = new ServerPlayer[numberOfPlayers - 1];
 			this.serverGame = serverGame;
 			this.serverPlayer = serverPlayer;
@@ -29,20 +34,22 @@ public class VoogaDaemon extends Thread{
 	}
 
 	public void run() {
-		Socket clientSocket;
+		Socket clientSocket, chatSocket;
 		while (true) {
 			if (port == null) {
 				System.out.println("Sorry, the port disappeared.");
 				System.exit(1);
 			}
 			try {
+				chatSocket = chatPort.accept();
 				clientSocket = port.accept();
+				ChatHandler chatHandler = new ChatHandler(new GameSocket(chatSocket));
+				chatHandler.start();
 				try{
 					Class<?> serverPlayerName = Class.forName(serverPlayer);
 					Class<?>[] serverPlayerParams = new Class[] {VoogaDaemon.class, Socket.class};
 					Object[] serverPlayerFinalParams = new Object[] {this, clientSocket};
 					((ServerPlayer)(serverPlayerName.getConstructor(serverPlayerParams).newInstance(serverPlayerFinalParams))).start();
-//					new TicTacToePlayer(this, clientSocket).start();
 				}
 				catch(Exception e){
 					System.out.println("Couldn't find ServerPlayer subclass!");
@@ -61,52 +68,52 @@ public class VoogaDaemon extends Thread{
 		}
 	}
 
-//	public synchronized ServerGame waitForGame(ServerPlayer p, String waitString) {
-//		ServerGame retval = null;
-//		boolean waiting = false;
-//		for(int i = 0; i < playersWaiting.length; i++){
-//			ServerPlayer playerWaiting = playersWaiting[i];
-//			if(playerWaiting == null){
-//				waiting = true;
-//				playerWaiting = p;
-//				playersWaiting[i] = playerWaiting;
-//				thisGame = null;
-//				p.send(waitString);
-//				while (waiting) {
-//					try {
-//						wait();
-//					}
-//					catch (InterruptedException e) {
-//						System.out.println("Error: " + e);
-//					}
-//				}
-//				return thisGame;
-//			}
-//		}
-//		if(!waiting){
-//			ServerPlayer[] players = new ServerPlayer[playersWaiting.length + 1];
-//			for(int i = 0; i < playersWaiting.length; i++){
-//				players[i] = playersWaiting[i];
-//			}
-//			players[players.length - 1] = p;
-//			try{
-//				Class<?> serverGameName = Class.forName(serverGame);
-//				Class<?>[] serverGameParams = new Class[] {ServerPlayer[].class};
-//				Object[] serverGameFinalParams = new Object[] {players};
-//				thisGame = ((ServerGame)(serverGameName.getConstructor(serverGameParams).newInstance(serverGameFinalParams)));
-//			}
-//			catch(Exception e){
-//				System.out.println("Couldn't find ServerGame subclass!");
-//				System.exit(1);
-//			}
-//			retval = thisGame;
-//			waiting = false;
-//			notify();
-//			return retval;
-//		}
-//		return null;
-//	}
-	
+	//	public synchronized ServerGame waitForGame(ServerPlayer p, String waitString) {
+	//		ServerGame retval = null;
+	//		boolean waiting = false;
+	//		for(int i = 0; i < playersWaiting.length; i++){
+	//			ServerPlayer playerWaiting = playersWaiting[i];
+	//			if(playerWaiting == null){
+	//				waiting = true;
+	//				playerWaiting = p;
+	//				playersWaiting[i] = playerWaiting;
+	//				thisGame = null;
+	//				p.send(waitString);
+	//				while (waiting) {
+	//					try {
+	//						wait();
+	//					}
+	//					catch (InterruptedException e) {
+	//						System.out.println("Error: " + e);
+	//					}
+	//				}
+	//				return thisGame;
+	//			}
+	//		}
+	//		if(!waiting){
+	//			ServerPlayer[] players = new ServerPlayer[playersWaiting.length + 1];
+	//			for(int i = 0; i < playersWaiting.length; i++){
+	//				players[i] = playersWaiting[i];
+	//			}
+	//			players[players.length - 1] = p;
+	//			try{
+	//				Class<?> serverGameName = Class.forName(serverGame);
+	//				Class<?>[] serverGameParams = new Class[] {ServerPlayer[].class};
+	//				Object[] serverGameFinalParams = new Object[] {players};
+	//				thisGame = ((ServerGame)(serverGameName.getConstructor(serverGameParams).newInstance(serverGameFinalParams)));
+	//			}
+	//			catch(Exception e){
+	//				System.out.println("Couldn't find ServerGame subclass!");
+	//				System.exit(1);
+	//			}
+	//			retval = thisGame;
+	//			waiting = false;
+	//			notify();
+	//			return retval;
+	//		}
+	//		return null;
+	//	}
+
 	public synchronized ServerGame waitForGame(ServerPlayer p, String waitString) {
 		ServerGame retval = null;
 		if(playerWaiting == null){

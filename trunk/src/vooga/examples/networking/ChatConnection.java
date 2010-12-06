@@ -10,7 +10,7 @@ import vooga.engine.resource.Resources;
 public class ChatConnection extends GameSocket {
 
 	public ChatConnection() throws UnknownHostException, IOException {
-		super(new Socket("localhost", 1234));
+		super(new Socket("localhost", 1235));
 	}
 
 	public void sendMessage(String col) {
