@@ -28,7 +28,6 @@ public class AdsThread extends Thread {
 	 * run ads thread
 	 */
 	public void run() {
-		System.out.println(manager.toString());
 		while (true) {
 			manager.update();
 //			try {
