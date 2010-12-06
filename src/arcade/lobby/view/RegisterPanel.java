@@ -170,7 +170,7 @@ public class RegisterPanel extends JPanel {
 					profile.setBirthday(textMap.get("userName").getText());
 					profile.setEmail(textMap.get("birthday").getText());
 					profile.setName(textMap.get("firstName").getText(), textMap.get("firstName").getText());
-					Validator.profileSet.addProfile(profile);
+					Main.ProfileSet.addProfile(profile);
 				}
 
 				private boolean checkPasswords() {

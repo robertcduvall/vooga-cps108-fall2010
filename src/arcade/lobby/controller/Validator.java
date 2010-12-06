@@ -9,10 +9,9 @@ import java.util.regex.Pattern;
 
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
+import arcade.lobby.view.Main;
 
 public class Validator {
-	
-	public static ProfileSet profileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Users", "voogaarcade", "Vooga108");
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -99,7 +98,7 @@ public class Validator {
 	
 
 	public static boolean checkUsername(String user){
-		Profile profile = profileSet.getProfile(user);
+		Profile profile = Main.ProfileSet.getProfile(user);
 		return profile == null;
 	}
 	
