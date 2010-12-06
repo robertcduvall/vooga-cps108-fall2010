@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class GameSelection extends Tab {
-	private static String[] gameNames = { "asteroids", "cyberion", "digger",
+	private static String[] gameNames = { "asteroids", "cyberion",
 			"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
-			"towerdefense", "tronlegacy", "zombieland" };
+			"towerdefense", "zombieland" };
 
 	public static String currentGame = "";
 

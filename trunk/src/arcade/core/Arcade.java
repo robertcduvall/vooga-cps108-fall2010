@@ -100,9 +100,13 @@ public class Arcade extends JFrame {
 	 * @param index
 	 */
 	public static void play(String gameName) {
-		mainWindow.setSelectedIndex(1);
+		switchToTab(1);
 		ExampleGUI.setGame(gameName);
 
+	}
+
+	public static void switchToTab(int id) {
+		mainWindow.setSelectedIndex(id);
 	}
 	/**
 	 * 
