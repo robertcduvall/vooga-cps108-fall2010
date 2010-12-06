@@ -15,6 +15,7 @@ import arcade.lobby.model.ProfileSet;
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private JFrame thisFrame = this;
 	private JPanel jContentPane = null;
 	private JTextField usernameField = null;
 	private JPasswordField passwordField = null;
@@ -145,6 +146,7 @@ public class Login extends JFrame {
 						Main.ProfileSet.setUser(username);
 						jContentPane = new DefaultPanel();
 						setContentPane();
+						thisFrame.getJMenuBar().setVisible(true);
 					}
 					else{
 						System.out.println("This username does not exist");
@@ -168,7 +170,7 @@ public class Login extends JFrame {
 			registerButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//TODO Create new Profile
-					jContentPane = new RegisterPanel();
+					jContentPane = new RegisterPanel(thisFrame);
 					setContentPane();
 					System.out.println("Create new profile");
 				}

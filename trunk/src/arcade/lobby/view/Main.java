@@ -23,16 +23,17 @@ public class Main {
 	     * this method should be invoked from the
 	     * event-dispatching thread.
 	     */
-	    private static void createAndShowGUI() {
+	    public static void createAndShowGUI() {
 	        //Create and set up the window.
 	    	
 	    	JFrame frame = new Login();
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        
-	        Menu userMenu = new Menu();
+	        Menu userMenu = new Menu(frame);
 	        frame.setJMenuBar(userMenu.setUpMenu());
 	        
 	        frame.setVisible(true);
+	        frame.getJMenuBar().setVisible(false);
 	        
 			MySqlAdapter myDbAdapter = new MySqlAdapter("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "voogaarcade", "Vooga108");
 			System.out.println(myDbAdapter.getRow("Users", "test1"));

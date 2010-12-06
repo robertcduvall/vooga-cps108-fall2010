@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,12 +36,14 @@ public class RegisterPanel extends JPanel {
 			"email", "birthday" };
 	private JButton submitButton = null;
 	private JLabel birthdayLabel = null;
+	private JFrame myFrame;
 
 	/**
 	 * This is the default constructor
 	 */
-	public RegisterPanel() {
+	public RegisterPanel(JFrame frame) {
 		super();
+		myFrame = frame;
 		initialize();
 	}
 
@@ -163,6 +166,8 @@ public class RegisterPanel extends JPanel {
 						return;
 					}
 					makeProfile();
+					myFrame.setVisible(false);
+					Main.createAndShowGUI();
 				}
 
 				private void makeProfile() {

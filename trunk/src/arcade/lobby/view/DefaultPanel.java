@@ -31,7 +31,7 @@ public class DefaultPanel extends JPanel {
 		title.setFont(new Font("anyThing", Font.PLAIN, 32));
 		this.setSize(338, 239);
 		this.setLayout(new BorderLayout());
-		this.add(title, BorderLayout.NORTH);
+		this.add(title, BorderLayout.CENTER);
 	}
 
 }
