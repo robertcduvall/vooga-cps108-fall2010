@@ -2,10 +2,20 @@ package arcade.ads;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.NamedNodeMap;
 
 public class DukeAds extends ImageAds
 {
 
+	public DukeAds() {
+		super();
+	}
 	public DukeAds(String name, Image img)
 	{
 		super(name, img);
@@ -25,6 +35,22 @@ public class DukeAds extends ImageAds
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public void setParameters(NamedNodeMap attributes) {
+		String name = attributes.getNamedItem("name").getNodeValue();
+		this.name = name;
+		try {
+			this.img = ImageIO.read(new File(attributes.getNamedItem("image").getNodeValue()));
+		} catch (DOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }
