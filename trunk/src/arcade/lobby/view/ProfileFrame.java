@@ -53,7 +53,7 @@ public class ProfileFrame extends JFrame {
 		if (jPanel == null) {
 			//TODO load from database
 			Profile currentUser = Main.ProfileSet.currentProfile;
-			jPanel = new HomePage(currentUser);
+			jPanel = new ProfilePanel(currentUser);
 		}
 		return jPanel;
 	}

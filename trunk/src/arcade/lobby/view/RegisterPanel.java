@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,14 +35,12 @@ public class RegisterPanel extends JPanel {
 			"email", "birthday" };
 	private JButton submitButton = null;
 	private JLabel birthdayLabel = null;
-	private JFrame myFrame;
 
 	/**
 	 * This is the default constructor
 	 */
-	public RegisterPanel(JFrame frame) {
+	public RegisterPanel() {
 		super();
-		myFrame = frame;
 		initialize();
 	}
 
@@ -64,7 +61,7 @@ public class RegisterPanel extends JPanel {
 		this.add(getInformationLabelPanel(), BorderLayout.WEST);
 		this.add(getInformationTextPanel(), BorderLayout.CENTER);
 		this.add(getSubmitButton(), BorderLayout.SOUTH);
-
+		Main.MainFrame.getJMenuBar().setVisible(false);
 	}
 
 	/**
@@ -165,17 +162,21 @@ public class RegisterPanel extends JPanel {
 								"The birthdate is not a valid date.");
 						return;
 					}
-					makeProfile();
-					myFrame.setVisible(false);
-					Main.createAndShowGUI();
+					logIn();
+				}
+				
+				private void logIn(){
+					Main.ProfileSet.currentProfile = makeProfile();
+					Main.MainFrame.setContentPane(new DefaultPanel());
 				}
 
-				private void makeProfile() {
+				private Profile makeProfile() {
 					Profile profile = new Profile(textMap.get("userName").getText());
 					profile.setBirthday(textMap.get("birthday").getText());
 					profile.setEmail(textMap.get("email").getText());
 					profile.setName(textMap.get("firstName").getText(), textMap.get("lastName").getText());
 					Main.ProfileSet.addProfile(profile);
+					return profile;
 				}
 
 				private boolean checkPasswords() {

@@ -3,12 +3,9 @@ package arcade.lobby.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 
 /**
@@ -18,14 +15,8 @@ import javax.swing.KeyStroke;
  */
 
 public class Menu {
-	
-	JTextArea output;
-    JScrollPane scrollPane;
-    String newline = "\n";
-    private JFrame myFrame;
     
-    public Menu(JFrame frame){
-    	myFrame = frame;
+    public Menu(){
     }
 	
 	public JMenuBar setUpMenu(){
@@ -49,7 +40,7 @@ public class Menu {
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(
 		        KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription(
-		        "This doesn't really do anything");
+		        "Edit your profile information");
 		menuItem.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				//TODO Create new Profile
@@ -62,9 +53,8 @@ public class Menu {
 		JMenuItem logOut = new JMenuItem("Logout");
 		logOut.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				myFrame.setVisible(false);
 				Main.ProfileSet.currentProfile=null;
-				Main.createAndShowGUI();
+				Main.MainFrame.setContentPane(new Login());
 			}
 		});
 		menu.add(logOut);
