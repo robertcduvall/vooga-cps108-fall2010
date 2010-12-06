@@ -12,8 +12,10 @@ public class ConstantListFrame extends AbstractListFrame {
 
 	private String myName;
 	private String myConstant;
+	private String myDescription;
 	private JSlider myInput;
 	private JLabel stringLabel;
+	private JLabel descriptionLabel;
 
 	private int MIN = -1000;
 	private int MAX = 1000;
@@ -40,6 +42,7 @@ public class ConstantListFrame extends AbstractListFrame {
 
 	@Override
 	public void handleNode(ResourceNode node) {
+		myDescription = node.getDescription();
 		myName = node.getAttribute("name");
 		myConstant = node.getAttribute("value");
 		if (node.getAttributes().contains("max")) {
@@ -53,6 +56,8 @@ public class ConstantListFrame extends AbstractListFrame {
 
 	@Override
 	public void makeComponents() {
+		descriptionLabel = new JLabel();
+		descriptionLabel.setText(myDescription);
 		JLabel stringName = new JLabel();
 		stringLabel = new JLabel();
 		JLabel newValue = new JLabel();
@@ -77,6 +82,7 @@ public class ConstantListFrame extends AbstractListFrame {
 		newValue.setText("New Constant: ");
 
 		add(stringName);
+		add(descriptionLabel);
 		add(stringLabel);
 		add(newValue);
 		add(myInput);
