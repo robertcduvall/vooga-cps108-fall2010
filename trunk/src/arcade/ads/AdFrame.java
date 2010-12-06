@@ -34,81 +34,77 @@ import com.golden.gamedev.util.ImageUtil;
  * 
  * @version 1.0
  */
-public class AdFrame extends JFrame
-{
+public class AdFrame extends JFrame {
 
 	AdsManager myManager;
 
-	public AdFrame(AdsManager manager)
-	{
+	public AdFrame(AdsManager manager) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		myManager = manager;
 
 		setTitle("Ads");
 
-		JPanel panel = (JPanel) getContentPane();
-		panel.setLayout(new FlowLayout());
-		makeButtons(panel);
-		panel.setPreferredSize(new Dimension(800, 600));
+		setLayout(new FlowLayout());
+
+		JPanel panel1 = new JPanel();
+		panel1.setLayout(new FlowLayout());
+		makeButtons(panel1);
+		// this.add(panel1);
+
+		JPanel panel2 = new JPanel();
+		// this.add(panel2);
+		getContentPane().add(panel1);
+		getContentPane().add(panel2);
 
 		pack();
 		setVisible(true);
 
-		myManager.setGraphics(panel.getGraphics());
+		myManager.setGraphics(panel2.getGraphics());
 		myManager.runAdsThread();
-//		myManager.update();
-//		myManager.render();
+		// myManager.update();
+		// myManager.render();
 	}
 
 	/**
 	 * Create the
 	 * 
 	 */
-	public void makeButtons(JPanel panel)
-	{
+	public void makeButtons(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 
 		JButton prev = new JButton("Previous Ad");
 		panel.add(prev);
-		prev.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				getPrevious();
 			}
 		});
 
 		JButton next = new JButton("Next Ad");
 		panel.add(next);
-		next.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				getNext();
 			}
 		});
 	}
 
-	public void getPrevious()
-	{
+	public void getPrevious() {
 		myManager.prevAds();
 	}
 
-	public void getNext()
-	{
+	public void getNext() {
 		myManager.nextAds();
 	}
 
-	public static void main(String args[])
-	{
+	public static void main(String args[]) {
 		AdsManager manager = new AdsManager();
 		BufferedImage img = null;
-		try
-		{
-			img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/arcade/ads/resources/duke.png"));
-		} catch (IOException e)
-		{
+		try {
+			img = ImageIO.read(new File(System.getProperty("user.dir")
+					+ "/src/arcade/ads/resources/duke.png"));
+		} catch (IOException e) {
 			System.out.println("werwe");
 		}
 
