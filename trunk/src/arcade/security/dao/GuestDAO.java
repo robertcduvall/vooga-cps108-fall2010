@@ -1,14 +1,16 @@
 package arcade.security.dao;
 
-import arcade.security.user.AbstractUser;
-import arcade.security.user.Guest;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
+import arcade.security.user.AbstractUser;
+import arcade.security.user.Guest;
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class GuestDAO implements UserDAO {
 
 	private String primaryKey;
@@ -16,12 +18,12 @@ public class GuestDAO implements UserDAO {
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
 
-    
-    
+
+
 	public GuestDAO(String primaryKey){
 		this.primaryKey = primaryKey;
 	}
-	
+
 	@Override
 	public boolean deleteUser(String primaryKey) {
 		// TODO Auto-generated method stub

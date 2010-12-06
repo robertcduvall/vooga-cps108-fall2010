@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class PrivilegeMap {
 	
 	public static Map<String , HashMap<String, Boolean>> roleMap = new TreeMap<String , HashMap<String,Boolean>>();

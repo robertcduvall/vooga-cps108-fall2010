@@ -1,5 +1,10 @@
 package arcade.security.exceptions;
 
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class UserConfigurationNotFoundException extends Exception {
 

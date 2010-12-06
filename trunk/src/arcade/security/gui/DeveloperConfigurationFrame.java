@@ -20,18 +20,16 @@ import javax.swing.JPanel;
 
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 
-	//private boolean initiated;
-	//private ApplicationLaunchStatusEvent status=new ApplicationLaunchStatusEvent("InterMilan");
 	private Container currentContentPane;
-	//private JTabbedPane tabpane;
-	//private boolean isTabPaneCreated=false;
-	//private Set<String> listOfClickedPlayer =new TreeSet<String>();
-	//private HashMap<Integer,String> mapOfClickedPlayer =new HashMap<Integer,String>();
-	//private Integer tabIndex=0;
+
 
 	public DeveloperConfigurationFrame(){
 		super(LabelResources.getLabel("DeveloperInternalFrame"),true,true,true,true);
@@ -42,25 +40,12 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 		this.setFrameIcon(new ImageIcon(StaticFileResources.getPath("developerinternalframeicon")));	//to do
 		this.setLayout(new BorderLayout());  
 		currentContentPane=this.getContentPane();	 //get the current container,so new component can be added on when the mouse clicked  	
-
-		//add(new JScrollPane(createNameList()),BorderLayout.WEST);  //scrollpane for Jlist
-		pack();
-		//initiated=true;
-		//status.setInitiatedStatus(initiated);   //if status.initiated, the instance variable initiated must be public	
+     	pack();
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		//addInternalFrameListener(new InternalFrameListener());	
 		setVisible(true);
-		//EventBus.publish(status);
+
 	}
 
-//	class InternalFrameListener extends InternalFrameAdapter{
-//		public void internalFrameClosing(InternalFrameEvent e) {  //when extends, the InternalFrameEvent e must be written,otherwise it is another unknown(or user created) method
-//			initiated=false;			
-//			status.setInitiatedStatus(initiated);
-//			EventBus.publish(status);
-//
-//		}
-//	}
 
 
 	public JMenuBar createMenuBar() {
@@ -69,35 +54,13 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 		JMenuItem item=new JMenuItem("clear all the selection");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){				
-//				if(!(isTabPaneCreated==false)){
-//					tabpane.removeAll();//when remove,tabpane can not be empty
-//				}
-//				tabIndex=0;
-//				mapOfClickedPlayer =new HashMap<Integer,String>();
-//				//listOfClickedPlayer =new TreeSet<String>();
+				//TODO:depends on your application
 			}	
 		});
 		menu.add(item);
 		menubar.add(menu);
 		return menubar;
 	}
-
-
-//	public JList createNameList() {
-//		//get data from database
-//		String[] c={"Pandev","Milito","Eto","Materazzi","Cesar"};
-//		DefaultListModel model = new DefaultListModel();
-//		for(String a:c){
-//			model.addElement(a);
-//		}
-//		JList list=new JList(model);
-//		list.setLayoutOrientation(JList.VERTICAL_WRAP);
-//		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-//		list.addMouseListener(new MouseHandler());
-//		return list;
-//	}
-
-
 
 	/**
 	 * create tabs, no duplicates and select the already chosen one 
@@ -109,17 +72,7 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 			if(e.getClickCount()==2){
 				JList target = (JList) e.getSource();
 				String selection=(String) target.getSelectedValue();	
-//				if(isTabPaneCreated==false){//first time clicked on player name	
-//					createTabPanelandAddTab(selection);						    
-//				}
-//				else {if(!mapOfClickedPlayer.containsValue(selection)){					   				
-//					   addTab(selection); //if the player is not chosen yet,crate the new tab
-//				     } 
-//				     else{
-//					   selectExistingTab(selection);//if the player is already chosen, just select it again,not create another one!		    
-//				     }
-//				}
-			//	tabIndex++;
+//TODO:Depends on how you wanna use this mouse event
 				currentContentPane.validate();								
 			}
 		}		
@@ -155,7 +108,6 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 //		}
 	}
 
-	
 
 	protected JComponent makeTextPanel(String text) {
 		JPanel panel = new JPanel(false);

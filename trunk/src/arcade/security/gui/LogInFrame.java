@@ -16,12 +16,15 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import net.miginfocom.swing.MigLayout;
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
-
-import net.miginfocom.swing.MigLayout;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class LogInFrame extends JFrame {
 

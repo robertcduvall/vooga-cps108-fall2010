@@ -3,7 +3,11 @@ package arcade.security.user;
 import java.util.Map;
 
 import arcade.security.privileges.PrivilegeMap;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class Guest extends UserClass {
 	
 	private String myUserName;//I recommend a name mechanism to separate different users

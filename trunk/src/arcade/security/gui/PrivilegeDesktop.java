@@ -9,6 +9,11 @@ import javax.swing.JFrame;
 
 import arcade.security.etc.SecurityFrameData;
 
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class PrivilegeDesktop extends JDesktopPane{
 	

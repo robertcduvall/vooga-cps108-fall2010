@@ -1,7 +1,11 @@
 package arcade.security.user;
 
 import java.util.Map;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public abstract class AdminClass extends AbstractUser{
 
 

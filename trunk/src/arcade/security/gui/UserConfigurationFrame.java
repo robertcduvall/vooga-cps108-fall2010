@@ -2,7 +2,11 @@ package arcade.security.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class UserConfigurationFrame extends JInternalFrame {
 

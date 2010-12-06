@@ -6,6 +6,11 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class SecurityButton extends JButton{
 	private static final long serialVersionUID = 1L;
 
