@@ -78,14 +78,12 @@ public class XMLNode implements ResourceNode {
 
 		Node child = node.getFirstChild();
 		while (child != null
-				&& child.getNodeName().equalsIgnoreCase(DESCRIPTION_TAG)) {
+				&& !child.getNodeName().equalsIgnoreCase(DESCRIPTION_TAG)) {
 			child = child.getNextSibling();
 		}
 		if (child != null) {
-
 			return child.getTextContent();
 		}
-
 		else
 			return NO_DESCRIPTION;
 	}
