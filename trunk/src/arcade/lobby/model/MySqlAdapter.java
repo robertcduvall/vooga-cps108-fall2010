@@ -114,9 +114,10 @@ public class MySqlAdapter implements DatabaseAdapter {
 	public boolean update(String tableName, String pkName, Map<String,String> row){
 		String newValues = "";
 		for(String s:row.keySet()){
-			newValues += s+"='"+row.get(s)+"' ";
+			newValues += s+"='"+row.get(s)+"', ";
 		}
-		
+		newValues = newValues.substring(0, newValues.length() - 1);
+
 		try {
 			String sql = "UPDATE "+tableName+" SET "+newValues+" WHERE User_Name='"+pkName+"'";
 
