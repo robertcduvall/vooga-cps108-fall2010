@@ -41,6 +41,12 @@ public class GameView extends JPanel{
 		add(startButton());
 	}
 	
+	public void changeGame(String game)
+	{
+		gameName = game;
+		initialize();
+	}
+	
 	public JLabel setSplashScreen()
 	{
 		splash = new ImageIcon(gameProperties.get("splash")[0]);
