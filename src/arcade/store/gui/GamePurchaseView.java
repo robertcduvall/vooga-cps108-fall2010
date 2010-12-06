@@ -96,6 +96,10 @@ public class GamePurchaseView {
 
 	
 	public JLabel getCoverArt() {
+		if(coverArtHolder == null) {
+			coverArtHolder = new JLabel();
+			
+		}
 		return coverArtHolder;
 	}
 	
@@ -163,7 +167,7 @@ public class GamePurchaseView {
 	public JTextField getTitleField() {
 		if (titleField == null) {
 			titleField = new JTextField();
-
+			titleField.setEditable(false);
 		}
 		return titleField;
 	}
@@ -176,6 +180,7 @@ public class GamePurchaseView {
 	public JTextField getPriceField() {
 		if (priceField == null) {
 			priceField = new JTextField();
+			priceField.setEditable(false);
 		}
 		return priceField;
 	}
@@ -188,6 +193,7 @@ public class GamePurchaseView {
 	public JTextArea getDescriptionField() {
 		if (descriptionField == null) {
 			descriptionField = new JTextArea();
+			descriptionField.setEditable(false);
 		}
 		return descriptionField;
 	}
