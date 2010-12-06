@@ -82,7 +82,7 @@ public class FilepathListFrame extends AbstractListFrame {
 	public void handleNode(ResourceNode node) {
 
 		System.out.println(node.getAttribute("name"));
-
+		
 		myName = node.getAttribute("name");
 		myFilepath = node.getAttribute("path");
 		myDescription = node.getDescription();
