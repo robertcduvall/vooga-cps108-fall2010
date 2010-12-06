@@ -9,11 +9,12 @@ import arcade.store.account.UserShopAccount;
 import arcade.store.control.Control;
 import arcade.store.items.IItemInfo;
 import arcade.store.items.ItemFactory;
+import arcade.store.organizer.FilterByGenreOrganizer;
 import arcade.store.organizer.IOrganizer;
 
 public class StoreModel {
 
-	private static final String GAMES_DIRECTORY = "C:/Users/dhs9/workspace cs108/vooga/src/arcade/store/gui/resources/games";
+	private static final String GAMES_DIRECTORY = System.getProperty("user.dir")+"/src/arcade/store/gui/resources/games";
 	
 //	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	private UserShopAccount currentUser;
@@ -39,6 +40,15 @@ public class StoreModel {
 //		currentUser.purchaseItem(storeCatalogue.get(item));
 	}
 	
+	public List<IItemInfo> filter(String genreName) {
+		if(genreName == "All") {
+			return getAllItems();
+		}
+		FilterByGenreOrganizer org = new FilterByGenreOrganizer();
+		List<IItemInfo> answer = org.organize(getAllItems(), genreName);
+		return answer;
+	}
+	
 	public List<IItemInfo> getAllItems()
 	{
 		ArrayList<IItemInfo> allItems = new ArrayList<IItemInfo>();
@@ -51,6 +61,7 @@ public class StoreModel {
 	
 	public String[] getGenres() {
 		ArrayList<String> list = new ArrayList<String>();
+		list.add("All");
 		for(String key : storeCatalogue.keySet()) {
 			list.add(storeCatalogue.get(key).getGenre());
 		}

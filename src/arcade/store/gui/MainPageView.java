@@ -78,7 +78,7 @@ public class MainPageView {
 			genreList = new JList();
 			genreList.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					
+					controller.filter((String)genreList.getSelectedValue());
 				}
 			});
 		}
