@@ -59,7 +59,7 @@ public class MainFrame extends JFrame {
 			//TODO load from database
 			Profile bob = new Profile("bob");
 			bob.setName("Bob", "Smith");
-			bob.setBirthday(new Date(89, 6, 10));
+			bob.setBirthday("10/6/89");
 			bob.setEmail("abc123@cs.duke.edu");
 			bob.setAvatar("http://mystuffspace.com/graphic/blue-playboy-bunny.gif");
 			jPanel = new HomePage(bob);

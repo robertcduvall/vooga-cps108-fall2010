@@ -9,6 +9,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import arcade.lobby.controller.Validator;
+
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -37,9 +39,10 @@ public class Login extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		this.setSize(400, 300);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Login");
+		
 	}
 
 	/**
@@ -136,6 +139,14 @@ public class Login extends JFrame {
 					password = new String(passwordField.getPassword());
 					//Verify username + password combination and login
 					System.out.println(username+" is logging in with pw: "+password.toString());
+					if(!Validator.checkUsername(username)){
+						System.out.println("user exists");
+						jContentPane = new DefaultPanel();
+						setContentPane();
+					}
+					else{
+						System.out.println("This username does not exist");
+					}
 				}
 			});
 		}
@@ -155,11 +166,17 @@ public class Login extends JFrame {
 			registerButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//TODO Create new Profile
+					jContentPane = new RegisterPanel();
+					setContentPane();
 					System.out.println("Create new profile");
 				}
 			});
 		}
 		return registerButton;
+	}
+	
+	private void setContentPane(){
+		this.setContentPane(jContentPane);
 	}
 
 	/**
