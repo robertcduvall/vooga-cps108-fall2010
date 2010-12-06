@@ -1,7 +1,6 @@
 package arcade.core;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,6 @@ import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
@@ -21,6 +19,7 @@ public class GameView extends JPanel implements ActionListener{
 	private GameParser gameParser;
 	private String gameName;
 	private Map<String, String[]> gameProperties;
+	private JButton start;
 	
 	public GameView(String game)
 	{
@@ -60,7 +59,7 @@ public class GameView extends JPanel implements ActionListener{
 	
 	public JButton startButton()
 	{
-		JButton start = new JButton("Start");
+		start = new JButton("Start");
 		start.setActionCommand("start");
 		start.addActionListener(this);
 		return start;
@@ -68,7 +67,7 @@ public class GameView extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if ("start".equals(e.getActionCommand()))
+		if (e.getSource() == start)
 		{
 			try {
 				Class<?> newGame = Class.forName("vooga.games." + gameName + ".Blah");
@@ -87,7 +86,7 @@ public class GameView extends JPanel implements ActionListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
-        GameView newContentPane = new GameView("zombieland");
+        GameView newContentPane = new GameView("grandius");
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
 

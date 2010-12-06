@@ -118,7 +118,7 @@ public class GameEndState extends GameState {
 	
 	private void initControls(){
 		Control gameControl = new KeyboardControl(myGame,myGame);
-		gameControl.addInput(KeyEvent.VK_SPACE, "restartGame", "vooga.games.mariogame.DropThis");
+		gameControl.addInput(KeyEvent.VK_SPACE, "restartGame", "vooga.games.mariogame.Blah");
 		((PlayField)this.getUpdateField().toArray()[0]).addControl("start", gameControl);
 	}
 }

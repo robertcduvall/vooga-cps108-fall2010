@@ -49,8 +49,8 @@ public class Blah extends Game {
 	 */
 	 public void initControls() {
 		 gameControl = new KeyboardControl(this, this);
-		 gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.grandius.DropThis");
-		 gameControl.addInput(KeyEvent.VK_U, "unpauseGame", "vooga.games.grandius.DropThis");
+		 gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.grandius.Blah");
+		 gameControl.addInput(KeyEvent.VK_U, "unpauseGame", "vooga.games.grandius.Blah");
 	 }
 
 	 /**

@@ -44,7 +44,7 @@ public class PlayState extends GameState {
 	private static final String GAME_DELAY_STRING = "gameDelay";
 	private static final String DOODLE_GROUP_STRING = "doodleGroup";
 	private static final String DOODLE_VOOGA_PATH_STRING = "vooga.games.doodlejump.DoodleSprite";
-	private static final String GAME_VOOGA_PATH_STRING = "vooga.games.doodlejump.BlahThis";
+	private static final String GAME_VOOGA_PATH_STRING = "vooga.games.doodlejump.Blah";
 	private static final String MOVE_LEFT_STRING = "moveLeft";
 	private static final String MOVE_RIGHT_STRING = "moveRight";
 	private static final String SHOOT_STRING = "shoot";

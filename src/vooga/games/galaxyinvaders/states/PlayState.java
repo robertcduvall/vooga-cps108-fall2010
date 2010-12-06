@@ -41,7 +41,7 @@ public class PlayState extends GameState{
 		// this is a cheat code. it kills all the enemies on the screen and advances you to the next level
 		gameControl.addInput(KeyEvent.VK_T, "clearEnemies", "vooga.games.galaxyinvaders.states.PlayState");
 //		gameControl.addInput(KeyEvent.VK_P, "pauseGame", "vooga.games.galaxyinvaders.DropThis");
-		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.DropThis");
+		gameControl.addInput(KeyEvent.VK_R, "startNewGame", "vooga.games.galaxyinvaders.Blah");
 		myField.addControl("game", gameControl);
 		
 	}
