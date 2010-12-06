@@ -61,6 +61,7 @@ public class View extends JFrame implements Viewer {
 	public void changeFrames(Collection<AbstractListFrame> frames) {
 
 		centralPanel.removeAll();
+		centralPanel.updateUI();
 
 		for (AbstractListFrame alf : frames) {
 			centralPanel.add(alf);
