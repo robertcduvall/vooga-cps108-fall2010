@@ -14,6 +14,7 @@ public class GameParser {
 			
 			String gamePropertiesFile = "vooga.games." + game + ".resources.game";
 			properties = ResourceBundle.getBundle(gamePropertiesFile);
+			gameMap.put("splash", new String[]{properties.getString("splashImage")});
 			gameMap.put("name", new String[]{properties.getString("name")});
 			gameMap.put("genre", new String[]{properties.getString("genre")});
 			gameMap.put("description", new String[]{properties.getString("description")});

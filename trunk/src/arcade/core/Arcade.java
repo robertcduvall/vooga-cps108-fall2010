@@ -16,8 +16,8 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Arcade extends JFrame {
 	private static final String delimiter = ",";
-	private static final int defaultXSize = 640;
-	private static final int defaultYSize = 480;
+	private static final int defaultXSize = 1000;
+	private static final int defaultYSize = 750;
 
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
