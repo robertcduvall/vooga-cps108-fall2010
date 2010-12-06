@@ -10,6 +10,7 @@ import arcade.mod.model.ResourceNode;
 import arcade.mod.model.XMLModel;
 import arcade.mod.view.AbstractListFrame;
 import arcade.mod.view.View;
+import arcade.mod.view.Viewer;
 
 /**
  * 
@@ -24,10 +25,10 @@ import arcade.mod.view.View;
  * @author Vitor
  * 
  */
-public class Controller {
+public class Controller implements Presenter{
 
 	Model myModel;
-	View myView;
+	Viewer myView;
 	FrameFactory myFactory;
 
 	/**
@@ -36,19 +37,18 @@ public class Controller {
 	public Controller() {
 		myFactory = new FrameFactory();
 		myView = new View(this);
-		File xmlFile = myView.loadFile();
-		if(xmlFile!=null){
-		try {
-			myModel = new XMLModel(xmlFile);
-		} catch (Exception e) {
-			// TODO show dialogue in view
-			e.printStackTrace();
-		}
-		} else
-		{
+		File xmlFile = myView.openFileSelect();
+		if (xmlFile != null) {
+			try {
+				myModel = new XMLModel(xmlFile);
+			} catch (Exception e) {
+				// TODO show dialogue in view
+				e.printStackTrace();
+			}
+		} else {
 			System.exit(1);
 		}
-		myView.initializeOnStart();
+		myView.initialize();
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Controller {
 	 * Ask the model to get resources of a specified category. Tell the View to
 	 * change the frames.
 	 */
-	public void framesHaveChanged() {
+	public void newCategorySelected() {
 		List<ResourceNode> nodes = myModel.getResourcesFromCategory(myView
 				.getCurrentCategory());
 		myView.changeFrames(convertToView(nodes));
@@ -83,7 +83,9 @@ public class Controller {
 		List<AbstractListFrame> frames = new ArrayList<AbstractListFrame>();
 		for (ResourceNode node : nodes) {
 
-			frames.add(myFactory.createFrame(myView.getCurrentCategory(), node));
+			frames
+					.add(myFactory.createFrame(myView.getCurrentCategory(),
+							node));
 		}
 		return frames;
 	}
@@ -92,8 +94,8 @@ public class Controller {
 	 * Save an XML file
 	 */
 	public void save() {
-		File saveFile = myView.requestSaveLocation();
-		if(saveFile!=null){
+		File saveFile = myView.saveFileSelect();
+		if (saveFile != null) {
 			myModel.writeResources(saveFile);
 		}
 	}
