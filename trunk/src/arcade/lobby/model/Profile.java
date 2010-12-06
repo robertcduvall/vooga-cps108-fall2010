@@ -3,6 +3,7 @@ package arcade.lobby.model;
 
 
 public class Profile {
+	private int myUserId;
 	private String myUserName;
 	private String myFirstName;
 	private String myLastName;
@@ -13,6 +14,10 @@ public class Profile {
 	
 	public Profile(String userName) {
 		myUserName = userName;
+	}
+	
+	public void setUserId(int i){
+		myUserId = i;
 	}
 	
 	public void setName(String first,String last) {
