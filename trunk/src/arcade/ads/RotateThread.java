@@ -19,7 +19,6 @@ public class RotateThread extends Thread {
 
 	public RotateThread(AdsManager manager) {
 		this.manager = manager;
-		System.out.println("here");
 	}
 
 	/**
