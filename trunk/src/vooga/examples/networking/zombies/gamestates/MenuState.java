@@ -10,8 +10,8 @@ import vooga.engine.control.MouseControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
-import vooga.games.zombieland.Blah;
-import vooga.games.zombieland.Constants;
+import vooga.examples.networking.zombies.Blah;
+import vooga.examples.networking.zombies.Constants;
 
 public abstract class MenuState extends GameState implements Constants {
 	private Blah game;

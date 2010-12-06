@@ -2,9 +2,9 @@ package vooga.examples.networking.zombies.events;
 
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
-import vooga.games.zombieland.Shooter;
-import vooga.games.zombieland.Zombie;
-import vooga.games.zombieland.gamestates.PlayState;
+import vooga.examples.networking.zombies.Shooter;
+import vooga.examples.networking.zombies.Zombie;
+import vooga.examples.networking.zombies.gamestates.PlayState;
 
 public class LevelEndEvent implements IEventHandler {
 

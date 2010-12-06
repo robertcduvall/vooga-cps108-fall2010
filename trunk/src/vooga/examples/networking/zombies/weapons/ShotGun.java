@@ -1,6 +1,6 @@
 package vooga.examples.networking.zombies.weapons;
 
-import vooga.games.zombieland.Shooter;
+import vooga.examples.networking.zombies.Shooter;
 import vooga.engine.resource.Resources;
 
 /**

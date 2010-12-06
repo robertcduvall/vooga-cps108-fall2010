@@ -15,12 +15,12 @@ import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
-import vooga.games.zombieland.*;
-import vooga.games.zombieland.events.*;
+import vooga.examples.networking.zombies.*;
+import vooga.examples.networking.zombies.events.*;
 
 public class PlayState extends GameState implements Constants {
 
-	private static final String PLAY_XML_PATH = "src/vooga/games/zombieland/resources/levels/baselevel.xml";
+	private static final String PLAY_XML_PATH = "src/vooga/examples/networking/zombies/resources/levels/baselevel.xml";
 
 	private static Blah currentGame;
 
@@ -77,8 +77,7 @@ public class PlayState extends GameState implements Constants {
 
 		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
 
-		LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,
-				additems);
+		LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,additems);
 
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		AddBulletsEvent addbullets = new AddBulletsEvent(bullets);

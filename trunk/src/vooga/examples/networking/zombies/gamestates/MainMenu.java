@@ -1,7 +1,7 @@
 package vooga.examples.networking.zombies.gamestates;
 
 import java.awt.event.KeyEvent;
-import vooga.games.zombieland.Blah;
+import vooga.examples.networking.zombies.Blah;
 
 public class MainMenu extends MenuState {
 

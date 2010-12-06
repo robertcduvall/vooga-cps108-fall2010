@@ -1,13 +1,13 @@
 package vooga.examples.networking.zombies;
 
-import com.golden.gamedev.object.AnimatedSprite;
-
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.AnimationUtil;
-import vooga.games.zombieland.events.AddRandomItemEvent;
-import vooga.games.zombieland.gamestates.PlayState;
+import vooga.examples.networking.zombies.events.AddRandomItemEvent;
+import vooga.examples.networking.zombies.gamestates.PlayState;
+
+import com.golden.gamedev.object.AnimatedSprite;
 
 /**
  * Zombie Class. Contains all behavior and controls for zombies in the game

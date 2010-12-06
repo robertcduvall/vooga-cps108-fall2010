@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Level name="baseLevel" xmloverlaypath="src/vooga/games/zombieland/resources/overlays.xml" >
+<Level name="baseLevel" xmloverlaypath="src/vooga/examples/networking/zombies/resources/overlays.xml" >
 
 	<SpriteGroups>
 	
@@ -14,7 +14,7 @@
 		</SpriteGroup>
 		
 		<SpriteGroup name="Players" >
-			<Sprite class="vooga.games.zombieland.Shooter" random="false" x="350" y="250" vx="0" vy="0" quantity="1">
+			<Sprite class="vooga.examples.networking.zombies.Shooter" random="false" x="350" y="250" vx="0" vy="0" quantity="1">
 			<Visual name="playerleft" />
 			<Visual name="playerright" />
 			<Visual name="playerup" />

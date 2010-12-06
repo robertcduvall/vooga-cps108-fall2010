@@ -1,6 +1,6 @@
 package vooga.examples.networking.zombies.items;
 
-import vooga.games.zombieland.Shooter;
+import vooga.examples.networking.zombies.Shooter;
 
 import com.golden.gamedev.object.Sprite;
 /**

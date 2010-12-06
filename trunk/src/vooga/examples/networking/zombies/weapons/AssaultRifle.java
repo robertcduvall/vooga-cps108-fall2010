@@ -1,7 +1,7 @@
 package vooga.examples.networking.zombies.weapons;
 
 import vooga.engine.resource.Resources;
-import vooga.games.zombieland.Shooter;
+import vooga.examples.networking.zombies.Shooter;
 
 /**
  * Same as a Pistol, with a lower firing delay, higher damage, and faster

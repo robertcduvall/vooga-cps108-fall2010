@@ -9,10 +9,10 @@ import com.golden.gamedev.object.SpriteGroup;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
-import vooga.games.zombieland.Shooter;
-import vooga.games.zombieland.items.HealthItem;
-import vooga.games.zombieland.items.Item;
-import vooga.games.zombieland.items.WeaponItem;
+import vooga.examples.networking.zombies.Shooter;
+import vooga.examples.networking.zombies.items.HealthItem;
+import vooga.examples.networking.zombies.items.Item;
+import vooga.examples.networking.zombies.items.WeaponItem;
 
 public class AddRandomItemEvent implements IEventHandler {
 

@@ -2,7 +2,13 @@ package vooga.examples.networking.zombies;
 
 
 import vooga.engine.core.Game;
-import vooga.games.zombieland.gamestates.*;
+import vooga.examples.networking.zombies.gamestates.CreditMenu;
+import vooga.examples.networking.zombies.gamestates.EndGameState;
+import vooga.examples.networking.zombies.gamestates.HelpMenu1;
+import vooga.examples.networking.zombies.gamestates.HelpMenu2;
+import vooga.examples.networking.zombies.gamestates.MainMenu;
+import vooga.examples.networking.zombies.gamestates.PauseState;
+import vooga.examples.networking.zombies.gamestates.PlayState;
 
 /**
  * @date 10-8-10
