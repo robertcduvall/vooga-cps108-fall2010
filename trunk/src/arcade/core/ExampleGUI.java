@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-public class ExampleGUI extends JFrame{
+public class ExampleGUI extends Tab{
 
 	private JLabel codeL, displayL;
 	private JTextField codeTF, displayTF;
@@ -38,32 +38,8 @@ public class ExampleGUI extends JFrame{
 	public ExampleGUI()
 	{
 		tk = Toolkit.getDefaultToolkit();
-		
-		JTabbedPane tabbedPane = new JTabbedPane();
-
-		JComponent panel1 = makeCustomPanel();
-		tabbedPane.addTab("Arcade", null, panel1,
-		"This is the Arcade tab");
-
-		JComponent panel2 = makeTextPanel("Lobby");
-		tabbedPane.addTab("Lobby", null, panel2,
-		"This is the Lobby tab");
-
-		JComponent panel3 = makeTextPanel("Store");
-		tabbedPane.addTab("Store", null, panel3,
-		"This is the Store tab");
-		
-        add(tabbedPane);
-        
-        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-
 		int xSize = ((int) tk.getScreenSize().getWidth());  
-		int ySize = ((int) tk.getScreenSize().getHeight());  
-
-		setSize(xSize,ySize);  
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		int ySize = ((int) tk.getScreenSize().getHeight()); 
 	}
 	
 	protected JComponent makeTextPanel(String text) {

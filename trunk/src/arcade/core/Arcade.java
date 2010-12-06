@@ -9,6 +9,7 @@ import javax.swing.*;
  * Arcade
  * 
  * Main arcade class. This creates the application window GUI.
+ * 
  * @author Derek Zhou, Yang Su, Aaron Choi
  * 
  */
@@ -17,13 +18,15 @@ public class Arcade extends JFrame {
 	private static final String delimiter = ",";
 	private static final int defaultXSize = 640;
 	private static final int defaultYSize = 480;
-	
+
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
 			.getBundle("arcade.core.componentList");
 
 	public Arcade() {
-		add(createTabs());
+		JTabbedPane mainWindow = createTabs();
+		mainWindow.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		add(mainWindow);
 
 		setSize(defaultXSize, defaultYSize);
 		setVisible(true);
@@ -31,31 +34,33 @@ public class Arcade extends JFrame {
 
 		createWindows();
 	}
-	
+
 	/**
 	 * Create all tabs in the window
+	 * 
 	 * @return initialized Tabbed Pane
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-		JPanel main = createPanels("panels");
-		everything.addTab("Arcade", null, main, "Arcade Main View");
+//		JPanel main = createPanels("panels");
+//		everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
 			try {
 				Tab t = (Tab) getObject(classname);
-				everything.addTab(t.getComponentName(), null, t,
-						t.getComponentDescription());
+				everything.addTab(t.getName(), null, t,
+						t.getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return everything;
 	}
-	
+
 	/**
-	 * Create panels in the main arcade view/tabs
+	 * Create panels in the main arcade view
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -74,7 +79,7 @@ public class Arcade extends JFrame {
 		}
 		return contents;
 	}
-	
+
 	/**
 	 * Create windows
 	 */
@@ -91,7 +96,7 @@ public class Arcade extends JFrame {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param classname
@@ -108,9 +113,10 @@ public class Arcade extends JFrame {
 		Class<?> c = Class.forName(classname);
 		return c.getConstructor().newInstance();
 	}
-	
+
 	/**
 	 * Get value from the resource bundle and return a list of classnames
+	 * 
 	 * @param name
 	 * @return
 	 */

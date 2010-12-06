@@ -6,16 +6,7 @@ public class ExampleWindow extends Window {
 
 	public ExampleWindow() {
 		super(400, 400);
-	}
-
-	@Override
-	public String getComponentName() {
-		return "ExampleWindow";
-	}
-
-	@Override
-	public String getComponentDescription() {
-		return "This is an example";
+		setName("ExampleWindow");
 	}
 
 	@Override

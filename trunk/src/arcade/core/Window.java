@@ -10,7 +10,7 @@ import javax.swing.*;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class Window extends JFrame implements ArcadeComponent{
+public abstract class Window extends JFrame{
 	private static final int defaultXSize = 640;
 	private static final int defaultYSize = 480;
 

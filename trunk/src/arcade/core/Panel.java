@@ -9,7 +9,7 @@ import javax.swing.*;
  * @author Derek Zhou, Yang Su, Aaron Choi
  * 
  */
-public abstract class Panel extends JPanel implements ArcadeComponent {
+public abstract class Panel extends JPanel{
 	private String name;
 	
 	public Panel(){

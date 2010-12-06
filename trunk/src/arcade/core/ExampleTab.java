@@ -7,15 +7,7 @@ public class ExampleTab extends Tab {
 		JButton a=new JButton("sdf");
 		
 		add(a);
-	}
-
-	@Override
-	public String getComponentName() {
-		return "ExampleTab";
-	}
-
-	@Override
-	public String getComponentDescription() {
-		return "This is an example";
+		setToolTipText("This is an example");
+		setName("ExampleTab");
 	}
 }

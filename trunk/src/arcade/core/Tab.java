@@ -10,7 +10,7 @@ import javax.swing.*;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class Tab extends JPanel implements ArcadeComponent {
+public abstract class Tab extends JPanel {
 	public Tab(){
 		
 	}
