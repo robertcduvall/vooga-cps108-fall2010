@@ -6,6 +6,7 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
 import vooga.examples.networking.tictactoe.states.PlayState;
+import vooga.examples.networking.tictactoe.states.TicTacNetworkMenuState;
 import vooga.examples.networking.tictactoe.states.WaitingState;
 
 public class TicTacToe extends Game {
@@ -14,6 +15,7 @@ public class TicTacToe extends Game {
 	private static final String LEVEL_NAMES_FILE_STRING = "levelNamesFile";
 	private PlayState playState;
 	private LevelManager levelManager;
+	private WaitingState waitState;
 
 	public void initResources() {
 		super.initResources();
@@ -33,9 +35,15 @@ public class TicTacToe extends Game {
 		playState = new PlayState(this, levelManager, connection);
 		LevelParser levelParser = new LevelParser();
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
-		WaitingState waitState = new WaitingState(this, connection, waitField, playState);
+		waitState = new WaitingState(this, connection, waitField, playState);
+		TicTacNetworkMenuState networkMenuState = new TicTacNetworkMenuState(this);
+		stateManager.addGameState(networkMenuState);
 		stateManager.addGameState(waitState);
 		stateManager.addGameState(playState);
+		stateManager.switchTo(networkMenuState);
+	}
+	
+	public void startWaitState() {
 		stateManager.switchTo(waitState);
 	}
 
