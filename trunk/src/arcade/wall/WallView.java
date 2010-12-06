@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import arcade.wall.WallController;
+import arcade.wall.gui.RatingPanel;
 
 public class WallView {
 	WallController myController;
@@ -40,6 +41,7 @@ public class WallView {
 		
 		JPanel entryPanel = new JPanel();
 		JPanel displayPanel = new JPanel();
+		RatingPanel ratingPanel = new RatingPanel(5);
 		
 		JButton reviewButton = new JButton("Review");
 		JComboBox gameChoices = new JComboBox(choices);
@@ -63,6 +65,7 @@ public class WallView {
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		returnPanel.add(entryPanel);
 		returnPanel.add(displayPanel);
+		returnPanel.add(ratingPanel);
 		return returnPanel;
 	}
 
