@@ -24,8 +24,6 @@ public class DukeAds extends ImageAds
 
 	public void render(Graphics2D gs)
 	{
-		System.out.println(img==null);
-		System.out.println("rendered");
 		gs.drawImage(img, 0,0,800,600, null);
 
 	}
