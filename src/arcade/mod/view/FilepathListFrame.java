@@ -56,9 +56,10 @@ public class FilepathListFrame extends AbstractListFrame {
 				
 				myFileChooser.showDialog(FilepathListFrame.this, "Select");
 				File file = myFileChooser.getSelectedFile();
-				
-				myFilepath = file.getPath();
-				myNode.setAttribute("path", myFilepath);
+				if(file!=null){
+					myFilepath = file.getPath();
+					myNode.setAttribute("path", myFilepath);
+				}
 				
 				FilepathListFrame.this.filepathLabel.setText(myFilepath);
 								

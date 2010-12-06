@@ -37,11 +37,16 @@ public class Controller {
 		myFactory = new FrameFactory();
 		myView = new View(this);
 		File xmlFile = myView.loadFile();
+		if(xmlFile!=null){
 		try {
 			myModel = new XMLModel(xmlFile);
 		} catch (Exception e) {
 			// TODO show dialogue in view
 			e.printStackTrace();
+		}
+		} else
+		{
+			System.exit(1);
 		}
 		myView.initializeOnStart();
 	}
@@ -88,7 +93,9 @@ public class Controller {
 	 */
 	public void save() {
 		File saveFile = myView.requestSaveLocation();
-		myModel.writeResources(saveFile);
+		if(saveFile!=null){
+			myModel.writeResources(saveFile);
+		}
 	}
 
 	/**
