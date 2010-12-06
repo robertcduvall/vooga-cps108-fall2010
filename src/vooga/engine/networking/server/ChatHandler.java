@@ -1,22 +1,24 @@
 package vooga.engine.networking.server;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import vooga.engine.networking.GameSocket;
 
 public class ChatHandler extends Thread{
 	private GameSocket socket;
-	protected static Vector<ChatHandler> handlers = new Vector<ChatHandler>();
+	private int gameNumber;
+	protected static List<ChatHandler> handlers = new ArrayList<ChatHandler>();
 
-	public ChatHandler(GameSocket socket){
+	public ChatHandler(GameSocket socket, int gameNumber){
 		this.socket = socket;
+		this.gameNumber = gameNumber;
 	}
 
 	public void run () {
 		try {
-			handlers.addElement(this);
+			handlers.add(this);
 			while (true) {
 				String chat = socket.receive();
 				if(chat == null){
@@ -26,24 +28,26 @@ public class ChatHandler extends Thread{
 			}
 		} 
 		catch (IOException ex) {
-			handlers.removeElement(this);
+			handlers.remove(this);
 			socket.closeConnections();
 		}
 		finally {
-			handlers.removeElement(this);
+			handlers.remove(this);
 			socket.closeConnections();
 		}
 	}
 
 	protected static void broadcast (String chat, ChatHandler sender) {
 		synchronized (handlers) {
-			Enumeration<ChatHandler> e = handlers.elements();
-			while (e.hasMoreElements()) {
-				ChatHandler c = e.nextElement();
-				if(sender != c)
-					c.getSocket().send(chat);
+			for(ChatHandler handler : handlers){
+				if(handler.getGameNumber() == sender.getGameNumber() && sender != handler)
+					handler.getSocket().send(chat);
 			}
 		}
+	}
+	
+	public int getGameNumber(){
+		return gameNumber;
 	}
 	
 	public GameSocket getSocket(){
