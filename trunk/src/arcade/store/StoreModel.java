@@ -23,9 +23,7 @@ public class StoreModel {
 	public StoreModel(Control control)
 	{
 		storeCatalogue = ItemFactory.getAllItems(GAMES_DIRECTORY);
-		System.out.println(storeCatalogue.size());
 		controller = control;
-		
 		//currentUser = Security.getCurrentUser();
 		
 	}
@@ -38,7 +36,7 @@ public class StoreModel {
 	
 	public void processPurchase(String item)
 	{
-//		currentUser.purchaseItem(item);
+//		currentUser.purchaseItem(storeCatalogue.get(item));
 	}
 	
 	public List<IItemInfo> getAllItems()
@@ -51,7 +49,17 @@ public class StoreModel {
 		return allItems;
 	}
 	
-
+	public String[] getGenres() {
+		ArrayList<String> list = new ArrayList<String>();
+		for(String key : storeCatalogue.keySet()) {
+			list.add(storeCatalogue.get(key).getGenre());
+		}
+		String[] returnValue = new String[list.size()];
+		for(int k=0; k<returnValue.length; k++) {
+			returnValue[k] = list.get(k);
+		}
+		return returnValue;
+	}
 
 	
 	/**

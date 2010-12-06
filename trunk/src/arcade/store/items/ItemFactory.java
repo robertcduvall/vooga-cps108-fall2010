@@ -15,7 +15,7 @@ public class ItemFactory {
 		for(File file : files) {
 			String name = file.getName();
 			if(name.contains("properties")) {
-				ResourceBundle bundle = ResourceBundle.getBundle("vooga.src.arcade.store.gui.resources.games."+name.substring(0, name.indexOf(".")));
+				ResourceBundle bundle = ResourceBundle.getBundle("arcade.store.gui.resources.games."+name.substring(0, name.indexOf(".")));
 				String[] images = bundle.getString("coverartpath").split(",");
 				ArrayList<ImageIcon> imageIcons = new ArrayList<ImageIcon>();
 				for(String s : images) {
