@@ -2,9 +2,7 @@ package arcade.store.account;
 
 import java.util.*;
 
-import arcade.store.page.GamePage;
-import arcade.store.page.StorePage;
-
+import arcade.store.items.IItemInfo;
 /**
  * 
  * @author Drew Sternsky, Jimmy Mu, Marcus Molchany
@@ -15,21 +13,18 @@ public abstract class UserShopAccount {
 
 	private String accountID;
 	private String userName;
-	private Stack<StorePage> visitedPages;
 
 
 	public UserShopAccount(String user, String id) {
 		userName = user;
 		accountID = id;
-
-		visitedPages = new Stack<StorePage>();
 	}
 
 	/**
 	 * Tthis method overrides how a game is purchased
 	 * @param page
 	 */
-	public abstract void purchaseGame(GamePage page);
+	public abstract void purchaseGame(IItemInfo page);
 
 	/**
 	 * This method transact a change on a specific credit name
@@ -48,16 +43,6 @@ public abstract class UserShopAccount {
 	public abstract void transferInformation(PremiumShopAccount newAccount);
 	
 
-
-	public void recordGamePage(GamePage currentPage)
-	{
-		visitedPages.add(currentPage);
-	}
-
-	public StorePage goToPreviousGamePage()
-	{
-		return visitedPages.pop();
-	}
 
 	public String getAccountID(){
 		return accountID;
