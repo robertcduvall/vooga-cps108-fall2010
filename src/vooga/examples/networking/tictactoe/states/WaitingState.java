@@ -23,9 +23,9 @@ public class WaitingState extends GameState{
 	
 	@Override
 	public void update(long t) {
-		int status = connection.getTheirMove();
+		int status = connection.getData();
 		if(status != Resources.getInt("wait")){
-			playState.checkMessages(status);
+			playState.interpretMessage(status);
 			game.getGameStateManager().switchTo(playState);
 		}
 		super.update(t);

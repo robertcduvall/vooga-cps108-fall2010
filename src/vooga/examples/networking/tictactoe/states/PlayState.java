@@ -117,6 +117,7 @@ public class PlayState extends GameState{
 				int col = pieceX / Resources.getInt("squareDimension");
 				int row = pieceY / Resources.getInt("squareDimension");
 				myTurn = false;
+				System.out.println("PlayState: if(add) col (pieceX) "+pieceX+" (Y) "+pieceY);
 				connection.sendMove(col * 10 + row);
 //			}
 //			else{
@@ -151,7 +152,7 @@ public class PlayState extends GameState{
 		oMove = move;
 	}
 	
-	public void checkMessages(int status){
+	public void interpretMessage(int status){
 		if(status == Resources.getInt("theyQuit"))
 			quit = true;
 		else if(status == Resources.getInt("error"))
@@ -197,7 +198,7 @@ public class PlayState extends GameState{
 		}
 		super.update(elapsedTime);
 		if(connection.isConnected() && !myTurn){
-			checkMessages(connection.getTheirMove());
+			interpretMessage(connection.getData());
 		}
 	}
 }

@@ -25,10 +25,10 @@ public class TheirTurnState extends GameState{
 	@Override
 	public void update(long t) {
 		if(checkDelay == 0){
-			int status = connection.getTheirMove();
+			int status = connection.getData();
 			if(status != Resources.getInt("theirTurn")){
 				checkDelay = 1;
-				playState.checkMessages(status);
+				playState.interpretMessage(status);
 				game.getGameStateManager().switchTo(playState);
 			}
 		}
