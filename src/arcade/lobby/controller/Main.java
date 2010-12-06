@@ -2,7 +2,6 @@ package arcade.lobby.controller;
 
 import javax.swing.JFrame;
 
-import arcade.lobby.model.MySqlAdapter;
 import arcade.lobby.model.ProfileSet;
 import arcade.lobby.view.LoginPanel;
 import arcade.lobby.view.Menu;
@@ -39,8 +38,8 @@ public class Main {
 	        
 	        MainFrame.setVisible(true);
 	        
-			MySqlAdapter myDbAdapter = new MySqlAdapter("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "voogaarcade", "Vooga108");
-			System.out.println(myDbAdapter.getRow("Users", "test1"));
+//			MySqlAdapter myDbAdapter = new MySqlAdapter("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "voogaarcade", "Vooga108");
+//			System.out.println(myDbAdapter.getRow("Users", "test1"));
 			
 	    }
 }

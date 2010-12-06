@@ -17,8 +17,7 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public int size() {
-		String[] col = myDbAdapter.getColumn(myTable, "User_Name");
-		return col.length;
+		return myDbAdapter.getColumn(myTable, "User_Name").size();
 	}
 
 	public boolean addProfile(Profile profile) {
@@ -43,7 +42,7 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public Profile getProfile(String userName) {
-		Map<String, String> row = myDbAdapter.getRow(myTable, userName);
+		Map<String, String> row = myDbAdapter.getRows(myTable, "User_Name", userName).get(0);
 		if(row==null) return null;
 		Profile userProf = new Profile(userName);
 		userProf.setName(row.get("First_Name"), row.get("Last_Name"));
@@ -58,7 +57,7 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public Profile getProfile(int rowNo) {
-		return getProfile(myDbAdapter.getColumn(myTable, "User_Name")[rowNo]);
+		return getProfile(myDbAdapter.getColumn(myTable, "User_Name").get(rowNo));
 	}
 
 	@Override
