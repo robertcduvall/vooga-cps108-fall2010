@@ -10,7 +10,7 @@ import vooga.engine.util.XMLFileParser;
 
 public class VoogaServer {
 	public static void main(String args[ ]) {
-		XMLDocumentCreator xmlCreator = new XMLFileParser("vooga/engine/networking/server/voogaGames.xml");
+		XMLDocumentCreator xmlCreator = new XMLFileParser("src/vooga/engine/networking/server/voogaGames.xml");
 		Document xmlDocument = null;
 		try {
 			xmlDocument = xmlCreator.getDocument();
