@@ -45,6 +45,8 @@ public class ExampleGUI extends Tab{
 
 	private static String gameName="cyberion";
 	private static JPanel content;
+	
+	private static JSplitPane columnar;
 	public ExampleGUI()
 	{
 		tk = Toolkit.getDefaultToolkit();
@@ -53,8 +55,8 @@ public class ExampleGUI extends Tab{
 	}
 	
 	public JComponent getContent() {
-		setContent();
-	    JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+		
+	    columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 	    		makeLeftPanel(), content);
 	    columnar.setOneTouchExpandable(true);
 	    columnar.setDividerLocation(.25);
@@ -63,12 +65,13 @@ public class ExampleGUI extends Tab{
 	    		columnar, makeRightPanel());
 	    mainPanel.setOneTouchExpandable(true);
 	    mainPanel.setDividerLocation(.75);
-	    
+	    setContent();
 	    return mainPanel;
     }
 	
 	private static void setContent(){
 		content=new GameView(gameName);
+		columnar.setRightComponent(content);
 	}
 	
 	public static void setGame(String name){
