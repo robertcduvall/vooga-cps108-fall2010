@@ -19,7 +19,7 @@ import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 
 /**
- * 
+ * MainFrame will be launched after successfully login and contain SecurityDesktop.
  * @author Meng Li
  *
  */

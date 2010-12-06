@@ -10,7 +10,9 @@ import java.util.Properties;
 
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 /**
- * 
+ * This class takes care of reading the .properties file from a specific folder path.
+ * All the keys and its values in those .properties file will be returned as a SecurityFrameData
+ * Object.  
  * @author Meng Li
  *
  */

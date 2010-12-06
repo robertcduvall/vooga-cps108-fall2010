@@ -54,7 +54,8 @@ public class GuestConfigurationFrame extends UserConfigurationFrame
 		this.setFrameIcon(new ImageIcon(StaticFileResources.getPath("guestinternalframeicon")));	//to do
 		this.setLayout(new BorderLayout());  
 		currentContentPane=this.getContentPane();	 //get the current container,so new component can be added on when the mouse clicked  			pack();
-
+		pack();
+		
 		adminButton = new JCheckBox(LabelResources.getLabel("AdminPrivilegeButton"));
      	adminButton.setSelected(false);
      	
@@ -76,7 +77,7 @@ public class GuestConfigurationFrame extends UserConfigurationFrame
      	add(checkPanel);
      	
 		
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
 

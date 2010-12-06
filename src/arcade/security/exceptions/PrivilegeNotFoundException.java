@@ -1,7 +1,7 @@
 package arcade.security.exceptions;
 
 /**
- * 
+ * Handle privileges not found in the privilegeMap. 
  * @author Meng Li
  *
  */
