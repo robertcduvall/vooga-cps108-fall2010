@@ -3,6 +3,8 @@ package arcade.mod.model;
 import java.util.Collection;
 import java.util.List;
 
+import org.w3c.dom.Node;
+
 /**
  * Contains all the available information on a Resource in the 
  * model. This may include children, attributes, and a description.
@@ -50,5 +52,7 @@ public interface ResourceNode {
 	 * @return description of this ResourceNode
 	 */
 	public String getDescription();
+	
+	public Node getNode();
 
 }

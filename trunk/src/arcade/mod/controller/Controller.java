@@ -25,7 +25,7 @@ import arcade.mod.view.Viewer;
  * @author Vitor
  * 
  */
-public class Controller implements Presenter{
+public class Controller implements Presenter {
 
 	Model myModel;
 	Viewer myView;
@@ -66,6 +66,7 @@ public class Controller implements Presenter{
 	 * change the frames.
 	 */
 	public void newCategorySelected() {
+
 		List<ResourceNode> nodes = myModel.getResourcesFromCategory(myView
 				.getCurrentCategory());
 		myView.changeFrames(convertToView(nodes));
@@ -83,9 +84,7 @@ public class Controller implements Presenter{
 		List<AbstractListFrame> frames = new ArrayList<AbstractListFrame>();
 		for (ResourceNode node : nodes) {
 
-			frames
-					.add(myFactory.createFrame(myView.getCurrentCategory(),
-							node));
+			frames.add(myFactory.createFrame(myView.getCurrentCategory(), node));
 		}
 		return frames;
 	}
