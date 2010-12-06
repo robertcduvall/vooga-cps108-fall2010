@@ -12,9 +12,11 @@ public class GameParser {
 	{
 		try {
 			
-			String gamePropertiesFile = game;
+			String gamePropertiesFile = "vooga.games." + game + ".resources.game";
 			properties = ResourceBundle.getBundle(gamePropertiesFile);
+			gameMap.put("name", new String[]{properties.getString("name")});
 			gameMap.put("genre", new String[]{properties.getString("genre")});
+			gameMap.put("description", new String[]{properties.getString("description")});
 			parseTags(gameMap);
 			parseInstructions(gameMap);
 		} 
