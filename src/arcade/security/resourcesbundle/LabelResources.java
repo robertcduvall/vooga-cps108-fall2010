@@ -2,7 +2,11 @@ package arcade.security.resourcesbundle;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class LabelResources {
 	//the base name getBundle should look like this: meng_Inter.**.**.**
 	private static ResourceBundle rb = ResourceBundle.getBundle("arcade.security.resources.labels");	

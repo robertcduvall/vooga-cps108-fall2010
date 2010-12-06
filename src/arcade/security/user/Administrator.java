@@ -1,12 +1,15 @@
 package arcade.security.user;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import arcade.security.exceptions.PrivilegeNotFoundException;
 import arcade.security.privileges.PrivilegeMap;
 
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class Administrator extends AdminClass {
 	
 	public Administrator(){

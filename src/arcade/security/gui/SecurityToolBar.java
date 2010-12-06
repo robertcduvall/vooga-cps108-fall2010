@@ -1,7 +1,11 @@
 package arcade.security.gui;
 
 import javax.swing.JToolBar;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class SecurityToolBar extends JToolBar {
 

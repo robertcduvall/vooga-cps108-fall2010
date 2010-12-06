@@ -18,6 +18,11 @@ import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	

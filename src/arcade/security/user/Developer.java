@@ -3,7 +3,11 @@ package arcade.security.user;
 import java.util.Map;
 
 import arcade.security.privileges.PrivilegeMap;
-
+/**
+ * 
+ * @author Meng Li
+ *
+ */
 public class Developer extends AdminClass {
 	
 	@Override
