@@ -8,6 +8,16 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Adapter to make a Node from an 
+ * XML Document act as a ResourceNode. The 
+ * children are the nested elements, the attributes 
+ * are the attributes, the Description is the text held
+ * in the child named "Description"
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class XMLNode implements ResourceNode {
 
 	private static final String NO_DESCRIPTION = "No description";
