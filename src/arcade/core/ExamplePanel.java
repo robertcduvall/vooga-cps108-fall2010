@@ -8,16 +8,8 @@ public class ExamplePanel extends Panel {
 		JButton a = new JButton("Hello");
 
 		add(a);
-	}
-
-	@Override
-	public String getComponentName() {
-		return "ExampleTab";
-	}
-
-	@Override
-	public String getComponentDescription() {
-		return "This is an example";
+		setToolTipText("This is an example");
+		setName("ExamplePanel");
 	}
 
 }
