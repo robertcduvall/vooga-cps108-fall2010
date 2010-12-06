@@ -14,8 +14,8 @@ import vooga.engine.core.Game;
 public class GameSelection extends Tab {
 	private static String[] gameNames = { "asteroids", "cyberion", 
 
-			"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
-			"towerdefense", "zombieland" };
+		"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
+		"towerdefense", "zombieland" };
 	public static JPanel panel;
 	public static JTextField searchArea;
 	public static String currentGame = "";
@@ -58,22 +58,30 @@ public class GameSelection extends Tab {
 			Arcade.play(gameName);
 		}
 	}
-	
+
 	public JComponent addSearchFunction() {
 		JPanel search = new JPanel(new FlowLayout());
 		searchArea = new JTextField("Enter Search Terms", 25);
 		JButton searchButton = new JButton("Search");
 		searchButton.addActionListener(new SearchButtonListener());
+		JButton revert = new JButton("See all games");
+		revert.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				displayAllGames();
+			}
+		});
 		search.add(searchArea);
 		search.add(searchButton);
+		search.add(revert);
 		return search;
 	}
 
 	public class SearchButtonListener implements ActionListener
 	{
 		ResourceBundle resources;
-  	   List<String> rightGames = new ArrayList<String>();
-  	   String[] searchTerms;
+		List<String> rightGames = new ArrayList<String>();
+		String[] searchTerms;
 		public SearchButtonListener()
 		{
 			searchTerms = searchArea.getText().split(" ");
@@ -82,44 +90,51 @@ public class GameSelection extends Tab {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			searchTerms = searchArea.getText().split(" ");
-     	   panel.removeAll();
-     	   panel.setLayout(new GridLayout(0,3));
-     	   panel.add(addSearchFunction());
-				try {
-					for (String game : gameNames)
+			panel.removeAll();
+			panel.setLayout(new GridLayout(0,3));
+			panel.add(addSearchFunction());
+
+			try {
+				for (String game : gameNames)
+				{
+					resources = ResourceBundle.getBundle("vooga.games." + game + ".resources.game");
+					String[] tags = resources.getString("tags").split(",");
+					for (String tag : tags)
 					{
-						resources = ResourceBundle.getBundle("vooga.games." + game + ".resources.game");
-						String[] tags = resources.getString("tags").split(",");
-						for (String tag : tags)
+						for (String term : searchTerms)
 						{
-							for (String term : searchTerms)
-							{
-								if (tag.equals(term.toLowerCase())){
-									panel.add(createItem(game));
-								}
+							if (tag.equals(term.toLowerCase())){
+								panel.add(createItem(game));
 							}
 						}
 					}
-					if (panel.getComponents().length ==1)
-						panel.add(new JLabel("No Games Found With Those Search Terms"));
-					
 				}
-				catch (Throwable e1) {
-					e1.printStackTrace();
-				}
-			
+				if (panel.getComponents().length <=1)
+					panel.add(new JLabel("No Games Found With Those Search Terms"));
+
+			}
+			catch (Throwable e1) {
+				e1.printStackTrace();
+			}
+
 		}
-		
+
 	}
-	
+
 	@Override
 	public JComponent getContent() {
 		panel = new JPanel(new GridLayout(0, 3));
+		displayAllGames();
+		return panel;
+	}
+
+	public void displayAllGames() {
+		panel.removeAll();
 		panel.add(addSearchFunction());
 		for (String name : gameNames) {
+			
 			panel.add(createItem(name));
 		}
-		return panel;
 	}
 
 }
