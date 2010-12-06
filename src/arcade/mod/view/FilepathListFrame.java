@@ -12,13 +12,9 @@ import arcade.mod.model.ResourceNode;
 
 public class FilepathListFrame extends AbstractListFrame {
 
-	private String myName;
-	private String myFilepath;
-	private String myDescription;
-	private JFileChooser myFileChooser;
-	private JLabel filepathLabel;
-	private JLabel descriptionLabel;
-
+	protected String myFilepath;
+	protected JFileChooser myFileChooser;
+	
 	public FilepathListFrame() {
 		// do nothing
 	}
@@ -42,13 +38,16 @@ public class FilepathListFrame extends AbstractListFrame {
 	@Override
 	public void makeComponents() {
 
-		JLabel label = new JLabel();
-		filepathLabel = new JLabel();
 		descriptionLabel = new JLabel();
 		descriptionLabel.setText(myDescription);
+		
+		JLabel label = new JLabel();
+		stringLabel = new JLabel();
+		
 		label.setText(myName);
-		filepathLabel.setText(myFilepath);
 
+		handleFileChange();
+		
 		JButton fileButton = new JButton("Select A File");
 
 		fileButton.addActionListener(new ActionListener() {
@@ -62,7 +61,7 @@ public class FilepathListFrame extends AbstractListFrame {
 					myNode.setAttribute("path", myFilepath);
 				}
 
-				FilepathListFrame.this.filepathLabel.setText(myFilepath);
+				handleFileChange();
 
 			}
 
@@ -71,8 +70,12 @@ public class FilepathListFrame extends AbstractListFrame {
 		add(label);
 		add(descriptionLabel);
 		add(fileButton);
-		add(filepathLabel);
+		add(stringLabel);
 
+	}
+	
+	public void handleFileChange() {
+		FilepathListFrame.this.stringLabel.setText(myFilepath);
 	}
 
 	@Override

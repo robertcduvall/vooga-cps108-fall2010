@@ -13,12 +13,19 @@ import arcade.mod.model.ResourceNode;
  * 
  */
 public abstract class AbstractListFrame extends JPanel {
+	
+	protected String myName;
+	protected String myDescription;
+
+	protected JLabel stringLabel;
+	protected JLabel descriptionLabel;
+	
 	protected static final int HEIGHT = 70;
 	protected final int WIDTH = 750;
 	protected ResourceNode myNode;
 
 	/**
-	 * Null contructer for the List Frame
+	 * Null constructor for the List Frame
 	 */
 	public AbstractListFrame() {}
 

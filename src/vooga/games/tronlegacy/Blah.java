@@ -8,47 +8,29 @@ import com.golden.gamedev.GameLoader;
 
 
 import vooga.engine.core.Game;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameStateManager;
 
 /**
  * @author BrentSodman
- * 
- *         Like Tron++
- * 
- *         Currently the levels and graphics are very simplistic, really there
- *         just to demonstrate that the APIs work.
- * 
  */
 
 public class Blah extends Game {
 
 	private static final int GAME_WIDTH = 480;
 	private static final int GAME_HEIGHT = 480;
-	private static final String DEFAULT_FILEPATH = "src/vooga/games/tronlegacy/resources/";
 
 	MainGameState playState = new MainGameState();
 	PauseState pauseState = new PauseState(this);
 	MenuState menuState;
 
-	GameStateManager stateManager = new GameStateManager();
-
 	public void initResources() {
-
-		Resources.initialize(this);
-		Resources.setDefaultPath(DEFAULT_FILEPATH);
-
+		super.initResources();
+		
 		OverlayCreator.setGame(this);
-
-		try {
-			Resources.loadPropertiesFile("game.properties");
-		} catch (IOException e) {
-			System.out.println("Error loading images from filepath: "
-					+ DEFAULT_FILEPATH);
-			this.stop();
-		}
-
+		
 		playState.initialize(this);
 		menuState = new MenuState(this);
 		
@@ -59,6 +41,8 @@ public class Blah extends Game {
 
 		playMusic(Resources.getSound("music"));
 	}
+	
+
 
 	public void render(Graphics2D g) {
 		stateManager.render(g);

@@ -12,11 +12,13 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ColorBackground;
 
-import vooga.engine.event.EventManager;
+import vooga.engine.control.Control;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.BetterSprite;
+import vooga.engine.factory.LevelManager;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.overlay.Stat;
-import vooga.engine.player.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
@@ -43,15 +45,14 @@ public class MainGameState extends GameState {
 			240);
 	private final static String LEVEL_FILEPATH = "src/vooga/games/tronlegacy/resources/levels/";
 	private final static Color BACKGROUND_COLOR = Color.BLACK;
-
-	private EventManager eventManager;
-	private TLevelManager levelManager;
+	
+	
+	private LevelManager levelManager;
 	private Stat<Integer> currentScore;
 	private CyclePlayer humanPlayer;
 	private CyclePlayer computerPlayer;
 	private KeyboardControl keyboardControl;
 	private Blah game;
-	private SpriteGroup players;
 	private SpriteGroup levelBlocks;
 	private SpriteGroup playerBlocks;
 	private SpriteGroup overlayGroup;
@@ -63,17 +64,21 @@ public class MainGameState extends GameState {
 	public void initialize(Blah currentGame) {
 		game = currentGame;
 		
-		eventManager = new EventManager();
-		levelManager = new TLevelManager();
-
-		initializePlayers();
-		initializeOverlays();
-		levelManager.addLevels(LEVEL_FILEPATH, new File("levels.txt"));
-
-		deployLevel();
+		initLevelManager();
+		
+		initialize();
+	}
+	
+	private void initLevelManager() {
+		levelManager = new LevelManager(game);
+		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
+		String levelNamesFile = Resources.getString("levelNamesFile");
+		levelManager.makeLevels(levelFilesDirectory,levelNamesFile);		
 	}
 
 	public void initializePlayers() {
+		
+		
 		Sprite humanSprite = new Sprite(Resources.getImage("humanPlayer"),
 				humanPlayerStartingLocation.x, humanPlayerStartingLocation.y);
 		Sprite computerSprite = new Sprite(
@@ -81,11 +86,10 @@ public class MainGameState extends GameState {
 				computerPlayerStartingLocation.x,
 				computerPlayerStartingLocation.y);
 
-		humanPlayer = new CyclePlayer("humanPlayer", "gameplay", humanSprite,
-				eventManager);
+		humanPlayer = new CyclePlayer("humanPlayer", humanSprite);
 
-		computerPlayer = new CyclePlayer("computerPlayer", "gameplay",
-				computerSprite, eventManager);
+		computerPlayer = new CyclePlayer("computerPlayer",
+				computerSprite);
 
 		resetPlayers();
 
@@ -95,46 +99,44 @@ public class MainGameState extends GameState {
 													   KeyEvent.VK_DOWN,
 													   KeyEvent.VK_LEFT,
 													   KeyEvent.VK_RIGHT);
-		players = new SpriteGroup("players");
-		players.add(humanPlayer);
-		players.add(computerPlayer);
+		
 	}
 	
 	private void initializeOverlays() {
 		OverlayTracker tracker = OverlayCreator
 				.createOverlays("src/vooga/games/tronlegacy/resources/overlays.xml");
 
-		overlayGroup = tracker.getOverlayGroups().get(0);
-		currentScore = tracker.getStats().get(0);
+		//overlayGroup = tracker.getOverlayGroups().get(0);
+		//currentScore = tracker.getStats().get(0);
 	}
 
-	public void deployLevel() {
-		currentPlayField = levelManager.getCurrentPlayField(new File(
-				LEVEL_FILEPATH + "/level" + currentLevel + ".txt"));
+	public void deployLevel(int targetLevel) {
+		currentPlayField = levelManager.skipToLevel(targetLevel);
 
 		currentPlayField.setBackground(new ColorBackground(BACKGROUND_COLOR));
 
 		resetPlayers();
 
 		playerBlocks = new SpriteGroup("playerBlocks");
-		levelBlocks = (currentPlayField.getGroup("levelSprites"));
-
-		currentPlayField.addGroup(players);
+		levelBlocks = (currentPlayField.getGroup("levelBlockGroup"));		
+		
 		currentPlayField.addGroup(playerBlocks);
 		currentPlayField.addGroup(overlayGroup);
 
-		currentPlayField.addCollisionGroup(players, players,
-				new TronCollision());
-		currentPlayField.addCollisionGroup(players, levelBlocks,
-				new TronCollision());
-		currentPlayField.addCollisionGroup(players, null, new TronBounds(
-				currentPlayField.getBackground()));
-		currentPlayField.addCollisionGroup(players, playerBlocks,
-				new TronCollision());
+		
+		//currentPlayField.addCollisionGroup(players, null, new TronBounds(
+		//		currentPlayField.getBackground()));
+		
 	}
 
 	public void deployPlayerBlocks() {
-		for (Sprite currentPlayer : players.getSprites()) {
+		for (Sprite currentPlayer : currentPlayField.getGroup("humanPlayerGroup").getSprites()) {
+			if (currentPlayer != null) {
+				blockQueue.add(new Sprite(currentPlayer.getImage(),
+						currentPlayer.getX(), currentPlayer.getY()));
+			}
+		}
+		for (Sprite currentPlayer : currentPlayField.getGroup("computerPlayerGroup").getSprites()) {
 			if (currentPlayer != null) {
 				blockQueue.add(new Sprite(currentPlayer.getImage(),
 						currentPlayer.getX(), currentPlayer.getY()));
@@ -169,7 +171,7 @@ public class MainGameState extends GameState {
 			game.playSound(Resources.getSound("explosion"));
 			currentLevel++;
 			currentScore.setStat(currentScore.getStat() + 10);
-			deployLevel();
+			deployLevel(currentLevel);
 		}
 
 		if (humanPlayer.isPaused()) {
@@ -178,6 +180,7 @@ public class MainGameState extends GameState {
 		}
 	}
 	
+	@Override
 	public void render(Graphics2D g) {
 		currentPlayField.render(g);
 
@@ -188,6 +191,7 @@ public class MainGameState extends GameState {
 		}
 	}
 
+	@Override
 	public void update(long elapsedTime) {
 		keyboardControl.update();
 		deployPlayerBlocks();
@@ -195,4 +199,14 @@ public class MainGameState extends GameState {
 		computerPlayer.aiUpdate(currentPlayField);
 		checkLevelStatus();
 	}
+
+	@Override
+	public void initialize() {
+
+		initializePlayers();
+		initializeOverlays();		
+		deployLevel(currentLevel);
+		
+	}
+	
 }

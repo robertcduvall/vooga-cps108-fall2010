@@ -164,7 +164,7 @@ public class View extends JFrame implements Viewer {
 		JFileChooser loadChooser = new JFileChooser();
 
 		loadChooser.showOpenDialog(this);
-
+		
 		return loadChooser.getSelectedFile();
 
 	}

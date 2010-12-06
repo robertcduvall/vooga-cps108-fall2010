@@ -1,0 +1,25 @@
+<Resources>
+
+	<Images>
+		<Image name="computerPlayer" path="computerPlayer.png" />
+		<Image name="humanPlayer" path="humanPlayer.png" />
+		<Image name="levelBlock" path="levelBlock.png" />
+		<Image name="titleBackground" path="titleBackground.jpg" />
+	</Images>
+	<Animations></Animations>
+	<Sounds>
+		<Sound name="explosion" path="explosion.wav"></Sound>
+		<Sound name="music" path="music.mid"></Sound></Sounds>
+	<Doubles></Doubles>
+	<Strings>
+		<String name="levelFilesDirectory" value="src/vooga/games/tronlegacy/resources/levels" /><String
+			name="levelNamesFile" value="LevelNames.txt">
+</String>
+	</Strings>
+
+	<Integers>
+		<Integer name="gameWidth" value="480" />
+		<Integer name="gameHeight" value="480" />
+	</Integers>
+	
+</Resources>
