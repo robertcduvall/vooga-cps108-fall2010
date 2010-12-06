@@ -62,13 +62,13 @@ public class AdFrame extends JFrame {
 		
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
-		
+
 		pack();
 		setVisible(true);
 
 		myManager.setGraphics(panel2.getGraphics());
-		myManager.runAdsThread();
-		myManager.rotate();
+		// myManager.update();
+		// myManager.render();
 	}
 
 	/**
@@ -83,6 +83,22 @@ public class AdFrame extends JFrame {
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myManager.prevAds();
+			}
+		});
+
+		JButton rotate = new JButton("Rotate Ad");
+		panel.add(rotate);
+		prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				myManager.rotate();
+			}
+		});
+
+		JButton stoprotate = new JButton("Stop Rotate Ad");
+		panel.add(stoprotate);
+		prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				myManager.stoprotate();
 			}
 		});
 

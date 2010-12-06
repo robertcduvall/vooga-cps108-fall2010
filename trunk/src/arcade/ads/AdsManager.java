@@ -42,6 +42,9 @@ public class AdsManager {
 		ads = new ArrayList<BasicAds>();
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
+		System.out.println(this.toString());
+		adsthread.start();
+		thread.start();
 	}
 
 	/**
@@ -98,7 +101,11 @@ public class AdsManager {
 	 * rotate ads
 	 */
 	public void rotate() {
-		thread.start();
+		thread.setFlag(true);
+	}
+
+	public void stoprotate() {
+		thread.setFlag(false);
 	}
 
 	/**
@@ -119,7 +126,7 @@ public class AdsManager {
 	 * render ads
 	 */
 	public void render() {
-		if (ads != null) {
+		if (!ads.isEmpty()) {
 			ads.get(index).render(gs);
 		}
 	}
@@ -135,7 +142,7 @@ public class AdsManager {
 	public BasicAds getCurrentAd(){
 		return ads.get(index);
 	}
-	
+
 	/**
 	 * move to the next ads
 	 * 
@@ -178,10 +185,6 @@ public class AdsManager {
 
 	public void setAds(String file) {
 		ads = XMLtoAds.convert(file);
-	}
-
-	public void runAdsThread() {
-		adsthread.start();
 	}
 
 }
