@@ -27,7 +27,7 @@ import arcade.security.resourcesbundle.StaticFileResources;
 public class MainFrame extends JFrame {
 	
 	private static Collection<SecurityFrameData> apps=new LinkedList<SecurityFrameData>();
-	private PrivilegeDesktop desktop; 
+	private SecurityDesktop desktop; 
 	
 	public MainFrame() throws UserConfigurationNotFoundException{
 		super(LabelResources.getLabel("DesktopTitle"));
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 		this.getRootPane().setBackground(Color.blue);
 		SecurityToolBar toolbar=new SecurityToolBar();
 		add(toolbar);	
-		desktop=new PrivilegeDesktop(apps,this);
+		desktop=new SecurityDesktop(apps,this);
 		add(desktop);
 		createMenu();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,8 +55,7 @@ public class MainFrame extends JFrame {
 		// Create a menu
 		JMenu menu = new JMenu(LabelResources.getLabel("DesktopMenu1"));
 		menuBar.add(menu);
-		JMenu menu2=new JMenu(LabelResources.getLabel("DesktopMenu2"));
-		menuBar.add(menu2);
+
 		// Create a menu item
 		JMenuItem item = new JMenuItem(LabelResources.getLabel("DesktopMenu1Item1"));
 		menu.add(item);
@@ -65,44 +64,9 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);	
 			}		
-		});
-
-		for(SecurityFrameData app:apps){
-			JMenuItem teamItem = new JMenuItem(app.getName(),new ImageIcon(System.getProperty("icon")+"/"+app.getName()+"Icon"+".jpg"));
-			teamItem.addActionListener(new LaunchApplications(app));
-			menu2.add(teamItem);
-		}			
+		});		
 		// Install the menu bar in the frame
 		this.setJMenuBar(menuBar);  //don't use add(menuBar);
-	}
-
-
-	class LaunchApplications implements ActionListener{
-		private SecurityFrameData app;
-
-		public LaunchApplications(SecurityFrameData app){
-			this.app=app;
-		}	
-		public void actionPerformed(ActionEvent e){			 
-			
-					Object internalFrame;
-					UserConfigurationFrame appframe;
-					try {
-						internalFrame = Class.forName(app.getClazz()).newInstance();
-						appframe=(UserConfigurationFrame)internalFrame;
-						desktop.add(appframe);
-					} catch (InstantiationException e1) {
-	
-						e1.printStackTrace();
-					} catch (IllegalAccessException e1) {
-					
-						e1.printStackTrace();
-					} catch (ClassNotFoundException e1) {
-					
-						e1.printStackTrace();
-					}
-		  		    	 	
-		}
 	}
 
 
