@@ -24,8 +24,8 @@ import javax.swing.JPanel;
 
 public class AdsManager {
 
-	private static List<BasicAds> ads;
-	private static int index;
+	public static List<BasicAds> ads;
+	public static int index;
 	private int xMin;
 	private int xMax;
 	private int yMin;
@@ -33,6 +33,7 @@ public class AdsManager {
 	private Time currentTime;
 	private Graphics2D gs;
 	private AdsThread adsthread;
+	RotateThread thread;
 
 	/**
 	 * Initialize ads pool
@@ -40,7 +41,7 @@ public class AdsManager {
 	public AdsManager() {
 		ads = new ArrayList<BasicAds>();
 		adsthread = new AdsThread(this);
-
+		thread = new RotateThread(this);
 	}
 
 	/**
@@ -97,7 +98,7 @@ public class AdsManager {
 	 * rotate ads
 	 */
 	public void rotate() {
-		RotateThread thread = new RotateThread(ads, index);
+		thread.run();
 	}
 
 	/**
@@ -119,6 +120,7 @@ public class AdsManager {
 	 */
 	public void render() {
 		if (ads != null) {
+			System.out.print(index);
 			ads.get(index).render(gs);
 		}
 	}

@@ -12,6 +12,7 @@ import org.w3c.dom.NamedNodeMap;
 
 public class DukeAds extends ImageAds
 {
+	
 
 	public DukeAds() {
 		super();
@@ -48,7 +49,11 @@ public class DukeAds extends ImageAds
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.startTime= Long.parseLong(attributes.getNamedItem("startTime").getNodeValue());
+		this.endTime= Long.parseLong(attributes.getNamedItem("endTime").getNodeValue());
 
 	}
+	
+	
 
 }
