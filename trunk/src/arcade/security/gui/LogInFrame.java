@@ -1,22 +1,11 @@
 package arcade.security.gui;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
+
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
@@ -27,8 +16,7 @@ import arcade.security.resourcesbundle.StaticFileResources;
  */
 @SuppressWarnings("serial")
 public class LogInFrame extends JFrame {
-
-
+	
 	private JButton submitButton;
 	private JButton cancelButton;
 	private String username;
@@ -175,16 +163,12 @@ public class LogInFrame extends JFrame {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		new LogInFrame();
