@@ -39,7 +39,7 @@ public class AdFrame extends JFrame {
 
 	AdsManager myManager;
 
-	public AdFrame(AdsManager manager) {
+	public AdFrame(AdsManager manager, Dimension adDimension) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
 		myManager = manager;
@@ -51,15 +51,13 @@ public class AdFrame extends JFrame {
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new FlowLayout());
 		makeButtons(panel1);
-		panel1.setPreferredSize(new Dimension(70, 70));
 		// this.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new FlowLayout());
-		panel2.setPreferredSize(new Dimension(800, 600));
+		panel2.setPreferredSize(adDimension);
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
-		getContentPane().setSize(800, 600);
 		
 		pack();
 		setVisible(true);
@@ -119,7 +117,7 @@ public class AdFrame extends JFrame {
 		// manager.add(new DukeAds("duke", img));
 		System.out.println(manager.retrieve());
 
-		new AdFrame(manager);
+		new AdFrame(manager, new Dimension(800, 600));
 	}
 
 }
