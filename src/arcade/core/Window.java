@@ -22,7 +22,7 @@ public abstract class Window extends JFrame implements ArcadeComponent{
 		createContents();
 		setSize(xSize, ySize);
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
 	
 	protected abstract void createContents();
