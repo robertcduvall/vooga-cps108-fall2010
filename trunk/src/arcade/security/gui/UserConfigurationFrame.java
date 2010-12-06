@@ -8,7 +8,7 @@ import javax.swing.JInternalFrame;
  *
  */
 @SuppressWarnings("serial")
-public class UserConfigurationFrame extends JInternalFrame {
+public abstract class UserConfigurationFrame extends JInternalFrame {
 
 	private JFrame parentFrame;
 	
