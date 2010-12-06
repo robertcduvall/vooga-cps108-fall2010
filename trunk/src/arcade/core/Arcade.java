@@ -21,10 +21,12 @@ public class Arcade extends JFrame {
 
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
-			.getBundle("arcade.core.componentList");
+	.getBundle("arcade.core.componentList");
+
+	private static JTabbedPane mainWindow;
 
 	public Arcade() {
-		JTabbedPane mainWindow = createTabs();
+		mainWindow = createTabs();
 		mainWindow.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		add(mainWindow);
 
@@ -94,6 +96,15 @@ public class Arcade extends JFrame {
 	}
 
 	/**
+	 * TODO
+	 * @param index
+	 */
+	public static void play(String gameName) {
+		mainWindow.setSelectedIndex(1);
+		ExampleGUI.setGame(gameName);
+
+	}
+	/**
 	 * 
 	 * @param classname
 	 * @return
@@ -104,8 +115,8 @@ public class Arcade extends JFrame {
 	 * @throws NoSuchMethodException
 	 */
 	private Object getObject(String classname) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException,
-			InvocationTargetException, NoSuchMethodException {
+	InstantiationException, IllegalAccessException,
+	InvocationTargetException, NoSuchMethodException {
 		Class<?> c = Class.forName(classname);
 		return c.getConstructor().newInstance();
 	}
@@ -127,4 +138,5 @@ public class Arcade extends JFrame {
 	public static void main(String[] args) {
 		Arcade arcade = new Arcade();
 	}
+
 }
