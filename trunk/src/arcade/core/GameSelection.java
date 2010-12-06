@@ -59,8 +59,8 @@ public class GameSelection extends Tab {
 	}
 	
 	public JComponent addSearchFunction() {
-		JPanel search = new JPanel(new GridLayout(0,3));
-		JTextField searchArea = new JTextField("Enter Search Terms", 100);
+		JPanel search = new JPanel(new FlowLayout());
+		JTextField searchArea = new JTextField("Enter Search Terms", 25);
 		JButton searchButton = new JButton("Search");
 		searchButton.addActionListener(new SearchButtonListener(searchArea.getText()));
 		search.add(searchArea);
