@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import arcade.lobby.controller.Validator;
+import arcade.lobby.model.ProfileSet;
 
 public class Login extends JFrame {
 
@@ -141,6 +142,7 @@ public class Login extends JFrame {
 					System.out.println(username+" is logging in with pw: "+password.toString());
 					if(!Validator.checkUsername(username)){
 						System.out.println("user exists");
+						Main.ProfileSet.setUser(username);
 						jContentPane = new DefaultPanel();
 						setContentPane();
 					}
