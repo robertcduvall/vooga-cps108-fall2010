@@ -6,10 +6,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,17 +23,26 @@ import javax.swing.JPanel;
 
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
+import arcade.security.user.Developer;
 /**
  * 
- * @author Meng Li
+ * 
+ * @author Meng Li, Nick Hawthorne
  *
  */
 @SuppressWarnings("serial")
-public class DeveloperConfigurationFrame extends UserConfigurationFrame {
+public class DeveloperConfigurationFrame extends UserConfigurationFrame 
+												implements ItemListener {
 
 	private Container currentContentPane;
 
-
+	//TODO: Need to tell this class what user it is modifying so it can change their privileges.
+	Developer developer;
+	
+	JCheckBox adminButton;
+	JCheckBox forumButton;
+	JCheckBox retailButton;
+	
 	public DeveloperConfigurationFrame(){
 		super(LabelResources.getLabel("DeveloperInternalFrame"),true,true,true,true);
 		Dimension a=new Dimension(200,200);
@@ -41,7 +53,28 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 		this.setLayout(new BorderLayout());  
 		currentContentPane=this.getContentPane();	 //get the current container,so new component can be added on when the mouse clicked  	
      	pack();
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+     	
+		adminButton = new JCheckBox("Administrator Privilege");
+     	adminButton.setSelected(true);
+     	
+     	forumButton = new JCheckBox("Forum Moderator Privilege");
+     	forumButton.setSelected(true);
+     	
+     	retailButton = new JCheckBox("Retailer Privilege");
+     	retailButton.setSelected(false);
+     	
+     	adminButton.addItemListener(this);
+     	forumButton.addItemListener(this);
+     	retailButton.addItemListener(this);
+     	
+     	JPanel checkPanel = new JPanel(new GridLayout(0, 1));
+     	checkPanel.add(adminButton);
+     	checkPanel.add(forumButton);
+     	checkPanel.add(retailButton);
+     	
+     	add(checkPanel);
+     	
+     	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
 	}
@@ -116,5 +149,24 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame {
 		panel.setLayout(new GridLayout(1, 1));
 		panel.add(filler);
 		return panel;
+	}
+
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		Object source = e.getItemSelectable();
+		if(source == adminButton)
+		{
+			developer.getPrivilegeMap().put("admin", !developer.getPrivilege("admin"));
+		}
+		if(source == retailButton)
+		{
+			developer.getPrivilegeMap().put("retail", !developer.getPrivilege("retail"));
+		}
+		if(source == forumButton)
+		{
+			developer.getPrivilegeMap().put("forum", !developer.getPrivilege("forum"));
+		}
 	}
 }
