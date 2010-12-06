@@ -58,7 +58,48 @@ public class AdFrame extends JFrame {
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new FlowLayout());
 		panel2.setPreferredSize(adDimension);
-		panel2.addMouseListener(new MouseListener(){
+		addListener(panel2);
+		
+		getContentPane().add(panel1, BorderLayout.PAGE_START);
+		getContentPane().add(panel2, BorderLayout.CENTER);
+		
+		pack();
+		setVisible(true);
+
+		myManager.setGraphics(panel2.getGraphics());
+		myManager.runAdsThread();
+		myManager.rotate();
+	}
+
+	/**
+	 * Create the JButtons to add to the panel
+	 * 
+	 */
+	private void makeButtons(JPanel panel) {
+		panel.setLayout(new FlowLayout());
+
+		JButton prev = new JButton("Previous Ad");
+		panel.add(prev);
+		prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				myManager.prevAds();
+			}
+		});
+
+		JButton next = new JButton("Next Ad");
+		panel.add(next);
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				myManager.nextAds();
+			}
+		});
+	}
+	
+	/**
+	 * add MouseListener to Image panel
+	 */
+	private void addListener(JPanel panel){
+		panel.addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				myManager.getCurrentAd().onClick();
@@ -87,49 +128,18 @@ public class AdFrame extends JFrame {
 				
 			}
 		});
-		getContentPane().add(panel1, BorderLayout.PAGE_START);
-		getContentPane().add(panel2, BorderLayout.CENTER);
-		
-		pack();
-		setVisible(true);
-
-		myManager.setGraphics(panel2.getGraphics());
-		myManager.runAdsThread();
-		myManager.rotate();
-
-
-		// myManager.update();
-		// myManager.render();
 	}
 
 	/**
-	 * Create the
-	 * 
+	 * Get the Previous Ad in the loop
 	 */
-	public void makeButtons(JPanel panel) {
-		panel.setLayout(new FlowLayout());
-
-		JButton prev = new JButton("Previous Ad");
-		panel.add(prev);
-		prev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				myManager.prevAds();
-			}
-		});
-
-		JButton next = new JButton("Next Ad");
-		panel.add(next);
-		next.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				myManager.nextAds();
-			}
-		});
-	}
-
 	public void getPrevious() {
 		myManager.prevAds();
 	}
-
+	
+	/**
+	 * Get the Next Ad in the loop
+	 */
 	public void getNext() {
 		myManager.nextAds();
 	}

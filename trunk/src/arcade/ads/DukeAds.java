@@ -1,7 +1,10 @@
 package arcade.ads;
 
+import java.awt.Event;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,9 +29,8 @@ public class DukeAds extends ImageAds
 	public void render(Graphics2D gs)
 	{
 		gs.drawImage(img, 0,0,800,600, null);
-
 	}
-
+	
 	@Override
 	public boolean isActive()
 	{
