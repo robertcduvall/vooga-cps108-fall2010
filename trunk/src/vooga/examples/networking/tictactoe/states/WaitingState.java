@@ -23,8 +23,8 @@ public class WaitingState extends GameState{
 	
 	@Override
 	public void update(long t) {
-		int status = connection.getData();
-		if(status != Resources.getInt("wait")){
+		String status = connection.getData();
+		if(!status.equals(Resources.getString("waitString"))){
 			playState.interpretMessage(status);
 			game.getGameStateManager().switchTo(playState);
 		}

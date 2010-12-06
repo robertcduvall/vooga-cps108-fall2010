@@ -11,6 +11,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
+import vooga.examples.networking.tictactoe.Move;
 import vooga.examples.networking.tictactoe.TicTacToeConnection;
 import vooga.examples.networking.tictactoe.events.GameLostEvent;
 import vooga.examples.networking.tictactoe.events.GameTiedEvent;
@@ -33,13 +34,12 @@ public class PlayState extends GameState{
 	private TicTacToeConnection connection;
 	private boolean myTurn, theirTurn;
 	private boolean won, tied, lost, quit;
-	private int oMove;
-	
+	private Move oMove;
+
 	public PlayState(Game game, LevelManager levelManager, TicTacToeConnection connection){
 		this.game = game;
 		this.levelManager = levelManager;
 		this.connection = connection;
-		//xTurn = true;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class PlayState extends GameState{
 		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", Resources.getString("playStateDirectory"));
 		field.addControl("game", gameControl);
 	}
-	
+
 	public void initLevel(){
 		LevelParser levelParser = new LevelParser();
 		PlayField gameWonField = levelParser.getPlayfield(Resources.getString("gameWonXml"), game);
@@ -81,14 +81,12 @@ public class PlayState extends GameState{
 		eventPool.addEvent(new GameLostEvent(field, this));
 		eventPool.addEvent(new GameTiedEvent(field, this));
 	}
-	
+
 	public void addPiece(){
 		int mouseX = game.bsInput.getMouseX();
 		int mouseY = game.bsInput.getMouseY();
 		int pieceX = (mouseX / Resources.getInt("squareDimension")) * Resources.getInt("squareDimension");
 		int pieceY = (mouseY / Resources.getInt("squareDimension")) * Resources.getInt("squareDimension");
-//		pieceX = xTurn ? pieceX + Resources.getInt("xOffsetX") : pieceX + Resources.getInt("oOffsetX");
-//		pieceY = xTurn ? pieceY + Resources.getInt("xOffsetY") : pieceY + Resources.getInt("oOffsetY");
 		pieceX = pieceX + Resources.getInt("xOffsetX");
 		pieceY = pieceY + Resources.getInt("xOffsetY");
 		SpriteGroup xGroup = field.getGroup("xGroup");
@@ -111,64 +109,58 @@ public class PlayState extends GameState{
 				add = false;
 		}
 		if(add){
-			//if(xTurn){
-				xGroup.add(new BetterSprite(Resources.getImage("X"), pieceX, pieceY));
-				eventPool.checkEvents();
-				int col = pieceX / Resources.getInt("squareDimension");
-				int row = pieceY / Resources.getInt("squareDimension");
-				myTurn = false;
-				System.out.println("PlayState: if(add) col (pieceX) "+pieceX+" (Y) "+pieceY);
-				connection.sendMove(col * 10 + row);
-//			}
-//			else{
-//				oGroup.add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
-//			}
+			xGroup.add(new BetterSprite(Resources.getImage("X"), pieceX, pieceY));
+			eventPool.checkEvents();
+			int col = pieceX / Resources.getInt("squareDimension");
+			int row = pieceY / Resources.getInt("squareDimension");
+			myTurn = false;
+			System.out.println("PlayState: if(add) col (pieceX) "+pieceX+" (Y) "+pieceY);
+			connection.sendData(new Move(row, col));
 		}
-		//xTurn = !xTurn;
 	}
-	
+
 	public void placeOpposingPiece(){
-		int col = oMove < 10 ? 0 : oMove / 10;
-		int row = oMove % 10;
+		int col = oMove.getCol();
+		int row = oMove.getRow();
 		int pieceX = col * Resources.getInt("squareDimension") + Resources.getInt("oOffsetX");
 		int pieceY = row * Resources.getInt("squareDimension") + Resources.getInt("oOffsetY");
 		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
 		eventPool.checkEvents();
 	}
-	
+
 	public void setWon(boolean didWin){
 		won = didWin;
 	}
-	
+
 	public void setTied(boolean didTie){
 		tied = didTie;
 	}
-	
+
 	public void setLost(boolean didLose){
 		lost = didLose;
 	}
-	
-	public void setOMove(int move){
+
+	public void setOMove(Move move){
 		oMove = move;
 	}
-	
-	public void interpretMessage(int status){
-		if(status == Resources.getInt("theyQuit"))
+
+	public void interpretMessage(String data){
+		if(data.equals(Resources.getString("theyQuitString")))
 			quit = true;
-		else if(status == Resources.getInt("error"))
+		else if(data.equals(Resources.getString("errorString")))
 			game.getGameStateManager().switchTo(errorState);
-		else if(status == Resources.getInt("theirTurn")){
+		else if(data.equals(Resources.getString("theirTurnString"))){
 			theirTurn = true;
 		}
-		else if(status == Resources.getInt("yourTurn")){
+		else if(data.equals(Resources.getString("yourTurnString"))){
 			myTurn = true;
 		}
 		else{
-			oMove = status;
+			oMove = (Move) (Move.deserialize(data));
 			placeOpposingPiece();
 		}
 	}
-	
+
 	@Override
 	public void update(long elapsedTime){
 		if(won){
