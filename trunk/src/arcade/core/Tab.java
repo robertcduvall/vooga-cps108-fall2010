@@ -11,7 +11,6 @@ import javax.swing.*;
  */
 @SuppressWarnings("serial")
 public abstract class Tab extends JPanel {
-	public Tab(){
-		
-	}
+	
+	public abstract JComponent getContent();
 }

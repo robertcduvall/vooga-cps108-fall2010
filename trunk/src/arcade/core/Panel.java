@@ -10,13 +10,7 @@ import javax.swing.*;
  * 
  */
 public abstract class Panel extends JPanel{
-	private String name;
-	
 	public Panel(){
 		
-	}
-	
-	public Panel(String title){
-		name=title;
 	}
 }

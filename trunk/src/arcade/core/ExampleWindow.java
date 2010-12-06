@@ -1,6 +1,6 @@
 package arcade.core;
 
-import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class ExampleWindow extends Window {
 
@@ -11,7 +11,8 @@ public class ExampleWindow extends Window {
 
 	@Override
 	protected void createContents() {
-		JButton a = new JButton("sdf");
+		JLabel a=new JLabel("ads");
+		a.setHorizontalAlignment(WIDTH/2);
 		getContentPane().add(a);
 	}
 

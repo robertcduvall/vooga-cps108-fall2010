@@ -42,14 +42,14 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-//		JPanel main = createPanels("panels");
-//		everything.addTab("Arcade", null, main, "Arcade Main View");
+		// JPanel main = createPanels("panels");
+		// everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
 			try {
 				Tab t = (Tab) getObject(classname);
-				everything.addTab(t.getName(), null, t,
+				everything.addTab(t.getName(), null, t.getContent(),
 						t.getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -71,8 +71,6 @@ public class Arcade extends JFrame {
 				continue;
 			try {
 				contents.add((JComponent) (getObject(classname)));
-			} catch (ClassNotFoundException e) {
-				System.out.println("Can't find a class named: " + classname);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -89,8 +87,6 @@ public class Arcade extends JFrame {
 				continue;
 			try {
 				JFrame window = (JFrame) (getObject(classname));
-			} catch (ClassNotFoundException e) {
-				System.out.println("Can't find a class named: " + classname);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

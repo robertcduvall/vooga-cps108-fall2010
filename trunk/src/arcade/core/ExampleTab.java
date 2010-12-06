@@ -1,13 +1,19 @@
 package arcade.core;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class ExampleTab extends Tab {
-	public ExampleTab(){
-		JButton a=new JButton("sdf");
-		
-		add(a);
+	public ExampleTab() {
 		setToolTipText("This is an example");
 		setName("ExampleTab");
 	}
+
+	@Override
+	public JComponent getContent() {
+		JPanel panel = new JPanel();
+		JButton a = new JButton("sdf");
+		panel.add(a);
+		return panel;
+	}
+
 }
