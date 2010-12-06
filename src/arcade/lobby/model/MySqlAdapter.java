@@ -109,5 +109,25 @@ public class MySqlAdapter implements DatabaseAdapter {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean update(String tableName, String pkName, Map<String,String> row){
+		String newValues = "";
+		for(String s:row.keySet()){
+			newValues += s+"='"+row.get(s)+"' ";
+		}
+		
+		try {
+			String sql = "UPDATE "+tableName+" SET "+newValues+" WHERE User_Name='"+pkName+"'";
+
+			PreparedStatement ps = myDBConnection.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+		} catch (Throwable e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
 
 }

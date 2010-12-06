@@ -10,4 +10,6 @@ public interface DatabaseAdapter {
 
 	boolean insert(String tableName, Map<String, String> row);
 	
+	boolean update(String tableName, String pkName, Map<String,String> row);
+	
 }
