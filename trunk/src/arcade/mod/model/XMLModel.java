@@ -25,6 +25,14 @@ import org.xml.sax.SAXException;
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
 
+/**
+ * Model created from an XML file. The 
+ * ResourceNodes are created from the Elements 
+ * of the DOM parsed Document.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class XMLModel implements Model{
 	
 	Document document;
