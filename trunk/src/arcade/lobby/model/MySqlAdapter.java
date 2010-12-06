@@ -116,11 +116,11 @@ public class MySqlAdapter implements DatabaseAdapter {
 		for(String s:row.keySet()){
 			newValues += s+"='"+row.get(s)+"', ";
 		}
-		newValues = newValues.substring(0, newValues.length() - 1);
+		newValues = newValues.substring(0, newValues.length() - 2);
 
 		try {
 			String sql = "UPDATE "+tableName+" SET "+newValues+" WHERE User_Name='"+pkName+"'";
-
+			System.out.println(sql);
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
