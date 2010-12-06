@@ -1,5 +1,8 @@
 package arcade.mod.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -47,6 +50,14 @@ public class StringListFrame extends AbstractListFrame {
 
 	@Override
 	public void makeComponents() {
+		myInput.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent evt) {
+				myString = myInput.getText();
+
+			}
+
+		});
 		descriptionLabel = new JLabel();
 		JLabel stringName = new JLabel();
 		stringLabel = new JLabel();
