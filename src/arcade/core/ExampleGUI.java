@@ -40,20 +40,22 @@ public class ExampleGUI extends Tab{
 	private StartButtonHandler sbHandler;
 	private ExitButtonHandler ebHandler;
 	
+	
 	private Toolkit tk;
 
+	private static String gameName="cyberion";
+	private static JPanel content;
 	public ExampleGUI()
 	{
 		tk = Toolkit.getDefaultToolkit();
 		setName("Arcade");
 		setToolTipText("Arcade main view");
-//		add(makeCustomPanel());
-//		setContentPane.
 	}
 	
 	public JComponent getContent() {
+		setContent();
 	    JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-	    		makeLeftPanel(), makeCenterPanel());
+	    		makeLeftPanel(), content);
 	    columnar.setOneTouchExpandable(true);
 	    columnar.setDividerLocation(.25);
 	    
@@ -65,10 +67,22 @@ public class ExampleGUI extends Tab{
 	    return mainPanel;
     }
 	
+	private static void setContent(){
+		content=new GameView(gameName);
+	}
+	
+	public static void setGame(String name){
+		gameName=name;
+		setContent();
+		System.out.println(gameName);
+	}
+	
 	//makes the center panel
-	private JComponent makeCenterPanel()
-	{	
-		JPanel center = new JPanel();
+//	private JComponent makeCenterPanel()
+//	{	
+//		JPanel center = new JPanel();
+//		center.add(new GameView("zombieland"));
+		
 //		JPanel top = new JPanel();
 //		int xSizeOfColumn =(int) ( tk.getScreenSize().getWidth()/2);  
 //		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight()/2);
@@ -105,7 +119,6 @@ public class ExampleGUI extends Tab{
 //		startB.setAlignmentX(CENTER_ALIGNMENT);
 //		
 //		top.add(label);
-		center.add(new GameView("cyberion"));
 //		bottom.add(new Box.Filler(new Dimension(0, 20),
 //				new Dimension(0, 20),
 //				new Dimension(0, 20)));
@@ -126,8 +139,8 @@ public class ExampleGUI extends Tab{
 //	    gameInstruction.setDividerLocation(.75);
 //	    gameInstruction.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	    
-	    return center;
-	}
+//	    return center;
+//	}
 	
 	//makes the left hand side panel
 	private JComponent makeLeftPanel()
