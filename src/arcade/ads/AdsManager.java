@@ -118,16 +118,15 @@ public class AdsManager {
 	 * render ads
 	 */
 	public void render() {
-		for (BasicAds ad : ads) {
-			ad.render(gs);
+		if (ads != null) {
+			ads.get(index).render(gs);
 		}
 	}
 
 	/**
 	 * retrieve new ads from web server
 	 */
-	public String retrieve()
-	{
+	public String retrieve() {
 
 		return ads.get(0).name;
 	}
@@ -137,8 +136,8 @@ public class AdsManager {
 	 * 
 	 * @return
 	 */
-	public static int nextAds() {
-		return (index == ads.size() - 1 ? 0 : index + 1);
+	public static void nextAds() {
+		index = (index == ads.size() - 1 ? 0 : index + 1);
 	}
 
 	/**
@@ -146,8 +145,8 @@ public class AdsManager {
 	 * 
 	 * @return
 	 */
-	public static int prevAds() {
-		return (index == 0 ? ads.size() - 1 : index - 1);
+	public static void prevAds() {
+		index = (index == 0 ? ads.size() - 1 : index - 1);
 	}
 
 	/**
@@ -172,13 +171,11 @@ public class AdsManager {
 		this.gs = (Graphics2D) gs;
 	}
 
-	
-	public void setAds(String file){
+	public void setAds(String file) {
 		ads = XMLtoAds.convert(file);
 	}
 
-	
-	public void runAdsThread(){
+	public void runAdsThread() {
 		adsthread.run();
 	}
 

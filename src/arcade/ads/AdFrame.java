@@ -80,7 +80,7 @@ public class AdFrame extends JFrame {
 		panel.add(prev);
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getPrevious();
+				myManager.prevAds();
 			}
 		});
 
@@ -88,7 +88,7 @@ public class AdFrame extends JFrame {
 		panel.add(next);
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getNext();
+				myManager.nextAds();
 			}
 		});
 	}
