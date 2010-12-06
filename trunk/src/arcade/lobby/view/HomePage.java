@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 
 import java.awt.Rectangle;
 import java.text.DateFormat;
@@ -25,6 +26,7 @@ import java.net.URL;
 public class HomePage extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	static private ProfileSet myProfileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Users", "voogaarcade", "Vooga108");
 	private Profile myProfile;
 	private HomePage myHomePage = this;
 	private JLabel nameLabel = null;
@@ -282,6 +284,7 @@ public class HomePage extends JPanel {
 					updateAvatar();
 					updateIcon();
 					// TODO save to database
+					myProfileSet.updateProfile(myProfile);
 				}
 
 				private void updateAvatar() {
