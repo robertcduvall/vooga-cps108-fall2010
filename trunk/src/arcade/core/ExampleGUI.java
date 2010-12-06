@@ -19,7 +19,7 @@ public class ExampleGUI extends Tab {
 
 	private Toolkit tk;
 
-	private static String gameName = "cyberion";
+	private static String gameName="zombieland";
 	private static JPanel content;
 	private static JSplitPane columnar;
 

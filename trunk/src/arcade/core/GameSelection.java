@@ -2,13 +2,21 @@ package arcade.core;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import javax.swing.*;
 
+import vooga.engine.core.Game;
+
 public class GameSelection extends Tab {
-	private static String[] gameNames = { "asteroids", "cyberion",
+	private static String[] gameNames = { "asteroids", "cyberion", 
+
 			"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
 			"towerdefense", "zombieland" };
-
+	public static JPanel panel;
 	public static String currentGame = "";
 
 	public GameSelection() {
@@ -49,10 +57,63 @@ public class GameSelection extends Tab {
 			Arcade.play(gameName);
 		}
 	}
+	
+	public JComponent addSearchFunction() {
+		JPanel search = new JPanel(new GridLayout(0,3));
+		JTextField searchArea = new JTextField("Enter Search Terms", 100);
+		JButton searchButton = new JButton("Search");
+		searchButton.addActionListener(new SearchButtonListener(searchArea.getText()));
+		search.add(searchArea);
+		search.add(searchButton);
+		return search;
+	}
 
+	public class SearchButtonListener implements ActionListener
+	{
+		ResourceBundle resources;
+  	   List<String> rightGames = new ArrayList<String>();
+  	   String[] searchTerms;
+		public SearchButtonListener(String searchTerms)
+		{
+			this.searchTerms = searchTerms.split(" ");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+     	   panel.removeAll();
+     	   panel.setLayout(new GridLayout(0,3));
+     	   panel.add(addSearchFunction());
+				try {
+					for (String game : gameNames)
+					{
+						resources = ResourceBundle.getBundle("vooga.games." + game + ".resources.game");
+						String[] tags = resources.getString("tags").split(",");
+						for (String tag : tags)
+						{
+							for (String term : searchTerms)
+							{
+								if (tag.equals(term.toLowerCase())){
+									panel.add(createItem(game));
+								}
+							}
+						}
+					}
+					
+					
+				}
+				catch (Throwable e1) {
+					e1.printStackTrace();
+				}
+			
+		}
+		
+	}
+	
 	@Override
 	public JComponent getContent() {
-		JPanel panel = new JPanel(new GridLayout(0, 3));
+		panel = new JPanel(new GridLayout(0, 3));
+		panel.add(addSearchFunction());
 		for (String name : gameNames) {
 			panel.add(createItem(name));
 		}

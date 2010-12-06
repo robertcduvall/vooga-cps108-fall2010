@@ -40,6 +40,7 @@ public class GameView extends JPanel {
 		add(panel);
 	}
 
+
 	private JLabel setSplashScreen() {
 		splash = new ImageIcon(gameProperties.get("splash")[0]);
 		JLabel splashImage = new JLabel(splash);
