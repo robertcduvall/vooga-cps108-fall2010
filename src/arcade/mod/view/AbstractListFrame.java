@@ -6,23 +6,28 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 import arcade.mod.model.ResourceNode;
+import arcade.mod.model.XMLNode;
 
 public abstract class AbstractListFrame extends JPanel {
-	protected static final int DEFAULT_HEIGHT = 70;
+	protected static int HEIGHT = 70;
 	protected final int WIDTH = 750;
 	protected ResourceNode myNode;
 
 	public AbstractListFrame() {
-		// do nothing
+		HEIGHT = 0;
+
 	}
 
 	public AbstractListFrame(ResourceNode node) {
 
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		if (!node.getNode().getNodeName().equals(XMLNode.DESCRIPTION_TAG))
+			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		{
+			HEIGHT = 70;
+			myNode = node;
 
-		myNode = node;
-
-		handleNode(node);
+			handleNode(node);
+		}
 
 	}
 

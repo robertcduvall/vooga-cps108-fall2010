@@ -29,7 +29,7 @@ public class FilepathListFrame extends AbstractListFrame {
 
 		myFileChooser = new JFileChooser();
 
-		restrictSize(DEFAULT_HEIGHT);
+		restrictSize(HEIGHT);
 
 		makeComponents();
 

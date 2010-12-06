@@ -29,7 +29,7 @@ public class ConstantListFrame extends AbstractListFrame {
 
 		super(node);
 
-		restrictSize(DEFAULT_HEIGHT);
+		restrictSize(HEIGHT);
 
 		makeComponents();
 	}
