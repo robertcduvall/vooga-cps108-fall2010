@@ -59,7 +59,7 @@ public class AdFrame extends JFrame {
 		panel2.setLayout(new FlowLayout());
 		panel2.setPreferredSize(adDimension);
 		addListener(panel2);
-		
+
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
 
@@ -67,6 +67,7 @@ public class AdFrame extends JFrame {
 		setVisible(true);
 
 		myManager.setGraphics(panel2.getGraphics());
+		myManager.runAdsManager();
 		// myManager.update();
 		// myManager.render();
 	}
@@ -88,7 +89,7 @@ public class AdFrame extends JFrame {
 
 		JButton rotate = new JButton("Rotate Ad");
 		panel.add(rotate);
-		prev.addActionListener(new ActionListener() {
+		rotate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myManager.rotate();
 			}
@@ -96,7 +97,7 @@ public class AdFrame extends JFrame {
 
 		JButton stoprotate = new JButton("Stop Rotate Ad");
 		panel.add(stoprotate);
-		prev.addActionListener(new ActionListener() {
+		stoprotate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myManager.stoprotate();
 			}
@@ -110,12 +111,12 @@ public class AdFrame extends JFrame {
 			}
 		});
 	}
-	
+
 	/**
 	 * add MouseListener to Image panel
 	 */
-	private void addListener(JPanel panel){
-		panel.addMouseListener(new MouseListener(){
+	private void addListener(JPanel panel) {
+		panel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				myManager.getCurrentAd().onClick();
@@ -129,19 +130,19 @@ public class AdFrame extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
@@ -152,7 +153,7 @@ public class AdFrame extends JFrame {
 	public void getPrevious() {
 		myManager.prevAds();
 	}
-	
+
 	/**
 	 * Get the Next Ad in the loop
 	 */

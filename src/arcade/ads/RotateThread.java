@@ -27,15 +27,18 @@ public class RotateThread extends Thread {
 	 */
 	public void run() {
 		while (true) {
+			System.out.println(flag);
 			if (!flag) {
+				System.out.println("not rotating!!!");
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
 				try {
+					System.out.println("rotating!!!");
 					if (!manager.ads.isEmpty()) {
 						System.out.println("start");
 						Thread.sleep(manager.ads.get(manager.index)

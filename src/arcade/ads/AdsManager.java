@@ -42,7 +42,10 @@ public class AdsManager {
 		ads = new ArrayList<BasicAds>();
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
-		System.out.println(this.toString());
+
+	}
+
+	public void runAdsManager() {
 		adsthread.start();
 		thread.start();
 	}
@@ -101,6 +104,7 @@ public class AdsManager {
 	 * rotate ads
 	 */
 	public void rotate() {
+		System.out.println("rotate");
 		thread.setFlag(true);
 	}
 
@@ -126,7 +130,9 @@ public class AdsManager {
 	 * render ads
 	 */
 	public void render() {
+		// System.out.println(gs==null);
 		if (!ads.isEmpty()) {
+			// System.out.println(index);
 			ads.get(index).render(gs);
 		}
 	}
@@ -138,8 +144,8 @@ public class AdsManager {
 
 		return ads.get(0).name;
 	}
-	
-	public BasicAds getCurrentAd(){
+
+	public BasicAds getCurrentAd() {
 		return ads.get(index);
 	}
 
