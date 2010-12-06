@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import arcade.lobby.controller.Main;
 import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
 

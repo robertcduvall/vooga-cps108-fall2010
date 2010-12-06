@@ -3,6 +3,7 @@ package arcade.lobby.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import arcade.lobby.controller.Main;
 import arcade.lobby.model.Profile;
 
 public class ProfileFrame extends JFrame {

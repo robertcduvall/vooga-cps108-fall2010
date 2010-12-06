@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
-import arcade.lobby.view.Main;
 
 public class Validator {
 

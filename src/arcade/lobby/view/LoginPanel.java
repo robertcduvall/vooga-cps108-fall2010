@@ -8,9 +8,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import arcade.lobby.controller.Main;
 import arcade.lobby.controller.Validator;
 
-public class Login extends JPanel {
+public class LoginPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField usernameField = null;
@@ -26,7 +27,7 @@ public class Login extends JPanel {
 	/**
 	 * This is the default constructor
 	 */
-	public Login() {
+	public LoginPanel() {
 		super();
 		initialize();
 	}
