@@ -22,6 +22,11 @@ public class Menu {
 	JTextArea output;
     JScrollPane scrollPane;
     String newline = "\n";
+    private JFrame myFrame;
+    
+    public Menu(JFrame frame){
+    	myFrame = frame;
+    }
 	
 	public JMenuBar setUpMenu(){
 		JMenuBar menuBar;
@@ -54,6 +59,15 @@ public class Menu {
 		});
 		menu.add(menuItem);
 		
+		JMenuItem logOut = new JMenuItem("Logout");
+		logOut.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				myFrame.setVisible(false);
+				Main.ProfileSet.currentProfile=null;
+				Main.createAndShowGUI();
+			}
+		});
+		menu.add(logOut);
 
 		return menuBar;
 	}
