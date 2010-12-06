@@ -69,7 +69,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int count = rsmd.getColumnCount();
 			map = new HashMap<String, String>();
-			for (int i = 1; i < count; i++) {
+			for (int i = 1; i <= count; i++) {
 				String value = rs.getString(i);
 				String label = rsmd.getColumnLabel(i);
 				map.put(label, value);

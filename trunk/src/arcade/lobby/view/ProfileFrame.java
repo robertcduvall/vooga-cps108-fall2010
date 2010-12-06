@@ -1,14 +1,9 @@
 package arcade.lobby.view;
 
-import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import arcade.lobby.view.HomePage;
 import arcade.lobby.model.Profile;
-import arcade.lobby.model.ProfileSet;
-
-import java.awt.Dimension;
-import java.sql.Date;
 
 public class ProfileFrame extends JFrame {
 
@@ -57,7 +52,7 @@ public class ProfileFrame extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			//TODO load from database
-			Profile currentUser = ProfileSet.currentProfile;
+			Profile currentUser = Main.ProfileSet.currentProfile;
 			jPanel = new HomePage(currentUser);
 		}
 		return jPanel;

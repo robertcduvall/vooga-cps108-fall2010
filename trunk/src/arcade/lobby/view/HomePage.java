@@ -1,27 +1,19 @@
 package arcade.lobby.view;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
-import arcade.lobby.controller.Validator;
-import arcade.lobby.model.Profile;
-import arcade.lobby.model.ProfileSet;
-
 import java.awt.Rectangle;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Dimension;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import arcade.lobby.controller.Validator;
+import arcade.lobby.model.Profile;
 
 public class HomePage extends JPanel {
 
