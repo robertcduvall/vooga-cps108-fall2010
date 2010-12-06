@@ -11,5 +11,10 @@ public class SortOrganizer implements IOrganizer {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean compareTo(IItemInfo firstItem, IItemInfo secondItem) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
