@@ -47,9 +47,5 @@ public class Administrator extends AdminClass {
 			tempMap.put(accessItem, flag);
 		}
 	}
-
-//	@Override
-//	public abstract int compareTo(AbstractUser user);
-
 	
 }
