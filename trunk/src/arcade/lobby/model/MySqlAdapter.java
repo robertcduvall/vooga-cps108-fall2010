@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MySqlAdapter implements DatabaseAdapter {
@@ -34,45 +34,47 @@ public class MySqlAdapter implements DatabaseAdapter {
 	}
 
 	@Override
-	public String[] getColumn(String tableName, String columnName) {
+	public List<String> getColumn(String tableName, String columnName) {
 		String sql = String.format("SELECT * FROM %s", tableName);
 		PreparedStatement ps;
-		ResultSet rs = null;
+		List<String> result = new ArrayList<String>();
 		try {
 			ps = myDBConnection.prepareStatement(sql);
 			ps.execute();
-			rs = ps.getResultSet();
-			List<String> result = new ArrayList<String>();
+			ResultSet rs = ps.getResultSet();
 			while (rs.next()) {
 				result.add(rs.getString(columnName));
 			}
-			return result.toArray(new String[0]);
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return result;
 	}
 
 	@Override
-	public Map<String, String> getRow(String tableName, String pkName) {
+	public List<Map<String, String>> getRows(String tableName, String field, String value) {
 		// TODO Auto-generated method stub
 		ResultSet rs;
 		Map<String, String> map;
+		List<Map<String,String>> maps = new ArrayList<Map<String,String>>();
 		try {
-			String sql = "SELECT * FROM " + tableName + " WHERE User_Name='"
-					+ pkName + "'";
+			String sql = "SELECT * FROM " + tableName + " WHERE " + field + "='"
+					+ value + "'";
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeQuery();
 			rs = ps.getResultSet();
-
-			rs.next();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int count = rsmd.getColumnCount();
-			map = new HashMap<String, String>();
-			for (int i = 1; i <= count; i++) {
-				String value = rs.getString(i);
-				String label = rsmd.getColumnLabel(i);
-				map.put(label, value);
+			while(rs.next()) {
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int count = rsmd.getColumnCount();
+				map = new HashMap<String, String>();
+				for (int i = 1; i <= count; i++) {
+					String curValue = rs.getString(i);
+					String label = rsmd.getColumnLabel(i);
+					map.put(label, curValue);
+				}
+				maps.add(map);
 			}
 			ps.close();
 
@@ -80,7 +82,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			System.out.println(e);
 			return null;
 		}
-		return map;
+		return maps;
 	}
 
 	@Override
