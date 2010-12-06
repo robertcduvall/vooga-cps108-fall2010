@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 
@@ -98,37 +99,60 @@ public class LogInFrame extends JFrame {
 
 	}
 
+	public class SubmitEvent implements ActionListener{
+		JFrame jf;
+		public SubmitEvent(JFrame frame){
+			jf = frame;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			username=text1.getText();
+			password=text_pass.getPassword();
+			if(checkPassword(null)){
+				
+				try {
+					MainFrame main = new MainFrame();
+					jf.dispose();					
+				} catch (UserConfigurationNotFoundException e1) {
+					e1.printStackTrace();
+				}
 
+			}
+			else{			
+				text_pass.selectAll();
+				text_pass.requestFocus(true);
+			}
+		}
+
+	}
+		
+	
 
 	public void addListener(){
-		submitButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				username=text1.getText();
-				password=text_pass.getPassword();
-				if(checkPassword(null)){//if(username.equals("limea")&&checkPassword(password)){
-					//	for(int i=0;i<100;i=i+10){
-					//		progressbar.setValue(i);
-					//	}
-					//Startup.dispose_loginframe();	
-					//						try {
-					//							
-					//							//Meng_MainFrame Desktop=new Meng_MainFrame();
-					//						} catch (UserConfigurationNotFoundException e1) {
-					//							e1.printStackTrace();
-					//						}
-					//	EventBus.publish(new LoginSuccessEvent("log in successfully!",true));
-
-				}
-				else{
-					
-					text_pass.selectAll();
-					text_pass.requestFocus(true);
-				}
-			}
-
-		}
-		);
+		submitButton.addActionListener(new SubmitEvent(this));//{
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				username=text1.getText();
+//				password=text_pass.getPassword();
+//				if(checkPassword(null)){
+//					
+//					try {
+//						MainFrame main = new MainFrame();
+//						
+//					} catch (UserConfigurationNotFoundException e1) {
+//						e1.printStackTrace();
+//					}
+//	
+//				}
+//				else{			
+//					text_pass.selectAll();
+//					text_pass.requestFocus(true);
+//				}
+//			}
+//
+//		}
+//		);
 
 
 		cancelButton.addActionListener(new ActionListener(){
@@ -140,16 +164,7 @@ public class LogInFrame extends JFrame {
 	}
 
 	public boolean checkPassword(char[] input){
-		//			String p="limea";
-		//			int i=0;
-		//			for(char a:input){
-		//				if(a==p.charAt(i)){
-		//					i++;	
-		//				}
-		//				else{
-		//				 return false;
-		//				}
-		//			}
+
 		return true;			
 	}
 
