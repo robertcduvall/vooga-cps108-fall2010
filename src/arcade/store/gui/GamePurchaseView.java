@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import arcade.store.control.Control;
+import arcade.store.items.IItemInfo;
 
 import java.awt.GridBagConstraints;
 import java.awt.event.MouseAdapter;
@@ -39,6 +40,7 @@ public class GamePurchaseView {
 		controller = control;
 	}
 	
+	
 	/**
 	 * This method initializes jFrame	
 	 * 	
@@ -65,10 +67,6 @@ public class GamePurchaseView {
 			borderLayout.setHgap(10);
 			borderLayout.setVgap(10);
 			coverArtHolder = new JLabel();
-			//coverArtHolder.setText("JLabel");
-			ImageIcon image = new ImageIcon("src/arcade/store/gui/resources/galaxyCover.png");
-			//System.out.println(image);
-			coverArtHolder.setIcon(image);
 			panel = new JPanel();
 			panel.setLayout(borderLayout);
 			panel.add(coverArtHolder, BorderLayout.WEST);
@@ -89,7 +87,7 @@ public class GamePurchaseView {
 			purchaseButton.setText("Purchase Game");
 			purchaseButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller.processPurchaseButton();
+					controller.processPurchaseButton(getTitleField().getText());
 				}
 			});
 		}
@@ -165,7 +163,7 @@ public class GamePurchaseView {
 	public JTextField getTitleField() {
 		if (titleField == null) {
 			titleField = new JTextField();
-			titleField.setText("Game Title!");
+
 		}
 		return titleField;
 	}
@@ -178,7 +176,6 @@ public class GamePurchaseView {
 	public JTextField getPriceField() {
 		if (priceField == null) {
 			priceField = new JTextField();
-			priceField.setText("25.00 creddits");
 		}
 		return priceField;
 	}

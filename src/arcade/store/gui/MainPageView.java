@@ -73,9 +73,14 @@ public class MainPageView {
 	 * 	
 	 * @return javax.swing.JList	
 	 */
-	private JList getGenreList() {
+	public JList getGenreList() {
 		if (genreList == null) {
-			genreList = new JList(new String[] {"apples", "oranges", "lemons"});
+			genreList = new JList();
+			genreList.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					
+				}
+			});
 		}
 		return genreList;
 	}
@@ -98,7 +103,7 @@ public class MainPageView {
 	 * 	
 	 * @return javax.swing.JTable	
 	 */
-	private JTable getGameListTable() {
+	public JTable getGameListTable() {
 		if (gameListTable == null) {
 			String[][] data = {{"GalaxyInvaders", "25.99", "Shooter"}, {"ZombieLand", "25.99", "Action"}};
 			String[] col = {"Game Name", "Price", "Genre"};
