@@ -75,13 +75,16 @@ public class XMLNode implements ResourceNode {
 
 	@Override
 	public String getDescription() {
+
 		Node child = node.getFirstChild();
 		while (child != null
 				&& child.getNodeName().equalsIgnoreCase(DESCRIPTION_TAG)) {
 			child = child.getNextSibling();
 		}
-		if (child != null)
+		if (child != null) {
+
 			return child.getTextContent();
+		}
 
 		else
 			return NO_DESCRIPTION;
