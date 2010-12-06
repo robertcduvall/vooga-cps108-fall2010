@@ -4,19 +4,17 @@ import java.util.List;
 
 import arcade.store.items.IItemInfo;
 
-public class SortOrganizer implements IOrganizer {
+public class FilterByAttributeOrganizer extends SortOrganizer {
 
 	@Override
 	public List<IItemInfo> organize(List<IItemInfo> list, String criteria) {
-		return sortListByAttribute(list);
+		return filterListByAttribute(list);
 	}
 
-	private List<IItemInfo> sortListByAttribute(List<IItemInfo> list) {
+	private List<IItemInfo> filterListByAttribute(List<IItemInfo> list) {
 		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < list.size(); j++) {
-				if (compareTo(list.get(i), list.get(j))) {
-					swap(list, i, j);
-				}
+			if (compareTo(list.get(i), criteria)) {
+				swap(list, i, j);
 			}
 		}
 
@@ -40,7 +38,6 @@ public class SortOrganizer implements IOrganizer {
 		 * compareTo returns 0 exactly when the equals(Object) method would
 		 * return true.
 		 */
-		return false;
+		return (firstItem.getGenre().compareTo(secondItem.getGenre()) < 0);
 	}
-
 }
