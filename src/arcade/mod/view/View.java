@@ -36,7 +36,6 @@ public class View extends JFrame implements Viewer {
 	Presenter myPresenter;
 
 	JPanel centralPanel;
-	JScrollPane centralScrollPane;
 	Collection<String> myCategories;
 	String currentCategory;
 
@@ -60,21 +59,19 @@ public class View extends JFrame implements Viewer {
 		contentPane.add(makeCategoryBox(), BorderLayout.NORTH);
 		contentPane.add(makeButton(), BorderLayout.SOUTH);
 
-		centralPanel = new JPanel();
-
-		centralPanel
-				.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
-
-		centralScrollPane = new JScrollPane(centralPanel,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-		contentPane.add(centralScrollPane, BorderLayout.CENTER);
+		contentPane.add(initializeScrollPane(), BorderLayout.CENTER);
 
 		add(contentPane);
 
 		setVisible(true);
 
+	}
+
+	private JScrollPane initializeScrollPane() {
+		
+		centralPanel = new JPanel();
+		centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
+		return new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 
 	/**
