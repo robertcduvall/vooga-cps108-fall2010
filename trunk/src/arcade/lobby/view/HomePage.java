@@ -26,9 +26,7 @@ import java.net.URL;
 public class HomePage extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	static private ProfileSet myProfileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Users", "voogaarcade", "Vooga108");
 	private Profile myProfile;
-	private HomePage myHomePage = this;
 	private JLabel nameLabel = null;
 	private JLabel birthdayLabel = null;
 	private JLabel emailLabel = null;
@@ -284,7 +282,7 @@ public class HomePage extends JPanel {
 					updateAvatar();
 					updateIcon();
 					// TODO save to database
-					myProfileSet.updateProfile(myProfile);
+					Main.ProfileSet.updateProfile(myProfile);
 				}
 
 				private void updateAvatar() {

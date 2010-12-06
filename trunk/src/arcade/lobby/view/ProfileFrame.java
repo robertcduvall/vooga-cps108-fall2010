@@ -5,20 +5,21 @@ import javax.swing.JFrame;
 
 import arcade.lobby.view.HomePage;
 import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
+
 import java.awt.Dimension;
 import java.sql.Date;
 
-public class MainFrame extends JFrame {
+public class ProfileFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
 	private JPanel jPanel = null;
-	private Menu myMenu = new Menu();
 
 	/**
 	 * This is the default constructor
 	 */
-	public MainFrame() {
+	public ProfileFrame() {
 		super();
 		initialize();
 	}
@@ -31,8 +32,7 @@ public class MainFrame extends JFrame {
 	private void initialize() {
 		this.setSize(467, 246);
 		this.setContentPane(getJContentPane());
-		this.setTitle("Home Page");
-		this.setJMenuBar(myMenu.setUpMenu());
+		this.setTitle("Profile Page");
 	}
 
 	/**
@@ -57,12 +57,8 @@ public class MainFrame extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			//TODO load from database
-			Profile bob = new Profile("bob");
-			bob.setName("Bob", "Smith");
-			bob.setBirthday("10/6/89");
-			bob.setEmail("abc123@cs.duke.edu");
-			bob.setAvatar("http://mystuffspace.com/graphic/blue-playboy-bunny.gif");
-			jPanel = new HomePage(bob);
+			Profile currentUser = ProfileSet.currentProfile;
+			jPanel = new HomePage(currentUser);
 		}
 		return jPanel;
 	}

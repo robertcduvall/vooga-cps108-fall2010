@@ -1,11 +1,12 @@
 package arcade.lobby.model;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class ProfileSet implements Iterable<Profile> {
+	
+	public static Profile currentProfile = null;
 	public DatabaseAdapter myDbAdapter;
 	public String myTable;
 
@@ -86,6 +87,10 @@ public class ProfileSet implements Iterable<Profile> {
 			}
 
 		};
+	}
+	
+	public void setUser(String userName){
+		this.currentProfile = this.getProfile(userName);
 	}
 
 }
