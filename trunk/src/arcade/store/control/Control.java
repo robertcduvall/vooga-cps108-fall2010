@@ -56,10 +56,10 @@ public class Control {
 		
 	}
 	
-	public void organize(String label)
+	public void filter(String label)
 	{
-//		List<IItemInfo> list = model.organize(label);
-//		populateMainPage(list);
+		List<IItemInfo> list = model.filter(label);
+		populateMainPage(list);
 	}
 	
 	public void showDialogBox()
@@ -70,18 +70,12 @@ public class Control {
 	
 	public void openGamePage(String tagName)
 	{
-		System.out.println(tagName);
 		IItemInfo item = model.getItemInfo(tagName);
-		System.out.println(item.getTitle());
 		GamePurchaseView view = new GamePurchaseView(this);
-		
 		view.getDescriptionField().setText(item.getDescription());
-
-	
-
-		view.getTitleField().setSize(200, 20);
 		view.getTitleField().setText(item.getTitle());
 		view.getPriceField().setText(item.getPrice());
+		System.out.println(item.getImages().get(0));
 		view.getCoverArt().setIcon( item.getImages().get(item.COVER_IMAGE));
 		
 	}
