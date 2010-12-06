@@ -15,6 +15,8 @@ import javax.swing.table.*;
 import arcade.store.control.Control;
 
 public class MainPageView {
+	
+	private static final int GAME_NAME_COLUMN = 0;
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="55,18"
 	private JPanel jContentPane = null;
@@ -102,13 +104,20 @@ public class MainPageView {
 			String[] col = {"Game Name", "Price", "Genre"};
 			TableModel dataModel = new DefaultTableModel(data, col); 
 			gameListTable = new JTable(dataModel);
+			gameListTable.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					int row = getGameListTable().getSelectedRow();
+					String identifier = (String)getGameListTable().getValueAt(row, GAME_NAME_COLUMN);
+					controller.openGamePage(identifier);
+				}
+			});
 		}
-		gameListTable.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				new GamePurchaseView(controller);
-			}
-		});
+		
 		return gameListTable;
+	}
+	
+	public void showMessageBox(String messageText) {
+		
 	}
 
 }
