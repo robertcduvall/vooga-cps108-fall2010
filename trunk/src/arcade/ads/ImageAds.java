@@ -22,6 +22,11 @@ public abstract class ImageAds extends BasicAds {
 	private int xMax;
 	private int yMin;
 	private int yMax;
+	
+	public ImageAds()
+	{
+		super();
+	}
 
 	public ImageAds(String name, Image img) {
 		super(name);

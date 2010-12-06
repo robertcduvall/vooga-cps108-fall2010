@@ -126,8 +126,10 @@ public class AdsManager {
 	/**
 	 * retrieve new ads from web server
 	 */
-	public void retrieve() {
+	public String retrieve()
+	{
 
+		return ads.get(0).name;
 	}
 
 	/**
@@ -169,8 +171,15 @@ public class AdsManager {
 	public void setGraphics(Graphics gs) {
 		this.gs = (Graphics2D) gs;
 	}
+
+	
+	public void setAds(String file){
+		ads = XMLtoAds.convert(file);
+	}
+
 	
 	public void runAdsThread(){
 		adsthread.run();
 	}
+
 }

@@ -100,15 +100,19 @@ public class AdFrame extends JFrame {
 
 	public static void main(String args[]) {
 		AdsManager manager = new AdsManager();
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(System.getProperty("user.dir")
-					+ "/src/arcade/ads/resources/duke.png"));
-		} catch (IOException e) {
-			System.out.println("werwe");
-		}
+		manager.setAds("src/arcade/ads/resources/adGroup1.xml");
+//		BufferedImage img = null;
+//		try
+//		{
+//			img = ImageIO.read(new File(System.getProperty("user.dir")+"/src/arcade/ads/resources/duke.png"));
+//		} catch (IOException e)
+//		{
+//			System.out.println("werwe");
+//		}
+//
+//		manager.add(new DukeAds("duke", img));
+		System.out.println(manager.retrieve());
 
-		manager.add(new DukeAds("duke", img));
 
 		new AdFrame(manager);
 	}

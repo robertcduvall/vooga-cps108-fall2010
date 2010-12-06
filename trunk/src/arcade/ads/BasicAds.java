@@ -1,5 +1,7 @@
 package arcade.ads;
 
+import org.w3c.dom.NamedNodeMap;
+
 import vooga.engine.core.BetterSprite;
 
 /**
@@ -27,6 +29,11 @@ public abstract class BasicAds extends BetterSprite
 	protected long startTime;
 	protected long endTime;
 
+	public BasicAds()
+	{
+		super();
+	}
+	
 	/**
 	 * sets ads name
 	 * 
@@ -149,4 +156,9 @@ public abstract class BasicAds extends BetterSprite
 	{
 		return getEndTime() - getStartTime();
 	};
+	
+	public void setParameters(NamedNodeMap attributes)
+	{
+		
+	}
 }
