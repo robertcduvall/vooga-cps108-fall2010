@@ -11,10 +11,12 @@ import java.util.ResourceBundle;
 
 @SuppressWarnings("serial")
 public class SignUpFrame extends JFrame{
+	
 	JProgressBar progressbar;
 	private JTextField usernameField,questionField;
 	private JPasswordField passwordField;
 	private JPasswordField passwordFieldRep;
+	private SecurityButton submitButton;
 	
 	private int maxPasswordLength = 5;
 	private int maxUserNameLength = 5;
@@ -33,16 +35,21 @@ public class SignUpFrame extends JFrame{
 		JLabel username_label=new JLabel(LabelResources.getLabel("AskForUserName"));		
 		JLabel pwd_label1=new JLabel(LabelResources.getLabel("AskForPwd"));
 		JLabel pwd_label2 = new JLabel(LabelResources.getLabel("AskForPwdAgain"));
+		
 		add(username_label,"cell 0 1");
 		add(pwd_label1,"cell 0 2");
 		add(pwd_label2,"cell 0 3");
+		
 		usernameField=new JTextField(maxUserNameLength);	
 		questionField = new JTextField();
 		passwordField=new JPasswordField(maxPasswordLength);
 		passwordFieldRep=new JPasswordField(maxPasswordLength);
+		submitButton = new SecurityButton(LabelResources.getLabel("SignUpButton"));
+		
 		add(usernameField,"cell 1 1,wrap");
 		add(passwordField,"cell 1 2,wrap");
 		add(passwordFieldRep,"cell 1 3,wrap");
+		add(submitButton, "cell 1 5, wrap");
 		
 		ResourceBundle questions = ResourceBundle.getBundle(QUESTIONS);
 		String[] q = new String[questionNum];

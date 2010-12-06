@@ -44,25 +44,31 @@ public class LogInFrame extends JFrame {
 		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));
 		JLabel label1=new JLabel(LabelResources.getLabel("UserId"));		
 		JLabel label2=new JLabel(LabelResources.getLabel("Password"));
+		
 		usernameField=new JTextField(maxUserNameLength);	
 		passwordField=new JPasswordField(maxPasswordLength);
+		
 		add(image,"cell 0 0 2 1");
 		add(label1,"cell 0 1");
 		add(usernameField,"cell 1 1,wrap");
 		add(label2,"cell 0 2");
 		add(passwordField,"wrap");
+		
 		submitButton = new SecurityButton(LabelResources.getLabel("LoginframeSubmit"),new ImageIcon(StaticFileResources.getPath("loginsubmit")),"Log in");
 		cancelButton = new SecurityButton(LabelResources.getLabel("LoginframeCancel"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
 		signUpButton = new SecurityButton(LabelResources.getLabel("LoginframeSignup"),"SignUp");
 		forgotPasswordButton = new SecurityButton(LabelResources.getLabel("LoginframeForgot"),"ForgottenPassword");
+		
 		signUpButton.requestFocus(true);
 		forgotPasswordButton.requestFocus(true);
 		submitButton.requestFocus(true);
 		passwordHandler = new PasswordHandler();
+		
 		add(submitButton,"");
 		add(cancelButton,"wrap");
 		add(signUpButton);
 		add(forgotPasswordButton);
+		
 		this.setLocationRelativeTo(this);
 		this.setUndecorated(true);   //no frameworks		
 		pack();
