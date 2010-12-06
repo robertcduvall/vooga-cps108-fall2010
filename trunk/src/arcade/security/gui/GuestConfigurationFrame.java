@@ -6,10 +6,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,17 +23,27 @@ import javax.swing.JPanel;
 
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
+import arcade.security.user.Developer;
+import arcade.security.user.Guest;
 /**
  * 
  * @author Meng Li
  *
  */
 @SuppressWarnings("serial")
-public class GuestConfigurationFrame extends UserConfigurationFrame {
+public class GuestConfigurationFrame extends UserConfigurationFrame
+												implements ItemListener{
 
 	private Container currentContentPane;
 
+	//TODO: Need to tell this class what user it is modifying so it can change their privileges.
+	Guest guest;
+	
+	JCheckBox adminButton;
+	JCheckBox forumButton;
+	JCheckBox retailButton;
 
+	
 	public GuestConfigurationFrame(){
 		super(LabelResources.getLabel("GuestInternalFrame"),true,true,true,true);
 		Dimension a=new Dimension(200,200);
@@ -40,6 +53,28 @@ public class GuestConfigurationFrame extends UserConfigurationFrame {
 		this.setFrameIcon(new ImageIcon(StaticFileResources.getPath("guestinternalframeicon")));	//to do
 		this.setLayout(new BorderLayout());  
 		currentContentPane=this.getContentPane();	 //get the current container,so new component can be added on when the mouse clicked  			pack();
+
+		adminButton = new JCheckBox(LabelResources.getLabel("AdminPrivilegeButton"));
+     	adminButton.setSelected(false);
+     	
+     	forumButton = new JCheckBox(LabelResources.getLabel("ForumPrivilegeButton"));
+     	forumButton.setSelected(false);
+     	
+     	retailButton = new JCheckBox(LabelResources.getLabel("RetailPrivilegeButton"));
+     	retailButton.setSelected(false);
+     	
+     	adminButton.addItemListener(this);
+     	forumButton.addItemListener(this);
+     	retailButton.addItemListener(this);
+     	
+     	JPanel checkPanel = new JPanel(new GridLayout(0, 1));
+     	checkPanel.add(adminButton);
+     	checkPanel.add(forumButton);
+     	checkPanel.add(retailButton);
+     	
+     	add(checkPanel);
+     	
+		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
@@ -119,4 +154,24 @@ public class GuestConfigurationFrame extends UserConfigurationFrame {
 		panel.add(filler);
 		return panel;
 	}
+	
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		Object source = e.getItemSelectable();
+		if(source == adminButton)
+		{
+			guest.getPrivilegeMap().put("admin", !guest.getPrivilege("admin"));
+		}
+		if(source == retailButton)
+		{
+			guest.getPrivilegeMap().put("retail", !guest.getPrivilege("retail"));
+		}
+		if(source == forumButton)
+		{
+			guest.getPrivilegeMap().put("forum", !guest.getPrivilege("forum"));
+		}
+	}
 }
+
+
