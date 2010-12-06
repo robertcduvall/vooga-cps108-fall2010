@@ -26,6 +26,20 @@ public class WallModel {
 		return comments;
 	}
 
+//	public WallModel() {
+//		DBHandler.open("src/arcade/wall/WallDB.sqlite");
+//		DBHandler.createTable("GameReviews", "Game", "Comments", "Rating", "Username");
+//		DBHandler.setTable("GameReviews");
+//		
+//	}
+	
+//	public void addComment(String game, String comment, String user){
+//		DBHandler.open("src/arcade/wall/WallDB.sqlite");
+//		DBHandler.setTable("GameReviews");
+//		DBHandler.addRow(new Entry<String>("Game", game),
+//				 		 new Entry<String>("Comments", comment),
+//				 		 new Entry<String>("Username", user));
+//	}
 	private Map<String,ArrayList<String>> getComments() {
 		List<String> comments = DBHandler.getColumn(commentsColumn,new String());
 		List<String> games = DBHandler.getColumn(gamesColumn,new String());
