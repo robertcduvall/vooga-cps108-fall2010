@@ -44,8 +44,6 @@ public class HomePage extends JPanel {
 	private JTextField urlField = null;
 	private JLabel urlLabel = null;
 
-	// private final String dateRegex =
-	// "^(\\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$";
 	/**
 	 * This is the default constructor
 	 */
@@ -280,14 +278,13 @@ public class HomePage extends JPanel {
 					updateEmail();
 					updateBirthday();
 					updateAvatar();
-					updateIcon();
-					// TODO save to database
 					Main.ProfileSet.updateProfile(myProfile);
 				}
 
 				private void updateAvatar() {
 					urlField.setEditable(false);
 					myProfile.setAvatar(urlField.getText());
+					updateIcon();
 				}
 
 				private void updateBirthday() {
