@@ -26,6 +26,11 @@ public class PasswordHandler {
 		calcDeductions();
 		return score;
 	}
+	
+	public boolean passwordCorrect(String password){
+		this.password  = password;
+		return true;
+	}
 
 	private void calcAdditions() {
 		stats.checkPassword(password);
