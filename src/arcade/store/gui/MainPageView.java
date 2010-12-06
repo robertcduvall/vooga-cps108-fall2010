@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.*;
 
+import arcade.store.control.Control;
+
 public class MainPageView {
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="55,18"
@@ -20,9 +22,11 @@ public class MainPageView {
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
 	private JTable gameListTable = null;
+	private Control controller;
 
 	
-	public MainPageView() {
+	public MainPageView(Control control) {
+		controller = control;
 		JFrame frame = getJFrame();
 		frame.setVisible(true);
 	}
@@ -101,7 +105,7 @@ public class MainPageView {
 		}
 		gameListTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				new GamePurchaseView();
+				new GamePurchaseView(controller);
 			}
 		});
 		return gameListTable;

@@ -10,7 +10,11 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
+import arcade.store.control.Control;
+
 import java.awt.GridBagConstraints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 public class GamePurchaseView {
@@ -26,11 +30,13 @@ public class GamePurchaseView {
 	private JLabel titleLabel = null;
 	private JLabel priceLabel = null;
 	private JLabel descriptionLabel = null;
+	private Control controller;
 	
-	public GamePurchaseView() {
+	public GamePurchaseView(Control control) {
 		JFrame frame = getJFrame();
 		//frame.pack();
 		frame.setVisible(true);
+		controller = control;
 	}
 	
 	/**
@@ -81,6 +87,11 @@ public class GamePurchaseView {
 		if (purchaseButton == null) {
 		purchaseButton = new JButton();
 			purchaseButton.setText("Purchase Game");
+			purchaseButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					controller.processPurchaseButton();
+				}
+			});
 		}
 		return purchaseButton;
 	}
