@@ -68,50 +68,51 @@ public class ExampleGUI extends Tab{
 	//makes the center panel
 	private JComponent makeCenterPanel()
 	{	
-		JPanel top = new JPanel();
-		int xSizeOfColumn =(int) ( tk.getScreenSize().getWidth()/2);  
-		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight()/2);
-		
-		top.setPreferredSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
-		top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
-		
-		JPanel bottom = new JPanel();
-		
-		bottom.setPreferredSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
-		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
-		
-		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
-	    JLabel label = new JLabel(icon);
-	    
-	    
-	    JTextPane descriptionPane = new JTextPane();
-	    descriptionPane.setContentType("text/html");
-        String description = "<p><b>Description:</b></p>" +
-            "<p>This is where instructions for the game would go. <br>" +
-            "For example:<br> Left Arrow = move left. <br>" +
-            "Right Arrow = move right <br>" +
-            "Spacebar = fire.</p>";
-        descriptionPane.setText(description);
-        descriptionPane.setEditable(false);
-        
-        startB = new JButton("Start");
-        startB.setPreferredSize(new Dimension(400, 50));
-		sbHandler = new StartButtonHandler();
-		startB.addActionListener(sbHandler);
-        
-		label.setAlignmentX(CENTER_ALIGNMENT);
-		descriptionPane.setAlignmentX(CENTER_ALIGNMENT);
-		startB.setAlignmentX(CENTER_ALIGNMENT);
-		
-		top.add(label);
-		bottom.add(descriptionPane);
-		bottom.add(new Box.Filler(new Dimension(0, 20),
-				new Dimension(0, 20),
-				new Dimension(0, 20)));
-		bottom.add(startB);
-		bottom.add(new Box.Filler(new Dimension(0, 20),
-				new Dimension(0, 20),
-				new Dimension(0, 20)));
+		JPanel center = new JPanel();
+//		JPanel top = new JPanel();
+//		int xSizeOfColumn =(int) ( tk.getScreenSize().getWidth()/2);  
+//		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight()/2);
+//		
+//		top.setPreferredSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
+//		top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
+//		
+//		JPanel bottom = new JPanel();
+//		
+//		bottom.setPreferredSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
+//		bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
+//		
+//		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
+//	    JLabel label = new JLabel(icon);
+//	    
+//	    
+//	    JTextPane descriptionPane = new JTextPane();
+//	    descriptionPane.setContentType("text/html");
+//        String description = "<p><b>Description:</b></p>" +
+//            "<p>This is where instructions for the game would go. <br>" +
+//            "For example:<br> Left Arrow = move left. <br>" +
+//            "Right Arrow = move right <br>" +
+//            "Spacebar = fire.</p>";
+//        descriptionPane.setText(description);
+//        descriptionPane.setEditable(false);
+//        
+//        startB = new JButton("Start");
+//        startB.setPreferredSize(new Dimension(400, 50));
+//		sbHandler = new StartButtonHandler();
+//		startB.addActionListener(sbHandler);
+//        
+//		label.setAlignmentX(CENTER_ALIGNMENT);
+//		descriptionPane.setAlignmentX(CENTER_ALIGNMENT);
+//		startB.setAlignmentX(CENTER_ALIGNMENT);
+//		
+//		top.add(label);
+		center.add(new GameView("zombieland"));
+//		bottom.add(new Box.Filler(new Dimension(0, 20),
+//				new Dimension(0, 20),
+//				new Dimension(0, 20)));
+//		bottom.add(startB);
+//		bottom.add(new Box.Filler(new Dimension(0, 20),
+//				new Dimension(0, 20),
+//				new Dimension(0, 20)));
         
 		/*exitB = new JButton("Exit");
 		ebHandler = new ExitButtonHandler();
@@ -119,13 +120,13 @@ public class ExampleGUI extends Tab{
         
         
 		//divides the center pane into the splash and the instructions
-        JSplitPane gameInstruction = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-	    		top, bottom);
-	    gameInstruction.setOneTouchExpandable(true);
-	    gameInstruction.setDividerLocation(.75);
-	    gameInstruction.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//        JSplitPane gameInstruction = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+//	    		top, bottom);
+//	    gameInstruction.setOneTouchExpandable(true);
+//	    gameInstruction.setDividerLocation(.75);
+//	    gameInstruction.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	    
-	    return gameInstruction;
+	    return center;
 	}
 	
 	//makes the left hand side panel
