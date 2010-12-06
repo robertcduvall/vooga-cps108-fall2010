@@ -164,6 +164,10 @@ public abstract class BasicAds extends BetterSprite
 		
 	}
 	
+	/**
+	 * 	opens the targetURL in the default browser
+	 * 	http://www.mkyong.com/java/open-browser-in-java-windows-or-linux/
+	 */
 	public void openBrowser(){
 		String os = System.getProperty("os.name").toLowerCase();
         Runtime rt = Runtime.getRuntime();

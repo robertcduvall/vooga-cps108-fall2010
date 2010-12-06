@@ -64,7 +64,7 @@ public class XMLtoAds {
 				}
 				catch(Exception e)
 				{
-					throw LevelException.RULE_NOT_FOUND_EXCEPTION;//****** Change Exception
+					throw LevelException.RULE_NOT_FOUND_EXCEPTION;//TODO: Change Exception
 				}
 			}
 		}

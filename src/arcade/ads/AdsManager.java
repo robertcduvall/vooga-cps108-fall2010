@@ -132,7 +132,6 @@ public class AdsManager {
 		return ads.get(0).name;
 	}
 	
-	//TODO:
 	public BasicAds getCurrentAd(){
 		return ads.get(index);
 	}
