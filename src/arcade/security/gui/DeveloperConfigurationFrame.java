@@ -53,14 +53,14 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame
 		this.setLayout(new BorderLayout());  
 		currentContentPane=this.getContentPane();	 //get the current container,so new component can be added on when the mouse clicked  	
      	pack();
-     	
-		adminButton = new JCheckBox("Administrator Privilege");
+
+		adminButton = new JCheckBox(LabelResources.getLabel("AdminPrivilegeButton"));
      	adminButton.setSelected(true);
      	
-     	forumButton = new JCheckBox("Forum Moderator Privilege");
+     	forumButton = new JCheckBox(LabelResources.getLabel("ForumPrivilegeButton"));
      	forumButton.setSelected(true);
      	
-     	retailButton = new JCheckBox("Retailer Privilege");
+     	retailButton = new JCheckBox(LabelResources.getLabel("RetailPrivilegeButton"));
      	retailButton.setSelected(false);
      	
      	adminButton.addItemListener(this);
