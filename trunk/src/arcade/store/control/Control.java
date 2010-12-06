@@ -75,8 +75,9 @@ public class Control {
 		view.getDescriptionField().setText(item.getDescription());
 		view.getTitleField().setText(item.getTitle());
 		view.getPriceField().setText(item.getPrice());
-		System.out.println(item.getImages().get(0));
+		System.out.println(item.getImages().get(item.COVER_IMAGE));
 		view.getCoverArt().setIcon( item.getImages().get(item.COVER_IMAGE));
+		view.getCoverArt().setText("This is where the coverart should go");
 		
 	}
 	
