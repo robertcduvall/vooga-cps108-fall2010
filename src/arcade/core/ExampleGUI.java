@@ -19,7 +19,7 @@ public class ExampleGUI extends Tab {
 
 	private Toolkit tk;
 
-	private static String gameName="zombieland";
+	private static String gameName = "zombieland";
 	private static JPanel content;
 	private static JSplitPane columnar;
 
@@ -93,7 +93,7 @@ public class ExampleGUI extends Tab {
 	// makes the right hand side panel
 	private JComponent makeRightPanel() {
 		JPanel right = new JPanel();
-		int xSizeOfColumn = (int) (tk.getScreenSize().getWidth() / 5);
+		int xSizeOfColumn = (int) (tk.getScreenSize().getWidth() / 7);
 		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight() / 2);
 
 		right.setMinimumSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
