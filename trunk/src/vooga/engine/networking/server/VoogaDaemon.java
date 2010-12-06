@@ -10,6 +10,7 @@ import vooga.engine.networking.GameSocket;
 public class VoogaDaemon extends Thread{
 	public static final int PORTNUM = 1234;
 	public static final int CHATPORTNUM = 1235;
+	public int numberOfGames;
 	private ServerSocket port;
 	private ServerSocket chatPort;
 	private ServerPlayer[] playersWaiting;
@@ -26,6 +27,7 @@ public class VoogaDaemon extends Thread{
 			playersWaiting = new ServerPlayer[numberOfPlayers - 1];
 			this.serverGame = serverGame;
 			this.serverPlayer = serverPlayer;
+			numberOfGames = 1;
 		}
 		catch (IOException e) {
 			System.out.println("Couldn't access port " + PORTNUM + ": " + e);
@@ -43,7 +45,7 @@ public class VoogaDaemon extends Thread{
 			try {
 				chatSocket = chatPort.accept();
 				clientSocket = port.accept();
-				ChatHandler chatHandler = new ChatHandler(new GameSocket(chatSocket));
+				ChatHandler chatHandler = new ChatHandler(new GameSocket(chatSocket), numberOfGames);
 				chatHandler.start();
 				try{
 					Class<?> serverPlayerName = Class.forName(serverPlayer);
@@ -145,6 +147,7 @@ public class VoogaDaemon extends Thread{
 			retval = thisGame;
 			playerWaiting = null;
 			notify();
+			numberOfGames++;
 			return retval;
 		}
 	} 
