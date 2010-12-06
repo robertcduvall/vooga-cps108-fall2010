@@ -1,6 +1,9 @@
 package arcade.ads;
 
+import java.awt.Desktop;
 import java.awt.Image;
+import java.io.IOException;
+import java.net.URI;
 
 /**
  * This is simple class will provide general functionality for all ads, such as
@@ -41,7 +44,8 @@ public abstract class ImageAds extends BasicAds {
 
 	@Override
 	public void onClick() {
-		// open a url
+		//open url
+		openBrowser("http://www.duke.edu");
 	}
 
 	@Override
