@@ -14,24 +14,30 @@ import java.util.List;
  */
 
 public class RotateThread extends Thread {
-	private List<BasicAds> ads;
-	private int index;
 
-	public RotateThread(List<BasicAds> ads, int index) {
-		this.ads = ads;
-		this.index = index;
+	private AdsManager manager;
+
+	public RotateThread(AdsManager manager) {
+		this.manager = manager;
+		System.out.println("here");
 	}
 
 	/**
 	 * Sleep for current ad's duration time, then move on to the next ad.
 	 */
 	public void run() {
-		try {
-			Thread.sleep(ads.get(index).getDuration());
-			AdsManager.nextAds();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while(true) {
+			try {
+				if (!manager.ads.isEmpty()) {
+					System.out.println("start");
+					Thread.sleep(manager.ads.get(manager.index).getDuration());
+					System.out.println("end");
+					AdsManager.nextAds();
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}

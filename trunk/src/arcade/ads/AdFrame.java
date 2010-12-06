@@ -96,8 +96,10 @@ public class AdFrame extends JFrame {
 		setVisible(true);
 
 		myManager.setGraphics(panel2.getGraphics());
-
 		myManager.runAdsThread();
+		myManager.rotate();
+
+
 		// myManager.update();
 		// myManager.render();
 	}
