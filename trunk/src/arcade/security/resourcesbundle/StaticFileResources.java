@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class StaticFileResources {
 	//the base name getBundle should look like this: meng_Inter.**.**.**
-	private static ResourceBundle rb = ResourceBundle.getBundle("resources.filepath");
+	private static ResourceBundle rb = ResourceBundle.getBundle("arcade.security.resources.filepath");
 	public static String getPath(String key){
 		try{		
 			String res=rb.getString(key);

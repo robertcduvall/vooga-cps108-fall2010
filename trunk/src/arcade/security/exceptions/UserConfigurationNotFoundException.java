@@ -1,15 +1,19 @@
 package arcade.security.exceptions;
 
+@SuppressWarnings("serial")
 public class UserConfigurationNotFoundException extends Exception {
-	
-		private static final long serialVersionUID = 1L;
 
-		public UserConfigurationNotFoundException(String message){
-			super(message);
-		}
+	/**
+	 * Create exception with given message
+	 *  
+	 * @param message explanation of problem
+	 */
+	public UserConfigurationNotFoundException(String message){
+		super(message);
+	}
 
-		public UserConfigurationNotFoundException(Throwable e){  //?? right?
-			super(e.getCause());
-		}
+	public UserConfigurationNotFoundException(Throwable e){ 
+		super(e.getCause());
+	}
 }
 

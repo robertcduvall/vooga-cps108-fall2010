@@ -11,4 +11,9 @@ public class PrivilegeNotFoundException extends Exception {
 	{
 		super(message);
 	}
+
+	public PrivilegeNotFoundException(Throwable e){ 
+		super(e.getCause());
+	}
+
 }
