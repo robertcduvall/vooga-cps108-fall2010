@@ -3,7 +3,7 @@ package vooga.examples.networking.zombies.events;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.zombieland.weapons.Bullet;
+import vooga.examples.networking.zombies.weapons.Bullet;
 
 public class AddBulletsEvent implements IEventHandler {
 

@@ -29,7 +29,7 @@ public class PlayState extends GameState{
 	private GameOverState theyQuitState;
 	private GameOverState tieState;
 	private GameOverState errorState;
-	private TheirTurnState theirTurnState;
+	private TheirTurnState waitState;
 	private TicTacToeConnection connection;
 	private boolean myTurn, theirTurn;
 	private boolean won, tied, lost, quit;
@@ -52,7 +52,7 @@ public class PlayState extends GameState{
 
 	public void initControls(){
 		Control gameControl = new MouseControl(this, game);
-		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", "vooga.examples.networking.tictactoe.states.PlayState");
+		gameControl.addInput(MouseEvent.BUTTON1, "addPiece", Resources.getString("playStateDirectory"));
 		field.addControl("game", gameControl);
 	}
 	
@@ -61,9 +61,9 @@ public class PlayState extends GameState{
 		PlayField gameWonField = levelParser.getPlayfield(Resources.getString("gameWonXml"), game);
 		gameWonState = new GameOverState(game, gameWonField);
 		game.getGameStateManager().addGameState(gameWonState);
-		PlayField theirTurnField = levelParser.getPlayfield(Resources.getString("theirTurnXml"), game);
-		theirTurnState = new TheirTurnState(game, connection, theirTurnField, this);
-		game.getGameStateManager().addGameState(theirTurnState);
+		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitForTurnXml"), game);
+		waitState = new TheirTurnState(game, connection, waitField, this);
+		game.getGameStateManager().addGameState(waitState);
 		PlayField youLostField = levelParser.getPlayfield(Resources.getString("youLostXml"), game);
 		youLostState = new GameOverState(game, youLostField);
 		game.getGameStateManager().addGameState(youLostState);
@@ -191,7 +191,7 @@ public class PlayState extends GameState{
 			return;
 		}
 		if(theirTurn){
-			game.getGameStateManager().switchTo(theirTurnState);
+			game.getGameStateManager().switchTo(waitState);
 			theirTurn = false;
 			return;
 		}

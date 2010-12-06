@@ -52,8 +52,7 @@ public class TicTacToe extends Game {
 
 	private void initLevelManager() {
 		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources
-				.getString(LEVEL_FILES_DIRECTORY_STRING);
+		String levelFilesDirectory = Resources.getString(LEVEL_FILES_DIRECTORY_STRING);
 		String levelNamesFile = Resources.getString(LEVEL_NAMES_FILE_STRING);
 		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}

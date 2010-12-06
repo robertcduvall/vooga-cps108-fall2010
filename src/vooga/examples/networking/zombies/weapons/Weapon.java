@@ -1,7 +1,7 @@
 package vooga.examples.networking.zombies.weapons;
 
 
-import vooga.games.zombieland.Shooter;
+import vooga.examples.networking.zombies.Shooter;
 
 /**
  * Weapon class. Sets up the basic functions of a weapon and allows for

@@ -5,7 +5,7 @@ import java.util.Stack;
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.event.IEventHandler;
-import vooga.games.zombieland.Zombie;
+import vooga.examples.networking.zombies.Zombie;
 
 public class AddZombieEvent implements IEventHandler {
 

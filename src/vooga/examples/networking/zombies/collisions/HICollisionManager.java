@@ -1,7 +1,7 @@
 package vooga.examples.networking.zombies.collisions;
 
 import vooga.engine.core.Game;
-import vooga.games.zombieland.items.Item;
+import vooga.examples.networking.zombies.items.Item;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;

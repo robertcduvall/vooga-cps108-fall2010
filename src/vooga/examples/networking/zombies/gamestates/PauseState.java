@@ -6,8 +6,8 @@ import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.*;
 import vooga.engine.overlay.*;
 import vooga.engine.state.GameState;
-import vooga.games.zombieland.Blah;
-import vooga.games.zombieland.Constants;
+import vooga.examples.networking.zombies.Blah;
+import vooga.examples.networking.zombies.Constants;
 
 public class PauseState extends GameState implements Constants {
 

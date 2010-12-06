@@ -1,13 +1,17 @@
 package vooga.examples.networking.zombies;
 
-import com.golden.gamedev.object.*;
-
-import vooga.engine.overlay.Stat;
-import vooga.engine.resource.Resources;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
-import vooga.games.zombieland.events.AddBulletsEvent;
-import vooga.games.zombieland.weapons.*;
+import vooga.engine.overlay.Stat;
+import vooga.engine.resource.Resources;
+import vooga.examples.networking.zombies.events.AddBulletsEvent;
+import vooga.examples.networking.zombies.weapons.AssaultRifle;
+import vooga.examples.networking.zombies.weapons.Bullet;
+import vooga.examples.networking.zombies.weapons.Pistol;
+import vooga.examples.networking.zombies.weapons.ShotGun;
+import vooga.examples.networking.zombies.weapons.Weapon;
+
+import com.golden.gamedev.object.AnimatedSprite;
 
 /**
  * Player class. Contains all properties and abilities of the player
