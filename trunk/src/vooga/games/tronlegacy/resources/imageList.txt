@@ -1,4 +1,0 @@
-humanPlayer,humanPlayer.png
-computerPlayer,computerPlayer.png
-levelBlock,levelBlock.png
-titleBackground,titleBackground.jpg

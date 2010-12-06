@@ -11,12 +11,9 @@ import arcade.mod.model.XMLNode;
 
 public class StringListFrame extends AbstractListFrame {
 
-	private String myName;
 	private String myString;
-	private String myDescription;
 	private JTextField myInput;
-	private JLabel stringLabel;
-	private JLabel descriptionLabel;
+	
 
 	public StringListFrame() {
 

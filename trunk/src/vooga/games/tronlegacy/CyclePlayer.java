@@ -6,9 +6,8 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-import vooga.engine.event.EventManager;
-import vooga.engine.player.control.KeyboardControl;
-import vooga.engine.player.control.PlayerSprite;
+import vooga.engine.control.KeyboardControl;
+import vooga.engine.core.BetterSprite;
 import vooga.games.tronlegacy.CyclePlayer;
 
 /**
@@ -17,7 +16,7 @@ import vooga.games.tronlegacy.CyclePlayer;
  * 
  */
 
-public class CyclePlayer extends PlayerSprite {
+public class CyclePlayer extends BetterSprite {
 
 	private final static double SPEED = 0.1;
 	private final static String classpath = "vooga.games.tronlegacy.CyclePlayer";
@@ -26,37 +25,26 @@ public class CyclePlayer extends PlayerSprite {
 		UP, DOWN, LEFT, RIGHT;
 	}
 
-	EventManager eventManager;
 	KeyboardControl controller;
 	private boolean paused;
 	private int directionIndex;
 
-	public CyclePlayer(String name, String stateName, Sprite s, EventManager em) {
-		super(name, stateName, s);
+	public CyclePlayer(String name, Sprite s) {
+		super(name, s);
 
-		eventManager = em;
 	}
 
-	public KeyboardControl addPlayerControl(KeyboardControl kb, int upKey, int downKey, int leftKey, int rightKey) {
+	public KeyboardControl addPlayerControl(KeyboardControl kb, int upKey,
+			int downKey, int leftKey, int rightKey) {
 		controller = kb;
-		try {
-			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(upKey, "changeDirection", classpath,
-					"UP");
-			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(downKey, "changeDirection", classpath,
-					"DOWN");
-			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(leftKey, "changeDirection", classpath,
-					"LEFT");
-			controller.setParams(Class.forName("java.lang.String"));
-			controller.addInput(rightKey, "changeDirection",
-					classpath, "RIGHT");
-			controller.addInput(KeyEvent.VK_P, "invokePause", classpath, null);
-		} catch (ClassNotFoundException e) {
-			System.out
-					.println("Failed attaching KeyboardControl to humanPlayer.");
-		}
+		
+		controller.addInput(upKey, "changeDirectionUp", classpath, null);
+		controller.addInput(downKey, "changeDirectionDown", classpath, null);
+		controller.addInput(leftKey, "changeDirectionLeft", classpath, null);
+		controller.addInput(rightKey, "changeDirectionRight", classpath, null);
+		
+		controller.addInput(KeyEvent.VK_P, "invokePause", classpath, null);
+		
 		return controller;
 	}
 
@@ -69,7 +57,7 @@ public class CyclePlayer extends PlayerSprite {
 	}
 
 	public void changeDirectionRandom() {
-		//rotates clockwise or counterclockwise randomly
+		// rotates clockwise or counterclockwise randomly
 		if (Math.random() < 0.5) {
 			directionIndex = (directionIndex - 1) % 4;
 		} else {
@@ -94,8 +82,22 @@ public class CyclePlayer extends PlayerSprite {
 		}
 
 	}
+	
+	public void changeDirectionUp(){
+		changeDirection("UP");
+	}
+	public void changeDirectionDown(){
+		changeDirection("DOWN");
+	}
+	public void changeDirectionLeft(){
+		changeDirection("LEFT");
+	}
+	public void changeDirectionRight(){
+		changeDirection("RIGHT");
+	}
 
 	public void changeDirection(String direction) {
+
 		switch (Direction.valueOf(direction)) {
 		case UP:
 			setSpeed(0, -SPEED);

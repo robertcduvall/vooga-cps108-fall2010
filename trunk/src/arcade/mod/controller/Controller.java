@@ -42,7 +42,7 @@ public class Controller implements Presenter {
 			try {
 				myModel = new XMLModel(xmlFile);
 			} catch (Exception e) {
-				// TODO show dialogue in view
+				// TODO show dialog in view
 				e.printStackTrace();
 			}
 		} else {

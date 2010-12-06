@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level name="Asteroids" xmloverlaypath="src/vooga/games/asteroids/resources/overlays.xml">
+<Level name="level1" xmloverlaypath="src/vooga/games/asteroids/resources/overlays.xml">
 
 	<SpriteGroups>
 		<SpriteGroup name="backgroundGroup">

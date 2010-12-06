@@ -1,4 +1,4 @@
-package vooga.games.tronlegacy;
+package vooga.games.tronlegacy.collisions;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.Sprite;

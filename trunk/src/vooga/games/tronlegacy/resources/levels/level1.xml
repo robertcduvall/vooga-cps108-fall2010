@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="Asteroids" xmloverlaypath="src/vooga/games/asteroids/resources/overlays.xml">
+
+	<SpriteGroups>
+		<SpriteGroup name="humanPlayerGroup">
+			<SpawnedSprite name="humanPlayerSprite" xRange="400" yRange="300" vxRange="0" vyRange="0" quantity="1">
+				<Visual name="humanPlayer"/>
+			</SpawnedSprite>
+		</SpriteGroup>
+		
+		<SpriteGroup name="levelBlockGroup">
+			<RegularSprite name="levelBlockSprite" x="50" y="50" vx="0" vy="0" quantity="1">
+				<Visual name="levelBlock"/>
+			</RegularSprite>
+		</SpriteGroup>
+		
+		<SpriteGroup name="computerPlayerGroup">
+			<SpawnedSprite name ="computerPlayerSprite" xRange="800" yRange="600" vxRange="0" vyRange="0.2" quantity="1">
+				<Visual name="computerPlayer"/>
+			</SpawnedSprite> 
+		</SpriteGroup>
+	</SpriteGroups>
+	
+	<Events></Events>
+	
+	<Rules></Rules>
+
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.tronlegacy.collisions.TronCollision">
+			<SpriteGroup name="humanPlayerGroup"></SpriteGroup>
+			<SpriteGroup name="computerPlayerGroup"></SpriteGroup>
+		</CollisionGroup>
+		
+		<CollisionGroup subclass="vooga.games.tronlegacy.collisions.TronCollision">
+			<SpriteGroup name="humanPlayerGroup"></SpriteGroup>
+			<SpriteGroup name="humanPlayerGroup"></SpriteGroup>
+		</CollisionGroup>
+		<CollisionGroup subclass="vooga.games.tronlegacy.collisions.TronCollision">
+			<SpriteGroup name="computerPlayerGroup"></SpriteGroup>
+			<SpriteGroup name="computerPlayerGroup"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+	
+	<Background>
+	</Background>
+
+	<Music>
+		<Sound name="explosionSound"/>
+	</Music>
+	
+	<Map>
+	
+	</Map>
+
+</Level>

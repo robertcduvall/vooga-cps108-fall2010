@@ -10,12 +10,9 @@ import arcade.mod.model.ResourceNode;
 
 public class ConstantListFrame extends AbstractListFrame {
 
-	private String myName;
 	private String myConstant;
-	private String myDescription;
 	private JSlider myInput;
-	private JLabel stringLabel;
-	private JLabel descriptionLabel;
+	
 
 	private int MIN = -1000;
 	private int MAX = 1000;

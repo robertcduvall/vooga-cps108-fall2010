@@ -39,4 +39,10 @@ public class MenuState extends GameState {
 			game.startGame();
 		}
 	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

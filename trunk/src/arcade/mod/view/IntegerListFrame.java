@@ -8,30 +8,13 @@ import javax.swing.event.ChangeListener;
 
 import arcade.mod.model.ResourceNode;
 
-public class IntegerListFrame extends AbstractListFrame {
-
-	private String myName;
-	private String myInteger;
-	private String myDescription;
-	private JSlider myInput;
-	private JLabel stringLabel;
-	private JLabel descriptionLabel;
-
-	private int MIN = -1000;
-	private int MAX = 1000;
-	private int INIT = 0;
+public class IntegerListFrame extends SliderListFrame {
 
 	public IntegerListFrame() {
-
 	}
 
 	public IntegerListFrame(ResourceNode node) {
-
 		super(node);
-
-		restrictSize(HEIGHT);
-
-		makeComponents();
 	}
 
 	@Override
@@ -40,54 +23,15 @@ public class IntegerListFrame extends AbstractListFrame {
 		return new IntegerListFrame(node);
 	}
 
-	@Override
-	public void handleNode(ResourceNode node) {
-		myDescription = node.getDescription();
-		myName = node.getAttribute("name");
-		myInteger = node.getAttribute("value");
-		if (node.getAttributes().contains("max")) {
-			MAX = Integer.parseInt(node.getAttribute("max"));
-		}
-		if (node.getAttributes().contains("min")) {
-			MIN = Integer.parseInt(node.getAttribute("min"));
-		}
-		INIT = Integer.parseInt(myInteger);
+	
+	public String parseChange(Integer value){
+		return value.toString();
 	}
 
 	@Override
-	public void makeComponents() {
-		descriptionLabel = new JLabel();
-		descriptionLabel.setText(myDescription);
-		JLabel stringName = new JLabel();
-		stringLabel = new JLabel();
-		JLabel newValue = new JLabel();
-		final JLabel currentValue = new JLabel();
-		myInput = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
-		Integer value = INIT;
-		myInput.addChangeListener(new ChangeListener() {
+	public void handleInitialParsing() {
 
-			public void stateChanged(ChangeEvent e) {
-
-				JSlider source = (JSlider) e.getSource();
-
-				if (!source.getValueIsAdjusting()) {
-					Integer value = (int) source.getValue();
-					currentValue.setText(value.toString());
-					myInteger = value.toString();
-				}
-			}
-		});
-		currentValue.setText(value.toString());
-		stringName.setText("Constant name: " + myName);
-		stringLabel.setText("Value: " + myInteger);
-		newValue.setText("New Constant: ");
-
-		add(stringName);
-		add(descriptionLabel);
-		add(stringLabel);
-		add(newValue);
-		add(myInput);
-		add(currentValue);
-
+		INIT = Integer.parseInt(myValue);
+		
 	}
 }
