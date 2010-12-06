@@ -13,10 +13,7 @@ public class TicTacToe extends Game {
 	private static final String LEVEL_FILES_DIRECTORY_STRING = "levelFilesDirectory";
 	private static final String LEVEL_NAMES_FILE_STRING = "levelNamesFile";
 	private PlayState playState;
-//	private PauseState pauseState;
-//	private StartMenuState startMenuState;
 	private LevelManager levelManager;
-//	private boolean showStart = true;
 
 	public void initResources() {
 		super.initResources();
@@ -30,7 +27,7 @@ public class TicTacToe extends Game {
 			connection = new TicTacToeConnection();
 		}
 		catch(Exception e){
-			System.out.println("TicTacToe Error: "+ e.getMessage());
+			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());
 			System.exit(1);
 		}
 		playState = new PlayState(this, levelManager, connection);
@@ -38,13 +35,6 @@ public class TicTacToe extends Game {
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
 		WaitingState waitState = new WaitingState(this, connection, waitField, playState);
 		stateManager.addGameState(waitState);
-//		pauseState = new PauseState(this);
-//		startMenuState = new StartMenuState(this);
-//		stateManager.addGameState(playState, pauseState, startMenuState);
-//		if (showStart)
-//			stateManager.switchTo(startMenuState);
-//		else
-//			stateManager.switchTo(playState);
 		stateManager.addGameState(playState);
 		stateManager.switchTo(waitState);
 	}
@@ -55,26 +45,8 @@ public class TicTacToe extends Game {
 		String levelNamesFile = Resources.getString(LEVEL_NAMES_FILE_STRING);
 		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
 	}
-
-//	public void pauseGame() {
-//		stateManager.switchTo(pauseState);
-//	}
-//
-//	public void resumeGame() {
-//		playState.onActivate();
-//		stateManager.switchTo(playState);
-//	}
-
-	public void restartGame() {
-		//showStart = false;
-		initResources();
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	
+	public static void run(){
 		launch(new TicTacToe());
 	}
-
 }

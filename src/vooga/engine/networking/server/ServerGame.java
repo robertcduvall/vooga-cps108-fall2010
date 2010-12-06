@@ -3,7 +3,7 @@ package vooga.engine.networking.server;
 
 import java.util.*;
 
-public abstract class ServerGame {
+public abstract class ServerGame{
 	protected List<ServerPlayer> players;
 	protected List<List<Integer>> messageQueues;
 	protected ServerPlayer player1;
@@ -19,7 +19,7 @@ public abstract class ServerGame {
 	//		}
 	//	}
 
-	public ServerGame(ServerPlayer p1, ServerPlayer p2) {
+	public ServerGame(ServerPlayer p1, ServerPlayer p2){
 		player1 = p1;
 		player2 = p2;
 		p1MessageQueue = new ArrayList<Integer>();

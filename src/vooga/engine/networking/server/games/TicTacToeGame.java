@@ -14,7 +14,6 @@ public class TicTacToeGame extends ServerGame{
 	private String sentString;
 	
 	public TicTacToeGame(ServerPlayer[] players){
-		//super(players);
 		super(players[0], players[1]);
 	}
 
@@ -94,5 +93,4 @@ public class TicTacToeGame extends ServerGame{
 			System.exit(1);
 		}
 	}
-
 }
