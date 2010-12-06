@@ -27,7 +27,7 @@ public class RegisterPanel extends JPanel {
 	private JLabel userNameLabel = null;
 	private JLabel firstNameLabel = null;
 	private JLabel lastNameLabel = null;
-	private JLabel emailPanal = null;
+	private JLabel emailPanel = null;
 	private JLabel passWordLabel = null;
 	private JLabel passWordReEnterLabel = null;
 	private Panel informationTextPanel = null;
@@ -80,12 +80,12 @@ public class RegisterPanel extends JPanel {
 			passWordReEnterLabel.setText("Enter Password Again:     ");
 			passWordLabel = new JLabel();
 			passWordLabel.setText("Password:");
-			emailPanal = new JLabel();
-			emailPanal.setText("Email: ");
+			emailPanel = new JLabel();
+			emailPanel.setText("Email: ");
 			lastNameLabel = new JLabel();
 			lastNameLabel.setText("Last Name:");
 			firstNameLabel = new JLabel();
-			firstNameLabel.setText("Fist Name: ");
+			firstNameLabel.setText("First Name: ");
 			userNameLabel = new JLabel();
 			userNameLabel.setText("User Name: ");
 			GridLayout gridLayout = new GridLayout(0, 1);
@@ -94,7 +94,7 @@ public class RegisterPanel extends JPanel {
 			informationLabelPanel.add(userNameLabel, null);
 			informationLabelPanel.add(firstNameLabel, null);
 			informationLabelPanel.add(lastNameLabel, null);
-			informationLabelPanel.add(emailPanal, null);
+			informationLabelPanel.add(emailPanel, null);
 			informationLabelPanel.add(birthdayLabel, null);
 			informationLabelPanel.add(passWordLabel, null);
 			informationLabelPanel.add(passWordReEnterLabel, null);
@@ -172,9 +172,9 @@ public class RegisterPanel extends JPanel {
 
 				private void makeProfile() {
 					Profile profile = new Profile(textMap.get("userName").getText());
-					profile.setBirthday(textMap.get("userName").getText());
-					profile.setEmail(textMap.get("birthday").getText());
-					profile.setName(textMap.get("firstName").getText(), textMap.get("firstName").getText());
+					profile.setBirthday(textMap.get("birthday").getText());
+					profile.setEmail(textMap.get("email").getText());
+					profile.setName(textMap.get("firstName").getText(), textMap.get("lastName").getText());
 					Main.ProfileSet.addProfile(profile);
 				}
 

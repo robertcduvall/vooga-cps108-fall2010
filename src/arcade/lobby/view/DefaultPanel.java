@@ -26,7 +26,8 @@ public class DefaultPanel extends JPanel {
 	 */
 	private void initialize() {
 		title = new JLabel();
-		title.setText("Welcome User!");
+		String firstName = Main.ProfileSet.currentProfile.getFirstName();
+		title.setText(String.format("Welcome %s!",firstName));
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("anyThing", Font.PLAIN, 32));
 		this.setSize(338, 239);

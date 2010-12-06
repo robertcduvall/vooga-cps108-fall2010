@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ProfileSet implements Iterable<Profile> {
 	
-	public static Profile currentProfile = null;
+	public Profile currentProfile = null;
 	public DatabaseAdapter myDbAdapter;
 	public String myTable;
 
@@ -90,7 +90,7 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 	
 	public void setUser(String userName){
-		this.currentProfile = this.getProfile(userName);
+		currentProfile = getProfile(userName);
 	}
 
 }

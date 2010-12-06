@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import arcade.lobby.controller.Validator;
-import arcade.lobby.model.ProfileSet;
 
 public class Login extends JFrame {
 
