@@ -17,7 +17,19 @@ import javax.swing.JScrollPane;
 import arcade.mod.controller.Controller;
 import arcade.mod.controller.Presenter;
 
+/**
+ * As the name suggests, this class represents the View section necessary for the
+ * Model-View-Presenter paradigm.  In keeping with the spirit of this model, we
+ * made an effort to keep this class as "dumb" as possible.  That is, we tried to
+ * limit accesors to data which exists outside of a graphical framework, keeping
+ * the View as passive as possible.
+ *
+ */
 public class View extends JFrame implements Viewer {
+
+	private static final int VIEW_HEIGHT = 600;
+
+	private static final int VIEW_WIDTH = 800;
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,13 +40,20 @@ public class View extends JFrame implements Viewer {
 	Collection<String> myCategories;
 	String currentCategory;
 
+	/**
+	 * Creates a new instance of View with a reference to the Presenter which instantiated it
+	 * @param presenter which instantiated the View
+	 */
 	public View(Presenter controller) {
 		myPresenter = controller;
 	}
 
+	/**
+	 * Initialize the View with its initial display
+	 */
 	public void initialize() {
 
-		setSize(800, 600);
+		setSize(VIEW_WIDTH, VIEW_HEIGHT);
 
 		JPanel contentPane = new JPanel(new BorderLayout());
 
@@ -58,6 +77,9 @@ public class View extends JFrame implements Viewer {
 
 	}
 
+	/**
+	 * Switches from one list frame to another when the presenter tells it to do so.
+	 */
 	public void changeFrames(Collection<AbstractListFrame> frames) {
 
 		centralPanel.removeAll();
@@ -70,10 +92,17 @@ public class View extends JFrame implements Viewer {
 		centralPanel.validate();
 	}
 
+	/**
+	 * Accesor method which provides information on the current category in which the View is
+	 */
 	public String getCurrentCategory() {
 		return currentCategory;
 	}
 
+	/**
+	 * Creates a "Save All" button that tells the presenter to save on click
+	 * @return "Save All" JButton
+	 */
 	private JButton makeButton() {
 		JButton saveButton = new JButton("Save All");
 
@@ -88,6 +117,10 @@ public class View extends JFrame implements Viewer {
 		return saveButton;
 	}
 
+	/**
+	 * A JFileChooser for saving a selected file
+	 * @return File to save
+	 */
 	public File saveFileSelect() {
 		JFileChooser saveChooser = new JFileChooser();
 
@@ -97,6 +130,10 @@ public class View extends JFrame implements Viewer {
 
 	}
 
+	/**
+	 * Creates a category box for the UI
+	 * @return JComboBox
+	 */
 	private JComboBox makeCategoryBox() {
 
 		Collection<String> myCategories = myPresenter.getCategories();
@@ -118,6 +155,10 @@ public class View extends JFrame implements Viewer {
 
 	}
 
+	/**
+	 * A JFileChooser for opening a selected file
+	 * @return File to save
+	 */
 	public File openFileSelect() {
 
 		JFileChooser loadChooser = new JFileChooser();
