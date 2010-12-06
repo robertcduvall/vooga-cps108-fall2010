@@ -25,8 +25,8 @@ public class TheirTurnState extends GameState{
 	@Override
 	public void update(long t) {
 		if(checkDelay == 0){
-			int status = connection.getData();
-			if(status != Resources.getInt("theirTurn")){
+			String status = connection.getData();
+			if(!status.equals(Resources.getString("theirTurnString"))){
 				checkDelay = 1;
 				playState.interpretMessage(status);
 				game.getGameStateManager().switchTo(playState);
