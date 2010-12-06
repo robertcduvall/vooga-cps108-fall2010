@@ -50,14 +50,15 @@ public class AdFrame extends JFrame
 		JPanel panel = (JPanel) getContentPane();
 		panel.setLayout(new FlowLayout());
 		makeButtons(panel);
-		panel.setPreferredSize(new Dimension(500, 200));
+		panel.setPreferredSize(new Dimension(800, 600));
 
 		pack();
 		setVisible(true);
 
 		myManager.setGraphics(panel.getGraphics());
-		myManager.update();
-		myManager.render();
+		myManager.runAdsThread();
+//		myManager.update();
+//		myManager.render();
 	}
 
 	/**

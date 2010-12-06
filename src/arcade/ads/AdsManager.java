@@ -22,8 +22,7 @@ import javax.swing.JPanel;
  * @version 1.0
  */
 
-public class AdsManager
-{
+public class AdsManager {
 
 	private static List<BasicAds> ads;
 	private static int index;
@@ -33,13 +32,15 @@ public class AdsManager
 	private int yMax;
 	private Time currentTime;
 	private Graphics2D gs;
+	private AdsThread adsthread;
 
 	/**
 	 * Initialize ads pool
 	 */
-	public AdsManager()
-	{
+	public AdsManager() {
 		ads = new ArrayList<BasicAds>();
+		adsthread = new AdsThread(this);
+
 	}
 
 	/**
@@ -50,8 +51,7 @@ public class AdsManager
 	 * @param yMin
 	 * @param yMax
 	 */
-	public AdsManager(int xMin, int xMax, int yMin, int yMax)
-	{
+	public AdsManager(int xMin, int xMax, int yMin, int yMax) {
 		this();
 		this.xMin = xMin;
 		this.xMax = xMax;
@@ -64,16 +64,14 @@ public class AdsManager
 	 * 
 	 * @param ad
 	 */
-	public void add(BasicAds ad)
-	{
+	public void add(BasicAds ad) {
 		ads.add(ad);
 	}
 
 	/**
 	 * remove the first ad
 	 */
-	public void removeFirst()
-	{
+	public void removeFirst() {
 		if (ads != null)
 			ads.remove(0);
 	}
@@ -81,8 +79,7 @@ public class AdsManager
 	/**
 	 * remove the last ad
 	 */
-	public void removeLast()
-	{
+	public void removeLast() {
 		if (ads != null)
 			ads.remove(ads.size() - 1);
 	}
@@ -92,45 +89,36 @@ public class AdsManager
 	 * 
 	 * @param ad
 	 */
-	public void remove(BasicAds ad)
-	{
+	public void remove(BasicAds ad) {
 		ads.remove(ad);
 	}
 
 	/**
 	 * rotate ads
 	 */
-	public void rotate()
-	{
+	public void rotate() {
 		RotateThread thread = new RotateThread(ads, index);
 	}
 
 	/**
 	 * adjust ads so that it fits in the window
 	 */
-	public void fitWindow()
-	{
+	public void fitWindow() {
 
 	}
 
 	/**
 	 * update ads
 	 */
-	public void update()
-	{
-		for (BasicAds ad : ads)
-		{
-			ad.update(1);
-		}
+	public void update() {
+		render();
 	}
 
 	/**
 	 * render ads
 	 */
-	public void render()
-	{
-		for (BasicAds ad : ads)
-		{
+	public void render() {
+		for (BasicAds ad : ads) {
 			ad.render(gs);
 		}
 	}
@@ -138,8 +126,7 @@ public class AdsManager
 	/**
 	 * retrieve new ads from web server
 	 */
-	public void retrieve()
-	{
+	public void retrieve() {
 
 	}
 
@@ -148,8 +135,7 @@ public class AdsManager
 	 * 
 	 * @return
 	 */
-	public static int nextAds()
-	{
+	public static int nextAds() {
 		return (index == ads.size() - 1 ? 0 : index + 1);
 	}
 
@@ -158,8 +144,7 @@ public class AdsManager
 	 * 
 	 * @return
 	 */
-	public static int prevAds()
-	{
+	public static int prevAds() {
 		return (index == 0 ? ads.size() - 1 : index - 1);
 	}
 
@@ -168,8 +153,7 @@ public class AdsManager
 	 * 
 	 * @param time
 	 */
-	public void setTime(Time time)
-	{
+	public void setTime(Time time) {
 		this.currentTime = time;
 	}
 
@@ -178,13 +162,15 @@ public class AdsManager
 	 * 
 	 * @return
 	 */
-	public Time getTime()
-	{
+	public Time getTime() {
 		return currentTime;
 	}
 
-	public void setGraphics(Graphics gs)
-	{
+	public void setGraphics(Graphics gs) {
 		this.gs = (Graphics2D) gs;
+	}
+	
+	public void runAdsThread(){
+		adsthread.run();
 	}
 }
