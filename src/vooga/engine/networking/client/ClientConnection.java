@@ -8,7 +8,7 @@ import vooga.engine.networking.GameSocket;
 
 public abstract class ClientConnection extends GameSocket{
 	public ClientConnection() throws UnknownHostException, IOException{
-		super(new Socket("localhost", 1234));
+		super(new Socket("10.180.134.73", 1234));
 	}
 	
 	public abstract String getData();
