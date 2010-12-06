@@ -23,6 +23,8 @@ public class XMLNode implements ResourceNode {
 	private static final String NO_DESCRIPTION = "No description";
 	public static final String DESCRIPTION_TAG = "Description";
 	private Node node;
+	
+	private String documentFilepath = "";
 
 	/**
 	 * Creates a new XMLNode object from a node in the XMLFile
@@ -30,6 +32,14 @@ public class XMLNode implements ResourceNode {
 	 */
 	public XMLNode(Node node) {
 		this.node = node;
+	}
+	
+	/**
+	 * Creates a new XMLNode object including the filepath of the XML document. Used for relative/absolute filepath correction.
+	 */
+	public XMLNode(Node node, String documentpath) {
+		this.node = node;
+		this.documentFilepath = documentpath;
 	}
 
 	/**
@@ -60,7 +70,7 @@ public class XMLNode implements ResourceNode {
 		for (int i = 0; i < nodeList.getLength(); i++) {
 
 			if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-				resourceNodes.add(new XMLNode(nodeList.item(i)));
+				resourceNodes.add(new XMLNode(nodeList.item(i), documentFilepath));
 			}
 		}
 
@@ -111,6 +121,10 @@ public class XMLNode implements ResourceNode {
 		}
 		else
 			return NO_DESCRIPTION;
+	}
+	
+	public String getModelPath() {
+		return documentFilepath;
 	}
 
 	/**

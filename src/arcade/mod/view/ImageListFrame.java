@@ -14,7 +14,6 @@ public class ImageListFrame extends FilepathListFrame {
 
 	ImageIcon myIcon;
 	
-	private final int DEFAULT_HEIGHT = 300;
 
 	public ImageListFrame() {
 		// do nothing
@@ -23,8 +22,6 @@ public class ImageListFrame extends FilepathListFrame {
 	public ImageListFrame(ResourceNode node) {
 
 		super(node);
-
-		restrictSize(DEFAULT_HEIGHT);
 
 	}
 	
@@ -43,6 +40,11 @@ public class ImageListFrame extends FilepathListFrame {
 
 			myIcon = new ImageIcon(ImageIO.read(new File(myFilepath)));
 
+			restrictSize(myIcon.getIconHeight() + 100);
+			
+			stringLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+			stringLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+			
 			stringLabel.setIcon(myIcon);
 
 			this.validate();
@@ -50,6 +52,16 @@ public class ImageListFrame extends FilepathListFrame {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@Override
+	public void handleNode(ResourceNode node) {
+
+		System.out.println(node.getAttribute("name"));
+
+		myName = node.getAttribute("name");
+		myFilepath = node.getModelPath() + "\\images\\" + node.getAttribute("path");
+		myDescription = node.getDescription();
 	}
 
 }

@@ -24,8 +24,6 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 		super(node);
 
-		restrictSize(HEIGHT);
-
 		makeComponents();
 		
 	}

@@ -36,6 +36,7 @@ import vooga.engine.util.XMLFileParser;
 public class XMLModel implements Model{
 	
 	Document document;
+	String documentFilepath;
 	
 	/**
 	 * Creates a new instance of XMLModel from a filePath
@@ -45,6 +46,8 @@ public class XMLModel implements Model{
 	 * @throws IOException
 	 */
 	public XMLModel(String pathName) throws ParserConfigurationException, SAXException, IOException{
+		documentFilepath = pathName;
+		
 		XMLDocumentCreator xmlCreator = new XMLFileParser(pathName);
         document = xmlCreator.getDocument();
 	}
@@ -57,6 +60,8 @@ public class XMLModel implements Model{
 	 * @throws IOException
 	 */
 	public XMLModel(File file) throws ParserConfigurationException, SAXException, IOException{
+		documentFilepath = file.getParent();
+			
 		XMLDocumentCreator xmlCreator = new XMLFileParser(file);
         document = xmlCreator.getDocument();        
 	}
@@ -89,7 +94,7 @@ public class XMLModel implements Model{
 		List<ResourceNode> nodes = new ArrayList<ResourceNode>();
 		NodeList categoryRoots = document.getElementsByTagName(category);
 		for(int i=0; i<categoryRoots.getLength(); i++){
-			ResourceNode root = new XMLNode(categoryRoots.item(i));
+			ResourceNode root = new XMLNode(categoryRoots.item(i), documentFilepath);
 			nodes.addAll(root.getChildren());
 		}
 		return nodes;		

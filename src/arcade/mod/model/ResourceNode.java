@@ -53,6 +53,8 @@ public interface ResourceNode {
 	 */
 	public String getDescription();
 	
+	public String getModelPath();
+	
 	public Node getNode();
 
 }
