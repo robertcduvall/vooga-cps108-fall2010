@@ -14,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 public class ExampleGUI extends JFrame{
 
@@ -82,7 +82,7 @@ public class ExampleGUI extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		*/
-		makeProPanel();
+		makeCustomPanel();
 	}
 	
 	protected JComponent makeTextPanel(String text) {
@@ -154,38 +154,88 @@ public class ExampleGUI extends JFrame{
     }
 	
 	protected void makeCustomPanel() {
-		JPanel basic = new JPanel();
-	    basic.setLayout(new BoxLayout(basic, BoxLayout.Y_AXIS));
-	    add(basic);
-
-	    JPanel topPanel = new JPanel(new BorderLayout(0, 0));
-	    topPanel.setMaximumSize(new Dimension(450, 20));
-	    JLabel hint = new JLabel("Rating Systems");
-	    hint.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
-	    topPanel.add(hint);
-
-	    ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
-	    Image scaled = icon.getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-	    icon = new ImageIcon(scaled);
-	    JLabel label = new JLabel(icon);
-	    label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-	    topPanel.add(label, BorderLayout.EAST);
+		
+		JPanel topPanel = new JPanel(new FlowLayout());
 	    
 	    //hint.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-	    JSeparator separator = new JSeparator();
-	    separator.setForeground(Color.gray);
-
-	    topPanel.add(separator, BorderLayout.SOUTH);
 	    
-	    topPanel.add(basic);
+	    topPanel.add(makeLeftPanel());
+	    topPanel.add(makeCenterPanel());
+	    topPanel.add(makeRightPanel());
+	    add(topPanel);
 	    
 	    setSize(new Dimension(450, 350));
-	    setResizable(false);
 	    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    setLocationRelativeTo(null);
 	    setVisible(true);
     }
+	private JComponent makeCenterPanel()
+	{
+		JPanel center = new JPanel();
+		
+		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
+	    JLabel label = new JLabel(icon);
+	    label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	    center.add(label);
+	    
+	    return center;
+	}
+	private JComponent makeLeftPanel()
+	{
+		JPanel left = new JPanel();
+		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
+		
+		JLabel rateThis = new JLabel("Rate This Game");
+		left.add(rateThis);
+		
+		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
+	    Image scaled = icon.getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+	    icon = new ImageIcon(scaled);
+	    JLabel label = new JLabel(icon);
+	    label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	    left.add(label);
+	    
+	    JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+	    separator.setForeground(Color.BLUE);
+	    left.add(separator);
+	    
+	    JLabel rateOthers = new JLabel("Rate These Other Games");
+		left.add(rateOthers);
+		
+		JLabel moreLabels = new JLabel(icon);
+	    left.add(moreLabels);
+	    
+	    return left;
+	}
+	private JComponent makeRightPanel()
+	{
+		JPanel right = new JPanel();
+	    right.setLayout(new GridLayout(3, 0));
+	    
+	    JPanel playerAvatar = new JPanel();
+	    playerAvatar.setLayout(new BoxLayout(playerAvatar, BoxLayout.Y_AXIS));
+	    playerAvatar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	    JLabel playerName = new JLabel("Player Avatar");
+	    playerAvatar.add(playerName);
+	    
+	    JPanel lobby = new JPanel();
+	    lobby.setLayout(new BoxLayout(lobby, BoxLayout.Y_AXIS));
+	    lobby.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	    JLabel lobbyFriends = new JLabel("You have 0 friends");
+	    lobby.add(lobbyFriends);
+	    
+	    JPanel ads = new JPanel();
+	    ads.setLayout(new BoxLayout(ads, BoxLayout.Y_AXIS));;
+	    ads.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	    JLabel randomAd = new JLabel("Buy Coke.");
+	    ads.add(randomAd);
+	    
+	    right.add(playerAvatar);
+	    right.add(lobby);
+	    right.add(ads);
+	    
+	    return right;
+	}
 	
 	private class RedeemButtonHandler implements ActionListener
 	{
