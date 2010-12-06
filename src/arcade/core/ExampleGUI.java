@@ -1,13 +1,40 @@
 package arcade.core;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+
+/**
+ * This is the example GUI for arcade. It contains scrollable and adjustable
+ * panels for the game splash screen, instructions, avatar display,
+ * friend lobby display, advertisements, game rating, and display of other games.
+ * Most of the components are currently blank, but will be added once each component
+ * is done by other groups. The start button will run the game currently on view.
+ * 
+ * 
+ * @author Derek Zhou, Yang Su, Aaron Choi
+ * 
+ */
 public class ExampleGUI extends Tab{
 
-	private JLabel codeL, displayL;
-	private JTextField codeTF, displayTF;
 	private JButton startB, exitB;
 
 	private StartButtonHandler sbHandler;
@@ -18,8 +45,6 @@ public class ExampleGUI extends Tab{
 	public ExampleGUI()
 	{
 		tk = Toolkit.getDefaultToolkit();
-		int xSize = ((int) tk.getScreenSize().getWidth());  
-		int ySize = ((int) tk.getScreenSize().getHeight());
 		setName("Arcade");
 		setToolTipText("Arcade main view");
 //		add(makeCustomPanel());
@@ -40,6 +65,7 @@ public class ExampleGUI extends Tab{
 	    return mainPanel;
     }
 	
+	//makes the center panel
 	private JComponent makeCenterPanel()
 	{	
 		JPanel top = new JPanel();
@@ -92,6 +118,7 @@ public class ExampleGUI extends Tab{
 		exitB.addActionListener(ebHandler);*/
         
         
+		//divides the center pane into the splash and the instructions
         JSplitPane gameInstruction = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 	    		top, bottom);
 	    gameInstruction.setOneTouchExpandable(true);
@@ -100,6 +127,8 @@ public class ExampleGUI extends Tab{
 	    
 	    return gameInstruction;
 	}
+	
+	//makes the left hand side panel
 	private JComponent makeLeftPanel()
 	{
 		JPanel left = new JPanel();
@@ -134,6 +163,8 @@ public class ExampleGUI extends Tab{
 	    
 	    return left;
 	}
+	
+	//makes the right hand side panel
 	private JComponent makeRightPanel()
 	{
 		JPanel right = new JPanel();
@@ -148,6 +179,7 @@ public class ExampleGUI extends Tab{
 	    icon = new ImageIcon(scaled);
 	    JLabel label = new JLabel(icon);
 	    
+	    //adds panels to the grid layout
 	    JPanel playerAvatar = new JPanel();
 	    playerAvatar.setLayout(new BoxLayout(playerAvatar, BoxLayout.Y_AXIS));
 	    playerAvatar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -183,6 +215,7 @@ public class ExampleGUI extends Tab{
 	    return right;
 	}
 	
+	//starts the game on the splash screen
 	private class StartButtonHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
