@@ -1,28 +1,8 @@
 package arcade.core;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class ExampleGUI extends Tab{
 
@@ -39,19 +19,14 @@ public class ExampleGUI extends Tab{
 	{
 		tk = Toolkit.getDefaultToolkit();
 		int xSize = ((int) tk.getScreenSize().getWidth());  
-		int ySize = ((int) tk.getScreenSize().getHeight()); 
+		int ySize = ((int) tk.getScreenSize().getHeight());
+		setName("Arcade");
+		setToolTipText("Arcade main view");
+//		add(makeCustomPanel());
+//		setContentPane.
 	}
 	
-	protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
-    }
-	
-	private JComponent makeCustomPanel() {
+	public JComponent getContent() {
 	    JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 	    		makeLeftPanel(), makeCenterPanel());
 	    columnar.setOneTouchExpandable(true);
@@ -64,6 +39,7 @@ public class ExampleGUI extends Tab{
 	    
 	    return mainPanel;
     }
+	
 	private JComponent makeCenterPanel()
 	{	
 		JPanel top = new JPanel();
@@ -222,10 +198,5 @@ public class ExampleGUI extends Tab{
 		{
 			System.exit(0);
 		}
-	}
-
-	public static void main(String[] args)
-	{
-		ExampleGUI fr = new ExampleGUI();
 	}
 }
