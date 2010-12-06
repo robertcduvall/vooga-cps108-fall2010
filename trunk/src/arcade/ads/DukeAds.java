@@ -16,8 +16,8 @@ public class DukeAds extends ImageAds
 	{
 		System.out.println(img==null);
 		System.out.println("rendered");
-		gs.drawString("it's weird", 10, 10);
-		gs.drawImage(img, 10,10, null);
+		gs.drawString("ret", 10, 10);
+		gs.drawImage(img, 0,0,800,600, null);
 
 	}
 
