@@ -21,7 +21,7 @@ public class Arcade extends JFrame {
 
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
-	.getBundle("arcade.core.componentList");
+			.getBundle("arcade.core.componentList");
 
 	private static JTabbedPane mainWindow;
 
@@ -44,7 +44,7 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-		// JPanel main = createPanels("panels");
+		// JPanel main = createArcadeView();
 		// everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
@@ -60,6 +60,15 @@ public class Arcade extends JFrame {
 		return everything;
 	}
 
+	private JPanel createArcadeView() {
+		JPanel main = new JPanel();
+		main.add(createPanels("leftPanel"));
+		main.add(new GameView("zombieland"));
+		main.add(createPanels("rightPanel"));
+		main.setLayout(new BoxLayout(main, BoxLayout.X_AXIS));
+		return main;
+	}
+
 	/**
 	 * Create panels in the main arcade view
 	 * 
@@ -68,6 +77,7 @@ public class Arcade extends JFrame {
 	 */
 	private JPanel createPanels(String name) {
 		JPanel contents = new JPanel();
+		contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
 		for (String classname : getSet(name)) {
 			if (classname.isEmpty())
 				continue;
@@ -88,7 +98,7 @@ public class Arcade extends JFrame {
 			if (classname.isEmpty())
 				continue;
 			try {
-				JFrame window = (JFrame) (getObject(classname));
+				getObject(classname);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -97,6 +107,7 @@ public class Arcade extends JFrame {
 
 	/**
 	 * TODO
+	 * 
 	 * @param index
 	 */
 	public static void play(String gameName) {
@@ -108,6 +119,7 @@ public class Arcade extends JFrame {
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
 	}
+
 	/**
 	 * 
 	 * @param classname
@@ -119,8 +131,8 @@ public class Arcade extends JFrame {
 	 * @throws NoSuchMethodException
 	 */
 	private Object getObject(String classname) throws ClassNotFoundException,
-	InstantiationException, IllegalAccessException,
-	InvocationTargetException, NoSuchMethodException {
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException, NoSuchMethodException {
 		Class<?> c = Class.forName(classname);
 		return c.getConstructor().newInstance();
 	}
@@ -140,7 +152,7 @@ public class Arcade extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Arcade arcade = new Arcade();
+		new Arcade();
 	}
 
 }
