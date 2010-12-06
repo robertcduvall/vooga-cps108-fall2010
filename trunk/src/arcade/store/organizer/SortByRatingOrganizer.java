@@ -2,11 +2,10 @@ package arcade.store.organizer;
 
 import arcade.store.items.IItemInfo;
 
-public class SortyByNumberOfBuyer extends SortOrganizer {
+public class SortByRatingOrganizer extends SortOrganizer {
 
 	@Override
 	public boolean compareTo(IItemInfo firstItem, IItemInfo secondItem) {
-		return (firstItem.getNumberOfBuyer().compareTo(
-				secondItem.getNumberOfBuyer()) < 0);
+		return (firstItem.getRating().compareTo(secondItem.getRating()) < 0);
 	}
 }
