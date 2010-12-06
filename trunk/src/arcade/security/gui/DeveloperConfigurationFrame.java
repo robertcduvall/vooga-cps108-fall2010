@@ -79,7 +79,7 @@ public class DeveloperConfigurationFrame extends UserConfigurationFrame
      	
      	add(checkPanel);
      	
-     	setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+     	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 
 	}

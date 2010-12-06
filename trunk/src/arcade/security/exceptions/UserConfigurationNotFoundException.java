@@ -1,7 +1,7 @@
 package arcade.security.exceptions;
 
 /**
- * 
+ * Handle exceptions when launching the InternalFrames in SecurityDesktop
  * @author Meng Li
  *
  */

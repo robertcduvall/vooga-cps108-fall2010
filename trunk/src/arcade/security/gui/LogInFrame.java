@@ -12,7 +12,7 @@ import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.PasswordHandler;
 /**
- * 
+ * Login Frame for Vooga arcade system.
  * @author Meng Li, Jiaqi Yan
  *
  */
@@ -25,8 +25,8 @@ public class LogInFrame extends JFrame {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	
-	private int maxPasswordLength = 5;
-	private int maxUserNameLength = 5;
+	private int maxPasswordLength = 9;
+	private int maxUserNameLength = 9;
 	private PasswordHandler passwordHandler;
 	
 
@@ -36,8 +36,9 @@ public class LogInFrame extends JFrame {
 		MouseDragListener m1=new MouseDragListener(this); //inner class
 		this.addMouseListener(m1);
 		this.addMouseMotionListener(m1);
+		
 		setSize(270, 150);
-		//setSize(800,3000);
+		//setSize(300,255);
 		this.setLayout(new MigLayout());
 		this.setBackground(Color.white);
 		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));

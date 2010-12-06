@@ -10,18 +10,18 @@ import javax.swing.JFrame;
 import arcade.security.etc.SecurityFrameData;
 
 /**
- * 
+ * The class extends JDesktopPane to hold multiple JInternalFrames. 
  * @author Meng Li
  *
  */
 @SuppressWarnings("serial")
-public class PrivilegeDesktop extends JDesktopPane{
+public class SecurityDesktop extends JDesktopPane{
 	
 	private Collection<SecurityFrameData> appData;
 	private JFrame parentFrame;
 	private Collection<UserConfigurationFrame> frames=new LinkedList<UserConfigurationFrame>();
 	
- 			public PrivilegeDesktop(Collection<SecurityFrameData> appData,JFrame parentFrame){
+ 			public SecurityDesktop(Collection<SecurityFrameData> appData,JFrame parentFrame){
  				this.appData = appData;
 				this.parentFrame=parentFrame;
 				createPane();			

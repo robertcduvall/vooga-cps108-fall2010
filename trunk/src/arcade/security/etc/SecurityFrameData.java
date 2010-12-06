@@ -1,6 +1,9 @@
 package arcade.security.etc;
 /**
- * 
+ * SecurityFrameData object is used to create JInternalFrame in the SecurityDesktop by the 
+ * class name of the frame using reflection.
+ * The String fields <code>name</code> and <code>clazz</code> are specified in the properties
+ * files located in the resources/users/ file. 
  * @author Meng Li
  *
  */
@@ -10,20 +13,17 @@ public class SecurityFrameData {
 
 
 	/**
-	 * Creates a new Application object.
+	 * Creates a new SecurityData object.
 	 */
 	public SecurityFrameData() {
 	}
 
 	/**
-	 * Creates a new Application object.
+	 * Creates a new SecurityData object.
 	 *
-	 * @param name
-	 * @param clazz
-	 * @param role
-	 * @param defaultWindow
-	 * @param startup
-	 * @param actionClass
+	 * @param name the name or title of this security frame
+	 * @param clazz the class name of this security frame
+
 	 */      
 	public SecurityFrameData(String name, String clazz) {
 		this.name = name;
@@ -32,7 +32,7 @@ public class SecurityFrameData {
 	}
 
 	/**
-	 * @return the clazz
+	 * @return the clazz the class name as a string
 	 */
 	public String getClazz() {
 		return clazz;
