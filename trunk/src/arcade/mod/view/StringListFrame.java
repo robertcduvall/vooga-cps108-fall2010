@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 import arcade.mod.model.XMLNode;
 
 public class StringListFrame extends AbstractListFrame {
@@ -19,7 +19,7 @@ public class StringListFrame extends AbstractListFrame {
 
 	}
 
-	public StringListFrame(ResourceNode node) {
+	public StringListFrame(IResourceNode node) {
 		super(node);
 
 		myInput = new JTextField(30);
@@ -30,7 +30,7 @@ public class StringListFrame extends AbstractListFrame {
 	}
 
 	@Override
-	public AbstractListFrame newInstance(ResourceNode node) {
+	public AbstractListFrame newInstance(IResourceNode node) {
 		if (!node.getNode().getNodeName().equals(XMLNode.DESCRIPTION_TAG))
 			return new StringListFrame(node);
 		else
@@ -38,7 +38,7 @@ public class StringListFrame extends AbstractListFrame {
 	}
 
 	@Override
-	public void handleNode(ResourceNode node) {
+	public void handleNode(IResourceNode node) {
 		myName = node.getAttribute("name");
 		myString = node.getAttribute("value");
 		myDescription = node.getDescription();

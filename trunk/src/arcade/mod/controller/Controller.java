@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import arcade.mod.model.Model;
-import arcade.mod.model.ResourceNode;
+import javax.swing.JComponent;
+
+import arcade.core.Tab;
+import arcade.mod.model.IModel;
+import arcade.mod.model.IResourceNode;
 import arcade.mod.model.XMLModel;
 import arcade.mod.view.AbstractListFrame;
+import arcade.mod.view.IViewer;
 import arcade.mod.view.View;
-import arcade.mod.view.Viewer;
 
 /**
  * 
@@ -25,18 +28,36 @@ import arcade.mod.view.Viewer;
  * @author Vitor
  * 
  */
-public class Controller implements Presenter {
+public class Controller extends Tab implements IPresenter {
 
-	Model myModel;
-	Viewer myView;
+	public static final String TAB_NAME = "Mod";
+	IModel myModel;
+	IViewer myView;
 	FrameFactory myFactory;
 
 	/**
 	 * Creates the instance of Controller when the Mod Environment is launched
 	 */
 	public Controller() {
+		setName(TAB_NAME);
 		myFactory = new FrameFactory();
 		myView = new View(this);
+		myView.initialize();
+//		File xmlFile = myView.openFileSelect();
+//		if (xmlFile != null) {
+//			try {
+//				myModel = new XMLModel(xmlFile);
+//			} catch (Exception e) {
+//				// TODO show dialog in view
+//				e.printStackTrace();
+//			}
+//		} else {
+//			System.exit(1);
+//		}
+		
+	}
+
+	public void load(){
 		File xmlFile = myView.openFileSelect();
 		if (xmlFile != null) {
 			try {
@@ -45,12 +66,10 @@ public class Controller implements Presenter {
 				// TODO show dialog in view
 				e.printStackTrace();
 			}
-		} else {
-			System.exit(1);
 		}
-		myView.initialize();
+		myView.changeCategories(myModel.getCategories());
 	}
-
+	
 	/**
 	 * Retrieve the collection of categories from the Model
 	 * 
@@ -67,7 +86,7 @@ public class Controller implements Presenter {
 	 */
 	public void newCategorySelected() {
 
-		List<ResourceNode> nodes = myModel.getResourcesFromCategory(myView
+		List<IResourceNode> nodes = myModel.getResourcesFromCategory(myView
 				.getCurrentCategory());
 		myView.changeFrames(convertToView(nodes));
 	}
@@ -80,9 +99,9 @@ public class Controller implements Presenter {
 	 *            list of all ResourceNodes in XML file
 	 * @return collection of all AbstractListFrames from nodes
 	 */
-	private Collection<AbstractListFrame> convertToView(List<ResourceNode> nodes) {
+	private Collection<AbstractListFrame> convertToView(List<IResourceNode> nodes) {
 		List<AbstractListFrame> frames = new ArrayList<AbstractListFrame>();
-		for (ResourceNode node : nodes) {
+		for (IResourceNode node : nodes) {
 
 			frames.add(myFactory.createFrame(myView.getCurrentCategory(), node));
 		}
@@ -107,5 +126,10 @@ public class Controller implements Presenter {
 	 */
 	public static void main(String[] args) {
 		Controller mod = new Controller();
+	}
+
+	@Override
+	public JComponent getContent() {
+		return (JComponent) myView;
 	}
 }

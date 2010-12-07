@@ -16,7 +16,7 @@ import java.util.List;
  * @author Daniel Koverman
  *
  */
-public interface Model {
+public interface IModel {
 	
 	/**
 	 * Get available categories or types of resources held 
@@ -34,7 +34,7 @@ public interface Model {
 	 * @param category
 	 * @return
 	 */
-	public List<ResourceNode> getResourcesFromCategory(String category);
+	public List<IResourceNode> getResourcesFromCategory(String category);
 	
 	/**
 	 * Write the resources to a file for use when running a game mod 

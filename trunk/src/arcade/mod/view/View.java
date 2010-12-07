@@ -4,18 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import arcade.mod.controller.Controller;
-import arcade.mod.controller.Presenter;
+import arcade.mod.controller.IPresenter;
 
 /**
  * As the name suggests, this class represents the View section necessary for the
@@ -25,7 +24,7 @@ import arcade.mod.controller.Presenter;
  * the View as passive as possible.
  *
  */
-public class View extends JFrame implements Viewer {
+public class View extends JPanel implements IViewer {
 
 	private static final int VIEW_HEIGHT = 600;
 
@@ -33,7 +32,7 @@ public class View extends JFrame implements Viewer {
 
 	private static final long serialVersionUID = 1L;
 
-	Presenter myPresenter;
+	IPresenter myPresenter;
 
 	JPanel centralPanel;
 	Collection<String> myCategories;
@@ -43,8 +42,10 @@ public class View extends JFrame implements Viewer {
 	 * Creates a new instance of View with a reference to the Presenter which instantiated it
 	 * @param presenter which instantiated the View
 	 */
-	public View(Presenter controller) {
+	public View(IPresenter controller) {
 		myPresenter = controller;
+		myCategories = new ArrayList<String>();
+		myCategories.add("<empty>");
 	}
 
 	/**
@@ -55,12 +56,13 @@ public class View extends JFrame implements Viewer {
 		setSize(VIEW_WIDTH, VIEW_HEIGHT);
 
 		JPanel contentPane = new JPanel(new BorderLayout());
-
+		
 		contentPane.add(makeCategoryBox(), BorderLayout.NORTH);
 		contentPane.add(makeButton(), BorderLayout.SOUTH);
-
 		contentPane.add(initializeScrollPane(), BorderLayout.CENTER);
 
+		
+		add(new ViewFileMenu(myPresenter));
 		add(contentPane);
 
 		setVisible(true);
@@ -132,9 +134,7 @@ public class View extends JFrame implements Viewer {
 	 * @return JComboBox
 	 */
 	private JComboBox makeCategoryBox() {
-
-		Collection<String> myCategories = myPresenter.getCategories();
-
+		
 		JComboBox categoryBox = new JComboBox(myCategories.toArray());
 		categoryBox.setSelectedIndex(0);
 		categoryBox.addActionListener(new ActionListener() {
@@ -150,6 +150,17 @@ public class View extends JFrame implements Viewer {
 
 		return categoryBox;
 
+	}
+	
+	@Override
+	public void changeCategories(Collection<String> categories){
+		myCategories = categories;
+		
+		//TODO this is the worst way in the world to 
+		//update the current categories drop down
+		//but I'm tired and it's late
+		this.removeAll();
+		initialize();
 	}
 
 	/**

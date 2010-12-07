@@ -4,13 +4,15 @@
 			<Description>The background of the main menu</Description>
 		</Image>
 		<Image name="muddyBackground" path="backgrounds/muddy.png">
-			<Desciption>A muddy looking background currently used in the first level</Desciption>
+			<Desciption>A muddy looking background currently used in the first
+				level</Desciption>
 		</Image>
 		<Image name="titleText" path="title.png">
 			<Description>An image containing the title of the game</Description>
 		</Image>
 		<Image name="playButton" path="playButton.png">
-			<Description>The button to press to play the game from the main menu</Description>
+			<Description>The button to press to play the game from the main menu
+			</Description>
 		</Image>
 		<Image name="player" path="neutralFace.png">
 			<Description>Image representing the player in game</Description>
@@ -23,13 +25,25 @@
 		</Sound>
 	</Sounds>
 	<Strings>
-		<String name="mainMenuLayout" value="src/vooga/games/digger/resources/layouts/mainMenu.xml" />
-		<String name="level1XML" value="src/vooga/games/digger/resources/levels/level1.xml" />
-		<String name="moduleMapProperties" value="vooga.games.digger.resources.moduleMap" />
+		<String name="mainMenuLayout"
+			value="src/vooga/games/digger/resources/layouts/mainMenu.xml">
+			<Description>Filepath to the xml file designating the main menu layout</Description>
+		</String>
+		<String name="level1XML"
+			value="src/vooga/games/digger/resources/levels/level1.xml">
+			<Description>Filepath to the xml file designating the first level</Description>
+		</String>
+		<String name="moduleMapProperties" value="vooga.games.digger.resources.moduleMap">
+			<Description>Filepath to the properties file that designates which modules to use to parse an xml level file</Description>
+		</String>
 	</Strings>
 	<Integers>
-		<Integer name="gameWidth" value="400" />
-		<Integer name="gameHeight" value="600" />
+		<Integer name="gameWidth" value="400">
+			<Description>The width of the game window</Description>
+		</Integer>
+		<Integer name="gameHeight" value="600">
+			<Description>The height of the game window</Description>
+		</Integer>
 	</Integers>
 	<Doubles></Doubles>
 </Resources>

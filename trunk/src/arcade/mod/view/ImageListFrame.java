@@ -8,7 +8,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 
 public class ImageListFrame extends FilepathListFrame {
 
@@ -19,14 +19,14 @@ public class ImageListFrame extends FilepathListFrame {
 		// do nothing
 	}
 
-	public ImageListFrame(ResourceNode node) {
+	public ImageListFrame(IResourceNode node) {
 
 		super(node);
 
 	}
 	
 
-	public ImageListFrame newInstance(ResourceNode node) {
+	public ImageListFrame newInstance(IResourceNode node) {
 		return new ImageListFrame(node);
 	}
 
@@ -55,7 +55,7 @@ public class ImageListFrame extends FilepathListFrame {
 	}
 	
 	@Override
-	public void handleNode(ResourceNode node) {
+	public void handleNode(IResourceNode node) {
 
 		System.out.println(node.getAttribute("name"));
 

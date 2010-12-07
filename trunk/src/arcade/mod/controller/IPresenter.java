@@ -17,7 +17,7 @@ import java.util.Collection;
  * @author Daniel Koverman
  *
  */
-public interface Presenter {
+public interface IPresenter {
 	
 	/**
 	 * Inform the presenter that the user is 
@@ -25,16 +25,13 @@ public interface Presenter {
 	 */
 	public void save();
 	
-
-	//TODO remove necessity to return Collection
 	/**
-	 * Ask the presenter for the available resource 
-	 * categories when the viewer starts or a new 
-	 * file is selected
-	 * (i.e.-images, sounds, etc.)
+	 * Inform the presenter that the user is
+	 * attempting to load
 	 */
-	public Collection<String> getCategories();
+	public void load();
 	
+
 	
 	/**
 	 * Inform the presenter that the user is 
