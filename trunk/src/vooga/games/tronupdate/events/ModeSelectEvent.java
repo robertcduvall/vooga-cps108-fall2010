@@ -30,7 +30,7 @@ public class ModeSelectEvent implements IEventHandler{
 		else{
 			Mode.setAI();
 		}
-		gm.switchTo(gm.getGameState(6));
+		gm.switchTo(gm.getGameState(Resources.getInt("PlayState")));
 	}
 	
 	private boolean isSingle(){

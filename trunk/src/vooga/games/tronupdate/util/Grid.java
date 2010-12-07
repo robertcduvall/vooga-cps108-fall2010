@@ -1,19 +1,21 @@
 package vooga.games.tronupdate.util;
 
 import java.util.*;
+import vooga.engine.resource.Resources;
 
 public class Grid {
-	private boolean isTaken,isBonus,isWall;
-	private Set<Integer> players = new HashSet<Integer>();
-	private int wallIndex = 100;
+	private boolean isTaken,isBonus,isWall,isPlayer;
+	private int bonusType;
+	private ArrayList<Integer> players = new ArrayList<Integer>();
 	public void setPlayer(int player){
 		players.add(player);
+		isPlayer = true;
 	}
-	//public int getPlayer(){
+	//public int getPlayer(){ 
 	//	return players;
 	//}
 	public boolean collides(){
-		return (players.size()>1);
+		return (players.size()>1) || (isWall && isPlayer);
 	}
 	public void setTaken(boolean taken){
 		isTaken = taken;
@@ -23,7 +25,6 @@ public class Grid {
 	}
 	public void setWall(boolean wall){
 		isWall = wall;
-		if(wall) players.add(wallIndex);
 	}
 	public boolean isWall(){
 		return isWall;

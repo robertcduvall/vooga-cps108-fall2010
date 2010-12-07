@@ -1,13 +1,11 @@
 package vooga.games.tronupdate.util;
 
-import vooga.engine.control.Control;
 import vooga.games.tronupdate.util.Grid;
 import vooga.games.tronupdate.items.Player;
 
-public class AI_0{
+public class AI_0 extends AI{
 	
 	private int preventRange = 4;
-	private Player myPlayer;
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
 	

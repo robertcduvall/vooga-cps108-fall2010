@@ -13,16 +13,16 @@ import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
+import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.events.InvokeHelpEvent;
 import vooga.games.tronupdate.events.TronGamePauseEvent;
 import vooga.games.tronupdate.items.Player;
-//import vooga.games.tronupdate.util.AI;
 import vooga.games.tronupdate.util.AI_0;
 import vooga.games.tronupdate.util.Direction;
-import vooga.games.tronupdate.util.GridSpace;
 import vooga.games.tronupdate.util.Grid;
 import vooga.games.tronupdate.util.Mode;
 import vooga.games.tronupdate.util.RandomLayoutGenerator;
@@ -63,6 +63,7 @@ public class PlayState extends GameState {
 		initializeEnvironment();
 		initializeBlocks();
 		initializeEvents();
+		initializeOverlay();
 		// game.playMusic(Resources.getSound("backgroundmusic"));
 	}
 
@@ -79,17 +80,14 @@ public class PlayState extends GameState {
 
 	private void initializeControl() {
 		if(Mode.isMultiple()){	
-			System.out.println("multiple am called");
 			setKeyboardControl(0);
 			setKeyboardControl(1);
 		}
 		else if(Mode.isSingle()){
-			System.out.println("single am called");
 			setKeyboardControl(1);
 			setAIControl(0);
 		}
 		else if(Mode.isAI()){
-			System.out.println("ai am called");
 			setAIControl(0);
 			setAIControl(1);
 		}
@@ -113,12 +111,6 @@ public class PlayState extends GameState {
 		int[] startX = {initPlayerX(0),initPlayerY(1)};
 		int[] startY = {initPlayerX(0),initPlayerY(1)};
 		grid = layoutGenerator.generateGrid(GRID_HEIGHT, GRID_WIDTH,startX,startY);
-		//grid = new Grid[GRID_HEIGHT][GRID_WIDTH];
-		//for (int i = 0; i < GRID_HEIGHT; i++) {
-		//	for (int j = 0; j < GRID_WIDTH; j++) {
-		//		grid[i][j] = new Grid();
-		//	}
-		//}
 		for (int i = 0; i < GRID_HEIGHT; i++) {
 			for (int j = 0; j < GRID_WIDTH; j++) {
 				if(grid[i][j].isWall())	drawBlock("wall","greenlazer",j,i);
@@ -130,8 +122,6 @@ public class PlayState extends GameState {
 		playField = new PlayField();
 		playField.addColorBackground(Color.WHITE);
 		playField.setBackground(0);
-		// SpriteGroup group = new SpriteGroup("blocks");
-		// playField.addGroup(group);
 		playerGroup1 = new SpriteGroup("first");
 		playerGroup2 = new SpriteGroup("second");
 		wallGroup = new SpriteGroup("wall");
@@ -140,13 +130,19 @@ public class PlayState extends GameState {
 		playField.addGroup(wallGroup);
 	}
 
-	public void initializeEvents() {
+	private void initializeEvents() {
 		eventPool = new EventPool();
 		TronGamePauseEvent tronGamePauseEvent = new TronGamePauseEvent(game,gameStateManager); 
-		InvokeHelpEvent invokeHelpEvent = new InvokeHelpEvent(game,gameStateManager,6);
-		
+		InvokeHelpEvent invokeHelpEvent = new InvokeHelpEvent(game,gameStateManager,Resources.getInt("PlayState"));	
 		eventPool.addEvent(tronGamePauseEvent);
 		eventPool.addEvent(invokeHelpEvent);
+	}
+	
+	private void initializeOverlay(){
+		OverlayCreator.setGame(game);
+		OverlayTracker tracker = OverlayCreator.createOverlays(Resources.getString("overlayFileURL"));
+		playField.addGroup(tracker.getOverlayGroup("PlayState"));
+		playField.addGroup(tracker.getOverlayGroup("multiPlayer"));
 	}
 
 	private Control initializeFirstControl(Control control) {
@@ -190,24 +186,9 @@ public class PlayState extends GameState {
 			}
 		}
 		for(int i=0;i<numPlayers;i++){
-			//System.out.println();
 			grid[row[i]][col[i]].setTaken(true);
 			grid[row[i]][col[i]].setPlayer(i);
 		}
-		//player1.update(grid);
-		//player2.update(grid);
-		//int row1 = player1.getRow();
-		//int row2 = player2.getRow();
-		//int col1 = player1.getCol();
-		//int col2 = player2.getCol();
-//		if((player1.outOfBoundary() || player2.outOfBoundary())){
-//			gameStateManager.switchTo(gameStateManager.getGameState(Resources.getInt("GameOverState")));
-//			return;
-//		}
-//		grid[row1][col1].setTaken(true);
-//		grid[row1][col1].setPlayer(1);
-//		grid[row2][col2].setTaken(true);	
-//		grid[row2][col2].setPlayer(2);
 		drawBlock("first","redlazer",col[0],row[0]);
 		drawBlock("second","bluelazer",col[1],row[1]);
 	}

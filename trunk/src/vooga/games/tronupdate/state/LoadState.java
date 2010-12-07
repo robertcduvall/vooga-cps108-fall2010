@@ -40,10 +40,6 @@ public class LoadState extends GameState{
 		playField.addGroup(tracker.getOverlayGroup("load"));
 	}
 	
-	//private void initializeButtons(){
-	//	SinglePlayerButton single = new SinglePlayerButton(game,100,300);
-	//	playField.add(single);
-	//}
 	
 	private void initializeEvents(){
 		eventPool = new EventPool();
