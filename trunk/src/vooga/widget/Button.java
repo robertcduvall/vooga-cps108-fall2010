@@ -9,9 +9,11 @@ import vooga.engine.resource.Resources;
 
 
 /**
- * Reusable abstract Button implementation that represents a simple Sprite that allows for some action to be performed upon a mouse click
- * 
- * Right now, you must pass each Button an instance of the game it is in, which seems bad.  Ultimately we hope to find a way to call the Game methods without a specific instance of game
+ * Reusable abstract Button implementation that represents a simple 
+ * Sprite that allows for some action to be performed upon a mouse click
+ * Right now, you must pass each Button an instance of the game it is in,
+ * which seems bad.  Ultimately we hope to find a way to call the Game 
+ * methods without a specific instance of game.
  * @author Brian
  *
  */
@@ -21,6 +23,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Instance of the game in which the Button exists
 	 */
 	protected Game myGame;
+	protected BufferedImage buttonImage = Resources.getImage("defaultMenuButton");
 	
 	
 	/**
@@ -57,6 +60,14 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 */
 	public Button(double x, double y){
 		this(null, x, y);
+	}
+	
+	public void setSize(int width, int height) {
+		//TODO
+	}
+	
+	public void setText(String text) {
+		//TODO
 	}
 
 	
