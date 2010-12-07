@@ -17,6 +17,7 @@ public abstract class Bonus extends BetterSprite{
 	private double col;
 	private double row;
 	private double BounsImageWidth;
+	
 	/**
 	 * constructor
 	 * @param image
@@ -55,6 +56,4 @@ public abstract class Bonus extends BetterSprite{
 	
 	public abstract void act();
 	public abstract boolean isConsumed();
-	
-	
 }

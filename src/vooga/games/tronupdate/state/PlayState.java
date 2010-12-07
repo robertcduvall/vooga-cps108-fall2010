@@ -25,6 +25,7 @@ import vooga.games.tronupdate.util.Direction;
 import vooga.games.tronupdate.util.GridSpace;
 import vooga.games.tronupdate.util.Grid;
 import vooga.games.tronupdate.util.Mode;
+import vooga.games.tronupdate.util.RandomLayoutGenerator;
 
 public class PlayState extends GameState {
 	private Game game;
@@ -33,6 +34,7 @@ public class PlayState extends GameState {
 	private EventPool eventPool;
 	private Player[] players;
 	private SpriteGroup[] playerGroups;
+	private SpriteGroup wallGroup;
 	//private ArrayList<SpriteGroup> playerGroups;
 	private int numPlayers = 2;
 	private int initControl = 1;
@@ -40,6 +42,7 @@ public class PlayState extends GameState {
 	private SpriteGroup playerGroup1, playerGroup2;
 	private Player player1, player2;
 	private Grid[][] grid;
+	private RandomLayoutGenerator layoutGenerator;
 	public static final int GRID_WIDTH = Resources.getInt("width")
 			/ Resources.getInt("playerimagewidth");
 	public static final int GRID_HEIGHT = Resources.getInt("height")
@@ -57,8 +60,8 @@ public class PlayState extends GameState {
 	public void initialize() {
 		initializePlayers();
 		initializeControl();
-		initializeBlocks();
 		initializeEnvironment();
+		initializeBlocks();
 		initializeEvents();
 		// game.playMusic(Resources.getSound("backgroundmusic"));
 	}
@@ -106,14 +109,23 @@ public class PlayState extends GameState {
 	}
 	
 	private void initializeBlocks() {
-		grid = new Grid[GRID_HEIGHT][GRID_WIDTH];
+		layoutGenerator = new RandomLayoutGenerator();
+		int[] startX = {initPlayerX(0),initPlayerY(1)};
+		int[] startY = {initPlayerX(0),initPlayerY(1)};
+		grid = layoutGenerator.generateGrid(GRID_HEIGHT, GRID_WIDTH,startX,startY);
+		//grid = new Grid[GRID_HEIGHT][GRID_WIDTH];
+		//for (int i = 0; i < GRID_HEIGHT; i++) {
+		//	for (int j = 0; j < GRID_WIDTH; j++) {
+		//		grid[i][j] = new Grid();
+		//	}
+		//}
 		for (int i = 0; i < GRID_HEIGHT; i++) {
 			for (int j = 0; j < GRID_WIDTH; j++) {
-				grid[i][j] = new Grid();
+				if(grid[i][j].isWall())	drawBlock("wall","greenlazer",j,i);
 			}
 		}
 	}
-
+	
 	private void initializeEnvironment() {
 		playField = new PlayField();
 		playField.addColorBackground(Color.WHITE);
@@ -122,8 +134,10 @@ public class PlayState extends GameState {
 		// playField.addGroup(group);
 		playerGroup1 = new SpriteGroup("first");
 		playerGroup2 = new SpriteGroup("second");
+		wallGroup = new SpriteGroup("wall");
 		playField.addGroup(playerGroup1);
 		playField.addGroup(playerGroup2);
+		playField.addGroup(wallGroup);
 	}
 
 	public void initializeEvents() {
@@ -176,6 +190,7 @@ public class PlayState extends GameState {
 			}
 		}
 		for(int i=0;i<numPlayers;i++){
+			//System.out.println();
 			grid[row[i]][col[i]].setTaken(true);
 			grid[row[i]][col[i]].setPlayer(i);
 		}
@@ -191,13 +206,13 @@ public class PlayState extends GameState {
 //		}
 //		grid[row1][col1].setTaken(true);
 //		grid[row1][col1].setPlayer(1);
-//		grid[row2][col2].setTaken(true);
+//		grid[row2][col2].setTaken(true);	
 //		grid[row2][col2].setPlayer(2);
-		drawPlayerBlock("first","redlazer",col[0],row[0]);
-		drawPlayerBlock("second","bluelazer",col[1],row[1]);
+		drawBlock("first","redlazer",col[0],row[0]);
+		drawBlock("second","bluelazer",col[1],row[1]);
 	}
 	
-	private void drawPlayerBlock(String player,String image,int col,int row){
+	private void drawBlock(String player,String image,int col,int row){
 		playField.getGroup(player).add(new BetterSprite(Resources.getImage(image),
 						PLAYER_IMAGE_WIDTH * col, PLAYER_IMAGE_WIDTH * row));
 	}
@@ -219,6 +234,8 @@ public class PlayState extends GameState {
 		for(int i=0;i<GRID_HEIGHT;i++){
 			for(int j=0;j<GRID_WIDTH;j++){
 				if(grid[i][j].collides()){
+					System.out.println(GRID_HEIGHT+" "+GRID_WIDTH);
+					System.out.println("Collision happens at "+i+" "+j);
 					game.playSound(Resources.getSound("explosionSound"));
 					gameStateManager.switchTo(gameStateManager.getGameState(Resources.getInt("GameOverState")));
 				}
