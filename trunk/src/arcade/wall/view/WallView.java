@@ -13,10 +13,11 @@ public class WallView {
 	WallController myController;
 	String myGamerName;
 	JTextArea myCommentBox;
+	JFrame myFrame;
 	
 	public static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
-			"Tron", "MarioClone" };
+			"Tron", "MarioClone", "TronLegacy" };
 
 	public WallView(String gamerName, WallController controller) {
 		myController = controller;
@@ -25,16 +26,16 @@ public class WallView {
 	}
 	
 	private void createJFrame(String gamerName) {
-		JFrame frame = new JFrame(gamerName + "'s Wall");
-		frame.addWindowListener(new WindowAdapter() {
+		myFrame = new JFrame(gamerName + "'s Wall");
+		myFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {System.exit(0);}
 		});
 		myCommentBox = createCommentsArea();
 		JPanel panel = createJPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		frame.getContentPane().add(myCommentBox, BorderLayout.SOUTH);
-		frame.pack();
-		frame.setVisible(true);
+		myFrame.getContentPane().add(panel, BorderLayout.CENTER);
+		myFrame.getContentPane().add(myCommentBox, BorderLayout.SOUTH);
+//		myFrame.pack();
+//		myFrame.setVisible(true);
 	}
 
 	private JPanel createJPanel() {
@@ -51,8 +52,8 @@ public class WallView {
 		JLabel commentsLabel = new JLabel("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
 		
 		//Add action listeners to ComboBox and Button
-		gameChoices.addActionListener(new GameComboBoxListener(commentsLabel, gameChoices));
-		reviewButton.addActionListener(new ReviewButtonListener(myController, gameChoices, myCommentBox,
+		gameChoices.addActionListener(new GameComboBoxListener(myController, commentsLabel, gameChoices));
+		reviewButton.addActionListener(new ReviewButtonListener(myController, gameChoices,
 									   commentEntryField, myGamerName));
 		
 		entryPanel.add(gameChoices);
@@ -80,5 +81,11 @@ public class WallView {
 	
 	public JTextArea getCommentsArea() {
 		return this.myCommentBox;
+	}
+
+	public void setVisible() {
+		myFrame.pack();
+		myFrame.setVisible(true);
+		
 	}
 }

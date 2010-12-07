@@ -6,14 +6,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import arcade.wall.controller.WallController;
 import arcade.wall.view.WallView;
 
 public class GameComboBoxListener implements ActionListener {
-
+	private WallController myController;
 	private JLabel myLabel;
 	private JComboBox myComboBox;
 	
-	public GameComboBoxListener(JLabel label, JComboBox comboBox) {
+	public GameComboBoxListener(WallController controller, JLabel label, JComboBox comboBox) {
+		myController = controller;
 		myLabel = label;
 		myComboBox = comboBox;
 	}
@@ -21,8 +23,11 @@ public class GameComboBoxListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ("comboBoxChanged".equals(e.getActionCommand())) {
-	        myLabel.setText("Comments for " + WallView.choices[myComboBox.getSelectedIndex()] + ":");
+			String selectedGameName = WallView.choices[myComboBox.getSelectedIndex()];
+	        myLabel.setText("Comments for " + selectedGameName + ":");
+	        myController.updateCommentsArea(selectedGameName);
 	    }
+		
 	}
 
 }
