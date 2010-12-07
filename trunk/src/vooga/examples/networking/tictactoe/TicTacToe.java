@@ -4,29 +4,47 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
+import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.examples.networking.tictactoe.states.PlayState;
 import vooga.examples.networking.tictactoe.states.TicTacNetworkMenuState;
 import vooga.examples.networking.tictactoe.states.WaitingState;
 
+/**
+ * The Vooga Game subclass for TicTacToe, a simple example game for the Networking API.
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
 public class TicTacToe extends Game {
-
-	private static final String LEVEL_FILES_DIRECTORY_STRING = "levelFilesDirectory";
-	private static final String LEVEL_NAMES_FILE_STRING = "levelNamesFile";
 	private PlayState playState;
 	private LevelManager levelManager;
 	private WaitingState waitState;
 
+	/**
+	 * Initializes the levels and the states.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void initResources() {
 		super.initResources();
-		initLevelManager();
+		levelManager = new LevelManager(this);
+		levelManager.makeLevels(Resources.getString("levelFilesDirectory"), Resources.getString("levelNamesFile"));
 		initStates();
 	}
 
+	/**
+	 * Creates the PlayState with the ClientConnection, a WaitingState with the ClientConnection, and a TicTacNetworkMenuState.  Adds them all to the
+	 * GameStateManager and switches to the TicTacNetworkMenuState.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	private void initStates() {
-		TicTacToeConnection connection = null;
+		ClientConnection connection = null;
 		try{
-			connection = new TicTacToeConnection();
+			connection = new ClientConnection("TicTacToe");
 		}
 		catch(Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());
@@ -43,17 +61,22 @@ public class TicTacToe extends Game {
 		stateManager.switchTo(networkMenuState);
 	}
 	
+	/**
+	 * Switches to waitState when called by the network menu state.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void startWaitState() {
 		stateManager.switchTo(waitState);
 	}
-
-	private void initLevelManager() {
-		levelManager = new LevelManager(this);
-		String levelFilesDirectory = Resources.getString(LEVEL_FILES_DIRECTORY_STRING);
-		String levelNamesFile = Resources.getString(LEVEL_NAMES_FILE_STRING);
-		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
-	}
 	
+	/**
+	 * Launch the TicTacToe game.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public static void run(){
 		launch(new TicTacToe());
 	}

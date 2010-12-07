@@ -12,7 +12,6 @@ import vooga.engine.event.EventPool;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.examples.networking.tictactoe.Move;
-import vooga.examples.networking.tictactoe.TicTacToeConnection;
 import vooga.examples.networking.tictactoe.events.GameLostEvent;
 import vooga.examples.networking.tictactoe.events.GameTiedEvent;
 import vooga.examples.networking.tictactoe.events.GameWonEvent;
@@ -30,14 +29,13 @@ public class PlayState extends GameState{
 	private GameOverState youLostState;
 	private GameOverState theyQuitState;
 	private GameOverState tieState;
-	private GameOverState errorState;
 	private TheirTurnState waitState;
-	private TicTacToeConnection connection;
+	private ClientConnection connection;
 	private boolean myTurn, theirTurn;
 	private boolean won, tied, lost, quit;
 	private Move oMove;
 
-	public PlayState(Game game, LevelManager levelManager, TicTacToeConnection connection){
+	public PlayState(Game game, LevelManager levelManager, ClientConnection connection){
 		this.game = game;
 		this.levelManager = levelManager;
 		this.connection = connection;
@@ -60,23 +58,20 @@ public class PlayState extends GameState{
 	public void initLevel(){
 		LevelParser levelParser = new LevelParser();
 		PlayField gameWonField = levelParser.getPlayfield(Resources.getString("gameWonXml"), game);
-		gameWonState = new GameOverState(game, gameWonField);
+		gameWonState = new GameOverState(gameWonField);
 		game.getGameStateManager().addGameState(gameWonState);
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitForTurnXml"), game);
 		waitState = new TheirTurnState(game, connection, waitField, this);
 		game.getGameStateManager().addGameState(waitState);
 		PlayField youLostField = levelParser.getPlayfield(Resources.getString("youLostXml"), game);
-		youLostState = new GameOverState(game, youLostField);
+		youLostState = new GameOverState(youLostField);
 		game.getGameStateManager().addGameState(youLostState);
 		PlayField theyQuitField = levelParser.getPlayfield(Resources.getString("theyQuitXml"), game);
-		theyQuitState = new GameOverState(game, theyQuitField);
+		theyQuitState = new GameOverState(theyQuitField);
 		game.getGameStateManager().addGameState(theyQuitState);
 		PlayField tieField = levelParser.getPlayfield(Resources.getString("tieXml"), game);
-		tieState = new GameOverState(game, tieField);
+		tieState = new GameOverState(tieField);
 		game.getGameStateManager().addGameState(tieState);
-		PlayField errorField = levelParser.getPlayfield(Resources.getString("errorXml"), game);
-		errorState = new GameOverState(game, errorField);
-		game.getGameStateManager().addGameState(errorState);
 		eventPool = new EventPool();
 		eventPool.addEvent(new GameWonEvent(field, this));
 		eventPool.addEvent(new GameLostEvent(field, this));
@@ -160,22 +155,22 @@ public class PlayState extends GameState{
 	@Override
 	public void update(long elapsedTime){
 		if(won){
-			connection.sendGAMEOVER();
+			connection.sendGameOver();
 			game.getGameStateManager().switchTo(gameWonState);
 			return;
 		}
 		if(tied){
-			connection.sendGAMEOVER();
+			connection.sendGameOver();
 			game.getGameStateManager().switchTo(tieState);
 			return;
 		}
 		if(lost){
-			connection.sendGAMEOVER();
+			connection.sendGameOver();
 			game.getGameStateManager().switchTo(youLostState);
 			return;
 		}
 		if(quit){
-			connection.sendGAMEOVER();
+			connection.sendGameOver();
 			game.getGameStateManager().switchTo(theyQuitState);
 			return;
 		}

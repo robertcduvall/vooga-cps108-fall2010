@@ -1,7 +1,0 @@
-<Overlay>
-
-<OverlayGroup name="GameWonGroup" >
-<OverlayString xLoc="118" yLoc="80" fontName="gameFontred" label="ERROR!" fontSize="32"></OverlayString>
-</OverlayGroup>
-
-</Overlay>

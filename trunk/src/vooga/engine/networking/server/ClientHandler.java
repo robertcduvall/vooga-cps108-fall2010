@@ -104,8 +104,7 @@ public abstract class ClientHandler extends Handler{
 	}
 
 	/**
-	 * Return the number of players in a given game session.
-	 * 
+	 * @return the number of players in a given game session.
 	 * @param gameNumber the id of the game session
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
@@ -120,8 +119,7 @@ public abstract class ClientHandler extends Handler{
 	}
 
 	/**
-	 * Find the first player in a game session.
-	 * 
+	 * @return the first player in a game session.
 	 * @param gameNumber the id of the game session
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0

@@ -4,14 +4,32 @@ import java.io.*;
 import java.net.*;
 
 import vooga.engine.networking.GameSocket;
+import vooga.engine.networking.server.VoogaServer;
 
+/**
+ * Class for connecting the client to the server chat socket.
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
 public class ChatConnection extends GameSocket {
 
+	/**
+	 * Calls GameSocket's constructor with the server's IP address and the port that holds the chat.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public ChatConnection() throws UnknownHostException, IOException{
-		super(new Socket("localhost", 1235));
+		super(new Socket("localhost", VoogaServer.getChatPort("TicTacToe")));
 	}
 
-
+	/**
+	 * Returns the latest chat from the socket.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public String getChat() {
 		if (!isConnected()) 
 			throw new NullPointerException("Attempted to read closed socket!");
@@ -27,6 +45,12 @@ public class ChatConnection extends GameSocket {
 		}
 	}
 
+	/**
+	 * Sends the chat over the network.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void sendChat(String chat) {
 		send(chat);
 	}

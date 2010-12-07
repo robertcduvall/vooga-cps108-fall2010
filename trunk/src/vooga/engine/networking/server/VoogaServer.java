@@ -23,10 +23,9 @@ public class VoogaServer {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public static void main(String args[ ]) {
+	public static void main(String args[]) {
 		Document xmlDocument = getXMLDocument("vooga/engine/networking/server/voogaGames.xml");
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
-		int chatPort = Integer.parseInt(((Element)gameSection).getAttribute("chatPort"));
 		if(gameSection != null){
 			NodeList listOfGames = gameSection.getChildNodes();
 			for(int i = 0; i < listOfGames.getLength(); i++)
@@ -35,13 +34,13 @@ public class VoogaServer {
 				{
 					Element gameElement = (Element) listOfGames.item(i);
 					int port = Integer.parseInt(gameElement.getAttribute("port"));
+					int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
 					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
 					String clientHandler = gameElement.getAttribute("clientHandler");
 					new VoogaDaemon(port, chatPort, numberOfPlayers, clientHandler).start();
 				}
 			}
 		}
-		//new VoogaDaemon(2, "vooga.engine.networking.server.TicTacToeGame", "vooga.engine.networking.server.TicTacToePlayer").start();
 		System.out.println("Vooga server up and running...");
 	}
 
@@ -49,6 +48,7 @@ public class VoogaServer {
 	 * Static method to return the XML document with the list of games that can be run on the networking Vooga servers.
 	 * 
 	 * @param path the path of the XML document
+	 * @return the XML document with the list of games
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
@@ -66,13 +66,14 @@ public class VoogaServer {
 	}
 
 	/**
-	 * Static method to return the port that a game is run on.
+	 * Static method to return the port that the game is run on.
 	 * 
 	 * @param gameName the name of the game whose port you want to find
+	 * @return port the port that the game is run on
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public static int getPort(String gameName){
+	public static int getGamePort(String gameName){
 		Document xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
 		if(gameSection != null){
@@ -83,6 +84,34 @@ public class VoogaServer {
 				{
 					Element gameElement = (Element) listOfGames.item(i);
 					int port = Integer.parseInt(gameElement.getAttribute("port"));
+					String name = gameElement.getAttribute("name");
+					if(name.equals(gameName))
+						return port;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * Static method to return the port that the chat is run on.
+	 * 
+	 * @return the port that the game is run on
+	 * @param gameName the name of the game whose chat port you want to find
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public static int getChatPort(String gameName){
+		Document xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
+		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
+		if(gameSection != null){
+			NodeList listOfGames = gameSection.getChildNodes();
+			for(int i = 0; i < listOfGames.getLength(); i++)
+			{
+				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE)
+				{
+					Element gameElement = (Element) listOfGames.item(i);
+					int port = Integer.parseInt(gameElement.getAttribute("chatPort"));
 					String name = gameElement.getAttribute("name");
 					if(name.equals(gameName))
 						return port;

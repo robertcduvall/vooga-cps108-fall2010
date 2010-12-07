@@ -2,15 +2,38 @@ package vooga.examples.networking.tictactoe;
 
 import vooga.engine.networking.client.Serializeable;
 
+/**
+ * Move is a simple example of how to use the Serializable interface. If you want to send a piece of data then wrap a class around that data and have it
+ * implements the Serializable interface to be able to send it over the network.  In TicTacToe, the only piece of data we send besides status updates are
+ * moves. The Move class wraps the column and row that make up a move and has serialize and deserialize methods that convert the Move into a String to send
+ * over the network and convert the String into a Move to receive from the network.
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
 public class Move implements Serializeable{
 	private int row;
 	private int col;
 
+	/**
+	 * Constructor that saves the row and column.
+	 * 
+	 * @param row the row
+	 * @param col the column
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public Move(int row, int col){
 		this.row = row;
 		this.col = col;
 	}
 
+	/**
+	 * Takes a String and parses the column and row from the string and returns a new Move object from that row and column.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public static Serializeable deserialize(String data) {
 		int move = Integer.parseInt(data);
 		int col = move < 10 ? 0 : move / 10;
@@ -18,15 +41,33 @@ public class Move implements Serializeable{
 		return new Move(row, col);
 	}
 
+	/**
+	 * Takes the row number and the column number and returns the String that represents that move.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	@Override
 	public String serialize() {
 		return Integer.toString(col * 10 + row);
 	}
 	
+	/**
+	 * Returns the row of the move.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public int getRow() {
 		return row;
 	}
 
+	/**
+	 * Returns the column of the move.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public int getCol() {
 		return col;
 	}

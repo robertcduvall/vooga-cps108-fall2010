@@ -19,6 +19,13 @@ import javax.swing.text.StyleContext;
 
 import vooga.engine.networking.client.ChatConnection;
 
+/**
+ * Class with the main method that runs the TicTacToe Game.  Runs the Vooga game with a chat box that can be used to chat between players in the Game.
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
+@SuppressWarnings("serial")
 public class TicTacToeFrame extends JFrame implements Runnable{
 	private JTextPane chats;
 	private JTextField chat;
@@ -28,6 +35,12 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	private Style opponentStyle;
 	private ChatConnection connection;
 
+	/**
+	 * Create chat GUI and listen for incoming chats.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public TicTacToeFrame(ChatConnection connection){
 		this.connection = connection;
 		initStyles();
@@ -37,6 +50,12 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	    listener.start();
 	}
 	
+	/**
+	 * Create the chats panel and the chat text field.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void initChatFields(){
 		chats = new JTextPane(doc);
 		chats.setEditable(false);
@@ -44,10 +63,16 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		chat = new JTextField(1);
 		chat.requestFocus();
-		chat.addActionListener(new ChatHandler());
+		chat.addActionListener(new ChatListener());
 		getContentPane().add(chat, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Size the chat field to be to the bottom right of the TicTacToe Game.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void initDimensions(){
 		ResourceBundle gameDimensions = ResourceBundle.getBundle("vooga/examples/networking/tictactoe/resources/config");
 		setSize(Integer.parseInt(gameDimensions.getString("GAME_WIDTH")), Integer.parseInt(gameDimensions.getString("GAME_HEIGHT")) / 3);
@@ -55,6 +80,12 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 				Toolkit.getDefaultToolkit().getScreenSize().height / 2 + Integer.parseInt(gameDimensions.getString("GAME_HEIGHT")) / 2 - getHeight());
 	}
 	
+	/**
+	 * Make the font styles for the 'me' chat label, the 'opponent' chat label, and the chats themselves.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void initStyles(){
 		StyleContext sc = new StyleContext();
 		doc = new DefaultStyledDocument(sc);
@@ -81,6 +112,12 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 		StyleConstants.setForeground(opponentStyle, Color.BLUE);
 	}
 
+	/**
+	 * Thread to listen for the incoming chats. When it receives a chat it prints it to the chat panel and then scrolls the panel to the bottom.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	@Override
 	public void run(){
 		while(true){
@@ -95,8 +132,14 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 		}
 	}
 
-	private class ChatHandler implements ActionListener {
-
+	/**
+	 * Listener for when the user presses enter in the chat text field. When they do then print the text the chat panel, send the text over
+	 * the ChatConnection, reset the text field, and scroll the chat panel to the bottom.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	private class ChatListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = chat.getText();
@@ -117,6 +160,12 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 		}
 	}
 
+	/**
+	 * Creates an instance of ChatConnection, passes it to a TicTacToeFrame, and then runs the TicTacToe Game.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public static void main(String[] args){
 		ChatConnection connection = null;
 		try{

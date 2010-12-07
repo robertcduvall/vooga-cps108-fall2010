@@ -36,8 +36,7 @@ public abstract class Handler extends Thread{
 	public abstract void run();
 	
 	/**
-	 * Return the id of this handler's game session.
-	 * 
+	 * @return the id of this handler's game session.
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
@@ -46,8 +45,7 @@ public abstract class Handler extends Thread{
 	}
 	
 	/**
-	 * Return the GameSocket that this handler is communicating through.
-	 * 
+	 * @return the GameSocket that this handler is communicating through.
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
