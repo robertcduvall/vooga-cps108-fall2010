@@ -3,9 +3,16 @@ package arcade.store.gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.*;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
@@ -14,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.table.*;
 
 import arcade.core.Tab;
+import arcade.core.GameSelection.buttonActionListener;
 import arcade.store.StoreModel;
 import arcade.store.control.Control;
 
@@ -27,6 +35,7 @@ public class MainPageView extends Tab {
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
 	private JTable gameListTable = null;
+	private JPanel gameList = null;
 	private Control controller;
 
 	
@@ -104,7 +113,7 @@ public class MainPageView extends Tab {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setViewportView(getGameListTable());
+			jScrollPane.setViewportView(getGameList());
 		}
 		return jScrollPane;
 	}
@@ -131,6 +140,43 @@ public class MainPageView extends Tab {
 		
 		return gameListTable;
 	}
+	
+	private JPanel getGameList() {
+		if(gameList == null) {
+			gameList = new JPanel(new GridLayout(0,4));
+			gameList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		}
+		return gameList;
+	
+	}
+	
+	public void addGameToList(String name, String price, String genre, ImageIcon image) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+		JLabel title = new JLabel(name);
+		panel.setName(name);
+
+		JLabel icon = new JLabel(image);
+		JLabel genreLabel = new JLabel(genre);
+		JLabel priceLabel = new JLabel(price);
+		icon.setSize(150, 150);
+
+		panel.add(title);
+		panel.add(icon);
+		panel.add(genreLabel);
+		panel.add(priceLabel);
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel.validate();
+		panel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e)  {
+				String identifier = e.getComponent().getName();
+				controller.openGamePage(identifier);
+			}
+		});
+		getGameList().add(panel);
+	}
+	
 	
 	public void showMessageBox(String messageText) {
 		
