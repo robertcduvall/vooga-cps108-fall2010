@@ -26,7 +26,7 @@ public class AI_0{
 		boolean[][] blocksTaken = new boolean[rowLength][colLength];
 		for(int i=0;i<rowLength;i++){
 			for(int j=0;j<colLength;j++){
-				blocksTaken[i][j]= grid[i][j].isTaken();
+				blocksTaken[i][j] = grid[i][j].isTaken();
 			}
 		}
 		react(row,col,direction,blocksTaken);

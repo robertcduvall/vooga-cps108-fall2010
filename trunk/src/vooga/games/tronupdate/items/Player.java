@@ -123,25 +123,21 @@ public class Player {
 	}
 
 	public void left() {
-		System.out.println("Being called");
 		updateX(Direction.left);
 		updateY(Direction.left);
 	}
 
 	public void right() {
-		System.out.println("Being called");
 		updateX(Direction.right);
 		updateY(Direction.right);
 	}
 
 	public void up() {
-		System.out.println("Being called");
 		updateX(Direction.up);
 		updateY(Direction.up);
 	}
 
 	public void down() {
-		System.out.println("Being called");
 		updateX(Direction.down);
 		updateY(Direction.down);
 	}
