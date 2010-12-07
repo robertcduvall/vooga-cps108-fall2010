@@ -31,6 +31,8 @@ public class Move implements Serializeable{
 	/**
 	 * Takes a String and parses the column and row from the string and returns a new Move object from that row and column.
 	 * 
+	 * @param data the String representing a Move object
+	 * @return a new Move object based on the data in the data param
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
@@ -44,6 +46,7 @@ public class Move implements Serializeable{
 	/**
 	 * Takes the row number and the column number and returns the String that represents that move.
 	 * 
+	 * @return String to send to the socket that represents the Move
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
@@ -53,8 +56,7 @@ public class Move implements Serializeable{
 	}
 	
 	/**
-	 * Returns the row of the move.
-	 * 
+	 * @return the row of the move
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
@@ -63,8 +65,7 @@ public class Move implements Serializeable{
 	}
 
 	/**
-	 * Returns the column of the move.
-	 * 
+	 * @return the column of the move
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */

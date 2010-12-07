@@ -8,6 +8,12 @@ import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
+/**
+ * GameState for when the player is waiting for the other player to play.
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
 public class TheirTurnState extends GameState{
 	private Game game;
 	private ClientConnection connection;
@@ -20,7 +26,7 @@ public class TheirTurnState extends GameState{
 	 * 
 	 * @param game Game to be able to switch GameStates
 	 * @param connection ClientConnection to get the latest message from the socket
-	 * @param field PlayField for TheirTurnState to render it
+	 * @param field PlayField for TheirTurnState to render
 	 * @param playState PlayState to switch to and pass the message whenever it gets a non "theirTurn" String from the socket
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0

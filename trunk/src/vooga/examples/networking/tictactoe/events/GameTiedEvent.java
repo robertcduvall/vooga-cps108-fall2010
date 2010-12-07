@@ -35,7 +35,7 @@ public class GameTiedEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		playState.setStatusString("tied");
+		playState.setMessage("tied");
 	}
 
 	/**
@@ -43,6 +43,7 @@ public class GameTiedEvent implements IEventHandler {
 	 * if there's a win or loss in those 9 spots since the GameLostEvent and GameWonEvent
 	 * are checked before.
 	 * 
+	 * @return if all 9 spots on the board are filled
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */

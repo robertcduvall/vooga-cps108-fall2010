@@ -38,12 +38,11 @@ public class GameWonEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		playState.setStatusString("won");
+		playState.setMessage("won");
 	}
 
 	/**
-	 * Check to see if there are 3 'X' pieces in a row.
-	 * 
+	 * @return if there are 3 'X' pieces in a row
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
