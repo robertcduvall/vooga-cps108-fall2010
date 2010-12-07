@@ -3,7 +3,7 @@ package arcade.mod.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 import arcade.mod.view.AbstractListFrame;
 import arcade.mod.view.DoubleListFrame;
 import arcade.mod.view.FilepathListFrame;
@@ -47,7 +47,7 @@ public class FrameFactory {
 	 *            ResourceNode to be converted
 	 * @return AbstractListFrame to be used for the user interface
 	 */
-	public AbstractListFrame createFrame(String resourceType, ResourceNode node) {
+	public AbstractListFrame createFrame(String resourceType, IResourceNode node) {
 		return myMappings.get(resourceType).newInstance(node);
 	}
 }

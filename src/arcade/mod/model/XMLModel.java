@@ -33,7 +33,7 @@ import vooga.engine.util.XMLFileParser;
  * @author Daniel Koverman
  *
  */
-public class XMLModel implements Model{
+public class XMLModel implements IModel{
 	
 	Document document;
 	String documentFilepath;
@@ -90,11 +90,11 @@ public class XMLModel implements Model{
 	 * @return List<ResourceNode> children within a specified category
 	 */
 	@Override
-	public List<ResourceNode> getResourcesFromCategory(String category) {
-		List<ResourceNode> nodes = new ArrayList<ResourceNode>();
+	public List<IResourceNode> getResourcesFromCategory(String category) {
+		List<IResourceNode> nodes = new ArrayList<IResourceNode>();
 		NodeList categoryRoots = document.getElementsByTagName(category);
 		for(int i=0; i<categoryRoots.getLength(); i++){
-			ResourceNode root = new XMLNode(categoryRoots.item(i), documentFilepath);
+			IResourceNode root = new XMLNode(categoryRoots.item(i), documentFilepath);
 			nodes.addAll(root.getChildren());
 		}
 		return nodes;		

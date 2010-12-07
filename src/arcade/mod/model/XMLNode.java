@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
  * @author Daniel Koverman
  *
  */
-public class XMLNode implements ResourceNode {
+public class XMLNode implements IResourceNode {
 
 	private static final String NO_DESCRIPTION = "No description";
 	public static final String DESCRIPTION_TAG = "Description";
@@ -46,7 +46,7 @@ public class XMLNode implements ResourceNode {
 	 * Get this XMLNode's children
 	 * @return a list of this XMLNode's children
 	 */
-	public List<ResourceNode> getChildren() {
+	public List<IResourceNode> getChildren() {
 		return wrapNodeList(node.getChildNodes());
 	}
 
@@ -65,8 +65,8 @@ public class XMLNode implements ResourceNode {
 		return attributeNames;
 	}
 
-	private List<ResourceNode> wrapNodeList(NodeList nodeList) {
-		List<ResourceNode> resourceNodes = new ArrayList<ResourceNode>();
+	private List<IResourceNode> wrapNodeList(NodeList nodeList) {
+		List<IResourceNode> resourceNodes = new ArrayList<IResourceNode>();
 		for (int i = 0; i < nodeList.getLength(); i++) {
 
 			if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {

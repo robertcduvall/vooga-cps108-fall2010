@@ -12,7 +12,7 @@ import org.w3c.dom.Node;
  * @author djk14
  *
  */
-public interface ResourceNode {
+public interface IResourceNode {
 	
 	/**
 	 * Return a List of the subnodes to this ResourceNode. Currently 
@@ -20,7 +20,7 @@ public interface ResourceNode {
 	 * a Description, so this method is currently unused.
 	 * @return List of children ResourceNodes
 	 */
-	public List<ResourceNode> getChildren();	
+	public List<IResourceNode> getChildren();	
 	
 	/**
 	 * Returns Attributes of the ResourceNodes. Effectively, Attributes 

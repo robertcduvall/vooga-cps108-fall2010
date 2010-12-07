@@ -5,7 +5,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 
 public abstract class SliderListFrame extends AbstractListFrame {
 
@@ -20,7 +20,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 	}
 
-	public SliderListFrame(ResourceNode node) {
+	public SliderListFrame(IResourceNode node) {
 
 		super(node);
 
@@ -30,13 +30,13 @@ public abstract class SliderListFrame extends AbstractListFrame {
 	}
 
 	@Override
-	public AbstractListFrame newInstance(ResourceNode node) {
+	public AbstractListFrame newInstance(IResourceNode node) {
 
 		return new IntegerListFrame(node);
 	}
 
 	@Override
-	public void handleNode(ResourceNode node) {
+	public void handleNode(IResourceNode node) {
 		myDescription = node.getDescription();
 		myName = node.getAttribute("name");
 		myValue = node.getAttribute("value");

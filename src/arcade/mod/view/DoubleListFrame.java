@@ -6,7 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 
 public class DoubleListFrame extends SliderListFrame {
 
@@ -17,12 +17,12 @@ public class DoubleListFrame extends SliderListFrame {
 	public DoubleListFrame() {
 	}
 
-	public DoubleListFrame(ResourceNode node) {
+	public DoubleListFrame(IResourceNode node) {
 		super(node);
 	}
 
 	@Override
-	public AbstractListFrame newInstance(ResourceNode node) {
+	public AbstractListFrame newInstance(IResourceNode node) {
 		return new DoubleListFrame(node);
 	}
 

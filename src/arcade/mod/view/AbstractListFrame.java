@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 /**
  * Abstract List Frames are the graphical display of the Resource Nodes derived from the model.
  * These List Frames are reduced to the core graphical data needed for the GUI so as to avoid coupling
@@ -22,7 +22,7 @@ public abstract class AbstractListFrame extends JPanel {
 	
 	protected static final int HEIGHT = 70;
 	protected final int WIDTH = 750;
-	protected ResourceNode myNode;
+	protected IResourceNode myNode;
 
 	/**
 	 * Null constructor for the List Frame
@@ -33,7 +33,7 @@ public abstract class AbstractListFrame extends JPanel {
 	 * Creates a new instance of ListFrame from a resource node
 	 * @param node representing data from the XML file
 	 */
-	public AbstractListFrame(ResourceNode node) {
+	public AbstractListFrame(IResourceNode node) {
 
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -58,13 +58,13 @@ public abstract class AbstractListFrame extends JPanel {
 	 * @param node from which to create a new instance of the list frame
 	 * @return a new instance of a subclass of AbstractListFrame
 	 */
-	public abstract AbstractListFrame newInstance(ResourceNode node);
+	public abstract AbstractListFrame newInstance(IResourceNode node);
 
 	/**
 	 * Logic of the list frame which is specific to each subclass
 	 * @param node
 	 */
-	public abstract void handleNode(ResourceNode node);
+	public abstract void handleNode(IResourceNode node);
 
 	/**
 	 * Create the subcomponents, whose logic is differant for each type of list frame

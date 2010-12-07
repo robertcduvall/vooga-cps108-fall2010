@@ -16,7 +16,7 @@ import java.util.Collection;
  * @author Daniel Koverman
  *
  */
-public interface Viewer {
+public interface IViewer {
 	
 	/**
 	 * Initialize the viewer after construction. This is 
@@ -48,6 +48,8 @@ public interface Viewer {
 	 * @return category of resources selected in viewer
 	 */
 	public String getCurrentCategory();
+	
+	public void changeCategories(Collection<String> categories);
 	
 	/**
 	 * Removes all ListFrames currently in the center panel and 

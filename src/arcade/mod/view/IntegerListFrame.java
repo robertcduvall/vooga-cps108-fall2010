@@ -6,19 +6,19 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import arcade.mod.model.ResourceNode;
+import arcade.mod.model.IResourceNode;
 
 public class IntegerListFrame extends SliderListFrame {
 
 	public IntegerListFrame() {
 	}
 
-	public IntegerListFrame(ResourceNode node) {
+	public IntegerListFrame(IResourceNode node) {
 		super(node);
 	}
 
 	@Override
-	public AbstractListFrame newInstance(ResourceNode node) {
+	public AbstractListFrame newInstance(IResourceNode node) {
 
 		return new IntegerListFrame(node);
 	}
