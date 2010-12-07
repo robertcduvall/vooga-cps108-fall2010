@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import arcade.wall.view.WallView;
+
 public class GameComboBoxListener implements ActionListener {
 
 	private JLabel myLabel;

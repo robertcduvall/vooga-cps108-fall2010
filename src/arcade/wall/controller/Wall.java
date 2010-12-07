@@ -1,4 +1,5 @@
-package arcade.wall;
+package arcade.wall.controller;
+
 
 /**
  * Playing around with an initial Wall GUI

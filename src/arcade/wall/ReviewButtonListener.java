@@ -9,6 +9,9 @@ import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import arcade.wall.controller.WallController;
+import arcade.wall.view.WallView;
+
 public class ReviewButtonListener implements ActionListener {
 
 	private WallController myController;

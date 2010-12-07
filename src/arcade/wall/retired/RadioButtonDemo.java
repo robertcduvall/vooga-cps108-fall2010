@@ -1,4 +1,4 @@
-package arcade.wall.gui;
+package arcade.wall.retired;
 
 import java.awt.*;
 import java.awt.event.*;

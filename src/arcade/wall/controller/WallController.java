@@ -1,6 +1,9 @@
-package arcade.wall;
+package arcade.wall.controller;
 
 import java.util.List;
+
+import arcade.wall.model.WallModel;
+import arcade.wall.view.WallView;
 
 public class WallController {
 	WallModel model = new WallModel();

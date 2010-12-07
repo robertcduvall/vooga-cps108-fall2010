@@ -1,19 +1,20 @@
-package arcade.wall;
+package arcade.wall.view;
 
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 
-import arcade.wall.WallController;
-import arcade.wall.gui.RatingPanel;
+import arcade.wall.GameComboBoxListener;
+import arcade.wall.ReviewButtonListener;
+import arcade.wall.controller.WallController;
 
 public class WallView {
 	WallController myController;
 	String myGamerName;
 	JComponent myCommentBox;
 	
-	static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
+	public static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
 			"Tron", "MarioClone" };
 
