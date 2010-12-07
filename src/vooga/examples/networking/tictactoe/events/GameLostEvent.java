@@ -38,12 +38,11 @@ public class GameLostEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		playState.setStatusString("lost");
+		playState.setMessage("lost");
 	}
 
 	/**
-	 * Check to see if there are 3 'O' pieces in a row.
-	 * 
+	 * @return if there are 3 'O' pieces in a row
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */

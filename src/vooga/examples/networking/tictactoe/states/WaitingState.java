@@ -24,7 +24,7 @@ public class WaitingState extends GameState{
 	 * 
 	 * @param game Game to be able to switch GameStates
 	 * @param connection ClientConnection to get the latest message from the socket
-	 * @param field PlayField for WaitingState to render it
+	 * @param field PlayField for WaitingState to render
 	 * @param playState PlayState to switch to and pass the message whenever it gets a non "wait" String from the socket
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
