@@ -4,24 +4,41 @@ import java.awt.Graphics2D;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
-import vooga.examples.networking.tictactoe.TicTacToeConnection;
+import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 
 public class TheirTurnState extends GameState{
 	private Game game;
-	private TicTacToeConnection connection;
+	private ClientConnection connection;
 	private PlayField field;
 	private PlayState playState;
 	private int checkDelay = 1;
 
-	public TheirTurnState(Game game, TicTacToeConnection connection, PlayField field, PlayState playState){
+	/**
+	 * Constructor for the GameState shown when it's the other player's turn.
+	 * 
+	 * @param game Game to be able to switch GameStates
+	 * @param connection ClientConnection to get the latest message from the socket
+	 * @param field PlayField for TheirTurnState to render it
+	 * @param playState PlayState to switch to and pass the message whenever it gets a non "theirTurn" String from the socket
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public TheirTurnState(Game game, ClientConnection connection, PlayField field, PlayState playState){
 		this.game = game;
 		this.connection = connection;
 		this.field = field;
 		this.playState = playState;
 	}
 	
+	/**
+	 * If it receives a message from the socket that is not "theirTurn", then switch to the PlayState and tell the PlayState what the message was.
+	 * checkDelay is a way around a rendering issue since render is called after update and thus would never be called if I block the main thread
+	 * with the connection.getData() call.
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	@Override
 	public void update(long t) {
 		if(checkDelay == 0){
@@ -47,5 +64,4 @@ public class TheirTurnState extends GameState{
 	@Override
 	public void initialize() {
 	}
-
 }

@@ -7,26 +7,45 @@ import vooga.engine.event.IEventHandler;
 import vooga.examples.networking.tictactoe.states.PlayState;
 
 /**
- * The DoodleDiedEvent implement IEventHandler and activates myGameOverState
- * when Doodle Dies
+ * Detects and informs the PlayState when the game ends tied.  No network API code.
  * 
- * @author Adam Cue, Marcus Molchany, Nick Straub
- * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
  */
 public class GameTiedEvent implements IEventHandler {
 	private PlayField field;
 	private PlayState playState;
 
+	/**
+	 * Give GameTiedEvent access to the main PlayField and the PlayState.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public GameTiedEvent(PlayField field, PlayState playState) {
 		this.field = field;
 		this.playState = playState;
 	}
 
+	/**
+	 * If all 9 spots on the board are filled then tell the PlayState there's a tie.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	@Override
 	public void actionPerformed() {
 		playState.setTied(true);
 	}
 
+	/**
+	 * Check to see if all 9 spots on the board are filled. Doesn't need to worry about
+	 * if there's a win or loss in those 9 spots since the GameLostEvent and GameWonEvent
+	 * are checked before.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	@Override
 	public boolean isTriggered() {
 		int pieces = 0;
