@@ -1,4 +1,4 @@
-package arcade.wall.gui;
+package arcade.wall.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
