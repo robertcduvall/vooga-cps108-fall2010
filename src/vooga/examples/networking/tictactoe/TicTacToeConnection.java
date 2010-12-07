@@ -8,7 +8,7 @@ import vooga.engine.networking.client.ClientConnection;
 public class TicTacToeConnection extends ClientConnection {
 
 	public TicTacToeConnection() throws UnknownHostException, IOException {
-		super();
+		super("TicTacToe");
 	}
 
 	public String getData() {
@@ -28,10 +28,6 @@ public class TicTacToeConnection extends ClientConnection {
 			System.exit(1);
 			return null;
 		}
-	}
-
-	public void sendIQUIT() {
-		send("IQUIT");
 	}
 
 	public void sendGAMEOVER(){

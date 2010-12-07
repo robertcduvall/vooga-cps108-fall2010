@@ -8,29 +8,23 @@ import java.net.SocketTimeoutException;
 import vooga.engine.networking.GameSocket;
 
 public class VoogaDaemon extends Thread{
-	public static final int PORTNUM = 1234;
-	public static final int CHATPORTNUM = 1235;
 	public int numberOfGames;
-	private ServerSocket port;
+	private ServerSocket gamePort;
 	private ServerSocket chatPort;
-	private ServerPlayer[] playersWaiting;
-	private ServerPlayer playerWaiting;
-	private ServerGame thisGame;
-	private String serverGame;
-	private String serverPlayer;
+	private int numberOfPlayers;
+	private String clientHandler;
 
 
-	public VoogaDaemon(int numberOfPlayers, String serverGame, String serverPlayer) {
+	public VoogaDaemon(int gamePortNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
 		try {
-			port = new ServerSocket(PORTNUM);
-			chatPort = new ServerSocket(CHATPORTNUM);
-			playersWaiting = new ServerPlayer[numberOfPlayers - 1];
-			this.serverGame = serverGame;
-			this.serverPlayer = serverPlayer;
+			gamePort = new ServerSocket(gamePortNumber);
+			chatPort = new ServerSocket(chatPortNumber);
+			this.numberOfPlayers = numberOfPlayers;
+			this.clientHandler = clientHandler;
 			numberOfGames = 1;
 		}
 		catch (IOException e) {
-			System.out.println("Couldn't access port " + PORTNUM + ": " + e);
+			System.out.println("Couldn't access port " + gamePort.getLocalPort() + ": " + e);
 			System.exit(1);
 		}
 	}
@@ -38,23 +32,23 @@ public class VoogaDaemon extends Thread{
 	public void run() {
 		Socket clientSocket, chatSocket;
 		while (true) {
-			if (port == null) {
+			if (gamePort == null) {
 				System.out.println("Sorry, the port disappeared.");
 				System.exit(1);
 			}
 			try {
 				chatSocket = chatPort.accept();
-				clientSocket = port.accept();
+				clientSocket = gamePort.accept();
 				ChatHandler chatHandler = new ChatHandler(new GameSocket(chatSocket), numberOfGames);
 				chatHandler.start();
 				try{
-					Class<?> serverPlayerName = Class.forName(serverPlayer);
-					Class<?>[] serverPlayerParams = new Class[] {VoogaDaemon.class, Socket.class};
-					Object[] serverPlayerFinalParams = new Object[] {this, clientSocket};
-					((ServerPlayer)(serverPlayerName.getConstructor(serverPlayerParams).newInstance(serverPlayerFinalParams))).start();
+					Class<?> clientHandlerName = Class.forName(clientHandler);
+					Class<?>[] clientHandlerParams = new Class[] {VoogaDaemon.class, GameSocket.class, int.class, int.class};
+					Object[] clientHandlerFinalParams = new Object[] {this, new GameSocket(clientSocket), numberOfPlayers, numberOfGames};
+					((ClientHandler)(clientHandlerName.getConstructor(clientHandlerParams).newInstance(clientHandlerFinalParams))).start();
 				}
 				catch(Exception e){
-					System.out.println("Couldn't find ServerPlayer subclass!");
+					System.out.println("Couldn't find ClientHandler subclass!");
 					System.exit(1);
 				}
 			}
@@ -70,97 +64,25 @@ public class VoogaDaemon extends Thread{
 		}
 	}
 
-	//	public synchronized ServerGame waitForGame(ServerPlayer p, String waitString) {
-	//		ServerGame retval = null;
-	//		boolean waiting = false;
-	//		for(int i = 0; i < playersWaiting.length; i++){
-	//			ServerPlayer playerWaiting = playersWaiting[i];
-	//			if(playerWaiting == null){
-	//				waiting = true;
-	//				playerWaiting = p;
-	//				playersWaiting[i] = playerWaiting;
-	//				thisGame = null;
-	//				p.send(waitString);
-	//				while (waiting) {
-	//					try {
-	//						wait();
-	//					}
-	//					catch (InterruptedException e) {
-	//						System.out.println("Error: " + e);
-	//					}
-	//				}
-	//				return thisGame;
-	//			}
-	//		}
-	//		if(!waiting){
-	//			ServerPlayer[] players = new ServerPlayer[playersWaiting.length + 1];
-	//			for(int i = 0; i < playersWaiting.length; i++){
-	//				players[i] = playersWaiting[i];
-	//			}
-	//			players[players.length - 1] = p;
-	//			try{
-	//				Class<?> serverGameName = Class.forName(serverGame);
-	//				Class<?>[] serverGameParams = new Class[] {ServerPlayer[].class};
-	//				Object[] serverGameFinalParams = new Object[] {players};
-	//				thisGame = ((ServerGame)(serverGameName.getConstructor(serverGameParams).newInstance(serverGameFinalParams)));
-	//			}
-	//			catch(Exception e){
-	//				System.out.println("Couldn't find ServerGame subclass!");
-	//				System.exit(1);
-	//			}
-	//			retval = thisGame;
-	//			waiting = false;
-	//			notify();
-	//			return retval;
-	//		}
-	//		return null;
-	//	}
-
-	public synchronized ServerGame waitForGame(ServerPlayer p, String waitString) {
-		ServerGame retval = null;
-		if(playerWaiting == null){
-			playerWaiting = p;
-			thisGame = null;
-			p.send(waitString);
-			while (playerWaiting != null) {
-				try {
-					wait();
-				}
-				catch (InterruptedException e) {
-					System.out.println("Error: " + e);
-				}
-			}
-			return thisGame;
-		}
-		else{
-			try{
-				ServerPlayer[] players = new ServerPlayer[] {playerWaiting, p};
-				Class<?> serverGameName = Class.forName(serverGame);
-				Class<?>[] serverGameParams = new Class[] {ServerPlayer[].class};
-				Object[] serverGameFinalParams = new Object[] {players};
-				thisGame = ((ServerGame)(serverGameName.getConstructor(serverGameParams).newInstance(serverGameFinalParams)));
-			}
-			catch(Exception e){
-				System.out.println("Couldn't find ServerGame subclass!");
-				System.exit(1);
-			}
-			retval = thisGame;
-			playerWaiting = null;
-			notify();
-			numberOfGames++;
-			return retval;
-		}
-	} 
-
 	protected void finalize() {
-		if (port != null) {
+		if (gamePort != null) {
 			try { 
-				port.close(); 
+				gamePort.close(); 
 			}
 			catch (IOException e) {
-				System.out.println("Error closing port: " + e);
+				System.out.println("Error closing gamePort: " + e);
 			}
-			port = null;
+			gamePort = null;
+		}
+		
+		if (chatPort != null) {
+			try { 
+				chatPort.close(); 
+			}
+			catch (IOException e) {
+				System.out.println("Error closing chatPort: " + e);
+			}
+			chatPort = null;
 		}
 	}
 }
