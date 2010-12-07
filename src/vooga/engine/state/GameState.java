@@ -10,7 +10,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 /**
  * GameState is, at its most basic conception, a container class for collections
- * of sprites. Beyond that, it should be used control state-specific behavior
+ * of sprites. Beyond that, it should be used to control state-specific behavior
  * that defines those sprites. For example, the mainGameState should include all
  * of the sprites necessary to play the game in both the render and update
  * groups. The mainGameState, when set to active, will then iterate through

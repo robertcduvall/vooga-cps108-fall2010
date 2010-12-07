@@ -1,7 +1,7 @@
 package vooga.examples.networking.tictactoe.states;
 
 import vooga.engine.core.Game;
-import vooga.engine.networking.client.states.NetworkMenuState;
+import vooga.engine.state.NetworkMenuState;
 
 
 

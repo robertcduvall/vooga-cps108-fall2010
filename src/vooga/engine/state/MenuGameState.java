@@ -17,27 +17,27 @@ public abstract class MenuGameState extends GameState {
 	private PlayField menuPlayfield = new PlayField();
 
 	/**
-	 * Creates a new instance of MenuGameState with a specified collection of buttons
-	 * @param buttons iterable collection of buttons
-	 */
-	public MenuGameState(Iterable<Button> buttons) {
-		//TODO suggestion: don't require buttons be passed as a parameter.
-		//that way I can define how I want the buttons to be created in 
-		//my menu extension rather than needing to set them up and pass 
-		//them in from game --Daniel Koverman
-		for (Button button : buttons) {
-			addButton(button);
-		}
-
-	}
-	
-	/**
 	 * Creates a new instance of MenuGameState
 	 */
 	public MenuGameState(){
 		initialize();
 	}
 
+
+	/**
+	 * Creates a new instance of MenuGameState with a specified collection of buttons
+	 * @param buttons iterable collection of buttons
+	 */
+	public MenuGameState(Iterable<Button> buttons) {
+		
+		for (Button button : buttons) {
+			addButton(button);
+		}
+
+	}
+	
+	
+	
 	/**
 	 * Initializes MenuGameState
 	 */
