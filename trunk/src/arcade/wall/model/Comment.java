@@ -6,16 +6,18 @@ public class Comment {
 	private String myGameName;
 	private String myUserName;
 	private String myCommentString;
+	private String myRating;
 	// TODO Add more fields (table columns)
 	
 //	public Comment(String userName) {
 //		this(userName, "");
 //	}
 	
-	public Comment(String gameName, String userName, String commentString) {
+	public Comment(String gameName, String userName, String commentString, String rating) {
 		myGameName = gameName;
 		myUserName = userName;
 		myCommentString = commentString;
+		myRating = rating;
 	}
 	
 //	public void setName(String first,String last) {
@@ -46,6 +48,10 @@ public class Comment {
 	
 	public String getCommentString() {
 		return myCommentString;
+	}
+	
+	public String getRating() {
+		return myRating;
 	}
 //	
 //	public String getFullName() {

@@ -16,8 +16,8 @@ public class WallModel {
 		myCommentSet = new CommentSet(myHost, myDbName, "Comments", myDbUserName, myDbPassword);
 	}
 	
-	public void addComment(String game, String user, String comment){
-		Comment newComment = new Comment(game, user, comment);
+	public void addComment(String game, String user, String comment, String rating){
+		Comment newComment = new Comment(game, user, comment, rating);
 		myCommentSet.addComment(newComment);
 	}
 	

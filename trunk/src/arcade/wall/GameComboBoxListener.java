@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import arcade.wall.controller.WallController;
 import arcade.wall.view.WallView;
@@ -13,11 +14,13 @@ public class GameComboBoxListener implements ActionListener {
 	private WallController myController;
 	private JLabel myLabel;
 	private JComboBox myComboBox;
+	private JTextField myTextField;
 	
-	public GameComboBoxListener(WallController controller, JLabel label, JComboBox comboBox) {
+	public GameComboBoxListener(WallController controller, JLabel label, JComboBox comboBox, JTextField textField) {
 		myController = controller;
 		myLabel = label;
 		myComboBox = comboBox;
+		myTextField = textField;
 	}
 	
 	@Override
@@ -26,6 +29,7 @@ public class GameComboBoxListener implements ActionListener {
 			String selectedGameName = WallView.choices[myComboBox.getSelectedIndex()];
 	        myLabel.setText("Comments for " + selectedGameName + ":");
 	        myController.updateCommentsArea(selectedGameName);
+	        myTextField.setText("");
 	    }
 		
 	}

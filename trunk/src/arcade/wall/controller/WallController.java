@@ -13,18 +13,23 @@ public class WallController {
 		view = new WallView("Gamer13", this);
 		updateCommentsArea(WallView.choices[0]);
 		view.setVisible();
-//		updateCommentsArea(WallView.choices[0]);
 	}
 	
-	public void addComment(String game, String user, String comment){
-		model.addComment(game, user, comment);		
+	public void addComment(String game, String user, String comment, String rating){
+		model.addComment(game, user, comment, rating);		
 	}
 
 	public void updateCommentsArea(String selectedGameName) {
 		String input = "";
 		for (Comment comment: model.getCommentSet()) {
+			String starString = "";
+			if (comment.getRating().equals("0"))
+				starString = ":(";
+			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
+				starString += "*";
+			}
 			if (comment.getGameName().equals(selectedGameName))
-				input += comment.getCommentString() + "---" + comment.getUserName() + "\n";
+				input += comment.getCommentString() + "  " + starString + " " +  "---" + comment.getUserName() + "\n";
 		}
 		view.getCommentsArea().setText(input);
 	}

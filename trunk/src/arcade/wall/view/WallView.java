@@ -14,6 +14,7 @@ public class WallView {
 	String myGamerName;
 	JTextArea myCommentBox;
 	JFrame myFrame;
+	RatingPanel myRatingPanel;
 	
 	public static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
@@ -43,7 +44,7 @@ public class WallView {
 		
 		JPanel entryPanel = new JPanel();
 		JPanel displayPanel = new JPanel();
-		RatingPanel ratingPanel = new RatingPanel(5);
+		myRatingPanel = new RatingPanel(5);
 		
 		JButton reviewButton = new JButton("Review");
 		JComboBox gameChoices = new JComboBox(choices);
@@ -52,12 +53,13 @@ public class WallView {
 		JLabel commentsLabel = new JLabel("Comments for " + choices[gameChoices.getSelectedIndex()] + ":");
 		
 		//Add action listeners to ComboBox and Button
-		gameChoices.addActionListener(new GameComboBoxListener(myController, commentsLabel, gameChoices));
+		gameChoices.addActionListener(new GameComboBoxListener(myController, commentsLabel, gameChoices, commentEntryField));
 		reviewButton.addActionListener(new ReviewButtonListener(myController, gameChoices,
-									   commentEntryField, myGamerName));
+									   commentEntryField, myGamerName, myRatingPanel));
 		
 		entryPanel.add(gameChoices);
 		entryPanel.add(commentEntryField);
+		entryPanel.add(myRatingPanel);
 		entryPanel.add(reviewButton);
 		//entryPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		displayPanel.add(commentsLabel);
@@ -67,12 +69,13 @@ public class WallView {
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		returnPanel.add(entryPanel);
 		returnPanel.add(displayPanel);
-		returnPanel.add(ratingPanel);
+		//returnPanel.add(ratingPanel);
 		return returnPanel;
 	}
 
 	private JTextArea createCommentsArea(){
 		JTextArea comments = new JTextArea(5,5);
+		comments.setWrapStyleWord(true);
 		comments.setEditable(false);
 		return comments;
 		//JScrollPane scrollPane = new JScrollPane(comments);	
