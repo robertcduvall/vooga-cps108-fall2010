@@ -1,13 +1,18 @@
 package vooga.games.tronupdate.util;
 
+import java.util.Stack;
+
 public class Grid {
 	private boolean isTaken,isBonus;//,isWall;
-	private int playerIndex;
+	private Stack<Integer> players = new Stack<Integer>();
 	public void setPlayer(int player){
-		playerIndex = player;
+		players.add(player);
 	}
 	public int getPlayer(){
-		return playerIndex;
+		return players.peek();
+	}
+	public boolean collides(){
+		return (players.size()>1);
 	}
 	public void setTaken(boolean taken){
 		isTaken = taken;

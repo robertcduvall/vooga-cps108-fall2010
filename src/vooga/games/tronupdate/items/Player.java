@@ -30,10 +30,9 @@ public class Player {
 		height = height_;
 		width = width_;
 		control = new Control();
-		ai = new AI_0();
 	}
 
-	public void setControl(Control c) {
+	public void setKeyboardControl(Control c) {
 		control = c;
 	}
 
@@ -69,7 +68,7 @@ public class Player {
 
 	public void update(Grid[][] grid) {
 		if(isAI()){
-			ai.update(grid,Row,Col);
+			ai.update(grid,Row,Col,Dir);
 		}
 		else control.update();
 		routinelyUpdateX();
