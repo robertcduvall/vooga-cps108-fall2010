@@ -2,11 +2,9 @@ package arcade.wall;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import arcade.wall.controller.WallController;
@@ -31,13 +29,9 @@ public class ReviewButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		List<String> comments = myController.addComment(WallView.choices[myComboBox.getSelectedIndex()],
-				myTextField.getText(), myGamerName);
-		String input = "";
-		for (String comment: comments) {
-			input += comment + "\n";
-		}
-		((JTextArea)myLabel).setText(input);
+		myController.addComment(WallView.choices[myComboBox.getSelectedIndex()],
+				myGamerName, myTextField.getText());
+		myController.updateCommentsArea();
 	}
 
 }

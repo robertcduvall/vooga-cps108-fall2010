@@ -1,21 +1,19 @@
 package arcade.wall.model;
 
-import java.text.DateFormat;
-import java.util.Date;
-
-import arcade.lobby.controller.Validator;
 
 
 public class Comment {
+	private String myGameName;
 	private String myUserName;
 	private String myCommentString;
 	// TODO Add more fields (table columns)
 	
-	public Comment(String userName) {
-		this(userName, "");
-	}
+//	public Comment(String userName) {
+//		this(userName, "");
+//	}
 	
-	public Comment(String userName, String commentString) {
+	public Comment(String gameName, String userName, String commentString) {
+		myGameName = gameName;
 		myUserName = userName;
 		myCommentString = commentString;
 	}
@@ -37,6 +35,11 @@ public class Comment {
 //		myAvatarURL = avatarURL;
 //	}
 //	
+	
+	public String getGameName() {
+		return myGameName;
+	}
+	
 	public String getUserName() {
 		return myUserName;
 	}
