@@ -24,8 +24,9 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 		super(node);
 
+		handleNode(node);
 		makeComponents();
-		
+
 	}
 
 	@Override
@@ -45,12 +46,12 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		if (node.getAttributes().contains("min")) {
 			MIN = Integer.parseInt(node.getAttribute("min"));
 		}
-		
+
 		handleInitialParsing();
 	}
-	
+
 	public abstract void handleInitialParsing();
-	
+
 	public abstract String parseChange(Integer value);
 
 	@Override
@@ -71,9 +72,9 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 				if (!source.getValueIsAdjusting()) {
 					Integer value = (int) source.getValue();
-					
+
 					String updatedString = parseChange(value);
-					
+
 					currentValue.setText(updatedString);
 					myValue = updatedString;
 				}
@@ -92,5 +93,5 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		add(currentValue);
 
 	}
-	
+
 }
