@@ -7,6 +7,13 @@ import java.net.SocketTimeoutException;
 
 import vooga.engine.networking.GameSocket;
 
+/**
+ * Thread that is run on the server 24/7 for each game using the networking API.  It creates the sockets that the game will be communicating over and 
+ * initiates the ChatHandler and ClientHandler subclass for every connection.
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
 public class VoogaDaemon extends Thread{
 	public int numberOfGames;
 	private ServerSocket gamePort;
@@ -14,13 +21,23 @@ public class VoogaDaemon extends Thread{
 	private int numberOfPlayers;
 	private String clientHandler;
 
-
+	/**
+	 * Static method to return the XML document with the list of games that can be run on the networking Vooga servers.
+	 * 
+	 * @param gamePortNumber the port through which to send messages related to the game
+	 * @param chatPortNumber the port through which to send chats
+	 * @param numberOfPlayers the number of players necessary for the game
+	 * @param clientHandler the name of the subclass of ClientHandler
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public VoogaDaemon(int gamePortNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
 		try {
 			gamePort = new ServerSocket(gamePortNumber);
 			chatPort = new ServerSocket(chatPortNumber);
 			this.numberOfPlayers = numberOfPlayers;
 			this.clientHandler = clientHandler;
+			//Number of games initialized so far on the server.
 			numberOfGames = 1;
 		}
 		catch (IOException e) {
@@ -29,6 +46,13 @@ public class VoogaDaemon extends Thread{
 		}
 	}
 
+	/**
+	 * Whenever a new client connects to the chat or game ports, create instances of the ChatHandler and ClientHandler subclass respectively
+	 * and start them.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public void run() {
 		Socket clientSocket, chatSocket;
 		while (true) {
@@ -63,7 +87,13 @@ public class VoogaDaemon extends Thread{
 			}
 		}
 	}
-
+	
+	/**
+	 * Close the game and chat ports.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	protected void finalize() {
 		if (gamePort != null) {
 			try { 
