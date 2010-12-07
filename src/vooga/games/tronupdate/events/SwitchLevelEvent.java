@@ -14,7 +14,6 @@ import vooga.games.tronupdate.state.TronGamePlayState;
 public class SwitchLevelEvent implements IEventHandler{
 	private GameStateManager gm;
 	private Game game;
-	//private boolean trigger;
 	private static int level=0;
 	
 	public SwitchLevelEvent(Game game, GameStateManager gm){
@@ -25,12 +24,7 @@ public class SwitchLevelEvent implements IEventHandler{
 	@Override
 	public void actionPerformed() {
 		GameState state = gm.getGameState(Resources.getInt("PlayState"));
-		TronGamePlayState playstate = (TronGamePlayState)state;
-		playstate.setLevel(level%playstate.getTotalLevel());
-		level++;
-		state.removeEverything();
 		state.initialize();
-		
 		gm.switchTo(state);
 	}
 

@@ -31,9 +31,14 @@ public class TronGamePauseState extends GameState{
 	@Override
 	public void initialize() {
 		playField = new PlayField();
-		playField.addColorBackground(Color.WHITE);
-		playField.setBackground(0);
 		initEvent();
+		initOverlay();
+	}
+	
+	private void initOverlay(){
+		OverlayCreator.setGame(game);
+		OverlayTracker tracker = OverlayCreator.createOverlays(Resources.getString("overlayFileURL"));
+		playField.addGroup(tracker.getOverlayGroup("Pause"));
 	}
 	
 	private void initEvent(){

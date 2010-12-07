@@ -1,6 +1,7 @@
 package vooga.games.tronupdate.util;
 
 import java.util.Random;
+import java.util.Stack;
 
 public class RandomLayoutGenerator {
 	private int difficultyLevel = 3;
@@ -23,8 +24,15 @@ public class RandomLayoutGenerator {
 		grid = initWalls(grid,wallStd);
 		grid = initBlocks(grid,blockStd);
 		grid = preventStart(grid,preventRangeX,preventRangeY,startX,startY);
-		grid = initBonuses(grid);
 		return grid;
+	}
+	
+	public Stack<Integer> randomBonus(int dimension){
+		Stack<Integer> bonusPos = new Stack<Integer>();
+		for(int i=0;i<dimension/difficultyLevel;i++){
+			bonusPos.add((int)(Math.random()*dimension));
+		}
+		return bonusPos;
 	}
 	private Grid[][] initWalls(Grid[][] grid,int wallStd){
 		boolean horizontal = false;
@@ -84,17 +92,15 @@ public class RandomLayoutGenerator {
 			int Xleft = (startX[i]-rangeX>=0)? (startX[i]-rangeX):0;
 			int Xright = (startX[i]+rangeX<col)? (startX[i]+rangeX):col-1;
 			int Yup = (startY[i]-rangeY>=0)? (startY[i]-rangeY):0;
-			int Ydown = (startY[i]+rangeY>=0)? (startY[i]+rangeY):row-1;
+			int Ydown = (startY[i]+rangeY<row)? (startY[i]+rangeY):row-1;
 			for(int x=Xleft;x<=Xright;x++){
 				for(int y = Yup;y<=Ydown;y++){
-					grid[x][y].setTaken(false);
-					grid[x][y].setWall(false);
+					grid[y][x].setTaken(false);
+					grid[y][x].setWall(false);
 				}
 			}
 		}
 		return grid;
 	}
-	private Grid[][] initBonuses(Grid[][] grid){
-		return grid;
-	}
+	
 }

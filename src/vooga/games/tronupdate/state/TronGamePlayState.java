@@ -247,10 +247,10 @@ public class TronGamePlayState extends GameState{
 
 	public void initSecondPlayerControls(TronPlayer player){
 		secondPlayerControl = new KeyboardControl(player, game);
-		ai = new AI();
+		ai = new AI_0(secondPlayer);
 		if(Mode.isSingle()){
 			secondPlayer.setAsAI(true);
-			ai.setPlayer(secondPlayer);
+			//ai.setPlayer(secondPlayer);
 			//secondPlayerControl = new KeyboardControl(player, game);	
 		}
 		else{
