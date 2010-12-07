@@ -8,7 +8,21 @@ import org.w3c.dom.NodeList;
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
 
+/**
+ * This class should be running on the server constantly to ensure that games that use the networking API have connection to the server at all times. Makes and
+ * starts the VoogaDaemon for each game that uses the networking API. 
+ * 
+ * @author Cue, Kolodziejzyk, Townsend
+ * @version 1.0
+ */
 public class VoogaServer {
+	
+	/**
+	 * Main method iterates through the list of games in the XML file and runs them on the specified port with the specified ClientHandler subclass.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public static void main(String args[ ]) {
 		Document xmlDocument = getXMLDocument("vooga/engine/networking/server/voogaGames.xml");
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
@@ -30,8 +44,15 @@ public class VoogaServer {
 		//new VoogaDaemon(2, "vooga.engine.networking.server.TicTacToeGame", "vooga.engine.networking.server.TicTacToePlayer").start();
 		System.out.println("Vooga server up and running...");
 	}
-	
-	public static Document getXMLDocument(String path){
+
+	/**
+	 * Static method to return the XML document with the list of games that can be run on the networking Vooga servers.
+	 * 
+	 * @param path the path of the XML document
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	private static Document getXMLDocument(String path){
 		XMLDocumentCreator xmlCreator = new XMLFileParser(path);
 		Document xmlDocument = null;
 		try {
@@ -43,7 +64,14 @@ public class VoogaServer {
 		}
 		return xmlDocument;
 	}
-	
+
+	/**
+	 * Static method to return the port that a game is run on.
+	 * 
+	 * @param gameName the name of the game whose port you want to find
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
 	public static int getPort(String gameName){
 		Document xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
