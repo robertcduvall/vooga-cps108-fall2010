@@ -30,6 +30,7 @@ public class CommentSet implements Iterable<Comment> {
 		row.put("Game_Name", comment.getGameName());
 		row.put("User_Name", comment.getUserName());
 		row.put("Comment_String", comment.getCommentString());
+		row.put("Rating", comment.getRating());
 		return myDbAdapter.insert(myTable, row);
 	}
 	
@@ -42,7 +43,8 @@ public class CommentSet implements Iterable<Comment> {
 	public Comment getComment(int rowNo) {
 		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name").get(rowNo),
 						   myDbAdapter.getColumn(myTable, "User_Name").get(rowNo),
-						   myDbAdapter.getColumn(myTable, "Comment_String").get(rowNo));
+						   myDbAdapter.getColumn(myTable, "Comment_String").get(rowNo),
+						   myDbAdapter.getColumn(myTable, "Rating").get(rowNo));
 	}
 
 	@Override
