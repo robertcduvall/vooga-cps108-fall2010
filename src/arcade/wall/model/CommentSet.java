@@ -2,6 +2,7 @@ package arcade.wall.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import arcade.lobby.model.DatabaseAdapter;
@@ -20,8 +21,8 @@ public class CommentSet implements Iterable<Comment> {
 	}
 
 	public int size() {
-		String[] col = myDbAdapter.getColumn(myTable, "User_Name");
-		return col.length;
+		List<String> col = myDbAdapter.getColumn(myTable, "User_Name");
+		return col.size();
 	}
 
 	public boolean addComment(Comment comment) {
@@ -39,9 +40,9 @@ public class CommentSet implements Iterable<Comment> {
 	}
 
 	public Comment getComment(int rowNo) {
-		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name")[rowNo],
-						   myDbAdapter.getColumn(myTable, "User_Name")[rowNo],
-						   myDbAdapter.getColumn(myTable, "Comment_String")[rowNo]);
+		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name").get(rowNo),
+						   myDbAdapter.getColumn(myTable, "User_Name").get(rowNo),
+						   myDbAdapter.getColumn(myTable, "Comment_String").get(rowNo));
 	}
 
 	@Override
