@@ -42,17 +42,19 @@ public class Control {
 	
 	public void populateMainPage(List<IItemInfo> list)
 	{
-		String[][] data = new String[list.size()][COLUMN_NAMES.length];
-		for(int k=0; k<list.size(); k++) {
-			IItemInfo item = list.get(k);
-			data[k][0] = item.getTitle();
-			data[k][1] = item.getPrice();
-			data[k][2] = item.getGenre();
-		}
-		TableModel tm = new DefaultTableModel(data, COLUMN_NAMES);
-		view.getGameListTable().setModel(tm);
+//		String[][] data = new String[list.size()][COLUMN_NAMES.length];
+//		for(int k=0; k<list.size(); k++) {
+//			IItemInfo item = list.get(k);
+//			data[k][0] = item.getTitle();
+//			data[k][1] = item.getPrice();
+//			data[k][2] = item.getGenre();
+//		}
+//		TableModel tm = new DefaultTableModel(data, COLUMN_NAMES);
+//		view.getGameListTable().setModel(tm);
 
-		
+		for(IItemInfo i : list) {
+			view.addGameToList(i.getTitle(), i.getPrice(), i.getGenre(), i.getImages().get(0));
+		}
 		
 	}
 	

@@ -2,6 +2,7 @@ package arcade.store.items;
 
 import java.io.File;
 import java.util.*;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 
@@ -19,7 +20,7 @@ public class ItemFactory {
 				String[] images = bundle.getString("coverartpath").split(",");
 				ArrayList<ImageIcon> imageIcons = new ArrayList<ImageIcon>();
 				for(String s : images) {
-					imageIcons.add(new ImageIcon(s));
+					imageIcons.add(new ImageIcon(Toolkit.getDefaultToolkit().getImage(s)));
 				}
 				allItems.put(bundle.getString("gameTitle"), new ItemInfo(bundle.getString("description"),
 						bundle.getString("price"),
