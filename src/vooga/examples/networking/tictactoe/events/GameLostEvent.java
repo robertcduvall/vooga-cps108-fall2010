@@ -38,7 +38,7 @@ public class GameLostEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		playState.setLost(true);
+		playState.setStatusString("lost");
 	}
 
 	/**
@@ -56,7 +56,6 @@ public class GameLostEvent implements IEventHandler {
 				continue;
 			int pieceX = ((int) (piece.getX())) / Resources.getInt("squareDimension");
 			int pieceY = ((int) (piece.getY())) / Resources.getInt("squareDimension");
-			System.out.println("PIECEY:" + pieceY);
 			for(Sprite otherPiece : oGroup.getSprites()){
 				if(otherPiece == null)
 					continue;
