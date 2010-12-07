@@ -16,6 +16,7 @@ import vooga.examples.networking.tictactoe.TicTacToeConnection;
 import vooga.examples.networking.tictactoe.events.GameLostEvent;
 import vooga.examples.networking.tictactoe.events.GameTiedEvent;
 import vooga.examples.networking.tictactoe.events.GameWonEvent;
+import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.control.*;
@@ -114,7 +115,6 @@ public class PlayState extends GameState{
 			int col = pieceX / Resources.getInt("squareDimension");
 			int row = pieceY / Resources.getInt("squareDimension");
 			myTurn = false;
-			System.out.println("PlayState: if(add) col (pieceX) "+pieceX+" (Y) "+pieceY);
 			connection.sendData(new Move(row, col));
 		}
 	}
@@ -145,16 +145,12 @@ public class PlayState extends GameState{
 	}
 
 	public void interpretMessage(String data){
-		if(data.equals(Resources.getString("theyQuitString")))
+		if(data.equals(Resources.getString("quitString")))
 			quit = true;
-		else if(data.equals(Resources.getString("errorString")))
-			game.getGameStateManager().switchTo(errorState);
-		else if(data.equals(Resources.getString("theirTurnString"))){
+		else if(data.equals(Resources.getString("theirTurnString")))
 			theirTurn = true;
-		}
-		else if(data.equals(Resources.getString("yourTurnString"))){
+		else if(data.equals(Resources.getString("yourTurnString")))
 			myTurn = true;
-		}
 		else{
 			oMove = (Move) (Move.deserialize(data));
 			placeOpposingPiece();

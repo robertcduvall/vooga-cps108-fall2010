@@ -17,7 +17,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
-import vooga.engine.networking.server.ChatConnection;
+import vooga.engine.networking.client.ChatConnection;
 
 public class TicTacToeFrame extends JFrame implements Runnable{
 	private JTextPane chats;

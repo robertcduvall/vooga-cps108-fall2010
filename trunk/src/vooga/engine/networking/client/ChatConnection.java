@@ -1,15 +1,14 @@
-package vooga.engine.networking.server;
+package vooga.engine.networking.client;
 
 import java.io.*;
 import java.net.*;
 
 import vooga.engine.networking.GameSocket;
-import vooga.engine.resource.Resources;
 
 public class ChatConnection extends GameSocket {
 
 	public ChatConnection() throws UnknownHostException, IOException{
-		super(new Socket("10.180.134.73", 1235));
+		super(new Socket("localhost", 1235));
 	}
 
 

@@ -35,8 +35,6 @@ public class TheirTurnState extends GameState{
 		else{
 			checkDelay--;
 		}
-		super.update(t);
-		field.update(t);
 	}
 
 	@Override

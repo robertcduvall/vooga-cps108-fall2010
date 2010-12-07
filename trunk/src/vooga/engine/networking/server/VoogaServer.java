@@ -10,7 +10,29 @@ import vooga.engine.util.XMLFileParser;
 
 public class VoogaServer {
 	public static void main(String args[ ]) {
-		XMLDocumentCreator xmlCreator = new XMLFileParser("src/vooga/engine/networking/server/voogaGames.xml");
+		Document xmlDocument = getXMLDocument("vooga/engine/networking/server/voogaGames.xml");
+		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
+		int chatPort = Integer.parseInt(((Element)gameSection).getAttribute("chatPort"));
+		if(gameSection != null){
+			NodeList listOfGames = gameSection.getChildNodes();
+			for(int i = 0; i < listOfGames.getLength(); i++)
+			{
+				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE)
+				{
+					Element gameElement = (Element) listOfGames.item(i);
+					int port = Integer.parseInt(gameElement.getAttribute("port"));
+					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
+					String clientHandler = gameElement.getAttribute("clientHandler");
+					new VoogaDaemon(port, chatPort, numberOfPlayers, clientHandler).start();
+				}
+			}
+		}
+		//new VoogaDaemon(2, "vooga.engine.networking.server.TicTacToeGame", "vooga.engine.networking.server.TicTacToePlayer").start();
+		System.out.println("Vooga server up and running...");
+	}
+	
+	public static Document getXMLDocument(String path){
+		XMLDocumentCreator xmlCreator = new XMLFileParser(path);
 		Document xmlDocument = null;
 		try {
 			xmlDocument = xmlCreator.getDocument();
@@ -19,23 +41,26 @@ public class VoogaServer {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		Node spriteGroupsSection = xmlDocument.getElementsByTagName("Games").item(0);
-		if(spriteGroupsSection != null){
-			NodeList listOfGames = spriteGroupsSection.getChildNodes();
+		return xmlDocument;
+	}
+	
+	public static int getPort(String gameName){
+		Document xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
+		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
+		if(gameSection != null){
+			NodeList listOfGames = gameSection.getChildNodes();
 			for(int i = 0; i < listOfGames.getLength(); i++)
 			{
 				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE)
 				{
 					Element gameElement = (Element) listOfGames.item(i);
-					String game = gameElement.getAttribute("name");
-					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
-					String serverGame = gameElement.getAttribute("serverGame");
-					String serverPlayer = gameElement.getAttribute("serverPlayer");
-					new VoogaDaemon(numberOfPlayers, serverGame, serverPlayer).start();
+					int port = Integer.parseInt(gameElement.getAttribute("port"));
+					String name = gameElement.getAttribute("name");
+					if(name.equals(gameName))
+						return port;
 				}
 			}
 		}
-		//new VoogaDaemon(2, "vooga.engine.networking.server.TicTacToeGame", "vooga.engine.networking.server.TicTacToePlayer").start();
-		System.out.println("Vooga server up and running...");
+		return -1;
 	}
 }
