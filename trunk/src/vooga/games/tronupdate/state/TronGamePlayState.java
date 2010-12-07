@@ -99,7 +99,7 @@ public class TronGamePlayState extends GameState{
 		initializeCollision();
 		initializeOverlay();
 		initializeEvents();
-		game.playMusic(Resources.getSound("backgroundmusic"));
+		//game.playMusic(Resources.getSound("backgroundmusic"));
 	}
 
 	public void initializeOverlay(){
@@ -189,7 +189,7 @@ public class TronGamePlayState extends GameState{
 			numBlocks=10;
 		}
 		else if (currentLevel==2){
-
+			
 		}
 	}
 
@@ -247,9 +247,9 @@ public class TronGamePlayState extends GameState{
 
 	public void initSecondPlayerControls(TronPlayer player){
 		secondPlayerControl = new KeyboardControl(player, game);
+		ai = new AI();
 		if(Mode.isSingle()){
 			secondPlayer.setAsAI(true);
-			ai = new AI();
 			ai.setPlayer(secondPlayer);
 			//secondPlayerControl = new KeyboardControl(player, game);	
 		}

@@ -1,77 +1,37 @@
 package vooga.games.tronupdate.util;
 
-import java.util.*;
-
-
-import vooga.games.tronupdate.items.TronPlayer;
 import vooga.engine.control.Control;
-import vooga.engine.core.Game;
+import vooga.games.tronupdate.util.Grid;
 import vooga.games.tronupdate.items.Player;
 
-public class AI{
-	private int preventRange = 10;
-	private int counter = 0;
-	private Game game;
+public class AI_0{
 	
+	private int preventRange = 4;
+	private Player myPlayer;
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
 	
-	//temporary implementation
-	private TronPlayer myPlayer;
-	
-	//public void setPlayer(TronPlayer player){
+	//public void setPlayer(Player player){
 	//	myPlayer = player;
 	//}
 	
-	public void setPlayer(TronPlayer player){
+	public AI_0(Player player){
 		myPlayer = player;
 	}
 	
-	//public void aiUpdate(List<TronPlayer> tronPlayerList,boolean[][] levelBlocks){
-	public void aiUpdate(boolean[][] blocks){
-		//counter++;
-		//int row = myPlayer.blocks.length;
-		//int col = myPlayer.blocks[0].length;
+	public void update(Grid[][] grid,int row,int col,Direction direction){
+		int rowLength = grid.length;
+		int colLength = grid[0].length;
 		
-		int row = blocks.length;
-		int col = blocks[0].length;
-		
-		boolean[][] blocksTaken = new boolean[row][col];
-		blocksTaken = blocks;
-		
-		/*for(int i=0;i<blocksTaken.length;i++){
-			Arrays.fill(blocksTaken[i],false);
-		}
-		
-		for(int i=0;i<row;i++){
-			for(int j=0;j<col;j++){
-				if(firstBlocks[i][j]) blocksTaken[i][j]=true;
+		boolean[][] blocksTaken = new boolean[rowLength][colLength];
+		for(int i=0;i<rowLength;i++){
+			for(int j=0;j<colLength;j++){
+				blocksTaken[i][j]= grid[i][j].isTaken();
 			}
 		}
-		for(int i=0;i<row;i++){
-			for(int j=0;j<col;j++){
-				if(secondBlocks[i][j]) blocksTaken[i][j]=true;
-			}
-		}*/
-		
-		/*for(TronPlayer player: tronPlayerList){
-			for(int i=0;i<row;i++){
-				for(int j=0;j<col;j++){
-					if(player.blocks[i][j]) blocksTaken[i][j]=true;
-				}
-			}
-		}*/
-		Direction direction = myPlayer.getDirection();
-		
-		int currentRow  = (int) myPlayer.getPlayerRow();
-		int currentCol = (int) myPlayer.getPlayerColumn();
-		//if(counter==5){
-			react(currentRow,currentCol,direction,blocksTaken);
-			//counter = 0;
-		//}
+		react(row,col,direction,blocksTaken);
 	}
-	
-	public void react(int row,int col, Direction direction, boolean[][] blocksTaken){
+	private void react(int row,int col, Direction direction, boolean[][] blocksTaken){
 		if(direction.equals(Direction.up)){
 			boolean obstacleUp = false;
 			for(int i=1;i<=preventRange;i++){
@@ -120,6 +80,7 @@ public class AI{
 			}
 			if(obstacleRight) handleUpDown();
 		}
+	
 	}
 	/**
 	 * This methods handles the upcoming left/right turn by taking into account the previous turns.  
@@ -174,25 +135,21 @@ public class AI{
 	/**
 	 * performs down turning
 	 */
-	//@Override
 	public void down() {
 		myPlayer.down();		
 	}
-	//@Override
 	/**
 	 * performs left turning 
 	 */
 	public void left() {
 		myPlayer.left();
 	}
-	//@Override
 	/**
 	 * performs right turning
 	 */
 	public void right() {
 		myPlayer.right();
 	}
-	//@Override
 	/**
 	 * performs up turning
 	 */
