@@ -1,17 +1,28 @@
 package arcade.wall.controller;
 
-import java.util.List;
-
+import arcade.wall.model.Comment;
 import arcade.wall.model.WallModel;
 import arcade.wall.view.WallView;
 
 public class WallController {
-	WallModel model = new WallModel();
-	WallView view = new WallView("Gamer13", this);
+	WallModel model;
+	WallView view;
 	
-	public List<String> addComment(String game, String comment, String user){
-		List<String> comments = model.addComment(game, comment, user);
-		return comments;		
+	public WallController() {
+		model = new WallModel();
+		view = new WallView("Gamer13", this);
+	}
+	
+	public void addComment(String game, String user, String comment){
+		model.addComment(game, user, comment);		
+	}
+
+	public void updateCommentsArea() {
+		String input = "";
+		for (Comment comment: model.getCommentSet()) {
+			input += comment.getCommentString() + "---" + comment.getUserName() + "\n";
+		}
+		view.getCommentsArea().setText(input);
 	}
 
 }

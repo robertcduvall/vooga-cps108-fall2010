@@ -12,7 +12,7 @@ import arcade.wall.controller.WallController;
 public class WallView {
 	WallController myController;
 	String myGamerName;
-	JComponent myCommentBox;
+	JTextArea myCommentBox;
 	
 	public static final String[] choices = { "Grandius", "Zombieland", "Jumper", 
 			"Doodlejump", "Galaxy Invaders", "Cyberion", 
@@ -70,11 +70,15 @@ public class WallView {
 		return returnPanel;
 	}
 
-	private JComponent createCommentsArea(){
+	private JTextArea createCommentsArea(){
 		JTextArea comments = new JTextArea(5,5);
 		comments.setEditable(false);
 		return comments;
 		//JScrollPane scrollPane = new JScrollPane(comments);	
 		//return scrollPane;
+	}
+	
+	public JTextArea getCommentsArea() {
+		return this.myCommentBox;
 	}
 }

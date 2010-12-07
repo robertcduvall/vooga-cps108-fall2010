@@ -26,9 +26,9 @@ public class CommentSet implements Iterable<Comment> {
 
 	public boolean addComment(Comment comment) {
 		Map<String, String> row = new HashMap<String, String>();
+		row.put("Game_Name", comment.getGameName());
 		row.put("User_Name", comment.getUserName());
 		row.put("Comment_String", comment.getCommentString());
-		System.out.println(myDbAdapter.insert(myTable, row));
 		return myDbAdapter.insert(myTable, row);
 	}
 	
@@ -38,18 +38,10 @@ public class CommentSet implements Iterable<Comment> {
 		return myDbAdapter.update(myTable, comment.getUserName(), row);
 	}
 
-	public Comment getComment(String userName) {
-		Map<String, String> row = myDbAdapter.getRow(myTable, userName);
-		if(row==null) return null;
-		Comment userComment = new Comment(userName);
-		userComment.setCommentString(row.get("Comment_String"));
-		return userComment;
-	}
-
 	public Comment getComment(int rowNo) {
-		//return getComment(myDbAdapter.getColumn(myTable, "User_Name")[rowNo]);
-		return new Comment(myDbAdapter.getColumn(myTable, "User_Name")[rowNo],
-				myDbAdapter.getColumn(myTable, "Comment_String")[rowNo]);
+		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name")[rowNo],
+						   myDbAdapter.getColumn(myTable, "User_Name")[rowNo],
+						   myDbAdapter.getColumn(myTable, "Comment_String")[rowNo]);
 	}
 
 	@Override
@@ -79,9 +71,4 @@ public class CommentSet implements Iterable<Comment> {
 
 		};
 	}
-	
-	public void setUser(String userName){
-//		currentComment = getComment(userName);
-	}
-
 }
