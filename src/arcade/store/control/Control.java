@@ -77,7 +77,7 @@ public class Control {
 		view.getPriceField().setText(item.getPrice());
 		System.out.println(item.getImages().get(item.COVER_IMAGE));
 		view.getCoverArt().setIcon( item.getImages().get(item.COVER_IMAGE));
-		view.getCoverArt().setText("This is where the coverart should go");
+		view.getCoverArt().setText("Coverart holder frame");
 		
 	}
 	

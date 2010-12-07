@@ -6,15 +6,18 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
 
+import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.*;
 
+import arcade.core.Tab;
+import arcade.store.StoreModel;
 import arcade.store.control.Control;
 
-public class MainPageView {
+public class MainPageView extends Tab {
 	
 	private static final int GAME_NAME_COLUMN = 0;
 
@@ -33,6 +36,13 @@ public class MainPageView {
 		frame.setVisible(true);
 	}
 	
+	public MainPageView() {
+		setName("Store");
+		controller = new Control();
+		controller.setModel(new StoreModel(controller));
+		controller.setView(this);
+	}
+	
 	/**
 	 * This method initializes jFrame	
 	 * 	
@@ -42,7 +52,7 @@ public class MainPageView {
 		if (jFrame == null) {
 			jFrame = new JFrame();
 			jFrame.setSize(new Dimension(863, 412));
-			jFrame.setContentPane(getJContentPane());
+			jFrame.setContentPane((JPanel)getContent());
 		}
 		return jFrame;
 	}
@@ -52,7 +62,7 @@ public class MainPageView {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getJContentPane() {
+	public JComponent getContent() {
 		if (jContentPane == null) {
 			BorderLayout borderLayout = new BorderLayout();
 			borderLayout.setHgap(10);
@@ -64,6 +74,7 @@ public class MainPageView {
 			jContentPane.add(getGenreList(), BorderLayout.WEST);
 			jContentPane.add(storeBrowseLabel, BorderLayout.NORTH);
 			jContentPane.add(getJScrollPane(), BorderLayout.CENTER);
+			jContentPane.setVisible(true);
 		}
 		return jContentPane;
 	}
@@ -105,10 +116,10 @@ public class MainPageView {
 	 */
 	public JTable getGameListTable() {
 		if (gameListTable == null) {
-			String[][] data = {{"GalaxyInvaders", "25.99", "Shooter"}, {"ZombieLand", "25.99", "Action"}};
-			String[] col = {"Game Name", "Price", "Genre"};
-			TableModel dataModel = new DefaultTableModel(data, col); 
-			gameListTable = new JTable(dataModel);
+//			String[][] data = {{"GalaxyInvaders", "25.99", "Shooter"}, {"ZombieLand", "25.99", "Action"}};
+//			String[] col = {"Game Name", "Price", "Genre"};
+//			TableModel dataModel = new DefaultTableModel(data, col); 
+			gameListTable = new JTable();
 			gameListTable.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					int row = getGameListTable().getSelectedRow();
@@ -124,5 +135,9 @@ public class MainPageView {
 	public void showMessageBox(String messageText) {
 		
 	}
+
+
+
+
 
 }
