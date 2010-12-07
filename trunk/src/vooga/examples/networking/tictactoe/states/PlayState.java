@@ -1,6 +1,8 @@
 package vooga.examples.networking.tictactoe.states;
 
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -31,8 +33,8 @@ public class PlayState extends GameState{
 	private GameOverState tieState;
 	private TheirTurnState waitState;
 	private ClientConnection connection;
-	private boolean myTurn, theirTurn;
-	private boolean won, tied, lost, quit;
+	private boolean myTurn;
+	private String statusString;
 	private Move oMove;
 
 	public PlayState(Game game, LevelManager levelManager, ClientConnection connection){
@@ -106,14 +108,15 @@ public class PlayState extends GameState{
 		}
 		if(add){
 			xGroup.add(new BetterSprite(Resources.getImage("X"), pieceX, pieceY));
-			eventPool.checkEvents();
 			int col = pieceX / Resources.getInt("squareDimension");
 			int row = pieceY / Resources.getInt("squareDimension");
 			myTurn = false;
+			//Networking code
 			connection.sendData(new Move(row, col));
 		}
 	}
 
+	//Networking code
 	public void placeOpposingPiece(){
 		int col = oMove.getCol();
 		int row = oMove.getRow();
@@ -122,66 +125,81 @@ public class PlayState extends GameState{
 		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
 		eventPool.checkEvents();
 	}
-
-	public void setWon(boolean didWin){
-		won = didWin;
-	}
-
-	public void setTied(boolean didTie){
-		tied = didTie;
-	}
-
-	public void setLost(boolean didLose){
-		lost = didLose;
-	}
-
-	public void setOMove(Move move){
-		oMove = move;
+	
+	public void setStatusString(String status){
+		statusString = status;
 	}
 
 	public void interpretMessage(String data){
-		if(data.equals(Resources.getString("quitString")))
-			quit = true;
-		else if(data.equals(Resources.getString("theirTurnString")))
-			theirTurn = true;
-		else if(data.equals(Resources.getString("yourTurnString")))
-			myTurn = true;
-		else{
+		try{
+			Integer.parseInt(data);
 			oMove = (Move) (Move.deserialize(data));
 			placeOpposingPiece();
+		}
+		catch(NumberFormatException e){
+			setStatusString(data);
+		}
+	}
+	
+	public boolean checkStatus(){
+		if(statusString == null || statusString.length() == 0){
+			return false;
+		}
+		else{
+			try {
+				Method statusAction = this.getClass().getMethod(statusString);
+				statusAction.invoke(this);
+			} 
+			catch (Exception e) {
+				System.out.println("Status action error" + e + ". Make sure the names of your stauses match the name of your status methods!");
+				System.exit(1);
+			}
+			statusString = null;
+			return true;
 		}
 	}
 
 	@Override
 	public void update(long elapsedTime){
-		if(won){
-			connection.sendGameOver();
-			game.getGameStateManager().switchTo(gameWonState);
+		eventPool.checkEvents();
+		if(checkStatus())
 			return;
-		}
-		if(tied){
-			connection.sendGameOver();
-			game.getGameStateManager().switchTo(tieState);
-			return;
-		}
-		if(lost){
-			connection.sendGameOver();
-			game.getGameStateManager().switchTo(youLostState);
-			return;
-		}
-		if(quit){
-			connection.sendGameOver();
-			game.getGameStateManager().switchTo(theyQuitState);
-			return;
-		}
-		if(theirTurn){
-			game.getGameStateManager().switchTo(waitState);
-			theirTurn = false;
-			return;
-		}
 		super.update(elapsedTime);
 		if(connection.isConnected() && !myTurn){
 			interpretMessage(connection.getData());
 		}
+	}
+	
+	public void won(){
+		connection.sendGameOver();
+		game.getGameStateManager().switchTo(gameWonState);
+		return;
+	}
+	
+	public void tied(){
+		connection.sendGameOver();
+		game.getGameStateManager().switchTo(tieState);
+		return;
+	}
+	
+	public void lost(){
+		connection.sendGameOver();
+		game.getGameStateManager().switchTo(youLostState);
+		return;
+	}
+	
+	public void quit(){
+		connection.sendGameOver();
+		game.getGameStateManager().switchTo(theyQuitState);
+		return;
+	}
+	
+	public void theirTurn(){
+		game.getGameStateManager().switchTo(waitState);
+		return;
+	}
+	
+	public void yourTurn(){
+		myTurn = true;
 	}
 }

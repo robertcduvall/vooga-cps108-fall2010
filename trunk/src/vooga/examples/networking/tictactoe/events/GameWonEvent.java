@@ -38,8 +38,7 @@ public class GameWonEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		System.out.println("WINNER");
-		playState.setWon(true);
+		playState.setStatusString("won");
 	}
 
 	/**
@@ -57,7 +56,6 @@ public class GameWonEvent implements IEventHandler {
 				continue;
 			int pieceX = ((int) (piece.getX())) / Resources.getInt("squareDimension");
 			int pieceY = ((int) (piece.getY())) / Resources.getInt("squareDimension");
-			System.out.println("PIECEY:" + pieceY);
 			for(Sprite otherPiece : xGroup.getSprites()){
 				if(otherPiece == null)
 					continue;

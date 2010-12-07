@@ -35,7 +35,7 @@ public class GameTiedEvent implements IEventHandler {
 	 */
 	@Override
 	public void actionPerformed() {
-		playState.setTied(true);
+		playState.setStatusString("tied");
 	}
 
 	/**
