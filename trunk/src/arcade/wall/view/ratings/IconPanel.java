@@ -6,6 +6,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * 
+ * @author Cameron McCallie
+ *
+ */
+@SuppressWarnings("serial")
 public class IconPanel extends ButtonPanel {
 
 	private ImageIcon myIcon;

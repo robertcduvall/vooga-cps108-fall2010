@@ -2,7 +2,7 @@ package arcade.wall.controller;
 
 
 /**
- * Playing around with an initial Wall GUI
+ * The VOOGA Wall. 
  * @author Cam, John, Bhawana
  */
 public class Wall {

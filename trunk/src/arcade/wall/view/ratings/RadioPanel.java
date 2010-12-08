@@ -1,6 +1,5 @@
 package arcade.wall.view.ratings;
 
-import javax.swing.AbstractButton;
 import javax.swing.JRadioButton;
 
 /**
@@ -11,7 +10,7 @@ import javax.swing.JRadioButton;
  * @author Cameron McCallie
  *
  */
-
+@SuppressWarnings("serial")
 public class RadioPanel extends ButtonPanel {
 
 	private JRadioButton[] myRadioButtons;

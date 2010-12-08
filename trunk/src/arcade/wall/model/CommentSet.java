@@ -8,6 +8,11 @@ import java.util.Map;
 import arcade.util.database.DatabaseAdapter;
 import arcade.util.database.MySqlAdapter;
 
+/**
+ * A CommentSet contains all the VOOGA Comments made by all users. It is linked to our online database.
+ * @author John, David Herzka
+ *
+ */
 public class CommentSet implements Iterable<Comment> {
 	
 	public Comment currentComment = null;
@@ -20,11 +25,21 @@ public class CommentSet implements Iterable<Comment> {
 		myTable = tableName;
 	}
 
+	/**
+	 * Returns the size of the CommentSet (number of rows).
+	 */
 	public int size() {
 		List<String> col = myDbAdapter.getColumn(myTable, "User_Name");
 		return col.size();
 	}
 
+	/**
+	 * Inserts a new row into the database, based on the given Comment.
+	 * @param comment
+	 * 		The comment to add
+	 * @return
+	 * 		Whether the addition was successful
+	 */
 	public boolean addComment(Comment comment) {
 		Map<String, String> row = new HashMap<String, String>();
 		row.put("Game_Name", comment.getGameName());
@@ -34,12 +49,34 @@ public class CommentSet implements Iterable<Comment> {
 		return myDbAdapter.insert(myTable, row);
 	}
 	
-	//Doesn't work yet
-	public boolean updateCommentRating(Comment comment) {
+	/**
+	 * Uses the DatabaseAdapter.update() method to update entries in the database that meet the conditions for
+	 * "changing a rating" - that is, the UserName, GameName, and CommentString should match.
+	 * @param comment
+	 * 		The comment being considered
+	 * @param newRating
+	 * 		The new rating to assign to the comment
+	 * @return
+	 * 		Whether the update was successful
+	 */
+	public boolean updateCommentRating(Comment comment, String newRating) {
 		Map<String, String> row = new HashMap<String, String>();
-		return myDbAdapter.update(myTable, comment.getRating(), row);
+		row.put("Game_Name", comment.getGameName());
+		row.put("User_Name", comment.getUserName());
+		row.put("Comment_String", comment.getCommentString());
+		row.put("Rating", newRating);
+		Map<String, String> conditions = new HashMap<String, String>();
+		conditions.put("Game_Name", comment.getGameName());
+		conditions.put("User_Name", comment.getUserName());
+		conditions.put("Comment_String", comment.getCommentString());
+		return myDbAdapter.update(myTable, conditions, row);
 	}
 
+	/**
+	 * Returns a Comment constructed from a row of the database.
+	 * @param rowNo
+	 * 		The row number
+	 */
 	public Comment getComment(int rowNo) {
 		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name").get(rowNo),
 						   myDbAdapter.getColumn(myTable, "User_Name").get(rowNo),

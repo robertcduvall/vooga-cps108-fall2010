@@ -6,13 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import vooga.engine.resource.Resources;
-
-import arcade.core.Panel;
 
 /**
  * This class is currently the superclass for ImageIcon and Radio Button
@@ -22,7 +16,7 @@ import arcade.core.Panel;
  * @author Cameron McCallie
  *
  */
-
+@SuppressWarnings("serial")
 public abstract class ButtonPanel extends JPanel implements ActionListener{
 	
 	protected int myScale;
