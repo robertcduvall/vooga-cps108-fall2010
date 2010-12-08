@@ -8,8 +8,11 @@ import vooga.engine.networking.GameSocket;
 import vooga.engine.networking.server.VoogaServer;
 
 /**
- * Basic class for connecting to the server from the client and sending and receiving data. Works for basic games but can be extended to add more complicated
- * functionality.  Override the getData() method to deal with receiving messages from the socket and the sendData() method for sending messages to the socket.
+ * Basic class for connecting to the server from the client and sending 
+ * and receiving data. Works for basic games but can be extended to add 
+ * more complicated functionality.  Override the getData() method to 
+ * deal with receiving messages from the socket and the sendData() method 
+ * for sending messages to the socket.
  * 
  * @author Cue, Kolodziejzyk, Townsend
  * @version 1.0
@@ -17,8 +20,9 @@ import vooga.engine.networking.server.VoogaServer;
 public class ClientConnection extends GameSocket{
 	
 	/**
-	 * Calls GameSocket constructor with the server's IP address and the port.  The port is based on the name of the game since each game has a different port
-	 * that it operates on.
+	 * Calls GameSocket constructor with the server's IP address and the 
+	 * port.  The port is based on the name of the game since each game 
+	 * has a different port that it operates on.
 	 * 
 	 * @param name the name of the game you're trying to connect to and from
 	 * @author Cue, Kolodziejzyk, Townsend
@@ -29,7 +33,8 @@ public class ClientConnection extends GameSocket{
 	}
 
 	/**
-	 * Listen for incoming data for the game. If the data is null then return gameOver otherwise just return the data String.
+	 * Listen for incoming data for the game. If the data is null then return 
+	 * gameOver otherwise just return the data String.
 	 * 
 	 * @return data that was sent over the network
 	 * @author Cue, Kolodziejzyk, Townsend
@@ -54,8 +59,8 @@ public class ClientConnection extends GameSocket{
 	}
 	
 	/**
-	 * Send a Serializeable object over the network.  Calls the Serializeable object's serialize method to convert
-	 * it to a String to send to the socket.
+	 * Send a Serializeable object over the network.  Calls the Serializeable 
+	 * object's serialize method to convert it to a String to send to the socket.
 	 * 
 	 * @param data the Serializeable object sent over the network
 	 * @author Cue, Kolodziejzyk, Townsend
