@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,24 +14,26 @@ import vooga.engine.resource.Resources;
 
 import arcade.core.Panel;
 
-public abstract class IntegerSelectPanel extends JPanel implements ActionListener{
+/**
+ * This class is currently the superclass for ImageIcon and Radio Button
+ * Rating Panels. Panel layouts can currently be changed by accessing methods
+ * of this class, as well returning action commands.
+ * 
+ * @author Cameron McCallie
+ *
+ */
+
+public abstract class ButtonPanel extends JPanel implements ActionListener{
 	
 	protected int myScale;
 	protected ButtonGroup myButtons;
-	protected JButton[] myEditableButtons;
 	
-	//TODO: Figure out how to make a ComboBox subclass (they can't handle images)
+	//TODO: Make a ComboBox subclass (they can't handle images)
+	//TODO: Figure out a better implementation for adding comments
 
-	public IntegerSelectPanel(int scale){
+	public ButtonPanel(int scale){
 		
-		
-		for (int i = 1; i < scale+1; i ++){
-			JButton thisButton = new JButton(""+i);
-			thisButton.setActionCommand(""+i);
-			myButtons.add(thisButton);
-			myEditableButtons[i-1] = thisButton;
-			this.add(thisButton);	
-		}
+		myButtons = new ButtonGroup();
 		setHorizontal();
 	}
 	
@@ -55,12 +58,16 @@ public abstract class IntegerSelectPanel extends JPanel implements ActionListene
 	 * 
 	 * Note that the user would have to specify the "-".
 	 */
-	public JButton addComment(JButton button, String comment){
+	public AbstractButton addComment(AbstractButton button, String comment){
 		String newLabel = button.getText() + " " + comment;
 		button.setText(newLabel);
 		return button;
 	}
 	
+	
+	public String getSelectedValue() {
+		return myButtons.getSelection().getActionCommand();
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

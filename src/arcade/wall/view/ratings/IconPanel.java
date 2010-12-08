@@ -1,38 +1,67 @@
 package arcade.wall.view.ratings;
 
 
-import javax.swing.ImageIcon;
+import java.awt.Image;
 
-public class IconPanel extends IntegerSelectPanel {
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class IconPanel extends ButtonPanel {
 
 	private ImageIcon myIcon;
-	private String myIconPath = "src/arcade/core/RatingStar.gif"; //rework for Resources
+	private String myIconPath = "src/arcade/core/RatingStar.gif"; 
+	private JButton[] myEditableButtons;
+
 	
 	//TODO: Allow the users to change individual images
+	//TODO: Use Resources properly, remove hard-coding
+	//TODO: The superclass method .getSelectedValue does NOT work with this
+
 	
 	public IconPanel(int scale) {
 		super(scale);
-		setImageIcon(myIconPath);
+		setDefaultImageIcon(myIconPath);
+		scaleDefaultIcon(25,25);
+		myEditableButtons = new JButton[scale];
+		
+		for (int i = 1; i < scale+1; i ++){
+			JButton thisButton = new JButton(""+i, myIcon);
+			thisButton.setActionCommand(""+i);
+			thisButton.addActionListener(this); // test this
+			myButtons.add(thisButton);
+			myEditableButtons[i-1] = thisButton;
+			this.add(thisButton);	
+		}
+		
 	}
 	
 	/**
 	 *  Returns an ImageIcon, or null if the path was invalid
 	 *  
 	 **/
-    public void setImageIcon(String imagePath) {
-    	// GET THIS TO WORK WITH RESOURCES
-
+    public void setDefaultImageIcon(String imagePath) {
+    	
     	myIcon = new ImageIcon(imagePath);
     }
     
     /**
-     * Sets all button icons to the class' current icon
+     * Scales default icon to user preferences
+     */
+    public void scaleDefaultIcon(int x, int y){
+    	Image scaledIcon = myIcon.getImage().getScaledInstance(x, y,
+				java.awt.Image.SCALE_SMOOTH);
+    	myIcon = new ImageIcon(scaledIcon);
+    }
+    
+    /**
+     * Sets this button's icon to the one given from the imagePath
      * 
      */
-    public void setButtonIcons(){
-    	for (int i = 0; i < myEditableButtons.length; i++){
-    		myEditableButtons[i].setIcon(myIcon);
-    	}
+    public JButton setButtonIcon(JButton button, String imagePath){
+    	ImageIcon newImage = new ImageIcon(imagePath);
+    	button.setIcon(newImage);
+    	return button;
     }
+    
 
 }
