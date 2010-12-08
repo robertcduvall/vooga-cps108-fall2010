@@ -1,12 +1,10 @@
 package arcade.store;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import arcade.store.account.UserShopAccount;
 import arcade.store.control.Control;
+import arcade.store.items.DbItemFactory;
 import arcade.store.items.IItemInfo;
 import arcade.store.items.ItemFactory;
 import arcade.store.organizer.FilterByGenreOrganizer;
@@ -15,7 +13,7 @@ import arcade.store.organizer.IOrganizer;
 public class StoreModel {
 
 	private static final String GAMES_DIRECTORY = System.getProperty("user.dir")+"/src/arcade/store/gui/resources/games";
-	
+	private static final String GAME_INFO_TABLE = "GameInfo";
 //	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	private UserShopAccount currentUser;
 	private Map<String, IItemInfo> storeCatalogue;
@@ -23,7 +21,7 @@ public class StoreModel {
 	
 	public StoreModel(Control control)
 	{
-		storeCatalogue = ItemFactory.getAllItems(GAMES_DIRECTORY);
+		storeCatalogue = DbItemFactory.getAllItems(GAME_INFO_TABLE);
 		controller = control;
 		//currentUser = Security.getCurrentUser();
 		
@@ -60,14 +58,15 @@ public class StoreModel {
 	}
 	
 	public String[] getGenres() {
-		ArrayList<String> list = new ArrayList<String>();
+		Set<String> list = new HashSet<String>();
 		list.add("All");
 		for(String key : storeCatalogue.keySet()) {
 			list.add(storeCatalogue.get(key).getGenre());
 		}
 		String[] returnValue = new String[list.size()];
+		Iterator<String> i = list.iterator();
 		for(int k=0; k<returnValue.length; k++) {
-			returnValue[k] = list.get(k);
+			returnValue[k] = i.next();
 		}
 		return returnValue;
 	}
