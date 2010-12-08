@@ -22,6 +22,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 	public SliderListFrame(IResourceNode node) {
 		super(node);
+		handleNode(node);
 		initializeComponents();
 	}
 
