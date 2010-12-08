@@ -2,6 +2,7 @@ package arcade.mod.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -64,6 +65,14 @@ public class StringListFrame extends AbstractListFrame {
 		add(myInput);
 
 	}
+<<<<<<< .mine
+
+	@Override
+	public boolean confirmValidity(File saveFile) {
+		//TODO: do actual error checking here
+		return true;
+	}
+=======
 
 	@Override
 	public void initializeComponents() {
@@ -75,4 +84,5 @@ public class StringListFrame extends AbstractListFrame {
 
 		makeComponents();
 	}
+>>>>>>> .r2644
 }

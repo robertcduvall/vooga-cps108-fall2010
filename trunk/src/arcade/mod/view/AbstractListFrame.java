@@ -2,8 +2,11 @@ package arcade.mod.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import arcade.mod.model.IResourceNode;
 
@@ -88,6 +91,15 @@ public abstract class AbstractListFrame extends JPanel {
 	 */
 	public abstract void makeComponents();
 
+<<<<<<< .mine
+	/**
+	 * Error checking to confirm that a list frame is holding a valid file type
+	 * @return boolean true if a file is valid
+	 */
+	public abstract boolean confirmValidity(File saveFile);
+	
+=======
 	public abstract void initializeComponents();
 
+>>>>>>> .r2644
 }
