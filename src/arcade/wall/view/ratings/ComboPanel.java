@@ -6,7 +6,7 @@ package arcade.wall.view.ratings;
  *
  */
 @SuppressWarnings("serial")
-public class ComboPanel extends ButtonPanel{
+public class ComboPanel extends AbstractButtonPanel{
 
 	public ComboPanel(int scale) {
 		super(scale);

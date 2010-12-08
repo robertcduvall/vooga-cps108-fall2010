@@ -11,7 +11,7 @@ import javax.swing.JRadioButton;
  *
  */
 @SuppressWarnings("serial")
-public class RadioPanel extends ButtonPanel {
+public class RadioPanel extends AbstractButtonPanel {
 
 	private JRadioButton[] myRadioButtons;
 	
@@ -26,7 +26,17 @@ public class RadioPanel extends ButtonPanel {
 			myRadioButtons[i-1] = thisButton;
 			this.add(thisButton);	
 		}
-		JRadioButton buttonTwo = (JRadioButton) addComment(myRadioButtons[2], " =)");
+	}
+	
+	/**
+	 * Adds a comment after the rating.
+	 * Ex: 4 - Awesome!
+	 * 
+	 * Note that the user would have to specify the "-".
+	 */
+	public void addComment(int buttonIndex, String comment){
+		String newLabel = myRadioButtons[buttonIndex - 1].getText() + " " + comment;
+		myRadioButtons[buttonIndex - 1].setText(newLabel);
 	}
 	
 

@@ -26,8 +26,8 @@ public class WallView {
 	private JTextArea myCommentBox;
 	private JFrame myFrame;
 //	private RatingPanel myRatingPanel;
-//	private RadioPanel myRatingPanel;
-	private IconPanel myRatingPanel;
+	private RadioPanel myRatingPanel;
+//	private IconPanel myRatingPanel;
 
 	public static final String[] myGameChoices = { "Grandius", "Zombieland", "Jumper", 
 		"Doodlejump", "Galaxy Invaders", "Cyberion", 
@@ -63,8 +63,10 @@ public class WallView {
 		JPanel entryPanel = new JPanel();
 		JPanel displayPanel = new JPanel();
 //		myRatingPanel = new RatingPanel(5);
-//		myRatingPanel = new RadioPanel(10);
-		myRatingPanel = new IconPanel(5);
+		myRatingPanel = new RadioPanel(5);
+		myRatingPanel.addComment(2, "SWEET");
+//		myRatingPanel = new IconPanel(4);
+//		myRatingPanel.setVertical();
 
 		JButton reviewButton = new JButton("Review");
 		JComboBox gameComboBox = new JComboBox(myGameChoices);
