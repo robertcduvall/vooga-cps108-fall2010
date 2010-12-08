@@ -1,12 +1,15 @@
 package arcade.mod.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -75,7 +78,13 @@ public class View extends JPanel implements IViewer {
 		
 		centralPanel = new JPanel();
 		centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
-		return new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		centralPanel.setBackground(new Color(100,100,100));
+
+		JScrollPane scrollPane = new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		return scrollPane;
+	
 	}
 
 	/**
@@ -86,8 +95,11 @@ public class View extends JPanel implements IViewer {
 		centralPanel.removeAll();
 		centralPanel.updateUI();
 
+		centralPanel.add(Box.createRigidArea(new Dimension(0,5)));
+		
 		for (AbstractListFrame alf : frames) {
 			centralPanel.add(alf);
+			centralPanel.add(Box.createRigidArea(new Dimension(0,5)));
 		}
 
 		centralPanel.validate();
@@ -171,6 +183,7 @@ public class View extends JPanel implements IViewer {
 	 */
 	public File openFileSelect() {
 
+		
 		return fileOpener.openFile();
 	}
 	
