@@ -23,7 +23,7 @@ public class StringListFrame extends AbstractListFrame {
 		super(node);
 
 		restrictSize(HEIGHT);
-		initializeComponents();
+		
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class StringListFrame extends AbstractListFrame {
 
 	@Override
 	public boolean confirmValidity(File saveFile) {
-		//TODO: do actual error checking here
+		// TODO: do actual error checking here
 		return true;
 	}
 

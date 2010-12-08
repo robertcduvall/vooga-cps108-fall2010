@@ -1,7 +1,11 @@
 package arcade.mod.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -10,11 +14,12 @@ import arcade.mod.model.IResourceNode;
 public abstract class SliderListFrame extends AbstractListFrame {
 
 	protected String myValue;
-	protected JSlider myInput;
+	protected JSlider mySliderInput;
+	protected JTextField myTextInput;
 
-	protected int MIN = -1000;
-	protected int MAX = 1000;
-	protected int INIT = 0;
+	protected int MIN;
+	protected int MAX;
+	protected int INIT;
 
 	public SliderListFrame() {
 
@@ -22,11 +27,8 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 	public SliderListFrame(IResourceNode node) {
 		super(node);
-		handleNode(node);
-		initializeComponents();
-	}
-	
 
+	}
 
 	@Override
 	public void initializeComponents() {
@@ -34,11 +36,9 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		myNameLabel = new JLabel();
 		newValue = new JLabel();
 		currentValue = new JLabel();
-		System.out.println(MIN + " " + MAX + " " +INIT);
-		myInput = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
 		stringLabel = new JLabel();
+		myTextInput = new JTextField();
 
-		makeComponents();
 	}
 
 	@Override
@@ -49,23 +49,24 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 	@Override
 	public void handleNode(IResourceNode node) {
+
 		myDescription = node.getDescription();
 		myName = node.getAttribute("name");
 		myValue = node.getAttribute("value");
-		
-		handleInitialParsing();
-
+		myTextInput.setText(myValue);
 		if (node.getAttributes().contains("max")) {
 			MAX = Integer.parseInt(node.getAttribute("max"));
 		} else {
-			MAX = INIT + 1000;
+			MAX = 1000;
 		}
 		if (node.getAttributes().contains("min")) {
 			MIN = Integer.parseInt(node.getAttribute("min"));
 		} else {
-			MIN = INIT - 1000;
+			MIN = -1000;
 		}
+		mySliderInput = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
 
+		handleInitialParsing();
 	}
 
 	public abstract void handleInitialParsing();
@@ -76,7 +77,23 @@ public abstract class SliderListFrame extends AbstractListFrame {
 	public void makeComponents() {
 
 		Integer value = INIT;
-		myInput.addChangeListener(new ChangeListener() {
+		myTextInput.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent evt) {
+				int value = Integer.parseInt(myValue);
+				try {
+					value = Integer.parseInt(myValue);
+				} catch (Exception e) {
+
+				}
+				myValue = myTextInput.getText();
+
+				mySliderInput.setValue(value);
+				currentValue.setText(myValue);
+			}
+
+		});
+		mySliderInput.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent e) {
 
@@ -89,6 +106,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 					currentValue.setText(updatedString);
 					myValue = updatedString;
+					myTextInput.setText(myValue);
 				}
 			}
 		});
@@ -103,9 +121,9 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		add(descriptionLabel);
 		add(stringLabel);
 		add(newValue);
-		add(myInput);
+		add(mySliderInput);
 		add(currentValue);
+		add(myTextInput);
 
 	}
-
 }
