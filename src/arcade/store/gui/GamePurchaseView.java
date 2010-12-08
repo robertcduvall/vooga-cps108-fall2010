@@ -50,7 +50,7 @@ public class GamePurchaseView {
 		if (jFrame == null) {
 			jFrame = new JFrame();
 			jFrame.setSize(new Dimension(542, 321));
-			jFrame.setTitle("Add Game To Cart");
+			jFrame.setTitle("Game Purchase View");
 			jFrame.setContentPane(getPanel());
 		}
 		return jFrame;
@@ -84,7 +84,7 @@ public class GamePurchaseView {
 	private JButton getPurchaseButton() {
 		if (purchaseButton == null) {
 		purchaseButton = new JButton();
-			purchaseButton.setText("Purchase Game");
+			purchaseButton.setText("Add Game To Cart");
 			purchaseButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					controller.processPurchaseButton(getTitleField().getText());
