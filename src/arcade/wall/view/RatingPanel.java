@@ -10,8 +10,25 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import arcade.core.Panel;
+
+
+//																Rating scale customization
+//At the highest level, the rating panel should allow for users to pass in an integer value for the scale on which they want things to be rated.
+//Integer values will be allowed between 1-10. Users should be able to select a percentage mode, in which they enter a percent.
+
+
+//																Rating type customization
+// Integer rating scales: combo box, radio buttons, custom icons. Radio but
+
+
+
+
+
+
+
 @SuppressWarnings("serial")
-public class RatingPanel extends JPanel implements ActionListener {
+public class RatingPanel extends Panel implements ActionListener {
 
 	private ButtonGroup myGroup;
 	
@@ -34,6 +51,8 @@ public class RatingPanel extends JPanel implements ActionListener {
 		
 	}
 
+
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
