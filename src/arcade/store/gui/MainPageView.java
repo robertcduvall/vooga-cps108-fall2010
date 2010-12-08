@@ -141,7 +141,7 @@ public class MainPageView extends Tab {
 		return gameListTable;
 	}
 	
-	private JPanel getGameList() {
+	public JPanel getGameList() {
 		if(gameList == null) {
 			gameList = new JPanel(new GridLayout(0,4));
 			gameList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
