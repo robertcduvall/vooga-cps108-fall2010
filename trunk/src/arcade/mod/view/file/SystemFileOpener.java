@@ -38,7 +38,7 @@ public class SystemFileOpener implements IFileOpener{
 
 		loadChooser.showOpenDialog(parent);
 		File file = loadChooser.getSelectedFile();
-		addToRecentlyOpened(file);
+		//addToRecentlyOpened(file);
 		return file;
 	}
 	
