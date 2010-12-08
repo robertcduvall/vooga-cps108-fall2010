@@ -3,6 +3,7 @@ package arcade.lobby.view;
 import java.awt.Rectangle;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -130,7 +131,9 @@ public class LoginPanel extends JPanel {
 						Main.MainFrame.setContentPane(new DefaultPanel());
 					}
 					else{
-						System.out.println("This username does not exist");
+						JOptionPane.showMessageDialog(Main.MainFrame,
+						"This username does not exist");
+//						System.out.println("This username does not exist");
 					}
 				}
 			});
