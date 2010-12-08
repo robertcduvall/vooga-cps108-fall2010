@@ -44,7 +44,7 @@ public class SystemFileOpener implements IFileOpener{
 	
 	private void addToRecentlyOpened(File file){
 		String filepath = file.getPath();
-		filepath = filepath.substring(filepath.indexOf("src/"));
+		filepath = filepath.substring(filepath.indexOf("src"));
 		System.out.println(filepath);
 		XMLDocumentCreator xmlParser = new XMLFileParser(RECENT_FILE_LIST);
 		Document doc;

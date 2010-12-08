@@ -128,6 +128,10 @@ public class Controller extends Tab implements IPresenter {
 		Controller mod = new Controller();
 	}
 
+	/**
+	 * Get the content from the View
+	 * @return JComponent - View cast to a JComponent object
+	 */
 	@Override
 	public JComponent getContent() {
 		return (JComponent) myView;
