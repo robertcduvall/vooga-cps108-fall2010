@@ -55,6 +55,7 @@ public class Control {
 		for(IItemInfo i : list) {
 			view.addGameToList(i.getTitle(), i.getPrice(), i.getGenre(), i.getImages().get(0));
 		}
+		view.revalidate();
 		
 	}
 	
@@ -79,7 +80,6 @@ public class Control {
 		view.getPriceField().setText(item.getPrice());
 		System.out.println(item.getImages().get(item.COVER_IMAGE));
 		view.getCoverArt().setIcon( item.getImages().get(item.COVER_IMAGE));
-		view.getCoverArt().setText("Coverart holder frame");
 		
 	}
 	
