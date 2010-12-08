@@ -21,12 +21,13 @@ public abstract class AbstractButtonPanel extends JPanel implements ActionListen
 	
 	protected int myScale;
 	protected ButtonGroup myButtons;
+	protected AbstractButton[] myEditableButtons;
 	
 	//TODO: Make a ComboBox subclass (they can't handle images)
 	//TODO: Figure out a better implementation for adding comments
 
 	public AbstractButtonPanel(int scale){
-		
+		myEditableButtons = new AbstractButton[scale];
 		myButtons = new ButtonGroup();
 		setHorizontal();
 	}
@@ -45,19 +46,19 @@ public abstract class AbstractButtonPanel extends JPanel implements ActionListen
 	public void setVertical(){
         this.setLayout(new GridLayout(0, 1));
 	}
-	
-	/**
-	 * Adds a comment after the rating.
-	 * Ex: 4 - Awesome!
-	 * 
-	 * Note that the user would have to specify the "-".
-	 */
-	public AbstractButton addComment(AbstractButton button, String comment){
-		String newLabel = button.getText() + " " + comment;
-		button.setText(newLabel);
-		return button;
-	}
-	
+//	
+//	/**
+//	 * Adds a comment after the rating.
+//	 * Ex: 4 - Awesome!
+//	 * 
+//	 * Note that the user would have to specify the "-".
+//	 */
+//	public void addComment(int buttonIndex, String comment){
+//		String newLabel = myEditableButtons[buttonIndex].getText() + " " + comment;
+//		System.out.println(myEditableButtons[buttonIndex]);
+//		myEditableButtons[buttonIndex].setText(newLabel);
+//	}
+//	
 	
 	public String getSelectedValue() {
 		return myButtons.getSelection().getActionCommand();
