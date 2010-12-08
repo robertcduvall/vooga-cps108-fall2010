@@ -8,6 +8,8 @@ import javax.swing.*;
 import arcade.wall.GameComboBoxListener;
 import arcade.wall.ReviewButtonListener;
 import arcade.wall.controller.WallController;
+import arcade.wall.view.ratings.IconPanel;
+import arcade.wall.view.ratings.RadioPanel;
 
 /**
  * WallView is the Wall entity that deals with the display of GUI elements and data on screen. 
@@ -15,11 +17,17 @@ import arcade.wall.controller.WallController;
  *
  */
 public class WallView {
+
+//	RatingPanel myRatingPanel;
+//	RadioPanel myRatingPanel;
+
 	private WallController myController;
 	private String myGamerName;
 	private JTextArea myCommentBox;
 	private JFrame myFrame;
-	private RatingPanel myRatingPanel;
+//	private RatingPanel myRatingPanel;
+//	private RadioPanel myRatingPanel;
+	private IconPanel myRatingPanel;
 
 	public static final String[] myGameChoices = { "Grandius", "Zombieland", "Jumper", 
 		"Doodlejump", "Galaxy Invaders", "Cyberion", 
@@ -54,7 +62,9 @@ public class WallView {
 		JPanel returnPanel = new JPanel();
 		JPanel entryPanel = new JPanel();
 		JPanel displayPanel = new JPanel();
-		myRatingPanel = new RatingPanel(5);
+//		myRatingPanel = new RatingPanel(5);
+//		myRatingPanel = new RadioPanel(10);
+		myRatingPanel = new IconPanel(5);
 
 		JButton reviewButton = new JButton("Review");
 		JComboBox gameComboBox = new JComboBox(myGameChoices);
