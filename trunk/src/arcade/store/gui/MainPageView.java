@@ -27,6 +27,7 @@ import arcade.store.control.Control;
 
 public class MainPageView extends Tab {
 	
+	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
 	private static final int GAME_NAME_COLUMN = 0;
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="55,18"
@@ -77,7 +78,7 @@ public class MainPageView extends Tab {
 			borderLayout.setHgap(10);
 			borderLayout.setVgap(10);
 			storeBrowseLabel = new JLabel();
-			storeBrowseLabel.setText("Main Game Store: Browse, Demo, and Purchase Your Games Here!");
+			storeBrowseLabel.setText(ARCADE_STORE_GREETING);
 			jContentPane = new JPanel();
 			jContentPane.setLayout(borderLayout);
 			jContentPane.add(getGenreList(), BorderLayout.WEST);
