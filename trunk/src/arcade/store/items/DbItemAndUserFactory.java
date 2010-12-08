@@ -34,11 +34,23 @@ public class DbItemAndUserFactory {
 		return answer;
 	}
 
-	
+
 	public static StoreUser getUser(String table, String name) {
 		List<Map<String, String>> list = dbAdapter.getRows(table, "username", name);
-		Map<String, String> userMap = list.get(0);
-		return new StoreUser(userMap.get("username"), Double.parseDouble(userMap.get("creddits")),
-				Integer.parseInt(userMap.get("time_creddits")), userMap.get("cart"), userMap.get("owned_games"));
+		if(list!=null) {
+			Map<String, String> userMap = list.get(0);
+			return new StoreUser(userMap.get("username"), Double.parseDouble(userMap.get("creddits")),
+					Integer.parseInt(userMap.get("time_creddits")), userMap.get("cart"), userMap.get("owned_games"));
+		}
+		else {
+			HashMap<String, String> newUser = new HashMap<String, String>();
+			newUser.put("username", name);
+			newUser.put("creddits", "0.00");
+			newUser.put("time_creddits", "0");
+			newUser.put("cart", "");
+			newUser.put("owned_games", "");
+			dbAdapter.insert(table, newUser);
+			return getUser(table, name);
+		}
 	}
 }

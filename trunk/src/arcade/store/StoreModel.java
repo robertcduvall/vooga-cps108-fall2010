@@ -70,6 +70,10 @@ public class StoreModel {
 		}
 		return returnValue;
 	}
+	
+	public void addToCart(String itemName) {
+		currentUser.getCart().add(itemName);
+	}
 
 	
 	/**
