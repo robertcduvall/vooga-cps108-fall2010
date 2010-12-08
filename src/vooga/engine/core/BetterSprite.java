@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+
+import vooga.engine.overlay.Overlay;
 import vooga.engine.overlay.Stat;
 
 import com.golden.gamedev.object.AnimatedSprite;
