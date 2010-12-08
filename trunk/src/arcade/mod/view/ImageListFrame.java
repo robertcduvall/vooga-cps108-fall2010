@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import arcade.mod.model.IResourceNode;
+import arcade.mod.model.XMLNode;
 
 public class ImageListFrame extends FilepathListFrame {
 
@@ -22,12 +23,14 @@ public class ImageListFrame extends FilepathListFrame {
 	public ImageListFrame(IResourceNode node) {
 
 		super(node);
-
+		
 	}
 	
 
 	public ImageListFrame newInstance(IResourceNode node) {
+		if (!node.getNode().getNodeName().equals(XMLNode.DESCRIPTION_TAG))
 		return new ImageListFrame(node);
+		else return new ImageListFrame();
 	}
 
 	@Override

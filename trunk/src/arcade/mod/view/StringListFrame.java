@@ -13,7 +13,6 @@ public class StringListFrame extends AbstractListFrame {
 
 	private String myString;
 	private JTextField myInput;
-	
 
 	public StringListFrame() {
 
@@ -22,11 +21,8 @@ public class StringListFrame extends AbstractListFrame {
 	public StringListFrame(IResourceNode node) {
 		super(node);
 
-		myInput = new JTextField(30);
-
 		restrictSize(HEIGHT);
-
-		makeComponents();
+		initializeComponents();
 	}
 
 	@Override
@@ -55,21 +51,28 @@ public class StringListFrame extends AbstractListFrame {
 			}
 
 		});
-		descriptionLabel = new JLabel();
-		JLabel stringName = new JLabel();
-		stringLabel = new JLabel();
-		JLabel newValue = new JLabel();
 
 		descriptionLabel.setText(myDescription);
-		stringName.setText("String name: " + myName);
+		myNameLabel.setText("String name: " + myName);
 		stringLabel.setText("Value: " + myString);
 		newValue.setText("New String: ");
 
-		add(stringName);
+		add(myNameLabel);
 		add(descriptionLabel);
 		add(stringLabel);
 		add(newValue);
 		add(myInput);
 
+	}
+
+	@Override
+	public void initializeComponents() {
+		myInput = new JTextField(30);
+		descriptionLabel = new JLabel();
+		myNameLabel = new JLabel();
+		stringLabel = new JLabel();
+		newValue = new JLabel();
+
+		makeComponents();
 	}
 }

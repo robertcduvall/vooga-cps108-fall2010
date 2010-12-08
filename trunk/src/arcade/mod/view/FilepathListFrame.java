@@ -14,7 +14,8 @@ public class FilepathListFrame extends AbstractListFrame {
 
 	protected String myFilepath;
 	protected JFileChooser myFileChooser;
-	
+	protected JButton myFileButton;
+
 	public FilepathListFrame() {
 		// do nothing
 	}
@@ -23,11 +24,8 @@ public class FilepathListFrame extends AbstractListFrame {
 
 		super(node);
 
-		myFileChooser = new JFileChooser();
-
 		restrictSize(HEIGHT);
-
-		makeComponents();
+		initializeComponents();
 
 	}
 
@@ -38,19 +36,13 @@ public class FilepathListFrame extends AbstractListFrame {
 	@Override
 	public void makeComponents() {
 
-		descriptionLabel = new JLabel();
 		descriptionLabel.setText(myDescription);
-		
-		JLabel label = new JLabel();
-		stringLabel = new JLabel();
-		
-		label.setText(myName);
+
+		myNameLabel.setText(myName);
 
 		handleFileChange();
-		
-		JButton fileButton = new JButton("Select A File");
 
-		fileButton.addActionListener(new ActionListener() {
+		myFileButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 
@@ -67,13 +59,13 @@ public class FilepathListFrame extends AbstractListFrame {
 
 		});
 
-		add(label);
+		add(myNameLabel);
 		add(descriptionLabel);
-		add(fileButton);
+		add(myFileButton);
 		add(stringLabel);
 
 	}
-	
+
 	public void handleFileChange() {
 		FilepathListFrame.this.stringLabel.setText(myFilepath);
 	}
@@ -82,10 +74,21 @@ public class FilepathListFrame extends AbstractListFrame {
 	public void handleNode(IResourceNode node) {
 
 		System.out.println(node.getAttribute("name"));
-		
+
 		myName = node.getAttribute("name");
 		myFilepath = node.getAttribute("path");
 		myDescription = node.getDescription();
+	}
+
+	@Override
+	public void initializeComponents() {
+		myFileChooser = new JFileChooser();
+		stringLabel = new JLabel();
+		descriptionLabel = new JLabel();
+		myNameLabel = new JLabel();
+		myFileButton = new JButton("Select A File");
+
+		makeComponents();
 	}
 
 }
