@@ -7,6 +7,7 @@ import javax.swing.Icon;
 /**
  * The class extends AbstractAction is used to separate functionality and state from a component.
  * As far as I know, JButton and JMenuItem have a <code>Action</code> field in the constructor.
+ * JCheckBoxMenuItem and JCheckBox call <code>setAction()</code> to pass in the <code>Action</code> object.
  * For more details, please refer to <code>AbstractAction</code> class. 
  * @author Meng Li
  *
