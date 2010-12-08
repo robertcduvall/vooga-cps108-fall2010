@@ -32,14 +32,14 @@ public class MainPageView extends Tab {
 	private static final String CREDDIT_STRING = " Creddits";
 	private static final int GAME_NAME_COLUMN = 0;
 
-	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="55,18"
+	private JFrame jFrame = null; // @jve:decl-index=0:visual-constraint="55,18"
 	private JPanel jContentPane = null;
 	private JList genreList = null;
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
 	private JTable gameListTable = null;
 	private JPanel gameList = null;
-	private Control controller;  //  @jve:decl-index=0:
+	private Control controller; // @jve:decl-index=0:
 
 	public MainPageView(Control control) {
 		controller = control;
@@ -55,23 +55,23 @@ public class MainPageView extends Tab {
 	}
 
 	/**
-	 * This method initializes jFrame	
-	 * 	
-	 * @return javax.swing.JFrame	
+	 * This method initializes jFrame
+	 * 
+	 * @return javax.swing.JFrame
 	 */
 	private JFrame getJFrame() {
 		if (jFrame == null) {
 			jFrame = new JFrame();
 			jFrame.setSize(new Dimension(863, 412));
-			jFrame.setContentPane((JPanel)getContent());
+			jFrame.setContentPane((JPanel) getContent());
 		}
 		return jFrame;
 	}
 
 	/**
-	 * This method initializes jContentPane	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	public JComponent getContent() {
 		if (jContentPane == null) {
@@ -89,19 +89,17 @@ public class MainPageView extends Tab {
 		return jContentPane;
 	}
 
-	
-
 	/**
-	 * This method initializes genreList	
-	 * 	
-	 * @return javax.swing.JList	
+	 * This method initializes genreList
+	 * 
+	 * @return javax.swing.JList
 	 */
 	public JList getGenreList() {
 		if (genreList == null) {
 			genreList = new JList();
 			genreList.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller.filter((String)genreList.getSelectedValue());
+					controller.filter((String) genreList.getSelectedValue());
 				}
 			});
 		}
@@ -109,9 +107,9 @@ public class MainPageView extends Tab {
 	}
 
 	/**
-	 * This method initializes jScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes jScrollPane
+	 * 
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
@@ -122,20 +120,18 @@ public class MainPageView extends Tab {
 	}
 
 	/**
-	 * This method initializes gameListTable	
-	 * 	
-	 * @return javax.swing.JTable	
+	 * This method initializes gameListTable
+	 * 
+	 * @return javax.swing.JTable
 	 */
 	public JTable getGameListTable() {
 		if (gameListTable == null) {
-			//			String[][] data = {{"GalaxyInvaders", "25.99", "Shooter"}, {"ZombieLand", "25.99", "Action"}};
-			//			String[] col = {"Game Name", "Price", "Genre"};
-			//			TableModel dataModel = new DefaultTableModel(data, col); 
 			gameListTable = new JTable();
 			gameListTable.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					int row = getGameListTable().getSelectedRow();
-					String identifier = (String)getGameListTable().getValueAt(row, GAME_NAME_COLUMN);
+					String identifier = (String) getGameListTable().getValueAt(
+							row, GAME_NAME_COLUMN);
 					controller.openGamePage(identifier);
 				}
 			});
@@ -145,15 +141,16 @@ public class MainPageView extends Tab {
 	}
 
 	public JPanel getGameList() {
-		if(gameList == null) {
-			gameList = new JPanel(new GridLayout(0,4));
+		if (gameList == null) {
+			gameList = new JPanel(new GridLayout(0, 4));
 			gameList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
 		return gameList;
 
 	}
 
-	public void addGameToList(String name, String price, String genre, ImageIcon image) {
+	public void addGameToList(String name, String price, String genre,
+			ImageIcon image) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -172,7 +169,7 @@ public class MainPageView extends Tab {
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel.validate();
 		panel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e)  {
+			public void mouseClicked(MouseEvent e) {
 				String identifier = e.getComponent().getName();
 				controller.openGamePage(identifier);
 			}
@@ -180,8 +177,7 @@ public class MainPageView extends Tab {
 		getGameList().add(panel);
 	}
 
-
 	public void showMessageBox(String messageText) {
-		
+
 	}
 }
