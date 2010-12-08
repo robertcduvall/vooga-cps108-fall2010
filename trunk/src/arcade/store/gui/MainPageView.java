@@ -28,6 +28,7 @@ import arcade.store.control.Control;
 public class MainPageView extends Tab {
 	
 	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
+	private static final String CREDDIT_STRING = " Creddits";
 	private static final int GAME_NAME_COLUMN = 0;
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="55,18"
@@ -160,7 +161,7 @@ public class MainPageView extends Tab {
 
 		JLabel icon = new JLabel(image);
 		JLabel genreLabel = new JLabel(genre);
-		JLabel priceLabel = new JLabel(price);
+		JLabel priceLabel = new JLabel(price + CREDDIT_STRING);
 		icon.setSize(150, 150);
 
 		panel.add(title);
