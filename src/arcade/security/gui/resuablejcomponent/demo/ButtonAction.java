@@ -13,7 +13,7 @@ import arcade.security.gui.resuablejcomponent.ArcadeAction;
 public class ButtonAction extends ArcadeAction {
 	
 	private static final long serialVersionUID = 1L;
-	final String  PERMITTED_ROLE ="admin"; //this button is only allowed for administrator to click and use.
+	final String  CURRENT_USER_ROLE ="admin"; //this button is only allowed for administrator to click and use.
 	/**
 	 * Constructor of ButtonAction
 	 * @param name the name of this button 
@@ -29,7 +29,7 @@ public class ButtonAction extends ArcadeAction {
 	public boolean checkPermission(String... role) {
 		String[] roles = role;
 		for(String r:roles){
-			if(r.equalsIgnoreCase(PERMITTED_ROLE)){  //Here I hard coded current user is an administrator.
+			if(r.equalsIgnoreCase(CURRENT_USER_ROLE)){  //Here I hard coded current user is an administrator.
 				return true;
 			}
 		}
