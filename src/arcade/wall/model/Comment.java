@@ -1,5 +1,11 @@
 package arcade.wall.model;
 
+/**
+ * A Comment represents a VOOGA Game Comment - it is about a particular game, it is made by a particular user,
+ * it contains a "Comment String" of text, and it is linked to the rating a user has given the game.
+ * @author John
+ *
+ */
 public class Comment {
 	private String myGameName;
 	private String myUserName;
@@ -29,6 +35,14 @@ public class Comment {
 		return myRating;
 	}
 
+	public void setGameName(String string) {
+		this.myGameName = string;
+	}
+	
+	public void setUserName(String string) {
+		this.myUserName = string;
+	}
+	
 	public void setCommentString(String string) {
 		this.myCommentString = string;
 	}

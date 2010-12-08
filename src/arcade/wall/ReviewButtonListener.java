@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import arcade.wall.controller.WallController;
+import arcade.wall.model.Comment;
 import arcade.wall.view.RatingPanel;
 import arcade.wall.view.WallView;
 
@@ -30,20 +31,20 @@ public class ReviewButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String selectedGameName = WallView.choices[myComboBox.getSelectedIndex()];
-		if (!myController.commentIsValid(selectedGameName,
-				myGamerName, myTextField.getText(), myRatingPanel.getSelectedValue())) { //Comment was conflicting
-			if (myController.showCommentDialog() == JOptionPane.YES_OPTION) {
-				myController.addComment(selectedGameName,
-						myGamerName, myTextField.getText(), myRatingPanel.getSelectedValue());
-				//updateCommentRatings() isn't working yet
-				//myController.updateCommentRatings(selectedGameName, myGamerName, myRatingPanel.getSelectedValue());
+		String selectedGameName = WallView.myGameChoices[myComboBox.getSelectedIndex()];
+		Comment submittedComment = new Comment(selectedGameName, myGamerName, 
+											   myTextField.getText(), myRatingPanel.getSelectedValue());
+		if (!myController.commentIsValid(submittedComment)) { //Comment was conflicting
+			if (myController.showCommentDialog() == JOptionPane.YES_OPTION) { //Only add if user says Yes
+				myController.addComment(submittedComment);
+				//Update all comment ratings with the GameName and UserName in question.
+				myController.updateCommentRatings(selectedGameName, myGamerName, myRatingPanel.getSelectedValue());
 			}
 		} else {
-			myController.addComment(selectedGameName,
-					myGamerName, myTextField.getText(), myRatingPanel.getSelectedValue());
+			myController.addComment(submittedComment);
 		}
 		myController.updateCommentsArea(selectedGameName);
+		myTextField.setText("");
 	}
 
 }
