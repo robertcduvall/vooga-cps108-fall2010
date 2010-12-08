@@ -1,10 +1,13 @@
 package vooga.engine.state;
 
+import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.widget.Button;
+import vooga.widget.MenuButton;
 
 /**
- * MenuGameState is a reusable component extension of GameState which contains a series of Buttons
+ * MenuGameState is a reusable component extension of GameState which 
+ * contains a series of Buttons.
  * @author Brent
  * @author with a splash of Brian (comments)
  *
@@ -20,6 +23,7 @@ public abstract class MenuGameState extends GameState {
 	 * Creates a new instance of MenuGameState
 	 */
 	public MenuGameState(){
+		super();
 		initialize();
 	}
 
@@ -33,7 +37,6 @@ public abstract class MenuGameState extends GameState {
 		for (Button button : buttons) {
 			addButton(button);
 		}
-
 	}
 	
 	
@@ -50,11 +53,26 @@ public abstract class MenuGameState extends GameState {
 	 */
 	public void addButton(Button button) {
 		menuPlayfield.add(button);
-		menuPlayfield.add(button);
-
 		addPlayField(menuPlayfield);
 
 	}
+	
+	public void makeButton(String label) {
+		addButton(new MenuButton(label));
+	}
+	
+	public void makeButton(String label, String gamestate) {
+		addButton(new MenuButton(label));
+	}
+	
+	public void makeButton(String label, GameState gamestate) {
+		addButton(new MenuButton(label, gamestate));
+	}
+	
+	public void makeButton(String label, GameState gamestate, double x, double y) {
+		addButton(new MenuButton(label, gamestate, x, y));
+	}
+	
 	
 	public PlayField getMenuPlayfield(){
 		return menuPlayfield;

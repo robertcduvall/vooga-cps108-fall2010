@@ -1,5 +1,7 @@
 package vooga.engine.overlay;
 
+import java.awt.Color;
+
 import com.golden.gamedev.object.Sprite;
 
 
@@ -22,6 +24,11 @@ public class OverlayLabel extends Sprite {
 	 * The string / value to be displayed over the Sprite.
 	 */
 	private OverlayString myOverlayString;
+	
+	public OverlayLabel(Sprite spr, String string, Color color)
+	{
+		this(spr, new OverlayString(string, color));
+	}
 	
 	public OverlayLabel(Sprite sprite, OverlayString overlayString)
 	{

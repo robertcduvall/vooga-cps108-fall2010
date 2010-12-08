@@ -230,4 +230,12 @@ public class Game extends com.golden.gamedev.Game {
 		game.setup(g, new Dimension(width, height), fullScreen);
 		game.start();
 	}
+
+	/**
+	 * For networking team.
+	 * @param gameStateForButton
+	 */
+	public void switchState(GameState gameStateForButton) {
+		stateManager.switchTo(gameStateForButton);
+	}
 }

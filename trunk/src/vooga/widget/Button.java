@@ -1,10 +1,14 @@
 package vooga.widget;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+
+import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.core.Game;
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.overlay.OverlayLabel;
 import vooga.engine.resource.Resources;
 
 
@@ -23,23 +27,48 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Instance of the game in which the Button exists
 	 */
 	protected Game myGame;
-	protected BufferedImage buttonImage = Resources.getImage("defaultMenuButton");
+	protected final static BufferedImage DEFAULT_BUTTON_IMAGE = Resources.getImage("defaultMenuButton");
+	protected OverlayLabel buttonLabel;
 	
 	
 	/**
 	 * Creates an instance of Button with a null image and a location of (0,0)
 	 */
 	public Button(){
-		this(null, 0, 0);
-		myGame = Resources.getGame();
+		this(DEFAULT_BUTTON_IMAGE, 0, 0);
+		
+	}	
+	/**
+	 * Creates an instance of Button with a null image and a location of (0,0)
+	 * and the input String
+	 */
+	public Button(String str){
+		this(DEFAULT_BUTTON_IMAGE, 0, 0);
+		setLabel(str);
+		
 	}
 	
+	public Button(String str, double x, double y){
+		this(DEFAULT_BUTTON_IMAGE, x, y);
+		setLabel(str);
+		
+	}
+		
 	/**
 	 * Creates an instance of Button with a specified image and a location of (0,0)
 	 * @param image Which represents the image of the button
 	 */
 	public Button (BufferedImage image){
 		this(image, 0, 0);
+	}
+	
+	/**
+	 * Creates an instance of Button at a specified location with a null image
+	 * @param x Which represents the X-coordinate of the button
+	 * @param y Which represents the Y-coordinate of the button
+	 */
+	public Button(double x, double y){
+		this(DEFAULT_BUTTON_IMAGE, x, y);
 	}
 	
 	/**
@@ -53,23 +82,19 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 		myGame = Resources.getGame();
 	}
 	
-	/**
-	 * Creates an instance of Button at a specified location with a null image
-	 * @param x Which represents the X-coordinate of the button
-	 * @param y Which represents the Y-coordinate of the button
-	 */
-	public Button(double x, double y){
-		this(null, x, y);
-	}
-	
-	public void setSize(int width, int height) {
-		//TODO
-	}
-	
-	public void setText(String text) {
-		//TODO
-	}
 
+	public void setSize(int width, int height) {
+		this.setImage( ImageUtil.resize( this.getImage(), width, height));
+	}
+	
+	public void setLabel(String text) {
+		setLabel( new OverlayLabel( this, text, Color.WHITE));
+	}
+	
+	public void setLabel(OverlayLabel label) {
+		buttonLabel = label;
+	}
+	
 	
 	/**
 	 * Decides when button has been triggered
