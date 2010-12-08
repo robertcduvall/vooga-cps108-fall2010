@@ -1,6 +1,7 @@
 package vooga.engine.overlay;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -34,6 +35,7 @@ public class OverlayLabel extends Sprite {
 	{
 		mySprite = sprite;
 		myOverlayString = overlayString;
+		setLocation();
 	}
 
 	public void act()
@@ -46,6 +48,15 @@ public class OverlayLabel extends Sprite {
 
 	private double getYCoordinateAboveSprite() {
 		return mySprite.getY()+(mySprite.getHeight()*3)/5 + myOverlayString.getHeight()/2;
+	}
+	
+	public void render(Graphics2D g) {
+		myOverlayString.render(g);
+	}
+	
+	private void setLocation () {
+		myOverlayString.setX((mySprite.getX() + (double) mySprite.getWidth()/8));
+		myOverlayString.setY((mySprite.getY() + (double) mySprite.getHeight()/4));
 	}
 	
 }
