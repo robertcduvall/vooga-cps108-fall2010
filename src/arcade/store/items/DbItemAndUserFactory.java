@@ -6,8 +6,9 @@ import javax.swing.ImageIcon;
 
 import arcade.lobby.model.MySqlAdapter;
 import arcade.store.StoreSqlAdapter;
+import arcade.store.account.StoreUser;
 
-public class DbItemFactory {
+public class DbItemAndUserFactory {
 	
 	private static final String host = "voogaarcade.db.7093929.hostedresource.com";
 	private static final String dbName = "voogaarcade";
@@ -33,4 +34,11 @@ public class DbItemFactory {
 		return answer;
 	}
 
+	
+	public static StoreUser getUser(String table, String name) {
+		List<Map<String, String>> list = dbAdapter.getRows(table, "username", name);
+		Map<String, String> userMap = list.get(0);
+		return new StoreUser(userMap.get("username"), Double.parseDouble(userMap.get("creddits")),
+				Integer.parseInt(userMap.get("time_creddits")), userMap.get("cart"), userMap.get("owned_games"));
+	}
 }

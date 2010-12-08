@@ -50,7 +50,7 @@ public class GamePurchaseView {
 		if (jFrame == null) {
 			jFrame = new JFrame();
 			jFrame.setSize(new Dimension(542, 321));
-			jFrame.setTitle("Purchase Game");
+			jFrame.setTitle("Add Game To Cart");
 			jFrame.setContentPane(getPanel());
 		}
 		return jFrame;
