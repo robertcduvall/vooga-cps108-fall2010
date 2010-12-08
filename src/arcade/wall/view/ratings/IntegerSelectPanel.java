@@ -9,21 +9,29 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import vooga.engine.resource.Resources;
+
 import arcade.core.Panel;
 
-public class IntegerSelectPanel extends JPanel implements ActionListener{
+public abstract class IntegerSelectPanel extends JPanel implements ActionListener{
 	
-	public int myScale;
-	public ButtonGroup myButtons;
+	protected int myScale;
+	protected ButtonGroup myButtons;
+	protected JButton[] myEditableButtons;
+	
+	//TODO: Figure out how to make a ComboBox subclass (they can't handle images)
 
 	public IntegerSelectPanel(int scale){
+		
+		
 		for (int i = 1; i < scale+1; i ++){
 			JButton thisButton = new JButton(""+i);
 			thisButton.setActionCommand(""+i);
 			myButtons.add(thisButton);
-			this.add(thisButton);
-			
+			myEditableButtons[i-1] = thisButton;
+			this.add(thisButton);	
 		}
+		setHorizontal();
 	}
 	
 	
@@ -42,15 +50,18 @@ public class IntegerSelectPanel extends JPanel implements ActionListener{
 	}
 	
 	/**
-	 * Sets image of button to the one passed in
+	 * Adds a comment after the rating.
+	 * Ex: 4 - Awesome!
 	 * 
-	 * @param image - Pathname of the image
+	 * Note that the user would have to specify the "-".
 	 */
-	public void setAllImages(String image){
-//		ImageIcon buttonIcon = createImageIcon(image);
+	public JButton addComment(JButton button, String comment){
+		String newLabel = button.getText() + " " + comment;
+		button.setText(newLabel);
+		return button;
 	}
-
-
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
