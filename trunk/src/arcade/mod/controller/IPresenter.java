@@ -1,5 +1,6 @@
 package arcade.mod.controller;
 
+import java.io.File;
 import java.util.Collection;
 
 /**
@@ -31,7 +32,6 @@ public interface IPresenter {
 	 */
 	public void load();
 	
-
 	
 	/**
 	 * Inform the presenter that the user is 
@@ -40,4 +40,10 @@ public interface IPresenter {
 	 */
 	public void newCategorySelected();
 
+	/**
+	 * Confirm that a given file is valid
+	 * @param saveFile
+	 * @return
+	 */
+	public boolean errorCheck(File saveFile);
 }

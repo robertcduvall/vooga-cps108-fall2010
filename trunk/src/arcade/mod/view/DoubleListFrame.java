@@ -1,5 +1,7 @@
 package arcade.mod.view;
 
+import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -39,4 +41,11 @@ public class DoubleListFrame extends SliderListFrame {
 		Double toDouble = new Double(((double) value) / 1000);
 		return toDouble.toString();
 	}
+
+	@Override
+	public boolean confirmValidity(File saveFile) {
+		//TODO: do actual error checking here
+		return true;
+	}
+
 }

@@ -81,7 +81,7 @@ public class Controller extends Tab implements IPresenter {
 	}
 
 	/**
-	 * Ask the model to get resources of a specified category. Tell the View to
+	 * Tell the model to get resources of a specified category. Tell the View to
 	 * change the frames.
 	 */
 	public void newCategorySelected() {
@@ -113,7 +113,7 @@ public class Controller extends Tab implements IPresenter {
 	 */
 	public void save() {
 		File saveFile = myView.saveFileSelect();
-		if (saveFile != null) {
+		if (errorCheck(saveFile)) {
 			myModel.writeResources(saveFile);
 		}
 	}
@@ -131,5 +131,16 @@ public class Controller extends Tab implements IPresenter {
 	@Override
 	public JComponent getContent() {
 		return (JComponent) myView;
+	}
+
+	/**
+	 * Do error checking here through Frame hierarchy
+	 */
+	@Override
+	public boolean errorCheck(File saveFile) {
+		if (saveFile != null)
+			return true;
+		else
+			return false;
 	}
 }
