@@ -24,7 +24,7 @@ public class DemoView extends JFrame {
 		//JButton button = new JButton(new ButtonAction("demo button","admin"));  
 		JButton button = new JButton(new ButtonAction("demo button","developer"));  //comment out this line and above line to see the effect.
 		//JButton button = new JButton(new ButtonAction("demo button","developer","admin"));  //You only want administrator and developer to use this button. 
-		
+	
 		/***********************************
 		 * JButton example
 		 ************************************/
