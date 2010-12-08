@@ -170,22 +170,13 @@ public class View extends JPanel implements IViewer {
 	 * @return File to save
 	 */
 	public File openFileSelect() {
-<<<<<<< .mine
 
-		JFileChooser loadChooser = new JFileChooser();
-
-		loadChooser.showOpenDialog(this);
-
-		//TODO: file error-checking here-->make sure that an image is an image, etc.  Do this through an error-checking heirarchy in the ListFrame
-		return loadChooser.getSelectedFile();
-
-=======
 		return fileOpener.openFile();
 	}
 	
 	public void setFileOpener(IFileOpener fileOpener){
 		this.fileOpener =fileOpener;
->>>>>>> .r2644
+
 	}
 
 }
