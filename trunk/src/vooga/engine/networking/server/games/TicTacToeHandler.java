@@ -7,8 +7,9 @@ import vooga.engine.networking.server.ClientHandler;
 import vooga.engine.networking.server.VoogaDaemon;
 
 /**
- * Extends ClientHandler to add TicTacToe specific logic to receiving and sending messages through the sockets.  Every game will have a class like this that
- * extends ClientHandler.
+ * Extends ClientHandler to add TicTacToe specific logic to receiving and 
+ * sending messages through the sockets.  Every game will have a class 
+ * like this that extends ClientHandler.
  * 
  * @author Cue, Kolodziejzyk, Townsend
  * @version 1.0
@@ -27,9 +28,11 @@ public class TicTacToeHandler extends ClientHandler{
 	}
 
 	/**
-	 * Calls super.run() first to wait for the two players and call the firstRun method.  Then tries to receive the message from the server. If there is no
-	 * message then that means they have quit so tell the other players that this player has quit. Otherwise send the message through to the opponent, tell
-	 * the opponent that it is their turn, and then let the sender know that it is now their opponent's turn.
+	 * Calls super.run() first to wait for the two players and call the firstRun method. 
+	 * Then tries to receive the message from the server. If there is no message then 
+	 * that means they have quit so tell the other players that this player has quit. 
+	 * Otherwise send the message through to the opponent, tell the opponent that it is 
+	 * their turn, and then let the sender know that it is now their opponent's turn.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
@@ -62,8 +65,8 @@ public class TicTacToeHandler extends ClientHandler{
 	}
 	
 	/**
-	 * Right after the correct number of players is found, tell the first player that it is their turn and tell the other player that it is their
-	 * opponent's turn.
+	 * Right after the correct number of players is found, tell the first player 
+	 * that it is their turn and tell the other player that it is their opponent's turn.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
