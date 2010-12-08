@@ -17,8 +17,22 @@ public class DemoView extends JFrame {
 		super(name);
 		setSize(600,600);
 		setLocationRelativeTo(this.getParent());
-		//JButton button = new JButton(new ButtonAction("demo button","admin"));
-		JButton button = new JButton(new ButtonAction("demo button","developer"));
+		
+		/***********************************
+		 * JButton example
+		 ************************************/
+		//JButton button = new JButton(new ButtonAction("demo button","admin"));  
+		JButton button = new JButton(new ButtonAction("demo button","developer"));  //comment out this line and above line to see the effect.
+		//JButton button = new JButton(new ButtonAction("demo button","developer","admin"));  //You only want administrator and developer to use this button. 
+		
+		/***********************************
+		 * JButton example
+		 ************************************/
+		/*
+		 * if you are using ArcadeAction for privilege issue, you should not add the ButtonAction as below.
+		 */
+		//JButton button = new JButton("demobutton");
+		//button.addActionListener(new ButtonAction("demo button","developer"));
 		this.getContentPane().add(button);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
