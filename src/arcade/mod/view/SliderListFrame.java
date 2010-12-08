@@ -21,12 +21,20 @@ public abstract class SliderListFrame extends AbstractListFrame {
 	}
 
 	public SliderListFrame(IResourceNode node) {
-
 		super(node);
+		initializeComponents();
+	}
 
-		handleNode(node);
+	@Override
+	public void initializeComponents() {
+		descriptionLabel = new JLabel();
+		myNameLabel = new JLabel();
+		newValue = new JLabel();
+		currentValue = new JLabel();
+		myInput = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
+		stringLabel = new JLabel();
+
 		makeComponents();
-
 	}
 
 	@Override
@@ -56,13 +64,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 	@Override
 	public void makeComponents() {
-		descriptionLabel = new JLabel();
-		descriptionLabel.setText(myDescription);
-		JLabel stringName = new JLabel();
-		stringLabel = new JLabel();
-		JLabel newValue = new JLabel();
-		final JLabel currentValue = new JLabel();
-		myInput = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
+
 		Integer value = INIT;
 		myInput.addChangeListener(new ChangeListener() {
 
@@ -80,12 +82,14 @@ public abstract class SliderListFrame extends AbstractListFrame {
 				}
 			}
 		});
+
+		descriptionLabel.setText(myDescription);
 		currentValue.setText(value.toString());
-		stringName.setText("Constant name: " + myName);
+		myNameLabel.setText("Constant name: " + myName);
 		stringLabel.setText("Value: " + myValue);
 		newValue.setText("New Constant: ");
 
-		add(stringName);
+		add(myNameLabel);
 		add(descriptionLabel);
 		add(stringLabel);
 		add(newValue);
