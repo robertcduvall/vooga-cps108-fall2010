@@ -83,6 +83,8 @@ public class View extends JPanel implements IViewer {
 
 		JScrollPane scrollPane = new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+		scrollPane.setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
+		
 		return scrollPane;
 	
 	}
