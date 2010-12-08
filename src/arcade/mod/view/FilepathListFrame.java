@@ -73,13 +73,21 @@ public class FilepathListFrame extends AbstractListFrame {
 	@Override
 	public void handleNode(IResourceNode node) {
 
-		System.out.println(node.getAttribute("name"));
+	//	System.out.println(node.getAttribute("name"));
 
 		myName = node.getAttribute("name");
 		myFilepath = node.getAttribute("path");
 		myDescription = node.getDescription();
 	}
 
+<<<<<<< .mine
+	@Override
+	public boolean confirmValidity(File saveFile) {
+		//TODO: do actual error checking here
+		return true;
+	}
+
+=======
 	@Override
 	public void initializeComponents() {
 		myFileChooser = new JFileChooser();
@@ -91,4 +99,5 @@ public class FilepathListFrame extends AbstractListFrame {
 		makeComponents();
 	}
 
+>>>>>>> .r2644
 }
