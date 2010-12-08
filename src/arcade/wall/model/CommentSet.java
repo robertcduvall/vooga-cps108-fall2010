@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import arcade.lobby.model.DatabaseAdapter;
-import arcade.lobby.model.MySqlAdapter;
+import arcade.util.database.DatabaseAdapter;
+import arcade.util.database.MySqlAdapter;
 
 public class CommentSet implements Iterable<Comment> {
 	

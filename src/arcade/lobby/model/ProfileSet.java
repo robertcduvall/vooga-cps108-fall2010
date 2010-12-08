@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import arcade.util.database.DatabaseAdapter;
+import arcade.util.database.MySqlAdapter;
+
 public class ProfileSet implements Iterable<Profile> {
 	
 	public Profile currentProfile = null;
@@ -39,7 +42,7 @@ public class ProfileSet implements Iterable<Profile> {
 		row.put("Birthday", profile.getBirthday());
 		row.put("Avatar_Url", profile.getAvatar());
 		row.put("Email", profile.getEmail());
-		return myDbAdapter.update(myTable, profile.getUserName(), row);
+		return myDbAdapter.update(myTable, "User_Name", profile.getUserName(), row);
 	}
 
 	public Profile getProfile(String userName) {

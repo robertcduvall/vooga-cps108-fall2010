@@ -4,9 +4,9 @@ import java.util.*;
 
 import javax.swing.ImageIcon;
 
-import arcade.lobby.model.MySqlAdapter;
 import arcade.store.StoreSqlAdapter;
 import arcade.store.account.StoreUser;
+import arcade.util.database.MySqlAdapter;
 
 public class DbItemAndUserFactory {
 	

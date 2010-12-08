@@ -3,7 +3,6 @@ package arcade.lobby.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import arcade.lobby.model.Profile;
