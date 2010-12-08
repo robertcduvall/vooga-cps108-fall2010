@@ -139,7 +139,7 @@
 	</Strings>
 
 	<Integers>
-		<Integer name="menuX" value="90" />
+		<Integer name="menuX" value="90"/>
 		<Integer name="menuY" value="50" />
 		<Integer name="screenWidth" value="640" />
 		<Integer name="screenHeight" value="480" />

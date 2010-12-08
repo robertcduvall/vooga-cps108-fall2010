@@ -18,7 +18,6 @@
 			<Description>Image representing the player in game</Description>
 		</Image>
 	</Images>
-	<Animations></Animations>
 	<Sounds>
 		<Sound name="test" path="test.wav">
 			<Description>This sound is not real</Description>
@@ -45,5 +44,4 @@
 			<Description>The height of the game window</Description>
 		</Integer>
 	</Integers>
-	<Doubles></Doubles>
 </Resources>

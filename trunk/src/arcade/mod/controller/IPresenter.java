@@ -42,8 +42,8 @@ public interface IPresenter {
 
 	/**
 	 * Confirm that a given file is valid
-	 * @param saveFile
-	 * @return
+	 * @param saveFile - file to be saved
+	 * @return true if a file is valid
 	 */
 	public boolean errorCheck(File saveFile);
 }
