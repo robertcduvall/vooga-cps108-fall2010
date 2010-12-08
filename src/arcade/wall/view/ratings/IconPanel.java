@@ -47,14 +47,17 @@ public class IconPanel extends AbstractButtonPanel {
 			myIconButtons[i-1] = thisButton;
 			this.add(thisButton);	
 		}
-		addComments();
 	}
 	
 	/**
-	 * Adds custom comments to buttons
+	 * Adds a comment after the rating.
+	 * Ex: 4 - Awesome!
+	 * 
+	 * Note that the user would have to specify the "-".
 	 */
-	public void addComments(){
-		myIconButtons[2].setText("3 =)");
+	public void addComment(int buttonIndex, String comment){
+		String newLabel = myIconButtons[buttonIndex - 1].getText() + " " + comment;
+		myIconButtons[buttonIndex - 1].setText(newLabel);
 	}
 	
 	/**
@@ -85,16 +88,6 @@ public class IconPanel extends AbstractButtonPanel {
     	return button;
     }
     
-//	/**
-//	 * Adds a comment after the rating.
-//	 * Ex: 4 - Awesome!
-//	 * 
-//	 * Note that the user would have to specify the "-".
-//	 */
-//	public void addComment(int buttonIndex, String comment){
-//		String newLabel = myIconButtons[buttonIndex].getText() + " " + comment;
-//		myRadioButtons[buttonIndex].setText(newLabel);
-//	}
     
 
 }
