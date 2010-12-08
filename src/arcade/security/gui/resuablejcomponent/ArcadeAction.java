@@ -64,5 +64,16 @@ public abstract class ArcadeAction extends AbstractAction {
 	 */
 	public abstract boolean checkPermission(String... role);
 
+	
+//	public boolean checkPermission(String... role){
+//	String[] roles = role;
+//	for(String r:roles){
+//		if(r.equalsIgnoreCase(UserService.getCurrentUser.getPrivilegeType())){  //Here the current logged in user will be checked if it has the permission.
+//			return true;
+//		}
+//	}
+//	return false;
+//	}
+
 
 }

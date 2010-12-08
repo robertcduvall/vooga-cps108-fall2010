@@ -29,7 +29,7 @@ public class ButtonAction extends ArcadeAction {
 	public boolean checkPermission(String... role) {
 		String[] roles = role;
 		for(String r:roles){
-			if(r.equalsIgnoreCase(PERMITTED_ROLE)){
+			if(r.equalsIgnoreCase(PERMITTED_ROLE)){  //Here I hard coded current user is an administrator.
 				return true;
 			}
 		}
