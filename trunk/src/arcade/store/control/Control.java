@@ -27,7 +27,7 @@ public class Control {
 	}
 
 	public void processPurchaseButton(String gameName) {
-		// model.processPurchase(gameName);
+		model.processPurchase(gameName);
 	}
 
 	public void populateMainPage(List<IItemInfo> list) {
