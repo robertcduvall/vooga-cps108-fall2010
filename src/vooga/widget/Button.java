@@ -32,14 +32,14 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	
 	
 	/**
-	 * Creates an instance of Button with a null image and a location of (0,0)
+	 * Creates an instance of Button with a default Button image and a location of (0,0)
 	 */
 	public Button(){
 		this(DEFAULT_BUTTON_IMAGE, 0, 0);
 		
 	}	
 	/**
-	 * Creates an instance of Button with a null image and a location of (0,0)
+	 * Creates an instance of Button with a default Button image and a location of (0,0)
 	 * and the input String
 	 */
 	public Button(String str){
@@ -47,7 +47,11 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 		setLabel(str);
 		
 	}
-	
+
+	/**
+	 * Creates an instance of Button with a default Button image, a specified location, and a specified String
+	 * and the input String
+	 */
 	public Button(String str, double x, double y){
 		this(DEFAULT_BUTTON_IMAGE, x, y);
 		setLabel(str);
@@ -63,7 +67,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	}
 	
 	/**
-	 * Creates an instance of Button at a specified location with a null image
+	 * Creates an instance of Button at a specified location with a default Button image at a specified location
 	 * @param x Which represents the X-coordinate of the button
 	 * @param y Which represents the Y-coordinate of the button
 	 */
@@ -83,14 +87,27 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	}
 	
 
+	/**
+	 * Changes the size of the Button
+	 * @param width - desired width of the Button
+	 * @param height - desired height of the Button
+	 */
 	public void setSize(int width, int height) {
 		this.setImage( ImageUtil.resize( this.getImage(), width, height));
 	}
 	
+	/**
+	 * Places a String label on a Button
+	 * @param text - String textual label for Button
+	 */
 	public void setLabel(String text) {
 		setLabel( new OverlayLabel( this, text, Color.WHITE));
 	}
 	
+	/**
+	 * Places an OverlayLabel on a Button
+	 * @param label - OverlayLabel to place on Button
+	 */	
 	public void setLabel(OverlayLabel label) {
 		buttonLabel = label;
 	}
