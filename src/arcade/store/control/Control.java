@@ -51,12 +51,16 @@ public class Control {
 //		}
 //		TableModel tm = new DefaultTableModel(data, COLUMN_NAMES);
 //		view.getGameListTable().setModel(tm);
+		
 		view.getGameList().removeAll();
-		view.validate();
+		view.getGameList().revalidate();
+		
 		for(IItemInfo i : list) {
 			view.addGameToList(i.getTitle(), i.getPrice(), i.getGenre(), i.getImages().get(0));
 		}
-		view.revalidate();
+
+		view.getGameList().revalidate();
+
 		
 	}
 	
