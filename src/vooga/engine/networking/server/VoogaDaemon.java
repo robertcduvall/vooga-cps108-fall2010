@@ -21,11 +21,13 @@ public class VoogaDaemon extends Thread{
 	private ServerSocket chatPort;
 	private int numberOfPlayers;
 	private String clientHandler;
+	private String gameName;
 
 	/**
 	 * Static method to return the XML document with the list of games 
 	 * that can be run on the networking Vooga servers.
 	 * 
+	 * @param gameName the name of the game that is being run
 	 * @param gamePortNumber the port through which to send messages related to the game
 	 * @param chatPortNumber the port through which to send chats
 	 * @param numberOfPlayers the number of players necessary for the game
@@ -33,8 +35,9 @@ public class VoogaDaemon extends Thread{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public VoogaDaemon(int gamePortNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
+	public VoogaDaemon(String gameName, int gamePortNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
 		try {
+			this.gameName = gameName;
 			gamePort = new ServerSocket(gamePortNumber);
 			chatPort = new ServerSocket(chatPortNumber);
 			this.numberOfPlayers = numberOfPlayers;
@@ -65,7 +68,7 @@ public class VoogaDaemon extends Thread{
 			try {
 				chatSocket = chatPort.accept();
 				clientSocket = gamePort.accept();
-				ChatHandler chatHandler = new ChatHandler(new GameSocket(chatSocket), numberOfGames);
+				ChatHandler chatHandler = new ChatHandler(new GameSocket(chatSocket), numberOfGames, gameName);
 				chatHandler.start();
 				try{
 					Class<?> clientHandlerName = Class.forName(clientHandler);

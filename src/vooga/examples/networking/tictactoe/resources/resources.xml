@@ -4,11 +4,6 @@
 		<Image name="background" path="grid.png" />
 		<Image name="O" path="o.png" />
 		<Image name="X" path="x.png" />
-		<Image name="networkMenuBackground" path="networkMenuBackground.png" />
-		<Image name="networkMenuButton2P" path="networkMenuButton2P.png" />
-		<Image name="networkMenuButton3P" path="networkMenuButton3P.png" />
-		<Image name="networkMenuButtonPrivate" path="networkMenuButtonPrivate.png" />
-		<Image name="networkMenuButtonRandom" path="networkMenuButtonRandom.png" />
 		<Image name="gameWonBackground" path="gameWonBackground.png" />
 	</Images>
 

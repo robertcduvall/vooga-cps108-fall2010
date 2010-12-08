@@ -1,7 +1,6 @@
 package vooga.examples.networking.tictactoe.states;
 
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Method;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -39,7 +38,6 @@ public class PlayState extends GameState{
 	private TheirTurnState theirTurnState;
 	private ClientConnection connection;
 	private boolean myTurn;
-	private String message;
 	private Move oMove;
 
 	/**
@@ -52,6 +50,7 @@ public class PlayState extends GameState{
 	 * @version 1.0
 	 */
 	public PlayState(Game game, LevelManager levelManager, ClientConnection connection){
+		super(connection);
 		this.game = game;
 		this.levelManager = levelManager;
 		this.connection = connection;
@@ -172,66 +171,27 @@ public class PlayState extends GameState{
 		int pieceY = row * Resources.getInt("squareDimension") + Resources.getInt("oOffsetY");
 		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
 	}
-	
-	/**
-	 * Sets the message. The message is initialized to anything sent through the socket that is not a Serializeable object so just a String.  For our
-	 * purposes it is used to determine state (i.e. the String won corresponds with the won() method which changes the Game to the gameWonState.)
-	 * 
-	 * @param message to set the message instance to
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public void setMessage(String message){
-		this.message = message;
-	}
 
 	/**
-	 * If what we're parsing is an Integer and therefore an instance of Move, then deserialize the String into a Move object and place the piece on the
+	 * If the String starts with the Move class identifier then deserialize the String into a Move object and place the piece on the
 	 * board. Otherwise set the message to the String we received.
 	 * 
 	 * @param data data received from the socket
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
+	@Override
 	public void interpretMessage(String data){
-		try{
-			Integer.parseInt(data);
+		if(data.startsWith(Move.getIdentifier())){
 			oMove = (Move) (Move.deserialize(data));
 			placeOpposingPiece();
 		}
-		catch(NumberFormatException e){
+		else
 			setMessage(data);
-		}
-	}
-	
-	/**
-	 * If there is a message to send then call the method that corresponds with that message and then set the message to null.
-	 * 
-	 * @return whether or not it sent a message
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public boolean checkMessage(){
-		if(message == null || message.length() == 0){
-			return false;
-		}
-		else{
-			try {
-				Method statusAction = this.getClass().getMethod(message);
-				statusAction.invoke(this);
-			} 
-			catch (Exception e) {
-				System.out.println("Status action error" + e + ". Make sure the names of your stauses match the name of your status methods!");
-				System.exit(1);
-			}
-			message = null;
-			return true;
-		}
 	}
 
 	/**
-	 * First checks the events to make sure there won't be any message changes. Then call checkMessage to follow the message protocol. Then, if there were no
-	 * messages to change state and it's not myTurn, then get the next piece of data from the socket and call interpretMessage with it.
+	 * Checks events and then calls super.update which handles all the necessary networking calls.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
@@ -239,12 +199,20 @@ public class PlayState extends GameState{
 	@Override
 	public void update(long elapsedTime){
 		eventPool.checkEvents();
-		if(checkMessage())
-			return;
 		super.update(elapsedTime);
-		if(connection.isConnected() && !myTurn){
-			interpretMessage(connection.getData());
-		}
+	}
+	
+	/**
+	 * Called by the GameState API to determine whether or not it should listen for a message from the socket. In this case it returns true if
+	 * there everyone is still connected to the socket and it's not my turn. <b>Must be overriden to implement networking API.</b>
+	 * 
+	 * @return whether or not to listen for a message from the socket
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	@Override
+	public boolean shouldGetData(){
+		return (connection.isConnected() && !myTurn);
 	}
 	
 	/**

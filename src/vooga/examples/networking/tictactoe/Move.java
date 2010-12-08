@@ -11,9 +11,10 @@ import vooga.engine.networking.client.Serializeable;
  * @author Cue, Kolodziejzyk, Townsend
  * @version 1.0
  */
-public class Move implements Serializeable{
+public class Move extends Serializeable{
 	private int row;
 	private int col;
+	private static final String identifier = "move:";
 
 	/**
 	 * Constructor that saves the row and column.
@@ -37,7 +38,7 @@ public class Move implements Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		int move = Integer.parseInt(data);
+		int move = Integer.parseInt(data.substring(identifier.length()));
 		int col = move < 10 ? 0 : move / 10;
 		int row = move % 10;
 		return new Move(row, col);
@@ -52,7 +53,11 @@ public class Move implements Serializeable{
 	 */
 	@Override
 	public String serialize() {
-		return Integer.toString(col * 10 + row);
+		return identifier + Integer.toString(col * 10 + row);
+	}
+	
+	public static String getIdentifier(){
+		return identifier;
 	}
 	
 	/**
