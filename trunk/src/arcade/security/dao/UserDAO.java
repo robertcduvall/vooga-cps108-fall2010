@@ -1,5 +1,6 @@
 package arcade.security.dao;
 
+import java.util.Collection;
 import arcade.security.user.AbstractUser;
 /**
  * 
@@ -8,14 +9,14 @@ import arcade.security.user.AbstractUser;
  */
 public interface UserDAO {
 
-	public void insert(User user);
+	public void insert(AbstractUser user);
 	
-	public void update(User user);
+	public void update(AbstractUser user);
 	
 	public void delete(String primaryKey);
 	
-	public Collection<User> findAll();
+	public Collection<AbstractUser> findAll();
 	
-	public User findByKey(String primaryKey);
+	public AbstractUser findByKey(String primaryKey);
 
 }
