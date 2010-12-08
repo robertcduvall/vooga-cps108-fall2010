@@ -25,8 +25,7 @@ public class FilepathListFrame extends AbstractListFrame {
 		super(node);
 
 		restrictSize(HEIGHT);
-		initializeComponents();
-
+		
 	}
 
 	public FilepathListFrame newInstance(IResourceNode node) {

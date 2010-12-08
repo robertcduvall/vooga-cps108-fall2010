@@ -52,8 +52,9 @@ public abstract class AbstractListFrame extends JPanel {
 
 		myNode = node;
 		
-
+		initializeComponents();
 		handleNode(node);
+		makeComponents();
 
 	}
 
