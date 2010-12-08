@@ -22,6 +22,9 @@ import java.util.Map;
 public class MySqlAdapter implements DatabaseAdapter {
 
 	private static Connection myDBConnection;
+	private String myURL;
+	private String myUser;
+	private String myPassword;
 
 	/**
 	 * Creates a new MySqlAdapter that communicates with the specified database
@@ -38,7 +41,10 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 */
 	public MySqlAdapter(String host, String dbName, String user, String pass) {
 		String url = "jdbc:mysql://" + host + "/" + dbName;
-		connect(url, user, pass);
+		myURL = url;
+		myUser = user;
+		myPassword = pass;
+		connect();
 	}
 
 	/**
@@ -53,17 +59,44 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 *            Password for specified user
 	 * @return True if connection successful, false if unsuccessful
 	 */
-	private boolean connect(String host, String user, String pass) {
+	private boolean connect() {
 		try {
 			final String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver); // registration of the driver
-			myDBConnection = DriverManager.getConnection(host, user, pass);
+			myDBConnection = DriverManager.getConnection(myURL, myUser, myPassword);
 		} catch (Exception x) {
 			System.out.println("Connection failed");
 			System.out.println(x);
 			return false;
 		}
 		return true;
+	}
+	
+	private void refreshConnection(){
+		try{
+			System.out.println("Checking connection");
+			if(myDBConnection.isClosed()){
+				connect();
+				System.out.println("Connection re-established");
+			}
+			else{
+				System.out.println("Connection was still fine");
+			}
+		}
+		catch(SQLException x){
+			System.out.println("Problem checking connection: "+x);
+		}
+	}
+	
+	private void closeConnection(){
+	    if (myDBConnection != null) 
+	    	try { 
+	    		myDBConnection.close(); 
+	    	} 
+	    catch (SQLException x) {
+	    	System.out.println("Problem closing connection: "+x);
+	    }
+
 	}
 
 	/**
@@ -78,6 +111,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 */
 	@Override
 	public List<String> getColumn(String tableName, String columnName) {
+		refreshConnection();
 		String sql = String.format("SELECT * FROM %s", tableName);
 		PreparedStatement ps;
 		List<String> result = new ArrayList<String>();
@@ -93,6 +127,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			e.printStackTrace();
 			return null;
 		}
+		closeConnection();
 		return result;
 	}
 
@@ -132,6 +167,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public List<Map<String, String>> getRows(String tableName,
 			Map<String, String> conditions) {
+		refreshConnection();
 		ResultSet rs;
 		Map<String, String> map;
 		List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
@@ -157,6 +193,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			System.out.println(e);
 			return null;
 		}
+		closeConnection();
 		return maps;
 	}
 
@@ -173,6 +210,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean insert(String tableName, Map<String, String> row) {
 		// TODO Auto-generated method stub
+		refreshConnection();
 		String keys = "(";
 		String values = "(";
 		for (String s : row.keySet()) {
@@ -194,6 +232,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			System.out.println(e);
 			return false;
 		}
+		closeConnection();
 		return true;
 	}
 
@@ -236,6 +275,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean update(String tableName, Map<String, String> conditions,
 			Map<String, String> row) {
+		refreshConnection();
 		String newValues = "";
 		for (String s : row.keySet()) {
 			newValues += s + "='" + row.get(s) + "', ";
@@ -254,6 +294,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			System.out.println(e);
 			return false;
 		}
+		closeConnection();
 		return true;
 	}
 
