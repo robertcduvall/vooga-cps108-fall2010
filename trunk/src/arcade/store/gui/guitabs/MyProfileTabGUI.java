@@ -17,7 +17,8 @@ import javax.swing.JTable;
 
 public class MyProfileTabGUI extends Tab{
 	
-	private static final String ROBERT_DUVALL_AVATAR = "src/arcade/store/gui/resources/robert-duvall-avatar.jpg";
+	private static final String USER_AVATAR = "src/arcade/store/gui/resources/robert-duvall-avatar.jpg";
+	private static final String USER_NAME = "Robert Duvall";
 
 	private JPanel jPanel = null;  //  @jve:decl-index=0:visual-constraint="133,-45"
 	private JLabel introLabel1 = null;
@@ -50,14 +51,14 @@ public class MyProfileTabGUI extends Tab{
 			MyPurchasedGamesLabel.setBounds(new Rectangle(102, 289, 139, 35));
 			MyPurchasedGamesLabel.setText("My Purchased Games");
 			AvailableCredditsLabel = new JLabel();
-			AvailableCredditsLabel.setBounds(new Rectangle(363, 94, 111, 31));
+			AvailableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
 			AvailableCredditsLabel.setText("Availabe Creddits");
 			totalGamePlayLabel = new JLabel();
-			totalGamePlayLabel.setBounds(new Rectangle(361, 53, 109, 29));
+			totalGamePlayLabel.setBounds(new Rectangle(361, 53, 111, 29));
 			totalGamePlayLabel.setText("Total Gameplay: ");
 			userImageLabel = new JLabel();
 			userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
-			userImageLabel.setIcon(new ImageIcon(ROBERT_DUVALL_AVATAR));
+			userImageLabel.setIcon(new ImageIcon(USER_AVATAR));
 			introLabel1 = new JLabel();
 			introLabel1.setText("Manage My Shop Account");
 			introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
@@ -88,9 +89,10 @@ public class MyProfileTabGUI extends Tab{
 	private JTextField getUsernameTextField() {
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
-			usernameTextField.setText("Robert Duvall");
+			usernameTextField.setText(USER_NAME);
+			usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed from http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
 			usernameTextField.setEditable(false);
-			usernameTextField.setBounds(new Rectangle(102, 198, 143, 26));
+			usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
 		}
 		return usernameTextField;
 	}
@@ -103,7 +105,7 @@ public class MyProfileTabGUI extends Tab{
 	private JTextField getTotalGamePlayTextField() {
 		if (totalGamePlayTextField == null) {
 			totalGamePlayTextField = new JTextField();
-			totalGamePlayTextField.setBounds(new Rectangle(506, 55, 123, 29));
+			totalGamePlayTextField.setBounds(new Rectangle(506, 53, 111, 29));
 		}
 		return totalGamePlayTextField;
 	}
@@ -116,7 +118,8 @@ public class MyProfileTabGUI extends Tab{
 	private JTextField getAvailableCredditsTextField() {
 		if (availableCredditsTextField == null) {
 			availableCredditsTextField = new JTextField();
-			availableCredditsTextField.setBounds(new Rectangle(508, 97, 121, 28));
+			//506, 53, 111, 29
+			availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
 		}
 		return availableCredditsTextField;
 	}
@@ -143,7 +146,7 @@ public class MyProfileTabGUI extends Tab{
 	private JButton getEditMyProfileButton() {
 		if (editMyProfileButton == null) {
 			editMyProfileButton = new JButton();
-			editMyProfileButton.setBounds(new Rectangle(487, 211, 148, 30));
+			editMyProfileButton.setBounds(new Rectangle(486, 211, 149, 32));
 			editMyProfileButton.setText("Edit My Profile");
 		}
 		return editMyProfileButton;
@@ -157,7 +160,7 @@ public class MyProfileTabGUI extends Tab{
 	private JButton getEditMyPurchaseHistoryButton() {
 		if (editMyPurchaseHistoryButton == null) {
 			editMyPurchaseHistoryButton = new JButton();
-			editMyPurchaseHistoryButton.setBounds(new Rectangle(486, 266, 151, 31));
+			editMyPurchaseHistoryButton.setBounds(new Rectangle(486, 264, 149, 32));
 			editMyPurchaseHistoryButton.setText("Edit My History");
 		}
 		return editMyPurchaseHistoryButton;
