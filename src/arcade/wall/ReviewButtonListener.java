@@ -36,7 +36,8 @@ public class ReviewButtonListener implements ActionListener {
 			if (myController.showCommentDialog() == JOptionPane.YES_OPTION) {
 				myController.addComment(selectedGameName,
 						myGamerName, myTextField.getText(), myRatingPanel.getSelectedValue());
-				myController.updateCommentRatings(selectedGameName, myGamerName, myRatingPanel.getSelectedValue());
+				//updateCommentRatings() isn't working yet
+				//myController.updateCommentRatings(selectedGameName, myGamerName, myRatingPanel.getSelectedValue());
 			}
 		} else {
 			myController.addComment(selectedGameName,
