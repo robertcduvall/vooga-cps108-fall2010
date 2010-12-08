@@ -65,11 +65,12 @@ public class TicTacToe extends Game {
 		//stateManager.switchTo(waitState);
 	}
 	
-	public void switchToState () {
+	public void switchToState (GameState gs) {
 		System.out.println("switchToState");
-		stateManager.switchTo(waitState);
+		stateManager.switchTo(gs);
 	}
-	
+
+
 	/**
 	 * Switches to waitState when called by the network menu state.
 	 * 
