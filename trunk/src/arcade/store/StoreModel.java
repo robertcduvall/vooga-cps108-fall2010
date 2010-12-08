@@ -2,28 +2,28 @@ package arcade.store;
 
 import java.util.*;
 
-import arcade.store.account.UserShopAccount;
+import arcade.store.account.StoreUser;
 import arcade.store.control.Control;
-import arcade.store.items.DbItemFactory;
+import arcade.store.items.DbItemAndUserFactory;
 import arcade.store.items.IItemInfo;
-import arcade.store.items.ItemFactory;
 import arcade.store.organizer.FilterByGenreOrganizer;
-import arcade.store.organizer.IOrganizer;
 
 public class StoreModel {
 
 	private static final String GAMES_DIRECTORY = System.getProperty("user.dir")+"/src/arcade/store/gui/resources/games";
 	private static final String GAME_INFO_TABLE = "GameInfo";
+	private static final String USER_INFO_TABLE = "StoreUsers";
 //	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
-	private UserShopAccount currentUser;
+	private StoreUser currentUser;
 	private Map<String, IItemInfo> storeCatalogue;
 	private Control controller;
 	
 	public StoreModel(Control control)
 	{
-		storeCatalogue = DbItemFactory.getAllItems(GAME_INFO_TABLE);
+		storeCatalogue = DbItemAndUserFactory.getAllItems(GAME_INFO_TABLE);
 		controller = control;
-		//currentUser = Security.getCurrentUser();
+		//String username = Security.getCurrentUser().getName();
+//		currentUser = DbItemAndUserFactory.getUser(USER_INFO_TABLE, username);
 		
 	}
 	

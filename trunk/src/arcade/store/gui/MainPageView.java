@@ -182,6 +182,6 @@ public class MainPageView extends Tab {
 
 
 	public void showMessageBox(String messageText) {
-
+		
 	}
 }
