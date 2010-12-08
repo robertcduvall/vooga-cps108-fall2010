@@ -47,7 +47,7 @@ public class IntegerSelectPanel extends JPanel implements ActionListener{
 	 * @param image - Pathname of the image
 	 */
 	public void setAllImages(String image){
-		ImageIcon buttonIcon = createImageIcon(image);
+//		ImageIcon buttonIcon = createImageIcon(image);
 	}
 
 
