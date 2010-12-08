@@ -1,6 +1,7 @@
 package arcade.store;
 
 import arcade.lobby.model.*;
+import arcade.util.database.MySqlAdapter;
 
 import java.sql.*;
 import java.util.*;
