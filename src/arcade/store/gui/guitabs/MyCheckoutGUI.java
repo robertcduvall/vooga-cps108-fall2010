@@ -44,17 +44,17 @@ public class MyCheckoutGUI extends Tab{
 	public JComponent getContent() {
 		if (myCheckOutTab == null) {
 			credditAfterPurchaseLabel = new JLabel();
-			credditAfterPurchaseLabel.setBounds(new Rectangle(227, 163, 119, 28));
+			credditAfterPurchaseLabel.setBounds(new Rectangle(222, 157, 124, 25));
 			credditAfterPurchaseLabel.setText("Remaining Creddits");
 			totalCostLabel = new JLabel();
-			totalCostLabel.setBounds(new Rectangle(225, 122, 119, 24));
+			totalCostLabel.setBounds(new Rectangle(222, 122, 124, 25));
 			totalCostLabel.setText("Total Cost");
 			AvailableCreditjLabel = new JLabel();
-			AvailableCreditjLabel.setBounds(new Rectangle(222, 87, 121, 25));
+			AvailableCreditjLabel.setBounds(new Rectangle(222, 87, 124, 25));
 			AvailableCreditjLabel.setText("Available Creddits");
 			checkoutLabel = new JLabel();
 			checkoutLabel.setText("My Check Out: ");
-			checkoutLabel.setBounds(new Rectangle(16, 15, 86, 32));
+			checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
 			myCheckOutTab = new JPanel();
 			myCheckOutTab.setLayout(null);
 			myCheckOutTab.setSize(new Dimension(460, 381));
@@ -102,7 +102,7 @@ public class MyCheckoutGUI extends Tab{
 	private JTextField getAvailableCredditsTextField() {
 		if (availableCredditsTextField == null) {
 			availableCredditsTextField = new JTextField();
-			availableCredditsTextField.setBounds(new Rectangle(349, 88, 98, 25));
+			availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25));
 		}
 		return availableCredditsTextField;
 	}
@@ -115,7 +115,7 @@ public class MyCheckoutGUI extends Tab{
 	private JTextField getJTextField() {
 		if (jTextField == null) {
 			jTextField = new JTextField();
-			jTextField.setBounds(new Rectangle(351, 124, 97, 27));
+			jTextField.setBounds(new Rectangle(349, 122, 98, 25));
 		}
 		return jTextField;
 	}
@@ -128,7 +128,7 @@ public class MyCheckoutGUI extends Tab{
 	private JTextField getRemainingCredditsTextField1() {
 		if (RemainingCredditsTextField1 == null) {
 			RemainingCredditsTextField1 = new JTextField();
-			RemainingCredditsTextField1.setBounds(new Rectangle(353, 164, 97, 25));
+			RemainingCredditsTextField1.setBounds(new Rectangle(349, 157, 98, 25));
 		}
 		return RemainingCredditsTextField1;
 	}

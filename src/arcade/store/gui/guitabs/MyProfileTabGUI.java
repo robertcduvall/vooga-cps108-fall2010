@@ -9,11 +9,15 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
 public class MyProfileTabGUI extends Tab{
+	
+	private static final String ROBERT_DUVALL_AVATAR = "src/arcade/store/gui/resources/robert-duvall-avatar.jpg";
 
 	private JPanel jPanel = null;  //  @jve:decl-index=0:visual-constraint="133,-45"
 	private JLabel introLabel1 = null;
@@ -52,11 +56,11 @@ public class MyProfileTabGUI extends Tab{
 			totalGamePlayLabel.setBounds(new Rectangle(361, 53, 109, 29));
 			totalGamePlayLabel.setText("Total Gameplay: ");
 			userImageLabel = new JLabel();
-			userImageLabel.setBounds(new Rectangle(52, 54, 142, 132));
-			userImageLabel.setText("JLabel");
+			userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
+			userImageLabel.setIcon(new ImageIcon(ROBERT_DUVALL_AVATAR));
 			introLabel1 = new JLabel();
 			introLabel1.setText("Manage My Shop Account");
-			introLabel1.setBounds(new Rectangle(13, 14, 146, 16));
+			introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setSize(new Dimension(726, 620));
@@ -84,7 +88,9 @@ public class MyProfileTabGUI extends Tab{
 	private JTextField getUsernameTextField() {
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
-			usernameTextField.setBounds(new Rectangle(78, 198, 97, 26));
+			usernameTextField.setText("Robert Duvall");
+			usernameTextField.setEditable(false);
+			usernameTextField.setBounds(new Rectangle(102, 198, 143, 26));
 		}
 		return usernameTextField;
 	}

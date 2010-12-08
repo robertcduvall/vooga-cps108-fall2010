@@ -14,19 +14,19 @@ public class CredditsAd extends Window {
 	private static final int STORE_TAB = 3;
 
 	public CredditsAd() {
-		super(200, 200);
-		setName("ExampleWindow");
+		super(250, 250);
+		setName("Creddits Ad");
 	}
 
 	@Override
 	protected void createContents() {
 		JPanel panel = new JPanel();
 		
-		JLabel message=new JLabel("Moar Creddits?");
+		JLabel message=new JLabel("Moar Store?");
 		
 		JLabel image =new JLabel(new ImageIcon("src/arcade/store/gui/resources/TrollFace.png"));
 		
-		JButton linkToStore = new JButton("MOAR");
+		JButton linkToStore = new JButton("View Store");
 		linkToStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Arcade.switchToTab(STORE_TAB);
@@ -43,10 +43,10 @@ public class CredditsAd extends Window {
 			}
 		});
 		
-//		message.setAlignmentX(CENTER_ALIGNMENT);
-//		linkToStore.setAlignmentX(LEFT_ALIGNMENT);
-//		close.setAlignmentX(linkToStore.getAlignmentX());
-		
+		message.setAlignmentX(CENTER_ALIGNMENT);
+		image.setAlignmentX(CENTER_ALIGNMENT);
+		linkToStore.setAlignmentX(CENTER_ALIGNMENT);
+		close.setAlignmentX(CENTER_ALIGNMENT);
 		
 		panel.add(message);
 		panel.add(image);
