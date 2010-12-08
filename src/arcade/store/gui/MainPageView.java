@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -17,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.*;
 
@@ -26,7 +29,7 @@ import arcade.store.StoreModel;
 import arcade.store.control.Control;
 
 public class MainPageView extends Tab {
-	
+
 	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
 	private static final String CREDDIT_STRING = " Creddits";
 	private static final int GAME_NAME_COLUMN = 0;
@@ -38,22 +41,21 @@ public class MainPageView extends Tab {
 	private JScrollPane jScrollPane = null;
 	private JTable gameListTable = null;
 	private JPanel gameList = null;
-	private Control controller;
+	private Control controller;  //  @jve:decl-index=0:
 
-	
 	public MainPageView(Control control) {
 		controller = control;
 		JFrame frame = getJFrame();
 		frame.setVisible(true);
 	}
-	
+
 	public MainPageView() {
-		setName("Store");
+		setName("Browse Catalogue");
 		controller = new Control();
 		controller.setModel(new StoreModel(controller));
 		controller.setView(this);
 	}
-	
+
 	/**
 	 * This method initializes jFrame	
 	 * 	
@@ -83,12 +85,13 @@ public class MainPageView extends Tab {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(borderLayout);
 			jContentPane.add(getGenreList(), BorderLayout.WEST);
-			jContentPane.add(storeBrowseLabel, BorderLayout.NORTH);
 			jContentPane.add(getJScrollPane(), BorderLayout.CENTER);
 			jContentPane.setVisible(true);
 		}
 		return jContentPane;
 	}
+
+	
 
 	/**
 	 * This method initializes genreList	
@@ -127,9 +130,9 @@ public class MainPageView extends Tab {
 	 */
 	public JTable getGameListTable() {
 		if (gameListTable == null) {
-//			String[][] data = {{"GalaxyInvaders", "25.99", "Shooter"}, {"ZombieLand", "25.99", "Action"}};
-//			String[] col = {"Game Name", "Price", "Genre"};
-//			TableModel dataModel = new DefaultTableModel(data, col); 
+			//			String[][] data = {{"GalaxyInvaders", "25.99", "Shooter"}, {"ZombieLand", "25.99", "Action"}};
+			//			String[] col = {"Game Name", "Price", "Genre"};
+			//			TableModel dataModel = new DefaultTableModel(data, col); 
 			gameListTable = new JTable();
 			gameListTable.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
@@ -139,19 +142,19 @@ public class MainPageView extends Tab {
 				}
 			});
 		}
-		
+
 		return gameListTable;
 	}
-	
+
 	public JPanel getGameList() {
 		if(gameList == null) {
 			gameList = new JPanel(new GridLayout(0,4));
 			gameList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
 		return gameList;
-	
+
 	}
-	
+
 	public void addGameToList(String name, String price, String genre, ImageIcon image) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -178,12 +181,11 @@ public class MainPageView extends Tab {
 		});
 		getGameList().add(panel);
 	}
-	
-	
-	public void showMessageBox(String messageText) {
-		
-	}
 
+
+	public void showMessageBox(String messageText) {
+
+	}
 
 
 

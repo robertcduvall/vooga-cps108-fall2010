@@ -19,7 +19,6 @@ public class DbItemFactory {
 	
 	public static Map<String, IItemInfo> getAllItems(String table) {
 		List<Map<String, String>> list = dbAdapter.getAllRows(table);
-		System.out.println(list.size());
 		HashMap<String, IItemInfo> answer = new HashMap<String, IItemInfo>();
 		for(Map<String, String> m : list) {
 			String[] images = m.get("imagepaths").split(",");
