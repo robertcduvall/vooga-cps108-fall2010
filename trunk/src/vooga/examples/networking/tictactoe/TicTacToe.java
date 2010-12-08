@@ -6,6 +6,7 @@ import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
 import vooga.examples.networking.tictactoe.states.PlayState;
 import vooga.examples.networking.tictactoe.states.TicTacNetworkMenuState;
 import vooga.examples.networking.tictactoe.states.WaitingState;
@@ -54,11 +55,18 @@ public class TicTacToe extends Game {
 		LevelParser levelParser = new LevelParser();
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
 		waitState = new WaitingState(this, connection, waitField, playState);
-		//TicTacNetworkMenuState networkMenuState = new TicTacNetworkMenuState(this);
-		//stateManager.addGameState(networkMenuState);
+		TicTacNetworkMenuState networkMenuState = new TicTacNetworkMenuState();
+		networkMenuState.makeNextButton("Find Opponent", waitState);
+		networkMenuState.makeNextButton("Play", playState);
+		stateManager.addGameState(networkMenuState);
 		stateManager.addGameState(waitState);
 		stateManager.addGameState(playState);
-		//stateManager.switchTo(networkMenuState);
+		stateManager.switchTo(networkMenuState);
+		//stateManager.switchTo(waitState);
+	}
+	
+	public void switchToState () {
+		System.out.println("switchToState");
 		stateManager.switchTo(waitState);
 	}
 	
