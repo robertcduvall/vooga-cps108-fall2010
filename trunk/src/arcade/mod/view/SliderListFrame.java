@@ -25,6 +25,8 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		handleNode(node);
 		initializeComponents();
 	}
+	
+
 
 	@Override
 	public void initializeComponents() {
@@ -32,6 +34,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		myNameLabel = new JLabel();
 		newValue = new JLabel();
 		currentValue = new JLabel();
+		System.out.println(MIN + " " + MAX + " " +INIT);
 		myInput = new JSlider(JSlider.HORIZONTAL, MIN, MAX, INIT);
 		stringLabel = new JLabel();
 
@@ -49,14 +52,20 @@ public abstract class SliderListFrame extends AbstractListFrame {
 		myDescription = node.getDescription();
 		myName = node.getAttribute("name");
 		myValue = node.getAttribute("value");
+		
+		handleInitialParsing();
+
 		if (node.getAttributes().contains("max")) {
 			MAX = Integer.parseInt(node.getAttribute("max"));
+		} else {
+			MAX = INIT + 1000;
 		}
 		if (node.getAttributes().contains("min")) {
 			MIN = Integer.parseInt(node.getAttribute("min"));
+		} else {
+			MIN = INIT - 1000;
 		}
 
-		handleInitialParsing();
 	}
 
 	public abstract void handleInitialParsing();
