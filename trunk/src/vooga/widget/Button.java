@@ -1,6 +1,10 @@
 package vooga.widget;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.util.ImageUtil;
@@ -36,15 +40,14 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 */
 	public Button(){
 		this(DEFAULT_BUTTON_IMAGE, 0, 0);
-		
 	}	
 	/**
 	 * Creates an instance of Button with a default Button image and a location of (0,0)
 	 * and the input String
 	 */
-	public Button(String str){
+	public Button(String label){
 		this(DEFAULT_BUTTON_IMAGE, 0, 0);
-		setLabel(str);
+		setLabel(label);
 		
 	}
 
@@ -52,9 +55,9 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Creates an instance of Button with a default Button image, a specified location, and a specified String
 	 * and the input String
 	 */
-	public Button(String str, double x, double y){
+	public Button(String label, double x, double y){
 		this(DEFAULT_BUTTON_IMAGE, x, y);
-		setLabel(str);
+		setLabel(label);
 		
 	}
 		
@@ -100,8 +103,8 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Places a String label on a Button
 	 * @param text - String textual label for Button
 	 */
-	public void setLabel(String text) {
-		setLabel( new OverlayLabel( this, text, Color.WHITE));
+	public void setLabel(String label) {
+		setLabel( new OverlayLabel( this, label, Color.WHITE));
 	}
 	
 	/**
@@ -120,12 +123,24 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	@Override
 	public boolean isTriggered() {
 		Game game = Resources.getGame();
+		System.out.println("button istriggered "+ (game.click() && game.checkPosMouse(this, true)));
 		return game.click() && game.checkPosMouse(this, true);
+		
 	}
+	
+	public void buttonClicked(MouseEvent e) {		
+		System.out.println("button" + e.getX());
+	}
+
 
 	/**
 	 * Specifies what should be done when the button is clicked
 	 */
-	@Override
+	@Override 
 	public abstract void actionPerformed();
+	
+	public void render(Graphics2D g) {
+		super.render(g);
+		buttonLabel.render(g);
+	}
 }
