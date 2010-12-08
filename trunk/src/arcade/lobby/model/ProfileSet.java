@@ -2,6 +2,7 @@ package arcade.lobby.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileSet implements Iterable<Profile> {
@@ -42,8 +43,9 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public Profile getProfile(String userName) {
-		Map<String, String> row = myDbAdapter.getRows(myTable, "User_Name", userName).get(0);
-		if(row==null) return null;
+		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "User_Name", userName);
+		if(rows.size() == 0) return null;
+		Map<String,String> row = rows.get(0);
 		Profile userProf = new Profile(userName);
 		userProf.setName(row.get("First_Name"), row.get("Last_Name"));
 		try {

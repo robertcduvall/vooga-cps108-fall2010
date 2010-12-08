@@ -56,41 +56,42 @@ public class Validator {
 	}
 	
 	public static boolean checkEmailFormat(String input) {
-		boolean failed = true;
-		 //Checks for email addresses starting with
-	      //inappropriate symbols like dots or @ signs.
-	      Pattern p = Pattern.compile("^\\.|^\\@");
-	      Matcher m = p.matcher(input);
-	      if (m.find())
-	         failed =  false;
-	      //Checks for email addresses that start with
-	      //www. and prints a message if it does.
-	      p = Pattern.compile("^www\\.");
-	      m = p.matcher(input);
-	      if (m.find()) {
-	    	  failed =  false;
-	      }
-	      p = Pattern.compile("[^A-Za-z0-9\\.\\@_\\-~#]+");
-	      m = p.matcher(input);
-	      StringBuffer sb = new StringBuffer();
-	      boolean result = m.find();
-	      boolean deletedIllegalChars = false;
-
-	      while(result) {
-	         deletedIllegalChars = true;
-	         m.appendReplacement(sb, "");
-	         result = m.find();
-	      }
-
-	      // Add the last segment of input to the new String
-	      m.appendTail(sb);
-
-	      input = sb.toString();
-
-	      if (deletedIllegalChars) {
-	    	  failed =  false;
-	      }
-	   return failed;
+		return Pattern.matches("^[A-Za-z0-9\\.]+[^\\.]@([A-Za-z0-9]+\\.)+(com|net|org|edu)$", input);
+//		boolean failed = true;
+//		 //Checks for email addresses starting with
+//	      //inappropriate symbols like dots or @ signs.
+//	      Pattern p = Pattern.compile("^\\.|^\\@");
+//	      Matcher m = p.matcher(input);
+//	      if (m.find())
+//	         failed =  false;
+//	      //Checks for email addresses that start with
+//	      //www. and prints a message if it does.
+//	      p = Pattern.compile("^www\\.");
+//	      m = p.matcher(input);
+//	      if (m.find()) {
+//	    	  failed =  false;
+//	      }
+//	      p = Pattern.compile("[^A-Za-z0-9\\.\\@_\\-~#]+");
+//	      m = p.matcher(input);
+//	      StringBuffer sb = new StringBuffer();
+//	      boolean result = m.find();
+//	      boolean deletedIllegalChars = false;
+//
+//	      while(result) {
+//	         deletedIllegalChars = true;
+//	         m.appendReplacement(sb, "");
+//	         result = m.find();
+//	      }
+//
+//	      // Add the last segment of input to the new String
+//	      m.appendTail(sb);
+//
+//	      input = sb.toString();
+//
+//	      if (deletedIllegalChars) {
+//	    	  failed =  false;
+//	      }
+//	   return failed;
 	}
 	
 
