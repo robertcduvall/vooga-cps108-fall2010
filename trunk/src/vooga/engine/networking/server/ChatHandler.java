@@ -17,17 +17,20 @@ import vooga.engine.networking.GameSocket;
  */
 public class ChatHandler extends Handler{
 	protected static List<ChatHandler> handlers = new ArrayList<ChatHandler>();
+	private String gameName;
 
 	/**
 	 * Initializes ChatHandler with a socket to send and receive chats through and the chat's game session ID.
 	 * 
 	 * @param socket the socket to send and receive chats through
 	 * @param sessionID the ID of the chat's game session
+	 * @param gameName the name of the game that the chat is a part of
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ChatHandler(GameSocket socket, int sessionID){
+	public ChatHandler(GameSocket socket, int sessionID, String gameName){
 		super(socket, sessionID);
+		this.gameName = gameName;
 	}
 
 	/**
@@ -40,12 +43,15 @@ public class ChatHandler extends Handler{
 	public void run(){
 		try {
 			handlers.add(this);
+			getSocket().send("ADMIN: Welcome to " + gameName + "!");
+			broadcast("ADMIN: Player joined the game.", this);
 			while (true) {
 				String chat = socket.receive();
 				if(chat == null){
+					broadcast("ADMIN: Opponent left the chat", this);
 					return;
 				}
-				broadcast(chat, this);
+				broadcast("opponent: " + chat, this);
 			}
 		} 
 		catch (IOException ex) {

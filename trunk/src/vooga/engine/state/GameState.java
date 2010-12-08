@@ -1,10 +1,12 @@
 package vooga.engine.state;
 
 import java.awt.Graphics2D;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import vooga.engine.core.PlayField;
+import vooga.engine.networking.client.ClientConnection;
 
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -34,6 +36,8 @@ public abstract class GameState {
 	private boolean myIsActive = false;
 	protected Collection<PlayField> myRenderField = new ArrayList<PlayField>();
 	protected Collection<PlayField> myUpdateField = new ArrayList<PlayField>();
+	protected ClientConnection connection;
+	protected String message;
 
 	/**
 	 * Constructs a new GameState play
@@ -61,6 +65,17 @@ public abstract class GameState {
 	public GameState(PlayField playfield) {
 		this();
 		addPlayField(playfield);
+	}
+	
+	public GameState(ClientConnection connection){
+		this();
+		this.connection = connection;
+	}
+	
+	public GameState(PlayField playfield, ClientConnection connection){
+		this();
+		addPlayField(playfield);
+		this.connection = connection;
 	}
 
 	/**
@@ -116,16 +131,78 @@ public abstract class GameState {
 	}
 
 	/**
-	 * Updates all sprites stored in the GameState' updateGroups.
+	 * Updates all sprites stored in the GameState' updateGroups.  Also run checkMessages to see, if the developer is making a game using networking, if
+	 * we have received any messages from the server that we need to execute.  Also see if we should listen to the socket for a message by calling the
+	 * shouldGetData method.
 	 * 
 	 * @param t
 	 */
 	public void update(long t) {
-
+		if(checkMessage())
+			return;
 		for (PlayField playfield : myUpdateField) {
 			playfield.update(t);
 		}
-
+		if(connection != null && shouldGetData()){
+			interpretMessage(connection.getData());
+		}
+	}
+	
+	/**
+	 * Overridden by subclasses that want to implement networking in their game.  Determines whether or not to listen for a message from the socket.
+	 * Defaults to false so networking is only implemented and checked if the developer wants to.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public boolean shouldGetData(){
+		return false;
+	}
+	
+	/**
+	 * Overridden by subclasses that want to implement networking in their game. Called in the update method when it receives a message from the socket.
+	 * 
+	 * @param data the String received from the socket
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public void interpretMessage(String data){}
+	
+	/**
+	 * If there is a message to send then call the method that corresponds with that message and then set the message to null.
+	 * 
+	 * @return whether or not it was sent a message
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public boolean checkMessage(){
+		if(message == null || message.length() == 0){
+			return false;
+		}
+		else{
+			try {
+				Method statusAction = this.getClass().getMethod(message);
+				statusAction.invoke(this);
+			} 
+			catch (Exception e) {
+				System.out.println("Status action error" + e + ". Make sure the names of your stauses match the name of your status methods!");
+				System.exit(1);
+			}
+			message = null;
+			return true;
+		}
+	}
+	
+	/**
+	 * Sets the message. The message is initialized to anything sent through the socket that is not a Serializeable object, so just a String.  Corresponds
+	 * to a method in the GameState subclass that is called the next time checkMessage is called in the update method.
+	 * 
+	 * @param message to set the message instance to
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public void setMessage(String message){
+		this.message = message;
 	}
 
 	/**

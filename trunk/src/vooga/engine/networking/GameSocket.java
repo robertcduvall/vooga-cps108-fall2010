@@ -88,6 +88,10 @@ public class GameSocket extends Thread{
 			System.out.println("Couldn’t close socket:" + e);
 		}
 	}
+	
+	public Socket getSocket(){
+		return socket;
+	}
 
 	/**
 	 * Make sure the socket is closed and if not close it.

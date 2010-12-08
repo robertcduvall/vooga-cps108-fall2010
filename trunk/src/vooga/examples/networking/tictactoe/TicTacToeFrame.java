@@ -33,6 +33,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	private Style meStyle;
 	private Style messageStyle;
 	private Style opponentStyle;
+	private Style statusStyle;
 	private ChatConnection connection;
 
 	/**
@@ -105,11 +106,18 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 		StyleConstants.setForeground(messageStyle, Color.BLACK);
 		
 		Style style3 = sc.getStyle(StyleContext.DEFAULT_STYLE);
-		opponentStyle = sc.addStyle("YouStyle", style3);
+		opponentStyle = sc.addStyle("OpponentStyle", style3);
 		StyleConstants.setFontFamily(opponentStyle, "arial");
 		StyleConstants.setFontSize(opponentStyle, 12);
 		StyleConstants.setBold(opponentStyle, true);
 		StyleConstants.setForeground(opponentStyle, Color.BLUE);
+		
+		Style style4 = sc.getStyle(StyleContext.DEFAULT_STYLE);
+		statusStyle = sc.addStyle("StatusStyle", style4);
+		StyleConstants.setFontFamily(statusStyle, "serif");
+		StyleConstants.setFontSize(statusStyle, 11);
+		StyleConstants.setItalic(statusStyle, true);
+		StyleConstants.setForeground(statusStyle, Color.DARK_GRAY);
 	}
 
 	/**
@@ -123,8 +131,15 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 		while(true){
 			String chat = connection.getChat();
 			try {
-				doc.insertString(doc.getLength(), "opponent: ", opponentStyle);
-				doc.insertString(doc.getLength(), chat + "\n", messageStyle);
+				if(chat.startsWith("ADMIN:")){
+					doc.insertString(doc.getLength(), chat.substring(6) + "\n", statusStyle);
+				}
+				else{
+					String name = chat.substring(0, chat.indexOf(":") + 1);
+					String message = chat.substring(chat.indexOf(":") + 1);
+					doc.insertString(doc.getLength(), name, opponentStyle);
+					doc.insertString(doc.getLength(), message + "\n", messageStyle);
+				}
 			} catch (BadLocationException e) {
 				System.exit(1);
 			}

@@ -35,11 +35,12 @@ public class VoogaServer {
 				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE)
 				{
 					Element gameElement = (Element) listOfGames.item(i);
+					String name = gameElement.getAttribute("name");
 					int port = Integer.parseInt(gameElement.getAttribute("port"));
 					int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
 					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
 					String clientHandler = gameElement.getAttribute("clientHandler");
-					new VoogaDaemon(port, chatPort, numberOfPlayers, clientHandler).start();
+					new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler).start();
 				}
 			}
 		}
