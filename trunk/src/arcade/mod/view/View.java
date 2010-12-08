@@ -1,6 +1,7 @@
 package arcade.mod.view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,7 @@ public class View extends JPanel implements IViewer {
 	 * @param presenter which instantiated the View
 	 */
 	public View(IPresenter controller) {
+		this.setLayout(new BorderLayout());
 		myPresenter = controller;
 		myCategories = new ArrayList<String>();
 		myCategories.add("<empty>");
@@ -66,9 +68,11 @@ public class View extends JPanel implements IViewer {
 		contentPane.add(makeButton(), BorderLayout.SOUTH);
 		contentPane.add(initializeScrollPane(), BorderLayout.CENTER);
 
+		JPanel toolbarPane = new JPanel(new FlowLayout());
+		toolbarPane.add(new ViewFileMenu(this, myPresenter));
 		
-		add(new ViewFileMenu(this, myPresenter));
-		add(contentPane);
+		add(toolbarPane, BorderLayout.NORTH);
+		add(contentPane, BorderLayout.CENTER);
 
 		setVisible(true);
 

@@ -8,11 +8,14 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import com.golden.gamedev.util.ImageUtil;
+
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.XMLNode;
 
 public class ImageListFrame extends FilepathListFrame {
 
+	private static final int ICON_SIZE = 128;
 	ImageIcon myIcon;
 	
 
@@ -39,7 +42,7 @@ public class ImageListFrame extends FilepathListFrame {
 		try {
 			stringLabel.setText(myFilepath);
 			
-			myIcon = new ImageIcon(ImageIO.read(new File(myFilepath)));
+			myIcon = new ImageIcon(ImageUtil.resize(ImageIO.read(new File(myFilepath)), ICON_SIZE, ICON_SIZE));
 
 			restrictSize(myIcon.getIconHeight() + 100);
 			
