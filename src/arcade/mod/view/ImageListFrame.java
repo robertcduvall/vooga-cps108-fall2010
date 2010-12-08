@@ -39,8 +39,6 @@ public class ImageListFrame extends FilepathListFrame {
 		try {
 			stringLabel.setText(myFilepath);
 			
-			System.out.println(myFilepath);
-
 			myIcon = new ImageIcon(ImageIO.read(new File(myFilepath)));
 
 			restrictSize(myIcon.getIconHeight() + 100);
@@ -59,9 +57,6 @@ public class ImageListFrame extends FilepathListFrame {
 	
 	@Override
 	public void handleNode(IResourceNode node) {
-
-		System.out.println(node.getAttribute("name"));
-
 		myName = node.getAttribute("name");
 		myFilepath = node.getModelPath() + "\\images\\" + node.getAttribute("path");
 		myDescription = node.getDescription();

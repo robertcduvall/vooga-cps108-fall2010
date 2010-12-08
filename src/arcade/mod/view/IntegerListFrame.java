@@ -1,5 +1,7 @@
 package arcade.mod.view;
 
+import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -33,5 +35,11 @@ public class IntegerListFrame extends SliderListFrame {
 
 		INIT = Integer.parseInt(myValue);
 		
+	}
+
+	@Override
+	public boolean confirmValidity(File saveFile) {
+		//TODO: do actual error checking here
+		return true;
 	}
 }
