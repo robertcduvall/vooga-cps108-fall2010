@@ -30,6 +30,8 @@ public class DemoView extends JFrame {
 		 ************************************/
 		/*
 		 * if you are using ArcadeAction for privilege issue, you should not add the ButtonAction as below.
+		 * if you need to do it as below, you need to put if in actionPerformed method rather than
+		 * in the ButtonAction class.
 		 */
 		//JButton button = new JButton("demobutton");
 		//button.addActionListener(new ButtonAction("demo button","developer"));
