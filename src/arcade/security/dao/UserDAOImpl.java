@@ -1,5 +1,9 @@
 package arcade.security.dao;
 
+import java.util.Collection;
+
+import arcade.security.user.AbstractUser;;
+
 public class UserDAOImpl implements UserDAO{
 
 	@Override
@@ -9,25 +13,25 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public Collection<User> findAll() {
+	public Collection<AbstractUser> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User findByKey(String primaryKey) {
+	public AbstractUser findByKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void insert(User user) {
+	public void insert(AbstractUser user) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(AbstractUser user) {
 		// TODO Auto-generated method stub
 		
 	}
