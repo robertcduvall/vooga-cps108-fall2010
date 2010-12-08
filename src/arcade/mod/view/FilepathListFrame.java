@@ -80,14 +80,12 @@ public class FilepathListFrame extends AbstractListFrame {
 		myDescription = node.getDescription();
 	}
 
-<<<<<<< .mine
 	@Override
 	public boolean confirmValidity(File saveFile) {
 		//TODO: do actual error checking here
 		return true;
 	}
 
-=======
 	@Override
 	public void initializeComponents() {
 		myFileChooser = new JFileChooser();
@@ -99,5 +97,4 @@ public class FilepathListFrame extends AbstractListFrame {
 		makeComponents();
 	}
 
->>>>>>> .r2644
 }
