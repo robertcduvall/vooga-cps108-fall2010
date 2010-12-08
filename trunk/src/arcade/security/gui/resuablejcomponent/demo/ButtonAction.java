@@ -24,7 +24,9 @@ public class ButtonAction extends ArcadeAction {
 		
 	}
 
-	
+	/**
+	 * This method could be moved to the ArcadeAction class when we figure out how to keep track of current user.
+	 */
 	@Override
 	public boolean checkPermission(String... role) {
 		String[] roles = role;
