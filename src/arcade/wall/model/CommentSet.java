@@ -34,10 +34,10 @@ public class CommentSet implements Iterable<Comment> {
 		return myDbAdapter.insert(myTable, row);
 	}
 	
-	public boolean updateComment(Comment comment) {
+	//Doesn't work yet
+	public boolean updateCommentRating(Comment comment) {
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("Comment_String", comment.getCommentString());
-		return myDbAdapter.update(myTable, comment.getUserName(), row);
+		return myDbAdapter.update(myTable, comment.getRating(), row);
 	}
 
 	public Comment getComment(int rowNo) {

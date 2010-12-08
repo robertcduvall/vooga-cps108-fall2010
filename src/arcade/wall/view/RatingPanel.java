@@ -1,17 +1,16 @@
 package arcade.wall.view;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+@SuppressWarnings("serial")
 public class RatingPanel extends JPanel implements ActionListener {
 
 	private ButtonGroup myGroup;
