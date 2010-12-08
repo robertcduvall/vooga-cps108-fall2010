@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import arcade.mod.controller.IPresenter;
+import arcade.mod.view.file.IFileOpener;
 
 /**
  * As the name suggests, this class represents the View section necessary for the
@@ -37,6 +38,7 @@ public class View extends JPanel implements IViewer {
 	JPanel centralPanel;
 	Collection<String> myCategories;
 	String currentCategory;
+	IFileOpener fileOpener;
 
 	/**
 	 * Creates a new instance of View with a reference to the Presenter which instantiated it
@@ -62,7 +64,7 @@ public class View extends JPanel implements IViewer {
 		contentPane.add(initializeScrollPane(), BorderLayout.CENTER);
 
 		
-		add(new ViewFileMenu(myPresenter));
+		add(new ViewFileMenu(this, myPresenter));
 		add(contentPane);
 
 		setVisible(true);
@@ -168,13 +170,11 @@ public class View extends JPanel implements IViewer {
 	 * @return File to save
 	 */
 	public File openFileSelect() {
-
-		JFileChooser loadChooser = new JFileChooser();
-
-		loadChooser.showOpenDialog(this);
-		
-		return loadChooser.getSelectedFile();
-
+		return fileOpener.openFile();
+	}
+	
+	public void setFileOpener(IFileOpener fileOpener){
+		this.fileOpener =fileOpener;
 	}
 
 }
