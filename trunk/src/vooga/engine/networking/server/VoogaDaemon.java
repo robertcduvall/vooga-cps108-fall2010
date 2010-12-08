@@ -8,7 +8,8 @@ import java.net.SocketTimeoutException;
 import vooga.engine.networking.GameSocket;
 
 /**
- * Thread that is run on the server 24/7 for each game using the networking API.  It creates the sockets that the game will be communicating over and 
+ * Thread that is run on the server 24/7 for each game using the networking API.  
+ * It creates the sockets that the game will be communicating over and 
  * initiates the ChatHandler and ClientHandler subclass for every connection.
  * 
  * @author Cue, Kolodziejzyk, Townsend
@@ -22,7 +23,8 @@ public class VoogaDaemon extends Thread{
 	private String clientHandler;
 
 	/**
-	 * Static method to return the XML document with the list of games that can be run on the networking Vooga servers.
+	 * Static method to return the XML document with the list of games 
+	 * that can be run on the networking Vooga servers.
 	 * 
 	 * @param gamePortNumber the port through which to send messages related to the game
 	 * @param chatPortNumber the port through which to send chats
@@ -47,8 +49,8 @@ public class VoogaDaemon extends Thread{
 	}
 
 	/**
-	 * Whenever a new client connects to the chat or game ports, create instances of the ChatHandler and ClientHandler subclass respectively
-	 * and start them.
+	 * Whenever a new client connects to the chat or game ports, create instances 
+	 * of the ChatHandler and ClientHandler subclass respectively and start them.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
