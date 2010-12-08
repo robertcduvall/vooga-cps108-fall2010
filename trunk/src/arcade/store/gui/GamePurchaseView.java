@@ -194,6 +194,7 @@ public class GamePurchaseView {
 		if (descriptionField == null) {
 			descriptionField = new JTextArea();
 			descriptionField.setEditable(false);
+			descriptionField.setLineWrap(true);
 		}
 		return descriptionField;
 	}
