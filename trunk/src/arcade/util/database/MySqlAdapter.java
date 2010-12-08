@@ -17,7 +17,7 @@ import java.util.Map;
  * 
  * @author David Herzka
  * @author Andrew Brown
- * 
+ * @author Justin Goldsmith
  */
 public class MySqlAdapter implements DatabaseAdapter {
 
