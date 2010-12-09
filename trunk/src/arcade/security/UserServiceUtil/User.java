@@ -2,7 +2,11 @@ package arcade.security.UserServiceUtil;
 
 import java.util.Map;
 import java.util.TreeMap;
-
+/**
+ * Beta Version
+ * @author Meng Li
+ *
+ */
 public class User {
 	
 	private Map<String,Boolean> map = new TreeMap<String,Boolean>();
