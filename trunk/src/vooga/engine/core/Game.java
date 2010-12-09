@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import arcade.core.ExampleGUI;
+
 import com.golden.gamedev.GameLoader;
 
 import vooga.engine.factory.LevelParser;
@@ -201,6 +203,8 @@ public class Game extends com.golden.gamedev.Game {
 
 	public void updateHighScore(double score) {
 		finalScore = score;
+		//TODO Move following statement to a on close listener of some sort
+		ExampleGUI.updateHighScore(finalScore);
 	}
 	
 	public double getHighScore() {

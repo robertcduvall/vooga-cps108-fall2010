@@ -40,7 +40,6 @@ public class GameView extends JPanel {
 		add(panel);
 	}
 
-
 	private JLabel setSplashScreen() {
 		splash = new ImageIcon(gameProperties.get("splash")[0]);
 		JLabel splashImage = new JLabel(splash);
@@ -72,24 +71,26 @@ public class GameView extends JPanel {
 		JButton start = new JButton("Start");
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-									
-					SwingWorker<Integer,Void> worker = new SwingWorker<Integer,Void>(){
-						public Integer doInBackground(){
-							Class<?> newGame;
-							try {
-								newGame = Class
-								.forName("vooga.games." + gameName + ".Blah");
-							
-							Constructor<?> gameConstructor = newGame.getConstructor();
+
+				SwingWorker<Integer, Void> worker = new SwingWorker<Integer, Void>() {
+					public Integer doInBackground() {
+						Class<?> newGame;
+						try {
+							newGame = Class.forName("vooga.games." + gameName
+									+ ".Blah");
+
+							Constructor<?> gameConstructor = newGame
+									.getConstructor();
 							Game.launch((Game) gameConstructor.newInstance());
-							}
-							catch (Throwable e) {
-								e.printStackTrace();
-							}
-							return 0;
+						} catch (Throwable e) {
+							e.printStackTrace();
 						}
-					};
-					worker.execute();
+						return 0;
+					}
+				};
+				// Try something with this
+				// worker.isDone()
+				worker.execute();
 			}
 		});
 		return start;
@@ -104,28 +105,28 @@ public class GameView extends JPanel {
 		});
 		return back;
 	}
-//	 private static void createAndShowGUI() {
-//	
-//	 //Create and set up the window.
-//	 JFrame frame = new JFrame("Game Viewer");
-//	 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	
-//	 //Create and set up the content pane.
-//	 GameView newContentPane = new GameView("zombieland");
-//	 newContentPane.setOpaque(true); //content panes must be opaque
-//	 frame.setContentPane(newContentPane);
-//	
-//	 //Display the window.
-//	 frame.pack();
-//	 frame.setVisible(true);
-//	 }
-//	
-//	 public static void main(String[] args) {
-//	 javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//	 public void run() {
-//	 createAndShowGUI();
-//	 }
-//	 });
-//	 }
+	// private static void createAndShowGUI() {
+	//
+	// //Create and set up the window.
+	// JFrame frame = new JFrame("Game Viewer");
+	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//
+	// //Create and set up the content pane.
+	// GameView newContentPane = new GameView("zombieland");
+	// newContentPane.setOpaque(true); //content panes must be opaque
+	// frame.setContentPane(newContentPane);
+	//
+	// //Display the window.
+	// frame.pack();
+	// frame.setVisible(true);
+	// }
+	//
+	// public static void main(String[] args) {
+	// javax.swing.SwingUtilities.invokeLater(new Runnable() {
+	// public void run() {
+	// createAndShowGUI();
+	// }
+	// });
+	// }
 
 }
