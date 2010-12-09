@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 /**
  * An adapter to interface with a mySQL database
  * 
@@ -19,9 +21,11 @@ import java.util.Map;
  * @author Andrew Brown
  * @author Justin Goldsmith
  * @author Yang Su
+ * @author Meng Li
  */
 public class MySqlAdapter implements DatabaseAdapter {
-
+	
+	private final static Logger log=Logger.getLogger(MySqlAdapter.class);	
 	private static Connection myDBConnection;
 	private String myURL;
 	private String myUser;
@@ -67,8 +71,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 			myDBConnection = DriverManager.getConnection(myURL, myUser,
 					myPassword);
 		} catch (Exception x) {
-			System.out.println("Connection failed");
-			System.out.println(x);
+			log.debug("Connection failed");
+			log.debug(x);
 			return false;
 		}
 		return true;
@@ -76,15 +80,15 @@ public class MySqlAdapter implements DatabaseAdapter {
 
 	private void refreshConnection() {
 		try {
-			System.out.println("Checking connection");
+			log.info("Checking connection");
 			if (myDBConnection.isClosed()) {
 				connect();
-				System.out.println("Connection re-established");
+				log.info("Connection re-established");
 			} else {
-				System.out.println("Connection was still fine");
+				log.info("Connection was still fine");
 			}
 		} catch (SQLException x) {
-			System.out.println("Problem checking connection: " + x);
+			log.debug("Problem checking connection: " + x);
 		}
 	}
 
@@ -92,8 +96,9 @@ public class MySqlAdapter implements DatabaseAdapter {
 		if (myDBConnection != null)
 			try {
 				myDBConnection.close();
+				log.info("Connection is closed");
 			} catch (SQLException x) {
-				System.out.println("Problem closing connection: " + x);
+				log.debug("Problem closing connection: " + x);
 			}
 
 	}
@@ -122,8 +127,10 @@ public class MySqlAdapter implements DatabaseAdapter {
 				result.add(rs.getString(columnName));
 			}
 			ps.close();
+			log.info("Successful database operation: Get a column from "+columnName+" of table "+tableName);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			log.debug("Failed database operation: Get a column from "+columnName+" of table "+tableName);
 			return null;
 		}
 		closeConnection();
@@ -231,10 +238,12 @@ public class MySqlAdapter implements DatabaseAdapter {
 			}
 			ps.close();
 		} catch (Throwable e) {
-			System.out.println(e);
+			log.debug("Failed database operation: "+query);
+			log.debug(e);
 			return null;
 		}
 		closeConnection();
+		log.info("Successful database operation: "+query);
 		return maps;
 	}
 
@@ -283,18 +292,21 @@ public class MySqlAdapter implements DatabaseAdapter {
 		values = values.substring(0, values.length() - 1);
 		keys += ")";
 		values += ")";
-
+		
+		String sql = "INSERT INTO " + tableName + " " + keys + " VALUES "
+		+ values;
 		try {
-			String sql = "INSERT INTO " + tableName + " " + keys + " VALUES "
-					+ values;
+			
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
 		} catch (Throwable e) {
-			System.out.println(e);
+			log.debug("Failed database operation: "+sql);
+			log.debug(e);
 			return false;
 		}
 		closeConnection();
+		log.info("Successful database operation: "+sql);
 		return true;
 	}
 
@@ -343,20 +355,20 @@ public class MySqlAdapter implements DatabaseAdapter {
 			newValues += s + "='" + row.get(s) + "', ";
 		}
 		newValues = newValues.substring(0, newValues.length() - 2);
-
+		String conditional = createConditional(conditions);
+		String sql = "UPDATE " + tableName + " SET " + newValues
+				+ " WHERE " + conditional;
 		try {
-			String conditional = createConditional(conditions);
-			String sql = "UPDATE " + tableName + " SET " + newValues
-					+ " WHERE " + conditional;
-			System.out.println(sql);
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
 		} catch (Throwable e) {
-			System.out.println(e);
+			log.debug("Failed database operation: "+sql);
+			log.debug(e);
 			return false;
 		}
 		closeConnection();
+		log.info("Successful database operation: "+sql);
 		return true;
 	}
 
