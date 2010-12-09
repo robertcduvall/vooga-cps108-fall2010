@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 
 import arcade.wall.controller.WallController;
 import arcade.wall.model.Comment;
-import arcade.wall.view.RatingPanel;
 import arcade.wall.view.WallView;
+import arcade.wall.view.ratings.RadioPanel;
 
 public class ReviewButtonListener implements ActionListener {
 
@@ -18,10 +18,10 @@ public class ReviewButtonListener implements ActionListener {
 	private JComboBox myComboBox;
 	private JTextField myTextField;
 	private String myGamerName;
-	private RatingPanel myRatingPanel;
+	private RadioPanel myRatingPanel;
 
 	public ReviewButtonListener(WallController controller, JComboBox comboBox,
-			JTextField textField, String gamerName, RatingPanel ratingPanel) {
+			JTextField textField, String gamerName, RadioPanel ratingPanel) {
 		myController = controller;
 		myComboBox = comboBox;
 		myTextField = textField;
