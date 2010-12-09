@@ -112,7 +112,7 @@ public class GameSelection extends Tab {
 				}
 				if (panel.getComponents().length <=1)
 					panel.add(new JLabel("No Games Found With Those Search Terms"));
-
+				panel.repaint();
 			}
 			catch (Throwable e1) {
 				e1.printStackTrace();
@@ -136,6 +136,7 @@ public class GameSelection extends Tab {
 		for (String name : gameNames) {
 			panel.add(createItem(name));
 		}
+		panel.validate();
 	}
 
 }
