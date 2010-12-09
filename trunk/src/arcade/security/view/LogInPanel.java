@@ -15,10 +15,10 @@ import arcade.security.control.*;
 
 /**
  * Log In Panel. 
- * @author Jiaqi Yan, Meng Li
+ * @author Jiaqi Yan
  *
  */
-public class LogInPanel extends JPanel{
+public class LogInPanel extends ViewState{
 	private JButton submitButton;
 	private JButton cancelButton;
 	private JButton signUpButton;
@@ -62,7 +62,7 @@ public class LogInPanel extends JPanel{
 		addListeners();
 	}
 	
-	private void addListeners(){
+	protected void addListeners(){
 		submitButton.addActionListener(new SubmitEvent());
 		
 		signUpButton.addActionListener(new ActionListener(){

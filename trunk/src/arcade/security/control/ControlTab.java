@@ -8,7 +8,12 @@ import javax.swing.*;
 
 import arcade.core.Tab;
 import arcade.security.view.*;
-
+/**
+ * This is the controller class. It doesn't do much of the controlling though. It basically sets
+ * the specified panel to be valid. 
+ * @author Jiaqi Yan
+ *
+ */
 public class ControlTab extends Tab{
 	static JPanel currentPanel = new JPanel();
 	
@@ -27,7 +32,10 @@ public class ControlTab extends Tab{
 		
 		return currentPanel;
 	}
-	//potentially use reflection to create the classes
+	/**
+	 * Sets the corresponding panel to show on this tab 
+	 * @param panel
+	 */
 	public static void setValidate(String panel) {
 		currentPanel.removeAll();
 		currentPanel.updateUI();
@@ -37,15 +45,6 @@ public class ControlTab extends Tab{
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		/*if(panel.equals("LogIn")){
-			currentPanel.add(new LogInPanel());
-		}
-		if(panel.equals("SignUp")){
-			currentPanel.add(new SignUpPanel());
-		}
-		if(panel.equals("Admin")){
-			currentPanel.add(new AdminPanel());
-		}*/
 		currentPanel.validate();
 	}
 	/**

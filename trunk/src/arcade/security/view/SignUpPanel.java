@@ -28,7 +28,7 @@ import arcade.security.util.SignUpHandler;
  * @author Jiaqi Yan
  *
  */
-public class SignUpPanel extends JPanel{
+public class SignUpPanel extends ViewState{
 	
 	JProgressBar progressbar;
 	private JTextField usernameField,questionField;
@@ -88,7 +88,7 @@ public class SignUpPanel extends JPanel{
 		addListeners();
 	}
 	
-	private void addListeners(){
+	protected void addListeners(){
 		submitButton.addActionListener(new SubmitListener());
 	}
 	
@@ -111,7 +111,6 @@ public class SignUpPanel extends JPanel{
 			questionAnswer = questionField.getText();
 			SignUpHandler.createNewUser(username,pwd_1,questionIndex,questionAnswer);
 		}
-		
 		
 	}
 	
