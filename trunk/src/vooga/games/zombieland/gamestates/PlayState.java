@@ -231,6 +231,7 @@ public class PlayState extends GameState implements Constants {
 	 * Stop the game altogether
 	 */
 	private void endGame() {
+		currentGame.updateHighScore((double)player.getScore().getStat());
 		currentGame.end();
 	}
 
