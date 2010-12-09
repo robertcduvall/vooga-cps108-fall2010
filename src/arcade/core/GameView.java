@@ -90,7 +90,6 @@ public class GameView extends JPanel {
 						}
 					};
 					worker.execute();
-				
 			}
 		});
 		return start;

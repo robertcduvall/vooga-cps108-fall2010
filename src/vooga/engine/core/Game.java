@@ -35,6 +35,7 @@ public class Game extends com.golden.gamedev.Game {
 	protected LevelParser levelParser;
 	protected PlayField myCurrentLevel;
 	protected GameState myPlayState;
+	protected double finalScore;
 	//private static final int INITIAL_LEVEL = 1;
 
 	private static final int DEFAULT_WIDTH = 600;
@@ -198,7 +199,12 @@ public class Game extends com.golden.gamedev.Game {
 		return getClass().getPackage().getName() + ".resources.";
 	}
 
-	protected void updateHighScore(double score) {
+	public void updateHighScore(double score) {
+		finalScore = score;
+	}
+	
+	public double getHighScore() {
+		return finalScore;
 		
 	}
 	/**
