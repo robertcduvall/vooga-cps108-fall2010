@@ -127,7 +127,7 @@ public class LogInFrame extends JFrame {
 				UserService userService = UserServiceFactory.getUserService();
 				User user = userService.getCurrentUser();
 				user.setUserAs("admin");
-				System.out.println(user.getRole());
+				System.out.println("Current User role: "+user.getRole());
 				
 				try {
 					MainFrame main = new MainFrame();
@@ -216,7 +216,7 @@ public class LogInFrame extends JFrame {
 		}
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
-		System.out.println(user.getRole());
+		System.out.println("Current User role: "+user.getRole());
 		new LogInFrame();
 	}
 }
