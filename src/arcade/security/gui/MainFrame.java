@@ -12,6 +12,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import arcade.security.UserServiceUtil.User;
+import arcade.security.UserServiceUtil.UserService;
+import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.etc.SecurityFrameData;
 import arcade.security.etc.SecurityFrameProperties;
 import arcade.security.exceptions.UserConfigurationNotFoundException;
@@ -42,7 +45,10 @@ public class MainFrame extends JFrame {
 		add(desktop);
 		createMenu();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		System.out.println(user.getRole());
+		
 		setVisible(true);
 
 

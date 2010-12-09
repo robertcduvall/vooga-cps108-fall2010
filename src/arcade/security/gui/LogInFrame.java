@@ -7,6 +7,9 @@ import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
 
+import arcade.security.UserServiceUtil.User;
+import arcade.security.UserServiceUtil.UserService;
+import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
@@ -121,6 +124,10 @@ public class LogInFrame extends JFrame {
 			username=usernameField.getText();
 			password=passwordField.getPassword();
 			if(checkPassword(null)){
+				UserService userService = UserServiceFactory.getUserService();
+				User user = userService.getCurrentUser();
+				user.setUserAs("admin");
+				System.out.println(user.getRole());
 				
 				try {
 					MainFrame main = new MainFrame();
@@ -207,6 +214,9 @@ public class LogInFrame extends JFrame {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		System.out.println(user.getRole());
 		new LogInFrame();
 	}
 }
