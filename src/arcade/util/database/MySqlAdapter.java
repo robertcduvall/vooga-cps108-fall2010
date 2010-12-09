@@ -18,6 +18,7 @@ import java.util.Map;
  * @author David Herzka
  * @author Andrew Brown
  * @author Justin Goldsmith
+ * @author Yang Su
  */
 public class MySqlAdapter implements DatabaseAdapter {
 
@@ -63,7 +64,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 		try {
 			final String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver); // registration of the driver
-			myDBConnection = DriverManager.getConnection(myURL, myUser, myPassword);
+			myDBConnection = DriverManager.getConnection(myURL, myUser,
+					myPassword);
 		} catch (Exception x) {
 			System.out.println("Connection failed");
 			System.out.println(x);
@@ -71,31 +73,28 @@ public class MySqlAdapter implements DatabaseAdapter {
 		}
 		return true;
 	}
-	
-	private void refreshConnection(){
-		try{
+
+	private void refreshConnection() {
+		try {
 			System.out.println("Checking connection");
-			if(myDBConnection.isClosed()){
+			if (myDBConnection.isClosed()) {
 				connect();
 				System.out.println("Connection re-established");
-			}
-			else{
+			} else {
 				System.out.println("Connection was still fine");
 			}
-		}
-		catch(SQLException x){
-			System.out.println("Problem checking connection: "+x);
+		} catch (SQLException x) {
+			System.out.println("Problem checking connection: " + x);
 		}
 	}
-	
-	private void closeConnection(){
-	    if (myDBConnection != null) 
-	    	try { 
-	    		myDBConnection.close(); 
-	    	} 
-	    catch (SQLException x) {
-	    	System.out.println("Problem closing connection: "+x);
-	    }
+
+	private void closeConnection() {
+		if (myDBConnection != null)
+			try {
+				myDBConnection.close();
+			} catch (SQLException x) {
+				System.out.println("Problem closing connection: " + x);
+			}
 
 	}
 
@@ -167,14 +166,56 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public List<Map<String, String>> getRows(String tableName,
 			Map<String, String> conditions) {
+		String conditional = createConditional(conditions);
+		String query = "SELECT * FROM " + tableName + " WHERE " + conditional;
+		return getRows(query);
+	}
+
+	/**
+	 * Get rows as the result of a customizable query
+	 * 
+	 * @param tableName
+	 *            name of the table to get data from
+	 * @param conditions
+	 *            a specified set of "field = 'value'" conditionals
+	 * @param sortBy
+	 *            the column of data by which the query is sorted
+	 * @param ascending
+	 *            true means sort the result in ascending order, false means
+	 *            descending order
+	 * @param number
+	 *            a limit on the number of results returned
+	 * @param cols
+	 *            (Optional) a variable parameter list to specify what columns
+	 *            to choose from
+	 * @return
+	 */
+	public List<Map<String, String>> getRows(String tableName,
+			Map<String, String> conditions, String sortBy, boolean ascending,
+			int number, String... cols) {
+		String conditional = createConditional(conditions);
+		String columns = createColumnSelection(cols);
+		String query = "SELECT " + columns + " FROM " + tableName + " WHERE "
+				+ conditional + " ORDER BY " + sortBy + " "
+				+ ((ascending) ? "ASC" : "DESC") + " LIMIT 0 , " + number;
+		return getRows(query);
+	}
+
+	/**
+	 * Gets a set of rows from the database using a query
+	 * 
+	 * @param query
+	 *            query sent to the database for data selection
+	 * @return A list of maps of field names to values for each row or null if
+	 *         the query fails
+	 */
+	public List<Map<String, String>> getRows(String query) {
 		refreshConnection();
 		ResultSet rs;
 		Map<String, String> map;
 		List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
 		try {
-			String conditional = createConditional(conditions);
-			String sql = "SELECT * FROM " + tableName + " WHERE " + conditional;
-			PreparedStatement ps = myDBConnection.prepareStatement(sql);
+			PreparedStatement ps = myDBConnection.prepareStatement(query);
 			ps.executeQuery();
 			rs = ps.getResultSet();
 			while (rs.next()) {
@@ -195,6 +236,27 @@ public class MySqlAdapter implements DatabaseAdapter {
 		}
 		closeConnection();
 		return maps;
+	}
+
+	/**
+	 * Generate the select statement for a query from a list of columns. if an
+	 * empty list is passed in, the select statement becomes *, which means
+	 * select all
+	 * 
+	 * @param cols
+	 *            a list of columns
+	 * @return select statement for a query
+	 */
+	private String createColumnSelection(String[] cols) {
+		String columns = "";
+		if (cols.length == 0)
+			columns = "*";
+		else {
+			for (String col : cols) {
+				columns += "," + col;
+			}
+		}
+		return columns.substring(1);
 	}
 
 	/**
