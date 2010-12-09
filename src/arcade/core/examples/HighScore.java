@@ -11,6 +11,7 @@ public class HighScore extends Window {
 	private String gameName;
 	public HighScore(String gn) {
 		super(300, 120);
+		setLocation(300,300);
 		gameName=gn;
 	}
 
