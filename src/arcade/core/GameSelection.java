@@ -12,9 +12,7 @@ import javax.swing.*;
 import vooga.engine.core.Game;
 
 public class GameSelection extends Tab {
-	private static String[] gameNames = { "asteroids", "cyberion", 
-
-		"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
+	private static String[] gameNames = { "asteroids", "cyberion", "doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
 		"towerdefense", "zombieland" };
 	public static JPanel panel;
 	public static JTextField searchArea;
@@ -90,10 +88,11 @@ public class GameSelection extends Tab {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			searchTerms = searchArea.getText().split(" ");
+//			searchTerms = searchArea.getText();
 			panel.removeAll();
 			panel.setLayout(new GridLayout(0,3));
 			panel.add(addSearchFunction());
-
+			
 			try {
 				for (String game : gameNames)
 				{
@@ -103,10 +102,12 @@ public class GameSelection extends Tab {
 					{
 						for (String term : searchTerms)
 						{
-							if (tag.equals(term.toLowerCase())){
+							if (tag.contains(term.toLowerCase())){
 								panel.add(createItem(game));
+								break;
 							}
 						}
+						break;
 					}
 				}
 				if (panel.getComponents().length <=1)
@@ -116,7 +117,8 @@ public class GameSelection extends Tab {
 			catch (Throwable e1) {
 				e1.printStackTrace();
 			}
-
+			
+			panel.repaint();
 		}
 
 	}
@@ -132,7 +134,6 @@ public class GameSelection extends Tab {
 		panel.removeAll();
 		panel.add(addSearchFunction());
 		for (String name : gameNames) {
-			
 			panel.add(createItem(name));
 		}
 	}

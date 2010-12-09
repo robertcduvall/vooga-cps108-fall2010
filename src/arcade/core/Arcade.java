@@ -15,9 +15,9 @@ import javax.swing.*;
  */
 @SuppressWarnings("serial")
 public class Arcade extends JFrame {
-	private static final String delimiter = ",";
-	private static final int defaultXSize = 1000;
-	private static final int defaultYSize = 750;
+	private static final String DELIMITER = ",";
+	private static final int XSIZE = 1000;
+	private static final int YSIZE = 750;
 
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
@@ -30,7 +30,7 @@ public class Arcade extends JFrame {
 		mainWindow.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		add(mainWindow);
 
-		setSize(defaultXSize, defaultYSize);
+		setSize(XSIZE, YSIZE);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -44,8 +44,8 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-		// JPanel main = createArcadeView();
-		// everything.addTab("Arcade", null, main, "Arcade Main View");
+		 JPanel main = createArcadeView();
+		 everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
@@ -145,7 +145,7 @@ public class Arcade extends JFrame {
 	 */
 	private String[] getSet(String name) {
 		String value = resources.getString(name);
-		return value.split(delimiter);
+		return value.split(DELIMITER);
 	}
 
 	/**
