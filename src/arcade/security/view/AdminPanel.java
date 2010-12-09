@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class AdminPanel extends JPanel{
+public class AdminPanel extends ViewState{
 	JLabel adminUserName; 
 	private JButton LogoutButton;
 	
@@ -24,7 +24,7 @@ public class AdminPanel extends JPanel{
 		add(LogoutButton,"cell 1 0");
 		addListeners();
 	}
-	private void addListeners(){
+	protected void addListeners(){
 		LogoutButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

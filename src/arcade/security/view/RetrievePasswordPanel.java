@@ -5,9 +5,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class RetrievePasswordPanel extends JPanel{
+public class RetrievePasswordPanel extends ViewState{
 	
 	public RetrievePasswordPanel(){
+		
+	}
+	protected void addListeners(){
 		
 	}
 	
