@@ -35,11 +35,11 @@ public class HighScoreControl {
 	 *            score
 	 * @return true if successful, false otherwise
 	 */
-	public boolean addScore(String player, String gameName, String score) {
+	public boolean addScore(String player, String gameName, double score) {
 		Map<String, String> row = new HashMap<String, String>();
 		row.put("Player", player);
 		row.put("Game", gameName);
-		row.put("Score", score);
+		row.put("Score", score+"");
 		return myDbAdapter.insert(myTable, row);
 	}
 	

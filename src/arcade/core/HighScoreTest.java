@@ -27,7 +27,7 @@ public class HighScoreTest {
 			System.out.println(playerNames[playerIndex] + ","
 					+ gameNames[gameIndex] + "," + score);
 			hsu.addScore(playerNames[playerIndex], gameNames[gameIndex],
-					score + "");
+					score);
 		}
 	}
 

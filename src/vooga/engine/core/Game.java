@@ -198,6 +198,9 @@ public class Game extends com.golden.gamedev.Game {
 		return getClass().getPackage().getName() + ".resources.";
 	}
 
+	protected void updateHighScore(double score) {
+		
+	}
 	/**
 	 * Launches the game using default or given settings. The game width,
 	 * height, and fullscreen option are stored in a file called

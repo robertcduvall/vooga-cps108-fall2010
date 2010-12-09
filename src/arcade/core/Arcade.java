@@ -18,13 +18,12 @@ public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
 	private static final int XSIZE = 1000;
 	private static final int YSIZE = 750;
-
+	
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
 			.getBundle("arcade.core.componentList");
 
 	private static JTabbedPane mainWindow;
-
 	public Arcade() {
 		mainWindow = createTabs();
 		mainWindow.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -104,7 +103,7 @@ public class Arcade extends JFrame {
 			}
 		}
 	}
-
+	
 	/**
 	 * TODO
 	 * 
