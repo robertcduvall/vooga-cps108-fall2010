@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import arcade.core.examples.HighScore;
 import arcade.util.database.Constants;
 
 /**
@@ -18,16 +19,18 @@ import arcade.util.database.Constants;
  * 
  */
 public class ExampleGUI extends Tab {
-	HighScoreControl hsu = new HighScoreControl(Constants.HOST,
+	static HighScoreControl hsu = new HighScoreControl(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
 			"HighScores");
 	private Toolkit tk;
 
 	private static String gameName = "zombieland";
+	private static String playerName = "Guest";
 	private static JPanel content;
 	private static JSplitPane columnar;
-
+	private static double score;
 	public ExampleGUI() {
+		score=0;
 		tk = Toolkit.getDefaultToolkit();
 		setName("Arcade");
 		setToolTipText("Arcade main view");
@@ -59,6 +62,15 @@ public class ExampleGUI extends Tab {
 		System.out.println(gameName);
 	}
 
+	public static void updateHighScore(double highScore) {
+		score=highScore;
+		new HighScore(gameName);
+	}
+
+	public static void addHighScore() {
+		hsu.addScore(gameName,playerName, score);
+	}
+	
 	// makes the left hand side panel
 	private JComponent makeLeftPanel() {
 		JPanel left = new JPanel();
