@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
-		System.out.println(user.getRole());
+		System.out.println("Current User role: "+user.getRole());
 		
 		setVisible(true);
 
