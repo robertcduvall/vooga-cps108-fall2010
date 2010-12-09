@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="sqlite4java-201/sqlite4java-win32-x86.dll"/>
 	<classpathentry kind="lib" path="sqlite4java-201/sqlite4java.jar"/>
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
