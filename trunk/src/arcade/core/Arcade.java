@@ -44,8 +44,8 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-		 JPanel main = createArcadeView();
-		 everything.addTab("Arcade", null, main, "Arcade Main View");
+//		 JPanel main = createArcadeView();
+//		 everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;

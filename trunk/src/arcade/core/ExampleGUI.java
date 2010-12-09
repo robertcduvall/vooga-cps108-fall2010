@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import arcade.util.database.Constants;
+
 /**
  * This is the example GUI for arcade. It contains scrollable and adjustable
  * panels for the game splash screen, instructions, avatar display, friend lobby
@@ -16,7 +18,9 @@ import javax.swing.*;
  * 
  */
 public class ExampleGUI extends Tab {
-
+	HighScoreControl hsu = new HighScoreControl(Constants.HOST,
+			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
+			"HighScores");
 	private Toolkit tk;
 
 	private static String gameName = "zombieland";
@@ -82,6 +86,8 @@ public class ExampleGUI extends Tab {
 		left.add(rateThis);
 		left.add(label);
 		left.add(separator);
+		left.add(Components.getGameHighScoresPanel(gameName,5));
+		left.add(separator);
 		left.add(rateOthers);
 		left.add(moreLabels);
 
@@ -109,15 +115,18 @@ public class ExampleGUI extends Tab {
 		JPanel playerAvatar = new JPanel();
 		playerAvatar.setLayout(new BoxLayout(playerAvatar, BoxLayout.Y_AXIS));
 		playerAvatar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		JLabel playerName = new JLabel("Player Avatar");
+		JLabel playerName = new JLabel("Guest Avatar");
 		playerAvatar.add(playerName);
 		playerAvatar.add(label);
-
+		playerAvatar.add(Components.getPlayerHighScoresPanel("Guest",5));	
+		
 		JPanel lobby = new JPanel();
 		lobby.setLayout(new BoxLayout(lobby, BoxLayout.Y_AXIS));
 		lobby.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		JLabel lobbyFriends = new JLabel("You have 0 friends");
-		lobby.add(lobbyFriends);
+		lobby.add(new JLabel("Friends"));
+		lobby.add(Components.getHighScoresPanel("PlayerA",gameName,2));
+		lobby.add(Components.getHighScoresPanel("PlayerB",gameName,2));
+		lobby.add(Components.getHighScoresPanel("PlayerC",gameName,2));
 
 		JLabel moreLabels = new JLabel(icon);
 		lobby.add(moreLabels);
@@ -140,4 +149,5 @@ public class ExampleGUI extends Tab {
 
 		return right;
 	}
+	
 }
