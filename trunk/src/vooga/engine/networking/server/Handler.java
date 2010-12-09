@@ -3,9 +3,11 @@ package vooga.engine.networking.server;
 import vooga.engine.networking.GameSocket;
 
 /**
- * Class that handles communicating over the network.  Handler extends Thread and has a socket to send and receive chats through as well as a session ID
- * to group Handlers that are part of the same game session.  Subclasses will need to override the run method to put the code that sends and receives
- * messages using the socket.
+ * Class that handles communicating over the network.  Handler extends 
+ * Thread and has a socket to send and receive chats through as well as 
+ * a session ID to group Handlers that are part of the same game session.  
+ * Subclasses will need to override the run method to put the code that 
+ * sends and receives messages using the socket.
  * 
  * @author Cue, Kolodziejzyk, Townsend
  * @version 1.0
@@ -36,7 +38,7 @@ public abstract class Handler extends Thread{
 	public abstract void run();
 	
 	/**
-	 * @return the id of this handler's game session.
+	 * @return the ID of this handler's game session.
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
