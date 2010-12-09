@@ -66,7 +66,6 @@ public class TicTacToe extends Game {
 	}
 	
 	public void switchToState (GameState gs) {
-		System.out.println("switchToState");
 		stateManager.switchTo(gs);
 	}
 
