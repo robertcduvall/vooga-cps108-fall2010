@@ -89,7 +89,7 @@ public class GameSocket extends Thread{
 		}
 	}
 	
-	public Socket getSocket(){
+	public Socket getSocket () {
 		return socket;
 	}
 
