@@ -135,7 +135,7 @@ public class LogInPanel extends Tab{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//controller.validatePanelSwitch("arcade.security.view.RetrievePasswordPanel");
-				//controller.switchToForgetPasswordPage();
+				controller.switchToForgetPasswordPage();
 			}
 		});
 		
