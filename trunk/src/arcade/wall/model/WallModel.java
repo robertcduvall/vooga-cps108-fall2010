@@ -1,5 +1,8 @@
 package arcade.wall.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * WallModel is the Wall entity that deals with the handling of Comment data, which is stored in an online database.
  * @author John, Cam, Bhawana
@@ -71,5 +74,51 @@ public class WallModel {
 	
 	public CommentSet getCommentSet() {
 		return this.myCommentSet;
+	}
+	
+	
+	/**
+	 * Returns all Comments related to a game.
+	 * @param gameName - game for which we want the comments
+	 * @return a List of all the comments for the specified game
+	 */
+	public List<Comment> getGameComments(String gameName) {
+		List<Comment> gameComments = new ArrayList<Comment>();
+		for(Comment comment: myCommentSet){
+			if (comment.getGameName().equals(gameName)){
+				gameComments.add(comment);
+			}
+		}
+		return gameComments;
+	}
+	
+	/**
+	 * Returns all Comments related to a game.
+	 * @param userName - user whose comments we are interested in
+	 * @return a List of all the comments entered by the specified user
+	 */
+	public List<Comment> getUserComments(String userName) {
+		List<Comment> userComments = new ArrayList<Comment>();
+		for(Comment comment: myCommentSet){
+			if (comment.getUserName().equals(userName)){
+				userComments.add(comment);
+			}
+		}
+		return userComments;
+	}
+	
+	/**
+	 * Returns the average rating for the specified game.
+	 * @param gameName - game whose rating is needed
+	 * @return average rating for the specified game
+	 */
+	public double getGameRating(String gameName) {
+		double rating = 0;
+		List<Comment> gameComments = getGameComments(gameName);
+		for(Comment comment: gameComments){
+			rating += Integer.parseInt(comment.getRating());
+		}
+		rating /= gameComments.size();
+		return rating;
 	}
 }
