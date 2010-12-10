@@ -1,5 +1,7 @@
 package arcade.store.gui;
 
+import java.awt.ComponentOrientation;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +24,7 @@ public class CredditPurchaseView extends Window {
 	private static final String CREDDITS_ADDED_STRING = "Creddits Added to Your Account!";
 
 	public CredditPurchaseView() {
-		super(500, 250);
+		super(500, 100);
 		setName("Purchase Creddits");
 	}
 
@@ -31,7 +33,7 @@ public class CredditPurchaseView extends Window {
 		
 		JPanel panel = new JPanel();
 		JLabel messageLabel=new JLabel("Enter Number of Creddits:");
-		JTextField credditsTextField = new JTextField("");
+		JTextField credditsTextField = new JTextField("       ");
 		JLabel credditsAddedLabel = new JLabel("");
 		
 		JButton addCredditsButton = new JButton("Add Creddits");
@@ -41,26 +43,22 @@ public class CredditPurchaseView extends Window {
 			}
 		});
 		
-		JButton close=new JButton("Close");
-		close.addActionListener(new ActionListener() {
+		JButton backToStoreButton=new JButton("View Store");
+		backToStoreButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 		        dispose();
 			}
 		});
 		
-		messageLabel.setAlignmentX(CENTER_ALIGNMENT);
-		close.setAlignmentX(CENTER_ALIGNMENT);
-		
+		panel.setLayout(new FlowLayout());
 		panel.add(messageLabel);
 		panel.add(credditsTextField);
 		panel.add(addCredditsButton);
 		panel.add(credditsAddedLabel);
-		panel.add(close);
-		pack();
-		
-		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-		
+		panel.add(backToStoreButton);
+		panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+				
 		add(panel);
 	}
 
