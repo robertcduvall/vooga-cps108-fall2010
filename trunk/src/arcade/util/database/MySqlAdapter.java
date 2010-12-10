@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
  * @author Andrew Brown
  * @author Justin Goldsmith
  * @author Yang Su
- * @author Meng Li
  */
 public class MySqlAdapter implements DatabaseAdapter {
 	
