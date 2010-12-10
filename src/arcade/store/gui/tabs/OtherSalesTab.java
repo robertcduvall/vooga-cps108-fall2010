@@ -1,4 +1,4 @@
-package arcade.store.gui.subtabs;
+package arcade.store.gui.tabs;
 
 public class OtherSalesTab {
 

@@ -1,4 +1,4 @@
-package arcade.store.gui.guitabs;
+package arcade.store.gui.tabs;
 
 import javax.swing.JPanel;
 
@@ -16,7 +16,7 @@ import javax.swing.JList;
 
 import arcade.core.Tab;
 
-public class MyCheckoutGUI extends Tab{
+public class CheckoutTab extends Tab{
 
 	private JPanel myCheckOutTab = null;  //  @jve:decl-index=0:visual-constraint="199,58"
 	private JLabel checkoutLabel = null;
@@ -36,7 +36,7 @@ public class MyCheckoutGUI extends Tab{
 	 * @return javax.swing.JPanel	
 	 */
 	
-	public MyCheckoutGUI()
+	public CheckoutTab()
 	{
 		setName("My Checkouts");
 	}
