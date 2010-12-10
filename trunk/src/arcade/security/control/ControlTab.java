@@ -15,6 +15,8 @@ import arcade.security.view.*;
  *
  */
 public class ControlTab extends Tab{
+	
+	private static final long serialVersionUID = 1L;
 	static JPanel currentPanel = new JPanel();
 	
 	public ControlTab(){

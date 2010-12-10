@@ -1,19 +1,18 @@
 package arcade.security.UserServiceUtil;
 /**
- * UserService will take care of creating user and userService. Beta Version
+ * Beta Version
  * 
  * @author Meng Li
  *
  */
-public class UserService {
+public abstract interface UserService {
 	
-	private static User user = new User();
 	
-	public User getCurrentUser(){
-		return user;
-	}
 	
-	public void setUserAs(String type){
-		user.setUserAs(type);
-	}
+	public User getCurrentUser();
+	
+	public void setUserAs(String type);
+	
+	public void getUserId();
+
 }

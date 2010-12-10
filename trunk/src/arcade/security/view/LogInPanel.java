@@ -2,6 +2,8 @@ package arcade.security.view;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -11,16 +13,24 @@ import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.LogInHandler;
 import net.miginfocom.swing.MigLayout;
+import arcade.security.UserServiceUtil.User;
+import arcade.security.UserServiceUtil.UserService;
+import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.control.*;
+import arcade.util.database.MySqlAdapter;
 
 /**
  * Log In Panel. 
  * @author Jiaqi Yan
+ * @atthor Meng Li
  *
  */
 public class LogInPanel extends ViewState{
+	
+	private static final long serialVersionUID = 1L;
+	private final static Logger log=Logger.getLogger(LogInPanel.class);
 	private JButton submitButton;
-	private JButton cancelButton;
+	private JButton logoutButton;
 	private JButton signUpButton;
 	private JButton forgotPasswordButton;
 	private JTextField usernameField;
@@ -46,7 +56,7 @@ public class LogInPanel extends ViewState{
 		add(passwordField,"wrap");
 		
 		submitButton = new SecurityButton(LabelResources.getLabel("LoginframeSubmit"),new ImageIcon(StaticFileResources.getPath("loginsubmit")),"Log in");
-		cancelButton = new SecurityButton(LabelResources.getLabel("LoginframeCancel"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
+		logoutButton = new SecurityButton(LabelResources.getLabel("Logout"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
 		signUpButton = new SecurityButton(LabelResources.getLabel("LoginframeSignup"),"SignUp");
 		forgotPasswordButton = new SecurityButton(LabelResources.getLabel("LoginframeForgot"),"ForgottenPassword");
 		
@@ -55,7 +65,7 @@ public class LogInPanel extends ViewState{
 		submitButton.requestFocus(true);
 		
 		add(submitButton,"");
-		add(cancelButton,"wrap");
+		add(logoutButton,"wrap");
 		add(signUpButton);
 		add(forgotPasswordButton);
 		
@@ -72,10 +82,13 @@ public class LogInPanel extends ViewState{
 			}	
 		});
 		
-		cancelButton.addActionListener(new ActionListener(){
+		logoutButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);					
+				UserService userService = UserServiceFactory.getUserService();
+				User user = userService.getCurrentUser();
+				user.setUserAs("default");
+				log.info("Current User role: "+user.getRole());			
 			}				
 		});
 		
@@ -95,10 +108,14 @@ public class LogInPanel extends ViewState{
 			password = passwordField.getPassword();
 			if(!LogInHandler.userNameExists(username)){
 				JOptionPane.showMessageDialog(ControlTab.getPanel(),"Username does not exist");
+				usernameField.selectAll();
+				usernameField.requestFocus(true);
 				return;
 			}
 			if(!LogInHandler.isPasswordValid(username, password)){
 				JOptionPane.showMessageDialog(ControlTab.getPanel(),"Password is not valid");
+				passwordField.selectAll();
+				passwordField.requestFocus(true);
 				return;
 			}
 			JOptionPane.showMessageDialog(ControlTab.getPanel(),"Successfully logged in!");
