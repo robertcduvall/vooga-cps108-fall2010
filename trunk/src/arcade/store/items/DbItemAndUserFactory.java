@@ -10,13 +10,8 @@ import arcade.util.database.MySqlAdapter;
 
 public class DbItemAndUserFactory {
 	
-	private static final String host = "voogaarcade.db.7093929.hostedresource.com";
-	private static final String dbName = "voogaarcade";
-	private static final String user = dbName;
-	private static final String pass = "Vooga108";
 	
-	
-	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter(host, dbName, user, pass);
+	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
 	public static Map<String, IItemInfo> getAllItems(String table) {
 		List<Map<String, String>> list = dbAdapter.getAllRows(table);

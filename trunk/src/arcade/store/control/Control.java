@@ -2,8 +2,11 @@ package arcade.store.control;
 
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import arcade.store.StoreModel;
 import arcade.store.gui.GamePurchaseView;
+import arcade.store.gui.ItemThumbnailPanel;
 import arcade.store.gui.MainPageView;
 import arcade.store.items.IItemInfo;
 
@@ -34,13 +37,16 @@ public class Control {
 
 		view.getGameList().removeAll();
 		view.getGameList().revalidate();
+		JPanel gamePanel = view.getGameList();
+		view.remove(gamePanel);
 
 		for (IItemInfo i : list) {
-			view.addGameToList(i.getTitle(), i.getPrice(), i.getGenre(), i
-					.getImages().get(0));
+			ItemThumbnailPanel itemPanel = new ItemThumbnailPanel(i.getTitle(), i.getPrice(), i.getGenre(), i
+					.getImages().get(0), this);
+			gamePanel.add(itemPanel);
 		}
 		
-		view.getGameList().revalidate();
+		view.getJScrollPane().setViewportView(gamePanel);
 
 	}
 

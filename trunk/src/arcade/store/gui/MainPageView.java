@@ -6,23 +6,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.*;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ResourceBundle;
-
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-
 import arcade.core.Tab;
-import arcade.core.GameSelection.buttonActionListener;
 import arcade.store.StoreModel;
 import arcade.store.control.Control;
 
@@ -32,21 +23,14 @@ public class MainPageView extends Tab {
 	private static final String CREDDIT_STRING = " Creddits";
 	private static final int GAME_NAME_COLUMN = 0;
 
-	private JFrame jFrame = null; // @jve:decl-index=0:visual-constraint="55,18"
 	private JPanel jContentPane = null;
 	private JList genreList = null;
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
-	private JTable gameListTable = null;
 	private JPanel gameList = null;
 	private Control controller; // @jve:decl-index=0:
 
-	public MainPageView(Control control) {
-		controller = control;
-		JFrame frame = getJFrame();
-		frame.setVisible(true);
-	}
-
+	
 	public MainPageView() {
 		setName("Browse Catalogue");
 		controller = new Control();
@@ -54,19 +38,6 @@ public class MainPageView extends Tab {
 		controller.setView(this);
 	}
 
-	/**
-	 * This method initializes jFrame
-	 * 
-	 * @return javax.swing.JFrame
-	 */
-	private JFrame getJFrame() {
-		if (jFrame == null) {
-			jFrame = new JFrame();
-			jFrame.setSize(new Dimension(863, 412));
-			jFrame.setContentPane((JPanel) getContent());
-		}
-		return jFrame;
-	}
 
 	/**
 	 * This method initializes jContentPane
@@ -111,7 +82,7 @@ public class MainPageView extends Tab {
 	 * 
 	 * @return javax.swing.JScrollPane
 	 */
-	private JScrollPane getJScrollPane() {
+	public JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
 			jScrollPane.setViewportView(getGameList());
@@ -119,26 +90,6 @@ public class MainPageView extends Tab {
 		return jScrollPane;
 	}
 
-	/**
-	 * This method initializes gameListTable
-	 * 
-	 * @return javax.swing.JTable
-	 */
-	public JTable getGameListTable() {
-		if (gameListTable == null) {
-			gameListTable = new JTable();
-			gameListTable.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					int row = getGameListTable().getSelectedRow();
-					String identifier = (String) getGameListTable().getValueAt(
-							row, GAME_NAME_COLUMN);
-					controller.openGamePage(identifier);
-				}
-			});
-		}
-
-		return gameListTable;
-	}
 
 	public JPanel getGameList() {
 		if (gameList == null) {
@@ -149,33 +100,6 @@ public class MainPageView extends Tab {
 
 	}
 
-	public void addGameToList(String name, String price, String genre,
-			ImageIcon image) {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-		JLabel title = new JLabel(name);
-		panel.setName(name);
-
-		JLabel icon = new JLabel(image);
-		JLabel genreLabel = new JLabel(genre);
-		JLabel priceLabel = new JLabel(price + CREDDIT_STRING);
-		icon.setSize(150, 150);
-
-		panel.add(title);
-		panel.add(icon);
-		panel.add(genreLabel);
-		panel.add(priceLabel);
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panel.validate();
-		panel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				String identifier = e.getComponent().getName();
-				controller.openGamePage(identifier);
-			}
-		});
-		getGameList().add(panel);
-	}
 
 	public void showMessageBox(String messageText) {
 

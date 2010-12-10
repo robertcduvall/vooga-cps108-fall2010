@@ -8,6 +8,12 @@ import java.util.*;
 
 
 public class StoreSqlAdapter extends MySqlAdapter {
+	
+
+	private static final String host = "voogaarcade.db.7093929.hostedresource.com";
+	private static final String dbName = "voogaarcade";
+	private static final String user = dbName;
+	private static final String pass = "Vooga108";
 
 	private static Connection myDBConnection;
 	
@@ -15,6 +21,10 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		super(host, dbName, user, pass);
 		String url = "jdbc:mysql://" + host + "/" + dbName;
 		connect(url, user, pass);
+	}
+	
+	public StoreSqlAdapter() {
+		this(host, dbName, user, pass);
 	}
 	
 	private boolean connect(String host, String user, String pass) {
