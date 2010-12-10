@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -53,6 +54,7 @@ public class SignUpPanel extends ViewState{
 	private String username;
 	private int questionIndex;
 	private String questionAnswer;
+	private JButton LoginPageButton;
 	
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
@@ -74,6 +76,7 @@ public class SignUpPanel extends ViewState{
 		questionField = new JTextField(maxAnswerLength);
 		passwordField=new JPasswordField(maxPasswordLength);
 		passwordFieldRep=new JPasswordField(maxPasswordLength);
+		LoginPageButton =  new SecurityButton(LabelResources.getLabel("GoBackLoginPageButton"));
 		submitButton = new SecurityButton(LabelResources.getLabel("SignUpButton"));
 		
 		ResourceBundle questions = ResourceBundle.getBundle(QUESTIONS);
@@ -92,6 +95,14 @@ public class SignUpPanel extends ViewState{
 	
 	protected void addListeners(){
 		submitButton.addActionListener(new SubmitListener());
+		LoginPageButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				controller.switchToLogInPage();
+			}
+			
+		});
 	}
 	
 	private class SubmitListener implements ActionListener{
@@ -127,7 +138,7 @@ public class SignUpPanel extends ViewState{
 		add(passwordField,"cell 1 2,wrap");
 		add(passwordFieldRep,"cell 1 3,wrap");
 		add(submitButton, "cell 1 5, wrap");
-		
+		add(LoginPageButton,"cell 0 5");
 		add(questionChoices,"cell 0 4");
 		add(questionField,"cell 1 4");
 	}

@@ -118,18 +118,6 @@ public class LogInPanel extends Tab{
 			}	
 		});
 		
-//		logoutButton.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				
-//				UserService userService = UserServiceFactory.getUserService();
-//				User user = userService.getCurrentUser();
-//				log.info("Before log out, Current User role: "+user.getRole());
-//				user.setUserAs("default");
-//				log.info("After log out, Current User role: "+user.getRole());
-//				controller.validatePanelSwitch("arcade.security.view.LogInPanel");
-//			}				
-//		});
 		
 		forgotPasswordButton.addActionListener(new ActionListener(){
 			@Override
