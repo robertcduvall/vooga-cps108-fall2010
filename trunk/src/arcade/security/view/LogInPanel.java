@@ -58,7 +58,6 @@ public class LogInPanel extends Tab{
 		controller.setView(this);
 		controller.setModel(new LoginProcessModel(controller));
 		setName("Log in page");
-		setToolTipText("Please log in here");
 	}
 	
 
@@ -72,7 +71,8 @@ public class LogInPanel extends Tab{
 	}
 	
 	private void createAndShowGUI() {
-		this.setPreferredSize(new Dimension(800, 600));
+	    //this.setPreferredSize(new Dimension(1000, 750));
+		//this.setLocation(1000, 300);
 		setLayout(new MigLayout());
 		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));
 		JLabel usernameLabel=new JLabel(LabelResources.getLabel("UserId"));		
@@ -138,6 +138,7 @@ public class LogInPanel extends Tab{
 		public void actionPerformed(ActionEvent e) {
 			username = usernameField.getText();
 			password = passwordField.getPassword();
+			//should be put in model
 //			if(!LogInHandler.userNameExists(username)){
 //				JOptionPane.showMessageDialog(getCurrentPanel(),"Username does not exist");
 //				usernameField.selectAll();
@@ -163,10 +164,7 @@ public class LogInPanel extends Tab{
 			}
 			else{
 				Arcade.switchToTab(0); 
-			}
-			
-			
-			
+			}	
 		}
 
 		private boolean isAdmin() {
