@@ -16,7 +16,7 @@ import vooga.games.tronupdate.collisions.*;
 import vooga.games.tronupdate.state.*;
 
 
-public class Main extends vooga.engine.core.Game{
+public class Blah extends vooga.engine.core.Game{
 	@Override
 	public void initResources() {
 		super.initResources();
@@ -52,6 +52,6 @@ public class Main extends vooga.engine.core.Game{
 	}
 
 	public static void main(String[] args) {
-		launch(new Main());
+		launch(new Blah());
 	}
 }
