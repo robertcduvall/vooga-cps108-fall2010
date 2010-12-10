@@ -29,7 +29,7 @@ public class AdminPanel extends JPanel{
 	public AdminPanel(Control controller){
 		this.controller = controller;
 		//controller.setModel(new LoginProcessModel(controller)); //this is necessary because it will match the model with the control and view
-		this.setName("Admin page");
+		this.setName("Admin page");  //useless,why?
 		setLayout(new MigLayout());
 		adminUserName = new JLabel("Uesr: Me. This is the Admin page. Currently under construction");
 		add(adminUserName,"cell 0 0");

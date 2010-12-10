@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 import arcade.security.model.LoginProcessModel;
 import arcade.security.view.AdminPanel;
 import arcade.security.view.LogInPanel;
+import arcade.security.view.SignUpPanel;
 
 public class Control {
 
 	
 	private LoginProcessModel model;
-	private JComponent view;
+	private JComponent view;  //or JPanel
 	
 	public void setModel(LoginProcessModel model){
 		this.model = model ;
@@ -35,12 +36,11 @@ public class Control {
 //	}
 	
 	public void switchToAdminPage(){
-		//view.removeAll();
-		//view.updateUI();
+
 		view.removeAll();
 		view.updateUI();
 		view.add(new AdminPanel(this));  //view = new AdminPanel(this)); won't work.
-		//view.validate();
+
 		
 	}
 	
@@ -48,8 +48,17 @@ public class Control {
 		view.removeAll();
 		view.updateUI();
 		view.add(new LogInPanel(this));
-		//view.validate();
+
 	}
+	
+	public void switchToSignUpPage(){
+		view.removeAll();
+		view.updateUI();
+		view.add(new SignUpPanel(this));
+
+	}
+	
+	
 //	Below might not be the best way to handle switching between different view, we will discuss.
 //	/**
 //	 * Sets the corresponding panel to show on this tab 
