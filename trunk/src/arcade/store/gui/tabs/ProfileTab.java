@@ -1,4 +1,4 @@
-package arcade.store.gui.guitabs;
+package arcade.store.gui.tabs;
 
 import javax.swing.JComponent;
 
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
-public class MyProfileTabGUI extends Tab{
+public class ProfileTab extends Tab{
 	
 	private static final String USER_AVATAR = "src/arcade/store/gui/resources/robert-duvall-avatar.jpg";
 	private static final String USER_NAME = "Robert Duvall";
@@ -34,7 +34,7 @@ public class MyProfileTabGUI extends Tab{
 	private JTable purchasedGamesTable = null;
 	private JLabel MyPurchasedGamesLabel = null;
 	
-	public MyProfileTabGUI()
+	public ProfileTab()
 	{
 		setName("My Shop Profile");
 	}

@@ -36,7 +36,6 @@ public class Control {
 	public void populateMainPage(List<IItemInfo> list) {
 
 		view.getGameList().removeAll();
-		view.getGameList().revalidate();
 		JPanel gamePanel = view.getGameList();
 		view.remove(gamePanel);
 
