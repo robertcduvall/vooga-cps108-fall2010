@@ -8,7 +8,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 import arcade.core.Arcade;
+import arcade.core.Tab;
 import arcade.security.gui.SecurityButton;
+import arcade.security.model.LoginProcessModel;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.LogInHandler;
@@ -25,12 +27,12 @@ import arcade.util.database.MySqlAdapter;
  * @atthor Meng Li
  *
  */
-public class LogInPanel extends ViewState{
+public class LogInPanel extends Tab{
 	
 	private static final long serialVersionUID = 1L;
 	private final static Logger log=Logger.getLogger(LogInPanel.class);
 	private JButton submitButton;
-	private JButton logoutButton;
+	//private JButton logoutButton;
 	private JButton signUpButton;
 	private JButton forgotPasswordButton;
 	private JTextField usernameField;
@@ -39,8 +41,38 @@ public class LogInPanel extends ViewState{
 	private int maxUserNameLength = 9;
 	private String username;
 	private char[] password;
+
+	
+	private Control controller;
+	
+	public LogInPanel(Control controller) {
+		this.controller = controller;
+		//controller.setView(this);
+		controller.setModel(new LoginProcessModel(controller));
+		setName("Log in page");
+		setToolTipText("Please log in here");
+		createAndShowGUI();
+	}
 	
 	public LogInPanel() {
+		controller = new Control();
+		controller.setView(this);
+		controller.setModel(new LoginProcessModel(controller));
+		setName("Log in page");
+		setToolTipText("Please log in here");
+	}
+	
+
+	
+
+	@Override
+	public JComponent getContent() {
+		//TODO:put it on the EDT thread, Meng will try to do this later
+		createAndShowGUI();
+		return this;
+	}
+	
+	private void createAndShowGUI() {
 		setLayout(new MigLayout());
 		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));
 		JLabel usernameLabel=new JLabel(LabelResources.getLabel("UserId"));		
@@ -56,71 +88,97 @@ public class LogInPanel extends ViewState{
 		add(passwordField,"wrap");
 		
 		submitButton = new SecurityButton(LabelResources.getLabel("LoginframeSubmit"),new ImageIcon(StaticFileResources.getPath("loginsubmit")),"Log in");
-		logoutButton = new SecurityButton(LabelResources.getLabel("Logout"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
-		signUpButton = new SecurityButton(LabelResources.getLabel("LoginframeSignup"),"SignUp");
-		forgotPasswordButton = new SecurityButton(LabelResources.getLabel("LoginframeForgot"),"ForgottenPassword");
+		//logoutButton = new SecurityButton(LabelResources.getLabel("Logout"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
+		signUpButton = new SecurityButton(LabelResources.getLabel("LoginframeSignup"),new ImageIcon(StaticFileResources.getPath("login_signup")),"SignUp");
+		forgotPasswordButton = new SecurityButton(LabelResources.getLabel("LoginframeForgot"),new ImageIcon(StaticFileResources.getPath("login_forget")),"ForgottenPassword");
 		
 		signUpButton.requestFocus(true);
 		forgotPasswordButton.requestFocus(true);
 		submitButton.requestFocus(true);
 		
 		add(submitButton,"");
-		add(logoutButton,"wrap");
+		//add(logoutButton,"wrap");
 		add(signUpButton);
 		add(forgotPasswordButton);
 		
 		addListeners();
-	}
 	
+		
+	}
+
+
 	protected void addListeners(){
 		submitButton.addActionListener(new SubmitEvent());
 		
 		signUpButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ControlTab.setValidate("arcade.security.view.SignUpPanel");
+				//controller.validatePanelSwitch("arcade.security.view.SignUpPanel");
+			//	controller.switchToSignUpPage();
 			}	
 		});
 		
-		logoutButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				UserService userService = UserServiceFactory.getUserService();
-				User user = userService.getCurrentUser();
-				user.setUserAs("default");
-				log.info("Current User role: "+user.getRole());			
-			}				
-		});
+//		logoutButton.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				UserService userService = UserServiceFactory.getUserService();
+//				User user = userService.getCurrentUser();
+//				log.info("Before log out, Current User role: "+user.getRole());
+//				user.setUserAs("default");
+//				log.info("After log out, Current User role: "+user.getRole());
+//				controller.validatePanelSwitch("arcade.security.view.LogInPanel");
+//			}				
+//		});
 		
 		forgotPasswordButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ControlTab.setValidate("arcade.security.view.RetrievePasswordPanel");
+				//controller.validatePanelSwitch("arcade.security.view.RetrievePasswordPanel");
+				//controller.switchToForgetPasswordPage();
 			}
 		});
 		
 	}	
+	
+	public JPanel getCurrentPanel(){
+		return this;
+	}
 	
 	private class SubmitEvent implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			username = usernameField.getText();
 			password = passwordField.getPassword();
-			if(!LogInHandler.userNameExists(username)){
-				JOptionPane.showMessageDialog(ControlTab.getPanel(),"Username does not exist");
-				usernameField.selectAll();
-				usernameField.requestFocus(true);
-				return;
+//			if(!LogInHandler.userNameExists(username)){
+//				JOptionPane.showMessageDialog(getCurrentPanel(),"Username does not exist");
+//				usernameField.selectAll();
+//				usernameField.requestFocus(true);
+//				return;
+//			}
+//			if(!LogInHandler.isPasswordValid(username, password)){
+//				JOptionPane.showMessageDialog(getCurrentPanel(),"Password is not valid");
+//				passwordField.selectAll();
+//				passwordField.requestFocus(true);
+//				return;
+//			}
+			JOptionPane.showMessageDialog(getCurrentPanel(),"Successfully logged in!");
+			if(isAdmin()){
+				controller.switchToAdminPage();
+				//controller.validatePanelSwitch("arcade.security.view.AdminPanel");
+				
 			}
-			if(!LogInHandler.isPasswordValid(username, password)){
-				JOptionPane.showMessageDialog(ControlTab.getPanel(),"Password is not valid");
-				passwordField.selectAll();
-				passwordField.requestFocus(true);
-				return;
+			else{
+				Arcade.switchToTab(0); 
 			}
-			JOptionPane.showMessageDialog(ControlTab.getPanel(),"Successfully logged in!");
-			ControlTab.setValidate("arcade.security.view.AdminPanel");
-			Arcade.switchToTab(0);
+			
+			
+			
+		}
+
+		private boolean isAdmin() {
+			return true;
 		}
 	}
+
 }
