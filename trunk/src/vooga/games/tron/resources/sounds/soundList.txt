@@ -1,2 +1,0 @@
-explosion,sounds/explosion.wav
-music,sounds/music.mid

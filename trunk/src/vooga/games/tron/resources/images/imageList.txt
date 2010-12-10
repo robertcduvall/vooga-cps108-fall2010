@@ -1,6 +1,0 @@
-lazer_blue,images/bluelazer.png
-lazer_yellow,images/yellowlazer.png
-lazer_green,images/greenlazer.png
-gamestart_image,images/gamestart.png
-gamepause_image,images/gamepause.png
-lazer_red,images/redlazer.png
