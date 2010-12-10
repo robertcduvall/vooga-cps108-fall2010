@@ -13,7 +13,7 @@ import vooga.engine.core.Game;
 
 public class GameSelection extends Tab {
 	private static String[] gameNames = { "asteroids", "cyberion", "doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
-		"towerdefense", "zombieland" };
+		"towerdefense", "tronupdate", "zombieland" };
 	public static JPanel panel;
 	public static JTextField searchArea;
 	public static String currentGame = "";
