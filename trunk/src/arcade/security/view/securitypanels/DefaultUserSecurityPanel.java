@@ -6,12 +6,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class LoginUserSecurityPanel extends JPanel{
-	
+public class DefaultUserSecurityPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 
-	public LoginUserSecurityPanel(){
-	    add(new JLabel("LogIn User Configuration"));
+	public DefaultUserSecurityPanel(){
+	    add(new JLabel("Default User Configuration"));
 		setBorder(BorderFactory.createLineBorder(Color.BLACK) );
 	}
 }
