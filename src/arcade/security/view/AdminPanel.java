@@ -13,15 +13,20 @@ import java.awt.event.*;
 
 
 public class AdminPanel extends ViewState{
-	JLabel adminUserName; 
+	
+	private static final long serialVersionUID = 1L;
+	private JLabel adminUserName; 
 	private JButton LogoutButton;
 	
 	public AdminPanel(){
 		setLayout(new MigLayout());
 		adminUserName = new JLabel("Uesr: Me. This is the Admin page. Currently under construction");
 		add(adminUserName,"cell 0 0");
-		LogoutButton = new SecurityButton(LabelResources.getLabel("LogoutButton"));
+		LogoutButton = new SecurityButton(LabelResources.getLabel("Logout"));
 		add(LogoutButton,"cell 1 0");
+		//
+		
+		//
 		addListeners();
 	}
 	protected void addListeners(){

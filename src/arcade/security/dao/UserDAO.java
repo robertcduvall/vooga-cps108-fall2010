@@ -7,6 +7,8 @@ import arcade.security.user.AbstractUser;
  * @author Meng Li
  *
  */
+//not useful right now
+@Deprecated
 public interface UserDAO {
 
 	public void insert(AbstractUser user);

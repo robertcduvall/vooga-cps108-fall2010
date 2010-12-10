@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
  *
  */
 public class LabelResources {
-	//the base name getBundle should look like this: meng_Inter.**.**.**
+
 	private static ResourceBundle rb = ResourceBundle.getBundle("arcade.security.resources.labels");	
 	public static String getLabel(String key){
 		try{		

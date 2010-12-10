@@ -7,21 +7,17 @@ import java.util.TreeMap;
  * @author Meng Li
  *
  */
-public class User {
+public class User implements UserService{  //or get rid of this user class, just use userId
 	
 	private Map<String,Boolean> map = new TreeMap<String,Boolean>();
 	
-	public User(){
+	protected User(){
 		map.put("admin", false);
 		map.put("developer", false);
 		map.put("login_user", false);
+		map.put("default", true);
 		
 	}
-//	private boolean admin = false;
-//	
-//	private boolean develoepr = false;
-//	
-//	private boolean login_user = false;
 	
 	public  void setUserAs(String type){//protected
 		for(String role : map.keySet()){
@@ -41,11 +37,26 @@ public class User {
 	public String getRole(){
 		for(String role : map.keySet()){
 			if(map.get(role)==true){
-				return role;
-				
-			}
-			
+				return role;	
+			}			
 		}
 		return "default";
 	}
+	
+	public boolean isLoggedin(){
+		return !map.get("default");
+	}
+	
+	
+	@Override
+	public User getCurrentUser() {   //return a user or userId?? Discussion
+		return this;
+	}
+
+	@Override
+	public void getUserId() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

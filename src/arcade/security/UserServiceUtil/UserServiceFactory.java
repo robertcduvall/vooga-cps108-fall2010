@@ -5,7 +5,7 @@ package arcade.security.UserServiceUtil;
  */
 public final class UserServiceFactory {
 	
-	private static UserService instance = new UserService();
+	private static UserService instance = new User();
 	
 	private UserServiceFactory(){
 		

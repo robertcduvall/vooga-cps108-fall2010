@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 /**
- * 
+ * This should be put in database later. 
  * @author Meng Li
  *
  */
