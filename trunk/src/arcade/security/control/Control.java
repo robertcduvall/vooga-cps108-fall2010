@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import arcade.security.model.LoginProcessModel;
 import arcade.security.view.AdminPanel;
 import arcade.security.view.LogInPanel;
+import arcade.security.view.RetrievePasswordPanel;
 import arcade.security.view.SignUpPanel;
 
 public class Control {
@@ -56,6 +57,12 @@ public class Control {
 		view.updateUI();
 		view.add(new SignUpPanel(this));
 
+	}
+
+	public void switchToForgetPasswordPage() {
+		view.removeAll();
+		view.updateUI();
+		view.add(new RetrievePasswordPanel(this));
 	}
 	
 	
