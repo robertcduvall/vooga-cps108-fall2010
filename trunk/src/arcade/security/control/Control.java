@@ -40,29 +40,33 @@ public class Control {
 
 		view.removeAll();
 		view.updateUI();
-		view.add(new AdminPanel(this));  //view = new AdminPanel(this)); won't work.
-
-		
+		JPanel jp = new AdminPanel(this);
+		view.add(jp);  //view = new AdminPanel(this)); won't work.
+	
 	}
 	
 	public void switchToLogInPage(){
 		view.removeAll();
 		view.updateUI();
-		view.add(new LogInPanel(this));
-
+		JPanel jp = new LogInPanel(this);
+		view.add(jp);
+	
 	}
 	
 	public void switchToSignUpPage(){
 		view.removeAll();
 		view.updateUI();
-		view.add(new SignUpPanel(this));
-
+		JPanel jp = new SignUpPanel(this);
+		view.add(jp);
+	
 	}
 
 	public void switchToForgetPasswordPage() {
 		view.removeAll();
 		view.updateUI();
-		view.add(new RetrievePasswordPanel(this));
+		JPanel jp = new RetrievePasswordPanel(this);
+		view.add(jp);
+
 	}
 	
 	

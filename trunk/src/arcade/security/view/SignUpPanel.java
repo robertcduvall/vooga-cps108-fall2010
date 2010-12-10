@@ -63,6 +63,7 @@ public class SignUpPanel extends ViewState{
 	
 	public SignUpPanel(Control controller){
 		this.controller = controller;
+		setName("Sign up");
 		setLayout(new MigLayout());
 		username_label=new JLabel(LabelResources.getLabel("AskForUserName"));		
 		pwd_label1=new JLabel(LabelResources.getLabel("AskForPwd"));

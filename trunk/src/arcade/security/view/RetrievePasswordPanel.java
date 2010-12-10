@@ -14,6 +14,7 @@ public class RetrievePasswordPanel extends ViewState{
 	
 	public RetrievePasswordPanel(Control controller){
 		this.controller = controller;
+		setName("Retrieve password");
 	}
 	protected void addListeners(){
 		

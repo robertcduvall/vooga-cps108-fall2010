@@ -25,23 +25,51 @@ public class AdminPanel extends JPanel{
 	private JLabel adminUserName; 
 	private JButton LogoutButton;
 	private Control controller;
+	private JScrollPane adminScollPane;
+	private JPanel userRolePane;
 	
 	public AdminPanel(Control controller){
 		this.controller = controller;
 		//controller.setModel(new LoginProcessModel(controller)); //this is necessary because it will match the model with the control and view
-		this.setName("Admin page");  //useless,why?
-		setLayout(new MigLayout());
+		setName("Admin page");  //useless,why?
+		setPreferredSize(new Dimension(800, 600));
+		setLayout(new BorderLayout());
 		adminUserName = new JLabel("Uesr: Me. This is the Admin page. Currently under construction");
-		add(adminUserName,"cell 0 0");
+		add(adminUserName,BorderLayout.NORTH);
 		LogoutButton = new SecurityButton(LabelResources.getLabel("Logout"));
-		add(LogoutButton,"cell 1 0");
+		add(LogoutButton,BorderLayout.CENTER);
+		LogoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		//
-		
+		adminScollPane = new JScrollPane();
+		//adminScollPane.setPreferredSize(new Dimension(800, 600));
+		adminScollPane.setViewportView(getUserRolePanel());
+		addUserPane();
 		//
-		
+		add(adminScollPane,BorderLayout.SOUTH);
 		addListeners();
 		setVisible(true);
 	}
+	
+	public JPanel getUserRolePanel() {
+		if (userRolePane == null) {
+			userRolePane = new JPanel(new GridLayout(0, 1));
+			//userRolePane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		}
+		return userRolePane;
+
+	}
+	
+	public void addUserPane(){  //use reflection to create multiple JPanels according to Properties files
+		JPanel jp = new JPanel();
+		jp.add(new JLabel("developer"));
+		jp.setBorder(BorderFactory.createLineBorder(Color.BLACK) );
+		getUserRolePanel().add(jp);
+	    jp = new JPanel();
+		jp.add(new JLabel("login_user"));
+		jp.setBorder(BorderFactory.createLineBorder(Color.BLACK) );
+		getUserRolePanel().add(jp);
+	}
+
 	public void addListeners(){
 		LogoutButton.addActionListener(new ActionListener(){
 			@Override
