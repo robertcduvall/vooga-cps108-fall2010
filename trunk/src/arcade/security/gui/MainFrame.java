@@ -12,14 +12,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import arcade.security.UserServiceUtil.User;
-import arcade.security.UserServiceUtil.UserService;
-import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.etc.SecurityFrameData;
 import arcade.security.etc.SecurityFrameProperties;
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
+import arcade.security.util.userserviceutil.User;
+import arcade.security.util.userserviceutil.UserService;
+import arcade.security.util.userserviceutil.UserServiceFactory;
 
 /**
  * MainFrame will be launched after successfully login and contain SecurityDesktop.

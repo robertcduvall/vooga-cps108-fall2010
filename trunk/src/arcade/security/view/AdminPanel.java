@@ -4,9 +4,6 @@ import javax.swing.*;
 
 import org.apache.log4j.Logger;
 
-import arcade.security.UserServiceUtil.User;
-import arcade.security.UserServiceUtil.UserService;
-import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.control.Control;
 
 import arcade.security.exceptions.UserConfigurationNotFoundException;
@@ -15,6 +12,9 @@ import arcade.security.gui.UserConfigurationFrame;
 import arcade.security.model.LoginProcessModel;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
+import arcade.security.util.userserviceutil.User;
+import arcade.security.util.userserviceutil.UserService;
+import arcade.security.util.userserviceutil.UserServiceFactory;
 
 import net.miginfocom.swing.MigLayout;
 
