@@ -2,6 +2,7 @@ package arcade.store.account;
 
 import java.util.*;
 
+import arcade.store.StoreSqlAdapter;
 import arcade.store.items.IItemInfo;
 
 public class StoreUser {
@@ -11,6 +12,8 @@ public class StoreUser {
 	private int timeCreddits;
 	private List<String> cart;
 	private List<String> ownedGames;
+	
+	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
 	public StoreUser(String name, double creddits, int timeCreddits, String cart, 
 			String ownedGames) {
@@ -54,4 +57,5 @@ public class StoreUser {
 		}
 		return false;
 	}
+	
 }
