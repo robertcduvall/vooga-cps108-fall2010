@@ -7,12 +7,12 @@ import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
 
-import arcade.security.UserServiceUtil.User;
-import arcade.security.UserServiceUtil.UserService;
-import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
+import arcade.security.util.userserviceutil.User;
+import arcade.security.util.userserviceutil.UserService;
+import arcade.security.util.userserviceutil.UserServiceFactory;
 import arcade.security.util.PasswordHandler;
 /**
  * Login Frame for Vooga arcade system.
