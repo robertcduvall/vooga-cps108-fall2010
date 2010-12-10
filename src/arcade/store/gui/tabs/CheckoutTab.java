@@ -27,9 +27,11 @@ public class CheckoutTab extends Tab{
 	private JTextField availableCredditsTextField = null;
 	private JTextField jTextField = null;
 	private JTextField RemainingCredditsTextField1 = null;
-	private JButton buyItemsButton = null;
-	private JButton jButton = null;
+	private JButton buyItemButton = null;
+	private JButton dropItemButton = null;
 	private JList itemsList = null;
+	private JButton buyCartButton = null;
+	private JButton dropCartButton = null;
 	/**
 	 * This method initializes myCheckOutTab	
 	 * 	
@@ -68,6 +70,8 @@ public class CheckoutTab extends Tab{
 			myCheckOutTab.add(getRemainingCredditsTextField1(), null);
 			myCheckOutTab.add(getBuyItemsButton(), null);
 			myCheckOutTab.add(getJButton(), null);
+			myCheckOutTab.add(getBuyCartButton(), null);
+			myCheckOutTab.add(getDropCartButton(), null);
 		}
 //		setName("My Checkouts");
 		return myCheckOutTab;
@@ -139,12 +143,12 @@ public class CheckoutTab extends Tab{
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getBuyItemsButton() {
-		if (buyItemsButton == null) {
-			buyItemsButton = new JButton();
-			buyItemsButton.setBounds(new Rectangle(218, 226, 100, 26));
-			buyItemsButton.setText("Buy Item(s)");
+		if (buyItemButton == null) {
+			buyItemButton = new JButton();
+			buyItemButton.setBounds(new Rectangle(218, 226, 100, 26));
+			buyItemButton.setText("Buy Item");
 		}
-		return buyItemsButton;
+		return buyItemButton;
 	}
 
 	/**
@@ -153,12 +157,12 @@ public class CheckoutTab extends Tab{
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getJButton() {
-		if (jButton == null) {
-			jButton = new JButton();
-			jButton.setBounds(new Rectangle(340, 226, 104, 27));
-			jButton.setText("Drop Item(s)");
+		if (dropItemButton == null) {
+			dropItemButton = new JButton();
+			dropItemButton.setBounds(new Rectangle(340, 226, 100, 26));
+			dropItemButton.setText("Drop Item");
 		}
-		return jButton;
+		return dropItemButton;
 	}
 
 	/**
@@ -171,6 +175,35 @@ public class CheckoutTab extends Tab{
 			itemsList = new JList();
 		}
 		return itemsList;
+	}
+
+	/**
+	 * This method initializes buyCartButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBuyCartButton() {
+		if (buyCartButton == null) {
+			buyCartButton = new JButton();
+			//218, 226, 100, 26
+			buyCartButton.setBounds(new Rectangle(218, 267, 100, 26));
+			buyCartButton.setText("Buy Cart");
+		}
+		return buyCartButton;
+	}
+
+	/**
+	 * This method initializes dropCartButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getDropCartButton() {
+		if (dropCartButton == null) {
+			dropCartButton = new JButton();
+			dropCartButton.setBounds(new Rectangle(340, 267, 100, 26));
+			dropCartButton.setText("Drop Cart");
+		}
+		return dropCartButton;
 	}
 
 
