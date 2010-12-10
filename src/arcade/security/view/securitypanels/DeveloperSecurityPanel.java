@@ -1,4 +1,4 @@
-package arcade.security.view;
+package arcade.security.view.securitypanels;
 
 import java.awt.Color;
 
