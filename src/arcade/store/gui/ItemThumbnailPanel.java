@@ -39,17 +39,17 @@ public class ItemThumbnailPanel extends JPanel {
 	
 	private void addLabels(String title, String price, String genre, ImageIcon image) {
 		JLabel gameTitle = new JLabel(title);
-		gameTitle.setHorizontalTextPosition(JLabel.CENTER);
+		gameTitle.setAlignmentX(CENTER_ALIGNMENT);
 
 		JLabel icon = new JLabel(image);
-		icon.setHorizontalAlignment(JLabel.CENTER);
+		icon.setAlignmentX(CENTER_ALIGNMENT);
 		icon.setSize(150, 150);
 		
 		JLabel genreLabel = new JLabel(genre);
-		genreLabel.setHorizontalTextPosition(JLabel.CENTER);
+		genreLabel.setAlignmentX(CENTER_ALIGNMENT);
 		
 		JLabel priceLabel = new JLabel(price + CREDDIT_STRING);
-		priceLabel.setHorizontalTextPosition(JLabel.CENTER);
+		priceLabel.setAlignmentX(CENTER_ALIGNMENT);
 		
 		this.add(gameTitle);
 		this.add(icon);
