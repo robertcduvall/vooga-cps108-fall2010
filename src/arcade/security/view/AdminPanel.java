@@ -8,67 +8,74 @@ import arcade.security.UserServiceUtil.User;
 import arcade.security.UserServiceUtil.UserService;
 import arcade.security.UserServiceUtil.UserServiceFactory;
 import arcade.security.control.Control;
-import arcade.security.control.ControlTab;
+
+import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.gui.SecurityButton;
+import arcade.security.gui.UserConfigurationFrame;
 import arcade.security.model.LoginProcessModel;
 import arcade.security.resourcesbundle.LabelResources;
+import arcade.security.resourcesbundle.StaticFileResources;
 
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 
 public class AdminPanel extends JPanel{
 	private final static Logger log=Logger.getLogger(AdminPanel.class);
 	private static final long serialVersionUID = 1L;
+	private static final int SECURITY_PANEL_WIDTH = 900;
+	private static final int SECURITY_PANEL_HEIGHT = 300;
+	private static final String DELIM = ";";
 	private JLabel adminUserName; 
 	private JButton LogoutButton;
 	private Control controller;
 	private JScrollPane adminScollPane;
 	private JPanel userRolePane;
-	
+	private static String listOfPanels;
+	private ResourceBundle resources = ResourceBundle
+	.getBundle("arcade.security.resources.securitypanels.panels");
+
+
 	public AdminPanel(Control controller){
 		this.controller = controller;
 		//controller.setModel(new LoginProcessModel(controller)); //this is necessary because it will match the model with the control and view
-		setName("Admin page");  //useless,why?
-		setPreferredSize(new Dimension(800, 600));
-		setLayout(new BorderLayout());
-		adminUserName = new JLabel("Uesr: Me. This is the Admin page. Currently under construction");
-		add(adminUserName,BorderLayout.NORTH);
+		setName("Admin page"); 
+		setLayout(new MigLayout("wrap 2"));
+		adminUserName = new JLabel("Admin page. Currently under construction");
+		add(adminUserName);
 		LogoutButton = new SecurityButton(LabelResources.getLabel("Logout"));
-		add(LogoutButton,BorderLayout.CENTER);
-		LogoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//
+		add(LogoutButton,"gapleft 585");
+
 		adminScollPane = new JScrollPane();
-		//adminScollPane.setPreferredSize(new Dimension(800, 600));
-		adminScollPane.setViewportView(getUserRolePanel());
-		addUserPane();
-		//
-		add(adminScollPane,BorderLayout.SOUTH);
+		adminScollPane.setViewportView(getUserRolePanel());		
+		addUserSecurityPanel();
+		add(adminScollPane,"span 2");
 		addListeners();
 		setVisible(true);
 	}
-	
+
 	public JPanel getUserRolePanel() {
 		if (userRolePane == null) {
 			userRolePane = new JPanel(new GridLayout(0, 1));
+			userRolePane.setPreferredSize(new Dimension(SECURITY_PANEL_WIDTH,SECURITY_PANEL_HEIGHT));
 			//userRolePane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
 		return userRolePane;
 
 	}
-	
-	public void addUserPane(){  //use reflection to create multiple JPanels according to Properties files
-		JPanel jp = new JPanel();
-		jp.add(new JLabel("developer"));
-		jp.setBorder(BorderFactory.createLineBorder(Color.BLACK) );
-		getUserRolePanel().add(jp);
-	    jp = new JPanel();
-		jp.add(new JLabel("login_user"));
-		jp.setBorder(BorderFactory.createLineBorder(Color.BLACK) );
-		getUserRolePanel().add(jp);
+
+	public void addUserSecurityPanel(){  
+		listOfPanels=resources.getString("listofpanels");		
+		loadPanels(listOfPanels);
+
 	}
+
+
 
 	public void addListeners(){
 		LogoutButton.addActionListener(new ActionListener(){
@@ -82,7 +89,34 @@ public class AdminPanel extends JPanel{
 				//controller.validatePanelSwitch("arcade.security.view.LogInPanel");
 				controller.switchToLogInPage();
 			}
-			
+
 		});
 	}
+
+	private void loadPanels(String listOfPanels) {
+		String[] panel = listOfPanels.split(DELIM);
+		for(String p: panel){
+			JPanel temp=createSecurityPane(p);
+			getUserRolePanel().add(temp);					
+		}				
+	}
+
+	private JPanel createSecurityPane(String classPath)
+	{			
+		try{
+			Object securityPanel=Class.forName(classPath).newInstance();  		    	 	
+			return (JPanel)securityPanel;      
+		}
+		catch(ClassNotFoundException e1){
+			e1.printStackTrace();
+		}
+		catch(InstantiationException e2){
+			e2.printStackTrace();
+		}
+		catch(IllegalAccessException e3){
+			e3.printStackTrace();
+		}
+		return null;					    
+	}
+
 }

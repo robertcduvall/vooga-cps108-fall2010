@@ -20,7 +20,6 @@ import net.miginfocom.swing.MigLayout;
 
 import arcade.core.Tab;
 import arcade.security.control.Control;
-import arcade.security.control.ControlTab;
 import arcade.security.gui.SecurityButton;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.util.SignUpHandler;
@@ -106,6 +105,10 @@ public class SignUpPanel extends ViewState{
 		});
 	}
 	
+	public JPanel getCurrentPanel(){
+		return this;
+	}
+	
 	private class SubmitListener implements ActionListener{
 
 		@Override
@@ -114,11 +117,11 @@ public class SignUpPanel extends ViewState{
 			pwd_2 = passwordFieldRep.getPassword();
 			username = usernameField.getText();
 			if(!SignUpHandler.samePassword(pwd_1, pwd_2)){
-				JOptionPane.showMessageDialog(ControlTab.getPanel(),"Password are not the same");
+				JOptionPane.showMessageDialog(getCurrentPanel(),"Password are not the same");
 				return;
 			}
 			if(!SignUpHandler.isValidUserName(username)){
-				JOptionPane.showMessageDialog(ControlTab.getPanel(),"Useraname is not valid");
+				JOptionPane.showMessageDialog(getCurrentPanel(),"Useraname is not valid");
 				return;
 			}
 			questionIndex = questionChoices.getSelectedIndex();
