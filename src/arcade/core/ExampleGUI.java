@@ -137,8 +137,6 @@ public class ExampleGUI extends Tab {
 		lobby.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lobby.add(new JLabel("Friends"));
 		lobby.add(Components.getHighScoresPanel("PlayerA",gameName,2));
-		lobby.add(Components.getHighScoresPanel("PlayerB",gameName,2));
-		lobby.add(Components.getHighScoresPanel("PlayerC",gameName,2));
 
 		JLabel moreLabels = new JLabel(icon);
 		lobby.add(moreLabels);
