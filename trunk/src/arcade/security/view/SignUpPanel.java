@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 import arcade.core.Tab;
+import arcade.security.control.Control;
 import arcade.security.control.ControlTab;
 import arcade.security.gui.SecurityButton;
 import arcade.security.resourcesbundle.LabelResources;
@@ -55,11 +56,12 @@ public class SignUpPanel extends ViewState{
 	
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
-
 	
-	public SignUpPanel(){
+	private Control controller;
+	
+	public SignUpPanel(Control controller){
+		this.controller = controller;
 		setLayout(new MigLayout());
-		//setBackground(Color.white);
 		username_label=new JLabel(LabelResources.getLabel("AskForUserName"));		
 		pwd_label1=new JLabel(LabelResources.getLabel("AskForPwd"));
 		pwd_label2 = new JLabel(LabelResources.getLabel("AskForPwdAgain"));

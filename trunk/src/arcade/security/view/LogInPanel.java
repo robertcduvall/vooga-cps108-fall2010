@@ -96,13 +96,13 @@ public class LogInPanel extends Tab{
 		forgotPasswordButton.requestFocus(true);
 		submitButton.requestFocus(true);
 		
-		add(submitButton,"");
+		add(submitButton,"cell 0 3");
 		//add(logoutButton,"wrap");
-		add(signUpButton);
-		add(forgotPasswordButton);
+		add(signUpButton,"cell 0 3");
+		add(forgotPasswordButton,"wrap");
 		
 		addListeners();
-	
+		setVisible(true);
 		
 	}
 
@@ -114,7 +114,7 @@ public class LogInPanel extends Tab{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//controller.validatePanelSwitch("arcade.security.view.SignUpPanel");
-			//	controller.switchToSignUpPage();
+				controller.switchToSignUpPage();
 			}	
 		});
 		
@@ -164,6 +164,11 @@ public class LogInPanel extends Tab{
 //			}
 			JOptionPane.showMessageDialog(getCurrentPanel(),"Successfully logged in!");
 			if(isAdmin()){
+				UserService userService = UserServiceFactory.getUserService();
+				User user = userService.getCurrentUser();
+				log.info("Before log in, Current User role: "+user.getRole());
+				user.setUserAs("login_user");
+				log.info("After log in, Current User role: "+user.getRole());
 				controller.switchToAdminPage();
 				//controller.validatePanelSwitch("arcade.security.view.AdminPanel");
 				
