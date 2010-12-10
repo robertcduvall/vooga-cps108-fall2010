@@ -23,7 +23,7 @@ public class GamePurchaseView {
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="80,17"
 	private JPanel panel = null;
 	private JLabel coverArtHolder = null;
-	private JButton purchaseButton = null;
+	private JButton addToCartButton = null;
 	private JPanel centerPanel = null;
 	private JTextField titleField = null;
 	private JTextField priceField = null;
@@ -82,16 +82,16 @@ public class GamePurchaseView {
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getPurchaseButton() {
-		if (purchaseButton == null) {
-		purchaseButton = new JButton();
-			purchaseButton.setText("Add Game To Cart");
-			purchaseButton.addMouseListener(new MouseAdapter() {
+		if (addToCartButton == null) {
+		addToCartButton = new JButton();
+			addToCartButton.setText("Add Game To Cart");
+			addToCartButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					controller.processPurchaseButton(getTitleField().getText());
 				}
 			});
 		}
-		return purchaseButton;
+		return addToCartButton;
 	}
 
 	
