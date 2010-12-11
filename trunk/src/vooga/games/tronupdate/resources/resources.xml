@@ -45,6 +45,8 @@
 			<Integer name="LoadState" value="3"	/>
 			<Integer name="SetLevelState" value="4" />
 			<Integer name="HelpState" value="5" />
+			<Integer name="SetNumMatchesState" value="6" />
+			<Integer name="SetEnvironmentState" value="7" />
 			<Integer name="UserControl1" value="1" />
 			<Integer name="UserControl2" value="2" />
 			<Integer name="AIControlLevel1" value="3" />

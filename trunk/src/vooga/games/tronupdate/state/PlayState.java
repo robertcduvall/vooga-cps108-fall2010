@@ -15,6 +15,8 @@ import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
 import vooga.engine.overlay.OverlayCreator;
 import vooga.engine.overlay.OverlayTracker;
+import vooga.engine.overlay.OverlayStat;
+import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
@@ -23,6 +25,7 @@ import vooga.games.tronupdate.events.TronGamePauseEvent;
 import vooga.games.tronupdate.items.Player;
 import vooga.games.tronupdate.util.AI_0;
 import vooga.games.tronupdate.util.Direction;
+import vooga.games.tronupdate.util.GameStats;
 import vooga.games.tronupdate.util.Grid;
 import vooga.games.tronupdate.util.Mode;
 import vooga.games.tronupdate.util.RandomLayoutGenerator;
@@ -43,6 +46,7 @@ public class PlayState extends GameState {
 	private Player player1, player2;
 	private Grid[][] grid;
 	private RandomLayoutGenerator layoutGenerator;
+	private OverlayTracker tracker;
 	public static final int GRID_WIDTH = Resources.getInt("width")
 			/ Resources.getInt("playerimagewidth");
 	public static final int GRID_HEIGHT = Resources.getInt("height")
@@ -70,11 +74,11 @@ public class PlayState extends GameState {
 	private void initializePlayers() {
 		players = new Player[numPlayers];
 		playerGroups = new SpriteGroup[numPlayers];
-		players[0] = new Player(Resources.getImage("redlazer"), initPlayerY(1),
-				initPlayerX(1), Direction.right, PLAYER_IMAGE_WIDTH,
+		players[0] = new Player(Resources.getImage("redlazer"), initPlayerY(0),
+				initPlayerX(0), Direction.right, PLAYER_IMAGE_WIDTH,
 				GRID_HEIGHT, GRID_WIDTH);
-		players[1] = new Player(Resources.getImage("bluelazer"), initPlayerY(2),
-				initPlayerX(2), Direction.left, PLAYER_IMAGE_WIDTH,
+		players[1] = new Player(Resources.getImage("bluelazer"), initPlayerY(1),
+				initPlayerX(1), Direction.left, PLAYER_IMAGE_WIDTH,
 				GRID_HEIGHT, GRID_WIDTH);
 	}
 
@@ -84,12 +88,14 @@ public class PlayState extends GameState {
 			setKeyboardControl(1);
 		}
 		else if(Mode.isSingle()){
+			int level = GameStats.getLevel().getStat();
 			setKeyboardControl(1);
-			setAIControl(0);
+			setAIControl(0,level);
 		}
 		else if(Mode.isAI()){
-			setAIControl(0);
-			setAIControl(1);
+			int level = GameStats.getLevel().getStat();
+			setAIControl(0,level);
+			setAIControl(1,level);
 		}
 	}
 	
@@ -100,7 +106,7 @@ public class PlayState extends GameState {
 		players[index].setKeyboardControl(playerControl);
 	}
 	
-	private void setAIControl(int index){
+	private void setAIControl(int index,int level){
 		players[index].setAsAI(true);
 		AI_0 playerAI = new AI_0(players[index]);
 		players[index].setAI(playerAI);
@@ -108,8 +114,8 @@ public class PlayState extends GameState {
 	
 	private void initializeBlocks() {
 		layoutGenerator = new RandomLayoutGenerator();
-		int[] startX = {initPlayerX(0),initPlayerY(1)};
-		int[] startY = {initPlayerX(0),initPlayerY(1)};
+		int[] startX = {initPlayerX(0),initPlayerX(1)};
+		int[] startY = {initPlayerY(0),initPlayerY(1)};
 		grid = layoutGenerator.generateGrid(GRID_HEIGHT, GRID_WIDTH,startX,startY);
 		for (int i = 0; i < GRID_HEIGHT; i++) {
 			for (int j = 0; j < GRID_WIDTH; j++) {
@@ -140,7 +146,7 @@ public class PlayState extends GameState {
 	
 	private void initializeOverlay(){
 		OverlayCreator.setGame(game);
-		OverlayTracker tracker = OverlayCreator.createOverlays(Resources.getString("overlayFileURL"));
+		tracker = OverlayCreator.createOverlays(Resources.getString("overlayFileURL"));
 		playField.addGroup(tracker.getOverlayGroup("PlayState"));
 		playField.addGroup(tracker.getOverlayGroup("multiPlayer"));
 	}
@@ -162,7 +168,7 @@ public class PlayState extends GameState {
 	}
 
 	private int initPlayerX(int player) {
-		return (player == 1) ? (GRID_WIDTH / 10) : GRID_WIDTH * 9 / 10;
+		return (player == 0) ? (GRID_WIDTH / 10) : GRID_WIDTH * 9 / 10;
 	}
 
 	private int initPlayerY(int player) {
@@ -181,6 +187,7 @@ public class PlayState extends GameState {
 		}
 		for(int i=0;i<numPlayers;i++){
 			if(players[i].outOfBoundary()){
+				players[i].setLost();
 				gameStateManager.switchTo(gameStateManager.getGameState(Resources.getInt("GameOverState")));
 				return;
 			}
@@ -211,12 +218,12 @@ public class PlayState extends GameState {
 			initControl = 0;
 		}
 	}
+	
 	private void checkForCollision(){
 		for(int i=0;i<GRID_HEIGHT;i++){
 			for(int j=0;j<GRID_WIDTH;j++){
 				if(grid[i][j].collides()){
-					System.out.println(GRID_HEIGHT+" "+GRID_WIDTH);
-					System.out.println("Collision happens at "+i+" "+j);
+					players[grid[i][j].getCollidePlayer()].setLost();
 					game.playSound(Resources.getSound("explosionSound"));
 					gameStateManager.switchTo(gameStateManager.getGameState(Resources.getInt("GameOverState")));
 				}

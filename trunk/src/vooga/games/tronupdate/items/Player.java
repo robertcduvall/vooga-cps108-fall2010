@@ -13,6 +13,7 @@ public class Player {
 	private Direction Dir;
 	private int Row, Col;
 	private int height, width;
+	private int loses;
 
 	private boolean isAI;
 	private AI_0 ai;
@@ -20,7 +21,7 @@ public class Player {
 	private int speedUp;
 	private Control control;
 	private boolean withinBound;
-
+	
 	public Player(BufferedImage image, int initialRow, int initialCol,
 			Direction initialDirection, int imageWidth, int height_, int width_) {
 		Row = initialRow;
@@ -30,12 +31,21 @@ public class Player {
 		height = height_;
 		width = width_;
 		control = new Control();
+		loses=0;
 	}
 
 	public void setKeyboardControl(Control c) {
 		control = c;
 	}
-
+	
+	public void setLost(){
+		loses++;
+	}
+	public int getLoses(){
+		return loses;
+	}
+	
+	
 	public void setAsAI(boolean AI) {
 		isAI = AI;
 	}

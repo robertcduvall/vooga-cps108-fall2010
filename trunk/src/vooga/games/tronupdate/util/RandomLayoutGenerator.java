@@ -21,10 +21,14 @@ public class RandomLayoutGenerator {
 				grid[i][j] = new Grid();
 			}
 		}
-		grid = initWalls(grid,wallStd);
-		grid = initBlocks(grid,blockStd);
+		if(Mode.getEnvironment()==2) grid = initWalls(grid,wallStd);
+		if(Mode.getEnvironment()==3) grid = initBlocks(grid,blockStd);
 		grid = preventStart(grid,preventRangeX,preventRangeY,startX,startY);
 		return grid;
+		
+		//grid = initWalls(grid,wallStd);
+		//grid = initBlocks(grid,blockStd);
+		//return grid;
 	}
 	
 	public Stack<Integer> randomBonus(int dimension){
@@ -87,6 +91,7 @@ public class RandomLayoutGenerator {
 		}
 		return grid;
 	}
+	
 	private Grid[][] preventStart(Grid[][] grid, int rangeX,int rangeY,int[] startX,int[] startY){
 		for(int i=0;i<startX.length;i++){
 			int Xleft = (startX[i]-rangeX>=0)? (startX[i]-rangeX):0;

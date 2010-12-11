@@ -6,19 +6,20 @@ import java.awt.Graphics2D;
 import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
+import vooga.engine.overlay.OverlayCreator;
+import vooga.engine.overlay.OverlayTracker;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameStateManager;
 import vooga.engine.state.GameState;
-import vooga.engine.overlay.*;
-import vooga.games.tronupdate.events.SetNumMatchesEvent;
+import vooga.engine.state.GameStateManager;
+import vooga.games.tronupdate.events.SetEnvironmentEvent;
 
-public class SetNumMatchesState extends GameState{
+public class SetEnvironmentState extends GameState{
 	private Game game;
 	private GameStateManager gameStateManager;
 	private PlayField playField;
 	private EventPool eventPool;
 	
-	public SetNumMatchesState(Game game, GameStateManager gameStateManager){
+	public SetEnvironmentState(Game game, GameStateManager gameStateManager){
 		this.gameStateManager = gameStateManager;
 		this.game=game;
 	}
@@ -29,32 +30,26 @@ public class SetNumMatchesState extends GameState{
 		playField.addColorBackground(Color.BLACK);
 		playField.setBackground(0);
 		initializeOverlay();
+		initializeEvents();
 	}
 	
 	private void initializeOverlay(){
 		OverlayCreator.setGame(game);
 		OverlayTracker tracker = OverlayCreator.createOverlays(Resources.getString("overlayFileURL"));
-		playField.addGroup(tracker.getOverlayGroup("SetNumMatches"));
-		//playField.addGroup(tracker.getStat("zero"));//.getOverlayGroup("SetNumMatches"));
-		initializeEvents();
+		playField.addGroup(tracker.getOverlayGroup("SetEnvironment"));
 	}
 	
-	public void initializeEvents(){
+	private void initializeEvents(){
 		eventPool = new EventPool();
-		eventPool.addEvent(new SetNumMatchesEvent(game,gameStateManager));
+		eventPool.addEvent(new SetEnvironmentEvent(game,gameStateManager));
 	}
-	
 	
 	public void render(Graphics2D g) {
 		playField.render(g);	
 	}	
-	
 	public void update(long elapsedTime){
 		super.update(elapsedTime);
 		playField.update(elapsedTime);	
 		eventPool.checkEvents();
 	}
-	
-	
-	
 }
