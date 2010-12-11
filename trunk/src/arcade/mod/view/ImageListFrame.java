@@ -1,32 +1,33 @@
 package arcade.mod.view;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Collection;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import com.golden.gamedev.util.ImageUtil;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.XMLNode;
+
+import com.golden.gamedev.util.ImageUtil;
 
 public class ImageListFrame extends FilepathListFrame {
 
 	private static final int ICON_SIZE = 128;
 	ImageIcon myIcon;
-	
+	private static Collection<String> acceptableImageTags = new HashSet<String>();
 
 	public ImageListFrame() {
 		// do nothing
 	}
 
 	public ImageListFrame(IResourceNode node) {
-
 		super(node);
 		
+		acceptableImageTags.add("jpg");
+		acceptableImageTags.add("gif");
 	}
 	
 
@@ -67,8 +68,17 @@ public class ImageListFrame extends FilepathListFrame {
 	
 	@Override
 	public boolean confirmValidity(){
-		if (myFilepath.endsWith("jpg")){
+		if (endsWithImageTag()){
 			return true;
+		}
+		return false;
+	}
+
+	private boolean endsWithImageTag() {
+		for (String tag: acceptableImageTags)
+		{
+			if (myFilepath.endsWith(tag))
+				return true;
 		}
 		return false;
 	}

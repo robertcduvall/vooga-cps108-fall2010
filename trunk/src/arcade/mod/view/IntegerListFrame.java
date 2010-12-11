@@ -1,19 +1,9 @@
 package arcade.mod.view;
 
-import java.io.File;
-
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import arcade.mod.model.IResourceNode;
 
 public class IntegerListFrame extends SliderListFrame {
 
-	private int INIT;
-	
 	public IntegerListFrame() {
 	}
 
@@ -41,6 +31,7 @@ public class IntegerListFrame extends SliderListFrame {
 
 	@Override
 	public boolean confirmValidity() {
+		//TODO: if we eventually come up with something that we need to check on the slider than we should add it here
 		return true;
 	}
 }
