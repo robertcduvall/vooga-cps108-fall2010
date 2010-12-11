@@ -1,36 +1,33 @@
-package arcade.wall;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+package arcade.wall.views.walltab;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import arcade.wall.controller.WallTabController;
-import arcade.wall.model.Comment;
-import arcade.wall.view.WallTabView;
-import arcade.wall.view.ratings.RadioPanel;
+import arcade.lobby.model.ProfileSet;
+import arcade.wall.controllers.WallTabController;
+import arcade.wall.models.Comment;
+import arcade.wall.views.ratings.RadioPanel;
 
-public class ReviewButtonListener implements ActionListener {
-
+public class WallTabReviewButtonGroup {
+	
 	private WallTabController myController;
 	private JComboBox myComboBox;
 	private JTextField myTextField;
 	private String myGamerName;
 	private RadioPanel myRatingPanel;
-
-	public ReviewButtonListener(WallTabController controller, JComboBox comboBox,
-			JTextField textField, String gamerName, RadioPanel ratingPanel) {
+	
+	public WallTabReviewButtonGroup(WallTabController controller, JComboBox gameComboBox, JTextField commentEntryField, 
+			RadioPanel ratingPanel) {
 		myController = controller;
-		myComboBox = comboBox;
-		myTextField = textField;
-		myGamerName = gamerName;
+		myComboBox = gameComboBox;
+		myTextField = commentEntryField;
+		//myGamerName = ProfileSet.currentProfile.getUserName();
+		myGamerName = "John";
 		myRatingPanel = ratingPanel;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	
+	public void update() {
 		String selectedGameName = WallTabView.myGameChoices[myComboBox.getSelectedIndex()];
 		Comment submittedComment = new Comment(selectedGameName, myGamerName, 
 											   myTextField.getText(), myRatingPanel.getSelectedValue());
