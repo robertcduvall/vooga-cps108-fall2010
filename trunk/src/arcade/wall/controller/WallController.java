@@ -1,7 +1,5 @@
 package arcade.wall.controller;
 
-import java.util.List;
-
 import javax.swing.JOptionPane;
 
 import arcade.wall.model.Comment;
@@ -19,14 +17,16 @@ public class WallController {
 
 	public WallController() {
 		model = new WallModel();
-		view = new WallView(this, "Gamer13");
-		
+		view = new WallView();
 		//Initialize comments area to display the default selected game's comments.
-		//updateCommentsArea(WallView.myGameChoices[0]);
 		updateComments(WallView.myGameChoices[0]);
-		view.setFrameVisible();
+		view.setController(this);
 	}
 
+	public WallView getWallPanel() {
+		return view;
+	}
+	
 	/**
 	 * Adds a Comment to the Model.
 	 * @param comment
@@ -48,30 +48,31 @@ public class WallController {
 		return model.commentIsValid(comment);
 	}
 
-	/**
-	 * Updates the "Comments Area" to display the comments given to the selected game.
-	 * @param selectedGameName
-	 * 		The game to display comments for.
-	 */
-	public void updateCommentsArea(String selectedGameName) {
-		String input = "";
-		for (Comment comment: model.getCommentSet()) {
-			String starString = "";
-			if (comment.getRating().equals("0"))
-				starString = ":("; //TODO Is this needed?
-			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
-				starString += "*";
-			}
-			if (comment.getGameName().equals(selectedGameName))
-				input += " >> ''" + comment.getCommentString() + "''  " + starString + 
-				" " +  "---" + comment.getUserName() + "\n";
-		}
-		view.getCommentsArea().setText(input);
-	}
+//	/**
+//	 * Updates the "Comments Area" to display the comments given to the selected game.
+//	 * @param selectedGameName
+//	 * 		The game to display comments for.
+//	 */
+//	public void updateCommentsArea(String selectedGameName) {
+//		String input = "";
+//		for (Comment comment: model.getCommentSet()) {
+//			String starString = "";
+//			if (comment.getRating().equals("0"))
+//				starString = ":("; //TODO Is this needed?
+//			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
+//				starString += "*";
+//			}
+//			if (comment.getGameName().equals(selectedGameName))
+//				input += " >> ''" + comment.getCommentString() + "''  " + starString + 
+//				" " +  "---" + comment.getUserName() + "\n";
+//		}
+//		view.getCommentsArea().setText(input);
+//	}
 	
 	//TODO
-	public  void updateComments(String selectedGameName) {
-		view.updateCommentsPanel( model.getGameComments(selectedGameName));
+	//Used by ComboBoxListener and ReviewButtonListener
+	public void updateComments(String selectedGameName) {
+		view.updateCommentsPanel(model.getGameComments(selectedGameName));
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class WallController {
 	public int showCommentDialog() {
 		Object[] options = {"Yes",
 				"No"};
-		int n = JOptionPane.showOptionDialog(view.getFrame(),
+		int n = JOptionPane.showOptionDialog(view.getPanel(),
 				"Your new rating for this game is different from your last rating.\n"
 				+ "Do you still want to change your rating for this game?",
 				"Conflicting Ratings",
