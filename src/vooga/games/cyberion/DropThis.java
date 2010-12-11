@@ -76,7 +76,7 @@ public class DropThis extends Game {
 
 		initLevelManager();
 		stateManager.addGameState(myMenuState = new MenuState(), 0);
-		myPlayState = new PlayState(levelManager, this);
+		//myPlayState = new PlayState(levelManager, this);
 		stateManager.addGameState(myPlayState);
 		stateManager
 				.addGameState(myLevelCompleteState = new LevelCompleteState());

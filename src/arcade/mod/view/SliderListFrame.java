@@ -82,14 +82,14 @@ public abstract class SliderListFrame extends AbstractListFrame {
 			public void actionPerformed(ActionEvent evt) {
 				int value = Integer.parseInt(myValue);
 				try {
-					value = Integer.parseInt(myValue);
+					value = Integer.parseInt(myTextInput.getText());
+					myValue = myTextInput.getText();
 				} catch (Exception e) {
 
 				}
-				myValue = myTextInput.getText();
-
 				mySliderInput.setValue(value);
 				currentValue.setText(myValue);
+
 			}
 
 		});
