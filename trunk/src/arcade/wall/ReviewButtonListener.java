@@ -43,7 +43,8 @@ public class ReviewButtonListener implements ActionListener {
 		} else {
 			myController.addComment(submittedComment);
 		}
-		myController.updateCommentsArea(selectedGameName);
+		//myController.updateCommentsArea(selectedGameName);
+		myController.updateComments(selectedGameName);
 		myTextField.setText("");
 	}
 
