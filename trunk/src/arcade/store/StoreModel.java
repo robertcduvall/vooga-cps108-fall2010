@@ -2,29 +2,31 @@ package arcade.store;
 
 import java.util.*;
 
+import arcade.core.mvc.IController;
+import arcade.core.mvc.IModel;
 import arcade.store.account.StoreUser;
-import arcade.store.control.Control;
+import arcade.store.control.MainController;
 import arcade.store.items.DbItemAndUserFactory;
 import arcade.store.items.IItemInfo;
 import arcade.store.organizer.FilterByGenreOrganizer;
 
-public class StoreModel {
+public class StoreModel implements IModel{
 
 	private static final String GAMES_DIRECTORY = System.getProperty("user.dir")+"/src/arcade/store/gui/resources/games";
 	private static final String GAME_INFO_TABLE = "GameInfo";
 	private static final String USER_INFO_TABLE = "StoreUsers";
 //	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
+	
 	private StoreUser currentUser;
 	private Map<String, IItemInfo> storeCatalogue;
-	private Control controller;
+	private IController controller;
 	
-	public StoreModel(Control control)
+	public StoreModel(IController control)
 	{
 		storeCatalogue = DbItemAndUserFactory.getAllItems(GAME_INFO_TABLE);
 		controller = control;
-		//String username = Security.getCurrentUser().getName();
-//		currentUser = DbItemAndUserFactory.getUser(USER_INFO_TABLE, username);
 		
+		currentUser = new StoreUser();
 	}
 	
 	public IItemInfo getItemInfo(String name)
@@ -33,17 +35,13 @@ public class StoreModel {
 	}
 	
 	
-	public void processPurchase(String item)
-	{
-//		currentUser.purchaseItem(storeCatalogue.get(item));
-	}
-	
 	public List<IItemInfo> filter(String genreName) {
-		if(genreName == "All") {
+		if(genreName.equals("All")) {
 			return getAllItems();
 		}
-		FilterByGenreOrganizer org = new FilterByGenreOrganizer();
-		List<IItemInfo> answer = org.organize(getAllItems(), genreName);
+		
+		FilterByGenreOrganizer organizer = new FilterByGenreOrganizer();
+		List<IItemInfo> answer = organizer.organize(getAllItems(), genreName);
 		return answer;
 	}
 	
@@ -75,6 +73,41 @@ public class StoreModel {
 		currentUser.getCart().add(itemName);
 	}
 
+	@Override
+	public void setController(IController control) {
+		
+		controller = control;
+		
+	}
+	
+	public StoreUser getCurrentUserAccount()
+	{
+		return currentUser;
+	}
+	
+	public double getTotalUserCartCost()
+	{
+		List<String> wishList = currentUser.getCart();
+		
+		double sum = 0;
+		
+		for(String item : wishList)
+		{
+			// TODO: r u sure there's not any formatting error with names?!?!
+			IItemInfo info = storeCatalogue.get(item);
+			String price = info.getPrice();
+			sum += Double.parseDouble(price);
+		}
+		
+		return sum;
+	}
+	
+	public boolean userHasEnoughCredditsToBuyWishList()
+	{
+		double currentCreddits = Double.parseDouble(currentUser.getCreddits());
+		return (currentCreddits - getTotalUserCartCost() ) >= 0;	
+	}
+	
 	
 	/**
 	 * This method uses reflection to obtain the currentPage. If reflection does not work, then 

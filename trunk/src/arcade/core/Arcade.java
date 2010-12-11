@@ -1,5 +1,6 @@
 package arcade.core;
 
+import java.awt.Component;
 import java.lang.reflect.*;
 import java.util.ResourceBundle;
 
@@ -112,11 +113,11 @@ public class Arcade extends JFrame {
 	public static void play(String gameName) {
 		switchToTab(1);
 		ExampleGUI.setGame(gameName);
-
 	}
 
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
+		
 	}
 
 	/**

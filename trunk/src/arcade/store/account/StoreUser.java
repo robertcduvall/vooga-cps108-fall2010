@@ -7,11 +7,14 @@ import arcade.store.items.IItemInfo;
 
 public class StoreUser {
 	
+	private final static String DEFAULT_NAME = "default_user";
 	private String name;
 	private double creddits;
 	private int timeCreddits;
-	private List<String> cart;
 	private List<String> ownedGames;
+	
+	private List<String> cart;
+	private List<String> cartHistory;
 	
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
@@ -27,6 +30,18 @@ public class StoreUser {
 		String[] ownedList = cart.split(",");
 		for(String s : ownedList) this.ownedGames.add(s.trim());
 	}
+	
+	public StoreUser()
+	{
+		name = DEFAULT_NAME;
+		creddits = 0;
+		timeCreddits = 0;
+		cart = new ArrayList<String>();
+		ownedGames = new ArrayList<String>();
+	}
+	
+	
+	
 	
 	public String getName() {
 		return name;
@@ -44,6 +59,7 @@ public class StoreUser {
 		return cart;
 	}
 	
+	
 	public List<String> getOwnedGames() {
 		return ownedGames;
 	}
@@ -56,6 +72,29 @@ public class StoreUser {
 			return true;
 		}
 		return false;
+	}
+	
+	public void updateToCreddits(double newcreddits)
+	{
+		creddits = newcreddits;
+	}
+	
+	public void addGame(String title)
+	{
+		ownedGames.add(title);
+	}
+	
+	public void emptyCart()
+	{
+		cart = new ArrayList<String>();
+	}
+	
+	public void removeTitleFromCart(String title)
+	{
+		if(cart.contains(title))
+		{
+			cart.remove(title);
+		}
 	}
 	
 }

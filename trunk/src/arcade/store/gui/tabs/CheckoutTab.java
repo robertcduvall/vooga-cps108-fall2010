@@ -15,8 +15,12 @@ import javax.swing.JButton;
 import javax.swing.JList;
 
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
+import arcade.core.mvc.IViewer;
+import arcade.store.control.CheckoutController;
+import arcade.store.control.MainController;
 
-public class CheckoutTab extends Tab{
+public class CheckoutTab extends Tab implements IViewer{
 
 	private JPanel myCheckOutTab = null;  //  @jve:decl-index=0:visual-constraint="199,58"
 	private JLabel checkoutLabel = null;
@@ -27,21 +31,54 @@ public class CheckoutTab extends Tab{
 	private JTextField availableCredditsTextField = null;
 	private JTextField jTextField = null;
 	private JTextField RemainingCredditsTextField1 = null;
-	private JButton buyItemButton = null;
-	private JButton dropItemButton = null;
+	private JButton DropItemButton = null;
+	private JButton SaveCartButton = null;
 	private JList itemsList = null;
-	private JButton buyCartButton = null;
-	private JButton dropCartButton = null;
+	private JButton BuyCartButton = null;
+	private JButton DropCartButton = null;
+	
+	
+	private static final String NAME = "Checkout Page";
+
+	private CheckoutController controller;  //  @jve:decl-index=0:
+	private JButton RefreshButton = null;
+
 	/**
 	 * This method initializes myCheckOutTab	
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	
 	public CheckoutTab()
 	{
-		setName("My Checkouts");
+		setName(NAME);
+		controller = new CheckoutController();
+		controller.addViewer(this);
 	}
+	
+	@Override
+	public String getName()
+	{
+		return NAME;
+	}
+	
+	@Override
+	public void refresh()
+	{
+		controller.initialize();
+	}
+	
+	@Override
+	public void setController(IController control) {
+		
+		controller = (CheckoutController) control;
+	}
+	
+	@Override
+	public IController getController()
+	{
+		return controller;
+	}
+	
 	
 	public JComponent getContent() {
 		if (myCheckOutTab == null) {
@@ -66,12 +103,13 @@ public class CheckoutTab extends Tab{
 			myCheckOutTab.add(totalCostLabel, null);
 			myCheckOutTab.add(credditAfterPurchaseLabel, null);
 			myCheckOutTab.add(getAvailableCredditsTextField(), null);
-			myCheckOutTab.add(getJTextField(), null);
-			myCheckOutTab.add(getRemainingCredditsTextField1(), null);
-			myCheckOutTab.add(getBuyItemsButton(), null);
+			myCheckOutTab.add(getTotalCostTextField(), null);
+			myCheckOutTab.add(getRemainingCredditsTextField(), null);
+			myCheckOutTab.add(getDropItemsButton(), null);
 			myCheckOutTab.add(getJButton(), null);
 			myCheckOutTab.add(getBuyCartButton(), null);
 			myCheckOutTab.add(getDropCartButton(), null);
+			myCheckOutTab.add(getRefreshButton(), null);
 		}
 //		setName("My Checkouts");
 		return myCheckOutTab;
@@ -103,7 +141,7 @@ public class CheckoutTab extends Tab{
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getAvailableCredditsTextField() {
+	public JTextField getAvailableCredditsTextField() {
 		if (availableCredditsTextField == null) {
 			availableCredditsTextField = new JTextField();
 			availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25));
@@ -116,7 +154,7 @@ public class CheckoutTab extends Tab{
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getJTextField() {
+	public JTextField getTotalCostTextField() {
 		if (jTextField == null) {
 			jTextField = new JTextField();
 			jTextField.setBounds(new Rectangle(349, 122, 98, 25));
@@ -129,7 +167,7 @@ public class CheckoutTab extends Tab{
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getRemainingCredditsTextField1() {
+	public JTextField getRemainingCredditsTextField() {
 		if (RemainingCredditsTextField1 == null) {
 			RemainingCredditsTextField1 = new JTextField();
 			RemainingCredditsTextField1.setBounds(new Rectangle(349, 157, 98, 25));
@@ -142,13 +180,18 @@ public class CheckoutTab extends Tab{
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBuyItemsButton() {
-		if (buyItemButton == null) {
-			buyItemButton = new JButton();
-			buyItemButton.setBounds(new Rectangle(218, 226, 100, 26));
-			buyItemButton.setText("Buy Item");
+	private JButton getDropItemsButton() {
+		if (DropItemButton == null) {
+			DropItemButton = new JButton();
+			DropItemButton.setBounds(new Rectangle(218, 226, 100, 26));
+			DropItemButton.setText("Drop Item");
+			DropItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					controller.processConfirmDropItem();
+				}
+			});
 		}
-		return buyItemButton;
+		return DropItemButton;
 	}
 
 	/**
@@ -157,12 +200,12 @@ public class CheckoutTab extends Tab{
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getJButton() {
-		if (dropItemButton == null) {
-			dropItemButton = new JButton();
-			dropItemButton.setBounds(new Rectangle(340, 226, 100, 26));
-			dropItemButton.setText("Drop Item");
+		if (SaveCartButton == null) {
+			SaveCartButton = new JButton();
+			SaveCartButton.setBounds(new Rectangle(340, 226, 108, 26));
+			SaveCartButton.setText("Save Cart");
 		}
-		return dropItemButton;
+		return SaveCartButton;
 	}
 
 	/**
@@ -170,42 +213,73 @@ public class CheckoutTab extends Tab{
 	 * 	
 	 * @return javax.swing.JList	
 	 */
-	private JList getItemsList() {
+	public JList getItemsList() {
 		if (itemsList == null) {
 			itemsList = new JList();
+			
+			itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
+					public void mouseClicked(java.awt.event.MouseEvent e) {
+						controller.registerCurrentElement();
+					}
+				});	
+				
 		}
 		return itemsList;
 	}
 
 	/**
-	 * This method initializes buyCartButton	
+	 * This method initializes BuyCartButton	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getBuyCartButton() {
-		if (buyCartButton == null) {
-			buyCartButton = new JButton();
+		if (BuyCartButton == null) {
+			BuyCartButton = new JButton();
 			//218, 226, 100, 26
-			buyCartButton.setBounds(new Rectangle(218, 267, 100, 26));
-			buyCartButton.setText("Buy Cart");
+			BuyCartButton.setBounds(new Rectangle(218, 267, 100, 26));
+			BuyCartButton.setText("Buy Cart");
+			BuyCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					controller.processConfirmBuyCart();
+				}
+			});
 		}
-		return buyCartButton;
+		return BuyCartButton;
 	}
 
 	/**
-	 * This method initializes dropCartButton	
+	 * This method initializes DropCartButton	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
 	private JButton getDropCartButton() {
-		if (dropCartButton == null) {
-			dropCartButton = new JButton();
-			dropCartButton.setBounds(new Rectangle(340, 267, 100, 26));
-			dropCartButton.setText("Drop Cart");
+		if (DropCartButton == null) {
+			DropCartButton = new JButton();
+			DropCartButton.setBounds(new Rectangle(340, 267, 108, 26));
+			DropCartButton.setText("Drop Cart");
 		}
-		return dropCartButton;
+		return DropCartButton;
 	}
 
+	/**
+	 * This method initializes RefreshButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getRefreshButton() {
+		if (RefreshButton == null) {
+			RefreshButton = new JButton();
+			RefreshButton.setBounds(new Rectangle(291, 15, 87, 26));
+			RefreshButton.setText("Refresh");
+			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					
+					controller.initialize();
+				}
+			});
+		}
+		return RefreshButton;
+	}
 
 
 }
