@@ -66,12 +66,6 @@ public class StringListFrame extends AbstractListFrame {
 	}
 
 	@Override
-	public boolean confirmValidity() {
-		// TODO: maybe use regular expressions to confirm strings? but I can't imagine what wouldn't be a valid string input
-		return true;
-	}
-
-	@Override
 	public void initializeComponents() {
 		myInput = new JTextField(30);
 		descriptionLabel = new JLabel();
@@ -80,5 +74,11 @@ public class StringListFrame extends AbstractListFrame {
 		newValue = new JLabel();
 
 		makeComponents();
+	}
+
+	@Override
+	public boolean confirmValidity() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

@@ -6,9 +6,9 @@ import java.util.Map;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.view.AbstractListFrame;
 import arcade.mod.view.DoubleListFrame;
-import arcade.mod.view.FilepathListFrame;
 import arcade.mod.view.ImageListFrame;
 import arcade.mod.view.IntegerListFrame;
+import arcade.mod.view.SoundListFrame;
 import arcade.mod.view.StringListFrame;
 
 /**
@@ -32,7 +32,7 @@ public class FrameFactory {
 	public FrameFactory() {
 		// TODO:abstract this to make it more extendable
 		myMappings.put("Images", new ImageListFrame());
-		myMappings.put("Sounds", new FilepathListFrame());
+		myMappings.put("Sounds", new SoundListFrame());
 		myMappings.put("Strings", new StringListFrame());
 		myMappings.put("Doubles", new DoubleListFrame());
 		myMappings.put("Integers", new IntegerListFrame());

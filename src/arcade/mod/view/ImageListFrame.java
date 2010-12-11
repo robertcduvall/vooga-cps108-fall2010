@@ -1,8 +1,13 @@
 package arcade.mod.view;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,7 +22,7 @@ public class ImageListFrame extends FilepathListFrame {
 
 	private static final int ICON_SIZE = 128;
 	ImageIcon myIcon;
-	private static Collection<String> acceptableImageTags = new HashSet<String>();
+	private static String[] acceptableImageTags = {"jpg","gif","png","bmp","tif"};
 
 	public ImageListFrame() {
 		// do nothing
@@ -26,12 +31,9 @@ public class ImageListFrame extends FilepathListFrame {
 	public ImageListFrame(IResourceNode node) {
 		super(node);
 		
-		acceptableImageTags.add("jpg");
-		acceptableImageTags.add("gif");
 	}
-	
 
-	public ImageListFrame newInstance(IResourceNode node) {
+		public ImageListFrame newInstance(IResourceNode node) {
 		if (!node.getNode().getNodeName().equals(XMLNode.DESCRIPTION_TAG))
 		return new ImageListFrame(node);
 		else return new ImageListFrame();

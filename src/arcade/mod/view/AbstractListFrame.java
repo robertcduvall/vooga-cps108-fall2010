@@ -113,13 +113,12 @@ public abstract class AbstractListFrame extends JPanel {
 	 * frame
 	 */
 	public abstract void makeComponents();
+	
+	public abstract void initializeComponents();
 
 	/**
 	 * Error checking to confirm that a list frame is holding a valid file type
 	 * @return boolean true if a file is valid
 	 */
 	public abstract boolean confirmValidity();
-	
-	public abstract void initializeComponents();
-
 }

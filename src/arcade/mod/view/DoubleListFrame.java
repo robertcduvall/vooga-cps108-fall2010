@@ -37,6 +37,7 @@ public class DoubleListFrame extends SliderListFrame {
 
 	@Override
 	public boolean confirmValidity() {
+		// TODO:if we ever need to confirm something on doubles, put it here
 		return true;
 	}
 
