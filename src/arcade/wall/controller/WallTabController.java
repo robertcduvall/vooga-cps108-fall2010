@@ -3,28 +3,23 @@ package arcade.wall.controller;
 import javax.swing.JOptionPane;
 
 import arcade.wall.model.Comment;
-import arcade.wall.model.WallModel;
-import arcade.wall.view.WallView;
+import arcade.wall.model.WallTabModel;
+import arcade.wall.view.WallTabView;
 
 /**
  * The WallController is the link between WallView and WallModel.
  * @author John, Cam, Bhawana
  *
  */
-public class WallController {
-	WallModel model;
-	WallView view;
+public class WallTabController {
+	WallTabModel model; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
+	WallTabView view; //TODO allow a controller to accept multiple views
 
-	public WallController() {
-		model = new WallModel();
-		view = new WallView();
-		//Initialize comments area to display the default selected game's comments.
-		updateComments(WallView.myGameChoices[0]);
+	public WallTabController() {
+		model = new WallTabModel();
+		view = new WallTabView();
+		updateComments(WallTabView.myGameChoices[0]);
 		view.setController(this);
-	}
-
-	public WallView getWallPanel() {
-		return view;
 	}
 	
 	/**
@@ -48,6 +43,7 @@ public class WallController {
 		return model.commentIsValid(comment);
 	}
 
+	//TODO make this method return the output so the View is what updates the TextField
 //	/**
 //	 * Updates the "Comments Area" to display the comments given to the selected game.
 //	 * @param selectedGameName
@@ -108,5 +104,9 @@ public class WallController {
 			String myGamerName, String selectedValue) {
 		model.updateCommentRatings(selectedGameName,
 				myGamerName, selectedValue);
+	}
+	
+	public WallTabView getView() {
+		return view;
 	}
 }

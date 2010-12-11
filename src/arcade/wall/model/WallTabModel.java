@@ -8,14 +8,14 @@ import java.util.List;
  * @author John, Cam, Bhawana
  *
  */
-public class WallModel {
+public class WallTabModel implements IWallModel {
 	private String myHost;
 	private String myDbName;
 	private String myDbUserName;
 	private String myDbPassword;
 	private CommentSet myCommentSet;
 
-	public WallModel() {
+	public WallTabModel() {
 		myHost = "voogaarcade.db.7093929.hostedresource.com";
 		myDbName = "voogaarcade";
 		myDbUserName = myDbName;
@@ -42,15 +42,7 @@ public class WallModel {
 	 * 		Whether the comment is valid or not
 	 */
 	public boolean commentIsValid(Comment comment) {
-		boolean noConflict = true;
-		for (Comment c: myCommentSet) {
-			if (c.getGameName().equals(comment.getGameName()) && 
-					c.getUserName().equals(comment.getUserName()) && 
-					!c.getRating().equals(comment.getRating())) { //User's ratings are conflicting.
-				noConflict = false;
-			}
-		}
-		return noConflict;
+		return myCommentSet.commentIsConflicting(comment);
 	}
 
 	/**
@@ -72,10 +64,12 @@ public class WallModel {
 		}
 	}
 	
+	/**
+	 * Returns the Model's CommentSet.
+	 */
 	public CommentSet getCommentSet() {
 		return this.myCommentSet;
 	}
-	
 	
 	/**
 	 * Returns all Comments related to a game.

@@ -7,20 +7,20 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import arcade.wall.controller.WallController;
+import arcade.wall.controller.WallTabController;
 import arcade.wall.model.Comment;
-import arcade.wall.view.WallView;
+import arcade.wall.view.WallTabView;
 import arcade.wall.view.ratings.RadioPanel;
 
 public class ReviewButtonListener implements ActionListener {
 
-	private WallController myController;
+	private WallTabController myController;
 	private JComboBox myComboBox;
 	private JTextField myTextField;
 	private String myGamerName;
 	private RadioPanel myRatingPanel;
 
-	public ReviewButtonListener(WallController controller, JComboBox comboBox,
+	public ReviewButtonListener(WallTabController controller, JComboBox comboBox,
 			JTextField textField, String gamerName, RadioPanel ratingPanel) {
 		myController = controller;
 		myComboBox = comboBox;
@@ -31,7 +31,7 @@ public class ReviewButtonListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String selectedGameName = WallView.myGameChoices[myComboBox.getSelectedIndex()];
+		String selectedGameName = WallTabView.myGameChoices[myComboBox.getSelectedIndex()];
 		Comment submittedComment = new Comment(selectedGameName, myGamerName, 
 											   myTextField.getText(), myRatingPanel.getSelectedValue());
 		if (!myController.commentIsValid(submittedComment)) { //Comment was conflicting

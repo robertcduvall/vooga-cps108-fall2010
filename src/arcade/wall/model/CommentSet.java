@@ -84,6 +84,17 @@ public class CommentSet implements Iterable<Comment> {
 						   myDbAdapter.getColumn(myTable, "Rating").get(rowNo));
 	}
 
+	/**
+	 * Determines whether the given comment is in conflict with one already existing in this CommentSet.
+	 */
+	public boolean commentIsConflicting(Comment comment) {
+		for (Comment c: this) {
+			if (c.equals(comment))
+				return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public Iterator<Comment> iterator() {
 		return new Iterator<Comment>() {
