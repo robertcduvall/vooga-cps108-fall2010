@@ -54,6 +54,7 @@ public class WallTabModel implements IWallModel {
 	 * @param selectedValue
 	 * 		The new rating to overwrite with
 	 */
+	//TODO use the equals() method in Comment for this
 	public void updateCommentRatings(String selectedGameName,
 			String myGamerName, String selectedValue) {
 		for (Comment c: myCommentSet) {

@@ -78,10 +78,17 @@ public class CommentSet implements Iterable<Comment> {
 	 * 		The row number
 	 */
 	public Comment getComment(int rowNo) {
-		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name").get(rowNo),
-						   myDbAdapter.getColumn(myTable, "User_Name").get(rowNo),
-						   myDbAdapter.getColumn(myTable, "Comment_String").get(rowNo),
-						   myDbAdapter.getColumn(myTable, "Rating").get(rowNo));
+////		return new Comment(myDbAdapter.getColumn(myTable, "Game_Name").get(rowNo),
+////						   myDbAdapter.getColumn(myTable, "User_Name").get(rowNo),
+////						   myDbAdapter.getColumn(myTable, "Comment_String").get(rowNo),
+////						   myDbAdapter.getColumn(myTable, "Rating").get(rowNo));
+//		Map<String, String> conditions = new HashMap<String, String>(); 
+//		//TODO this is not how we should be doing this
+//		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "User_Id", ""+rowNo);
+//		Map<String, String> row = rows.get(0);
+//		return new Comment(row.get("Game_Name"), row.get("User_Name"), 
+//				row.get("Comment_String"), row.get("Rating"));
+		return new Comment("blah", "blah", "blah", "blah");
 	}
 
 	/**
