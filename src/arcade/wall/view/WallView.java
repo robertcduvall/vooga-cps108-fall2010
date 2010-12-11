@@ -2,12 +2,14 @@ package arcade.wall.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 import javax.swing.*;
 
 import arcade.wall.GameComboBoxListener;
 import arcade.wall.ReviewButtonListener;
 import arcade.wall.controller.WallController;
+import arcade.wall.model.Comment;
 import arcade.wall.view.ratings.IconPanel;
 import arcade.wall.view.ratings.RadioPanel;
 
@@ -24,6 +26,7 @@ public class WallView {
 	private WallController myController;
 	private String myGamerName;
 	private JTextArea myCommentBox;
+	private JPanel commentsPanel;
 	private JFrame myFrame;
 //	private RatingPanel myRatingPanel;
 	private RadioPanel myRatingPanel;
@@ -49,10 +52,23 @@ public class WallView {
 		myFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {System.exit(0);}
 		});
-		myCommentBox = constructCommentsArea();
+//		myCommentBox = constructCommentsArea();
+		commentsPanel = new JPanel();
 		JPanel panel = constructJPanel();
 		myFrame.getContentPane().add(panel, BorderLayout.CENTER);
-		myFrame.getContentPane().add(myCommentBox, BorderLayout.SOUTH);
+	}
+
+	public void updateCommentsPanel(List<Comment> gameComments){
+		BoxLayout layout = new BoxLayout(commentsPanel,BoxLayout.Y_AXIS);
+		for(Comment comment: gameComments){		
+			String display = comment.getCommentString() + " -- "+ comment.getUserName();
+			JLabel gap = new JLabel(" ");
+			//JLabel label = new JLabel(display);
+			JTextArea label = new JTextArea(display);
+			commentsPanel.add(gap);
+			commentsPanel.add(label);	      
+		}
+		commentsPanel.setLayout(layout);
 	}
 
 	/**
@@ -76,9 +92,10 @@ public class WallView {
 		JButton reviewButton = new JButton("Review");
 		JComboBox gameComboBox = new JComboBox(myGameChoices);
 		gameComboBox.setSelectedIndex(0);
+		//TODO - remove these constants
 		JTextField commentEntryField = new JTextField(17);
 		JLabel commentsLabel = new JLabel("Comments for " + myGameChoices[gameComboBox.getSelectedIndex()] + ":");
-
+		commentsPanel.add(commentsLabel);
 
 		gameComboBox.addActionListener(new GameComboBoxListener(myController, commentsLabel, gameComboBox, commentEntryField));
 		reviewButton.addActionListener(new ReviewButtonListener(myController, gameComboBox,
@@ -88,26 +105,27 @@ public class WallView {
 		entryPanel.add(commentEntryField);
 		entryPanel.add(myRatingPanel);
 		entryPanel.add(reviewButton);
-		displayPanel.add(commentsLabel);
+		//displayPanel.add(commentsLabel);
 
 		returnPanel.setLayout(new GridLayout(2,2,5,5));
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		returnPanel.add(entryPanel);
-		returnPanel.add(displayPanel);
+		//returnPanel.add(displayPanel);
+		returnPanel.add(commentsPanel);
 		return returnPanel;
 	}
 
-	/**
-	 * Constructs the Comment Display Area.
-	 */
-	private JTextArea constructCommentsArea(){
-		JTextArea comments = new JTextArea(10,5);
-		comments.setLineWrap(true);
-		comments.setEditable(false);
-		return comments;
-		//JScrollPane scrollPane = new JScrollPane(comments);	
-		//return scrollPane;
-	}
+//	/**
+//	 * Constructs the Comment Display Area.
+//	 */
+//	private JTextArea constructCommentsArea(){
+//		JTextArea comments = new JTextArea(10,5);
+//		comments.setLineWrap(true);
+//		comments.setEditable(false);
+//		return comments;
+//		//JScrollPane scrollPane = new JScrollPane(comments);	
+//		//return scrollPane;
+//	}
 
 	/**
 	 * Prepares the JFrame for display and displays it.
@@ -121,6 +139,7 @@ public class WallView {
 		return myFrame;
 	}
 	
+	//TODO
 	public JTextArea getCommentsArea() {
 		return this.myCommentBox;
 	}

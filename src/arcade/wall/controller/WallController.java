@@ -1,5 +1,7 @@
 package arcade.wall.controller;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import arcade.wall.model.Comment;
@@ -20,8 +22,8 @@ public class WallController {
 		view = new WallView(this, "Gamer13");
 		
 		//Initialize comments area to display the default selected game's comments.
-		updateCommentsArea(WallView.myGameChoices[0]);
-		
+		//updateCommentsArea(WallView.myGameChoices[0]);
+		updateComments(WallView.myGameChoices[0]);
 		view.setFrameVisible();
 	}
 
@@ -65,6 +67,11 @@ public class WallController {
 				" " +  "---" + comment.getUserName() + "\n";
 		}
 		view.getCommentsArea().setText(input);
+	}
+	
+	//TODO
+	public  void updateComments(String selectedGameName) {
+		view.updateCommentsPanel( model.getGameComments(selectedGameName));
 	}
 
 	/**

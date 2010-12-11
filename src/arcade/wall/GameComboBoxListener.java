@@ -28,7 +28,8 @@ public class GameComboBoxListener implements ActionListener {
 		if ("comboBoxChanged".equals(e.getActionCommand())) {
 			String selectedGameName = WallView.myGameChoices[myComboBox.getSelectedIndex()];
 	        myLabel.setText("Comments for " + selectedGameName + ":");
-	        myController.updateCommentsArea(selectedGameName);
+	        //myController.updateCommentsArea(selectedGameName);
+	        myController.updateComments(selectedGameName);
 	        myTextField.setText("");
 	    }
 	}
