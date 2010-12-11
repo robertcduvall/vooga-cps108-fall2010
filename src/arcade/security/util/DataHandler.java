@@ -17,15 +17,19 @@ public class DataHandler {
 	public void addUser(){
 		
 	}
-	public String getPassword(String username){
-		Map<String,String> row = adapter.getRows(myTable, "UserName", username).get(0);
+	public String getPassword(int userId){
+		System.out.println("Getting password for: "+userId);
+		Map<String,String> row = adapter.getRows(myTable, "Id", String.valueOf(userId)).get(0);
 		return row.get("Password");
 	}
 	public void insert(Map<String,String> row){
 		adapter.insert(myTable, row);
 	}
-	public List<String> getAllUsers(){
-		return adapter.getColumn(myTable, "UserName");
+	public int getUserId(String username){
+		List<Map<String, String>> rows = adapter.getRows(myTable, "UserName", username);
+		if(rows == null || rows.size() == 0) return 0;
+		Map<String,String> row = rows.get(0);
+		return Integer.valueOf(row.get("Id"));
 	}
 	
 }

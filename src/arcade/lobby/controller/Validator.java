@@ -95,8 +95,12 @@ public class Validator {
 	
 
 	public static boolean checkUsername(String user){
+		//uncomment this part for error check upon log-in
+		/*
 		Profile profile = Main.ProfileSet.getProfile(user);
 		return profile == null;
+		*/
+		return false;
 	}
 	
 	

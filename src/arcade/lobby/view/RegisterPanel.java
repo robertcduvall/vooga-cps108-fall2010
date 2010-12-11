@@ -172,7 +172,9 @@ public class RegisterPanel extends JPanel {
 				}
 
 				private Profile makeProfile() {
-					Profile profile = new Profile(textMap.get("userName").getText());
+//					Profile profile = new Profile(textMap.get("userName").getText());
+					//Remove the next line once log-in works
+					Profile profile = new Profile(1);
 					profile.setBirthday(textMap.get("birthday").getText());
 					profile.setEmail(textMap.get("email").getText());
 					profile.setName(textMap.get("firstName").getText(), textMap.get("lastName").getText());

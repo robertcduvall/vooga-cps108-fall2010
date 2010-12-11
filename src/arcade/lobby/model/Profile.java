@@ -12,12 +12,12 @@ public class Profile {
 	private String myAvatarURL;
 //	private DateFormat mySDF = Validator.getDateFormat();
 	
-	public Profile(String userName) {
-		myUserName = userName;
+	public Profile(int userId) {
+		myUserId = userId;
 	}
 	
-	public void setUserId(int i){
-		myUserId = i;
+	public int getUserId(){
+		return myUserId;
 	}
 	
 	public void setName(String first,String last) {
@@ -39,6 +39,10 @@ public class Profile {
 	
 	public String getUserName() {
 		return myUserName;
+	}
+	
+	public void setUserName(String userName){
+		myUserName = userName;
 	}
 	
 	public String getFullName() {

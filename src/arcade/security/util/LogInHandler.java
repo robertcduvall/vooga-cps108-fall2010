@@ -1,24 +1,30 @@
 package arcade.security.util;
 
-import arcade.util.database.DatabaseAdapter;
+import arcade.lobby.model.ProfileSet;
+import arcade.lobby.view.ProfilePanel;
 
 public class LogInHandler {
-	public static DataHandler dataHandler = new DataHandler("LoginInfo");
-	public static boolean userNameExists(String username){
-		if(dataHandler.getAllUsers().contains(username)) return true;
-		//if(username.equals("me")) return true;
+	public static DataHandler dataHandler = new DataHandler("User");
+	
+	public static boolean successfulLogin(String username, char[] password){
+		int userId = getUserId(username);
+		if(userId < 1) return false;
+		if(isPasswordValid(userId, password)){
+			ProfileSet.setUser(userId);
+			ProfileSet.currentProfile.setUserName(username);
+			ProfilePanel.setProfile(ProfileSet.currentProfile);
+			return true;
+		}
 		return false;
 	}
-	public static boolean isPasswordValid(String username,char[] password){
-		///char[] validPassword = {'1','2','3'};
-		String validPassword = dataHandler.getPassword(username);
+	public static int getUserId(String username){
+		return dataHandler.getUserId(username);
+	}
+	public static boolean isPasswordValid(int userId, char[] password){
+		String validPassword = dataHandler.getPassword(userId);
 		for(int i=0;i<password.length;i++){
 			if(password[i]!=validPassword.charAt(i)) return false;
 		}
-		//if(!username.equals("me")) return false;
-		return true;
-	}
-	public boolean isValid(String userName,String password){
 		return true;
 	}
 }

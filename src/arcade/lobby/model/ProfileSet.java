@@ -7,62 +7,70 @@ import java.util.Map;
 
 import arcade.util.database.DatabaseAdapter;
 import arcade.util.database.MySqlAdapter;
+import arcade.util.database.Constants;
 
 public class ProfileSet implements Iterable<Profile> {
 	
-	public Profile currentProfile = null;
-	public DatabaseAdapter myDbAdapter;
-	public String myTable;
+	public static Profile currentProfile = null;
+	public static DatabaseAdapter myDbAdapter;
+	public static String myTable = "Profile";
 
 	public ProfileSet(String host, String dbName, String tableName,
 			String user, String pass) {
 		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
 		myTable = tableName;
 	}
-
-	public int size() {
-		return myDbAdapter.getColumn(myTable, "User_Name").size();
+	
+	private static void checkAdapter(){
+		if(myDbAdapter == null){
+			myDbAdapter = new MySqlAdapter(Constants.HOST, Constants.DBNAME, Constants.USER, Constants.PASSWORD);
+		}
 	}
 
-	public boolean addProfile(Profile profile) {
+	public int size() {
+		checkAdapter();
+		return myDbAdapter.getColumn(myTable, "UserName").size();
+	}
+
+	public static boolean addProfile(Profile profile) {
+		checkAdapter();
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("User_Name", profile.getUserName());
-		row.put("First_Name", profile.getFirstName());
-		row.put("Last_Name", profile.getLastName());
+		row.put("User_Id", profile.getUserName());
+		row.put("FirstName", profile.getFirstName());
+		row.put("LastName", profile.getLastName());
 		row.put("Birthday", profile.getBirthday());
-		row.put("Avatar_Url", profile.getAvatar());
+		row.put("AvatarUrl", profile.getAvatar());
 		row.put("Email", profile.getEmail());
 		return myDbAdapter.insert(myTable, row);
 	}
 	
-	public boolean updateProfile(Profile profile) {
+	public static boolean updateProfile(Profile profile) {
+		checkAdapter();
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("First_Name", profile.getFirstName());
-		row.put("Last_Name", profile.getLastName());
+		row.put("FirstName", profile.getFirstName());
+		row.put("LastName", profile.getLastName());
 		row.put("Birthday", profile.getBirthday());
-		row.put("Avatar_Url", profile.getAvatar());
+		row.put("AvatarUrl", profile.getAvatar());
 		row.put("Email", profile.getEmail());
-		return myDbAdapter.update(myTable, "User_Name", profile.getUserName(), row);
+		return myDbAdapter.update(myTable, "User_Id", Integer.toString(profile.getUserId()), row);
 	}
 
-	public Profile getProfile(String userName) {
-		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "User_Name", userName);
-		if(rows.size() == 0) return null;
+	public static Profile getProfile(int userId) {
+		checkAdapter();
+		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "User_Id", Integer.toString(userId));
+		System.out.println("profile data: "+rows);
+		Profile userProf = new Profile(userId);
+		if(rows == null || rows.size() == 0) return userProf;
 		Map<String,String> row = rows.get(0);
-		Profile userProf = new Profile(userName);
-		userProf.setName(row.get("First_Name"), row.get("Last_Name"));
+		userProf.setName(row.get("FirstName"), row.get("LastName"));
 		try {
 			userProf.setBirthday(row.get("Birthday"));
 		} catch (NumberFormatException e) {
 //			e.printStackTrace();
 		}
 		userProf.setEmail(row.get("Email"));
-		userProf.setAvatar(row.get("Avatar_Url"));
+		userProf.setAvatar(row.get("AvatarUrl"));
 		return userProf;
-	}
-
-	public Profile getProfile(int rowNo) {
-		return getProfile(myDbAdapter.getColumn(myTable, "User_Name").get(rowNo));
 	}
 
 	@Override
@@ -93,8 +101,8 @@ public class ProfileSet implements Iterable<Profile> {
 		};
 	}
 	
-	public void setUser(String userName){
-		currentProfile = getProfile(userName);
+	public static void setUser(int userId){
+		currentProfile = getProfile(userId);
 	}
 
 }
