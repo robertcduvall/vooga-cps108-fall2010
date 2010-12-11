@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import arcade.mod.model.IResourceNode;
+import arcade.mod.model.ModException;
 
 public abstract class SliderListFrame extends AbstractListFrame {
 
@@ -85,7 +86,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 					value = Integer.parseInt(myTextInput.getText());
 					myValue = myTextInput.getText();
 				} catch (Exception e) {
-
+					throw ModException.BAD_INPUT;
 				}
 				mySliderInput.setValue(value);
 				currentValue.setText(myValue);
