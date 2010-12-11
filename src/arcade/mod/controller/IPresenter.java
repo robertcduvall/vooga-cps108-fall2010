@@ -1,7 +1,5 @@
 package arcade.mod.controller;
 
-import java.io.File;
-import java.util.Collection;
 
 /**
  * Presenter interface acts as the presenter

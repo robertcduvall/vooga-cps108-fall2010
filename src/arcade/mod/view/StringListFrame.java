@@ -2,7 +2,6 @@ package arcade.mod.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -68,7 +67,7 @@ public class StringListFrame extends AbstractListFrame {
 
 	@Override
 	public boolean confirmValidity() {
-		// TODO: do actual error checking here
+		// TODO: maybe use regular expressions to confirm strings? but I can't imagine what wouldn't be a valid string input
 		return true;
 	}
 
