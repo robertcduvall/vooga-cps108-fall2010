@@ -8,18 +8,21 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
+import arcade.core.Tab;
 import arcade.lobby.controller.Main;
 import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 
-public class ProfilePanel extends JPanel {
+public class ProfilePanel extends Tab {
 
 	private static final long serialVersionUID = 1L;
-	private Profile myProfile;
+	private static Profile myProfile;
 	private JLabel nameLabel = null;
 	private JLabel birthdayLabel = null;
 	private JLabel emailLabel = null;
@@ -40,10 +43,22 @@ public class ProfilePanel extends JPanel {
 	/**
 	 * This is the default constructor
 	 */
-	public ProfilePanel(Profile profile) {
+	public ProfilePanel() {
 		super();
-		myProfile = profile;
+		myProfile = ProfileSet.currentProfile;
+		setToolTipText("Click here to see your user info");
+		setName("Profile");
 		initialize();
+	}
+	
+	public static void setProfile(Profile p){
+		System.out.println("Profile panel profile reset");
+		myProfile = p;
+	}
+	
+	@Override
+	public JComponent getContent() {
+		return this;
 	}
 
 	/**
@@ -144,7 +159,12 @@ public class ProfilePanel extends JPanel {
 		if (nameField == null) {
 			nameField = new JTextField();
 			nameField.setBounds(new Rectangle(60, 5, 145, 20));
-			nameField.setText(myProfile.getFullName());
+			try{
+				nameField.setText(myProfile.getFullName());
+			}
+			catch(NullPointerException e){
+				System.out.println("No name set");
+			}
 			nameField.setEditable(false);
 		}
 		return nameField;
@@ -159,7 +179,13 @@ public class ProfilePanel extends JPanel {
 		if (birthdayField == null) {
 			birthdayField = new JTextField();
 			birthdayField.setBounds(new Rectangle(60, 35, 145, 20));
-			birthdayField.setText(myProfile.getBirthday());
+			try{
+				birthdayField.setText(myProfile.getBirthday());
+			}
+			catch(NullPointerException e){
+				System.out.println("No birthday set");
+			}
+
 			birthdayField.setEditable(false);
 		}
 		return birthdayField;
@@ -174,7 +200,12 @@ public class ProfilePanel extends JPanel {
 		if (emailField == null) {
 			emailField = new JTextField();
 			emailField.setBounds(new Rectangle(60, 65, 145, 20));
-			emailField.setText(myProfile.getEmail());
+			try{
+				emailField.setText(myProfile.getEmail());
+			}
+			catch(NullPointerException e){
+				System.out.println("No email set");
+			}
 			emailField.setEditable(false);
 		}
 		return emailField;
@@ -189,7 +220,12 @@ public class ProfilePanel extends JPanel {
 		if (nicknameField == null) {
 			nicknameField = new JTextField();
 			nicknameField.setBounds(new Rectangle(70, 95, 135, 20));
-			nicknameField.setText(myProfile.getUserName());
+			try{
+				nicknameField.setText(myProfile.getUserName());
+			}
+			catch(NullPointerException e){
+				System.out.println("No username set!?!?!? This is bad.");
+			}
 			nicknameField.setEditable(false);
 		}
 		return nicknameField;
@@ -335,7 +371,12 @@ public class ProfilePanel extends JPanel {
 		if (urlField == null) {
 			urlField = new JTextField();
 			urlField.setBounds(new Rectangle(278, 105, 104, 24));
-			urlField.setText(myProfile.getAvatar());
+			try{
+				urlField.setText(myProfile.getAvatar());
+			}
+			catch(NullPointerException e){
+				System.out.println("No avatar url set");
+			}
 			urlField.setEditable(false);
 		}
 		return urlField;
@@ -349,6 +390,9 @@ public class ProfilePanel extends JPanel {
 			System.out.println("Invalid avatar URL!");
 		} catch (IOException ioe) {
 			System.out.println("Invalid avatar image!");
+		}
+		catch (Exception e){
+			System.out.println(e);
 		}
 		iconLabel.updateUI();
 	}

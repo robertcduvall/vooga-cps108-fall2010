@@ -7,7 +7,7 @@ import arcade.lobby.view.LoginPanel;
 import arcade.lobby.view.Menu;
 
 public class Main {
-	public static ProfileSet ProfileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Users", "voogaarcade", "Vooga108");
+	public static ProfileSet ProfileSet = new ProfileSet("voogaarcade.db.7093929.hostedresource.com" , "voogaarcade", "Profile", "voogaarcade", "Vooga108");
 	public static JFrame MainFrame;
 	
 	  public static void main(String[] args) {

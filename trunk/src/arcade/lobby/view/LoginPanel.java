@@ -48,7 +48,7 @@ public class LoginPanel extends JPanel {
 		this.add(getSignInButton(), null);
 		this.add(getRegisterButton(), null);
 		this.add(getRegisterText(), null);
-		Main.MainFrame.getJMenuBar().setVisible(false);
+		//Main.MainFrame.getJMenuBar().setVisible(false);
 	}
 
 	/**
@@ -127,8 +127,9 @@ public class LoginPanel extends JPanel {
 					System.out.println(username+" is logging in with pw: "+password.toString());
 					if(!Validator.checkUsername(username)){
 						System.out.println("user exists");
-						Main.ProfileSet.setUser(username);
-						Main.MainFrame.setContentPane(new DefaultPanel());
+						//make this next line take the userId of the person who just logged in
+						//Main.ProfileSet.setUser(1);
+						//Main.MainFrame.setContentPane(new DefaultPanel());
 					}
 					else{
 						JOptionPane.showMessageDialog(Main.MainFrame,
@@ -153,7 +154,7 @@ public class LoginPanel extends JPanel {
 			registerButton.setText("Register");
 			registerButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					Main.MainFrame.setContentPane(new RegisterPanel());
+					//Main.MainFrame.setContentPane(new RegisterPanel());
 					System.out.println("Create new profile");
 				}
 			});

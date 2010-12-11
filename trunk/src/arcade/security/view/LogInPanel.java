@@ -24,7 +24,7 @@ import arcade.util.database.MySqlAdapter;
  * Log In Panel. 
  * @author Jiaqi Yan
  * @atthor Meng Li
- *
+ * @author Andrew Brown
  */
 public class LogInPanel extends Tab{
 	
@@ -136,21 +136,15 @@ public class LogInPanel extends Tab{
 	private class SubmitEvent implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			username = usernameField.getText();
+			username = new String(usernameField.getText());
 			password = passwordField.getPassword();
 			//should be put in model
-//			if(!LogInHandler.userNameExists(username)){
-//				JOptionPane.showMessageDialog(getCurrentPanel(),"Username does not exist");
-//				usernameField.selectAll();
-//				usernameField.requestFocus(true);
-//				return;
-//			}
-//			if(!LogInHandler.isPasswordValid(username, password)){
-//				JOptionPane.showMessageDialog(getCurrentPanel(),"Password is not valid");
-//				passwordField.selectAll();
-//				passwordField.requestFocus(true);
-//				return;
-//			}
+			if(!LogInHandler.successfulLogin(username, password)){
+				JOptionPane.showMessageDialog(getCurrentPanel(),"Your username and password combination does not match");
+				usernameField.selectAll();
+				usernameField.requestFocus(true);
+				return;
+			}
 			JOptionPane.showMessageDialog(getCurrentPanel(),"Successfully logged in!");
 			if(isAdmin()){
 				UserService userService = UserServiceFactory.getUserService();

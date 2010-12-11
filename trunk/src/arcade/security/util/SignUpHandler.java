@@ -8,11 +8,10 @@ import java.util.HashMap;
 
 public class SignUpHandler {
 	//potentially add another datahandler that handles the privilege table
-	private static DataHandler dataHandler = new DataHandler("LoginInfo");
+	private static DataHandler dataHandler = new DataHandler("User");
 	public static boolean isValidUserName(String name){
 		if(name.contains(" ")) return false;
-		List<String> currentUsers = dataHandler.getAllUsers();
-		return (!currentUsers.contains(name));
+		return (dataHandler.getUserId(name) < 1 );
 	}
 	public static boolean samePassword(char[] pwd_1,char[] pwd_2){
 		if(pwd_1.length!=pwd_2.length) return false;
