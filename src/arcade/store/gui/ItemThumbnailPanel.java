@@ -10,15 +10,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import arcade.store.control.Control;
+import arcade.core.mvc.IController;
+import arcade.store.control.MainController;
+import arcade.store.control.MainPageController;
 
 public class ItemThumbnailPanel extends JPanel {
 	
 	private static final String CREDDIT_STRING = " Creddits";
-	private Control controller;
+	private IController controller;
 	
 	public ItemThumbnailPanel(String title, String price, String genre, ImageIcon image, 
-			Control control) {
+			IController control) {
 		this(title, price, genre, image);
 		controller = control;
 		this.addMouseListener(new MouseAdapter() {
@@ -58,7 +60,7 @@ public class ItemThumbnailPanel extends JPanel {
 	}
 	
 	public void openItemView() {
-		controller.openGamePage(getName());
+		((MainPageController) controller).openGamePurchasePage(getName());
 	}
 
 }

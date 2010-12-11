@@ -97,7 +97,7 @@ public abstract class MainController {
 				arglist[0] = viewer;
 				arglist[1] = model;
 				
-				Object object = method.invoke(cls.newInstance(), arglist);
+				method.invoke(cls.newInstance(), arglist);
 					
 			}
 		}

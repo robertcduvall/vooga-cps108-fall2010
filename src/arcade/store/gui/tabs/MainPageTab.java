@@ -1,4 +1,4 @@
-package arcade.store.gui;
+package arcade.store.gui.tabs;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,31 +14,56 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
+import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
-import arcade.store.control.Control;
+import arcade.store.control.MainController;
+import arcade.store.control.MainPageController;
 
-public class MainPageView extends Tab {
+public class MainPageTab extends Tab implements IViewer{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
-	private static final String CREDDIT_STRING = " Creddits";
-	private static final int GAME_NAME_COLUMN = 0;
 
+	private static final String NAME = "Main Page";
 	private JPanel jContentPane = null;
 	private JList genreList = null;
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
-	private JPanel gameList = null;
-	private Control controller; // @jve:decl-index=0:
+	private JPanel gameListPanel = null;
 
-	
-	public MainPageView() {
+	private MainPageController controller; // @jve:decl-index=0:
+
+	public MainPageTab() {
 		setName("Browse Catalogue");
-		controller = new Control();
-		controller.setModel(new StoreModel(controller));
-		controller.setView(this);
+		controller = new MainPageController();
+		controller.addViewer(this);
+		
+	}
+	
+	@Override
+	public String getName()
+	{
+		return NAME;
+	}
+	
+	@Override
+	public void setController(IController control) {
+		controller = (MainPageController) control;
+	}
+	
+	@Override
+	public IController getController()
+	{
+		return controller;
 	}
 
-
+	
+	
 	/**
 	 * This method initializes jContentPane
 	 * 
@@ -92,16 +117,12 @@ public class MainPageView extends Tab {
 
 
 	public JPanel getGameList() {
-		if (gameList == null) {
-			gameList = new JPanel(new GridLayout(0, 4));
-			gameList.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		if (gameListPanel == null) {
+			gameListPanel = new JPanel(new GridLayout(0, 4));
+			gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
-		return gameList;
+		return gameListPanel;
 
 	}
 
-
-	public void showMessageBox(String messageText) {
-
-	}
 }

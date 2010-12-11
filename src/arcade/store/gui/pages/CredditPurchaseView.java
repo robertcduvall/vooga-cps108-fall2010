@@ -1,4 +1,4 @@
-package arcade.store.gui;
+package arcade.store.gui.pages;
 
 import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;

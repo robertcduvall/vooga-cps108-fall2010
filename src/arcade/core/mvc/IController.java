@@ -1,4 +1,4 @@
-package arcade.security.mvc;
+package arcade.core.mvc;
 
 
 /**
@@ -10,7 +10,7 @@ package arcade.security.mvc;
 
 public interface IController {
 
-	public void operate();
+	public void initialize();
 	
 	public void addModel(IModel model);
 	

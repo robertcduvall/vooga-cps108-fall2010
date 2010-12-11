@@ -3,6 +3,11 @@ package arcade.store.gui.tabs;
 import javax.swing.JComponent;
 
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
+import arcade.core.mvc.IViewer;
+import arcade.store.control.MainController;
+import arcade.store.control.ProfileController;
+
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.Dimension;
@@ -15,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
-public class ProfileTab extends Tab{
+public class ProfileTab extends Tab implements IViewer{
 	
 	private static final String USER_AVATAR = "src/arcade/store/gui/resources/robert-duvall-avatar.jpg";
 	private static final String USER_NAME = "Robert Duvall";
@@ -34,9 +39,34 @@ public class ProfileTab extends Tab{
 	private JTable purchasedGamesTable = null;
 	private JLabel MyPurchasedGamesLabel = null;
 	
+	private static final String NAME = "Shop Profile";
+	
+	IController controller;
+	
 	public ProfileTab()
 	{
-		setName("My Shop Profile");
+		controller = new ProfileController();
+		controller.addViewer(this);
+		setName(NAME);
+	}
+	
+	@Override
+	public String getName()
+	{
+		return NAME;
+	}
+	
+
+	@Override
+	public void setController(IController control) {
+		
+		controller = control;
+	}
+	
+	@Override
+	public IController getController()
+	{
+		return controller;
 	}
 
 
@@ -191,6 +221,6 @@ public class ProfileTab extends Tab{
 		}
 		return purchasedGamesTable;
 	}
-	
+
 	
 }
