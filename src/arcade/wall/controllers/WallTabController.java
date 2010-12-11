@@ -43,29 +43,7 @@ public class WallTabController {
 	}
 
 	//TODO make this method return the output so the View is what updates the TextField
-//	/**
-//	 * Updates the "Comments Area" to display the comments given to the selected game.
-//	 * @param selectedGameName
-//	 * 		The game to display comments for.
-//	 */
-//	public void updateCommentsArea(String selectedGameName) {
-//		String input = "";
-//		for (Comment comment: model.getCommentSet()) {
-//			String starString = "";
-//			if (comment.getRating().equals("0"))
-//				starString = ":("; //TODO Is this needed?
-//			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
-//				starString += "*";
-//			}
-//			if (comment.getGameName().equals(selectedGameName))
-//				input += " >> ''" + comment.getCommentString() + "''  " + starString + 
-//				" " +  "---" + comment.getUserName() + "\n";
-//		}
-//		view.getCommentsArea().setText(input);
-//	}
-	
-	//TODO
-	//Used by ComboBoxListener and ReviewButtonListener
+	//TODO 
 	public void updateComments(String selectedGameName) {
 		view.updateCommentsPanel(model.getGameComments(selectedGameName));
 	}

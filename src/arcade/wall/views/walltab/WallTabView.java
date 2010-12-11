@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallTabController;
 import arcade.wall.models.Comment;
 import arcade.wall.views.ratings.RadioPanel;
@@ -30,7 +29,6 @@ public class WallTabView extends JPanel {
 	private JPanel myPanel;
 	private RadioPanel myRatingPanel;
 	private JPanel commentsPanel;
-	//	private IconPanel myRatingPanel;
 	public static final String[] myGameChoices = formGameList();
 
 	public WallTabView(WallTabController controller) {
@@ -69,15 +67,12 @@ public class WallTabView extends JPanel {
 			new WallTabReviewButtonGroup(myController, gameComboBox, commentEntryField, 
 					myRatingPanel);
 		reviewButton.addActionListener(new ReviewButtonListener(wallTabReviewButtonGroup));
-		//reviewButton.addActionListener(new ReviewButtonListener(myController, gameComboBox,
-		//		commentEntryField, ProfileSet.currentProfile.getUserName(), myRatingPanel));
 
 		entryPanel.add(gameComboBox);
 		entryPanel.add(commentEntryField);
 		entryPanel.add(myRatingPanel);
 		entryPanel.add(reviewButton);
 		displayPanel.add(commentsLabel);
-		//displayPanel.add(myCommentBox);
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 
 		returnPanel.setLayout(new GridLayout(2,2,5,5));
