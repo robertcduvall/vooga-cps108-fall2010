@@ -2,6 +2,7 @@ package arcade.wall.view;
 
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -13,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import arcade.wall.GameComboBoxListener;
-import arcade.wall.controller.WallController;
+import arcade.wall.controller.WallTabController;
 import arcade.wall.model.Comment;
 import arcade.wall.view.ratings.RadioPanel;
 
@@ -23,38 +24,33 @@ import arcade.wall.view.ratings.RadioPanel;
  *
  */
 @SuppressWarnings("serial")
-public class WallView extends JPanel {
-
-	private WallController myController;
+public class WallTabView extends JPanel {
+	
+	private WallTabController myController;
 	private JPanel myPanel;
-
 	private RadioPanel myRatingPanel;
 	private JPanel commentsPanel;
 	//	private IconPanel myRatingPanel;
 	public static final String[] myGameChoices = formGameList();
 
-	public WallView() {
+	public WallTabView() {
 		myPanel = constructJPanel();
 	}
 
 	/**
-	 * Constructs the JPanel to be placed in the JFrame.
+	 * Constructs the WallTab JPanel.
 	 */
 	private JPanel constructJPanel() {
 		JPanel returnPanel = new JPanel();
 		JPanel entryPanel = new JPanel();
 		JPanel displayPanel = new JPanel();
+		
 		myRatingPanel = new RadioPanel(5);
-		//		myRatingPanel = new IconPanel(5);
-
-		//TODO clean up this code (loop)
-		myRatingPanel.addComment(1, "CS6 tier");
-		myRatingPanel.addComment(2, "Meh tier");
-		myRatingPanel.addComment(3, "1337 tier");
-		myRatingPanel.addComment(4, "God tier");
-		myRatingPanel.addComment(5, "RCD tier");
+		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.view.tierLabels");
+		for (String s: ratingLabelBundle.keySet()) {
+			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
+		}
 		myRatingPanel.setVertical();
-		//myCommentBox = constructCommentsArea();
 		
 		commentsPanel = new JPanel();
 
@@ -86,14 +82,20 @@ public class WallView extends JPanel {
 	
 	public void updateCommentsPanel(List<Comment> gameComments){
 		BoxLayout layout = new BoxLayout(commentsPanel,BoxLayout.Y_AXIS);
-		for(Comment comment: gameComments){             
-			String display = comment.getCommentString() + " -- "+ comment.getUserName();
-			JLabel gap = new JLabel(" ");
-			JLabel label = new JLabel(display);
-			//JTextArea label = new JTextArea(display);
-			commentsPanel.add(gap);
-			commentsPanel.add(label);             
+		JTextArea commentsArea = new JTextArea();
+		String displayString = "";
+		for(Comment comment: gameComments){  
+			String starString = "";
+			if (comment.getRating().equals("0"))
+				starString = ":("; //TODO Is this needed?
+			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
+				starString += "*";
+			}
+			displayString += " >> ''" + comment.getCommentString() + "''  " + starString + 
+			" " +  "---" + comment.getUserName() + "\n";           
 		}
+		commentsArea.setText(displayString);
+		commentsPanel.add(commentsArea);
 		commentsPanel.setLayout(layout);
 	}
 
@@ -110,7 +112,7 @@ public class WallView extends JPanel {
 		return this.myPanel;
 	}
 
-	public void setController(WallController controller) {
+	public void setController(WallTabController controller) {
 		myController = controller;
 	}
 }

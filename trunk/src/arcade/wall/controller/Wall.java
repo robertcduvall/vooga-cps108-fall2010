@@ -11,18 +11,19 @@ import arcade.core.Tab;
 @SuppressWarnings("serial")
 public class Wall extends Tab {
 
-	private WallController myController;
+	private WallTabController myController;
+	//TODO create model and pass into controller
 	
 	public Wall(){
 		super();
 		setToolTipText("Click here to see your Wall.");
 		setName("Wall");
-		myController = new WallController();
-		this.add(myController.getWallPanel().getPanel());
+		myController = new WallTabController();
+		this.add(myController.getView().getPanel());
 	}
 
 	@Override
 	public JComponent getContent() {
-		return myController.getWallPanel().getPanel();
+		return myController.getView().getPanel();
 	}
 }
