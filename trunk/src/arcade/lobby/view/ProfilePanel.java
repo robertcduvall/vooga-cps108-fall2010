@@ -335,8 +335,10 @@ public class ProfilePanel extends Tab {
 				private void updateName() {
 					nameField.setEditable(false);
 					String name = nameField.getText();
-					myProfile.setName(name.substring(0, name.indexOf(" ")),
-							name.substring(name.indexOf(" "), name.length()));
+					if(name.length() > 0){
+						myProfile.setName(name.substring(0, name.indexOf(" ")),
+								name.substring(name.indexOf(" "), name.length()));
+					}
 				}
 			});
 		}
