@@ -31,7 +31,8 @@ public class IntegerListFrame extends SliderListFrame {
 
 	@Override
 	public boolean confirmValidity() {
-		//TODO: if we eventually come up with something that we need to check on the slider than we should add it here
+		// TODO:if we ever need to confirm something on integers, put it here
 		return true;
 	}
+
 }

@@ -77,11 +77,8 @@ public class FilepathListFrame extends AbstractListFrame {
 		myDescription = node.getDescription();
 	}
 
-	@Override
-	public boolean confirmValidity() {
-		//TODO: do actual error checking here
-		return true;
-	}
+
+
 
 	@Override
 	public void initializeComponents() {
@@ -92,6 +89,12 @@ public class FilepathListFrame extends AbstractListFrame {
 		myFileButton = new JButton("Select A File");
 
 		makeComponents();
+	}
+
+	
+	@Override
+	public boolean confirmValidity() {
+		return true;
 	}
 
 }
