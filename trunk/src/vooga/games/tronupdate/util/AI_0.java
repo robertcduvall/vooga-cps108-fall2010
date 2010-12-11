@@ -2,10 +2,17 @@ package vooga.games.tronupdate.util;
 
 import vooga.games.tronupdate.util.Grid;
 import vooga.games.tronupdate.items.Player;
-
+/**
+ * The original AI for the game
+ * @author Jiaqi Yan
+ *
+ */
 public class AI_0 extends AI{
 	
-	private int preventRange = 4;
+	public AI_0(Player player) {
+		super(player);
+	}
+	private int preventRange = 5;
 	int leftRightCounter,upDownCounter;
 	String leftRightDirection, upDownDirection;
 	
@@ -13,11 +20,10 @@ public class AI_0 extends AI{
 	//	myPlayer = player;
 	//}
 	
-	public AI_0(Player player){
-		myPlayer = player;
-	}
 	
-	public void update(Grid[][] grid,int row,int col,Direction direction){
+	
+	
+	public void update(Grid[][] grid,int row,int col,Direction direction,int oRow,int oCol,Direction oDirection){
 		int rowLength = grid.length;
 		int colLength = grid[0].length;
 		
@@ -29,6 +35,14 @@ public class AI_0 extends AI{
 		}
 		react(row,col,direction,blocksTaken);
 	}
+	
+	/**
+	 * Far strategy: try to avoide the enemy when from a range
+	 * @param row
+	 * @param col
+	 * @param direction
+	 * @param blocksTaken
+	 */
 	private void react(int row,int col, Direction direction, boolean[][] blocksTaken){
 		if(direction.equals(Direction.up)){
 			boolean obstacleUp = false;
@@ -130,29 +144,5 @@ public class AI_0 extends AI{
 			down(); upDownDirection = "down";
 		}
 	}	
-	/**
-	 * performs down turning
-	 */
-	public void down() {
-		myPlayer.down();		
-	}
-	/**
-	 * performs left turning 
-	 */
-	public void left() {
-		myPlayer.left();
-	}
-	/**
-	 * performs right turning
-	 */
-	public void right() {
-		myPlayer.right();
-	}
-	/**
-	 * performs up turning
-	 */
-	public void up() {
-		myPlayer.up();
-	}
 	
 }

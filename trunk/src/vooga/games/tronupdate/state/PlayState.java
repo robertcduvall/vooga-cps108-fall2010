@@ -23,7 +23,7 @@ import vooga.engine.state.GameStateManager;
 import vooga.games.tronupdate.events.InvokeHelpEvent;
 import vooga.games.tronupdate.events.TronGamePauseEvent;
 import vooga.games.tronupdate.items.Player;
-import vooga.games.tronupdate.util.AI_0;
+import vooga.games.tronupdate.util.*;
 import vooga.games.tronupdate.util.Direction;
 import vooga.games.tronupdate.util.GameStats;
 import vooga.games.tronupdate.util.Grid;
@@ -108,7 +108,8 @@ public class PlayState extends GameState {
 	
 	private void setAIControl(int index,int level){
 		players[index].setAsAI(true);
-		AI_0 playerAI = new AI_0(players[index]);
+		AI playerAI = new AI_1(players[index]);
+		//if(index==0) playerAI = new AI_0(players[index]);	
 		players[index].setAI(playerAI);
 	}
 	
@@ -172,6 +173,7 @@ public class PlayState extends GameState {
 	}
 
 	private int initPlayerY(int player) {
+		System.out.println(GRID_HEIGHT / 2);
 		return GRID_HEIGHT / 2;
 	}
 
@@ -179,7 +181,7 @@ public class PlayState extends GameState {
 		int[] row = new int[numPlayers];
 		int[] col = new int[numPlayers];
 		for(int i=0;i<numPlayers;i++){ 
-			players[i].update(grid);
+			players[i].update(grid,players);
 		}
 		for(int i=0;i<numPlayers;i++){
 			row[i]=players[i].getRow();

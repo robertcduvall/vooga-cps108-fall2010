@@ -6,7 +6,7 @@ import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.resource.Resources;
 import vooga.engine.event.EventPool;
-import vooga.games.tronupdate.util.AI_0;
+import vooga.games.tronupdate.util.AI;
 import vooga.games.tronupdate.util.Grid;
 
 public class Player {
@@ -16,7 +16,7 @@ public class Player {
 	private int loses;
 
 	private boolean isAI;
-	private AI_0 ai;
+	private AI ai;
 	private int playerImageWidth;
 	private int speedUp;
 	private Control control;
@@ -52,7 +52,7 @@ public class Player {
 	public boolean isAI() {
 		return isAI;
 	}
-	public void setAI(AI_0 ai_){
+	public void setAI(AI ai_){
 		ai = ai_;	
 	}
 
@@ -76,9 +76,16 @@ public class Player {
 		return Col;
 	}
 
-	public void update(Grid[][] grid) {
+	public void update(Grid[][] grid,Player[] players) {
 		if(isAI()){
-			ai.update(grid,Row,Col,Dir);
+			//temporary implementation for only two players
+			int opponentRow = 0; int opponentCol = 0; Direction opponentDirection = Direction.down;
+			for(int i=0;i<players.length;i++){
+				if(players[i].getRow()==Row) continue;
+				opponentRow = players[i].getRow(); opponentCol = players[i].getCol(); 
+				opponentDirection = players[i].getDirection();
+			}
+			ai.update(grid,Row,Col,Dir,opponentRow,opponentCol,opponentDirection);
 		}
 		else control.update();
 		routinelyUpdateX();
