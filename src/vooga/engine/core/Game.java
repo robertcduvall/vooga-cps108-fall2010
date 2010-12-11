@@ -66,8 +66,18 @@ public class Game extends com.golden.gamedev.Game {
 	@Override
 	public void update(long elapsedTime) {
 		stateManager.update(elapsedTime);
+		if (isFinish())
+		{
+			notifyExit();
+		}
 	}
 
+	@Override
+	protected void notifyExit()
+	{
+		
+	}
+	
 	@Override
 	public void render(Graphics2D g) {
 		stateManager.render(g);
