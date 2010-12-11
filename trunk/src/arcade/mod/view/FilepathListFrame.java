@@ -72,15 +72,13 @@ public class FilepathListFrame extends AbstractListFrame {
 	@Override
 	public void handleNode(IResourceNode node) {
 
-	//	System.out.println(node.getAttribute("name"));
-
 		myName = node.getAttribute("name");
 		myFilepath = node.getAttribute("path");
 		myDescription = node.getDescription();
 	}
 
 	@Override
-	public boolean confirmValidity(File saveFile) {
+	public boolean confirmValidity() {
 		//TODO: do actual error checking here
 		return true;
 	}

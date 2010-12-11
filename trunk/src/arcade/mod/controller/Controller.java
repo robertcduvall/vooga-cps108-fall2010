@@ -34,7 +34,8 @@ public class Controller extends Tab implements IPresenter {
 	IModel myModel;
 	IViewer myView;
 	FrameFactory myFactory;
-
+	Collection<AbstractListFrame> myFrames;
+	
 	/**
 	 * Creates the instance of Controller when the Mod Environment is launched
 	 */
@@ -105,6 +106,7 @@ public class Controller extends Tab implements IPresenter {
 
 			frames.add(myFactory.createFrame(myView.getCurrentCategory(), node));
 		}
+		myFrames = frames;
 		return frames;
 	}
 
@@ -113,7 +115,7 @@ public class Controller extends Tab implements IPresenter {
 	 */
 	public void save() {
 		File saveFile = myView.saveFileSelect();
-		if (errorCheck(saveFile)) {
+		if (errorCheck()) {
 			myModel.writeResources(saveFile);
 		}
 	}
@@ -141,10 +143,12 @@ public class Controller extends Tab implements IPresenter {
 	 * Do error checking here through Frame hierarchy
 	 */
 	@Override
-	public boolean errorCheck(File saveFile) {
-		if (saveFile != null)
-			return true;
-		else
-			return false;
+	public boolean errorCheck() {
+		for (AbstractListFrame frame: myFrames){
+			if (!frame.confirmValidity()){
+				return false;
+			}
+		}
+		return true;
 	}
 }

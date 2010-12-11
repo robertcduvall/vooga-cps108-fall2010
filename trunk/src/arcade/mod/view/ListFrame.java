@@ -20,7 +20,7 @@ import arcade.mod.model.IResourceNode;
  * needed for the GUI so as to avoid coupling between the Model and View
  * 
  */
-public abstract class AbstractListFrame extends JPanel {
+public abstract class ListFrame extends JPanel {
 
 	protected String myName;
 	protected String myDescription;
@@ -38,7 +38,7 @@ public abstract class AbstractListFrame extends JPanel {
 	/**
 	 * Null constructor for the List Frame
 	 */
-	public AbstractListFrame() {
+	public ListFrame() {
 
 	}
 
@@ -48,7 +48,7 @@ public abstract class AbstractListFrame extends JPanel {
 	 * @param node
 	 *            representing data from the XML file
 	 */
-	public AbstractListFrame(IResourceNode node) {
+	public ListFrame(IResourceNode node) {
 
 		myNode = node;
 		
@@ -101,7 +101,7 @@ public abstract class AbstractListFrame extends JPanel {
 	 *            from which to create a new instance of the list frame
 	 * @return a new instance of a subclass of AbstractListFrame
 	 */
-	public abstract AbstractListFrame newInstance(IResourceNode node);
+	public abstract ListFrame newInstance(IResourceNode node);
 
 	/**
 	 * Logic of the list frame which is specific to each subclass
@@ -120,7 +120,7 @@ public abstract class AbstractListFrame extends JPanel {
 	 * Error checking to confirm that a list frame is holding a valid file type
 	 * @return boolean true if a file is valid
 	 */
-	public abstract boolean confirmValidity();
+	public abstract boolean confirmValidity(File saveFile);
 	
 	public abstract void initializeComponents();
 
