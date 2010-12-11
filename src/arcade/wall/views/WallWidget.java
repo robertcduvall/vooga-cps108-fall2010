@@ -1,4 +1,4 @@
-package arcade.wall.view;
+package arcade.wall.views;
 
 /**
  * Utility that allows users to comment on and rate items (games) while they are running 

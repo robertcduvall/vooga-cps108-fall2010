@@ -1,4 +1,4 @@
-package arcade.wall.controller;
+package arcade.wall.controllers;
 
 import javax.swing.JComponent;
 

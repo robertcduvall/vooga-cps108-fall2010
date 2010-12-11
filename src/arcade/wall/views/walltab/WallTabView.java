@@ -1,4 +1,4 @@
-package arcade.wall.view;
+package arcade.wall.views.walltab;
 
 import java.awt.GridLayout;
 import java.util.List;
@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import arcade.wall.GameComboBoxListener;
-import arcade.wall.controller.WallTabController;
-import arcade.wall.model.Comment;
-import arcade.wall.view.ratings.RadioPanel;
+import arcade.lobby.model.ProfileSet;
+import arcade.wall.controllers.WallTabController;
+import arcade.wall.models.Comment;
+import arcade.wall.views.ratings.RadioPanel;
 
 /**
- * WallView is the Wall entity that deals with the display of GUI elements and data on screen. 
+ * WallTabView is the Wall entity that deals with the display of the Wall Arcade Tab GUI elements and data on screen. 
  * @author John, Cam, Bhawana
  *
  */
@@ -33,7 +33,8 @@ public class WallTabView extends JPanel {
 	//	private IconPanel myRatingPanel;
 	public static final String[] myGameChoices = formGameList();
 
-	public WallTabView() {
+	public WallTabView(WallTabController controller) {
+		this.myController = controller;
 		myPanel = constructJPanel();
 	}
 
@@ -46,7 +47,7 @@ public class WallTabView extends JPanel {
 		JPanel displayPanel = new JPanel();
 		
 		myRatingPanel = new RadioPanel(5);
-		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.view.tierLabels");
+		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
 		for (String s: ratingLabelBundle.keySet()) {
 			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
 		}
@@ -60,7 +61,14 @@ public class WallTabView extends JPanel {
 		JTextField commentEntryField = new JTextField(17);
 		JLabel commentsLabel = new JLabel("Comments for " + myGameChoices[gameComboBox.getSelectedIndex()] + ":");
 
-		gameComboBox.addActionListener(new GameComboBoxListener(myController, commentsLabel, gameComboBox, commentEntryField));
+		WallTabComboBoxGroup wallTabComboBoxGroup = 
+			new WallTabComboBoxGroup(myController, commentsLabel, gameComboBox, commentEntryField);
+		gameComboBox.addActionListener(new GameComboBoxListener(wallTabComboBoxGroup));
+		
+		WallTabReviewButtonGroup wallTabReviewButtonGroup = 
+			new WallTabReviewButtonGroup(myController, gameComboBox, commentEntryField, 
+					myRatingPanel);
+		reviewButton.addActionListener(new ReviewButtonListener(wallTabReviewButtonGroup));
 		//reviewButton.addActionListener(new ReviewButtonListener(myController, gameComboBox,
 		//		commentEntryField, ProfileSet.currentProfile.getUserName(), myRatingPanel));
 
@@ -110,9 +118,5 @@ public class WallTabView extends JPanel {
 
 	public JPanel getPanel() {
 		return this.myPanel;
-	}
-
-	public void setController(WallTabController controller) {
-		myController = controller;
 	}
 }

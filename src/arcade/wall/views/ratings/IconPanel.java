@@ -1,4 +1,4 @@
-package arcade.wall.view.ratings;
+package arcade.wall.views.ratings;
 
 
 import java.awt.Image;

@@ -1,10 +1,10 @@
-package arcade.wall.controller;
+package arcade.wall.controllers;
 
 import javax.swing.JOptionPane;
 
-import arcade.wall.model.Comment;
-import arcade.wall.model.WallTabModel;
-import arcade.wall.view.WallTabView;
+import arcade.wall.models.Comment;
+import arcade.wall.models.WallTabModel;
+import arcade.wall.views.walltab.WallTabView;
 
 /**
  * The WallController is the link between WallView and WallModel.
@@ -17,9 +17,8 @@ public class WallTabController {
 
 	public WallTabController() {
 		model = new WallTabModel();
-		view = new WallTabView();
+		view = new WallTabView(this);
 		updateComments(WallTabView.myGameChoices[0]);
-		view.setController(this);
 	}
 	
 	/**

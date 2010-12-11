@@ -1,4 +1,4 @@
-package arcade.wall.model;
+package arcade.wall.models;
 
 import java.util.HashMap;
 import java.util.Iterator;
