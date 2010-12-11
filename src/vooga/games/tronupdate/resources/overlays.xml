@@ -4,13 +4,26 @@
 <Stat type="Integer" value="70" name="one"></Stat>
 <Stat type="Integer" value="4" name="two"></Stat>
 <Stat type="Integer" value="0" name="three"></Stat>
-<Stat type="Integer" value="0" name="life"></Stat>
+<Stat type="Integer" value="0" name="wins"></Stat>
 <Stat type="Integer" value="0" name="score"></Stat>
 
 <OverlayGroup name="SetNumMatches">
-<OverlayString xLoc="50" yLoc="100" fontName="Time New Roman" label="Please Select How Many Matches You Want: " fontSize="16"></OverlayString>
-<OverlayString xLoc="50" yLoc="150" fontName="Time New Roman" label="2" fontSize="16"></OverlayString>
+<OverlayString xLoc="50" yLoc="50" fontName="Time New Roman" label="Please Select How Many Matches You Want: " fontSize="32" color="red"></OverlayString>
+<!--<OverlayString xLoc="50" yLoc="150" fontName="Time New Roman" label="2" fontSize="16"></OverlayString>-->
+<OverlayString xLoc="50" yLoc="150" fontName="Time New Roman" label="3" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="250" fontName="Time New Roman" label="5" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="350" fontName="Time New Roman" label="7" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="450" fontName="Time New Roman" label="9" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="550" fontName="Time New Roman" label="11" fontSize="32" color="red"></OverlayString>
 </OverlayGroup>
+
+<OverlayGroup name="SetEnvironment">
+<OverlayString xLoc="50" yLoc="0" fontName="Time New Roman" label="Please Select  Under which Environment You Want to Play: " fontSize="16" color="red"></OverlayString>
+<OverlayString xLoc="50" yLoc="100" fontName="Time New Roman" label="Classic EmptySpace Environment" color="red" fontSize="16"></OverlayString>
+<OverlayString xLoc="50" yLoc="200" fontName="Time New Roman" label="Block Environment" color="red" fontSize="16"></OverlayString>
+<OverlayString xLoc="50" yLoc="300" fontName="Time New Roman" label="Wall Environment" color="red" fontSize="16"></OverlayString>
+</OverlayGroup>
+
 
 <OverlayGroup name="PlayState">
 <OverlayString xLoc="0" yLoc="0" fontName="Time New Roman" label="Level: 1" fontSize="16"></OverlayString>
@@ -18,9 +31,9 @@
 </OverlayGroup>
 
 <OverlayGroup name="multiPlayer">
-<OverlayString xLoc="400" yLoc="0" fontName="gameFontBlack" label="::::" fontSize="16"></OverlayString>
-<OverlayStat name="life1" label=" " stat="life" fontName="gameFontBlue" xLoc="385" yLoc="0"></OverlayStat>
-<OverlayStat name="life2" label=" " stat="life" fontName="gameFontRed" xLoc="415" yLoc="0"></OverlayStat>
+<OverlayString xLoc="400" yLoc="0" fontName="Time New Roman" label=":" fontSize="16"></OverlayString>
+<OverlayStat name="wins1" label=" " stat="wins" fontName="Time New Roman" xLoc="385" yLoc="0"></OverlayStat>
+<OverlayStat name="wins2" label=" " stat="wins" fontName="Time New Roman" xLoc="415" yLoc="0"></OverlayStat>
 </OverlayGroup>
 
 
@@ -51,7 +64,6 @@
 <OverlayString xLoc="100" yLoc="100" fontName="Time New Roman" label="Arrows for Player No. 1" fontSize="32" color="red"></OverlayString>
 <OverlayString xLoc="100" yLoc="200" fontName="Time New Roman" label="A,S,D,W for player No. 2" fontSize="32" color="red"></OverlayString>
 <OverlayString xLoc="100" yLoc="300" fontName="Time New Roman" label="Press p to pause" fontSize="32" color="red"></OverlayString>
-<OverlayString xLoc="100" yLoc="400" fontName="Time New Roman" label="Press r to resume the game" fontSize="32" color="red"></OverlayString>
-<OverlayString xLoc="150" yLoc="700" fontName="Time New Roman" label="Press Space to go back" fontSize="32" color="red"></OverlayString>
+<OverlayString xLoc="150" yLoc="400" fontName="Time New Roman" label="Press Space to go back" fontSize="32" color="red"></OverlayString>
 </OverlayGroup>
 </Overlay>

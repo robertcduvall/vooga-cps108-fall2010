@@ -6,7 +6,7 @@ import vooga.engine.resource.Resources;
 public class Grid {
 	private boolean isTaken,isBonus,isWall,isPlayer;
 	private int bonusType;
-	private ArrayList<Integer> players = new ArrayList<Integer>();
+	private Stack<Integer> players = new Stack<Integer>();
 	public void setPlayer(int player){
 		players.add(player);
 		isPlayer = true;
@@ -16,6 +16,9 @@ public class Grid {
 	//}
 	public boolean collides(){
 		return (players.size()>1) || (isWall && isPlayer);
+	}
+	public int getCollidePlayer(){
+		return players.peek();
 	}
 	public void setTaken(boolean taken){
 		isTaken = taken;

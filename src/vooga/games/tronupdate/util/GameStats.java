@@ -6,6 +6,9 @@ public class GameStats {
 	private static Stat<Integer> NumMatches = new Stat<Integer>(0);
 	private static Stat<Integer> Level = new Stat<Integer>(0);
 	private static Stat<Integer> originalState = new Stat<Integer>(0);
+	private int[] loses = new int[2];
+	
+	
 	
 	public static void setNumMatches(int i){
 		NumMatches=new Stat<Integer>(i);
