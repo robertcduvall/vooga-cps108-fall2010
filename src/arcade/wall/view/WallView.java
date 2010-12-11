@@ -89,8 +89,8 @@ public class WallView extends JPanel {
 		for(Comment comment: gameComments){             
 			String display = comment.getCommentString() + " -- "+ comment.getUserName();
 			JLabel gap = new JLabel(" ");
-			//JLabel label = new JLabel(display);
-			JTextArea label = new JTextArea(display);
+			JLabel label = new JLabel(display);
+			//JTextArea label = new JTextArea(display);
 			commentsPanel.add(gap);
 			commentsPanel.add(label);             
 		}
