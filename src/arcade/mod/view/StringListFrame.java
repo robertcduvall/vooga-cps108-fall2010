@@ -67,7 +67,7 @@ public class StringListFrame extends AbstractListFrame {
 	}
 
 	@Override
-	public boolean confirmValidity(File saveFile) {
+	public boolean confirmValidity() {
 		// TODO: do actual error checking here
 		return true;
 	}

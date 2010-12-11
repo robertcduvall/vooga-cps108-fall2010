@@ -43,8 +43,7 @@ public class DoubleListFrame extends SliderListFrame {
 	}
 
 	@Override
-	public boolean confirmValidity(File saveFile) {
-		//TODO: do actual error checking here
+	public boolean confirmValidity() {
 		return true;
 	}
 

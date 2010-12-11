@@ -12,6 +12,8 @@ import arcade.mod.model.IResourceNode;
 
 public class IntegerListFrame extends SliderListFrame {
 
+	private int INIT;
+	
 	public IntegerListFrame() {
 	}
 
@@ -38,8 +40,7 @@ public class IntegerListFrame extends SliderListFrame {
 	}
 
 	@Override
-	public boolean confirmValidity(File saveFile) {
-		//TODO: do actual error checking here
+	public boolean confirmValidity() {
 		return true;
 	}
 }

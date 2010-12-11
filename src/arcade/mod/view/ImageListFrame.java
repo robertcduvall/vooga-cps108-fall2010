@@ -64,5 +64,13 @@ public class ImageListFrame extends FilepathListFrame {
 		myFilepath = node.getModelPath() + "\\images\\" + node.getAttribute("path");
 		myDescription = node.getDescription();
 	}
+	
+	@Override
+	public boolean confirmValidity(){
+		if (myFilepath.endsWith("jpg")){
+			return true;
+		}
+		return false;
+	}
 
 }

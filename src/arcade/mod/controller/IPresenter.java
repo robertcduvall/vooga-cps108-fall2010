@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Collection;
 
 /**
- * Presenter interfaces acts as the presenter
+ * Presenter interface acts as the presenter
  * in the model-view-presenter GUI paradigm. Designed 
  * to handle events which occur in the view. This 
  * interface provides the means for the view to 
@@ -45,5 +45,5 @@ public interface IPresenter {
 	 * @param saveFile - file to be saved
 	 * @return true if a file is valid
 	 */
-	public boolean errorCheck(File saveFile);
+	public boolean errorCheck();
 }
