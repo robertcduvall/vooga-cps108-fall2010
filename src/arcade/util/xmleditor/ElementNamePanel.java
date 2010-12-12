@@ -3,7 +3,7 @@ package arcade.util.xmleditor;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ElementNamePanel extends JPanel{
+public class ElementNamePanel extends JPanel implements ModelAlteredListener{
 	
 	private String elementName;
 	
@@ -25,6 +25,11 @@ public class ElementNamePanel extends JPanel{
 		updateUI();
 		
 		add(new JLabel(elementName));
+	}
+
+	@Override
+	public void modelChanged() {
+		updateElementNameDisplay();		
 	}
 
 }
