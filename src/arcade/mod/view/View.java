@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import arcade.core.ExampleGUI;
 import arcade.mod.controller.IPresenter;
 import arcade.mod.view.file.IFileOpener;
 import arcade.mod.view.frame.ListFrame;
@@ -62,7 +63,7 @@ public class View extends JPanel implements IViewer {
 	public void initialize() {
 
 //		setSize(VIEW_WIDTH, VIEW_HEIGHT);
-
+		
 		JPanel contentPane = new JPanel(new BorderLayout());
 		
 		contentPane.add(makeCategoryBox(), BorderLayout.NORTH);

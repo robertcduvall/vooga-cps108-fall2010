@@ -66,6 +66,10 @@ public class ExampleGUI extends Tab {
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 	}
+	
+	public static String getGame() {
+		return gameName;
+	}
 
 	public static void updateHighScore(double highScore) {
 		score = highScore;

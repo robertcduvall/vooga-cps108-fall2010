@@ -21,6 +21,8 @@ public abstract class SliderListFrame extends ListFrame {
 	protected int MIN;
 	protected int MAX;
 	protected int INIT;
+	
+	private final int HEIGHT = 100;
 
 	public SliderListFrame() {
 
@@ -28,6 +30,8 @@ public abstract class SliderListFrame extends ListFrame {
 
 	public SliderListFrame(IResourceNode node) {
 		super(node);
+		
+		restrictSize(HEIGHT);
 
 	}
 

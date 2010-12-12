@@ -38,9 +38,7 @@ public class ImageListFrame extends FilepathListFrame {
 		
 		try {
 			myStringLabel.setText(myFilepath);
-			
-			System.out.println(myFilepath);
-			
+						
 			myIcon = new ImageIcon(ImageUtil.resize(ImageIO.read(new File(myFilepath)), ICON_SIZE, ICON_SIZE));
 			
 			myStringLabel.setHorizontalTextPosition(SwingConstants.CENTER);
