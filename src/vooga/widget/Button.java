@@ -123,7 +123,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	@Override
 	public boolean isTriggered() {
 		Game game = Resources.getGame();
-		System.out.println("button istriggered "+ (game.click() && game.checkPosMouse(this, true)));
+		//System.out.println("button istriggered "+ (game.click() && game.checkPosMouse(this, true)));
 		return game.click() && game.checkPosMouse(this, true);
 		
 	}

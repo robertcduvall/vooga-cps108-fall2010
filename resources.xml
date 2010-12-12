@@ -1,5 +1,6 @@
 <Resources>
 	<Images>
+		<Image name="player" path="player.png"/>
 	</Images>
 	<Images>
 	</Images>

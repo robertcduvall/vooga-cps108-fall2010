@@ -1,0 +1,4 @@
+<EntityMap>
+	<Mapping callingClass="vooga.games.digger.actors.Player" requestedClass="vooga.games.digger.movers.Mover" modName="mod1" resolveTo="vooga.games.digger.movers.DefaultMover"/>
+	<Mapping callingClass="vooga.games.digger.actors.Player" requestedClass="vooga.games.digger.movers.Mover" modName="mod2" resolveTo="vooga.games.digger.movers.DownMover"/>  
+</EntityMap>
