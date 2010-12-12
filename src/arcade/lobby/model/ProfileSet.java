@@ -14,8 +14,8 @@ public class ProfileSet implements Iterable<Profile> {
 	
 	public static Profile currentProfile = null;
 	public static DatabaseAdapter myDbAdapter;
-	public static String myTable = "Profile";
 	private static ResourceBundle resourceBundle = ResourceBundle.getBundle("arcade.lobby.resources.resources");
+	public static String myTable = resourceBundle.getString("dbProfile");
 
 	public ProfileSet(String host, String dbName, String tableName,
 			String user, String pass) {
