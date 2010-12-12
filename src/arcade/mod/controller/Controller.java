@@ -25,7 +25,8 @@ import arcade.mod.view.frame.ListFrame;
  * 
  * @author Brian
  * @author Brent
- * @author Daniel * @author Vitor
+ * @author Daniel 
+ * @author Vitor
  * 
  */
 public class Controller extends Tab implements IPresenter {
