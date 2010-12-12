@@ -1,5 +1,8 @@
 package arcade.core;
 
+import arcade.core.Tab;
+
+import java.awt.Component;
 import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ResourceBundle;
@@ -147,7 +150,7 @@ public class Arcade extends JFrame {
 
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
-
+		((Tab)mainWindow.getComponent(id)).refresh();
 	}
 
 	/**
