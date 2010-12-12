@@ -42,34 +42,10 @@ public class LogInPanel extends Tab implements IView{
 	private int maxPasswordLength = 9;
 	private int maxUserNameLength = 9;
 
-
-	
-//	private LogInPanelControl controller;
-	
-//	public LogInPanel(IControl controller) {
-////		this.controller = (LogInPanelControl)controller;
-////		//controller.setView(this);
-////		//controller.setModel(new LoginProcess(controller));
-////		this.controller.setModel(new LoginProcess());
-//		
-//
-//		//createAndShowGUI();
-//	}
 	
 	public LogInPanel() {
 		setName("Log in Service");
-		//this(new LogInPanelControl());
-
 	}
-	
-	public String getUserNameUserInput(){
-		return new String(usernameField.getText());
-	}
-	
-	public char[] getPasswordUserInput(){
-		return passwordField.getPassword();
-	}
-	
 
 	@Override
 	public JComponent getContent() {
@@ -110,7 +86,7 @@ public class LogInPanel extends Tab implements IView{
 		add(signUpButton,"cell 0 3");
 		add(forgotPasswordButton,"wrap");
 		
-		//addListeners();
+
 		setVisible(true);
 		
 	}
@@ -122,28 +98,19 @@ public class LogInPanel extends Tab implements IView{
 	public void addSignUpButtonListener(ActionListener listener){
 		signUpButton.addActionListener(listener);
 	}
-//	
-//	protected void addListeners(){
-//		//submitButton.addActionListener(new SubmitEvent());  this has been moved to Control
-//		
-//		signUpButton.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				//controller.validatePanelSwitch("arcade.security.view.SignUpPanel");
-//				controller.switchToSignUpPage();
-//			}	
-//		});
-//		
-//		
-//		forgotPasswordButton.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				//controller.validatePanelSwitch("arcade.security.view.RetrievePasswordPanel");
-//				controller.switchToForgetPasswordPage();
-//			}
-//		});
-//		
-//	}	
+	
+	public void addForgetButtonListener(ActionListener listener){
+		forgotPasswordButton.addActionListener(listener);
+	}
+
+	
+	public String getUserNameUserInput(){
+		return new String(usernameField.getText());
+	}
+	
+	public char[] getPasswordUserInput(){
+		return passwordField.getPassword();
+	}
 	
 	public JPanel getCurrentPanel(){
 		return this;

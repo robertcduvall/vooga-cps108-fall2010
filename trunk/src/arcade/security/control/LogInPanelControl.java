@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import arcade.core.Arcade;
 import arcade.security.model.AdminProcess;
+import arcade.security.model.RetrievePasswordProcess;
 import arcade.security.model.IModel;
 import arcade.security.model.LoginProcess;
 import arcade.security.model.SignUpProcess;
@@ -36,24 +37,35 @@ public class LogInPanelControl implements IControl{
 		this.view = (LogInPanel)view;
 		this.view.addSubmitButtonListeners(new SubmitEvent());
 		this.view.addSignUpButtonListener(new SignUpEvent());
+		this.view.addForgetButtonListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchToForgetPasswordPage();
+			}
+		});
+	}
+	
+	public void switchToForgetPasswordPage(){
+		view.removeAll();
+		view.updateUI();
+		JPanel jp = new RetrievePasswordPanel();
+		view.add(jp);
+		RetrievePasswordProcess model = new RetrievePasswordProcess();
+		RetrievePasswordPanelControl controller = new RetrievePasswordPanelControl((IView)jp,model);	
 	}
 
 	
-	public boolean loginClicked(String username, char[] password){
+	public boolean isSuccessfulLogin(String username, char[] password){
 		return model.isSuccessfulLogin(username, password);
 	}
-
-
 	
 	public void switchToAdminPage(){
-
 		view.removeAll();
 		view.updateUI();
 		JPanel jp = new AdminPanel();
 		view.add(jp);
 		AdminProcess model = new AdminProcess();
-		AdminPanelControl controller = new AdminPanelControl((IView)jp,model);
-	
+		AdminPanelControl controller = new AdminPanelControl((IView)jp,model);	
 	}
 	
 	public LogInPanelControl getCurrentController(){
@@ -71,14 +83,6 @@ public class LogInPanelControl implements IControl{
 		SignUpPanelControl controller = new SignUpPanelControl((IView)jp,model);	
 	
 	}
-//
-//	public void switchToForgetPasswordPage() {
-//		view.removeAll();
-//		view.updateUI();
-//		JPanel jp = new RetrievePasswordPanel(this);
-//		view.add(jp);
-//
-//	}
 	
 	private class SignUpEvent implements ActionListener{
 
@@ -94,7 +98,7 @@ public class LogInPanelControl implements IControl{
 		public void actionPerformed(ActionEvent e) {
 			String username = new String(view.getUserNameUserInput());
 			char[] password = view.getPasswordUserInput();
-			if(!loginClicked(username, password)){ //next step towards true mvc:move this to controller
+			if(!isSuccessfulLogin(username, password)){ //next step towards true mvc:move this to controller
 			//if(!LogInHandler.successfulLogin(username, password)){
 				JOptionPane.showMessageDialog(view.getCurrentPanel(),"Your username and password combination does not match");
 				//usernameField.selectAll();
@@ -108,9 +112,7 @@ public class LogInPanelControl implements IControl{
 				log.info("Before log in, Current User role: "+user.getRole());
 				user.setUserAs("login_user");
 				log.info("After log in, Current User role: "+user.getRole());
-				getCurrentController().switchToAdminPage();
-				//controller.validatePanelSwitch("arcade.security.view.AdminPanel");
-				
+				getCurrentController().switchToAdminPage();		
 			}
 			else{
 				Arcade.switchToTab(0); 

@@ -4,7 +4,7 @@ import arcade.lobby.model.ProfileSet;
 import arcade.lobby.view.ProfilePanel;
 
 public class LogInHandler {
-	public static DataHandler dataHandler = new DataHandler("User");
+	public static DataHandler dataHandler = DataHandler.getInstance("User");
 	
 	public static boolean successfulLogin(String username, char[] password){
 		int userId = getUserId(username);
