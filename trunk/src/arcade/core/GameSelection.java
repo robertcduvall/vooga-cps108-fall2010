@@ -8,9 +8,8 @@ import javax.swing.*;
 
 public class GameSelection extends Tab {
 
-	private static String[] gameNames = { "cyberion",
-			"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
-			"towerdefense", "tronupdate", "zombieland" };
+	private static String[] gameNames = {"Cyberion", "Doodle Jump", "Grandius", "Jumper", "Super Mario Bros.",
+		"Tower Defense", "Tron", "Zombieland" };
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
