@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import arcade.ads.adscontent.BasicAds;
+import arcade.ads.adscontent.BasicAd;
 
 import vooga.engine.factory.LevelException;
 import vooga.engine.util.XMLDocumentCreator;
@@ -22,8 +22,8 @@ import vooga.engine.core.BetterSprite;
 
 public class XMLtoAds {
 	
-	public static List<BasicAds> convertAds(String xmlLevelFile){
-		List<BasicAds> myAds = new ArrayList<BasicAds>();
+	public static List<BasicAd> convertAds(String xmlLevelFile){
+		List<BasicAd> myAds = new ArrayList<BasicAd>();
 		try {
 			Scanner scanner = new Scanner(new File(xmlLevelFile));
 			while(scanner.hasNextLine()){
@@ -35,7 +35,7 @@ public class XMLtoAds {
 		return myAds;
 	}
 	
-	public static List<BasicAds> convert(String xmlLevelFile){
+	public static List<BasicAd> convert(String xmlLevelFile){
 		try {
 			//System.out.println(xmlLevelFile);
 			XMLDocumentCreator xmlCreator = new XMLFileParser(xmlLevelFile);
@@ -48,7 +48,7 @@ public class XMLtoAds {
 		}		
 	}
 
-	private static List<BasicAds> processAds(Document xmlDocument) {
+	private static List<BasicAd> processAds(Document xmlDocument) {
 		Element adGroup = (Element) xmlDocument.getFirstChild(); 
 
 		Node basicAdSelection = xmlDocument.getElementsByTagName("BasicAds").item(0);
@@ -61,8 +61,8 @@ public class XMLtoAds {
 
 	}
 
-	private static List<BasicAds> processBasicAds(NodeList listOfBasicAds) {
-		List<BasicAds> tempAds = new ArrayList<BasicAds>();
+	private static List<BasicAd> processBasicAds(NodeList listOfBasicAds) {
+		List<BasicAd> tempAds = new ArrayList<BasicAd>();
 		for(int i = 0; i < listOfBasicAds.getLength(); i++)
 		{
 			if (isElement(listOfBasicAds.item(i)))
@@ -75,7 +75,7 @@ public class XMLtoAds {
 					Class<?> adClass = Class.forName(implementor);
 					Constructor<?> ct = adClass.getConstructor();
 					System.out.println(ct);
-					BasicAds adInstance = (BasicAds) ct.newInstance();
+					BasicAd adInstance = (BasicAd) ct.newInstance();
 					System.out.println("!");
 
 					adInstance.setParameters(ad.getAttributes());
