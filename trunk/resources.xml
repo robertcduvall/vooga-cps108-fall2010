@@ -1,6 +1,7 @@
 <Resources>
 	<Images>
-		<Image name="player" path="player.png"/>
+		<Image name="player" path="player.png" something="pie" />
+		<Image name="enemy" path="enemy.jpg" something="cake"/>
 	</Images>
 	<Images>
 	</Images>
