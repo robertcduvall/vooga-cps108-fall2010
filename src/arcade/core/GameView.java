@@ -43,7 +43,7 @@ public class GameView extends JPanel {
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("title", game);
-		List<Map<String, String>> attributes=ExampleGUI.myDbAdapter.getRows("GameInfo", conditions, "title","genre","rating","description","tags","imagepaths","instructions");
+		List<Map<String, String>> attributes=ExampleGUI.myDbAdapter.getRows("GameInfo", conditions, "title","genre","rating","description","tags","classname","imagepaths","instructions");
 		for(Map<String, String> m:attributes) {
 			for(String key:m.keySet()) {
 				gameMap.put(key, (key.equals("tags")||key.equals("instructions"))? m.get(key).split(","):new String[] {m.get(key)});
@@ -92,13 +92,15 @@ public class GameView extends JPanel {
 					public Integer doInBackground() {
 						Class<?> newGame;
 						try {
-							newGame = Class.forName("vooga.games." + gameName
+							newGame = Class.forName("vooga.games." + gameProperties.get("classname")[0]
 									+ ".Blah");
 
 							Constructor<?> gameConstructor = newGame
 									.getConstructor();
 							Game.launch((Game) gameConstructor.newInstance());
 						} catch (Throwable e) {
+							System.out.println("vooga.games." + gameProperties.get("classname")[0]
+							                               									+ ".Blah");
 							e.printStackTrace();
 						}
 						return 0;
