@@ -34,6 +34,10 @@ public class ProfileController implements IController{
 		new CredditPurchaseView(this);
 	}
 	
+	public String getCreddits() {
+		return storeModel.getCurrentUserAccount().getCreddits();
+	}
+	
 	public void processCredditPurchase(String creddits) {
 		double amount = 0;
 		try {
