@@ -2,6 +2,8 @@ package arcade.ads.adsmanager;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ import arcade.ads.xml.XMLtoAds;
  * @version 1.0
  */
 
-public class AdsManager {
+public class AdsManager implements MouseListener{
 
 	public static List<BasicAds> ads;
 	public static int index;
@@ -43,11 +45,11 @@ public class AdsManager {
 	/**
 	 * Initialize ads pool
 	 */
-	public AdsManager() {
+	public AdsManager(JPanel panel) {
 		ads = new ArrayList<BasicAds>();
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
-
+		panel.addMouseListener(this);
 	}
 
 	public void runAdsManager() {
@@ -64,7 +66,6 @@ public class AdsManager {
 	 * @param yMax
 	 */
 	public AdsManager(int xMin, int xMax, int yMin, int yMax) {
-		this();
 		this.xMin = xMin;
 		this.xMax = xMax;
 		this.yMin = yMin;
@@ -146,7 +147,6 @@ public class AdsManager {
 	 * retrieve new ads from web server
 	 */
 	public String retrieve() {
-
 		return null;
 	}
 
@@ -196,6 +196,38 @@ public class AdsManager {
 
 	public void setAds(String file) {
 		ads = XMLtoAds.convertAds(file);
+	}
+
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
