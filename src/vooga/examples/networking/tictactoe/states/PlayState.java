@@ -36,7 +36,6 @@ public class PlayState extends GameState{
 	private GameOverState theyQuitState;
 	private GameOverState tieState;
 	private TheirTurnState theirTurnState;
-	private ClientConnection connection;
 	private boolean myTurn;
 	private Move oMove;
 
@@ -53,7 +52,6 @@ public class PlayState extends GameState{
 		super(connection);
 		this.game = game;
 		this.levelManager = levelManager;
-		this.connection = connection;
 	}
 	
 	/**

@@ -5,7 +5,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import vooga.engine.networking.GameSocket;
-import vooga.engine.networking.server.GameElement;
 import vooga.engine.networking.server.VoogaServer;
 
 /**
@@ -30,7 +29,7 @@ public class ClientConnection extends GameSocket{
 	 * @version 1.0
 	 */
 	public ClientConnection(String name) throws UnknownHostException, IOException{
-		super(new Socket("localhost", GameElement.getPort(name)));
+		super(new Socket("localhost", VoogaServer.getGamePort(name)));
 	}
 
 	/**

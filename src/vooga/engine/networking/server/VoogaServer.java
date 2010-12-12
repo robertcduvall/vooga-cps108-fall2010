@@ -92,7 +92,7 @@ public class VoogaServer {
 				{
 					Element gameElement = (Element) listOfGames.item(i);
 					int port = Integer.parseInt(gameElement.getAttribute(portName));
-					String name = gameElement.getAttribute(gameName);
+					String name = gameElement.getAttribute("name");
 					if(name.equals(gameName))
 						return port;
 				}

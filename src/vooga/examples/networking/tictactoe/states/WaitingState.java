@@ -15,7 +15,7 @@ import vooga.engine.state.GameState;
  */
 public class WaitingState extends GameState{
 	private Game game;
-	private ClientConnection connection;
+	private ClientConnection waitingConnection;
 	private PlayField field;
 	private PlayState playState;
 
@@ -31,7 +31,7 @@ public class WaitingState extends GameState{
 	 */
 	public WaitingState(Game game, ClientConnection connection, PlayField field, PlayState playState){
 		this.game = game;
-		this.connection = connection;
+		this.waitingConnection = connection;
 		this.field = field;
 		this.playState = playState;
 	}
@@ -44,7 +44,7 @@ public class WaitingState extends GameState{
 	 */
 	@Override
 	public void update(long t) {
-		String status = connection.getData();
+		String status = waitingConnection.getData();
 		if(!status.equals("wait")){
 			playState.interpretMessage(status);
 			game.getGameStateManager().switchTo(playState);
