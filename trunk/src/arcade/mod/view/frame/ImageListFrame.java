@@ -1,4 +1,4 @@
-package arcade.mod.view;
+package arcade.mod.view.frame;
 
 import java.io.File;
 import java.io.FileInputStream;

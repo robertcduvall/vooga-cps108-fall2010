@@ -3,6 +3,8 @@ package arcade.mod.view;
 import java.io.File;
 import java.util.Collection;
 
+import arcade.mod.view.frame.ListFrame;
+
 /**
  * The front end GUI of the mod environment. This acts
  * as the view in the model-view-presenter paradigm.
