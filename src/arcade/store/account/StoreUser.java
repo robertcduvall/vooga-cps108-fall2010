@@ -79,11 +79,13 @@ public class StoreUser {
 	
 	public void addCreddits(double amount) {
 		creddits +=amount;
+		dbAdapter.updateCreddits(creddits, name);
 	}
 	
 	public void addGame(String title)
 	{
 		ownedGames.add(title);
+		dbAdapter.updateList(ownedGames, name);
 	}
 	
 	public void emptyCart()
@@ -93,7 +95,12 @@ public class StoreUser {
 	
 	public void removeTitleFromCart(String title)
 	{
-			cart.remove(title);
+		cart.remove(title);
+	}
+	
+	public void addToCart(String name) {
+		cart.add(name);
+		dbAdapter.updateList(cart, name);
 	}
 	
 }

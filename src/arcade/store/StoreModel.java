@@ -70,7 +70,7 @@ public class StoreModel implements IModel{
 	}
 	
 	public void addToCart(String itemName) {
-		currentUser.getCart().add(itemName);
+		currentUser.addToCart(itemName);
 	}
 
 	@Override

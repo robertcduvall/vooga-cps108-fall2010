@@ -334,7 +334,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put(field, value);
 		return update(tableName, conditions, row);
-	}
+	}         
 
 	/**
 	 * Updates the rows of a database that satisfy the given conditions with the

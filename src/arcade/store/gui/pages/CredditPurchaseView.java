@@ -46,6 +46,7 @@ public class CredditPurchaseView extends Window {
 		addCredditsButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 		        controller.processCredditPurchase(credditsTextField.getText());
+		        closeWindow();
 			}
 		});
 		
@@ -66,6 +67,10 @@ public class CredditPurchaseView extends Window {
 		panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 				
 		add(panel);
+	}
+	
+	private void closeWindow() {
+		this.setVisible(false);
 	}
 
 }
