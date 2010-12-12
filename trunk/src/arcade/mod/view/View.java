@@ -31,9 +31,9 @@ import arcade.mod.view.file.IFileOpener;
  */
 public class View extends JPanel implements IViewer {
 
-	private static final int VIEW_HEIGHT = 600;
-
-	private static final int VIEW_WIDTH = 800;
+//	private static final int VIEW_HEIGHT = 600;
+//
+//	private static final int VIEW_WIDTH = 800;
 
 	private static final long serialVersionUID = 1L;
 
@@ -60,7 +60,7 @@ public class View extends JPanel implements IViewer {
 	 */
 	public void initialize() {
 
-		setSize(VIEW_WIDTH, VIEW_HEIGHT);
+//		setSize(VIEW_WIDTH, VIEW_HEIGHT);
 
 		JPanel contentPane = new JPanel(new BorderLayout());
 		
@@ -87,7 +87,7 @@ public class View extends JPanel implements IViewer {
 
 		JScrollPane scrollPane = new JScrollPane(centralPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-		scrollPane.setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
+//		scrollPane.setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
 		
 		return scrollPane;
 	

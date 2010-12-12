@@ -18,7 +18,7 @@ import javax.swing.*;
 public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
 	private static final int XSIZE = 1000;
-	private static final int YSIZE = 700;
+	private static final int YSIZE = 820;
 	
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle

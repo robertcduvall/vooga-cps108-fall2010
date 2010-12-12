@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class GameSelection extends Tab {
 
-	private static String[] gameNames = { "asteroids", "cyberion",
+	private static String[] gameNames = { "cyberion",
 			"doodlejump", "galaxyinvaders", "grandius", "jumper", "mariogame",
 			"towerdefense", "tronupdate", "zombieland" };
 	public JPanel games;

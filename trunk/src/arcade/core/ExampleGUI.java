@@ -23,7 +23,7 @@ public class ExampleGUI extends Tab {
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
 			"HighScores");
 
-	private static String gameName = "zombieland";
+	private static String gameName = "jumper";
 	private static String playerName = "Guest";
 	private static JPanel content;
 	private static JPanel left;
