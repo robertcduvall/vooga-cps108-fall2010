@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.adscontent;
 
 /**
  * This is simple class will provide general functionality for all ads, such as
@@ -14,18 +14,18 @@ package arcade.ads;
  * @version 1.0
  */
 
-public abstract class FlashAds extends BasicAds {
+public abstract class GameAds extends BasicAds {
 
-	private Flash flash;
+	private Game game;
 
-	public FlashAds(String name, Video video) {
+	public GameAds(String name, Game game) {
 		super(name);
-		this.flash = flash;
+		this.game = game;
 	}
 
-	public FlashAds(String name, Flash flash, int xMin, int xMax, int yMin,
-			int yMax) {
+	public GameAds(String name, int xMin, int xMax, int yMin, int yMax) {
 		super(name, xMin, xMax, yMin, yMax);
+		this.name = name;
 
 	}
 

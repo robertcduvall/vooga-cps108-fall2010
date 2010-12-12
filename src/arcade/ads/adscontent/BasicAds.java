@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.adscontent;
 
 import org.w3c.dom.NamedNodeMap;
 

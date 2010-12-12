@@ -1,4 +1,6 @@
-package arcade.ads;
+package arcade.ads.thread;
+
+import arcade.ads.adsmanager.AdsManager;
 
 /**
  * This thread is used for handling ads. We make it a new thread so that it

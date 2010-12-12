@@ -1,6 +1,4 @@
-package arcade.ads;
-
-import java.awt.Image;
+package arcade.ads.adscontent;
 
 /**
  * This is simple class will provide general functionality for all ads, such as
@@ -16,17 +14,16 @@ import java.awt.Image;
  * @version 1.0
  */
 
+public abstract class FlashAds extends BasicAds {
 
-public abstract class VideoAds extends BasicAds {
+	private Flash flash;
 
-	private Video video;
-
-	public VideoAds(String name, Video video) {
+	public FlashAds(String name, Video video) {
 		super(name);
-		this.video = video;
+		this.flash = flash;
 	}
 
-	public VideoAds(String name, Image img, int xMin, int xMax, int yMin,
+	public FlashAds(String name, Flash flash, int xMin, int xMax, int yMin,
 			int yMax) {
 		super(name, xMin, xMax, yMin, yMax);
 
@@ -39,7 +36,7 @@ public abstract class VideoAds extends BasicAds {
 
 	@Override
 	public void onMouseOver() {
-		// play the video
+		// play the flash
 		// highlight or scale ads
 
 	}

@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -24,6 +24,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import arcade.ads.adsmanager.AdsManager;
 
 import com.golden.gamedev.util.ImageUtil;
 

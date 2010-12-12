@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.adsclassification;
 
 /**
  * This is simple class will provide general functionality for all ads, such as
@@ -14,18 +14,20 @@ package arcade.ads;
  * @version 1.0
  */
 
-public interface IFeaturedAds {
+public interface IRelatedAds {
 
 	/**
-	 * return ads' ranking
+	 * get ads' category
+	 * 
 	 * @return
 	 */
-	public String getRanking();
+	public String getCategory();
 
 	/**
-	 * set ads' ranking
-	 * @param rank
+	 * set ads' category
+	 * 
+	 * @param categ
 	 * @return
 	 */
-	public String setRanking(int rank);
+	public String setCategory(String categ);
 }

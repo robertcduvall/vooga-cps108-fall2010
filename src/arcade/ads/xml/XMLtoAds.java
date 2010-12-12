@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.xml;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import arcade.ads.adscontent.BasicAds;
 
 import vooga.engine.factory.LevelException;
 import vooga.engine.util.XMLDocumentCreator;

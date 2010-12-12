@@ -1,6 +1,8 @@
-package arcade.ads;
+package arcade.ads.thread;
 
 import java.util.List;
+
+import arcade.ads.adsmanager.AdsManager;
 
 /**
  * This class helps rotate ads

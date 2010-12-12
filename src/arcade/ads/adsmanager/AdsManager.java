@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.adsmanager;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import arcade.ads.adscontent.BasicAds;
+import arcade.ads.thread.AdsThread;
+import arcade.ads.thread.RotateThread;
+import arcade.ads.xml.XMLtoAds;
 
 /**
  * Ads manager helps ads distributor to place ads in their framework. It can add
@@ -132,7 +137,7 @@ public class AdsManager {
 	public void render() {
 		// System.out.println(gs==null);
 		if (!ads.isEmpty()) {
-			// System.out.println(index);
+			// System.out.printlnindex();
 			ads.get(index).render(gs);
 		}
 	}
@@ -141,6 +146,7 @@ public class AdsManager {
 	 * retrieve new ads from web server
 	 */
 	public String retrieve() {
+
 		return ads.get(0).name;
 	}
 
