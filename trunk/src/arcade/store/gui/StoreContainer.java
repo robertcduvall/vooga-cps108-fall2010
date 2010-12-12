@@ -46,8 +46,7 @@ public class StoreContainer extends Tab{
 			if (classname.isEmpty())
 				continue;
 			try {
-				//add in Mapping here
-//				System.out.println("YO!");
+
 				Tab t = (Tab) getObject(classname);
 				String name = t.getName();	
 				

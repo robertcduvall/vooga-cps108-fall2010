@@ -11,6 +11,8 @@ import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.gui.pages.AreYouSureBuyCartView;
+import arcade.store.gui.pages.AreYouSureDropCart;
+import arcade.store.gui.pages.AreYouSureDropItem;
 import arcade.store.gui.pages.ItemHasBeenDroppedView;
 import arcade.store.gui.pages.NoDropSelectedView;
 import arcade.store.gui.pages.SorryYouCantDoThisView;
@@ -24,10 +26,13 @@ public class CheckoutController implements IController{
 	private CheckoutTab viewer;
 	private String currentSelected;
 	
+	public CheckoutController()
+	{
+		currentSelected = null;
+	}
 	
 	@Override
 	public void addModel(IModel model) {
-		
 		storeModel = (StoreModel) model;
 	}
 
@@ -58,6 +63,8 @@ public class CheckoutController implements IController{
 		
 		double remainingCreddits = (currCredits - totalCost);
 		setRemainingCreditField(remainingCreddits);
+		
+		currentSelected= null;
 	}
 
 	private void setRemainingCreditField(double balance) {
@@ -136,7 +143,6 @@ public class CheckoutController implements IController{
 		
 		//refresh the content of your inventory
 		initialize();
-		
 	}
 
 	public void processConfirmDropItem() {
@@ -147,18 +153,35 @@ public class CheckoutController implements IController{
 		}
 		else
 		{
-			//need something else here!
-			//like another pop up
-			StoreUser user = storeModel.getCurrentUserAccount();
-			user.removeTitleFromCart(currentSelected);
-			initialize();
-			new ItemHasBeenDroppedView();
+			new AreYouSureDropItem(this);
 		}
+	}
+
+	public void processDropItem() {
+		//need something else here!
+		//like another pop up
+		StoreUser user = storeModel.getCurrentUserAccount();
+		user.removeTitleFromCart(currentSelected);
+		new ItemHasBeenDroppedView();
+		initialize();
 	}
 
 	public void registerCurrentElement() {
 	
 		currentSelected = (String) viewer.getItemsList().getSelectedValue();
 	}
+
+	public void processConfirmDropCart() {
+		
+		new AreYouSureDropCart(this);
+	}
+	
+	public void processDropCart(){
+		
+		StoreUser user = storeModel.getCurrentUserAccount();
+		user.emptyCart();
+		initialize();
+	}
+	
 	
 }

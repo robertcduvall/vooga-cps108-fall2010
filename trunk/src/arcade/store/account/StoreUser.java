@@ -41,8 +41,6 @@ public class StoreUser {
 	}
 	
 	
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -95,10 +93,7 @@ public class StoreUser {
 	
 	public void removeTitleFromCart(String title)
 	{
-		if(cart.contains(title))
-		{
 			cart.remove(title);
-		}
 	}
 	
 }
