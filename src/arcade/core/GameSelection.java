@@ -91,9 +91,7 @@ public class GameSelection extends Tab {
 			games.removeAll();
 			try {
 				for (String game : gameNames) {
-					System.out.println(tags.get(game));
 					for (String tag : tags.get(game)) {
-						System.out.println(tag);
 						if (tag.contains(term.toLowerCase())) {
 							games.add(createItem(game));
 							break;
