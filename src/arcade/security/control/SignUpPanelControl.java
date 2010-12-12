@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 
 
+import arcade.core.Arcade;
 import arcade.security.model.IModel;
 import arcade.security.model.LoginProcess;
 import arcade.security.model.SignUpProcess;
@@ -58,6 +59,7 @@ public class SignUpPanelControl implements IControl {
 
 			model.createNewUser(username,pwd_1,questionIndex,questionAnswer);
 			log.info(username+" User has been created.");
+			switchToLogInPage();
 		}
 
 	}
@@ -68,8 +70,6 @@ public class SignUpPanelControl implements IControl {
 		LogInPanel jp = new LogInPanel();
 		jp.getContent();
 		view.add(jp);
-		//LoginProcess model = new LoginProcess();
-		//LogInPanelControl controller = new LogInPanelControl((IView)jp,model);	
 
 	}
 }

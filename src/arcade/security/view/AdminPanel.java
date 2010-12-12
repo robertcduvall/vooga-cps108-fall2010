@@ -42,8 +42,6 @@ public class AdminPanel extends JPanel implements IView{
 
 
 	public AdminPanel(){
-		//this.controller = (AdminPanelControl)controller;
-		//controller.setModel(new LoginProcessModel(controller)); //this is necessary because it will match the model with the control and view
 		setName("Admin page"); 
 		setLayout(new MigLayout("wrap 2"));
 		adminUserName = new JLabel("Admin page. Currently under construction");
@@ -55,7 +53,6 @@ public class AdminPanel extends JPanel implements IView{
 		adminScollPane.setViewportView(getUserRolePanel());		
 		addUserSecurityPanel();
 		add(adminScollPane,"span 2");
-	//	addListeners();
 		setVisible(true);
 	}
 
@@ -63,7 +60,7 @@ public class AdminPanel extends JPanel implements IView{
 		if (userRolePane == null) {
 			userRolePane = new JPanel(new GridLayout(0, 1));
 			userRolePane.setPreferredSize(new Dimension(SECURITY_PANEL_WIDTH,SECURITY_PANEL_HEIGHT));
-			//userRolePane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
 		}
 		return userRolePane;
 
@@ -79,21 +76,6 @@ public class AdminPanel extends JPanel implements IView{
 		LogoutButton.addActionListener(listener);
 	}
 
-//	public void addListeners(){
-//		LogoutButton.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				UserService userService = UserServiceFactory.getUserService();
-//				User user = userService.getCurrentUser();
-//				log.info("Before log out, Current User role: "+user.getRole());
-//				user.setUserAs("default");
-//				log.info("After log out, Current User role: "+user.getRole());
-//				//controller.validatePanelSwitch("arcade.security.view.LogInPanel");
-//				controller.switchToLogInPage();
-//			}
-//
-//		});
-//	}
 
 	private void loadPanels(String listOfPanels) {
 		String[] panel = listOfPanels.split(DELIM);

@@ -25,6 +25,7 @@ import arcade.security.util.SignUpHandler;
 
 /**
  * The sign up panel for security-related profiles of the user.
+ * @author Meng Li
  * @author Jiaqi Yan
  *
  */
@@ -87,9 +88,7 @@ public class SignUpPanel extends JPanel implements IView{
 		}
 		questionChoices = new JComboBox(q);
 		questionChoices.setSelectedIndex(START_INDEX);
-
 		addContents();
-		//addListeners();
 	}
 
 	public void addSubmitButtonListener(ActionListener listener){
@@ -99,18 +98,6 @@ public class SignUpPanel extends JPanel implements IView{
 	public void addLoginPageButtonListener(ActionListener listener){
 		LoginPageButton.addActionListener(listener);
 	}
-
-	//	protected void addListeners(){
-	//		submitButton.addActionListener(new SubmitListener());
-	//		LoginPageButton.addActionListener(new ActionListener(){
-	//
-	//			@Override
-	//			public void actionPerformed(ActionEvent arg0) {
-	//				controller.switchToLogInPage();
-	//			}
-	//			
-	//		});
-	//	}
 
 	public JPanel getCurrentPanel(){
 		return this;
@@ -136,28 +123,6 @@ public class SignUpPanel extends JPanel implements IView{
 		return questionField.getText();
 	}
 	
-	
-	//	private class SubmitListener implements ActionListener{
-	//
-	//		@Override
-	//		public void actionPerformed(ActionEvent e) {
-	//			pwd_1 = passwordField.getPassword();
-	//			pwd_2 = passwordFieldRep.getPassword();
-	//			username = usernameField.getText();
-	//			if(!SignUpHandler.samePassword(pwd_1, pwd_2)){
-	//				JOptionPane.showMessageDialog(getCurrentPanel(),"Password are not the same");
-	//				return;
-	//			}
-	//			if(!SignUpHandler.isValidUserName(username)){
-	//				JOptionPane.showMessageDialog(getCurrentPanel(),"Useraname is not valid");
-	//				return;
-	//			}
-	//			questionIndex = questionChoices.getSelectedIndex();
-	//			questionAnswer = questionField.getText();
-	//			SignUpHandler.createNewUser(username,pwd_1,questionIndex,questionAnswer);
-	//		}
-	//		
-	//	}
 	private void addContents(){
 		add(username_label,"cell 0 1");
 		add(pwd_label1,"cell 0 2");
@@ -171,9 +136,5 @@ public class SignUpPanel extends JPanel implements IView{
 		add(questionChoices,"cell 0 4");
 		add(questionField,"cell 1 4");
 	}
-
-	
-
-
 
 }
