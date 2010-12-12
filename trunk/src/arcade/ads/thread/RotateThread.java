@@ -41,7 +41,7 @@ public class RotateThread extends Thread {
 			} else {
 				try {
 					System.out.println("rotating!!!");
-					if (!manager.ads.isEmpty()) {
+					if (!manager.r.isEmpty()) {
 						System.out.println("start");
 						Thread.sleep(manager.ads.get(manager.index)
 								.getDuration());
