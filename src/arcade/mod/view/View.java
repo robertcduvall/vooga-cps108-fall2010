@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 
 import arcade.mod.controller.IPresenter;
 import arcade.mod.view.file.IFileOpener;
+import arcade.mod.view.frame.ListFrame;
 
 /**
  * As the name suggests, this class represents the View section necessary for the

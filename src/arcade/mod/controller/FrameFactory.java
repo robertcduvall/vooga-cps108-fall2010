@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import arcade.mod.model.IResourceNode;
-import arcade.mod.view.AbstractListFrame;
-import arcade.mod.view.DoubleListFrame;
-import arcade.mod.view.ImageListFrame;
-import arcade.mod.view.IntegerListFrame;
-import arcade.mod.view.ObjectListFrame;
-import arcade.mod.view.SoundListFrame;
-import arcade.mod.view.StringListFrame;
+import arcade.mod.view.frame.DoubleListFrame;
+import arcade.mod.view.frame.ImageListFrame;
+import arcade.mod.view.frame.IntegerListFrame;
+import arcade.mod.view.frame.ListFrame;
+import arcade.mod.view.frame.ObjectListFrame;
+import arcade.mod.view.frame.SoundListFrame;
+import arcade.mod.view.frame.StringListFrame;
 
 /**
  * Create a ListFrame object based on a specified resource type. Right now these
@@ -25,7 +25,7 @@ import arcade.mod.view.StringListFrame;
  */
 public class FrameFactory {
 
-	private Map<String, AbstractListFrame> myMappings = new HashMap<String, AbstractListFrame>();
+	private Map<String, ListFrame> myMappings = new HashMap<String, ListFrame>();
 
 	/**
 	 * Creates a new instance of FrameFactory and populates the map
@@ -49,7 +49,7 @@ public class FrameFactory {
 	 *            ResourceNode to be converted
 	 * @return AbstractListFrame to be used for the user interface
 	 */
-	public AbstractListFrame createFrame(String resourceType, IResourceNode node) {
+	public ListFrame createFrame(String resourceType, IResourceNode node) {
 		return myMappings.get(resourceType).newInstance(node);
 	}
 }

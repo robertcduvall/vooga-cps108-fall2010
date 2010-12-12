@@ -1,4 +1,4 @@
-package arcade.mod.view;
+package arcade.mod.view.frame;
 
 /**
  * A SoundListFrame is essentially just a FilepathListFrame with unique

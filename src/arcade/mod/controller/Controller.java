@@ -11,9 +11,9 @@ import arcade.core.Tab;
 import arcade.mod.model.IModel;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.XMLModel;
-import arcade.mod.view.AbstractListFrame;
 import arcade.mod.view.IViewer;
 import arcade.mod.view.View;
+import arcade.mod.view.frame.ListFrame;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class Controller extends Tab implements IPresenter {
 	IModel myModel;
 	IViewer myView;
 	FrameFactory myFactory;
-	Collection<AbstractListFrame> myFrames;
+	Collection<ListFrame> myFrames;
 	
 	/**
 	 * Creates the instance of Controller when the Mod Environment is launched
@@ -100,8 +100,8 @@ public class Controller extends Tab implements IPresenter {
 	 *            list of all ResourceNodes in XML file
 	 * @return collection of all AbstractListFrames from nodes
 	 */
-	private Collection<AbstractListFrame> convertToView(List<IResourceNode> nodes) {
-		List<AbstractListFrame> frames = new ArrayList<AbstractListFrame>();
+	private Collection<ListFrame> convertToView(List<IResourceNode> nodes) {
+		List<ListFrame> frames = new ArrayList<ListFrame>();
 		for (IResourceNode node : nodes) {
 
 			frames.add(myFactory.createFrame(myView.getCurrentCategory(), node));
@@ -144,7 +144,7 @@ public class Controller extends Tab implements IPresenter {
 	 */
 	@Override
 	public boolean errorCheck() {
-		for (AbstractListFrame frame: myFrames){
+		for (ListFrame frame: myFrames){
 			if (!frame.confirmValidity()){
 				return false;
 			}
