@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import arcade.ads.adscontent.BasicAds;
+import arcade.ads.adscontent.BasicAd;
 import arcade.ads.thread.AdsThread;
 import arcade.ads.thread.RotateThread;
 import arcade.ads.xml.XMLtoAds;
@@ -31,7 +31,7 @@ import arcade.ads.xml.XMLtoAds;
 
 public class AdsManager implements MouseListener{
 
-	public static List<BasicAds> ads;
+	public static List<BasicAd> ads;
 	public static int index;
 	private int xMin;
 	private int xMax;
@@ -46,7 +46,7 @@ public class AdsManager implements MouseListener{
 	 * Initialize ads pool
 	 */
 	public AdsManager(JPanel panel) {
-		ads = new ArrayList<BasicAds>();
+		ads = new ArrayList<BasicAd>();
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
 		panel.addMouseListener(this);
@@ -77,7 +77,7 @@ public class AdsManager implements MouseListener{
 	 * 
 	 * @param ad
 	 */
-	public void add(BasicAds ad) {
+	public void add(BasicAd ad) {
 		ads.add(ad);
 	}
 
@@ -102,7 +102,7 @@ public class AdsManager implements MouseListener{
 	 * 
 	 * @param ad
 	 */
-	public void remove(BasicAds ad) {
+	public void remove(BasicAd ad) {
 		ads.remove(ad);
 	}
 
@@ -150,7 +150,7 @@ public class AdsManager implements MouseListener{
 		return null;
 	}
 
-	public BasicAds getCurrentAd() {
+	public BasicAd getCurrentAd() {
 		return ads.get(index);
 	}
 

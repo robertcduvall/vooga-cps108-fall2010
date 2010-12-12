@@ -11,16 +11,16 @@ import java.util.List;
  * @author Kate Yang
  *
  */
-public class RelatedAd extends BasicAds {
+public class RelatedAd extends BasicAd {
 
-	private BasicAds ad;
+	private BasicAd ad;
 	private List<String> tagList;
 
-	public RelatedAd(BasicAds ad){
+	public RelatedAd(BasicAd ad){
 		this(ad, new ArrayList<String>());
 	}
 
-	public RelatedAd(BasicAds ad, List<String> list){
+	public RelatedAd(BasicAd ad, List<String> list){
 		this.ad = ad;
 		tagList = list;
 	}

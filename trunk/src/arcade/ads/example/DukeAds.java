@@ -13,9 +13,9 @@ import javax.imageio.ImageIO;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 
-import arcade.ads.adscontent.ImageAds;
+import arcade.ads.adscontent.ImageAd;
 
-public class DukeAds extends ImageAds
+public class DukeAds extends ImageAd
 {
 	
 
