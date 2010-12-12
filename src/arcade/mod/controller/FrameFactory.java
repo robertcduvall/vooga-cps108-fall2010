@@ -8,6 +8,7 @@ import arcade.mod.view.AbstractListFrame;
 import arcade.mod.view.DoubleListFrame;
 import arcade.mod.view.ImageListFrame;
 import arcade.mod.view.IntegerListFrame;
+import arcade.mod.view.ObjectListFrame;
 import arcade.mod.view.SoundListFrame;
 import arcade.mod.view.StringListFrame;
 
@@ -36,6 +37,7 @@ public class FrameFactory {
 		myMappings.put("Strings", new StringListFrame());
 		myMappings.put("Doubles", new DoubleListFrame());
 		myMappings.put("Integers", new IntegerListFrame());
+		myMappings.put("Sprites", new ObjectListFrame()); // not sure about this one
 	}
 
 	/**
