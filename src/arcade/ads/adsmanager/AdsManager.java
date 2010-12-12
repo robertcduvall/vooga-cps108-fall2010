@@ -29,7 +29,7 @@ import arcade.ads.xml.XMLtoAds;
  * @version 1.0
  */
 
-public class AdsManager implements MouseListener{
+public class AdsManager implements MouseListener {
 
 	public static List<BasicAd> ads;
 	public static int index;
@@ -41,15 +41,17 @@ public class AdsManager implements MouseListener{
 	private Graphics2D gs;
 	private AdsThread adsthread;
 	RotateThread thread;
+	private JPanel panel;
 
-	
 	/**
 	 * Default constructor
 	 */
-	public AdsManager(){
-		
+	public AdsManager() {
+		ads = new ArrayList<BasicAd>();
+		adsthread = new AdsThread(this);
+		thread = new RotateThread(this);
 	}
-	
+
 	/**
 	 * Initialize ads pool
 	 */
@@ -118,7 +120,7 @@ public class AdsManager implements MouseListener{
 	 * rotate ads
 	 */
 	public void rotate() {
-		System.out.println("rotate");
+		// System.out.println("rotate");
 		thread.setFlag(true);
 	}
 
@@ -137,6 +139,7 @@ public class AdsManager implements MouseListener{
 	 * update ads
 	 */
 	public void update() {
+		System.out.println(panel.getHeight());
 		render();
 	}
 
@@ -147,7 +150,8 @@ public class AdsManager implements MouseListener{
 		// System.out.println(gs==null);
 		if (!ads.isEmpty()) {
 			// System.out.printlnindex();
-			ads.get(index).render(gs);
+			// System.out.println("rendering");
+			ads.get(index).render(gs, panel.getWidth(), panel.getHeight());
 		}
 	}
 
@@ -198,44 +202,43 @@ public class AdsManager implements MouseListener{
 		return currentTime;
 	}
 
-	public void setGraphics(Graphics gs) {
-		this.gs = (Graphics2D) gs;
+	public void setPanel(JPanel p) {
+		this.panel = p;
+		this.gs = (Graphics2D) p.getGraphics();
 	}
 
 	public void setAds(String file) {
 		ads = XMLtoAds.convertAds(file);
 	}
 
-	
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
