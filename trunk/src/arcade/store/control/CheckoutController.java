@@ -167,7 +167,8 @@ public class CheckoutController implements IController{
 	}
 	
 	public void processSaveCart() {
-		storeModel.getCurrentUserAccount().
+		//TODO: There was an error here before, added .saveCart() to fix it, not sure if that was the fix though.
+		storeModel.getCurrentUserAccount().saveCart();
 	}
 
 	public void registerCurrentElement() {

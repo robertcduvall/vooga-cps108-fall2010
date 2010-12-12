@@ -20,6 +20,7 @@ import arcade.store.control.PurchaseItemController;
 
 public class GamePurchaseView implements IViewer{
 
+	private JFrame gamePurchaseFrame = null;
 	private JPanel gamePurchasePanel = null;  //  @jve:decl-index=0:visual-constraint="-15,3"
 	private JButton addToCartButton = null;
 	private JButton DemoTheGameButton = null;
@@ -31,13 +32,14 @@ public class GamePurchaseView implements IViewer{
 	private JTextField TitleTextField = null;
 	private JTextField PriceTextField = null;
 
-	private PurchaseItemController controller;
+	private PurchaseItemController controller;  //  @jve:decl-index=0:
+	private JButton returnToStoreButton = null;
 	
 	public GamePurchaseView(IController control)
 	{
 		controller = (PurchaseItemController) control;
-		JFrame frame = getJFrame();
-		frame.setVisible(true);
+		gamePurchaseFrame = getJFrame();
+		gamePurchaseFrame.setVisible(true);
 	}
 	
 	private JFrame getJFrame()
@@ -89,6 +91,7 @@ public class GamePurchaseView implements IViewer{
 			gamePurchasePanel.add(TitleLabel, null);
 			gamePurchasePanel.add(getTitleTextField(), null);
 			gamePurchasePanel.add(getPriceTextField(), null);
+			gamePurchasePanel.add(getReturnToStoreButton(), null);
 		}
 		return gamePurchasePanel;
 	}
@@ -182,6 +185,26 @@ public class GamePurchaseView implements IViewer{
 			PriceTextField.setBounds(new Rectangle(241, 52, 220, 20));
 		}
 		return PriceTextField;
+	}
+
+	/**
+	 * This method initializes returnToStoreButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getReturnToStoreButton() {
+		if (returnToStoreButton == null) {
+			returnToStoreButton = new JButton();
+			returnToStoreButton.setBounds(new Rectangle(480, 97, 136, 30));
+			returnToStoreButton.setText("Return To Store");
+			returnToStoreButton.addMouseListener(new java.awt.event.MouseAdapter()
+			{
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					gamePurchaseFrame.setVisible(false);
+				}
+			});
+		}
+		return returnToStoreButton;
 	}
 
 
