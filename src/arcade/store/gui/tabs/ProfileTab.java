@@ -8,7 +8,9 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
+import arcade.store.account.StoreUser;
 import arcade.store.control.ProfileController;
+import arcade.store.items.DbItemAndUserFactory;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -27,27 +29,21 @@ import javax.swing.JTable;
 
 public class ProfileTab extends Tab implements IViewer{
 	
-	private static final String USER_AVATAR = "src/arcade/store/gui/resources/robert-duvall-avatar.jpg";
-	private static final String USER_NAME = "Robert Duvall";
 
 	private JPanel jPanel = null;  //  @jve:decl-index=0:visual-constraint="133,-45"
 	private JLabel introLabel1 = null;
 	private JLabel userImageLabel = null;
 	private JTextField usernameTextField = null;
-	private JLabel totalGamePlayLabel = null;
 	private JLabel AvailableCredditsLabel = null;
-	private JTextField totalGamePlayTextField = null;
 	private JTextField availableCredditsTextField = null;
 	private JButton purchaseCredditsButton = null;
 	private JButton editMyProfileButton = null;
-	private JButton editMyPurchaseHistoryButton = null;
 	private JTable purchasedGamesTable = null;
 	private JLabel MyPurchasedGamesLabel = null;
 	
 	private static final String NAME = "Shop Profile";
 	
 	private ProfileController controller;
-	private Profile lobbyUser = ProfileSet.currentProfile;
 	
 	public ProfileTab()
 	{
@@ -89,18 +85,10 @@ public class ProfileTab extends Tab implements IViewer{
 			AvailableCredditsLabel = new JLabel();
 			AvailableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
 			AvailableCredditsLabel.setText("Availabe Creddits");
-			totalGamePlayLabel = new JLabel();
-			totalGamePlayLabel.setBounds(new Rectangle(361, 53, 111, 29));
-			totalGamePlayLabel.setText("Total Gameplay: ");
 			userImageLabel = new JLabel();
 			userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
 			try {
-			userImageLabel.setIcon(new ImageIcon(ImageIO.read(new URL(lobbyUser
-					.getAvatar()))));
-			} catch (MalformedURLException mue) {
-				System.out.println("Invalid avatar URL!");
-			} catch (IOException ioe) {
-				System.out.println("Invalid avatar image!");
+				userImageLabel.setIcon(new ImageIcon(""));
 			}
 			catch (Exception e){
 				System.out.println(e);
@@ -114,13 +102,10 @@ public class ProfileTab extends Tab implements IViewer{
 			jPanel.add(introLabel1, null);
 			jPanel.add(userImageLabel, null);
 			jPanel.add(getUsernameTextField(), null);
-			jPanel.add(totalGamePlayLabel, null);
 			jPanel.add(AvailableCredditsLabel, null);
-			jPanel.add(getTotalGamePlayTextField(), null);
 			jPanel.add(getAvailableCredditsTextField(), null);
 			jPanel.add(getPurchaseCredditsButton(), null);
 			jPanel.add(getEditMyProfileButton(), null);
-			jPanel.add(getEditMyPurchaseHistoryButton(), null);
 			jPanel.add(getPurchasedGamesTable(), null);
 			jPanel.add(MyPurchasedGamesLabel, null);
 		}
@@ -135,25 +120,12 @@ public class ProfileTab extends Tab implements IViewer{
 	private JTextField getUsernameTextField() {
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
-			usernameTextField.setText(USER_NAME);
+			usernameTextField.setText(controller.getUser().getName());
 			usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed from http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
 			usernameTextField.setEditable(false);
 			usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
 		}
 		return usernameTextField;
-	}
-
-	/**
-	 * This method initializes totalGamePlayTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTotalGamePlayTextField() {
-		if (totalGamePlayTextField == null) {
-			totalGamePlayTextField = new JTextField();
-			totalGamePlayTextField.setBounds(new Rectangle(506, 53, 111, 29));
-		}
-		return totalGamePlayTextField;
 	}
 
 	/**
@@ -166,7 +138,7 @@ public class ProfileTab extends Tab implements IViewer{
 			availableCredditsTextField = new JTextField();
 			//506, 53, 111, 29
 			availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
-			availableCredditsTextField.setText(controller.getCreddits());
+			availableCredditsTextField.setText(controller.getUser().getCreddits());
 		}
 		return availableCredditsTextField;
 	}
@@ -207,20 +179,6 @@ public class ProfileTab extends Tab implements IViewer{
 			});
 		}
 		return editMyProfileButton;
-	}
-
-	/**
-	 * This method initializes editMyPurchaseHistoryButton	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getEditMyPurchaseHistoryButton() {
-		if (editMyPurchaseHistoryButton == null) {
-			editMyPurchaseHistoryButton = new JButton();
-			editMyPurchaseHistoryButton.setBounds(new Rectangle(486, 264, 149, 32));
-			editMyPurchaseHistoryButton.setText("Edit My History");
-		}
-		return editMyPurchaseHistoryButton;
 	}
 
 	/**

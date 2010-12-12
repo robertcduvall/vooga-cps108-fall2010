@@ -3,16 +3,25 @@ package arcade.store.control;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.gui.pages.CredditPurchaseView;
 import arcade.store.gui.tabs.ProfileTab;
+import arcade.store.items.DbItemAndUserFactory;
 
 public class ProfileController implements IController{
 
 	private StoreModel storeModel;
 	private ProfileTab profileTab;
+	private Profile lobbyUser = ProfileSet.currentProfile;
+	private StoreUser storeUser = DbItemAndUserFactory.getUser(lobbyUser.getUserId());
 	
+	
+	public ProfileController() {
+		
+	}
 	
 	@Override
 	public void addModel(IModel model) {
@@ -34,8 +43,8 @@ public class ProfileController implements IController{
 		new CredditPurchaseView(this);
 	}
 	
-	public String getCreddits() {
-		return storeModel.getCurrentUserAccount().getCreddits();
+	public StoreUser getUser() {
+		return storeModel.getCurrentUserAccount();
 	}
 	
 	public void processCredditPurchase(String creddits) {
