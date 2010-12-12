@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import arcade.core.Tab;
 import arcade.mod.model.IModel;
 import arcade.mod.model.IResourceNode;
+import arcade.mod.model.ModException;
 import arcade.mod.model.XMLModel;
 import arcade.mod.view.IViewer;
 import arcade.mod.view.View;
@@ -146,7 +147,7 @@ public class Controller extends Tab implements IPresenter {
 	public boolean errorCheck() {
 		for (ListFrame frame: myFrames){
 			if (!frame.confirmValidity()){
-				return false;
+				throw ModException.BAD_INPUT;
 			}
 		}
 		return true;
