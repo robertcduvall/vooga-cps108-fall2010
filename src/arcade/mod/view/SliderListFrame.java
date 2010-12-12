@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.ModException;
 
-public abstract class SliderListFrame extends AbstractListFrame {
+public abstract class SliderListFrame extends ListFrame {
 
 	protected String myValue;
 	protected JSlider mySliderInput;
@@ -33,17 +33,17 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 	@Override
 	public void initializeComponents() {
-		descriptionLabel = new JLabel();
+		myDescriptionLabel = new JLabel();
 		myNameLabel = new JLabel();
-		newValue = new JLabel();
-		currentValue = new JLabel();
-		stringLabel = new JLabel();
+		myNewValue = new JLabel();
+		myCurrentValue = new JLabel();
+		myStringLabel = new JLabel();
 		myTextInput = new JTextField();
 
 	}
 
 	@Override
-	public AbstractListFrame newInstance(IResourceNode node) {
+	public ListFrame newInstance(IResourceNode node) {
 
 		return new IntegerListFrame(node);
 	}
@@ -89,7 +89,7 @@ public abstract class SliderListFrame extends AbstractListFrame {
 					throw ModException.BAD_INPUT;
 				}
 				mySliderInput.setValue(value);
-				currentValue.setText(myValue);
+				myCurrentValue.setText(myValue);
 
 			}
 
@@ -105,25 +105,25 @@ public abstract class SliderListFrame extends AbstractListFrame {
 
 					String updatedString = parseChange(value);
 
-					currentValue.setText(updatedString);
+					myCurrentValue.setText(updatedString);
 					myValue = updatedString;
 					myTextInput.setText(myValue);
 				}
 			}
 		});
 
-		descriptionLabel.setText(myDescription);
-		currentValue.setText(value.toString());
+		myDescriptionLabel.setText(myDescription);
+		myCurrentValue.setText(value.toString());
 		myNameLabel.setText("Constant name: " + myName);
-		stringLabel.setText("Value: " + myValue);
-		newValue.setText("New Constant: ");
+		myStringLabel.setText("Value: " + myValue);
+		myNewValue.setText("New Constant: ");
 
 		add(myNameLabel);
-		add(descriptionLabel);
-		add(stringLabel);
-		add(newValue);
+		add(myDescriptionLabel);
+		add(myStringLabel);
+		add(myNewValue);
 		add(mySliderInput);
-		add(currentValue);
+		add(myCurrentValue);
 		add(myTextInput);
 
 	}

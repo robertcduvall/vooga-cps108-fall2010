@@ -6,9 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.io.File;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,27 +18,29 @@ import arcade.mod.model.IResourceNode;
  * needed for the GUI so as to avoid coupling between the Model and View
  * 
  */
+@SuppressWarnings("serial")
 public abstract class ListFrame extends JPanel {
 
 	protected String myName;
 	protected String myDescription;
 
 	protected JLabel myNameLabel;
-	protected JLabel newValue;
-	protected JLabel currentValue;
-	protected JLabel stringLabel;
-	protected JLabel descriptionLabel;
+	protected JLabel myNewValue;
+	protected JLabel myCurrentValue;
+	protected JLabel myStringLabel;
+	protected JLabel myDescriptionLabel;
+
+	protected IResourceNode myNode;
 
 	protected static final int HEIGHT = 70;
 	protected final int WIDTH = 750;
-	protected IResourceNode myNode;
+	private final Color BACKGROUND_COLOR = Color.WHITE;
+	private final Color PANEL_COLOR = new Color(230);
 
 	/**
 	 * Null constructor for the List Frame
 	 */
-	public ListFrame() {
-
-	}
+	public ListFrame() {}
 
 	/**
 	 * Creates a new instance of ListFrame from a resource node
@@ -71,6 +71,9 @@ public abstract class ListFrame extends JPanel {
 		this.setPreferredSize(new Dimension(WIDTH, height));
 	}
 	
+	/**
+	 * Render a component to the screen
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 	    int x = 1;
@@ -83,11 +86,11 @@ public abstract class ListFrame extends JPanel {
 	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 
-	    g2.setColor(new Color(230, 230, 230));
+	    g2.setColor(PANEL_COLOR);
 	    g2.fillRoundRect(x, y, w, h, arc, arc);
 
 	    g2.setStroke(new BasicStroke(2f));
-	    g2.setColor(Color.WHITE);
+	    g2.setColor(BACKGROUND_COLOR);
 	    g2.drawRoundRect(x, y, w, h, arc, arc); 
 
 	    g2.dispose();
@@ -115,13 +118,15 @@ public abstract class ListFrame extends JPanel {
 	 * frame
 	 */
 	public abstract void makeComponents();
+	
+	/**
+	 * Initialize the graphical components of a specific list frame
+	 */
+	public abstract void initializeComponents();
 
 	/**
 	 * Error checking to confirm that a list frame is holding a valid file type
 	 * @return boolean true if a file is valid
 	 */
-	public abstract boolean confirmValidity(File saveFile);
-	
-	public abstract void initializeComponents();
-
+	public abstract boolean confirmValidity();
 }

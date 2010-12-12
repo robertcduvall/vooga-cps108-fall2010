@@ -96,14 +96,14 @@ public class View extends JPanel implements IViewer {
 	/**
 	 * Switches from one list frame to another when the presenter tells it to do so.
 	 */
-	public void changeFrames(Collection<AbstractListFrame> frames) {
+	public void changeFrames(Collection<ListFrame> frames) {
 
 		centralPanel.removeAll();
 		centralPanel.updateUI();
 
 		centralPanel.add(Box.createRigidArea(new Dimension(0,5)));
 		
-		for (AbstractListFrame alf : frames) {
+		for (ListFrame alf : frames) {
 			centralPanel.add(alf);
 			centralPanel.add(Box.createRigidArea(new Dimension(0,5)));
 		}

@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.XMLNode;
 
-public class StringListFrame extends AbstractListFrame {
+public class StringListFrame extends ListFrame {
 
 	private String myString;
 	private JTextField myInput;
@@ -26,7 +26,7 @@ public class StringListFrame extends AbstractListFrame {
 	}
 
 	@Override
-	public AbstractListFrame newInstance(IResourceNode node) {
+	public ListFrame newInstance(IResourceNode node) {
 		if (!node.getNode().getNodeName().equals(XMLNode.DESCRIPTION_TAG))
 			return new StringListFrame(node);
 		else
@@ -52,15 +52,15 @@ public class StringListFrame extends AbstractListFrame {
 
 		});
 
-		descriptionLabel.setText(myDescription);
+		myDescriptionLabel.setText(myDescription);
 		myNameLabel.setText("String name: " + myName);
-		stringLabel.setText("Value: " + myString);
-		newValue.setText("New String: ");
+		myStringLabel.setText("Value: " + myString);
+		myNewValue.setText("New String: ");
 
 		add(myNameLabel);
-		add(descriptionLabel);
-		add(stringLabel);
-		add(newValue);
+		add(myDescriptionLabel);
+		add(myStringLabel);
+		add(myNewValue);
 		add(myInput);
 
 	}
@@ -68,10 +68,10 @@ public class StringListFrame extends AbstractListFrame {
 	@Override
 	public void initializeComponents() {
 		myInput = new JTextField(30);
-		descriptionLabel = new JLabel();
+		myDescriptionLabel = new JLabel();
 		myNameLabel = new JLabel();
-		stringLabel = new JLabel();
-		newValue = new JLabel();
+		myStringLabel = new JLabel();
+		myNewValue = new JLabel();
 
 		makeComponents();
 	}
