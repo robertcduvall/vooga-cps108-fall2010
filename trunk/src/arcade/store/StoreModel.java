@@ -4,6 +4,8 @@ import java.util.*;
 
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 import arcade.store.account.StoreUser;
 import arcade.store.control.MainController;
 import arcade.store.items.DbItemAndUserFactory;
@@ -18,6 +20,7 @@ public class StoreModel implements IModel{
 //	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	
 	private StoreUser currentUser;
+	private Profile lobbyUser;
 	private Map<String, IItemInfo> storeCatalogue;
 	private IController controller;
 	
@@ -25,8 +28,8 @@ public class StoreModel implements IModel{
 	{
 		storeCatalogue = DbItemAndUserFactory.getAllItems(GAME_INFO_TABLE);
 		controller = control;
-		
-		currentUser = new StoreUser();
+		lobbyUser = ProfileSet.currentProfile;
+		currentUser = DbItemAndUserFactory.getUser(0);
 	}
 	
 	public IItemInfo getItemInfo(String name)

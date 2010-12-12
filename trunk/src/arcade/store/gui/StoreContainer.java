@@ -15,7 +15,7 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
 
-public class StoreContainer extends Tab {
+public class StoreContainer{
 
 	MainController mainController;
 	
@@ -25,14 +25,17 @@ public class StoreContainer extends Tab {
 	//TODO: move toward a more generic version of this!
 	
 	public StoreContainer() {
-		setName("Store");
+		//setName("Store");
 		mainController = new MainController();
-
+		JFrame frame = new JFrame();
+		frame.add(getContent());
+		frame.pack();
+		frame.setVisible(true);
 		//this method sets up the first tab
 //		controller.setMainTabView(this);
 	}
 	
-	@Override
+//	@Override
 	public JComponent getContent() {
 		JTabbedPane component = createTabs();
 		return component;

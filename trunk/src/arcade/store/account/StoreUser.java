@@ -40,7 +40,6 @@ public class StoreUser {
 		ownedGames = new ArrayList<String>();
 	}
 	
-	
 	public String getName() {
 		return name;
 	}
