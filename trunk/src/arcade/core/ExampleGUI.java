@@ -211,7 +211,7 @@ public class ExampleGUI extends Tab {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		String description = playerFormat(playerName, numScores,
-				hsc.getPlayerHighScores(playerName, numScores));
+				hsc.getPlayerHighScores(playerName, numScores,"id"));
 		textPane.setEditable(false);
 
 		textPane.setText(description);
@@ -233,7 +233,7 @@ public class ExampleGUI extends Tab {
 	 */
 	private static String playerFormat(String playerName, int numScores,
 			List<Map<String, String>> rows) {
-		String result = "<h3 align=center>" + playerName + "'s Top Scores"
+		String result = "<h3 align=center>" + playerName + "'s Recent Scores"
 				+ "</h3>";
 		result += "<table align=\"Center\">"
 				+ "<tr><th></th><th>Game</th><th>Score</th></tr>";

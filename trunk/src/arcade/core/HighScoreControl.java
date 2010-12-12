@@ -38,27 +38,32 @@ public class HighScoreControl {
 		Map<String, String> row = new HashMap<String, String>();
 		row.put("Player", player);
 		row.put("Game", gameName);
-		row.put("Score", score+"");
+		row.put("Score", score + "");
 		return myDbAdapter.insert(myTable, row);
 	}
-	
+
 	/**
 	 * Checks to see if the current score is a new personal high score on a game
-	 * @param playerName player identifier (username/name)
-	 * @param gameName game name
-	 * @param score score
+	 * 
+	 * @param playerName
+	 *            player identifier (username/name)
+	 * @param gameName
+	 *            game name
+	 * @param score
+	 *            score
 	 * @return true if it's a new high score, false otherwise
 	 */
 	public boolean isHighScore(String playerName, String gameName, String score) {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Player", playerName);
 		conditions.put("Game", gameName);
-		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, conditions, "Score", false,
-				1, "Score");
+		List<Map<String, String>> rows = myDbAdapter.getRows(myTable,
+				conditions, "Score", false, 1, "Score");
 		for (Map<String, String> row : rows) {
-			if(Double.parseDouble(score)>Double.parseDouble(row.get("Score")))
+			if (Double.parseDouble(score) > Double
+					.parseDouble(row.get("Score")))
 				return true;
-		} 
+		}
 		return false;
 	}
 
@@ -93,23 +98,33 @@ public class HighScoreControl {
 	 *            player identifier (username/name)
 	 * @param numScores
 	 *            number of scores to display
-	 * @return  a list of values returned by the query
+	 * @return a list of values returned by the query
 	 */
 	public List<Map<String, String>> getPlayerHighScores(String playerName,
 			int numScores) {
+		return getPlayerHighScores(myTable, numScores, "Score");
+	}
+
+	public List<Map<String, String>> getPlayerHighScores(String playerName,
+			int numScores, String sortBy) {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Player", playerName);
-		return myDbAdapter.getRows(myTable, conditions, "Score", false,
+		return myDbAdapter.getRows(myTable, conditions, sortBy, false,
 				numScores, "Game", "Score");
 	}
 
 	public List<Map<String, String>> getHighScores(String playerName,
 			String gameName, int numScores) {
+		return getHighScores(playerName, myTable, numScores, "Score");
+	}
+
+	public List<Map<String, String>> getHighScores(String playerName,
+			String gameName, int numScores, String sortBy) {
 
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Player", playerName);
 		conditions.put("Game", gameName);
-		return myDbAdapter.getRows(myTable, conditions, "Score", false,
+		return myDbAdapter.getRows(myTable, conditions, sortBy, false,
 				numScores, "Score");
 	}
 }
