@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 import arcade.core.Tab;
-import arcade.security.control.Control;
 import arcade.security.gui.SecurityButton;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.util.SignUpHandler;
@@ -29,8 +28,8 @@ import arcade.security.util.SignUpHandler;
  * @author Jiaqi Yan
  *
  */
-public class SignUpPanel extends ViewState{
-	
+public class SignUpPanel extends JPanel implements IView{
+
 	JProgressBar progressbar;
 	private JTextField usernameField,questionField;
 	private JPasswordField passwordField;
@@ -38,7 +37,7 @@ public class SignUpPanel extends ViewState{
 	private SecurityButton submitButton;
 	private JLabel usernameReminder;
 	private JLabel passwordReminder;
-	
+
 	private int maxPasswordLength = 10;
 	private int maxUserNameLength = 10;
 	private int maxAnswerLength = 20;
@@ -47,38 +46,38 @@ public class SignUpPanel extends ViewState{
 	JLabel username_label;
 	JLabel pwd_label1;
 	JLabel pwd_label2;
-	
+
 	private char[] pwd_1;
 	private char[] pwd_2;
 	private String username;
 	private int questionIndex;
 	private String questionAnswer;
 	private JButton LoginPageButton;
-	
+
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
-	
-	private Control controller;
-	
-	public SignUpPanel(Control controller){
-		this.controller = controller;
+
+	//private Control controller;
+
+	public SignUpPanel(){
+		//this.controller = controller;
 		setName("Sign up");
 		setLayout(new MigLayout());
 		username_label=new JLabel(LabelResources.getLabel("AskForUserName"));		
 		pwd_label1=new JLabel(LabelResources.getLabel("AskForPwd"));
 		pwd_label2 = new JLabel(LabelResources.getLabel("AskForPwdAgain"));
-		
-		
+
+
 		JLabel usernameReminder = new JLabel("Username Does not Exist");
 		JLabel passwordReminder = new JLabel("Password is not valid");
-		
+
 		usernameField=new JTextField(maxUserNameLength);	
 		questionField = new JTextField(maxAnswerLength);
 		passwordField=new JPasswordField(maxPasswordLength);
 		passwordFieldRep=new JPasswordField(maxPasswordLength);
 		LoginPageButton =  new SecurityButton(LabelResources.getLabel("GoBackLoginPageButton"));
 		submitButton = new SecurityButton(LabelResources.getLabel("SignUpButton"));
-		
+
 		ResourceBundle questions = ResourceBundle.getBundle(QUESTIONS);
 		String[] q = new String[questionNum];
 		int count = 0;
@@ -88,56 +87,82 @@ public class SignUpPanel extends ViewState{
 		}
 		questionChoices = new JComboBox(q);
 		questionChoices.setSelectedIndex(START_INDEX);
-		
-		addContents();
-		addListeners();
-	}
-	
-	protected void addListeners(){
-		submitButton.addActionListener(new SubmitListener());
-		LoginPageButton.addActionListener(new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				controller.switchToLogInPage();
-			}
-			
-		});
+		addContents();
+		//addListeners();
 	}
-	
+
+	public void addSubmitButtonListener(ActionListener listener){
+		submitButton.addActionListener(listener);
+	}
+
+	public void addLoginPageButtonListener(ActionListener listener){
+		LoginPageButton.addActionListener(listener);
+	}
+
+	//	protected void addListeners(){
+	//		submitButton.addActionListener(new SubmitListener());
+	//		LoginPageButton.addActionListener(new ActionListener(){
+	//
+	//			@Override
+	//			public void actionPerformed(ActionEvent arg0) {
+	//				controller.switchToLogInPage();
+	//			}
+	//			
+	//		});
+	//	}
+
 	public JPanel getCurrentPanel(){
 		return this;
 	}
 	
-	private class SubmitListener implements ActionListener{
+	public char[] getRepPasswordUserInput(){
+		return passwordFieldRep.getPassword();
+	}
+	
+	public char[] getPasswordUserInput(){
+		return passwordField.getPassword();
+	}
+	
+	public String getUserNameUserInput(){
+		return usernameField.getText();
+	}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			pwd_1 = passwordField.getPassword();
-			pwd_2 = passwordFieldRep.getPassword();
-			username = usernameField.getText();
-			if(!SignUpHandler.samePassword(pwd_1, pwd_2)){
-				JOptionPane.showMessageDialog(getCurrentPanel(),"Password are not the same");
-				return;
-			}
-			if(!SignUpHandler.isValidUserName(username)){
-				JOptionPane.showMessageDialog(getCurrentPanel(),"Useraname is not valid");
-				return;
-			}
-			questionIndex = questionChoices.getSelectedIndex();
-			questionAnswer = questionField.getText();
-			SignUpHandler.createNewUser(username,pwd_1,questionIndex,questionAnswer);
-		}
-		
+	public int getQuestionSelectedIndex(){
+		return questionChoices.getSelectedIndex();
+	}
+	
+	public String getQuestionAnswer(){
+		return questionField.getText();
 	}
 	
 	
-	
+	//	private class SubmitListener implements ActionListener{
+	//
+	//		@Override
+	//		public void actionPerformed(ActionEvent e) {
+	//			pwd_1 = passwordField.getPassword();
+	//			pwd_2 = passwordFieldRep.getPassword();
+	//			username = usernameField.getText();
+	//			if(!SignUpHandler.samePassword(pwd_1, pwd_2)){
+	//				JOptionPane.showMessageDialog(getCurrentPanel(),"Password are not the same");
+	//				return;
+	//			}
+	//			if(!SignUpHandler.isValidUserName(username)){
+	//				JOptionPane.showMessageDialog(getCurrentPanel(),"Useraname is not valid");
+	//				return;
+	//			}
+	//			questionIndex = questionChoices.getSelectedIndex();
+	//			questionAnswer = questionField.getText();
+	//			SignUpHandler.createNewUser(username,pwd_1,questionIndex,questionAnswer);
+	//		}
+	//		
+	//	}
 	private void addContents(){
 		add(username_label,"cell 0 1");
 		add(pwd_label1,"cell 0 2");
 		add(pwd_label2,"cell 0 3");
-		
+
 		add(usernameField,"cell 1 1,wrap");
 		add(passwordField,"cell 1 2,wrap");
 		add(passwordFieldRep,"cell 1 3,wrap");
@@ -146,5 +171,9 @@ public class SignUpPanel extends ViewState{
 		add(questionChoices,"cell 0 4");
 		add(questionField,"cell 1 4");
 	}
+
 	
+
+
+
 }
