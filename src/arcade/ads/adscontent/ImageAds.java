@@ -18,7 +18,7 @@ import java.net.URI;
  * 
  * @version 1.0
  */
-public abstract class ImageAds extends BasicAds {
+public class ImageAds extends BasicAds {
 
 	protected Image img;
 	private int xMin;
@@ -56,6 +56,8 @@ public abstract class ImageAds extends BasicAds {
 
 
 	@Override
-	public abstract boolean isActive();
+	public boolean isActive() {
+		return false;
+	}
 
 }

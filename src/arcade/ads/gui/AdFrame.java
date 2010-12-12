@@ -165,7 +165,7 @@ public class AdFrame extends JFrame {
 
 	public static void main(String args[]) {
 		AdsManager manager = new AdsManager();
-		manager.setAds("src/arcade/ads/resources/adGroup1.xml");
+		manager.setAds("src/arcade/ads/resources/xmlFiles.txt");
 		// BufferedImage img = null;
 		// try
 		// {
