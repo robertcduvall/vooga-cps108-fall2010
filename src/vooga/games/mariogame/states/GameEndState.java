@@ -70,6 +70,7 @@ public class GameEndState extends GameState {
 	private void onEnter() {
 		try {
 			myHighScores.updateScores(myPlayState.getScore(), System.currentTimeMillis());
+			myGame.updateHighScore(myPlayState.getScore());
 		} catch (SQLiteException e) {
 			System.out.println("Error with scoring");
 		}
