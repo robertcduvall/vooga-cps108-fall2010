@@ -1,6 +1,7 @@
 package arcade.util.xmleditor;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,7 +23,9 @@ public class View extends JPanel {
 
 	public View() throws ParserConfigurationException, SAXException,
 			IOException {
-		setLayout(new BorderLayout());
+		
+		this.initializePanel();
+		
 		File file = new File("resources.xml");
 		XMLDocumentCreator xmlCreator = new XMLFileParser(file);
 		Document document = xmlCreator.getDocument();
@@ -32,18 +35,28 @@ public class View extends JPanel {
 		treeViewer.addTreeSelectionListener(elementPanel);
 
 		add(treeViewer, BorderLayout.WEST);
-		add(elementPanel, BorderLayout.EAST);
+		add(elementPanel, BorderLayout.CENTER);
 
 	}
 
+	private void initializePanel() {
+		
+		this.setLayout(new BorderLayout());
+		this.setPreferredSize(new Dimension(500, 600));
+		
+	}
+	
+	
 	public static void main(String[] args) throws ParserConfigurationException,
 			SAXException, IOException {
 		JFrame frame = new JFrame();
 		frame.add(new View());
-		frame.setSize(300, 300);
+		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowCloser());
+		
+		
 	}
 
 }
