@@ -29,8 +29,11 @@ public class StoreContainer{
 		mainController = new MainController();
 		JFrame frame = new JFrame();
 		frame.add(getContent());
-		frame.pack();
+		frame.setSize(700, 500);
+	
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		//this method sets up the first tab
 //		controller.setMainTabView(this);
 	}

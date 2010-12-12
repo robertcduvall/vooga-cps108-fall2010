@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -204,6 +206,11 @@ public class CheckoutTab extends Tab implements IViewer{
 			SaveCartButton = new JButton();
 			SaveCartButton.setBounds(new Rectangle(340, 226, 108, 26));
 			SaveCartButton.setText("Save Cart");
+			SaveCartButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					controller
+				}
+			});
 		}
 		return SaveCartButton;
 	}

@@ -165,6 +165,10 @@ public class CheckoutController implements IController{
 		new ItemHasBeenDroppedView();
 		initialize();
 	}
+	
+	public void processSaveCart() {
+		storeModel.getCurrentUserAccount().
+	}
 
 	public void registerCurrentElement() {
 	
