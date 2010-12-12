@@ -1,9 +1,7 @@
-package arcade.ads;
+package arcade.ads.adscontent;
 
-import java.awt.Desktop;
 import java.awt.Image;
-import java.io.IOException;
-import java.net.URI;
+
 
 /**
  * This is simple class will provide general functionality for all ads, such as
@@ -18,42 +16,46 @@ import java.net.URI;
  * 
  * @version 1.0
  */
-public abstract class ImageAds extends BasicAds {
 
-	protected Image img;
-	private int xMin;
-	private int xMax;
-	private int yMin;
-	private int yMax;
-	
-	public ImageAds()
-	{
-		super();
-	}
 
-	public ImageAds(String name, Image img) {
+public abstract class VideoAds extends BasicAds {
+
+	private Video video;
+
+	public VideoAds(String name, Video video) {
 		super(name);
-		this.img = img;
+		this.video = video;
 	}
 
-	public ImageAds(String name, Image img, int xMin, int xMax, int yMin,
-			int yMax, String targetURL) {
-		super(name, xMin, xMax, yMin, yMax, targetURL);
+	public VideoAds(String name, Image img, int xMin, int xMax, int yMin,
+			int yMax) {
+		super(name, xMin, xMax, yMin, yMax);
 
 	}
 
 	@Override
 	public void onClick() {
-		//open url
-		openBrowser();
+		// open a url
 	}
 
 	@Override
 	public void onMouseOver() {
+		// play the video
 		// highlight or scale ads
 
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		// render img
+	}
 
 	@Override
 	public abstract boolean isActive();

@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.adsclassification;
 
 /**
  * This is simple class will provide general functionality for all ads, such as
@@ -14,20 +14,33 @@ package arcade.ads;
  * @version 1.0
  */
 
-public interface IRelatedAds {
+public interface ITimedAds {
 
 	/**
-	 * get ads' category
+	 * get ads's start time
 	 * 
-	 * @return
+	 * @return ads's start time
 	 */
-	public String getCategory();
+	public long getStartTime();
 
 	/**
-	 * set ads' category
+	 * set ads's start time
 	 * 
-	 * @param categ
-	 * @return
+	 * @param startTime
 	 */
-	public String setCategory(String categ);
+	public void setStartTime(long startTime);
+
+	/**
+	 * get ads's end time
+	 * 
+	 * @return ads's end time
+	 */
+	public long getEndTime();
+
+	/**
+	 * set ads's end time
+	 * 
+	 * @param endTime
+	 */
+	public void setEndTime(long endTime);
 }

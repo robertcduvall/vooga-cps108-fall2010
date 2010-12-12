@@ -1,4 +1,4 @@
-package arcade.ads;
+package arcade.ads.example;
 
 import java.awt.Event;
 import java.awt.Graphics2D;
@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
+
+import arcade.ads.adscontent.ImageAds;
 
 public class DukeAds extends ImageAds
 {
@@ -56,6 +58,4 @@ public class DukeAds extends ImageAds
 		this.targetURL = attributes.getNamedItem("targetURL").getNodeValue();
 	}
 	
-	
-
 }
