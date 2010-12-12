@@ -79,6 +79,10 @@ public class StoreUser {
 		creddits = newcreddits;
 	}
 	
+	public void addCreddits(double amount) {
+		creddits +=amount;
+	}
+	
 	public void addGame(String title)
 	{
 		ownedGames.add(title);
