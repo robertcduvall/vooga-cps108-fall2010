@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import arcade.core.Tab;
@@ -14,7 +15,7 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
 
-public class StoreContainer extends Tab{
+public class StoreContainer {
 
 	MainController mainController;
 	
@@ -24,14 +25,17 @@ public class StoreContainer extends Tab{
 	//TODO: move toward a more generic version of this!
 	
 	public StoreContainer() {
-		setName("Store");
+//		setName("Store");
 		mainController = new MainController();
-		
+		JFrame mainFrame = new JFrame();
+		mainFrame.add(getContent());
+		mainFrame.setSize(700, 600);
+		mainFrame.setVisible(true);
 		//this method sets up the first tab
 //		controller.setMainTabView(this);
 	}
 	
-	@Override
+//	@Override
 	public JComponent getContent() {
 		JTabbedPane component = createTabs();
 		return component;
@@ -88,6 +92,10 @@ public class StoreContainer extends Tab{
 		Class<?> tabClass = Class.forName(classname);
 		Tab newTab = (Tab) tabClass.newInstance();
 		return newTab;
+	}
+	
+	public static void main(String[] args) {
+		new StoreContainer();
 	}
 
 }

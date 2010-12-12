@@ -1,22 +1,24 @@
 package arcade.store.gui.tabs;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
-import arcade.store.control.MainController;
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 import arcade.store.control.ProfileController;
 
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -44,7 +46,8 @@ public class ProfileTab extends Tab implements IViewer{
 	
 	private static final String NAME = "Shop Profile";
 	
-	ProfileController controller;
+	private ProfileController controller;
+	private Profile lobbyUser = ProfileSet.currentProfile;
 	
 	public ProfileTab()
 	{
@@ -61,8 +64,8 @@ public class ProfileTab extends Tab implements IViewer{
 	
 
 	@Override
-	public void setController(IController control) {
-		
+	public void setController(IController control) 
+	{
 		controller = (ProfileController) control;
 	}
 	
@@ -91,7 +94,17 @@ public class ProfileTab extends Tab implements IViewer{
 			totalGamePlayLabel.setText("Total Gameplay: ");
 			userImageLabel = new JLabel();
 			userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
-			userImageLabel.setIcon(new ImageIcon(USER_AVATAR));
+			try {
+			userImageLabel.setIcon(new ImageIcon(ImageIO.read(new URL(lobbyUser
+					.getAvatar()))));
+			} catch (MalformedURLException mue) {
+				System.out.println("Invalid avatar URL!");
+			} catch (IOException ioe) {
+				System.out.println("Invalid avatar image!");
+			}
+			catch (Exception e){
+				System.out.println(e);
+			}
 			introLabel1 = new JLabel();
 			introLabel1.setText("Manage My Shop Account");
 			introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
@@ -153,6 +166,7 @@ public class ProfileTab extends Tab implements IViewer{
 			availableCredditsTextField = new JTextField();
 			//506, 53, 111, 29
 			availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
+			availableCredditsTextField.setText(controller.getCreddits());
 		}
 		return availableCredditsTextField;
 	}

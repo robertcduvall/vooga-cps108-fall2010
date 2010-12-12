@@ -108,38 +108,4 @@ public class StoreModel implements IModel{
 		return (currentCreddits - getTotalUserCartCost() ) >= 0;	
 	}
 	
-	
-	/**
-	 * This method uses reflection to obtain the currentPage. If reflection does not work, then 
-	 * then this method gets the currentPage and paints the message does not work!! TODO: fill
-	 * that part in!
-	 * @param list
-	 * @param criteria
-	 * @param currentPage
-	 * @return
-	 */
-//	public List<IItemInfo> organize(String criteria){
-//
-//		String className = organizerBundle.getString(criteria);
-//
-//		try {
-//			IOrganizer organizer = (IOrganizer) Class.forName(className).newInstance();
-//			return organizer.organize(getAllItems(), criteria);
-//		} 
-//		catch (Exception e)
-//		{
-//			//currentPage.paintSomething();
-//			//TODO: figure out what happens when this does not work
-//			return getAllItems();
-//		}	
-//	}
-
-	
-	
-	
-	
-	
-	
-	
-	
 }

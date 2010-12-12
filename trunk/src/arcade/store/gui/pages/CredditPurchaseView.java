@@ -65,7 +65,6 @@ public class CredditPurchaseView extends Window {
 		panel.add(credditsAddedLabel);
 		panel.add(backToStoreButton);
 		panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-				
 		add(panel);
 	}
 	
