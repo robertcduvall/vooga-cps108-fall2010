@@ -22,10 +22,6 @@ public class ExampleGUI extends Tab {
 	static HighScoreControl hsu = new HighScoreControl(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
 			"HighScores");
-<<<<<<< .mine
-=======
-	private static Toolkit tk;
->>>>>>> .r2771
 
 	private static String gameName = "zombieland";
 	private static String playerName = "Guest";
