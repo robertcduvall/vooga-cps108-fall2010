@@ -48,7 +48,7 @@ public class Arcade extends JFrame {
 	}
 
 	// Temporary
-	// TODO: lobby group please create this
+	// TODO: security group please create this
 	private JPanel createLogin() {
 		JPanel a = new JPanel();
 		a.setLayout(new BorderLayout());
