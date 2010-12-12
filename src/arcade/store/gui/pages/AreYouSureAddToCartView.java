@@ -13,7 +13,7 @@ import javax.swing.JButton;
 
 public class AreYouSureAddToCartView {
 
-	PurchaseItemController controller;
+	private PurchaseItemController controller;
 	
 	private JPanel AreYouSurePanel = null;  //  @jve:decl-index=0:visual-constraint="213,86"
 	private JLabel AreYouSureLabel = null;

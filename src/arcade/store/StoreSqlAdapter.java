@@ -81,6 +81,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		return super.update(userTableName, usernameField, user, row);
 	}
 	
+	
 	public boolean updateList(List<String> newCart, String user) {
 		Map<String, String> row = new HashMap<String, String>();
 		StringBuilder builder = new StringBuilder();

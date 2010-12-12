@@ -8,6 +8,7 @@ import arcade.store.items.IItemInfo;
 public class StoreUser {
 	
 	private final static String DEFAULT_NAME = "default_user";
+	private int id;
 	private String name;
 	private double creddits;
 	private int timeCreddits;
@@ -33,11 +34,7 @@ public class StoreUser {
 	
 	public StoreUser()
 	{
-		name = DEFAULT_NAME;
-		creddits = 0;
-		timeCreddits = 0;
-		cart = new ArrayList<String>();
-		ownedGames = new ArrayList<String>();
+		this(DEFAULT_NAME, 0, 0, "", "");
 	}
 	
 	public String getName() {
@@ -78,7 +75,7 @@ public class StoreUser {
 	
 	public void addCreddits(double amount) {
 		creddits +=amount;
-		dbAdapter.updateCreddits(creddits, name);
+		dbAdapter.updateCreddits(creddits, id);
 	}
 	
 	public void addGame(String title)
@@ -99,7 +96,10 @@ public class StoreUser {
 	
 	public void addToCart(String name) {
 		cart.add(name);
-		dbAdapter.updateList(cart, name);
+	}
+	
+	public void saveCart() {
+		dbAdapter.updateList(newCart, user)
 	}
 	
 }
