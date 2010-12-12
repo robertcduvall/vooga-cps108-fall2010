@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import arcade.util.database.DatabaseAdapter;
 import arcade.util.database.MySqlAdapter;
@@ -14,13 +15,15 @@ public class ProfileSet implements Iterable<Profile> {
 	public static Profile currentProfile = null;
 	public static DatabaseAdapter myDbAdapter;
 	public static String myTable = "Profile";
+	private static ResourceBundle resourceBundle = ResourceBundle.getBundle("arcade.lobby.resources.resources");
 
 	public ProfileSet(String host, String dbName, String tableName,
 			String user, String pass) {
 		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
 		myTable = tableName;
+		ResourceBundle.getBundle("resources.resources");
 	}
-	
+
 	private static void checkAdapter(){
 		if(myDbAdapter == null){
 			myDbAdapter = new MySqlAdapter(Constants.HOST, Constants.DBNAME, Constants.USER, Constants.PASSWORD);
@@ -29,30 +32,29 @@ public class ProfileSet implements Iterable<Profile> {
 
 	public int size() {
 		checkAdapter();
-		return myDbAdapter.getColumn(myTable, "UserName").size();
+		return myDbAdapter.getColumn(myTable, resourceBundle.getString("dbUserName")).size();
 	}
 
 	public static boolean addProfile(Profile profile) {
-		checkAdapter();
-		Map<String, String> row = new HashMap<String, String>();
-		row.put("User_Id", profile.getUserName());
-		row.put("FirstName", profile.getFirstName());
-		row.put("LastName", profile.getLastName());
-		row.put("Birthday", profile.getBirthday());
-		row.put("AvatarUrl", profile.getAvatar());
-		row.put("Email", profile.getEmail());
+		Map<String, String> row = addToRow(profile);
+		row.put(resourceBundle.getString("dbUserID"), profile.getUserName());
 		return myDbAdapter.insert(myTable, row);
 	}
 	
 	public static boolean updateProfile(Profile profile) {
+		Map<String, String> row = addToRow(profile);
+		return myDbAdapter.update(myTable, resourceBundle.getString("dbUserID"), Integer.toString(profile.getUserId()), row);
+	}
+
+	private static Map<String, String> addToRow(Profile profile) {
 		checkAdapter();
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("FirstName", profile.getFirstName());
-		row.put("LastName", profile.getLastName());
-		row.put("Birthday", profile.getBirthday());
-		row.put("AvatarUrl", profile.getAvatar());
-		row.put("Email", profile.getEmail());
-		return myDbAdapter.update(myTable, "User_Id", Integer.toString(profile.getUserId()), row);
+		row.put(resourceBundle.getString("dbFirstName"), profile.getFirstName());
+		row.put(resourceBundle.getString("dbLastName"), profile.getLastName());
+		row.put(resourceBundle.getString("birthday"), profile.getBirthday());
+		row.put(resourceBundle.getString("dbAvatarURL"), profile.getAvatar());
+		row.put(resourceBundle.getString("email"), profile.getEmail());
+		return row;
 	}
 
 	public static Profile getProfile(int userId) {
@@ -64,12 +66,12 @@ public class ProfileSet implements Iterable<Profile> {
 		Map<String,String> row = rows.get(0);
 		userProf.setName(row.get("FirstName"), row.get("LastName"));
 		try {
-			userProf.setBirthday(row.get("Birthday"));
+			userProf.setBirthday(row.get(resourceBundle.getString("birthday")));
 		} catch (NumberFormatException e) {
 //			e.printStackTrace();
 		}
-		userProf.setEmail(row.get("Email"));
-		userProf.setAvatar(row.get("AvatarUrl"));
+		userProf.setEmail(row.get(resourceBundle.getString("email")));
+		userProf.setAvatar(row.get(resourceBundle.getString("dbAvatarURL")));
 		return userProf;
 	}
 
