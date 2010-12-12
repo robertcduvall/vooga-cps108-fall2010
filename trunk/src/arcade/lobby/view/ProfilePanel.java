@@ -51,6 +51,12 @@ public class ProfilePanel extends Tab {
 		initialize();
 	}
 	
+	@Override
+	public void refresh() {
+		myProfile = ProfileSet.currentProfile;
+		initialize();
+	}
+	
 	public static void setProfile(Profile p){
 		System.out.println("Profile panel profile reset");
 		myProfile = p;
