@@ -23,8 +23,8 @@ import org.apache.log4j.Logger;
  * @author Yang Su
  */
 public class MySqlAdapter implements DatabaseAdapter {
-	
-	private final static Logger log=Logger.getLogger(MySqlAdapter.class);	
+
+	private final static Logger log = Logger.getLogger(MySqlAdapter.class);
 	private static Connection myDBConnection;
 	private String myURL;
 	private String myUser;
@@ -126,10 +126,12 @@ public class MySqlAdapter implements DatabaseAdapter {
 				result.add(rs.getString(columnName));
 			}
 			ps.close();
-			log.info("Successful database operation: Get a column from "+columnName+" of table "+tableName);
+			log.info("Successful database operation: Get a column from "
+					+ columnName + " of table " + tableName);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			log.debug("Failed database operation: Get a column from "+columnName+" of table "+tableName);
+			log.debug("Failed database operation: Get a column from "
+					+ columnName + " of table " + tableName);
 			return null;
 		}
 		closeConnection();
@@ -177,6 +179,31 @@ public class MySqlAdapter implements DatabaseAdapter {
 		return getRows(query);
 	}
 
+
+	/**
+	 * Gets a set of rows from the database that satisfy a specified set of
+	 * "field = 'value'" conditionals
+	 * 
+	 * @param tableName
+	 *            Name of table
+	 * @param conditions
+	 *            A map containing the name of each field to match with the
+	 *            value desired of that field
+	 * @param cols
+	 *            (Optional) a variable parameter list to specify what columns
+	 *            to choose from
+	 * @return A list of maps of field names to values for each row or null if
+	 *         the query fails
+	 */
+	public List<Map<String, String>> getRows(String tableName,
+			Map<String, String> conditions, String... cols) {
+		String conditional = createConditional(conditions);
+		String columns = createColumnSelection(cols);
+		String query = "SELECT " + columns + " FROM " + tableName + " WHERE "
+				+ conditional;
+		return getRows(query);
+	}
+	
 	/**
 	 * Get rows as the result of a customizable query
 	 * 
@@ -220,7 +247,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		ResultSet rs;
 		Map<String, String> map;
 		List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
-		System.out.println("get query: "+query);
+		System.out.println("get query: " + query);
 		try {
 			PreparedStatement ps = myDBConnection.prepareStatement(query);
 			ps.executeQuery();
@@ -229,24 +256,24 @@ public class MySqlAdapter implements DatabaseAdapter {
 				System.out.println("I have data!!");
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int count = rsmd.getColumnCount();
-				System.out.println("num columns: "+count);
+				System.out.println("num columns: " + count);
 				map = new HashMap<String, String>();
 				for (int i = 1; i <= count; i++) {
 					String curValue = rs.getString(i);
 					String label = rsmd.getColumnLabel(i);
-					System.out.println(label+": "+curValue);
+					System.out.println(label + ": " + curValue);
 					map.put(label, curValue);
 				}
 				maps.add(map);
 			}
 			ps.close();
 		} catch (Throwable e) {
-			log.debug("Failed database operation: "+query);
+			log.debug("Failed database operation: " + query);
 			log.debug(e);
 			return null;
 		}
 		closeConnection();
-		log.info("Successful database operation: "+query);
+		log.info("Successful database operation: " + query);
 		return maps;
 	}
 
@@ -295,21 +322,21 @@ public class MySqlAdapter implements DatabaseAdapter {
 		values = values.substring(0, values.length() - 1);
 		keys += ")";
 		values += ")";
-		
+
 		String sql = "INSERT INTO " + tableName + " " + keys + " VALUES "
-		+ values;
+				+ values;
 		try {
-			
+
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
 		} catch (Throwable e) {
-			log.debug("Failed database operation: "+sql);
+			log.debug("Failed database operation: " + sql);
 			log.debug(e);
 			return false;
 		}
 		closeConnection();
-		log.info("Successful database operation: "+sql);
+		log.info("Successful database operation: " + sql);
 		return true;
 	}
 
@@ -334,7 +361,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put(field, value);
 		return update(tableName, conditions, row);
-	}         
+	}
 
 	/**
 	 * Updates the rows of a database that satisfy the given conditions with the
@@ -359,19 +386,19 @@ public class MySqlAdapter implements DatabaseAdapter {
 		}
 		newValues = newValues.substring(0, newValues.length() - 2);
 		String conditional = createConditional(conditions);
-		String sql = "UPDATE " + tableName + " SET " + newValues
-				+ " WHERE " + conditional;
+		String sql = "UPDATE " + tableName + " SET " + newValues + " WHERE "
+				+ conditional;
 		try {
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
 			ps.executeUpdate();
 			ps.close();
 		} catch (Throwable e) {
-			log.debug("Failed database operation: "+sql);
+			log.debug("Failed database operation: " + sql);
 			log.debug(e);
 			return false;
 		}
 		closeConnection();
-		log.info("Successful database operation: "+sql);
+		log.info("Successful database operation: " + sql);
 		return true;
 	}
 

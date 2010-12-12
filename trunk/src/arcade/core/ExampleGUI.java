@@ -2,10 +2,14 @@ package arcade.core;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.Map;
+
 import javax.swing.*;
 
 import arcade.core.examples.HighScore;
 import arcade.util.database.Constants;
+import arcade.util.database.MySqlAdapter;
 
 /**
  * This is the example GUI for arcade. It contains scrollable and adjustable
@@ -19,11 +23,12 @@ import arcade.util.database.Constants;
  * 
  */
 public class ExampleGUI extends Tab {
-	static HighScoreControl hsu = new HighScoreControl(Constants.HOST,
-			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
+	public static MySqlAdapter myDbAdapter = new MySqlAdapter(Constants.HOST,
+			Constants.DBNAME, Constants.USER, Constants.PASSWORD);
+	private static HighScoreControl hsc = new HighScoreControl(myDbAdapter,
 			"HighScores");
 
-	private static String gameName = "jumper";
+	private static String gameName = "Zombieland";
 	private static String playerName = "Guest";
 	private static JPanel content;
 	private static JPanel left;
@@ -31,8 +36,9 @@ public class ExampleGUI extends Tab {
 	private static JComponent highScores;
 	private static JSplitPane columnar;
 	private static double score;
+
 	public ExampleGUI() {
-		score=0;
+		score = 0;
 		setName("Arcade");
 		setToolTipText("Arcade main view");
 	}
@@ -42,41 +48,39 @@ public class ExampleGUI extends Tab {
 		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, makeLeftPanel(),
 				content);
 		columnar.setOneTouchExpandable(true);
-		columnar.setDividerLocation(.25);
 
-		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				columnar, makeRightPanel());
+		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,
+				makeRightPanel());
 		mainPanel.setOneTouchExpandable(true);
-		mainPanel.setDividerLocation(.75);
-		setContent();
+
+		refreshContent();
 		return mainPanel;
 	}
 
-	private static void setContent() {
+	private static void refreshContent() {
 		content = new GameView(gameName);
 		columnar.setRightComponent(content);
 	}
 
 	public static void setGame(String name) {
 		gameName = name;
-		setContent();
+		refreshContent();
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 	}
 
 	public static void updateHighScore(double highScore) {
-		score=highScore;
+		score = highScore;
 		new HighScore(gameName);
-		
 	}
 
 	public static boolean addHighScore() {
-		boolean isAdded = hsu.addScore(playerName, gameName,score);
+		boolean isAdded = hsc.addScore(playerName, gameName, score);
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;
 	}
-	
+
 	// makes the left hand side panel
 	private static JComponent makeLeftPanel() {
 		left = new JPanel();
@@ -96,9 +100,9 @@ public class ExampleGUI extends Tab {
 		JLabel rateOthers = new JLabel("Rate These Other Games");
 
 		JLabel moreLabels = new JLabel(icon);
-		
-		highScores = Components.getGameHighScoresPanel(gameName,5);
-		
+
+		highScores = getGameHighScoresPanel(gameName, 5);
+
 		left.add(rateThis);
 		left.add(label);
 		left.add(separator);
@@ -130,13 +134,13 @@ public class ExampleGUI extends Tab {
 		JLabel player = new JLabel(playerName + " Avatar");
 		playerAvatar.add(player);
 		playerAvatar.add(label);
-		playerAvatar.add(Components.getPlayerHighScoresPanel(playerName,5));	
-		
+		playerAvatar.add(getPlayerHighScoresPanel(playerName, 5));
+
 		JPanel lobby = new JPanel();
 		lobby.setLayout(new BoxLayout(lobby, BoxLayout.Y_AXIS));
 		lobby.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lobby.add(new JLabel("Friends"));
-		lobby.add(Components.getHighScoresPanel("PlayerA",gameName,2));
+		lobby.add(getHighScoresPanel("PlayerA", gameName, 2));
 
 		JLabel moreLabels = new JLabel(icon);
 		lobby.add(moreLabels);
@@ -159,5 +163,118 @@ public class ExampleGUI extends Tab {
 
 		return right;
 	}
-	
+
+	public static JTextPane getGameHighScoresPanel(String gameName,
+			int numScores) {
+		JTextPane textPane = new JTextPane();
+		textPane.setContentType("text/html");
+		String description = gameFormat(gameName, numScores,
+				hsc.getGameHighScores(gameName, numScores));
+		textPane.setEditable(false);
+
+		textPane.setText(description);
+		textPane.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		return textPane;
+	}
+
+	/**
+	 * TODO: FEEL FREE TO CHANGE Format the output of the query to display high
+	 * scores for a game
+	 * 
+	 * @param gameName
+	 *            game name
+	 * @param numScores
+	 *            number of scores to display
+	 * @param rows
+	 *            resulting data of the query
+	 * @return a formatted string containing high scores for a game
+	 */
+	private static String gameFormat(String gameName, int numScores,
+			List<Map<String, String>> rows) {
+		String result = "<h2 align=center>" + "Top " + numScores
+				+ " Scores for " + gameName + "</h2>";
+		result += "<table align=\"Center\">"
+				+ "<tr><th></th><th>Player</th><th>Score</th></tr>";
+		int i = 1;
+		for (Map<String, String> row : rows) {
+			result += "<tr><td>" + i + "</td><td>" + row.get("Player")
+					+ "</td><td>" + row.get("Score") + "</td></tr>";
+			i++;
+		}
+		result += "</table>";
+		return result;
+	}
+
+	public static JTextPane getPlayerHighScoresPanel(String playerName,
+			int numScores) {
+		JTextPane textPane = new JTextPane();
+		textPane.setContentType("text/html");
+		String description = playerFormat(playerName, numScores,
+				hsc.getPlayerHighScores(playerName, numScores));
+		textPane.setEditable(false);
+
+		textPane.setText(description);
+		textPane.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		return textPane;
+	}
+
+	/**
+	 * TODO: FEEL FREE TO CHANGE Format the output of the query to display high
+	 * scores for a player using HTML
+	 * 
+	 * @param playerName
+	 *            player name
+	 * @param numScores
+	 *            number of scores to display
+	 * @param rows
+	 *            resulting data of the query
+	 * @return a formatted string containing high scores for a player
+	 */
+	private static String playerFormat(String playerName, int numScores,
+			List<Map<String, String>> rows) {
+		String result = "<h3 align=center>" + playerName + "'s Top Scores"
+				+ "</h3>";
+		result += "<table align=\"Center\">"
+				+ "<tr><th></th><th>Game</th><th>Score</th></tr>";
+		int i = 1;
+		for (Map<String, String> row : rows) {
+			result += "<tr><td>" + i + "</td><td>" + row.get("Game")
+					+ "</td><td>" + row.get("Score") + "</td></tr>";
+			i++;
+		}
+		result += "</table>";
+		return result;
+	}
+
+	public static JTextPane getHighScoresPanel(String playerName,
+			String gameName, int numScores) {
+		JTextPane textPane = new JTextPane();
+		textPane.setContentType("text/html");
+		String description = formatAll(playerName, gameName, numScores,
+				hsc.getHighScores(playerName, gameName, numScores));
+		textPane.setEditable(false);
+
+		textPane.setText(description);
+		textPane.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		return textPane;
+	}
+
+	private static String formatAll(String playerName, String gameName,
+			int numScores, List<Map<String, String>> rows) {
+		String result = "<h3 align=center>" + playerName + "'s Top Scores on "
+				+ gameName + "</h3>";
+		result += "<table align=\"Center\">"
+				+ "<tr><th></th><th>Score</th></tr>";
+		int i = 1;
+		if (rows != null) {
+			for (Map<String, String> row : rows) {
+				result += "<tr><td>" + i + "</td><td>" + row.get("Score")
+						+ "</td></tr>";
+				i++;
+			}
+			result += "</table>";
+		}
+		return result;
+	}
+
 }
