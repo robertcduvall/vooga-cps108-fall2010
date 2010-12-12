@@ -11,6 +11,7 @@ public class ProfileFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
 	private JPanel jPanel = null;
+	
 
 	/**
 	 * This is the default constructor
@@ -40,7 +41,7 @@ public class ProfileFrame extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getHomePage(), null);
 		}
 		return jContentPane;
 	}
@@ -50,7 +51,7 @@ public class ProfileFrame extends JFrame {
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getJPanel() {
+	private JPanel getHomePage() {
 		if (jPanel == null) {
 			//TODO load from database
 			Profile currentUser = Main.ProfileSet.currentProfile;
