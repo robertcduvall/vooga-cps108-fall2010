@@ -2,21 +2,34 @@ package arcade.core;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ResourceBundle;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 
 import javax.swing.*;
 
 public class GameSelection extends Tab {
-
-	private static String[] gameNames = {"Cyberion", "Doodle Jump", "Grandius", "Jumper", "Super Mario Bros.",
-		"Tower Defense", "Tron", "Zombieland" };
+	private static String[] gameNames = { "Asteroids", "Cyberion",
+			"Doodle Jump", "Galaxy Invaders", "Grandius", "Jumper",
+			"Super Mario Bros.", "Tower Defense", "Tron", "Zombieland" };
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
+	private Map<String, String[]> tags;
 
 	public GameSelection() {
 		setName("Games");
 		setToolTipText("A list of all the game available");
+		tags = new HashMap<String, String[]>();
+		getTags();
+	}
+
+	private void getTags() {
+		List<Map<String, String>> info = Arcade.myDbAdapter.getColumns(
+				"GameInfo", "title", "tags");
+		for (Map<String, String> m : info) {
+			tags.put(m.get("title"), m.get("tags").split(","));
+		}
 	}
 
 	public JPanel createItem(String name) {
@@ -77,8 +90,10 @@ public class GameSelection extends Tab {
 			String term = searchArea.getText();
 			games.removeAll();
 			try {
-				for (String game : getGames()) {
-					for (String tag : getTags(game)) {
+				for (String game : gameNames) {
+					System.out.println(tags.get(game));
+					for (String tag : tags.get(game)) {
+						System.out.println(tag);
 						if (tag.contains(term.toLowerCase())) {
 							games.add(createItem(game));
 							break;
@@ -110,21 +125,9 @@ public class GameSelection extends Tab {
 
 	public void displayAllGames() {
 		games.removeAll();
-		for (String name : getGames()) {
+		for (String name : gameNames) {
 			games.add(createItem(name));
 		}
 		games.validate();
 	}
-
-	private String[] getGames() {
-		return gameNames;
-	}
-
-	private String[] getTags(String game) {
-		ResourceBundle resources = ResourceBundle.getBundle("vooga.games."
-				+ game + ".resources.game");
-		String[] tags = resources.getString("tags").split(",");
-		return tags;
-	}
-
 }
