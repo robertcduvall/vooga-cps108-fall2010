@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Games>
 	<Game name="TicTacToe" port="1234" chatPort="1235" numberOfPlayers="2" clientHandler="vooga.engine.networking.server.games.TicTacToeHandler" />
+	<Game name="Zombies" port="1236" chatPort="1237" numberOfPlayers="2" clientHandler="vooga.engine.networking.server.games.ZombiesHandler" />
 </Games>
