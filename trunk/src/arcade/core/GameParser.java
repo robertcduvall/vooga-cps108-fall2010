@@ -3,7 +3,11 @@ package arcade.core;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-
+/**
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
 
 public class GameParser {
 

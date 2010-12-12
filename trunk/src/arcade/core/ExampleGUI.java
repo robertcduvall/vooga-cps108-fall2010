@@ -68,7 +68,7 @@ public class ExampleGUI extends Tab {
 	}
 
 	public static boolean addHighScore() {
-		return hsu.addScore(gameName,playerName, score);
+		return hsu.addScore(playerName, gameName,score);
 	}
 	
 	// makes the left hand side panel
