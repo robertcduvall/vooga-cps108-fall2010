@@ -15,12 +15,11 @@ import arcade.util.database.MySqlAdapter;
  */
 public class HighScoreControl {
 
-	public MySqlAdapter myDbAdapter;
-	public String myTable;
+	private MySqlAdapter myDbAdapter;
+	private String myTable;
 
-	public HighScoreControl(String host, String dbName, String user,
-			String pass, String tableName) {
-		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
+	public HighScoreControl(MySqlAdapter adapter, String tableName) {
+		myDbAdapter = adapter;
 		myTable = tableName;
 	}
 

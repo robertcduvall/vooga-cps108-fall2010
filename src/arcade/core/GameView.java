@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
@@ -13,7 +14,6 @@ import vooga.engine.core.Game;
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
 
-	private GameParser gameParser;
 	private String gameName;
 	private Map<String, String[]> gameProperties;
 	private ImageIcon splash;
@@ -26,9 +26,7 @@ public class GameView extends JPanel {
 	}
 
 	private void initialize() {
-		gameParser = new GameParser();
-		gameProperties = new HashMap<String, String[]>();
-		gameParser.parseGame(gameName, gameProperties);
+		gameProperties = parseGame(gameName);
 		add(setSplashScreen());
 		add(setText());
 
@@ -39,9 +37,27 @@ public class GameView extends JPanel {
 		panel.add(backButton());
 		add(panel);
 	}
+	
+	public Map<String, String[]> parseGame(String game)
+	{	
+		Map<String, String[]> gameMap = new HashMap<String, String[]>();
+		Map<String, String> conditions = new HashMap<String, String>();
+		conditions.put("title", game);
+		List<Map<String, String>> attributes=ExampleGUI.myDbAdapter.getRows("GameInfo", conditions, "title","genre","rating","description","tags","imagepaths","instructions");
+		for(Map<String, String> m:attributes) {
+			for(String key:m.keySet()) {
+				gameMap.put(key, (key.equals("tags")||key.equals("instructions"))? m.get(key).split(","):new String[] {m.get(key)});
+			}
+		}
+		return gameMap;
+	}
 
 	private JLabel setSplashScreen() {
-		splash = new ImageIcon(gameProperties.get("splash")[0]);
+		try {
+			splash = new ImageIcon(gameProperties.get("imagepaths")[0]);
+		} catch (Exception e) {
+			System.out.println(gameProperties.get("imagepaths")[0]);
+		}
 		JLabel splashImage = new JLabel(splash);
 		splashImage.setAlignmentX(CENTER_ALIGNMENT);
 		return splashImage;
@@ -50,7 +66,7 @@ public class GameView extends JPanel {
 	private JTextPane setText() {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
-		String description = "<center><p><b>" + gameProperties.get("name")[0]
+		String description = "<center><p><b>" + gameProperties.get("title")[0]
 				+ "</b></p>" + "<p>Genre: " + gameProperties.get("genre")[0]
 				+ "</p>" + "<p>Description: "
 				+ gameProperties.get("description")[0] + "</p>"
