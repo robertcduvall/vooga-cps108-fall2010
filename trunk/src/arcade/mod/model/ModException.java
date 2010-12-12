@@ -1,5 +1,7 @@
 package arcade.mod.model;
 
+import javax.swing.JOptionPane;
+
 public class ModException extends RuntimeException {
 	
 	private static final String FILE_ERROR_MESSAGE = "please choose another file";
@@ -13,5 +15,10 @@ public class ModException extends RuntimeException {
 
 	public ModException(String message) {
 		super(message);
+		
+		JOptionPane.showMessageDialog(null,
+		    "You have entered an invalid image son",
+		    "WARNING",
+		    JOptionPane.ERROR_MESSAGE);
 	}
 }
