@@ -14,6 +14,11 @@ public class StoreSqlAdapter extends MySqlAdapter {
 	private static final String dbName = "voogaarcade";
 	private static final String user = dbName;
 	private static final String pass = "Vooga108";
+	private static final String credditField = "creddits";
+	private static final String cartField = "cart";
+	private static final String usernameField = "username";
+	private static final String ownedGamesField = "owned_games";
+	private static final String userTableName = "StoreUsers";
 
 	private static Connection myDBConnection;
 	
@@ -69,4 +74,23 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		return maps;
 	}
 
+	
+	public boolean updateCreddits(double newCreddits, String user) {
+		Map<String, String> row = new HashMap<String, String>();
+		row.put(credditField, Double.toString(newCreddits));
+		return super.update(userTableName, usernameField, user, row);
+	}
+	
+	public boolean updateList(List<String> newCart, String user) {
+		Map<String, String> row = new HashMap<String, String>();
+		StringBuilder builder = new StringBuilder();
+		for(String s : newCart) {
+			builder.append(s);
+			builder.append(",");
+		}
+		String newCartRow = builder.toString().substring(0, builder.length()-1);
+		row.put(cartField, newCartRow);
+		return super.update(userTableName, usernameField, user, row);
+	}
+	
 }
