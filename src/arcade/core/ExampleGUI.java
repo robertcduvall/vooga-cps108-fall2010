@@ -22,7 +22,10 @@ public class ExampleGUI extends Tab {
 	static HighScoreControl hsu = new HighScoreControl(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
 			"HighScores");
+<<<<<<< .mine
+=======
 	private static Toolkit tk;
+>>>>>>> .r2771
 
 	private static String gameName = "zombieland";
 	private static String playerName = "Guest";
@@ -34,7 +37,6 @@ public class ExampleGUI extends Tab {
 	private static double score;
 	public ExampleGUI() {
 		score=0;
-		tk = Toolkit.getDefaultToolkit();
 		setName("Arcade");
 		setToolTipText("Arcade main view");
 	}
@@ -82,10 +84,6 @@ public class ExampleGUI extends Tab {
 	// makes the left hand side panel
 	private static JComponent makeLeftPanel() {
 		left = new JPanel();
-		int xSizeOfColumn = (int) (tk.getScreenSize().getWidth() / 5);
-		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight() / 2);
-
-		left.setMinimumSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
 		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
 
 		JLabel rateThis = new JLabel("Rate This Game");
@@ -121,10 +119,6 @@ public class ExampleGUI extends Tab {
 	// makes the right hand side panel
 	private static JComponent makeRightPanel() {
 		JPanel right = new JPanel();
-		int xSizeOfColumn = (int) (tk.getScreenSize().getWidth() / 7);
-		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight() / 2);
-
-		right.setMinimumSize(new Dimension(xSizeOfColumn, ySizeOfColumn));
 		right.setLayout(new GridLayout(3, 0));
 
 		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
