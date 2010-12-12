@@ -14,6 +14,9 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -41,7 +44,7 @@ public class ProfileTab extends Tab implements IViewer{
 	
 	private static final String NAME = "Shop Profile";
 	
-	IController controller;
+	ProfileController controller;
 	
 	public ProfileTab()
 	{
@@ -60,7 +63,7 @@ public class ProfileTab extends Tab implements IViewer{
 	@Override
 	public void setController(IController control) {
 		
-		controller = control;
+		controller = (ProfileController) control;
 	}
 	
 	@Override
@@ -164,6 +167,11 @@ public class ProfileTab extends Tab implements IViewer{
 			purchaseCredditsButton = new JButton();
 			purchaseCredditsButton.setBounds(new Rectangle(486, 158, 149, 32));
 			purchaseCredditsButton.setText("Purchase Creddits");
+			purchaseCredditsButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					controller.openCredditPurchaseView();
+				}
+			});
 		}
 		return purchaseCredditsButton;
 	}
@@ -178,6 +186,11 @@ public class ProfileTab extends Tab implements IViewer{
 			editMyProfileButton = new JButton();
 			editMyProfileButton.setBounds(new Rectangle(486, 211, 149, 32));
 			editMyProfileButton.setText("Edit My Profile");
+			editMyProfileButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					
+				}
+			});
 		}
 		return editMyProfileButton;
 	}
