@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import arcade.ads.adscontent.ImageAd;
 import arcade.ads.adsmanager.AdsManager;
 
 import com.golden.gamedev.util.ImageUtil;
@@ -68,7 +69,7 @@ public class AdFrame extends JFrame {
 		pack();
 		setVisible(true);
 
-		myManager.setGraphics(panel2.getGraphics());
+		myManager.setPanel(panel2);
 		myManager.runAdsManager();
 		// myManager.update();
 		// myManager.render();
@@ -165,7 +166,17 @@ public class AdFrame extends JFrame {
 
 	public static void main(String args[]) {
 		AdsManager manager = new AdsManager();
-		manager.setAds("src/arcade/ads/resources/xmlFiles.txt");
+
+		BufferedImage img = null;
+		try {
+//			System.out.println(System.getProperty("user.dir") );
+			img = ImageIO.read(new File("src/arcade/ads/resources/duke.png"));
+		} catch (IOException e) {
+//			System.out.println("wer");
+		}
+
+		manager.add(new ImageAd("duke", img));
+		// manager.setAds("src/arcade/ads/resources/xmlFiles.txt");
 		// BufferedImage img = null;
 		// try
 		// {
@@ -177,7 +188,7 @@ public class AdFrame extends JFrame {
 		// }
 		//
 		// manager.add(new DukeAds("duke", img));
-		System.out.println(manager.retrieve());
+//		System.out.println(manager.retrieve());
 
 		new AdFrame(manager, new Dimension(800, 600));
 	}
