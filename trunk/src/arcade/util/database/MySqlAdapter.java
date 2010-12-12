@@ -138,6 +138,13 @@ public class MySqlAdapter implements DatabaseAdapter {
 		return result;
 	}
 
+
+	public List<Map<String, String>> getColumns(String tableName, String... cols) {
+		String columns = createColumnSelection(cols);
+		String query = "SELECT " + columns + " FROM " + tableName;
+		return getRows(query);
+	}
+	
 	/**
 	 * Gets a set of rows from the database that satisfy a specified
 	 * "field = 'value'" conditional
@@ -158,6 +165,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 		conditions.put(field, value);
 		return getRows(tableName, conditions);
 	}
+	
+
 
 	/**
 	 * Gets a set of rows from the database that satisfy a specified set of

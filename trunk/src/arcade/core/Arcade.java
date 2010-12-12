@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 
 import javax.swing.*;
 
+import arcade.util.database.Constants;
+import arcade.util.database.MySqlAdapter;
+
 /**
  * Arcade
  * 
@@ -19,47 +22,51 @@ public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
 	private static final int XSIZE = 1000;
 	private static final int YSIZE = 820;
-	
+
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
 			.getBundle("arcade.core.componentList");
+	public static MySqlAdapter myDbAdapter = new MySqlAdapter(Constants.HOST,
+			Constants.DBNAME, Constants.USER, Constants.PASSWORD);
 
 	private static JTabbedPane mainWindow;
+
 	public Arcade() {
 		setLayout(new BorderLayout());
-		getContentPane().add(createLogin(),BorderLayout.NORTH);
+		getContentPane().add(createLogin(), BorderLayout.NORTH);
 		mainWindow = createTabs();
-		getContentPane().add(mainWindow,BorderLayout.SOUTH);
+		getContentPane().add(mainWindow, BorderLayout.SOUTH);
 
 		setSize(XSIZE, YSIZE);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-//		createWindows();
+
+		// createWindows();
 	}
-	
-	//Temporary
-	//TODO: lobby group please create this
+
+	// Temporary
+	// TODO: lobby group please create this
 	private JPanel createLogin() {
-		JPanel a=new JPanel();
+		JPanel a = new JPanel();
 		a.setLayout(new BorderLayout());
 		Box box = Box.createHorizontalBox();
 		JLabel userLabel = new JLabel("Username: ");
 		JTextField userField = new JTextField(7);
 		JLabel passLabel = new JLabel("Password: ");
-		JPasswordField passField=new JPasswordField(7);
-		JButton login=new JButton("Log in");
-		JButton register=new JButton("Register");
+		JPasswordField passField = new JPasswordField(7);
+		JButton login = new JButton("Log in");
+		JButton register = new JButton("Register");
 		box.add(userLabel);
-		box.add(userField);	
+		box.add(userField);
 		box.add(passLabel);
 		box.add(passField);
 		box.add(login);
 		box.add(register);
-		box.setMaximumSize(new Dimension(200,5));
-		a.add(box,BorderLayout.EAST);
+		box.setMaximumSize(new Dimension(200, 5));
+		a.add(box, BorderLayout.EAST);
 		return a;
 	}
+
 	/**
 	 * Create all tabs in the window
 	 * 
@@ -67,8 +74,8 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-//		 JPanel main = createArcadeView();
-//		 everything.addTab("Arcade", null, main, "Arcade Main View");
+		// JPanel main = createArcadeView();
+		// everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
@@ -127,7 +134,7 @@ public class Arcade extends JFrame {
 			}
 		}
 	}
-	
+
 	/**
 	 * TODO
 	 * 
@@ -140,7 +147,7 @@ public class Arcade extends JFrame {
 
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
-		
+
 	}
 
 	/**

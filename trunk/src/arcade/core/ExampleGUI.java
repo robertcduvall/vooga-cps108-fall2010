@@ -23,9 +23,7 @@ import arcade.util.database.MySqlAdapter;
  * 
  */
 public class ExampleGUI extends Tab {
-	public static MySqlAdapter myDbAdapter = new MySqlAdapter(Constants.HOST,
-			Constants.DBNAME, Constants.USER, Constants.PASSWORD);
-	private static HighScoreControl hsc = new HighScoreControl(myDbAdapter,
+	private static HighScoreControl hsc = new HighScoreControl(Arcade.myDbAdapter,
 			"HighScores");
 
 	private static String gameName = "Zombieland";
@@ -140,7 +138,6 @@ public class ExampleGUI extends Tab {
 		lobby.setLayout(new BoxLayout(lobby, BoxLayout.Y_AXIS));
 		lobby.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lobby.add(new JLabel("Friends"));
-		lobby.add(getHighScoresPanel("PlayerA", gameName, 2));
 
 		JLabel moreLabels = new JLabel(icon);
 		lobby.add(moreLabels);
