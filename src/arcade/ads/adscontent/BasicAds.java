@@ -1,7 +1,6 @@
 package arcade.ads.adscontent;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseListener;
 import java.util.Date;
 
 import org.w3c.dom.NamedNodeMap;
@@ -20,7 +19,7 @@ import org.w3c.dom.NamedNodeMap;
  * @version 1.0
  */
 
-public abstract class BasicAds implements MouseListener {
+public abstract class BasicAds {
 
 	protected String name;
 	protected int width;
@@ -179,7 +178,8 @@ public abstract class BasicAds implements MouseListener {
 	 */
 	public void addHorizontalSpeed(long elapsedTime, double accel,
 			double maxSpeed) {
-
+		double speed = this.horizontalSpeed + accel * elapsedTime;
+		this.horizontalSpeed = (speed < maxSpeed) ? speed : maxSpeed;
 	}
 
 	/**
@@ -190,7 +190,8 @@ public abstract class BasicAds implements MouseListener {
 	 * @param maxSpeed
 	 */
 	public void addVerticalSpeed(long elapsedTime, double accel, double maxSpeed) {
-
+		double speed = this.verticalSpeed + accel * elapsedTime;
+		this.verticalSpeed = (speed < maxSpeed) ? speed : maxSpeed;
 	}
 
 	/**
@@ -199,7 +200,7 @@ public abstract class BasicAds implements MouseListener {
 	 * @param xs
 	 */
 	public void forceX(double xs) {
-
+		this.currentX = xs;
 	}
 
 	/**
@@ -208,7 +209,7 @@ public abstract class BasicAds implements MouseListener {
 	 * @param ys
 	 */
 	public void forceY(double ys) {
-
+		this.currentY = ys;
 	}
 
 	/**
@@ -323,7 +324,8 @@ public abstract class BasicAds implements MouseListener {
 	 * @param dy
 	 */
 	public void move(double dx, double dy) {
-
+		this.currentX += dx;
+		this.currentY += dy;
 	}
 
 	/**
@@ -350,7 +352,8 @@ public abstract class BasicAds implements MouseListener {
 	 * 
 	 * @param b
 	 */
-	public void setActive(boolean b) {
+	public void setActive(boolean active) {
+		this.status = active;
 	}
 
 	/**
@@ -362,7 +365,7 @@ public abstract class BasicAds implements MouseListener {
 	 * @param vx
 	 */
 	public void setHorizontalSpeed(double vx) {
-
+		this.horizontalSpeed = vx;
 	}
 
 	/**
@@ -372,6 +375,8 @@ public abstract class BasicAds implements MouseListener {
 	 * @param ys
 	 */
 	public void setLocation(double xs, double ys) {
+		this.currentX = xs;
+		this.currentY = ys;
 	}
 
 	/**
@@ -392,6 +397,8 @@ public abstract class BasicAds implements MouseListener {
 	 * @param vy
 	 */
 	public void setSpeed(double vx, double vy) {
+		this.horizontalSpeed = vx;
+		this.verticalSpeed = vy;
 	}
 
 	/**
@@ -403,6 +410,7 @@ public abstract class BasicAds implements MouseListener {
 	 * @param vy
 	 */
 	public void setVerticalSpeed(double vy) {
+		this.verticalSpeed = vy;
 	}
 
 	/**
@@ -411,6 +419,7 @@ public abstract class BasicAds implements MouseListener {
 	 * @param xs
 	 */
 	public void setX(double xs) {
+		this.currentX = xs;
 	}
 
 	/**
@@ -419,6 +428,7 @@ public abstract class BasicAds implements MouseListener {
 	 * @param ys
 	 */
 	public void setY(double ys) {
+		this.currentY = ys;
 	}
 
 	public void setParameters(NamedNodeMap attributes) {

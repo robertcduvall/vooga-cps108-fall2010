@@ -29,5 +29,5 @@ public interface IRelatedAds {
 	 * @param categ
 	 * @return
 	 */
-	public String setCategory(String categ);
+	public String setCategory(String catweg);
 }
