@@ -257,6 +257,11 @@ public class CheckoutTab extends Tab implements IViewer{
 			DropCartButton = new JButton();
 			DropCartButton.setBounds(new Rectangle(340, 267, 108, 26));
 			DropCartButton.setText("Drop Cart");
+			DropCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					controller.processConfirmDropCart();
+				}
+			});
 		}
 		return DropCartButton;
 	}

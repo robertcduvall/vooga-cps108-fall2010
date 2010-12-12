@@ -2,7 +2,6 @@ package arcade.store.control;
 
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import arcade.core.mvc.IController;
@@ -19,12 +18,6 @@ public class MainPageController implements IController{
 	private StoreModel storeModel;
 	private MainPageTab viewer;
 	
-	public MainPageController()
-	{
-//		storeModel = new StoreModel(this);
-//		purchaseItemController = (IController) new PurchaseItemController(storeModel);
-	}	
-
 	@Override
 	public void addModel(IModel currentmodel) {
 		storeModel = (StoreModel) currentmodel;
