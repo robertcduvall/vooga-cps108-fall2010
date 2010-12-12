@@ -184,7 +184,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	public static void main(String[] args){
 		ChatConnection connection = null;
 		try{
-			connection = new ChatConnection();
+			connection = new ChatConnection("TicTacToe");
 		}
 		catch(Exception e){
 			System.out.println("TicTacToe Error: "+ e.getMessage());

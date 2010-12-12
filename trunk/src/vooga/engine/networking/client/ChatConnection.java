@@ -20,8 +20,8 @@ public class ChatConnection extends GameSocket {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ChatConnection() throws UnknownHostException, IOException{
-		super(new Socket("localhost", VoogaServer.getChatPort("TicTacToe")));
+	public ChatConnection(String name) throws UnknownHostException, IOException{
+		super(new Socket("localhost", VoogaServer.getChatPort(name)));
 	}
 
 	/**
