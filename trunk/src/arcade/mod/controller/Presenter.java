@@ -29,7 +29,7 @@ import arcade.mod.view.frame.ListFrame;
  * @author Vitor
  * 
  */
-public class Controller extends Tab implements IPresenter {
+public class Presenter extends Tab implements IPresenter {
 
 	public static final String TAB_NAME = "Mod";
 	IModel myModel;
@@ -40,7 +40,7 @@ public class Controller extends Tab implements IPresenter {
 	/**
 	 * Creates the instance of Controller when the Mod Environment is launched
 	 */
-	public Controller() {
+	public Presenter() {
 		setName(TAB_NAME);
 		myFactory = new FrameFactory();
 		myView = new View(this);
@@ -119,16 +119,6 @@ public class Controller extends Tab implements IPresenter {
 		if (errorCheck()) {
 			myModel.writeResources(saveFile);
 		}
-	}
-
-	/**
-	 * Temporary main method until arcade adds a button to call us
-	 * 
-	 * @param args
-	 *            command line input
-	 */
-	public static void main(String[] args) {
-		Controller mod = new Controller();
 	}
 
 	/**
