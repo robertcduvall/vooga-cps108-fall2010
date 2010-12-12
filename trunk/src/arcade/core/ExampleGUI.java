@@ -22,11 +22,14 @@ public class ExampleGUI extends Tab {
 	static HighScoreControl hsu = new HighScoreControl(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD,
 			"HighScores");
-	private Toolkit tk;
+	private static Toolkit tk;
 
 	private static String gameName = "zombieland";
 	private static String playerName = "Guest";
 	private static JPanel content;
+	private static JPanel left;
+	private static JSplitPane mainPanel;
+	private static JComponent highScores;
 	private static JSplitPane columnar;
 	private static double score;
 	public ExampleGUI() {
@@ -43,7 +46,7 @@ public class ExampleGUI extends Tab {
 		columnar.setOneTouchExpandable(true);
 		columnar.setDividerLocation(.25);
 
-		JSplitPane mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				columnar, makeRightPanel());
 		mainPanel.setOneTouchExpandable(true);
 		mainPanel.setDividerLocation(.75);
@@ -59,21 +62,26 @@ public class ExampleGUI extends Tab {
 	public static void setGame(String name) {
 		gameName = name;
 		setContent();
-		System.out.println(gameName);
+		columnar.setLeftComponent(makeLeftPanel());
+		mainPanel.setRightComponent(makeRightPanel());
 	}
 
 	public static void updateHighScore(double highScore) {
 		score=highScore;
 		new HighScore(gameName);
+		
 	}
 
 	public static boolean addHighScore() {
-		return hsu.addScore(playerName, gameName,score);
+		boolean isAdded = hsu.addScore(playerName, gameName,score);
+		columnar.setLeftComponent(makeLeftPanel());
+		mainPanel.setRightComponent(makeRightPanel());
+		return isAdded;
 	}
 	
 	// makes the left hand side panel
-	private JComponent makeLeftPanel() {
-		JPanel left = new JPanel();
+	private static JComponent makeLeftPanel() {
+		left = new JPanel();
 		int xSizeOfColumn = (int) (tk.getScreenSize().getWidth() / 5);
 		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight() / 2);
 
@@ -94,11 +102,13 @@ public class ExampleGUI extends Tab {
 		JLabel rateOthers = new JLabel("Rate These Other Games");
 
 		JLabel moreLabels = new JLabel(icon);
-
+		
+		highScores = Components.getGameHighScoresPanel(gameName,5);
+		
 		left.add(rateThis);
 		left.add(label);
 		left.add(separator);
-		left.add(Components.getGameHighScoresPanel(gameName,5));
+		left.add(highScores);
 		left.add(separator);
 		left.add(rateOthers);
 		left.add(moreLabels);
@@ -109,7 +119,7 @@ public class ExampleGUI extends Tab {
 	}
 
 	// makes the right hand side panel
-	private JComponent makeRightPanel() {
+	private static JComponent makeRightPanel() {
 		JPanel right = new JPanel();
 		int xSizeOfColumn = (int) (tk.getScreenSize().getWidth() / 7);
 		int ySizeOfColumn = ((int) tk.getScreenSize().getHeight() / 2);
@@ -127,10 +137,10 @@ public class ExampleGUI extends Tab {
 		JPanel playerAvatar = new JPanel();
 		playerAvatar.setLayout(new BoxLayout(playerAvatar, BoxLayout.Y_AXIS));
 		playerAvatar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		JLabel playerName = new JLabel("Guest Avatar");
-		playerAvatar.add(playerName);
+		JLabel player = new JLabel(playerName + " Avatar");
+		playerAvatar.add(player);
 		playerAvatar.add(label);
-		playerAvatar.add(Components.getPlayerHighScoresPanel("Guest",5));	
+		playerAvatar.add(Components.getPlayerHighScoresPanel(playerName,5));	
 		
 		JPanel lobby = new JPanel();
 		lobby.setLayout(new BoxLayout(lobby, BoxLayout.Y_AXIS));
