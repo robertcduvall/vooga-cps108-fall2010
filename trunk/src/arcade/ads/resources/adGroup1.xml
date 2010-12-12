@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <AdGroup name="AdGroup1">
 <BasicAds>
-<BasicAd class="arcade.ads.example.DukeAds" name="ad1" xMin="0" xMax="0" yMin="0" yMax="0" startTime="0" endTime="2000" image="src/arcade/ads/resources/duke.png" targetURL="http://www.duke.edu" />
-<BasicAd class="arcade.ads.example.DukeAds" name="ad2" xMin="0" xMax="0" yMin="0" yMax="0" startTime="0" endTime="5000" image="src/arcade/ads/resources/unc.png" targetURL="http://www.unc.edu" />
-<BasicAd class="arcade.ads.example.DukeAds" name="ad3" xMin="0" xMax="0" yMin="0" yMax="0" startTime="0" endTime="10000" image="src/arcade/ads/resources/ncsu.png" targetURL="http://www.ncsu.edu" />
+<BasicAd class="arcade.ads.adscontent.ImageAd" name="ad1" xMin="0" xMax="0" yMin="0" yMax="0" startTime="12/11/2010 0:0:0" endTime="12/19/2010 0:0:0" image="src/arcade/ads/resources/duke.png" targetURL="http://www.duke.edu" />
+<BasicAd class="arcade.ads.adscontent.ImageAd" name="ad2" xMin="0" xMax="0" yMin="0" yMax="0" startTime="12/11/2010 0:0:0" endTime="12/19/2010 0:0:0" image="src/arcade/ads/resources/unc.png" targetURL="http://www.unc.edu" />
+<BasicAd class="arcade.ads.adscontent.ImageAd" name="ad3" xMin="0" xMax="0" yMin="0" yMax="0" startTime="12/11/2010 0:0:0" endTime="12/19/2010 0:0:0" image="src/arcade/ads/resources/ncsu.png" targetURL="http://www.ncsu.edu" />
 </BasicAds>
 </AdGroup>

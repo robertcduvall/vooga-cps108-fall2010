@@ -42,6 +42,14 @@ public class AdsManager implements MouseListener{
 	private AdsThread adsthread;
 	RotateThread thread;
 
+	
+	/**
+	 * Default constructor
+	 */
+	public AdsManager(){
+		
+	}
+	
 	/**
 	 * Initialize ads pool
 	 */
