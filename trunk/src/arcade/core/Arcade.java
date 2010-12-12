@@ -1,6 +1,6 @@
 package arcade.core;
 
-import java.awt.Component;
+import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ResourceBundle;
 
@@ -18,7 +18,7 @@ import javax.swing.*;
 public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
 	private static final int XSIZE = 1000;
-	private static final int YSIZE = 750;
+	private static final int YSIZE = 700;
 	
 	// componentList contains 3 lists, panels, tabs, and windows
 	private ResourceBundle resources = ResourceBundle
@@ -26,17 +26,40 @@ public class Arcade extends JFrame {
 
 	private static JTabbedPane mainWindow;
 	public Arcade() {
+		setLayout(new BorderLayout());
+		getContentPane().add(createLogin(),BorderLayout.NORTH);
 		mainWindow = createTabs();
-		mainWindow.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		add(mainWindow);
+		getContentPane().add(mainWindow,BorderLayout.SOUTH);
 
 		setSize(XSIZE, YSIZE);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
 		createWindows();
 	}
-
+	
+	//Temporary
+	//TODO: lobby group please create this
+	private JPanel createLogin() {
+		JPanel a=new JPanel();
+		a.setLayout(new BorderLayout());
+		Box box = Box.createHorizontalBox();
+		JLabel userLabel = new JLabel("Username: ");
+		JTextField userField = new JTextField(7);
+		JLabel passLabel = new JLabel("Password: ");
+		JPasswordField passField=new JPasswordField(7);
+		JButton login=new JButton("Log in");
+		JButton register=new JButton("Register");
+		box.add(userLabel);
+		box.add(userField);	
+		box.add(passLabel);
+		box.add(passField);
+		box.add(login);
+		box.add(register);
+		box.setMaximumSize(new Dimension(200,5));
+		a.add(box,BorderLayout.EAST);
+		return a;
+	}
 	/**
 	 * Create all tabs in the window
 	 * 

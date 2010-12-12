@@ -80,6 +80,9 @@ public class CommentSet implements Iterable<Comment> {
 	public Comment getComment(int rowNo) {
 //		//TODO this is not how we should be doing this - it looks like the database is contiually opening
 		//a connection then closing it
+		//TODO Use SELECT * FROM `Comments` LIMIT 5 to select the first five comments, or you can just use 
+		//SELECT *. You should be getting all the comments with one query. You should only use this method
+		//When you need to see a specific comment made by a user
 		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "Comment_Id", ""+rowNo);
 		Map<String, String> row = rows.get(0);
 		return new Comment(row.get("Game_Name"), row.get("User_Name"), 
