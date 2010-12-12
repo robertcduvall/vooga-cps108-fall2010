@@ -141,7 +141,6 @@ public class AdsManager {
 	 * retrieve new ads from web server
 	 */
 	public String retrieve() {
-
 		return ads.get(0).name;
 	}
 
