@@ -8,7 +8,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import arcade.core.ExampleGUI;
 import arcade.mod.controller.IPresenter;
+import arcade.mod.view.file.CurrentFileOpener;
 import arcade.mod.view.file.RecentFileOpener;
 import arcade.mod.view.file.SystemFileOpener;
 
@@ -64,7 +66,21 @@ public class ViewFileMenu extends JMenuBar {
 			}
 		});
 		menu.add(openRecentItem);
-
+		
+		JMenuItem openCurrentItem = new JMenuItem("Open Current", KeyEvent.VK_T);
+		openCurrentItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
+		openCurrentItem.addActionListener(new java.awt.event.ActionListener() {
+			
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				
+				parent.setFileOpener(new CurrentFileOpener());
+				presenter.load();
+				
+			}
+			
+		});
+		menu.add(openCurrentItem);
+		
 		JMenuItem saveItem = new JMenuItem("Save All", KeyEvent.VK_S);
 		saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
 				ActionEvent.CTRL_MASK));
