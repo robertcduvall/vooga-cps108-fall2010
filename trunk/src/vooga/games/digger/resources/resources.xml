@@ -17,6 +17,9 @@
 		<Image name="player" path="neutralFace.png">
 			<Description>Image representing the player in game</Description>
 		</Image>
+		<Image name="defaultMenuButton" path="neutralFace.png">
+			<Description>Never used</Description>
+		</Image>
 	</Images>
 	<Sounds>
 		<Sound name="test" path="test.wav">
@@ -44,4 +47,5 @@
 			<Description>The height of the game window</Description>
 		</Integer>
 	</Integers>
+	<Animations></Animations>
 </Resources>

@@ -133,7 +133,13 @@ public class Resources {
 	 * Returns the BufferedImage associated with the given label.
 	 */
 	public static BufferedImage getImage(String key) {
-		return imageMap.get(key)[0];
+		try{
+			return imageMap.get(key)[0];
+		} catch (NullPointerException e){
+			System.out.println("Image for key " + key + " not found.");
+			e.printStackTrace();
+			return null;
+		}		
 	}
 	
 	/**

@@ -43,6 +43,9 @@ public class Game extends com.golden.gamedev.Game {
 	private static final int DEFAULT_WIDTH = 600;
 	private static final int DEFAULT_HEIGHT = 400;
 	private static final boolean DEFAULT_FULLSCREEN = false;
+	private static final String DEFAULT_MOD_NAME = "default";
+	
+	private String modName;
 
 	@Override
 	public void initResources() {
@@ -260,5 +263,13 @@ public class Game extends com.golden.gamedev.Game {
 	 */
 	public void switchState(GameState gameStateForButton) {
 		stateManager.switchTo(gameStateForButton);
+	}
+	
+	public void setMod(String modName){
+		this.modName = modName;
+	}
+	
+	public String getMod(){
+		return modName;
 	}
 }

@@ -22,6 +22,7 @@ public class SwitchStateButtonModule extends SpriteModule {
 		String stateName = spriteElement.getAttribute("stateName");
 		Button button = new SwitchStateButton(stateName);
 		button.setLocation(x, y);
+		button.setLabel("");
 		NodeList listOfVisuals = spriteElement.getElementsByTagName("Visual");
 		processVisual(listOfVisuals, button);
 		sprites.add(button);
