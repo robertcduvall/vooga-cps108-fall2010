@@ -1,8 +1,12 @@
 package arcade.ads.xml;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,6 +21,19 @@ import vooga.engine.util.XMLFileParser;
 import vooga.engine.core.BetterSprite;
 
 public class XMLtoAds {
+	
+	public static List<BasicAds> convertAds(String xmlLevelFile){
+		List<BasicAds> myAds = new ArrayList<BasicAds>();
+		try {
+			Scanner scanner = new Scanner(new File(xmlLevelFile));
+			while(scanner.hasNextLine()){
+				myAds.addAll(convert(scanner.nextLine()));
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("!");
+		}
+		return myAds;
+	}
 	
 	public static List<BasicAds> convert(String xmlLevelFile){
 		try {

@@ -147,7 +147,7 @@ public class AdsManager {
 	 */
 	public String retrieve() {
 
-		return ads.get(0).name;
+		return null;
 	}
 
 	public BasicAds getCurrentAd() {
@@ -195,7 +195,7 @@ public class AdsManager {
 	}
 
 	public void setAds(String file) {
-		ads = XMLtoAds.convert(file);
+		ads = XMLtoAds.convertAds(file);
 	}
 
 }
