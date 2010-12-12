@@ -12,7 +12,7 @@ public class IntegerListFrame extends SliderListFrame {
 	}
 
 	@Override
-	public AbstractListFrame newInstance(IResourceNode node) {
+	public ListFrame newInstance(IResourceNode node) {
 
 		return new IntegerListFrame(node);
 	}

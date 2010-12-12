@@ -57,6 +57,6 @@ public interface IViewer {
 	 * displayed.
 	 * @param frames ListFrames to populate the center panel with
 	 */
-	public void changeFrames(Collection<AbstractListFrame> frames);
+	public void changeFrames(Collection<ListFrame> frames);
 
 }

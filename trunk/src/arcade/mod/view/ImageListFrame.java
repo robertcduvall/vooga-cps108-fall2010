@@ -43,16 +43,16 @@ public class ImageListFrame extends FilepathListFrame {
 	public void handleFileChange() {
 		
 		try {
-			stringLabel.setText(myFilepath);
+			myStringLabel.setText(myFilepath);
 			
 			myIcon = new ImageIcon(ImageUtil.resize(ImageIO.read(new File(myFilepath)), ICON_SIZE, ICON_SIZE));
 
 			restrictSize(myIcon.getIconHeight() + 100);
 			
-			stringLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-			stringLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
+			myStringLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+			myStringLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
 			
-			stringLabel.setIcon(myIcon);
+			myStringLabel.setIcon(myIcon);
 
 			this.validate();
 		} catch (Throwable e) {

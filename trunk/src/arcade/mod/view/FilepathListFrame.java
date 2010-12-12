@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 
 import arcade.mod.model.IResourceNode;
 
-public class FilepathListFrame extends AbstractListFrame {
+public class FilepathListFrame extends ListFrame {
 
 	protected String myFilepath;
 	protected JFileChooser myFileChooser;
@@ -35,7 +35,7 @@ public class FilepathListFrame extends AbstractListFrame {
 	@Override
 	public void makeComponents() {
 
-		descriptionLabel.setText(myDescription);
+		myDescriptionLabel.setText(myDescription);
 
 		myNameLabel.setText(myName);
 
@@ -59,14 +59,14 @@ public class FilepathListFrame extends AbstractListFrame {
 		});
 
 		add(myNameLabel);
-		add(descriptionLabel);
+		add(myDescriptionLabel);
 		add(myFileButton);
-		add(stringLabel);
+		add(myStringLabel);
 
 	}
 
 	public void handleFileChange() {
-		FilepathListFrame.this.stringLabel.setText(myFilepath);
+		FilepathListFrame.this.myStringLabel.setText(myFilepath);
 	}
 
 	@Override
@@ -83,15 +83,19 @@ public class FilepathListFrame extends AbstractListFrame {
 	@Override
 	public void initializeComponents() {
 		myFileChooser = new JFileChooser();
-		stringLabel = new JLabel();
-		descriptionLabel = new JLabel();
+		myStringLabel = new JLabel();
+		myDescriptionLabel = new JLabel();
 		myNameLabel = new JLabel();
 		myFileButton = new JButton("Select A File");
 
 		makeComponents();
 	}
 
-	
+	/**
+	 * Error checking to confirm that a list frame is holding valid data.
+	 * This will be overridden in subclasses that have more specific error-checking
+	 * @return boolean true if a file is valid
+	 */
 	@Override
 	public boolean confirmValidity() {
 		return true;
