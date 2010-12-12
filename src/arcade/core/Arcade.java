@@ -150,7 +150,7 @@ public class Arcade extends JFrame {
 
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
-		((Tab)mainWindow.getComponent(id)).refresh();
+//		((Tab)mainWindow.getComponent(id)).refresh();
 	}
 
 	/**
