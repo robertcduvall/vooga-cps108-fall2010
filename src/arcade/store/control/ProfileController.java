@@ -15,13 +15,7 @@ public class ProfileController implements IController{
 
 	private StoreModel storeModel;
 	private ProfileTab profileTab;
-	private Profile lobbyUser = ProfileSet.currentProfile;
-	private StoreUser storeUser = DbItemAndUserFactory.getUser(lobbyUser.getUserId());
 	
-	
-	public ProfileController() {
-		
-	}
 	
 	@Override
 	public void addModel(IModel model) {
