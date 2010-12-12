@@ -87,8 +87,6 @@ public class FilepathListFrame extends ListFrame {
 		myDescriptionLabel = new JLabel();
 		myNameLabel = new JLabel();
 		myFileButton = new JButton("Select A File");
-
-		makeComponents();
 	}
 
 	/**

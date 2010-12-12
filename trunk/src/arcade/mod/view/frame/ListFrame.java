@@ -35,7 +35,7 @@ public abstract class ListFrame extends JPanel {
 	protected static final int HEIGHT = 70;
 	protected final int WIDTH = 750;
 	private final Color BACKGROUND_COLOR = Color.WHITE;
-	private final Color PANEL_COLOR = new Color(230);
+	private final Color PANEL_COLOR = new Color(230,230,230);
 
 	/**
 	 * Null constructor for the List Frame

@@ -23,6 +23,7 @@ public class ImageListFrame extends FilepathListFrame {
 
 	public ImageListFrame(IResourceNode node) {
 		super(node);
+		restrictSize(ICON_SIZE + 100);
 		
 	}
 
@@ -38,9 +39,9 @@ public class ImageListFrame extends FilepathListFrame {
 		try {
 			myStringLabel.setText(myFilepath);
 			
+			System.out.println(myFilepath);
+			
 			myIcon = new ImageIcon(ImageUtil.resize(ImageIO.read(new File(myFilepath)), ICON_SIZE, ICON_SIZE));
-
-			restrictSize(myIcon.getIconHeight() + 100);
 			
 			myStringLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 			myStringLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -57,7 +58,8 @@ public class ImageListFrame extends FilepathListFrame {
 	@Override
 	public void handleNode(IResourceNode node) {
 		myName = node.getAttribute("name");
-		myFilepath = node.getModelPath() + "\\images\\" + node.getAttribute("path");
+		myFilepath = node.getModelPath() + File.separatorChar + "images" + File.separatorChar + node.getAttribute("path");
+
 		myDescription = node.getDescription();
 	}
 	
