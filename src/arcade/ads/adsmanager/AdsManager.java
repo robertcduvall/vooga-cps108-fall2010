@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 import arcade.ads.adscontent.BasicAd;
 import arcade.ads.thread.AdsThread;
 import arcade.ads.thread.RotateThread;
+import arcade.ads.util.AdsGroup;
 import arcade.ads.xml.XMLtoAds;
 
 /**
@@ -31,23 +33,30 @@ import arcade.ads.xml.XMLtoAds;
 
 public class AdsManager implements MouseListener {
 
-	public static List<BasicAd> ads;
-	public static int index;
 	private int xMin;
 	private int xMax;
 	private int yMin;
 	private int yMax;
-	private Time currentTime;
+	private Date currentDate;
 	private Graphics2D gs;
 	private AdsThread adsthread;
-	RotateThread thread;
+	private RotateThread thread;
 	private JPanel panel;
+
+	private AdsGroup renderedAdsGroup;
+
+	private AdsGroup activeAdsGroup;
+
+	private AdsGroup toBeActiveAdsGroup;
 
 	/**
 	 * Default constructor
 	 */
 	public AdsManager() {
-		ads = new ArrayList<BasicAd>();
+		renderedAdsGroup = new AdsGroup();
+		activeAdsGroup = new AdsGroup();
+		toBeActiveAdsGroup = new AdsGroup();
+
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
 	}
@@ -56,9 +65,7 @@ public class AdsManager implements MouseListener {
 	 * Initialize ads pool
 	 */
 	public AdsManager(JPanel panel) {
-		ads = new ArrayList<BasicAd>();
-		adsthread = new AdsThread(this);
-		thread = new RotateThread(this);
+		this();
 		panel.addMouseListener(this);
 	}
 
@@ -80,40 +87,6 @@ public class AdsManager implements MouseListener {
 		this.xMax = xMax;
 		this.yMin = yMin;
 		this.yMax = yMax;
-	}
-
-	/**
-	 * add one ad to the rear of the list
-	 * 
-	 * @param ad
-	 */
-	public void add(BasicAd ad) {
-		ads.add(ad);
-	}
-
-	/**
-	 * remove the first ad
-	 */
-	public void removeFirst() {
-		if (ads != null)
-			ads.remove(0);
-	}
-
-	/**
-	 * remove the last ad
-	 */
-	public void removeLast() {
-		if (ads != null)
-			ads.remove(ads.size() - 1);
-	}
-
-	/**
-	 * remove a specific ad
-	 * 
-	 * @param ad
-	 */
-	public void remove(BasicAd ad) {
-		ads.remove(ad);
 	}
 
 	/**
@@ -148,10 +121,11 @@ public class AdsManager implements MouseListener {
 	 */
 	public void render() {
 		// System.out.println(gs==null);
-		if (!ads.isEmpty()) {
+		if (!renderedAdsGroup.getAds().isEmpty()) {
 			// System.out.printlnindex();
 			// System.out.println("rendering");
-			ads.get(index).render(panel, panel.getWidth(), panel.getHeight());
+			renderedAdsGroup.getCurrentAd().render(panel, panel.getWidth(),
+					panel.getHeight());
 		}
 	}
 
@@ -162,35 +136,13 @@ public class AdsManager implements MouseListener {
 		return null;
 	}
 
-	public BasicAd getCurrentAd() {
-		return ads.get(index);
-	}
-
 	/**
-	 * move to the next ads
+	 * set date
 	 * 
-	 * @return
+	 * @param date
 	 */
-	public static void nextAds() {
-		index = (index == ads.size() - 1 ? 0 : index + 1);
-	}
-
-	/**
-	 * move to the previous ads
-	 * 
-	 * @return
-	 */
-	public static void prevAds() {
-		index = (index == 0 ? ads.size() - 1 : index - 1);
-	}
-
-	/**
-	 * set timer
-	 * 
-	 * @param time
-	 */
-	public void setTime(Time time) {
-		this.currentTime = time;
+	public void setDate(Date date) {
+		this.currentDate = date;
 	}
 
 	/**
@@ -198,8 +150,8 @@ public class AdsManager implements MouseListener {
 	 * 
 	 * @return
 	 */
-	public Time getTime() {
-		return currentTime;
+	public Date getTime() {
+		return currentDate;
 	}
 
 	public void setPanel(JPanel p) {
@@ -208,7 +160,31 @@ public class AdsManager implements MouseListener {
 	}
 
 	public void setAds(String file) {
-		ads = XMLtoAds.convertAds(file);
+		renderedAdsGroup.setAds(XMLtoAds.convertAds(file));
+	}
+
+	public AdsGroup getRenderedAdsGroup() {
+		return renderedAdsGroup;
+	}
+
+	public void setRenderedAdsGroup(AdsGroup renderedAdsGroup) {
+		this.renderedAdsGroup = renderedAdsGroup;
+	}
+
+	public AdsGroup getActiveAdsGroup() {
+		return activeAdsGroup;
+	}
+
+	public void setActiveAdsGroup(AdsGroup activeAdsGroup) {
+		this.activeAdsGroup = activeAdsGroup;
+	}
+
+	public AdsGroup getToBeActiveAdsGroup() {
+		return toBeActiveAdsGroup;
+	}
+
+	public void setToBeActiveAdsGroup(AdsGroup toBeActiveAdsGroup) {
+		this.toBeActiveAdsGroup = toBeActiveAdsGroup;
 	}
 
 	@Override

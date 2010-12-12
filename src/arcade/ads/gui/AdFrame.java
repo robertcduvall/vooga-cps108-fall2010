@@ -86,7 +86,7 @@ public class AdFrame extends JFrame {
 		panel.add(prev);
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				myManager.prevAds();
+				myManager.getRenderedAdsGroup().prevAds();
 			}
 		});
 
@@ -110,7 +110,7 @@ public class AdFrame extends JFrame {
 		panel.add(next);
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				myManager.nextAds();
+				myManager.getRenderedAdsGroup().nextAds();
 			}
 		});
 	}
@@ -122,12 +122,12 @@ public class AdFrame extends JFrame {
 		panel.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				myManager.getCurrentAd().onLeftClick();
+				// myManager.getCurrentAd().onLeftClick();
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				myManager.getCurrentAd().onMouseOver();
+
 			}
 
 			@Override
@@ -150,32 +150,21 @@ public class AdFrame extends JFrame {
 		});
 	}
 
-	/**
-	 * Get the Previous Ad in the loop
-	 */
-	public void getPrevious() {
-		myManager.prevAds();
-	}
-
-	/**
-	 * Get the Next Ad in the loop
-	 */
-	public void getNext() {
-		myManager.nextAds();
-	}
-
 	public static void main(String args[]) {
 		AdsManager manager = new AdsManager();
 
-		BufferedImage img = null;
+		BufferedImage img1 = null;
+		BufferedImage img2 = null;
 		try {
-//			System.out.println(System.getProperty("user.dir") );
-			img = ImageIO.read(new File("src/arcade/ads/resources/duke.png"));
+			// System.out.println(System.getProperty("user.dir") );
+			img1 = ImageIO.read(new File("src/arcade/ads/resources/duke.png"));
+			img2 = ImageIO.read(new File("src/arcade/ads/resources/unc.png"));
 		} catch (IOException e) {
-//			System.out.println("wer");
+			// System.out.println("wer");
 		}
 
-		manager.add(new ImageAd("duke", img));
+		manager.getRenderedAdsGroup().add((new ImageAd("duke", img1)));
+		manager.getRenderedAdsGroup().add((new ImageAd("unc", img2)));
 		// manager.setAds("src/arcade/ads/resources/xmlFiles.txt");
 		// BufferedImage img = null;
 		// try
@@ -188,9 +177,8 @@ public class AdFrame extends JFrame {
 		// }
 		//
 		// manager.add(new DukeAds("duke", img));
-//		System.out.println(manager.retrieve());
+		// System.out.println(manager.retrieve());
 
 		new AdFrame(manager, new Dimension(800, 600));
 	}
-
 }
