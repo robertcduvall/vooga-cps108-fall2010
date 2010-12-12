@@ -151,7 +151,7 @@ public class AdsManager implements MouseListener {
 		if (!ads.isEmpty()) {
 			// System.out.printlnindex();
 			// System.out.println("rendering");
-			ads.get(index).render(gs, panel.getWidth(), panel.getHeight());
+			ads.get(index).render(panel, panel.getWidth(), panel.getHeight());
 		}
 	}
 
