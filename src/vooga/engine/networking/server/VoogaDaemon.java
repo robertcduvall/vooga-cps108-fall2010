@@ -5,8 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
-import org.w3c.dom.Element;
-
 import vooga.engine.networking.GameSocket;
 
 /**
@@ -52,17 +50,6 @@ public class VoogaDaemon extends Thread{
 			System.exit(1);
 		}
 	}
-	
-	public VoogaDaemon(GameElement element) {
-		this(	element.getName(),
-				element.getPort(),
-				element.getChatPort(),
-				element.getNumberOfPlayers(),
-				element.getClientHandler()
-				);
-	}
-
-
 
 	/**
 	 * Whenever a new client connects to the chat or game ports, create instances 
@@ -105,7 +92,7 @@ public class VoogaDaemon extends Thread{
 			}
 		}
 	}
-	
+
 	/**
 	 * Close the game and chat ports.
 	 * 
@@ -122,7 +109,7 @@ public class VoogaDaemon extends Thread{
 			}
 			gamePort = null;
 		}
-		
+
 		if (chatPort != null) {
 			try { 
 				chatPort.close(); 
