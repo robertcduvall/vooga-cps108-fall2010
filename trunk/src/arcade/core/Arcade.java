@@ -44,7 +44,7 @@ public class Arcade extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// createWindows();
+		 createWindows();
 	}
 
 	// Temporary
