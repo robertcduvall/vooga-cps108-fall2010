@@ -81,7 +81,8 @@ public class GameSocket extends Thread{
 	 */
 	public void closeConnections() {
 		try {
-			socket.close();
+			if(socket != null)
+				socket.close();
 			socket = null;
 		}
 		catch (IOException e) {
