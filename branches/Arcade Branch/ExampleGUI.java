@@ -55,7 +55,8 @@ public class ExampleGUI extends Tab {
 		refreshContent();
 		return mainPanel;
 	}
-
+	
+	//ported to profile will delete soon
 	public static void setPlayer(String player){
 		playerName = player;
 	}
@@ -79,12 +80,13 @@ public class ExampleGUI extends Tab {
 		return gameName;
 	}
 	
-
+	//ported to profile will delete soon
 	public static void updateHighScore(double highScore) {
 		score = highScore;
 		new HighScore(gameName);
 	}
 
+	//ported to profile will delete soon
 	public static boolean addHighScore() {
 		boolean isAdded = hsc.addScore(playerName, gameName, score);
 		columnar.setLeftComponent(makeLeftPanel());

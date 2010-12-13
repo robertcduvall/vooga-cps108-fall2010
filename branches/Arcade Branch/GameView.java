@@ -14,9 +14,10 @@ import vooga.engine.core.Game;
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
 
-	private String gameName;
+	private static String gameName;
 	private Map<String, String[]> gameProperties;
 	private ImageIcon splash;
+	private JPanel content;
 
 	public GameView(String game) {
 		super();
@@ -128,5 +129,21 @@ public class GameView extends JPanel {
 			}
 		});
 		return back;
+	}
+	
+	public void setGame(String name) {
+		gameName = name;
+		refreshContent();
+		columnar.setLeftComponent(makeLeftPanel());
+		mainPanel.setRightComponent(makeRightPanel());
+	}
+	
+	private void refreshContent() {
+		content = new GameView(gameName);
+		columnar.setRightComponent(content);
+	}
+	
+	public static String getGame() {
+		return gameName;
 	}
 }

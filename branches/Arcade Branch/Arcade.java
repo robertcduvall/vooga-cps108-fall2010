@@ -2,7 +2,6 @@ package arcade.core;
 
 import arcade.core.Tab;
 
-import java.awt.Component;
 import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ResourceBundle;
@@ -36,7 +35,7 @@ public class Arcade extends JFrame {
 
 	public Arcade() {
 		setLayout(new BorderLayout());
-		getContentPane().add(createLogin(), BorderLayout.NORTH);
+		//getContentPane().add(createLogin(), BorderLayout.NORTH);
 		mainWindow = createTabs();
 		getContentPane().add(mainWindow, BorderLayout.SOUTH);
 
@@ -47,6 +46,7 @@ public class Arcade extends JFrame {
 		 createWindows();
 	}
 
+	/*
 	// Temporary
 	// TODO: security group please create this
 	private JPanel createLogin() {
@@ -69,6 +69,7 @@ public class Arcade extends JFrame {
 		a.add(box, BorderLayout.EAST);
 		return a;
 	}
+	*/
 
 	/**
 	 * Create all tabs in the window
@@ -77,8 +78,7 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		JTabbedPane everything = new JTabbedPane();
-		// JPanel main = createArcadeView();
-		// everything.addTab("Arcade", null, main, "Arcade Main View");
+		everything.addTab("Arcade", null, createArcadeView(), "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
@@ -93,13 +93,24 @@ public class Arcade extends JFrame {
 		return everything;
 	}
 
-	private JPanel createArcadeView() {
+	private JComponent createArcadeView() {
 		JPanel main = new JPanel();
-		main.add(createPanels("leftPanel"));
-		main.add(new GameView("zombieland"));
-		main.add(createPanels("rightPanel"));
-		main.setLayout(new BoxLayout(main, BoxLayout.X_AXIS));
-		return main;
+
+		JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),
+				new GameView("zombieland"));
+		columnar.setOneTouchExpandable(true);
+
+		JSplitPane mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,
+				createPanels("rightPanel"));
+		mainPanel.setOneTouchExpandable(true);
+		
+		main.add(mainPanel);
+		
+		//main.add(createPanels("leftPanel"));
+		//main.add(new GameView("zombieland"));
+		//main.add(createPanels("rightPanel"));
+		//main.setLayout(new BoxLayout(main, BoxLayout.X_AXIS));
+		return mainPanel;
 	}
 
 	/**
