@@ -33,6 +33,7 @@ public class Shooter extends BetterSprite implements Constants {
 	private AddBulletsEvent addbullets;
 	private ClientConnection connection;
 	private boolean sentData;
+	private String overlayName;
 
 	public Shooter() {
 		super();
@@ -53,6 +54,10 @@ public class Shooter extends BetterSprite implements Constants {
 
 	public void setConnection(ClientConnection connection){
 		this.connection = connection;
+	}
+	
+	public void setName(String name){
+		this.overlayName = name;
 	}
 	/**
 	 * Creates weapon objects with default ammo
@@ -177,7 +182,7 @@ public class Shooter extends BetterSprite implements Constants {
 
 	@SuppressWarnings("unchecked")
 	public void setAmmo() {
-		((Stat<Integer>) getStat("initAmmo")).setStat(weapons[weaponChoice]
+		((Stat<Integer>) getStat(overlayName + "Ammo")).setStat(weapons[weaponChoice]
 				.getAmmo());
 	}
 
@@ -253,7 +258,7 @@ public class Shooter extends BetterSprite implements Constants {
 	 */
 	@SuppressWarnings("unchecked")
 	public Stat<Integer> getHealth() {
-		return (Stat<Integer>) getStat("initHealth");
+		return (Stat<Integer>) getStat(overlayName + "Health");
 	}
 
 	/**
@@ -263,7 +268,7 @@ public class Shooter extends BetterSprite implements Constants {
 	 */
 	@SuppressWarnings("unchecked")
 	public Stat<Integer> getScore() {
-		return (Stat<Integer>) getStat("initScore");
+		return (Stat<Integer>) getStat("score");
 	}
 
 	/**

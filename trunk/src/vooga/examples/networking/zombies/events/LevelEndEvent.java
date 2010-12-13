@@ -8,7 +8,7 @@ import vooga.examples.networking.zombies.gamestates.PlayState;
 
 public class LevelEndEvent implements IEventHandler {
 
-	private Shooter target;
+	private Shooter[] targets;
 	private PlayState state;
 
 	private AddZombieEvent addZombies;
@@ -17,11 +17,11 @@ public class LevelEndEvent implements IEventHandler {
 
 	private double levelDeaths;
 
-	public LevelEndEvent(Shooter player, PlayState currentState,
+	public LevelEndEvent(Shooter[] players, PlayState currentState,
 			IEventHandler addzombies, AddRandomItemEvent additems, long seed) {
 		state = currentState;
 		levelDeaths = levelZombies();
-		target = player;
+		targets = players;
 		addZombies = (AddZombieEvent) addzombies;
 		addItems = additems;
 		this.seed = seed;
@@ -30,15 +30,20 @@ public class LevelEndEvent implements IEventHandler {
 
 	@Override
 	public boolean isTriggered() {
-		return target.getScore().getStat() == (int) levelDeaths;
+		int score = 0;
+		for(Shooter target : targets){
+			score += target.getScore().getStat();
+		}
+		return score == (int) levelDeaths;
 	}
 
 	@Override
 	public void actionPerformed() {
 		createZombies();
 		state.setNewDelay();
-		target.resetLevelScore();
-
+		for(Shooter target : targets){
+			target.resetLevelScore();
+		}
 	}
 
 	public void updateDeaths(int deaths) {
@@ -58,7 +63,7 @@ public class LevelEndEvent implements IEventHandler {
 
 		int size = 0;
 		while (size < levelZombies()) {
-			Zombie zombie = new Zombie("New", state.getLevel(), target, state, seed);
+			Zombie zombie = new Zombie("New", state.getLevel(), targets, state, seed);
 			zombie.setDropItemListener(addItems);
 			addZombies.addEnemy(zombie);
 			size++;

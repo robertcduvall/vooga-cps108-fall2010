@@ -28,14 +28,14 @@ public class Zombie extends BetterSprite implements Constants {
 	private double zombieDamage;
 	private int zombieCurrentHealth;
 
-	private Shooter target;
+	private Shooter[] targets;
 	private AddRandomItemEvent randomItemEvent;
 	private double speed;
 
 	private int attackDelayStep;
 	private String currentAttackAnimation;
 
-	public Zombie(String name, int level, Shooter player, PlayState state, long seed) {
+	public Zombie(String name, int level, Shooter[] players, PlayState state, long seed) {
 
 		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources
 				.getAnimation(ZOMBIE_DOWN)));
@@ -50,7 +50,7 @@ public class Zombie extends BetterSprite implements Constants {
 		addSprite(ATTACKRIGHT, initializeSprites(ATTACKRIGHT));
 		addSprite(DEATH, initializeSprites(DEATH));
 
-		setHumanTarget(player);
+		setHumanTarget(players);
 
 		currentAttackAnimation = "";
 		attackDelay = Resources.getInt("zombieAttackDelay");
@@ -99,8 +99,8 @@ public class Zombie extends BetterSprite implements Constants {
 	 * @param hero
 	 *            Target shooter
 	 */
-	private void setHumanTarget(Shooter hero) {
-		target = hero;
+	private void setHumanTarget(Shooter[] heros) {
+		targets = heros;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Zombie extends BetterSprite implements Constants {
 	 * @return true if the this zombie is closer to its target in the x
 	 *         direction
 	 */
-	private boolean isCloserInXDirection() {
+	private boolean isCloserInXDirection(Shooter target) {
 		return Math.abs(getX() - target.getX()) >= Math.abs(getY()
 				- target.getY());
 	}
@@ -153,7 +153,16 @@ public class Zombie extends BetterSprite implements Constants {
 	 * @return attack direction
 	 */
 	public String getDirection() {
-		if (isCloserInXDirection()) {
+		Shooter target = null;
+		double distance = 100000;
+		for(Shooter possibleTarget : targets){
+			double possibleDistance = Math.sqrt(Math.pow(Math.abs(getX() - possibleTarget.getX()), 2) + Math.pow(Math.abs(getY() - possibleTarget.getY()), 2));
+			if(possibleDistance < distance){
+				distance = possibleDistance;
+				target = possibleTarget;
+			}
+		}
+		if (isCloserInXDirection(target)) {
 			return ((target.getX() - getX()) > 0) ? ZOMBIE_RIGHT : ZOMBIE_LEFT;
 		} else
 			return ((target.getY() - getY()) > 0) ? ZOMBIE_DOWN : ZOMBIE_UP;
@@ -271,7 +280,9 @@ public class Zombie extends BetterSprite implements Constants {
 			// Kill zombie
 			setActive(false);
 			// Update score
-			target.updateScore(1);
+			for(Shooter target : targets){
+				target.updateScore(1);
+			}
 
 			int item = (int) (Math.random() * 100);
 			if (item < itemChance) {
