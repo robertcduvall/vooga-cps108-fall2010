@@ -13,6 +13,7 @@ public class GameLost implements Rule{
 	@Override
 	public void enforce(SpriteGroup... groups) {
 		GameStateManager gameStateManager = Resources.getGame().getGameStateManager();
+		Resources.getGame().updateHighScore(((Player) groups[0].getActiveSprite()).getScore());
 		GameState gameOverState = gameStateManager.getGameState(0);
 		System.out.println("GameOver");
 		gameStateManager.switchTo(gameOverState);
