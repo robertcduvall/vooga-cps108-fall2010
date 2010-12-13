@@ -49,11 +49,12 @@ public class VoogaServer {
 				{
 					Element gameElement = (Element) listOfGames.item(i);
 					String name = gameElement.getAttribute("name");
-					int port = Integer.parseInt(gameElement.getAttribute("gamePort"));
+					int gamePort = Integer.parseInt(gameElement.getAttribute("gamePort"));
 					int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
+					System.out.println("voogaServer: "+gamePort+" "+chatPort);
 					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
 					String clientHandler = gameElement.getAttribute("clientHandler");
-					VoogaDaemon daemon = new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler);
+					VoogaDaemon daemon = new VoogaDaemon(name, gamePort, chatPort, numberOfPlayers, clientHandler);
 					daemon.start();
 					daemonMap.put(name, daemon);
 				}

@@ -50,7 +50,7 @@ public class VoogaDaemon extends Thread{
 			numberOfGames = 1;
 		}
 		catch (IOException e) {
-			System.out.println("Couldn't access port " + gamePort.getLocalPort() + ": " + e);
+			System.out.println("VoogaDaemon.java: Couldn't access port " + gamePort.getLocalPort() + ": " + e);
 			System.exit(1);
 		}
 	}
