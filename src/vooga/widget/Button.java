@@ -2,9 +2,6 @@ package vooga.widget;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import com.golden.gamedev.util.ImageUtil;
@@ -60,7 +57,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 		setLabel(label);
 		
 	}
-		
+	
 	/**
 	 * Creates an instance of Button with a specified image and a location of (0,0)
 	 * @param image Which represents the image of the button
@@ -123,22 +120,16 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	@Override
 	public boolean isTriggered() {
 		Game game = Resources.getGame();
-		//System.out.println("button istriggered "+ (game.click() && game.checkPosMouse(this, true)));
-		return game.click() && game.checkPosMouse(this, true);
-		
+		return game.click() && game.checkPosMouse(this, true);	
 	}
 	
-	public void buttonClicked(MouseEvent e) {		
-		System.out.println("button" + e.getX());
-	}
-
-
 	/**
 	 * Specifies what should be done when the button is clicked
 	 */
 	@Override 
 	public abstract void actionPerformed();
 	
+	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
 		buttonLabel.render(g);
