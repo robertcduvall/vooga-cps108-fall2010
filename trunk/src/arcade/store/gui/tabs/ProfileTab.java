@@ -38,8 +38,8 @@ public class ProfileTab extends Tab implements IViewer{
 	private JTextField availableCredditsTextField = null;
 	private JButton purchaseCredditsButton = null;
 	private JButton editMyProfileButton = null;
-	private JTable purchasedGamesTable = null;
-	private JLabel MyPurchasedGamesLabel = null;
+	private JTable purchasedItemsTable = null;
+	private JLabel MyPurchasedItemsLabel = null;
 	private JButton RefreshButton = null;
 	
 	private static final String NAME = "Shop Profile";
@@ -80,9 +80,9 @@ public class ProfileTab extends Tab implements IViewer{
 	 */
 	public JComponent getContent() {
 		if (jPanel == null) {
-			MyPurchasedGamesLabel = new JLabel();
-			MyPurchasedGamesLabel.setBounds(new Rectangle(102, 289, 139, 35));
-			MyPurchasedGamesLabel.setText("My Purchased Games");
+			MyPurchasedItemsLabel = new JLabel();
+			MyPurchasedItemsLabel.setBounds(new Rectangle(102, 289, 139, 35));
+			MyPurchasedItemsLabel.setText("My Purchased Items");
 			AvailableCredditsLabel = new JLabel();
 			AvailableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
 			AvailableCredditsLabel.setText("Availabe Creddits");
@@ -108,7 +108,7 @@ public class ProfileTab extends Tab implements IViewer{
 			jPanel.add(getPurchaseCredditsButton(), null);
 			jPanel.add(getEditMyProfileButton(), null);
 			jPanel.add(getPurchasedGamesTable(), null);
-			jPanel.add(MyPurchasedGamesLabel, null);
+			jPanel.add(MyPurchasedItemsLabel, null);
 			jPanel.add(getRefreshButton(), null);
 		}
 		return jPanel;
@@ -187,10 +187,10 @@ public class ProfileTab extends Tab implements IViewer{
 	 * @return javax.swing.JTable	
 	 */
 	public JTable getPurchasedGamesTable() {
-		if (purchasedGamesTable == null) {
-			purchasedGamesTable = new JTable();
+		if (purchasedItemsTable == null) {
+			purchasedItemsTable = new JTable();
 			
-			   purchasedGamesTable.setModel(new javax.swing.table.DefaultTableModel(
+			   purchasedItemsTable.setModel(new javax.swing.table.DefaultTableModel(
 			            new Object [][] {
 			                {null, null, null, null},
 			                {null, null, null, null},
@@ -202,9 +202,10 @@ public class ProfileTab extends Tab implements IViewer{
 			            }
 			        ));
 //			
-			purchasedGamesTable.setBounds(new Rectangle(102, 347, 542, 256));
+			purchasedItemsTable.setBounds(new Rectangle(102, 347, 542, 256));
+			//TODO: Make it so user cannot edit the user history table
 		}
-		return purchasedGamesTable;
+		return purchasedItemsTable;
 	}
 	
 	/**
