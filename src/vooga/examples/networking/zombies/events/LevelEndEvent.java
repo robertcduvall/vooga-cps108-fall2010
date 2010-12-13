@@ -13,16 +13,18 @@ public class LevelEndEvent implements IEventHandler {
 
 	private AddZombieEvent addZombies;
 	private AddRandomItemEvent addItems;
+	private long seed;
 
 	private double levelDeaths;
 
 	public LevelEndEvent(Shooter player, PlayState currentState,
-			IEventHandler addzombies, AddRandomItemEvent additems) {
+			IEventHandler addzombies, AddRandomItemEvent additems, long seed) {
 		state = currentState;
 		levelDeaths = levelZombies();
 		target = player;
 		addZombies = (AddZombieEvent) addzombies;
 		addItems = additems;
+		this.seed = seed;
 		// createZombies();
 	}
 
@@ -56,8 +58,7 @@ public class LevelEndEvent implements IEventHandler {
 
 		int size = 0;
 		while (size < levelZombies()) {
-
-			Zombie zombie = new Zombie("New", state.getLevel(), target, state);
+			Zombie zombie = new Zombie("New", state.getLevel(), target, state, seed);
 			zombie.setDropItemListener(addItems);
 			addZombies.addEnemy(zombie);
 			size++;
