@@ -6,8 +6,7 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
-import arcade.store.gui.pages.AreYouSureAddToCartView;
-import arcade.store.gui.pages.AreYouSureDemoView;
+
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.items.IItemInfo;
 
