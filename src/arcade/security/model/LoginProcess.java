@@ -13,6 +13,10 @@ public class LoginProcess implements IModel{
 	public boolean isSuccessfulLogin(String username, char[] password){
 		return LogInHandler.successfulLogin(username, password);
 	}
+	
+	public void logIn(String username){
+		LogInHandler.setCurrentUser(username);
+	}
 
 	
 	
