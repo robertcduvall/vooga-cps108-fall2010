@@ -62,7 +62,7 @@ public class PlayState extends GameState implements Constants {
 
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
-		player.setConnection(connection);
+		player.setConnection(gameConnection);
 		otherPlayer = (Shooter) playField.getGroup("Players").getSprites()[1];
 	}
 
@@ -217,7 +217,7 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public boolean shouldGetData(){
-		return connection.isConnected();
+		return gameConnection.isConnected();
 	}
 
 	/**

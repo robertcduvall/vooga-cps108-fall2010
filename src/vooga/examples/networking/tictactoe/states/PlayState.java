@@ -93,7 +93,7 @@ public class PlayState extends GameState{
 		gameWonState = new GameOverState(gameWonField);
 		game.getGameStateManager().addGameState(gameWonState);
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitForTurnXml"), game);
-		theirTurnState = new TheirTurnState(game, connection, waitField, this);
+		theirTurnState = new TheirTurnState(game, gameConnection, waitField, this);
 		game.getGameStateManager().addGameState(theirTurnState);
 		PlayField youLostField = levelParser.getPlayfield(Resources.getString("youLostXml"), game);
 		youLostState = new GameOverState(youLostField);
@@ -152,7 +152,7 @@ public class PlayState extends GameState{
 			int col = pieceX / Resources.getInt("squareDimension");
 			int row = pieceY / Resources.getInt("squareDimension");
 			myTurn = false;
-			connection.sendSerializable(new Move(row, col));
+			gameConnection.sendSerializable(new Move(row, col));
 		}
 	}
 
@@ -211,7 +211,7 @@ public class PlayState extends GameState{
 	 */
 	@Override
 	public boolean shouldGetData(){
-		return (connection.isConnected() && !myTurn);
+		return (gameConnection.isConnected() && !myTurn);
 	}
 	
 	/**
@@ -221,7 +221,7 @@ public class PlayState extends GameState{
 	 * @version 1.0
 	 */
 	public void won(){
-		connection.sendGameOver();
+		gameConnection.sendGameOver();
 		game.getGameStateManager().switchTo(gameWonState);
 		return;
 	}
@@ -233,7 +233,7 @@ public class PlayState extends GameState{
 	 * @version 1.0
 	 */
 	public void tied(){
-		connection.sendGameOver();
+		gameConnection.sendGameOver();
 		game.getGameStateManager().switchTo(tieState);
 		return;
 	}
@@ -245,7 +245,7 @@ public class PlayState extends GameState{
 	 * @version 1.0
 	 */
 	public void lost(){
-		connection.sendGameOver();
+		gameConnection.sendGameOver();
 		game.getGameStateManager().switchTo(youLostState);
 		return;
 	}
@@ -257,7 +257,7 @@ public class PlayState extends GameState{
 	 * @version 1.0
 	 */
 	public void quit(){
-		connection.sendGameOver();
+		gameConnection.sendGameOver();
 		game.getGameStateManager().switchTo(theyQuitState);
 		return;
 	}
