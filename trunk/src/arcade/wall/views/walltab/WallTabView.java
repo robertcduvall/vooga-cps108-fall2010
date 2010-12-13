@@ -58,10 +58,14 @@ public class WallTabView extends JPanel {
 		JComboBox gameComboBox = new JComboBox(myGameChoices);
 		gameComboBox.setSelectedIndex(0);
 		JTextField commentEntryField = new JTextField(17);
-		JLabel commentsLabel = new JLabel("Comments for " + myGameChoices[gameComboBox.getSelectedIndex()] + ":");
+		String selectedGame = myGameChoices[gameComboBox.getSelectedIndex()];
+		JLabel commentsLabel = new JLabel("Comments for " + selectedGame + ":");
+		JButton ratingButton = new JButton("Average Rating for " + selectedGame + ": "+ 
+				myController.getRating(selectedGame));
+		ratingButton.setFocusable(false);
 
 		WallTabComboBoxGroup wallTabComboBoxGroup = 
-			new WallTabComboBoxGroup(myController, commentsLabel, gameComboBox, commentEntryField);
+			new WallTabComboBoxGroup(myController, commentsLabel, ratingButton, gameComboBox, commentEntryField);
 		gameComboBox.addActionListener(new GameComboBoxListener(wallTabComboBoxGroup));
 		
 		WallTabReviewButtonGroup wallTabReviewButtonGroup = 
@@ -73,6 +77,7 @@ public class WallTabView extends JPanel {
 		entryPanel.add(commentEntryField);
 		entryPanel.add(myRatingPanel);
 		entryPanel.add(reviewButton);
+		displayPanel.add(ratingButton);
 		displayPanel.add(commentsLabel);
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 

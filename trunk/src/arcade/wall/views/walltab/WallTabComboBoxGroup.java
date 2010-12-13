@@ -1,5 +1,6 @@
 package arcade.wall.views.walltab;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -10,12 +11,14 @@ public class WallTabComboBoxGroup {
 
 	private WallTabController myController;
 	private JLabel myCommentsLabel;
+	private JButton myRatingButton;
 	private JComboBox myGameComboBox;
 	private JTextField myCommentEntryField;
 	
-	public WallTabComboBoxGroup(WallTabController controller, JLabel commentsLabel, JComboBox gameComboBox, JTextField commentEntryField) {
+	public WallTabComboBoxGroup(WallTabController controller, JLabel commentsLabel, JButton ratingButton, JComboBox gameComboBox, JTextField commentEntryField) {
 		this.myController = controller;
 		this.myCommentsLabel = commentsLabel;
+		this.myRatingButton = ratingButton;
 		this.myGameComboBox = gameComboBox;
 		this.myCommentEntryField = commentEntryField;
 	}
@@ -23,6 +26,7 @@ public class WallTabComboBoxGroup {
 	public void update() {
 		String selectedGameName = WallTabView.myGameChoices[myGameComboBox.getSelectedIndex()];
         myCommentsLabel.setText("Comments for " + selectedGameName + ":");
+        myRatingButton.setText("Average Rating for " + selectedGameName + ":"+myController.getRating(selectedGameName));
         myController.updateComments(selectedGameName);
         myCommentEntryField.setText("");
 	}
