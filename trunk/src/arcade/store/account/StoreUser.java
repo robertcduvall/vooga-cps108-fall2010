@@ -19,7 +19,7 @@ public class StoreUser {
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
 	public StoreUser(String name, double creddits, String cart, 
-			String ownedGames) {
+			List<String> ownedGames) {
 		this.name = name;
 		this.creddits = creddits;
 		this.cart = new ArrayList<String>();
@@ -29,16 +29,12 @@ public class StoreUser {
 			if(s.length()>1)
 			this.cart.add(s.trim());
 		}
-		String[] ownedList = ownedGames.split(",");
-		for(String s : ownedList) {
-			if(s.length()>1)
-			this.ownedGames.add(s.trim());
-		}
+		this.ownedGames=ownedGames;
 	}
 	
 	public StoreUser()
 	{
-		this(DEFAULT_NAME, 0, "", "");
+		this(DEFAULT_NAME, 0, "", new ArrayList<String>());
 	}
 	
 	public String getName() {
@@ -71,12 +67,14 @@ public class StoreUser {
 		dbAdapter.updateCreddits(creddits, Integer.toString(id));
 	}
 	
-	public void addGames(List<String> titles)
+	public void addGames(List<IItemInfo> titles)
 	{
-		for(String s : titles) {
-			ownedGames.add(s);
+		ArrayList<IItemInfo> games = new ArrayList<IItemInfo>();
+		for(IItemInfo i : titles) {
+			ownedGames.add(i.getTitle());
+			games.add(i);
 		}
-		dbAdapter.updateList(ownedGames, Integer.toString(id), OWNED_GAMES_FIELD);
+		dbAdapter.updatePurchaseHistory(games, Integer.toString(id));
 	}
 	
 	public void emptyCart()
@@ -96,6 +94,10 @@ public class StoreUser {
 	
 	public void saveCart() {
 		dbAdapter.updateList(cart, Integer.toString(id), CART_FIELD);
+	}
+	
+	public String getId() {
+		return Integer.toString(id);
 	}
 	
 }

@@ -11,6 +11,7 @@ import arcade.util.database.MySqlAdapter;
 public class DbItemAndUserFactory {
 	
 	private static final String usernameTable = "StoreAccounts";
+	private static final String purchaseHistoryTable = "PurchaseHistory";
 	
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
@@ -33,10 +34,15 @@ public class DbItemAndUserFactory {
 
 	public static StoreUser getUser(int userId) {
 		List<Map<String, String>> list = dbAdapter.getRows(usernameTable, "Id", Integer.toString(userId));
+		List<Map<String, String>> ownedGames = dbAdapter.getRows("SELECT ItemName FROM "+purchaseHistoryTable+" WHERE User_ID='"+Integer.toString(userId)+"'");
 		if(list!=null) {
 			Map<String, String> userMap = list.get(0);
+			ArrayList<String> games = new ArrayList<String>();
+			for(Map<String, String> m : ownedGames) {
+				games.add(m.get("ItemName"));
+			}
 			return new StoreUser(userMap.get("User_Id"), Double.parseDouble(userMap.get("Creddits")),
-				userMap.get("Cart"), userMap.get("GamesOwned"));
+				userMap.get("Cart"), games);
 		}
 		else {
 			HashMap<String, String> newUser = new HashMap<String, String>();
