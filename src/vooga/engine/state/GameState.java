@@ -159,6 +159,10 @@ public abstract class GameState {
 		return false;
 	}
 	
+	public void setConnection(ClientConnection connection){
+		this.connection = connection;
+	}
+	
 	/**
 	 * Overridden by subclasses that want to implement networking in their game. Called in the update method when it receives a message from the socket.
 	 * 

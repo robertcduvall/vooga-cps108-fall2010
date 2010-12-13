@@ -2,6 +2,7 @@ package vooga.examples.networking.zombies;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
+import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.examples.networking.zombies.events.AddBulletsEvent;
@@ -30,6 +31,8 @@ public class Shooter extends BetterSprite implements Constants {
 	private Stat<Integer> ammo;
 	private int levelScore;
 	private AddBulletsEvent addbullets;
+	private ClientConnection connection;
+	private boolean sentData;
 
 	public Shooter() {
 		super();
@@ -48,6 +51,9 @@ public class Shooter extends BetterSprite implements Constants {
 		this.setY(playerDefaultY);
 	}
 
+	public void setConnection(ClientConnection connection){
+		this.connection = connection;
+	}
 	/**
 	 * Creates weapon objects with default ammo
 	 */
@@ -96,6 +102,10 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 180;
 		showAnimation(PLAYER_LEFT);
 		moveX(speed);
+		if(connection != null){
+			connection.send("goLeft");
+			sentData = true;
+		}
 	}
 
 	/**
@@ -105,6 +115,10 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 0;
 		showAnimation(PLAYER_RIGHT);
 		moveX(Math.abs(speed));
+		if(connection != null){
+			connection.send("goRight");
+			sentData = true;
+		}
 	}
 
 	/**
@@ -114,6 +128,10 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 270;
 		showAnimation(PLAYER_UP);
 		moveY(speed);
+		if(connection != null){
+			connection.send("goUp");
+			sentData = true;
+		}
 	}
 
 	/**
@@ -123,6 +141,10 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 90;
 		showAnimation(PLAYER_DOWN);
 		moveY(Math.abs(speed));
+		if(connection != null){
+			connection.send("goDown");
+			sentData = true;
+		}
 	}
 
 	public void switchWeapons(int choice) {
@@ -139,6 +161,10 @@ public class Shooter extends BetterSprite implements Constants {
 		if (healthIsZero())
 			return;
 		fireWeapon();
+		if(connection != null){
+			connection.send("shoot");
+			sentData = true;
+		}
 	}
 
 	/**
@@ -270,6 +296,10 @@ public class Shooter extends BetterSprite implements Constants {
 	 * end game condition, which is when the player's health reaches 0
 	 */
 	public void update(long elapsedTime) {
+		if(!sentData && connection != null){
+			connection.send("still");
+		}
+		sentData = false;
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		super.update(elapsedTime);
 

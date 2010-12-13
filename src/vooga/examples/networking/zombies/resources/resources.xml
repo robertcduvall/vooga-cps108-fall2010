@@ -121,6 +121,7 @@
 	</Sounds>
 	
 	<Strings>
+		<String name="waitXml" value="src/vooga/examples/networking/zombies/resources/levels/waitingLevel.xml" />
 		<String name="overlayHealthString" 		value="Health:" />
 		<String name="overlayPauseString"		value="PAUSE" />
 		<String name="overlayScoreString" 		value="Kills:" />

@@ -41,7 +41,6 @@ public class ZombiesHandler extends ClientHandler{
 			super.run();
 			while (true) {
 				String message = socket.receive();
-				System.out.println(message);
 				if(message == null){
 					broadcastToOthers("quit", this);
 					return;
@@ -69,8 +68,9 @@ public class ZombiesHandler extends ClientHandler{
 	 * @version 1.0
 	 */
 	public void firstRun(){
-//		ClientHandler firstPlayer = getFirstPlayer(sessionID);
+		ClientHandler firstPlayer = getFirstPlayer(sessionID);
 //		firstPlayer.getSocket().send("yourTurn");
 //		broadcastToOthers("theirTurn", firstPlayer);
+		broadcastToAll("still", firstPlayer);
 	}
 }

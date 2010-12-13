@@ -7,7 +7,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
 import vooga.engine.overlay.*;
-import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
@@ -22,9 +21,10 @@ public class PlayState extends GameState implements Constants {
 
 	private static final String PLAY_XML_PATH = "src/vooga/examples/networking/zombies/resources/levels/baseLevel.xml";
 
-	private static Blah currentGame;
+	private Blah currentGame;
 
 	private Shooter player;
+	private Shooter otherPlayer;
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
@@ -48,6 +48,7 @@ public class PlayState extends GameState implements Constants {
 		levelTracker = OverlayCreator.createOverlays(STATES_XML_PATH);
 		LevelParser parser = new LevelParser();
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
+		this.addPlayField(playField);
 		setupPlayer();
 		resetLevel();
 		initOverlays();
@@ -61,6 +62,8 @@ public class PlayState extends GameState implements Constants {
 
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
+		player.setConnection(connection);
+		otherPlayer = (Shooter) playField.getGroup("Players").getSprites()[1];
 	}
 
 	/**
@@ -173,6 +176,8 @@ public class PlayState extends GameState implements Constants {
 		control.setParams(KeyEvent.VK_3, 2);
 
 		control2.addInput(KeyEvent.VK_P, "pause", MAIN_CLASS);
+		playField.addControl("Shooter", control);
+		playField.addControl("Game", control2);
 	}
 
 	/**
@@ -183,18 +188,45 @@ public class PlayState extends GameState implements Constants {
 	public KeyboardControl getPlayGameControl() {
 		return control;
 	}
+	
+	/**
+	 * If the String starts with the Move class identifier then deserialize the String into a Move object and place the piece on the
+	 * board. Otherwise set the message to the String we received.
+	 * 
+	 * @param data data received from the socket
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	@Override
+	public void interpretMessage(String data){
+		if(data.startsWith(Location.getIdentifier())){
+			Location loc = (Location) (Location.deserialize(data));
+			otherPlayer.setLocation(loc.getX(), loc.getY());
+		}
+		else
+			setMessage(data);
+	}
+	
+	/**
+	 * Called by the GameState API to determine whether or not it should listen for a message from the socket. In this case it returns true if
+	 * there everyone is still connected to the socket. <b>Must be overridden to implement networking API.</b>
+	 * 
+	 * @return whether or not to listen for a message from the socket
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	@Override
+	public boolean shouldGetData(){
+		return connection.isConnected();
+	}
 
 	/**
 	 * update all components of the ZombieLand game. This method checks to see
 	 * if more zombies can be added or if the level has been completed.
 	 */
 	public void update(long elapsedTime) {
-
 		if (isActive()) {
-			playField.update(elapsedTime);
-			control.update();
-			control2.update();
-
+			super.update(elapsedTime);
 			if (timer.action(elapsedTime)) {
 				getLevelStatOverlay().setActive(false);
 				addZombies.timeUp();
@@ -202,7 +234,29 @@ public class PlayState extends GameState implements Constants {
 			eventPool.checkEvents();
 		}
 	}
-
+	
+	public void goUp(){
+		otherPlayer.goUp();
+	}
+	
+	public void goDown(){
+		otherPlayer.goDown();
+	}
+	
+	public void goLeft(){
+		otherPlayer.goLeft();
+	}
+	
+	public void goRight(){
+		otherPlayer.goRight();
+	}
+	
+	public void shoot(){
+		otherPlayer.shoot();
+	}
+	
+	public void still(){}
+	
 	/**
 	 * render the graphics component in the game
 	 */
