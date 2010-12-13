@@ -99,7 +99,7 @@ public class ProfileEditPanel extends JPanel {
 		myFields.put(name, textField);
 		ValidatingComponent<JTextField> vc = new ValidatingComponent<JTextField>(
 				textField, name, validators);
-		myDock.addValidatingComponent(vc, name, null, "wrap");
+		myDock.addValidatingComponent(vc, name);
 	}
 
 	private JTextField getTextField(String text) {

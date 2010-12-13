@@ -87,7 +87,7 @@ public class ProfileCreatePanel extends JPanel {
 			JTextField textField = getTextField();
 			myFields.put(name, textField);
 			vc = cons.newInstance(textField, name);
-			myDock.addValidatingComponent(vc, name, null, "wrap");
+			myDock.addValidatingComponent(vc, name);
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
