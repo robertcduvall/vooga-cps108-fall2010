@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
+import arcade.lobby.model.ProfileSet;
 import arcade.security.model.AdminProcess;
 import arcade.security.model.IModel;
 import arcade.security.model.LoginProcess;
@@ -34,6 +35,7 @@ public class AdminPanelControl implements IControl {
 				log.info("Before log out, Current User role: "+user.getRole());
 				user.setUserAs("default");
 				log.info("After log out, Current User role: "+user.getRole());
+				ProfileSet.currentProfile = null;
 				switchToLogInPage();
 			}
 
