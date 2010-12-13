@@ -46,7 +46,7 @@ public class ChatHandler extends Handler{
 	public void run(){
 		try {
 			handlers.add(this);
-			getSocket().send("ADMIN: Welcome to " + gameName + " MOTHERFUCKER!");
+			getSocket().send("ADMIN: Welcome to " + gameName + "!");
 			broadcast("ADMIN: Player joined the game.", this);
 			while (true) {
 				String chat = socket.receive();

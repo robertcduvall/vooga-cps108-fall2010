@@ -5,7 +5,6 @@
 		<Image name="O" path="o.png" />
 		<Image name="X" path="x.png" />
 		<Image name="gameWonBackground" path="gameWonBackground.png" />
-		<Image name="defaultMenuButton" path="defaultMenuButton.png" />
 		
 	</Images>
 

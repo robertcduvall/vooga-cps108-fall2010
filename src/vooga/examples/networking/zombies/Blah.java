@@ -8,7 +8,6 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ClientConnection;
-import vooga.engine.networking.client.GameClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.examples.networking.zombies.gamestates.CreditMenu;
 import vooga.examples.networking.zombies.gamestates.EndGameState;
@@ -40,7 +39,7 @@ public class Blah extends Game implements Constants {
 	private HelpMenu2 helpMenu2;
 	private static CreditMenu creditMenu;
 	private static WaitingState waitingState;
-	private GameClientConnection gameConnection;
+	private ClientConnection connection;
 
 	/**
 	 * We overrode this method because we have specific a subclass
@@ -50,7 +49,7 @@ public class Blah extends Game implements Constants {
 
 		super.initResources();
 		try {
-			gameConnection = new GameClientConnection("Zombies");
+			connection = new ClientConnection("Zombies");
 		} 
 		catch (Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());
@@ -58,16 +57,16 @@ public class Blah extends Game implements Constants {
 		}
 		pauseState = new PauseState(this);
 		playState = new PlayState(this);
-		playState.setConnection(gameConnection);
+		playState.setConnection(connection);
 		LevelParser levelParser = new LevelParser();
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
-		waitingState = new WaitingState(this, gameConnection, waitField, playState);
+		waitingState = new WaitingState(this, connection, waitField, playState);
 		mainMenu = new MainMenu(this);
 		helpMenu1 = new HelpMenu1(this);
 		helpMenu2 = new HelpMenu2(this);
 		creditMenu = new CreditMenu(this);
 		endGameState = new EndGameState(this);
-//		getGameStateManager().addGameState(waitingState, mainMenu, helpMenu1, helpMenu2,
+//		getGameStateManager().addGameState(mainMenu, helpMenu1, helpMenu2,
 //				creditMenu, pauseState, playState, endGameState);
 		getGameStateManager().addGameState(waitingState, playState, pauseState, endGameState);
 		getGameStateManager().switchTo(waitingState);
