@@ -41,6 +41,7 @@ public class ExampleGUI extends Tab {
 		setToolTipText("Arcade main view");
 	}
 
+	//been ported to arcade will delete soon
 	public JComponent getContent() {
 
 		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, makeLeftPanel(),
@@ -59,11 +60,13 @@ public class ExampleGUI extends Tab {
 		playerName = player;
 	}
 	
+	//been ported to game view will be deleted soon
 	private static void refreshContent() {
 		content = new GameView(gameName);
 		columnar.setRightComponent(content);
 	}
 
+	//been ported to game view will be deleted soon
 	public static void setGame(String name) {
 		gameName = name;
 		refreshContent();
@@ -71,9 +74,11 @@ public class ExampleGUI extends Tab {
 		mainPanel.setRightComponent(makeRightPanel());
 	}
 	
+	//been ported to game view will be deleted soon
 	public static String getGame() {
 		return gameName;
 	}
+	
 
 	public static void updateHighScore(double highScore) {
 		score = highScore;
