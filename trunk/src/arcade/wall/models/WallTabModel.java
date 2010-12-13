@@ -13,6 +13,7 @@ public class WallTabModel implements IWallModel {
 	private String myDbUserName;
 	private String myDbPassword;
 	private CommentSet myCommentSet;
+	private GameReportSet myGameReportSet;
 
 	public WallTabModel() {
 		myHost = "voogaarcade.db.7093929.hostedresource.com";
@@ -20,6 +21,7 @@ public class WallTabModel implements IWallModel {
 		myDbUserName = myDbName;
 		myDbPassword = "Vooga108";
 		myCommentSet = new CommentSet(myHost, myDbName, "Comments", myDbUserName, myDbPassword);
+		myGameReportSet = new GameReportSet(myHost, myDbName, "GameReports", myDbUserName, myDbPassword);
 	}
 
 	/**
@@ -29,6 +31,13 @@ public class WallTabModel implements IWallModel {
 	 */
 	public void addComment(Comment comment){
 		myCommentSet.addComment(comment);
+		double newAverageRating = myCommentSet.getAverageRating(comment.getGameTitle());
+		myGameReportSet.updateAverageRating(comment.getGameTitle(), newAverageRating);
+		myGameReportSet.incrementComments(comment.getGameTitle());
+	}
+	
+	public void addGameReport(GameReport gameReport) {
+		myGameReportSet.addGameReport(gameReport);
 	}
 
 	/**
@@ -50,6 +59,10 @@ public class WallTabModel implements IWallModel {
 			myUserId, selectedValue);
 	}
 	
+//	public boolean updateAverageRating(GameReport gameReport, String newRating) {
+//		return myGameReportSet.updateAverageRating(gameReport, newRating);
+//	}
+	
 	/**
 	 * Returns the Model's CommentSet.
 	 */
@@ -57,37 +70,45 @@ public class WallTabModel implements IWallModel {
 		return this.myCommentSet;
 	}
 	
-	public int getNewID() {
+	public GameReportSet getGameReportSet() {
+		return this.myGameReportSet;
+	}
+	
+	public int getNewCommentID() {
 		return this.myCommentSet.currentID;
 	}
 	
+	public int getNewGameReportID() {
+		return this.myGameReportSet.currentID;
+	}
+	
 	public List<Comment> getGameComments(String gameName) {
-		return myCommentSet.getGameComments(gameName);
+		return myCommentSet.getCommentsByField("GameInfo_Title", gameName);
 	}
 	
 	/**
 	 * Returns all Comments related to a game.
-	 * @param userName - user whose comments we are interested in
+	 * @param userId - user whose comments we are interested in
 	 * @return a List of all the comments entered by the specified user
 	 */
-	public List<Comment> getUserComments(String userName) {
-		return myCommentSet.getUserComments(userName);
+	public List<Comment> getUserComments(String userId) {
+		return myCommentSet.getCommentsByField("User_Id", userId);
 	}
 	
-	/**
-	 * Returns the average rating for the specified game.
-	 * @param gameName - game whose rating is needed
-	 * @return average rating for the specified game
-	 */
+//	/**
+//	 * Returns the average rating for the specified game.
+//	 * @param gameName - game whose rating is needed
+//	 * @return average rating for the specified game
+//	 */
+//	public double getAverageRating(String gameName) {
+//		return myCommentSet.getAverageRating(gameName);
+//	}
+	
 	public double getAverageRating(String gameName) {
-		return myCommentSet.getAverageRating(gameName);
-//		double rating = 0;
-//		
-//		List<Comment> gameComments = getGameComments(gameName);
-//		for(Comment comment: gameComments){
-//			rating += Integer.parseInt(comment.getRating());
-//		}
-//		rating /= gameComments.size();
-//		return rating;
+		return myGameReportSet.getAverageRating(gameName);
+	}
+
+	public String getTopRatedGame() {
+		return myGameReportSet.getTopRatedGame();
 	}
 }
