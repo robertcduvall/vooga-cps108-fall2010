@@ -1,5 +1,7 @@
 package arcade.security.util;
 
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 import arcade.security.util.DataHandler;
 
 import java.util.LinkedHashMap;
@@ -46,6 +48,9 @@ public class SignUpHandler {
 		privilegeRow.put("UserName", username);
 		privilegeRow.put("Privileges", "00000");
 		privilegeHandler.insert(privilegeRow);
+		
+		//Add a profile for the user
+		ProfileSet.addProfile(new Profile(id));
 	}
 	
 	
