@@ -59,6 +59,10 @@ public abstract class BasicAd {
 		this.targetURL = targetURL;
 	}
 
+	public BasicAd() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * action when user left clicks on the ads
 	 */

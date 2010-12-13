@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 /**
  * A general related ad that takes in a BasicAd (ImageAd, VideoAd, etc.) and a list of ads.
  * 
@@ -21,12 +23,9 @@ public class RelatedAd extends BasicAd {
 	}
 
 	public RelatedAd(BasicAd ad, List<String> list){
+		super();
 		this.ad = ad;
 		tagList = list;
-	}
-
-	public void render(){
-		ad.render(null);
 	}
 
 	public List<String> getCategories(){
@@ -69,34 +68,47 @@ public class RelatedAd extends BasicAd {
 		ad.update(elapsedTime);
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		ad.mouseClicked(e);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		ad.mouseEntered(e);
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		ad.mouseExited(e);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		ad.mousePressed(e);
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		ad.mouseReleased(e);
-	}
+//	@Override
+//	public void mouseClicked(MouseEvent e) {
+//		ad.mouseClicked(e);
+//	}
+//
+//	@Override
+//	public void mouseEntered(MouseEvent e) {
+//		ad.mouseEntered(e);
+//	}
+//
+//	@Override
+//	public void mouseExited(MouseEvent e) {
+//		ad.mouseExited(e);
+//	}
+//
+//	@Override
+//	public void mousePressed(MouseEvent e) {
+//		ad.mousePressed(e);
+//	}
+//
+//	@Override
+//	public void mouseReleased(MouseEvent e) {
+//		ad.mouseReleased(e);
+//	}
 
 	@Override
 	public void onMouseOver() {
 		ad.onMouseOver();
+	}
+
+	@Override
+	public void render(JPanel p) {
+		// TODO Auto-generated method stub
+		ad.render(p);
+		
+	}
+
+	@Override
+	public void render(JPanel p, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	}
