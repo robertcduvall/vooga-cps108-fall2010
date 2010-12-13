@@ -2,12 +2,13 @@ package arcade.core;
 
 import arcade.core.Tab;
 
-import java.awt.Component;
 import java.awt.*;
 import java.lang.reflect.*;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
@@ -76,7 +77,7 @@ public class Arcade extends JFrame {
 	 * @return initialized Tabbed Pane
 	 */
 	private JTabbedPane createTabs() {
-		JTabbedPane everything = new JTabbedPane();
+		final JTabbedPane everything = new JTabbedPane();
 		// JPanel main = createArcadeView();
 		// everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
@@ -90,6 +91,15 @@ public class Arcade extends JFrame {
 				e.printStackTrace();
 			}
 		}
+		everything.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if(everything.getSelectedComponent() instanceof Tab)
+					((Tab) everything.getSelectedComponent()).refresh();
+				
+			}
+		});
 		return everything;
 	}
 
