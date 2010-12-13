@@ -99,7 +99,7 @@ public class ProfileTab extends Tab implements IViewer{
 			introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setSize(new Dimension(726, 620));
+//			jPanel.setSize(new Dimension(726, 620));
 			jPanel.add(introLabel1, null);
 			jPanel.add(userImageLabel, null);
 			jPanel.add(getUsernameTextField(), null);

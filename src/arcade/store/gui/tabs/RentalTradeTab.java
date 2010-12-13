@@ -83,7 +83,7 @@ public class RentalTradeTab extends Tab implements IViewer{
 			rentalTradeLabel.setText("The Rental / Trade Center");
 			rentalTradePanel = new JPanel();
 			rentalTradePanel.setLayout(null);
-			rentalTradePanel.setSize(new Dimension(596, 548));
+//			rentalTradePanel.setSize(new Dimension(596, 548));
 			rentalTradePanel.add(rentalTradeLabel, null);
 			rentalTradePanel.add(getTypesPanel(), null);
 			rentalTradePanel.add(typeLabel, null);

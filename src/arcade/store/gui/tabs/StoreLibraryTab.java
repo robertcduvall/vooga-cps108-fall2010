@@ -86,7 +86,7 @@ public class StoreLibraryTab extends Tab implements IViewer{
 			rentaltradeLabel.setBounds(new Rectangle(21, 22, 152, 36));
 			cataloguePanel = new JPanel();
 			cataloguePanel.setLayout(null);
-			cataloguePanel.setSize(new Dimension(680, 588));
+//			cataloguePanel.setSize(new Dimension(680, 588));
 			cataloguePanel.add(rentaltradeLabel, null);
 			cataloguePanel.add(typeLabel, null);
 			cataloguePanel.add(getTypePanel(), null);

@@ -1,7 +1,5 @@
 package arcade.store.control;
 
-import java.awt.Component;
-
 import javax.swing.JOptionPane;
 
 import arcade.core.mvc.IController;

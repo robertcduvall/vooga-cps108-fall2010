@@ -98,7 +98,7 @@ public class CheckoutTab extends Tab implements IViewer{
 			checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
 			myCheckOutTab = new JPanel();
 			myCheckOutTab.setLayout(null);
-			myCheckOutTab.setSize(new Dimension(460, 381));
+//			myCheckOutTab.setSize(new Dimension(460, 381));
 			myCheckOutTab.add(checkoutLabel, null);
 			myCheckOutTab.add(getWishlistpanel(), null);
 			myCheckOutTab.add(AvailableCreditjLabel, null);
