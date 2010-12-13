@@ -28,7 +28,7 @@ public class ChatClientConnection extends ClientConnection {
 	/**
 	 * 
 	 * This method only calls "getData" but has a more descriptive 
-	 * and specific name to make code more readable and intuitive.
+	 * and chat-specific name to make code more readable and intuitive.
 	 * 
 	 * @return superclass ClientConnection method getData().
 	 */
