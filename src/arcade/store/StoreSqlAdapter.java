@@ -1,6 +1,7 @@
 package arcade.store;
 
 import arcade.lobby.model.*;
+import arcade.store.items.IItemInfo;
 import arcade.util.database.MySqlAdapter;
 
 import java.sql.*;
@@ -19,6 +20,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 	private static final String usernameField = "Id";
 	private static final String ownedGamesField = "GamesOwned";
 	private static final String userTableName = "StoreAccounts";
+	private static final String purchaseHistoryTable = "PurchaseHistory";
 
 	private static Connection myDBConnection;
 	
@@ -92,6 +94,19 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		String newCartRow = builder.toString();
 		row.put(listField, newCartRow);
 		return super.update(userTableName, usernameField, userId, row);
+	}
+	
+	public boolean updatePurchaseHistory(List<IItemInfo> games, String userId) {
+		for(IItemInfo i : games) {
+			Map<String, String> row = new HashMap<String, String>();
+			row.put("User_Id", userId);
+			row.put("ItemName", i.getTitle());
+		    java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+			row.put("Date", sqlDate.toString());
+			row.put("Price", i.getPrice());
+			super.insert(purchaseHistoryTable, row);
+		}
+		return true;
 	}
 	
 }

@@ -11,10 +11,6 @@ import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
-import arcade.store.gui.pages.ItemHasBeenDroppedView;
-import arcade.store.gui.pages.NoDropSelectedView;
-import arcade.store.gui.pages.SorryYouCantDoThisView;
-import arcade.store.gui.pages.ThankYouForBuyingView;
 import arcade.store.gui.tabs.CheckoutTab;
 import arcade.store.items.IItemInfo;
 
@@ -132,13 +128,13 @@ public class CheckoutController implements IController {
 	public void processBuyCart() {
 		StoreUser user = storeModel.getCurrentUserAccount();
 		double userCreddits = Double.parseDouble(user.getCreddits());
-		ArrayList<String> gamesToBuy = new ArrayList<String>();
+		ArrayList<IItemInfo> gamesToBuy = new ArrayList<IItemInfo>();
 
 		for (String title : user.getCart()) {
 			IItemInfo item = storeModel.getItemInfo(title);
 			double price = Double.parseDouble(item.getPrice());
 			userCreddits -= price;
-			gamesToBuy.add(title);
+			gamesToBuy.add(item);
 		}
 
 		user.addGames(gamesToBuy);
