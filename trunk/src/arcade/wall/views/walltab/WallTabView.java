@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallTabController;
 import arcade.wall.models.Comment;
 import arcade.wall.views.ratings.RadioPanel;
@@ -98,8 +99,8 @@ public class WallTabView extends JPanel {
 			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
 				starString += "*";
 			}
-			displayString += " >> ''" + comment.getCommentString() + "''  " + starString + 
-			" " +  "---" + comment.getUserName() + "\n";           
+			displayString += " >> ''" + comment.getString() + "''  " + starString + 
+			" " +  "---" + ProfileSet.getProfile(Integer.parseInt(comment.getUserId())).getFirstName() + "\n";           
 		}
 		myCommentsArea.setText(displayString);
 	}
