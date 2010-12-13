@@ -3,6 +3,10 @@ package vooga.widget;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import com.golden.gamedev.util.ImageUtil;
 
@@ -28,7 +32,8 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Instance of the game in which the Button exists
 	 */
 	protected Game myGame;
-	protected final static BufferedImage DEFAULT_BUTTON_IMAGE = Resources.getImage("src/vooga/engine/state/defaultMenuButton");
+	protected File imageFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
+	protected static BufferedImage DEFAULT_BUTTON_IMAGE;
 	protected OverlayLabel buttonLabel = null;
 	
 	
@@ -84,6 +89,11 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	public Button (BufferedImage image, double x, double y){
 		super(image, x, y);
 		myGame = Resources.getGame();
+		try{
+			DEFAULT_BUTTON_IMAGE = ImageIO.read(imageFile);}
+		catch(Exception e) {
+			System.out.println("Button.java: "+e.getMessage());	
+		}	
 	}
 	
 
