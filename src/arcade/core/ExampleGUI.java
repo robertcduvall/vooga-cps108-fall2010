@@ -57,6 +57,7 @@ public class ExampleGUI extends Tab {
 
 	public static void setPlayer(String player){
 		playerName = player;
+		mainPanel.setRightComponent(makeRightPanel());
 	}
 	
 	private static void refreshContent() {
