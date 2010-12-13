@@ -17,6 +17,8 @@ import vooga.engine.networking.GameSocket;
  */
 public class VoogaDaemon extends Thread{
 	public int numberOfGames;
+	public int gamePortNumber;
+	public int chatPortNumber;
 	private ServerSocket gamePort;
 	private ServerSocket chatPort;
 	private int numberOfPlayers;
@@ -38,6 +40,8 @@ public class VoogaDaemon extends Thread{
 	public VoogaDaemon(String gameName, int gamePortNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
 		try {
 			this.gameName = gameName;
+			this.gamePortNumber = gamePortNumber;
+			this.chatPortNumber = chatPortNumber;
 			gamePort = new ServerSocket(gamePortNumber);
 			chatPort = new ServerSocket(chatPortNumber);
 			this.numberOfPlayers = numberOfPlayers;

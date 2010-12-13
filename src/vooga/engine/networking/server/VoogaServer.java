@@ -1,5 +1,9 @@
 package vooga.engine.networking.server;
 
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,6 +21,10 @@ import vooga.engine.util.XMLFileParser;
  * @version 1.0
  */
 public class VoogaServer {
+	private static Document xmlDocument;
+	private static Map<String, VoogaDaemon> daemonMap = new HashMap<String, VoogaDaemon>();
+
+	
 
 	/**
 	 * Main method iterates through the list of games in the XML file and runs 
@@ -26,8 +34,13 @@ public class VoogaServer {
 	 * @version 1.0
 	 */
 	public static void main(String args[]) {
-		Document xmlDocument = getXMLDocument("vooga/engine/networking/server/voogaGames.xml");
-		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
+		xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
+		processXML(xmlDocument);
+		System.out.println("Vooga server up and running...");
+	}
+	
+	private static void processXML (Document xmlDoc) {
+		Node gameSection = xmlDoc.getElementsByTagName("Games").item(0);
 		if(gameSection != null){
 			NodeList listOfGames = gameSection.getChildNodes();
 			for(int i = 0; i < listOfGames.getLength(); i++)
@@ -36,15 +49,17 @@ public class VoogaServer {
 				{
 					Element gameElement = (Element) listOfGames.item(i);
 					String name = gameElement.getAttribute("name");
-					int port = Integer.parseInt(gameElement.getAttribute("port"));
+					int port = Integer.parseInt(gameElement.getAttribute("gamePort"));
 					int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
 					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
 					String clientHandler = gameElement.getAttribute("clientHandler");
-					new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler).start();
+					VoogaDaemon daemon = new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler);
+					daemon.start();
+					daemonMap.put(name, daemon);
 				}
 			}
 		}
-		System.out.println("Vooga server up and running...");
+		
 	}
 
 	/**
@@ -56,6 +71,7 @@ public class VoogaServer {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
+	//TODO can we abstract this method to clean up the VoogaServer class? --Cody (lol jk its Devon)
 	private static Document getXMLDocument(String path){
 		XMLDocumentCreator xmlCreator = new XMLFileParser(path);
 		Document xmlDocument = null;
@@ -78,29 +94,9 @@ public class VoogaServer {
 	 * @version 1.0
 	 */
 	public static int getGamePort(String gameName){
-		return getPort(gameName, "port");
+		return getPort(gameName, "gamePort");
 	}
-
-	private static int getPort(String gameName, String portName){
-		Document xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
-		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
-		if(gameSection != null){
-			NodeList listOfGames = gameSection.getChildNodes();
-			for(int i = 0; i < listOfGames.getLength(); i++)
-			{
-				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE)
-				{
-					Element gameElement = (Element) listOfGames.item(i);
-					int port = Integer.parseInt(gameElement.getAttribute(portName));
-					String name = gameElement.getAttribute("name");
-					if(name.equals(gameName))
-						return port;
-				}
-			}
-		}
-		return -1;
-	}
-
+	
 	/**
 	 * Static method to return the port that the chat is run on.
 	 * 
@@ -112,4 +108,20 @@ public class VoogaServer {
 	public static int getChatPort(String gameName){
 		return getPort(gameName, "chatPort");
 	}
+
+	private static int getPort(String gameName, String portName){
+		for (Map.Entry<String, VoogaDaemon> daemon : daemonMap.entrySet()) {
+			int port = -1;
+			//TODO is there a way to use reflection to call these ports? --Devon
+			if (portName.equals("gamePort"))
+				port = daemon.getValue().gamePortNumber;
+			else if (portName.equals("chatPort"))
+				port = daemon.getValue().chatPortNumber;
+			if(daemon.getKey().equals(gameName))
+				return port;
+		}
+		return -1;
+	}
+
+	
 }
