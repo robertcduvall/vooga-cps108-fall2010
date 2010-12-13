@@ -1,6 +1,8 @@
 package arcade.store.gui.pages;
 
 import javax.swing.JPanel;
+
+import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import javax.swing.JButton;
@@ -102,6 +104,7 @@ public class GamePurchaseView implements IViewer{
 	{
 		if(gameImageLabel == null) {
 			gameImageLabel = new JLabel();
+
 		}
 		return gameImageLabel;
 	}

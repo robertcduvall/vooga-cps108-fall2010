@@ -1,5 +1,7 @@
 package arcade.store.control;
 
+import java.awt.Component;
+
 import javax.swing.JOptionPane;
 
 import arcade.core.mvc.IController;
@@ -32,6 +34,7 @@ public class PurchaseItemController implements IController {
 		view.getTitleTextField().setText(item.getTitle());
 		view.getPriceTextField().setText(item.getPrice());
 		view.getGameIcon().setIcon((item.getImages().get(IItemInfo.COVER_IMAGE)));
+		view.getGameIcon().setSize(150, 150);
 	}
 
 	@Override
