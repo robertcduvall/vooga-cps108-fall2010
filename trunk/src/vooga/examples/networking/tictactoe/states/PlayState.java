@@ -16,6 +16,7 @@ import vooga.examples.networking.tictactoe.events.GameLostEvent;
 import vooga.examples.networking.tictactoe.events.GameTiedEvent;
 import vooga.examples.networking.tictactoe.events.GameWonEvent;
 import vooga.engine.networking.client.ClientConnection;
+import vooga.engine.networking.client.GameClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.control.*;
@@ -48,7 +49,7 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public PlayState(Game game, LevelManager levelManager, ClientConnection connection){
+	public PlayState(Game game, LevelManager levelManager, GameClientConnection connection){
 		super(connection);
 		this.game = game;
 		this.levelManager = levelManager;
@@ -151,7 +152,7 @@ public class PlayState extends GameState{
 			int col = pieceX / Resources.getInt("squareDimension");
 			int row = pieceY / Resources.getInt("squareDimension");
 			myTurn = false;
-			connection.sendData(new Move(row, col));
+			connection.sendSerializable(new Move(row, col));
 		}
 	}
 

@@ -8,6 +8,7 @@ import vooga.engine.core.Game;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ClientConnection;
+import vooga.engine.networking.client.GameClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.examples.networking.zombies.gamestates.CreditMenu;
 import vooga.examples.networking.zombies.gamestates.EndGameState;
@@ -49,7 +50,7 @@ public class Blah extends Game implements Constants {
 
 		super.initResources();
 		try {
-			connection = new ClientConnection("Zombies");
+			connection = new GameClientConnection("Zombies");
 		} 
 		catch (Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());
