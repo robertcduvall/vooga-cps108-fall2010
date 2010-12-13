@@ -39,7 +39,6 @@ public class WallTabReviewButtonGroup {
 		} else {
 			myController.addComment(submittedComment);
 		}
-		//myController.updateCommentsArea(selectedGameName);
 		myController.updateComments(selectedGameName);
 		myTextField.setText("");
 	}

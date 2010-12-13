@@ -28,6 +28,7 @@ public class WallTabView extends JPanel {
 	private WallTabController myController;
 	private JPanel myPanel;
 	private RadioPanel myRatingPanel;
+	private JTextArea myCommentsArea;
 	private JPanel commentsPanel;
 	public static final String[] myGameChoices = formGameList();
 
@@ -79,13 +80,14 @@ public class WallTabView extends JPanel {
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		returnPanel.add(entryPanel);
 		returnPanel.add(displayPanel);
+		myCommentsArea = new JTextArea();
+		commentsPanel.add(myCommentsArea);
+		commentsPanel.setLayout(new BoxLayout(commentsPanel,BoxLayout.Y_AXIS));
 		displayPanel.add(commentsPanel);
 		return returnPanel;
 	}
 	
 	public void updateCommentsPanel(List<Comment> gameComments){
-		BoxLayout layout = new BoxLayout(commentsPanel,BoxLayout.Y_AXIS);
-		JTextArea commentsArea = new JTextArea();
 		String displayString = "";
 		for(Comment comment: gameComments){  
 			String starString = "";
@@ -97,9 +99,7 @@ public class WallTabView extends JPanel {
 			displayString += " >> ''" + comment.getCommentString() + "''  " + starString + 
 			" " +  "---" + comment.getUserName() + "\n";           
 		}
-		commentsArea.setText(displayString);
-		commentsPanel.add(commentsArea);
-		commentsPanel.setLayout(layout);
+		myCommentsArea.setText(displayString);
 	}
 
 	private static String[] formGameList() {
