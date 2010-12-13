@@ -3,6 +3,7 @@ package arcade.security.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -38,6 +39,8 @@ public class SignUpPanel extends JPanel implements IView{
 	private SecurityButton submitButton;
 	private JLabel usernameReminder;
 	private JLabel passwordReminder;
+	private JLabel passwordSuggestions;
+	
 
 	private int maxPasswordLength = 10;
 	private int maxUserNameLength = 10;
@@ -71,7 +74,9 @@ public class SignUpPanel extends JPanel implements IView{
 
 		JLabel usernameReminder = new JLabel("Username Does not Exist");
 		JLabel passwordReminder = new JLabel("Password is not valid");
-
+		
+		passwordSuggestions = new JLabel();
+		
 		usernameField=new JTextField(maxUserNameLength);	
 		questionField = new JTextField(maxAnswerLength);
 		passwordField=new JPasswordField(maxPasswordLength);
@@ -89,6 +94,14 @@ public class SignUpPanel extends JPanel implements IView{
 		questionChoices = new JComboBox(q);
 		questionChoices.setSelectedIndex(START_INDEX);
 		addContents();
+	}
+	
+	public void setPasswordSuggestions(String suggestions){
+		passwordSuggestions.setText(suggestions);
+	}
+	
+	public void addPasswordListener(KeyListener listener){
+		passwordField.addKeyListener(listener);
 	}
 
 	public void addSubmitButtonListener(ActionListener listener){
@@ -130,6 +143,7 @@ public class SignUpPanel extends JPanel implements IView{
 
 		add(usernameField,"cell 1 1,wrap");
 		add(passwordField,"cell 1 2,wrap");
+		add(passwordSuggestions,"cell 2 2");
 		add(passwordFieldRep,"cell 1 3,wrap");
 		add(submitButton, "cell 1 5, wrap");
 		add(LoginPageButton,"cell 0 5");
