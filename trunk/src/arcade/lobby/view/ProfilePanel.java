@@ -1,9 +1,17 @@
 package arcade.lobby.view;
 
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ResourceBundle;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -15,21 +23,27 @@ import arcade.lobby.model.ProfileSet;
 
 @SuppressWarnings("serial")
 public class ProfilePanel extends Tab {
-	public JPanel myEditPanel;
-	public JPanel myViewPanel;
-	private boolean editMode;
+	public ProfileEditPanel myEditPanel;
+	public ProfileViewPanel myViewPanel;
+	private boolean editMode = false;
 	private JPanel myLeftSidebar;
 	private JPanel myMainPanel;
 	private JPanel myRightSidebar;
 	private ResourceBundle resources;
+	private Profile myProfile;
+	private JButton myEditButton;
 
 	public ProfilePanel() {
 		super();
-		setLayout(new MigLayout());
-		Profile profile = ProfileSet.currentProfile;
+		setLayout(new MigLayout("fill"));
+		myProfile = ProfileSet.currentProfile;
+		
+		// Just so that there is some profile set.
+		if(myProfile == null)
+			myProfile = ProfileSet.getProfile(1);
+		
 		setToolTipText("Click here to see your user info");
 		setName("Profile");
-		myEditPanel = new ProfileEditPanel(profile);
 		resources = ResourceBundle.getBundle("arcade.lobby.view.sidebars");
 		initialize();
 	}
@@ -38,27 +52,61 @@ public class ProfilePanel extends Tab {
 		myLeftSidebar = createSidebar("left");
 		myViewPanel = createViewPanel();
 		myEditPanel = createEditPanel();
-		refreshMainPanel();
 		myRightSidebar = createSidebar("right");
-		add(myLeftSidebar,"cell 0 0");
-		add(myMainPanel,"cell 1 0");
-		add(myRightSidebar,"cell 2 0");
+		myEditButton = createEditButton();
+		myMainPanel = new JPanel();
+		myMainPanel.setLayout(new BoxLayout(myMainPanel, BoxLayout.Y_AXIS));
+		
+		refreshContent();
+		
+		add(myLeftSidebar,"ax l");
+		add(myMainPanel);
+		add(myRightSidebar,"ax r");
+		add(myEditButton,"cell 1 1");
+		
+		
+		JButton refreshButton = new JButton("refresh");
+		refreshButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				refresh();
+			}
+		});
+		add(refreshButton,"cell 1 2");
+		
 	}
 
-	private JPanel createEditPanel() {
-		return new JPanel();
+	private JButton createEditButton() {
+		JButton button = new JButton();
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editMode = !editMode;
+				refresh();
+			}
+		});
+		return button;
 	}
 
-	private JPanel createViewPanel() {
-		return new JPanel();
+	private ProfileEditPanel createEditPanel() {
+		return new ProfileEditPanel(myProfile);
 	}
 
-	private void refreshMainPanel() {
-		myMainPanel = editMode ? myEditPanel : myViewPanel;
+	private ProfileViewPanel createViewPanel() {
+		return new ProfileViewPanel(myProfile);
+	}
+
+	private void refreshContent() {
+		myEditButton.setText(editMode ? "View Profile" : "Edit Profile");
+		myMainPanel.removeAll();
+		myMainPanel.add(editMode ? myEditPanel : myViewPanel);
 	}
 
 	private JPanel createSidebar(String name) {
 		JPanel sidebar = new JPanel();
+		sidebar.setVisible(true);
 		sidebar.setLayout(new MigLayout());
 		String panelClassString = resources.getString(name);
 		String[] panelClasses = panelClassString.split(",");
@@ -70,7 +118,7 @@ public class ProfilePanel extends Tab {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			sidebar.add(newPanel, "cell 0 "+j);
+			sidebar.add(newPanel,"cell 0 "+j);
 		}
 		return sidebar;
 	}
@@ -78,6 +126,21 @@ public class ProfilePanel extends Tab {
 	@Override
 	public JComponent getContent() {
 		return this;
+	}
+	
+	@Override
+	public void refresh() {
+		super.refresh();
+//		To test with no current profile by switching between users 1 and 2:
+//		myProfile = ProfileSet.getProfile((myProfile.getUserId())%2+1);
+		
+		myProfile = ProfileSet.currentProfile;
+		myViewPanel.refresh(myProfile);
+		myEditPanel.refresh(myProfile);
+		editMode = !editMode;
+		refreshContent();
+		editMode = !editMode;
+		refreshContent();
 	}
 
 } // @jve:decl-index=0:visual-constraint="-4,26"
