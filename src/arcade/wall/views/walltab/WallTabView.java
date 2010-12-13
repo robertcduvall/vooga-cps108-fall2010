@@ -38,6 +38,7 @@ public class WallTabView extends JPanel {
 	private JLabel myCommentsLabel;
 	private JLabel myAverageRatingLabel;
 	private JTextField myCommentEntryField;
+	private JLabel myTopRatedGamesLabel;
 	
 	public static final String[] myGameChoices = formGameList();
 
@@ -69,6 +70,8 @@ public class WallTabView extends JPanel {
 		myAverageRatingLabel = new JLabel("Average Rating for " + selectedGame + ": "+ 
 				myController.getRating(selectedGame));
 		myCommentsArea = new JTextArea();
+		myTopRatedGamesLabel = new JLabel();
+		updateTopRatedGamesLabel();
 		
 		entryPanel.add(myGameComboBox);
 		entryPanel.add(myCommentEntryField);
@@ -78,6 +81,7 @@ public class WallTabView extends JPanel {
 		displayPanel.add(myAverageRatingLabel);
 		displayPanel.add(myCommentsLabel);
 		displayPanel.add(myCommentsArea);
+		displayPanel.add(myTopRatedGamesLabel);
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 
 		returnPanel.setLayout(new GridLayout(2,2,5,5));
@@ -87,6 +91,10 @@ public class WallTabView extends JPanel {
 		return returnPanel;
 	}
 	
+	public void updateTopRatedGamesLabel() {
+		myTopRatedGamesLabel.setText("Top Rated Game: " + myController.getTopRatedGame());
+	}
+
 	/**
 	 * Refreshes the CommentsArea to display the comments for the selected game.
 	 */

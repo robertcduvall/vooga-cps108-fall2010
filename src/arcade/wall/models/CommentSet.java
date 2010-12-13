@@ -100,22 +100,22 @@ public class CommentSet { //implements Iterable<Comment> {
 		return myDbAdapter.update(myTable, conditions, row);
 	}
 
-	/**
-	 * Returns a Comment constructed from a row of the database.
-	 * @param rowNo
-	 * 		The row number
-	 */
-	public Comment getComment(int rowNo) {
-		//TODO this is not how we should be doing this - it looks like the database is continually opening
-		//a connection then closing it
-		//TODO Use SELECT * FROM `Comments` LIMIT 5 to select the first five comments, or you can just use 
-		//SELECT *. You should be getting all the comments with one query. You should only use this method
-		//When you need to see a specific comment made by a user
-		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "Id", ""+rowNo);
-		Map<String, String> row = rows.get(0);
-		return new Comment(row.get("Id"), row.get("GameInfo_Title"), row.get("User_Id"), 
-				row.get("String"), row.get("Rating"));
-	}
+//	/**
+//	 * Returns a Comment constructed from a row of the database.
+//	 * @param rowNo
+//	 * 		The row number
+//	 */
+//	public Comment getComment(int rowNo) {
+//		//TODO this is not how we should be doing this - it looks like the database is continually opening
+//		//a connection then closing it
+//		//TODO Use SELECT * FROM `Comments` LIMIT 5 to select the first five comments, or you can just use 
+//		//SELECT *. You should be getting all the comments with one query. You should only use this method
+//		//When you need to see a specific comment made by a user
+//		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "Id", ""+rowNo);
+//		Map<String, String> row = rows.get(0);
+//		return new Comment(row.get("Id"), row.get("GameInfo_Title"), row.get("User_Id"), 
+//				row.get("String"), row.get("Rating"));
+//	}
 
 	/**
 	 * Determines whether the given comment is in conflict with one already existing in this CommentSet.
@@ -130,41 +130,24 @@ public class CommentSet { //implements Iterable<Comment> {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Returns all Comments related to a game.
-	 * @param gameName - game for which we want the comments
-	 * @return a List of all the comments for the specified game
+	 * Returns all Comments whose values match the given parameters.
+	 * @param fieldName - the field name to be considered
+	 * @param value - the value to match
+	 * @return a List of all the comments that match
 	 */
-	public List<Comment> getGameComments(String gameName) {
-		List<Comment> gameComments = new ArrayList<Comment>();
-		for (Map<String, String> row : myDbAdapter.getRows(myTable, "GameInfo_Title", gameName)) {
-			gameComments.add(new Comment(	   row.get("Id"), 
+	public List<Comment> getCommentsByField(String fieldName, String value) {
+		List<Comment> returnComments = new ArrayList<Comment>();
+		for (Map<String, String> row: myDbAdapter.getRows(myTable, fieldName, value)) {
+			returnComments.add(new Comment( row.get("Id"),
 					row.get("GameInfo_Title"),
 					row.get("User_Id"),
 					row.get("String"),
 					row.get("Rating")
-			));
+					));
 		}
-		return gameComments;
-	}
-
-	/**
-	 * Returns all Comments related to a game.
-	 * @param userName - user whose comments we are interested in
-	 * @return a List of all the comments entered by the specified user
-	 */
-	public List<Comment> getUserComments(String userName) {
-		List<Comment> gameComments = new ArrayList<Comment>();
-		for (Map<String, String> row : myDbAdapter.getRows(myTable, "User_Name", userName)) {
-			gameComments.add(new Comment(	   row.get("Id"), 
-					row.get("GameInfo_Title"),
-					row.get("User_Id"),
-					row.get("String"),
-					row.get("Rating")
-			));
-		}
-		return gameComments;
+		return returnComments;
 	}
 
 	/**
@@ -173,7 +156,7 @@ public class CommentSet { //implements Iterable<Comment> {
 	 */
 	public double getAverageRating(String gameName) {
 		double averageRating = 0;
-		List<Comment> gameComments = getGameComments(gameName);
+		List<Comment> gameComments = getCommentsByField("GameInfo_Title", gameName);
 		List<String> userIds = new ArrayList<String>();
 		for(Comment comment: gameComments){
 			if (!userIds.contains(comment.getUserId())) {
@@ -184,32 +167,4 @@ public class CommentSet { //implements Iterable<Comment> {
 		averageRating /= userIds.size();
 		return averageRating;
 	}
-
-	//	@Override
-	//	public Iterator<Comment> iterator() {
-	//		return new Iterator<Comment>() {
-	//
-	//			int mySize = size();
-	//			int myLoc = 0;
-	//
-	//			@Override
-	//			public boolean hasNext() {
-	//				return myLoc < mySize;
-	//			}
-	//
-	//			@Override
-	//			public Comment next() {
-	//				return getComment(myLoc++);
-	//			}
-	//
-	//			@Override
-	//			/**
-	//			 * This method will not be implemented
-	//			 */
-	//			public void remove() {
-	//				throw (new UnsupportedOperationException());
-	//			}
-	//
-	//		};
-	//	}
 }

@@ -76,21 +76,26 @@ public class WallTabController {
         public void actionPerformed(ActionEvent e) {
         	String selectedGameName = view.getSelectedGame();
         	//TODO change to make use of ProfileSet.currentProfile
-    		Comment submittedComment = new Comment(""+model.getNewID(), selectedGameName, "2", 
+    		Comment submittedComment = new Comment(""+model.getNewCommentID(), selectedGameName, "2", 
     											   view.getEntryText(), view.getSelectedRating());
     		//TODO is this the way we actually want to determine if a Comment is valid or not?
     		if (model.commentIsConflicting(submittedComment)) {
     			if (showCommentDialog() == JOptionPane.YES_OPTION) { //Only add if user says Yes
-    				model.addComment(submittedComment);
     				//Update all comment ratings with the GameName and UserName in question.
     				model.updateCommentRatings(selectedGameName, "2", view.getSelectedRating());
+    				model.addComment(submittedComment);
     			}
     		} else {
     			model.addComment(submittedComment);
     		}
     		view.setAverageRatingLabel("Average Rating for " + selectedGameName + ":"+getRating(selectedGameName));
     		refreshComments(selectedGameName);
+    		view.updateTopRatedGamesLabel();
     		view.setEntryText("");
         }
     }
+
+	public String getTopRatedGame() {
+		return model.getTopRatedGame();
+	}
 }
