@@ -1,22 +1,15 @@
 package arcade.lobby.view;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import arcade.core.Tab;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
@@ -37,11 +30,11 @@ public class ProfilePanel extends Tab {
 		super();
 		setLayout(new MigLayout("fill"));
 		myProfile = ProfileSet.currentProfile;
-		
+
 		// Just so that there is some profile set.
-		if(myProfile == null)
+		if (myProfile == null)
 			myProfile = ProfileSet.getProfile(1);
-		
+
 		setToolTipText("Click here to see your user info");
 		setName("Profile");
 		resources = ResourceBundle.getBundle("arcade.lobby.view.sidebars");
@@ -56,35 +49,23 @@ public class ProfilePanel extends Tab {
 		myEditButton = createEditButton();
 		myMainPanel = new JPanel();
 		myMainPanel.setLayout(new BoxLayout(myMainPanel, BoxLayout.Y_AXIS));
-		
+
 		refreshContent();
-		
-		add(myLeftSidebar,"ax l");
+
+		add(myLeftSidebar, "ax l");
 		add(myMainPanel);
-		add(myRightSidebar,"ax r");
-		add(myEditButton,"cell 1 1");
-		
-		
-		JButton refreshButton = new JButton("refresh");
-		refreshButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				refresh();
-			}
-		});
-		add(refreshButton,"cell 1 2");
-		
+		add(myRightSidebar, "ax r");
+		add(myEditButton, "cell 1 1");
 	}
 
 	private JButton createEditButton() {
 		JButton button = new JButton();
 		button.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editMode = !editMode;
-				refresh();
+				reload();
 			}
 		});
 		return button;
@@ -118,7 +99,7 @@ public class ProfilePanel extends Tab {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			sidebar.add(newPanel,"cell 0 "+j);
+			sidebar.add(newPanel, "cell 0 " + j);
 		}
 		return sidebar;
 	}
@@ -127,13 +108,17 @@ public class ProfilePanel extends Tab {
 	public JComponent getContent() {
 		return this;
 	}
-	
+
 	@Override
 	public void refresh() {
 		super.refresh();
-//		To test with no current profile by switching between users 1 and 2:
-//		myProfile = ProfileSet.getProfile((myProfile.getUserId())%2+1);
-		
+		editMode = false;
+		reload();
+	}
+	
+	private void reload() {
+		// To test with no current profile by switching between users 1 and 2:
+		// myProfile = ProfileSet.getProfile((myProfile.getUserId())%2+1);
 		myProfile = ProfileSet.currentProfile;
 		myViewPanel.refresh(myProfile);
 		myEditPanel.refresh(myProfile);

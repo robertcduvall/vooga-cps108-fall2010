@@ -12,6 +12,7 @@ public class EmailValidatingField extends ValidatingComponent<JTextField> {
 
 	@Override
 	public boolean validate() {
+		if(getComponent().getText().isEmpty()) return true;
 		return Pattern.matches(
 				"^[A-Za-z0-9\\.]+[^\\.]@([A-Za-z0-9]+\\.)+[A-Za-z]{2,6}$",
 				getComponent().getText());

@@ -10,7 +10,7 @@ public class NameValidatingField extends ValidatingComponent<JTextField> {
 
 	@Override
 	public boolean validate() {
-		return getComponent().getText().length()>0;
+		return getComponent().getText().matches("^[A-Za-z]*$");
 	}
 
 }

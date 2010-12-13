@@ -26,24 +26,18 @@ import arcade.lobby.viewComponents.ValidatingComponent;
 import arcade.lobby.viewComponents.ValidatorDock;
 
 @SuppressWarnings("serial")
-public class ProfileEditPanel extends JPanel {
+public class ProfileCreatePanel extends JPanel {
 	private static final int FIELD_COLUMNS = 20;
 	private static final int AVATAR_WIDTH = 100;
 	private static final String AVATAR_DEFAULT = "http://imgur.com/29J5j.png";
-	private Profile myProfile;
 	private Map<String, JTextField> myFields;
-	private JButton mySaveButton;
+	private JButton myCreateButton;
 	private ValidatorDock myDock;
 	private Map<String, ValidatingComponent<JTextField>> myValidatingComponents;
 
-	public ProfileEditPanel() {
-		this(ProfileSet.currentProfile);
-		// this(null);
-	}
 
-	public ProfileEditPanel(Profile profile) {
+	public ProfileCreatePanel() {
 		super();
-		myProfile = profile;
 		myFields = new HashMap<String, JTextField>();
 		initialize();
 	}
@@ -52,51 +46,45 @@ public class ProfileEditPanel extends JPanel {
 		setLayout(new MigLayout());
 		myDock = new ValidatorDock();
 
-		JLabel avatar = new JLabel("");
-		try {
-			String avatarPath = myProfile == null
-					|| myProfile.getAvatar().isEmpty()
-					|| myProfile.getAvatar() == null ? AVATAR_DEFAULT
-					: myProfile.getAvatar();
-			ImageIcon icon = new ImageIcon(ImageIO.read(new URL(avatarPath)));
-			scaleImage(icon);
-			avatar = new JLabel(icon);
-		} catch (Exception e) {
-			// Do nothing if avatar cannot be displayed.
-		}
+//		JLabel avatar = new JLabel("");
+//		try {
+//			String avatarPath = myProfile == null
+//					|| myProfile.getAvatar().equals("") ? AVATAR_DEFAULT
+//					: myProfile.getAvatar();
+//			ImageIcon icon = new ImageIcon(ImageIO.read(new URL(avatarPath)));
+//			scaleImage(icon);
+//			avatar = new JLabel(icon);
+//		} catch (Exception e) {
+//			// Do nothing if avatar cannot be displayed.
+//		}
+//
+//		add(avatar);
 
-		add(avatar);
-
-		addTextField("WebImageValidatingField", "Avatar",
-				myProfile == null ? "" : myProfile.getAvatar());
-		addTextField("NameValidatingField", "First Name",
-				myProfile == null ? "" : myProfile.getFirstName());
-		addTextField("NameValidatingField", "Last Name", myProfile == null ? ""
-				: myProfile.getLastName());
-		addTextField("EmailValidatingField", "Email", myProfile == null ? ""
-				: myProfile.getEmail());
-		addTextField("DateValidatingField", "Birthday", myProfile == null ? ""
-				: myProfile.getBirthday());
+		addTextField("WebImageValidatingField", "Avatar");
+		addTextField("NameValidatingField", "First Name");
+		addTextField("NameValidatingField", "Last Name");
+		addTextField("EmailValidatingField", "Email");
+		addTextField("DateValidatingField", "Birthday");
 
 		add(myDock, "wrap");
-		add(getSaveButton(), "dock south");
+		add(getCreateButton(), "dock south");
 	}
 
-	private void scaleImage(ImageIcon icon) {
-		Image image = icon.getImage();
-		icon.setImage(image.getScaledInstance(AVATAR_WIDTH,
-				AVATAR_WIDTH * icon.getIconHeight() / icon.getIconWidth(), 0));
-	}
+//	private void scaleImage(ImageIcon icon) {
+//		Image image = icon.getImage();
+//		icon.setImage(image.getScaledInstance(AVATAR_WIDTH,
+//				AVATAR_WIDTH * icon.getIconHeight() / icon.getIconWidth(), 0));
+//	}
 
 	@SuppressWarnings("unchecked")
-	private void addTextField(String className, String name, String text) {
+	private void addTextField(String className, String name) {
 		ValidatingComponent<JTextField> vc;
 		Class<?>[] paramList = { JTextField.class, String.class };
 		try {
 			String fullClass = "arcade.lobby.viewComponents." + className;
 			Constructor<ValidatingComponent<JTextField>> cons = (Constructor<ValidatingComponent<JTextField>>) Class
 					.forName(fullClass).getConstructor(paramList);
-			JTextField textField = getTextField(text);
+			JTextField textField = getTextField();
 			myFields.put(name, textField);
 			vc = cons.newInstance(textField, name);
 			myDock.addValidatingComponent(vc, name, null, "wrap");
@@ -117,35 +105,37 @@ public class ProfileEditPanel extends JPanel {
 		}
 	}
 
-	private JTextField getTextField(String text) {
-		JTextField textField = new JTextField(text);
+	private JTextField getTextField() {
+		JTextField textField = new JTextField();
 		textField.setColumns(FIELD_COLUMNS);
 		textField.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mySaveButton.doClick();
+				myCreateButton.doClick();
 			}
 		});
 
 		return textField;
 	}
 
-	private JButton getSaveButton() {
-		mySaveButton = new JButton("Save");
-		mySaveButton.addActionListener(new ActionListener() {
+	private JButton getCreateButton() {
+		myCreateButton = new JButton("Create");
+		myCreateButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				if (validate()) {
-					myProfile.setName(myFields.get("First Name").getText(),
+					Profile profile = ProfileSet.currentProfile;
+					profile.setName(myFields.get("First Name").getText(),
 							myFields.get("Last Name").getText());
-					myProfile.setEmail(myFields.get("Email").getText());
-					myProfile.setBirthday(myFields.get("Birthday").getText());
-					myProfile.setAvatar(myFields.get("Avatar").getText());
-					ProfileSet.updateProfile(myProfile);
+					profile.setEmail(myFields.get("Email").getText());
+					profile.setBirthday(myFields.get("Birthday").getText());
+					profile.setAvatar(myFields.get("Avatar").getText());
+					ProfileSet.updateProfile(profile);
+					JOptionPane.showMessageDialog(myDock,"Thank you for registering!");
 				}
-				refresh(myProfile);
+//				refresh(myProfile);
 			}
 
 			private boolean validate() {
@@ -170,11 +160,11 @@ public class ProfileEditPanel extends JPanel {
 			}
 
 		});
-		return mySaveButton;
+		return myCreateButton;
 	}
 
 	public void refresh(Profile newProfile) {
-		myProfile = newProfile;
+//		myProfile = newProfile;
 		removeAll();
 		initialize();
 		revalidate();

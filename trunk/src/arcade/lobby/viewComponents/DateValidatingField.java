@@ -17,6 +17,9 @@ public class DateValidatingField extends ValidatingComponent<JTextField> {
 	@Override
 	public boolean validate() {
 		String date = getComponent().getText();
+		
+		if(date.isEmpty()) return true;
+		
 		// set date format, this can be changed to whatever format
 		// you want, MM-dd-yyyy, MM.dd.yyyy, dd.MM.yyyy etc.
 		// you can read more about it here:

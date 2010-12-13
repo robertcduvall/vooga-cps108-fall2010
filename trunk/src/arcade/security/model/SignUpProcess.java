@@ -17,7 +17,7 @@ public class SignUpProcess implements IModel{
 		return SignUpHandler.isValidUserName(username);
 	}
 	
-	public void createNewUser(String username,char[] password,int questionIndex,String questionAnwser){
-		SignUpHandler.createNewUser(username,password,questionIndex,questionAnwser);
+	public int createNewUser(String username,char[] password,int questionIndex,String questionAnwser){
+		return SignUpHandler.createNewUser(username,password,questionIndex,questionAnwser);
 	}
 }

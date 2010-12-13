@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-
-import arcade.core.Arcade;
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
+import arcade.lobby.view.ProfileCreatePanel;
 import arcade.security.model.IModel;
-import arcade.security.model.LoginProcess;
 import arcade.security.model.SignUpProcess;
 import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
@@ -32,7 +32,7 @@ public class SignUpPanelControl implements IControl {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				switchToLogInPage();
+				switchToLoginPage();
 			}
 
 		});
@@ -42,7 +42,7 @@ public class SignUpPanelControl implements IControl {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			// Security Information
 			char[] pwd_1 = view.getPasswordUserInput();
 			char[] pwd_2 = view.getRepPasswordUserInput();
 			String username = view.getUserNameUserInput();
@@ -59,12 +59,14 @@ public class SignUpPanelControl implements IControl {
 
 			model.createNewUser(username,pwd_1,questionIndex,questionAnswer);
 			log.info(username+" User has been created.");
-			switchToLogInPage();
+			
+			switchToLoginPage();
+
 		}
 
 	}
 
-	public void switchToLogInPage(){
+	public void switchToLoginPage(){
 		view.removeAll();
 		view.updateUI();
 		LogInPanel jp = new LogInPanel();

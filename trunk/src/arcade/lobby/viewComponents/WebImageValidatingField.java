@@ -15,6 +15,7 @@ public class WebImageValidatingField extends ValidatingComponent<JTextField> {
 
 	@Override
 	public boolean validate() {
+		if(getComponent().getText().isEmpty()) return true;
 		try {
 			new ImageIcon(ImageIO.read(new URL(getComponent().getText())));
 		} catch (Exception e) {
