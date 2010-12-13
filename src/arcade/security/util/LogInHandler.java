@@ -12,7 +12,6 @@ public class LogInHandler {
 		if(isPasswordValid(userId, password)){
 			ProfileSet.setUser(userId);
 			ProfileSet.currentProfile.setUserName(username);
-			ProfilePanel.setProfile(ProfileSet.currentProfile);
 			return true;
 		}
 		return false;
