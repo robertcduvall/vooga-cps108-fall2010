@@ -29,7 +29,7 @@ public class CommentSet implements Iterable<Comment> {
 	 * Returns the size of the CommentSet (number of rows).
 	 */
 	public int size() {
-		List<String> col = myDbAdapter.getColumn(myTable, "User_Name");
+		List<String> col = myDbAdapter.getColumn(myTable, "Comment_Id");
 		return col.size();
 	}
 
@@ -78,7 +78,7 @@ public class CommentSet implements Iterable<Comment> {
 	 * 		The row number
 	 */
 	public Comment getComment(int rowNo) {
-//		//TODO this is not how we should be doing this - it looks like the database is contiually opening
+		//TODO this is not how we should be doing this - it looks like the database is continually opening
 		//a connection then closing it
 		//TODO Use SELECT * FROM `Comments` LIMIT 5 to select the first five comments, or you can just use 
 		//SELECT *. You should be getting all the comments with one query. You should only use this method
