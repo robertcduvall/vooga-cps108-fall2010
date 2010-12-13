@@ -28,8 +28,8 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Instance of the game in which the Button exists
 	 */
 	protected Game myGame;
-	protected final static BufferedImage DEFAULT_BUTTON_IMAGE = Resources.getImage("defaultMenuButton");
-	protected OverlayLabel buttonLabel;
+	protected final static BufferedImage DEFAULT_BUTTON_IMAGE = Resources.getImage("src/vooga/engine/state/defaultMenuButton");
+	protected OverlayLabel buttonLabel = null;
 	
 	
 	/**
@@ -132,6 +132,7 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
-		buttonLabel.render(g);
+		if(!(buttonLabel==null))
+			buttonLabel.render(g);
 	}
 }
