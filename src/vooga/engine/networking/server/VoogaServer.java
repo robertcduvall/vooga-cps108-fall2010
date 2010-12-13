@@ -22,7 +22,7 @@ import vooga.engine.util.XMLFileParser;
  */
 public class VoogaServer {
 	private static Document xmlDocument;
-	private static Map<String, VoogaDaemon> daemonMap = new HashMap<String, VoogaDaemon>();
+	public static Map<String, VoogaDaemon> daemonMap = new HashMap<String, VoogaDaemon>();
 
 	
 
@@ -49,14 +49,16 @@ public class VoogaServer {
 				{
 					Element gameElement = (Element) listOfGames.item(i);
 					String name = gameElement.getAttribute("name");
-					int gamePort = Integer.parseInt(gameElement.getAttribute("gamePort"));
+					int port = Integer.parseInt(gameElement.getAttribute("port"));
 					int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
-					System.out.println("voogaServer: "+gamePort+" "+chatPort);
+					System.out.println("voogaServer/procXML: "+port+" "+chatPort);
 					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
 					String clientHandler = gameElement.getAttribute("clientHandler");
-					VoogaDaemon daemon = new VoogaDaemon(name, gamePort, chatPort, numberOfPlayers, clientHandler);
+					System.out.println("voogaServer/processXML: name: "+name+" port: "+port+" chatPort: "+chatPort);
+					VoogaDaemon daemon = new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler);
 					daemon.start();
 					daemonMap.put(name, daemon);
+					System.out.println("VoogaServer: Put into daemon : "+name +" "+daemonMap.get(name)+" "+daemonMap.get("TicTacToe"));
 				}
 			}
 		}
@@ -95,7 +97,7 @@ public class VoogaServer {
 	 * @version 1.0
 	 */
 	public static int getGamePort(String gameName){
-		return getPort(gameName, "gamePort");
+		return getPort(gameName, "port");
 	}
 	
 	/**
@@ -111,18 +113,26 @@ public class VoogaServer {
 	}
 
 	private static int getPort(String gameName, String portName){
-		for (Map.Entry<String, VoogaDaemon> daemon : daemonMap.entrySet()) {
-			int port = -1;
+		/*for (Map.Entry<String, VoogaDaemon> daemon : daemonMap.entrySet()) {*/
+			int port = -2;
+			System.out.println("VoogaServer: "+portName +" gameName: "+gameName);
 			//TODO is there a way to use reflection to call these ports? --Devon
-			if (portName.equals("gamePort"))
-				port = daemon.getValue().gamePortNumber;
-			else if (portName.equals("chatPort"))
-				port = daemon.getValue().chatPortNumber;
-			if(daemon.getKey().equals(gameName))
-				return port;
-		}
-		return -1;
+			if (portName.equals("gamePort")) {
+				System.out.println("VoogaSEERVER:  gamePort "+daemonMap.get("TicTacToe").portNumber);
+				return port = daemonMap.get("TicTacToe").portNumber; //TODO WHAT THE FUCK
+			}
+			else if (portName.equals("chatPort")){
+				System.out.println("just hecking  VoggaServer 125 "+daemonMap.get("TicTacToe"));
+				System.out.println("VoogaSEERVER:  gamePort "+daemonMap.get("TicTacToe").chatPortNumber);
+				return port = daemonMap.get(gameName).chatPortNumber;
+			}
+			else {
+				System.out.println("VoogaSEERVER:  name didnt match");
+				return -3;
+			}
 	}
+	
+
 
 	
 }
