@@ -1,11 +1,7 @@
 package vooga.engine.networking.server;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,7 +21,6 @@ import vooga.engine.util.XMLFileParser;
  */
 public class VoogaServer {
 	private static Document xmlDocument;
-	public static Map<String, VoogaDaemon> daemonMap = new HashMap<String, VoogaDaemon>();
 	private static List<Element> gameArray; 
 
 	
@@ -46,9 +41,9 @@ public class VoogaServer {
 	 * The two suitable commands are "initialize" and "getPort"
 	 * @param command
 	 */
-	private static void setGameArray () {
-		gameArray = new ArrayList<Element>(); //TODO talk about this design --Devon
-		xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
+	private static void setGameArray(String filePath) {
+		gameArray = new ArrayList<Element>();
+		xmlDocument = getXMLDocument(filePath);
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
 		
 		if(gameSection != null){
@@ -65,17 +60,14 @@ public class VoogaServer {
 	}
 	
 	private static void initializeDaemons () {
-		setGameArray();
+		setGameArray("vooga/engine/networking/server/voogaGames.xml");
 		for (Element gameElement : gameArray) {
 			String name = gameElement.getAttribute("name");
 			int port = Integer.parseInt(gameElement.getAttribute("port"));
 			int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
-			   System.out.println("voogaServer/procXML: "+port+" "+chatPort);
 			int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
 			String clientHandler = gameElement.getAttribute("clientHandler");
-			   System.out.println("voogaServer/processXML: name: "+name+" port: "+port+" chatPort: "+chatPort);
 			new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler).start();
-			   System.out.println("VoogaServer: Put into daemon : "+name +" "+daemonMap.get(name)+" "+daemonMap.get("TicTacToe"));
 		}
 	}
 
@@ -88,7 +80,6 @@ public class VoogaServer {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	//TODO can we abstract this method to clean up the VoogaServer class? --Devon
 	private static Document getXMLDocument(String path){
 		XMLDocumentCreator xmlCreator = new XMLFileParser(path);
 		Document xmlDocument = null;
@@ -128,7 +119,7 @@ public class VoogaServer {
 
 
 	private static int getPort(String gameName, String portName){
-		setGameArray();
+		setGameArray("src/vooga/engine/networking/server/voogaGames.xml");
 		for (Element gameElement : gameArray) {
 			int port = Integer.parseInt(gameElement.getAttribute(portName));
 			String name = gameElement.getAttribute("name");

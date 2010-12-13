@@ -1,5 +1,6 @@
 package vooga.engine.networking.server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,20 +44,33 @@ public abstract class ClientHandler extends Handler{
 	/**
 	 * Each time a ClientHandler is started, add itself to the list of handlers, send out "wait" to all the players until the correct number of players is
 	 * met, and then call firstRun() which is where the user will put any code that needs to be run right after the correct number of players are found.
-	 * Subclasses of ClientHandler will almost always override run(), and when they do they must call super.run() before doing anything else in order to
-	 * take advantage of waiting for the correct number of players and the call to firstRun.
+	 * Subclasses of ClientHandler will have to override the interpretMessage method to say what it needs to do once it gets the String from the socket.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
 	public void run(){
-		handlers.add(this);
-		if(getPlayers(sessionID) != numberOfPlayers){
-			broadcastToAll("wait", this);
+		try {
+			handlers.add(this);
+			if(getPlayers(sessionID) != numberOfPlayers){
+				broadcastToAll("wait", this);
+			}
+			else{
+				daemon.numberOfGames++;
+				this.firstRun();
+			}
+			while (true) {
+				String message = socket.receive();
+				interpretMessage(message);
+			}
+		} 
+		catch (IOException ex) {
+			handlers.remove(this);
+			socket.closeConnections();
 		}
-		else{
-			daemon.numberOfGames++;
-			this.firstRun();
+		finally {
+			handlers.remove(this);
+			socket.closeConnections();
 		}
 	}
 	
@@ -69,6 +83,15 @@ public abstract class ClientHandler extends Handler{
 	 */
 	public abstract void firstRun();
 
+	/**
+	 * Abstract method that is called by run() after it reads a message from the socket. This is where you put the code you need to execute with the latest
+	 * piece of data from the server.
+	 * 
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public abstract void interpretMessage(String message);
+	
 	/**
 	 * Broadcast (send) a message to everyone in the sender's game session.
 	 * 
