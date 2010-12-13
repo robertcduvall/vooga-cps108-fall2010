@@ -28,7 +28,7 @@ public class StoreContainer{
 		//setName("Store");
 		mainController = new MainController();
 		JFrame frame = new JFrame();
-		frame.add(getContent());
+		frame.add(	getContent());
 		frame.setSize(700, 500);
 	
 		frame.setVisible(true);
