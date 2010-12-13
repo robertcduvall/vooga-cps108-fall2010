@@ -96,14 +96,4 @@ public abstract class ClientConnection extends GameSocket{
 		send(string);
 	}
 
-	
-	/**
-	 * Tell the server that the game is over.
-	 * 
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public void sendGameOver(){
-		send("gameOver");
-	}
 }
