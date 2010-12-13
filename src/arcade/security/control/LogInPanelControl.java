@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 
 import arcade.core.Arcade;
+import arcade.security.info.PrivilegeMap;
 import arcade.security.model.AdminProcess;
 import arcade.security.model.RetrievePasswordProcess;
 import arcade.security.model.IModel;
@@ -106,6 +107,10 @@ public class LogInPanelControl implements IControl{
 				return;
 			}
 			JOptionPane.showMessageDialog(view.getCurrentPanel(),"Successfully logged in!");
+			
+			PrivilegeMap.setCurrentUser(username);
+			JOptionPane.showMessageDialog(view.getCurrentPanel(),"privilege is"+PrivilegeMap.getPrivilegeString());
+			
 			if(isAdmin()){
 				UserService userService = UserServiceFactory.getUserService();
 				User user = userService.getCurrentUser();

@@ -7,6 +7,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+/**
+ * This class handles all the direct interactions with the database
+ * @author Jiaqi Yan, Meng Li
+ *
+ */
 public class DataHandler {
 	
 	private MySqlAdapter adapter;
@@ -24,12 +29,12 @@ public class DataHandler {
 		adapter = new MySqlAdapter(Constants.HOST,Constants.DBNAME,Constants.USER,Constants.PASSWORD);
 	}
 	
-	public void update(){
-		
+	public String getPrivileges(int userId){
+		return adapter.getRows(myTable,"User_Id", String.valueOf(userId)).get(0).get("Privileges");
 	}
 	
-	public void addUser(){
-		
+	public String getPrivileges(String username){
+		return adapter.getRows(myTable,"UserName", username).get(0).get("Privileges");
 	}
 	
 	public String getPassword(int userId){

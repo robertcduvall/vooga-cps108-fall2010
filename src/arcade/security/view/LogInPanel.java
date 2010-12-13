@@ -26,7 +26,7 @@ import arcade.util.database.MySqlAdapter;
 /**
  * Log In Panel. 
  * @author Jiaqi Yan
- * @atthor Meng Li
+ * @author Meng Li
  * @author Andrew Brown
  */
 public class LogInPanel extends Tab implements IView{
@@ -85,10 +85,7 @@ public class LogInPanel extends Tab implements IView{
 		//add(logoutButton,"wrap");
 		add(signUpButton,"cell 0 3");
 		add(forgotPasswordButton,"wrap");
-		
-
 		setVisible(true);
-		
 	}
 
 	public void addSubmitButtonListeners(ActionListener listener){

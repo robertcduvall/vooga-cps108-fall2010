@@ -1,5 +1,6 @@
 package arcade.security.util;
 
+import arcade.lobby.model.ProfileSet;
 import arcade.security.util.DataHandler;
 
 import java.util.LinkedHashMap;
@@ -10,11 +11,12 @@ import java.util.HashMap;
 
 public class SignUpHandler {
 	//potentially add another datahandler that handles the privilege table
-	private static DataHandler dataHandler = DataHandler.getInstance("User");
+	private static DataHandler userHandler = DataHandler.getInstance("User");
+	private static DataHandler privilegeHandler = DataHandler.getInstance("Privileges");
 	
 	public static boolean isValidUserName(String name){
 		if(name.contains(" ")) return false;
-		return (dataHandler.getUserId(name) < 1 );
+		return (userHandler.getUserId(name) < 1 );
 	}
 	
 	public static boolean samePassword(char[] pwd_1,char[] pwd_2){
@@ -26,13 +28,27 @@ public class SignUpHandler {
 	}
 	
 	public static void createNewUser(String username,char[] password,int questionIndex,String questionAnswer){
-		Map<String,String> row = new LinkedHashMap<String,String>();//insertion order,does this matter?
-		row.put("UserName",username);
-		row.put("Password",String.valueOf(password));
-		row.put("QuestionIndex",String.valueOf(questionIndex)); 
-		row.put("QuestionAnswer", questionAnswer);
-		dataHandler.insert(row);
+		//The next line is the potentially integration with the lobby group
+		//int id = ProfileSet.currentProfile.getUserId();
+		Map<String,String> userRow = new LinkedHashMap<String,String>();//insertion order,does this matter?
+		userRow.put("UserName",username);
+		userRow.put("Password",String.valueOf(password));
+		userRow.put("QuestionIndex",String.valueOf(questionIndex)); 
+		userRow.put("QuestionAnswer", questionAnswer);
+		userHandler.insert(userRow);
+		
+		//potentially use userID to sync between different tables. But since the 
+		//ID is autoincrement and there is no such method that 
+		//int id = ProfileSet.currentProfile.getUserId();
+		int id = userHandler.getUserId(username);
+
+		Map<String,String> privilegeRow = new HashMap<String,String>();
+		privilegeRow.put("User_Id", Integer.toString(id));
+		privilegeRow.put("UserName", username);
+		privilegeRow.put("Privileges", "00000");
+		privilegeHandler.insert(privilegeRow);
 	}
 	
 	
 }
+
