@@ -17,7 +17,6 @@ public class User implements UserService{  //or get rid of this user class, just
 		map.put("developer", false);
 		map.put("login_user", false);
 		map.put("default", true);
-		
 	}
 	
 	public  void setUserAs(String type){//protected
