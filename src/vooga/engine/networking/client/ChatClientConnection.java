@@ -25,6 +25,16 @@ public class ChatClientConnection extends ClientConnection {
 	}
 
 	
+	/**
+	 * 
+	 * This method only calls "getData" but has a more descriptive 
+	 * and specific name to make code more readable and intuitive.
+	 * 
+	 * @return superclass ClientConnection method getData().
+	 */
+	public String getChat() {
+		return getData();
+	}
 
 	/**
 	 * Sends the chat over the network. Passes parameter to
