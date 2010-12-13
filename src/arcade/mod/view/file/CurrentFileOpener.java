@@ -2,14 +2,14 @@ package arcade.mod.view.file;
 
 import java.io.File;
 
-import arcade.core.ExampleGUI;
+import arcade.core.GameView;
 
 public class CurrentFileOpener implements IFileOpener {
 
 	@Override
 	public File openFile() {
 
-		String currentGame = ExampleGUI.getGame().toLowerCase().replace(" ", "");
+		String currentGame = GameView.getGame().toLowerCase().replace(" ", "");
 		
 		//TODO: this is temporary because currently the currentGame is always zombieland and they arent standards compliant
 		currentGame = "digger";
