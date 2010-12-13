@@ -340,8 +340,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 			ps.executeUpdate();
 			ps.close();
 		} catch (Throwable e) {
-			log.debug("Failed database operation: " + sql);
-			log.debug(e);
+			log.info("Failed database operation: " + sql);
+			log.info(e);
 			return false;
 		}
 		closeConnection();
