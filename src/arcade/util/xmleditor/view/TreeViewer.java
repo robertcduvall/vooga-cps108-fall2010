@@ -1,4 +1,4 @@
-package arcade.util.xmleditor;
+package arcade.util.xmleditor.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,12 +25,18 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import arcade.util.xmleditor.model.XMLNode;
+
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
 
 public class TreeViewer extends JPanel {
 	
   JTree tree;
+  
+  public TreeViewer(){
+	  tree = new JTree();
+  }
   
   public TreeViewer(XMLNode root) {
     setLayout(new BorderLayout());

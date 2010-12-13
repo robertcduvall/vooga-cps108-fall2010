@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="Level1" xmloverlaypath="src/vooga/games/gamepackage/resources/overlays.xml">
+
+	<SpriteGroups>
+		<SpriteGroup name="spriteGroup1">
+			<Sprite class="vooga.games.gamepackage.subpackage.SpriteClass1"
+				random="false" x="200" y="0" vx="0" vy="0.5" quantity="1">
+				<Visual name="imageKey1" />
+			</Sprite>
+			<Sprite class="vooga.games.gamepackage.sprites.SpriteClass2" random="false" x="100" y="87" vx="0" vy="0.7" quantity="1">
+				<Visual name="imageKey2" />
+			</Sprite>
+		</SpriteGroup>
+		<SpriteGroup name="spriteGroup2">
+			<Sprite class="vooga.games.gamepackage.subpackage.SpriteClass1"
+				random="false" x="320" y="440" vx="0" vy="0" quantity="1">
+				<Visual name="imageKey2" />
+				<Stat name="livesStat" />
+				<Stat name="scoreStat" />
+				<Stat name="levelStat" />
+			</Sprite>
+		</SpriteGroup>
+	</SpriteGroups>
+
+	<CollisionGroups>	
+		<CollisionGroup subclass="vooga.games.gamePackage.subpackage.CollisionClassName">
+			<SpriteGroup name="spriteGroup1"></SpriteGroup>
+			<SpriteGroup name="spriteGroup2"></SpriteGroup>
+		</CollisionGroup>
+	</CollisionGroups>
+
+	<Backgrounds>
+		<Background name="bg" />
+	</Backgrounds>
+
+	<Rules>
+	</Rules>
+
+	<Music>
+	</Music>
+
+	<Map>
+	</Map>
+</Level>

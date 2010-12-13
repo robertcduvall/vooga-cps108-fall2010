@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.util.xmleditor.view;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

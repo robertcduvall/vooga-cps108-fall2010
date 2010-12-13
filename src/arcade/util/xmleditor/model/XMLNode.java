@@ -1,4 +1,4 @@
-package arcade.util.xmleditor;
+package arcade.util.xmleditor.model;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
