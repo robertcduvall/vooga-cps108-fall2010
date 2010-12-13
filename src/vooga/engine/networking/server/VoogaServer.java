@@ -1,7 +1,10 @@
 package vooga.engine.networking.server;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.w3c.dom.Document;
@@ -23,6 +26,7 @@ import vooga.engine.util.XMLFileParser;
 public class VoogaServer {
 	private static Document xmlDocument;
 	public static Map<String, VoogaDaemon> daemonMap = new HashMap<String, VoogaDaemon>();
+	private static List<Element> gameArray; 
 
 	
 
@@ -34,35 +38,45 @@ public class VoogaServer {
 	 * @version 1.0
 	 */
 	public static void main(String args[]) {
-		xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
-		processXML(xmlDocument);
+		initializeDaemons();
 		System.out.println("Vooga server up and running...");
 	}
 	
-	private static void processXML (Document xmlDoc) {
-		Node gameSection = xmlDoc.getElementsByTagName("Games").item(0);
+	/**
+	 * The two suitable commands are "initialize" and "getPort"
+	 * @param command
+	 */
+	private static void setGameArray () {
+		gameArray = new ArrayList<Element>(); //TODO talk about this design --Devon
+		xmlDocument = getXMLDocument("src/vooga/engine/networking/server/voogaGames.xml");
+		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
+		
 		if(gameSection != null){
+			
 			NodeList listOfGames = gameSection.getChildNodes();
-			for(int i = 0; i < listOfGames.getLength(); i++)
-			{
-				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE)
-				{
-					Element gameElement = (Element) listOfGames.item(i);
-					String name = gameElement.getAttribute("name");
-					int port = Integer.parseInt(gameElement.getAttribute("port"));
-					int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
-					System.out.println("voogaServer/procXML: "+port+" "+chatPort);
-					int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
-					String clientHandler = gameElement.getAttribute("clientHandler");
-					System.out.println("voogaServer/processXML: name: "+name+" port: "+port+" chatPort: "+chatPort);
-					VoogaDaemon daemon = new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler);
-					daemon.start();
-					daemonMap.put(name, daemon);
-					System.out.println("VoogaServer: Put into daemon : "+name +" "+daemonMap.get(name)+" "+daemonMap.get("TicTacToe"));
+			for(int i = 0; i < listOfGames.getLength(); i++) {
+				
+				if (listOfGames.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					
+					gameArray.add( (Element) listOfGames.item(i));
 				}
 			}
 		}
-		
+	}
+	
+	private static void initializeDaemons () {
+		setGameArray();
+		for (Element gameElement : gameArray) {
+			String name = gameElement.getAttribute("name");
+			int port = Integer.parseInt(gameElement.getAttribute("port"));
+			int chatPort = Integer.parseInt(gameElement.getAttribute("chatPort"));
+			   System.out.println("voogaServer/procXML: "+port+" "+chatPort);
+			int numberOfPlayers = Integer.parseInt(gameElement.getAttribute("numberOfPlayers"));
+			String clientHandler = gameElement.getAttribute("clientHandler");
+			   System.out.println("voogaServer/processXML: name: "+name+" port: "+port+" chatPort: "+chatPort);
+			new VoogaDaemon(name, port, chatPort, numberOfPlayers, clientHandler).start();
+			   System.out.println("VoogaServer: Put into daemon : "+name +" "+daemonMap.get(name)+" "+daemonMap.get("TicTacToe"));
+		}
 	}
 
 	/**
@@ -74,7 +88,7 @@ public class VoogaServer {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	//TODO can we abstract this method to clean up the VoogaServer class? --Cody (lol jk its Devon)
+	//TODO can we abstract this method to clean up the VoogaServer class? --Devon
 	private static Document getXMLDocument(String path){
 		XMLDocumentCreator xmlCreator = new XMLFileParser(path);
 		Document xmlDocument = null;
@@ -112,27 +126,16 @@ public class VoogaServer {
 		return getPort(gameName, "chatPort");
 	}
 
+
 	private static int getPort(String gameName, String portName){
-		/*for (Map.Entry<String, VoogaDaemon> daemon : daemonMap.entrySet()) {*/
-			int port = -2;
-			System.out.println("VoogaServer: "+portName +" gameName: "+gameName);
-			//TODO is there a way to use reflection to call these ports? --Devon
-			if (portName.equals("gamePort")) {
-				System.out.println("VoogaSEERVER:  gamePort "+daemonMap.get("TicTacToe").portNumber);
-				return port = daemonMap.get("TicTacToe").portNumber; //TODO WHAT THE FUCK
-			}
-			else if (portName.equals("chatPort")){
-				System.out.println("just hecking  VoggaServer 125 "+daemonMap.get("TicTacToe"));
-				System.out.println("VoogaSEERVER:  gamePort "+daemonMap.get("TicTacToe").chatPortNumber);
-				return port = daemonMap.get(gameName).chatPortNumber;
-			}
-			else {
-				System.out.println("VoogaSEERVER:  name didnt match");
-				return -3;
-			}
-	}
-	
+		setGameArray();
+		for (Element gameElement : gameArray) {
+			int port = Integer.parseInt(gameElement.getAttribute(portName));
+			String name = gameElement.getAttribute("name");
+			if(name.equals(gameName))
+				return port;
+		}
+		return -1;
+	} 
 
-
-	
 }
