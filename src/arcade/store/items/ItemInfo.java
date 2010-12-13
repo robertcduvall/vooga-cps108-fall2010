@@ -12,19 +12,17 @@ public class ItemInfo implements IItemInfo {
 	private String price;
 	private String title;
 	private String numberOfBuyer;
-	private String rating;
 	private List<ImageIcon> images;
 	private String genre;
 	private List<String> tags;
 
 	
 	public ItemInfo(String description, String price, String title, String numberOfBuyer,
-			String rating, List<ImageIcon> images, String genre) {
+			 List<ImageIcon> images, String genre) {
 		this.description = description;
 		this.price = price;
 		this.title = title;
 		this.numberOfBuyer = numberOfBuyer;
-		this.rating = rating;
 		this.images = images;
 		this.genre = genre;
 		this.tags = new ArrayList<String>();
@@ -47,11 +45,6 @@ public class ItemInfo implements IItemInfo {
 	@Override
 	public String getNumberOfBuyer() {
 		return numberOfBuyer;
-	}
-
-	@Override
-	public String getRating() {
-		return rating;
 	}
 
 	public String getGenre() {

@@ -16,7 +16,7 @@ public class StoreModel implements IModel{
 
 	private static final String GAMES_DIRECTORY = System.getProperty("user.dir")+"/src/arcade/store/gui/resources/games";
 	private static final String GAME_INFO_TABLE = "GameInfo";
-	private static final String USER_INFO_TABLE = "StoreUsers";
+	private static final String USER_INFO_TABLE = "StoreAccounts";
 //	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	
 	private StoreUser currentUser;

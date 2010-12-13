@@ -25,7 +25,7 @@ public class StoreContainer{
 	//TODO: move toward a more generic version of this!
 	
 	public StoreContainer() {
-		//setName("Store");
+//		setName("Store");
 		mainController = new MainController();
 		JFrame frame = new JFrame();
 		frame.add(	getContent());

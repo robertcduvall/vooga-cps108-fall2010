@@ -14,11 +14,11 @@ public class StoreSqlAdapter extends MySqlAdapter {
 	private static final String dbName = "voogaarcade";
 	private static final String user = dbName;
 	private static final String pass = "Vooga108";
-	private static final String credditField = "creddits";
-	private static final String cartField = "cart";
-	private static final String usernameField = "id";
-	private static final String ownedGamesField = "owned_games";
-	private static final String userTableName = "StoreUsers";
+	private static final String credditField = "Creddits";
+	private static final String cartField = "Cart";
+	private static final String usernameField = "Id";
+	private static final String ownedGamesField = "GamesOwned";
+	private static final String userTableName = "StoreAccounts";
 
 	private static Connection myDBConnection;
 	
