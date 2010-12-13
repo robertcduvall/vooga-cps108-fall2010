@@ -84,7 +84,7 @@ public abstract class ClientConnection extends GameSocket{
 	 * type Serializable and one that takes Strings.  Or could name one
 	 * sendSerializable and keep the other as send data.  Actually, will
 	 * delete repetitive method sendData.
-	 */
+	 */	
 	public void sendSerializable(Serializeable data){
 		send(data.serialize());
 	}
