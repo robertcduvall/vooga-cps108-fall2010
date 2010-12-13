@@ -17,7 +17,7 @@ import vooga.engine.networking.GameSocket;
  */
 public class VoogaDaemon extends Thread{
 	public int numberOfGames;
-	public int gamePortNumber;
+	public int portNumber;
 	public int chatPortNumber;
 	private ServerSocket gamePort;
 	private ServerSocket chatPort;
@@ -37,17 +37,17 @@ public class VoogaDaemon extends Thread{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public VoogaDaemon(String gameName, int gamePortNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
+	public VoogaDaemon(String gameName, int portNumber, int chatPortNumber, int numberOfPlayers, String clientHandler) {
 		try {
 			this.gameName = gameName;
-			this.gamePortNumber = gamePortNumber;
+			this.portNumber = portNumber;
 			this.chatPortNumber = chatPortNumber;
-			gamePort = new ServerSocket(gamePortNumber);
+			gamePort = new ServerSocket(portNumber);
 			chatPort = new ServerSocket(chatPortNumber);
 			this.numberOfPlayers = numberOfPlayers;
 			this.clientHandler = clientHandler;
 			//Number of games initialized so far on the server.
-			numberOfGames = 1;
+			numberOfGames = 2;
 		}
 		catch (IOException e) {
 			System.out.println("VoogaDaemon.java: Couldn't access port " + gamePort.getLocalPort() + ": " + e);
