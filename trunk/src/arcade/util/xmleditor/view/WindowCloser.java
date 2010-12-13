@@ -1,4 +1,4 @@
-package arcade.util.xmleditor;
+package arcade.util.xmleditor.view;
 
 import java.awt.Window;
 import java.awt.event.WindowAdapter;

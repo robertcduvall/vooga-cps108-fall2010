@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.util.xmleditor.view;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
