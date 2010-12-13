@@ -1,6 +1,7 @@
 package arcade.wall.views.walltab;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -26,10 +27,17 @@ import arcade.wall.views.ratings.RadioPanel;
 public class WallTabView extends JPanel {
 	
 	private WallTabController myController;
+	
+	//GUI Elements
 	private JPanel myPanel;
 	private RadioPanel myRatingPanel;
 	private JTextArea myCommentsArea;
-	private JPanel commentsPanel;
+	private JButton myReviewButton;
+	private JComboBox myGameComboBox;
+	private JLabel myCommentsLabel;
+	private JLabel myAverageRatingLabel;
+	private JTextField myCommentEntryField;
+	
 	public static final String[] myGameChoices = formGameList();
 
 	public WallTabView(WallTabController controller) {
@@ -44,55 +52,44 @@ public class WallTabView extends JPanel {
 		JPanel returnPanel = new JPanel();
 		JPanel entryPanel = new JPanel();
 		JPanel displayPanel = new JPanel();
-		
 		myRatingPanel = new RadioPanel(5);
 		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
 		for (String s: ratingLabelBundle.keySet()) {
 			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
 		}
 		myRatingPanel.setVertical();
-		
-		commentsPanel = new JPanel();
 
-		JButton reviewButton = new JButton("Review");
-		JComboBox gameComboBox = new JComboBox(myGameChoices);
-		gameComboBox.setSelectedIndex(0);
-		JTextField commentEntryField = new JTextField(17);
-		String selectedGame = myGameChoices[gameComboBox.getSelectedIndex()];
-		JLabel commentsLabel = new JLabel("Comments for " + selectedGame + ":");
-		JButton ratingButton = new JButton("Average Rating for " + selectedGame + ": "+ 
+		myReviewButton = new JButton("Review");
+		myGameComboBox = new JComboBox(myGameChoices);
+		myGameComboBox.setSelectedIndex(0);
+		myCommentEntryField = new JTextField(17);
+		String selectedGame = myGameChoices[myGameComboBox.getSelectedIndex()];
+		myCommentsLabel = new JLabel("Comments for " + selectedGame + ":");
+		myAverageRatingLabel = new JLabel("Average Rating for " + selectedGame + ": "+ 
 				myController.getRating(selectedGame));
-		ratingButton.setFocusable(false);
-
-		WallTabComboBoxGroup wallTabComboBoxGroup = 
-			new WallTabComboBoxGroup(myController, commentsLabel, ratingButton, gameComboBox, commentEntryField);
-		gameComboBox.addActionListener(new GameComboBoxListener(wallTabComboBoxGroup));
+		myCommentsArea = new JTextArea();
 		
-		WallTabReviewButtonGroup wallTabReviewButtonGroup = 
-			new WallTabReviewButtonGroup(myController, gameComboBox, commentEntryField, 
-					myRatingPanel);
-		reviewButton.addActionListener(new ReviewButtonListener(wallTabReviewButtonGroup));
-
-		entryPanel.add(gameComboBox);
-		entryPanel.add(commentEntryField);
+		entryPanel.add(myGameComboBox);
+		entryPanel.add(myCommentEntryField);
 		entryPanel.add(myRatingPanel);
-		entryPanel.add(reviewButton);
-		displayPanel.add(ratingButton);
-		displayPanel.add(commentsLabel);
+		entryPanel.add(myReviewButton);
+
+		displayPanel.add(myAverageRatingLabel);
+		displayPanel.add(myCommentsLabel);
+		displayPanel.add(myCommentsArea);
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 
 		returnPanel.setLayout(new GridLayout(2,2,5,5));
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		returnPanel.add(entryPanel);
 		returnPanel.add(displayPanel);
-		myCommentsArea = new JTextArea();
-		commentsPanel.add(myCommentsArea);
-		commentsPanel.setLayout(new BoxLayout(commentsPanel,BoxLayout.Y_AXIS));
-		displayPanel.add(commentsPanel);
 		return returnPanel;
 	}
 	
-	public void updateCommentsPanel(List<Comment> gameComments){
+	/**
+	 * Refreshes the CommentsArea to display the comments for the selected game.
+	 */
+	public void refreshCommentsArea(List<Comment> gameComments){
 		String displayString = "";
 		for(Comment comment: gameComments){  
 			String starString = "";
@@ -118,5 +115,39 @@ public class WallTabView extends JPanel {
 
 	public JPanel getPanel() {
 		return this.myPanel;
+	}
+
+	public String getSelectedGame() {
+		return myGameChoices[myGameComboBox.getSelectedIndex()];
+	}
+
+	public void setCommentsLabel(String string) {
+		myCommentsLabel.setText(string);
+	}
+
+	public void setAverageRatingLabel(String string) {
+		myAverageRatingLabel.setText(string);
+	}
+
+	public void setEntryText(String string) {
+		myCommentEntryField.setText(string);
+	}
+
+	public void addGameComboBoxListener(
+			ActionListener gameComboBoxListener) {
+		myGameComboBox.addActionListener(gameComboBoxListener);
+	}
+
+	public String getEntryText() {
+		return myCommentEntryField.getText();
+	}
+
+	public String getSelectedRating() {
+		return myRatingPanel.getSelectedValue();
+	}
+
+	public void addReviewButtonListener(
+			ActionListener reviewButtonListener) {
+		myReviewButton.addActionListener(reviewButtonListener);
 	}
 }
