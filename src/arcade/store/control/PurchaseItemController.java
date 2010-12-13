@@ -32,7 +32,7 @@ public class PurchaseItemController implements IController {
 		view.getDescriptionTextArea().setText(item.getDescription());
 		view.getTitleTextField().setText(item.getTitle());
 		view.getPriceTextField().setText(item.getPrice());
-		view.setGameIcon(item.getImages().get(IItemInfo.COVER_IMAGE));
+		view.getGameIcon().setIcon((item.getImages().get(IItemInfo.COVER_IMAGE)));
 	}
 
 	@Override
@@ -55,9 +55,13 @@ public class PurchaseItemController implements IController {
 		// new AreYouSureAddToCartView(this);
 		
 		//TODO: Add functionality to JOptionPane
-		JOptionPane.showConfirmDialog(null,
+		int ret = JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Add This Item To Cart?",
 				"Add to Cart", JOptionPane.YES_NO_OPTION);
+		if(ret == JOptionPane.YES_OPTION) {
+			storeModel.getCurrentUserAccount().addToCart(view.getTitleTextField().getText());
+		}
+		view.getJFrame().setVisible(false);
 
 	}
 

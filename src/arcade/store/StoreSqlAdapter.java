@@ -82,7 +82,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 	}
 	
 	
-	public boolean updateList(List<String> newCart, String user, String listField) {
+	public boolean updateList(List<String> newCart, String userId, String listField) {
 		Map<String, String> row = new HashMap<String, String>();
 		StringBuilder builder = new StringBuilder();
 		for(String s : newCart) {
@@ -91,7 +91,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		}
 		String newCartRow = builder.toString();
 		row.put(listField, newCartRow);
-		return super.update(userTableName, usernameField, user, row);
+		return super.update(userTableName, usernameField, userId, row);
 	}
 	
 }

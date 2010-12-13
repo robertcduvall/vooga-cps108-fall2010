@@ -15,9 +15,7 @@ public class StoreUser {
 	private double creddits;
 	private int timeCreddits;
 	private List<String> ownedGames;
-	
 	private List<String> cart;
-	private List<String> cartHistory;
 	
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
@@ -33,7 +31,7 @@ public class StoreUser {
 			if(s.length()>1)
 			this.cart.add(s.trim());
 		}
-		String[] ownedList = cart.split(",");
+		String[] ownedList = ownedGames.split(",");
 		for(String s : ownedList) {
 			if(s.length()>1)
 			this.ownedGames.add(s.trim());
@@ -75,7 +73,7 @@ public class StoreUser {
 	
 	public void addCreddits(double amount) {
 		creddits +=amount;
-		System.out.println(dbAdapter.updateCreddits(creddits, Integer.toString(id)));
+		dbAdapter.updateCreddits(creddits, Integer.toString(id));
 	}
 	
 	public void addGames(List<String> titles)

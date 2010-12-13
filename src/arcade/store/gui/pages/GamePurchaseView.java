@@ -42,7 +42,7 @@ public class GamePurchaseView implements IViewer{
 		gamePurchaseFrame.setVisible(true);
 	}
 	
-	private JFrame getJFrame()
+	public JFrame getJFrame()
 	{
 		JFrame jFrame = new JFrame();
 		jFrame.setSize(new Dimension(650, 321));
@@ -73,9 +73,6 @@ public class GamePurchaseView implements IViewer{
 			PriceLabel = new JLabel();
 			PriceLabel.setBounds(new Rectangle(184, 50, 43, 24));
 			PriceLabel.setText("Price:");
-			gameImageLabel = new JLabel();
-			gameImageLabel.setBounds(new Rectangle(18, 21, 146, 139));
-			gameImageLabel.setText("JLabel");
 			DescriptionLabel = new JLabel();
 			DescriptionLabel.setBounds(new Rectangle(184, 85, 87, 24));
 			DescriptionLabel.setText("Description:");
@@ -86,7 +83,7 @@ public class GamePurchaseView implements IViewer{
 			gamePurchasePanel.add(getDemoTheGameButton(), null);
 			gamePurchasePanel.add(DescriptionLabel, null);
 			gamePurchasePanel.add(getDescriptionTextArea(), null);
-			gamePurchasePanel.add(gameImageLabel, null);
+			gamePurchasePanel.add(getGameIcon(), null);
 			gamePurchasePanel.add(PriceLabel, null);
 			gamePurchasePanel.add(TitleLabel, null);
 			gamePurchasePanel.add(getTitleTextField(), null);
@@ -97,16 +94,19 @@ public class GamePurchaseView implements IViewer{
 	}
 
 	
+	
 	/**
 	 * This method returns the gameImageLabel
 	 */
-	public void setGameIcon(ImageIcon icon)
+	public JLabel getGameIcon()
 	{
-		gameImageLabel = new JLabel("Game Image");
-		gameImageLabel.setIcon(icon);	
+		if(gameImageLabel == null) {
+			gameImageLabel = new JLabel();
+		}
+		return gameImageLabel;
 	}
-	
-	
+
+
 	/**
 	 * This method initializes addToCartButton	
 	 * 	
@@ -120,6 +120,7 @@ public class GamePurchaseView implements IViewer{
 			addToCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					controller.processConfirmAddToCart();
+					gamePurchaseFrame.setVisible(false);
 				}
 			});
 		}

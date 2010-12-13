@@ -29,7 +29,8 @@ public class ProfileController implements IController{
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
+		profileTab.getUsernameTextField().setText(getUser().getName());
+		profileTab.getAvailableCredditsTextField().setText(getUser().getCreddits());
 		
 	}
 	
