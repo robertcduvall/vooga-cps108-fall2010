@@ -5,6 +5,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ClientConnection;
+import vooga.engine.networking.client.GameClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.examples.networking.tictactoe.states.PlayState;
@@ -43,9 +44,9 @@ public class TicTacToe extends Game {
 	 * @version 1.0
 	 */
 	private void initStates() {
-		ClientConnection connection = null;
+		GameClientConnection connection = null;
 		try{
-			connection = new ClientConnection("TicTacToe");
+			connection = new GameClientConnection("TicTacToe");
 		}
 		catch(Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());

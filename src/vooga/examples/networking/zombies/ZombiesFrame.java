@@ -17,7 +17,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
-import vooga.engine.networking.client.ChatConnection;
+import vooga.engine.networking.client.ChatClientConnection;
 
 /**
  * Class with the main method that runs the TicTacToe Game.  Runs the Vooga game with a chat box that can be used to chat between players in the Game.
@@ -34,7 +34,7 @@ public class ZombiesFrame extends JFrame implements Runnable{
 	private Style messageStyle;
 	private Style opponentStyle;
 	private Style statusStyle;
-	private ChatConnection connection;
+	private ChatClientConnection connection;
 
 	/**
 	 * Create chat GUI and listen for incoming chats.
@@ -42,7 +42,7 @@ public class ZombiesFrame extends JFrame implements Runnable{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ZombiesFrame(ChatConnection connection){
+	public ZombiesFrame(ChatClientConnection connection){
 		this.connection = connection;
 		initStyles();
 		initChatFields();
@@ -182,9 +182,9 @@ public class ZombiesFrame extends JFrame implements Runnable{
 	 * @version 1.0
 	 */
 	public static void main(String[] args){
-		ChatConnection connection = null;
+		ChatClientConnection connection = null;
 		try{
-			connection = new ChatConnection("Zombies");
+			connection = new ChatClientConnection("Zombies");
 		}
 		catch(Exception e){
 			System.out.println("TicTacToe Error: "+ e.getMessage());
