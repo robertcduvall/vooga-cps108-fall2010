@@ -14,7 +14,7 @@ public abstract class Connection extends GameSocket{
 	 * @version 1.0
 	 */
 	public Connection(int port) throws UnknownHostException, IOException{
-		super(new Socket("localhost", port));
+		super(new Socket("10.180.121.240", port));
 	}
 	
 	/**

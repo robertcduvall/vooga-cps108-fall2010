@@ -2,7 +2,6 @@ package vooga.examples.networking.zombies.gamestates;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.Random;
 
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
@@ -65,7 +64,9 @@ public class PlayState extends GameState implements Constants {
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
 		player.setConnection(connection);
+		player.setName("player1");
 		otherPlayer = (Shooter) playField.getGroup("Players").getSprites()[1];
+		otherPlayer.setName("player2");
 	}
 
 	/**
@@ -200,7 +201,7 @@ public class PlayState extends GameState implements Constants {
 	public void interpretMessage(String data){
 		if(data.startsWith(ZombieSeed.getIdentifier())){
 			seed = ((ZombieSeed)(ZombieSeed.deserialize(data))).getSeed();
-			LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,addItems, seed);
+			LevelEndEvent endLevel = new LevelEndEvent(new Shooter[] {player, otherPlayer}, this, addZombies,addItems, seed);
 			eventPool.addEvent(endLevel);
 		}
 		else{
