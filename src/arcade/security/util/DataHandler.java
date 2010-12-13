@@ -52,25 +52,14 @@ public class DataHandler {
 	public int getPasswordQuestionIndex(String username){
 		List<Map<String, String>> rows = adapter.getRows(myTable, "UserName", username);
 		if(rows == null || rows.size() == 0) return 0;
-		Map<String,String> row = rows.get(3);
-		return Integer.valueOf(row.get("Question"));
+		Map<String,String> row = rows.get(0);
+		return Integer.valueOf(row.get("QuestionIndex"));
 	}
 	
 	public String getPasswordQuestionAnswer(String username){
 		List<Map<String, String>> rows = adapter.getRows(myTable, "UserName", username);
-		for(int i = 0; i < rows.size();i++){
-			for(String a:rows.get(i).keySet()){
-				System.out.println(a+"*");
-			}
-		}
-		if(rows == null || rows.size() == 0) return "false";
-		for(int i = 0; i < rows.size();i++){
-			for(String a:rows.get(i).keySet()){
-				System.out.println(a);
-			}
-		}
-		
-		Map<String,String> row = rows.get(4);
+		if(rows == null || rows.size() == 0) return "false";	
+		Map<String,String> row = rows.get(0);
 		return row.get("QuestionAnswer");
 	}
 	

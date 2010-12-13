@@ -29,8 +29,8 @@ public class SignUpHandler {
 		Map<String,String> row = new LinkedHashMap<String,String>();//insertion order,does this matter?
 		row.put("UserName",username);
 		row.put("Password",String.valueOf(password));
-//		row.put("Question",String.valueOf(questionIndex)); //why login doesn't work after these two lines?
-//		row.put("QuestionAnswer", questionAnswer);
+		row.put("QuestionIndex",String.valueOf(questionIndex)); 
+		row.put("QuestionAnswer", questionAnswer);
 		dataHandler.insert(row);
 	}
 	
