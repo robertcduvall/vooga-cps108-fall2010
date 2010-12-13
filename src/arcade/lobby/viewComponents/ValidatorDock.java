@@ -12,6 +12,7 @@ import net.miginfocom.swing.MigLayout;
  * 
  * @author Lobby Group
  */
+@SuppressWarnings("serial")
 public class ValidatorDock extends JPanel {
 
 	private Map<String, ValidatingComponent<?>> myComponentMap;

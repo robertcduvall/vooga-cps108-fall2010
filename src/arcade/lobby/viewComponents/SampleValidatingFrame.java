@@ -1,6 +1,7 @@
 package arcade.lobby.viewComponents;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -39,11 +40,12 @@ public class SampleValidatingFrame extends JFrame {
 		
 	}
 
-	private void createValidatingFields() {
-		myValidatorDock.addValidatingComponent(new SampleText(new JTextField(20), "blah1"), "blah1");
-		myValidatorDock.addValidatingComponent(new SampleText(new JTextField(20), "blah2"), "blah2");
-		myValidatorDock.addValidatingComponent(new SampleColor(new JColorChooser(), "blah3"), "blah3");
-		myValidatorDock.addValidatingComponent(new SampleText(new JTextField(10), "blah4"), "blah4");
+	private void createValidatingFields() { 
+		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah1", new ValidatorText()), "blah1");
+		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah2", new ValidatorText()), "blah2");
+		myValidatorDock.addValidatingComponent(new ValidatingComponent<JColorChooser>(new JColorChooser(), "blah3", new ValidatorColor()), "blah3");
+		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah4", new ValidatorText()), "blah4");
+
 		
 	}
 

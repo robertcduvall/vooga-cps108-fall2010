@@ -4,27 +4,42 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 
+
+
 /**
  * 
  * 
  * Class to help with validating fields.
  * This is the component to be added to the dock.
- * Must create a new one for each different type of validation you want. 
  * @author Lobby Group
  */
-public abstract class ValidatingComponent<T extends JComponent> {
+public class ValidatingComponent<T extends JComponent> {
 
 	private T myComponent;
 	private JLabel myLabel;
+	private Validator<T>[] myValidators;
 	
 	/**
 	 * 
+	 * WHen the validators are added the Component will be set to each
+	 * validator, so they have access to which component it is acting on.
+	 * 
 	 * @param component the component that you want to be added
 	 * @param label the string label
+	 * @param validators all the validators for the correct type
 	 */
-	public ValidatingComponent(T component, String label){
+	public ValidatingComponent(T component, String label, Validator<T> ... validators ){
 		myComponent = component;
 		myLabel = new JLabel(label);
+		myValidators = validators;
+		setValidatorComponents();
+	}
+
+	private void setValidatorComponents() {
+		for(Validator<T> validator: myValidators){
+			validator.setComponent(myComponent);
+		}
+		
 	}
 
 	public T getComponent() {
@@ -39,7 +54,15 @@ public abstract class ValidatingComponent<T extends JComponent> {
 	 * 
 	 * @return Whether the component passes of fails the validation
 	 */
-	public abstract boolean validate();
+	public boolean validate(){
+		for(Validator<T> validator: myValidators){
+			if(!validator.validate()){
+				return false;
+			}
+		}
+		return true;
+		
+	}
 	
 	
 }
