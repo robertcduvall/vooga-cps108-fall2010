@@ -10,9 +10,12 @@ import arcade.core.Window;
 public class HighScore extends Window {
 	private String gameName;
 	public HighScore(String gn) {
-		super(300, 120);
+		setSize(300, 120);
+		setVisible(true);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLocation(300,300);
 		gameName=gn;
+		createContents();
 	}
 
 	@Override
