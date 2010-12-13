@@ -53,6 +53,8 @@ public class PurchaseItemController implements IController {
 	 */
 	public void processConfirmAddToCart() {
 		// new AreYouSureAddToCartView(this);
+		
+		//TODO: Add functionality to JOptionPane
 		JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Add This Item To Cart?",
 				"Add to Cart", JOptionPane.YES_NO_OPTION);
@@ -64,8 +66,12 @@ public class PurchaseItemController implements IController {
 	 * Purchase View
 	 */
 	public void processConfirmDemoGame() {
-
-		new AreYouSureDemoView(this);
+		//new AreYouSureDemoView(this);
+		
+		//TODO: Add functionality to JOptionPane
+		JOptionPane.showConfirmDialog(null,
+				"Are You Sure You Want to Demo This Game?",
+				"Demo Game", JOptionPane.YES_NO_OPTION);
 	}
 
 	/**
