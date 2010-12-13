@@ -1,4 +1,4 @@
-package arcade.lobby.viewComponents;
+package arcade.lobby.validators;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,25 +6,22 @@ import java.util.Date;
 
 import javax.swing.JTextField;
 
-public class DateValidatingField extends ValidatingComponent<JTextField> {
-	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+import arcade.lobby.viewComponents.Validator;
 
-	public DateValidatingField(JTextField component, String label) {
-		super(component, label);
-		// TODO Auto-generated constructor stub
-	}
+public class DateValidator extends Validator<JTextField> {
+	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
 	@Override
 	public boolean validate() {
 		String date = getComponent().getText();
-		
-		if(date.isEmpty()) return true;
-		
+
+		if (date.isEmpty())
+			return true;
+
 		// set date format, this can be changed to whatever format
 		// you want, MM-dd-yyyy, MM.dd.yyyy, dd.MM.yyyy etc.
 		// you can read more about it here:
 		// http://java.sun.com/j2se/1.4.2/docs/api/index.html
-		
 
 		// declare and initialize testDate variable, this is what will hold
 		// our converted string
