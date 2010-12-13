@@ -42,7 +42,7 @@ public class SampleValidatingFrame extends JFrame {
 
 	private void createValidatingFields() { 
 		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah1", new ValidatorText()), "blah1");
-		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah2", new ValidatorText()), "blah2");
+		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah2", new ValidatorText(), new ValidatorCapital()), "blah2");
 		myValidatorDock.addValidatingComponent(new ValidatingComponent<JColorChooser>(new JColorChooser(), "blah3", new ValidatorColor()), "blah3");
 		myValidatorDock.addValidatingComponent(new ValidatingComponent<JTextField>(new JTextField(20), "blah4", new ValidatorText()), "blah4");
 
