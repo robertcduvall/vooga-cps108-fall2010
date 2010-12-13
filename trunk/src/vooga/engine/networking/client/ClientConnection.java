@@ -31,6 +31,7 @@ public abstract class ClientConnection extends GameSocket{
 	 * @version 1.0
 	 */
 	public ClientConnection(String name) throws UnknownHostException, IOException{
+		//TODO: shouldnt call Resources to get the hostServer String.
 		super(new Socket((Resources.getString("hostServer")), VoogaServer.getGamePort(name)));
 	}
 
