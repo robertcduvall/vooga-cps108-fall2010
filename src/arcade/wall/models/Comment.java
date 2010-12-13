@@ -8,16 +8,16 @@ package arcade.wall.models;
  */
 public class Comment {
 	private String myId;
-	private String myGameName;
-	private String myUserName;
-	private String myCommentString;
+	private String myGameTitle;
+	private String myUserId;
+	private String myString;
 	private String myRating;
 	
-	public Comment(String id, String gameName, String userName, String commentString, String rating) {
+	public Comment(String id, String gameName, String userId, String commentString, String rating) {
 		myId = id;
-		myGameName = gameName;
-		myUserName = userName;
-		myCommentString = commentString;
+		myGameTitle = gameName;
+		myUserId = userId;
+		myString = commentString;
 		myRating = rating;
 	}
 	
@@ -25,16 +25,16 @@ public class Comment {
 		return myId;
 	}
 	
-	public String getGameName() {
-		return myGameName;
+	public String getGameTitle() {
+		return myGameTitle;
 	}
 	
-	public String getUserName() {
-		return myUserName;
+	public String getUserId() {
+		return myUserId;
 	}
 	
-	public String getCommentString() {
-		return myCommentString;
+	public String getString() {
+		return myString;
 	}
 	
 	//TODO change rating to an int
@@ -46,16 +46,16 @@ public class Comment {
 		myId = id;
 	}
 	
-	public void setGameName(String string) {
-		this.myGameName = string;
+	public void setGameTitle(String string) {
+		this.myGameTitle = string;
 	}
 	
-	public void setUserName(String string) {
-		this.myUserName = string;
+	public void setUserId(String string) {
+		this.myUserId = string;
 	}
 	
-	public void setCommentString(String string) {
-		this.myCommentString = string;
+	public void setString(String string) {
+		this.myString = string;
 	}
 
 	public void setRating(String selectedValue) {
