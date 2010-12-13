@@ -40,7 +40,7 @@ public class Blah extends Game implements Constants {
 	private HelpMenu2 helpMenu2;
 	private static CreditMenu creditMenu;
 	private static WaitingState waitingState;
-	private ClientConnection connection;
+	private GameClientConnection gameConnection;
 
 	/**
 	 * We overrode this method because we have specific a subclass
@@ -50,7 +50,7 @@ public class Blah extends Game implements Constants {
 
 		super.initResources();
 		try {
-			connection = new GameClientConnection("Zombies");
+			gameConnection = new GameClientConnection("Zombies");
 		} 
 		catch (Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());
@@ -58,10 +58,10 @@ public class Blah extends Game implements Constants {
 		}
 		pauseState = new PauseState(this);
 		playState = new PlayState(this);
-		playState.setConnection(connection);
+		playState.setConnection(gameConnection);
 		LevelParser levelParser = new LevelParser();
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
-		waitingState = new WaitingState(this, connection, waitField, playState);
+		waitingState = new WaitingState(this, gameConnection, waitField, playState);
 		mainMenu = new MainMenu(this);
 		helpMenu1 = new HelpMenu1(this);
 		helpMenu2 = new HelpMenu2(this);
