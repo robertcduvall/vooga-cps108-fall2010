@@ -86,4 +86,8 @@ public class WallTabController {
 	public WallTabView getView() {
 		return view;
 	}
+
+	public double getRating(String gameName) {
+		return model.getGameRating(gameName);
+	}
 }
