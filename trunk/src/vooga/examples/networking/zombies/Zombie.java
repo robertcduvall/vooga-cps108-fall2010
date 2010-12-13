@@ -1,5 +1,7 @@
 package vooga.examples.networking.zombies;
 
+import java.util.Random;
+
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
@@ -33,7 +35,7 @@ public class Zombie extends BetterSprite implements Constants {
 	private int attackDelayStep;
 	private String currentAttackAnimation;
 
-	public Zombie(String name, int level, Shooter player, PlayState state) {
+	public Zombie(String name, int level, Shooter player, PlayState state, long seed) {
 
 		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources
 				.getAnimation(ZOMBIE_DOWN)));
@@ -61,7 +63,8 @@ public class Zombie extends BetterSprite implements Constants {
 
 		updateStats(level);
 
-		chooseRandomLocation();
+		Random random = new Random(seed);
+		chooseRandomLocation(random);
 
 		this.setActive(true);
 	}
@@ -71,9 +74,9 @@ public class Zombie extends BetterSprite implements Constants {
 				.getAnimation(sprite));
 	}
 
-	private void chooseRandomLocation() {
-		setX(Math.random() * GAME_WIDTH);
-		setY(Math.random() * GAME_HEIGHT);
+	private void chooseRandomLocation(Random random) {
+		setX(random.nextInt(GAME_WIDTH));
+		setY(random.nextInt(GAME_HEIGHT));
 	}
 
 	public void updateStats(int level) {

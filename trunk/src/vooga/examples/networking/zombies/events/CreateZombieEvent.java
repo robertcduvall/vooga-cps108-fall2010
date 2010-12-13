@@ -14,9 +14,10 @@ public class CreateZombieEvent implements IEventHandler {
 	private PlayState currentPlayState;
 	private Shooter player;
 	private int level;
+	private long seed;
 
 	public CreateZombieEvent(PlayState current, Shooter shooter,
-			IEventHandler endLevel, IEventHandler addZombies) {
+			IEventHandler endLevel, IEventHandler addZombies, long seed) {
 		isUsedOnce = false;
 		level = current.getLevel();
 		createZombies();
@@ -24,6 +25,7 @@ public class CreateZombieEvent implements IEventHandler {
 		currentPlayState = current;
 		this.endLevel = (LevelEndEvent) endLevel;
 		this.addZombies = (AddZombieEvent) addZombies;
+		this.seed = seed;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class CreateZombieEvent implements IEventHandler {
 		int size = 0;
 		while (size < levelZombies()) {
 			addZombies.addEnemy(new Zombie("New", level, player,
-					currentPlayState));
+					currentPlayState, seed));
 			size++;
 		}
 		endLevel.updateDeaths(levelZombies());

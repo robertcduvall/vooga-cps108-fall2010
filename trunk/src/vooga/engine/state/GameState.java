@@ -156,7 +156,7 @@ public abstract class GameState {
 	 * @version 1.0
 	 */
 	public boolean shouldGetData(){
-		return false;
+		return connection.isConnected();
 	}
 	
 	public void setConnection(ClientConnection connection){

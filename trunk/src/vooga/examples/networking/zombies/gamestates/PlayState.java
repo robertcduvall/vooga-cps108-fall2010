@@ -2,6 +2,7 @@ package vooga.examples.networking.zombies.gamestates;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
@@ -30,8 +31,10 @@ public class PlayState extends GameState implements Constants {
 	private KeyboardControl control;
 	private KeyboardControl control2;
 	private EventPool eventPool;
+	public static long seed;
 
 	AddZombieEvent addZombies;
+	AddRandomItemEvent addItems;
 	private OverlayTracker levelTracker;
 	private int level;
 
@@ -43,7 +46,6 @@ public class PlayState extends GameState implements Constants {
 	 * setup
 	 */
 	public void initialize() {
-
 		OverlayCreator.setGame(currentGame);
 		levelTracker = OverlayCreator.createOverlays(STATES_XML_PATH);
 		LevelParser parser = new LevelParser();
@@ -75,21 +77,19 @@ public class PlayState extends GameState implements Constants {
 
 		eventPool = new EventPool();
 		SpriteGroup items = playField.getGroup("Items");
-		AddRandomItemEvent additems = new AddRandomItemEvent(playField, player,
+		addItems = new AddRandomItemEvent(playField, player,
 				items);
 
 		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
 
-		LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,additems);
-
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		AddBulletsEvent addbullets = new AddBulletsEvent(bullets);
 		player.setBulletListener(addbullets);
+		otherPlayer.setBulletListener(addbullets);
 
-		eventPool.addEvent(additems);
+		eventPool.addEvent(addItems);
 		eventPool.addEvent(addbullets);
 		eventPool.addEvent(addZombies);
-		eventPool.addEvent(endLevel);
 
 		int delay = Resources.getInt("timer");
 		timer = new Timer(delay);
@@ -190,8 +190,7 @@ public class PlayState extends GameState implements Constants {
 	}
 	
 	/**
-	 * If the String starts with the Move class identifier then deserialize the String into a Move object and place the piece on the
-	 * board. Otherwise set the message to the String we received.
+	 * Set the message to the String we received.
 	 * 
 	 * @param data data received from the socket
 	 * @author Cue, Kolodziejzyk, Townsend
@@ -199,20 +198,14 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public void interpretMessage(String data){
-		setMessage(data);
-	}
-	
-	/**
-	 * Called by the GameState API to determine whether or not it should listen for a message from the socket. In this case it returns true if
-	 * there everyone is still connected to the socket. <b>Must be overridden to implement networking API.</b>
-	 * 
-	 * @return whether or not to listen for a message from the socket
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	@Override
-	public boolean shouldGetData(){
-		return connection.isConnected();
+		if(data.startsWith(ZombieSeed.getIdentifier())){
+			seed = ((ZombieSeed)(ZombieSeed.deserialize(data))).getSeed();
+			LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,addItems, seed);
+			eventPool.addEvent(endLevel);
+		}
+		else{
+			setMessage(data);
+		}
 	}
 
 	/**
