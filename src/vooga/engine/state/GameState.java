@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.networking.client.ClientConnection;
+import vooga.engine.networking.client.GameClientConnection;
 
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -36,7 +37,7 @@ public abstract class GameState {
 	private boolean myIsActive = false;
 	protected Collection<PlayField> myRenderField = new ArrayList<PlayField>();
 	protected Collection<PlayField> myUpdateField = new ArrayList<PlayField>();
-	protected ClientConnection connection;
+	protected GameClientConnection gameConnection;
 	protected String message;
 
 	/**
@@ -67,15 +68,15 @@ public abstract class GameState {
 		addPlayField(playfield);
 	}
 	
-	public GameState(ClientConnection connection){
+	public GameState(GameClientConnection connection){
 		this();
-		this.connection = connection;
+		this.gameConnection = connection;
 	}
 	
-	public GameState(PlayField playfield, ClientConnection connection){
+	public GameState(PlayField playfield, GameClientConnection connection){
 		this();
 		addPlayField(playfield);
-		this.connection = connection;
+		this.gameConnection = connection;
 	}
 
 	/**
@@ -143,8 +144,8 @@ public abstract class GameState {
 		for (PlayField playfield : myUpdateField) {
 			playfield.update(t);
 		}
-		if(connection != null && shouldGetData()){
-			interpretMessage(connection.getData());
+		if(gameConnection != null && shouldGetData()){
+			interpretMessage(gameConnection.getData());
 		}
 	}
 	
@@ -159,8 +160,8 @@ public abstract class GameState {
 		return false;
 	}
 	
-	public void setConnection(ClientConnection connection){
-		this.connection = connection;
+	public void setConnection(GameClientConnection connection){
+		this.gameConnection = connection;
 	}
 	
 	/**
