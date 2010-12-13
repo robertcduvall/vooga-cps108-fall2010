@@ -8,22 +8,20 @@ import arcade.store.items.IItemInfo;
 public class StoreUser {
 	
 	private final static String DEFAULT_NAME = "default_user";
-	private static final String CART_FIELD = "cart";
-	private static final String OWNED_GAMES_FIELD = "owned_games";
+	private static final String CART_FIELD = "Cart";
+	private static final String OWNED_GAMES_FIELD = "GamesOwned";
 	private int id;
 	private String name;
 	private double creddits;
-	private int timeCreddits;
 	private List<String> ownedGames;
 	private List<String> cart;
 	
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
-	public StoreUser(String name, double creddits, int timeCreddits, String cart, 
+	public StoreUser(String name, double creddits, String cart, 
 			String ownedGames) {
 		this.name = name;
 		this.creddits = creddits;
-		this.timeCreddits = timeCreddits;
 		this.cart = new ArrayList<String>();
 		this.ownedGames = new ArrayList<String>();
 		String[] cartList = cart.split(",");
@@ -40,7 +38,7 @@ public class StoreUser {
 	
 	public StoreUser()
 	{
-		this(DEFAULT_NAME, 0, 0, "", "");
+		this(DEFAULT_NAME, 0, "", "");
 	}
 	
 	public String getName() {
@@ -51,9 +49,6 @@ public class StoreUser {
 		return Double.toString(creddits);
 	}
 
-	public String getTimeCreddits() {
-		return Integer.toString(timeCreddits);
-	}
 	
 	public List<String> getCart() {
 		return cart;

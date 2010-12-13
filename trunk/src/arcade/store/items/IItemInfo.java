@@ -16,9 +16,7 @@ public interface IItemInfo {
 	public String getTitle();
 	
 	public String getNumberOfBuyer();
-	
-	public String getRating();
-	
+		
 	public String getGenre();
 	
 	public List<ImageIcon> getImages(); 
