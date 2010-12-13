@@ -1,11 +1,14 @@
 package arcade.security.util;
 
-import arcade.security.view.RetrievePasswordPanel;
-import arcade.util.database.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
+import arcade.util.database.Constants;
+import arcade.util.database.MySqlAdapter;
 
 /**
  * This class handles all the direct interactions with the database
@@ -45,6 +48,20 @@ public class DataHandler {
 	
 	public void insert(Map<String,String> row){
 		adapter.insert(myTable, row);
+//		List<String> ids = adapter.getColumn(myTable, "Id");
+//		Collections.sort(ids,new Comparator<String>() {
+//
+//			@Override
+//			public int compare(String o1, String o2) {
+//				if(Integer.parseInt(o1)==Integer.parseInt(o2))
+//					return 0;
+//				if(Integer.parseInt(o1)<Integer.parseInt(o2))
+//					return 1;
+//				return -1;
+//			}
+//			
+//		});
+//		return Integer.parseInt(ids.get(0));
 	}
 	
 	public int getUserId(String username){

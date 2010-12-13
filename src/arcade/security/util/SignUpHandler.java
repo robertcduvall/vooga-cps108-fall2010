@@ -1,6 +1,5 @@
 package arcade.security.util;
 
-import arcade.lobby.model.ProfileSet;
 import arcade.security.util.DataHandler;
 
 import java.util.LinkedHashMap;
@@ -51,4 +50,3 @@ public class SignUpHandler {
 	
 	
 }
-
