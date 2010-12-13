@@ -55,6 +55,10 @@ public class ExampleGUI extends Tab {
 		return mainPanel;
 	}
 
+	public static void setPlayer(String player){
+		playerName = player;
+	}
+	
 	private static void refreshContent() {
 		content = new GameView(gameName);
 		columnar.setRightComponent(content);
