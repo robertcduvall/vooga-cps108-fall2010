@@ -119,7 +119,7 @@ public class GamePurchaseView implements IViewer{
 		if (addToCartButton == null) {
 			addToCartButton = new JButton();
 			addToCartButton.setBounds(new Rectangle(480, 58, 136, 30));
-			addToCartButton.setText("Add Game To Cart");
+			addToCartButton.setText("Add To Cart");
 			addToCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					controller.processConfirmAddToCart();
