@@ -45,15 +45,14 @@ public class CheckoutController implements IController {
 	@Override
 	public void initialize() {
 
-		StoreUser account = storeModel.getCurrentUserAccount();
-		List<String> currentCart = account.getCart();
+		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
 
 		JList displayList = viewer.getItemsList();
 		displayList.setListData(currentCart.toArray(new String[currentCart
 				.size()]));
 
 		// The current user creddits;
-		String currentUserCreddits = account.getCreddits();
+		String currentUserCreddits = storeModel.getCurrentUserAccount().getCreddits();
 		viewer.getAvailableCredditsTextField().setText(currentUserCreddits);
 		double currCredits = Double.parseDouble(currentUserCreddits);
 
@@ -83,12 +82,13 @@ public class CheckoutController implements IController {
 	 * cart
 	 */
 	public void processConfirmBuyCart() {
-		// new AreYouSureBuyCartView(this);
 
-		// TODO: Add functionality to JOptionPane
-		JOptionPane.showConfirmDialog(null,
+		int ret = JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Buy This Cart?", "Buy Cart",
 				JOptionPane.YES_NO_OPTION);
+		if(ret == JOptionPane.YES_OPTION) {
+			processBuyCart();
+		}
 	}
 
 	public void verifyCreddits() {
@@ -100,7 +100,6 @@ public class CheckoutController implements IController {
 		if (userHasNoItems() || userHasNoCreddits()) {
 			// new SorryYouCantDoThisView();
 
-			// TODO:
 			JOptionPane.showMessageDialog(null,
 					"Sorry, We Cannot Proceed This Cart Purchase");
 		} else {
@@ -108,7 +107,6 @@ public class CheckoutController implements IController {
 			// new ThankYouForBuyingView();
 			// throw a message about "Hey! thank you!"
 
-			// TODO:
 			JOptionPane.showMessageDialog(null,
 					"Thank You For Buying At the Store!");
 		}
@@ -156,16 +154,15 @@ public class CheckoutController implements IController {
 	public void processConfirmDropItem() {
 
 		if (currentSelected == null) {
-			// new NoDropSelectedView();
-			// TODO:
 			JOptionPane.showMessageDialog(null, "No Item Has Been Selected");
 		} else {
-			// new AreYouSureDropItem(this);
 
-			// TODO: Add functionality to JOptionPane
-			JOptionPane.showConfirmDialog(null,
+			int ret =	JOptionPane.showConfirmDialog(null,
 					"Are You Sure You Want to Drop This Cart?", "Drop Cart",
 					JOptionPane.YES_NO_OPTION);
+			if(ret == JOptionPane.YES_OPTION) {
+				storeModel.getCurrentUserAccount().emptyCart();
+			}
 		}
 	}
 
@@ -175,17 +172,13 @@ public class CheckoutController implements IController {
 		StoreUser user = storeModel.getCurrentUserAccount();
 		user.removeTitleFromCart(currentSelected);
 
-		// new ItemHasBeenDroppedView();
 
-		// TODO:
 		JOptionPane.showMessageDialog(null, "Item Has Been Dropped");
 
 		initialize();
 	}
 
 	public void processSaveCart() {
-		// TODO: There was an error here before, added .saveCart() to fix it,
-		// not sure if that was the fix though.
 		storeModel.getCurrentUserAccount().saveCart();
 	}
 
@@ -195,19 +188,13 @@ public class CheckoutController implements IController {
 	}
 
 	public void processConfirmDropCart() {
-		// new AreYouSureDropCart(this);
-
-		// TODO: Add functionality to JOptionPane
-		JOptionPane.showConfirmDialog(null,
+		int ret = JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Drop This Cart?", "Drop Cart",
 				JOptionPane.YES_NO_OPTION);
+		if(ret == JOptionPane.YES_OPTION) {
+			storeModel.getCurrentUserAccount().emptyCart();
+		}
 	}
 
-	public void processDropCart() {
-
-		StoreUser user = storeModel.getCurrentUserAccount();
-		user.emptyCart();
-		initialize();
-	}
 
 }

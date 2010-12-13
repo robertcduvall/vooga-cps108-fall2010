@@ -40,6 +40,7 @@ public class ProfileTab extends Tab implements IViewer{
 	private JButton editMyProfileButton = null;
 	private JTable purchasedGamesTable = null;
 	private JLabel MyPurchasedGamesLabel = null;
+	private JButton RefreshButton = null;
 	
 	private static final String NAME = "Shop Profile";
 	
@@ -108,6 +109,7 @@ public class ProfileTab extends Tab implements IViewer{
 			jPanel.add(getEditMyProfileButton(), null);
 			jPanel.add(getPurchasedGamesTable(), null);
 			jPanel.add(MyPurchasedGamesLabel, null);
+			jPanel.add(getRefreshButton(), null);
 		}
 		return jPanel;
 	}
@@ -117,10 +119,9 @@ public class ProfileTab extends Tab implements IViewer{
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getUsernameTextField() {
+	public JTextField getUsernameTextField() {
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
-			usernameTextField.setText(controller.getUser().getName());
 			usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed from http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
 			usernameTextField.setEditable(false);
 			usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
@@ -133,12 +134,11 @@ public class ProfileTab extends Tab implements IViewer{
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getAvailableCredditsTextField() {
+	public JTextField getAvailableCredditsTextField() {
 		if (availableCredditsTextField == null) {
 			availableCredditsTextField = new JTextField();
 			//506, 53, 111, 29
 			availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
-			availableCredditsTextField.setText(controller.getUser().getCreddits());
 		}
 		return availableCredditsTextField;
 	}
@@ -186,7 +186,7 @@ public class ProfileTab extends Tab implements IViewer{
 	 * 	
 	 * @return javax.swing.JTable	
 	 */
-	private JTable getPurchasedGamesTable() {
+	public JTable getPurchasedGamesTable() {
 		if (purchasedGamesTable == null) {
 			purchasedGamesTable = new JTable();
 			
@@ -205,6 +205,26 @@ public class ProfileTab extends Tab implements IViewer{
 			purchasedGamesTable.setBounds(new Rectangle(102, 347, 542, 256));
 		}
 		return purchasedGamesTable;
+	}
+	
+	/**
+	 * This method initializes RefreshButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getRefreshButton() {
+		if (RefreshButton == null) {
+			RefreshButton = new JButton();
+			RefreshButton.setBounds(new Rectangle(291, 15, 87, 26));
+			RefreshButton.setText("Refresh");
+			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					
+					controller.initialize();
+				}
+			});
+		}
+		return RefreshButton;
 	}
 
 	
