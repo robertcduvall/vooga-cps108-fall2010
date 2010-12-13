@@ -1,0 +1,7 @@
+<Overlay>
+
+<OverlayGroup name="WaitingGroup" >
+<OverlayString xLoc="150" yLoc="150" fontName="gameFontred" label="WAITING FOR OPPONENT" fontSize="32"></OverlayString>
+</OverlayGroup>
+
+</Overlay>
