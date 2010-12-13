@@ -41,15 +41,15 @@ public class GameView extends JPanel {
 	public Map<String, String[]> parseGame(String game) {
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("title", game);
+		conditions.put("Title", game);
 		List<Map<String, String>> attributes = Arcade.myDbAdapter.getRows(
-				"GameInfo", conditions, "title", "genre", "rating",
-				"description", "tags", "classname", "imagepaths",
-				"instructions");
+				"GameInfo", conditions, "Title", "Genre",
+				"Description", "Tags", "ClassName", "ImagePaths",
+				"Instructions");
 		for (Map<String, String> m : attributes) {
 			for (String key : m.keySet()) {
-				gameMap.put(key, (key.equals("tags") || key
-						.equals("instructions")) ? m.get(key).split(",")
+				gameMap.put(key.toLowerCase(), (key.equals("Tags") || key
+						.equals("Instructions")) ? m.get(key).split(",")
 						: new String[] { m.get(key) });
 			}
 		}
