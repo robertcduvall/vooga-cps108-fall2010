@@ -208,7 +208,7 @@ public class CheckoutTab extends Tab implements IViewer{
 			SaveCartButton.setText("Save Cart");
 			SaveCartButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller
+					controller.processSaveCart();
 				}
 			});
 		}

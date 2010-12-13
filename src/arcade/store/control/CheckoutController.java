@@ -132,13 +132,16 @@ public class CheckoutController implements IController {
 	public void processBuyCart() {
 		StoreUser user = storeModel.getCurrentUserAccount();
 		double userCreddits = Double.parseDouble(user.getCreddits());
-
+		ArrayList<String> gamesToBuy = new ArrayList<String>();
+		
 		for (String title : user.getCart()) {
 			IItemInfo item = storeModel.getItemInfo(title);
 			double price = Double.parseDouble(item.getPrice());
 			userCreddits -= price;
-			user.addGame(title);
+			gamesToBuy.add(title);
 		}
+		
+		user.addGames(gamesToBuy);
 
 		// initialize a new array for the cart!
 		user.emptyCart();

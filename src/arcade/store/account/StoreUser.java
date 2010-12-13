@@ -8,6 +8,8 @@ import arcade.store.items.IItemInfo;
 public class StoreUser {
 	
 	private final static String DEFAULT_NAME = "default_user";
+	private static final String CART_FIELD = "cart";
+	private static final String OWNED_GAMES_FIELD = "owned_games";
 	private int id;
 	private String name;
 	private double creddits;
@@ -27,9 +29,15 @@ public class StoreUser {
 		this.cart = new ArrayList<String>();
 		this.ownedGames = new ArrayList<String>();
 		String[] cartList = cart.split(",");
-		for(String s : cartList) this.cart.add(s.trim());
+		for(String s : cartList) {
+			if(s.length()>1)
+			this.cart.add(s.trim());
+		}
 		String[] ownedList = cart.split(",");
-		for(String s : ownedList) this.ownedGames.add(s.trim());
+		for(String s : ownedList) {
+			if(s.length()>1)
+			this.ownedGames.add(s.trim());
+		}
 	}
 	
 	public StoreUser()
@@ -58,35 +66,30 @@ public class StoreUser {
 		return ownedGames;
 	}
 	
-	public boolean processPurchase(IItemInfo item) {
-		double price = Double.parseDouble(item.getPrice());
-		if(price-creddits >= 0) {
-			creddits -= price;
-			ownedGames.add(item.getTitle());
-			return true;
-		}
-		return false;
-	}
 	
 	public void updateToCreddits(double newcreddits)
 	{
 		creddits = newcreddits;
+		dbAdapter.updateCreddits(creddits, Integer.toString(id));
 	}
 	
 	public void addCreddits(double amount) {
 		creddits +=amount;
-		dbAdapter.updateCreddits(creddits, id);
+		System.out.println(dbAdapter.updateCreddits(creddits, Integer.toString(id)));
 	}
 	
-	public void addGame(String title)
+	public void addGames(List<String> titles)
 	{
-		ownedGames.add(title);
-		dbAdapter.updateList(ownedGames, name);
+		for(String s : titles) {
+			ownedGames.add(s);
+		}
+		dbAdapter.updateList(ownedGames, Integer.toString(id), OWNED_GAMES_FIELD);
 	}
 	
 	public void emptyCart()
 	{
 		cart = new ArrayList<String>();
+		dbAdapter.updateList(cart, Integer.toString(id), CART_FIELD);
 	}
 	
 	public void removeTitleFromCart(String title)
@@ -99,7 +102,7 @@ public class StoreUser {
 	}
 	
 	public void saveCart() {
-		dbAdapter.updateList(newCart, user)
+		dbAdapter.updateList(cart, Integer.toString(id), CART_FIELD);
 	}
 	
 }
