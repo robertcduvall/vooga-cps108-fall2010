@@ -7,7 +7,6 @@ import java.util.Collection;
 
 import vooga.engine.core.PlayField;
 import vooga.engine.networking.client.ClientConnection;
-import vooga.engine.networking.client.GameClientConnection;
 
 import com.golden.gamedev.object.SpriteGroup;
 
@@ -37,7 +36,7 @@ public abstract class GameState {
 	private boolean myIsActive = false;
 	protected Collection<PlayField> myRenderField = new ArrayList<PlayField>();
 	protected Collection<PlayField> myUpdateField = new ArrayList<PlayField>();
-	protected GameClientConnection gameConnection;
+	protected ClientConnection connection;
 	protected String message;
 
 	/**
@@ -68,15 +67,15 @@ public abstract class GameState {
 		addPlayField(playfield);
 	}
 	
-	public GameState(GameClientConnection connection){
+	public GameState(ClientConnection connection){
 		this();
-		this.gameConnection = connection;
+		this.connection = connection;
 	}
 	
-	public GameState(PlayField playfield, GameClientConnection connection){
+	public GameState(PlayField playfield, ClientConnection connection){
 		this();
 		addPlayField(playfield);
-		this.gameConnection = connection;
+		this.connection = connection;
 	}
 
 	/**
@@ -144,8 +143,8 @@ public abstract class GameState {
 		for (PlayField playfield : myUpdateField) {
 			playfield.update(t);
 		}
-		if(gameConnection != null && shouldGetData()){
-			interpretMessage(gameConnection.getData());
+		if(connection != null && shouldGetData()){
+			interpretMessage(connection.getData());
 		}
 	}
 	
@@ -160,8 +159,8 @@ public abstract class GameState {
 		return false;
 	}
 	
-	public void setConnection(GameClientConnection connection){
-		this.gameConnection = connection;
+	public void setConnection(ClientConnection connection){
+		this.connection = connection;
 	}
 	
 	/**
@@ -181,21 +180,21 @@ public abstract class GameState {
 	 * @version 1.0
 	 */
 	public boolean checkMessage(){
-		if(message == null || message.length() == 0){
+		if(message == null || message.length() == 0 || message.equals("still")){
 			return false;
 		}
 		else{
 			try {
 				Method statusAction = this.getClass().getMethod(message);
-				statusAction.invoke(this);
+				message = null;
+				return ((Boolean)(statusAction.invoke(this))).booleanValue();
 			} 
 			catch (Exception e) {
-				System.out.println("Status action error" + e + ". Make sure the names of your stauses match the name of your status methods!");
+				System.out.println("Couldn't find method '" + message + "'. Make sure the names of your stauses match the name of your status methods!");
 				System.exit(1);
 			}
-			message = null;
-			return true;
 		}
+		return false;
 	}
 	
 	/**

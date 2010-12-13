@@ -17,7 +17,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
-import vooga.engine.networking.client.ChatClientConnection;
+import vooga.engine.networking.client.ChatConnection;
 
 /**
  * Class with the main method that runs the TicTacToe Game.  Runs the Vooga game with a chat box that can be used to chat between players in the Game.
@@ -34,7 +34,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	private Style messageStyle;
 	private Style opponentStyle;
 	private Style statusStyle;
-	private ChatClientConnection connection;
+	private ChatConnection connection;
 
 	/**
 	 * Create chat GUI and listen for incoming chats.
@@ -42,7 +42,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public TicTacToeFrame(ChatClientConnection connection){
+	public TicTacToeFrame(ChatConnection connection){
 		this.connection = connection;
 		initStyles();
 		initChatFields();
@@ -129,7 +129,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	@Override
 	public void run(){
 		while(true){
-			String chat = connection.getChat();
+			String chat = connection.getData();
 			try {
 				if(chat.startsWith("ADMIN:")){
 					doc.insertString(doc.getLength(), chat.substring(6) + "\n", statusStyle);
@@ -161,7 +161,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 			if(text.length() > 0){
 				try {
 					doc.insertString(doc.getLength(), "me: ", meStyle);
-					connection.sendChat(text);
+					connection.sendData(text);
 					doc.insertString(doc.getLength(), text + "\n", messageStyle);
 					chat.setText("");
 					chats.setCaretPosition(chats.getDocument().getLength());
@@ -182,9 +182,9 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	 * @version 1.0
 	 */
 	public static void main(String[] args){
-		ChatClientConnection connection = null;
+		ChatConnection connection = null;
 		try{
-			connection = new ChatClientConnection("TicTacToe");
+			connection = new ChatConnection("TicTacToe");
 		}
 		catch(Exception e){
 			System.out.println("TicTacToe Error: "+ e.getMessage());

@@ -62,7 +62,7 @@ public class PlayState extends GameState implements Constants {
 
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
-		player.setConnection(gameConnection);
+		player.setConnection(connection);
 		otherPlayer = (Shooter) playField.getGroup("Players").getSprites()[1];
 	}
 
@@ -199,12 +199,7 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public void interpretMessage(String data){
-		if(data.startsWith(Location.getIdentifier())){
-			Location loc = (Location) (Location.deserialize(data));
-			otherPlayer.setLocation(loc.getX(), loc.getY());
-		}
-		else
-			setMessage(data);
+		setMessage(data);
 	}
 	
 	/**
@@ -217,7 +212,7 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public boolean shouldGetData(){
-		return gameConnection.isConnected();
+		return connection.isConnected();
 	}
 
 	/**
@@ -235,27 +230,30 @@ public class PlayState extends GameState implements Constants {
 		}
 	}
 	
-	public void goUp(){
+	public boolean goUp(){
 		otherPlayer.goUp();
+		return false;
 	}
 	
-	public void goDown(){
+	public boolean goDown(){
 		otherPlayer.goDown();
+		return false;
 	}
 	
-	public void goLeft(){
+	public boolean goLeft(){
 		otherPlayer.goLeft();
+		return false;
 	}
 	
-	public void goRight(){
+	public boolean goRight(){
 		otherPlayer.goRight();
+		return false;
 	}
 	
-	public void shoot(){
+	public boolean shoot(){
 		otherPlayer.shoot();
+		return false;
 	}
-	
-	public void still(){}
 	
 	/**
 	 * render the graphics component in the game

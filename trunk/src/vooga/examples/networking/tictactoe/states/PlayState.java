@@ -16,7 +16,6 @@ import vooga.examples.networking.tictactoe.events.GameLostEvent;
 import vooga.examples.networking.tictactoe.events.GameTiedEvent;
 import vooga.examples.networking.tictactoe.events.GameWonEvent;
 import vooga.engine.networking.client.ClientConnection;
-import vooga.engine.networking.client.GameClientConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.control.*;
@@ -49,7 +48,7 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public PlayState(Game game, LevelManager levelManager, GameClientConnection connection){
+	public PlayState(Game game, LevelManager levelManager, ClientConnection connection){
 		super(connection);
 		this.game = game;
 		this.levelManager = levelManager;
@@ -93,7 +92,7 @@ public class PlayState extends GameState{
 		gameWonState = new GameOverState(gameWonField);
 		game.getGameStateManager().addGameState(gameWonState);
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitForTurnXml"), game);
-		theirTurnState = new TheirTurnState(game, gameConnection, waitField, this);
+		theirTurnState = new TheirTurnState(game, connection, waitField, this);
 		game.getGameStateManager().addGameState(theirTurnState);
 		PlayField youLostField = levelParser.getPlayfield(Resources.getString("youLostXml"), game);
 		youLostState = new GameOverState(youLostField);
@@ -152,7 +151,7 @@ public class PlayState extends GameState{
 			int col = pieceX / Resources.getInt("squareDimension");
 			int row = pieceY / Resources.getInt("squareDimension");
 			myTurn = false;
-			gameConnection.sendSerializable(new Move(row, col));
+			connection.sendData(new Move(row, col));
 		}
 	}
 
@@ -211,7 +210,7 @@ public class PlayState extends GameState{
 	 */
 	@Override
 	public boolean shouldGetData(){
-		return (gameConnection.isConnected() && !myTurn);
+		return (connection.isConnected() && !myTurn);
 	}
 	
 	/**
@@ -220,10 +219,10 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void won(){
-		gameConnection.sendGameOver();
+	public boolean won(){
+		connection.sendGameOver();
 		game.getGameStateManager().switchTo(gameWonState);
-		return;
+		return true;
 	}
 	
 	/**
@@ -232,10 +231,10 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void tied(){
-		gameConnection.sendGameOver();
+	public boolean tied(){
+		connection.sendGameOver();
 		game.getGameStateManager().switchTo(tieState);
-		return;
+		return true;
 	}
 	
 	/**
@@ -244,10 +243,10 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void lost(){
-		gameConnection.sendGameOver();
+	public boolean lost(){
+		connection.sendGameOver();
 		game.getGameStateManager().switchTo(youLostState);
-		return;
+		return true;
 	}
 	
 	/**
@@ -256,10 +255,10 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void quit(){
-		gameConnection.sendGameOver();
+	public boolean quit(){
+		connection.sendGameOver();
 		game.getGameStateManager().switchTo(theyQuitState);
-		return;
+		return true;
 	}
 	
 	/**
@@ -268,9 +267,9 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void theirTurn(){
+	public boolean theirTurn(){
 		game.getGameStateManager().switchTo(theirTurnState);
-		return;
+		return true;
 	}
 	
 	/**
@@ -279,7 +278,8 @@ public class PlayState extends GameState{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void yourTurn(){
+	public boolean yourTurn(){
 		myTurn = true;
+		return false;
 	}
 }
