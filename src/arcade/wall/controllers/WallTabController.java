@@ -1,8 +1,12 @@
 package arcade.wall.controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
 
 import arcade.wall.models.Comment;
+import arcade.wall.models.CommentSet;
 import arcade.wall.models.WallTabModel;
 import arcade.wall.views.walltab.WallTabView;
 
@@ -18,34 +22,15 @@ public class WallTabController {
 	public WallTabController() {
 		model = new WallTabModel();
 		view = new WallTabView(this);
-		updateComments(WallTabView.myGameChoices[0]);
+		refreshComments(WallTabView.myGameChoices[0]);
+		
+		//Add listeners to the view.
+		view.addGameComboBoxListener(new GameComboBoxListener());
+		view.addReviewButtonListener(new ReviewButtonListener());
 	}
 	
-	/**
-	 * Adds a Comment to the Model.
-	 * @param comment
-	 * 		The comment to add
-	 */
-	public void addComment(Comment comment){
-		model.addComment(comment);		
-	}
-	
-	//TODO is this the way we actually want to determine if a Comment is valid or not?
-	/**
-	 * Checks the Model to see if the given Comment is valid.
-	 * @param comment
-	 * 		The comment to check
-	 * @return 
-	 * 		Whether the comment is valid or not
-	 */
-	public boolean commentIsValid(Comment comment) {
-		return model.commentIsValid(comment);
-	}
-
-	//TODO make this method return the output so the View is what updates the TextField
-	//TODO 
-	public void updateComments(String selectedGameName) {
-		view.updateCommentsPanel(model.getGameComments(selectedGameName));
+	public void refreshComments(String selectedGameName) {
+		view.refreshCommentsArea(model.getGameComments(selectedGameName));
 	}
 
 	/**
@@ -67,21 +52,6 @@ public class WallTabController {
 				options[1]);
 		return n;
 	}
-
-	/**
-	 * Uses the Model to update game ratings.
-	 * @param selectedGameName
-	 * 		The game to match
-	 * @param myGamerName
-	 * 		The username to match
-	 * @param selectedValue
-	 * 		The new rating to overwrite with
-	 */
-	public void updateCommentRatings(String selectedGameName,
-			String myGamerName, String selectedValue) {
-		model.updateCommentRatings(selectedGameName,
-				myGamerName, selectedValue);
-	}
 	
 	public WallTabView getView() {
 		return view;
@@ -90,4 +60,38 @@ public class WallTabController {
 	public double getRating(String gameName) {
 		return model.getGameRating(gameName);
 	}
+	
+	class GameComboBoxListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if ("comboBoxChanged".equals(e.getActionCommand())) {
+            	String selectedGameName = view.getSelectedGame();
+                view.setCommentsLabel("Comments for " + selectedGameName + ":");
+                view.setAverageRatingLabel("Average Rating for " + selectedGameName + ":"+getRating(selectedGameName));
+                refreshComments(selectedGameName);
+                view.setEntryText("");
+    	    }
+        }
+    }
+	
+	class ReviewButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	String selectedGameName = view.getSelectedGame();
+        	//TODO change "John"s to make use of ProfileSet.currentProfile
+    		Comment submittedComment = new Comment(""+model.getNewID(), selectedGameName, "John", 
+    											   view.getEntryText(), view.getSelectedRating());
+    		//TODO is this the way we actually want to determine if a Comment is valid or not?
+    		if (!model.commentIsValid(submittedComment)) { //Comment was conflicting
+    			if (showCommentDialog() == JOptionPane.YES_OPTION) { //Only add if user says Yes
+    				model.addComment(submittedComment);
+    				//Update all comment ratings with the GameName and UserName in question.
+    				model.updateCommentRatings(selectedGameName, "John", view.getSelectedRating());
+    			}
+    		} else {
+    			model.addComment(submittedComment);
+    		}
+    		view.setAverageRatingLabel("Average Rating for " + selectedGameName + ":"+getRating(selectedGameName));
+    		refreshComments(selectedGameName);
+    		view.setEntryText("");
+        }
+    }
 }

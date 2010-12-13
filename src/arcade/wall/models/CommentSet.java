@@ -1,7 +1,7 @@
 package arcade.wall.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,23 +13,25 @@ import arcade.util.database.MySqlAdapter;
  * @author John, David Herzka
  *
  */
-public class CommentSet implements Iterable<Comment> {
+public class CommentSet { //implements Iterable<Comment> {
 	
 	public Comment currentComment = null;
 	public DatabaseAdapter myDbAdapter;
 	public String myTable;
+	public int currentID;
 
 	public CommentSet(String host, String dbName, String tableName,
 			String user, String pass) {
 		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
 		myTable = tableName;
+		currentID = size();
 	}
 
 	/**
 	 * Returns the size of the CommentSet (number of rows).
 	 */
 	public int size() {
-		List<String> col = myDbAdapter.getColumn(myTable, "Comment_Id");
+		List<String> col = myDbAdapter.getColumn(myTable, "Id");
 		return col.size();
 	}
 
@@ -42,11 +44,44 @@ public class CommentSet implements Iterable<Comment> {
 	 */
 	public boolean addComment(Comment comment) {
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("Game_Name", comment.getGameName());
-		row.put("User_Name", comment.getUserName());
-		row.put("Comment_String", comment.getCommentString());
+		row.put("Id", comment.getId());
+		row.put("GameInfo_Title", comment.getGameName());
+		row.put("User_Id", comment.getUserName());
+		row.put("String", comment.getCommentString());
 		row.put("Rating", comment.getRating());
+		currentID++;
 		return myDbAdapter.insert(myTable, row);
+	}
+	
+	/**
+	 * Updates the ratings given by a particular user to a particular game.
+	 * @param selectedGameName
+	 * 		The game to match
+	 * @param myGamerName
+	 * 		The username to match
+	 * @param selectedValue
+	 * 		The new rating to overwrite with
+	 */
+	//TODO use the equals() method in Comment for this
+	public void updateCommentRatings(String selectedGameName,
+			String myGamerName, String selectedValue) {
+		Map<String, String> conditions = new HashMap<String, String>();
+		conditions.put("GameInfo_Title", selectedGameName);
+		conditions.put("User_Id", myGamerName);
+		for (Map<String, String> row : myDbAdapter.getRows(myTable, conditions)) {
+			Comment commentToUpdate = new Comment(row.get("Id"),
+												  row.get("GameInfo_Title"),
+												  row.get("User_Id"),
+												  row.get("String"), 
+												  row.get("Rating"));
+			updateCommentRating(commentToUpdate, selectedValue);
+		}
+//		for (Comment c: myCommentSet) {
+//			if (c.getUserName().equals(myGamerName) && c.getGameName().equals(selectedGameName)) {
+//				c.setRating(selectedValue);
+//				myCommentSet.updateCommentRating(c, selectedValue);
+//			}
+//		}
 	}
 	
 	/**
@@ -61,14 +96,14 @@ public class CommentSet implements Iterable<Comment> {
 	 */
 	public boolean updateCommentRating(Comment comment, String newRating) {
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("Game_Name", comment.getGameName());
-		row.put("User_Name", comment.getUserName());
-		row.put("Comment_String", comment.getCommentString());
+		row.put("GameInfo_Title", comment.getGameName());
+		row.put("User_Id", comment.getUserName());
+		row.put("String", comment.getCommentString());
 		row.put("Rating", newRating);
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("Game_Name", comment.getGameName());
-		conditions.put("User_Name", comment.getUserName());
-		conditions.put("Comment_String", comment.getCommentString());
+		conditions.put("GameInfo_Title", comment.getGameName());
+		conditions.put("User_Id", comment.getUserName());
+		conditions.put("String", comment.getCommentString());
 		return myDbAdapter.update(myTable, conditions, row);
 	}
 
@@ -83,48 +118,87 @@ public class CommentSet implements Iterable<Comment> {
 		//TODO Use SELECT * FROM `Comments` LIMIT 5 to select the first five comments, or you can just use 
 		//SELECT *. You should be getting all the comments with one query. You should only use this method
 		//When you need to see a specific comment made by a user
-		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "Comment_Id", ""+rowNo);
+		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "Id", ""+rowNo);
 		Map<String, String> row = rows.get(0);
-		return new Comment(row.get("Game_Name"), row.get("User_Name"), 
-				row.get("Comment_String"), row.get("Rating"));
+		return new Comment(row.get("Id"), row.get("GameInfo_Title"), row.get("User_Id"), 
+				row.get("String"), row.get("Rating"));
 	}
 
 	/**
 	 * Determines whether the given comment is in conflict with one already existing in this CommentSet.
 	 */
 	public boolean commentIsConflicting(Comment comment) {
-		for (Comment c: this) {
-			if (c.equals(comment))
+		Map<String, String> conditions = new HashMap<String, String>();
+		conditions.put("GameInfo_Title", comment.getGameName());
+		conditions.put("User_Id", comment.getUserName());
+		for( Map<String, String> row: myDbAdapter.getRows(myTable, conditions)) {
+			if (!row.get("Rating").equals(comment.getRating()))
 				return true;
 		}
 		return false;
 	}
 	
-	@Override
-	public Iterator<Comment> iterator() {
-		return new Iterator<Comment>() {
-
-			int mySize = size();
-			int myLoc = 0;
-
-			@Override
-			public boolean hasNext() {
-				return myLoc < mySize;
-			}
-
-			@Override
-			public Comment next() {
-				return getComment(myLoc++);
-			}
-
-			@Override
-			/**
-			 * This method will not be implemented
-			 */
-			public void remove() {
-				throw (new UnsupportedOperationException());
-			}
-
-		};
+	/**
+	 * Returns all Comments related to a game.
+	 * @param gameName - game for which we want the comments
+	 * @return a List of all the comments for the specified game
+	 */
+	public List<Comment> getGameComments(String gameName) {
+		List<Comment> gameComments = new ArrayList<Comment>();
+		for (Map<String, String> row : myDbAdapter.getRows(myTable, "GameInfo_Title", gameName)) {
+			gameComments.add(new Comment(	   row.get("Id"), 
+										  	   row.get("GameInfo_Title"),
+											   row.get("User_Id"),
+											   row.get("String"),
+											   row.get("Rating")
+											   ));
+		}
+		return gameComments;
 	}
+	
+	/**
+	 * Returns all Comments related to a game.
+	 * @param userName - user whose comments we are interested in
+	 * @return a List of all the comments entered by the specified user
+	 */
+	public List<Comment> getUserComments(String userName) {
+		List<Comment> gameComments = new ArrayList<Comment>();
+		for (Map<String, String> row : myDbAdapter.getRows(myTable, "User_Name", userName)) {
+			gameComments.add(new Comment(	   row.get("Id"), 
+				  	   row.get("GameInfo_Title"),
+					   row.get("User_Id"),
+					   row.get("String"),
+					   row.get("Rating")
+					   ));
+		}
+		return gameComments;
+	}
+	
+//	@Override
+//	public Iterator<Comment> iterator() {
+//		return new Iterator<Comment>() {
+//
+//			int mySize = size();
+//			int myLoc = 0;
+//
+//			@Override
+//			public boolean hasNext() {
+//				return myLoc < mySize;
+//			}
+//
+//			@Override
+//			public Comment next() {
+//				return getComment(myLoc++);
+//			}
+//
+//			@Override
+//			/**
+//			 * This method will not be implemented
+//			 */
+//			public void remove() {
+//				throw (new UnsupportedOperationException());
+//			}
+//
+//		};
+//	}
 }
