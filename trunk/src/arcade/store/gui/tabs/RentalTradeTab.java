@@ -6,7 +6,6 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
-import arcade.store.control.RentalTradeController;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
@@ -44,7 +43,7 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 
 	public RentalTradeTab()
 	{
-		controller = new RentalTradeController();
+//		controller = new RentalTradeController();
 		controller.addViewer(this);
 		setName(NAME);
 	}

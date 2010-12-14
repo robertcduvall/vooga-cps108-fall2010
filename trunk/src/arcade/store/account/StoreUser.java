@@ -2,7 +2,8 @@ package arcade.store.account;
 
 import java.util.*;
 
-import arcade.store.StoreSqlAdapter;
+import arcade.store.database.StoreDbConstants;
+import arcade.store.database.StoreSqlAdapter;
 import arcade.store.items.IItemInfo;
 
 public class StoreUser {
@@ -78,7 +79,7 @@ public class StoreUser {
 	public void emptyCart()
 	{
 		cart = new ArrayList<String>();
-		dbAdapter.updateList(cart, Integer.toString(id), StoreSqlAdapter.CART_FIELD);
+		dbAdapter.updateList(cart, Integer.toString(id), StoreDbConstants.CART_FIELD);
 	}
 	
 	public void removeTitleFromCart(String title)
@@ -91,7 +92,7 @@ public class StoreUser {
 	}
 	
 	public void saveCart() {
-		dbAdapter.updateList(cart, Integer.toString(id), StoreSqlAdapter.CART_FIELD);
+		dbAdapter.updateList(cart, Integer.toString(id), StoreDbConstants.CART_FIELD);
 	}
 	
 	public String getId() {
