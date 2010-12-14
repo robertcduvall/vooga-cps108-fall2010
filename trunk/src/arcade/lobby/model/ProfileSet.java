@@ -83,7 +83,7 @@ public class ProfileSet implements Iterable<Profile> {
 		if (rows == null || rows.size() == 0)
 			return userProf;
 		Map<String, String> row = rows.get(0);
-		userProf.setName(row.get("FirstName"), row.get("LastName"));
+		userProf.setName(row.get(resourceBundle.getString("dbFirstName")), row.get(resourceBundle.getString("dbLastName")));
 		try {
 			userProf.setBirthday(row.get(resourceBundle.getString("birthday")));
 		} catch (NumberFormatException e) {
