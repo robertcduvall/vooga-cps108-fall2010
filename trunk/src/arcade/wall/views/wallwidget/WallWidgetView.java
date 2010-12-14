@@ -1,4 +1,4 @@
-package arcade.wall.widget;
+package arcade.wall.views.wallwidget;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import arcade.wall.controllers.WallWidgetController;
 import arcade.wall.views.ratings.RadioPanel;
 
 /**

@@ -1,13 +1,13 @@
-package arcade.wall.widget;
+package arcade.wall.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import arcade.wall.controllers.WallTabController;
 import arcade.wall.models.WallModel;
 import arcade.wall.models.data.comment.Comment;
+import arcade.wall.views.wallwidget.WallWidgetView;
 
 public class WallWidgetController {
 	WallTabController controller;
