@@ -22,6 +22,7 @@ public class Profile extends Panel {
 	"HighScores");
 	private static double score;
 	private static String playerName = "Guest";
+	private static int playerID = 1;
 	
 	public Profile() {
 		score = 0;
@@ -43,13 +44,13 @@ public class Profile extends Panel {
 	
 	public static void updateHighScore(double highScore) {
 		score = highScore;
-		new HighScore(GameView.getGame());
+		new HighScore();
 	}
 
 	public static boolean addHighScore() {
-		boolean isAdded = hsc.addScore(playerName, GameView.getGame(), score);
-		columnar.setLeftComponent(makeLeftPanel());
-		mainPanel.setRightComponent(makeRightPanel());
+		boolean isAdded = hsc.addScore(playerID, GameView.getGameID(), score);
+//		columnar.setLeftComponent(makeLeftPanel());
+//		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;
 	}
 	
@@ -61,8 +62,9 @@ public class Profile extends Panel {
 			int numScores) {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
-		String description = playerFormat(playerName, numScores,
-				hsc.getPlayerHighScores(playerName, numScores,"id"));
+//		String description = playerFormat(playerName, numScores,
+//				hsc.getPlayerHighScores(playerName, numScores,"id"));
+		String description="scores";
 		textPane.setEditable(false);
 
 		textPane.setText(description);

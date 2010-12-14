@@ -29,8 +29,10 @@ public class HighScorePanel extends Panel{
 			int numScores) {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
-		String description = gameFormat(gameName, numScores,
-				hsc.getGameHighScores(gameName, numScores));
+		//TODO
+//		String description = gameFormat(gameName, numScores,
+//				hsc.getGameHighScores(gameName, numScores));
+		String description="test";
 		textPane.setEditable(false);
 
 		textPane.setText(description);

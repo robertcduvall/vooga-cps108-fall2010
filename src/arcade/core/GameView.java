@@ -1,6 +1,7 @@
 package arcade.core;
 
 import java.awt.Component;
+import java.awt.GraphicsConfiguration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
@@ -8,36 +9,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.SwingWorker;
-
+import javax.swing.*;
 import vooga.engine.core.Game;
 import arcade.core.examples.HighScorePanel;
 
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
 
-	private static String gameName = "Zombieland";
+	private static int gameID;
+	private static String gameName;
 	private static Map<String, String[]> gameProperties;
 	private static ImageIcon splash;
 	private static JPanel main;
 
-	public GameView(String game) {
+	public GameView(int id) {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		gameName = game;
-		
-		initialize();
+		main=new JPanel();
+		gameID = id;
+		gameProperties = parseGame(gameID);
 	}
 
 	private static void initialize() {
-		gameProperties = parseGame(gameName);
+		gameProperties = parseGame(gameID);
 		main.add(setSplashScreen());
 		main.add(setText());
 
@@ -49,21 +43,22 @@ public class GameView extends JPanel {
 		main.add(panel);
 	}
 
-	public static Map<String, String[]> parseGame(String game) {
+	public static Map<String, String[]> parseGame(int id) {
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("title", game);
+		conditions.put("Id", id+"");
 		List<Map<String, String>> attributes = Arcade.myDbAdapter.getRows(
-				"GameInfo", conditions, "title", "genre", "rating",
-				"description", "tags", "classname", "imagepaths",
-				"instructions");
+				"GameInfo", conditions, "Title", "Genre",
+				"Description", "Tags", "ClassName", "ImagePaths",
+				"Instructions");
 		for (Map<String, String> m : attributes) {
 			for (String key : m.keySet()) {
-				gameMap.put(key, (key.equals("tags") || key
-						.equals("instructions")) ? m.get(key).split(",")
+				gameMap.put(key.toLowerCase(), (key.equals("Tags") || key
+						.equals("Instructions")) ? m.get(key).split(",")
 						: new String[] { m.get(key) });
 			}
 		}
+		gameName=gameMap.get("title")[0];
 		return gameMap;
 	}
 
@@ -141,12 +136,12 @@ public class GameView extends JPanel {
 		return back;
 	}
 	
-	public static void setGame(String name) {
-		gameName = name;
+	public static void setGame(int id) {
+		gameID=id;
 		refreshContent();
 		HighScorePanel.getGameHighScoresPanel(gameName, 5);
-		columnar.setLeftComponent(makeLeftPanel());
-		mainPanel.setRightComponent(makeRightPanel());
+//		columnar.setLeftComponent(makeLeftPanel());
+//		mainPanel.setRightComponent(makeRightPanel());
 	}
 	
 	private static void refreshContent() {
@@ -160,5 +155,9 @@ public class GameView extends JPanel {
 	
 	public JComponent getContent() {
 		return main;
+	}
+
+	public static int getGameID() {
+		return gameID;
 	}
 }

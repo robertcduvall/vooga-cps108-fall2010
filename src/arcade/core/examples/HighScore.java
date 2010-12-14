@@ -8,13 +8,11 @@ import arcade.core.ExampleGUI;
 import arcade.core.Window;
 
 public class HighScore extends Window {
-	private String gameName;
-	public HighScore(String gn) {
+	public HighScore() {
 		setSize(300, 120);
 		setVisible(true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLocation(300,300);
-		gameName=gn;
 		createContents();
 	}
 
@@ -22,9 +20,8 @@ public class HighScore extends Window {
 	protected void createContents() {
 
 		
-		JLabel l1=new JLabel("Congrats! You got a new High Score in "
-				+ gameName);
-		JLabel l2=new JLabel("Would you like to submit your high score?");
+		JLabel l1=new JLabel("Congrats! You got a new High Score");
+		JLabel l2=new JLabel("Would you like to submit your score?");
 		JPanel panel = new JPanel();
 		panel.add(l1);
 		panel.add(l2);

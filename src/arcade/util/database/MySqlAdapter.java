@@ -138,7 +138,12 @@ public class MySqlAdapter implements DatabaseAdapter {
 		return result;
 	}
 
-
+	/**
+	 * Get multiple columns within a table by specifying a list of column names
+	 * @param tableName name of the table in the database
+	 * @param cols names of the columns to be selected
+	 * @return a list of maps that contain key/value pairs
+	 */
 	public List<Map<String, String>> getColumns(String tableName, String... cols) {
 		String columns = createColumnSelection(cols);
 		String query = "SELECT " + columns + " FROM " + tableName;
