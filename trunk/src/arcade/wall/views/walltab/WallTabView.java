@@ -1,5 +1,6 @@
 package arcade.wall.views.walltab;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.swing.JTextField;
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallTabController;
 import arcade.wall.models.data.comment.Comment;
-import arcade.wall.views.ratings.RadioPanel;
+import arcade.wall.views.ratings.IconPanel;
 
 /**
  * WallTabView is the Wall entity that deals with the display of the Wall Arcade Tab GUI elements and data on screen. 
@@ -31,12 +32,14 @@ public class WallTabView extends JPanel {
 	
 	//GUI Elements
 	private JPanel myPanel;
-	private RadioPanel myRatingPanel;
+	private IconPanel myRatingPanel;
 	private JTextArea myCommentsArea;
 	private JButton myReviewButton;
 	private JComboBox myGameComboBox;
-	private JLabel myCommentsLabel;
-	private JLabel myAverageRatingLabel;
+	private JLabel mySelectGameLabel;
+	private JLabel myEnterCommentLabel;
+	private JLabel myCommentsDisplayLabel;
+	private JLabel myAverageRatingDisplayLabel;
 	private JTextField myCommentEntryField;
 	private JLabel myTopRatedGamesLabel;
 	
@@ -51,47 +54,66 @@ public class WallTabView extends JPanel {
 	 * Constructs the WallTab JPanel.
 	 */
 	private JPanel constructJPanel() {
-		JPanel returnPanel = new JPanel();
-		JPanel entryPanel = new JPanel();
-		JPanel displayPanel = new JPanel();
-		myRatingPanel = new RadioPanel(5);
-		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
-		for (String s: ratingLabelBundle.keySet()) {
-			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
-		}
-		myRatingPanel.setVertical();
-
+		//Construct GUI elements
 		myReviewButton = new JButton("Review");
 		myGameComboBox = new JComboBox(myGameChoices);
 		myGameComboBox.setSelectedIndex(0);
-		myCommentEntryField = new JTextField(17);
 		String selectedGame = myGameChoices[myGameComboBox.getSelectedIndex()];
-		myCommentsLabel = new JLabel("Comments for " + selectedGame + ":");
-		myAverageRatingLabel = new JLabel();
+		myCommentEntryField = new JTextField();
+		mySelectGameLabel = new JLabel("Select game:");
+		myEnterCommentLabel = new JLabel("Enter a comment here:");
+		myAverageRatingDisplayLabel = new JLabel();
 		setAverageRatingLabel(selectedGame);
+		myCommentsDisplayLabel = new JLabel("Comments for " + selectedGame + ":");
 		myCommentsArea = new JTextArea();
 		myCommentsArea.setEditable(false);
 		myTopRatedGamesLabel = new JLabel();
 		updateTopRatedGamesLabel();
 		
-		entryPanel.add(myGameComboBox);
-		entryPanel.add(myCommentEntryField);
-		entryPanel.add(myRatingPanel);
-		entryPanel.add(myReviewButton);
+		//Construct Panels
+		constructRatingPanel();
+		JPanel displayPanel = constructDisplayPanel();
+		JPanel reviewPanel = constructReviewPanel();
 
-		displayPanel.add(myAverageRatingLabel);
-		displayPanel.add(myCommentsLabel);
-		displayPanel.add(myCommentsArea);
-		displayPanel.add(myTopRatedGamesLabel);
-		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
-
-		returnPanel.setLayout(new GridLayout(2,2,5,5));
+		JPanel returnPanel = new JPanel();
+		returnPanel.setLayout(new GridLayout(1,2,5,5));
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		returnPanel.add(entryPanel);
+		returnPanel.add(reviewPanel);
 		returnPanel.add(displayPanel);
 		return returnPanel;
 	}
+
+	private void constructRatingPanel() {
+		myRatingPanel = new IconPanel(5);
+		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
+		for (String s: ratingLabelBundle.keySet()) {
+			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
+		}
+		myRatingPanel.setVertical();
+	}
 	
+	private JPanel constructDisplayPanel() {
+		JPanel displayPanel = new JPanel();
+		displayPanel.add(myCommentsDisplayLabel);
+		displayPanel.add(myCommentsArea);
+		displayPanel.add(myTopRatedGamesLabel);
+		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
+		return displayPanel;
+	}
+
+	private JPanel constructReviewPanel() {
+		JPanel reviewPanel = new JPanel();
+		reviewPanel.setLayout(new BoxLayout(reviewPanel, BoxLayout.Y_AXIS));
+		reviewPanel.add(mySelectGameLabel);
+		reviewPanel.add(myGameComboBox);
+		reviewPanel.add(myEnterCommentLabel);
+		reviewPanel.add(myCommentEntryField);
+		reviewPanel.add(myAverageRatingDisplayLabel);
+		reviewPanel.add(myRatingPanel);
+		reviewPanel.add(myReviewButton);
+		return reviewPanel;
+	}
+
 	public void updateTopRatedGamesLabel() {
 		List<String> gameRankList = myController.getGameRankList();
 		myTopRatedGamesLabel.setText("<html>" + 
@@ -119,15 +141,6 @@ public class WallTabView extends JPanel {
 		myCommentsArea.setText(displayString);
 	}
 
-	private static String[] formGameList() {
-		//TODO replace this code with code that reads the GameInfo table in the database and constructs
-		//the array with that information
-		String[] gameList = { "Grandius", "Zombieland", "Jumper", 
-				"Doodlejump", "Galaxy Invaders", "Cyberion", 
-				"Tron", "MarioClone", "TronLegacy" };
-		return gameList;
-	}
-
 	public JPanel getPanel() {
 		return this.myPanel;
 	}
@@ -137,16 +150,16 @@ public class WallTabView extends JPanel {
 	}
 
 	public void setCommentsLabel(String string) {
-		myCommentsLabel.setText(string);
-	}
-
-	public void setAverageRatingLabel(String selectedGame) {
-		myAverageRatingLabel.setText("Average Rating for " + selectedGame + ": "+ 
-				myController.getRating(selectedGame));
+		myCommentsDisplayLabel.setText(string);
 	}
 
 	public void setEntryText(String string) {
 		myCommentEntryField.setText(string);
+	}
+	
+	public void setAverageRatingLabel(String selectedGame) {
+		myAverageRatingDisplayLabel.setText("Average Rating for " + selectedGame + ": "+ 
+				myController.getRating(selectedGame));
 	}
 
 	public void addGameComboBoxListener(
@@ -166,4 +179,14 @@ public class WallTabView extends JPanel {
 			ActionListener reviewButtonListener) {
 		myReviewButton.addActionListener(reviewButtonListener);
 	}
+	
+	private static String[] formGameList() {
+		//TODO replace this code with code that reads the GameInfo table in the database and constructs
+		//the array with that information
+		String[] gameList = { "Grandius", "Zombieland", "Jumper", 
+				"Doodlejump", "Galaxy Invaders", "Cyberion", 
+				"Tron", "MarioClone", "TronLegacy" };
+		return gameList;
+	}
+
 }
