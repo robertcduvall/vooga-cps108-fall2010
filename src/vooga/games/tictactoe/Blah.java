@@ -17,7 +17,7 @@ import vooga.games.tictactoe.states.WaitingState;
  * @author Cue, Kolodziejzyk, Townsend
  * @version 1.0
  */
-public class TicTacToe extends Game {
+public class Blah extends Game {
 	private PlayState playState;
 	private LevelManager levelManager;
 	private WaitingState waitState;
@@ -86,7 +86,7 @@ public class TicTacToe extends Game {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public static void run(){
-		launch(new TicTacToe());
+	public static void main(String[] args){
+		launch(new Blah());
 	}
 }
