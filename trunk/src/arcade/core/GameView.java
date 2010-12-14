@@ -18,7 +18,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
 
 import vooga.engine.core.Game;
-import arcade.core.examples.Profile;
+import arcade.core.examples.HighScorePanel;
 
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
@@ -144,7 +144,7 @@ public class GameView extends JPanel {
 	public static void setGame(String name) {
 		gameName = name;
 		refreshContent();
-		Profile.getGameHighScoresPanel(gameName, 5);
+		HighScorePanel.getGameHighScoresPanel(gameName, 5);
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 	}

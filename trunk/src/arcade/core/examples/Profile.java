@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import arcade.core.Arcade;
+import arcade.core.GameView;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
 
@@ -37,16 +38,16 @@ public class Profile extends Panel {
 
 		add(nameLabel);
 		add(label);
-		add(getPlayerHighScoresPanel(playerName, 5));
+		//add(getPlayerHighScoresPanel(playerName, 5));
 	}
 	
 	public static void updateHighScore(double highScore) {
 		score = highScore;
-		new HighScore(gameName);
+		new HighScore(GameView.getGame());
 	}
 
 	public static boolean addHighScore() {
-		boolean isAdded = hsc.addScore(playerName, gameName, score);
+		boolean isAdded = hsc.addScore(playerName, GameView.getGame(), score);
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;

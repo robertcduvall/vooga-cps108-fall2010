@@ -1,13 +1,15 @@
-package core.examples;
+package arcade.core.examples;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import arcade.core.Arcade;
+import arcade.core.GameView;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
 
@@ -18,8 +20,9 @@ public class HighScorePanel extends Panel{
 	
 	public HighScorePanel()
 	{
-		highScores = getGameHighScoresPanel(gameName, 5);
-		add(highScores);
+		//highScores = getGameHighScoresPanel(GameView.getGame(), 5);
+		add(new JLabel("HIGHSCORES!!!"));
+		//add(highScores);
 	}
 	
 	public static JTextPane getGameHighScoresPanel(String gameName,
