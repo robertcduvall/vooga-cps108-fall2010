@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.swing.*;
 import vooga.engine.core.Game;
 import arcade.core.examples.HighScorePanel;
+import arcade.lobby.model.ProfileSet;
 
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
@@ -111,7 +112,10 @@ public class GameView extends JPanel {
 
 							Constructor<?> gameConstructor = newGame
 									.getConstructor();
-							Game.launch((Game) gameConstructor.newInstance());
+							if(ProfileSet.currentProfile != null)
+								Game.launch((Game) gameConstructor.newInstance(), ProfileSet.currentProfile.getUserName());
+							else
+								Game.launch((Game) gameConstructor.newInstance(), "player");
 						} catch (Throwable e) {
 							System.out.println("vooga.games."
 									+ gameProperties.get("classname")[0]

@@ -119,6 +119,6 @@ public class Blah extends Game {
 	  * Main launching method for Grandius.
 	  */
 	 public static void main(String[] args) {
-		 launch(new Blah());
+		 launch(new Blah(), "player");
 	 }
 }

@@ -50,6 +50,6 @@ public class Blah extends vooga.engine.core.Game{
 	}
 
 	public static void main(String[] args) {
-		launch(new Blah());
+		launch(new Blah(), "player");
 	}
 }

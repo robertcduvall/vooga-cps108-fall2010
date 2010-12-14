@@ -105,7 +105,7 @@ public class DropThis extends Game {
 	}
 
 	public static void main(String[] args) {
-		launch(new DropThis());
+		launch(new DropThis(), "player");
 	}
 
 }

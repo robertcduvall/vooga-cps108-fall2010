@@ -36,7 +36,7 @@ public class Blah extends Game {
 	public String myName;
 
 	public static void main(String[] args) throws IOException {
-		launch(new Blah());
+		launch(new Blah(), "player");
 	}
 
 	public void initResources() {
