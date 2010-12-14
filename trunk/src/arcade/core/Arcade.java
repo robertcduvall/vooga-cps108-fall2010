@@ -1,6 +1,7 @@
 package arcade.core;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
@@ -104,8 +105,9 @@ public class Arcade extends JFrame {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				if(everything.getSelectedComponent() instanceof Tab)
-					((Tab) everything.getSelectedComponent()).refresh();
+				Component selected = everything.getSelectedComponent();
+				if(selected instanceof Tab)
+					((Tab) selected).refresh();
 				
 			}
 		});

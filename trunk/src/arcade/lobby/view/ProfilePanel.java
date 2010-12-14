@@ -37,7 +37,7 @@ public class ProfilePanel extends Tab {
 
 		setToolTipText("Click here to see your user info");
 		setName("Profile");
-		resources = ResourceBundle.getBundle("arcade.lobby.view.sidebars");
+		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
 		initialize();
 	}
 

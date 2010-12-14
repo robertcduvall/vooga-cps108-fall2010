@@ -84,11 +84,7 @@ public class ProfileSet implements Iterable<Profile> {
 			return userProf;
 		Map<String, String> row = rows.get(0);
 		userProf.setName(row.get(resourceBundle.getString("dbFirstName")), row.get(resourceBundle.getString("dbLastName")));
-		try {
-			userProf.setBirthday(row.get(resourceBundle.getString("birthday")));
-		} catch (NumberFormatException e) {
-			// e.printStackTrace();
-		}
+		userProf.setBirthday(row.get(resourceBundle.getString("birthday")));
 		userProf.setEmail(row.get(resourceBundle.getString("email")));
 		userProf.setAvatar(row.get(resourceBundle.getString("dbAvatarURL")));
 		return userProf;
