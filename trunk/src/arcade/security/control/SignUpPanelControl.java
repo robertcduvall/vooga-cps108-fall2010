@@ -9,12 +9,9 @@ import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 import org.apache.log4j.Logger;
 
-import arcade.lobby.model.Profile;
-import arcade.lobby.model.ProfileSet;
 import arcade.lobby.validators.PasswordConfirmField;
 import arcade.lobby.viewComponents.ValidatorDock;
 import arcade.security.model.IModel;
@@ -37,7 +34,7 @@ public class SignUpPanelControl implements IControl {
 		this.view = (SignUpPanel) view;
 		passwordHandler = new PasswordHandler();
 
-		// this.view.addPasswordListener(new PasswordListener());
+		this.view.addPasswordListener(new PasswordListener());
 		this.view.addSubmitButtonListener(new SubmitEvent());
 		this.view.addLoginPageButtonListener(new ActionListener() {
 			@Override

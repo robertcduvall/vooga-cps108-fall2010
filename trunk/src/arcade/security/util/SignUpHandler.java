@@ -4,12 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
-
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
-import arcade.lobby.viewComponents.ValidatorDock;
 
 public class SignUpHandler {
 	// potentially add another datahandler that handles the privilege table
