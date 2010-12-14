@@ -5,11 +5,14 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+
 import arcade.core.ExampleGUI;
 
 import com.golden.gamedev.GameLoader;
 
 import vooga.engine.factory.LevelParser;
+import vooga.engine.networking.client.ChatConnection;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
@@ -239,7 +242,7 @@ public class Game extends com.golden.gamedev.Game {
 		int width = DEFAULT_WIDTH;
 		int height = DEFAULT_HEIGHT;
 		boolean fullScreen = DEFAULT_FULLSCREEN;
-
+		String gameName = "";
 		try {
 			String configPath = g.getResourcePackagePath() + "config";
 			ResourceBundle rb = Resources.loadPreLaunchData(configPath);
@@ -247,11 +250,26 @@ public class Game extends com.golden.gamedev.Game {
 			height = Integer.parseInt(rb.getString("GAME_HEIGHT"));
 			fullScreen = (rb.getString("FULLSCREEN").equals("true")) ? true
 					: false;
+			String gameInfoPath = g.getResourcePackagePath() + "game";
+			ResourceBundle gameRb = Resources.loadPreLaunchData(gameInfoPath);
+			gameName = gameRb.getString("name");
 		} catch (Exception e) {
 			// TODO Resource Exception
 			e.printStackTrace();
 		}
 
+		ChatConnection connection = null;
+		try{
+			connection = new ChatConnection(gameName);
+		}
+		catch(Exception e){
+			System.out.println("Connection Error: "+ e.getMessage());
+			System.exit(1);
+		}
+		VoogaFrame frame = new VoogaFrame(connection);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setUndecorated(true);
+		frame.setVisible(true);
 		GameLoader game = new GameLoader();
 		game.setup(g, new Dimension(width, height), fullScreen);
 		game.start();

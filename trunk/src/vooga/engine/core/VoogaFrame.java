@@ -1,4 +1,4 @@
-package vooga.games.tictactoe;
+package vooga.engine.core;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ import vooga.engine.networking.client.ChatConnection;
  * @version 1.0
  */
 @SuppressWarnings("serial")
-public class TicTacToeFrame extends JFrame implements Runnable{
+public class VoogaFrame extends JFrame implements Runnable{
 	private JTextPane chats;
 	private JTextField chat;
 	private DefaultStyledDocument doc;
@@ -42,7 +42,7 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public TicTacToeFrame(ChatConnection connection){
+	public VoogaFrame(ChatConnection connection){
 		this.connection = connection;
 		initStyles();
 		initChatFields();
@@ -173,27 +173,5 @@ public class TicTacToeFrame extends JFrame implements Runnable{
 				}
 			}
 		}
-	}
-
-	/**
-	 * Creates an instance of ChatConnection, passes it to a TicTacToeFrame, and then runs the TicTacToe Game.
-	 * 
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public static void main(String[] args){
-		ChatConnection connection = null;
-		try{
-			connection = new ChatConnection("TicTacToe");
-		}
-		catch(Exception e){
-			System.out.println("TicTacToe Error: "+ e.getMessage());
-			System.exit(1);
-		}
-		TicTacToeFrame frame = new TicTacToeFrame(connection);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setUndecorated(true);
-		frame.setVisible(true);
-		TicTacToe.run();
 	}
 }
