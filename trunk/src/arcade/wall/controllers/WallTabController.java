@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import arcade.wall.models.WallModel;
 import arcade.wall.models.data.comment.Comment;
+import arcade.wall.models.data.message.Message;
 import arcade.wall.views.walltab.WallTabView;
 
 /**
@@ -27,6 +28,7 @@ public class WallTabController {
 		//Add listeners to the view.
 		view.addGameComboBoxListener(new GameComboBoxListener());
 		view.addReviewButtonListener(new ReviewButtonListener());
+		view.addSendMessageButtonListener(new SendMessageButtonListener());
 	}
 	
 	/**
@@ -68,8 +70,7 @@ public class WallTabController {
         public void actionPerformed(ActionEvent e) {
             if ("comboBoxChanged".equals(e.getActionCommand())) {
             	String selectedGame = view.getSelectedGame();
-                view.setCommentsLabel("Comments for " + selectedGame + ":");
-                view.setAverageRatingLabel(selectedGame);
+                view.setGameHeaderLabel(selectedGame);
                 refreshComments(selectedGame);
                 view.setEntryText("");
     	    }
@@ -91,13 +92,22 @@ public class WallTabController {
     		} else {
     			model.addComment(submittedComment);
     		}
-    		view.setAverageRatingLabel(selectedGameName);
+    		view.setGameHeaderLabel(selectedGameName);
     		refreshComments(selectedGameName);
     		view.updateTopRatedGamesLabel();
     		view.setEntryText("");
         }
     }
 
+	class SendMessageButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Message message = new Message(""+model.getNewMessageID(), "1", 
+					view.getReceiver(), view.getMessageContent());
+			model.addMessage(message);
+			view.setReceiverText("");
+			view.setMessageContentText("");
+		}
+	}
 	public List<String> getGameRankList() {
 		return model.getGameRankList();
 	}

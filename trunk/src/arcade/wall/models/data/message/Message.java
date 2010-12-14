@@ -1,0 +1,30 @@
+package arcade.wall.models.data.message;
+
+import arcade.wall.models.data.Datum;
+
+public class Message extends Datum {
+
+	private String mySender;
+	private String myReceiver;
+	private String myContent;
+	
+	public Message(String id, String sender, String receiver, String content) {
+		super(id);
+		this.mySender = sender;
+		this.myReceiver = receiver;
+		this.myContent = content;
+	}
+	
+	public String getSender() {
+		return mySender;
+	}
+	
+	public String getReceiver() {
+		return myReceiver;
+	}
+	
+	public String getContent() {
+		return myContent;
+	}
+
+}
