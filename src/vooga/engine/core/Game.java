@@ -13,6 +13,7 @@ import com.golden.gamedev.GameLoader;
 
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ChatConnection;
+import vooga.engine.networking.server.VoogaServer;
 import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
@@ -257,19 +258,18 @@ public class Game extends com.golden.gamedev.Game {
 			// TODO Resource Exception
 			e.printStackTrace();
 		}
-
-		ChatConnection connection = null;
-		try{
-			connection = new ChatConnection(gameName);
+		
+		if(VoogaServer.getChatPort(gameName) != -1){
+			ChatConnection connection = null;
+			try{
+					connection = new ChatConnection(gameName);
+			}
+			catch(IOException e){}
+			VoogaFrame frame = new VoogaFrame(connection);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//frame.setUndecorated(true);
+			frame.setVisible(true);
 		}
-		catch(Exception e){
-			System.out.println("Connection Error: "+ e.getMessage());
-			System.exit(1);
-		}
-		VoogaFrame frame = new VoogaFrame(connection);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setUndecorated(true);
-		frame.setVisible(true);
 		GameLoader game = new GameLoader();
 		game.setup(g, new Dimension(width, height), fullScreen);
 		game.start();
