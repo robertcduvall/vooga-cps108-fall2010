@@ -1,16 +1,25 @@
 package arcade.core;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 import arcade.core.examples.HighScore;
+import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
-import arcade.util.database.Constants;
-import arcade.util.database.MySqlAdapter;
 
 /**
  * This is the example GUI for arcade. It contains scrollable and adjustable
@@ -23,6 +32,7 @@ import arcade.util.database.MySqlAdapter;
  * @author Derek Zhou, Yang Su, Aaron Choi
  * 
  */
+@SuppressWarnings("serial")
 public class ExampleGUI extends Tab {
 	private static HighScoreControl hsc = new HighScoreControl(
 			Arcade.myDbAdapter, "HighScores");
@@ -134,20 +144,12 @@ public class ExampleGUI extends Tab {
 		Image scaled = icon.getImage().getScaledInstance(25, 25,
 				java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(scaled);
-		JLabel label = new JLabel(icon);
 
 		// adds panels to the grid layout
-		JPanel playerAvatar = new JPanel();
-		playerAvatar.setLayout(new BoxLayout(playerAvatar, BoxLayout.Y_AXIS));
-		playerAvatar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-		String pn;
-		// TODO pn returns null;
-		// pn=ProfileSet.currentProfile.getFirstName();
-		pn = "Guest";
-		JLabel player = new JLabel(pn + "s Avatar");
-		playerAvatar.add(player);
-		playerAvatar.add(label);
+		Profile profile = ProfileSet.currentProfile;
+		if(profile!=null)
+			right.add(new AvatarPanel(profile));
+		
 		// playerAvatar.add(getPlayerHighScoresPanel(pn, 5));
 
 		JPanel lobby = new JPanel();
@@ -168,7 +170,6 @@ public class ExampleGUI extends Tab {
 		JLabel evenMoreLabels = new JLabel(icon);
 		ads.add(evenMoreLabels);
 
-		right.add(playerAvatar);
 		right.add(lobby);
 		right.add(ads);
 
@@ -176,7 +177,13 @@ public class ExampleGUI extends Tab {
 
 		return right;
 	}
-
+	
+	static void scaleImage(ImageIcon icon, int width) {
+		Image image = icon.getImage();
+		icon.setImage(image.getScaledInstance(width,
+				width * icon.getIconHeight() / icon.getIconWidth(), 0));
+	}
+	
 	public static JTextPane getGameHighScoresPanel(String gameName,
 			int numScores) {
 		JTextPane textPane = new JTextPane();
