@@ -233,10 +233,10 @@ public class Game extends com.golden.gamedev.Game {
 	 * config.properties under the resources package. These values are extracted
 	 * before the game is launched. Any subclass should call launch() in the
 	 * main method
-	 * 
 	 * @param g
+	 * @param userName TODO
 	 */
-	public static void launch(Game g) {
+	public static void launch(Game g, String userName) {
 
 		// Default settings
 		int width = DEFAULT_WIDTH;

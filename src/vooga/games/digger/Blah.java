@@ -38,7 +38,7 @@ public class Blah extends Game {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		launch(new Blah());
+		launch(new Blah(), "player");
 	}
 	
 	public void switchGameState(String stateName){
