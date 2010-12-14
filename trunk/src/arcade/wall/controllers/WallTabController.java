@@ -2,6 +2,7 @@ package arcade.wall.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,9 @@ public class WallTabController {
 		view.addReviewButtonListener(new ReviewButtonListener());
 	}
 	
+	/**
+	 * Refreshes the WallTab Comments Area to display the comments for the given game.
+	 */
 	public void refreshComments(String selectedGameName) {
 		view.refreshCommentsArea(model.getGameComments(selectedGameName));
 	}
@@ -63,10 +67,10 @@ public class WallTabController {
 	class GameComboBoxListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if ("comboBoxChanged".equals(e.getActionCommand())) {
-            	String selectedGameName = view.getSelectedGame();
-                view.setCommentsLabel("Comments for " + selectedGameName + ":");
-                view.setAverageRatingLabel("Average Rating for " + selectedGameName + ":"+getRating(selectedGameName));
-                refreshComments(selectedGameName);
+            	String selectedGame = view.getSelectedGame();
+                view.setCommentsLabel("Comments for " + selectedGame + ":");
+                view.setAverageRatingLabel(selectedGame);
+                refreshComments(selectedGame);
                 view.setEntryText("");
     	    }
         }
@@ -76,26 +80,26 @@ public class WallTabController {
         public void actionPerformed(ActionEvent e) {
         	String selectedGameName = view.getSelectedGame();
         	//TODO change to make use of ProfileSet.currentProfile
-    		Comment submittedComment = new Comment(""+model.getNewCommentID(), selectedGameName, "2", 
+    		Comment submittedComment = new Comment(""+model.getNewCommentID(), selectedGameName, "1", 
     											   view.getEntryText(), view.getSelectedRating());
     		//TODO is this the way we actually want to determine if a Comment is valid or not?
     		if (model.commentIsConflicting(submittedComment)) {
     			if (showCommentDialog() == JOptionPane.YES_OPTION) { //Only add if user says Yes
     				//Update all comment ratings with the GameName and UserName in question.
-    				model.updateCommentRatings(selectedGameName, "2", view.getSelectedRating());
+    				model.updateCommentRatings(selectedGameName, "1", view.getSelectedRating());
     				model.addComment(submittedComment);
     			}
     		} else {
     			model.addComment(submittedComment);
     		}
-    		view.setAverageRatingLabel("Average Rating for " + selectedGameName + ":"+getRating(selectedGameName));
+    		view.setAverageRatingLabel(selectedGameName);
     		refreshComments(selectedGameName);
     		view.updateTopRatedGamesLabel();
     		view.setEntryText("");
         }
     }
 
-	public String getTopRatedGame() {
-		return model.getTopRatedGame();
+	public List<String> getGameRankList() {
+		return model.getGameRankList();
 	}
 }

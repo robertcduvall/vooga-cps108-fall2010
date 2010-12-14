@@ -96,4 +96,9 @@ public class WallWidgetView extends JPanel{
 	public void addReviewButtonListener(ActionListener reviewButtonListener) {
 		myReviewButton.addActionListener(reviewButtonListener);
 	}
+
+	public void setEntryText(String string) {
+		myCommentEntryField.setText(string);
+		
+	}
 }
