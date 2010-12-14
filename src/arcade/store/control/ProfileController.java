@@ -9,6 +9,7 @@ import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
+import arcade.store.database.StoreDbConstants;
 import arcade.store.database.StoreSqlAdapter;
 import arcade.store.gui.pages.CredditPurchaseView;
 import arcade.store.gui.tabs.ProfileTab;
@@ -35,12 +36,16 @@ public class ProfileController implements IController{
 	public void initialize() {
 		profileTab.getUsernameTextField().setText(getUser().getName());
 		profileTab.getAvailableCredditsTextField().setText(getUser().getCreddits());
-		List<Map<String,String>> data = dbAdapter.getRows("SELECT * FROM PurchaseHistory WHERE User_Id='"+storeModel.getCurrentUserAccount().getId()+"'");
+		populatePurchaseHistory();
+	}
+	
+	public void populatePurchaseHistory() {
+		List<Map<String,String>> data = dbAdapter.getRows("SELECT * FROM "+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE "+StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD+"='"+getUser().getId()+"'");
 		String[][] tableData = new String[data.size()][3];
 		for(int k=0; k<data.size(); k++) {
-			tableData[k][0] = data.get(k).get("ItemName");
-			tableData[k][1] = data.get(k).get("Date");
-			tableData[k][2] = data.get(k).get("Price");
+			tableData[k][0] = data.get(k).get(StoreDbConstants.ITEMNAME_FIELD);
+			tableData[k][1] = data.get(k).get(StoreDbConstants.DATE_FIELD);
+			tableData[k][2] = data.get(k).get(StoreDbConstants.PRICE_FIELD);
 		}
 		profileTab.getPurchasedGamesTable().setModel(new DefaultTableModel(tableData, columnNames));
 	}
@@ -61,9 +66,8 @@ public class ProfileController implements IController{
 		catch (Exception e) {
 			System.out.println("You did not enter a number");
 		}
-		StoreUser user = storeModel.getCurrentUserAccount();
-		user.addCreddits(amount);
-		System.out.println(user.getCreddits());
+		getUser().addCreddits(amount);
+		System.out.println(getUser().getCreddits());
 	}
 
 }
