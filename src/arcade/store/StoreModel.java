@@ -8,7 +8,7 @@ import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.account.StoreUser;
 import arcade.store.control.MainController;
-import arcade.store.items.DbItemAndUserFactory;
+import arcade.store.database.DbItemAndUserFactory;
 import arcade.store.items.IItemInfo;
 import arcade.store.organizer.FilterByGenreOrganizer;
 

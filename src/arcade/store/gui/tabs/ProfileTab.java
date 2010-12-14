@@ -10,7 +10,7 @@ import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.account.StoreUser;
 import arcade.store.control.ProfileController;
-import arcade.store.items.DbItemAndUserFactory;
+import arcade.store.database.DbItemAndUserFactory;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
