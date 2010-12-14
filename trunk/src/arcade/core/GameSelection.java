@@ -8,7 +8,9 @@ import java.util.List;
 
 import javax.swing.*;
 
-public class GameSelection extends Tab {
+import arcade.core.mvc.IController;
+
+public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
 	//TODO ORDER?
 	private static int[] gameIDs = {12,13,14,15,16,17,18,19,20};
@@ -136,7 +138,20 @@ public class GameSelection extends Tab {
 		games.removeAll();
 		for (Integer i : panels.keySet()) {
 			games.add(panels.get(i));
+			panels.get(i).repaint();
 		}
 		games.repaint();
+	}
+
+	@Override
+	public IController getController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		this.refresh();
+		this.repaint();
 	}
 }

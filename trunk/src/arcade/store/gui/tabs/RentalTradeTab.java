@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class RentalTradeTab extends Tab implements IViewer{
+public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 
 	private JPanel rentalTradePanel = null;  //  @jve:decl-index=0:visual-constraint="189,54"
 	private JLabel rentalTradeLabel = null;
@@ -179,6 +179,11 @@ public class RentalTradeTab extends Tab implements IViewer{
 			jTable = new JTable();
 		}
 		return jTable;
+	}
+
+	@Override
+	public void refresh() {
+		this.repaint();
 	}
 
 }

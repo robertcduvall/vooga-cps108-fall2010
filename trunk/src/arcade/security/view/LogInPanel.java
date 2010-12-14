@@ -11,6 +11,7 @@ import java.awt.event.*;
 
 import arcade.core.Arcade;
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
 import arcade.security.gui.SecurityButton;
 import arcade.security.model.LoginProcess;
 import arcade.security.resourcesbundle.LabelResources;
@@ -29,7 +30,7 @@ import arcade.util.database.MySqlAdapter;
  * @author Meng Li
  * @author Andrew Brown
  */
-public class LogInPanel extends Tab implements IView{
+public class LogInPanel extends JPanel  implements Tab,IView{
 	
 	private static final long serialVersionUID = 1L;
 	private final static Logger log=Logger.getLogger(LogInPanel.class);
@@ -111,6 +112,17 @@ public class LogInPanel extends Tab implements IView{
 	
 	public JPanel getCurrentPanel(){
 		return this;
+	}
+
+	@Override
+	public IController getController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		
 	}
 
 

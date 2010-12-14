@@ -7,8 +7,9 @@ import javax.swing.*;
 
 import arcade.core.Arcade;
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
 
-public class ExampleTab extends Tab {
+public class ExampleTab extends JPanel implements Tab {
 	public ExampleTab() {
 		setToolTipText("This is an example");
 		setName("ExampleTab");
@@ -25,6 +26,18 @@ public class ExampleTab extends Tab {
 		});
 		panel.add(a);
 		return panel;
+	}
+
+	@Override
+	public IController getController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

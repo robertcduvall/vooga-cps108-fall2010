@@ -95,8 +95,8 @@ public class Arcade extends JFrame {
 				continue;
 			try {
 				Tab t = (Tab) getObject(classname);
-				everything.addTab(t.getName(), null, t.getContent(),
-						t.getToolTipText());
+				everything.addTab(((JComponent) t).getName(), null, t.getContent(),
+						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -175,7 +175,7 @@ public class Arcade extends JFrame {
 
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
-//		((Tab)mainWindow.getComponent(id)).refresh();
+//		((Tab)mainWindow.getComponent(id)).update();
 	}
 
 	/**

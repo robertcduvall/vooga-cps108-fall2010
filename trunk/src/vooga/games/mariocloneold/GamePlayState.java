@@ -87,7 +87,7 @@ public class GamePlayState extends GameState {
 	public void update(long t) {
 		super.update(t);
 		myLevel.update(t);
-		myControl.update();
+		myControl.refresh();
 	}
 
 	/**
