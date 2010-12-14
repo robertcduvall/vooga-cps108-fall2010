@@ -16,9 +16,10 @@ public class WallTab extends JFrame {
 		super();
 //		setToolTipText("Click here to see your Wall.");
 //		setName("Wall");
-//		this.setTitle(ProfileSet.currentProfile.getFirstName() + "'s Wall");
+		this.setTitle("MainWallTab");
 		myController = new WallTabController();
 		this.add(myController.getView().getPanel());
+//		this.setSize(800, 600);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -27,8 +28,4 @@ public class WallTab extends JFrame {
 //	public JComponent getContent() {
 //		return myController.getView().getPanel();
 //	}
-	
-	public static void main (String[] args) {
-		WallTab wt = new WallTab();
-	}
 }
