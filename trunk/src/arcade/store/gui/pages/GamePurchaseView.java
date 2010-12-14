@@ -118,7 +118,6 @@ public class GamePurchaseView implements IViewer {
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							controller.processConfirmAddToCart();
-							gamePurchaseFrame.setVisible(false);
 						}
 					});
 		}
