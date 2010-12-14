@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level name="TheyQuitState" xmloverlaypath="src/vooga/games/tictactoe/resources/overlays/TheyQuitOverlays.xml">
+
+	<SpriteGroups>
+	</SpriteGroups>
+
+	<CollisionGroups>	
+	</CollisionGroups>
+	
+	<Backgrounds>
+		<Visual name="gameWonBackground" />
+	</Backgrounds>
+	
+	<Map>
+	</Map>
+
+</Level>

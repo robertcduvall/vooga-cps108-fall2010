@@ -1,0 +1,7 @@
+<Overlay>
+
+<OverlayGroup name="GameWonGroup" >
+<OverlayString xLoc="103" yLoc="80" fontName="gameFontred" label="YOU LOST!" fontSize="32"></OverlayString>
+</OverlayGroup>
+
+</Overlay>
