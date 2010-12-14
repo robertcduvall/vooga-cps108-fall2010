@@ -6,27 +6,22 @@ package arcade.wall.models;
  * @author John
  *
  */
-public class Comment {
-	private String myId;
-	private String myGameTitle;
+public class Comment extends Datum {
+	private String myGameInfoTitle;
 	private String myUserId;
 	private String myString;
 	private String myRating;
 	
 	public Comment(String id, String gameName, String userId, String commentString, String rating) {
-		myId = id;
-		myGameTitle = gameName;
+		super(id);
+		myGameInfoTitle = gameName;
 		myUserId = userId;
 		myString = commentString;
 		myRating = rating;
 	}
 	
-	public String getId() {
-		return myId;
-	}
-	
 	public String getGameTitle() {
-		return myGameTitle;
+		return myGameInfoTitle;
 	}
 	
 	public String getUserId() {
@@ -41,13 +36,9 @@ public class Comment {
 	public String getRating() {
 		return myRating;
 	}
-
-	public void setId(String id) {
-		myId = id;
-	}
 	
 	public void setGameTitle(String string) {
-		this.myGameTitle = string;
+		this.myGameInfoTitle = string;
 	}
 	
 	public void setUserId(String string) {
@@ -61,13 +52,4 @@ public class Comment {
 	public void setRating(String selectedValue) {
 		this.myRating = selectedValue;
 	}
-	
-//	/**
-//	 * Returns true if the two comments have the same rating, are about the same game, and are by the same user.
-//	 */
-//	public boolean equals(Comment comment) {
-//		return (this.getGameName().equals(comment.getGameName()) &&
-//				this.getUserName().equals(comment.getUserName()) &&
-//				this.getRating().equals(comment.getRating()));
-//	}
 }

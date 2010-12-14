@@ -29,4 +29,8 @@ public class WallTab extends JFrame {
 //	public JComponent getContent() {
 //		return myController.getView().getPanel();
 //	}
+	
+	public static void main (String[] args) {
+		WallTab wt = new WallTab();
+	}
 }
