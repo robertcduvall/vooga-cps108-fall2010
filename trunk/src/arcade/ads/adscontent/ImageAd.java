@@ -32,6 +32,10 @@ import arcade.ads.util.AdDate;
 public class ImageAd extends BasicAd {
 
 	private Image img;
+	
+	public ImageAd(){
+		super();
+	}
 
 	public ImageAd(String name) {
 		super(name);
