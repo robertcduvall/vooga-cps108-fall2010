@@ -128,22 +128,24 @@ public class VoogaFrame extends JFrame implements Runnable{
 	 */
 	@Override
 	public void run(){
-		while(true){
-			String chat = connection.getData();
-			try {
-				if(chat.startsWith("ADMIN:")){
-					doc.insertString(doc.getLength(), chat.substring(6) + "\n", statusStyle);
+		if(connection != null){
+			while(true){
+				String chat = connection.getData();
+				try {
+					if(chat.startsWith("ADMIN:")){
+						doc.insertString(doc.getLength(), chat.substring(6) + "\n", statusStyle);
+					}
+					else{
+						String name = chat.substring(0, chat.indexOf(":") + 1);
+						String message = chat.substring(chat.indexOf(":") + 1);
+						doc.insertString(doc.getLength(), name, opponentStyle);
+						doc.insertString(doc.getLength(), message + "\n", messageStyle);
+					}
+				} catch (BadLocationException e) {
+					System.exit(1);
 				}
-				else{
-					String name = chat.substring(0, chat.indexOf(":") + 1);
-					String message = chat.substring(chat.indexOf(":") + 1);
-					doc.insertString(doc.getLength(), name, opponentStyle);
-					doc.insertString(doc.getLength(), message + "\n", messageStyle);
-				}
-			} catch (BadLocationException e) {
-				System.exit(1);
+				chats.setCaretPosition(chats.getDocument().getLength());
 			}
-			chats.setCaretPosition(chats.getDocument().getLength());
 		}
 	}
 
@@ -161,7 +163,8 @@ public class VoogaFrame extends JFrame implements Runnable{
 			if(text.length() > 0){
 				try {
 					doc.insertString(doc.getLength(), "me: ", meStyle);
-					connection.sendData(text);
+					if(connection != null)
+						connection.sendData(text);
 					doc.insertString(doc.getLength(), text + "\n", messageStyle);
 					chat.setText("");
 					chats.setCaretPosition(chats.getDocument().getLength());
