@@ -10,7 +10,6 @@ public class Profile implements IModel {
 	private String myEmail;
 	private String myBirthday;
 	private String myAvatarURL;
-//	private DateFormat mySDF = Validator.getDateFormat();
 	
 	public Profile(int userId) {
 		myUserId = userId;
