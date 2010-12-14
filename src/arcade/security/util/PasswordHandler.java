@@ -3,7 +3,8 @@ package arcade.security.util;
 //import arcade.security.resourcesbundle.*;
 /**
  * The scoring algorithm is referenced from http://www.passwordmeter.com/.
- * Checks the robustness of the password. Author: Jiaqi Yan
+ * Checks the robustness of the password. 
+ * @author: Jiaqi Yan 
  */
 
 public class PasswordHandler {
@@ -26,6 +27,8 @@ public class PasswordHandler {
 		calcDeductions();
 		return score;
 	}
+	
+	
 	
 	public boolean passwordCorrect(String password){
 		this.password  = password;
