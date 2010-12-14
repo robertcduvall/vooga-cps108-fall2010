@@ -51,10 +51,10 @@ public class GameReportSet extends DataSet {
 	}
 	
 	/**
-	 * Returns all Comments whose values match the given parameters.
+	 * Returns all GameReports whose values match the given parameters.
 	 * @param fieldName - the field name to be considered
 	 * @param value - the value to match
-	 * @return a List of all the comments that match
+	 * @return a List of all the GameReports that match
 	 */
 	public List<GameReport> getGameReportsByField(String fieldName, String value) {
 		List<GameReport> returnGameReports = new ArrayList<GameReport>();
