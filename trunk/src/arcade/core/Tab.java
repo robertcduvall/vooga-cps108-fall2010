@@ -1,9 +1,7 @@
 package arcade.core;
 
-import java.awt.*;
-import java.awt.Event.*;
-
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import arcade.core.mvc.IController;
 

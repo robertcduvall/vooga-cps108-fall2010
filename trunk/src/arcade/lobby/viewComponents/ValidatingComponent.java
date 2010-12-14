@@ -31,8 +31,18 @@ public class ValidatingComponent<T extends JComponent> {
 	public ValidatingComponent(T component, String label, Validator<T> ... validators ){
 		myComponent = component;
 		myLabel = new JLabel(label);
+		if(label==null) myLabel.setVisible(false);
 		myValidators = validators;
 		setValidatorComponents();
+	}
+	
+	/**
+	 * Constructs a ValidatingComponent without a label.
+	 * @param component the component that you want to be added
+	 * @param validators all the validators for the correct type
+	 */
+	public ValidatingComponent(T component, Validator<T>...validators) {
+		this(component,null,validators);
 	}
 
 	private void setValidatorComponents() {

@@ -1,6 +1,11 @@
 package arcade.security.model;
 
 
+import java.util.Map;
+
+import javax.swing.JTextField;
+
+import arcade.lobby.viewComponents.ValidatorDock;
 import arcade.security.util.SignUpHandler;
 
 public class SignUpProcess implements IModel{
@@ -17,7 +22,9 @@ public class SignUpProcess implements IModel{
 		return SignUpHandler.isValidUserName(username);
 	}
 	
-	public void createNewUser(String username,char[] password,int questionIndex,String questionAnwser){
-		SignUpHandler.createNewUser(username,password,questionIndex,questionAnwser);
+	public void createNewUser(String username,char[] password,int questionIndex,String questionAnwser,String firstName, String lastName,
+			String email, String birthday, String avatar){
+		SignUpHandler.createNewUser(username,password,questionIndex,questionAnwser,firstName,lastName,email,birthday,avatar);
 	}
+
 }

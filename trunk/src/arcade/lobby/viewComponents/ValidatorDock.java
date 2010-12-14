@@ -1,5 +1,6 @@
 package arcade.lobby.viewComponents;
 
+import java.awt.Component;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,7 +19,7 @@ public class ValidatorDock extends JPanel {
 	private Map<String, ValidatingComponent<?>> myComponentMap;
 
 	public ValidatorDock() {
-		setLayout(new MigLayout("wrap 2"));
+		setLayout(new MigLayout("wrap 2, hidemode 3"));
 		myComponentMap = new TreeMap<String, ValidatingComponent<?>>();
 	}
 
@@ -36,17 +37,26 @@ public class ValidatorDock extends JPanel {
 
 	/**
 	 * Adds a ValidatingComponent to the dock.
-	 * @param component  the ValidatingComponent to be added to the dock
-	 * @param name the name so it can be placed into a map to give access to it
-	 * @param labelConstraints Constraints on the label layout
-	 * @param componentConstraints Constraints on the component layout
+	 * 
+	 * @param component
+	 *            the ValidatingComponent to be added to the dock
+	 * @param name
+	 *            the name so it can be placed into a map to give access to it
+	 * @param labelConstraints
+	 *            Constraints on the label layout
+	 * @param componentConstraints
+	 *            Constraints on the component layout (using the string
+	 *            "default" will use the default constraint for that item)
 	 */
 	public void addValidatingComponent(ValidatingComponent<?> component,
 			String name, Object labelConstraints, Object componentConstraints) {
 		myComponentMap.put(name, component);
-		this.add(component.getLabel(),labelConstraints);
-		this.add(component.getComponent(),componentConstraints);
+		if(labelConstraints!=null && labelConstraints.equals("default")) add(component.getLabel());
+		else add(component.getLabel(), labelConstraints);
+		if(componentConstraints!=null && componentConstraints.equals("default")) add(component.getComponent());
+		else add(component.getComponent(), componentConstraints);
 	}
+
 	/**
 	 * 
 	 * @return a map of the Validating Components
@@ -67,5 +77,9 @@ public class ValidatorDock extends JPanel {
 			temp.put(name, myComponentMap.get(name).validate());
 		}
 		return temp;
+	}
+
+	public Component getComponent(String name) {
+		return myComponentMap.get(name).getComponent();
 	}
 }
