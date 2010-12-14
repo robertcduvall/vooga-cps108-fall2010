@@ -165,7 +165,7 @@ public class AdFrame extends JFrame {
 //
 //		manager.getRenderedAdsGroup().add((new ImageAd("duke", img1)));
 //		manager.getRenderedAdsGroup().add((new ImageAd("unc", img2)));
-		manager.setAds("src/arcade/ads/resources/xmlFiles.txt");
+		manager.setAds("src/arcade/ads/resources/ads.txt");
 		// BufferedImage img = null;
 		// try
 		// {
