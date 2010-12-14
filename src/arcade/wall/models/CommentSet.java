@@ -5,34 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import arcade.util.database.DatabaseAdapter;
-import arcade.util.database.MySqlAdapter;
-
 /**
  * A CommentSet contains all the VOOGA Comments made by all users. It is linked to our online database.
  * @author John, David Herzka
- *
  */
-public class CommentSet { //implements Iterable<Comment> {
-
-	public Comment currentComment = null;
-	public DatabaseAdapter myDbAdapter;
-	public String myTable;
-	public int currentID;
+public class CommentSet extends DataSet {
 
 	public CommentSet(String host, String dbName, String tableName,
 			String user, String pass) {
-		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
-		myTable = tableName;
-		currentID = size();
-	}
-
-	/**
-	 * Returns the size of the CommentSet (number of rows).
-	 */
-	public int size() {
-		List<String> col = myDbAdapter.getColumn(myTable, "Id");
-		return col.size();
+		super(host, dbName, tableName, user, pass);
 	}
 
 	/**
@@ -99,23 +80,6 @@ public class CommentSet { //implements Iterable<Comment> {
 		conditions.put("String", comment.getString());
 		return myDbAdapter.update(myTable, conditions, row);
 	}
-
-//	/**
-//	 * Returns a Comment constructed from a row of the database.
-//	 * @param rowNo
-//	 * 		The row number
-//	 */
-//	public Comment getComment(int rowNo) {
-//		//TODO this is not how we should be doing this - it looks like the database is continually opening
-//		//a connection then closing it
-//		//TODO Use SELECT * FROM `Comments` LIMIT 5 to select the first five comments, or you can just use 
-//		//SELECT *. You should be getting all the comments with one query. You should only use this method
-//		//When you need to see a specific comment made by a user
-//		List<Map<String, String>> rows = myDbAdapter.getRows(myTable, "Id", ""+rowNo);
-//		Map<String, String> row = rows.get(0);
-//		return new Comment(row.get("Id"), row.get("GameInfo_Title"), row.get("User_Id"), 
-//				row.get("String"), row.get("Rating"));
-//	}
 
 	/**
 	 * Determines whether the given comment is in conflict with one already existing in this CommentSet.

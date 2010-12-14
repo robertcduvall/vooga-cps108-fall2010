@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import arcade.util.database.DatabaseAdapter;
 import arcade.util.database.MySqlAdapter;
 
 /**
@@ -13,26 +12,11 @@ import arcade.util.database.MySqlAdapter;
  * @author John, David Herzka
  *
  */
-public class GameReportSet { 
-
-	public Comment currentComment = null;
-	public DatabaseAdapter myDbAdapter;
-	public String myTable;
-	public int currentID;
+public class GameReportSet extends DataSet { 
 
 	public GameReportSet(String host, String dbName, String tableName,
 			String user, String pass) {
-		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
-		myTable = tableName;
-		currentID = size();
-	}
-
-	/**
-	 * Returns the size of the GameReportSet (number of rows).
-	 */
-	public int size() {
-		List<String> col = myDbAdapter.getColumn(myTable, "Id");
-		return col.size();
+		super(host, dbName, tableName, user, pass);
 	}
 
 	/**
@@ -54,19 +38,15 @@ public class GameReportSet {
 
 	/**
 	 * Uses the DatabaseAdapter.update() method to update an entry in the database
-	 * @param gameReport
-	 * 		The gameReport being considered
+	 * @param gameInfoTitle
+	 * 		The title of the game being considered
 	 * @param newRating
 	 * 		The new averageRating to assign to the gameReport
 	 * @return
 	 * 		Whether the update was successful
 	 */
 	public boolean updateAverageRating(String gameInfoTitle, double newRating) {
-		Map<String, String> row = new HashMap<String, String>();
-		row.put("AverageRating", ""+newRating);
-		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("GameInfo_Title", gameInfoTitle);
-		return myDbAdapter.update(myTable, conditions, row);
+		return super.updateField("GameInfo_Title", gameInfoTitle, "AverageRating", newRating+"");
 	}
 	
 	/**
@@ -78,7 +58,8 @@ public class GameReportSet {
 	public List<GameReport> getGameReportsByField(String fieldName, String value) {
 		List<GameReport> returnGameReports = new ArrayList<GameReport>();
 		for (Map<String, String> row: myDbAdapter.getRows(myTable, fieldName, value)) {
-			returnGameReports.add(new GameReport( row.get("Id"),
+			returnGameReports.add(new GameReport( 
+					row.get("Id"),
 					row.get("GameInfo_Title"),
 					row.get("AverageRating"),
 					row.get("NumberOfComments")
@@ -87,9 +68,11 @@ public class GameReportSet {
 		return returnGameReports;
 	}
 
+	/**
+	 * Retrieves the AverageRating for a Game.
+	 */
 	public double getAverageRating(String gameName) {
-		Map<String, String> row = myDbAdapter.getRows(myTable, "GameInfo_Title", gameName).get(0);
-		return Double.parseDouble(row.get("AverageRating"));
+		return Double.parseDouble(super.getValue("GameInfo_Title", gameName, "AverageRating"));
 	}
 
 	public void incrementComments(String gameTitle) {

@@ -5,21 +5,16 @@ package arcade.wall.models;
  * @author John
  *
  */
-public class GameReport {
-	private String myId;
+public class GameReport extends Datum {
 	private String myGameInfoTitle;
 	private String myAverageRating;
 	private String myNumberOfComments;
 	
 	public GameReport(String id, String gameInfoTitle, String averageRating, String numberOfComments) {
-		myId = id;
+		super(id);
 		myGameInfoTitle = gameInfoTitle;
 		myAverageRating =averageRating;
 		myNumberOfComments = numberOfComments;
-	}
-	
-	public String getId() {
-		return myId;
 	}
 	
 	public String getGameInfoTitle() {
