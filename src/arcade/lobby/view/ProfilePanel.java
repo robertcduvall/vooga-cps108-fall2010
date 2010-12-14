@@ -16,7 +16,7 @@ import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
 @SuppressWarnings("serial")
-public class ProfilePanel extends JPanel implements Tab {
+public class ProfilePanel extends JPanel implements Tab, IView {
 	public ProfileEditPanel myEditPanel;
 	public ProfileViewPanel myViewPanel;
 	private boolean editMode = false;
@@ -47,7 +47,7 @@ public class ProfilePanel extends JPanel implements Tab {
 		myViewPanel = createViewPanel();
 		myEditPanel = createEditPanel();
 		myRightSidebar = createSidebar("right");
-		myEditButton = createEditButton();
+		myEditButton = new JButton();
 		myMainPanel = new JPanel();
 		myMainPanel.setLayout(new BoxLayout(myMainPanel, BoxLayout.Y_AXIS));
 
@@ -59,17 +59,26 @@ public class ProfilePanel extends JPanel implements Tab {
 		add(myEditButton, "cell 1 1");
 	}
 
-	private JButton createEditButton() {
-		JButton button = new JButton();
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				editMode = !editMode;
-				reload();
-			}
-		});
-		return button;
+	public void addEditButtonListener(ActionListener listener) {
+		myEditButton.addActionListener(listener);
+	}
+	
+//	private JButton createEditButton() {
+//		JButton button = new JButton();
+//		button.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				editMode = !editMode;
+//				reload();
+//			}
+//		});
+//		return button;
+//	}
+	
+	public void changeEditMode() {
+		editMode = !editMode;
+		reload();
 	}
 
 	private ProfileEditPanel createEditPanel() {
