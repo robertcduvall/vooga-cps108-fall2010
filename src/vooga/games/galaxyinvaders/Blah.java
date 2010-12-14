@@ -111,7 +111,7 @@ public class Blah extends Game {
 	 * @param args do nothing
 	 */
 	public static void main(String[] args) {
-		launch(new Blah(), "player");
+		launch(new Blah(), "Guest");
 	}
 
 }

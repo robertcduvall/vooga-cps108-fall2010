@@ -87,6 +87,6 @@ public class TicTacToe extends Game {
 	 * @version 1.0
 	 */
 	public static void run(){
-		launch(new TicTacToe(), "player");
+		launch(new TicTacToe(), "Guest");
 	}
 }

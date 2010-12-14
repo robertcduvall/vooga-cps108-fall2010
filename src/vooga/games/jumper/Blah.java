@@ -124,7 +124,7 @@ public class Blah extends vooga.engine.core.Game {
 	 * @param args String[] of arguments from the command line
 	 */    
 	public static void main(String[] args) {
-		launch(new Blah(), "player");
+		launch(new Blah(), "Guest");
 	}
 	
 	 @Override

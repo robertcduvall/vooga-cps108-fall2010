@@ -17,8 +17,9 @@ public class ChatConnection extends Connection {
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ChatConnection(String name) throws UnknownHostException, IOException{
+	public ChatConnection(String name, String userName) throws UnknownHostException, IOException{
 		super(VoogaServer.getChatPort(name));
+		sendData(userName);
 	}
 	
 	/**
