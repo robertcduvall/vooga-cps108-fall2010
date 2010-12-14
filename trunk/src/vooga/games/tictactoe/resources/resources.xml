@@ -1,0 +1,48 @@
+
+<Resources>
+	<Images>
+		<Image name="background" path="grid.png" />
+		<Image name="O" path="o.png" />
+		<Image name="X" path="x.png" />
+		<Image name="gameWonBackground" path="gameWonBackground.png" />
+		
+	</Images>
+
+	<Animations>
+	</Animations>
+
+	<Sounds>
+	</Sounds>
+
+	<Strings>
+		<String name="levelFilesDirectory" value="src/vooga/games/tictactoe/resources/levels" />
+		<String name="playStateDirectory" value="vooga.games.tictactoe.states.PlayState" />
+		<String name="levelNamesFile" value="levelNames.txt" />
+		<String name="Level1" value="levels/mainLevel.xml" />
+		<String name="gameWonXml" value="src/vooga/games/tictactoe/resources/levels/gameWon.xml" />
+		<String name="waitXml" value="src/vooga/games/tictactoe/resources/levels/waitingLevel.xml" />
+		<String name="waitForTurnXml" value="src/vooga/games/tictactoe/resources/levels/waitForTurn.xml" />
+		<String name="youLostXml" value="src/vooga/games/tictactoe/resources/levels/youLost.xml" />
+		<String name="theyQuitXml" value="src/vooga/games/tictactoe/resources/levels/theyQuit.xml" />
+		<String name="tieXml" value="src/vooga/games/tictactoe/resources/levels/tie.xml" />
+		<String name="errorString" value="error" />
+		<String name="waitString" value="wait" />
+		<String name="yourTurnString" value="yourTurn" />
+		<String name="theirTurnString" value="theirTurn" />
+		<String name="theyWonString" value="theyWon" />
+		<String name="theyQuitString" value="theyQuit" />
+		<String name="theyTiedString" value="theyTied" />
+		<String name="gameOverString" value="gameOver" />
+	</Strings>
+
+	<Integers>
+		<Integer name="squareDimension" value="108" />
+		<Integer name="xOffsetX" value="9" />
+		<Integer name="xOffsetY" value="9" />
+		<Integer name="oOffsetX" value="11" />
+		<Integer name="oOffsetY" value="14" />
+	</Integers>
+
+	<Doubles>
+	</Doubles>
+</Resources> 

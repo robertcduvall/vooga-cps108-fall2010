@@ -1,0 +1,7 @@
+<Overlay>
+
+<OverlayGroup name="GameWonGroup" >
+<OverlayString xLoc="100" yLoc="80" fontName="gameFontred" label="THEY QUIT!" fontSize="32"></OverlayString>
+</OverlayGroup>
+
+</Overlay>
