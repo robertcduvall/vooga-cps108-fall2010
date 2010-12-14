@@ -29,7 +29,7 @@ public class ExampleGUI extends Tab {
 
 	// private static String gameName = "Zombieland";
 	// private static String playerName = "Guest";
-	private static int gameID = 9;
+	private static int gameID = 3;
 	private static int playerID = 5;
 	private static JPanel content;
 	private static JPanel left;
@@ -64,7 +64,8 @@ public class ExampleGUI extends Tab {
 
 	private static void refreshContent() {
 		content = new GameView(gameID);
-		columnar.setRightComponent(content);
+		GameView.initialize();
+		columnar.setRightComponent(GameView.getContent());
 	}
 
 	public static void setGame(int id) {

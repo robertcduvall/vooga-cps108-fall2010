@@ -30,8 +30,9 @@ public class GameView extends JPanel {
 		gameProperties = parseGame(gameID);
 	}
 
-	private static void initialize() {
+	public static void initialize() {
 		gameProperties = parseGame(gameID);
+		main.add(new JLabel("working"));
 		main.add(setSplashScreen());
 		main.add(setText());
 
@@ -44,13 +45,15 @@ public class GameView extends JPanel {
 	}
 
 	public static Map<String, String[]> parseGame(int id) {
+		System.out.println("yes");
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Id", id+"");
-		List<Map<String, String>> attributes = Arcade.myDbAdapter.getRows(
+		List<Map<String, String>> attributes = ArcadeEdited.myDbAdapter.getRows(
 				"GameInfo", conditions, "Title", "Genre",
 				"Description", "Tags", "ClassName", "ImagePaths",
 				"Instructions");
+		System.out.println(attributes);
 		for (Map<String, String> m : attributes) {
 			for (String key : m.keySet()) {
 				gameMap.put(key.toLowerCase(), (key.equals("Tags") || key
@@ -151,7 +154,7 @@ public class GameView extends JPanel {
 		return gameName;
 	}
 	
-	public JComponent getContent() {
+	public static JComponent getContent() {
 		return main;
 	}
 

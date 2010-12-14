@@ -121,9 +121,10 @@ public class ArcadeEdited extends JFrame {
 	}
 
 	private JComponent createArcadeView() {
-		GameView game; //= new GameView("zombieland");
+		GameView game = new GameView(3);
+		GameView.initialize();
 		JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),
-				null);
+				GameView.getContent());
 		columnar.setOneTouchExpandable(true);
 
 		JSplitPane mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,
@@ -174,9 +175,9 @@ public class ArcadeEdited extends JFrame {
 	 * 
 	 * @param index
 	 */
-	public static void play(String gameName) {
+	public static void play(int gameID) {
 		switchToTab(1);
-		GameView.setGame(gameName);
+		GameView.setGame(gameID);
 	}
 
 	public static void switchToTab(int id) {
