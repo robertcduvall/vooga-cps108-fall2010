@@ -6,16 +6,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import arcade.wall.controllers.WallTabController;
-import arcade.wall.models.Comment;
-import arcade.wall.models.WallTabModel;
+import arcade.wall.models.WallModel;
+import arcade.wall.models.data.comment.Comment;
 
 public class WallWidgetController {
 	WallTabController controller;
-	WallTabModel model; 
+	WallModel model; 
 	WallWidgetView view;
 
 	public WallWidgetController() {
-		model = new WallTabModel();
+		model = new WallModel();
 		view = new WallWidgetView(this);	
 		view.addReviewButtonListener(new ReviewButtonListener());
 	}

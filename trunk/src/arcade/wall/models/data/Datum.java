@@ -1,4 +1,4 @@
-package arcade.wall.models;
+package arcade.wall.models.data;
 
 /**
  * A Datum object represents a data entity in our online database, such as a Comment or GameReport.
