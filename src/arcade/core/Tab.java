@@ -13,7 +13,7 @@ import arcade.core.mvc.IController;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class Tab extends JPanel {
+public abstract interface Tab {
 	
 	public abstract JComponent getContent();
 
@@ -24,17 +24,11 @@ public abstract class Tab extends JPanel {
 	 * intermediate for the back-end model.
 	 * @return
 	 */
-	public IController getController()
-	{
-		return null;
-	}
+	public IController getController();
 	
 	/**
 	 * This method is needed to refresh the tab
 	 * when 
 	 */
-	public void refresh()
-	{
-		
-	}
+	public void refresh();
 }

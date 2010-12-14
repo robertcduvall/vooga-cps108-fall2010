@@ -11,11 +11,12 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
 @SuppressWarnings("serial")
-public class ProfilePanel extends Tab {
+public class ProfilePanel extends JPanel implements Tab {
 	public ProfileEditPanel myEditPanel;
 	public ProfileViewPanel myViewPanel;
 	private boolean editMode = false;
@@ -111,7 +112,7 @@ public class ProfilePanel extends Tab {
 
 	@Override
 	public void refresh() {
-		super.refresh();
+		repaint();
 		editMode = false;
 		reload();
 	}
@@ -126,6 +127,12 @@ public class ProfilePanel extends Tab {
 		refreshContent();
 		editMode = !editMode;
 		refreshContent();
+	}
+
+	@Override
+	public IController getController() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 } // @jve:decl-index=0:visual-constraint="-4,26"

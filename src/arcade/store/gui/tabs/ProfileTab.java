@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
-public class ProfileTab extends Tab implements IViewer{
+public class ProfileTab extends  JPanel implements Tab, IViewer{
 	
 
 	private JPanel jPanel = null;  //  @jve:decl-index=0:visual-constraint="133,-45"
@@ -226,6 +226,11 @@ public class ProfileTab extends Tab implements IViewer{
 			});
 		}
 		return RefreshButton;
+	}
+
+	@Override
+	public void refresh() {
+		this.repaint();
 	}
 
 	

@@ -20,7 +20,7 @@ import arcade.store.StoreModel;
 import arcade.store.control.MainController;
 import arcade.store.control.MainPageController;
 
-public class MainPageTab extends Tab implements IViewer{
+public class MainPageTab extends  JPanel implements Tab, IViewer{
 
 	/**
 	 * 
@@ -123,6 +123,11 @@ public class MainPageTab extends Tab implements IViewer{
 		}
 		return gameListPanel;
 
+	}
+
+	@Override
+	public void refresh() {
+		this.repaint();
 	}
 
 }

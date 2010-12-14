@@ -21,7 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class StoreLibraryTab extends Tab implements IViewer{
+public class StoreLibraryTab extends JPanel implements Tab, IViewer{
 
 	private JPanel cataloguePanel = null;  //  @jve:decl-index=0:visual-constraint="220,-13"
 	private JLabel rentaltradeLabel = null;
@@ -211,6 +211,11 @@ public class StoreLibraryTab extends Tab implements IViewer{
 			searchButton.setText("Search");
 		}
 		return searchButton;
+	}
+
+	@Override
+	public void refresh() {
+		this.repaint();
 	}
 
 		

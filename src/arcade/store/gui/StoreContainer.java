@@ -1,7 +1,9 @@
 package arcade.store.gui;
 
+import java.awt.Component;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
@@ -55,15 +57,15 @@ public class StoreContainer{
 			try {
 
 				Tab t = (Tab) getObject(classname);
-				String name = t.getName();	
+				String name = ((JComponent) t).getName();	
 				
 				mainController.addSubTab(name, t);
 				
 				//initialize all the start up features of the 
 				t.getController().initialize();
 				
-				alltabs.addTab(t.getName(), null, t.getContent(),
-						t.getToolTipText());
+				alltabs.addTab(((JComponent) t).getName(), null, t.getContent(),
+						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

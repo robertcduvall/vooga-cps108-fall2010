@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import arcade.core.Tab;
+import arcade.core.mvc.IController;
 import arcade.mod.model.IModel;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.ModException;
@@ -29,7 +31,7 @@ import arcade.mod.view.frame.ListFrame;
  * @author Vitor
  * 
  */
-public class Presenter extends Tab implements IPresenter {
+public class Presenter extends JPanel implements Tab, IPresenter {
 
 	public static final String TAB_NAME = "Mod";
 	IModel myModel;
@@ -141,5 +143,16 @@ public class Presenter extends Tab implements IPresenter {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public IController getController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		((JComponent) myView).repaint();
 	}
 }

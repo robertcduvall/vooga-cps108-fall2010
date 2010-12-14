@@ -18,6 +18,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import arcade.core.examples.HighScore;
+import arcade.core.mvc.IController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
@@ -33,7 +34,7 @@ import arcade.lobby.model.ProfileSet;
  * 
  */
 @SuppressWarnings("serial")
-public class ExampleGUI extends Tab {
+public class ExampleGUI extends JPanel implements Tab {
 	private static HighScoreControl hsc = new HighScoreControl(
 			Arcade.myDbAdapter, "HighScores");
 
@@ -295,6 +296,20 @@ public class ExampleGUI extends Tab {
 			result += "</table>";
 		}
 		return result;
+	}
+
+	@Override
+	public IController getController() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		this.refresh();
+		this.repaint();
+		mainPanel.repaint();
+		columnar.repaint();
 	}
 
 }

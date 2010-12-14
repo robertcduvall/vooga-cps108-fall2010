@@ -23,7 +23,7 @@ import arcade.core.mvc.IViewer;
 import arcade.store.control.CheckoutController;
 import arcade.store.control.MainController;
 
-public class CheckoutTab extends Tab implements IViewer{
+public class CheckoutTab extends JPanel implements Tab, IViewer{
 
 	private JPanel myCheckOutTab = null;  //  @jve:decl-index=0:visual-constraint="199,58"
 	private JLabel checkoutLabel = null;
