@@ -1,62 +1,73 @@
 package arcade.core;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.SwingWorker;
 
 import vooga.engine.core.Game;
+import arcade.core.examples.Profile;
 
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
 
-	private String gameName;
-	private Map<String, String[]> gameProperties;
-	private ImageIcon splash;
+	private static String gameName = "Zombieland";
+	private static Map<String, String[]> gameProperties;
+	private static ImageIcon splash;
+	private static JPanel main;
 
 	public GameView(String game) {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		gameName = game;
+		
 		initialize();
 	}
 
-	private void initialize() {
+	private static void initialize() {
 		gameProperties = parseGame(gameName);
-		add(setSplashScreen());
-		add(setText());
+		main.add(setSplashScreen());
+		main.add(setText());
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.setAlignmentX(CENTER_ALIGNMENT);
 		panel.add(startButton());
 		panel.add(backButton());
-		add(panel);
+		main.add(panel);
 	}
 
-	public Map<String, String[]> parseGame(String game) {
+	public static Map<String, String[]> parseGame(String game) {
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("Title", game);
+		conditions.put("title", game);
 		List<Map<String, String>> attributes = Arcade.myDbAdapter.getRows(
-				"GameInfo", conditions, "Title", "Genre",
-				"Description", "Tags", "ClassName", "ImagePaths",
-				"Instructions");
+				"GameInfo", conditions, "title", "genre", "rating",
+				"description", "tags", "classname", "imagepaths",
+				"instructions");
 		for (Map<String, String> m : attributes) {
 			for (String key : m.keySet()) {
-				gameMap.put(key.toLowerCase(), (key.equals("Tags") || key
-						.equals("Instructions")) ? m.get(key).split(",")
+				gameMap.put(key, (key.equals("tags") || key
+						.equals("instructions")) ? m.get(key).split(",")
 						: new String[] { m.get(key) });
 			}
 		}
 		return gameMap;
 	}
 
-	private JLabel setSplashScreen() {
+	private static JLabel setSplashScreen() {
 		try {
 			splash = new ImageIcon(gameProperties.get("imagepaths")[0]);
 		} catch (Exception e) {
@@ -67,7 +78,7 @@ public class GameView extends JPanel {
 		return splashImage;
 	}
 
-	private JTextPane setText() {
+	private static JTextPane setText() {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		String description = "<center><p><b>" + gameProperties.get("title")[0]
@@ -86,7 +97,7 @@ public class GameView extends JPanel {
 		return textPane;
 	}
 
-	private JButton startButton() {
+	private static JButton startButton() {
 
 		JButton start = new JButton("Start");
 		start.addActionListener(new ActionListener() {
@@ -120,7 +131,7 @@ public class GameView extends JPanel {
 		return start;
 	}
 
-	private Component backButton() {
+	private static Component backButton() {
 		JButton back = new JButton("Back");
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,5 +139,26 @@ public class GameView extends JPanel {
 			}
 		});
 		return back;
+	}
+	
+	public static void setGame(String name) {
+		gameName = name;
+		refreshContent();
+		Profile.getGameHighScoresPanel(gameName, 5);
+		columnar.setLeftComponent(makeLeftPanel());
+		mainPanel.setRightComponent(makeRightPanel());
+	}
+	
+	private static void refreshContent() {
+		main.removeAll();
+		initialize();
+	}
+	
+	public static String getGame() {
+		return gameName;
+	}
+	
+	public JComponent getContent() {
+		return main;
 	}
 }
