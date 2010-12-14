@@ -112,6 +112,14 @@ public class Shooter extends BetterSprite implements Constants {
 			sentData = true;
 		}
 	}
+	
+	public void killOtherPlayer() {
+		setHealth(0);
+		if(connection != null){
+			connection.send("killOtherPlayer");
+			sentData = true;
+		}
+	}
 
 	/**
 	 * Move the shooter right and play the corresponding animation.
