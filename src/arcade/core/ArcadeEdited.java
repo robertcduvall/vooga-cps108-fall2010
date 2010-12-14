@@ -2,15 +2,24 @@ package arcade.core;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
@@ -38,16 +47,44 @@ public class ArcadeEdited extends JFrame {
 	private static JTabbedPane mainWindow;
 
 	public ArcadeEdited() {
+		
 		setLayout(new BorderLayout());
+		//getContentPane().add(createLogin(), BorderLayout.NORTH);
 		mainWindow = createTabs();
-		getContentPane().add(mainWindow);
+		getContentPane().add(mainWindow//, BorderLayout.SOUTH
+				);
 
 		setSize(XSIZE, YSIZE);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		//createWindows();
+		createWindows();
 	}
+	
+	// Temporary
+	// TODO: security group please create this
+	private JPanel createLogin() {
+		JPanel a = new JPanel();
+		a.setLayout(new BorderLayout());
+		Box box = Box.createHorizontalBox();
+		JLabel userLabel = new JLabel("Username: ");
+		JTextField userField = new JTextField(7);
+		JLabel passLabel = new JLabel("Password: ");
+		JPasswordField passField = new JPasswordField(7);
+		JButton login = new JButton("Log in");
+		JButton register = new JButton("Register");
+		box.add(userLabel);
+		box.add(userField);
+		box.add(passLabel);
+		box.add(passField);
+		box.add(login);
+		box.add(register);
+		box.setMaximumSize(new Dimension(200, 5));
+		a.add(box, BorderLayout.EAST);
+		a.setMaximumSize(new Dimension(200, 5));
+		return a;
+	}
+
 
 	/**
 	 * Create all tabs in the window
@@ -55,10 +92,10 @@ public class ArcadeEdited extends JFrame {
 	 * @return initialized Tabbed Pane
 	 */
 	private JTabbedPane createTabs() {
-		JTabbedPane everything = new JTabbedPane();
+		final JTabbedPane everything = new JTabbedPane();
 		// JPanel main = createArcadeView();
 		everything.addTab("Arcade", null, createArcadeView(), "Arcade Main View");
-		/*
+		
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
@@ -70,7 +107,16 @@ public class ArcadeEdited extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		*/
+		
+		everything.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if(everything.getSelectedComponent() instanceof Tab)
+					((Tab) everything.getSelectedComponent()).refresh();
+				
+			}
+		});
 		return everything;
 	}
 
