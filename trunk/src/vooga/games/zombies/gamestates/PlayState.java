@@ -163,6 +163,7 @@ public class PlayState extends GameState implements Constants {
 		control.addInput(KeyEvent.VK_UP, "goUp", PLAYER_CLASS);
 		control.addInput(KeyEvent.VK_DOWN, "goDown", PLAYER_CLASS);
 		control.addInput(KeyEvent.VK_SPACE, "shoot", PLAYER_CLASS);
+		control.addInput(KeyEvent.VK_8, "killOtherPlayer", PLAYER_CLASS);
 
 		control.addInput(KeyEvent.VK_1, "switchWeapons", PLAYER_CLASS,
 				new Class[] { int.class });
@@ -246,6 +247,11 @@ public class PlayState extends GameState implements Constants {
 	
 	public boolean shoot(){
 		otherPlayer.shoot();
+		return false;
+	}
+	
+	public boolean killOtherPlayer() {
+		otherPlayer.setHealth(0);
 		return false;
 	}
 	
