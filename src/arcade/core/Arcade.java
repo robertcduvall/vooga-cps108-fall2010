@@ -1,12 +1,21 @@
 package arcade.core;
 
-import arcade.core.Tab;
-
-import java.awt.*;
-import java.lang.reflect.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -103,13 +112,17 @@ public class Arcade extends JFrame {
 		return everything;
 	}
 
-	private JPanel createArcadeView() {
-		JPanel main = new JPanel();
-		main.add(createPanels("leftPanel"));
-		main.add(new GameView("zombieland"));
-		main.add(createPanels("rightPanel"));
-		main.setLayout(new BoxLayout(main, BoxLayout.X_AXIS));
-		return main;
+	private JComponent createArcadeView() {
+		GameView game = new GameView("zombieland");
+		JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),
+				game.getContent());
+		columnar.setOneTouchExpandable(true);
+
+		JSplitPane mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,
+				createPanels("rightPanel"));
+		mainPanel.setOneTouchExpandable(true);
+
+		return mainPanel;
 	}
 
 	/**
@@ -155,7 +168,7 @@ public class Arcade extends JFrame {
 	 */
 	public static void play(String gameName) {
 		switchToTab(1);
-		ExampleGUI.setGame(gameName);
+		GameView.setGame(gameName);
 	}
 
 	public static void switchToTab(int id) {
