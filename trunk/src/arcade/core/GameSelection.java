@@ -9,60 +9,68 @@ import java.util.List;
 import javax.swing.*;
 
 public class GameSelection extends Tab {
-	private static String[] gameNames = { "Asteroids", "Cyberion",
-			"Doodle Jump", "Galaxy Invaders", "Grandius", "Jumper",
-			"Super Mario Bros.", "Tower Defense", "Tron", "Zombieland" };
+	private static final String DELIMITER = ",";
+	//TODO ORDER?
+	private static int[] gameIDs = {12,13,14,15,16,17,18,19,20};
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
-	private Map<String, String[]> tags;
-
+	private List<Map<String, String>> gameData;
+	private Map<Integer, JPanel> panels;
 	public GameSelection() {
 		setName("Games");
 		setToolTipText("A list of all the game available");
-		tags = new HashMap<String, String[]>();
-		getTags();
+		panels=new HashMap<Integer, JPanel>();
+		gameData=getGames(gameIDs);
+		addPanels();
 	}
-
-	private void getTags() {
-		List<Map<String, String>> info = Arcade.myDbAdapter.getColumns(
-				"GameInfo", "title", "tags");
-		for (Map<String, String> m : info) {
-			tags.put(m.get("title"), m.get("tags").split(","));
+	
+	private static List<Map<String, String>> getGames(int[] games) {
+		String query = "SELECT * FROM " + "GameInfo" + " WHERE ";
+		for (int id : games) {
+			query += "Id=" + id + " OR ";
+		}
+		return Arcade.myDbAdapter.getRows(query.substring(0, query.length() - 4));
+	}
+	
+	private void addPanels() {
+		for (Map<String, String> m : gameData) {
+			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
 	}
-
-	public JPanel createItem(String name) {
+	public JPanel createItem(Map<String, String> m) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		JLabel title = new JLabel(name);
+		JLabel title = new JLabel(m.get("Title"));
+		title.setAlignmentX(CENTER_ALIGNMENT);
 
-		ImageIcon image = new ImageIcon("src/arcade/core/RatingStar.gif");
+		ImageIcon image = new ImageIcon(m.get("ImagePaths"));
 		Image scaled = image.getImage().getScaledInstance(100, 100,
 				java.awt.Image.SCALE_SMOOTH);
 		image = new ImageIcon(scaled);
 		JLabel icon = new JLabel(image);
-
+		icon.setAlignmentX(CENTER_ALIGNMENT);
+		
 		JButton button = new JButton("Play");
-		button.addActionListener(new buttonActionListener(name));
-
+		button.addActionListener(new buttonActionListener(m.get("Title"),Integer.parseInt(m.get("Id"))));
+		button.setAlignmentX(CENTER_ALIGNMENT);
+		
 		panel.add(title);
 		panel.add(icon);
 		panel.add(button);
 		return panel;
 	}
-
-	public class buttonActionListener implements ActionListener {
-		private String gameName;
-
-		public buttonActionListener(String name) {
-			gameName = name;
+	
+	private class buttonActionListener implements ActionListener {
+		private int gameID;
+		public buttonActionListener(String name, int id) {
+			gameID=id;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Arcade.play(gameName);
+			Arcade.play(gameID);
 		}
 	}
 
@@ -85,27 +93,30 @@ public class GameSelection extends Tab {
 	}
 
 	public class SearchButtonListener implements ActionListener {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String term = searchArea.getText();
 			games.removeAll();
 			try {
-				for (String game : gameNames) {
-					for (String tag : tags.get(game)) {
-						if (tag.contains(term.toLowerCase())) {
-							games.add(createItem(game));
+				for (Map<String, String> m : gameData) {
+					for (String tag : m.get("Tags").split(DELIMITER)) {
+						if (tag.toLowerCase().contains(term.toLowerCase())) {
+							games.add(panels.get(Integer.parseInt(m.get("Id"))));
 							break;
 						}
 					}
 				}
-				if (games.getComponents().length == 0)
+				if (games.getComponents().length == 0) {
 					games.add(new JLabel(
 							"No Games Found With Those Search Terms"));
+				}
 				games.validate();
+				games.repaint();
 			} catch (Throwable e1) {
 				e1.printStackTrace();
 			}
-			games.repaint();
+			
 		}
 
 	}
@@ -123,9 +134,9 @@ public class GameSelection extends Tab {
 
 	public void displayAllGames() {
 		games.removeAll();
-		for (String name : gameNames) {
-			games.add(createItem(name));
+		for (Integer i : panels.keySet()) {
+			games.add(panels.get(i));
 		}
-		games.validate();
+		games.repaint();
 	}
 }

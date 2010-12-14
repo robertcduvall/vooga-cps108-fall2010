@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.*;
 
 import arcade.core.examples.HighScore;
+import arcade.lobby.model.ProfileSet;
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
 
@@ -23,11 +24,13 @@ import arcade.util.database.MySqlAdapter;
  * 
  */
 public class ExampleGUI extends Tab {
-	private static HighScoreControl hsc = new HighScoreControl(Arcade.myDbAdapter,
-			"HighScores");
+	private static HighScoreControl hsc = new HighScoreControl(
+			Arcade.myDbAdapter, "HighScores");
 
-	private static String gameName = "Zombieland";
-	private static String playerName = "Guest";
+	// private static String gameName = "Zombieland";
+	// private static String playerName = "Guest";
+	private static int gameID = 9;
+	private static int playerID = 5;
 	private static JPanel content;
 	private static JPanel left;
 	private static JSplitPane mainPanel;
@@ -55,34 +58,31 @@ public class ExampleGUI extends Tab {
 		return mainPanel;
 	}
 
-	public static void setPlayer(String player){
-		playerName = player;
+	public static void setPlayer(String player) {
 		mainPanel.setRightComponent(makeRightPanel());
 	}
-	
+
 	private static void refreshContent() {
-		content = new GameView(gameName);
+		content = new GameView(gameID);
 		columnar.setRightComponent(content);
 	}
 
-	public static void setGame(String name) {
-		gameName = name;
+	public static void setGame(int id) {
+		gameID = id;
+		// gameName = name;
 		refreshContent();
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 	}
-	
-	public static String getGame() {
-		return gameName;
-	}
 
 	public static void updateHighScore(double highScore) {
 		score = highScore;
-		new HighScore(gameName);
+		new HighScore();
 	}
 
 	public static boolean addHighScore() {
-		boolean isAdded = hsc.addScore(playerName, gameName, score);
+		boolean isAdded = hsc.addScore(ProfileSet.currentProfile.getUserId(),
+				gameID, score);
 		columnar.setLeftComponent(makeLeftPanel());
 		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;
@@ -108,8 +108,9 @@ public class ExampleGUI extends Tab {
 
 		JLabel moreLabels = new JLabel(icon);
 
+		String gameName = "";
 		highScores = getGameHighScoresPanel(gameName, 5);
-
+		highScores = new JPanel();
 		left.add(rateThis);
 		left.add(label);
 		left.add(separator);
@@ -138,10 +139,15 @@ public class ExampleGUI extends Tab {
 		JPanel playerAvatar = new JPanel();
 		playerAvatar.setLayout(new BoxLayout(playerAvatar, BoxLayout.Y_AXIS));
 		playerAvatar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		JLabel player = new JLabel(playerName + " Avatar");
+
+		String pn;
+		// TODO pn returns null;
+		// pn=ProfileSet.currentProfile.getFirstName();
+		pn = "Guest";
+		JLabel player = new JLabel(pn + "s Avatar");
 		playerAvatar.add(player);
 		playerAvatar.add(label);
-		playerAvatar.add(getPlayerHighScoresPanel(playerName, 5));
+		// playerAvatar.add(getPlayerHighScoresPanel(pn, 5));
 
 		JPanel lobby = new JPanel();
 		lobby.setLayout(new BoxLayout(lobby, BoxLayout.Y_AXIS));
@@ -153,7 +159,7 @@ public class ExampleGUI extends Tab {
 
 		JPanel ads = new JPanel();
 		ads.setLayout(new BoxLayout(ads, BoxLayout.Y_AXIS));
-		;
+
 		ads.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		JLabel randomAd = new JLabel("Buy Coke.");
 		ads.add(randomAd);
@@ -175,7 +181,7 @@ public class ExampleGUI extends Tab {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		String description = gameFormat(gameName, numScores,
-				hsc.getGameHighScores(gameName, numScores));
+				hsc.getGameHighScores(gameID, numScores));
 		textPane.setEditable(false);
 
 		textPane.setText(description);
@@ -184,8 +190,7 @@ public class ExampleGUI extends Tab {
 	}
 
 	/**
-	 * TODO: FEEL FREE TO CHANGE Format the output of the query to display high
-	 * scores for a game
+	 * display high scores for a game
 	 * 
 	 * @param gameName
 	 *            game name
@@ -216,7 +221,8 @@ public class ExampleGUI extends Tab {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		String description = playerFormat(playerName, numScores,
-				hsc.getPlayerHighScores(playerName, numScores,"id"));
+				hsc.getPlayerHighScores(ProfileSet.currentProfile.getUserId(),
+						numScores, "Id"));
 		textPane.setEditable(false);
 
 		textPane.setText(description);
@@ -225,8 +231,8 @@ public class ExampleGUI extends Tab {
 	}
 
 	/**
-	 * TODO: FEEL FREE TO CHANGE Format the output of the query to display high
-	 * scores for a player using HTML
+	 * Format the output of the query to display high scores for a player using
+	 * HTML
 	 * 
 	 * @param playerName
 	 *            player name
@@ -257,7 +263,7 @@ public class ExampleGUI extends Tab {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		String description = formatAll(playerName, gameName, numScores,
-				hsc.getHighScores(playerName, gameName, numScores));
+				hsc.getHighScores(playerID, gameID, numScores));
 		textPane.setEditable(false);
 
 		textPane.setText(description);

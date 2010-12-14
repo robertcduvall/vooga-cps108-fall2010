@@ -1,8 +1,6 @@
 package arcade.core;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import arcade.util.database.MySqlAdapter;
 
@@ -15,12 +13,30 @@ import arcade.util.database.MySqlAdapter;
  */
 public class HighScoreControl {
 
-	private MySqlAdapter myDbAdapter;
-	private String myTable;
+	private MySqlAdapter dbAdapter;
+	private String tableName;
+	private static Map<Integer, String> gameMemo;
+	private static Map<Integer, String> playerMemo;
 
-	public HighScoreControl(MySqlAdapter adapter, String tableName) {
-		myDbAdapter = adapter;
-		myTable = tableName;
+	public HighScoreControl(MySqlAdapter adapter, String tblName) {
+		dbAdapter = adapter;
+		tableName = tblName;
+		gameMemo = new HashMap<Integer, String>();
+		playerMemo = new HashMap<Integer, String>();
+
+		initializeMemos();
+	}
+
+	private void initializeMemos() {
+		for (Map<String, String> m : dbAdapter.getColumns("Profile", "User_Id",
+				"FirstName")) {
+			playerMemo.put(Integer.parseInt(m.get("User_Id")),
+					m.get("FirstName"));
+		}
+		for (Map<String, String> m : dbAdapter.getColumns("GameInfo", "Id",
+				"Title")) {
+			gameMemo.put(Integer.parseInt(m.get("Id")), m.get("Title"));
+		}
 	}
 
 	/**
@@ -28,36 +44,36 @@ public class HighScoreControl {
 	 * 
 	 * @param player
 	 *            player identifier (username/name)
-	 * @param gameName
+	 * @param gameID
 	 *            game name
 	 * @param score
 	 *            score
 	 * @return true if successful, false otherwise
 	 */
-	public boolean addScore(String player, String gameName, double score) {
+	public boolean addScore(int playerID, int gameID, double score) {
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("Player", player);
-		row.put("Game", gameName);
+		row.put("Player_Id", playerID + "");
+		row.put("Game_Id", gameID + "");
 		row.put("Score", score + "");
-		return myDbAdapter.insert(myTable, row);
+		return dbAdapter.insert(tableName, row);
 	}
 
 	/**
 	 * Checks to see if the current score is a new personal high score on a game
 	 * 
-	 * @param playerName
+	 * @param playerID
 	 *            player identifier (username/name)
-	 * @param gameName
+	 * @param gameID
 	 *            game name
 	 * @param score
 	 *            score
 	 * @return true if it's a new high score, false otherwise
 	 */
-	public boolean isHighScore(String playerName, String gameName, String score) {
+	public boolean isHighScore(int playerID, int gameID, String score) {
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("Player", playerName);
-		conditions.put("Game", gameName);
-		List<Map<String, String>> rows = myDbAdapter.getRows(myTable,
+		conditions.put("Player_Id", playerID + "");
+		conditions.put("Game_Id", gameID + "");
+		List<Map<String, String>> rows = dbAdapter.getRows(tableName,
 				conditions, "Score", false, 1, "Score");
 		for (Map<String, String> row : rows) {
 			if (Double.parseDouble(score) > Double
@@ -70,61 +86,97 @@ public class HighScoreControl {
 	/**
 	 * Get the high scores for a game
 	 * 
-	 * @param gameName
+	 * @param gameID
 	 *            game name
 	 * @param numScores
 	 *            number of scores to display
 	 * @return a list of values returned by the query
 	 */
-	public List<Map<String, String>> getGameHighScores(String gameName,
-			int numScores) {
+	public List<Map<String, String>> getGameHighScores(int gameID, int numScores) {
 		// Query contruction
-		// String query = "SELECT Player, Score " +
+		// String query = "SELECT Player_Id, Score " +
 		// " FROM " + myTable +
-		// " WHERE Game = '"+ gameName + "' " +
+		// " WHERE Game_Id = '"+ gameID + "' " +
 		// " ORDER BY Score DESC" +
 		// " LIMIT 0 , " + numScores;
 		// List<Map<String, String>> rows = myDbAdapter.getRows(query);
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("Game", gameName);
-		return myDbAdapter.getRows(myTable, conditions, "Score", false,
-				numScores, "Player", "Score");
+		conditions.put("Game_Id", gameID + "");
+
+		return fillPlayerInfo(dbAdapter.getRows(tableName, conditions, "Score",
+				false, numScores, "Player_Id", "Score"));
 	}
 
 	/**
 	 * Get the high scores for a player
 	 * 
-	 * @param playerName
+	 * @param playerID
 	 *            player identifier (username/name)
 	 * @param numScores
 	 *            number of scores to display
 	 * @return a list of values returned by the query
 	 */
-	public List<Map<String, String>> getPlayerHighScores(String playerName,
+	public List<Map<String, String>> getPlayerHighScores(int playerID,
 			int numScores) {
-		return getPlayerHighScores(myTable, numScores, "Score");
+		return getPlayerHighScores(playerID, numScores, "Score");
 	}
 
-	public List<Map<String, String>> getPlayerHighScores(String playerName,
+	public List<Map<String, String>> getPlayerHighScores(int playerID,
 			int numScores, String sortBy) {
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("Player", playerName);
-		return myDbAdapter.getRows(myTable, conditions, sortBy, false,
-				numScores, "Game", "Score");
+		conditions.put("Player_Id", playerID + "");
+		return fillGameInfo(dbAdapter.getRows(tableName, conditions, sortBy,
+				false, numScores, "Game_Id", "Score"));
 	}
 
-	public List<Map<String, String>> getHighScores(String playerName,
-			String gameName, int numScores) {
-		return getHighScores(playerName, myTable, numScores, "Score");
+	public List<Map<String, String>> getHighScores(int playerID, int gameID,
+			int numScores) {
+		return getHighScores(playerID, gameID, numScores, "Score");
 	}
 
-	public List<Map<String, String>> getHighScores(String playerName,
-			String gameName, int numScores, String sortBy) {
+	public List<Map<String, String>> getHighScores(int playerID, int gameID,
+			int numScores, String sortBy) {
 
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("Player", playerName);
-		conditions.put("Game", gameName);
-		return myDbAdapter.getRows(myTable, conditions, sortBy, false,
-				numScores, "Score");
+		conditions.put("Player_Id", playerID + "");
+		conditions.put("Game_Id", gameID + "");
+		return fillAllInfo(dbAdapter.getRows(tableName, conditions, sortBy,
+				false, numScores, "Score"));
+	}
+
+	private List<Map<String, String>> fillGameInfo(
+			List<Map<String, String>> queryResults) {
+		return fillInfo(queryResults, true, false);
+	}
+
+	private List<Map<String, String>> fillPlayerInfo(
+			List<Map<String, String>> queryResults) {
+		return fillInfo(queryResults, false, true);
+	}
+
+	private List<Map<String, String>> fillAllInfo(
+			List<Map<String, String>> queryResults) {
+		return fillInfo(queryResults, true, true);
+	}
+
+	private List<Map<String, String>> fillInfo(
+			List<Map<String, String>> queryResults, boolean game, boolean player) {
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		for (Map<String, String> m : queryResults) {
+			Map<String, String> scores = new HashMap<String, String>();
+			if (player) {
+				int pid = Integer.parseInt(m.get("Player_Id"));
+				String pname = playerMemo.get(pid);
+				scores.put("PlayerName", pname);
+			}
+			if (game) {
+				int gid = Integer.parseInt(m.get("Game_Id"));
+				String gname = gameMemo.get(gid);
+				scores.put("GameName", gname);
+			}
+			scores.put("Score", m.get("Score"));
+			list.add(scores);
+		}
+		return list;
 	}
 }
