@@ -106,7 +106,7 @@ public class Blah extends Game implements Constants {
 	 * 
 	 * @param args
 	 */
-	public static void run() {
+	public static void main(String[] args) {
 		launch(new Blah());
 	}
 
