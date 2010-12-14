@@ -1,22 +1,17 @@
 package arcade.store.items;
 
 import java.util.*;
-
 import javax.swing.ImageIcon;
-
 import arcade.store.StoreSqlAdapter;
 import arcade.store.account.StoreUser;
-import arcade.util.database.MySqlAdapter;
 
 public class DbItemAndUserFactory {
 	
-	private static final String usernameTable = "StoreAccounts";
-	private static final String purchaseHistoryTable = "PurchaseHistory";
 	
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
-	public static Map<String, IItemInfo> getAllItems(String table) {
-		List<Map<String, String>> list = dbAdapter.getAllRows(table);
+	public static Map<String, IItemInfo> getAllStoreItems() {
+		List<Map<String, String>> list = dbAdapter.getAllRows(StoreSqlAdapter.ITEM_INFO_TABLE);
 		HashMap<String, IItemInfo> answer = new HashMap<String, IItemInfo>();
 		for(Map<String, String> m : list) {
 			String[] images = m.get("ImagePaths").split(",");
@@ -33,8 +28,8 @@ public class DbItemAndUserFactory {
 
 
 	public static StoreUser getUser(int userId) {
-		List<Map<String, String>> list = dbAdapter.getRows(usernameTable, "Id", Integer.toString(userId));
-		List<Map<String, String>> ownedGames = dbAdapter.getRows("SELECT ItemName FROM "+purchaseHistoryTable+" WHERE User_ID='"+Integer.toString(userId)+"'");
+		List<Map<String, String>> list = dbAdapter.getRows(StoreSqlAdapter.STORE_USER_TABLE, "Id", Integer.toString(userId));
+		List<Map<String, String>> ownedGames = dbAdapter.getRows("SELECT ItemName FROM "+StoreSqlAdapter.PURCHASE_HISTORY_TABLE+" WHERE User_ID='"+Integer.toString(userId)+"'");
 		if(list!=null) {
 			Map<String, String> userMap = list.get(0);
 			ArrayList<String> games = new ArrayList<String>();
@@ -50,7 +45,7 @@ public class DbItemAndUserFactory {
 			newUser.put("Creddits", "0.00");
 			newUser.put("Cart", "");
 			newUser.put("GamesOwned", "");
-			dbAdapter.insert(usernameTable, newUser);
+			dbAdapter.insert(StoreSqlAdapter.STORE_USER_TABLE, newUser);
 			return getUser(userId);
 		}
 	}

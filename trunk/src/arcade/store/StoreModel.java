@@ -13,11 +13,6 @@ import arcade.store.items.IItemInfo;
 import arcade.store.organizer.FilterByGenreOrganizer;
 
 public class StoreModel implements IModel{
-
-	private static final String GAMES_DIRECTORY = System.getProperty("user.dir")+"/src/arcade/store/gui/resources/games";
-	private static final String GAME_INFO_TABLE = "GameInfo";
-	private static final String USER_INFO_TABLE = "StoreAccounts";
-//	private static ResourceBundle organizerBundle = ResourceBundle.getBundle("resources.Organizers");
 	
 	private StoreUser currentUser;
 	private Profile lobbyUser;
@@ -26,7 +21,7 @@ public class StoreModel implements IModel{
 	
 	public StoreModel(IController control)
 	{
-		storeCatalogue = DbItemAndUserFactory.getAllItems(GAME_INFO_TABLE);
+		storeCatalogue = DbItemAndUserFactory.getAllStoreItems();
 		controller = control;
 		lobbyUser = ProfileSet.currentProfile;
 		currentUser = DbItemAndUserFactory.getUser(0);

@@ -8,8 +8,6 @@ import arcade.store.items.IItemInfo;
 public class StoreUser {
 	
 	private final static String DEFAULT_NAME = "default_user";
-	private static final String CART_FIELD = "Cart";
-	private static final String OWNED_GAMES_FIELD = "GamesOwned";
 	private int id;
 	private String name;
 	private double creddits;
@@ -80,7 +78,7 @@ public class StoreUser {
 	public void emptyCart()
 	{
 		cart = new ArrayList<String>();
-		dbAdapter.updateList(cart, Integer.toString(id), CART_FIELD);
+		dbAdapter.updateList(cart, Integer.toString(id), StoreSqlAdapter.CART_FIELD);
 	}
 	
 	public void removeTitleFromCart(String title)
@@ -93,7 +91,7 @@ public class StoreUser {
 	}
 	
 	public void saveCart() {
-		dbAdapter.updateList(cart, Integer.toString(id), CART_FIELD);
+		dbAdapter.updateList(cart, Integer.toString(id), StoreSqlAdapter.CART_FIELD);
 	}
 	
 	public String getId() {

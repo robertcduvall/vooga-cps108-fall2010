@@ -52,10 +52,7 @@ public class PurchaseItemController implements IController {
 	 * 
 	 */
 	public void processConfirmAddToCart() {
-		// new AreYouSureAddToCartView(this);
-		
-		//TODO: Add functionality to JOptionPane
-		int ret = JOptionPane.showConfirmDialog(null,
+				int ret = JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Add This Item To Cart?",
 				"Add to Cart", JOptionPane.YES_NO_OPTION);
 		if(ret == JOptionPane.YES_OPTION) {
@@ -69,10 +66,8 @@ public class PurchaseItemController implements IController {
 	 * This method processes the button press for demoing a game on the Game
 	 * Purchase View
 	 */
-	public void processConfirmDemoGame() {
-		//new AreYouSureDemoView(this);
-		
-		//TODO: Add functionality to JOptionPane
+	public void processConfirmDemoGame() {		
+		//TODO: demo functionality?
 		JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Demo This Game?",
 				"Demo Game", JOptionPane.YES_NO_OPTION);
@@ -83,7 +78,6 @@ public class PurchaseItemController implements IController {
 	 * the item
 	 */
 	public void processAddToCart() {
-
 		String gameName = view.getTitleTextField().getText();
 		storeModel.addToCart(gameName);
 	}

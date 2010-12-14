@@ -1,86 +1,38 @@
 package arcade.store;
 
-import arcade.lobby.model.*;
 import arcade.store.items.IItemInfo;
 import arcade.util.database.MySqlAdapter;
-
-import java.sql.*;
 import java.util.*;
 
 
 public class StoreSqlAdapter extends MySqlAdapter {
 	
 
-	private static final String host = "voogaarcade.db.7093929.hostedresource.com";
-	private static final String dbName = "voogaarcade";
-	private static final String user = dbName;
-	private static final String pass = "Vooga108";
-	private static final String credditField = "Creddits";
-	private static final String cartField = "Cart";
-	private static final String usernameField = "Id";
-	private static final String ownedGamesField = "GamesOwned";
-	private static final String userTableName = "StoreAccounts";
-	private static final String purchaseHistoryTable = "PurchaseHistory";
+	public static final String HOST = "voogaarcade.db.7093929.hostedresource.com";
+	public static final String DBNAME = "voogaarcade";
+	public static final String USER = DBNAME;
+	public static final String PASS = "Vooga108";
+	public static final String CREDDIT_FIELD = "Creddits";
+	public static final String CART_FIELD = "Cart";
+	public static final String USER_FIELD = "Id";
+	public static final String OWNED_GAMES_FIELD = "GamesOwned";
+	public static final String STORE_USER_TABLE = "StoreAccounts";
+	public static final String PURCHASE_HISTORY_TABLE = "PurchaseHistory";
+	public static final String ITEM_INFO_TABLE = "GameInfo";
 
-	private static Connection myDBConnection;
-	
-	public StoreSqlAdapter(String host, String dbName, String user, String pass) {
-		super(host, dbName, user, pass);
-		String url = "jdbc:mysql://" + host + "/" + dbName;
-		connect(url, user, pass);
-	}
 	
 	public StoreSqlAdapter() {
-		this(host, dbName, user, pass);
-	}
-	
-	private boolean connect(String host, String user, String pass) {
-		try {
-			final String driver = "com.mysql.jdbc.Driver";
-			Class.forName(driver); // registration of the driver
-			myDBConnection = DriverManager.getConnection(host, user, pass);
-		} catch (Exception x) {
-			System.out.println("Connection failed");
-			System.out.println(x);
-			return false;
-		}
-		return true;
+		super(HOST, DBNAME, USER, PASS);
 	}
 	
 	public List<Map<String, String>> getAllRows(String tableName) {
-		ResultSet rs;
-		Map<String, String> map;
-		List<Map<String,String>> maps = new ArrayList<Map<String,String>>();
-		try {
-			String sql = "SELECT * FROM " + tableName;
-			PreparedStatement ps = myDBConnection.prepareStatement(sql);
-			ps.executeQuery();
-			rs = ps.getResultSet();
-			while(rs.next()) {
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int count = rsmd.getColumnCount();
-				map = new HashMap<String, String>();
-				for (int i = 1; i <= count; i++) {
-					String curValue = rs.getString(i);
-					String label = rsmd.getColumnLabel(i);
-					map.put(label, curValue);
-				}
-				maps.add(map);
-			}
-			ps.close();
-
-		} catch (Throwable e) {
-			System.out.println(e);
-			return null;
-		}
-		return maps;
+		return super.getRows("SELECT * FROM "+tableName);
 	}
 
-	
 	public boolean updateCreddits(double newCreddits, String userId) {
 		Map<String, String> row = new HashMap<String, String>();
-		row.put(credditField, Double.toString(newCreddits));
-		return super.update(userTableName, usernameField, userId, row);
+		row.put(CREDDIT_FIELD, Double.toString(newCreddits));
+		return super.update(STORE_USER_TABLE, USER_FIELD, userId, row);
 	}
 	
 	
@@ -93,7 +45,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		}
 		String newCartRow = builder.toString();
 		row.put(listField, newCartRow);
-		return super.update(userTableName, usernameField, userId, row);
+		return super.update(STORE_USER_TABLE, USER_FIELD, userId, row);
 	}
 	
 	public boolean updatePurchaseHistory(List<IItemInfo> games, String userId) {
@@ -104,7 +56,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 		    java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
 			row.put("Date", sqlDate.toString());
 			row.put("Price", i.getPrice());
-			super.insert(purchaseHistoryTable, row);
+			super.insert(PURCHASE_HISTORY_TABLE, row);
 		}
 		return true;
 	}
