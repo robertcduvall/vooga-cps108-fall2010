@@ -111,4 +111,8 @@ public class WallTabModel implements IWallModel {
 	public String getTopRatedGame() {
 		return myGameReportSet.getTopRatedGame();
 	}
+
+	public List<String> getGameRankList() {
+		return myGameReportSet.getGameRankList();
+	}
 }

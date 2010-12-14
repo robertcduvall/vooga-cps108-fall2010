@@ -67,9 +67,10 @@ public class WallTabView extends JPanel {
 		myCommentEntryField = new JTextField(17);
 		String selectedGame = myGameChoices[myGameComboBox.getSelectedIndex()];
 		myCommentsLabel = new JLabel("Comments for " + selectedGame + ":");
-		myAverageRatingLabel = new JLabel("Average Rating for " + selectedGame + ": "+ 
-				myController.getRating(selectedGame));
+		myAverageRatingLabel = new JLabel();
+		setAverageRatingLabel(selectedGame);
 		myCommentsArea = new JTextArea();
+		myCommentsArea.setEditable(false);
 		myTopRatedGamesLabel = new JLabel();
 		updateTopRatedGamesLabel();
 		
@@ -92,7 +93,12 @@ public class WallTabView extends JPanel {
 	}
 	
 	public void updateTopRatedGamesLabel() {
-		myTopRatedGamesLabel.setText("Top Rated Game: " + myController.getTopRatedGame());
+		List<String> gameRankList = myController.getGameRankList();
+		myTopRatedGamesLabel.setText("<html>" + 
+				"<font color=red> Top Rated Game: " + gameRankList.get(0) + "</font> <br/>" +
+				"2nd Place Game: " + gameRankList.get(1) + "<br/>" +
+				"3rd Place Game: " + gameRankList.get(2)
+				+ "</html>");
 	}
 
 	/**
@@ -134,8 +140,9 @@ public class WallTabView extends JPanel {
 		myCommentsLabel.setText(string);
 	}
 
-	public void setAverageRatingLabel(String string) {
-		myAverageRatingLabel.setText(string);
+	public void setAverageRatingLabel(String selectedGame) {
+		myAverageRatingLabel.setText("Average Rating for " + selectedGame + ": "+ 
+				myController.getRating(selectedGame));
 	}
 
 	public void setEntryText(String string) {
