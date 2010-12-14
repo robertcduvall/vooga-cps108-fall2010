@@ -1,0 +1,234 @@
+<Resources>
+	<Images>
+		<Image name="assaultrifle" 		path="assaultRifle.png" />
+		<Image name="assaultrifledisplay" 	path="assaultRifleDisplay.png" />
+		<Image name="battleground" 		path="battleground.png" />
+		<Image name="bullet" 			path="bullet.png" />
+		<Image name="flash" 			path="flash.png" />
+		<Image name="grenadelauncher" 		path="GrenadeLauncher.png" />
+		<Image name="greybackground" 		path="greybackground.jpg" />
+		<Image name="health"			path="Health.png" />
+		<Image name="help1menu"			path="help1menu.jpg" />	
+		<Image name="help2menu"			path="help2menu.jpg" />
+		<Image name="orangebackground"		path="orangebackground.jpg" />	
+		<Image name="pistol"			path="pistol.png" />
+		<Image name="pistolicon"		path="pistolicon.png"/>
+		<Image name="redbackground"		path="redbackground.jpg" />
+		<Image name="rocket"			path="rocket.png" />
+		<Image name="sandbackground"		path="sandbackground.png" />		
+		<Image name="shotgun"			path="shotgun.png" />
+		<Image name="shotgundisplay"		path="shotgunDisplay.png" ></Image> 		
+		<Image name="zombielandcredit"		path="zombielandcredit.jpg" />
+		<Image name="zombielandmenu"		path="zombielandmenu.png" />
+	</Images>
+	
+	<Animations>
+		<Animation name="playerleft" >
+			<Image path="Left1.png" />
+			<Image path="Left2.png" />
+			<Image path="Left3.png" />
+			<Image path="Left4.png" />
+		</Animation>
+
+		<Animation name="playerright" >		
+			<Image path="Right1.png" />		
+			<Image path="Right2.png" />
+			<Image path="Right3.png" />
+			<Image path="Right4.png" />
+		</Animation>
+
+		<Animation name="playerup">
+			<Image path="Up1.png" />		
+			<Image path="Up2.png" />			
+			<Image path="Up3.png" />
+			<Image path="Up4.png" />
+		</Animation>
+		
+		<Animation name="playerdown">
+			<Image path="Down1.png" />		
+			<Image path="Down2.png" />			
+			<Image path="Down3.png" />
+			<Image path="Down4.png" />
+		</Animation>
+
+		<Animation name="zombieattackdown">
+			<Image path="ZombieAttackDown1.png" />
+			<Image path="ZombieAttackDown2.png" />		
+			<Image path="ZombieAttackDown3.png" />
+			<Image path="ZombieAttackDown4.png" />
+		</Animation>
+
+		<Animation name="zombieattackup">
+			<Image path="ZombieAttackUp1.png" />
+			<Image path="ZombieAttackUp2.png" />			
+			<Image path="ZombieAttackUp3.png" />
+			<Image path="ZombieAttackUp4.png" />
+		</Animation>
+
+		<Animation name="zombieattackleft">
+			<Image path="ZombieAttackLeft1.png" />		
+			<Image path="ZombieAttackLeft2.png" />	
+			<Image path="ZombieAttackLeft3.png" />
+			<Image path="ZombieAttackLeft4.png" /> 
+		</Animation>
+
+
+		<Animation name="zombieattackright">
+			<Image path="ZombieAttackRight1.png" />		
+			<Image path="ZombieAttackRight2.png" />	
+			<Image path="ZombieAttackRight3.png" />
+			<Image path="ZombieAttackRight4.png" /> 
+		</Animation>
+
+
+		<Animation name="zombiedown">
+			<Image path="ZombieDown1.png" />		
+			<Image path="ZombieDown2.png" />	
+			<Image path="ZombieDown3.png" />
+		</Animation>
+
+		<Animation name="zombieup">
+			<Image path="ZombieUp1.png" />		
+			<Image path="ZombieUp2.png" />	
+			<Image path="ZombieUp3.png" />
+		</Animation>
+		
+		<Animation name="zombieleft">
+			<Image path="ZombieLeft1.png" />		
+			<Image path="ZombieLeft2.png" />	
+			<Image path="ZombieLeft3.png" />
+		</Animation>
+		
+		<Animation name="zombieright">
+			<Image path="ZombieRight1.png" />		
+			<Image path="ZombieRight2.png" />	
+			<Image path="ZombieRight3.png" />
+		</Animation>
+
+		<Animation name="zombiedeath">
+			<Image path="ZombieDeath1.png" />		
+			<Image path="ZombieDeath2.png" />	
+			<Image path="ZombieDeath3.png" />
+		</Animation>
+	</Animations>
+	
+	<Sounds>
+		<Sound name="entersand" path="entersand.mid"/>
+	</Sounds>
+	
+	<Strings>
+		<String name="waitXml" value="src/vooga/games/zombies/resources/levels/waitingLevel.xml" />
+		<String name="overlayHealthString" 		value="Health:" />
+		<String name="overlayPauseString"		value="PAUSE" />
+		<String name="overlayScoreString" 		value="Kills:" />
+		<String name="overlayAmmoString"		value="Ammo:" />
+		<String name="overlayLevelString"		value="Level:" /> 
+		<String name="gamemusic"				value="resources/sounds/entersand.mid" />
+		<String name="delim"					value="," />	
+		<String name="weaponchoices"			value="assaultrifle,shotgun,health" />
+		<String name="spritegroupslist"			value="Zombies,Bullets,Items,Players,Overlays" />
+		<String name="VK_LEFT"					value="goLeft" />
+		<String name="VK_RIGHT"					value="goRight" />
+		<String name="VK_UP"					value="goUp" />
+		<String name="VK_DOWN"					value="goDown" />
+		<String name="VK_SPACE"					value="shoot" />
+	</Strings>
+	
+	<Integers>
+	
+		<Integer name="playerDefaultX"         	value="350"	/>
+		<Integer name="playerDefaultY"         	value="250"	/>
+		<Integer name="playerRank"         		value="0"	/>
+		<Integer name="speed"         			value="-1"	/>
+		<Integer name="orientation"     	    value="90"	/>
+		<Integer name="weaponChoice"       		value="0"	/>
+		<Integer name="levelScore"        	 	value="0"	/>
+
+		<Integer name="shotgunAmmo"   	      	value="40"	/>
+		<Integer name="rifleAmmo"      	  		value="100"	/>
+		<Integer name="pistolAmmo"      	   	value="99999"	/>
+
+		<Integer name="assaultRifleDamage"      value="10"	/>
+		<Integer name="assaultRifleSpeed"       value="5"	/>
+		<Integer name="assaultRifleDelay"       value="8"	/>
+		<Integer name="pistolDamage"         	value="5"	/>
+		<Integer name="pistolSpeed"         	value="3"	/>
+		<Integer name="pistolDelay"         	value="15"	/>
+		<Integer name="shotgunDamage"        	value="5"	/>
+		<Integer name="shotgunSpeed"         	value="3"	/>
+		<Integer name="shotgunDelay"         	value="15"	/>
+		<Integer name="shotgunAngleRange"       value="40"	/>
+		<Integer name="shotgunNumberOfShots"    value="5"	/>
+
+		<Integer name="zombieAttackDelay"       value="60"	/>
+		<Integer name="itemChance"         		value="20"	/>
+
+		<Integer name="overlayHealthStringX"    value="5"	/>
+		<Integer name="overlayHealthStringY"    value="10"	/>
+
+		<Integer name="overlayPauseStringX"     value="260"	/>
+		<Integer name="overlayPauseStringY"     value="230"	/>
+
+		<Integer name="overlayHealthBarX"       value="80"	/>
+		<Integer name="overlayHealthBarY"       value="18"	/>
+
+		<Integer name="overlayScoreStringX"     value="385"	/>
+		<Integer name="overlayScoreStringY"     value="12"	/>
+
+		<Integer name="overlayAmmoStringX"      value="470"	/>
+		<Integer name="overlayAmmoStringY"      value="12"	/>
+
+		<Integer name="overlayLevelStringX"     value="260"	/>
+		<Integer name="overlayLevelStringY"     value="180"	/>
+	
+		<Integer name="overlayStringX"         value="280"	/>
+		<Integer name="overlayStringY"         value="200"	/>
+
+		<Integer name="randomOptions"          value="3"	/>
+		<Integer name="timer"         		   value="1000"	/>
+		<Integer name="startLevel"             value="1"	/>
+		<Integer name="startZombieNumber"      value="25"	/>
+		<Integer name="startZombieDamage"      value="5"	/>
+		<Integer name="startZombieHealth"      value="30"	/>
+		<Integer name="startlevel"         	   value="1"	/>
+		<Integer name="startzombiesAppeared"   value="0"	/>
+		<Integer name="maxHealth"         	   value="200"	/>
+		<Integer name="zombieFrameSize"        value="3"	/>
+		<Integer name="playerFrameSize"        value="4"	/>
+
+		<Integer name="timeInterval"           value="2000"	/>
+		<Integer name="assaultrifle"      value="1"	/>
+		<Integer name="shotgun"           value="2"	/>
+		<Integer name="health"            value="100"	/>
+
+		<Integer name="bulletsCorrectRightX"   value="-25"	/>
+		<Integer name="bulletsCorrectRightY" 	  value="10"	/>
+		<Integer name="bulletsCorrectUpX"         value="-15"	/>
+		<Integer name="bulletsCorrectUpY"         value="50"	/>
+		<Integer name="bulletsCorrectLeftX"    		    value="30"	/>
+		<Integer name="bulletsCorrectLeftY"         value="25"	/>
+		<Integer name="bulletsCorrectDownX"         value="5"	/>
+		<Integer name="bulletsCorrectDownY"         value="0"	/>
+
+		<Integer name="healthOption"        			 value="2"	/>
+
+		<Integer name="initHealthXML"    	     value="0"	/>
+		<Integer name="initAmmoXML"      	  		 value="2"	/>
+		<Integer name="initScoreXML"       			  value="1"	/>
+
+		<Integer name="overlayXMLlocation"   			      value="0"	/>
+		<Integer name="statLevelXMLlocation"  				       value="3"	/>
+		<Integer name="levelStatXMLlocation"         value="2"	/>
+		<Integer name="pauseStringXMLlocation"         value="1"	/>
+		<Integer name="gameOverStringXMLlocation"         value="2"	/>
+	</Integers>
+	
+	<Doubles>
+		<Double name="zombieDiminishingFactor" 	value="0.5" />
+		<Double name="timeIncreaseFactor"		value="1.5" />		
+		<Double name="zombieStatMultiplier"		value="1.5" />
+		<Double name="zombieLimitingFactor"     value="0.5" />
+		<Double name="delayFactor"				value="1.5" />
+		<Double name="zombieSpeed"   			value="-0.5" />
+	</Doubles>
+</Resources>

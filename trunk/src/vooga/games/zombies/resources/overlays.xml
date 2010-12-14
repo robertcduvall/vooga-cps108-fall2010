@@ -1,0 +1,31 @@
+<Overlay>
+
+<Stat type="Integer" value="200" name = "player1Health" />
+<Stat type="Integer" value="0" name = "score" />
+<Stat type="Integer" value="100" name = "player1Ammo" />
+<Stat type="Integer" value="200" name = "player2Health" />
+<Stat type="Integer" value="100" name = "player2Ammo" />
+
+
+<OverlayGroup name = "PlayStateOverlays">
+
+<OverlayBar xLoc="80" yLoc="18" stat="player1Health" max="200" color="green" backColor="black"></OverlayBar>
+<OverlayString label="Health: " fontName="gameFontBlack" xLoc="5" yLoc="10"></OverlayString>
+<OverlayStat name = "score" label="Kills: " stat="score" fontName="gameFontBlack" xLoc="385" yLoc="72"></OverlayStat> 
+<OverlayStat name = "player1Ammo" label="Ammo: " stat="player1Ammo" fontName="gameFontBlue" xLoc="385" yLoc="12"></OverlayStat>
+
+<OverlayBar xLoc="80" yLoc="48" stat="player2Health" max="200" color="green" backColor="black"></OverlayBar>
+<OverlayString label="Health: " fontName="gameFontBlack" xLoc="5" yLoc="40"></OverlayString>
+<OverlayStat name = "player2Ammo" label="Ammo: " stat="player2Ammo" fontName="gameFontBlue" xLoc="385" yLoc="42"></OverlayStat> 
+
+
+</OverlayGroup>
+
+
+
+</Overlay>
+
+
+
+
+
