@@ -1,9 +1,11 @@
-package arcade.wall.models;
+package arcade.wall.models.data.comment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import arcade.wall.models.data.DataSet;
 
 /**
  * A CommentSet contains all the VOOGA Comments made by all users. It is linked to our online database.

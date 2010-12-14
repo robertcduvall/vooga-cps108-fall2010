@@ -1,4 +1,6 @@
-package arcade.wall.models;
+package arcade.wall.models.data.comment;
+
+import arcade.wall.models.data.Datum;
 
 /**
  * A Comment represents a VOOGA Game Comment - it is about a particular game, it is made by a particular user,

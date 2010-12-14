@@ -1,4 +1,6 @@
-package arcade.wall.models;
+package arcade.wall.models.data.gamereport;
+
+import arcade.wall.models.data.Datum;
 
 /**
  * A GameReport contains info regarding a game such as its average rating, number of comments

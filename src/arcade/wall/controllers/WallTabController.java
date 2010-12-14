@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import arcade.wall.models.Comment;
-import arcade.wall.models.WallTabModel;
+import arcade.wall.models.WallModel;
+import arcade.wall.models.data.comment.Comment;
 import arcade.wall.views.walltab.WallTabView;
 
 /**
@@ -16,11 +16,11 @@ import arcade.wall.views.walltab.WallTabView;
  *
  */
 public class WallTabController {
-	WallTabModel model; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
+	WallModel model; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
 	WallTabView view; //TODO allow a controller to accept multiple views
 
 	public WallTabController() {
-		model = new WallTabModel();
+		model = new WallModel();
 		view = new WallTabView(this);
 		refreshComments(WallTabView.myGameChoices[0]);
 		
@@ -84,8 +84,7 @@ public class WallTabController {
     											   view.getEntryText(), view.getSelectedRating());
     		//TODO is this the way we actually want to determine if a Comment is valid or not?
     		if (model.commentIsConflicting(submittedComment)) {
-    			if (showCommentDialog() == JOptionPane.YES_OPTION) { //Only add if user says Yes
-    				//Update all comment ratings with the GameName and UserName in question.
+    			if (showCommentDialog() == JOptionPane.YES_OPTION) {
     				model.updateCommentRatings(selectedGameName, "1", view.getSelectedRating());
     				model.addComment(submittedComment);
     			}

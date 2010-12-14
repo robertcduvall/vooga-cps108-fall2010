@@ -2,12 +2,17 @@ package arcade.wall.models;
 
 import java.util.List;
 
+import arcade.wall.models.data.comment.Comment;
+import arcade.wall.models.data.comment.CommentSet;
+import arcade.wall.models.data.gamereport.GameReport;
+import arcade.wall.models.data.gamereport.GameReportSet;
+
 /**
  * WallModel is the Wall entity that deals with the handling of Comment data, which is stored in an online database.
  * @author John, Cam, Bhawana
  *
  */
-public class WallTabModel implements IWallModel {
+public class WallModel implements IWallModel {
 	private String myHost;
 	private String myDbName;
 	private String myDbUserName;
@@ -15,7 +20,7 @@ public class WallTabModel implements IWallModel {
 	private CommentSet myCommentSet;
 	private GameReportSet myGameReportSet;
 
-	public WallTabModel() {
+	public WallModel() {
 		myHost = "voogaarcade.db.7093929.hostedresource.com";
 		myDbName = "voogaarcade";
 		myDbUserName = myDbName;
@@ -59,10 +64,6 @@ public class WallTabModel implements IWallModel {
 			myUserId, selectedValue);
 	}
 	
-//	public boolean updateAverageRating(GameReport gameReport, String newRating) {
-//		return myGameReportSet.updateAverageRating(gameReport, newRating);
-//	}
-	
 	/**
 	 * Returns the Model's CommentSet.
 	 */
@@ -95,21 +96,13 @@ public class WallTabModel implements IWallModel {
 		return myCommentSet.getCommentsByField("User_Id", userId);
 	}
 	
-//	/**
-//	 * Returns the average rating for the specified game.
-//	 * @param gameName - game whose rating is needed
-//	 * @return average rating for the specified game
-//	 */
-//	public double getAverageRating(String gameName) {
-//		return myCommentSet.getAverageRating(gameName);
-//	}
-	
+	/**
+	 * Returns the average rating for the specified game.
+	 * @param gameName - game whose rating is needed
+	 * @return average rating for the specified game
+	 */
 	public double getAverageRating(String gameName) {
 		return myGameReportSet.getAverageRating(gameName);
-	}
-
-	public String getTopRatedGame() {
-		return myGameReportSet.getTopRatedGame();
 	}
 
 	public List<String> getGameRankList() {

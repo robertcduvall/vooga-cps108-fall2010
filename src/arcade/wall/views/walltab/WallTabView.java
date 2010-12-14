@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallTabController;
-import arcade.wall.models.Comment;
+import arcade.wall.models.data.comment.Comment;
 import arcade.wall.views.ratings.RadioPanel;
 
 /**

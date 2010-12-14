@@ -1,4 +1,4 @@
-package arcade.wall.models;
+package arcade.wall.models.data.gamereport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import arcade.util.database.MySqlAdapter;
+import arcade.wall.models.data.DataSet;
 
 /**
  * A GameReportSet contains all the VOOGA GameReports. It is linked to our online database.
