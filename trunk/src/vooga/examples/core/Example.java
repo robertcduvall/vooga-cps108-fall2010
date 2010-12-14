@@ -22,7 +22,7 @@ public class Example extends Game {
 	}
 
 	public static void main(String[] args) {
-		launch(new Example(), "player");
+		launch(new Example(), "Guest");
 	}
 
 }

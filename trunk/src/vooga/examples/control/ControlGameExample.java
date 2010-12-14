@@ -83,7 +83,7 @@ public class ControlGameExample extends Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		launch(new ControlGameExample(), "player");
+		launch(new ControlGameExample(), "Guest");
 	}
 
 }

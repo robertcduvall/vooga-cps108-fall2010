@@ -111,7 +111,7 @@ public class Blah extends Game implements Constants {
 	 * @param args
 	 */
 	public static void run() {
-		launch(new Blah(), "player");
+		launch(new Blah(), "Guest");
 	}
 
 	public PlayState getPlayGameState() {

@@ -352,7 +352,7 @@ private void initLevelManager() {
 //	}
 
 	public static void main(String[] args) {
-		launch(new Blah(), "player");
+		launch(new Blah(), "Guest");
 	}
 
 	
