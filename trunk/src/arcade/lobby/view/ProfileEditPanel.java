@@ -27,7 +27,7 @@ import arcade.lobby.viewComponents.Validator;
 import arcade.lobby.viewComponents.ValidatorDock;
 
 @SuppressWarnings("serial")
-public class ProfileEditPanel extends JPanel {
+public class ProfileEditPanel extends JPanel implements IView {
 	private static final int FIELD_COLUMNS = 20;
 	private static final int AVATAR_WIDTH = 100;
 	private static final String AVATAR_DEFAULT = "http://imgur.com/29J5j.png";

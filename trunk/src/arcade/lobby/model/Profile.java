@@ -2,7 +2,7 @@ package arcade.lobby.model;
 
 
 
-public class Profile {
+public class Profile implements IModel {
 	private int myUserId;
 	private String myUserName;
 	private String myFirstName;
