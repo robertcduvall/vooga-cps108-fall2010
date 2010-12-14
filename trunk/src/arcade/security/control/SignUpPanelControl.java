@@ -2,6 +2,8 @@ package arcade.security.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,26 +18,56 @@ import arcade.security.model.SignUpProcess;
 import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
 import arcade.security.view.SignUpPanel;
+import arcade.security.util.PasswordHandler;
 
 public class SignUpPanelControl implements IControl {
 
 	private final static Logger log=Logger.getLogger(SignUpPanelControl.class);
 	private SignUpProcess model;
 	private SignUpPanel view;
+	private PasswordHandler passwordHandler;
 
 	public SignUpPanelControl(IView view, IModel model){
 		this.model = (SignUpProcess)model;
 		this.view = (SignUpPanel)view;
-
+		passwordHandler = new PasswordHandler();
+		
+		this.view.addPasswordListener(new PasswordListener());
 		this.view.addSubmitButtonListener(new SubmitEvent());
 		this.view.addLoginPageButtonListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				switchToLoginPage();
 			}
 
 		});
+	}
+	
+	private class PasswordListener implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			char[] pwd = view.getPasswordUserInput();
+			if(pwd.length>0){
+				System.out.println(String.valueOf(pwd));
+				int score = passwordHandler.getScore(String.valueOf(pwd));
+				String suggestions = "";
+				if(score<33) suggestions = "Weak password";
+				if(score>=33 && score<66) suggestions = "Moderate password";
+				if(score>=66) suggestions = "Strong password";
+				suggestions = "Score: "+String.valueOf(score)+" "+suggestions;
+				view.setPasswordSuggestions(suggestions);
+			}
+		}
+		
 	}
 
 	private class SubmitEvent implements ActionListener{
