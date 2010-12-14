@@ -140,8 +140,6 @@ public class GameView extends JPanel {
 		gameID=id;
 		refreshContent();
 		HighScorePanel.getGameHighScoresPanel(gameName, 5);
-//		columnar.setLeftComponent(makeLeftPanel());
-//		mainPanel.setRightComponent(makeRightPanel());
 	}
 	
 	private static void refreshContent() {
