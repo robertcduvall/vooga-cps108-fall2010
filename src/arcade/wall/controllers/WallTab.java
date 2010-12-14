@@ -2,8 +2,6 @@ package arcade.wall.controllers;
 
 import javax.swing.JFrame;
 
-import arcade.lobby.model.ProfileSet;
-
 /**
  * The VOOGA WallTab. 
  * @author Cam, John, Bhawana

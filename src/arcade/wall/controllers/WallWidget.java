@@ -1,6 +1,7 @@
-package arcade.wall.widget;
+package arcade.wall.controllers;
 
 import javax.swing.JFrame;
+
 
 @SuppressWarnings("serial")
 public class WallWidget extends JFrame{
