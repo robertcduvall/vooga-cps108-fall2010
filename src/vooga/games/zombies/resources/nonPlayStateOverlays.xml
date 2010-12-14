@@ -1,0 +1,12 @@
+<Overlay>
+<Stat type="Integer" value ="1" name = "initLevel" />
+<OverlayGroup name = "PauseStateOverlays">
+<OverlayString name= "pause" label="PAUSE" fontName="gameFontRed" xLoc="260" yLoc="230"></OverlayString>
+</OverlayGroup>
+<OverlayGroup name = "GameOverOverlays">
+<OverlayString name = "gameOver" label="Game Over" fontName="gameFontBlack" xLoc="260" yLoc="230"></OverlayString>
+</OverlayGroup>
+<OverlayGroup name = "LevelDisplayOverlay">
+<OverlayStat name = "levels" label="Level " stat="initLevel" fontName="gameFontBlack" xLoc="260" yLoc="180"></OverlayStat> 
+</OverlayGroup>
+</Overlay>
