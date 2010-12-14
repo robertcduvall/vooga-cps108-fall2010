@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,10 +21,10 @@ import arcade.store.control.MainController;
 import arcade.store.control.MainPageController;
 import arcade.store.control.PurchaseItemController;
 
-public class GamePurchaseView implements IViewer{
+public class GamePurchaseView implements IViewer {
 
 	private JFrame gamePurchaseFrame = null;
-	private JPanel gamePurchasePanel = null;  //  @jve:decl-index=0:visual-constraint="-15,3"
+	private JPanel gamePurchasePanel = null; // @jve:decl-index=0:visual-constraint="-15,3"
 	private JButton addToCartButton = null;
 	private JButton DemoTheGameButton = null;
 	private JLabel DescriptionLabel = null;
@@ -34,38 +35,34 @@ public class GamePurchaseView implements IViewer{
 	private JTextField TitleTextField = null;
 	private JTextField PriceTextField = null;
 
-	private PurchaseItemController controller;  //  @jve:decl-index=0:
+	private PurchaseItemController controller; // @jve:decl-index=0:
 	private JButton returnToStoreButton = null;
-	
-	public GamePurchaseView(IController control)
-	{
+
+	public GamePurchaseView(IController control) {
 		controller = (PurchaseItemController) control;
 		gamePurchaseFrame = getJFrame();
 		gamePurchaseFrame.setVisible(true);
 	}
-	
-	public JFrame getJFrame()
-	{
+
+	public JFrame getJFrame() {
 		JFrame jFrame = new JFrame();
 		jFrame.setSize(new Dimension(650, 321));
 		jFrame.setTitle("Game Purchase View");
 		jFrame.setContentPane(getGamePurchasePanel());
-		
+
 		return jFrame;
 	}
-	
 
 	@Override
 	public void setController(IController control) {
-		
+
 		controller = (PurchaseItemController) controller;
 	}
-	
-	
+
 	/**
-	 * This method initializes gamePurchasePanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes gamePurchasePanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getGamePurchasePanel() {
 		if (gamePurchasePanel == null) {
@@ -95,66 +92,68 @@ public class GamePurchaseView implements IViewer{
 		return gamePurchasePanel;
 	}
 
-	
-	
 	/**
 	 * This method returns the gameImageLabel
 	 */
-	public JLabel getGameIcon()
-	{
-		if(gameImageLabel == null) {
+	public JLabel getGameIcon() {
+		if (gameImageLabel == null) {
 			gameImageLabel = new JLabel();
 
 		}
 		return gameImageLabel;
 	}
 
-
 	/**
-	 * This method initializes addToCartButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes addToCartButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getAddToCartButton() {
 		if (addToCartButton == null) {
 			addToCartButton = new JButton();
 			addToCartButton.setBounds(new Rectangle(480, 58, 136, 30));
 			addToCartButton.setText("Add To Cart");
-			addToCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmAddToCart();
-					gamePurchaseFrame.setVisible(false);
-				}
-			});
+			addToCartButton
+					.addActionListener(new java.awt.event.ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							controller.processConfirmAddToCart();
+							gamePurchaseFrame.setVisible(false);
+						}
+					});
 		}
 		return addToCartButton;
 	}
 
+	public void setAddToCartButtonClickable(boolean clickable) {
+		addToCartButton.setEnabled(clickable);
+	}
+
 	/**
-	 * This method initializes DemoTheGameButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes DemoTheGameButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getDemoTheGameButton() {
 		if (DemoTheGameButton == null) {
 			DemoTheGameButton = new JButton();
 			DemoTheGameButton.setBounds(new Rectangle(481, 19, 134, 30));
 			DemoTheGameButton.setText("Demo The Game");
-			DemoTheGameButton.addMouseListener(new java.awt.event.MouseAdapter()
-			{
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmDemoGame();
-				}
-			});
-			
+			DemoTheGameButton
+					.addMouseListener(new java.awt.event.MouseAdapter() {
+						public void mouseClicked(java.awt.event.MouseEvent e) {
+							controller.processConfirmDemoGame();
+						}
+					});
+
 		}
 		return DemoTheGameButton;
 	}
 
 	/**
-	 * This method initializes DescriptionTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes DescriptionTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	public JTextArea getDescriptionTextArea() {
 		if (DescriptionTextArea == null) {
@@ -166,9 +165,9 @@ public class GamePurchaseView implements IViewer{
 	}
 
 	/**
-	 * This method initializes TitleTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes TitleTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	public JTextField getTitleTextField() {
 		if (TitleTextField == null) {
@@ -179,9 +178,9 @@ public class GamePurchaseView implements IViewer{
 	}
 
 	/**
-	 * This method initializes PriceTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes PriceTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	public JTextField getPriceTextField() {
 		if (PriceTextField == null) {
@@ -192,24 +191,23 @@ public class GamePurchaseView implements IViewer{
 	}
 
 	/**
-	 * This method initializes returnToStoreButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes returnToStoreButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getReturnToStoreButton() {
 		if (returnToStoreButton == null) {
 			returnToStoreButton = new JButton();
 			returnToStoreButton.setBounds(new Rectangle(480, 97, 136, 30));
 			returnToStoreButton.setText("Return To Store");
-			returnToStoreButton.addMouseListener(new java.awt.event.MouseAdapter()
-			{
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					gamePurchaseFrame.setVisible(false);
-				}
-			});
+			returnToStoreButton
+					.addMouseListener(new java.awt.event.MouseAdapter() {
+						public void mouseClicked(java.awt.event.MouseEvent e) {
+							gamePurchaseFrame.setVisible(false);
+						}
+					});
 		}
 		return returnToStoreButton;
 	}
-
 
 }
