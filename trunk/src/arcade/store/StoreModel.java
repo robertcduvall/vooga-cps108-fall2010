@@ -123,13 +123,13 @@ public class StoreModel implements IModel{
 		List<Map<String, String>> ownedGames = pollOwnedGamesTable(userId);
 		String[] answer = new String[ownedGames.size()];
 		for(int k=0; k<answer.length; k++) {
-			answer[k] = ownedGames.get(k).get("Title");
+			answer[k] = ownedGames.get(k).get("ItemName");
 		}
 		return answer;
 	}
 	
 	private static List<Map<String, String>> pollOwnedGamesTable(int userId) {
-		return dbAdapter.getRows("SELECT Item_Id,Title FROM "
+		return dbAdapter.getRows("SELECT Item_Id,ItemName FROM "
 				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id="+userId);
 	}
 	
