@@ -83,6 +83,7 @@ public class WallTabView extends JPanel {
 	 */
 	private JPanel constructReturnPanel() {
 		JPanel returnPanel = new JPanel();
+		returnPanel.setSize(800, 600);
 		
 		constructRatingPanel();
 		JPanel reviewPanel = constructReviewPanel();
@@ -94,6 +95,7 @@ public class WallTabView extends JPanel {
 		returnPanel.add(reviewPanel);
 		returnPanel.add(displayPanel);
 		returnPanel.add(messagesPanel);
+		
 		return returnPanel;
 	}
 	
@@ -218,7 +220,7 @@ public class WallTabView extends JPanel {
 	 */
 	private Border constructWallBorder(String string) {
 		return BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder(myResources.getString("reviewPanelBorder")),
+                BorderFactory.createTitledBorder(string),
                 BorderFactory.createEmptyBorder(5,5,5,5));
 	}
 	
