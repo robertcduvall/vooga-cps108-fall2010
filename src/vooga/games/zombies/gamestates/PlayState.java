@@ -56,7 +56,7 @@ public class PlayState extends GameState implements Constants {
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
 		this.addPlayField(playField);
 		timer = new Timer(level);
-		labels = new SpriteGroup("labels");
+		labels = new SpriteGroup("reviveLabels");
 		setupPlayer();
 		resetLevel();
 		initOverlays();
@@ -73,9 +73,11 @@ public class PlayState extends GameState implements Constants {
 		player.setConnection(connection);
 		player.setOverlayName("player1");
 		otherPlayers = new Shooter[1];
-		Shooter otherPlayer1 = (Shooter) playField.getGroup("Players").getSprites()[1];
+		Shooter otherPlayer1 = (Shooter) playField.getGroup("Players")
+				.getSprites()[1];
 		otherPlayer1.setOverlayName("player2");
-		otherPlayers[0] = otherPlayer1;	}
+		otherPlayers[0] = otherPlayer1;
+	}
 
 	/**
 	 * This method initializes the zombies, bullets, players, overlays
@@ -93,7 +95,7 @@ public class PlayState extends GameState implements Constants {
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		AddBulletsEvent addbullets = new AddBulletsEvent(bullets);
 		player.setBulletListener(addbullets);
-		for(Shooter otherPlayer : otherPlayers){
+		for (Shooter otherPlayer : otherPlayers) {
 			otherPlayer.setBulletListener(addbullets);
 		}
 
@@ -210,30 +212,30 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public void interpretMessage(String data) {
-		if(data.startsWith(Username.getIdentifier())){
-			String userName = ((Username) (Username.deserialize(data))).getUsername();
-			if(player.getName() == null){
+		if (data.startsWith(Username.getIdentifier())) {
+			String userName = ((Username) (Username.deserialize(data)))
+					.getUsername();
+			if (player.getName() == null) {
 				player.setName(userName);
 				return;
 			}
-			for(Shooter shooter : otherPlayers){
-				if(shooter.getName() == null){
+			for (Shooter shooter : otherPlayers) {
+				if (shooter.getName() == null) {
 					shooter.setName(userName);
 					return;
 				}
 			}
-		}
-		else if(data.startsWith(ZombieSeed.getIdentifier())){
+		} else if (data.startsWith(ZombieSeed.getIdentifier())) {
 			seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
 			Shooter[] shooters = new Shooter[otherPlayers.length + 1];
 			shooters[0] = player;
-			for(int i = 0; i < otherPlayers.length; i++){
+			for (int i = 0; i < otherPlayers.length; i++) {
 				shooters[i + 1] = otherPlayers[i];
 			}
-			LevelEndEvent endLevel = new LevelEndEvent(shooters, this, addZombies, addItems, seed);
+			LevelEndEvent endLevel = new LevelEndEvent(shooters, this,
+					addZombies, addItems, seed);
 			eventPool.addEvent(endLevel);
-		}
-		else{
+		} else {
 			setMessage(data);
 		}
 	}
@@ -254,59 +256,49 @@ public class PlayState extends GameState implements Constants {
 	}
 
 	public boolean goUp() {
-		for(Shooter player : otherPlayers){
+		for (Shooter player : otherPlayers) {
 			player.goUp();
 		}
 		return false;
 	}
 
 	public boolean goDown() {
-		for(Shooter player : otherPlayers){
+		for (Shooter player : otherPlayers) {
 			player.goDown();
 		}
 		return false;
 	}
 
 	public boolean goLeft() {
-		for(Shooter player : otherPlayers){
+		for (Shooter player : otherPlayers) {
 			player.goLeft();
 		}
 		return false;
 	}
 
 	public boolean goRight() {
-		for(Shooter player : otherPlayers){
+		for (Shooter player : otherPlayers) {
 			player.goRight();
 		}
 		return false;
 	}
 
 	public boolean shoot() {
-		for(Shooter player : otherPlayers){
+		for (Shooter player : otherPlayers) {
 			player.shoot();
 		}
 		return false;
 	}
 
 	public boolean killOtherPlayer() {
-		for(Shooter player : otherPlayers){
+		for (Shooter player : otherPlayers) {
 			player.setHealth(0);
 		}
 		return false;
 	}
 
-
-	public void applyReviveLabel(Shooter player) {
-		reviveLabel = new OverlayLabel(player, "REVIVE", Color.red);
-		playField.addGroup(labels).add(reviveLabel);
-	}
-
 	public int getPlayerHealth(Shooter player) {
 		return player.getHealth().getStat();
-	}
-	
-	public void removeReviveLabel() {
-		playField.removeGroup(labels);
 	}
 
 	/**
@@ -324,18 +316,15 @@ public class PlayState extends GameState implements Constants {
 		}
 
 		if (playerHealth <= 0 && labels.getSize() <= 1) {
-			applyReviveLabel(player);
 			playField.removeControl("Shooter");
 		}
-		for(Shooter otherPlayer : otherPlayers){
-			int otherPlayerHealth = getPlayerHealth(otherPlayer);
-			if (otherPlayerHealth <= 0 && labels.getSize() <= 1) {
-				applyReviveLabel(otherPlayer);
-			}
-			else if (playerHealth > 0
-					&& playField.getControl("Shooter") == null) {
-				playField.addControl("Shooter", control);
-				removeReviveLabel();
+
+		if (playerHealth > 0 && playField.getControl("Shooter") == null) {
+			playField.addControl("Shooter", control);
+		}
+		for (Shooter otherPlayer : otherPlayers) {
+			if (playerHealth <= 0 && getPlayerHealth(otherPlayer) <= 0) {
+				currentGame.end();
 			}
 		}
 	}
