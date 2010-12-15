@@ -59,7 +59,7 @@ public class AdsManager implements MouseListener {
 		renderedAdsGroup = new AdsGroup();
 		activeAdsGroup = new AdsGroup();
 		toBeActiveAdsGroup = new AdsGroup();
-		renderedAdsGroup = activeAdsGroup; //default rendered ads
+		renderedAdsGroup.setAds(activeAdsGroup.getAds()); //default rendered ads
 
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
@@ -142,6 +142,7 @@ public class AdsManager implements MouseListener {
 	}
 	
 	public void setRenderedAds(String...tags){
+		renderedAdsGroup.clear();
 		for (String tag: tags)
 			for (BasicAd ad: activeAdsGroup.getAds())
 				if ((ad instanceof IRelatedAds) && ((IRelatedAds) ad).getCategories().contains(tag))
