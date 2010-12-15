@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import arcade.wall.models.data.DataSet;
+import arcade.wall.models.data.comment.Comment;
 
 /**
  * A ReviewSet contains all the VOOGA Reviews made by all users. It is linked to our online database.
@@ -48,10 +49,43 @@ public class ReviewSet extends DataSet {
 					row.get("Id"),
 					row.get("User_Id"),
 					row.get("GameInfo_Title"),
-					row.get("Content")
+					row.get("Content"),
+					row.get("Rating")
 					));
 		}
 		return returnReviews;
+	}
+	
+	/**
+	 * Calculates the average rating for the given game. A single user's rating is only taken into account once, even
+	 * if they have made multiple comments about a game.
+	 */
+	public double getAverageRating(String gameName) {
+		double averageRating = 0;
+		List<Review> gameReviews = getReviewsByField("GameInfo_Title", gameName);
+		List<String> userIds = new ArrayList<String>();
+		for(Review review: gameReviews){
+			if (!userIds.contains(review.getUserId())) {
+				averageRating += Integer.parseInt(review.getRating());
+				userIds.add(review.getUserId());
+			}
+		}
+		averageRating /= userIds.size();
+		return averageRating;
+	}
+	
+	/**
+	 * Determines whether the given review is in conflict with one already existing in this ReviewSet.
+	 */
+	public boolean reviewIsConflicting(Review review) {
+		Map<String, String> conditions = new HashMap<String, String>();
+		conditions.put("GameInfo_Title", review.getGameInfoTitle());
+		conditions.put("User_Id", review.getUserId());
+		for( Map<String, String> row: myDbAdapter.getRows(myTable, conditions)) {
+			if (!row.get("Rating").equals(review.getRating()))
+				return true;
+		}
+		return false;
 	}
 	
 }

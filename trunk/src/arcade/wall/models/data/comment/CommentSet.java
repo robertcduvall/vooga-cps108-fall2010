@@ -28,10 +28,9 @@ public class CommentSet extends DataSet {
 	public boolean addComment(Comment comment) {
 		Map<String, String> row = new HashMap<String, String>();
 		row.put("Id", comment.getId());
-		row.put("GameInfo_Title", comment.getGameTitle());
+		row.put("GameInfo_Title", comment.getGameInfoTitle());
 		row.put("User_Id", comment.getUserId());
 		row.put("String", comment.getString());
-		row.put("Rating", comment.getRating());
 		currentID++;
 		return myDbAdapter.insert(myTable, row);
 	}
@@ -54,8 +53,7 @@ public class CommentSet extends DataSet {
 			Comment commentToUpdate = new Comment(row.get("Id"),
 					row.get("GameInfo_Title"),
 					row.get("User_Id"),
-					row.get("String"), 
-					row.get("Rating"));
+					row.get("String"));
 			updateCommentRating(commentToUpdate, selectedValue);
 		}
 	}
@@ -72,29 +70,15 @@ public class CommentSet extends DataSet {
 	 */
 	public boolean updateCommentRating(Comment comment, String newRating) {
 		Map<String, String> row = new HashMap<String, String>();
-		row.put("GameInfo_Title", comment.getGameTitle());
+		row.put("GameInfo_Title", comment.getGameInfoTitle());
 		row.put("User_Id", comment.getUserId());
 		row.put("String", comment.getString());
 		row.put("Rating", newRating);
 		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("GameInfo_Title", comment.getGameTitle());
+		conditions.put("GameInfo_Title", comment.getGameInfoTitle());
 		conditions.put("User_Id", comment.getUserId());
 		conditions.put("String", comment.getString());
 		return myDbAdapter.update(myTable, conditions, row);
-	}
-
-	/**
-	 * Determines whether the given comment is in conflict with one already existing in this CommentSet.
-	 */
-	public boolean commentIsConflicting(Comment comment) {
-		Map<String, String> conditions = new HashMap<String, String>();
-		conditions.put("GameInfo_Title", comment.getGameTitle());
-		conditions.put("User_Id", comment.getUserId());
-		for( Map<String, String> row: myDbAdapter.getRows(myTable, conditions)) {
-			if (!row.get("Rating").equals(comment.getRating()))
-				return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -109,29 +93,28 @@ public class CommentSet extends DataSet {
 			returnComments.add(new Comment( row.get("Id"),
 					row.get("GameInfo_Title"),
 					row.get("User_Id"),
-					row.get("String"),
-					row.get("Rating")
+					row.get("String")
 					));
 		}
 		return returnComments;
 	}
 
-	/**
-	 * Calculates the average rating for the given game. A single user's rating is only taken into account once, even
-	 * if they have made multiple comments about a game.
-	 */
-	public double getAverageRating(String gameName) {
-		double averageRating = 0;
-		List<Comment> gameComments = getCommentsByField("GameInfo_Title", gameName);
-		List<String> userIds = new ArrayList<String>();
-		for(Comment comment: gameComments){
-			if (!userIds.contains(comment.getUserId())) {
-				averageRating += Integer.parseInt(comment.getRating());
-				userIds.add(comment.getUserId());
-			}
-		}
-		averageRating /= userIds.size();
-		return averageRating;
-	}
+//	/**
+//	 * Calculates the average rating for the given game. A single user's rating is only taken into account once, even
+//	 * if they have made multiple comments about a game.
+//	 */
+//	public double getAverageRating(String gameName) {
+//		double averageRating = 0;
+//		List<Comment> gameComments = getCommentsByField("GameInfo_Title", gameName);
+//		List<String> userIds = new ArrayList<String>();
+//		for(Comment comment: gameComments){
+//			if (!userIds.contains(comment.getUserId())) {
+//				averageRating += Integer.parseInt(comment.getRating());
+//				userIds.add(comment.getUserId());
+//			}
+//		}
+//		averageRating /= userIds.size();
+//		return averageRating;
+//	}
 	
 }

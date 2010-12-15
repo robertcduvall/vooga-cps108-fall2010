@@ -21,23 +21,23 @@ public class DisplayPanel extends JPanel {
 		myGameHeaderLabel = new JLabel();
 		myTopRatedGamesLabel = new JLabel();
 		updateTopRatedGamesLabel();
-		setGameHeaderLabel(WallTabView.myGameChoices[ReviewPanel.gameComboBox.getSelectedIndex()]);
+		setGameHeaderLabel(WallTabPanel.myGameChoices[FeedbackPanel.gameComboBox.getSelectedIndex()]);
 		
 		myCommentsArea = new JTextArea();
 		myCommentsArea.setEditable(false);
 		this.add(myGameHeaderLabel);
-		myCommentsArea.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("commentsAreaBorder")));
+		myCommentsArea.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("commentsAreaBorder")));
 		this.add(myCommentsArea);
 		this.add(myTopRatedGamesLabel);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("displayPanelBorder")));
+		this.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("displayPanelBorder")));
 		
 	}
 	
 	public void setGameHeaderLabel(String selectedGame) {
 		this.myGameHeaderLabel.setText("<html>" + 
 				"<font color=blue>" + selectedGame + "</font> || Average Rating: " +
-				+ WallTabView.myController.getRating(selectedGame) + "</html>");
+				+ WallTabPanel.myController.getRating(selectedGame) + "</html>");
 	}
 	
 	/**
@@ -46,12 +46,11 @@ public class DisplayPanel extends JPanel {
 	public void refreshCommentsArea(List<Comment> gameComments){
 		String displayString = "";
 		for(Comment comment: gameComments){  
-			String starString = "";
-			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
-				starString += "*";
-			}
-			displayString += " >> ''" + comment.getString() + "''  " + starString + 
-			" " +  "---" + ProfileSet.getProfile(Integer.parseInt(comment.getUserId())).getFirstName() + "\n";           
+//			String starString = "";
+//			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
+//				starString += "*";
+//			}
+			displayString += " >> ''" + comment.getString() + "'' ---" + ProfileSet.getProfile(Integer.parseInt(comment.getUserId())).getFirstName() + "\n";           
 		}
 		myCommentsArea.setText(displayString);
 	}
@@ -60,7 +59,7 @@ public class DisplayPanel extends JPanel {
 	 * Updates the Top-Rated Games label to display the Top 3 games in terms of average rating.
 	 */
 	public void updateTopRatedGamesLabel() {
-		List<String> gameRankList = WallTabView.myController.getGameRankList();
+		List<String> gameRankList = WallTabPanel.myController.getGameRankList();
 		myTopRatedGamesLabel.setText("<html>" + 
 				"<font color=red> Top Rated Game: " + gameRankList.get(0) + "</font> <br/>" +
 				"2nd Place Game: " + gameRankList.get(1) + "<br/>" +

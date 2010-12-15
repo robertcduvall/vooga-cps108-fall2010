@@ -12,12 +12,14 @@ public class Review extends Datum {
 	private String myUserId;
 	private String myGameInfoTitle;
 	private String myContent;
+	private String myRating;
 	
-	public Review(String id, String userId, String gameInfoTitle, String content) {
+	public Review(String id, String userId, String gameInfoTitle, String content, String rating) {
 		super(id);
 		this.myUserId = userId;
 		this.myGameInfoTitle = gameInfoTitle;
 		this.myContent = content;
+		this.myRating = rating;
 	}
 	
 	public String getUserId() {
@@ -30,6 +32,10 @@ public class Review extends Datum {
 	
 	public String getContent() {
 		return myContent;
+	}
+	
+	public String getRating() {
+		return myRating;
 	}
 	
 }
