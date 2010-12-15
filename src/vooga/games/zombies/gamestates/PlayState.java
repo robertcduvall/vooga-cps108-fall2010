@@ -213,16 +213,12 @@ public class PlayState extends GameState implements Constants {
 		if(data.startsWith(Username.getIdentifier())){
 			String userName = ((Username) (Username.deserialize(data))).getUsername();
 			if(player.getName() == null){
-				OverlayLabel playerOverlay = player.setName(userName);
-				playerOverlay.setY(playerOverlay.getY() - player.getHeight() / 2);
-				playField.getGroup("Players").add(playerOverlay);
+				player.setName(userName);
 				return;
 			}
 			for(Shooter shooter : otherPlayers){
 				if(shooter.getName() == null){
-					OverlayLabel playerOverlay = shooter.setName(userName);
-					playerOverlay.setY(playerOverlay.getY() - player.getHeight() / 2);
-					playField.getGroup("Players").add(playerOverlay);
+					shooter.setName(userName);
 					return;
 				}
 			}

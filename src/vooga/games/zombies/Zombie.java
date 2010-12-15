@@ -35,7 +35,7 @@ public class Zombie extends BetterSprite implements Constants {
 	private int attackDelayStep;
 	private String currentAttackAnimation;
 
-	public Zombie(String name, int level, Shooter[] players, PlayState state, long seed) {
+	public Zombie(String name, int level, Shooter[] players, PlayState state, Random random) {
 
 		super(name, AnimationUtil.getInitializedAnimatedSprite(Resources
 				.getAnimation(ZOMBIE_DOWN)));
@@ -62,8 +62,6 @@ public class Zombie extends BetterSprite implements Constants {
 		zombieDamage = Resources.getInt("startZombieDamage");
 
 		updateStats(level);
-
-		Random random = new Random(seed);
 		chooseRandomLocation(random);
 
 		this.setActive(true);

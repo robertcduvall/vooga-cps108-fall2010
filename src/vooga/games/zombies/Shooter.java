@@ -1,11 +1,14 @@
 package vooga.games.zombies;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
 import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.overlay.OverlayLabel;
+import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.games.zombies.events.AddBulletsEvent;
@@ -37,8 +40,6 @@ public class Shooter extends BetterSprite implements Constants {
 	private ClientConnection connection;
 	private boolean sentData;
 	private String overlayName;
-	private String name;
-	private OverlayLabel nameLabel;
 	private boolean died;
 	private int timesRevived;
 
@@ -68,14 +69,14 @@ public class Shooter extends BetterSprite implements Constants {
 		this.overlayName = overlayName;
 	}
 	
-	public OverlayLabel setName(String name){
-		nameLabel = new OverlayLabel(this, overlayName, Color.GREEN);
-		this.name = name;
-		return nameLabel;
+	public void setName(String name){
+		nameLabel = new OverlayLabel(this, new OverlayString(name, new Font("player", Font.ITALIC, 14), Color.BLUE));
 	}
 	
 	public String getName(){
-		return name;
+		if(nameLabel == null)
+			return null;
+		return nameLabel.getString();
 	}
 
 	/**
@@ -133,7 +134,6 @@ public class Shooter extends BetterSprite implements Constants {
 	public void goLeft() {
 		orientation = 180;
 		showAnimation(PLAYER_LEFT);
-		nameLabel.moveX(speed);
 		moveX(speed);
 		if (connection != null) {
 			connection.send("goLeft");
@@ -155,7 +155,6 @@ public class Shooter extends BetterSprite implements Constants {
 	public void goRight() {
 		orientation = 0;
 		showAnimation(PLAYER_RIGHT);
-		nameLabel.moveX(Math.abs(speed));
 		moveX(Math.abs(speed));
 		if (connection != null) {
 			connection.send("goRight");
@@ -169,7 +168,6 @@ public class Shooter extends BetterSprite implements Constants {
 	public void goUp() {
 		orientation = 270;
 		showAnimation(PLAYER_UP);
-		nameLabel.moveY(speed);
 		moveY(speed);
 		if (connection != null) {
 			connection.send("goUp");
@@ -183,7 +181,6 @@ public class Shooter extends BetterSprite implements Constants {
 	public void goDown() {
 		orientation = 90;
 		showAnimation(PLAYER_DOWN);
-		nameLabel.moveY(Math.abs(speed));
 		moveY(Math.abs(speed));
 		if (connection != null) {
 			connection.send("goDown");
