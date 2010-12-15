@@ -1,4 +1,5 @@
-package arcade.store.gui.tabs;
+package arcade.store.test;
+
 
 import javax.swing.JPanel;
 
@@ -20,10 +21,10 @@ import javax.swing.JList;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
-import arcade.store.control.CheckoutController;
+import arcade.store.test.CheckoutController;
 import arcade.store.control.MainController;
 
-public class CheckoutTab extends JPanel implements Tab, IViewer {
+public class CheckoutGUI extends JPanel implements Tab, IViewer {
 
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
@@ -51,9 +52,9 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	public CheckoutTab() {
+	public CheckoutGUI() {
 		setName(NAME);
-		controller = new CheckoutController();
+		controller = new CheckoutController("arcade.store.test.checkoutMethods");
 		controller.addViewer(this);
 
 		credditAfterPurchaseLabel = new JLabel();
@@ -183,7 +184,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 			DropItemButton.setText("Drop Item");
 			DropItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmDropItem();
+					controller.processEvent("confirmDropItem");
 				}
 			});
 		}

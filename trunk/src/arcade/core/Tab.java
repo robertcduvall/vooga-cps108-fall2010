@@ -26,7 +26,7 @@ public abstract interface Tab {
 	
 	/**
 	 * This method is needed to refresh the tab
-	 * when 
+	 * when ever a tab is clicked
 	 */
 	public void refresh();
 }
