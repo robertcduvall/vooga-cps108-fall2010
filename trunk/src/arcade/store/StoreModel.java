@@ -9,6 +9,8 @@ import arcade.lobby.model.ProfileSet;
 import arcade.store.account.GuestUser;
 import arcade.store.account.StoreUser;
 import arcade.store.database.DbItemAndUserFactory;
+import arcade.store.database.StoreDbConstants;
+import arcade.store.database.StoreSqlAdapter;
 import arcade.store.items.IItemInfo;
 import arcade.store.organizer.FilterByGenreOrganizer;
 
@@ -18,6 +20,7 @@ public class StoreModel implements IModel{
 	private Profile lobbyUser;
 	private static Map<String, IItemInfo> storeCatalogue;
 	private IController controller;
+	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
 	public StoreModel(IController control)
 	{
@@ -108,12 +111,14 @@ public class StoreModel implements IModel{
 		return (currentCreddits - getTotalUserCartCost() ) >= 0;	
 	}
 	
-	public static List<Integer> getUserOwnedGames() {
-		ArrayList<Integer> answer = new ArrayList<Integer>();
-		for(String s : currentUser.getOwnedGames()) {
-			answer.add(getItemInfo(s).getId());
+	public static List<Integer> getUserOwnedGames(int userId) {
+		List<Integer> itemList = new ArrayList<Integer>();
+		List<Map<String,String>> answer = dbAdapter.getRows("SELECT Item_Id FROM "
+				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id='"+userId+"'");
+		for(Map<String, String> m : answer) {
+			itemList.add(Integer.parseInt(m.get("Item_Id")));
 		}
-		return answer;
+		return itemList;
 	}
 	
 	public static void addItemsToCart(List<IItemInfo> itemsToPurchase) {
