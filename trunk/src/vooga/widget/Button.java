@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -32,23 +33,21 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Instance of the game in which the Button exists
 	 */
 	protected Game myGame;
-	protected File imageFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
-	protected static BufferedImage DEFAULT_BUTTON_IMAGE;
 	protected OverlayLabel buttonLabel = null;
 	
 	
 	/**
 	 * Creates an instance of Button with a default Button image and a location of (0,0)
 	 */
-	public Button(){
-		this(DEFAULT_BUTTON_IMAGE, 0, 0);
+	public Button(BufferedImage img){
+		this(img, 0, 0);
 	}	
 	/**
 	 * Creates an instance of Button with a default Button image and a location of (0,0)
 	 * and the input String
 	 */
-	public Button(String label){
-		this(DEFAULT_BUTTON_IMAGE, 0, 0);
+	public Button(BufferedImage img, String label){
+		this(img, 0, 0);
 		setLabel(label);
 		
 	}
@@ -57,27 +56,10 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * Creates an instance of Button with a default Button image, a specified location, and a specified String
 	 * and the input String
 	 */
-	public Button(String label, double x, double y){
-		this(DEFAULT_BUTTON_IMAGE, x, y);
+	public Button(BufferedImage img, String label, double x, double y){
+		this(img, x, y);
 		setLabel(label);
 		
-	}
-	
-	/**
-	 * Creates an instance of Button with a specified image and a location of (0,0)
-	 * @param image Which represents the image of the button
-	 */
-	public Button (BufferedImage image){
-		this(image, 0, 0);
-	}
-	
-	/**
-	 * Creates an instance of Button at a specified location with a default Button image at a specified location
-	 * @param x Which represents the X-coordinate of the button
-	 * @param y Which represents the Y-coordinate of the button
-	 */
-	public Button(double x, double y){
-		this(DEFAULT_BUTTON_IMAGE, x, y);
 	}
 	
 	/**
@@ -86,14 +68,9 @@ public abstract class Button extends BetterSprite implements IEventHandler{
 	 * @param x Which represents the X-coordinate of the button
 	 * @param y Which represents the Y-coordinate of the button
 	 */
-	public Button (BufferedImage image, double x, double y){
-		super(image, x, y);
+	public Button (BufferedImage img, double x, double y){
+		super(img, x, y);
 		myGame = Resources.getGame();
-		try{
-			DEFAULT_BUTTON_IMAGE = ImageIO.read(imageFile);}
-		catch(Exception e) {
-			System.out.println("Button.java: "+e.getMessage());	
-		}	
 	}
 	
 
