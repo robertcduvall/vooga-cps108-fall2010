@@ -31,6 +31,7 @@ public class WallTabController {
 		myView.addGameComboBoxListener(new GameComboBoxListener());
 		myView.addReviewButtonListener(new ReviewButtonListener());
 		myView.addSendMessageButtonListener(new SendMessageButtonListener());
+		myView.addComposeMessageButtonListener(new ComposeMessageButtonListener());
 	}
 	
 	/**
@@ -113,7 +114,7 @@ public class WallTabController {
 	
 	class ComposeMessageButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			//TODO: Make the JFrame appear
+			myView.getComposeMessageFrame().setVisible(true);
 		}
 	}
 	

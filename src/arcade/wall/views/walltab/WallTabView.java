@@ -44,7 +44,7 @@ public class WallTabView extends JPanel {
 
 	private JComboBox myGameComboBox,
 					  myFriendsComboBox;
-	private JFrame myComposeMessage;
+	private JFrame myComposeMessageFrame;
 	private JLabel mySelectGameLabel,	
 				   myEnterCommentLabel,
 				   myGameHeaderLabel,
@@ -164,8 +164,8 @@ public class WallTabView extends JPanel {
 	 * Constructs the ComposeMessage JFrame
 	 */
 	private void constructComposeMessageFrame(){
-		myComposeMessage = new JFrame();
-		myComposeMessage.setSize(800, 600);
+		myComposeMessageFrame = new JFrame();
+		myComposeMessageFrame.setSize(400, 300);
 		JPanel composePanel = new JPanel();
 		JPanel messagePanel = new JPanel();
 						
@@ -176,14 +176,17 @@ public class WallTabView extends JPanel {
 		composePanel.add(myFriendsComboBox);
 		composePanel.add(mySendToNewUserLabel);
 		composePanel.add(mySendToNewUserField);
-		composePanel.setLayout(new GridLayout(1,1,5,5));
-		composePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		composePanel.setLayout(new BoxLayout(composePanel, BoxLayout.Y_AXIS));
+		composePanel.setBorder(constructWallBorder(myResources.getString("composeMessagePanelBorder")));
 		composePanel.add(messagePanel);
 		composePanel.add(mySendMessageButton);
 		composePanel.add(myCloseButton);
 		
-		myComposeMessage.add(messagePanel);
-		
+		myComposeMessageFrame.add(composePanel);		
+	}
+	
+	public JFrame getComposeMessageFrame(){
+		return myComposeMessageFrame;
 	}
 	
 	/**
@@ -305,6 +308,14 @@ public class WallTabView extends JPanel {
 	public void addSendMessageButtonListener(
 			ActionListener sendMessageButtonListener) {
 		mySendMessageButton.addActionListener(sendMessageButtonListener);
+	}
+	
+	/**
+	 * Adds the ComposeMessageButtonListener to the WallTabView.
+	 */
+	public void addComposeMessageButtonListener(
+			ActionListener composeMessageButtonListener){
+		myComposeMessageButton.addActionListener(composeMessageButtonListener);
 	}
 	
 	/**
