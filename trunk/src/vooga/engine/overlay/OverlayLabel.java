@@ -38,7 +38,7 @@ public class OverlayLabel extends Sprite {
 		setLocation();
 	}
 
-	public void act()
+	public void update(long elapsedTime)
 	{
 		double xCoordinate = mySprite.getX();
 		//Make the label clear the top of the image of the Actor
@@ -47,7 +47,7 @@ public class OverlayLabel extends Sprite {
 	}
 
 	private double getYCoordinateAboveSprite() {
-		return mySprite.getY()+(mySprite.getHeight()*3)/5 + myOverlayString.getHeight()/2;
+		return mySprite.getY()-(mySprite.getHeight()*3)/5 + myOverlayString.getHeight()/2;
 	}
 	
 	public void render(Graphics2D g) {
@@ -59,4 +59,7 @@ public class OverlayLabel extends Sprite {
 		myOverlayString.setY((mySprite.getY() + (double) mySprite.getHeight()/4));
 	}
 	
+	public String getString(){
+		return myOverlayString.getString();
+	}
 }

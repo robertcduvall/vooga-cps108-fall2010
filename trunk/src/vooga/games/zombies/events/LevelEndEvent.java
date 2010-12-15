@@ -1,5 +1,7 @@
 package vooga.games.zombies.events;
 
+import java.util.Random;
+
 import vooga.engine.event.IEventHandler;
 import vooga.engine.resource.Resources;
 import vooga.games.zombies.Shooter;
@@ -62,8 +64,9 @@ public class LevelEndEvent implements IEventHandler {
 		// level++;
 
 		int size = 0;
+		Random random = new Random(seed);
 		while (size < levelZombies()) {
-			Zombie zombie = new Zombie("New", state.getLevel(), targets, state, seed);
+			Zombie zombie = new Zombie("New", state.getLevel(), targets, state, random);
 			zombie.setDropItemListener(addItems);
 			addZombies.addEnemy(zombie);
 			size++;

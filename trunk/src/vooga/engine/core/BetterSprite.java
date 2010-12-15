@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import vooga.engine.overlay.Overlay;
+import vooga.engine.overlay.OverlayLabel;
 import vooga.engine.overlay.Stat;
 
 import com.golden.gamedev.object.AnimatedSprite;
@@ -61,6 +61,8 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	private com.golden.gamedev.object.Sprite myCurrentSprite;
 	private Map<String, Stat<?>> myStatMap;
 	private boolean firstRun;
+	
+	protected OverlayLabel nameLabel;
 
 	/**
 	 * Constructs an entity with null image and 0, 0 position and the default
@@ -315,6 +317,8 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 			firstRun();
 			firstRun = false;
 		}
+		if(nameLabel != null)
+			nameLabel.update(elapsedTime);
 		myCurrentSprite.update(elapsedTime);
 	}
 
@@ -332,6 +336,9 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	 */
 	@Override
 	public void render(Graphics2D g) {
+		if(nameLabel != null){
+			nameLabel.render(g);
+		}
 		myCurrentSprite.render(g);
 	}
 
