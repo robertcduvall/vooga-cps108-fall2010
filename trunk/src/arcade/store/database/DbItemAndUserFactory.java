@@ -36,7 +36,7 @@ public class DbItemAndUserFactory {
 			for(Map<String, String> m : ownedGames) {
 				games.add(m.get(StoreDbConstants.ITEMNAME_FIELD));
 			}
-			return new StoreUser(userMap.get(StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD), Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD)),
+			return new StoreUser(userMap.get(StoreDbConstants.USER_TYPE_FIELD), userMap.get(StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD), Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD)),
 				userMap.get(StoreDbConstants.CART_FIELD), games);
 		}
 		else {
