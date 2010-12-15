@@ -2,28 +2,27 @@ package arcade.store.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
-import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
-import arcade.store.gui.tabs.MainPageTab;
 
 public class StoreContainer extends JPanel implements Tab {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	MainController mainController;
 
