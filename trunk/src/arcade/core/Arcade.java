@@ -110,10 +110,12 @@ public class Arcade extends JFrame {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				Component selected = everything.getSelectedComponent();
+				int selectedIndex = everything.getSelectedIndex();
+				Component selected = everything.getComponentAt(selectedIndex);
 				if(selected instanceof Tab)
 					((Tab) selected).refresh();
-				
+				// Update tab titles
+				everything.setTitleAt(selectedIndex,selected.getName());
 			}
 		});
 		return everything;
@@ -128,7 +130,7 @@ public class Arcade extends JFrame {
 					mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
 					createPanels("rightPanel"));		
 				mainPanel.setOneTouchExpandable(true);		
-			
+				mainPanel.setName("Arcade");
 				return mainPanel;		
 				}
 	

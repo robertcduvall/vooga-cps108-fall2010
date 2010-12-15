@@ -10,6 +10,7 @@ public class Profile implements IModel {
 	private String myEmail="";
 	private String myBirthday="";
 	private String myAvatarURL="";
+	private long joinDate;
 	
 	public Profile(int userId) {
 		myUserId = userId;
@@ -66,6 +67,14 @@ public class Profile implements IModel {
 	
 	public String getAvatar() {
 		return myAvatarURL;
+	}
+
+	public void setJoinDate(Long joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public Long getJoinDate() {
+		return joinDate;
 	}
 	
 }

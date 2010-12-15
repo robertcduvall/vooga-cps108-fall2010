@@ -11,7 +11,7 @@ import arcade.util.database.MySqlAdapter;
 import arcade.util.database.Constants;
 
 public class ProfileSet implements Iterable<Profile> {
-	
+
 	private static Profile currentProfile = null;
 	private static final Profile GUEST_PROFILE = createGuest();
 	public static DatabaseAdapter myDbAdapter;
@@ -28,7 +28,7 @@ public class ProfileSet implements Iterable<Profile> {
 
 	private static Profile createGuest() {
 		Profile guest = new Profile(0);
-		guest.setName("Guest","");
+		guest.setName("Guest", "");
 		guest.setUserName("guest");
 		guest.setAvatar("http://imgur.com/29J5j.png");
 		return guest;
@@ -48,8 +48,11 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public static boolean addProfile(Profile profile) {
-		if(profile.getUserId()==0) return false;
+		if (profile.getUserId() == 0)
+			return false;
 		Map<String, String> row = addToRow(profile);
+		row.put(resourceBundle.getString("dbJoinDate"),
+				String.valueOf(System.currentTimeMillis()));
 		return myDbAdapter.insert(myTable, row);
 	}
 
@@ -93,10 +96,16 @@ public class ProfileSet implements Iterable<Profile> {
 		if (rows == null || rows.size() == 0)
 			return userProf;
 		Map<String, String> row = rows.get(0);
-		userProf.setName(row.get(resourceBundle.getString("dbFirstName")), row.get(resourceBundle.getString("dbLastName")));
+		userProf.setName(row.get(resourceBundle.getString("dbFirstName")),
+				row.get(resourceBundle.getString("dbLastName")));
 		userProf.setBirthday(row.get(resourceBundle.getString("birthday")));
 		userProf.setEmail(row.get(resourceBundle.getString("email")));
 		userProf.setAvatar(row.get(resourceBundle.getString("dbAvatarURL")));
+		try {
+			userProf.setJoinDate(Long.parseLong(row.get(resourceBundle
+					.getString("dbJoinDate"))));
+		} catch (NumberFormatException e) {
+		}
 		return userProf;
 	}
 
@@ -131,11 +140,11 @@ public class ProfileSet implements Iterable<Profile> {
 	public static void setUser(int userId) {
 		currentProfile = getProfile(userId);
 	}
-	
+
 	public static Profile getCurrentProfile() {
-		return currentProfile==null?GUEST_PROFILE:currentProfile;
+		return currentProfile == null ? GUEST_PROFILE : currentProfile;
 	}
-	
+
 	public static void setCurrentProfile(Profile profile) {
 		currentProfile = profile;
 	}

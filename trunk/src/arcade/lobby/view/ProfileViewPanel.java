@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.DateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -50,15 +52,23 @@ public class ProfileViewPanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		addField(avatar,
-				new JLabel(myProfile == null ? "" : myProfile.getUserName()));
+		addField(avatar, new JLabel(myProfile.getUserName()));
+		addField(new JLabel("Name:"), new JLabel(myProfile.getFullName()));
+		addField(new JLabel("Email Address:"), new JLabel(myProfile.getEmail()));
+		addField(new JLabel("Birthday:"), new JLabel(myProfile.getBirthday()));
 
-		addField(new JLabel("Name:"), new JLabel(myProfile == null ? ""
-				: myProfile.getFullName()));
-		addField(new JLabel("Email Address:"), new JLabel(
-				myProfile == null ? "" : myProfile.getEmail()));
-		addField(new JLabel("Birthday:"), new JLabel(myProfile == null ? ""
-				: myProfile.getBirthday()));
+		if (myProfile.getJoinDate() != 0) {
+			long seconds = (System.currentTimeMillis() - myProfile
+					.getJoinDate()) / 1000;
+			long minutes = seconds / 60;
+			long hours = minutes / 60;
+			long days = hours / 24;
+			String timeSinceRegister = String.format(
+					"%d Days, %d Hours, and %d minutes", days, hours % 24,
+					minutes % 60);
+			addField(new JLabel("Member For:"), new JLabel(timeSinceRegister));
+		}
+
 	}
 
 	private void scaleImage(ImageIcon icon) {
