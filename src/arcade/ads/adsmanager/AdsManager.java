@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
@@ -138,13 +139,17 @@ public class AdsManager implements MouseListener {
 		return null;
 	}
 	
-	public void renderRelatedAds(String...tags){
+	public void setRenderedAds(String...tags){
 		for (String tag: tags)
 			for (BasicAd ad: activeAdsGroup.getAds())
 				if ((ad instanceof IRelatedAds) && ((IRelatedAds) ad).getCategories().contains(tag))
 			        renderedAdsGroup.add(ad);
 	}
 
+	public void setRenderedAds(File file) {
+		renderedAdsGroup.setAds(XMLtoAds.convertAds(file));
+	}
+	
 	/**
 	 * set date
 	 * 
@@ -166,10 +171,6 @@ public class AdsManager implements MouseListener {
 	public void setPanel(JPanel p) {
 		this.panel = p;
 		this.gs = (Graphics2D) p.getGraphics();
-	}
-
-	public void setAds(String file) {
-		renderedAdsGroup.setAds(XMLtoAds.convertAds(file));
 	}
 
 	public AdsGroup getRenderedAdsGroup() {

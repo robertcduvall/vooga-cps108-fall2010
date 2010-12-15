@@ -22,10 +22,10 @@ import vooga.engine.core.BetterSprite;
 
 public class XMLtoAds {
 	
-	public static List<BasicAd> convertAds(String xmlLevelFile){
+	public static List<BasicAd> convertAds(File xmlLevelFile){
 		List<BasicAd> myAds = new ArrayList<BasicAd>();
 		try {
-			Scanner scanner = new Scanner(new File(xmlLevelFile));
+			Scanner scanner = new Scanner(xmlLevelFile);
 			while(scanner.hasNextLine()){
 				myAds.addAll(convert(scanner.nextLine()));
 			}
