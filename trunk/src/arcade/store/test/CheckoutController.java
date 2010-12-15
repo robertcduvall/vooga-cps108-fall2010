@@ -21,7 +21,6 @@ public class CheckoutController extends Controller{
 
 	public CheckoutController(String filepath) {
 		super(filepath);
-		setClassType(this.getClass());
 		
 		storeModel = new StoreModel(this);
 		currentSelected = null;

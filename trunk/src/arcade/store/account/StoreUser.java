@@ -148,6 +148,8 @@ public class StoreUser {
 	/**
 	 * Updates the database with the StoreUser's current cart.
 	 */
+	
+	//TODO: put dbAdapter in Store Model
 	public void saveCart() {
 		dbAdapter.updateList(cart, Integer.toString(id),
 				StoreDbConstants.CART_FIELD);

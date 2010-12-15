@@ -207,7 +207,7 @@ public class CheckoutGUI implements Tab, IViewer {
 			SaveCartButton.setText("Save Cart");
 			SaveCartButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller.processSaveCart();
+					controller.processEvent("saveCart");
 				}
 			});
 		}
@@ -225,7 +225,7 @@ public class CheckoutGUI implements Tab, IViewer {
 
 			itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.registerCurrentElement();
+					controller.processEvent("registerSelected");
 				}
 			});
 
@@ -246,7 +246,7 @@ public class CheckoutGUI implements Tab, IViewer {
 			BuyCartButton.setText("Buy Cart");
 			BuyCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmBuyCart();
+					controller.processEvent("confirmBuyCart");
 				}
 			});
 		}
@@ -265,7 +265,7 @@ public class CheckoutGUI implements Tab, IViewer {
 			DropCartButton.setText("Drop Cart");
 			DropCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmDropCart();
+					controller.processEvent("confirmDropCart");
 				}
 			});
 		}

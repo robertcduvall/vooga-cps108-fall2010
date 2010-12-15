@@ -42,7 +42,8 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private JButton DropCartButton = null;
 
 	private static final String NAME = "Checkout Page";
-
+	private static final String FILE_PATH = "arcade.store.resources.CheckoutController";  //  @jve:decl-index=0:
+	
 	private CheckoutController controller; // @jve:decl-index=0:
 	private JButton RefreshButton = null;
 
@@ -53,7 +54,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 */
 	public CheckoutTab() {
 		setName(NAME);
-		controller = new CheckoutController();
+		controller = new CheckoutController(FILE_PATH);
 		controller.addViewer(this);
 
 		credditAfterPurchaseLabel = new JLabel();
@@ -183,7 +184,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 			DropItemButton.setText("Drop Item");
 			DropItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmDropItem();
+					controller.processEvent("dropItem");
 				}
 			});
 		}
@@ -202,7 +203,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 			SaveCartButton.setText("Save Cart");
 			SaveCartButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller.processSaveCart();
+					controller.processEvent("saveCart");
 				}
 			});
 		}
@@ -220,7 +221,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 
 			itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.registerCurrentElement();
+					controller.processEvent("registerSelected");
 				}
 			});
 
@@ -241,7 +242,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 			BuyCartButton.setText("Buy Cart");
 			BuyCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmBuyCart();
+					controller.processEvent("buyCart");
 				}
 			});
 		}
@@ -260,7 +261,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 			DropCartButton.setText("Drop Cart");
 			DropCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processConfirmDropCart();
+					controller.processEvent("dropCart");
 				}
 			});
 		}
@@ -280,7 +281,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 
-					controller.initialize();
+					controller.processEvent("reset");
 				}
 			});
 		}
