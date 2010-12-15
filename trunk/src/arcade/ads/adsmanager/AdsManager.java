@@ -152,6 +152,10 @@ public class AdsManager implements MouseListener {
 		renderedAdsGroup.setAds(XMLtoAds.convertAds(file));
 	}
 	
+	public void setActiveAds(File file) {
+		activeAdsGroup.setAds(XMLtoAds.convertAds(file));
+	}
+	
 	/**
 	 * set date
 	 * 
