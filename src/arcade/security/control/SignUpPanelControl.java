@@ -42,7 +42,6 @@ public class SignUpPanelControl implements IControl {
 			public void actionPerformed(ActionEvent arg0) {
 				switchToLoginPage();
 			}
-
 		});
 	}
 
@@ -74,7 +73,6 @@ public class SignUpPanelControl implements IControl {
 				view.setPasswordSuggestions(suggestions);
 			}
 		}
-
 	}
 
 	private class SubmitEvent implements ActionListener {
@@ -103,6 +101,7 @@ public class SignUpPanelControl implements IControl {
 						.getText();
 				char[] pwd_1 = ((PasswordConfirmField) dock
 						.getComponent("pass1")).getPassword1();
+				System.out.println("I'm here!");
 				int questionIndex = ((JComboBox) dock.getComponent("choices"))
 						.getSelectedIndex();
 				String questionAnswer = ((JTextField) dock
