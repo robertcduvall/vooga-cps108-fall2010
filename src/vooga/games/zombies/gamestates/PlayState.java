@@ -1,5 +1,6 @@
 package vooga.games.zombies.gamestates;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
@@ -32,8 +33,8 @@ public class PlayState extends GameState implements Constants {
 	private EventPool eventPool;
 	public static long seed;
 	public Timer reviveTimer;
-	private int reviveDelay;
-	private boolean revive;
+	private OverlayLabel reviveLabel;
+	private SpriteGroup labels;
 
 	AddZombieEvent addZombies;
 	AddRandomItemEvent addItems;
@@ -54,6 +55,7 @@ public class PlayState extends GameState implements Constants {
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
 		this.addPlayField(playField);
 		timer = new Timer(level);
+		labels = new SpriteGroup("labels");
 		setupPlayer();
 		resetLevel();
 		initOverlays();
@@ -151,11 +153,6 @@ public class PlayState extends GameState implements Constants {
 		int timeInterval = Resources.getInt("timeInterval");
 		double delayFactor = Resources.getDouble("delayFactor");
 		timer.setDelay((long) (timeInterval / level * delayFactor));
-
-		reviveDelay = Resources.getInt("reviveTimer");
-		reviveTimer = new Timer(level);
-		reviveTimer.setDelay(7000);
-		reviveTimer.setActive(false);
 
 	}
 
@@ -264,6 +261,19 @@ public class PlayState extends GameState implements Constants {
 		return false;
 	}
 
+	public void applyReviveLabel(Shooter player) {
+		reviveLabel = new OverlayLabel(player, "REVIVE", Color.red);
+		playField.addGroup(labels).add(reviveLabel);
+	}
+
+	public int getPlayerHealth(Shooter player) {
+		return player.getHealth().getStat();
+	}
+	
+	public void removeReviveLabel() {
+		playField.removeGroup(labels);
+	}
+
 	/**
 	 * render the graphics component in the game
 	 */
@@ -272,17 +282,24 @@ public class PlayState extends GameState implements Constants {
 		if (getLevelStatOverlay().isActive()) {
 			getLevelStatOverlay().render(g);
 		}
+		int playerHealth = getPlayerHealth(player);
+		int otherPlayerHealth = getPlayerHealth(otherPlayer);
 
-		if (player.getTimesRevived() == 1 && player.getHealth().getStat() <= 0) {
+		if (player.getTimesRevived() == 1 && playerHealth <= 0) {
 			currentGame.end();
 		}
 
-		if (player.getHealth().getStat() <= 0) {
+		if (playerHealth <= 0 && labels.getSize() <= 1) {
+			applyReviveLabel(player);
 			playField.removeControl("Shooter");
 		}
-		if (player.getHealth().getStat() > 0
+		if (otherPlayerHealth <= 0 && labels.getSize() <= 1) {
+			applyReviveLabel(otherPlayer);
+		}
+		else if (playerHealth > 0
 				&& playField.getControl("Shooter") == null) {
 			playField.addControl("Shooter", control);
+			removeReviveLabel();
 		}
 	}
 
