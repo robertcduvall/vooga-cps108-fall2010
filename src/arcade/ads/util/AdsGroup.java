@@ -88,4 +88,8 @@ public class AdsGroup {
 	public void setAds(List<BasicAd> ads) {
 		this.ads = ads;
 	}
+	
+	public void clear(){
+		this.ads.clear();
+	}
 }
