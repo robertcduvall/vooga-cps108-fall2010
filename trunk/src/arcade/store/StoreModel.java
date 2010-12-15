@@ -8,16 +8,15 @@ import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.account.GuestUser;
 import arcade.store.account.StoreUser;
-import arcade.store.control.MainController;
 import arcade.store.database.DbItemAndUserFactory;
 import arcade.store.items.IItemInfo;
 import arcade.store.organizer.FilterByGenreOrganizer;
 
 public class StoreModel implements IModel{
 	
-	private StoreUser currentUser;
+	private static StoreUser currentUser;
 	private Profile lobbyUser;
-	private Map<String, IItemInfo> storeCatalogue;
+	private static Map<String, IItemInfo> storeCatalogue;
 	private IController controller;
 	
 	public StoreModel(IController control)
@@ -34,7 +33,7 @@ public class StoreModel implements IModel{
 		}
 	}
 	
-	public IItemInfo getItemInfo(String name)
+	public static IItemInfo getItemInfo(String name)
 	{
 		return storeCatalogue.get(name);
 	}
@@ -95,7 +94,6 @@ public class StoreModel implements IModel{
 		
 		for(String item : wishList)
 		{
-			// TODO: r u sure there's not any formatting error with names?!?!
 			IItemInfo info = storeCatalogue.get(item);
 			String price = info.getPrice();
 			sum += Double.parseDouble(price);
@@ -110,4 +108,18 @@ public class StoreModel implements IModel{
 		return (currentCreddits - getTotalUserCartCost() ) >= 0;	
 	}
 	
+	public static List<Integer> getUserOwnedGames() {
+		ArrayList<Integer> answer = new ArrayList<Integer>();
+		for(String s : currentUser.getOwnedGames()) {
+			answer.add(getItemInfo(s).getId());
+		}
+		return answer;
+	}
+	
+	public static void addItemsToCart(List<IItemInfo> itemsToPurchase) {
+		for(IItemInfo i : itemsToPurchase) {
+			currentUser.addToCart(i.getTitle());
+		}
+	}
+		
 }
