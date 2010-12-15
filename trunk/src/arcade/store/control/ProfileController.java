@@ -5,7 +5,6 @@ import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
 import arcade.core.mvc.Controller;
-import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
@@ -39,7 +38,7 @@ public class ProfileController extends Controller {
 
 	@Override
 	public void initialize() {
-		profileTab.getUsernameTextField().setText(getUser().getName());
+		profileTab.getUsernameTextField().setText(getUser().getId());
 		profileTab.getAvailableCredditsTextField().setText(
 				"" + getUser().getCreddits());
 		profileTab.getPurchaseCredditsButton().setEnabled(storeModel.checkPrivileges("addCreddits"));
@@ -84,7 +83,7 @@ public class ProfileController extends Controller {
 		} catch (Exception e) {
 			amount = 0;
 		}
-		getUser().addCreddits(amount);
+		storeModel.addCredditsToUser(amount);
 	}
 
 }

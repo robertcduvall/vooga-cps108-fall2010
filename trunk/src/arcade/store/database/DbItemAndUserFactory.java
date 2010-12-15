@@ -29,23 +29,17 @@ public class DbItemAndUserFactory {
 
 	public static StoreUser getUser(int userId) {
 		List<Map<String, String>> list = dbAdapter.getRows(StoreDbConstants.STORE_USER_TABLE, StoreDbConstants.USER_FIELD, Integer.toString(userId));
-		List<Map<String, String>> ownedGames = dbAdapter.getRows("SELECT "+StoreDbConstants.ITEMNAME_FIELD+" FROM "+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE "+StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD+"='"+Integer.toString(userId)+"'");
 		if(list!=null) {
 			Map<String, String> userMap = list.get(0);
-			ArrayList<String> games = new ArrayList<String>();
-			for(Map<String, String> m : ownedGames) {
-				games.add(m.get(StoreDbConstants.ITEMNAME_FIELD));
-			}
-			return new StoreUser(userMap.get(StoreDbConstants.USER_TYPE_FIELD), userMap.get(StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD), Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD)),
-				userMap.get(StoreDbConstants.CART_FIELD), games);
+			return new StoreUser(userMap.get(StoreDbConstants.USER_FIELD),userMap.get(StoreDbConstants.USER_TYPE_FIELD),  Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD)),
+				userMap.get(StoreDbConstants.CART_FIELD));
 		}
 		else {
 			HashMap<String, String> newUser = new HashMap<String, String>();
+			newUser.put(StoreDbConstants.USER_FIELD, Integer.toString(userId));
 			newUser.put(StoreDbConstants.USER_TYPE_FIELD, "2");
-			newUser.put(StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD, Integer.toString(userId));
 			newUser.put(StoreDbConstants.CREDDIT_FIELD, "0.00");
 			newUser.put(StoreDbConstants.CART_FIELD, "");
-			newUser.put(StoreDbConstants.OWNED_GAMES_FIELD, "");
 			dbAdapter.insert(StoreDbConstants.STORE_USER_TABLE, newUser);
 			return getUser(userId);
 		}

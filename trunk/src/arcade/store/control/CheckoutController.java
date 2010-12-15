@@ -221,7 +221,7 @@ public class CheckoutController extends Controller {
 	 * 
 	 */
 	public void processSaveCart() {
-		storeModel.getCurrentUserAccount().saveCart();
+		storeModel.saveCart();
 		JOptionPane.showMessageDialog(null, getString("cartSaved"));
 	}
 

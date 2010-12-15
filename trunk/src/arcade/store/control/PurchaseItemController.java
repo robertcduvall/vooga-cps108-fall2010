@@ -38,8 +38,8 @@ public class PurchaseItemController implements IController {
 
 		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
 		
-		if (storeModel.getCurrentUserAccount().getOwnedGames()
-				.contains(getItemTitle())) {
+		int currentUserId = Integer.parseInt(storeModel.getCurrentUserAccount().getId());
+		if (StoreModel.getUserOwnedGames(currentUserId).contains(getItemId())) {
 			view.setAddToCartButtonClickable(false);
 		}
 	}
@@ -54,8 +54,8 @@ public class PurchaseItemController implements IController {
 		view = (GamePurchaseView) viewer;
 	}
 
-	private String getItemTitle() {
-		return view.getTitleTextField().getText();
+	private String getItemId() {
+		return Integer.toString(StoreModel.getItemInfo(view.getTitleTextField().getText()).getId());
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class PurchaseItemController implements IController {
 				"Are You Sure You Want to Add This Item To Cart?",
 				"Add to Cart", JOptionPane.YES_NO_OPTION);
 		if (ret == JOptionPane.YES_OPTION) {
-			storeModel.getCurrentUserAccount().addToCart(getItemTitle());
+			storeModel.getCurrentUserAccount().addToCart(getItemId());
 			view.getJFrame().setVisible(false);
 		}
 	}

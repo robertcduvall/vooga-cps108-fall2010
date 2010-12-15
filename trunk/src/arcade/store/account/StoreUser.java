@@ -1,9 +1,6 @@
 package arcade.store.account;
 
 import java.util.*;
-
-import arcade.store.database.StoreDbConstants;
-import arcade.store.database.StoreSqlAdapter;
 import arcade.store.items.IItemInfo;
 
 /**
@@ -16,16 +13,13 @@ import arcade.store.items.IItemInfo;
  */
 public class StoreUser {
 
-	private final static String DEFAULT_NAME = "Guest User";
+	private final static String DEFAULT_ID = "0";
 	private final static String SPLIT_CART_STRING = ",";
-	private int id;
-	private String name;
+	private String id;
 	private String accountType;
 	private double creddits;
-	private List<String> ownedGames;
 	private List<String> cart;
 
-	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 
 	/**
 	 * Constructor for StoreUser. This sets the users names to the parameter
@@ -35,21 +29,17 @@ public class StoreUser {
 	 * @param name
 	 * @param creddits
 	 * @param cart
-	 * @param ownedGames
 	 */
-	public StoreUser(String userType, String name, double creddits, String cart,
-			List<String> ownedGames) {
+	public StoreUser(String id, String userType, double creddits, String cart) {
 		this.accountType = userType;
-		this.name = name;
+		this.id = id;
 		this.creddits = creddits;
 		this.cart = new ArrayList<String>();
-		this.ownedGames = new ArrayList<String>();
 		String[] cartList = cart.split(SPLIT_CART_STRING);
 		for (String s : cartList) {
 			if (s.length() > 1)
 				this.cart.add(s.trim());
 		}
-		this.ownedGames = ownedGames;
 	}
 
 	/**
@@ -58,24 +48,23 @@ public class StoreUser {
 	 * String and their ownedGames to a new ArrayList of Strings.
 	 */
 	public StoreUser() {
-		this("1", DEFAULT_NAME, 0, "", new ArrayList<String>());
+		this(DEFAULT_ID, "1", 0, "");
 	}
 
-	public String getName() {
-		return name;
-	}
 
 	public double getCreddits() {
 		return creddits;
 	}
 
+	/**
+	 * 
+	 * @return a String List of all the game titles currently in a 
+	 * user's shopping cart.
+	 */
 	public List<String> getCart() {
 		return cart;
 	}
 
-	public List<String> getOwnedGames() {
-		return ownedGames;
-	}
 
 	/**
 	 * Takes the parameter newCreddits and sets the StoreUsers creddits to this
@@ -84,46 +73,16 @@ public class StoreUser {
 	 * @param newCreddits
 	 *            the new value for the StoreUser's creddits
 	 */
-	public void updateToCreddits(double newCreddits) {
+	public void setCreddits(double newCreddits) {
 		creddits = newCreddits;
-		dbAdapter.updateCreddits(creddits, Integer.toString(id));
 	}
 
-	/**
-	 * Takes the parameter amount and adds this value to the StoreUsers current
-	 * creddits, passing this sum to the updateToCreddtis method.
-	 * 
-	 * @param amount
-	 *            the value to add to the StoreUser's creddits
-	 */
-	public void addCreddits(double amount) {
-		updateToCreddits(amount + creddits);
-	}
 
 	/**
-	 * Takes the parameter titles and iterates over all of its IItemInfo
-	 * objects, adding each one to the StoreUsers ownedGames List.
-	 * 
-	 * @param titles
-	 *            the list of items to add to the StoreUser's ownedGames list
-	 */
-	public void addGames(List<IItemInfo> titles) {
-		ArrayList<IItemInfo> games = new ArrayList<IItemInfo>();
-		for (IItemInfo i : titles) {
-			ownedGames.add(i.getTitle());
-			games.add(i);
-		}
-		dbAdapter.updatePurchaseHistory(games, Integer.toString(id));
-	}
-
-	/**
-	 * Makes the StoreUser's cart a new ArrayList of Strings and updates the
-	 * database with this List.
+	 * Makes the StoreUser's cart a new ArrayList of Strings.
 	 */
 	public void emptyCart() {
 		cart = new ArrayList<String>();
-		dbAdapter.updateList(cart, Integer.toString(id),
-				StoreDbConstants.CART_FIELD);
 	}
 
 	/**
@@ -146,21 +105,22 @@ public class StoreUser {
 	public void addToCart(String name) {
 		cart.add(name);
 	}
-
+	
 	/**
-	 * Updates the database with the StoreUser's current cart.
+	 * 
+	 * Returns current user's unique ID number. This is the same as the current user
+	 * Profile's ID.
 	 */
-	
-	//TODO: put dbAdapter in Store Model
-	public void saveCart() {
-		dbAdapter.updateList(cart, Integer.toString(id),
-				StoreDbConstants.CART_FIELD);
-	}
-
 	public String getId() {
-		return Integer.toString(id);
+		return id;
 	}
 	
+	/**
+	 * Gets the current user's account type. 
+	 * 
+	 * @return user's account type (is an int, but returned as String for database
+	 * convenience). 
+	 */
 	public String getAccountType() {
 		return accountType;
 	}
