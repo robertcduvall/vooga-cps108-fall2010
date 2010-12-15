@@ -37,6 +37,9 @@ import arcade.ads.adscontent.BasicAd;
 public class AdBuilder extends JFrame{
 
 	private static final String PROPERTIES_FILE = "arcade/ads/adsbuilder/adbuilder";
+	private static final String TEXT_FILE = "arcade/ads/adsbuilder/ads";
+	private static final String PARAMETERS_FILE = "arcade/ads/adsbuilder/parameters";
+	private static final String PATH = "";
 	
 	private JPanel panel1, panel2, panel3, panel4, subpanel1, subpanel2, subpanel3, subpanel4;
 	private JCheckBox[] tagBoxes;
@@ -44,6 +47,8 @@ public class AdBuilder extends JFrame{
 	
 	private HashMap<String, ArrayList<String>> propertiesMap;
 	private HashMap<String, JTextField> attributeMap;
+	private HashMap<String, ArrayList<String>> parameterMap;
+	private ResourceBundle myTextResources;
 	
 	//ad properties
 	private BasicAd ad;
@@ -59,6 +64,8 @@ public class AdBuilder extends JFrame{
 
 		//attributeMap = new HashMap<String, String>();
 		attributeMap = new HashMap<String, JTextField>();
+		myTextResources = ResourceBundle.getBundle(TEXT_FILE);
+		parameterMap = readFile(PARAMETERS_FILE);
 		
 		setTitle("Ad Builder");
 		
@@ -219,8 +226,12 @@ public class AdBuilder extends JFrame{
 	private JTextField addField(String text, JPanel panel){
 		JLabel label = new JLabel(text);
 		JTextField field = new JTextField(20);
-		if (text.endsWith("Date"))
-			field.setText("MM/DD/YYYY");
+		String[] arr = text.split(" ");
+		String s = "";
+		for (String str : arr){
+			s += str;
+		}
+		field.setText(myTextResources.getString(s));
 		panel.add(label);
 		panel.add(field);
 		return field;
@@ -235,10 +246,7 @@ public class AdBuilder extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				getAllInfo();
 				int n = JOptionPane.showConfirmDialog(null, "Do you want to create another ad?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if (n==JOptionPane.YES_OPTION)
-					restart();
-				if (n==JOptionPane.NO_OPTION)
-					exit();
+				respond(n);
 			}
 			
 		});
@@ -249,34 +257,36 @@ public class AdBuilder extends JFrame{
 		try {
 			Class<?> c = Class.forName(propertiesMap.get(type).get(0));
 			//for (String s: propertiesMap.get("labels")){
-			Class[] parameters = new Class[8];
-			parameters[0] = String.class;
-			parameters[1] = Image.class;
-			parameters[2] = String.class;
-			parameters[3] = Integer.TYPE;
-			parameters[4] = Integer.TYPE;
-			parameters[5] = Date.class;
-			parameters[6] = Date.class; 
-			parameters[7] = long.class; 
+			Class[] parameters = new Class[parameterMap.get(type).size()];
+			for (int i=0; i<parameters.length; i++){
+				parameters[i] = Class.forName(parameterMap.get(type).get(i));
+				if (parameterMap.get(type).get(i).endsWith("Integer"))
+					parameters[i] = parameters[i].getMethod("intValue", null).getReturnType();
+				if (parameterMap.get(type).get(i).endsWith("Long"))
+					parameters[i] = parameters[i].getMethod("longValue", null).getReturnType();
+					
+			}
+//			parameters[0] = String.class;
+//			parameters[1] = Image.class;
+//			parameters[2] = String.class;
+//			parameters[3] = Integer.TYPE;
+//			parameters[4] = Integer.TYPE;
+//			parameters[5] = Date.class;
+//			parameters[6] = Date.class; 
+//			parameters[7] = long.class; 
+			
 			Constructor constructor = c.getConstructor(parameters);
 			ArrayList<String> labels = propertiesMap.get("labels");
-			Object[] arguments = new Object[8];
-			/*for (int i=0; i<labels.size(); i++){
-				if (i==1)
-					arguments[i] = file;
-				else
-					arguments[i] = attributeMap.get(labels.get(i)).getText();
-			}*/
-			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			Object[] arguments = new Object[8];
 			arguments[0] = attributeMap.get(labels.get(0)).getText();
 			arguments[1] = ImageIO.read(file);
-			arguments[2] = attributeMap.get(labels.get(2)).getText();
-			arguments[3] = Integer.parseInt(attributeMap.get(labels.get(3)).getText());
-			arguments[4] = Integer.parseInt(attributeMap.get(labels.get(4)).getText());
-			arguments[5] = dateFormat.parse(attributeMap.get(labels.get(5)).getText());
-			arguments[6] = dateFormat.parse(attributeMap.get(labels.get(6)).getText());
-			arguments[7] = Long.parseLong(attributeMap.get(labels.get(7)).getText());
+			arguments[2] = attributeMap.get(labels.get(1)).getText();
+			arguments[3] = Integer.parseInt(attributeMap.get(labels.get(2)).getText());
+			arguments[4] = Integer.parseInt(attributeMap.get(labels.get(3)).getText());
+			arguments[5] = dateFormat.parse(attributeMap.get(labels.get(4)).getText());
+			arguments[6] = dateFormat.parse(attributeMap.get(labels.get(5)).getText());
+			arguments[7] = Long.parseLong(attributeMap.get(labels.get(6)).getText());
 			ad = (BasicAd) constructor.newInstance(arguments);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -313,12 +323,13 @@ public class AdBuilder extends JFrame{
 			c.setEnabled(val);
 	}
 	
-	private void restart(){
-		this.restart();
-	}
-	
-	private void exit(){
-		this.exit();
+	private void respond(int n){
+		if (n==JOptionPane.YES_OPTION) {
+			new AdBuilder();
+			System.exit(0);
+		}
+		else if (n==JOptionPane.NO_OPTION)
+			System.exit(0);
 	}
 	
 	public static void main(String args[]){

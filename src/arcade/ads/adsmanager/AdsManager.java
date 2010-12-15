@@ -144,9 +144,10 @@ public class AdsManager implements MouseListener {
 	public void setRenderedAds(String...tags){
 		renderedAdsGroup.clear();
 		for (String tag: tags)
-			for (BasicAd ad: activeAdsGroup.getAds())
+			for (BasicAd ad: activeAdsGroup.getAds()){
 				if ((ad instanceof IRelatedAds) && ((IRelatedAds) ad).getCategories().contains(tag))
 			        renderedAdsGroup.add(ad);
+			}
 	}
 
 	public void setRenderedAds(File file) {
