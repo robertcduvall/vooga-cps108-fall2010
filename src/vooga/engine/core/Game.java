@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 
 import arcade.core.ExampleGUI;
+import arcade.core.examples.HighScorePanel;
 
 import com.golden.gamedev.GameLoader;
 
@@ -221,7 +222,7 @@ public class Game extends com.golden.gamedev.Game {
 	public void updateHighScore(double score) {
 		finalScore = score;
 		//TODO Move following statement to a on close listener of some sort
-		ExampleGUI.updateHighScore(finalScore);
+		HighScorePanel.updateHighScore(finalScore);
 	}
 
 	public double getHighScore() {

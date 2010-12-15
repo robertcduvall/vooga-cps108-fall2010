@@ -40,7 +40,7 @@ public class ExampleGUI extends JSplitPane implements Tab {
 
 	// private static String gameName = "Zombieland";
 	// private static String playerName = "Guest";
-	private static int gameID = 3;
+	private static int gameID = 20;
 	private static int playerID = 5;
 	private static JPanel content;
 	private static JPanel left;

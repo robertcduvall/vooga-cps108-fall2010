@@ -1,6 +1,6 @@
 package arcade.security.util;
 
-import arcade.core.ExampleGUI;
+import arcade.core.Arcade;
 import arcade.lobby.model.ProfileSet;
 import arcade.lobby.view.ProfilePanel;
 import arcade.security.util.userserviceutil.PrivilegeMap;
@@ -13,7 +13,7 @@ public class LogInHandler {
 		int userId = getUserId(username);
 		if(userId < 1) return false;
 		if(isPasswordValid(userId, password)){
-			ExampleGUI.setPlayer(username); //from arcade group
+			Arcade.setPlayer(username); //from arcade group
 			ProfileSet.setUser(userId);
 			ProfileSet.currentProfile.setUserName(username);
 			return true;

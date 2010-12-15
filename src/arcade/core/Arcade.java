@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import arcade.core.examples.HighScore;
+import arcade.lobby.model.ProfileSet;
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
 
@@ -36,9 +38,11 @@ public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
 	private static final int XSIZE = 1000;
 	private static final int YSIZE = 820;
+	private static JSplitPane columnar;
+	private static JSplitPane mainPanel;
 
 	// componentList contains 3 lists, panels, tabs, and windows
-	private ResourceBundle resources = ResourceBundle
+	private static ResourceBundle resources = ResourceBundle
 			.getBundle("arcade.core.componentList");
 	public static MySqlAdapter myDbAdapter = new MySqlAdapter(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD);
@@ -101,6 +105,7 @@ public class Arcade extends JFrame {
 				e.printStackTrace();
 			}
 		}
+		everything.addTab("Arcade", createArcadeView());
 		everything.addChangeListener(new ChangeListener() {
 			
 			@Override
@@ -114,13 +119,26 @@ public class Arcade extends JFrame {
 		return everything;
 	}
 
+	private JComponent createArcadeView() {		
+					GameView game = new GameView(20);		
+				columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
+							game);		
+					columnar.setOneTouchExpandable(true);		
+				
+					mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
+					createPanels("rightPanel"));		
+				mainPanel.setOneTouchExpandable(true);		
+			
+				return mainPanel;		
+				}
+	
 	/**
 	 * Create panels in the main arcade view
 	 * 
 	 * @param name
 	 * @return
 	 */
-	private JPanel createPanels(String name) {
+	private static JPanel createPanels(String name) {
 		JPanel contents = new JPanel();
 		contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
 		for (String classname : getSet(name)) {
@@ -156,10 +174,21 @@ public class Arcade extends JFrame {
 	 * @param index
 	 */
 	public static void play(int gameID) {
-		switchToTab(1);
-		ExampleGUI.setGame(gameID);
+		switchToTab(mainWindow.getTabCount()-1);
+//		ExampleGUI.setGame(gameID);
+		columnar.setRightComponent(new GameView(gameID));
+		refreshLeft();
+		
 	}
 
+	public static void setPlayer(String player) {
+		mainPanel.setRightComponent(createPanels("rightPanel"));
+	}
+	
+	public static void refreshLeft(){
+		columnar.setLeftComponent(createPanels("leftPanel"));
+	}
+	
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
 //		((Tab)mainWindow.getComponent(id)).update();
@@ -175,7 +204,7 @@ public class Arcade extends JFrame {
 	 * @throws InvocationTargetException
 	 * @throws NoSuchMethodException
 	 */
-	private Object getObject(String classname) throws ClassNotFoundException,
+	private static Object getObject(String classname) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException,
 			InvocationTargetException, NoSuchMethodException {
 		Class<?> c = Class.forName(classname);
@@ -188,7 +217,7 @@ public class Arcade extends JFrame {
 	 * @param name
 	 * @return
 	 */
-	private String[] getSet(String name) {
+	private static String[] getSet(String name) {
 		String value = resources.getString(name);
 		return value.split(DELIMITER);
 	}

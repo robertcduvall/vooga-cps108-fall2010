@@ -13,7 +13,7 @@ import arcade.core.mvc.IController;
 public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
 	//TODO ORDER?
-	private static int[] gameIDs = {12,13,14,15,16,17,18,19,37};
+	private static int[] gameIDs = {12,13,14,15,16,17,18,19,20,37};
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
