@@ -7,13 +7,15 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import arcade.ads.adsclassification.IRelatedAds;
+
 /**
  * A general related ad that takes in a BasicAd (ImageAd, VideoAd, etc.) and a list of ads.
  * 
  * @author Kate Yang
  *
  */
-public class RelatedAd extends BasicAd {
+public class RelatedAd extends BasicAd implements IRelatedAds{
 
 	private BasicAd ad;
 	private List<String> tagList;

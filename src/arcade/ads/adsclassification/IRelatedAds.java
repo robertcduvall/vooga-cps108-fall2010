@@ -1,5 +1,7 @@
 package arcade.ads.adsclassification;
 
+import java.util.List;
+
 /**
  * This is simple class will provide general functionality for all ads, such as
  * name, start and end date, maximum vies, onClick, onMouseOver, update, and
@@ -17,17 +19,17 @@ package arcade.ads.adsclassification;
 public interface IRelatedAds {
 
 	/**
-	 * get ads' category
+	 * get ads' categories
 	 * 
 	 * @return
 	 */
-	public String getCategory();
+	public List<String> getCategories();
 
 	/**
-	 * set ads' category
+	 * add ads' categories
 	 * 
 	 * @param categ
 	 * @return
 	 */
-	public String setCategory(String catweg);
+	public void addCategories(String...tag);
 }
