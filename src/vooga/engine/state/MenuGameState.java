@@ -1,12 +1,15 @@
 package vooga.engine.state;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Method;
 
 import javax.imageio.ImageIO;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.util.ImageUtil;
 
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.control.MouseControl;
@@ -33,12 +36,16 @@ public abstract class MenuGameState extends GameState {
 	private String buttonGroup = "buttonGroup";
 	private PlayField menuPlayfield = new PlayField();
 	private SpriteGroup buttons = new SpriteGroup(buttonGroup);
+	private SpriteGroup backgroundGroup = new SpriteGroup("backgroundGroup");
 	private MouseControl mouseControl;
 	private KeyboardControl keyboardControl;
 	private Game thisGame = Resources.getGame();
 	private String gameClass;
 	private BufferedImage DEFAULT_BUTTON_IMAGE;
-	private File imageFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
+	private BufferedImage DEFAULT_BACKGROUND_IMAGE;
+	private File buttonImageFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
+	private File backgroundImageFile = new File("src/vooga/engine/state/resources/images/defaultMenuBackground.png");
+
 
 
 	/**
@@ -52,10 +59,15 @@ public abstract class MenuGameState extends GameState {
 		menuPlayfield.addControl("keyboard", keyboardControl);
 		menuPlayfield.addControl("mouse", mouseControl);
 		try{
-			DEFAULT_BUTTON_IMAGE = ImageIO.read(imageFile);}
+			DEFAULT_BUTTON_IMAGE = ImageIO.read(buttonImageFile);
+			DEFAULT_BACKGROUND_IMAGE = 	ImageIO.read(backgroundImageFile);	
+		}
 		catch(Exception e) {
-			System.out.println("Button.java: "+e.getMessage());	
+			System.out.println("MenuGameState.java: "+e.getMessage());	
 		}	
+		Sprite menuBackGroundSprite = new Sprite(DEFAULT_BACKGROUND_IMAGE);
+		backgroundGroup.add(menuBackGroundSprite);
+		menuPlayfield.addGroup(backgroundGroup);
 
 		initialize();
 	}
@@ -75,6 +87,21 @@ public abstract class MenuGameState extends GameState {
 	}
 	
 	
+	private void init() {
+		//ResourceBundle rb = ResourceBundle.getBundle(config);
+		/*BufferedImage menuBackground = ImageUtil.resize(	DEFAULT_BACKGROUND_IMAGE, windowWidth, windowHeight);
+												//Integer.parseInt(rb.getString("GAME_WIDTH")),
+												//Integer.parseInt(rb.getString("GAME_HEIGHT")));
+		Sprite menuBackGroundSprite = new Sprite(DEFAULT_NETWORK_MENU_BACKGROUND, 0, 0);
+		//menuPlayField.addGroup(createButtons());
+		menuPlayField.add(menuBackGroundSprite);
+		getKeyboardControl().addInput(KeyEvent.VK_ENTER, "startWaitState", enterAddress);
+		menuPlayField.addControl("keyboard", keyboardControl);
+		menuPlayField.addControl("mouse", mouseControl);
+		this.addPlayField(menuPlayField);
+		*/
+		
+	}
 	
 	/**
 	 * Initializes MenuGameState
@@ -116,33 +143,7 @@ public abstract class MenuGameState extends GameState {
 					0.0,
 					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight));
 	}
-	/*
-	public void makeNextButton(String label, Object ob, String method, Class<?> classType, Class<?>... paramTypes) {
-		try {
-			Method perform = classType.getMethod(method, paramTypes);
-		} catch (Exception e) {
-			System.out.println("MenuGameState: "+e.getMessage());
-		} 
 
-	}
-	
-	public void makeNextButton(String label, String method, String classType) {
-		new MenuButton(	DEFAULT_BUTTON_IMAGE, 
-						label, 
-						0.0,
-						(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight),
-						this,
-						method,
-						classType
-						);
-
-	}
-	
-	public void exit () {
-		System.exit(0);
-	}
-	
-	*/
 	
 	public PlayField getMenuPlayfield(){
 		return menuPlayfield;
