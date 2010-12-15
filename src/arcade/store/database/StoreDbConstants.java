@@ -23,5 +23,6 @@ public class StoreDbConstants {
 	public static final String PURCHASE_HISTORY_USERID_FIELD = bundle.getString("purchaseHistoryUserIdField");
 	public static final String DATE_FIELD = bundle.getString("dateField");
 	public static final String ITEM_ID_FIELD = bundle.getString("itemIdField");
+	public static final String USER_TYPE_FIELD = bundle.getString("userTypeField");
 
 }
