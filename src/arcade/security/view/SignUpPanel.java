@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
@@ -17,7 +18,8 @@ import arcade.lobby.validators.DateValidator;
 import arcade.lobby.validators.EmailValidator;
 import arcade.lobby.validators.NameValidator;
 import arcade.lobby.validators.PasswordConfirmField;
-import arcade.lobby.validators.PasswordValidator;
+import arcade.lobby.validators.PasswordValidatorTemp;
+import arcade.lobby.validators.UsernameValidator;
 import arcade.lobby.validators.WebImageValidator;
 import arcade.security.gui.SecurityButton;
 import arcade.security.resourcesbundle.LabelResources;
@@ -30,6 +32,7 @@ import arcade.util.guiComponents.ValidatorDock;
  * 
  * @author Meng Li
  * @author Jiaqi Yan
+ * @author Lobby Group
  * 
  */
 @SuppressWarnings("serial")
@@ -68,14 +71,18 @@ public class SignUpPanel extends JPanel implements IView {
 
 		// passwordSuggestions = new JLabel();
 
-		addTextField("username", LabelResources.getLabel("AskForUserName"));
-
-		PasswordConfirmField passwordConfirm = new PasswordConfirmField(
+		PasswordValidatorTemp validator = new PasswordValidatorTemp();
+		addTextField("username", LabelResources.getLabel("AskForUserName"), new UsernameValidator());
+		addPasswordField("pass1",LabelResources.getLabel("AskForPass1"),validator);
+		addPasswordField("pass2",LabelResources.getLabel("AskForPass2"),validator);
+		
+		
+		/*PasswordConfirmField passwordConfirm = new PasswordConfirmField(
 				maxPasswordLength);
 		myDock.addValidatingComponent(
 				new ValidatingComponent<PasswordConfirmField>(passwordConfirm,
 						"Please Enter Your Password Twice",
-						new PasswordValidator()), "password", "default", "wrap");
+						new PasswordValidator()), "password", "default", "wrap");*/
 
 		
 //		myDock.add(passwordSuggestions);
@@ -125,6 +132,14 @@ public class SignUpPanel extends JPanel implements IView {
 		JTextField textField = new JTextField(maxAnswerLength);
 		ValidatingComponent<JTextField> vc = new ValidatingComponent<JTextField>(
 				textField, label, validators);
+		myDock.addValidatingComponent(vc, name);
+	}
+	
+	private void addPasswordField(String name, String label,
+			Validator<JPasswordField>... validators) {
+		JPasswordField passwordField = new JPasswordField(maxPasswordLength);
+		ValidatingComponent<JPasswordField> vc = new ValidatingComponent<JPasswordField>(
+				passwordField, label, validators);
 		myDock.addValidatingComponent(vc, name);
 	}
 

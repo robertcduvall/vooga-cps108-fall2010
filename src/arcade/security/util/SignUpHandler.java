@@ -16,6 +16,8 @@ public class SignUpHandler {
 	public static boolean isValidUserName(String name) {
 		if (name.contains(" "))
 			return false;
+		if (name.length() == 0)
+			return false;
 		return (userHandler.getUserId(name) < 1);
 	}
 
