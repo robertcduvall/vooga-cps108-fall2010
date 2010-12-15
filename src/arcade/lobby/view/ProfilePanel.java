@@ -132,6 +132,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		myProfile = ProfileSet.getCurrentProfile();
 		myViewPanel.refresh(myProfile);
 		myEditPanel.refresh(myProfile);
+		setName(myProfile.getUserName() + "'s Profile");
 		editMode = !editMode;
 		refreshContent();
 		editMode = !editMode;
