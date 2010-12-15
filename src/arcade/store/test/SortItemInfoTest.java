@@ -14,15 +14,15 @@ public class SortItemInfoTest {
 
 	public static void main(String[] args) {
 
-		IItemInfo a = new ItemInfo("abc", "8", "A", "3", null, "Action");
-		IItemInfo b = new ItemInfo("abc", "3", "X", "20", null, "Shooter");
-		IItemInfo c = new ItemInfo("abc", "0", "Y", "9", null, "Racing");
-		IItemInfo d = new ItemInfo("abc", "5", "B", "14", null, "Racing");
-		IItemInfo e = new ItemInfo("abc", "1", "H", "5", null, "Role Playing");
-		IItemInfo f = new ItemInfo("abc", "9", "W", "16", null, "Adventure");
-		IItemInfo g = new ItemInfo("abc", "4", "M", "1", null, "Action");
-		IItemInfo h = new ItemInfo("abc", "2", "N", "4", null, "Role Playing");
-		IItemInfo i = new ItemInfo("abc", "6", "J", "2", null, "Music");
+		IItemInfo a = new ItemInfo(0, "abc", "8", "A", "3", null, "Action");
+		IItemInfo b = new ItemInfo(0,"abc", "3", "X", "20", null, "Shooter");
+		IItemInfo c = new ItemInfo(0,"abc", "0", "Y", "9", null, "Racing");
+		IItemInfo d = new ItemInfo(0,"abc", "5", "B", "14", null, "Racing");
+		IItemInfo e = new ItemInfo(0,"abc", "1", "H", "5", null, "Role Playing");
+		IItemInfo f = new ItemInfo(0,"abc", "9", "W", "16", null, "Adventure");
+		IItemInfo g = new ItemInfo(0,"abc", "4", "M", "1", null, "Action");
+		IItemInfo h = new ItemInfo(0,"abc", "2", "N", "4", null, "Role Playing");
+		IItemInfo i = new ItemInfo(0,"abc", "6", "J", "2", null, "Music");
 
 		ArrayList<IItemInfo> itemInfoList = new ArrayList<IItemInfo>();
 		SortOrganizer sortOrganizer = new SortByTitleOrganizer();

@@ -39,7 +39,6 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 		setName("Browse Catalogue");
 		controller = new MainPageController(FILE_PATH);
 		controller.addViewer(this);
-		add(getJScrollPane());
 		BorderLayout borderLayout = new BorderLayout();
 		borderLayout.setHgap(10);
 		borderLayout.setVgap(10);
