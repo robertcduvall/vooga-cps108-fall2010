@@ -160,8 +160,13 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getAvailableCredditsTextField() {
+	private JTextField getAvailableCredditsTextField() {
 		return availableCredditsTextField;
+	}
+	
+	//TODO: Comment
+	public void setAvailableCredditsTextField(String text) {
+		availableCredditsTextField.setText(text);
 	}
 
 	/**
@@ -169,8 +174,13 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getTotalCostTextField() {
+	private JTextField getTotalCostTextField() {
 		return totalCostTextField;
+	}
+	
+	//TODO:
+	public void setTotalCostTextField(String text) {
+		totalCostTextField.setText(text);
 	}
 
 	/**
@@ -178,8 +188,13 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getRemainingCredditsTextField() {
+	private JTextField getRemainingCredditsTextField() {
 		return remainingCredditsTextField;
+	}
+	
+	//TODO:
+	public void setRemainigCredditsTextField(String text) {
+		remainingCredditsTextField.setText(text);
 	}
 
 	/**
@@ -221,10 +236,20 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JList
 	 */
-	public JList getItemsList() {
+	private JList getItemsList() {
 		return itemsList;
 	}
+	
+	//TODO:
+	public void setItemsList(String[] items) {
+		itemsList.setListData(items);
+	}
 
+	//TODO:
+	public Object getSelectedItem() {
+		return itemsList.getSelectedValue();
+	}
+	
 	/**
 	 * This method initializes BuyCartButton
 	 * 
