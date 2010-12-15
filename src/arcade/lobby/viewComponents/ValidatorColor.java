@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JColorChooser;
 
+import arcade.util.guiComponents.Validator;
+
 public class ValidatorColor extends Validator<JColorChooser> {
 
 	@Override

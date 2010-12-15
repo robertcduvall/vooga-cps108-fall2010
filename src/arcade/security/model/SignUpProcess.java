@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.swing.JTextField;
 
-import arcade.lobby.viewComponents.ValidatorDock;
 import arcade.security.util.SignUpHandler;
+import arcade.util.guiComponents.ValidatorDock;
 
 public class SignUpProcess implements IModel{
 

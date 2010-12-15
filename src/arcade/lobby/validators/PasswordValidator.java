@@ -1,6 +1,6 @@
 package arcade.lobby.validators;
 
-import arcade.lobby.viewComponents.Validator;
+import arcade.util.guiComponents.Validator;
 
 public class PasswordValidator extends Validator<PasswordConfirmField> {
 

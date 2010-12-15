@@ -2,7 +2,7 @@ package arcade.lobby.validators;
 
 import javax.swing.JTextField;
 
-import arcade.lobby.viewComponents.Validator;
+import arcade.util.guiComponents.Validator;
 
 public class NameValidator extends Validator<JTextField> {
 

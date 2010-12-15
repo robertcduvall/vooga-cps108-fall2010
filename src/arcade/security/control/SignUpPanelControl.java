@@ -13,13 +13,13 @@ import javax.swing.JTextField;
 import org.apache.log4j.Logger;
 
 import arcade.lobby.validators.PasswordConfirmField;
-import arcade.lobby.viewComponents.ValidatorDock;
 import arcade.security.model.IModel;
 import arcade.security.model.SignUpProcess;
 import arcade.security.util.PasswordHandler;
 import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
 import arcade.security.view.SignUpPanel;
+import arcade.util.guiComponents.ValidatorDock;
 
 public class SignUpPanelControl implements IControl {
 

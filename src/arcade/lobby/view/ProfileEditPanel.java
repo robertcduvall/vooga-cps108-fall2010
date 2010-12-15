@@ -23,8 +23,8 @@ import arcade.lobby.validators.EmailValidator;
 import arcade.lobby.validators.NameValidator;
 import arcade.lobby.validators.WebImageValidator;
 import arcade.lobby.viewComponents.ValidatingComponent;
-import arcade.lobby.viewComponents.Validator;
-import arcade.lobby.viewComponents.ValidatorDock;
+import arcade.util.guiComponents.Validator;
+import arcade.util.guiComponents.ValidatorDock;
 
 @SuppressWarnings("serial")
 public class ProfileEditPanel extends JPanel implements IView {

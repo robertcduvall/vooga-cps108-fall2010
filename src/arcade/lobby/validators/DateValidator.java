@@ -6,7 +6,7 @@ import java.util.Date;
 
 import javax.swing.JTextField;
 
-import arcade.lobby.viewComponents.Validator;
+import arcade.util.guiComponents.Validator;
 
 public class DateValidator extends Validator<JTextField> {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");

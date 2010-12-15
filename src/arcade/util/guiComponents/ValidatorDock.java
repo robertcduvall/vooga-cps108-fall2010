@@ -1,10 +1,12 @@
-package arcade.lobby.viewComponents;
+package arcade.util.guiComponents;
 
 import java.awt.Component;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JPanel;
+
+import arcade.lobby.viewComponents.ValidatingComponent;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -51,6 +53,8 @@ public class ValidatorDock extends JPanel {
 	public void addValidatingComponent(ValidatingComponent<?> component,
 			String name, Object labelConstraints, Object componentConstraints) {
 		myComponentMap.put(name, component);
+		this.add(component.getLabel());
+		this.add(component.getComponent());
 		if(labelConstraints!=null && labelConstraints.equals("default")) add(component.getLabel());
 		else add(component.getLabel(), labelConstraints);
 		if(componentConstraints!=null && componentConstraints.equals("default")) add(component.getComponent());

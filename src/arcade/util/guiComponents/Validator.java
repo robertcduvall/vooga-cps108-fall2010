@@ -1,4 +1,4 @@
-package arcade.lobby.viewComponents;
+package arcade.util.guiComponents;
 
 import javax.swing.JComponent;
 
