@@ -21,28 +21,29 @@ public class GameView extends JPanel {
 	private static String gameName;
 	private static Map<String, String[]> gameProperties;
 	private static ImageIcon splash;
-	private static JPanel main;
 
 	public GameView(int id) {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		main=new JPanel();
 		gameID = id;
-		gameProperties = parseGame(gameID);
+		initialize();
 	}
 
-	public static void initialize() {
+	public void initialize() {
 		gameProperties = parseGame(gameID);
-		main.add(new JLabel("working"));
-		main.add(setSplashScreen());
-		main.add(setText());
+		add(new JLabel("working"));
+		add(setSplashScreen());
+		add(setText());
+		add(createButtons());
+	}
 
+	private JPanel createButtons() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.setAlignmentX(CENTER_ALIGNMENT);
 		panel.add(startButton());
 		panel.add(backButton());
-		main.add(panel);
+		return panel;
 	}
 
 	public static Map<String, String[]> parseGame(int id) {
@@ -113,7 +114,7 @@ public class GameView extends JPanel {
 							Constructor<?> gameConstructor = newGame
 									.getConstructor();
 							if(ProfileSet.currentProfile != null)
-								Game.launch((Game) gameConstructor.newInstance(), ProfileSet.currentProfile.getUserName());
+								Game.launch((Game) gameConstructor.newInstance(), "Guest");
 							else
 								Game.launch((Game) gameConstructor.newInstance(), "Guest");
 						} catch (Throwable e) {
@@ -143,24 +144,10 @@ public class GameView extends JPanel {
 		return back;
 	}
 	
-	public static void setGame(int id) {
-		gameID=id;
-		refreshContent();
-		HighScorePanel.getGameHighScoresPanel(gameName, 5);
-	}
-	
-	private static void refreshContent() {
-		main.removeAll();
-		initialize();
-	}
-	
 	public static String getGame() {
 		return gameName;
 	}
 	
-	public static JComponent getContent() {
-		return main;
-	}
 
 	public static int getGameID() {
 		return gameID;

@@ -34,7 +34,7 @@ import arcade.lobby.model.ProfileSet;
  * 
  */
 @SuppressWarnings("serial")
-public class ExampleGUI extends JPanel implements Tab {
+public class ExampleGUI extends JSplitPane implements Tab {
 	private static HighScoreControl hsc = new HighScoreControl(
 			Arcade.myDbAdapter, "HighScores");
 
@@ -44,47 +44,43 @@ public class ExampleGUI extends JPanel implements Tab {
 	private static int playerID = 5;
 	private static JPanel content;
 	private static JPanel left;
-	private static JSplitPane mainPanel;
 	private static JComponent highScores;
 	private static JSplitPane columnar;
+	private static JComponent right;
 	private static double score;
 
 	public ExampleGUI() {
 		score = 0;
 		setName("Arcade");
 		setToolTipText("Arcade main view");
-	}
-
-	public JComponent getContent() {
-
+		
+		content=new GameView(gameID);
 		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, makeLeftPanel(),
 				content);
 		columnar.setOneTouchExpandable(true);
 
-		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,
-				makeRightPanel());
-		mainPanel.setOneTouchExpandable(true);
+		setOrientation(HORIZONTAL_SPLIT);
+		setLeftComponent(columnar);
+		
+		right=makeRightPanel();
+		setRightComponent(right);
+		setOneTouchExpandable(true);
+	}
 
-		refreshContent();
-		return mainPanel;
+	public JComponent getContent() {
+		return this;
 	}
 
 	public static void setPlayer(String player) {
-		mainPanel.setRightComponent(makeRightPanel());
-	}
-
-	private static void refreshContent() {
-		content = new GameView(gameID);
-		GameView.initialize();
-		columnar.setRightComponent(GameView.getContent());
+		right=makeRightPanel();
 	}
 
 	public static void setGame(int id) {
 		gameID = id;
 		// gameName = name;
-		refreshContent();
+		content=new GameView(id);
 		columnar.setLeftComponent(makeLeftPanel());
-		mainPanel.setRightComponent(makeRightPanel());
+		columnar.setRightComponent(content);
 	}
 
 	public static void updateHighScore(double highScore) {
@@ -96,7 +92,7 @@ public class ExampleGUI extends JPanel implements Tab {
 		boolean isAdded = hsc.addScore(ProfileSet.currentProfile.getUserId(),
 				gameID, score);
 		columnar.setLeftComponent(makeLeftPanel());
-		mainPanel.setRightComponent(makeRightPanel());
+//		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;
 	}
 
@@ -306,9 +302,7 @@ public class ExampleGUI extends JPanel implements Tab {
 
 	@Override
 	public void refresh() {
-		this.refresh();
 		this.repaint();
-		mainPanel.repaint();
 		columnar.repaint();
 	}
 
