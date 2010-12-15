@@ -11,21 +11,15 @@ import java.util.ResourceBundle;
 
 public class Controller implements IController{
 
-	private ResourceBundle mirror;
+	private ResourceBundle reflectionMirror;
 	private Class<?> classType; 
 
 	public Controller(String filepath)
 	{
-		mirror = ResourceBundle.getBundle(filepath);
-		
-		//set up the default classtype
+		reflectionMirror = ResourceBundle.getBundle(filepath);		
 		classType = this.getClass();
 	}
 	
-	public void setClassType(Class<?> subClassType)
-	{
-		classType = subClassType;
-	}
 
 	@Override
 	public void initialize() {
@@ -53,13 +47,13 @@ public class Controller implements IController{
 	public void processEvent(String eventName) {
 
 		try {
-			String methodname = mirror.getString(eventName);
+			String methodname = reflectionMirror.getString(eventName);
 			Method currMethod = classType.getMethod(methodname, null);
 			currMethod.invoke(this, null);
 		} 
 		catch (Exception e)
 		{
-				
+				throw ControlExceptions.METHOD_NOT_FOUND;
 		}
 	}
 
