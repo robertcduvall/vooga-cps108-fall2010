@@ -47,9 +47,14 @@ public class WallTabView extends JPanel {
 					  myReceivedMessagesArea;
 	private JTextField myCommentEntryField,
 					   myEnterReceiverField;
+	
 	public static final String[] myGameChoices = formGameList();
+	
+	private ResourceBundle myResources = ResourceBundle.getBundle("arcade.wall.resources.walltab");
+
 
 	public WallTabView(WallTabController controller) {
+		
 		this.myController = controller;
 		myPanel = constructJPanel();
 	}
@@ -92,14 +97,14 @@ public class WallTabView extends JPanel {
 	}
 
 	private void constructJLabels() {
-		mySelectGameLabel = new JLabel("Select game:");
+		mySelectGameLabel = new JLabel(myResources.getString("selectGameLabel"));
 		myGameHeaderLabel = new JLabel();
 		myTopRatedGamesLabel = new JLabel();
 		updateTopRatedGamesLabel();
-		myEnterReceiverLabel = new JLabel("Enter Receiver:");
-		myEnterMessageLabel = new JLabel("Enter message:");
-		myReceivedMessagesLabel = new JLabel("Your received messages:");
-		myEnterCommentLabel = new JLabel("Enter a comment here:");
+		myEnterReceiverLabel = new JLabel("enterReceiverLabel");
+		myEnterMessageLabel = new JLabel("enterMessageLabel");
+		myReceivedMessagesLabel = new JLabel("receivedMessagesLabel");
+		myEnterCommentLabel = new JLabel("enterCommentLabel");
 	}
 	
 	private void constructJTextAreas() {
@@ -111,8 +116,8 @@ public class WallTabView extends JPanel {
 	}
 	
 	private void constructJButtons() {
-		mySubmitButton = new JButton("Submit");
-		mySendMessageButton = new JButton("Send");
+		mySubmitButton = new JButton("submitButton");
+		mySendMessageButton = new JButton("sendMessageButton");
 	}
 	
 	private void constructJComboBoxes() {
@@ -122,29 +127,29 @@ public class WallTabView extends JPanel {
 	
 	private JPanel constructMessagesPanel() {
 		JPanel messagesPanel = new JPanel();
-		JPanel sendAMessagePanel = new JPanel();
-		JPanel receivedMessagesDisplayPanel = new JPanel();
-		sendAMessagePanel.setLayout(new BoxLayout(sendAMessagePanel, BoxLayout.Y_AXIS));
-		sendAMessagePanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Send"),
+		JPanel sendMessagesPanel = new JPanel();
+		JPanel receivedMessagesPanel = new JPanel();
+		sendMessagesPanel.setLayout(new BoxLayout(sendMessagesPanel, BoxLayout.Y_AXIS));
+		sendMessagesPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("sendMessagesPanelBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
-		sendAMessagePanel.add(myEnterReceiverLabel);
-		sendAMessagePanel.add(myEnterReceiverField);
-		sendAMessagePanel.add(myEnterMessageLabel);
-		sendAMessagePanel.add(myEnterMessageArea);
-		sendAMessagePanel.add(mySendMessageButton);
-		receivedMessagesDisplayPanel.setLayout(new BoxLayout(receivedMessagesDisplayPanel, BoxLayout.Y_AXIS));
-		receivedMessagesDisplayPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Receive"),
+		sendMessagesPanel.add(myEnterReceiverLabel);
+		sendMessagesPanel.add(myEnterReceiverField);
+		sendMessagesPanel.add(myEnterMessageLabel);
+		sendMessagesPanel.add(myEnterMessageArea);
+		sendMessagesPanel.add(mySendMessageButton);
+		receivedMessagesPanel.setLayout(new BoxLayout(receivedMessagesPanel, BoxLayout.Y_AXIS));
+		receivedMessagesPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("receivedMessagesPanelBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
-		receivedMessagesDisplayPanel.add(myReceivedMessagesLabel);
-		receivedMessagesDisplayPanel.add(myReceivedMessagesArea);
+		receivedMessagesPanel.add(myReceivedMessagesLabel);
+		receivedMessagesPanel.add(myReceivedMessagesArea);
 		messagesPanel.setLayout(new BoxLayout(messagesPanel, BoxLayout.Y_AXIS));
 		messagesPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Messages"),
+                BorderFactory.createTitledBorder("messagesPanelBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
-		messagesPanel.add(sendAMessagePanel);
-		messagesPanel.add(receivedMessagesDisplayPanel);
+		messagesPanel.add(sendMessagesPanel);
+		messagesPanel.add(receivedMessagesPanel);
 		return messagesPanel;
 	}
 
@@ -156,7 +161,7 @@ public class WallTabView extends JPanel {
 		}
 		myRatingPanel.setVertical();
 		myRatingPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Select a Rating"),
+                BorderFactory.createTitledBorder("ratingPanelBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
 	}
 	
@@ -164,13 +169,13 @@ public class WallTabView extends JPanel {
 		JPanel displayPanel = new JPanel();
 		displayPanel.add(myGameHeaderLabel);
 		myCommentsArea.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Comments"),
+                BorderFactory.createTitledBorder("commentsAreaBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		displayPanel.add(myCommentsArea);
 		displayPanel.add(myTopRatedGamesLabel);
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 		displayPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Game Feedback"),
+                BorderFactory.createTitledBorder("displayPanelBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		return displayPanel;
 	}
@@ -185,7 +190,7 @@ public class WallTabView extends JPanel {
 		reviewPanel.add(myRatingPanel);
 		reviewPanel.add(mySubmitButton);
 		reviewPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Submit a Comment"),
+                BorderFactory.createTitledBorder("reviewPanelBorder"),
                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		return reviewPanel;
 	}

@@ -12,10 +12,13 @@ import arcade.lobby.model.ProfileSet;
  * The VOOGA WallTab. 
  * @author Cam, John, Bhawana
  */
+
+
 @SuppressWarnings("serial")
 public class WallTab extends JPanel implements Tab {
 
 	private WallTabController myController;
+	
 	//TODO create model and pass into controller
 	Profile myProfile;
 	
@@ -39,7 +42,6 @@ public class WallTab extends JPanel implements Tab {
 
 	@Override
 	public IController getController() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
