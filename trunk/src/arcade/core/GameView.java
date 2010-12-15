@@ -112,7 +112,12 @@ public class GameView extends JPanel {
 
 							Constructor<?> gameConstructor = newGame
 									.getConstructor();
-							Game.launch((Game) gameConstructor.newInstance(), ProfileSet.getCurrentProfile().getUserName());
+							
+							Game launchedGame = (Game) gameConstructor.newInstance();
+														
+							launchedGame.setMod(JOptionPane.showInputDialog("Enter mod name (leave blank otherwise):"));
+							
+							Game.launch(launchedGame, ProfileSet.getCurrentProfile().getUserName());
 						} catch (Throwable e) {
 							System.out.println("vooga.games."
 									+ gameProperties.get("classname")[0]
