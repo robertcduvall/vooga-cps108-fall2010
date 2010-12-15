@@ -11,6 +11,7 @@ import vooga.games.zombies.gamestates.PlayState;
 public class LevelEndEvent implements IEventHandler {
 
 	private Shooter[] targets;
+	private Shooter target;
 	private PlayState state;
 
 	private AddZombieEvent addZombies;
@@ -29,6 +30,16 @@ public class LevelEndEvent implements IEventHandler {
 		this.seed = seed;
 		// createZombies();
 	}
+	public LevelEndEvent(Shooter player, PlayState currentState,
+			IEventHandler addzombies, AddRandomItemEvent additems) {
+		state = currentState;
+		levelDeaths = levelZombies();
+		target = player;
+		addZombies = (AddZombieEvent) addzombies;
+		addItems = additems;
+		// createZombies();
+	}
+
 
 	@Override
 	public boolean isTriggered() {
