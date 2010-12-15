@@ -3,6 +3,8 @@ package arcade.mod.view;
 import java.io.File;
 import java.util.Collection;
 
+import javax.swing.JPanel;
+
 import arcade.mod.view.frame.ListFrame;
 
 /**
@@ -60,5 +62,6 @@ public interface IViewer {
 	 * @param frames ListFrames to populate the center panel with
 	 */
 	public void changeFrames(Collection<ListFrame> frames);
+	
 
 }
