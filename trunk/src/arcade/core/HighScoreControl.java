@@ -2,6 +2,7 @@ package arcade.core;
 
 import java.util.*;
 
+import arcade.lobby.model.ProfileSet;
 import arcade.util.database.MySqlAdapter;
 
 /**
@@ -166,7 +167,7 @@ public class HighScoreControl {
 			Map<String, String> scores = new HashMap<String, String>();
 			if (player) {
 				int pid = Integer.parseInt(m.get("Player_Id"));
-				String pname = playerMemo.get(pid);
+				String pname = ProfileSet.getProfile(pid).getUserName();//playerMemo.get(pid);
 				scores.put("PlayerName", pname);
 			}
 			if (game) {
