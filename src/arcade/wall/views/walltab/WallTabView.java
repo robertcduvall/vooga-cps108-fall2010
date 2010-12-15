@@ -84,8 +84,8 @@ public class WallTabView extends JPanel {
 	private JPanel constructReturnPanel() {
 		JPanel returnPanel = new JPanel();
 		
-		JPanel reviewPanel = constructReviewPanel();
 		constructRatingPanel();
+		JPanel reviewPanel = constructReviewPanel();
 		JPanel displayPanel = constructDisplayPanel();
 		JPanel messagesPanel = constructMessagesPanel();
 		
@@ -155,7 +155,7 @@ public class WallTabView extends JPanel {
 		sendMessagesPanel.add(myEnterMessageArea);
 		sendMessagesPanel.add(mySendMessageButton);
 		receivedMessagesPanel.setLayout(new BoxLayout(receivedMessagesPanel, BoxLayout.Y_AXIS));
-		receivedMessagesPanel.setBorder(constructWallBorder(myResources.getString("receivedMessagesBorder")));
+		receivedMessagesPanel.setBorder(constructWallBorder(myResources.getString("receivedMessagesPanelBorder")));
 		receivedMessagesPanel.add(myReceivedMessagesLabel);
 		receivedMessagesPanel.add(myReceivedMessagesArea);
 		messagesPanel.setLayout(new BoxLayout(messagesPanel, BoxLayout.Y_AXIS));
