@@ -31,7 +31,6 @@ public class ProfileController implements IController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			myPanel.changeEditMode();
-	
 		}
 	}
 	

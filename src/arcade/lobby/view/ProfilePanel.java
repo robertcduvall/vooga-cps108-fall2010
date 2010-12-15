@@ -14,6 +14,7 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
+import arcade.lobby.controller.ProfileController;
 
 @SuppressWarnings("serial")
 public class ProfilePanel extends JPanel implements Tab, IView {
@@ -39,6 +40,8 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		setToolTipText("Click here to see your user info");
 		setName("Profile");
 		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
+		Profile profile = ProfileSet.getCurrentProfile();
+		ProfileController profileControl = new ProfileController(profile, this);
 		initialize();
 	}
 
