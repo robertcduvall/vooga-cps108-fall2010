@@ -1,8 +1,6 @@
 package arcade.wall.models;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import arcade.wall.models.data.comment.Comment;
 import arcade.wall.models.data.comment.CommentSet;
