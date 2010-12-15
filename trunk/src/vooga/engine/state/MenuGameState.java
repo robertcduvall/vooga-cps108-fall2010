@@ -40,7 +40,6 @@ public abstract class MenuGameState extends GameState {
 	private MouseControl mouseControl;
 	private KeyboardControl keyboardControl;
 	private Game thisGame = Resources.getGame();
-	private String gameClass;
 	private BufferedImage DEFAULT_BUTTON_IMAGE;
 	private BufferedImage DEFAULT_BACKGROUND_IMAGE;
 	private File buttonImageFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
@@ -53,14 +52,9 @@ public abstract class MenuGameState extends GameState {
 	 */
 	public MenuGameState(){
 		super();
-		menuPlayfield.addGroup(buttons);
-		mouseControl = new MouseControl(thisGame, thisGame);
-		keyboardControl = new KeyboardControl(thisGame, thisGame);
-		menuPlayfield.addControl("keyboard", keyboardControl);
-		menuPlayfield.addControl("mouse", mouseControl);
 		try{
 			DEFAULT_BUTTON_IMAGE = ImageIO.read(buttonImageFile);
-			DEFAULT_BACKGROUND_IMAGE = 	ImageIO.read(backgroundImageFile);	
+			DEFAULT_BACKGROUND_IMAGE = ImageUtil.resize(ImageIO.read(backgroundImageFile), thisGame.getWidth(), thisGame.getHeight());
 		}
 		catch(Exception e) {
 			System.out.println("MenuGameState.java: "+e.getMessage());	
@@ -68,6 +62,11 @@ public abstract class MenuGameState extends GameState {
 		Sprite menuBackGroundSprite = new Sprite(DEFAULT_BACKGROUND_IMAGE);
 		backgroundGroup.add(menuBackGroundSprite);
 		menuPlayfield.addGroup(backgroundGroup);
+		menuPlayfield.addGroup(buttons);
+		mouseControl = new MouseControl(thisGame, thisGame);
+		keyboardControl = new KeyboardControl(thisGame, thisGame);
+		menuPlayfield.addControl("keyboard", keyboardControl);
+		menuPlayfield.addControl("mouse", mouseControl);
 
 		initialize();
 	}
@@ -86,22 +85,7 @@ public abstract class MenuGameState extends GameState {
 		}
 	}
 	
-	
-	private void init() {
-		//ResourceBundle rb = ResourceBundle.getBundle(config);
-		/*BufferedImage menuBackground = ImageUtil.resize(	DEFAULT_BACKGROUND_IMAGE, windowWidth, windowHeight);
-												//Integer.parseInt(rb.getString("GAME_WIDTH")),
-												//Integer.parseInt(rb.getString("GAME_HEIGHT")));
-		Sprite menuBackGroundSprite = new Sprite(DEFAULT_NETWORK_MENU_BACKGROUND, 0, 0);
-		//menuPlayField.addGroup(createButtons());
-		menuPlayField.add(menuBackGroundSprite);
-		getKeyboardControl().addInput(KeyEvent.VK_ENTER, "startWaitState", enterAddress);
-		menuPlayField.addControl("keyboard", keyboardControl);
-		menuPlayField.addControl("mouse", mouseControl);
-		this.addPlayField(menuPlayField);
-		*/
-		
-	}
+
 	
 	/**
 	 * Initializes MenuGameState
@@ -140,8 +124,8 @@ public abstract class MenuGameState extends GameState {
 	public void makeNextButton(String label, GameState gamestate) {
 		makeButton(	label, 
 					gamestate, 
-					0.0,
-					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight));
+					5.0,
+					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight)+5.0); //TODO FIX BAD CODE --DEVON
 	}
 
 	
