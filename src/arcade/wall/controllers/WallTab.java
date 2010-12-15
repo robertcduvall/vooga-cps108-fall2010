@@ -25,16 +25,16 @@ public class WallTab extends JPanel implements Tab {
 		setName("Wall");
 //		this.setTitle("MainWallTab");
 		myController = new WallTabController();
-//		this.add(myController.getView().getPanel());
+		myProfile = ProfileSet.currentProfile;
+		add(myController.getView().getPanel());
 //		this.pack();
 //		this.setVisible(true);
-		myProfile = ProfileSet.currentProfile;
 		refresh();
 	}
 
 	@Override
 	public JComponent getContent() {
-		return myController.getView().getPanel();
+		return this;
 	}
 
 	@Override
@@ -47,6 +47,7 @@ public class WallTab extends JPanel implements Tab {
 	public void refresh() {
 		repaint();
 		String userName = "";
+		System.out.println(myProfile);
 		try {
 			myProfile = ProfileSet.currentProfile;
 			userName = myProfile.getUserName();
