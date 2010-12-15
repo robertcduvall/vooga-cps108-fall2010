@@ -267,15 +267,12 @@ public class MySqlAdapter implements DatabaseAdapter {
 			ps.executeQuery();
 			rs = ps.getResultSet();
 			while (rs.next()) {
-				System.out.println("I have data!!");
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int count = rsmd.getColumnCount();
-				System.out.println("num columns: " + count);
 				map = new HashMap<String, String>();
 				for (int i = 1; i <= count; i++) {
 					String curValue = rs.getString(i);
 					String label = rsmd.getColumnLabel(i);
-					System.out.println(label + ": " + curValue);
 					map.put(label, curValue);
 				}
 				maps.add(map);
