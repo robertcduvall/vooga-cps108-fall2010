@@ -41,7 +41,7 @@ public class ProfileController extends Controller {
 	public void initialize() {
 		profileTab.getUsernameTextField().setText(getUser().getName());
 		profileTab.getAvailableCredditsTextField().setText(
-				getUser().getCreddits());
+				"" + getUser().getCreddits());
 		profileTab.getPurchaseCredditsButton().setEnabled(storeModel.checkPrivileges("addCreddits"));
 		populatePurchaseHistory();
 	}
