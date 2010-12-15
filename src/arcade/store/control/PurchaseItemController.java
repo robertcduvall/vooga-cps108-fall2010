@@ -9,6 +9,7 @@ import arcade.store.StoreModel;
 
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.items.IItemInfo;
+import arcade.store.privileges.PrivilegeManager;
 
 public class PurchaseItemController implements IController {
 
@@ -35,6 +36,8 @@ public class PurchaseItemController implements IController {
 				(item.getImages().get(IItemInfo.COVER_IMAGE)));
 		view.getGameIcon().setSize(150, 150);
 
+		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
+		
 		if (storeModel.getCurrentUserAccount().getOwnedGames()
 				.contains(getItemTitle())) {
 			view.setAddToCartButtonClickable(false);

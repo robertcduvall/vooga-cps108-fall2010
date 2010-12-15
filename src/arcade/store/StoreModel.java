@@ -13,6 +13,7 @@ import arcade.store.database.StoreDbConstants;
 import arcade.store.database.StoreSqlAdapter;
 import arcade.store.items.IItemInfo;
 import arcade.store.organizer.FilterByGenreOrganizer;
+import arcade.store.privileges.PrivilegeManager;
 
 public class StoreModel implements IModel{
 	
@@ -20,10 +21,12 @@ public class StoreModel implements IModel{
 	private Profile lobbyUser;
 	private static Map<String, IItemInfo> storeCatalogue;
 	private IController controller;
+	private PrivilegeManager privilegeManager;
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 	
 	public StoreModel(IController control)
 	{
+		privilegeManager = new PrivilegeManager();
 		storeCatalogue = DbItemAndUserFactory.getAllStoreItems();
 		controller = control;
 		lobbyUser = ProfileSet.getCurrentProfile();
@@ -137,6 +140,10 @@ public class StoreModel implements IModel{
 		for(IItemInfo i : itemsToPurchase) {
 			currentUser.addToCart(i.getTitle());
 		}
+	}
+	
+	public boolean checkPrivileges(String privilegeType) {
+		return privilegeManager.getPermission(currentUser, privilegeType);
 	}
 		
 }

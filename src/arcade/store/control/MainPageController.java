@@ -78,7 +78,7 @@ public class MainPageController extends Controller{
 
 	public void openGamePurchasePage(String tagName) {
 		
-		IItemInfo item = storeModel.getItemInfo(tagName);
+		IItemInfo item = StoreModel.getItemInfo(tagName);
 		IController purchaseItemController = (IController) new PurchaseItemController(storeModel);
 		
 		IViewer view = new GamePurchaseView(purchaseItemController);

@@ -132,7 +132,7 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	private JButton getPurchaseCredditsButton() {
+	public JButton getPurchaseCredditsButton() {
 		if (purchaseCredditsButton == null) {
 			purchaseCredditsButton = new JButton();
 			purchaseCredditsButton.setBounds(new Rectangle(486, 158, 149, 32));
