@@ -20,8 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import arcade.core.examples.HighScore;
-import arcade.lobby.model.ProfileSet;
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
 

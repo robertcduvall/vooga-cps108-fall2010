@@ -21,6 +21,7 @@ public class ProfileController implements IController {
 	public ProfileController (IModel model, IView view) {
 		myModel = (Profile) model;
 		myView = (ProfilePanel) view;
+		myView.refresh();
 		setup();
 	}
 
@@ -38,7 +39,7 @@ public class ProfileController implements IController {
 			myModel.setEmail(editPanel.getText(resource.getString("email")));
 			myModel.setName(editPanel.getText(resource.getString("firstName")),
 					editPanel.getText(resource.getString("lastName")));
-			myModel.setBirthday(editPanel.getText("birthday"));
+			myModel.setBirthday(editPanel.getText(resource.getString("birthday")));
 			ProfileSet.setCurrentProfile(myModel);
 		}
 	}
@@ -47,8 +48,7 @@ public class ProfileController implements IController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(myView.changeEditMode())
-				myView.refresh();
+			myView.changeEditMode();
 		}
 	}
 	
@@ -56,8 +56,8 @@ public class ProfileController implements IController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(!myView.changeEditMode())
-				saveProfile();
+			saveProfile();
+			myView.changeEditMode();
 		}
 	}
 	

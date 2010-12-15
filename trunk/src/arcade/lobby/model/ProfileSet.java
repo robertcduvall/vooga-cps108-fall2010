@@ -30,7 +30,7 @@ public class ProfileSet implements Iterable<Profile> {
 		Profile guest = new Profile(0);
 		guest.setName("Guest", "");
 		guest.setUserName("guest");
-		guest.setAvatar("http://imgur.com/29J5j.png");
+		guest.setAvatar("http://www.cs.duke.edu/~rcd/images/rcd.jpg");
 		return guest;
 	}
 

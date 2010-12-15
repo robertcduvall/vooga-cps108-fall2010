@@ -1,20 +1,17 @@
 package arcade.lobby.view;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-
 import net.miginfocom.swing.MigLayout;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
+import arcade.lobby.controller.ProfileController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
-import arcade.lobby.controller.ProfileController;
 
 @SuppressWarnings("serial")
 public class ProfilePanel extends JPanel implements Tab, IView {
@@ -58,7 +55,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		add(myLeftSidebar, "ax l");
 		add(myMainPanel);
 		add(myRightSidebar, "ax r");
-		add(myEditButton, "cell 1 1");
+		add(myEditButton, "newline, span, align center");
 	}
 
 	public void addEditButtonListener(ActionListener listener) {
@@ -148,10 +145,10 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		myViewPanel.refresh(myProfile);
 		myEditPanel.refresh(myProfile);
 		setName(myProfile.getUserName() + "'s Profile");
-		editMode = !editMode;
+//		editMode = !editMode;
 		refreshContent();
-		editMode = !editMode;
-		refreshContent();
+//		editMode = !editMode;
+//		refreshContent();
 	}
 
 	@Override
