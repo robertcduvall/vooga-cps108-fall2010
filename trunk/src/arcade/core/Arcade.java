@@ -189,6 +189,10 @@ public class Arcade extends JFrame {
 		columnar.setLeftComponent(createPanels("leftPanel"));
 	}
 	
+	public static void refreshRight(){
+		mainPanel.setRightComponent(createPanels("rightPanel"));
+	}
+	
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
 //		((Tab)mainWindow.getComponent(id)).update();
