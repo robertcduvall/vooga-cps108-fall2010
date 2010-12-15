@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
 
+import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -14,13 +15,18 @@ import arcade.store.database.StoreSqlAdapter;
 import arcade.store.gui.pages.CredditPurchaseView;
 import arcade.store.gui.tabs.ProfileTab;
 
-public class ProfileController implements IController {
+public class ProfileController extends Controller {
+
+	public ProfileController(String filepath) {
+		super(filepath);
+	}
 
 	private StoreModel storeModel;
 	private ProfileTab profileTab;
 	private static final String[] columnNames = { "Item Name", "Date", "Price" };
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 
+	
 	@Override
 	public void addModel(IModel model) {
 		storeModel = (StoreModel) model;

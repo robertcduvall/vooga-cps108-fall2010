@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -13,16 +14,23 @@ import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.gui.tabs.MainPageTab;
 import arcade.store.items.IItemInfo;
 
-public class MainPageController implements IController{
+public class MainPageController extends Controller{
 
+	
 	private StoreModel storeModel;
 	private MainPageTab viewer;
+	
+	public MainPageController(String filepath)
+	{
+		super(filepath);
+	}
 	
 	@Override
 	public void addModel(IModel currentmodel) {
 		storeModel = (StoreModel) currentmodel;
-
+		
 	}
+	
 
 	@Override
 	public void addViewer(IViewer currentviewer) {
@@ -30,6 +38,11 @@ public class MainPageController implements IController{
 
 	}
 
+	public void processFilter()
+	{
+		filter((String) viewer.getGenreList().getSelectedValue());
+	}
+	
 	@Override
 	public void initialize() {
 

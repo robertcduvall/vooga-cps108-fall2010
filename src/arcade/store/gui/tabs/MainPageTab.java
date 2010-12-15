@@ -26,17 +26,18 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
 
 	private static final String NAME = "Main Page";
+	private static final String FILE_PATH = "arcade.store.resources.MainPageController";
 	// private JPanel jContentPane = null;
 	private JList genreList = null;
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
 	private JPanel gameListPanel = null;
-
+	
 	private MainPageController controller; // @jve:decl-index=0:
 
 	public MainPageTab() {
 		setName("Browse Catalogue");
-		controller = new MainPageController();
+		controller = new MainPageController(FILE_PATH);
 		controller.addViewer(this);
 		add(getJScrollPane());
 		BorderLayout borderLayout = new BorderLayout();
@@ -87,7 +88,7 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 			genreList = new JList();
 			genreList.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller.filter((String) genreList.getSelectedValue());
+					controller.processEvent("filter");
 				}
 			});
 		}

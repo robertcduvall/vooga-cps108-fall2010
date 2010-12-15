@@ -33,11 +33,11 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	private JScrollPane itemTableScrollPane = null;
 
 	private static final String NAME = "Shop Profile";
-
+	private static final String FILE_PATH ="arcade.store.resources.ProfileController";
 	private ProfileController controller;
 
 	public ProfileTab() {
-		controller = new ProfileController();
+		controller = new ProfileController(FILE_PATH);
 		controller.addViewer(this);
 		setName(NAME);
 
@@ -139,7 +139,7 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 			purchaseCredditsButton.setText("Purchase Creddits");
 			purchaseCredditsButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					controller.openCredditPurchaseView();
+					controller.processEvent("purchasePopUp");
 				}
 			});
 		}
@@ -199,7 +199,7 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 
-					controller.initialize();
+					controller.processEvent("refresh");
 				}
 			});
 		}
