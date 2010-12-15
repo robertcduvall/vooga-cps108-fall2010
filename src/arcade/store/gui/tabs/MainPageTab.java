@@ -15,7 +15,7 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.MainPageController;
 
-public class MainPageTab extends  JPanel implements Tab, IViewer{
+public class MainPageTab extends JPanel implements Tab, IViewer {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class MainPageTab extends  JPanel implements Tab, IViewer{
 	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
 
 	private static final String NAME = "Main Page";
-	private JPanel jContentPane = null;
+	// private JPanel jContentPane = null;
 	private JList genreList = null;
 	private JLabel storeBrowseLabel = null;
 	private JScrollPane jScrollPane = null;
@@ -37,48 +37,42 @@ public class MainPageTab extends  JPanel implements Tab, IViewer{
 		setName("Browse Catalogue");
 		controller = new MainPageController();
 		controller.addViewer(this);
-		add(getContent());
-		
+
+		BorderLayout borderLayout = new BorderLayout();
+		borderLayout.setHgap(10);
+		borderLayout.setVgap(10);
+		storeBrowseLabel = new JLabel();
+		storeBrowseLabel.setText(ARCADE_STORE_GREETING);
+		setLayout(borderLayout);
+		add(getGenreList(), BorderLayout.WEST);
+		add(getJScrollPane(), BorderLayout.CENTER);
+		setVisible(true);
+
+		refresh();
 	}
-	
+
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return NAME;
 	}
-	
+
 	@Override
 	public void setController(IController control) {
 		controller = (MainPageController) control;
 	}
-	
+
 	@Override
-	public IController getController()
-	{
+	public IController getController() {
 		return controller;
 	}
 
-	
-	
 	/**
 	 * This method initializes jContentPane
 	 * 
 	 * @return javax.swing.JPanel
 	 */
 	public JComponent getContent() {
-		if (jContentPane == null) {
-			BorderLayout borderLayout = new BorderLayout();
-			borderLayout.setHgap(10);
-			borderLayout.setVgap(10);
-			storeBrowseLabel = new JLabel();
-			storeBrowseLabel.setText(ARCADE_STORE_GREETING);
-			jContentPane = new JPanel();
-			jContentPane.setLayout(borderLayout);
-			jContentPane.add(getGenreList(), BorderLayout.WEST);
-			jContentPane.add(getJScrollPane(), BorderLayout.CENTER);
-			jContentPane.setVisible(true);
-		}
-		return jContentPane;
+		return this;
 	}
 
 	/**
@@ -111,11 +105,11 @@ public class MainPageTab extends  JPanel implements Tab, IViewer{
 		return jScrollPane;
 	}
 
-
 	public JPanel getGameList() {
 		if (gameListPanel == null) {
 			gameListPanel = new JPanel(new GridLayout(0, 4));
-			gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			gameListPanel
+					.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
 		return gameListPanel;
 

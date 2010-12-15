@@ -31,7 +31,7 @@ public class StoreContainer extends JPanel implements Tab{
 		mainController = new MainController();
 
 		setName("Store");
-		add(new MainPageTab());
+		add(createTabs());
 //		JFrame frame = new JFrame();
 //		frame.add(	getContent());
 //		frame.setSize(700, 500);
