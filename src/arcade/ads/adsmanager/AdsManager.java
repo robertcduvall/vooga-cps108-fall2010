@@ -59,6 +59,7 @@ public class AdsManager implements MouseListener {
 		renderedAdsGroup = new AdsGroup();
 		activeAdsGroup = new AdsGroup();
 		toBeActiveAdsGroup = new AdsGroup();
+		renderedAdsGroup = activeAdsGroup; //default rendered ads
 
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
@@ -70,6 +71,7 @@ public class AdsManager implements MouseListener {
 	public AdsManager(JPanel panel) {
 		this();
 		panel.addMouseListener(this);
+		setPanel(panel);
 	}
 
 	public void runAdsManager() {

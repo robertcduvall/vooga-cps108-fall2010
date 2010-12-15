@@ -59,6 +59,16 @@ public abstract class BasicAd {
 		this.targetURL = targetURL;
 	}
 
+	public BasicAd(String name, String targetURL, int width, int height, Date effective, Date expire, long duration){
+		this.name = name;
+		this.targetURL = targetURL;
+		this.width = width;
+		this.height = height;
+		this.effectiveDate = effective;
+		this.expireDate = expire;
+		this.duration = duration;
+	}
+	
 	public BasicAd() {
 		// TODO Auto-generated constructor stub
 	}
@@ -469,7 +479,7 @@ public abstract class BasicAd {
 	public void setParameters(NamedNodeMap attributes) {
 
 	}
-
+	
 	/**
 	 * opens the targetURL in the default browser
 	 * http://www.mkyong.com/java/open-browser-in-java-windows-or-linux/

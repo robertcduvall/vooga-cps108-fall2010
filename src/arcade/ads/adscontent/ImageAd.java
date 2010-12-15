@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -47,6 +48,11 @@ public class ImageAd extends BasicAd {
 		setHeight(img.getHeight(null));
 		setWidth(img.getWidth(null));
 
+	}
+	
+	public ImageAd(String name, Image img, String targetURL, int width, int height, Date effective, Date expire, long duration){
+		super(name, targetURL, width, height, effective, expire, duration);
+		this.img = img;
 	}
 
 	@Override
