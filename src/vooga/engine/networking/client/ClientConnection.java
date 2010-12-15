@@ -5,10 +5,10 @@ import java.net.UnknownHostException;
 import vooga.engine.networking.server.VoogaServer;
 
 /**
- * Basic class for connecting to the server from the client and sending 
- * and receiving data. Works for basic games but can be extended to add 
- * more complicated functionality.  Override the interpretData() method to 
- * deal with receiving messages from the socket and the sendData() method 
+ * Basic class for the client to connect to the server and send/receive 
+ * data. Works for basic games but can be extended to add more complicated 
+ * functionality.  Override the interpretData() method to deal with 
+ * receiving messages from the socket and the sendData() method 
  * for sending messages to the socket.
  * 
  * @author Cue, Kolodziejzyk, Townsend
