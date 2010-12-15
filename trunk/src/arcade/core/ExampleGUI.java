@@ -89,7 +89,7 @@ public class ExampleGUI extends JSplitPane implements Tab {
 	}
 
 	public static boolean addHighScore() {
-		boolean isAdded = hsc.addScore(ProfileSet.currentProfile.getUserId(),
+		boolean isAdded = hsc.addScore(ProfileSet.getCurrentProfile().getUserId(),
 				gameID, score);
 		columnar.setLeftComponent(makeLeftPanel());
 //		mainPanel.setRightComponent(makeRightPanel());
@@ -143,7 +143,7 @@ public class ExampleGUI extends JSplitPane implements Tab {
 		icon = new ImageIcon(scaled);
 
 		// adds panels to the grid layout
-		Profile profile = ProfileSet.currentProfile;
+		Profile profile = ProfileSet.getCurrentProfile();
 		if(profile!=null)
 			right.add(new AvatarPanel(profile));
 		
@@ -226,7 +226,7 @@ public class ExampleGUI extends JSplitPane implements Tab {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		String description = playerFormat(playerName, numScores,
-				hsc.getPlayerHighScores(ProfileSet.currentProfile.getUserId(),
+				hsc.getPlayerHighScores(ProfileSet.getCurrentProfile().getUserId(),
 						numScores, "Id"));
 		textPane.setEditable(false);
 

@@ -11,8 +11,9 @@ import arcade.util.database.MySqlAdapter;
 import arcade.util.database.Constants;
 
 public class ProfileSet implements Iterable<Profile> {
-
-	public static Profile currentProfile = null;
+	
+	private static Profile currentProfile = null;
+	public static final Profile GUEST_PROFILE = createGuest();
 	public static DatabaseAdapter myDbAdapter;
 	private static ResourceBundle resourceBundle = ResourceBundle
 			.getBundle("arcade.lobby.resources.resources");
@@ -23,6 +24,14 @@ public class ProfileSet implements Iterable<Profile> {
 		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
 		myTable = tableName;
 		ResourceBundle.getBundle("resources.resources");
+	}
+
+	private static Profile createGuest() {
+		Profile guest = new Profile(0);
+		guest.setName("Guest","");
+		guest.setUserName("guest");
+		guest.setAvatar("http://imgur.com/29J5j.png");
+		return guest;
 	}
 
 	private static void checkAdapter() {
@@ -120,6 +129,14 @@ public class ProfileSet implements Iterable<Profile> {
 
 	public static void setUser(int userId) {
 		currentProfile = getProfile(userId);
+	}
+	
+	public static Profile getCurrentProfile() {
+		return currentProfile;
+	}
+	
+	public static void setCurrentProfile(Profile profile) {
+		currentProfile = profile;
 	}
 
 }

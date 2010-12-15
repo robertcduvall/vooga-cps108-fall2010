@@ -54,7 +54,7 @@ public class ProfileFrame extends JFrame {
 	private JPanel getHomePage() {
 		if (jPanel == null) {
 			//TODO load from database
-			Profile currentUser = Main.ProfileSet.currentProfile;
+			Profile currentUser = Main.ProfileSet.getCurrentProfile();
 			jPanel = new ProfilePanel();
 		}
 		return jPanel;

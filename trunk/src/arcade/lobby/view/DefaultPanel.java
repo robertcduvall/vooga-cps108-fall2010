@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import arcade.lobby.controller.Main;
+import arcade.lobby.model.ProfileSet;
 
 public class DefaultPanel extends JPanel {
 
@@ -28,7 +29,7 @@ public class DefaultPanel extends JPanel {
 	 */
 	private void initialize() {
 		title = new JLabel();
-		String firstName = Main.ProfileSet.currentProfile.getFirstName();
+		String firstName = ProfileSet.getCurrentProfile().getFirstName();
 		title.setText(String.format("Welcome %s!",firstName));
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("anyThing", Font.PLAIN, 32));

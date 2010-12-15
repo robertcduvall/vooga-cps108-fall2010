@@ -1,20 +1,13 @@
 package arcade.lobby.view;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -126,7 +119,7 @@ public class ProfileCreatePanel extends JPanel {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				if (validate()) {
-					Profile profile = ProfileSet.currentProfile;
+					Profile profile = ProfileSet.getCurrentProfile();
 					profile.setName(myFields.get("First Name").getText(),
 							myFields.get("Last Name").getText());
 					profile.setEmail(myFields.get("Email").getText());

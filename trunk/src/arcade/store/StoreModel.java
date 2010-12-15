@@ -24,7 +24,7 @@ public class StoreModel implements IModel{
 	{
 		storeCatalogue = DbItemAndUserFactory.getAllStoreItems();
 		controller = control;
-		lobbyUser = ProfileSet.currentProfile;
+		lobbyUser = ProfileSet.getCurrentProfile();
 		try{
 			currentUser = DbItemAndUserFactory.getUser(lobbyUser.getUserId());
 		}

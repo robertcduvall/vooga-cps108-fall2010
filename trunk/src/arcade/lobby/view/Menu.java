@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import arcade.lobby.controller.Main;
+import arcade.lobby.model.ProfileSet;
 
 /**
  * Much of this code was taken from the Java swing examples on the Oracle website.
@@ -52,7 +53,7 @@ public class Menu extends JMenuBar{
 		JMenuItem logOut = new JMenuItem("Logout");
 		logOut.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				Main.ProfileSet.currentProfile=null;
+				ProfileSet.setCurrentProfile(null);
 				Main.MainFrame.setContentPane(new LoginPanel());
 			}
 		});

@@ -48,7 +48,7 @@ public class HighScorePanel extends Panel{
 	}
 
 	public static boolean addHighScore() {
-		boolean isAdded = hsc.addScore(ProfileSet.currentProfile.getUserId(),
+		boolean isAdded = hsc.addScore(ProfileSet.getCurrentProfile().getUserId(),
 				GameView.getGameID(), score);
 		Arcade.refreshLeft();
 //		mainPanel.setRightComponent(makeRightPanel());

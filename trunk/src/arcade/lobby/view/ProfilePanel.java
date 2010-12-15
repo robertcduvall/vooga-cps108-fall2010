@@ -30,7 +30,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	public ProfilePanel() {
 		super();
 		setLayout(new MigLayout("fill"));
-		myProfile = ProfileSet.currentProfile;
+		myProfile = ProfileSet.getCurrentProfile();
 
 		// Just so that there is some profile set.
 		if (myProfile == null)
@@ -129,7 +129,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	private void reload() {
 		// To test with no current profile by switching between users 1 and 2:
 		// myProfile = ProfileSet.getProfile((myProfile.getUserId())%2+1);
-		myProfile = ProfileSet.currentProfile;
+		myProfile = ProfileSet.getCurrentProfile();
 		myViewPanel.refresh(myProfile);
 		myEditPanel.refresh(myProfile);
 		editMode = !editMode;
