@@ -34,6 +34,7 @@ public class WallModel implements IWallModel {
 		myCommentSet = new CommentSet(myHost, myDbName, "Comments", myDbUserName, myDbPassword);
 		myGameReportSet = new GameReportSet(myHost, myDbName, "GameReports", myDbUserName, myDbPassword);
 		myMessageSet = new MessageSet(myHost, myDbName, "Messages", myDbUserName, myDbPassword);
+		myReviewSet = new ReviewSet(myHost, myDbName, "Reviews", myDbUserName, myDbPassword);
 	}
 
 	/**

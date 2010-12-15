@@ -1,5 +1,7 @@
 package arcade.wall.views.walltab;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,6 +24,14 @@ public class CommentPanel extends JPanel {
 		this.add(myCommentEntryField);
 		this.add(myCommentButton);
 		this.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("commentPanelBorder")));
+	}
+	
+	/**
+	 * Adds the CommentButtonListener to the CommentPanel.
+	 */
+	public void addCommentButtonListener(
+			ActionListener commentButtonListener) {
+		myCommentButton.addActionListener(commentButtonListener);
 	}
 	
 	public String getEntryText() {

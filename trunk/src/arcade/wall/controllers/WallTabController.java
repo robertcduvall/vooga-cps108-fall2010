@@ -30,6 +30,7 @@ public class WallTabController {
 
 		//Add listeners to the view.
 		myView.getFeedbackPanel().addGameComboBoxListener(new GameComboBoxListener());
+		myView.getFeedbackPanel().getCommentPanel().addCommentButtonListener(new CommentButtonListener());
 		myView.getFeedbackPanel().getReviewPanel().addReviewButtonListener(new ReviewButtonListener());
 		myView.getMessagesPanel().addSendMessageButtonListener(new SendMessageButtonListener());
 		myView.getMessagesPanel().addComposeMessageButtonListener(new ComposeMessageButtonListener());
@@ -100,6 +101,20 @@ public class WallTabController {
 	}
 
 	class CommentButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
+        	
+    		Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
+    											   myView.getFeedbackPanel().getCommentPanel().getEntryText());
+    		myModel.addComment(submittedComment);
+    		myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
+    		refreshComments(selectedGameName);
+    		myView.getDisplayPanel().updateTopRatedGamesLabel();
+    		myView.getFeedbackPanel().getCommentPanel().setEntryText("");
+        }
+    }
+	
+	class ReviewButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
@@ -116,20 +131,6 @@ public class WallTabController {
 			myModel.addReview(submittedReview);
 		}
 	}
-	
-	class ReviewButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-        	String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
-        	
-    		Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
-    											   myView.getFeedbackPanel().getCommentPanel().getEntryText());
-    		myModel.addComment(submittedComment);
-    		myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
-    		refreshComments(selectedGameName);
-    		myView.getDisplayPanel().updateTopRatedGamesLabel();
-    		myView.getFeedbackPanel().getCommentPanel().setEntryText("");
-        }
-    }
 
 	class SendMessageButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
