@@ -60,7 +60,7 @@ public class VoogaServer {
 	}
 	
 	private static void initializeDaemons () {
-		List<Element> gameArray = getGameArray("vooga/engine/networking/server/voogaGames.xml");
+		List<Element> gameArray = getGameArray("src/vooga/engine/networking/server/voogaGames.xml");
 		for (Element gameElement : gameArray) {
 			String name = gameElement.getAttribute("name");
 			int port = Integer.parseInt(gameElement.getAttribute("port"));
