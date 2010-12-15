@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import arcade.lobby.validators.PasswordConfirmField;
 import arcade.security.model.IModel;
 import arcade.security.model.SignUpProcess;
+import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.util.PasswordHandler;
 import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
@@ -101,7 +102,7 @@ public class SignUpPanelControl implements IControl {
 				String username = ((JTextField) dock.getComponent("username"))
 						.getText();
 				char[] pwd_1 = ((PasswordConfirmField) dock
-						.getComponent("password")).getPassword1();
+						.getComponent("pass1")).getPassword1();
 				int questionIndex = ((JComboBox) dock.getComponent("choices"))
 						.getSelectedIndex();
 				String questionAnswer = ((JTextField) dock
@@ -134,17 +135,12 @@ public class SignUpPanelControl implements IControl {
 			for (String s : validMap.keySet()) {
 				if (!validMap.get(s)) {
 					isValid = false;
-					failures += s + ", ";
+					JOptionPane.showMessageDialog(dock,
+							LabelResources.getLabel(s + "ErrorMessage"));
+					break;
 				}
 			}
-			if (!isValid) {
-				JOptionPane.showMessageDialog(
-						dock,
-						"Validation has failed for: "
-								+ failures.substring(0, failures.length() - 2));
-				return false;
-			}
-			return true;
+			return isValid;
 		}
 
 	}
