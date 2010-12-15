@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
+import arcade.store.StoreModel;
 import arcade.store.control.MainPageController;
 
 public class MainPageTab extends JPanel implements Tab, IViewer {
@@ -37,12 +38,13 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 		setName("Browse Catalogue");
 		controller = new MainPageController();
 		controller.addViewer(this);
-
+		add(getJScrollPane());
 		BorderLayout borderLayout = new BorderLayout();
 		borderLayout.setHgap(10);
 		borderLayout.setVgap(10);
 		storeBrowseLabel = new JLabel();
 		storeBrowseLabel.setText(ARCADE_STORE_GREETING);
+		add(storeBrowseLabel);
 		setLayout(borderLayout);
 		add(getGenreList(), BorderLayout.WEST);
 		add(getJScrollPane(), BorderLayout.CENTER);
@@ -105,11 +107,12 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 		return jScrollPane;
 	}
 
+	
+	
 	public JPanel getGameList() {
 		if (gameListPanel == null) {
-			gameListPanel = new JPanel(new GridLayout(0, 4));
-			gameListPanel
-					.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			gameListPanel = new JPanel(new GridLayout(0,4));
+			gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
 		return gameListPanel;
 
