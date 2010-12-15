@@ -6,7 +6,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import arcade.core.mvc.*;
-import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
@@ -22,6 +21,9 @@ public class CheckoutController extends Controller{
 
 	public CheckoutController(String filepath) {
 		super(filepath);
+		setClassType(this.getClass());
+		
+		storeModel = new StoreModel(this);
 		currentSelected = null;
 	}
 
@@ -111,11 +113,19 @@ public class CheckoutController extends Controller{
 		}
 	}
 
+	/**
+	 * TODO: move this method into StoreModel!
+	 * @return
+	 */
 	private boolean userHasNoCreddits() {
 
 		return !storeModel.userHasEnoughCredditsToBuyWishList();
 	}
 
+	/**
+	 * TODO: move this method into StoreModel!
+	 * @return
+	 */
 	private boolean userHasNoItems() {
 
 		StoreUser user = storeModel.getCurrentUserAccount();

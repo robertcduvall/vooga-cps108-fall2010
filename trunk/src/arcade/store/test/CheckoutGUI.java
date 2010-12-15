@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -24,7 +25,7 @@ import arcade.core.mvc.IViewer;
 import arcade.store.test.CheckoutController;
 import arcade.store.control.MainController;
 
-public class CheckoutGUI extends JPanel implements Tab, IViewer {
+public class CheckoutGUI implements Tab, IViewer {
 
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
@@ -46,14 +47,19 @@ public class CheckoutGUI extends JPanel implements Tab, IViewer {
 
 	private CheckoutController controller; // @jve:decl-index=0:
 	private JButton RefreshButton = null;
-
+	
+	public static void main(String args[])
+	{
+		new CheckoutGUI();
+	}
+	
+	
 	/**
 	 * This method initializes myCheckOutTab
 	 * 
 	 * @return javax.swing.JPanel
 	 */
 	public CheckoutGUI() {
-		setName(NAME);
 		controller = new CheckoutController("arcade.store.test.checkoutMethods");
 		controller.addViewer(this);
 
@@ -70,26 +76,27 @@ public class CheckoutGUI extends JPanel implements Tab, IViewer {
 		checkoutLabel.setText("My Check Out: ");
 		checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
 
-		setLayout(null);
-		add(checkoutLabel, null);
-		add(getWishlistpanel(), null);
-		add(AvailableCreditjLabel, null);
-		add(totalCostLabel, null);
-		add(credditAfterPurchaseLabel, null);
-		add(getAvailableCredditsTextField(), null);
-		add(getTotalCostTextField(), null);
-		add(getRemainingCredditsTextField(), null);
-		add(getDropItemsButton(), null);
-		add(getJButton(), null);
-		add(getBuyCartButton(), null);
-		add(getDropCartButton(), null);
-		add(getRefreshButton(), null);
+		JFrame frame = new JFrame();
+		
+		
+		frame.add(checkoutLabel, null);
+		frame.add(getWishlistpanel(), null);
+		frame.add(AvailableCreditjLabel, null);
+		frame.add(totalCostLabel, null);
+		frame.add(credditAfterPurchaseLabel, null);
+		frame.add(getAvailableCredditsTextField(), null);
+		frame.add(getTotalCostTextField(), null);
+		frame.add(getRemainingCredditsTextField(), null);
+		frame.add(getDropItemsButton(), null);
+		frame.add(getJButton(), null);
+		frame.add(getBuyCartButton(), null);
+		frame.add(getDropCartButton(), null);
+		frame.add(getRefreshButton(), null);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
-	@Override
-	public String getName() {
-		return NAME;
-	}
+
 
 	@Override
 	public void refresh() {
@@ -106,9 +113,6 @@ public class CheckoutGUI extends JPanel implements Tab, IViewer {
 		return controller;
 	}
 
-	public JComponent getContent() {
-		return this;
-	}
 
 	/**
 	 * This method initializes wishlistpanel
@@ -286,6 +290,13 @@ public class CheckoutGUI extends JPanel implements Tab, IViewer {
 			});
 		}
 		return RefreshButton;
+	}
+
+
+	@Override
+	public JComponent getContent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
