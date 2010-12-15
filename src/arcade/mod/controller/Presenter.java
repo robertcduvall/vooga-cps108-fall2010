@@ -140,8 +140,6 @@ public class Presenter implements IPresenter {
 
 	@Override
 	public void modificationRequest(File file,String className, String interfaceName, String modName) {		
-		
-	
 			
 			String currentGame = GameView.getGame().toLowerCase().replace(" ", "");
 			

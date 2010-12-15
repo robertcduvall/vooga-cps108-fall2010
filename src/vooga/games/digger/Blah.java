@@ -48,7 +48,6 @@ public class Blah extends Game {
 	@Override
 	public void initGameStates(){
 		super.initGameStates();
-		setMod("mod1");
 		stateMap = new HashMap<String, GameState>();
 		GameState mainMenu = addGameState(new MenuState("mainMenuLayout"));
 		stateMap.put("mainMenu", mainMenu);
