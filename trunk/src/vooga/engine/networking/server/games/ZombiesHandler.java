@@ -35,14 +35,15 @@ public class ZombiesHandler extends ClientHandler{
 	 * @version 1.0
 	 */
 	@Override
-	public void interpretMessage(String message){
+	public boolean interpretMessage(String message){
 		if(message == null){
 			broadcastToOthers("quit", this);
-			return;
+			return false;
 		}
 		else if(message.equals("gameOver"))
-			return;
+			return false;
 		broadcastToOthers(message, this);
+		return true;
 	}
 
 	/**

@@ -61,7 +61,9 @@ public abstract class ClientHandler extends Handler{
 			}
 			while (true) {
 				String message = socket.receive();
-				interpretMessage(message);
+				if(!interpretMessage(message)){
+					return;
+				}
 			}
 		} 
 		catch (IOException ex) {
@@ -87,10 +89,11 @@ public abstract class ClientHandler extends Handler{
 	 * Abstract method that is called by run() after it reads a message from the socket. This is where you put the code you need to execute with the latest
 	 * piece of data from the server.
 	 * 
+	 * @return if the loop for checking messages should keep running
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public abstract void interpretMessage(String message);
+	public abstract boolean interpretMessage(String message);
 	
 	/**
 	 * Broadcast (send) a message to everyone in the sender's game session.
