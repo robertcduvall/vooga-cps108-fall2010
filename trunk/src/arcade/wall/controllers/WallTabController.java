@@ -102,7 +102,7 @@ public class WallTabController {
 	class SendMessageButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Message message = new Message(""+myModel.getNewMessageID(), "1", 
-					myView.getReceiver(), myView.getMessageContent());
+					myView.getReceiverText(), myView.getMessageContentText());
 			myModel.addMessage(message);
 			myView.setReceiverText("");
 			myView.setMessageContentText("");
