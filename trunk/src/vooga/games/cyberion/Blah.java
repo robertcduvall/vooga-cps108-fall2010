@@ -1,6 +1,13 @@
 package vooga.games.cyberion;
 
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import arcade.mod.controller.Console;
 
 import com.golden.gamedev.object.GameFont;
 
@@ -35,7 +42,7 @@ public class Blah extends Game {
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
 	private EventPool eventPool;
-
+	private Console myConsole;
 	private LevelParser levelParser;
 	private LevelManager levelManager;
 	private Control gameControl;
@@ -46,12 +53,14 @@ public class Blah extends Game {
 	private static final int HEIGHT = 768;
 
 	public void initResources() {
-
 		super.initResources();
-
+		
+		myConsole= new Console();
 		Resources.loadInt("Height", HEIGHT);
 		Resources.loadInt("Width", WIDTH);
-
+		
+		
+		
 		initControls();
 	}
 
