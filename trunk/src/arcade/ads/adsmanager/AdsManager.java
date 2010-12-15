@@ -11,7 +11,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import arcade.ads.adsclassification.IRelatedAds;
 import arcade.ads.adscontent.BasicAd;
+import arcade.ads.adscontent.RelatedAd;
 import arcade.ads.thread.AdsThread;
 import arcade.ads.thread.RotateThread;
 import arcade.ads.util.AdsGroup;
@@ -134,6 +136,13 @@ public class AdsManager implements MouseListener {
 	 */
 	public String retrieve() {
 		return null;
+	}
+	
+	public void renderRelatedAds(String...tags){
+		for (String tag: tags)
+			for (BasicAd ad: activeAdsGroup.getAds())
+				if ((ad instanceof IRelatedAds) && ((IRelatedAds) ad).getCategories().contains(tag))
+			        renderedAdsGroup.add(ad);
 	}
 
 	/**
