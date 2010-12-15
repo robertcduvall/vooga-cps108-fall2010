@@ -2,9 +2,7 @@ package arcade.store.gui.tabs;
 
 import javax.swing.JPanel;
 
-import java.awt.Component;
 import java.awt.GridBagLayout;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Rectangle;
@@ -12,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -21,32 +18,20 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.CheckoutController;
-import arcade.store.control.MainController;
 
 public class CheckoutTab extends JPanel implements Tab, IViewer {
 
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
-	private JLabel checkoutLabel = null;
-	private JPanel wishlistpanel = null;
-	private JLabel AvailableCreditjLabel = null;
-	private JLabel totalCostLabel = null;
-	private JLabel credditAfterPurchaseLabel = null;
-	private JTextField availableCredditsTextField = null;
-	private JTextField jTextField = null;
-	private JTextField RemainingCredditsTextField1 = null;
-	private JButton DropItemButton = null;
-	private JButton SaveCartButton = null;
-	private JList itemsList = null;
-	private JButton BuyCartButton = null;
-	private JButton DropCartButton = null;
-
 	private static final String NAME = "Checkout Page";
-	private static final String FILE_PATH = "arcade.store.resources.CheckoutController";  //  @jve:decl-index=0:
-	
-	private CheckoutController controller; // @jve:decl-index=0:
-	private JButton RefreshButton = null;
+	private static final String FILE_PATH = "arcade.store.resources.CheckoutController"; // @jve:decl-index=0:
 
+	private CheckoutController controller; // @jve:decl-index=0:
+	private JTextField availableCredditsTextField;
+	private JList itemsList;
+	private JTextField totalCostTextField;
+	private JTextField remainingCredditsTextField;
+	
 	/**
 	 * This method initializes myCheckOutTab
 	 * 
@@ -54,28 +39,16 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 */
 	public CheckoutTab() {
 		setName(NAME);
-		controller = new CheckoutController(FILE_PATH);
-		controller.addViewer(this);
 
-		credditAfterPurchaseLabel = new JLabel();
-		credditAfterPurchaseLabel.setBounds(new Rectangle(222, 157, 124, 25));
-		credditAfterPurchaseLabel.setText("Remaining Creddits");
-		totalCostLabel = new JLabel();
-		totalCostLabel.setBounds(new Rectangle(222, 122, 124, 25));
-		totalCostLabel.setText("Total Cost");
-		AvailableCreditjLabel = new JLabel();
-		AvailableCreditjLabel.setBounds(new Rectangle(222, 87, 124, 25));
-		AvailableCreditjLabel.setText("Available Creddits");
-		checkoutLabel = new JLabel();
-		checkoutLabel.setText("My Check Out: ");
-		checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
+		initializeComponents();
 
 		setLayout(null);
-		add(checkoutLabel, null);
+
+		add(getCheckoutLabel(), null);
 		add(getWishlistpanel(), null);
-		add(AvailableCreditjLabel, null);
-		add(totalCostLabel, null);
-		add(credditAfterPurchaseLabel, null);
+		add(getAvailableCredditsLabel(), null);
+		add(getTotalCostLabel(), null);
+		add(getCredditAfterPurchaseLabel(), null);
 		add(getAvailableCredditsTextField(), null);
 		add(getTotalCostTextField(), null);
 		add(getRemainingCredditsTextField(), null);
@@ -84,6 +57,27 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 		add(getBuyCartButton(), null);
 		add(getDropCartButton(), null);
 		add(getRefreshButton(), null);
+	}
+
+	private void initializeComponents() {
+		controller = new CheckoutController(FILE_PATH);
+		controller.addViewer(this);
+		
+		availableCredditsTextField = new JTextField();
+		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25));
+		
+		itemsList = new JList();
+		itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				controller.processEvent("registerSelected");
+			}
+		});
+		
+		totalCostTextField = new JTextField();
+		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25));
+		
+		remainingCredditsTextField = new JTextField();
+		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25));
 	}
 
 	@Override
@@ -110,24 +104,54 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 		return this;
 	}
 
+	private JLabel getCheckoutLabel() {
+		JLabel checkoutLabel = new JLabel();
+		checkoutLabel.setText("My Check Out: ");
+		checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
+
+		return checkoutLabel;
+	}
+
+	private JLabel getAvailableCredditsLabel() {
+		JLabel availableCredditsLabel = new JLabel();
+		availableCredditsLabel.setBounds(new Rectangle(222, 87, 124, 25));
+		availableCredditsLabel.setText("Available Creddits");
+
+		return availableCredditsLabel;
+	}
+
+	private JLabel getTotalCostLabel() {
+		JLabel totalCostLabel = new JLabel();
+		totalCostLabel.setBounds(new Rectangle(222, 122, 124, 25));
+		totalCostLabel.setText("Total Cost");
+
+		return totalCostLabel;
+	}
+
+	private JLabel getCredditAfterPurchaseLabel() {
+		JLabel credditAfterPurchaseLabel = new JLabel();
+		credditAfterPurchaseLabel.setBounds(new Rectangle(222, 157, 124, 25));
+		credditAfterPurchaseLabel.setText("Remaining Creddits");
+
+		return credditAfterPurchaseLabel;
+	}
+
 	/**
 	 * This method initializes wishlistpanel
 	 * 
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getWishlistpanel() {
-		if (wishlistpanel == null) {
-			GridBagConstraints gridBagConstraints = new GridBagConstraints();
-			gridBagConstraints.fill = GridBagConstraints.BOTH;
-			gridBagConstraints.gridy = 0;
-			gridBagConstraints.weightx = 1.0;
-			gridBagConstraints.weighty = 1.0;
-			gridBagConstraints.gridx = 0;
-			wishlistpanel = new JPanel();
-			wishlistpanel.setLayout(new GridBagLayout());
-			wishlistpanel.setBounds(new Rectangle(17, 75, 184, 243));
-			wishlistpanel.add(getItemsList(), gridBagConstraints);
-		}
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.fill = GridBagConstraints.BOTH;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.weightx = 1.0;
+		gridBagConstraints.weighty = 1.0;
+		gridBagConstraints.gridx = 0;
+		JPanel wishlistpanel = new JPanel();
+		wishlistpanel.setLayout(new GridBagLayout());
+		wishlistpanel.setBounds(new Rectangle(17, 75, 184, 243));
+		wishlistpanel.add(getItemsList(), gridBagConstraints);
 		return wishlistpanel;
 	}
 
@@ -136,13 +160,13 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getAvailableCredditsTextField() {
-		if (availableCredditsTextField == null) {
-			availableCredditsTextField = new JTextField();
-			availableCredditsTextField
-					.setBounds(new Rectangle(349, 87, 98, 25));
-		}
+	private JTextField getAvailableCredditsTextField() {
 		return availableCredditsTextField;
+	}
+	
+	//TODO: Comment
+	public void setAvailableCredditsTextField(String text) {
+		availableCredditsTextField.setText(text);
 	}
 
 	/**
@@ -150,12 +174,13 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getTotalCostTextField() {
-		if (jTextField == null) {
-			jTextField = new JTextField();
-			jTextField.setBounds(new Rectangle(349, 122, 98, 25));
-		}
-		return jTextField;
+	private JTextField getTotalCostTextField() {
+		return totalCostTextField;
+	}
+	
+	//TODO:
+	public void setTotalCostTextField(String text) {
+		totalCostTextField.setText(text);
 	}
 
 	/**
@@ -163,13 +188,13 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getRemainingCredditsTextField() {
-		if (RemainingCredditsTextField1 == null) {
-			RemainingCredditsTextField1 = new JTextField();
-			RemainingCredditsTextField1.setBounds(new Rectangle(349, 157, 98,
-					25));
-		}
-		return RemainingCredditsTextField1;
+	private JTextField getRemainingCredditsTextField() {
+		return remainingCredditsTextField;
+	}
+	
+	//TODO:
+	public void setRemainigCredditsTextField(String text) {
+		remainingCredditsTextField.setText(text);
 	}
 
 	/**
@@ -178,17 +203,15 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getDropItemsButton() {
-		if (DropItemButton == null) {
-			DropItemButton = new JButton();
-			DropItemButton.setBounds(new Rectangle(218, 226, 100, 26));
-			DropItemButton.setText("Drop Item");
-			DropItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processEvent("dropItem");
-				}
-			});
-		}
-		return DropItemButton;
+		JButton dropItemButton = new JButton();
+		dropItemButton.setBounds(new Rectangle(218, 226, 100, 26));
+		dropItemButton.setText("Drop Item");
+		dropItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				controller.processEvent("dropItem");
+			}
+		});
+		return dropItemButton;
 	}
 
 	/**
@@ -197,17 +220,15 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getJButton() {
-		if (SaveCartButton == null) {
-			SaveCartButton = new JButton();
-			SaveCartButton.setBounds(new Rectangle(340, 226, 108, 26));
-			SaveCartButton.setText("Save Cart");
-			SaveCartButton.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					controller.processEvent("saveCart");
-				}
-			});
-		}
-		return SaveCartButton;
+		JButton saveCartButton = new JButton();
+		saveCartButton.setBounds(new Rectangle(340, 226, 108, 26));
+		saveCartButton.setText("Save Cart");
+		saveCartButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				controller.processEvent("saveCart");
+			}
+		});
+		return saveCartButton;
 	}
 
 	/**
@@ -215,38 +236,35 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JList
 	 */
-	public JList getItemsList() {
-		if (itemsList == null) {
-			itemsList = new JList();
-
-			itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processEvent("registerSelected");
-				}
-			});
-
-		}
+	private JList getItemsList() {
 		return itemsList;
 	}
+	
+	//TODO:
+	public void setItemsList(String[] items) {
+		itemsList.setListData(items);
+	}
 
+	//TODO:
+	public Object getSelectedItem() {
+		return itemsList.getSelectedValue();
+	}
+	
 	/**
 	 * This method initializes BuyCartButton
 	 * 
 	 * @return javax.swing.JButton
 	 */
 	private JButton getBuyCartButton() {
-		if (BuyCartButton == null) {
-			BuyCartButton = new JButton();
-			// 218, 226, 100, 26
-			BuyCartButton.setBounds(new Rectangle(218, 267, 100, 26));
-			BuyCartButton.setText("Buy Cart");
-			BuyCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processEvent("buyCart");
-				}
-			});
-		}
-		return BuyCartButton;
+		JButton buyCartButton = new JButton();
+		buyCartButton.setBounds(new Rectangle(218, 267, 100, 26));
+		buyCartButton.setText("Buy Cart");
+		buyCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				controller.processEvent("buyCart");
+			}
+		});
+		return buyCartButton;
 	}
 
 	/**
@@ -255,17 +273,15 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getDropCartButton() {
-		if (DropCartButton == null) {
-			DropCartButton = new JButton();
-			DropCartButton.setBounds(new Rectangle(340, 267, 108, 26));
-			DropCartButton.setText("Drop Cart");
-			DropCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
-					controller.processEvent("dropCart");
-				}
-			});
-		}
-		return DropCartButton;
+		JButton dropCartButton = new JButton();
+		dropCartButton.setBounds(new Rectangle(340, 267, 108, 26));
+		dropCartButton.setText("Drop Cart");
+		dropCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				controller.processEvent("dropCart");
+			}
+		});
+		return dropCartButton;
 	}
 
 	/**
@@ -274,18 +290,16 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getRefreshButton() {
-		if (RefreshButton == null) {
-			RefreshButton = new JButton();
-			RefreshButton.setBounds(new Rectangle(291, 15, 87, 26));
-			RefreshButton.setText("Refresh");
-			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
+		JButton refreshButton = new JButton();
+		refreshButton.setBounds(new Rectangle(291, 15, 87, 26));
+		refreshButton.setText("Refresh");
+		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
 
-					controller.processEvent("reset");
-				}
-			});
-		}
-		return RefreshButton;
+				controller.processEvent("reset");
+			}
+		});
+		return refreshButton;
 	}
 
 }

@@ -57,19 +57,17 @@ public class CheckoutController extends Controller {
 	 */
 	@Override
 	public void initialize() {
-		
+
 		processEventString("initialize");
 	}
-	
-	
-	public void resetSelected(){
-		
+
+	public void resetSelected() {
+
 		currentSelected = null;
 	}
 
-	
 	public void setUpRemainingCreddits() {
-		
+
 		double currCredits = storeModel.getCurrentUserAccount().getCreddits();
 		double totalCost = storeModel.getTotalUserCartCost();
 
@@ -78,24 +76,31 @@ public class CheckoutController extends Controller {
 	}
 
 	public void setUpUserCost() {
-	
+
 		// The total cart cost
 		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
-		viewer.getTotalCostTextField().setText(totalCartPrice);
+		viewer.setTotalCostTextField(totalCartPrice);
+
+		// .getTotalCostTextField().setText(totalCartPrice);
 	}
 
 	public void setUpCurrentCredditsField() {
 		// The current user creddits;
-		String currentUserCreddits = "" + storeModel.getCurrentUserAccount()
-				.getCreddits();
-		viewer.getAvailableCredditsTextField().setText(currentUserCreddits);
+		String currentUserCreddits = ""
+				+ storeModel.getCurrentUserAccount().getCreddits();
+		viewer.setAvailableCredditsTextField(currentUserCreddits);
+
+		// .getAvailableCredditsTextField().setText(currentUserCreddits);
 	}
 
 	public void setUpUserCart() {
 		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
-		JList displayList = viewer.getItemsList();
-		displayList.setListData(currentCart.toArray(new String[currentCart
-				.size()]));
+
+		viewer.setItemsList(currentCart.toArray(new String[currentCart.size()]));
+
+		// JList displayList = viewer.getItemsList();
+		// displayList.setListData(currentCart.toArray(new String[currentCart
+		// .size()]));
 	}
 
 	/**
@@ -108,9 +113,13 @@ public class CheckoutController extends Controller {
 	private void setRemainingCreditField(double balance) {
 
 		if (balance < 0) {
-			viewer.getRemainingCredditsTextField().setText("0");
+			viewer.setRemainigCredditsTextField("0");
+			
+			//.getRemainingCredditsTextField().setText("0");
 		} else {
-			viewer.getRemainingCredditsTextField().setText("" + balance);
+			viewer.setRemainigCredditsTextField("" + balance);
+			
+			//.getRemainingCredditsTextField().setText("" + balance);
 		}
 
 	}
@@ -237,7 +246,8 @@ public class CheckoutController extends Controller {
 
 	public void registerCurrentElement() {
 
-		currentSelected = (String) viewer.getItemsList().getSelectedValue();
+		currentSelected = (String) viewer.getSelectedItem();
+		
 	}
 
 	public void processConfirmDropCart() {
