@@ -34,7 +34,7 @@ public class HighScore extends Window {
 		JButton yes = new JButton("Yes");
 		yes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ExampleGUI.addHighScore();
+				HighScorePanel.addHighScore();
 				setVisible(false);
 				dispose();
 			}

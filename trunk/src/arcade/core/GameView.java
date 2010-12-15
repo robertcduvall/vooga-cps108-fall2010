@@ -31,7 +31,6 @@ public class GameView extends JPanel {
 
 	public void initialize() {
 		gameProperties = parseGame(gameID);
-		add(new JLabel("working"));
 		add(setSplashScreen());
 		add(setText());
 		add(createButtons());
@@ -143,7 +142,7 @@ public class GameView extends JPanel {
 		});
 		return back;
 	}
-	
+
 	public static String getGame() {
 		return gameName;
 	}
