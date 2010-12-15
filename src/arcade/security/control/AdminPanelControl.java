@@ -35,7 +35,7 @@ public class AdminPanelControl implements IControl {
 				log.info("Before log out, Current User role: "+user.getRole());
 				user.setUserAs("default");
 				log.info("After log out, Current User role: "+user.getRole());
-				ProfileSet.currentProfile = null;
+				ProfileSet.setCurrentProfile(null);
 				switchToLogInPage();
 			}
 

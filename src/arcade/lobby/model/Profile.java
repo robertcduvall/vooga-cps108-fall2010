@@ -4,12 +4,12 @@ package arcade.lobby.model;
 
 public class Profile implements IModel {
 	private int myUserId;
-	private String myUserName;
-	private String myFirstName;
-	private String myLastName;
-	private String myEmail;
-	private String myBirthday;
-	private String myAvatarURL;
+	private String myUserName="";	
+	private String myFirstName="";
+	private String myLastName="";
+	private String myEmail="";
+	private String myBirthday="";
+	private String myAvatarURL="";
 	
 	public Profile(int userId) {
 		myUserId = userId;

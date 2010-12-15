@@ -112,7 +112,7 @@ public class GameView extends JPanel {
 
 							Constructor<?> gameConstructor = newGame
 									.getConstructor();
-							if(ProfileSet.currentProfile != null)
+							if(ProfileSet.getCurrentProfile() != null)
 								Game.launch((Game) gameConstructor.newInstance(), "Guest");
 							else
 								Game.launch((Game) gameConstructor.newInstance(), "Guest");

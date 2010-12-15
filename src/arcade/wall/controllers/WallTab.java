@@ -28,7 +28,7 @@ public class WallTab extends JPanel implements Tab {
 		setName("Wall");
 //		this.setTitle("MainWallTab");
 		myController = new WallTabController();
-		myProfile = ProfileSet.currentProfile;
+		myProfile = ProfileSet.getCurrentProfile();
 		add(myController.getView().getPanel());
 //		this.pack();
 //		this.setVisible(true);
@@ -51,7 +51,7 @@ public class WallTab extends JPanel implements Tab {
 		String userName = "";
 		System.out.println(myProfile);
 		try {
-			myProfile = ProfileSet.currentProfile;
+			myProfile = ProfileSet.getCurrentProfile();
 			userName = myProfile.getUserName();
 		} catch (NullPointerException e) {
 			userName = "Guest";

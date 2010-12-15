@@ -42,12 +42,12 @@ public class ProfileEditPanelOld extends JPanel {
 	private JLabel urlLabel = null;
 
 	public ProfileEditPanelOld() {
-		this(ProfileSet.currentProfile);
+		this(ProfileSet.getCurrentProfile());
 	}
 
 	public ProfileEditPanelOld(Profile profile) {
 		super();
-		// myProfile = ProfileSet.currentProfile;
+		// myProfile = ProfileSet.getCurrentProfile();
 		myProfile = profile;
 		setToolTipText("Click here to see your user info");
 		setName("Profile");

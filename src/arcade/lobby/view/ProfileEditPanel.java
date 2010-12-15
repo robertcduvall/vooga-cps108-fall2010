@@ -37,7 +37,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 	private ValidatorDock myDock;
 
 	public ProfileEditPanel() {
-		this(ProfileSet.currentProfile);
+		this(ProfileSet.getCurrentProfile());
 		// this(null);
 	}
 

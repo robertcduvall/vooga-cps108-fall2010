@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import arcade.lobby.controller.Main;
 import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 
 public class RegisterPanel extends JPanel {
 
@@ -167,7 +168,7 @@ public class RegisterPanel extends JPanel {
 				}
 				
 				private void logIn(){
-					Main.ProfileSet.currentProfile = makeProfile();
+					ProfileSet.setCurrentProfile(makeProfile());
 					Main.MainFrame.setContentPane(new DefaultPanel());
 				}
 
@@ -178,7 +179,7 @@ public class RegisterPanel extends JPanel {
 					profile.setBirthday(textMap.get("birthday").getText());
 					profile.setEmail(textMap.get("email").getText());
 					profile.setName(textMap.get("firstName").getText(), textMap.get("lastName").getText());
-					Main.ProfileSet.addProfile(profile);
+					ProfileSet.addProfile(profile);
 					return profile;
 				}
 
