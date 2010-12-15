@@ -276,11 +276,12 @@ public class PlayState extends GameState implements Constants {
 		if (player.getTimesRevived() == 1 && player.getHealth().getStat() <= 0) {
 			currentGame.end();
 		}
-		
+
 		if (player.getHealth().getStat() <= 0) {
 			playField.removeControl("Shooter");
 		}
-		else if (playField.getControl("Shooter") == null) {
+		if (player.getHealth().getStat() > 0
+				&& playField.getControl("Shooter") == null) {
 			playField.addControl("Shooter", control);
 		}
 	}

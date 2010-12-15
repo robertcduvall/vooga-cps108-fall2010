@@ -19,7 +19,6 @@
 <OverlayStat name = "player2Ammo" label="Ammo: " stat="player2Ammo" fontName="gameFontBlue" xLoc="385" yLoc="42"></OverlayStat> 
 
 
-
 </OverlayGroup>
 
 
