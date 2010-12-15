@@ -26,7 +26,7 @@ public class WallTabController {
 	public WallTabController() {
 		myModel = new WallModel();
 		myView = new WallTabPanel(this);
-		refreshComments(WallTabPanel.myGameChoices[0]);
+		myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(WallTabPanel.myGameChoices[0]));
 
 		//Add listeners to the view.
 		myView.getFeedbackPanel().addGameComboBoxListener(new GameComboBoxListener());
@@ -35,13 +35,6 @@ public class WallTabController {
 		myView.getMessagesPanel().addSendMessageButtonListener(new SendMessageButtonListener());
 		myView.getMessagesPanel().addComposeMessageButtonListener(new ComposeMessageButtonListener());
 		myView.getMessagesPanel().addCloseButtonListener(new CloseButtonListener());
-	}
-
-	/**
-	 * Refreshes the WallTab Comments Area to display the comments for the given game.
-	 */
-	public void refreshComments(String selectedGameName) {
-		myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(selectedGameName));
 	}
 
 	/**
@@ -94,7 +87,7 @@ public class WallTabController {
 			if ("comboBoxChanged".equals(e.getActionCommand())) {
 				String selectedGame = myView.getFeedbackPanel().getSelectedGame();
 				myView.getDisplayPanel().setGameHeaderLabel(selectedGame);
-				refreshComments(selectedGame);
+				myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(selectedGame));
 				myView.getFeedbackPanel().getCommentPanel().setEntryText("");
 			}
 		}
@@ -107,8 +100,8 @@ public class WallTabController {
     		Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
     											   myView.getFeedbackPanel().getCommentPanel().getEntryText());
     		myModel.addComment(submittedComment);
-    		myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
-    		refreshComments(selectedGameName);
+    		//myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
+    		myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(selectedGameName));
     		myView.getDisplayPanel().updateTopRatedGamesLabel();
     		myView.getFeedbackPanel().getCommentPanel().setEntryText("");
         }
