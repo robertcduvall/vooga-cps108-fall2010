@@ -32,6 +32,7 @@ public class WallTabController {
 		myView.addReviewButtonListener(new ReviewButtonListener());
 		myView.addSendMessageButtonListener(new SendMessageButtonListener());
 		myView.addComposeMessageButtonListener(new ComposeMessageButtonListener());
+		myView.addCloseButtonListener(new CloseButtonListener());
 	}
 
 	/**
@@ -123,6 +124,12 @@ public class WallTabController {
 	class ComposeMessageButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			myView.getComposeMessageFrame().setVisible(true);
+		}
+	}
+	
+	class CloseButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			myView.getComposeMessageFrame().dispose();
 		}
 	}
 
