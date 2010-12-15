@@ -20,6 +20,7 @@ import vooga.engine.networking.GameSocket;
  */
 public abstract class ClientHandler extends Handler{
 	protected int numberOfPlayers;
+	protected String userName;
 	private VoogaDaemon daemon;
 	protected static List<ClientHandler> handlers = new ArrayList<ClientHandler>();
 
@@ -52,7 +53,10 @@ public abstract class ClientHandler extends Handler{
 	public void run(){
 		try {
 			handlers.add(this);
-			if(getPlayers(sessionID) != numberOfPlayers){
+			userName = socket.receive();
+			if(userName.equals("Guest"))
+				userName += getNumberOfPlayers(sessionID);
+			if(getNumberOfPlayers(sessionID) != numberOfPlayers){
 				broadcastToAll("wait", this);
 			}
 			else{
@@ -61,7 +65,7 @@ public abstract class ClientHandler extends Handler{
 			}
 			while (true) {
 				String message = socket.receive();
-				if(!interpretMessage(message)){
+				if(!interpretMessage(message, userName)){
 					return;
 				}
 			}
@@ -88,12 +92,13 @@ public abstract class ClientHandler extends Handler{
 	/**
 	 * Abstract method that is called by run() after it reads a message from the socket. This is where you put the code you need to execute with the latest
 	 * piece of data from the server.
+	 * @param userName TODO
 	 * 
 	 * @return if the loop for checking messages should keep running
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public abstract boolean interpretMessage(String message);
+	public abstract boolean interpretMessage(String message, String userName);
 	
 	/**
 	 * Broadcast (send) a message to everyone in the sender's game session.
@@ -135,7 +140,7 @@ public abstract class ClientHandler extends Handler{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public int getPlayers(int gameNumber){
+	public int getNumberOfPlayers(int gameNumber){
 		int players = 0;
 		for(ClientHandler handler : handlers){
 			if(handler.getSessionID() == gameNumber)
@@ -145,16 +150,26 @@ public abstract class ClientHandler extends Handler{
 	}
 
 	/**
-	 * @return the first player in a game session.
+	 * @return the players in a game session.
 	 * @param gameNumber the id of the game session
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ClientHandler getFirstPlayer(int gameNumber){
+	public List<ClientHandler> getPlayers(int gameNumber){
+		List<ClientHandler> gameHandlers = new ArrayList<ClientHandler>();
 		for(ClientHandler handler : handlers){
 			if(handler.getSessionID() == gameNumber)
-				return handler;
+				gameHandlers.add(handler);
 		}
-		return null;
+		return gameHandlers;
+	}
+	
+	/**
+	 * @return the userName of this player
+	 * @author Cue, Kolodziejzyk, Townsend
+	 * @version 1.0
+	 */
+	public String getUsername(){
+		return userName;
 	}
 }

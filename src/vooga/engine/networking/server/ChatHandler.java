@@ -48,7 +48,7 @@ public class ChatHandler extends Handler{
 			handlers.add(this);
 			String userName = socket.receive();
 			if(userName.equals("Guest"))
-				userName += getNumberOfPlayers(this);
+				userName += getPlayers(sessionID);
 			getSocket().send("ADMIN: Welcome to " + gameName + "!");
 			broadcast("ADMIN: " + userName + " joined the game.", this);
 			while (true) {
@@ -57,7 +57,7 @@ public class ChatHandler extends Handler{
 					broadcast("ADMIN: " + userName + " left the chat", this);
 					return;
 				}
-				broadcast(userName + ": " + chat, this);
+				broadcast(chat, this);
 			}
 		} 
 		catch (IOException ex) {
@@ -77,11 +77,11 @@ public class ChatHandler extends Handler{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	protected static int getNumberOfPlayers(ChatHandler sender) {
+	protected static int getPlayers(int sessionID) {
 		int players = 0;
 		synchronized (handlers) {
 			for(ChatHandler handler : handlers){
-				if(handler.getSessionID() == sender.getSessionID())
+				if(handler.getSessionID() == sessionID)
 					players++;
 			}
 		}

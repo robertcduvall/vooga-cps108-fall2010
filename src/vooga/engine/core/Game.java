@@ -51,6 +51,7 @@ public class Game extends com.golden.gamedev.Game {
 	private static final String DEFAULT_MOD_NAME = "default";
 
 	private String modName;
+	protected String userName;
 
 	@Override
 	public void initResources() {
@@ -270,6 +271,7 @@ public class Game extends com.golden.gamedev.Game {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			//frame.setUndecorated(true);
 			frame.setVisible(true);
+			g.setUsername(userName);
 		}
 		GameLoader game = new GameLoader();
 		game.setup(g, new Dimension(width, height), fullScreen);
@@ -290,5 +292,13 @@ public class Game extends com.golden.gamedev.Game {
 
 	public String getMod(){
 		return modName;
+	}
+	
+	public void setUsername(String userName){
+		this.userName = userName;
+	}
+	
+	public String getUsername(){
+		return userName;
 	}
 }
