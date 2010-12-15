@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -14,7 +15,7 @@ import arcade.store.account.StoreUser;
 import arcade.store.gui.tabs.CheckoutTab;
 import arcade.store.items.IItemInfo;
 
-public class CheckoutController implements IController {
+public class CheckoutController extends Controller {
 
 	private StoreModel storeModel;
 	private CheckoutTab viewer;
@@ -24,7 +25,8 @@ public class CheckoutController implements IController {
 	 * Default constructor for CheckoutController sets the currentSelected to
 	 * null;
 	 */
-	public CheckoutController() {
+	public CheckoutController(String filepath) {
+		super(filepath);
 		currentSelected = null;
 	}
 
