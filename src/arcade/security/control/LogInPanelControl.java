@@ -106,7 +106,6 @@ public class LogInPanelControl implements IControl{
 				//usernameField.requestFocus(true);
 				return;
 			}
-			JOptionPane.showMessageDialog(view.getCurrentPanel(),"Successfully logged in!");
 			
 			//PrivilegeMap.setCurrentUser(username);
 			//JOptionPane.showMessageDialog(view.getCurrentPanel(),"privilege is"+PrivilegeMap.getPrivilegeString());
@@ -124,6 +123,9 @@ public class LogInPanelControl implements IControl{
 			else{
 				Arcade.switchToTab(0); 
 			}	
+			
+			JOptionPane.showMessageDialog(view.getCurrentPanel(),"Successfully logged in!");
+
 		}
 	}
 	
