@@ -31,6 +31,9 @@ public class PlayState extends GameState implements Constants {
 	private KeyboardControl control2;
 	private EventPool eventPool;
 	public static long seed;
+	public Timer reviveTimer;
+	private int reviveDelay;
+	private boolean revive;
 
 	AddZombieEvent addZombies;
 	AddRandomItemEvent addItems;
@@ -50,6 +53,7 @@ public class PlayState extends GameState implements Constants {
 		LevelParser parser = new LevelParser();
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
 		this.addPlayField(playField);
+		timer = new Timer(level);
 		setupPlayer();
 		resetLevel();
 		initOverlays();
@@ -78,8 +82,7 @@ public class PlayState extends GameState implements Constants {
 
 		eventPool = new EventPool();
 		SpriteGroup items = playField.getGroup("Items");
-		addItems = new AddRandomItemEvent(playField, player,
-				items);
+		addItems = new AddRandomItemEvent(playField, player, items);
 
 		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
 
@@ -147,8 +150,13 @@ public class PlayState extends GameState implements Constants {
 	public void setNewDelay() {
 		int timeInterval = Resources.getInt("timeInterval");
 		double delayFactor = Resources.getDouble("delayFactor");
-
 		timer.setDelay((long) (timeInterval / level * delayFactor));
+
+		reviveDelay = Resources.getInt("reviveTimer");
+		reviveTimer = new Timer(level);
+		reviveTimer.setDelay(7000);
+		reviveTimer.setActive(false);
+
 	}
 
 	/**
@@ -190,22 +198,23 @@ public class PlayState extends GameState implements Constants {
 	public KeyboardControl getPlayGameControl() {
 		return control;
 	}
-	
+
 	/**
 	 * Set the message to the String we received.
 	 * 
-	 * @param data data received from the socket
+	 * @param data
+	 *            data received from the socket
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
 	@Override
-	public void interpretMessage(String data){
-		if(data.startsWith(ZombieSeed.getIdentifier())){
-			seed = ((ZombieSeed)(ZombieSeed.deserialize(data))).getSeed();
-			LevelEndEvent endLevel = new LevelEndEvent(new Shooter[] {player, otherPlayer}, this, addZombies,addItems, seed);
+	public void interpretMessage(String data) {
+		if (data.startsWith(ZombieSeed.getIdentifier())) {
+			seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
+			LevelEndEvent endLevel = new LevelEndEvent(new Shooter[] { player,
+					otherPlayer }, this, addZombies, addItems, seed);
 			eventPool.addEvent(endLevel);
-		}
-		else{
+		} else {
 			setMessage(data);
 		}
 	}
@@ -224,37 +233,37 @@ public class PlayState extends GameState implements Constants {
 			eventPool.checkEvents();
 		}
 	}
-	
-	public boolean goUp(){
+
+	public boolean goUp() {
 		otherPlayer.goUp();
 		return false;
 	}
-	
-	public boolean goDown(){
+
+	public boolean goDown() {
 		otherPlayer.goDown();
 		return false;
 	}
-	
-	public boolean goLeft(){
+
+	public boolean goLeft() {
 		otherPlayer.goLeft();
 		return false;
 	}
-	
-	public boolean goRight(){
+
+	public boolean goRight() {
 		otherPlayer.goRight();
 		return false;
 	}
-	
-	public boolean shoot(){
+
+	public boolean shoot() {
 		otherPlayer.shoot();
 		return false;
 	}
-	
+
 	public boolean killOtherPlayer() {
 		otherPlayer.setHealth(0);
 		return false;
 	}
-	
+
 	/**
 	 * render the graphics component in the game
 	 */
@@ -263,9 +272,34 @@ public class PlayState extends GameState implements Constants {
 		if (getLevelStatOverlay().isActive()) {
 			getLevelStatOverlay().render(g);
 		}
-		if (gameOver()) {
-			endGame();
+		if (isDead()) {
+			revive();
 		}
+	}
+
+	private void end() {
+		currentGame.end();
+
+	}
+
+	private void revive() {
+		playField.removeControl("Shooter");
+		if (player.getTimesRevived() < 2 && inVicinity(player, otherPlayer)) {
+			player.setHealth(Resources.getInt("maxHealth"));
+			player.setTimesRevived(player.getTimesRevived() + 1);
+		} else if (player.getTimesRevived() == 2) {
+			end();
+		}
+	}
+
+	private boolean inVicinity(Shooter player, Shooter otherPlayer) {
+		if (otherPlayer.getX() < player.getX() + 2
+				&& otherPlayer.getX() > player.getX() - 2
+				&& otherPlayer.getY() < player.getY() + 2
+				&& otherPlayer.getY() > player.getY() - 2) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -274,8 +308,8 @@ public class PlayState extends GameState implements Constants {
 	 * 
 	 * @return true if the end game conditions have been met
 	 */
-	private boolean gameOver() {
-		return !(player.isActive());
+	private boolean isDead() {
+		return player.hasDied();
 	}
 
 	/**

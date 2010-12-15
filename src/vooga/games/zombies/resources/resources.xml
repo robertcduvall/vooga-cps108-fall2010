@@ -186,6 +186,7 @@
 
 		<Integer name="randomOptions"          value="3"	/>
 		<Integer name="timer"         		   value="1000"	/>
+		<Integer name="reviveTimer"			   value="7000" />
 		<Integer name="startLevel"             value="1"	/>
 		<Integer name="startZombieNumber"      value="25"	/>
 		<Integer name="startZombieDamage"      value="5"	/>

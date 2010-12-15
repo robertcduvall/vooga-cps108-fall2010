@@ -34,6 +34,8 @@ public class Shooter extends BetterSprite implements Constants {
 	private ClientConnection connection;
 	private boolean sentData;
 	private String overlayName;
+	private boolean died;
+	private int timesRevived;
 
 	public Shooter() {
 		super();
@@ -48,17 +50,19 @@ public class Shooter extends BetterSprite implements Constants {
 
 		int playerDefaultX = Resources.getInt("playerDefaultX");
 		int playerDefaultY = Resources.getInt("playerDefaultY");
+		timesRevived = 0;
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
 	}
 
-	public void setConnection(ClientConnection connection){
+	public void setConnection(ClientConnection connection) {
 		this.connection = connection;
 	}
-	
-	public void setName(String name){
+
+	public void setName(String name) {
 		this.overlayName = name;
 	}
+
 	/**
 	 * Creates weapon objects with default ammo
 	 */
@@ -94,6 +98,14 @@ public class Shooter extends BetterSprite implements Constants {
 		addbullets.addBullet(bullet);
 
 	}
+	
+	public int getTimesRevived() {
+		return timesRevived;
+	}
+	
+	public void setTimesRevived(int times) {
+		timesRevived = times;
+	}
 
 	private void showAnimation(String direction) {
 		setAsRenderedSprite(direction);
@@ -107,15 +119,15 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 180;
 		showAnimation(PLAYER_LEFT);
 		moveX(speed);
-		if(connection != null){
+		if (connection != null) {
 			connection.send("goLeft");
 			sentData = true;
 		}
 	}
-	
+
 	public void killOtherPlayer() {
-		setHealth(0);
-		if(connection != null){
+		// setHealth(0);
+		if (connection != null) {
 			connection.send("killOtherPlayer");
 			sentData = true;
 		}
@@ -128,7 +140,7 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 0;
 		showAnimation(PLAYER_RIGHT);
 		moveX(Math.abs(speed));
-		if(connection != null){
+		if (connection != null) {
 			connection.send("goRight");
 			sentData = true;
 		}
@@ -141,7 +153,7 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 270;
 		showAnimation(PLAYER_UP);
 		moveY(speed);
-		if(connection != null){
+		if (connection != null) {
 			connection.send("goUp");
 			sentData = true;
 		}
@@ -154,7 +166,7 @@ public class Shooter extends BetterSprite implements Constants {
 		orientation = 90;
 		showAnimation(PLAYER_DOWN);
 		moveY(Math.abs(speed));
-		if(connection != null){
+		if (connection != null) {
 			connection.send("goDown");
 			sentData = true;
 		}
@@ -174,7 +186,7 @@ public class Shooter extends BetterSprite implements Constants {
 		if (healthIsZero())
 			return;
 		fireWeapon();
-		if(connection != null){
+		if (connection != null) {
 			connection.send("shoot");
 			sentData = true;
 		}
@@ -190,8 +202,8 @@ public class Shooter extends BetterSprite implements Constants {
 
 	@SuppressWarnings("unchecked")
 	public void setAmmo() {
-		((Stat<Integer>) getStat(overlayName + "Ammo")).setStat(weapons[weaponChoice]
-				.getAmmo());
+		((Stat<Integer>) getStat(overlayName + "Ammo"))
+				.setStat(weapons[weaponChoice].getAmmo());
 	}
 
 	/**
@@ -303,13 +315,18 @@ public class Shooter extends BetterSprite implements Constants {
 		levelScore += number;
 	}
 
+	public boolean hasDied() {
+		return died;
+	}
+
 	/**
 	 * Update the shooter's image. Update movement and then stand still so the
 	 * player is not walking in place. Also checks the player's health for the
 	 * end game condition, which is when the player's health reaches 0
 	 */
 	public void update(long elapsedTime) {
-		if(!sentData && connection != null){
+		died = false;
+		if (!sentData && connection != null) {
 			connection.send("still");
 		}
 		sentData = false;
@@ -319,7 +336,8 @@ public class Shooter extends BetterSprite implements Constants {
 		sprite.setAnimate(false);
 
 		if (healthIsZero()) {
-			setActive(false);
+			died = true;
+			// dead = true;
 		}
 	}
 }
