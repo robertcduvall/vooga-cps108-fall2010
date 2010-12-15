@@ -40,9 +40,8 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		setToolTipText("Click here to see your user info");
 		setName("Profile");
 		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
-		Profile profile = ProfileSet.getCurrentProfile();
-		ProfileController profileControl = new ProfileController(profile, this);
 		initialize();
+		ProfileController profileControl = new ProfileController(myProfile, this);
 	}
 
 	private void initialize() {
@@ -91,9 +90,10 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		return myEditPanel;
 	}
 	
-	public void changeEditMode() {
+	public boolean changeEditMode() {
 		editMode = !editMode;
 		reload();
+		return editMode;
 	}
 
 	private ProfileEditPanel createEditPanel() {

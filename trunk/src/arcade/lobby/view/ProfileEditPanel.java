@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
+import arcade.lobby.controller.ProfileController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.lobby.validators.DateValidator;
@@ -35,6 +37,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 	private Map<String, JTextField> myFields;
 	private JButton mySaveButton;
 	private ValidatorDock myDock;
+	private ResourceBundle resource = ResourceBundle.getBundle("arcade.lobby.resources.resources");  //  @jve:decl-index=0:
 
 	public ProfileEditPanel() {
 		this(ProfileSet.getCurrentProfile());
@@ -45,6 +48,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 		super();
 		myProfile = profile;
 		myFields = new HashMap<String, JTextField>();
+//		ProfileController profileController = new ProfileController(profile, this);
 		initialize();
 	}
 
@@ -68,22 +72,22 @@ public class ProfileEditPanel extends JPanel implements IView {
 
 		add(avatar);
 
-		addTextField("Avatar", myProfile == null ? "" : myProfile.getAvatar(),
+		addTextField(resource.getString("avatar"), myProfile == null ? "" : myProfile.getAvatar(),
 				new WebImageValidator());
-		addTextField("First Name",
+		addTextField(resource.getString("firstName"),
 				myProfile == null ? "" : myProfile.getFirstName(),
 				new NameValidator());
-		addTextField("Last Name",
+		addTextField(resource.getString("lastName"),
 				myProfile == null ? "" : myProfile.getLastName(),
 				new NameValidator());
-		addTextField("Email", myProfile == null ? "" : myProfile.getEmail(),
+		addTextField(resource.getString("email"), myProfile == null ? "" : myProfile.getEmail(),
 				new EmailValidator());
-		addTextField("Birthday",
+		addTextField(resource.getString("birthday"),
 				myProfile == null ? "" : myProfile.getBirthday(),
 				new DateValidator());
 
 		add(myDock, "wrap");
-		add(getSaveButton(), "dock south");
+		add(mySaveButton, "dock south");
 	}
 
 	private void scaleImage(ImageIcon icon) {
@@ -101,6 +105,10 @@ public class ProfileEditPanel extends JPanel implements IView {
 				textField, name, validators);
 		myDock.addValidatingComponent(vc, name);
 	}
+	
+	public String getText(String key) {
+		return myFields.get(key).getText();
+	}
 
 	private JTextField getTextField(String text) {
 		JTextField textField = new JTextField(text);
@@ -115,47 +123,59 @@ public class ProfileEditPanel extends JPanel implements IView {
 
 		return textField;
 	}
+	
+	
 
-	private JButton getSaveButton() {
-		mySaveButton = new JButton("Save");
-		mySaveButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent e) {
-				if (validate()) {
-					myProfile.setName(myFields.get("First Name").getText(),
-							myFields.get("Last Name").getText());
-					myProfile.setEmail(myFields.get("Email").getText());
-					myProfile.setBirthday(myFields.get("Birthday").getText());
-					myProfile.setAvatar(myFields.get("Avatar").getText());
-					ProfileSet.updateProfile(myProfile);
-				}
-				refresh(myProfile);
-			}
-
-			private boolean validate() {
-				boolean isValid = true;
-				String failures = "";
-				Map<String, Boolean> validMap = myDock.validateComponents();
-				for (String s : validMap.keySet()) {
-					if (!validMap.get(s)) {
-						isValid = false;
-						failures += s + ", ";
-					}
-				}
-				if (!isValid) {
-					JOptionPane.showMessageDialog(
-							myDock,
-							"Validation has failed for: "
-									+ failures.substring(0,
-											failures.length() - 2));
-					return false;
-				}
-				return true;
-			}
-
-		});
-		return mySaveButton;
+	
+//	private JButton getSaveButton() {
+//		mySaveButton = new JButton("Save");
+//		mySaveButton.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(java.awt.event.ActionEvent e) {
+//				if (isValid()) {
+//					myProfile.setName(myFields.get("First Name").getText(),
+//							myFields.get("Last Name").getText());
+//					myProfile.setEmail(myFields.get("Email").getText());
+//					myProfile.setBirthday(myFields.get("Birthday").getText());
+//					myProfile.setAvatar(myFields.get("Avatar").getText());
+//					ProfileSet.updateProfile(myProfile);
+//				}
+//				refresh(myProfile);
+//			}
+//
+//			public boolean isValid() {
+//				boolean isValid = true;
+//				String failures = "";
+//				Map<String, Boolean> validMap = myDock.validateComponents();
+//				for (String s : validMap.keySet()) {
+//					if (!validMap.get(s)) {
+//						isValid = false;
+//						failures += s + ", ";
+//					}
+//				}
+//				if (!isValid) {
+//					JOptionPane.showMessageDialog(
+//							myDock,
+//							"Validation has failed for: "
+//									+ failures.substring(0,
+//											failures.length() - 2));
+//					return false;
+//				}
+//				return true;
+//			}
+//
+//		});
+//		return mySaveButton;
+//	}
+	
+	public void addSaveListener(ActionListener listener) {
+		mySaveButton = new JButton();
+		mySaveButton.addActionListener(listener);
+	}
+	
+	public Profile getProfile() {
+		return myProfile;
 	}
 
 	public void refresh(Profile newProfile) {
