@@ -5,14 +5,18 @@ import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
 import vooga.games.zombies.gamestates.CreditMenu;
 import vooga.games.zombies.gamestates.EndGameState;
 import vooga.games.zombies.gamestates.HelpMenu1;
 import vooga.games.zombies.gamestates.HelpMenu2;
 import vooga.games.zombies.gamestates.MainMenu;
+import vooga.games.zombies.gamestates.MultiplayerPlayState;
 import vooga.games.zombies.gamestates.PauseState;
 import vooga.games.zombies.gamestates.PlayState;
+import vooga.games.zombies.gamestates.SingleplayerPlayState;
 import vooga.games.zombies.gamestates.WaitingState;
+import vooga.games.zombies.gamestates.ZombiesNetworkMenuState;
 
 /**
  * @date 10-8-10
@@ -33,6 +37,8 @@ public class Blah extends Game implements Constants {
 	private MainMenu mainMenu;
 	private HelpMenu1 helpMenu1;
 	private HelpMenu2 helpMenu2;
+	private SingleplayerPlayState singleplayerState;
+	private MultiplayerPlayState multiplayerState;
 	private static CreditMenu creditMenu;
 	private static WaitingState waitingState;
 	private ClientConnection connection;
@@ -52,20 +58,31 @@ public class Blah extends Game implements Constants {
 			System.exit(1);
 		}
 		pauseState = new PauseState(this);
-		playState = new PlayState(this);
-		playState.setConnection(connection);
+		multiplayerState = new MultiplayerPlayState(this);
+		multiplayerState.setConnection(connection);
 		LevelParser levelParser = new LevelParser();
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
-		waitingState = new WaitingState(this, connection, waitField, playState);
-		mainMenu = new MainMenu(this);
-		helpMenu1 = new HelpMenu1(this);
-		helpMenu2 = new HelpMenu2(this);
-		creditMenu = new CreditMenu(this);
-		endGameState = new EndGameState(this);
-//		getGameStateManager().addGameState(mainMenu, helpMenu1, helpMenu2,
-//				creditMenu, pauseState, playState, endGameState);
-		getGameStateManager().addGameState(waitingState, playState, pauseState, endGameState);
-		getGameStateManager().switchTo(waitingState);
+		waitingState = new WaitingState(this, connection, waitField, multiplayerState);
+		singleplayerState = new SingleplayerPlayState(this);
+		mainMenu =          new MainMenu(this);
+		helpMenu1 =         new HelpMenu1(this);
+		helpMenu2 =         new HelpMenu2(this);
+		creditMenu =        new CreditMenu(this);
+		endGameState =      new EndGameState(this);
+		ZombiesNetworkMenuState networkMenuState = new ZombiesNetworkMenuState();
+		networkMenuState.makeNextButton("Singleplayer", singleplayerState);
+		networkMenuState.makeNextButton("Multiplayer", waitingState);
+		networkMenuState.makeNextButton("Main Menu", mainMenu);
+		networkMenuState.makeNextButton("End Game", endGameState);
+
+		getGameStateManager().addGameState(waitingState, singleplayerState, multiplayerState, pauseState, endGameState, networkMenuState);
+		getGameStateManager().switchTo(networkMenuState);
+	}
+	
+	public void switchToState (GameState gs) {
+		System.out.println("Zombies: blah.java: "+gs);
+		getGameStateManager().switchTo(gs);
+
 	}
 
 	public void play() {
