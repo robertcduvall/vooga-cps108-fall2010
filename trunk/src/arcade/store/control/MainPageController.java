@@ -45,7 +45,6 @@ public class MainPageController extends Controller{
 	
 	@Override
 	public void initialize() {
-
 		populateMainPage(storeModel.getAllItems());
 		populateGenreList(storeModel.getGenres());
 	}
@@ -69,6 +68,7 @@ public class MainPageController extends Controller{
 		}
 
 		viewer.getJScrollPane().setViewportView(gamePanel);
+
 	}
 
 	public void filter(String label) {
