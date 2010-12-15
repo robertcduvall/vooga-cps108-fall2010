@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
-import arcade.lobby.viewComponents.ValidatingComponent;
+import arcade.util.guiComponents.ValidatingComponent;
 import arcade.util.guiComponents.ValidatorDock;
 
 @SuppressWarnings("serial")

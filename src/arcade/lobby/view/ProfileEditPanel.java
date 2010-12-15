@@ -22,7 +22,7 @@ import arcade.lobby.validators.DateValidator;
 import arcade.lobby.validators.EmailValidator;
 import arcade.lobby.validators.NameValidator;
 import arcade.lobby.validators.WebImageValidator;
-import arcade.lobby.viewComponents.ValidatingComponent;
+import arcade.util.guiComponents.ValidatingComponent;
 import arcade.util.guiComponents.Validator;
 import arcade.util.guiComponents.ValidatorDock;
 
