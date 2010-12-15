@@ -57,16 +57,17 @@ public class CheckoutController extends Controller {
 	 */
 	@Override
 	public void initialize() {
-
-		String delim = getString("delim");
-		String[] toInitialize = getString("initialize").split(delim);
 		
-		for(String event : toInitialize)
-		{
-			processEvent(event);
-		}
+		processEventString("initialize");
+	}
+	
+	
+	public void resetSelected(){
+		
+		currentSelected = null;
 	}
 
+	
 	public void setUpRemainingCreddits() {
 		
 		double currCredits = Double.parseDouble(storeModel.getCurrentUserAccount().getCreddits());
