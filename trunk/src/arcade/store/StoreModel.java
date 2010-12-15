@@ -113,12 +113,24 @@ public class StoreModel implements IModel{
 	
 	public static List<Integer> getUserOwnedGames(int userId) {
 		List<Integer> itemList = new ArrayList<Integer>();
-		List<Map<String,String>> answer = dbAdapter.getRows("SELECT Item_Id FROM "
-				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id='"+userId+"'");
-		for(Map<String, String> m : answer) {
+		for(Map<String, String> m : pollOwnedGamesTable(userId)) {
 			itemList.add(Integer.parseInt(m.get("Item_Id")));
 		}
 		return itemList;
+	}
+	
+	public static String[] getUserOwnedGamesAsStrings(int userId) {
+		List<Map<String, String>> ownedGames = pollOwnedGamesTable(userId);
+		String[] answer = new String[ownedGames.size()];
+		for(int k=0; k<answer.length; k++) {
+			answer[k] = ownedGames.get(k).get("Title");
+		}
+		return answer;
+	}
+	
+	private static List<Map<String, String>> pollOwnedGamesTable(int userId) {
+		return dbAdapter.getRows("SELECT Item_Id,Title FROM "
+				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id='"+userId+"'");
 	}
 	
 	public static void addItemsToCart(List<IItemInfo> itemsToPurchase) {
