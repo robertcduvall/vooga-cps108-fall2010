@@ -34,7 +34,7 @@ public class TicTacToeHandler extends ClientHandler{
 	 * @version 1.0
 	 */
 	@Override
-	public boolean interpretMessage(String message){
+	public boolean interpretMessage(String message, String userName){
 		if(message == null){
 			broadcastToOthers("quit", this);
 			return false;
@@ -55,7 +55,7 @@ public class TicTacToeHandler extends ClientHandler{
 	 * @version 1.0
 	 */
 	public void firstRun(){
-		ClientHandler firstPlayer = getFirstPlayer(sessionID);
+		ClientHandler firstPlayer = getPlayers(sessionID).get(0);
 		firstPlayer.getSocket().send("yourTurn");
 		broadcastToOthers("theirTurn", firstPlayer);
 	}

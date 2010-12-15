@@ -1,5 +1,6 @@
 package vooga.engine.networking.server.games;
 
+import java.util.List;
 import java.util.Random;
 
 import vooga.engine.networking.GameSocket;
@@ -35,7 +36,7 @@ public class ZombiesHandler extends ClientHandler{
 	 * @version 1.0
 	 */
 	@Override
-	public boolean interpretMessage(String message){
+	public boolean interpretMessage(String message, String userName){
 		if(message == null){
 			broadcastToOthers("quit", this);
 			return false;
@@ -53,7 +54,11 @@ public class ZombiesHandler extends ClientHandler{
 	 * @version 1.0
 	 */
 	public void firstRun(){
-		ClientHandler firstPlayer = getFirstPlayer(sessionID);
+		List<ClientHandler> handlersInGame = getPlayers(sessionID);
+		for(ClientHandler handler : handlersInGame){
+			broadcastToAll("name:" + handler.getUsername(), handler);
+		}
+		ClientHandler firstPlayer = handlersInGame.get(0);
 		Random random = new Random();
 		broadcastToAll("seed:" + random.nextLong(), firstPlayer);
 	}

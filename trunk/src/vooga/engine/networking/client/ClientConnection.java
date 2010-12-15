@@ -25,8 +25,9 @@ public class ClientConnection extends Connection{
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ClientConnection(String name) throws UnknownHostException, IOException{
+	public ClientConnection(String name, String userName) throws UnknownHostException, IOException{
 		super(VoogaServer.getGamePort(name));
+		sendData(userName);
 	}
 
 	/**
