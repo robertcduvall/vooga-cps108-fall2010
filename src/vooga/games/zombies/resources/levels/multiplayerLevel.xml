@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level name="baseLevel" xmloverlaypath="src/vooga/games/zombies/resources/overlays/multiplayerOverlays.xml" >
+
+	<SpriteGroups>
+	
+		<SpriteGroup name="Zombies" >
+		</SpriteGroup>
+
+		<SpriteGroup name="Bullets" >
+		</SpriteGroup>
+		
+		<SpriteGroup name="Items" >
+		</SpriteGroup>
+		
+		<SpriteGroup name="Players" >
+			<Sprite class="vooga.games.zombies.Shooter" random="false" x="350" y="250" vx="0" vy="0" quantity="1">
+			<Visual name="playerleft" />
+			<Visual name="playerright" />
+			<Visual name="playerup" />
+			<Visual name="playerdown" />
+			<Stat name = "player1Health" />
+			<Stat name = "score" />
+			<Stat name = "player1Ammo" />			
+			</Sprite>
+			<Sprite class="vooga.games.zombies.Shooter" random="false" x="350" y="250" vx="0" vy="0" quantity="1">
+			<Visual name="playerleft" />
+			<Visual name="playerright" />
+			<Visual name="playerup" />
+			<Visual name="playerdown" />
+			<Stat name = "player2Health" />
+			<Stat name = "score" />
+			<Stat name = "player2Ammo" />			
+			</Sprite>
+		</SpriteGroup>
+	</SpriteGroups>
+	
+	<Rules>
+	</Rules>
+	
+	
+	<CollisionGroups>
+		<CollisionGroup subclass="vooga.games.zombies.collisions.BZCollisionManager">
+			<SpriteGroup name="Bullets" />
+			<SpriteGroup name="Zombies" />
+		</CollisionGroup>
+	
+		<CollisionGroup subclass="vooga.games.zombies.collisions.HICollisionManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Items" />
+		</CollisionGroup>
+	
+		<CollisionGroup subclass="vooga.games.zombies.collisions.PZCollisionManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Zombies" />
+		</CollisionGroup>
+		
+		<CollisionGroup subclass="vooga.games.zombies.collisions.SSCollisionManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Players" />
+		</CollisionGroup>	
+	</CollisionGroups>
+
+	<Map></Map>
+	<Music>
+		<song name="entersand" />
+	</Music>
+
+	<Backgrounds>
+		<Background name="sandbackground" />
+	</Backgrounds>
+
+</Level>

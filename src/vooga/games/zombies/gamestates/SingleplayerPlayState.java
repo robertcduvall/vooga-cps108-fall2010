@@ -8,7 +8,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
 import vooga.engine.overlay.*;
-import vooga.engine.overlay.Stat;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
@@ -21,6 +20,7 @@ import vooga.games.zombies.events.*;
 
 public class SingleplayerPlayState extends PlayState implements Constants {
 
+    private static final String PLAY_XML_PATH = "src/vooga/games/zombies/resources/levels/singleplayerLevel.xml";
 
 	private static Blah currentGame;
 
@@ -62,6 +62,7 @@ public class SingleplayerPlayState extends PlayState implements Constants {
 
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
+		player.setOverlayName("player1");
 	}
 
 	/**
