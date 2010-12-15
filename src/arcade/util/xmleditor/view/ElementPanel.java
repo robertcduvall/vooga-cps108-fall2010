@@ -1,11 +1,10 @@
 package arcade.util.xmleditor.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-
-import arcade.util.xmleditor.view.toolbar.ElementToolBar;
 
 public class ElementPanel extends JPanel{
 	
@@ -19,7 +18,7 @@ public class ElementPanel extends JPanel{
 		
 		
 		JPanel topPanel = new JPanel(new BorderLayout());
-		topPanel.add(new ElementToolBar(), BorderLayout.NORTH);
+		topPanel.add(toolbar, BorderLayout.NORTH);
 		topPanel.add(namePanel, BorderLayout.CENTER);
 		add(topPanel, BorderLayout.NORTH);
 		add(attributePanel, BorderLayout.CENTER);

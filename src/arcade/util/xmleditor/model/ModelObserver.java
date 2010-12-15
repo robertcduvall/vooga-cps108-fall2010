@@ -26,4 +26,10 @@ public class ModelObserver {
 					.getFirstChild(), null));
 		}
 	}
+	
+	public void notifyElementSelected(Element element){
+		for(ModelListener listener: listeners){
+			listener.elementSelected(element);
+		}
+	}
 }
