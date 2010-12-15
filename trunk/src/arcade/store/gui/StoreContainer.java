@@ -23,7 +23,7 @@ import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
 import arcade.store.gui.tabs.MainPageTab;
 
-public class StoreContainer {
+public class StoreContainer extends JPanel implements Tab {
 
 	MainController mainController;
 	
@@ -33,22 +33,14 @@ public class StoreContainer {
 	
 	public StoreContainer() {
 		mainController = new MainController();
+		setLayout(new BorderLayout());
+		setName("Store");
+		this.add(createTabs(), BorderLayout.NORTH);
 
-	//	setName("Store");
-		JFrame frame = new JFrame();
-		frame.add(	getContent());
-		frame.setSize(700, 500);
-	
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//this method sets up the first tab
-//		controller.setMainTabView(this);
 	}
 	
-//	@Override
 	public JComponent getContent() {
-		return createTabs();
+		return this;
 	}
 	
 	private JTabbedPane createTabs() {
@@ -106,6 +98,17 @@ public class StoreContainer {
 	
 	public static void main(String[] args) {
 		new StoreContainer();
+	}
+
+	@Override
+	public IController getController() {
+		return mainController;
+	}
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
 	}
 
 
