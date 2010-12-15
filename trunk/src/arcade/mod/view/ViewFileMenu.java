@@ -37,12 +37,43 @@ public class ViewFileMenu extends JMenuBar {
 	}
 
 	private void initialize() {
+		JMenu menu = buildFileMenu();
+		
+		JMenu behaviorMenu = buildBehaviorMenu();
+		
+		this.add(menu);
+		this.add(behaviorMenu);
+	}
+	
+	private JMenu buildBehaviorMenu(){
+		
+		//Build the second menu.
+		JMenu behaviorMenu = new JMenu("Behavior");
+		behaviorMenu.setMnemonic(KeyEvent.VK_B);
+		behaviorMenu.getAccessibleContext().setAccessibleDescription("For modifying behavior");
+
+		// a group of JMenuItems
+		JMenuItem openItem = new JMenuItem("Modify", KeyEvent.VK_M);
+		openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,
+				ActionEvent.CTRL_MASK));
+		openItem.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				parent.displayBehaviorDialog();
+			}
+		});
+		behaviorMenu.add(openItem);
+		
+		return behaviorMenu;
+	}
+	
+	private JMenu buildFileMenu(){
+		
 		// Build the first menu.
 		JMenu menu = new JMenu("File");
 		menu.setMnemonic(KeyEvent.VK_F);
 		menu.getAccessibleContext().setAccessibleDescription(
 				"For saving and loading");
-		this.add(menu);
+		
 
 		// a group of JMenuItems
 		JMenuItem openItem = new JMenuItem("Open", KeyEvent.VK_O);
@@ -100,6 +131,9 @@ public class ViewFileMenu extends JMenuBar {
 			}
 		});
 		menu.add(closeItem);
+		
+		return menu;
 	}
+	
 
 }

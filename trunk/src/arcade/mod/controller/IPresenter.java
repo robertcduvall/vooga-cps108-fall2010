@@ -1,5 +1,7 @@
 package arcade.mod.controller;
 
+import java.io.File;
+
 
 /**
  * Presenter interface acts as the presenter
@@ -44,4 +46,11 @@ public interface IPresenter {
 	 * @return true if a file is valid
 	 */
 	public boolean errorCheck();
+	
+	/**
+	 * Inform the presenter that the user
+	 * is attempting to modify the behavior
+	 * of the specified classes
+	 */
+	public void modificationRequest(File file, String className, String interfaceName, String modName);
 }

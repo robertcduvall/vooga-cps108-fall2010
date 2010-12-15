@@ -1,9 +1,9 @@
 package arcade.mod.view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,11 +15,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
-import arcade.core.ExampleGUI;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.mod.controller.IPresenter;
@@ -224,6 +226,27 @@ public class View extends JPanel implements IViewer, Tab {
 	@Override
 	public void refresh() {
 		// TODO idk what this is		
+	}
+	
+	public void displayBehaviorDialog() { 
+		
+	    JOptionPane optionPane = new JOptionPane();
+	    	        
+	    optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+	    
+	    JFileChooser classFileChooser = new JFileChooser();
+	    
+	    classFileChooser.showOpenDialog(this);
+	    
+	    File chosenFile = classFileChooser.getSelectedFile();
+	    	    
+	    String className = (String) optionPane.showInputDialog("Requesting Class:");
+	    
+	    String interfaceName = (String) optionPane.showInputDialog("Interface:");
+	    
+	    String modName = (String) optionPane.showInputDialog("Mod Name:");
+	 
+	    myPresenter.modificationRequest(chosenFile, className, interfaceName, modName);
 	}
 
 }

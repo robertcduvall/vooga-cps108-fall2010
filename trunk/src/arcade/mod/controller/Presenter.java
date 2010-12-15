@@ -1,22 +1,38 @@
 package arcade.mod.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
-import arcade.core.Tab;
-import arcade.core.mvc.IController;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
+import vooga.engine.util.XMLDocumentCreator;
+import vooga.engine.util.XMLFileParser;
+import arcade.core.GameView;
 import arcade.mod.model.IModel;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.ModException;
 import arcade.mod.model.XMLModel;
 import arcade.mod.view.IViewer;
-import arcade.mod.view.View;
 import arcade.mod.view.frame.ListFrame;
+import arcade.util.filehandling.FileHandler;
 
 /**
  * 
@@ -121,6 +137,60 @@ public class Presenter implements IPresenter {
 		}
 		return true;
 	}
+
+	@Override
+	public void modificationRequest(File file,String className, String interfaceName, String modName) {		
+		
+	
+			
+			String currentGame = GameView.getGame().toLowerCase().replace(" ", "");
+			
+			//this is because digger is currently the only compliant game
+			currentGame="digger";
+			
+			String destFilepath = System.getProperty("user.dir");
+		
+			destFilepath = destFilepath + File.separatorChar + "src" + File.separatorChar + "vooga" + File.separatorChar + "games" + File.separatorChar + currentGame + File.separatorChar + "mod" + File.separatorChar + file.getName();
+		
+			File destFile = new File(destFilepath);
+			
+			System.out.println(destFile);
+		
+		try {
+			
+			FileHandler.copyFile(file, destFile);
+			
+		} catch (IOException e) {
+			System.out.println("Failed to copy file" + file);
+		}
+		
+		//TODO:Modify the XML
+		XMLDocumentCreator xmlCreator = new XMLFileParser("entityMap.xml");
+		try {
+			Document doc = xmlCreator.getDocument();
+			Element element = doc.createElement("Mapping");
+			element.setAttribute("callingClass", className);
+			element.setAttribute("requestedClass", interfaceName);
+			element.setAttribute("modName", modName);
+			element.setAttribute("resolveTo", "vooga.games." + currentGame + ".mod." + file.getName().substring(0, file.getName().lastIndexOf('.')) );
+			doc.getFirstChild().appendChild(element);
+
+			// Prepare the DOM document for writing
+			Source source = new DOMSource(doc);
+
+			// Prepare the output file
+			Result result = new StreamResult("entityMap.xml");
+
+			// Write the DOM document to the file
+			Transformer xformer = TransformerFactory.newInstance().newTransformer();
+			xformer.transform(source, result);
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+        
+	}
+
 
 
 }
