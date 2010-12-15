@@ -12,12 +12,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
-import arcade.lobby.controller.ProfileController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.lobby.validators.DateValidator;
@@ -41,7 +39,6 @@ public class ProfileEditPanel extends JPanel implements IView {
 
 	public ProfileEditPanel() {
 		this(ProfileSet.getCurrentProfile());
-		// this(null);
 	}
 
 	public ProfileEditPanel(Profile profile) {
@@ -56,7 +53,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 	private void initialize() {
 		setLayout(new MigLayout());
 		myDock = new ValidatorDock();
-		mySaveButton = new JButton();
+		mySaveButton = new JButton("Save");
 
 		JLabel avatar = new JLabel("");
 		try {
@@ -88,7 +85,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 				new DateValidator());
 
 		add(myDock, "wrap");
-		add(mySaveButton, "dock south");
+		add(mySaveButton, "span 2, align center");
 	}
 
 	private void scaleImage(ImageIcon icon) {
