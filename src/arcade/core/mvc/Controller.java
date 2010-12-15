@@ -53,9 +53,38 @@ public class Controller implements IController{
 		} 
 		catch (Exception e)
 		{
-				throw ControlExceptions.METHOD_NOT_FOUND;
+			throw ControlExceptions.METHOD_NOT_FOUND;
 		}
 	}
+	
+	/**
+	 * This method process the a string of events based on the value
+	 * set up by the delim inside the properties file used
+	 * for the current resource bundle
+	 * @param eventString
+	 */
+	public void processEventString(String eventString)
+	{
+		try
+		{
+			String delim = reflectionMirror.getString("delim");
+			String eventList = reflectionMirror.getString(eventString);
+			String[] events = eventList.split(delim);
+			
+			for(String event: events)
+			{
+				if(event == null)
+					continue; 
+				
+				processEvent(event);
+			}
+		}
+		catch (Exception e)
+		{
+			throw ControlExceptions.DELIMITER_PROBLEM;
+		}	
+	}
+	
 	
 	public String getString(String key)
 	{
