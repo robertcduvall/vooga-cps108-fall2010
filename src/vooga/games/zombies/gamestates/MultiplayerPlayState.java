@@ -272,5 +272,6 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	public void render(Graphics2D g) {
 		super.render(g);
+		checkForDeath();
 	}
 }
