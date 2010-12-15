@@ -5,7 +5,11 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 
 import net.miginfocom.swing.MigLayout;
-
+/**
+ * 
+ * No Longer Used
+ *
+ */
 @SuppressWarnings("serial")
 public class PasswordConfirmField extends JComponent {
 	private static final int DEFAULT_LENGTH = 10;
