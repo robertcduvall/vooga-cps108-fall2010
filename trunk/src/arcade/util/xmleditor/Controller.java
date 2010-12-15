@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JToolBar;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -15,28 +18,38 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
-import arcade.util.xmleditor.mainmenu.MenuBar;
-import arcade.util.xmleditor.model.ModelObserver;
-import arcade.util.xmleditor.view.ElementController;
-import arcade.util.xmleditor.view.View;
-import arcade.util.xmleditor.view.WindowCloser;
 
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
+import arcade.util.xmleditor.mainmenu.MenuBar;
+import arcade.util.xmleditor.model.ModelObserver;
+import arcade.util.xmleditor.model.XMLNode;
+import arcade.util.xmleditor.view.ElementController;
+import arcade.util.xmleditor.view.View;
+import arcade.util.xmleditor.view.WindowCloser;
+import arcade.util.xmleditor.view.toolbar.AddAttributeController;
+import arcade.util.xmleditor.view.toolbar.AddChildController;
+import arcade.util.xmleditor.view.toolbar.DeleteElementController;
+import arcade.util.xmleditor.view.toolbar.ElementToolBarButton;
 
-public class Controller {
+public class Controller implements TreeSelectionListener{
 	
 	private View view;
 	private Document modelDocument;
 	private ModelObserver observer;
+	private Element currentElement;
 	
 	public Controller(){
+		observer = new ModelObserver();
+		
+		JToolBar toolbar = createElementToolBar();
+		
 		JFrame frame = new JFrame();
-		ElementController elementController = new ElementController(this);
+		ElementController elementController = new ElementController(this, toolbar);
 		try {
-			view = new View(elementController.getView());
+			view = new View(this, elementController.getView());
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,14 +60,14 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		observer = new ModelObserver();
+		
 		observer.addNewListener(view);
-		frame.add(view);
+		frame.add(view);		
+		frame.addWindowListener(new WindowCloser());
+		frame.setJMenuBar(new MenuBar(this));
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.addWindowListener(new WindowCloser());
-		frame.setJMenuBar(new MenuBar(this));
 	}
 	
 
@@ -117,6 +130,28 @@ public class Controller {
 	
 	public void addAttribute(){
 		
+	}
+
+
+	@Override
+	public void valueChanged(TreeSelectionEvent arg0) {
+		currentElement = ((XMLNode) arg0.getPath().getLastPathComponent()).getElement();	
+		observer.notifyElementSelected(currentElement);
+	}
+	
+	private JToolBar createElementToolBar(){
+		JToolBar toolbar = new JToolBar();
+		
+		addElementButton(toolbar, new AddAttributeController());
+		addElementButton(toolbar, new DeleteElementController());
+		addElementButton(toolbar, new AddChildController());
+		
+		return toolbar;
+	}
+	
+	private void addElementButton(JToolBar toolbar, ElementToolBarButton button){
+		observer.addNewListener(button);
+		toolbar.add(button.getView());
 	}
 
 }

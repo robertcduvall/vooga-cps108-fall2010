@@ -1,5 +1,6 @@
 package arcade.util.xmleditor.view;
 
+import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -9,7 +10,6 @@ import org.w3c.dom.Node;
 
 import arcade.util.xmleditor.Controller;
 import arcade.util.xmleditor.model.XMLNode;
-import arcade.util.xmleditor.view.toolbar.ElementToolBar;
 
 public class ElementController implements TreeSelectionListener{
 	
@@ -19,12 +19,12 @@ public class ElementController implements TreeSelectionListener{
 	AttributeController attributeController;
 	ElementNameController nameController;
 	
-	public ElementController(Controller parent){
+	public ElementController(Controller parent, JToolBar toolbar){
 		this.parent = parent;
 		attributeController = new AttributeController();
 		nameController = new ElementNameController();
 		
-		view = new ElementPanel(this, attributeController.getView(), nameController.getView(), new ElementToolBar());
+		view = new ElementPanel(this, attributeController.getView(), nameController.getView(), toolbar);
 	}
 	
 	public ElementPanel getView(){
@@ -38,7 +38,6 @@ public class ElementController implements TreeSelectionListener{
 
 	@Override
 	public void valueChanged(TreeSelectionEvent arg0) {
-		System.out.println("selection changed");
 		element = ((XMLNode) arg0.getPath().getLastPathComponent()).getElement();
 		NamedNodeMap attributeMap = element.getAttributes();
 		attributeController.setAttributeMap(attributeMap);
