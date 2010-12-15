@@ -56,6 +56,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 	private void initialize() {
 		setLayout(new MigLayout());
 		myDock = new ValidatorDock();
+		mySaveButton = new JButton();
 
 		JLabel avatar = new JLabel("");
 		try {
@@ -170,7 +171,6 @@ public class ProfileEditPanel extends JPanel implements IView {
 //	}
 	
 	public void addSaveListener(ActionListener listener) {
-		mySaveButton = new JButton();
 		mySaveButton.addActionListener(listener);
 	}
 	
