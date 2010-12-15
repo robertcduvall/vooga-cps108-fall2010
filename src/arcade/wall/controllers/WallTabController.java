@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import arcade.lobby.model.Profile;
 import arcade.wall.models.WallModel;
 import arcade.wall.models.data.comment.Comment;
 import arcade.wall.models.data.message.Message;
@@ -19,6 +20,7 @@ import arcade.wall.views.walltab.WallTabView;
 public class WallTabController {
 	WallModel myModel; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
 	WallTabView myView; //TODO allow a controller to accept multiple views
+	Profile myProfile;
 
 	public WallTabController() {
 		myModel = new WallModel();
@@ -110,5 +112,10 @@ public class WallTabController {
 	}
 	public List<String> getGameRankList() {
 		return myModel.getGameRankList();
+	}
+
+	public void setProfile(Profile profile) {
+		myProfile = profile;
+		myView.setProfile(profile);
 	}
 }

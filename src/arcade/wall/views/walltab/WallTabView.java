@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallTabController;
 import arcade.wall.models.data.comment.Comment;
@@ -29,6 +30,7 @@ import arcade.wall.views.ratings.RadioPanel;
 public class WallTabView extends JPanel {
 	
 	private WallTabController myController;
+	private Profile myProfile;
 	
 	//GUI Elements
 	private JPanel myPanel;
@@ -42,7 +44,8 @@ public class WallTabView extends JPanel {
 				   myTopRatedGamesLabel,
 				   myEnterReceiverLabel,
 				   myEnterMessageLabel,
-				   myReceivedMessagesLabel;
+				   myReceivedMessagesLabel,
+				   myUserNameLabel;
 	private JTextArea myCommentsArea,
 					  myEnterMessageArea,
 					  myReceivedMessagesArea;
@@ -105,6 +108,7 @@ public class WallTabView extends JPanel {
 	private JPanel constructReviewPanel() {
 		JPanel reviewPanel = new JPanel();
 		reviewPanel.setLayout(new BoxLayout(reviewPanel, BoxLayout.Y_AXIS));
+		reviewPanel.add(myUserNameLabel);
 		reviewPanel.add(mySelectGameLabel);
 		reviewPanel.add(myGameComboBox);
 		reviewPanel.add(myEnterCommentLabel);
@@ -186,6 +190,7 @@ public class WallTabView extends JPanel {
 		myEnterMessageLabel = new JLabel(myResources.getString("enterMessageLabel"));
 		myReceivedMessagesLabel = new JLabel(myResources.getString("receivedMessagesLabel"));
 		myEnterCommentLabel = new JLabel(myResources.getString("enterCommentLabel"));
+		myUserNameLabel = new JLabel("Guest's Wall");
 	}
 	
 	/**
@@ -326,7 +331,20 @@ public class WallTabView extends JPanel {
 		myEnterMessageArea.setText(string);
 	}
 	
+	public void setUserNameLabelText(String string) {
+		myUserNameLabel.setText(string);
+	}
+	
 	public JPanel getPanel() {
 		return this.myPanel;
+	}
+
+	public void setProfile(Profile profile) {
+		myProfile=profile;
+		try {
+			setUserNameLabelText(myProfile.getUserName()+"'s Wall");
+		} catch (NullPointerException e) {
+			setUserNameLabelText("Guest's Wall");
+		}
 	}
 }
