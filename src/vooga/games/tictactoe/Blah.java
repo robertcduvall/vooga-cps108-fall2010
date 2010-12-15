@@ -45,7 +45,7 @@ public class Blah extends Game {
 	private void initStates() {
 		ClientConnection connection = null;
 		try{
-			connection = new ClientConnection("TicTacToe");
+			connection = new ClientConnection("TicTacToe", userName);
 		}
 		catch(Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());

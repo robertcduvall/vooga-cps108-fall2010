@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
+import vooga.engine.networking.client.Username;
 import vooga.engine.overlay.*;
 import vooga.engine.control.KeyboardControl;
 import vooga.engine.core.PlayField;
@@ -25,7 +26,7 @@ public class PlayState extends GameState implements Constants {
 	private Blah currentGame;
 
 	private Shooter player;
-	private Shooter otherPlayer;
+	private Shooter[] otherPlayers;
 	private PlayField playField;
 	private Timer timer;
 	private KeyboardControl control;
@@ -70,10 +71,11 @@ public class PlayState extends GameState implements Constants {
 	private void setupPlayer() {
 		player = (Shooter) playField.getGroup("Players").getSprites()[0];
 		player.setConnection(connection);
-		player.setName("player1");
-		otherPlayer = (Shooter) playField.getGroup("Players").getSprites()[1];
-		otherPlayer.setName("player2");
-	}
+		player.setOverlayName("player1");
+		otherPlayers = new Shooter[1];
+		Shooter otherPlayer1 = (Shooter) playField.getGroup("Players").getSprites()[1];
+		otherPlayer1.setOverlayName("player2");
+		otherPlayers[0] = otherPlayer1;	}
 
 	/**
 	 * This method initializes the zombies, bullets, players, overlays
@@ -91,7 +93,9 @@ public class PlayState extends GameState implements Constants {
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		AddBulletsEvent addbullets = new AddBulletsEvent(bullets);
 		player.setBulletListener(addbullets);
-		otherPlayer.setBulletListener(addbullets);
+		for(Shooter otherPlayer : otherPlayers){
+			otherPlayer.setBulletListener(addbullets);
+		}
 
 		eventPool.addEvent(addItems);
 		eventPool.addEvent(addbullets);
@@ -206,12 +210,34 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public void interpretMessage(String data) {
-		if (data.startsWith(ZombieSeed.getIdentifier())) {
+		if(data.startsWith(Username.getIdentifier())){
+			String userName = ((Username) (Username.deserialize(data))).getUsername();
+			if(player.getName() == null){
+				OverlayLabel playerOverlay = player.setName(userName);
+				playerOverlay.setY(playerOverlay.getY() - player.getHeight() / 2);
+				playField.getGroup("Players").add(playerOverlay);
+				return;
+			}
+			for(Shooter shooter : otherPlayers){
+				if(shooter.getName() == null){
+					OverlayLabel playerOverlay = shooter.setName(userName);
+					playerOverlay.setY(playerOverlay.getY() - player.getHeight() / 2);
+					playField.getGroup("Players").add(playerOverlay);
+					return;
+				}
+			}
+		}
+		else if(data.startsWith(ZombieSeed.getIdentifier())){
 			seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
-			LevelEndEvent endLevel = new LevelEndEvent(new Shooter[] { player,
-					otherPlayer }, this, addZombies, addItems, seed);
+			Shooter[] shooters = new Shooter[otherPlayers.length + 1];
+			shooters[0] = player;
+			for(int i = 0; i < otherPlayers.length; i++){
+				shooters[i + 1] = otherPlayers[i];
+			}
+			LevelEndEvent endLevel = new LevelEndEvent(shooters, this, addZombies, addItems, seed);
 			eventPool.addEvent(endLevel);
-		} else {
+		}
+		else{
 			setMessage(data);
 		}
 	}
@@ -232,34 +258,47 @@ public class PlayState extends GameState implements Constants {
 	}
 
 	public boolean goUp() {
-		otherPlayer.goUp();
+		for(Shooter player : otherPlayers){
+			player.goUp();
+		}
 		return false;
 	}
 
 	public boolean goDown() {
-		otherPlayer.goDown();
+		for(Shooter player : otherPlayers){
+			player.goDown();
+		}
 		return false;
 	}
 
 	public boolean goLeft() {
-		otherPlayer.goLeft();
+		for(Shooter player : otherPlayers){
+			player.goLeft();
+		}
 		return false;
 	}
 
 	public boolean goRight() {
-		otherPlayer.goRight();
+		for(Shooter player : otherPlayers){
+			player.goRight();
+		}
 		return false;
 	}
 
 	public boolean shoot() {
-		otherPlayer.shoot();
+		for(Shooter player : otherPlayers){
+			player.shoot();
+		}
 		return false;
 	}
 
 	public boolean killOtherPlayer() {
-		otherPlayer.setHealth(0);
+		for(Shooter player : otherPlayers){
+			player.setHealth(0);
+		}
 		return false;
 	}
+
 
 	public void applyReviveLabel(Shooter player) {
 		reviveLabel = new OverlayLabel(player, "REVIVE", Color.red);
@@ -283,7 +322,6 @@ public class PlayState extends GameState implements Constants {
 			getLevelStatOverlay().render(g);
 		}
 		int playerHealth = getPlayerHealth(player);
-		int otherPlayerHealth = getPlayerHealth(otherPlayer);
 
 		if (player.getTimesRevived() == 1 && playerHealth <= 0) {
 			currentGame.end();
@@ -293,13 +331,16 @@ public class PlayState extends GameState implements Constants {
 			applyReviveLabel(player);
 			playField.removeControl("Shooter");
 		}
-		if (otherPlayerHealth <= 0 && labels.getSize() <= 1) {
-			applyReviveLabel(otherPlayer);
-		}
-		else if (playerHealth > 0
-				&& playField.getControl("Shooter") == null) {
-			playField.addControl("Shooter", control);
-			removeReviveLabel();
+		for(Shooter otherPlayer : otherPlayers){
+			int otherPlayerHealth = getPlayerHealth(otherPlayer);
+			if (otherPlayerHealth <= 0 && labels.getSize() <= 1) {
+				applyReviveLabel(otherPlayer);
+			}
+			else if (playerHealth > 0
+					&& playField.getControl("Shooter") == null) {
+				playField.addControl("Shooter", control);
+				removeReviveLabel();
+			}
 		}
 	}
 
