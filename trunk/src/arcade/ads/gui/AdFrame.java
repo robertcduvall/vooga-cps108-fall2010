@@ -44,10 +44,9 @@ public class AdFrame extends JFrame {
 
 	AdsManager myManager;
 
-	public AdFrame(AdsManager manager, Dimension adDimension) {
+	public AdFrame(Dimension adDimension) {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
-		myManager = manager;
 
 		setTitle("Ads");
 
@@ -63,13 +62,16 @@ public class AdFrame extends JFrame {
 		panel2.setPreferredSize(adDimension);
 		addListener(panel2);
 
+		myManager = new AdsManager(panel2);
+		myManager.setRenderedAds(new File("src/arcade/ads/resources/ads.txt"));
+
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
 
 		pack();
 		setVisible(true);
 
-		myManager.setPanel(panel2);
+		//myManager.setPanel(panel2);
 		myManager.runAdsManager();
 		// myManager.update();
 		// myManager.render();
@@ -151,7 +153,8 @@ public class AdFrame extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		AdsManager manager = new AdsManager();
+		new AdFrame(new Dimension(800, 600));
+		//AdsManager manager = new AdsManager();
 
 //		BufferedImage img1 = null;
 //		BufferedImage img2 = null;
@@ -165,7 +168,7 @@ public class AdFrame extends JFrame {
 //
 //		manager.getRenderedAdsGroup().add((new ImageAd("duke", img1)));
 //		manager.getRenderedAdsGroup().add((new ImageAd("unc", img2)));
-		manager.setAds("src/arcade/ads/resources/ads.txt");
+		//manager.setRenderedAds("src/arcade/ads/resources/ads.txt");
 		// BufferedImage img = null;
 		// try
 		// {
@@ -179,6 +182,6 @@ public class AdFrame extends JFrame {
 		// manager.add(new DukeAds("duke", img));
 		// System.out.println(manager.retrieve());
 
-		new AdFrame(manager, new Dimension(800, 600));
+		//new AdFrame(new Dimension(800, 600));
 	}
 }
