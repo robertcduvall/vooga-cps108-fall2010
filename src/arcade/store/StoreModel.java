@@ -114,6 +114,28 @@ public class StoreModel implements IModel{
 		return (currentCreddits - getTotalUserCartCost() ) >= 0;	
 	}
 	
+	public void addCredditsToUser(double amount) {
+		setUserCreddits(currentUser.getCreddits()+amount);
+	}
+	
+	public void setUserCreddits(double amount) {
+		currentUser.setCreddits(amount);
+		dbAdapter.updateCreddits(amount, currentUser.getId());
+	}
+	
+	public void processGamePurchase(List<IItemInfo> titles) {
+		dbAdapter.updatePurchaseHistory(titles, currentUser.getId());
+	}
+	
+	public void emptyUserCart() {
+		currentUser.emptyCart();
+		dbAdapter.updateList(currentUser.getCart(), currentUser.getId(),StoreDbConstants.CART_FIELD);
+	}
+	
+	public void saveCart() {
+		dbAdapter.updateList(currentUser.getCart(), currentUser.getId(),StoreDbConstants.CART_FIELD);
+	}
+	
 	public static List<Integer> getUserOwnedGames(int userId) {
 		List<Integer> itemList = new ArrayList<Integer>();
 		for(Map<String, String> m : pollOwnedGamesTable(userId)) {
@@ -134,30 +156,30 @@ public class StoreModel implements IModel{
 	}
 
 	public boolean userHasNoItems() {
-
 		return currentUser.getCart().isEmpty();
 	}
 	
 	public void processBuyCart()
-	{
-		double userCreddits = currentUser.getCreddits();
-		ArrayList<IItemInfo> gamesToBuy = new ArrayList<IItemInfo>();
+    {
+            double userCreddits = currentUser.getCreddits();
+            ArrayList<IItemInfo> gamesToBuy = new ArrayList<IItemInfo>();
 
-		for (String title : currentUser.getCart()) {
-			IItemInfo item = getItemInfo(title);
-			double price = Double.parseDouble(item.getPrice());
-			userCreddits -= price;
-			gamesToBuy.add(item);
-		}
+            for (String title : currentUser.getCart()) {
+                    IItemInfo item = getItemInfo(title);
+                    double price = Double.parseDouble(item.getPrice());
+                    userCreddits -= price;
+                    gamesToBuy.add(item);
+            }
 
-		currentUser.addGames(gamesToBuy);
+            processGamePurchase(gamesToBuy);
 
-		// initialize a new array for the cart!
-		currentUser.emptyCart();
+            // initialize a new array for the cart!
+            emptyUserCart();
 
-		// put the creddits back!
-		currentUser.updateToCreddits(userCreddits);
-	}
+            // put the creddits back!
+            setUserCreddits(userCreddits);
+    }
+
 	
 	public static String[] getUserOwnedGamesAsStrings(int userId) {
 		List<Map<String, String>> ownedGames = pollOwnedGamesTable(userId);

@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class GuestUser extends StoreUser {
 
 	//TODO: Who did this?
-	public void updateToCreddits(double creddits) {
+	public void setCreddits(double creddits) {
 		JOptionPane.showMessageDialog(null, "Guest users cannot add creddits");
 	}
 
