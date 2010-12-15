@@ -1,25 +1,18 @@
 package vooga.games.zombies.collisions;
 
 import vooga.games.zombies.Shooter;
-import vooga.games.zombies.Zombie;
-import vooga.games.zombies.weapons.Bullet;
-import vooga.games.zombies.Constants;
-import vooga.games.zombies.gamestates.*;
 
-import com.golden.gamedev.object.AnimatedSprite;
+import vooga.games.zombies.Constants;
 import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.core.Game;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
-
-import vooga.games.zombies.Blah;
 
 import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 
 /**
- * Collision Manager for shooter to shooter collision. Resets health if shooter
- * is revived
+ * Collision Manager for shooter to shooter collision. Resets health to max health if shooter
+ * is revivable
  * 
  * @author Cue, Kolodziejzyk, Townsend
  */
@@ -28,30 +21,26 @@ public class SSCollisionManager extends PreciseCollisionGroup implements
 
 	Game currentGame;
 
-	// GameState endGameState;
-
 	public SSCollisionManager(Game game) {
 		currentGame = game;
-		// endGameState = endGame;
 	}
 
 	/**
-	 * Initiates post-collision behavior for the zombie and the bullet
+	 * Initiates post-collision behavior for the two shooters
 	 */
 	public void collided(Sprite player, Sprite otherPlayer) {
 		actOnCollision(player, otherPlayer);
 	}
 
 	/**
-	 * Processes the collision. Calculates the damage taken by a zombie from the
-	 * bullet. If the zombie is killed by the bullet, it's set to display the
-	 * death animation. The bullet is deleted after the collision processing is
-	 * completed.
+	 * Processes the collision. Calculates the health of the primary player
+	 * and if it'd zero, and the times he's been revived is under 2, then reset
+	 * his health. Then add one to the times he's been revived
 	 * 
-	 * @param bullet
-	 *            bullet
-	 * @param zombie
-	 *            zombie
+	 * @param Shooter
+	 *            player
+	 * @param Shooter
+	 *            otherPlayer
 	 */
 	private void actOnCollision(Sprite player, Sprite otherPlayer) {
 		Shooter shooter = (Shooter) player;
