@@ -75,7 +75,7 @@ public class HighScorePanel extends Panel{
 				+ "<tr><th></th><th>Player</th><th>Score</th></tr>";
 		int i = 1;
 		for (Map<String, String> row : rows) {
-			result += "<tr><td>" + i + "</td><td>" + row.get("Player")
+			result += "<tr><td>" + i + "</td><td>" + row.get("PlayerName")
 					+ "</td><td>" + row.get("Score") + "</td></tr>";
 			i++;
 		}

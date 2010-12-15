@@ -53,7 +53,7 @@ public class Arcade extends JFrame {
 		setLayout(new BorderLayout());
 		getContentPane().add(createLogin(), BorderLayout.NORTH);
 		mainWindow = createTabs();
-		getContentPane().add(mainWindow, BorderLayout.SOUTH);
+		getContentPane().add(mainWindow, BorderLayout.CENTER);
 
 		setSize(XSIZE, YSIZE);
 		setVisible(true);
@@ -125,7 +125,8 @@ public class Arcade extends JFrame {
 					GameView game = new GameView(20);		
 				columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
 							game);		
-					columnar.setOneTouchExpandable(true);		
+					columnar.setOneTouchExpandable(true);	
+//					columnar.setDividerLocation(0);
 				
 					mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
 					createPanels("rightPanel"));		
