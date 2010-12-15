@@ -13,7 +13,7 @@ import arcade.util.database.Constants;
 public class ProfileSet implements Iterable<Profile> {
 	
 	private static Profile currentProfile = null;
-	public static final Profile GUEST_PROFILE = createGuest();
+	private static final Profile GUEST_PROFILE = createGuest();
 	public static DatabaseAdapter myDbAdapter;
 	private static ResourceBundle resourceBundle = ResourceBundle
 			.getBundle("arcade.lobby.resources.resources");
@@ -132,7 +132,7 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 	
 	public static Profile getCurrentProfile() {
-		return currentProfile;
+		return currentProfile==null?GUEST_PROFILE:currentProfile;
 	}
 	
 	public static void setCurrentProfile(Profile profile) {
