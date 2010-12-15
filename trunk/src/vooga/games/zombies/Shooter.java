@@ -12,6 +12,7 @@ import vooga.engine.overlay.OverlayString;
 import vooga.engine.overlay.Stat;
 import vooga.engine.resource.Resources;
 import vooga.games.zombies.events.AddBulletsEvent;
+import vooga.games.zombies.serializeables.Health;
 import vooga.games.zombies.weapons.AssaultRifle;
 import vooga.games.zombies.weapons.Bullet;
 import vooga.games.zombies.weapons.Pistol;
@@ -353,7 +354,6 @@ public class Shooter extends BetterSprite implements Constants {
 
 		if (healthIsZero()) {
 			died = true;
-			// dead = true;
 		}
 	}
 }
