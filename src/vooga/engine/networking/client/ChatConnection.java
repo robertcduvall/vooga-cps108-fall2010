@@ -11,19 +11,24 @@ import vooga.engine.networking.server.VoogaServer;
  * @version 1.0
  */
 public class ChatConnection extends Connection {
+	
 	/**
 	 * Calls GameSocket's constructor with the port that holds the chat.
 	 * 
+	 * @param the String name of the game
+	 * @param the String username of the client 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public ChatConnection(String name, String userName) throws UnknownHostException, IOException{
-		super(VoogaServer.getChatPort(name));
+	
+	public ChatConnection(String gameName, String userName) throws UnknownHostException, IOException{
+		super(VoogaServer.getChatPort(gameName));
 		sendData(userName);
 	}
 	
 	/**
-	 * For chat all we want to do is send the raw string over the network. No checking needed.
+	 * No interpretation or String-checking needed for chat.  Sends the raw string over the network.
+	 * Could be extended to check for profanity.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
