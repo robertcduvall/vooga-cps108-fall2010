@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import arcade.ads.adscontent.BasicAd;
+import arcade.ads.adscontent.RelatedAd;
 
 import vooga.engine.factory.LevelException;
 import vooga.engine.util.XMLDocumentCreator;
@@ -49,16 +52,37 @@ public class XMLtoAds {
 	}
 
 	private static List<BasicAd> processAds(Document xmlDocument) {
-		Element adGroup = (Element) xmlDocument.getFirstChild(); 
+		List<BasicAd> tempAds = new ArrayList<BasicAd>();
 
-		Node basicAdSelection = xmlDocument.getElementsByTagName("BasicAds").item(0);
+		Node basicAdSelection = xmlDocument.getElementsByTagName("Ads").item(0);
 		if(basicAdSelection !=null){
 			NodeList listOfBasicAds = basicAdSelection.getChildNodes();
-			System.out.println("* "+listOfBasicAds.getLength());
-			return processBasicAds(listOfBasicAds);
+			tempAds.addAll(processBasicAds(listOfBasicAds));
 		}
-		return null;
+		Node relatedAdSelection = xmlDocument.getElementsByTagName("RelatedAds").item(0);
+		if(relatedAdSelection !=null){
+			NodeList listOfRelatedAds = relatedAdSelection.getChildNodes();
+			tempAds.addAll(processRelatedAds(listOfRelatedAds));
+		}
+		return tempAds;
 
+	}
+	
+	private static List<BasicAd> processRelatedAds(NodeList listOfRelatedAds){
+		List<BasicAd> tempAds = new ArrayList<BasicAd>();
+		for(int i = 0; i < listOfRelatedAds.getLength(); i++)
+		{
+			if (isElement(listOfRelatedAds.item(i)))
+			{
+				Element ad = (Element) listOfRelatedAds.item(i);
+				List<BasicAd> tempList = processBasicAds(listOfRelatedAds.item(i).getChildNodes());
+				List<String> typeArray = Arrays.asList(ad.getAttribute("type").split(","));
+				for (int j=0; j<tempList.size(); j++){
+					tempAds.add(new RelatedAd(tempList.get(j), typeArray));
+				}
+			}
+		}
+		return tempAds;
 	}
 
 	private static List<BasicAd> processBasicAds(NodeList listOfBasicAds) {
@@ -76,14 +100,12 @@ public class XMLtoAds {
 					Constructor<?> ct = adClass.getConstructor();
 					System.out.println(ct);
 					BasicAd adInstance = (BasicAd) ct.newInstance();
-					System.out.println("!");
-
 					adInstance.setParameters(ad.getAttributes());
 					tempAds.add(adInstance);
 				}
 				catch(Exception e)
 				{
-					throw LevelException.RULE_NOT_FOUND_EXCEPTION;//TODO: Change Exception
+					throw LevelException.RULE_NOT_FOUND_EXCEPTION;
 				}
 			}
 		}
