@@ -320,6 +320,14 @@ public class WallTabView extends JPanel {
 	}
 	
 	/**
+	 * Adds the CloseButtonListener to the WallTabView.
+	 */
+	public void addCloseButtonListener(
+			ActionListener closeButtonListener){
+		myCloseButton.addActionListener(closeButtonListener);
+	}
+	
+	/**
 	 * Updates the Top-Rated Games label to display the Top 3 games in terms of average rating.
 	 */
 	public void updateTopRatedGamesLabel() {
