@@ -79,6 +79,18 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 //		return button;
 //	}
 	
+	public JPanel getMainPanel() {
+		return myMainPanel;
+	}
+	
+	public ProfileViewPanel getViewPanel() {
+		return myViewPanel;
+	}
+	
+	public ProfileEditPanel getEditPanel() {
+		return myEditPanel;
+	}
+	
 	public void changeEditMode() {
 		editMode = !editMode;
 		reload();
