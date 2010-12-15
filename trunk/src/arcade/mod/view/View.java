@@ -14,12 +14,16 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import arcade.core.ExampleGUI;
+import arcade.core.Tab;
+import arcade.core.mvc.IController;
 import arcade.mod.controller.IPresenter;
+import arcade.mod.controller.Presenter;
 import arcade.mod.view.file.IFileOpener;
 import arcade.mod.view.frame.ListFrame;
 
@@ -31,11 +35,14 @@ import arcade.mod.view.frame.ListFrame;
  * the View as passive as possible.
  *
  */
-public class View extends JPanel implements IViewer {
+public class View extends JPanel implements IViewer, Tab {
 
 //	private static final int VIEW_HEIGHT = 600;
 //
 //	private static final int VIEW_WIDTH = 800;
+
+	
+	public static final String TAB_NAME = "Mod";
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,19 +57,24 @@ public class View extends JPanel implements IViewer {
 	 * Creates a new instance of View with a reference to the Presenter which instantiated it
 	 * @param presenter which instantiated the View
 	 */
-	public View(IPresenter controller) {
+	public View() {
+		
+		setName(TAB_NAME);
+
 		this.setLayout(new BorderLayout());
-		myPresenter = controller;
+		
 		myCategories = new ArrayList<String>();
 		myCategories.add("<empty>");
+		
+		myPresenter = new Presenter(this);
+		
+		initialize();
 	}
 
 	/**
 	 * Initialize the View with its initial display
 	 */
 	public void initialize() {
-
-//		setSize(VIEW_WIDTH, VIEW_HEIGHT);
 		
 		JPanel contentPane = new JPanel(new BorderLayout());
 		
@@ -190,14 +202,28 @@ public class View extends JPanel implements IViewer {
 	 * @return File to save
 	 */
 	public File openFileSelect() {
-
-		
 		return fileOpener.openFile();
 	}
 	
 	public void setFileOpener(IFileOpener fileOpener){
 		this.fileOpener =fileOpener;
 
+	}
+
+	@Override
+	public JComponent getContent() {
+		return this;
+	}
+
+	@Override
+	public IController getController() {
+		// TODO wtf
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		// TODO idk what this is		
 	}
 
 }

@@ -11,7 +11,6 @@ public class CurrentFileOpener implements IFileOpener {
 
 		String currentGame = GameView.getGame().toLowerCase().replace(" ", "");
 		
-		//TODO: this is temporary because currently the currentGame is always zombieland and they arent standards compliant
 		currentGame = "digger";
 		
 		String filepath = System.getProperty("user.dir");

@@ -31,9 +31,8 @@ import arcade.mod.view.frame.ListFrame;
  * @author Vitor
  * 
  */
-public class Presenter extends JPanel implements Tab, IPresenter {
+public class Presenter implements IPresenter {
 
-	public static final String TAB_NAME = "Mod";
 	IModel myModel;
 	IViewer myView;
 	FrameFactory myFactory;
@@ -42,23 +41,9 @@ public class Presenter extends JPanel implements Tab, IPresenter {
 	/**
 	 * Creates the instance of Controller when the Mod Environment is launched
 	 */
-	public Presenter() {
-		setName(TAB_NAME);
+	public Presenter(IViewer view) {
 		myFactory = new FrameFactory();
-		myView = new View(this);
-		myView.initialize();
-//		File xmlFile = myView.openFileSelect();
-//		if (xmlFile != null) {
-//			try {
-//				myModel = new XMLModel(xmlFile);
-//			} catch (Exception e) {
-//				// TODO show dialog in view
-//				e.printStackTrace();
-//			}
-//		} else {
-//			System.exit(1);
-//		}
-		
+		myView = view;
 	}
 
 	public void load(){
@@ -123,14 +108,6 @@ public class Presenter extends JPanel implements Tab, IPresenter {
 		}
 	}
 
-	/**
-	 * Get the content from the View
-	 * @return JComponent - View cast to a JComponent object
-	 */
-	@Override
-	public JComponent getContent() {
-		return (JComponent) myView;
-	}
 
 	/**
 	 * Do error checking here through Frame hierarchy
@@ -145,14 +122,5 @@ public class Presenter extends JPanel implements Tab, IPresenter {
 		return true;
 	}
 
-	@Override
-	public IController getController() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void refresh() {
-		((JComponent) myView).repaint();
-	}
 }
