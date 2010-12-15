@@ -193,6 +193,15 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	public Control getControl(String key){
 		return myControls.get(key);
 	}
+	
+	/**
+	 * Remove control object.
+	 * @param key is key of the Control object
+	 */
+	public void removeControl(String key){
+		myControls.remove(key);
+	}
+	
 	/**
 	 * Here's to adding a music string
 	 * @param musicname
