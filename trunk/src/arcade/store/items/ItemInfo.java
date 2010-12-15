@@ -1,6 +1,5 @@
 package arcade.store.items;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 

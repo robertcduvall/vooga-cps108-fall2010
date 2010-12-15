@@ -8,7 +8,7 @@ import arcade.store.items.IItemInfo;
 
 public class StoreUser {
 	
-	private final static String DEFAULT_NAME = "default_user";
+	private final static String DEFAULT_NAME = "Guest User";
 	private int id;
 	private String name;
 	private double creddits;
@@ -62,8 +62,7 @@ public class StoreUser {
 	}
 	
 	public void addCreddits(double amount) {
-		creddits +=amount;
-		dbAdapter.updateCreddits(creddits, Integer.toString(id));
+		updateToCreddits(amount + creddits);
 	}
 	
 	public void addGames(List<IItemInfo> titles)
