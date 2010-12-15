@@ -16,10 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
-public class ProfileTab extends  JPanel implements Tab, IViewer{
-	
+public class ProfileTab extends JPanel implements Tab, IViewer {
 
-	private JPanel jPanel = null;  //  @jve:decl-index=0:visual-constraint="133,-45"
+	// private JPanel jPanel = null; //
+	// @jve:decl-index=0:visual-constraint="133,-45"
 	private JLabel introLabel1 = null;
 	private JLabel userImageLabel = null;
 	private JTextField usernameTextField = null;
@@ -31,88 +31,81 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 	private JLabel MyPurchasedItemsLabel = null;
 	private JButton RefreshButton = null;
 	private JScrollPane itemTableScrollPane = null;
-	
+
 	private static final String NAME = "Shop Profile";
-	
+
 	private ProfileController controller;
-	
-	public ProfileTab()
-	{
+
+	public ProfileTab() {
 		controller = new ProfileController();
 		controller.addViewer(this);
 		setName(NAME);
+
+		MyPurchasedItemsLabel = new JLabel();
+		MyPurchasedItemsLabel.setBounds(new Rectangle(102, 289, 139, 35));
+		MyPurchasedItemsLabel.setText("My Purchased Items");
+		AvailableCredditsLabel = new JLabel();
+		AvailableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
+		AvailableCredditsLabel.setText("Availabe Creddits");
+		userImageLabel = new JLabel();
+		userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
+		try {
+			userImageLabel.setIcon(new ImageIcon(""));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		introLabel1 = new JLabel();
+		introLabel1.setText("Manage My Shop Account");
+		introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
+
+		setLayout(null);
+		add(introLabel1, null);
+		add(userImageLabel, null);
+		add(getUsernameTextField(), null);
+		add(AvailableCredditsLabel, null);
+		add(getAvailableCredditsTextField(), null);
+		add(getPurchaseCredditsButton(), null);
+		add(getEditMyProfileButton(), null);
+		add(getItemTableScrollPane(), null);
+		add(MyPurchasedItemsLabel, null);
+		add(getRefreshButton(), null);
 	}
-	
-	@Override
-	public String getName()
-	{
-		return NAME;
-	}
-	
 
 	@Override
-	public void setController(IController control) 
-	{
+	public String getName() {
+		return NAME;
+	}
+
+	@Override
+	public void setController(IController control) {
 		controller = (ProfileController) control;
 	}
-	
+
 	@Override
-	public IController getController()
-	{
+	public IController getController() {
 		return controller;
 	}
 
-
 	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	public JComponent getContent() {
-		if (jPanel == null) {
-			MyPurchasedItemsLabel = new JLabel();
-			MyPurchasedItemsLabel.setBounds(new Rectangle(102, 289, 139, 35));
-			MyPurchasedItemsLabel.setText("My Purchased Items");
-			AvailableCredditsLabel = new JLabel();
-			AvailableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
-			AvailableCredditsLabel.setText("Availabe Creddits");
-			userImageLabel = new JLabel();
-			userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
-			try {
-				userImageLabel.setIcon(new ImageIcon(""));
-			}
-			catch (Exception e){
-				System.out.println(e);
-			}
-			introLabel1 = new JLabel();
-			introLabel1.setText("Manage My Shop Account");
-			introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
-			jPanel = new JPanel();
-			jPanel.setLayout(null);
-//			jPanel.setSize(new Dimension(726, 620));
-			jPanel.add(introLabel1, null);
-			jPanel.add(userImageLabel, null);
-			jPanel.add(getUsernameTextField(), null);
-			jPanel.add(AvailableCredditsLabel, null);
-			jPanel.add(getAvailableCredditsTextField(), null);
-			jPanel.add(getPurchaseCredditsButton(), null);
-			jPanel.add(getEditMyProfileButton(), null);
-			jPanel.add(getItemTableScrollPane(), null);
-			jPanel.add(MyPurchasedItemsLabel, null);
-			jPanel.add(getRefreshButton(), null);
-		}
-		return jPanel;
+		return this;
 	}
 
 	/**
-	 * This method initializes usernameTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes usernameTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	public JTextField getUsernameTextField() {
 		if (usernameTextField == null) {
 			usernameTextField = new JTextField();
-			usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed from http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
+			usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed
+																			// from
+																			// http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
 			usernameTextField.setEditable(false);
 			usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
 		}
@@ -120,23 +113,24 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes availableCredditsTextField	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes availableCredditsTextField
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	public JTextField getAvailableCredditsTextField() {
 		if (availableCredditsTextField == null) {
 			availableCredditsTextField = new JTextField();
-			//506, 53, 111, 29
-			availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
+			// 506, 53, 111, 29
+			availableCredditsTextField
+					.setBounds(new Rectangle(506, 94, 111, 29));
 		}
 		return availableCredditsTextField;
 	}
 
 	/**
-	 * This method initializes purchaseCredditsButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes purchaseCredditsButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getPurchaseCredditsButton() {
 		if (purchaseCredditsButton == null) {
@@ -153,9 +147,9 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes editMyProfileButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes editMyProfileButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getEditMyProfileButton() {
 		if (editMyProfileButton == null) {
@@ -164,7 +158,7 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 			editMyProfileButton.setText("Edit My Profile");
 			editMyProfileButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					
+
 				}
 			});
 		}
@@ -172,9 +166,9 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes purchasedGamesTable	
-	 * 	
-	 * @return javax.swing.JTable	
+	 * This method initializes purchasedGamesTable
+	 * 
+	 * @return javax.swing.JTable
 	 */
 	public JTable getPurchasedItemsTable() {
 		if (purchasedItemsTable == null) {
@@ -182,20 +176,20 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 		}
 		return purchasedItemsTable;
 	}
-	
+
 	public JScrollPane getItemTableScrollPane() {
-		if(itemTableScrollPane == null) {
+		if (itemTableScrollPane == null) {
 			itemTableScrollPane = new JScrollPane();
 			itemTableScrollPane.setViewportView(getPurchasedItemsTable());
 			itemTableScrollPane.setBounds(new Rectangle(102, 347, 542, 256));
 		}
 		return itemTableScrollPane;
 	}
-	
+
 	/**
-	 * This method initializes RefreshButton	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes RefreshButton
+	 * 
+	 * @return javax.swing.JButton
 	 */
 	private JButton getRefreshButton() {
 		if (RefreshButton == null) {
@@ -204,7 +198,7 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 			RefreshButton.setText("Refresh");
 			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					
+
 					controller.initialize();
 				}
 			});
@@ -217,5 +211,4 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 		this.repaint();
 	}
 
-	
 }

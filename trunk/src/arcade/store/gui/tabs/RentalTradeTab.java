@@ -18,9 +18,10 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class RentalTradeTab extends  JPanel implements Tab, IViewer{
+public class RentalTradeTab extends JPanel implements Tab, IViewer {
 
-	private JPanel rentalTradePanel = null;  //  @jve:decl-index=0:visual-constraint="189,54"
+	// private JPanel rentalTradePanel = null; //
+	// @jve:decl-index=0:visual-constraint="189,54"
 	private JLabel rentalTradeLabel = null;
 	private JPanel typesPanel = null;
 	private JLabel typeLabel = null;
@@ -34,71 +35,66 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 
 	private static final String NAME = "Rental and Trade";
 	private IController controller;
-	
+
 	/**
-	 * This method initializes rentalTradePanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes rentalTradePanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 
-	public RentalTradeTab()
-	{
-//		controller = new RentalTradeController();
+	public RentalTradeTab() {
+		// controller = new RentalTradeController();
 		controller.addViewer(this);
 		setName(NAME);
+
+		jFilter = new JLabel();
+		jFilter.setBounds(new Rectangle(428, 73, 67, 23));
+		jFilter.setText("Filter by:");
+		searchLabel = new JLabel();
+		searchLabel.setBounds(new Rectangle(243, 72, 69, 22));
+		searchLabel.setText("Search by: ");
+		typeLabel = new JLabel();
+		typeLabel.setBounds(new Rectangle(59, 70, 50, 23));
+		typeLabel.setText("Genre:");
+		rentalTradeLabel = new JLabel();
+		rentalTradeLabel.setBounds(new Rectangle(33, 24, 150, 24));
+		rentalTradeLabel.setText("The Rental / Trade Center");
+
+		setLayout(null);
+		add(rentalTradeLabel, null);
+		add(getTypesPanel(), null);
+		add(typeLabel, null);
+		add(searchLabel, null);
+		add(jFilter, null);
+		add(getSearchComboBox(), null);
+		add(getFilerComboBox(), null);
+		add(getTradeListScrollPane(), null);
 	}
-	
-	public String getName()
-	{
+
+	public String getName() {
 		return NAME;
 	}
-	
+
 	@Override
 	public void setController(IController control) {
 		controller = control;
-		
+
 	}
-	
+
 	@Override
-	public IController getController()
-	{
+	public IController getController() {
 		return controller;
 	}
-	
+
 	@Override
 	public JComponent getContent() {
-		if (rentalTradePanel == null) {
-			jFilter = new JLabel();
-			jFilter.setBounds(new Rectangle(428, 73, 67, 23));
-			jFilter.setText("Filter by:");
-			searchLabel = new JLabel();
-			searchLabel.setBounds(new Rectangle(243, 72, 69, 22));
-			searchLabel.setText("Search by: ");
-			typeLabel = new JLabel();
-			typeLabel.setBounds(new Rectangle(59, 70, 50, 23));
-			typeLabel.setText("Genre:");
-			rentalTradeLabel = new JLabel();
-			rentalTradeLabel.setBounds(new Rectangle(33, 24, 150, 24));
-			rentalTradeLabel.setText("The Rental / Trade Center");
-			rentalTradePanel = new JPanel();
-			rentalTradePanel.setLayout(null);
-//			rentalTradePanel.setSize(new Dimension(596, 548));
-			rentalTradePanel.add(rentalTradeLabel, null);
-			rentalTradePanel.add(getTypesPanel(), null);
-			rentalTradePanel.add(typeLabel, null);
-			rentalTradePanel.add(searchLabel, null);
-			rentalTradePanel.add(jFilter, null);
-			rentalTradePanel.add(getSearchComboBox(), null);
-			rentalTradePanel.add(getFilerComboBox(), null);
-			rentalTradePanel.add(getTradeListScrollPane(), null);
-		}
-		return rentalTradePanel;
+		return this;
 	}
 
 	/**
-	 * This method initializes typesPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes typesPanel
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getTypesPanel() {
 		if (typesPanel == null) {
@@ -117,9 +113,9 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes genreList	
-	 * 	
-	 * @return javax.swing.JList	
+	 * This method initializes genreList
+	 * 
+	 * @return javax.swing.JList
 	 */
 	private JList getGenreList() {
 		if (genreList == null) {
@@ -129,9 +125,9 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes searchComboBox	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes searchComboBox
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
 	private JComboBox getSearchComboBox() {
 		if (searchComboBox == null) {
@@ -142,9 +138,9 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes filerComboBox	
-	 * 	
-	 * @return javax.swing.JComboBox	
+	 * This method initializes filerComboBox
+	 * 
+	 * @return javax.swing.JComboBox
 	 */
 	private JComboBox getFilerComboBox() {
 		if (filerComboBox == null) {
@@ -155,9 +151,9 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes tradeListScrollPane	
-	 * 	
-	 * @return javax.swing.JScrollPane	
+	 * This method initializes tradeListScrollPane
+	 * 
+	 * @return javax.swing.JScrollPane
 	 */
 	private JScrollPane getTradeListScrollPane() {
 		if (tradeListScrollPane == null) {
@@ -169,9 +165,9 @@ public class RentalTradeTab extends  JPanel implements Tab, IViewer{
 	}
 
 	/**
-	 * This method initializes jTable	
-	 * 	
-	 * @return javax.swing.JTable	
+	 * This method initializes jTable
+	 * 
+	 * @return javax.swing.JTable
 	 */
 	private JTable getJTable() {
 		if (jTable == null) {
