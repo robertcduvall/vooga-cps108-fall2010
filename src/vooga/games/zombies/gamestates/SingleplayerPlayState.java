@@ -2,19 +2,11 @@ package vooga.games.zombies.gamestates;
 
 
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.util.Random;
-
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
-
-import vooga.engine.overlay.*;
-import vooga.engine.control.KeyboardControl;
-import vooga.engine.core.PlayField;
 import vooga.engine.event.EventPool;
-import vooga.engine.factory.LevelParser;
 import vooga.engine.resource.Resources;
-import vooga.engine.state.GameState;
 import vooga.engine.util.SoundPlayer;
 import vooga.games.zombies.*;
 import vooga.games.zombies.events.*;

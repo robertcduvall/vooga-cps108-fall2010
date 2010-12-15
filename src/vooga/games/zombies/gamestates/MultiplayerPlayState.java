@@ -95,14 +95,15 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 			eventPool.addEvent(endLevel);
 		}
 		else{
+			System.out.println(data);
 			setMessage(data);
 		}
 	}
 
 	public boolean goUp() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if(player != null){
-				Shooter player = (Shooter) otherPlayers.getSprites()[i];
 				player.goUp();
 			}
 		}
@@ -111,8 +112,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	public boolean goDown() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if(player != null){
-				Shooter player = (Shooter) otherPlayers.getSprites()[i];
 				player.goDown();
 			}
 		}
@@ -121,8 +122,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	public boolean goLeft() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if(player != null){
-				Shooter player = (Shooter) otherPlayers.getSprites()[i];
 				player.goLeft();
 			}
 		}
@@ -131,8 +132,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	public boolean goRight() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if(player != null){
-				Shooter player = (Shooter) otherPlayers.getSprites()[i];
 				player.goRight();
 			}
 		}
@@ -141,8 +142,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	public boolean shoot() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if(player != null){
-				Shooter player = (Shooter) otherPlayers.getSprites()[i];
 				player.shoot();
 			}
 		}
@@ -151,8 +152,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	public boolean killOtherPlayer() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if(player != null){
-				Shooter player = (Shooter) otherPlayers.getSprites()[i];
 				player.setHealth(0);
 			}
 		}
