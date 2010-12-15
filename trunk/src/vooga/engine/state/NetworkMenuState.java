@@ -21,6 +21,8 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.util.ImageUtil;
 
 public abstract class NetworkMenuState extends GameState{
+	
+	//I THINK THIS IS DEPRECATED
 
 	private Game game;
 	private KeyboardControl keyboardControl;

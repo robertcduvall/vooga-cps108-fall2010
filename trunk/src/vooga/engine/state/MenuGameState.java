@@ -1,5 +1,11 @@
 package vooga.engine.state;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.lang.reflect.Method;
+
+import javax.imageio.ImageIO;
+
 import com.golden.gamedev.object.SpriteGroup;
 
 import vooga.engine.control.KeyboardControl;
@@ -23,7 +29,7 @@ public abstract class MenuGameState extends GameState {
 	 * menuPlayfield is the desired new instance of PlayField
 	 */	
 
-	private int buttonHeight = 54;
+	private int buttonHeight = 54; //TODO DO NOT HARDCORE --Devon
 	private String buttonGroup = "buttonGroup";
 	private PlayField menuPlayfield = new PlayField();
 	private SpriteGroup buttons = new SpriteGroup(buttonGroup);
@@ -31,6 +37,9 @@ public abstract class MenuGameState extends GameState {
 	private KeyboardControl keyboardControl;
 	private Game thisGame = Resources.getGame();
 	private String gameClass;
+	private BufferedImage DEFAULT_BUTTON_IMAGE;
+	private File imageFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
+
 
 	/**
 	 * Creates a new instance of MenuGameState
@@ -42,6 +51,12 @@ public abstract class MenuGameState extends GameState {
 		keyboardControl = new KeyboardControl(thisGame, thisGame);
 		menuPlayfield.addControl("keyboard", keyboardControl);
 		menuPlayfield.addControl("mouse", mouseControl);
+		try{
+			DEFAULT_BUTTON_IMAGE = ImageIO.read(imageFile);}
+		catch(Exception e) {
+			System.out.println("Button.java: "+e.getMessage());	
+		}	
+
 		initialize();
 	}
 	
@@ -78,7 +93,7 @@ public abstract class MenuGameState extends GameState {
 	}
 	
 	public void makeButton(String label) {
-		addButton(new MenuButton(label, this));
+		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, this));
 	}
 	
 	public void setButtonHeight(int height) {
@@ -88,11 +103,11 @@ public abstract class MenuGameState extends GameState {
 
 	
 	public void makeButton(String label, GameState gamestate) {
-		addButton(new MenuButton(label, gamestate, this));
+		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, gamestate, this));
 	}
 	
 	public void makeButton(String label, GameState gamestate, double x, double y) {
-		addButton(new MenuButton(label, gamestate, x, y, this));
+		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, gamestate, x, y, this));
 	}
 	
 	public void makeNextButton(String label, GameState gamestate) {
@@ -101,8 +116,33 @@ public abstract class MenuGameState extends GameState {
 					0.0,
 					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight));
 	}
+	/*
+	public void makeNextButton(String label, Object ob, String method, Class<?> classType, Class<?>... paramTypes) {
+		try {
+			Method perform = classType.getMethod(method, paramTypes);
+		} catch (Exception e) {
+			System.out.println("MenuGameState: "+e.getMessage());
+		} 
+
+	}
 	
+	public void makeNextButton(String label, String method, String classType) {
+		new MenuButton(	DEFAULT_BUTTON_IMAGE, 
+						label, 
+						0.0,
+						(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight),
+						this,
+						method,
+						classType
+						);
+
+	}
 	
+	public void exit () {
+		System.exit(0);
+	}
+	
+	*/
 	
 	public PlayField getMenuPlayfield(){
 		return menuPlayfield;
