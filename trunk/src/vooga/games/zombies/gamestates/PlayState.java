@@ -287,6 +287,7 @@ public class PlayState extends GameState implements Constants {
 		if (player.getTimesRevived() < 2 && inVicinity(player, otherPlayer)) {
 			player.setHealth(Resources.getInt("maxHealth"));
 			player.setTimesRevived(player.getTimesRevived() + 1);
+			playField.addControl("Shooter", control);
 		} else if (player.getTimesRevived() == 2) {
 			end();
 		}
