@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -208,6 +209,10 @@ public class RegisterPanel extends JPanel implements IView {
 			});
 		}
 		return submitButton;
+	}
+	
+	public void addSubmitListener(ActionListener listener) {
+		submitButton.addActionListener(listener);
 	}
 
 }

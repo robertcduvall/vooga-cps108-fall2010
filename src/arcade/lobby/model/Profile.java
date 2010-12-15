@@ -12,6 +12,8 @@ public class Profile implements IModel {
 	private String myAvatarURL="";
 	private long joinDate;
 	
+	
+	
 	public Profile(int userId) {
 		myUserId = userId;
 	}
