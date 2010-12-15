@@ -1,17 +1,14 @@
 package arcade.store.test;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-
 import arcade.core.mvc.*;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.test.CheckoutGUI;
-import arcade.store.items.IItemInfo;
 
 public class CheckoutController extends Controller{
 
@@ -136,27 +133,8 @@ public class CheckoutController extends Controller{
 	 * This method process the buy cart step!
 	 */
 	public void processBuyCart() {
-		StoreUser user = storeModel.getCurrentUserAccount();
-		double userCreddits = user.getCreddits();
-		ArrayList<IItemInfo> gamesToBuy = new ArrayList<IItemInfo>();
 
-		for (String title : user.getCart()) {
-			IItemInfo item = storeModel.getItemInfo(title);
-			double price = Double.parseDouble(item.getPrice());
-			userCreddits -= price;
-			gamesToBuy.add(item);
-		}
-
-		user.addGames(gamesToBuy);
-
-		// initialize a new array for the cart!
-		user.emptyCart();
-
-		// put the creddits back!
-		user.updateToCreddits(userCreddits);
-
-		// refresh the content of your inventory
-		initialize();
+		storeModel.processBuyCart();
 	}
 
 	public void processConfirmDropItem() {
@@ -169,7 +147,7 @@ public class CheckoutController extends Controller{
 					"Are You Sure You Want to Drop This Cart?", "Drop Cart",
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
-				storeModel.getCurrentUserAccount().emptyCart();
+				storeModel.emptyUserCart();
 			}
 		}
 	}
@@ -191,7 +169,7 @@ public class CheckoutController extends Controller{
 	}
 
 	public void processSaveCart() {
-		storeModel.getCurrentUserAccount().saveCart();
+		storeModel.saveCart();
 		JOptionPane.showMessageDialog(null, "Cart Successfully Saved!");
 	}
 
