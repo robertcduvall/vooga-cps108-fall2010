@@ -144,7 +144,7 @@ public class SignUpPanel extends JPanel implements IView {
 	}
 
 	public void addPasswordListener(KeyListener listener) {
-		myDock.getComponent("password").addKeyListener(listener);
+		
 	}
 
 	public void addSubmitButtonListener(ActionListener listener) {

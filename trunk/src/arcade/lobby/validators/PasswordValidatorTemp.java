@@ -31,7 +31,7 @@ public class PasswordValidatorTemp extends Validator<JPasswordField> {
 	}
 	
 	private boolean validateSecond() {
-		return myPasswordFields[0].getPassword().equals(myPasswordFields[1].getPassword());
+		return String.valueOf(myPasswordFields[0].getPassword()).equals(String.valueOf(myPasswordFields[1].getPassword()));
 	}
 
 
