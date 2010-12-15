@@ -45,7 +45,7 @@ public class Blah extends Game implements Constants {
 
 		super.initResources();
 		try {
-			connection = new ClientConnection("Zombies");
+			connection = new ClientConnection("Zombies", userName);
 		} 
 		catch (Exception e){
 			System.out.println("Error connecting to Prestige Worldwide Server: "+ e.getMessage());
