@@ -1,11 +1,13 @@
 package arcade.wall.views.walltab;
 
+import java.awt.Component;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.models.data.comment.Comment;
@@ -19,13 +21,15 @@ public class DisplayPanel extends JPanel {
 	
 	public DisplayPanel() {
 		myGameHeaderLabel = new JLabel();
+		myGameHeaderLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		myTopRatedGamesLabel = new JLabel();
+		myTopRatedGamesLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
 		updateTopRatedGamesLabel();
 		setGameHeaderLabel(WallTabPanel.myGameChoices[FeedbackPanel.gameComboBox.getSelectedIndex()]);
-		
+		this.add(myGameHeaderLabel);
 		myCommentsArea = new JTextArea();
 		myCommentsArea.setEditable(false);
-		this.add(myGameHeaderLabel);
 		myCommentsArea.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("commentsAreaBorder")));
 		this.add(myCommentsArea);
 		this.add(myTopRatedGamesLabel);
@@ -33,11 +37,12 @@ public class DisplayPanel extends JPanel {
 		this.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("displayPanelBorder")));
 		
 	}
-	
+
 	public void setGameHeaderLabel(String selectedGame) {
 		this.myGameHeaderLabel.setText("<html>" + 
 				"<font color=blue>" + selectedGame + "</font> || Average Rating: " +
 				+ WallTabPanel.myController.getRating(selectedGame) + "</html>");
+		myGameHeaderLabel.setHorizontalAlignment(SwingConstants.LEFT);
 	}
 	
 	/**
@@ -65,5 +70,6 @@ public class DisplayPanel extends JPanel {
 				"2nd Place Game: " + gameRankList.get(1) + "<br/>" +
 				"3rd Place Game: " + gameRankList.get(2)
 				+ "</html>");
+		myTopRatedGamesLabel.setHorizontalAlignment(SwingConstants.LEFT);
 	}
 }
