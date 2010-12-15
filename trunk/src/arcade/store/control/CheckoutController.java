@@ -11,7 +11,18 @@ import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.gui.tabs.CheckoutTab;
 
-
+/**
+ * 
+ * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date: 			12-10-15
+ * @description: 	This class represents the controller for the the CheckoutTab and the 
+ * 					the StoreModel. The CheckoutTab extends the Controller class and maintain
+ * 					all the communications between the the StoreModel and the Viewer.
+ * 					These interactions include displaying StoreUser creddits in the 
+ * 					JTextFields, calculating the the purchase cost of the cart, and 
+ * 					processing user's shopping requests. 
+ *
+ */
 
 public class CheckoutController extends Controller {
 
@@ -20,8 +31,9 @@ public class CheckoutController extends Controller {
 	private String currentSelected;
 
 	/**
-	 * Default constructor for CheckoutController sets the currentSelected to
-	 * null;
+	 * default constructor for CheckoutController that takes in
+	 * a filepath for the resource bundle that this class
+	 * uses with the processEvent and processEventString methods.
 	 */
 	public CheckoutController(String filepath) {
 		super(filepath);
@@ -56,11 +68,17 @@ public class CheckoutController extends Controller {
 		processEventString("initialize");
 	}
 
+	/**
+	 * sets the currently element selected on the list to be null.
+	 */
 	public void resetSelected() {
 		currentSelected = null;
 	}
 
-	public void setUpRemainingCreddits() {
+	/**
+	 * sets up the GUI JTextField for the remaining creddits. 
+	 */
+	private void setUpRemainingCreddits() {
 
 		double remaining = storeModel.getUserWishListBalance();
 		setRemainingCreditField(remaining);
@@ -68,38 +86,45 @@ public class CheckoutController extends Controller {
 
 	/**
 	 * setRemainingCreditField takes in the parameter balance and puts this
-	 * value in a JTextField.
-	 * 
-	 * @param balance
-	 *            the remaining creddit balance of the user
+	 * value in a JTextField. If the user has has a balance of less than 0,
+	 * 0 is displayed. If the user has a balance of greater than or equal to 0,
+	 * then their credits are displayed.
 	 */
 	private void setRemainingCreditField(double balance) {
-
 		if (balance < 0) {
 			viewer.setRemainigCredditsTextField("0");
 		} else {
 			viewer.setRemainigCredditsTextField("" + balance);
 		}
-
 	}
 	
-	public void setUpUserCostField() {
-
+	/**
+	 * setUpUserCostField gets the total cost of the user's 
+	 * shopping cart and display this information in the 
+	 * cost JTextField of the CheckoutTab.
+	 */
+	private void setUpUserCostField() {
 		// The total cart cost
 		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
 	}
 
-	public void setUpCurrentCredditsField() {
+	/**
+	 * setUpCurrentCredditsField gets the user's current creddits
+	 * and displays this information on the CheckoutTab. 
+	 */
+	private void setUpCurrentCredditsField() {
 		// The current user creddits;
 		String currentUserCreddits = ""
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
 	}
 
-	public void setUpUserCart() {
+	/**
+	 * setUpUserCart makes 
+	 */
+	private void setUpUserCart() {
 		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
-
 		viewer.setItemsList(currentCart.toArray(new String[currentCart.size()]));
 	}
 
@@ -154,6 +179,9 @@ public class CheckoutController extends Controller {
 		initialize();
 	}
 
+	/**
+	 * 
+	 */
 	public void processConfirmDropItem() {
 
 		if (currentSelected == null) {
@@ -169,6 +197,9 @@ public class CheckoutController extends Controller {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void processDropItem() {
 		// need something else here!
 		// like another pop up
@@ -185,17 +216,25 @@ public class CheckoutController extends Controller {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void processSaveCart() {
 		storeModel.getCurrentUserAccount().saveCart();
 		JOptionPane.showMessageDialog(null, "Cart Successfully Saved!");
 	}
 
+	/**
+	 * 
+	 */
 	public void registerCurrentElement() {
-
 		currentSelected = (String) viewer.getSelectedItem();
 
 	}
 
+	/**
+	 * 
+	 */
 	public void processConfirmDropCart() {
 		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Your Cart Is Empty!");

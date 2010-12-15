@@ -85,7 +85,12 @@ public class Controller implements IController{
 		}	
 	}
 	
-	
+	/**
+	 * This method gets a String from a Controller
+	 * TODO:comment on this class
+	 * @param key
+	 * @return
+	 */
 	public String getString(String key)
 	{
 		return reflectionMirror.getString(key);
