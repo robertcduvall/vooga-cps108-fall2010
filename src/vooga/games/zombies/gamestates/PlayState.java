@@ -19,28 +19,25 @@ import vooga.games.zombies.*;
 import vooga.games.zombies.events.*;
 
 public class PlayState extends GameState implements Constants {
-	private static final String PLAY_XML_PATH = "src/vooga/games/zombies/resources/levels/multiplayerLevel.xml";
+	private String PLAY_XML_PATH;
 
-	private Blah currentGame;
+	protected Blah currentGame;
 
-	private Shooter player;
-	private Shooter[] otherPlayers;
-	private PlayField playField;
-	private Timer timer;
-	private KeyboardControl control;
-	private KeyboardControl control2;
-	private EventPool eventPool;
-	public static long seed;
-	public Timer reviveTimer;
-	private SpriteGroup labels;
+	protected Shooter player;
+	protected PlayField playField;
+	protected Timer timer;
+	protected KeyboardControl control;
+	protected KeyboardControl control2;
+	protected EventPool eventPool;
 
-	AddZombieEvent addZombies;
+	protected AddZombieEvent addZombies;
 	AddRandomItemEvent addItems;
-	private OverlayTracker levelTracker;
-	private int level;
+	protected OverlayTracker levelTracker;
+	protected int level;
 
-	public PlayState(Blah game) {
+	public PlayState(Blah game, String xmlPath) {
 		currentGame = game;
+		PLAY_XML_PATH = xmlPath;
 	}
 
 	/**
@@ -53,7 +50,6 @@ public class PlayState extends GameState implements Constants {
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
 		this.addPlayField(playField);
 		timer = new Timer(level);
-		labels = new SpriteGroup("reviveLabels");
 		setupPlayer();
 		resetLevel();
 		initOverlays();
@@ -65,15 +61,7 @@ public class PlayState extends GameState implements Constants {
 		 level = 0;
 	 }
 
-	 private void setupPlayer() {
-		 player = (Shooter) playField.getGroup("Players").getSprites()[0];
-		 player.setConnection(connection);
-		 player.setOverlayName("player1");
-		 otherPlayers = new Shooter[1];
-		 Shooter otherPlayer1 = (Shooter) playField.getGroup("Players")
-		 .getSprites()[1];
-		 otherPlayer1.setOverlayName("player2");
-		 otherPlayers[0] = otherPlayer1;
+	 protected void setupPlayer() {
 	 }
 
 	 /**
@@ -81,29 +69,8 @@ public class PlayState extends GameState implements Constants {
 	  * SpriteGroup, set them up with their respective collision managers, and
 	  * associate these managers with playField.
 	  */
-	 private void initEnvironment() {
+	 protected void initEnvironment() {
 
-		 eventPool = new EventPool();
-		 SpriteGroup items = playField.getGroup("Items");
-		 addItems = new AddRandomItemEvent(playField, player, items);
-
-		 addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
-
-		 SpriteGroup bullets = playField.getGroup("Bullets");
-		 AddBulletsEvent addbullets = new AddBulletsEvent(bullets);
-		 player.setBulletListener(addbullets);
-		 for (Shooter otherPlayer : otherPlayers) {
-			 otherPlayer.setBulletListener(addbullets);
-		 }
-
-		 eventPool.addEvent(addItems);
-		 eventPool.addEvent(addbullets);
-		 eventPool.addEvent(addZombies);
-
-		 int delay = Resources.getInt("timer");
-		 timer = new Timer(delay);
-
-		 SoundPlayer.playMusic(playField.getMusic(0));
 	 }
 
 	 /**
@@ -200,43 +167,6 @@ public class PlayState extends GameState implements Constants {
 	 }
 
 	 /**
-	  * Set the message to the String we received.
-	  * 
-	  * @param data
-	  *            data received from the socket
-	  * @author Cue, Kolodziejzyk, Townsend
-	  * @version 1.0
-	  */
-	 @Override
-	 public void interpretMessage(String data) {
-		 if(data.startsWith("yourName")){
-			 player.setName(data.substring(9));
-		 }
-		 else if(data.startsWith(Username.getIdentifier())){
-			 String userName = ((Username) (Username.deserialize(data))).getUsername();
-			 for(Shooter shooter : otherPlayers){
-				 if(shooter.getName() == null){
-					 shooter.setName(userName);
-					 return;
-				 }
-			 }
-		 }
-		 else if(data.startsWith(ZombieSeed.getIdentifier())){
-			 seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
-			 Shooter[] shooters = new Shooter[otherPlayers.length + 1];
-			 shooters[0] = player;
-			 for(int i = 0; i < otherPlayers.length; i++){
-				 shooters[i + 1] = otherPlayers[i];
-			 }
-			 LevelEndEvent endLevel = new LevelEndEvent(shooters, this, addZombies, addItems, seed);
-			 eventPool.addEvent(endLevel);
-		 }
-		 else{
-			 setMessage(data);
-		 }
-	 }
-
-	 /**
 	  * update all components of the ZombieLand game. This method checks to see
 	  * if more zombies can be added or if the level has been completed.
 	  */
@@ -251,48 +181,6 @@ public class PlayState extends GameState implements Constants {
 		 }
 	 }
 
-	 public boolean goUp() {
-		 for (Shooter player : otherPlayers) {
-			 player.goUp();
-		 }
-		 return false;
-	 }
-
-	 public boolean goDown() {
-		 for (Shooter player : otherPlayers) {
-			 player.goDown();
-		 }
-		 return false;
-	 }
-
-	 public boolean goLeft() {
-		 for (Shooter player : otherPlayers) {
-			 player.goLeft();
-		 }
-		 return false;
-	 }
-
-	 public boolean goRight() {
-		 for (Shooter player : otherPlayers) {
-			 player.goRight();
-		 }
-		 return false;
-	 }
-
-	 public boolean shoot() {
-		 for (Shooter player : otherPlayers) {
-			 player.shoot();
-		 }
-		 return false;
-	 }
-
-	 public boolean killOtherPlayer() {
-		 for (Shooter player : otherPlayers) {
-			 player.setHealth(0);
-		 }
-		 return false;
-	 }
-
 	 public int getPlayerHealth(Shooter player) {
 		 return player.getHealth().getStat();
 	 }
@@ -304,24 +192,6 @@ public class PlayState extends GameState implements Constants {
 		 playField.render(g);
 		 if (getLevelStatOverlay().isActive()) {
 			 getLevelStatOverlay().render(g);
-		 }
-		 int playerHealth = getPlayerHealth(player);
-
-		 if (player.getTimesRevived() == 1 && playerHealth <= 0) {
-			 currentGame.end();
-		 }
-
-		 if (playerHealth <= 0 && labels.getSize() <= 1) {
-			 playField.removeControl("Shooter");
-		 }
-
-		 if (playerHealth > 0 && playField.getControl("Shooter") == null) {
-			 playField.addControl("Shooter", control);
-		 }
-		 for (Shooter otherPlayer : otherPlayers) {
-			 if (playerHealth <= 0 && getPlayerHealth(otherPlayer) <= 0) {
-				 currentGame.end();
-			 }
 		 }
 	  }
 
