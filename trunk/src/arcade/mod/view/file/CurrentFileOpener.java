@@ -10,9 +10,7 @@ public class CurrentFileOpener implements IFileOpener {
 	public File openFile() {
 
 		String currentGame = GameView.getGame().toLowerCase().replace(" ", "");
-		
-		currentGame = "digger";
-		
+				
 		String filepath = System.getProperty("user.dir");
 		
 		System.out.println(filepath);
