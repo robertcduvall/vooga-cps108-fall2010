@@ -1,5 +1,6 @@
 package arcade.wall.views.walltab;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
@@ -9,15 +10,18 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 
 @SuppressWarnings("serial")
 public class MessagesPanel extends JPanel {
 	private JButton 
 	mySendMessageButton,
 	myCloseButton,
-	myComposeMessageButton,
-	myInboxButton;
+	myComposeMessageButton;
 	private JComboBox myFriendsComboBox;
 	private JFrame myComposeMessageFrame;
 	private JLabel
@@ -34,7 +38,6 @@ public class MessagesPanel extends JPanel {
 		myFriendsComboBox = new JComboBox(test);
 		mySendMessageButton = new JButton(WallTabView.myResources.getString("sendMessageButton"));
 		myCloseButton = new JButton(WallTabView.myResources.getString("closeButton"));
-		myInboxButton = new JButton(WallTabView.myResources.getString("inboxButton"));
 		myComposeMessageButton = new JButton(WallTabView.myResources.getString("composeMessageButton"));
 		myEnterMessageLabel = new JLabel(WallTabView.myResources.getString("enterMessageLabel"));
 		mySendToNewUserLabel = new JLabel(WallTabView.myResources.getString("sendToNewUserLabel"));
@@ -45,8 +48,8 @@ public class MessagesPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("messagesPanelBorder")));
 		this.add(myComposeMessageButton);
-		this.add(myInboxButton);
 		constructComposeMessageFrame();
+		constructInboxTable();
 	}
 
 	public void setReceiverText(String string) {
@@ -114,6 +117,44 @@ public class MessagesPanel extends JPanel {
 
 		myComposeMessageFrame.add(composePanel);
 		myComposeMessageFrame.pack();
+	}
+	
+	class InboxTableModel extends AbstractTableModel {
+        private String[] columnNames = {"From",
+                                        "Message"};
+        private Object[][] data = {
+	    {"John", "sup man?"},
+	    {"Bhawana", "Hello world!"},
+	    {"Connery", "It's a man with a moustache!"},
+        };
+
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            return data.length;
+        }
+
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+	}
+
+	
+	private void constructInboxTable(){
+
+        JTable table = new JTable(new InboxTableModel());
+        table.setPreferredScrollableViewportSize(new Dimension(300, 300)); // This should match the panel it goes in
+        table.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(table);
+//        scrollPane.setHorizontalScrollBar(new JScrollBar());
+        table.setAutoResizeMode (JTable.AUTO_RESIZE_ALL_COLUMNS);
+        add(scrollPane);
 	}
 
 	public JFrame getComposeMessageFrame(){
