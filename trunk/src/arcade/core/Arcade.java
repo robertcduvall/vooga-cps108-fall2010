@@ -94,8 +94,8 @@ public class Arcade extends JFrame {
 			if (classname.isEmpty())
 				continue;
 			try {
-				Tab t = (Tab) getObject(classname);
-				everything.addTab(((JComponent) t).getName(), null, t.getContent(),
+				JComponent t =  (JComponent) getObject(classname);
+				everything.addTab(((JComponent) t).getName(), null, t,
 						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -112,19 +112,6 @@ public class Arcade extends JFrame {
 			}
 		});
 		return everything;
-	}
-
-	private JComponent createArcadeView() {
-		GameView game = new GameView(20);
-		JSplitPane columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),
-				game.getContent());
-		columnar.setOneTouchExpandable(true);
-
-		JSplitPane mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,
-				createPanels("rightPanel"));
-		mainPanel.setOneTouchExpandable(true);
-
-		return mainPanel;
 	}
 
 	/**
@@ -170,7 +157,7 @@ public class Arcade extends JFrame {
 	 */
 	public static void play(int gameID) {
 		switchToTab(1);
-		GameView.setGame(gameID);
+		ExampleGUI.setGame(gameID);
 	}
 
 	public static void switchToTab(int id) {

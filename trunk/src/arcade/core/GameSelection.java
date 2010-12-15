@@ -24,7 +24,16 @@ public class GameSelection extends JPanel implements Tab {
 		setToolTipText("A list of all the game available");
 		panels=new HashMap<Integer, JPanel>();
 		gameData=getGames(gameIDs);
-		addPanels();
+		
+		initPanels();
+		
+		games = new JPanel(new GridLayout(0, 3));
+		displayAllGames();
+		setLayout(new BorderLayout());
+		add(addSearchFunction(), BorderLayout.NORTH);
+		add(games, BorderLayout.CENTER);
+		
+		initPanels();
 	}
 	
 	private static List<Map<String, String>> getGames(int[] games) {
@@ -35,7 +44,7 @@ public class GameSelection extends JPanel implements Tab {
 		return Arcade.myDbAdapter.getRows(query.substring(0, query.length() - 4));
 	}
 	
-	private void addPanels() {
+	private void initPanels() {
 		for (Map<String, String> m : gameData) {
 			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
@@ -140,7 +149,7 @@ public class GameSelection extends JPanel implements Tab {
 			games.add(panels.get(i));
 			panels.get(i).repaint();
 		}
-		games.repaint();
+		refresh();
 	}
 
 	@Override
@@ -151,7 +160,6 @@ public class GameSelection extends JPanel implements Tab {
 
 	@Override
 	public void refresh() {
-		this.refresh();
-		this.repaint();
+		repaint();
 	}
 }
