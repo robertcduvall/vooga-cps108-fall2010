@@ -112,10 +112,7 @@ public class GameView extends JPanel {
 
 							Constructor<?> gameConstructor = newGame
 									.getConstructor();
-							if(ProfileSet.getCurrentProfile() != null)
-								Game.launch((Game) gameConstructor.newInstance(), "Guest");
-							else
-								Game.launch((Game) gameConstructor.newInstance(), "Guest");
+							Game.launch((Game) gameConstructor.newInstance(), ProfileSet.getCurrentProfile().getUserName());
 						} catch (Throwable e) {
 							System.out.println("vooga.games."
 									+ gameProperties.get("classname")[0]

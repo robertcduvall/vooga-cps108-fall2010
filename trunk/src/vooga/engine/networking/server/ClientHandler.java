@@ -54,7 +54,7 @@ public abstract class ClientHandler extends Handler{
 		try {
 			handlers.add(this);
 			userName = socket.receive();
-			if(userName.equals("Guest"))
+			if(userName.equals("guest"))
 				userName += getNumberOfPlayers(sessionID);
 			if(getNumberOfPlayers(sessionID) != numberOfPlayers){
 				broadcastToAll("wait", this);
