@@ -18,6 +18,7 @@ public class GuestUser extends StoreUser {
 		JOptionPane.showMessageDialog(null, "Guest users cannot add creddits");
 	}
 
+	@Override
 	public void addToCart(String name) {
 		JOptionPane
 				.showMessageDialog(null, "Guest users cannot purchase games");
