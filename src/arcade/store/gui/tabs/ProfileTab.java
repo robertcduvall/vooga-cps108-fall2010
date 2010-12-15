@@ -1,28 +1,17 @@
 package arcade.store.gui.tabs;
 
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
-import arcade.lobby.model.Profile;
-import arcade.lobby.model.ProfileSet;
-import arcade.store.account.StoreUser;
 import arcade.store.control.ProfileController;
-import arcade.store.database.DbItemAndUserFactory;
-
 import javax.swing.JPanel;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -41,6 +30,7 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 	private JTable purchasedItemsTable = null;
 	private JLabel MyPurchasedItemsLabel = null;
 	private JButton RefreshButton = null;
+	private JScrollPane itemTableScrollPane = null;
 	
 	private static final String NAME = "Shop Profile";
 	
@@ -107,7 +97,7 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 			jPanel.add(getAvailableCredditsTextField(), null);
 			jPanel.add(getPurchaseCredditsButton(), null);
 			jPanel.add(getEditMyProfileButton(), null);
-			jPanel.add(getPurchasedGamesTable(), null);
+			jPanel.add(getItemTableScrollPane(), null);
 			jPanel.add(MyPurchasedItemsLabel, null);
 			jPanel.add(getRefreshButton(), null);
 		}
@@ -186,26 +176,20 @@ public class ProfileTab extends  JPanel implements Tab, IViewer{
 	 * 	
 	 * @return javax.swing.JTable	
 	 */
-	public JTable getPurchasedGamesTable() {
+	public JTable getPurchasedItemsTable() {
 		if (purchasedItemsTable == null) {
 			purchasedItemsTable = new JTable();
-			
-			   purchasedItemsTable.setModel(new javax.swing.table.DefaultTableModel(
-			            new Object [][] {
-			                {null, null, null, null},
-			                {null, null, null, null},
-			                {null, null, null, null},
-			                {null, null, null, null}
-			            },
-			            new String [] {
-			                "Title 1", "Title 2", "Title 3", "Title 4"
-			            }
-			        ));
-//			
-			purchasedItemsTable.setBounds(new Rectangle(102, 347, 542, 256));
-			//TODO: Make it so user cannot edit the user history table
 		}
 		return purchasedItemsTable;
+	}
+	
+	public JScrollPane getItemTableScrollPane() {
+		if(itemTableScrollPane == null) {
+			itemTableScrollPane = new JScrollPane();
+			itemTableScrollPane.setViewportView(getPurchasedItemsTable());
+			itemTableScrollPane.setBounds(new Rectangle(102, 347, 542, 256));
+		}
+		return itemTableScrollPane;
 	}
 	
 	/**

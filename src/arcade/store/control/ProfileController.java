@@ -54,7 +54,7 @@ public class ProfileController implements IController {
 			tableData[k][1] = data.get(k).get(StoreDbConstants.DATE_FIELD);
 			tableData[k][2] = data.get(k).get(StoreDbConstants.PRICE_FIELD);
 		}
-		profileTab.getPurchasedGamesTable().setModel(
+		profileTab.getPurchasedItemsTable().setModel(
 				new DefaultTableModel(tableData, columnNames) {
 					public boolean isCellEditable(int rowIndex, int mColIndex) {
 						return false;
@@ -71,14 +71,13 @@ public class ProfileController implements IController {
 	}
 
 	public void processCredditPurchase(String creddits) {
-		double amount = 0;
+		double amount;
 		try {
 			amount = Double.parseDouble(creddits);
 		} catch (Exception e) {
-			System.out.println("You did not enter a number");
+			amount = 0;
 		}
 		getUser().addCreddits(amount);
-		System.out.println(getUser().getCreddits());
 	}
 
 }

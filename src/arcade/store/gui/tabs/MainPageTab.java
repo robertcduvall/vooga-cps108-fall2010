@@ -1,10 +1,8 @@
 package arcade.store.gui.tabs;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.BorderFactory;
@@ -12,12 +10,9 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
-import arcade.store.StoreModel;
-import arcade.store.control.MainController;
 import arcade.store.control.MainPageController;
 
 public class MainPageTab extends  JPanel implements Tab, IViewer{
@@ -42,6 +37,7 @@ public class MainPageTab extends  JPanel implements Tab, IViewer{
 		setName("Browse Catalogue");
 		controller = new MainPageController();
 		controller.addViewer(this);
+		add(getContent());
 		
 	}
 	

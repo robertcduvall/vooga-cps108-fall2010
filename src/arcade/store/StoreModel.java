@@ -6,6 +6,7 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
+import arcade.store.account.GuestUser;
 import arcade.store.account.StoreUser;
 import arcade.store.control.MainController;
 import arcade.store.database.DbItemAndUserFactory;
@@ -24,7 +25,13 @@ public class StoreModel implements IModel{
 		storeCatalogue = DbItemAndUserFactory.getAllStoreItems();
 		controller = control;
 		lobbyUser = ProfileSet.currentProfile;
-		currentUser = DbItemAndUserFactory.getUser(0);
+		try{
+			currentUser = DbItemAndUserFactory.getUser(lobbyUser.getUserId());
+		}
+		catch(NullPointerException e) {
+			currentUser = new GuestUser();
+		//	currentUser = DbItemAndUserFactory.getUser(0);
+		}
 	}
 	
 	public IItemInfo getItemInfo(String name)
@@ -67,9 +74,6 @@ public class StoreModel implements IModel{
 		return returnValue;
 	}
 	
-	public void addToCart(String itemName) {
-		currentUser.addToCart(itemName);
-	}
 
 	@Override
 	public void setController(IController control) {
