@@ -6,7 +6,6 @@ import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
-import arcade.lobby.viewComponents.ValidatingComponent;
 
 import net.miginfocom.swing.MigLayout;
 

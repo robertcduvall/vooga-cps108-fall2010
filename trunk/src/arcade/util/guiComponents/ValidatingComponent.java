@@ -1,9 +1,8 @@
-package arcade.lobby.viewComponents;
+package arcade.util.guiComponents;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-import arcade.util.guiComponents.Validator;
 
 
 
