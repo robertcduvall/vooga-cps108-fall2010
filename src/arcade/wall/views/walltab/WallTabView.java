@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallTabController;
@@ -52,9 +53,7 @@ public class WallTabView extends JPanel {
 	
 	private ResourceBundle myResources = ResourceBundle.getBundle("arcade.wall.resources.walltab");
 
-
 	public WallTabView(WallTabController controller) {
-		
 		this.myController = controller;
 		myPanel = constructJPanel();
 	}
@@ -67,6 +66,9 @@ public class WallTabView extends JPanel {
 		return constructReturnPanel();
 	}
 
+	/**
+	 * Constructs the WallTab GUIElements.
+	 */
 	private void constructGUIElements() {
 		constructJLabels();
 		constructJComboBoxes();
@@ -76,12 +78,15 @@ public class WallTabView extends JPanel {
 		setGameHeaderLabel(myGameChoices[myGameComboBox.getSelectedIndex()]);
 	}
 
+	/**
+	 * Constructs the ReturnPanel - this panel holds all other panels in the WallTab.
+	 */
 	private JPanel constructReturnPanel() {
 		JPanel returnPanel = new JPanel();
 		
+		JPanel reviewPanel = constructReviewPanel();
 		constructRatingPanel();
 		JPanel displayPanel = constructDisplayPanel();
-		JPanel reviewPanel = constructReviewPanel();
 		JPanel messagesPanel = constructMessagesPanel();
 		
 		returnPanel.setLayout(new GridLayout(1,3,5,5));
@@ -91,95 +96,10 @@ public class WallTabView extends JPanel {
 		returnPanel.add(messagesPanel);
 		return returnPanel;
 	}
-
-	private void constructJTextFields() {
-		myCommentEntryField = new JTextField();
-	}
-
-	private void constructJLabels() {
-		mySelectGameLabel = new JLabel(myResources.getString("selectGameLabel"));
-		myGameHeaderLabel = new JLabel();
-		myTopRatedGamesLabel = new JLabel();
-		updateTopRatedGamesLabel();
-		myEnterReceiverLabel = new JLabel("enterReceiverLabel");
-		myEnterMessageLabel = new JLabel("enterMessageLabel");
-		myReceivedMessagesLabel = new JLabel("receivedMessagesLabel");
-		myEnterCommentLabel = new JLabel("enterCommentLabel");
-	}
 	
-	private void constructJTextAreas() {
-		myCommentsArea = new JTextArea();
-		myCommentsArea.setEditable(false);
-		myEnterReceiverField = new JTextField();
-		myEnterMessageArea = new JTextArea();
-		myReceivedMessagesArea = new JTextArea();
-	}
-	
-	private void constructJButtons() {
-		mySubmitButton = new JButton("submitButton");
-		mySendMessageButton = new JButton("sendMessageButton");
-	}
-	
-	private void constructJComboBoxes() {
-		myGameComboBox = new JComboBox(myGameChoices);
-		myGameComboBox.setSelectedIndex(0);
-	}
-	
-	private JPanel constructMessagesPanel() {
-		JPanel messagesPanel = new JPanel();
-		JPanel sendMessagesPanel = new JPanel();
-		JPanel receivedMessagesPanel = new JPanel();
-		sendMessagesPanel.setLayout(new BoxLayout(sendMessagesPanel, BoxLayout.Y_AXIS));
-		sendMessagesPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("sendMessagesPanelBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-		sendMessagesPanel.add(myEnterReceiverLabel);
-		sendMessagesPanel.add(myEnterReceiverField);
-		sendMessagesPanel.add(myEnterMessageLabel);
-		sendMessagesPanel.add(myEnterMessageArea);
-		sendMessagesPanel.add(mySendMessageButton);
-		receivedMessagesPanel.setLayout(new BoxLayout(receivedMessagesPanel, BoxLayout.Y_AXIS));
-		receivedMessagesPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("receivedMessagesPanelBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-		receivedMessagesPanel.add(myReceivedMessagesLabel);
-		receivedMessagesPanel.add(myReceivedMessagesArea);
-		messagesPanel.setLayout(new BoxLayout(messagesPanel, BoxLayout.Y_AXIS));
-		messagesPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("messagesPanelBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-		messagesPanel.add(sendMessagesPanel);
-		messagesPanel.add(receivedMessagesPanel);
-		return messagesPanel;
-	}
-
-	private void constructRatingPanel() {
-		myRatingPanel = new RadioPanel(5);
-		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
-		for (String s: ratingLabelBundle.keySet()) {
-			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
-		}
-		myRatingPanel.setVertical();
-		myRatingPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("ratingPanelBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-	}
-	
-	private JPanel constructDisplayPanel() {
-		JPanel displayPanel = new JPanel();
-		displayPanel.add(myGameHeaderLabel);
-		myCommentsArea.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("commentsAreaBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-		displayPanel.add(myCommentsArea);
-		displayPanel.add(myTopRatedGamesLabel);
-		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
-		displayPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("displayPanelBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-		return displayPanel;
-	}
-
+	/**
+	 * Constructs the ReviewPanel - this panel holds the WallTab's customized RatingPanel.
+	 */
 	private JPanel constructReviewPanel() {
 		JPanel reviewPanel = new JPanel();
 		reviewPanel.setLayout(new BoxLayout(reviewPanel, BoxLayout.Y_AXIS));
@@ -189,10 +109,117 @@ public class WallTabView extends JPanel {
 		reviewPanel.add(myCommentEntryField);
 		reviewPanel.add(myRatingPanel);
 		reviewPanel.add(mySubmitButton);
-		reviewPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("reviewPanelBorder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
+		reviewPanel.setBorder(constructWallBorder(myResources.getString("reviewPanelBorder")));
 		return reviewPanel;
+	}
+
+	/**
+	 * Constructs the RatingPanel - this panel holds elements related to the Wall rating and comment submission system.
+	 */
+	private void constructRatingPanel() {
+		myRatingPanel = new RadioPanel(5);
+		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
+		for (String s: ratingLabelBundle.keySet()) {
+			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
+		}
+		myRatingPanel.setVertical();
+		myRatingPanel.setBorder(constructWallBorder(myResources.getString("ratingPanelBorder")));
+	}
+	
+	/**
+	 * Constructs the DisplayPanel - this panel holds elements related to the Wall rating and comment display system.
+	 */
+	private JPanel constructDisplayPanel() {
+		JPanel displayPanel = new JPanel();
+		displayPanel.add(myGameHeaderLabel);
+		myCommentsArea.setBorder(constructWallBorder(myResources.getString("commentsAreaBorder")));
+		displayPanel.add(myCommentsArea);
+		displayPanel.add(myTopRatedGamesLabel);
+		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
+		displayPanel.setBorder(constructWallBorder(myResources.getString("displayPanelBorder")));
+		return displayPanel;
+	}
+	
+	/**
+	 * Constructs the MessagesPanel - this panel holds elements related to the Wall messaging system.
+	 */
+	private JPanel constructMessagesPanel() {
+		JPanel messagesPanel = new JPanel();
+		JPanel sendMessagesPanel = new JPanel();
+		JPanel receivedMessagesPanel = new JPanel();
+		sendMessagesPanel.setLayout(new BoxLayout(sendMessagesPanel, BoxLayout.Y_AXIS));
+		sendMessagesPanel.setBorder(constructWallBorder(myResources.getString("sendMessagesPanelBorder")));
+		sendMessagesPanel.add(myEnterReceiverLabel);
+		sendMessagesPanel.add(myEnterReceiverField);
+		sendMessagesPanel.add(myEnterMessageLabel);
+		sendMessagesPanel.add(myEnterMessageArea);
+		sendMessagesPanel.add(mySendMessageButton);
+		receivedMessagesPanel.setLayout(new BoxLayout(receivedMessagesPanel, BoxLayout.Y_AXIS));
+		receivedMessagesPanel.setBorder(constructWallBorder(myResources.getString("receivedMessagesBorder")));
+		receivedMessagesPanel.add(myReceivedMessagesLabel);
+		receivedMessagesPanel.add(myReceivedMessagesArea);
+		messagesPanel.setLayout(new BoxLayout(messagesPanel, BoxLayout.Y_AXIS));
+		messagesPanel.setBorder(constructWallBorder(myResources.getString("messagesPanelBorder")));
+		messagesPanel.add(sendMessagesPanel);
+		messagesPanel.add(receivedMessagesPanel);
+		return messagesPanel;
+	}
+	
+	/**
+	 * Constructs the WallTab JTextFields.
+	 */
+	private void constructJTextFields() {
+		myCommentEntryField = new JTextField();
+	}
+
+	/**
+	 * Constructs the WallTab JTextLabels.
+	 */
+	private void constructJLabels() {
+		mySelectGameLabel = new JLabel(myResources.getString("selectGameLabel"));
+		myGameHeaderLabel = new JLabel();
+		myTopRatedGamesLabel = new JLabel();
+		updateTopRatedGamesLabel();
+		myEnterReceiverLabel = new JLabel(myResources.getString("enterReceiverLabel"));
+		myEnterMessageLabel = new JLabel(myResources.getString("enterMessageLabel"));
+		myReceivedMessagesLabel = new JLabel(myResources.getString("receivedMessagesLabel"));
+		myEnterCommentLabel = new JLabel(myResources.getString("enterCommentLabel"));
+	}
+	
+	/**
+	 * Constructs the WallTab JTextAreas.
+	 */
+	private void constructJTextAreas() {
+		myCommentsArea = new JTextArea();
+		myCommentsArea.setEditable(false);
+		myEnterReceiverField = new JTextField();
+		myEnterMessageArea = new JTextArea();
+		myReceivedMessagesArea = new JTextArea();
+	}
+	
+	/**
+	 * Constructs the WallTab JButtons.
+	 */
+	private void constructJButtons() {
+		mySubmitButton = new JButton(myResources.getString("submitButton"));
+		mySendMessageButton = new JButton(myResources.getString("sendMessageButton"));
+	}
+	
+	/**
+	 * Constructs the WallTab JComboBoxes.
+	 */
+	private void constructJComboBoxes() {
+		myGameComboBox = new JComboBox(myGameChoices);
+		myGameComboBox.setSelectedIndex(0);
+	}
+	
+	/**
+	 * Constructs a WallBorder with the title of "string".
+	 */
+	private Border constructWallBorder(String string) {
+		return BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(myResources.getString("reviewPanelBorder")),
+                BorderFactory.createEmptyBorder(5,5,5,5));
 	}
 	
 	/**
@@ -219,6 +246,9 @@ public class WallTabView extends JPanel {
 		mySendMessageButton.addActionListener(sendMessageButtonListener);
 	}
 	
+	/**
+	 * Updates the Top-Rated Games label to display the Top 3 games in terms of average rating.
+	 */
 	public void updateTopRatedGamesLabel() {
 		List<String> gameRankList = myController.getGameRankList();
 		myTopRatedGamesLabel.setText("<html>" + 
@@ -243,13 +273,37 @@ public class WallTabView extends JPanel {
 		}
 		myCommentsArea.setText(displayString);
 	}
-
-	public JPanel getPanel() {
-		return this.myPanel;
+	
+	/**
+	 * Forms the List of Game names that will populate the Wall GameComboBox.
+	 */
+	private static String[] formGameList() {
+		//TODO replace this code with code that reads the GameInfo table in the database and constructs
+		//the array with that information
+		String[] gameList = { "Grandius", "Zombieland", "Jumper", 
+				"Doodlejump", "Galaxy Invaders", "Cyberion", 
+				"Tron", "MarioClone", "TronLegacy" };
+		return gameList;
 	}
 
+	public String getEntryText() {
+		return myCommentEntryField.getText();
+	}
+	
+	public String getReceiverText() {
+		return myEnterReceiverField.getText();
+	}
+	
 	public String getSelectedGame() {
 		return myGameChoices[myGameComboBox.getSelectedIndex()];
+	}
+
+	public String getSelectedRating() {
+		return myRatingPanel.getSelectedValue();
+	}
+	
+	public String getMessageContentText() {
+		return myEnterMessageArea.getText();
 	}
 
 	public void setEntryText(String string) {
@@ -261,37 +315,16 @@ public class WallTabView extends JPanel {
 				"<font color=blue>" + selectedGame + "</font> || Average Rating: " +
 				+ myController.getRating(selectedGame) + "</html>");
 	}
-
-	public String getEntryText() {
-		return myCommentEntryField.getText();
-	}
-
-	public String getSelectedRating() {
-		return myRatingPanel.getSelectedValue();
-	}
 	
-	private static String[] formGameList() {
-		//TODO replace this code with code that reads the GameInfo table in the database and constructs
-		//the array with that information
-		String[] gameList = { "Grandius", "Zombieland", "Jumper", 
-				"Doodlejump", "Galaxy Invaders", "Cyberion", 
-				"Tron", "MarioClone", "TronLegacy" };
-		return gameList;
-	}
-
-	public String getReceiver() {
-		return myEnterReceiverField.getText();
-	}
-
-	public String getMessageContent() {
-		return myEnterMessageArea.getText();
-	}
-
 	public void setReceiverText(String string) {
 		myEnterReceiverField.setText(string);
 	}
 
 	public void setMessageContentText(String string) {
 		myEnterMessageArea.setText(string);
+	}
+	
+	public JPanel getPanel() {
+		return this.myPanel;
 	}
 }
