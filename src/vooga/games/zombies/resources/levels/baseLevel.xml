@@ -53,7 +53,11 @@
 			<SpriteGroup name="Players" />
 			<SpriteGroup name="Zombies" />
 		</CollisionGroup>
-	
+		
+		<CollisionGroup subclass="vooga.games.zombies.collisions.SSCollisionManager">
+			<SpriteGroup name="Players" />
+			<SpriteGroup name="Players" />
+		</CollisionGroup>	
 	</CollisionGroups>
 
 	<Map></Map>

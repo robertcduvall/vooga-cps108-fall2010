@@ -272,52 +272,17 @@ public class PlayState extends GameState implements Constants {
 		if (getLevelStatOverlay().isActive()) {
 			getLevelStatOverlay().render(g);
 		}
-		if (isDead()) {
-			revive();
+
+		if (player.getTimesRevived() == 1 && player.getHealth().getStat() <= 0) {
+			currentGame.end();
 		}
-	}
-
-	private void end() {
-		currentGame.end();
-
-	}
-
-	private void revive() {
-		playField.removeControl("Shooter");
-		if (player.getTimesRevived() < 2 && inVicinity(player, otherPlayer)) {
-			player.setHealth(Resources.getInt("maxHealth"));
-			player.setTimesRevived(player.getTimesRevived() + 1);
+		
+		if (player.getHealth().getStat() <= 0) {
+			playField.removeControl("Shooter");
+		}
+		else if (playField.getControl("Shooter") == null) {
 			playField.addControl("Shooter", control);
-		} else if (player.getTimesRevived() == 2) {
-			end();
 		}
-	}
-
-	private boolean inVicinity(Shooter player, Shooter otherPlayer) {
-		if (otherPlayer.getX() < player.getX() + 2
-				&& otherPlayer.getX() > player.getX() - 2
-				&& otherPlayer.getY() < player.getY() + 2
-				&& otherPlayer.getY() > player.getY() - 2) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Test if the the player is still active. If no, that means the end game
-	 * conditions have been met
-	 * 
-	 * @return true if the end game conditions have been met
-	 */
-	private boolean isDead() {
-		return player.hasDied();
-	}
-
-	/**
-	 * Stop the game altogether
-	 */
-	private void endGame() {
-		currentGame.end();
 	}
 
 }
