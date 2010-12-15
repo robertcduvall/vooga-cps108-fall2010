@@ -3,6 +3,7 @@ package vooga.games.zombies.gamestates;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
@@ -20,7 +21,7 @@ import vooga.games.zombies.events.*;
 
 public class SingleplayerPlayState extends PlayState implements Constants {
 
-    private static final String PLAY_XML_PATH = "src/vooga/games/zombies/resources/levels/singleplayerLevel.xml";
+	private static final String PLAY_XML_PATH = "src/vooga/games/zombies/resources/levels/singleplayerLevel.xml";
 
 	private static Blah currentGame;
 
@@ -48,7 +49,7 @@ public class SingleplayerPlayState extends PlayState implements Constants {
 		levelTracker = OverlayCreator.createOverlays(STATES_XML_PATH);
 		LevelParser parser = new LevelParser();
 		playField = parser.getPlayfield(PLAY_XML_PATH, currentGame);
-		//this.addPlayField(playField);
+		this.addPlayField(playField);
 		setupPlayer();
 		resetLevel();
 		initOverlays();
@@ -79,8 +80,8 @@ public class SingleplayerPlayState extends PlayState implements Constants {
 
 		addZombies = new AddZombieEvent(playField.getGroup("Zombies"));
 
-		LevelEndEvent endLevel = new LevelEndEvent(player, this, addZombies,
-				additems);
+		LevelEndEvent endLevel = new LevelEndEvent(new Shooter[] {player}, this, addZombies,
+				additems, new Random().nextLong());
 
 		SpriteGroup bullets = playField.getGroup("Bullets");
 		AddBulletsEvent addbullets = new AddBulletsEvent(bullets);
@@ -118,7 +119,7 @@ public class SingleplayerPlayState extends PlayState implements Constants {
 	private void initOverlays() {
 
 		OverlayStat overlayLevelStat = (OverlayStat) levelTracker
-				.getOverlay("levels");
+		.getOverlay("levels");
 		overlayLevelStat.setActive(false);
 	}
 
@@ -192,12 +193,8 @@ public class SingleplayerPlayState extends PlayState implements Constants {
 	 * if more zombies can be added or if the level has been completed.
 	 */
 	public void update(long elapsedTime) {
-
 		if (isActive()) {
-			playField.update(elapsedTime);
-			control.update();
-			control2.update();
-
+			super.update(elapsedTime);
 			if (timer.action(elapsedTime)) {
 				getLevelStatOverlay().setActive(false);
 				addZombies.timeUp();

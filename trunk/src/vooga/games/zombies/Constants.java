@@ -13,8 +13,8 @@ public interface Constants {
 	//File Paths
 	public static final String PLAYER_CLASS = "vooga.games.zombies.Shooter";
 	public static final String MAIN_CLASS = "vooga.games.zombies.Blah";
-	public static final String XML_PATH="src/vooga/games/zombies/resources/overlays.xml";
-	public static final String STATES_XML_PATH="src/vooga/games/zombies/resources/nonPlayStateOverlays.xml";
+	//public static final String XML_PATH="src/vooga/games/zombies/resources/overlays/overlays.xml";
+	public static final String STATES_XML_PATH="src/vooga/games/zombies/resources/overlays/nonPlayStateOverlays.xml";
 	public static final String DEFAULT_RESOURCE_DIRECTORY="src/vooga/games/zombies/resources/";
 	public static final String RESOURCE_FILENAME="game.properties";
 	
