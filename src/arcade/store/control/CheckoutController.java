@@ -20,21 +20,38 @@ public class CheckoutController implements IController {
 	private CheckoutTab viewer;
 	private String currentSelected;
 
+	/**
+	 * Default constructor for CheckoutController sets the currentSelected to
+	 * null;
+	 */
 	public CheckoutController() {
 		currentSelected = null;
 	}
 
+	/**
+	 * addModel is an override of the method from IController. It casts the
+	 * IModel parameter to a StoreModel and sets the instance variable
+	 * storeModel to this object.
+	 */
 	@Override
 	public void addModel(IModel model) {
 		storeModel = (StoreModel) model;
 	}
 
+	/**
+	 * addViewer is an override of the method from IController. It casts the
+	 * IViewer parameter to a CheckoutTab and sets the instance variable viewer
+	 * to this object.
+	 */
 	@Override
 	public void addViewer(IViewer view) {
 
 		viewer = (CheckoutTab) view;
 	}
 
+	/**
+	 * initialize is an override of the method from IController.
+	 */
 	@Override
 	public void initialize() {
 
@@ -61,6 +78,13 @@ public class CheckoutController implements IController {
 		currentSelected = null;
 	}
 
+	/**
+	 * setRemainingCreditField takes in the parameter balance and puts this
+	 * value in a JTextField.
+	 * 
+	 * @param balance
+	 *            the remaining creddit balance of the user
+	 */
 	private void setRemainingCreditField(double balance) {
 
 		if (balance < 0) {
@@ -89,28 +113,34 @@ public class CheckoutController implements IController {
 		}
 	}
 
+	/**
+	 * Displays a message to the user if they do not have sufficient funds or
+	 * they have no items in their cart, otherwise processBuyCart is called and
+	 * a thank you message is displayed.
+	 */
 	public void verifyCreddits() {
 
 		// if no elements on cart...throw an error
 		// if no credits are less than cost throw an error
 		// else go ahead and buy the cart
 
-		if (userHasNoItems() || userHasNoCreddits()) {
-			// new SorryYouCantDoThisView();
-
+		if (userHasNoItems() || userHasEnoughCreddits()) {
 			JOptionPane.showMessageDialog(null,
 					"Sorry, We Cannot Proceed This Cart Purchase");
 		} else {
 			processBuyCart();
-			// new ThankYouForBuyingView();
-			// throw a message about "Hey! thank you!"
-
 			JOptionPane.showMessageDialog(null,
 					"Thank You For Buying At the Store!");
 		}
 	}
 
-	private boolean userHasNoCreddits() {
+	/**
+	 * Returns the boolean for whether or not the user has enough creddits to
+	 * proceed with their purchase.
+	 * 
+	 * @return true if the user has enough creddits, false otherwise.
+	 */
+	private boolean userHasEnoughCreddits() {
 
 		return !storeModel.userHasEnoughCredditsToBuyWishList();
 	}
