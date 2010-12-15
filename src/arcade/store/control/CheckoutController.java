@@ -26,6 +26,8 @@ import arcade.store.gui.tabs.CheckoutTab;
 
 public class CheckoutController extends Controller {
 
+	// private static final String INITIALIZE_STRING = "initialize";
+
 	private StoreModel storeModel;
 	private CheckoutTab viewer;
 	private String currentSelected;
@@ -91,13 +93,13 @@ public class CheckoutController extends Controller {
 	 * then their credits are displayed.
 	 */
 	private void setRemainingCreditField(double balance) {
-		if (balance < 0) {
-			viewer.setRemainigCredditsTextField("0");
+		if (balance < Integer.parseInt(getString("minimumBalance"))) {
+			viewer.setRemainigCredditsTextField(getString("minimumBalance"));
 		} else {
-			viewer.setRemainigCredditsTextField("" + balance);
+			viewer.setRemainigCredditsTextField(getString(null) + balance);
 		}
 	}
-	
+
 	/**
 	 * setUpUserCostField gets the total cost of the user's 
 	 * shopping cart and display this information in the 
@@ -105,7 +107,8 @@ public class CheckoutController extends Controller {
 	 */
 	private void setUpUserCostField() {
 		// The total cart cost
-		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
+		String totalCartPrice = getString(null)
+				+ storeModel.getTotalUserCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
 	}
 
@@ -115,7 +118,7 @@ public class CheckoutController extends Controller {
 	 */
 	private void setUpCurrentCredditsField() {
 		// The current user creddits;
-		String currentUserCreddits = ""
+		String currentUserCreddits = getString(null)
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
 	}
@@ -135,10 +138,10 @@ public class CheckoutController extends Controller {
 	public void processConfirmBuyCart() {
 
 		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Your Cart Is Empty!");
+			JOptionPane.showMessageDialog(null, getString("carIsEmpty"));
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
-					"Are You Sure You Want to Buy This Cart?", "Buy Cart",
+					getString("wantToBuyCart"), getString("buyCart"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
 				processBuyCart();
@@ -158,23 +161,21 @@ public class CheckoutController extends Controller {
 		// else go ahead and buy the cart
 
 		if (storeModel.userHasNoItems() || storeModel.userHasEnoughCreddits()) {
-			JOptionPane.showMessageDialog(null,
-					"Sorry, We Cannot Proceed This Cart Purchase");
+			JOptionPane
+					.showMessageDialog(null, getString("cannotPurchaseCart"));
 		} else {
 			processBuyCart();
-			JOptionPane.showMessageDialog(null,
-					"Thank You For Buying At the Store!");
+			JOptionPane.showMessageDialog(null, getString("thankYouForBuying"));
 		}
 	}
-
 
 	/**
 	 * This method process the buy cart step!
 	 */
 	public void processBuyCart() {
-	
+
 		storeModel.processBuyCart();
-		
+
 		// refresh the content of your inventory
 		initialize();
 	}
@@ -185,11 +186,11 @@ public class CheckoutController extends Controller {
 	public void processConfirmDropItem() {
 
 		if (currentSelected == null) {
-			JOptionPane.showMessageDialog(null, "No Item Has Been Selected");
+			JOptionPane.showMessageDialog(null, getString("noItemSelected"));
 		} else {
 
 			int ret = JOptionPane.showConfirmDialog(null,
-					"Are You Sure You Want to Drop This Cart?", "Drop Cart",
+					getString("wantToDropItem"), getString("dropItem"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
 				storeModel.getCurrentUserAccount().emptyCart();
@@ -205,12 +206,12 @@ public class CheckoutController extends Controller {
 		// like another pop up
 
 		if (currentSelected == null) {
-			JOptionPane.showMessageDialog(null, "No Item Has Been Selected");
+			JOptionPane.showMessageDialog(null, getString("noItemSelected"));
 		} else {
 			StoreUser user = storeModel.getCurrentUserAccount();
 			user.removeTitleFromCart(currentSelected);
 
-			JOptionPane.showMessageDialog(null, "Item Has Been Dropped");
+			JOptionPane.showMessageDialog(null, getString("itemDropped"));
 
 			initialize();
 		}
@@ -221,7 +222,7 @@ public class CheckoutController extends Controller {
 	 */
 	public void processSaveCart() {
 		storeModel.getCurrentUserAccount().saveCart();
-		JOptionPane.showMessageDialog(null, "Cart Successfully Saved!");
+		JOptionPane.showMessageDialog(null, getString("cartSaved"));
 	}
 
 	/**
@@ -237,15 +238,14 @@ public class CheckoutController extends Controller {
 	 */
 	public void processConfirmDropCart() {
 		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Your Cart Is Empty!");
+			JOptionPane.showMessageDialog(null, getString("cartIsEmpty"));
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
-					"Are You Sure You Want to Drop This Cart?", "Drop Cart",
+					getString("wantToDropCart"), getString("dropCart"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
 				storeModel.getCurrentUserAccount().emptyCart();
 			}
 		}
 	}
-
 }
