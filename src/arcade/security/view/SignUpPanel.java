@@ -17,7 +17,6 @@ import net.miginfocom.swing.MigLayout;
 import arcade.lobby.validators.DateValidator;
 import arcade.lobby.validators.EmailValidator;
 import arcade.lobby.validators.NameValidator;
-import arcade.lobby.validators.PasswordConfirmField;
 import arcade.lobby.validators.PasswordValidator;
 import arcade.lobby.validators.UsernameValidator;
 import arcade.lobby.validators.WebImageValidator;
@@ -43,6 +42,7 @@ public class SignUpPanel extends JPanel implements IView {
 //	private JLabel usernameReminder;
 //	private JLabel passwordReminder;
 	private JLabel passwordSuggestions;
+	private JPasswordField passwordField;
 
 	private ValidatorDock myDock;
 	private JLabel lobbyLabel;
@@ -66,6 +66,9 @@ public class SignUpPanel extends JPanel implements IView {
 		setName("Sign up");
 		setLayout(new MigLayout("wrap 2"));
 
+		passwordSuggestions = new JLabel();
+		add(passwordSuggestions,"cell 2 3");
+		passwordField = new JPasswordField(maxPasswordLength);
 		// JLabel usernameReminder = new JLabel("Username Does not Exist");
 		// JLabel passwordReminder = new JLabel("Password is not valid");
 
@@ -137,14 +140,15 @@ public class SignUpPanel extends JPanel implements IView {
 	
 	private void addPasswordField(String name, String label,
 			Validator<JPasswordField>... validators) {
-		JPasswordField passwordField = new JPasswordField(maxPasswordLength);
+		JPasswordField pwdField = new JPasswordField(maxPasswordLength);
+		if(name.equals("pass1")) pwdField = passwordField;
 		ValidatingComponent<JPasswordField> vc = new ValidatingComponent<JPasswordField>(
-				passwordField, label, validators);
+				pwdField, label, validators);
 		myDock.addValidatingComponent(vc, name);
 	}
 
 	public void addPasswordListener(KeyListener listener) {
-		
+		passwordField.addKeyListener(listener);
 	}
 
 	public void addSubmitButtonListener(ActionListener listener) {
@@ -160,7 +164,7 @@ public class SignUpPanel extends JPanel implements IView {
 	}
 	
 	public char[] getPasswordUserInput() {
-		return ((PasswordConfirmField) myDock.getComponent("password")).getPassword1();
+		return passwordField.getPassword();
 	}
 	
 	public void setPasswordSuggestions(String suggestions) {
