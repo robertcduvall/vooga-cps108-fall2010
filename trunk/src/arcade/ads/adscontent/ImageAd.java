@@ -54,7 +54,7 @@ public class ImageAd extends BasicAd {
 		super(name, targetURL, width, height, effective, expire, duration);
 		this.img = img;
 	}
-
+	
 	@Override
 	public void onLeftClick() {
 		openBrowser();
