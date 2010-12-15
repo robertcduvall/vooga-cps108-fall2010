@@ -21,7 +21,7 @@ public class ReviewPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		myReviewArea = new JTextArea();
 		constructRatingPanel();
-		myReviewButton = new JButton(WallTabPanel.myResources.getString("submitButton"));
+		myReviewButton = new JButton(WallTabPanel.myResources.getString("reviewButton"));
 		this.add(myReviewArea);
 		this.add(myRatingPanel);
 		this.add(myReviewButton);
