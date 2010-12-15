@@ -5,6 +5,7 @@ import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelParser;
 import vooga.engine.networking.client.ClientConnection;
 import vooga.engine.resource.Resources;
+import vooga.engine.state.GameState;
 import vooga.games.zombies.gamestates.CreditMenu;
 import vooga.games.zombies.gamestates.EndGameState;
 import vooga.games.zombies.gamestates.HelpMenu1;
@@ -13,6 +14,7 @@ import vooga.games.zombies.gamestates.MainMenu;
 import vooga.games.zombies.gamestates.PauseState;
 import vooga.games.zombies.gamestates.PlayState;
 import vooga.games.zombies.gamestates.WaitingState;
+import vooga.games.zombies.gamestates.ZombiesNetworkMenuState;
 
 /**
  * @date 10-8-10
@@ -62,11 +64,21 @@ public class Blah extends Game implements Constants {
 		helpMenu2 = new HelpMenu2(this);
 		creditMenu = new CreditMenu(this);
 		endGameState = new EndGameState(this);
+		ZombiesNetworkMenuState networkMenuState = new ZombiesNetworkMenuState();
+		networkMenuState.makeNextButton("Multiplayer", waitingState);
+		networkMenuState.makeNextButton("Main Menu", mainMenu);
+		networkMenuState.makeNextButton("End Game", endGameState);
 //		getGameStateManager().addGameState(mainMenu, helpMenu1, helpMenu2,
 //				creditMenu, pauseState, playState, endGameState);
-		getGameStateManager().addGameState(waitingState, playState, pauseState, endGameState);
-		getGameStateManager().switchTo(waitingState);
+		getGameStateManager().addGameState(waitingState, playState, pauseState, endGameState, networkMenuState);
+		getGameStateManager().switchTo(networkMenuState);
 	}
+	
+	public void switchToState (GameState gs) {
+		System.out.println("Zombies: blah.java: "+gs);
+		getGameStateManager().switchTo(gs);
+	}
+
 
 	public void play() {
 		getGameStateManager().switchTo(playState);

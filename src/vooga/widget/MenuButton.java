@@ -16,7 +16,7 @@ import vooga.engine.state.MenuGameState;
 
 public class MenuButton extends Button {
 
-	private static String gamePath = "vooga.games.tictactoe.Blah"; //TODO DONT HARDCODE and allow it to extend to other games -- Devon
+	private static String gamePath; //TODO DONT HARDCODE and allow it to extend to other games -- Devon
 	private static int keyboardKey = 49; //WTF is this?  --Devon
 	
 
@@ -38,6 +38,8 @@ public class MenuButton extends Button {
 	
 	public MenuButton(BufferedImage img, String label, GameState gamestateForButton, double x, double y, MenuGameState mgs) {
 		super(img, label, x, y);
+		System.out.println("MenuButton: "+ label+" "+gamestateForButton+" "+keyboardKey+ " "+gamePath);
+
 		mgs.getKeyboardControl().addInput(keyboardKey, "switchToState", gamePath, GameState.class);
 		mgs.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
 		keyboardKey++;
