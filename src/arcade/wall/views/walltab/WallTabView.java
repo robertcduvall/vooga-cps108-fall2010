@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -36,8 +37,14 @@ public class WallTabView extends JPanel {
 	private JPanel myPanel;
 	private RadioPanel myRatingPanel;
 	private JButton mySubmitButton,
-					mySendMessageButton;
-	private JComboBox myGameComboBox;
+					mySendMessageButton,
+					myCloseButton,
+					myComposeMessageButton,
+					myInboxButton;
+
+	private JComboBox myGameComboBox,
+					  myFriendsComboBox;
+	private JFrame myComposeMessage;
 	private JLabel mySelectGameLabel,	
 				   myEnterCommentLabel,
 				   myGameHeaderLabel,
@@ -45,12 +52,16 @@ public class WallTabView extends JPanel {
 				   myEnterReceiverLabel,
 				   myEnterMessageLabel,
 				   myReceivedMessagesLabel,
+				   mySendToNewUserLabel,
+				   mySendToFriendLabel,
 				   myUserNameLabel;
 	private JTextArea myCommentsArea,
 					  myEnterMessageArea,
 					  myReceivedMessagesArea;
 	private JTextField myCommentEntryField,
-					   myEnterReceiverField;
+					   myEnterReceiverField,
+					   mySendToNewUserField;
+					  
 	
 	public static final String[] myGameChoices = formGameList();
 	
@@ -68,6 +79,7 @@ public class WallTabView extends JPanel {
 		constructGUIElements();
 		return constructReturnPanel();
 	}
+	
 
 	/**
 	 * Constructs the WallTab GUIElements.
@@ -78,8 +90,10 @@ public class WallTabView extends JPanel {
 		constructJTextFields();
 		constructJButtons();
 		constructJTextAreas();
+		constructComposeMessageFrame();
 		setGameHeaderLabel(myGameChoices[myGameComboBox.getSelectedIndex()]);
 	}
+	
 
 	/**
 	 * Constructs the ReturnPanel - this panel holds all other panels in the WallTab.
@@ -147,27 +161,57 @@ public class WallTabView extends JPanel {
 	}
 	
 	/**
+	 * Constructs the ComposeMessage JFrame
+	 */
+	private void constructComposeMessageFrame(){
+		myComposeMessage = new JFrame();
+		myComposeMessage.setSize(800, 600);
+		JPanel composePanel = new JPanel();
+		JPanel messagePanel = new JPanel();
+						
+		messagePanel.setBorder(constructWallBorder(myResources.getString("sendMessagesPanelBorder")));
+		messagePanel.add(myEnterMessageArea);
+		
+		composePanel.add(mySendToFriendLabel);
+		composePanel.add(myFriendsComboBox);
+		composePanel.add(mySendToNewUserLabel);
+		composePanel.add(mySendToNewUserField);
+		composePanel.setLayout(new GridLayout(1,1,5,5));
+		composePanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		composePanel.add(messagePanel);
+		composePanel.add(mySendMessageButton);
+		composePanel.add(myCloseButton);
+		
+		myComposeMessage.add(messagePanel);
+		
+	}
+	
+	/**
 	 * Constructs the MessagesPanel - this panel holds elements related to the Wall messaging system.
 	 */
 	private JPanel constructMessagesPanel() {
 		JPanel messagesPanel = new JPanel();
-		JPanel sendMessagesPanel = new JPanel();
-		JPanel receivedMessagesPanel = new JPanel();
-		sendMessagesPanel.setLayout(new BoxLayout(sendMessagesPanel, BoxLayout.Y_AXIS));
-		sendMessagesPanel.setBorder(constructWallBorder(myResources.getString("sendMessagesPanelBorder")));
-		sendMessagesPanel.add(myEnterReceiverLabel);
-		sendMessagesPanel.add(myEnterReceiverField);
-		sendMessagesPanel.add(myEnterMessageLabel);
-		sendMessagesPanel.add(myEnterMessageArea);
-		sendMessagesPanel.add(mySendMessageButton);
-		receivedMessagesPanel.setLayout(new BoxLayout(receivedMessagesPanel, BoxLayout.Y_AXIS));
-		receivedMessagesPanel.setBorder(constructWallBorder(myResources.getString("receivedMessagesPanelBorder")));
-		receivedMessagesPanel.add(myReceivedMessagesLabel);
-		receivedMessagesPanel.add(myReceivedMessagesArea);
+//		JPanel sendMessagesPanel = new JPanel();
+//		JPanel receivedMessagesPanel = new JPanel();
+//		sendMessagesPanel.setLayout(new BoxLayout(sendMessagesPanel, BoxLayout.Y_AXIS));
+//		sendMessagesPanel.setBorder(constructWallBorder(myResources.getString("sendMessagesPanelBorder")));
+//		sendMessagesPanel.add(myEnterReceiverLabel);
+//		sendMessagesPanel.add(myEnterReceiverField);
+//		sendMessagesPanel.add(mySendMessageButton);
+//		sendMessagesPanel.add(myFriendsComboBox);
+//		sendMessagesPanel.add(myEnterMessageLabel);
+//		sendMessagesPanel.add(myEnterMessageArea);
+//		receivedMessagesPanel.setLayout(new BoxLayout(receivedMessagesPanel, BoxLayout.Y_AXIS));
+//		receivedMessagesPanel.setBorder(constructWallBorder(myResources.getString("receivedMessagesPanelBorder")));
+//		receivedMessagesPanel.add(myReceivedMessagesLabel);
+//		receivedMessagesPanel.add(myReceivedMessagesArea);
 		messagesPanel.setLayout(new BoxLayout(messagesPanel, BoxLayout.Y_AXIS));
 		messagesPanel.setBorder(constructWallBorder(myResources.getString("messagesPanelBorder")));
-		messagesPanel.add(sendMessagesPanel);
-		messagesPanel.add(receivedMessagesPanel);
+//		messagesPanel.add(sendMessagesPanel);
+//		messagesPanel.add(receivedMessagesPanel);
+		
+		messagesPanel.add(myComposeMessageButton);
+		messagesPanel.add(myInboxButton);
 		return messagesPanel;
 	}
 	
@@ -176,6 +220,8 @@ public class WallTabView extends JPanel {
 	 */
 	private void constructJTextFields() {
 		myCommentEntryField = new JTextField();
+		myEnterReceiverField = new JTextField();
+		mySendToNewUserField = new JTextField();
 	}
 
 	/**
@@ -191,6 +237,8 @@ public class WallTabView extends JPanel {
 		myReceivedMessagesLabel = new JLabel(myResources.getString("receivedMessagesLabel"));
 		myEnterCommentLabel = new JLabel(myResources.getString("enterCommentLabel"));
 		myUserNameLabel = new JLabel("Guest's Wall");
+		mySendToNewUserLabel = new JLabel(myResources.getString("sendToNewUserLabel"));
+		mySendToFriendLabel = new JLabel(myResources.getString("sendToFriendLabel"));
 	}
 	
 	/**
@@ -210,14 +258,20 @@ public class WallTabView extends JPanel {
 	private void constructJButtons() {
 		mySubmitButton = new JButton(myResources.getString("submitButton"));
 		mySendMessageButton = new JButton(myResources.getString("sendMessageButton"));
+		myCloseButton = new JButton(myResources.getString("closeButton"));
+		myInboxButton = new JButton(myResources.getString("inboxButton"));
+		myComposeMessageButton = new JButton(myResources.getString("composeMessageButton"));
 	}
 	
 	/**
 	 * Constructs the WallTab JComboBoxes.
 	 */
 	private void constructJComboBoxes() {
+		String[] test = {"yo"};
 		myGameComboBox = new JComboBox(myGameChoices);
 		myGameComboBox.setSelectedIndex(0);
+		myFriendsComboBox = new JComboBox(test);
+//		myFriendsComboBox.POPULATEUSERS();
 	}
 	
 	/**

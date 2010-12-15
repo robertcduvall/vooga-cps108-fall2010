@@ -29,6 +29,7 @@ public abstract class AbstractButtonPanel extends JPanel implements ActionListen
 
 	public AbstractButtonPanel(int scale){
 		myEditableButtons = new AbstractButton[scale];
+		myEditableButtons[0].setEnabled(true);
 		myButtons = new ButtonGroup();
 		setHorizontal();
 	}

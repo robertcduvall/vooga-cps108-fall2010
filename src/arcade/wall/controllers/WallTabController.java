@@ -110,6 +110,13 @@ public class WallTabController {
 			myView.setMessageContentText("");
 		}
 	}
+	
+	class ComposeMessageButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			//TODO: Make the JFrame appear
+		}
+	}
+	
 	public List<String> getGameRankList() {
 		return myModel.getGameRankList();
 	}
