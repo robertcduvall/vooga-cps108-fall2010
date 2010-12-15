@@ -18,7 +18,6 @@ import arcade.lobby.model.ProfileSet;
 public class WallTab extends JPanel implements Tab {
 
 	private WallTabController myController;
-	
 	//TODO create model and pass into controller
 	Profile myProfile;
 	
@@ -26,12 +25,8 @@ public class WallTab extends JPanel implements Tab {
 		super();
 		setToolTipText("Click here to see your Wall.");
 		setName("Wall");
-//		this.setTitle("MainWallTab");
 		myController = new WallTabController();
-		myProfile = ProfileSet.getCurrentProfile();
 		add(myController.getView().getPanel());
-//		this.pack();
-//		this.setVisible(true);
 		refresh();
 	}
 
@@ -47,30 +42,7 @@ public class WallTab extends JPanel implements Tab {
 
 	@Override
 	public void refresh() {
-		repaint();
-		String userName = "";
-		System.out.println(myProfile);
-		try {
-			myProfile = ProfileSet.getCurrentProfile();
-			userName = myProfile.getUserName();
-		} catch (NullPointerException e) {
-			userName = "Guest";
-		}
-		setName(userName+"'s Wall");
-		System.out.println("refreshing");
-//		reload();
+		myProfile = ProfileSet.getCurrentProfile();
+		myController.setProfile(myProfile);
 	}
-	
-	//From ProfilePanel
-//	private void reload() {
-//		// To test with no current profile by switching between users 1 and 2:
-//		// myProfile = ProfileSet.getProfile((myProfile.getUserId())%2+1);
-//		myProfile = ProfileSet.currentProfile;
-//		myViewPanel.refresh(myProfile);
-//		myEditPanel.refresh(myProfile);
-//		editMode = !editMode;
-//		refreshContent();
-//		editMode = !editMode;
-//		refreshContent();
-//	}
 }
