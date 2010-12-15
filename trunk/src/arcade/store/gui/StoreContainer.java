@@ -1,5 +1,6 @@
 package arcade.store.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +12,10 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
@@ -19,7 +23,7 @@ import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
 import arcade.store.gui.tabs.MainPageTab;
 
-public class StoreContainer extends JPanel implements Tab{
+public class StoreContainer {
 
 	MainController mainController;
 	
@@ -30,14 +34,13 @@ public class StoreContainer extends JPanel implements Tab{
 	public StoreContainer() {
 		mainController = new MainController();
 
-		setName("Store");
-		add(createTabs());
-//		JFrame frame = new JFrame();
-//		frame.add(	getContent());
-//		frame.setSize(700, 500);
-//	
-//		frame.setVisible(true);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	setName("Store");
+		JFrame frame = new JFrame();
+		frame.add(	getContent());
+		frame.setSize(700, 500);
+	
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//this method sets up the first tab
 //		controller.setMainTabView(this);
@@ -45,13 +48,12 @@ public class StoreContainer extends JPanel implements Tab{
 	
 //	@Override
 	public JComponent getContent() {
-		return this;
+		return createTabs();
 	}
 	
 	private JTabbedPane createTabs() {
-		JTabbedPane alltabs = new JTabbedPane();
-		// JPanel main = createArcadeView();
-		// everything.addTab("Arcade", null, main, "Arcade Main View");
+		
+		final JTabbedPane everything = new JTabbedPane();
 		
 		for (String classname : getTabList()) {
 			if (classname.isEmpty())
@@ -66,14 +68,15 @@ public class StoreContainer extends JPanel implements Tab{
 				//initialize all the start up features of the 
 				t.getController().initialize();
 				
-				alltabs.addTab(((JComponent) t).getName(), null, t.getContent(),
+				everything.addTab(((JComponent) t).getName(), null, t.getContent(),
 						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 		}
+		return everything;
 		
-		return alltabs;
 	}
 
 
@@ -105,16 +108,6 @@ public class StoreContainer extends JPanel implements Tab{
 		new StoreContainer();
 	}
 
-	@Override
-	public IController getController() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
