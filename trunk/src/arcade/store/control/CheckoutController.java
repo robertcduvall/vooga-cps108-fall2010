@@ -15,6 +15,13 @@ import arcade.store.account.StoreUser;
 import arcade.store.gui.tabs.CheckoutTab;
 import arcade.store.items.IItemInfo;
 
+/**
+ * CheckoutController is a subclass of Controller. It connects the StoreModel
+ * with the CheckoutTab.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class CheckoutController extends Controller {
 
 	private StoreModel storeModel;
@@ -66,29 +73,41 @@ public class CheckoutController extends Controller {
 		currentSelected = null;
 	}
 
+	/**
+	 * Sets the remaining creddits TextField to the cost of the user's cart
+	 * subtracted from the user's current total creddits.
+	 */
 	public void setUpRemainingCreddits() {
 
 		double currCredits = storeModel.getCurrentUserAccount().getCreddits();
 		double totalCost = storeModel.getTotalUserCartCost();
 
 		double remainingCreddits = (currCredits - totalCost);
-		setRemainingCreditField(remainingCreddits);
+		setRemainingCredditField(remainingCreddits);
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void setUpUserCost() {
 
-		// The total cart cost
 		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void setUpCurrentCredditsField() {
-		// The current user creddits;
+
 		String currentUserCreddits = ""
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void setUpUserCart() {
 		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
 
@@ -102,7 +121,7 @@ public class CheckoutController extends Controller {
 	 * @param balance
 	 *            the remaining creddit balance of the user
 	 */
-	private void setRemainingCreditField(double balance) {
+	private void setRemainingCredditField(double balance) {
 
 		if (balance < 0) {
 			viewer.setRemainigCredditsTextField("0");
@@ -162,6 +181,11 @@ public class CheckoutController extends Controller {
 		return !storeModel.userHasEnoughCredditsToBuyWishList();
 	}
 
+	/**
+	 * TODO: comment
+	 * 
+	 * @return
+	 */
 	private boolean userHasNoItems() {
 
 		StoreUser user = storeModel.getCurrentUserAccount();
@@ -196,6 +220,9 @@ public class CheckoutController extends Controller {
 		initialize();
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void processConfirmDropItem() {
 
 		if (currentSelected == null) {
@@ -211,6 +238,9 @@ public class CheckoutController extends Controller {
 		}
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void processDropItem() {
 		// need something else here!
 		// like another pop up
@@ -227,17 +257,26 @@ public class CheckoutController extends Controller {
 		}
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void processSaveCart() {
 		storeModel.getCurrentUserAccount().saveCart();
 		JOptionPane.showMessageDialog(null, "Cart Successfully Saved!");
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void registerCurrentElement() {
 
 		currentSelected = (String) viewer.getSelectedItem();
 
 	}
 
+	/**
+	 * TODO: comment
+	 */
 	public void processConfirmDropCart() {
 		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Your Cart Is Empty!");
