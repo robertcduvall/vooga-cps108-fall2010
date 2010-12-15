@@ -208,7 +208,7 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 
 	@Override
 	public void refresh() {
-		this.repaint();
+		controller.initialize();
 	}
 
 }

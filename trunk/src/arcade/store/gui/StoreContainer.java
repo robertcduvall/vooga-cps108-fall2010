@@ -26,11 +26,11 @@ import arcade.store.gui.tabs.MainPageTab;
 public class StoreContainer extends JPanel implements Tab {
 
 	MainController mainController;
-	
+
 	private ResourceBundle tabBundle = ResourceBundle
 	.getBundle("arcade.store.gui.resources.tabList");
-	
-	
+
+
 	public StoreContainer() {
 		mainController = new MainController();
 		setLayout(new BorderLayout());
@@ -38,15 +38,15 @@ public class StoreContainer extends JPanel implements Tab {
 		this.add(createTabs(), BorderLayout.NORTH);
 
 	}
-	
+
 	public JComponent getContent() {
 		return this;
 	}
-	
+
 	private JTabbedPane createTabs() {
-		
+
 		final JTabbedPane everything = new JTabbedPane();
-		
+
 		for (String classname : getTabList()) {
 			if (classname.isEmpty())
 				continue;
@@ -54,30 +54,42 @@ public class StoreContainer extends JPanel implements Tab {
 
 				Tab t = (Tab) getObject(classname);
 				String name = ((JComponent) t).getName();	
-				
+
 				mainController.addSubTab(name, t);
-				
+
 				//initialize all the start up features of the 
 				t.getController().initialize();
-				
+
 				everything.addTab(((JComponent) t).getName(), null, t.getContent(),
 						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		}
+
+		everything.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				int selectedIndex = everything.getSelectedIndex();
+				Component selected = everything.getComponentAt(selectedIndex);
+				if(selected instanceof Tab)
+					((Tab) selected).refresh();
+				// Update tab titles
+				everything.setTitleAt(selectedIndex,selected.getName());
+			}
+		});
 		return everything;
-		
+
 	}
 
 
-	
+
 	private String[] getTabList() {
-		
+
 		Enumeration<String> iterator = tabBundle.getKeys();
 		ArrayList<String> tabs = new ArrayList<String>();
-		
+
 		while(iterator.hasMoreElements())
 		{
 			String tab = iterator.nextElement();
@@ -90,12 +102,12 @@ public class StoreContainer extends JPanel implements Tab {
 	private Tab getObject(String classname) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException,
 	InvocationTargetException, NoSuchMethodException {
-	
+
 		Class<?> tabClass = Class.forName(classname);
 		Tab newTab = (Tab) tabClass.newInstance();
 		return newTab;
 	}
-	
+
 	public static void main(String[] args) {
 		new StoreContainer();
 	}
@@ -108,7 +120,7 @@ public class StoreContainer extends JPanel implements Tab {
 	@Override
 	public void refresh() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
