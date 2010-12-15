@@ -38,6 +38,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 	public boolean updatePurchaseHistory(List<IItemInfo> games, String userId) {
 		for(IItemInfo i : games) {
 			Map<String, String> row = new HashMap<String, String>();
+			row.put("Item_Id", Integer.toString(i.getId()));
 			row.put("User_Id", userId);
 			row.put("ItemName", i.getTitle());
 		    java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
