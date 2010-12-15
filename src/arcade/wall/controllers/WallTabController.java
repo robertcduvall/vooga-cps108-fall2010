@@ -104,14 +104,14 @@ public class WallTabController {
 
 	class SendMessageButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Object[] options = {"Yes","No", "Cancel"};
+			Object[] options = {"No","Yes"};
 			int n = JOptionPane.showOptionDialog(myView.getComposeMessageFrame(),"Are you sure you want to send this message?",
 					"Confirm",
-					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE,
 					null,
 					options,
-					options[2]);
+					options[1]);
 			Message message = new Message(""+myModel.getNewMessageID(), "1", 
 					myView.getReceiverText(), myView.getMessageContentText());
 			myModel.addMessage(message);
