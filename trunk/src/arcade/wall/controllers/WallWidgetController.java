@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import arcade.lobby.model.ProfileSet;
 import arcade.wall.models.WallModel;
 import arcade.wall.models.data.comment.Comment;
 import arcade.wall.views.wallwidget.WallWidgetView;
@@ -27,8 +28,8 @@ public class WallWidgetController {
 	class ReviewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	String selectedGameName = view.getSelectedGame();
-    		Comment submittedComment = new Comment(""+model.getNewCommentID(), selectedGameName, "42", 
-    											   view.getEntryText(), view.getSelectedRating());
+    		Comment submittedComment = new Comment(""+model.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
+    											   view.getEntryText());
     		model.addComment(submittedComment);
     		JOptionPane.showMessageDialog(view.getPanel(),
     				"Your comments were successfully added.\n","",
