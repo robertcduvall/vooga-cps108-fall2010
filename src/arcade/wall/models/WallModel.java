@@ -8,6 +8,8 @@ import arcade.wall.models.data.gamereport.GameReport;
 import arcade.wall.models.data.gamereport.GameReportSet;
 import arcade.wall.models.data.message.Message;
 import arcade.wall.models.data.message.MessageSet;
+import arcade.wall.models.data.review.Review;
+import arcade.wall.models.data.review.ReviewSet;
 
 /**
  * WallModel is the Wall entity that deals with the handling of Comment data, which is stored in an online database.
@@ -22,6 +24,7 @@ public class WallModel implements IWallModel {
 	private CommentSet myCommentSet;
 	private GameReportSet myGameReportSet;
 	private MessageSet myMessageSet;
+	private ReviewSet myReviewSet;
 
 	public WallModel() {
 		myHost = "voogaarcade.db.7093929.hostedresource.com";
@@ -40,9 +43,7 @@ public class WallModel implements IWallModel {
 	 */
 	public void addComment(Comment comment){
 		myCommentSet.addComment(comment);
-		double newAverageRating = myCommentSet.getAverageRating(comment.getGameTitle());
-		myGameReportSet.updateAverageRating(comment.getGameTitle(), newAverageRating);
-		myGameReportSet.incrementComments(comment.getGameTitle());
+		myGameReportSet.incrementComments(comment.getGameInfoTitle());
 	}
 
 	public void addGameReport(GameReport gameReport) {
@@ -52,21 +53,25 @@ public class WallModel implements IWallModel {
 	public void addMessage(Message message) {
 		myMessageSet.addMessage(message);
 	}
-
-	/**
-	 * Checks the CommentSet to see if the given Comment is valid; that is, did the user who made the Comment already
-	 * rate the game in question, and did they rate it differently this time? If so, there is a "rating conflict" and
-	 * the Comment is "invalid".
-	 * @param comment
-	 * 		The comment to check
-	 * @return 
-	 * 		Whether the comment is valid or not
-	 */
-	public boolean commentIsConflicting(Comment comment) {
-		return myCommentSet.commentIsConflicting(comment);
+	
+	public void addReview(Review review) {
+		double newAverageRating = myReviewSet.getAverageRating(review.getGameInfoTitle());
+		myGameReportSet.updateAverageRating(review.getGameInfoTitle(), newAverageRating);
 	}
 
-	public void updateCommentRatings(String selectedGameName,
+	/**
+	 * Checks the ReviewSet to see if the given Review is valid; that is, has the current user already 
+	 * submitted a Review about this game?
+	 * @param review
+	 * 		The review to check
+	 * @return 
+	 * 		Whether the review is valid or not
+	 */
+	public boolean reviewIsConflicting(Review review) {
+		return myReviewSet.reviewIsConflicting(review);
+	}
+
+	public void updateReview(String selectedGameName,
 			String myUserId, String selectedValue) {
 		myCommentSet.updateCommentRatings(selectedGameName,
 				myUserId, selectedValue);
@@ -85,6 +90,10 @@ public class WallModel implements IWallModel {
 
 	public int getNewCommentID() {
 		return this.myCommentSet.currentID;
+	}
+	
+	public int getNewReviewID() {
+		return this.myReviewSet.currentID;
 	}
 
 	public int getNewGameReportID() {

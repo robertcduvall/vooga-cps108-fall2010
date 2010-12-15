@@ -17,20 +17,17 @@ import arcade.wall.controllers.WallTabController;
  *
  */
 @SuppressWarnings("serial")
-public class WallTabView extends JPanel {
+public class WallTabPanel extends JPanel {
 
 	public static WallTabController myController;
-
-	//GUI Elements
 	private JPanel myPanel;
-	private ReviewPanel myReviewPanel;
+	private FeedbackPanel myFeedbackPanel;
 	private DisplayPanel myDisplayPanel;
 	private MessagesPanel myMessagesPanel;
-	
 	public static final String[] myGameChoices = formGameList();
 	public static ResourceBundle myResources = ResourceBundle.getBundle("arcade.wall.resources.walltab");
 
-	public WallTabView(WallTabController controller) {
+	public WallTabPanel(WallTabController controller) {
 		myController = controller;
 		myPanel = constructMainPanel();
 	}
@@ -40,11 +37,11 @@ public class WallTabView extends JPanel {
 	 */
 	private JPanel constructMainPanel() {
 		JPanel mainPanel = new JPanel();
-		myReviewPanel = new ReviewPanel();
+		myFeedbackPanel = new FeedbackPanel();
 		myDisplayPanel = new DisplayPanel();
 		myMessagesPanel = new MessagesPanel();
 		mainPanel.setLayout(new GridLayout(1,3,5,5));
-		mainPanel.add(myReviewPanel);
+		mainPanel.add(myFeedbackPanel);
 		mainPanel.add(myDisplayPanel);
 		mainPanel.add(myMessagesPanel);
 		return mainPanel;
@@ -66,16 +63,16 @@ public class WallTabView extends JPanel {
 		return StoreModel.getUserOwnedGamesAsStrings((ProfileSet.getCurrentProfile().getUserId()));
 	}
 
-	public void setMainPanelText(String string) {
-		myPanel.setBorder(constructWallBorder(string));
+	public void setMainPanelText() {
+		myPanel.setBorder(constructWallBorder(ProfileSet.getCurrentProfile().getFirstName()+"'s Wall"));
 	}
 
 	public JPanel getPanel() {
 		return this.myPanel;
 	}
 	
-	public ReviewPanel getReviewPanel() {
-		return this.myReviewPanel;
+	public FeedbackPanel getFeedbackPanel() {
+		return this.myFeedbackPanel;
 	}
 	
 	public DisplayPanel getDisplayPanel() {
@@ -84,9 +81,5 @@ public class WallTabView extends JPanel {
 	
 	public MessagesPanel getMessagesPanel() {
 		return this.myMessagesPanel;
-	}
-
-	public void setProfile() {
-		setMainPanelText(ProfileSet.getCurrentProfile().getFirstName()+"'s Wall");
 	}
 }

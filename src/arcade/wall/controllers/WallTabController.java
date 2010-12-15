@@ -6,11 +6,12 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 import arcade.wall.models.WallModel;
 import arcade.wall.models.data.comment.Comment;
 import arcade.wall.models.data.message.Message;
-import arcade.wall.views.walltab.WallTabView;
+import arcade.wall.models.data.review.Review;
+import arcade.wall.views.walltab.WallTabPanel;
 
 /**
  * The WallTabController is the link between WallTabView and WallTabModel.
@@ -19,17 +20,17 @@ import arcade.wall.views.walltab.WallTabView;
  */
 public class WallTabController {
 	WallModel myModel; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
-	WallTabView myView; //TODO allow a controller to accept multiple views
-	Profile myProfile;
+	WallTabPanel myView; //TODO allow a controller to accept multiple views
+//	Profile myProfile;
 
 	public WallTabController() {
 		myModel = new WallModel();
-		myView = new WallTabView(this);
-		refreshComments(WallTabView.myGameChoices[0]);
+		myView = new WallTabPanel(this);
+		refreshComments(WallTabPanel.myGameChoices[0]);
 
 		//Add listeners to the view.
-		myView.getReviewPanel().addGameComboBoxListener(new GameComboBoxListener());
-		myView.getReviewPanel().addReviewButtonListener(new ReviewButtonListener());
+		myView.getFeedbackPanel().addGameComboBoxListener(new GameComboBoxListener());
+		myView.getFeedbackPanel().getReviewPanel().addReviewButtonListener(new ReviewButtonListener());
 		myView.getMessagesPanel().addSendMessageButtonListener(new SendMessageButtonListener());
 		myView.getMessagesPanel().addComposeMessageButtonListener(new ComposeMessageButtonListener());
 		myView.getMessagesPanel().addCloseButtonListener(new CloseButtonListener());
@@ -79,7 +80,7 @@ public class WallTabController {
 		return n;
 	}
 	
-	public WallTabView getView() {
+	public WallTabPanel getView() {
 		return myView;
 	}
 
@@ -90,33 +91,43 @@ public class WallTabController {
 	class GameComboBoxListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if ("comboBoxChanged".equals(e.getActionCommand())) {
-				String selectedGame = myView.getReviewPanel().getSelectedGame();
+				String selectedGame = myView.getFeedbackPanel().getSelectedGame();
 				myView.getDisplayPanel().setGameHeaderLabel(selectedGame);
 				refreshComments(selectedGame);
-				myView.getReviewPanel().setEntryText("");
+				myView.getFeedbackPanel().getCommentPanel().setEntryText("");
 			}
 		}
 	}
 
-	class ReviewButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-        	String selectedGameName = myView.getReviewPanel().getSelectedGame();
-        	
-    		Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+myProfile.getUserId(), 
-    											   myView.getReviewPanel().getEntryText(), myView.getReviewPanel().getSelectedRating());
-    		//TODO is this the way we actually want to determine if a Comment is valid or not?
-    		if (myModel.commentIsConflicting(submittedComment)) {
+	class CommentButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
+			Review submittedReview = new Review(""+myModel.getNewReviewID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
+					   myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
+    		if (myModel.reviewIsConflicting(submittedReview)) {
     			if (showCommentDialog() == JOptionPane.YES_OPTION) {
-    				myModel.updateCommentRatings(selectedGameName, ""+myProfile.getUserId(), myView.getReviewPanel().getSelectedRating());
-    				myModel.addComment(submittedComment);
+    				myModel.updateReview(selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
+    				myModel.addReview(submittedReview);
     			}
     		} else {
-    			myModel.addComment(submittedComment);
+    			myModel.addReview(submittedReview);
     		}
+			myModel.addReview(submittedReview);
+		}
+	}
+	
+	class ReviewButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
+        	
+    		Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
+    											   myView.getFeedbackPanel().getCommentPanel().getEntryText());
+    		myModel.addComment(submittedComment);
     		myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
     		refreshComments(selectedGameName);
     		myView.getDisplayPanel().updateTopRatedGamesLabel();
-    		myView.getReviewPanel().setEntryText("");
+    		myView.getFeedbackPanel().getCommentPanel().setEntryText("");
         }
     }
 
@@ -148,7 +159,7 @@ public class WallTabController {
 		return myModel.getGameRankList();
 	}
 
-	public void setProfile() {
-		myView.setProfile();
+	public void refreshMainPanelText() {
+		myView.setMainPanelText();
 	}
 }

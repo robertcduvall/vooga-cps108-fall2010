@@ -5,71 +5,43 @@ import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 import arcade.wall.views.ratings.RadioPanel;
 
 @SuppressWarnings("serial")
 public class ReviewPanel extends JPanel {
 	
+	private JTextArea myReviewArea;
 	private RadioPanel myRatingPanel;
-	
-	private JButton mySubmitButton;
-	public static JComboBox gameComboBox;
-	private JLabel mySelectGameLabel, myEnterCommentLabel;
-	private JTextField myCommentEntryField;
+	private JButton myReviewButton;
 	
 	public ReviewPanel() {
-		gameComboBox = new JComboBox(WallTabView.myGameChoices);
-		gameComboBox.setSelectedIndex(0);
-		mySelectGameLabel = new JLabel(WallTabView.myResources.getString("selectGameLabel"));
-		myEnterCommentLabel = new JLabel(WallTabView.myResources.getString("enterCommentLabel"));
-		myCommentEntryField = new JTextField();
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.add(mySelectGameLabel);
-		this.add(gameComboBox);
-		this.add(myEnterCommentLabel);
-		this.add(myCommentEntryField);
+		myReviewArea = new JTextArea();
 		constructRatingPanel();
+		myReviewButton = new JButton(WallTabPanel.myResources.getString("submitButton"));
+		this.add(myReviewArea);
 		this.add(myRatingPanel);
-		mySubmitButton = new JButton(WallTabView.myResources.getString("submitButton"));
-		this.add(mySubmitButton);
-		this.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("reviewPanelBorder")));
+		this.add(myReviewButton);
+		this.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("reviewPanelBorder")));
 	}
 	
 	/**
-	 * Adds the ReviewButtonListener to the WallTabView.
+	 * Adds the ReviewButtonListener to the ReviewPanel.
 	 */
 	public void addReviewButtonListener(
 			ActionListener reviewButtonListener) {
-		mySubmitButton.addActionListener(reviewButtonListener);
-	}
-	
-	/**
-	 * Adds the GameComboBoxListener to the WallTabView.
-	 */
-	public void addGameComboBoxListener(
-			ActionListener gameComboBoxListener) {
-		gameComboBox.addActionListener(gameComboBoxListener);
-	}
-	
-	public String getEntryText() {
-		return myCommentEntryField.getText();
-	}
-	
-	public String getSelectedGame() {
-		return WallTabView.myGameChoices[gameComboBox.getSelectedIndex()];
+		myReviewButton.addActionListener(reviewButtonListener);
 	}
 	
 	public String getSelectedRating() {
 		return myRatingPanel.getSelectedValue();
 	}
 	
-	public void setEntryText(String string) {
-		myCommentEntryField.setText(string);
+	public String getEntryText() {
+		return myReviewArea.getText();
 	}
 	
 	/**
@@ -82,6 +54,6 @@ public class ReviewPanel extends JPanel {
 			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
 		}
 		myRatingPanel.setVertical();
-		myRatingPanel.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("ratingPanelBorder")));
+		myRatingPanel.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("ratingPanelBorder")));
 	}
 }

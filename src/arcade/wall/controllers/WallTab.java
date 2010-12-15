@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.model.Profile;
-import arcade.lobby.model.ProfileSet;
 
 /**
  * The VOOGA WallTab. 
@@ -42,6 +41,6 @@ public class WallTab extends JPanel implements Tab {
 
 	@Override
 	public void refresh() {
-		myController.setProfile();
+		myController.refreshMainPanelText();
 	}
 }

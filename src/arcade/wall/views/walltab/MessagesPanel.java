@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -36,17 +35,17 @@ public class MessagesPanel extends JPanel {
 	public MessagesPanel() {
 		String[] test = {"yo"};
 		myFriendsComboBox = new JComboBox(test);
-		mySendMessageButton = new JButton(WallTabView.myResources.getString("sendMessageButton"));
-		myCloseButton = new JButton(WallTabView.myResources.getString("closeButton"));
-		myComposeMessageButton = new JButton(WallTabView.myResources.getString("composeMessageButton"));
-		myEnterMessageLabel = new JLabel(WallTabView.myResources.getString("enterMessageLabel"));
-		mySendToNewUserLabel = new JLabel(WallTabView.myResources.getString("sendToNewUserLabel"));
-		mySendToFriendLabel = new JLabel(WallTabView.myResources.getString("sendToFriendLabel"));
+		mySendMessageButton = new JButton(WallTabPanel.myResources.getString("sendMessageButton"));
+		myCloseButton = new JButton(WallTabPanel.myResources.getString("closeButton"));
+		myComposeMessageButton = new JButton(WallTabPanel.myResources.getString("composeMessageButton"));
+		myEnterMessageLabel = new JLabel(WallTabPanel.myResources.getString("enterMessageLabel"));
+		mySendToNewUserLabel = new JLabel(WallTabPanel.myResources.getString("sendToNewUserLabel"));
+		mySendToFriendLabel = new JLabel(WallTabPanel.myResources.getString("sendToFriendLabel"));
 		mySendToNewUserField = new JTextField();
 		myEnterReceiverField = new JTextField();
 		myEnterMessageField = new JTextField();
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("messagesPanelBorder")));
+		this.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("messagesPanelBorder")));
 		this.add(myComposeMessageButton);
 		constructComposeMessageFrame();
 		constructInboxTable();
@@ -101,7 +100,7 @@ public class MessagesPanel extends JPanel {
 		JPanel buttonPanel = new JPanel();
 
 		composePanel.setLayout(new BoxLayout(composePanel, BoxLayout.Y_AXIS));
-		composePanel.setBorder(WallTabView.constructWallBorder(WallTabView.myResources.getString("composeMessagePanelBorder")));
+		composePanel.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("composeMessagePanelBorder")));
 		composePanel.add(mySendToFriendLabel);
 		composePanel.add(myFriendsComboBox);
 		composePanel.add(mySendToNewUserLabel);
