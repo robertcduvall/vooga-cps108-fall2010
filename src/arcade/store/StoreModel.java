@@ -122,6 +122,43 @@ public class StoreModel implements IModel{
 		return itemList;
 	}
 	
+	/**
+	 * Returns the boolean for whether or not the user has enough creddits to
+	 * proceed with their purchase.
+	 * 
+	 * @return true if the user has enough creddits, false otherwise.
+	 */
+	public boolean userHasEnoughCreddits() {
+
+		return !userHasEnoughCredditsToBuyWishList();
+	}
+
+	public boolean userHasNoItems() {
+
+		return currentUser.getCart().isEmpty();
+	}
+	
+	public void processBuyCart()
+	{
+		double userCreddits = currentUser.getCreddits();
+		ArrayList<IItemInfo> gamesToBuy = new ArrayList<IItemInfo>();
+
+		for (String title : currentUser.getCart()) {
+			IItemInfo item = getItemInfo(title);
+			double price = Double.parseDouble(item.getPrice());
+			userCreddits -= price;
+			gamesToBuy.add(item);
+		}
+
+		currentUser.addGames(gamesToBuy);
+
+		// initialize a new array for the cart!
+		currentUser.emptyCart();
+
+		// put the creddits back!
+		currentUser.updateToCreddits(userCreddits);
+	}
+	
 	public static String[] getUserOwnedGamesAsStrings(int userId) {
 		List<Map<String, String>> ownedGames = pollOwnedGamesTable(userId);
 		String[] answer = new String[ownedGames.size()];
@@ -129,6 +166,13 @@ public class StoreModel implements IModel{
 			answer[k] = ownedGames.get(k).get("ItemName");
 		}
 		return answer;
+	}
+	
+	public double getUserWishListBalance()
+	{
+		double currCredits = currentUser.getCreddits();
+		double totalCost = getTotalUserCartCost();
+		return (currCredits - totalCost);
 	}
 	
 	private static List<Map<String, String>> pollOwnedGamesTable(int userId) {
