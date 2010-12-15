@@ -42,7 +42,6 @@ public class WallTab extends JPanel implements Tab {
 
 	@Override
 	public void refresh() {
-		myProfile = ProfileSet.getCurrentProfile();
-		myController.setProfile(myProfile);
+		myController.setProfile();
 	}
 }
