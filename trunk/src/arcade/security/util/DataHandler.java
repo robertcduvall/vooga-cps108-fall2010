@@ -32,8 +32,6 @@ public class DataHandler {
 
 	}
 	
-	
-	
 	private DataHandler(String tableName){
 		myTable = tableName;
 		adapter = new MySqlAdapter(Constants.HOST,Constants.DBNAME,Constants.USER,Constants.PASSWORD);
