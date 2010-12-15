@@ -49,6 +49,7 @@ public class CheckoutController extends Controller {
 	public void addViewer(IViewer view) {
 
 		viewer = (CheckoutTab) view;
+		currentSelected = null;
 	}
 
 	/**
@@ -57,27 +58,44 @@ public class CheckoutController extends Controller {
 	@Override
 	public void initialize() {
 
-		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
+		String delim = getString("delim");
+		String[] toInitialize = getString("initialize").split(delim);
+		
+		for(String event : toInitialize)
+		{
+			processEvent(event);
+		}
+	}
 
-		JList displayList = viewer.getItemsList();
-		displayList.setListData(currentCart.toArray(new String[currentCart
-				.size()]));
+	public void setUpRemainingCreddits() {
+		
+		double currCredits = Double.parseDouble(storeModel.getCurrentUserAccount().getCreddits());
+		double totalCost = storeModel.getTotalUserCartCost();
 
-		// The current user creddits;
-		String currentUserCreddits = storeModel.getCurrentUserAccount()
-				.getCreddits();
-		viewer.getAvailableCredditsTextField().setText(currentUserCreddits);
-		double currCredits = Double.parseDouble(currentUserCreddits);
+		double remainingCreddits = (currCredits - totalCost);
+		setRemainingCreditField(remainingCreddits);
+	}
+
+	public void setUpUserCost() {
+	
 
 		// The total cart cost
 		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
 		viewer.getTotalCostTextField().setText(totalCartPrice);
-		double totalCost = Double.parseDouble(totalCartPrice);
+	}
 
-		double remainingCreddits = (currCredits - totalCost);
-		setRemainingCreditField(remainingCreddits);
+	public void setUpCurrentCredditsField() {
+		// The current user creddits;
+		String currentUserCreddits = storeModel.getCurrentUserAccount()
+				.getCreddits();
+		viewer.getAvailableCredditsTextField().setText(currentUserCreddits);
+	}
 
-		currentSelected = null;
+	public void setUpUserCart() {
+		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
+		JList displayList = viewer.getItemsList();
+		displayList.setListData(currentCart.toArray(new String[currentCart
+				.size()]));
 	}
 
 	/**

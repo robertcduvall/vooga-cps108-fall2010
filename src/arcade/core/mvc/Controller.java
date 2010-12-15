@@ -56,6 +56,11 @@ public class Controller implements IController{
 				throw ControlExceptions.METHOD_NOT_FOUND;
 		}
 	}
+	
+	public String getString(String key)
+	{
+		return reflectionMirror.getString(key);
+	}
 
 
 }
