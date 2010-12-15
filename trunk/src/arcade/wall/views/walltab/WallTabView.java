@@ -32,22 +32,21 @@ public class WallTabView extends JPanel {
 	//GUI Elements
 	private JPanel myPanel;
 	private RadioPanel myRatingPanel;
-	private JTextArea myCommentsArea;
-	private JButton mySubmitButton;
+	private JButton mySubmitButton,
+					mySendMessageButton;
 	private JComboBox myGameComboBox;
-	private JLabel mySelectGameLabel;
-	private JLabel myEnterCommentLabel;
-	private JLabel myGameHeaderLabel;
-	private JTextField myCommentEntryField;
-	private JLabel myTopRatedGamesLabel;
-	private JLabel myEnterReceiverLabel;
-	private JTextField myEnterReceiverField;
-	private JLabel myEnterMessageLabel;
-	private JTextArea myEnterMessageArea;
-	private JButton mySendMessageButton;
-	private JLabel myReceivedMessagesLabel;
-	private JTextArea myReceivedMessagesArea;
-	
+	private JLabel mySelectGameLabel,	
+				   myEnterCommentLabel,
+				   myGameHeaderLabel,
+				   myTopRatedGamesLabel,
+				   myEnterReceiverLabel,
+				   myEnterMessageLabel,
+				   myReceivedMessagesLabel;
+	private JTextArea myCommentsArea,
+					  myEnterMessageArea,
+					  myReceivedMessagesArea;
+	private JTextField myCommentEntryField,
+					   myEnterReceiverField;
 	public static final String[] myGameChoices = formGameList();
 
 	public WallTabView(WallTabController controller) {
@@ -59,36 +58,27 @@ public class WallTabView extends JPanel {
 	 * Constructs the WallTab JPanel.
 	 */
 	private JPanel constructJPanel() {
-		//Construct GUI elements
-		mySubmitButton = new JButton("Submit");
-		myGameComboBox = new JComboBox(myGameChoices);
-		myGameComboBox.setSelectedIndex(0);
-		String selectedGame = myGameChoices[myGameComboBox.getSelectedIndex()];
-		myCommentEntryField = new JTextField();
-		mySelectGameLabel = new JLabel("Select game:");
-		myEnterCommentLabel = new JLabel("Enter a comment here:");
-		myGameHeaderLabel = new JLabel();
-		setGameHeaderLabel(selectedGame);
-		setGameHeaderLabel(selectedGame);
-		myCommentsArea = new JTextArea();
-		myCommentsArea.setEditable(false);
-		myTopRatedGamesLabel = new JLabel();
-		updateTopRatedGamesLabel();
-		myEnterReceiverLabel = new JLabel("Enter Receiver:");
-		myEnterReceiverField = new JTextField();
-		myEnterMessageLabel = new JLabel("Enter message:");
-		myEnterMessageArea = new JTextArea();
-		mySendMessageButton = new JButton("Send");
-		myReceivedMessagesLabel = new JLabel("Your received messages:");
-		myReceivedMessagesArea = new JTextArea();
+		constructGUIElements();
+		return constructReturnPanel();
+	}
+
+	private void constructGUIElements() {
+		constructJLabels();
+		constructJComboBoxes();
+		constructJTextFields();
+		constructJButtons();
+		constructJTextAreas();
+		setGameHeaderLabel(myGameChoices[myGameComboBox.getSelectedIndex()]);
+	}
+
+	private JPanel constructReturnPanel() {
+		JPanel returnPanel = new JPanel();
 		
-		//Construct Panels
 		constructRatingPanel();
 		JPanel displayPanel = constructDisplayPanel();
 		JPanel reviewPanel = constructReviewPanel();
 		JPanel messagesPanel = constructMessagesPanel();
-
-		JPanel returnPanel = new JPanel();
+		
 		returnPanel.setLayout(new GridLayout(1,3,5,5));
 		returnPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		returnPanel.add(reviewPanel);
@@ -97,6 +87,39 @@ public class WallTabView extends JPanel {
 		return returnPanel;
 	}
 
+	private void constructJTextFields() {
+		myCommentEntryField = new JTextField();
+	}
+
+	private void constructJLabels() {
+		mySelectGameLabel = new JLabel("Select game:");
+		myGameHeaderLabel = new JLabel();
+		myTopRatedGamesLabel = new JLabel();
+		updateTopRatedGamesLabel();
+		myEnterReceiverLabel = new JLabel("Enter Receiver:");
+		myEnterMessageLabel = new JLabel("Enter message:");
+		myReceivedMessagesLabel = new JLabel("Your received messages:");
+		myEnterCommentLabel = new JLabel("Enter a comment here:");
+	}
+	
+	private void constructJTextAreas() {
+		myCommentsArea = new JTextArea();
+		myCommentsArea.setEditable(false);
+		myEnterReceiverField = new JTextField();
+		myEnterMessageArea = new JTextArea();
+		myReceivedMessagesArea = new JTextArea();
+	}
+	
+	private void constructJButtons() {
+		mySubmitButton = new JButton("Submit");
+		mySendMessageButton = new JButton("Send");
+	}
+	
+	private void constructJComboBoxes() {
+		myGameComboBox = new JComboBox(myGameChoices);
+		myGameComboBox.setSelectedIndex(0);
+	}
+	
 	private JPanel constructMessagesPanel() {
 		JPanel messagesPanel = new JPanel();
 		JPanel sendAMessagePanel = new JPanel();
@@ -166,7 +189,31 @@ public class WallTabView extends JPanel {
                 BorderFactory.createEmptyBorder(5,5,5,5)));
 		return reviewPanel;
 	}
-
+	
+	/**
+	 * Adds the ReviewButtonListener to the WallTabView.
+	 */
+	public void addReviewButtonListener(
+			ActionListener reviewButtonListener) {
+		mySubmitButton.addActionListener(reviewButtonListener);
+	}
+	
+	/**
+	 * Adds the GameComboBoxListener to the WallTabView.
+	 */
+	public void addGameComboBoxListener(
+			ActionListener gameComboBoxListener) {
+		myGameComboBox.addActionListener(gameComboBoxListener);
+	}
+	
+	/**
+	 * Adds the SendMessageButtonListener to the WallTabView.
+	 */
+	public void addSendMessageButtonListener(
+			ActionListener sendMessageButtonListener) {
+		mySendMessageButton.addActionListener(sendMessageButtonListener);
+	}
+	
 	public void updateTopRatedGamesLabel() {
 		List<String> gameRankList = myController.getGameRankList();
 		myTopRatedGamesLabel.setText("<html>" + 
@@ -183,8 +230,6 @@ public class WallTabView extends JPanel {
 		String displayString = "";
 		for(Comment comment: gameComments){  
 			String starString = "";
-			if (comment.getRating().equals("0"))
-				starString = ":("; //TODO Is this needed?
 			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
 				starString += "*";
 			}
@@ -210,21 +255,6 @@ public class WallTabView extends JPanel {
 		this.myGameHeaderLabel.setText("<html>" + 
 				"<font color=blue>" + selectedGame + "</font> || Average Rating: " +
 				+ myController.getRating(selectedGame) + "</html>");
-	}
-
-	public void addReviewButtonListener(
-			ActionListener reviewButtonListener) {
-		mySubmitButton.addActionListener(reviewButtonListener);
-	}
-	
-	public void addGameComboBoxListener(
-			ActionListener gameComboBoxListener) {
-		myGameComboBox.addActionListener(gameComboBoxListener);
-	}
-	
-	public void addSendMessageButtonListener(
-			ActionListener sendMessageButtonListener) {
-		mySendMessageButton.addActionListener(sendMessageButtonListener);
 	}
 
 	public String getEntryText() {

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import arcade.wall.models.data.DataSet;
-import arcade.wall.models.data.gamereport.GameReport;
 
 /**
  * A MessageSet contains all the VOOGA Messages. It is linked to our online database.
