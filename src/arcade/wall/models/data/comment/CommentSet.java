@@ -133,4 +133,5 @@ public class CommentSet extends DataSet {
 		averageRating /= userIds.size();
 		return averageRating;
 	}
+	
 }
