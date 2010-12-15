@@ -6,20 +6,20 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import arcade.wall.views.ratings.RadioPanel;
 
 @SuppressWarnings("serial")
 public class ReviewPanel extends JPanel {
 	
-	private JTextArea myReviewArea;
+	private JTextField myReviewArea;
 	private RadioPanel myRatingPanel;
 	private JButton myReviewButton;
 	
 	public ReviewPanel() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		myReviewArea = new JTextArea();
+		myReviewArea = new JTextField();
 		constructRatingPanel();
 		myReviewButton = new JButton(WallTabPanel.myResources.getString("reviewButton"));
 		this.add(myReviewArea);
