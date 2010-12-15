@@ -22,6 +22,9 @@
 			<Stat name = "score" />
 			<Stat name = "player1Ammo" />			
 			</Sprite>
+		</SpriteGroup>
+		
+		<SpriteGroup name="OtherPlayers" >
 			<Sprite class="vooga.games.zombies.Shooter" random="false" x="350" y="250" vx="0" vy="0" quantity="1">
 			<Visual name="playerleft" />
 			<Visual name="playerright" />
@@ -29,7 +32,7 @@
 			<Visual name="playerdown" />
 			<Stat name = "player2Health" />
 			<Stat name = "score" />
-			<Stat name = "player2Ammo" />			
+			<Stat name = "player2Ammo" />		
 			</Sprite>
 		</SpriteGroup>
 	</SpriteGroups>
