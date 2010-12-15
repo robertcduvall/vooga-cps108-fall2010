@@ -11,6 +11,7 @@ public class RetrievePasswordProcess implements IModel {
 	}
 	
 	public boolean isAnswerMatched(String userNameInput, String userAnswerInput){
+		if(userNameInput.contains(" "))return false;
 		return !(getPasswordQuestionAnswer(userNameInput).equals("false")||!getPasswordQuestionAnswer(userNameInput).equals(userAnswerInput));
 	}
 	
