@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
-import arcade.lobby.viewComponents.Validator;
+import arcade.util.guiComponents.Validator;
 
 public class WebImageValidator extends Validator<JTextField> {
 

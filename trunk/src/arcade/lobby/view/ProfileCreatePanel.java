@@ -16,7 +16,7 @@ import net.miginfocom.swing.MigLayout;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.lobby.viewComponents.ValidatingComponent;
-import arcade.lobby.viewComponents.ValidatorDock;
+import arcade.util.guiComponents.ValidatorDock;
 
 @SuppressWarnings("serial")
 public class ProfileCreatePanel extends JPanel {

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import arcade.util.guiComponents.ValidatorDock;
+
 public class SampleValidatingFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

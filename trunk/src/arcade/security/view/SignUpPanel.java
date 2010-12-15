@@ -20,10 +20,10 @@ import arcade.lobby.validators.PasswordConfirmField;
 import arcade.lobby.validators.PasswordValidator;
 import arcade.lobby.validators.WebImageValidator;
 import arcade.lobby.viewComponents.ValidatingComponent;
-import arcade.lobby.viewComponents.Validator;
-import arcade.lobby.viewComponents.ValidatorDock;
 import arcade.security.gui.SecurityButton;
 import arcade.security.resourcesbundle.LabelResources;
+import arcade.util.guiComponents.Validator;
+import arcade.util.guiComponents.ValidatorDock;
 
 /**
  * The sign up panel for security-related profiles of the user.
