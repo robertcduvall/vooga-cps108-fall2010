@@ -3,12 +3,14 @@ package vooga.games.zombies.gamestates;
 import java.awt.Graphics2D;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
-import vooga.engine.networking.client.Username;
 import vooga.engine.event.EventPool;
 import vooga.engine.resource.Resources;
 import vooga.engine.util.SoundPlayer;
 import vooga.games.zombies.*;
 import vooga.games.zombies.events.*;
+import vooga.games.zombies.serializeables.Health;
+import vooga.games.zombies.serializeables.Username;
+import vooga.games.zombies.serializeables.ZombieSeed;
 
 public class MultiplayerPlayState extends PlayState implements Constants {
 
@@ -87,7 +89,7 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 			player.setName(data.substring(9));
 		} else if (data.startsWith(Username.getIdentifier())) {
 			String userName = ((Username) (Username.deserialize(data)))
-					.getUsername();
+			.getUsername();
 			for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 				Shooter shooter = (Shooter) otherPlayers.getSprites()[i];
 				if (shooter != null && shooter.getName() == null) {

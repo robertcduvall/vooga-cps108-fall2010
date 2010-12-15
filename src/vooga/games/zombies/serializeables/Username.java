@@ -1,4 +1,4 @@
-package vooga.engine.networking.client;
+package vooga.games.zombies.serializeables;
 
 import vooga.engine.networking.client.Serializeable;
 
