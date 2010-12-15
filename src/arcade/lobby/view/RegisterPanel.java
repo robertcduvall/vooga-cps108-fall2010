@@ -19,6 +19,11 @@ import arcade.lobby.controller.Validator;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
+
+/**
+ * no longer used
+ *
+ */
 public class RegisterPanel extends JPanel implements IView {
 
 	private static final long serialVersionUID = 1L;

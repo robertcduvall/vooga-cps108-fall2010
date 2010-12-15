@@ -18,7 +18,7 @@ import arcade.lobby.validators.DateValidator;
 import arcade.lobby.validators.EmailValidator;
 import arcade.lobby.validators.NameValidator;
 import arcade.lobby.validators.PasswordConfirmField;
-import arcade.lobby.validators.PasswordValidatorTemp;
+import arcade.lobby.validators.PasswordValidator;
 import arcade.lobby.validators.UsernameValidator;
 import arcade.lobby.validators.WebImageValidator;
 import arcade.security.gui.SecurityButton;
@@ -71,7 +71,7 @@ public class SignUpPanel extends JPanel implements IView {
 
 		// passwordSuggestions = new JLabel();
 
-		PasswordValidatorTemp validator = new PasswordValidatorTemp();
+		PasswordValidator validator = new PasswordValidator();
 		addTextField("username", LabelResources.getLabel("AskForUserName"), new UsernameValidator());
 		addPasswordField("pass1",LabelResources.getLabel("AskForPass1"),validator);
 		addPasswordField("pass2",LabelResources.getLabel("AskForPass2"),validator);
