@@ -130,7 +130,7 @@ public class StoreModel implements IModel{
 	
 	private static List<Map<String, String>> pollOwnedGamesTable(int userId) {
 		return dbAdapter.getRows("SELECT Item_Id,Title FROM "
-				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id='"+userId+"'");
+				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id="+userId);
 	}
 	
 	public static void addItemsToCart(List<IItemInfo> itemsToPurchase) {
