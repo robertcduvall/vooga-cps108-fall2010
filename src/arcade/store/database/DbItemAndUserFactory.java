@@ -19,7 +19,7 @@ public class DbItemAndUserFactory {
 			for(String s : images) {
 				icons.add(new ImageIcon(s));
 			}
-			IItemInfo item = new ItemInfo(m.get(StoreDbConstants.DESCRIPTION_FIELD), m.get(StoreDbConstants.PRICE_FIELD), m.get(StoreDbConstants.TITLE_FIELD),
+			IItemInfo item = new ItemInfo(Integer.parseInt(m.get(StoreDbConstants.ITEM_ID_FIELD)), m.get(StoreDbConstants.DESCRIPTION_FIELD), m.get(StoreDbConstants.PRICE_FIELD), m.get(StoreDbConstants.TITLE_FIELD),
 					m.get(StoreDbConstants.PURCHASES_FIELD), icons, m.get(StoreDbConstants.GENRE_FIELD));
 			answer.put(item.getTitle(), item);
 		}

@@ -209,4 +209,9 @@ public class GamePurchaseView implements IViewer {
 		return returnToStoreButton;
 	}
 
+	@Override
+	public IController getController() {
+		return controller;
+	}
+
 }

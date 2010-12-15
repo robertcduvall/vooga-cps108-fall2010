@@ -7,6 +7,8 @@ public interface IItemInfo {
 
 	public final int COVER_IMAGE = 0;
 	
+	public int getId();
+	
 	public String getDescription();
 	
 	public String getPrice();

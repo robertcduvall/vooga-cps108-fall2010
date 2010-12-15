@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 public class ItemInfo implements IItemInfo {
 	
 	private String description;
+	private int id;
 	private String price;
 	private String title;
 	private String numberOfBuyer;
@@ -16,8 +17,9 @@ public class ItemInfo implements IItemInfo {
 	private List<String> tags;
 
 	
-	public ItemInfo(String description, String price, String title, String numberOfBuyer,
+	public ItemInfo(int id, String description, String price, String title, String numberOfBuyer,
 			 List<ImageIcon> images, String genre) {
+		this.id = id;
 		this.description = description;
 		this.price = price;
 		this.title = title;
@@ -56,6 +58,10 @@ public class ItemInfo implements IItemInfo {
 	@Override
 	public List<String> getTags() {
 		return tags;
+	}
+	@Override
+	public int getId() {
+		return id;
 	}
 
 }
