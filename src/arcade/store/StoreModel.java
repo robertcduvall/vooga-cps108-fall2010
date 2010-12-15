@@ -110,7 +110,7 @@ public class StoreModel implements IModel{
 	
 	public boolean userHasEnoughCredditsToBuyWishList()
 	{
-		double currentCreddits = Double.parseDouble(currentUser.getCreddits());
+		double currentCreddits = currentUser.getCreddits();
 		return (currentCreddits - getTotalUserCartCost() ) >= 0;	
 	}
 	

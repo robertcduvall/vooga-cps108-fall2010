@@ -47,7 +47,7 @@ public class CheckoutController extends Controller{
 				.size()]));
 
 		// The current user creddits;
-		String currentUserCreddits = storeModel.getCurrentUserAccount()
+		String currentUserCreddits = "" + storeModel.getCurrentUserAccount()
 				.getCreddits();
 		viewer.getAvailableCredditsTextField().setText(currentUserCreddits);
 		double currCredits = Double.parseDouble(currentUserCreddits);
@@ -137,7 +137,7 @@ public class CheckoutController extends Controller{
 	 */
 	public void processBuyCart() {
 		StoreUser user = storeModel.getCurrentUserAccount();
-		double userCreddits = Double.parseDouble(user.getCreddits());
+		double userCreddits = user.getCreddits();
 		ArrayList<IItemInfo> gamesToBuy = new ArrayList<IItemInfo>();
 
 		for (String title : user.getCart()) {

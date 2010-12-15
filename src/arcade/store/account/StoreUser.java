@@ -65,8 +65,8 @@ public class StoreUser {
 		return name;
 	}
 
-	public String getCreddits() {
-		return Double.toString(creddits);
+	public double getCreddits() {
+		return creddits;
 	}
 
 	public List<String> getCart() {
