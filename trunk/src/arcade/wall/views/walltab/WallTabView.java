@@ -182,7 +182,8 @@ public class WallTabView extends JPanel {
 		composePanel.add(mySendMessageButton);
 		composePanel.add(myCloseButton);
 		
-		myComposeMessageFrame.add(composePanel);		
+		myComposeMessageFrame.add(composePanel);
+		myComposeMessageFrame.pack();
 	}
 	
 	public JFrame getComposeMessageFrame(){
