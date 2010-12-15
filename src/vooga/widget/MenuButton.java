@@ -30,16 +30,17 @@ public class MenuButton extends Button {
 		this(img, label, gamestate, 0, 0, mgs);
 	}
 	
+	//PROBABLY NOT USED --DEVON
 	public MenuButton(BufferedImage img, String label, double x, double y, MenuGameState mgs, String method, String className) {
 		super(img, label, x, y);
 		mgs.getKeyboardControl().addInput(keyboardKey, method, className);
 		keyboardKey++;	
+
 		}
 	
 	public MenuButton(BufferedImage img, String label, GameState gamestateForButton, double x, double y, MenuGameState mgs) {
 		super(img, label, x, y);
 		System.out.println("MenuButton: "+ label+" "+gamestateForButton+" "+keyboardKey+ " "+gamePath);
-
 		mgs.getKeyboardControl().addInput(keyboardKey, "switchToState", gamePath, GameState.class);
 		mgs.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
 		keyboardKey++;
