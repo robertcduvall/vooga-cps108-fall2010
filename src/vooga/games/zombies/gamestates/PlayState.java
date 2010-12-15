@@ -1,6 +1,5 @@
 package vooga.games.zombies.gamestates;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
@@ -34,7 +33,6 @@ public class PlayState extends GameState implements Constants {
 	private EventPool eventPool;
 	public static long seed;
 	public Timer reviveTimer;
-	private OverlayLabel reviveLabel;
 	private SpriteGroup labels;
 
 	AddZombieEvent addZombies;
@@ -212,30 +210,29 @@ public class PlayState extends GameState implements Constants {
 	 */
 	@Override
 	public void interpretMessage(String data) {
-		if (data.startsWith(Username.getIdentifier())) {
-			String userName = ((Username) (Username.deserialize(data)))
-					.getUsername();
-			if (player.getName() == null) {
-				player.setName(userName);
-				return;
-			}
-			for (Shooter shooter : otherPlayers) {
-				if (shooter.getName() == null) {
+		if(data.startsWith("yourName")){
+			player.setName(data.substring(9));
+		}
+		else if(data.startsWith(Username.getIdentifier())){
+			String userName = ((Username) (Username.deserialize(data))).getUsername();
+			for(Shooter shooter : otherPlayers){
+				if(shooter.getName() == null){
 					shooter.setName(userName);
 					return;
 				}
 			}
-		} else if (data.startsWith(ZombieSeed.getIdentifier())) {
+		}
+		else if(data.startsWith(ZombieSeed.getIdentifier())){
 			seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
 			Shooter[] shooters = new Shooter[otherPlayers.length + 1];
 			shooters[0] = player;
-			for (int i = 0; i < otherPlayers.length; i++) {
+			for(int i = 0; i < otherPlayers.length; i++){
 				shooters[i + 1] = otherPlayers[i];
 			}
-			LevelEndEvent endLevel = new LevelEndEvent(shooters, this,
-					addZombies, addItems, seed);
+			LevelEndEvent endLevel = new LevelEndEvent(shooters, this, addZombies, addItems, seed);
 			eventPool.addEvent(endLevel);
-		} else {
+		}
+		else{
 			setMessage(data);
 		}
 	}

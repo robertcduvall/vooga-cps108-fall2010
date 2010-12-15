@@ -88,6 +88,6 @@ public class Blah extends Game {
 	 * @version 1.0
 	 */
 	public static void main(String[] args){
-		launch(new Blah(), "Guest");
+		launch(new Blah(), "guest");
 	}
 }

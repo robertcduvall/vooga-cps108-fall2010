@@ -47,7 +47,7 @@ public class ChatHandler extends Handler{
 		try {
 			handlers.add(this);
 			String userName = socket.receive();
-			if(userName.equals("Guest"))
+			if(userName.equals("guest"))
 				userName += getPlayers(sessionID);
 			getSocket().send("ADMIN: Welcome to " + gameName + "!");
 			broadcast("ADMIN: " + userName + " joined the game.", this);
@@ -57,7 +57,7 @@ public class ChatHandler extends Handler{
 					broadcast("ADMIN: " + userName + " left the chat", this);
 					return;
 				}
-				broadcast(chat, this);
+				broadcast(userName + ": " + chat, this);
 			}
 		} 
 		catch (IOException ex) {
