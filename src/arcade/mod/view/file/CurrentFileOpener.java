@@ -13,12 +13,8 @@ public class CurrentFileOpener implements IFileOpener {
 				
 		String filepath = System.getProperty("user.dir");
 		
-		System.out.println(filepath);
-
 		filepath = filepath + File.separatorChar + "src" + File.separatorChar + "vooga" + File.separatorChar + "games" + File.separatorChar + currentGame + File.separatorChar + "resources" + File.separatorChar + "resources.xml";
-		
-		System.out.println(filepath);
-		
+				
 		return new File(filepath);
 		
 	}
