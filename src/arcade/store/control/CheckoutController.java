@@ -80,8 +80,6 @@ public class CheckoutController extends Controller {
 		// The total cart cost
 		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
-
-		// .getTotalCostTextField().setText(totalCartPrice);
 	}
 
 	public void setUpCurrentCredditsField() {
@@ -89,18 +87,12 @@ public class CheckoutController extends Controller {
 		String currentUserCreddits = ""
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
-
-		// .getAvailableCredditsTextField().setText(currentUserCreddits);
 	}
 
 	public void setUpUserCart() {
 		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
 
 		viewer.setItemsList(currentCart.toArray(new String[currentCart.size()]));
-
-		// JList displayList = viewer.getItemsList();
-		// displayList.setListData(currentCart.toArray(new String[currentCart
-		// .size()]));
 	}
 
 	/**
@@ -114,12 +106,8 @@ public class CheckoutController extends Controller {
 
 		if (balance < 0) {
 			viewer.setRemainigCredditsTextField("0");
-			
-			//.getRemainingCredditsTextField().setText("0");
 		} else {
 			viewer.setRemainigCredditsTextField("" + balance);
-			
-			//.getRemainingCredditsTextField().setText("" + balance);
 		}
 
 	}
@@ -247,7 +235,7 @@ public class CheckoutController extends Controller {
 	public void registerCurrentElement() {
 
 		currentSelected = (String) viewer.getSelectedItem();
-		
+
 	}
 
 	public void processConfirmDropCart() {
