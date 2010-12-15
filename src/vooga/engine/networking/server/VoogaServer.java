@@ -21,7 +21,6 @@ import vooga.engine.util.XMLFileParser;
  */
 public class VoogaServer {
 	private static Document xmlDocument;
-	private static List<Element> gameArray; 
 
 	
 
@@ -41,8 +40,8 @@ public class VoogaServer {
 	 * The two suitable commands are "initialize" and "getPort"
 	 * @param command
 	 */
-	private static void setGameArray(String filePath) {
-		gameArray = new ArrayList<Element>();
+	private static List<Element> getGameArray(String filePath) {
+		List<Element> gameArray = new ArrayList<Element>();
 		xmlDocument = getXMLDocument(filePath);
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
 		
@@ -57,10 +56,11 @@ public class VoogaServer {
 				}
 			}
 		}
+		return gameArray;
 	}
 	
 	private static void initializeDaemons () {
-		setGameArray("vooga/engine/networking/server/voogaGames.xml");
+		List<Element> gameArray = getGameArray("vooga/engine/networking/server/voogaGames.xml");
 		for (Element gameElement : gameArray) {
 			String name = gameElement.getAttribute("name");
 			int port = Integer.parseInt(gameElement.getAttribute("port"));
@@ -119,7 +119,7 @@ public class VoogaServer {
 
 
 	private static int getPort(String gameName, String portName){
-		setGameArray("src/vooga/engine/networking/server/voogaGames.xml");
+		List<Element> gameArray = getGameArray("src/vooga/engine/networking/server/voogaGames.xml");
 		for (Element gameElement : gameArray) {
 			int port = Integer.parseInt(gameElement.getAttribute(portName));
 			String name = gameElement.getAttribute("name");
