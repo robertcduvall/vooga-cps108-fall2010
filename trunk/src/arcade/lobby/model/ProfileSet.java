@@ -48,6 +48,7 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public static boolean addProfile(Profile profile) {
+		if(profile.getUserId()==0) return false;
 		Map<String, String> row = addToRow(profile);
 		return myDbAdapter.insert(myTable, row);
 	}
