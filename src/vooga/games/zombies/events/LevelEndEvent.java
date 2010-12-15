@@ -45,7 +45,8 @@ public class LevelEndEvent implements IEventHandler {
 	public boolean isTriggered() {
 		int score = 0;
 		for(Shooter target : targets){
-			score += target.getScore().getStat();
+			if(target != null)
+				score += target.getScore().getStat();
 		}
 		return score == (int) levelDeaths;
 	}
@@ -55,7 +56,8 @@ public class LevelEndEvent implements IEventHandler {
 		createZombies();
 		state.setNewDelay();
 		for(Shooter target : targets){
-			target.resetLevelScore();
+			if(target != null)
+				target.resetLevelScore();
 		}
 	}
 

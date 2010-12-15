@@ -343,7 +343,7 @@ public class Shooter extends BetterSprite implements Constants {
 	public void update(long elapsedTime) {
 		died = false;
 		if (!sentData && connection != null) {
-			connection.send("still");
+			connection.send(new Health(getHealth().getStat()).serialize());
 		}
 		sentData = false;
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();

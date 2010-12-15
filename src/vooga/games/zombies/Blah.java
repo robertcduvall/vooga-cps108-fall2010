@@ -76,7 +76,8 @@ public class Blah extends Game implements Constants {
 		networkMenuState.makeNextButton("End Game", endGameState);
 
 		getGameStateManager().addGameState(waitingState, singleplayerState, multiplayerState, pauseState, endGameState, networkMenuState);
-		getGameStateManager().switchTo(networkMenuState);
+		getGameStateManager().switchTo(waitingState);
+		//getGameStateManager().switchTo(networkMenuState);
 	}
 	
 	public void switchToState (GameState gs) {

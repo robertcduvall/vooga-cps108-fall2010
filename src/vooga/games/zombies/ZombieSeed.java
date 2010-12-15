@@ -17,8 +17,7 @@ public class ZombieSeed extends Serializeable{
 	/**
 	 * Constructor that saves the randomly generated seed.
 	 * 
-	 * @param row the row
-	 * @param col the column
+	 * @param seed the seed
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */

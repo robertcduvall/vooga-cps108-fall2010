@@ -154,10 +154,12 @@ public class Zombie extends BetterSprite implements Constants {
 		Shooter target = null;
 		double distance = 100000;
 		for(Shooter possibleTarget : targets){
-			double possibleDistance = Math.sqrt(Math.pow(Math.abs(getX() - possibleTarget.getX()), 2) + Math.pow(Math.abs(getY() - possibleTarget.getY()), 2));
-			if(possibleDistance < distance){
-				distance = possibleDistance;
-				target = possibleTarget;
+			if(possibleTarget != null){
+				double possibleDistance = Math.sqrt(Math.pow(Math.abs(getX() - possibleTarget.getX()), 2) + Math.pow(Math.abs(getY() - possibleTarget.getY()), 2));
+				if(possibleDistance < distance){
+					distance = possibleDistance;
+					target = possibleTarget;
+				}
 			}
 		}
 		if (isCloserInXDirection(target)) {
