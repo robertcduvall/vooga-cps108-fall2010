@@ -15,9 +15,10 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 	private Shooter[] otherPlayers;
 	public static long seed;
 	public Timer reviveTimer;
+	private static final String levelXmlPath = "src/vooga/games/zombies/resources/levels/multiplayerLevel.xml";
 
 	public MultiplayerPlayState(Blah game) {
-		super(game, "src/vooga/games/zombies/resources/levels/multiplayerLevel.xml");
+		super(game, levelXmlPath);
 	}
 
 	@Override
