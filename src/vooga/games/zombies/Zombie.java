@@ -281,7 +281,8 @@ public class Zombie extends BetterSprite implements Constants {
 			setActive(false);
 			// Update score
 			for(Shooter target : targets){
-				target.updateScore(1);
+				if(target != null)
+					target.updateScore(1);
 			}
 
 			int item = (int) (Math.random() * 100);

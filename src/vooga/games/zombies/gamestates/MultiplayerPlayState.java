@@ -177,7 +177,7 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 		}
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter otherPlayer = (Shooter) otherPlayers.getSprites()[i];
-			if (playerHealth <= 0 && getPlayerHealth(otherPlayer) <= 0) {
+			if (otherPlayer != null && playerHealth <= 0 && getPlayerHealth(otherPlayer) <= 0) {
 				currentGame.updateHighScore((double)player.getScore().getStat());
 				currentGame.end();
 			}
