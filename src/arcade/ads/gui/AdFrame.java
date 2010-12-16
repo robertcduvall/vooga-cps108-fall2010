@@ -65,8 +65,10 @@ public class AdFrame extends JFrame {
 		myManager = new AdsManager(panel2);
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
 		//myManager.setRenderedAds();
+
 		myManager.setRenderedAds("Action");
-		
+		myManager.render();
+
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
 
@@ -88,6 +90,7 @@ public class AdFrame extends JFrame {
 		prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myManager.getRenderedAdsGroup().prevAds();
+				myManager.render();
 			}
 		});
 
@@ -112,6 +115,7 @@ public class AdFrame extends JFrame {
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myManager.getRenderedAdsGroup().nextAds();
+				myManager.render();
 			}
 		});
 	}
