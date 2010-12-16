@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import arcade.ads.adsclassification.IRelatedAds;
 import arcade.ads.adscontent.BasicAd;
 
 public class AdsGroup {
@@ -56,13 +57,13 @@ public class AdsGroup {
 	 * @return
 	 */
 	public BasicAd getCurrentAd() {
-//		if (ads != null
-//				&& !ads.isEmpty()
-//				&& ads.get(index).getExpireDate()
-//						.before(new Date(System.currentTimeMillis()))) {
-//			ads.remove(index);
-//			index = (index == ads.size() ? 0 : index);
-//		}
+		// if (ads != null
+		// && !ads.isEmpty()
+		// && ads.get(index).getExpireDate()
+		// .before(new Date(System.currentTimeMillis()))) {
+		// ads.remove(index);
+		// index = (index == ads.size() ? 0 : index);
+		// }
 		if (ads != null && !ads.isEmpty())
 			return ads.get(index);
 		else
@@ -123,12 +124,26 @@ public class AdsGroup {
 
 	public List<BasicAd> retrieveActiveAds() {
 		ArrayList<BasicAd> moreAds = new ArrayList<BasicAd>();
-		for (int i=0;i < ads.size();i++) {
+		for (int i = 0; i < ads.size(); i++) {
 			if (ads.get(i).getEffectiveDate()
 					.before(new Date(System.currentTimeMillis()))) {
 				moreAds.add(ads.get(i));
 			}
 		}
+		return moreAds;
+	}
+
+	public List<BasicAd> retrieveRelatedAds(String... tags) {
+
+		ArrayList<BasicAd> moreAds = new ArrayList<BasicAd>();
+		for (String tag : tags)
+			for (BasicAd ad : ads) {
+				if ((ad instanceof IRelatedAds)
+						&& ((IRelatedAds) ad).getCategories().contains(tag)
+						&& ad.getEffectiveDate().before(
+								new Date(System.currentTimeMillis())))
+					moreAds.add(ad);
+			}
 		return moreAds;
 	}
 

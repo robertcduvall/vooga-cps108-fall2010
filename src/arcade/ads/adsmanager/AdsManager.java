@@ -41,6 +41,7 @@ public class AdsManager implements MouseListener {
 	private AdsThread adsthread;
 	private RotateThread thread;
 	private static JPanel panel;
+	private String[] adsPref;
 
 	private AdsGroup renderedAdsGroup;
 
@@ -115,8 +116,13 @@ public class AdsManager implements MouseListener {
 	 */
 	public void update() {
 		renderedAdsGroup.removeExpiredAds();
-		//renderedAdsGroup.addMoreAds(activeAdsGroup.retrieveActiveAds());
-		render();
+		if (adsPref != null && adsPref.length > 0) {
+			renderedAdsGroup.addMoreAds(activeAdsGroup
+					.retrieveRelatedAds(adsPref));
+		} else {
+			renderedAdsGroup.addMoreAds(activeAdsGroup.retrieveActiveAds());
+		}
+		// render();
 	}
 
 	/**
@@ -138,17 +144,20 @@ public class AdsManager implements MouseListener {
 
 	public void setRenderedAds() {
 		renderedAdsGroup.clear();
-		renderedAdsGroup.setAds(activeAdsGroup.retrieveActiveAds());
+		renderedAdsGroup.setAds(activeAdsGroup.getAds());
 	}
 
 	public void setRenderedAds(String... tags) {
 		renderedAdsGroup.clear();
-		for (String tag : tags)
-			for (BasicAd ad : activeAdsGroup.retrieveActiveAds()) {
-				if ((ad instanceof IRelatedAds)
-						&& ((IRelatedAds) ad).getCategories().contains(tag))
-					renderedAdsGroup.add(ad);
-			}
+		// for (String tag : tags)
+		// for (BasicAd ad : activeAdsGroup.getAds()) {
+		// if ((ad instanceof IRelatedAds)
+		// && ((IRelatedAds) ad).getCategories().contains(tag)
+		// && ad.getEffectiveDate().before(
+		// new Date(System.currentTimeMillis())))
+		// renderedAdsGroup.add(ad);
+		// }
+		adsPref = tags;
 	}
 
 	public void setRenderedAds(File file) {

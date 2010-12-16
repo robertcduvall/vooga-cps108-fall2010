@@ -41,6 +41,7 @@ public class RotateThread extends Thread {
 					if (!manager.getRenderedAdsGroup().getAds().isEmpty()) {
 						Thread.sleep(manager.getRenderedAdsGroup().getCurrentAd().getDuration());
 						manager.getRenderedAdsGroup().nextAds();
+						manager.render();
 					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
