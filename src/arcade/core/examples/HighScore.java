@@ -1,11 +1,12 @@
 package arcade.core.examples;
 
-import java.awt.*;
+
 import java.awt.event.*;
 import javax.swing.*;
 
 import arcade.core.Window;
 
+@SuppressWarnings("serial")
 public class HighScore extends Window {
 	public HighScore() {
 		setSize(300, 120);

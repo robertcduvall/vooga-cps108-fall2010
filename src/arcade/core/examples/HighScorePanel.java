@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
@@ -15,6 +14,7 @@ import arcade.core.HighScoreControl;
 import arcade.core.Panel;
 import arcade.lobby.model.ProfileSet;
 
+@SuppressWarnings("serial")
 public class HighScorePanel extends Panel{
 	private static HighScoreControl hsc = new HighScoreControl(Arcade.myDbAdapter,
 	"HighScores");
@@ -50,7 +50,6 @@ public class HighScorePanel extends Panel{
 				GameView.getGameID(), score);
 		ArcadeTab.refreshLeft();
 		ArcadeTab.refreshRight();
-//		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;
 	}
 	

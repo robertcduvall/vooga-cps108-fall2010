@@ -12,10 +12,11 @@ import arcade.core.mvc.IController;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;
 
+@SuppressWarnings("serial")
 public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
 	//TODO ORDER?
-	private static int[] gameIDs = {12,13,14,15,16,17,18,19,38,37};
+//	private static int[] gameIDs = {12,13,14,15,16,17,18,19,38,37};
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
@@ -137,7 +138,6 @@ public class GameSelection extends JPanel implements Tab {
 
 	@Override
 	public IController getController() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

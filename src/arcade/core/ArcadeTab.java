@@ -11,6 +11,7 @@ import javax.swing.JSplitPane;
 
 import arcade.core.mvc.IController;
 
+@SuppressWarnings("serial")
 public class ArcadeTab extends JSplitPane implements Tab{
 
 	private static JSplitPane columnar;
