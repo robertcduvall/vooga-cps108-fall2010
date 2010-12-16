@@ -62,10 +62,11 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		refreshContent();
 
 		add(myLeftSidebar, "ax l, sy 2");
-		add(myMainPanel);
+		add(myMainPanel,"span 2");
 		add(myRightSidebar, "ax r, sy 2");
-		add(myUsers,"newline,ax center");
-		add(myEditButton, "newline,skip 1,ax c,ay c");
+		add(myUsers,"newline,skip 1, ax c, ay c");
+		add(myEditButton, "ax c,ay c");
+	}
 
 	private JComboBox getUserBox() {
 		JComboBox userBox = new JComboBox();
