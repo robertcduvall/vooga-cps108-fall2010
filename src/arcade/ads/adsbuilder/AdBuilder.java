@@ -42,10 +42,8 @@ public class AdBuilder extends JFrame{
 
 	private static final String XML_TEXT_FILE = "src/arcade/ads/resources/ads";
 	private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
-	private static final String XML_PROPERTIES = "arcade/ads/adsbuilder/xml";
 	private static final String PROPERTIES_FILE = "arcade/ads/adsbuilder/adbuilder";
 	private static final String TEXT_FILE = "arcade/ads/adsbuilder/ads";
-	private static final String PARAMETERS_FILE = "arcade/ads/adsbuilder/parameters";
 	
 	private JPanel panel1, panel2, panel3, panel4, subpanel1, subpanel2, subpanel3, subpanel4;
 	private JCheckBox[] tagBoxes;
@@ -74,7 +72,6 @@ public class AdBuilder extends JFrame{
 		setLayout(new BorderLayout());
 		
 		propertiesMap = readFile(PROPERTIES_FILE);
-		xmlTagMap = readFile(XML_PROPERTIES);
 		
 		JFileChooser chooser = new JFileChooser(System.getProperties().getProperty("user.dir"));
 		chooser.setDialogTitle("Save XML File");
@@ -96,9 +93,8 @@ public class AdBuilder extends JFrame{
 		
 		attributeMap = new HashMap<String, JTextField>();
 		myTextResources = ResourceBundle.getBundle(TEXT_FILE);
-		parameterMap = readFile(PARAMETERS_FILE);
 		
-		addTag(XML_HEADER + "\n<Ad Group>\n");
+		addTag(XML_HEADER + "\n<AdGroup>\n");
 		
 		createPanels();
 		
@@ -148,7 +144,6 @@ public class AdBuilder extends JFrame{
 		subpanel2 = new JPanel();
 		panel1.add(subpanel1);
 		panel1.add(subpanel2);
-		// this.add(panel1);
 		
 		panel2 = new JPanel();
 		panel2.setLayout(new GridLayout(5,1));
@@ -192,7 +187,7 @@ public class AdBuilder extends JFrame{
 			
 		});
 		JCheckBox featuredBox = new JCheckBox("Featured");
-		featuredBox.addActionListener(new ActionListener(){
+		/*featuredBox.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -202,6 +197,7 @@ public class AdBuilder extends JFrame{
 			}
 		
 		});
+		featuredBox.setEnabled(false);*/
 		panel.add(relatedBox);
 		panel.add(featuredBox);
 	}
@@ -328,6 +324,13 @@ public class AdBuilder extends JFrame{
 	private void writeBasicAd(){
 		addTag("<Ad");
 		addTag(" class=\""+ propertiesMap.get(type).get(0) + "\" ");
+		try {
+			String path = file.getCanonicalPath().replace(System.getProperties().getProperty("user.dir"),"");
+			addTag(type.toLowerCase() + "=" + path.substring(1) + " ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (String label : propertiesMap.get("labels")){
 			addTag(label + "=\"" + attributeMap.get(label).getText() +"\" ");
 		}
@@ -338,8 +341,8 @@ public class AdBuilder extends JFrame{
 		FileWriter textWriter;
 		try {
 			textWriter = new FileWriter(xmlText, true);
-			String path = xmlFile.getCanonicalPath().replace(System.getProperties().getProperty("user.dir")+"/", "");
-			textWriter.append("\n" + path);
+			String path = xmlFile.getCanonicalPath().replace(System.getProperties().getProperty("user.dir"),"");
+			textWriter.append("\n" + path.substring(1));
 			textWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -353,7 +356,7 @@ public class AdBuilder extends JFrame{
 	
 	private void respond(int n){
 		if (n==JOptionPane.YES_OPTION) {
-			System.exit(0);
+			//this.
 			new AdBuilder(XML_TEXT_FILE);
 		}
 		else if (n==JOptionPane.NO_OPTION)
