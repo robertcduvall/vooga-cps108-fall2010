@@ -83,8 +83,7 @@ public class CheckoutController extends Controller {
 	 * sets up the GUI JTextField for the remaining creddits.
 	 */
 	public void setUpRemainingCreddits() {
-
-		double remaining = storeModel.totalCartCost();
+		double remaining = storeModel.getUserCreddits() - storeModel.totalCartCost();
 		setRemainingCreditField(remaining);
 	}
 

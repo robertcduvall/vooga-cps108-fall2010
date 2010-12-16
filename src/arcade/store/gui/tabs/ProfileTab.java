@@ -42,7 +42,7 @@ public class ProfileTab extends StoreTab {
 		add(getEditMyProfileButton(), null);
 		add(getItemTableScrollPane(), null);
 		add(getPurchasedItemsLabel(), null);
-		add(getRefreshButton(), null);
+//		add(getRefreshButton(), null);
 	}
 
 	private void initializeProfileTab() {
