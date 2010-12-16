@@ -15,6 +15,8 @@ import java.util.Map;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import arcade.core.Arcade;
+
 /**
  * An adapter to interface with a mySQL database
  * 
@@ -249,7 +251,19 @@ public class MySqlAdapter implements DatabaseAdapter {
 				+ ((ascending) ? "ASC" : "DESC") + " LIMIT 0 , " + number;
 		return getRows(query);
 	}
-/*
+	
+	/**
+	 * Get rows from a table that are specified by a list of IDs
+	 * @param ids a list of row ids
+	 * @return 
+	 */
+	public List<Map<String, String>> getRows(List<Integer> ids) {
+		String query = "SELECT * FROM " + "GameInfo" + " WHERE ";
+		for (Integer id : ids) {
+			query += "Id=" + id + " OR ";
+		}
+		return getRows(query.substring(0, query.length() - 4));
+	}
 	/**
 	 * Gets a set of rows from the database using a query
 	 * 
