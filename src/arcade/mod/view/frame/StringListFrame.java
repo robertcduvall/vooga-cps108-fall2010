@@ -1,5 +1,8 @@
 package arcade.mod.view.frame;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -56,12 +59,28 @@ public class StringListFrame extends ListFrame {
 		myNameLabel.setText("String name: " + myName);
 		myStringLabel.setText("Value: " + myString);
 		myNewValue.setText("New String: ");
-
-		add(myNameLabel);
-		add(myDescriptionLabel);
-		add(myStringLabel);
-		add(myNewValue);
-		add(myInput);
+		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		gbc.insets=  new Insets(3,3,3,3);
+		gbc.ipadx = 2;
+		gbc.ipady = 2;
+		
+		gbc.gridy = 0;
+		gbc.gridwidth=2;
+		add(myDescriptionLabel, gbc);
+		gbc.gridwidth=1;
+		gbc.gridy=1;
+		gbc.gridx = 0;
+		add(myNameLabel, gbc);
+		gbc.gridx = 1;
+		add(myStringLabel, gbc);
+		gbc.gridy = 2;
+		gbc.gridx = 0;
+		add(myNewValue, gbc);
+		gbc.gridx = 1;
+		add(myInput, gbc);
 
 	}
 

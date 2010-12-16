@@ -1,5 +1,6 @@
 package arcade.util.xmleditor.view;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import org.w3c.dom.NamedNodeMap;
@@ -11,6 +12,12 @@ public class AttributePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	public final int DEFAULT_TEXT_FIELD_COL = 15;
+	
+	public AttributePanel() {
+		
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+	}
 	
 	public void update(NamedNodeMap attributeMap){
 		removeAll();

@@ -32,7 +32,7 @@ public abstract class ListFrame extends JPanel {
 
 	protected IResourceNode myNode;
 
-	protected static final int HEIGHT = 70;
+	protected static final int HEIGHT = 100;
 	protected final int WIDTH = 900;
 	private final Color BACKGROUND_COLOR = Color.WHITE;
 	private final Color PANEL_COLOR = new Color(230,230,230);
