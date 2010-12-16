@@ -103,10 +103,10 @@ public class ImageAd extends BasicAd {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.effectiveDate = new AdDate(attributes.getNamedItem("startTime")
-				.getNodeValue());
-		this.expireDate = new AdDate(attributes.getNamedItem("endTime")
-				.getNodeValue());
+		this.effectiveDate = (new AdDate(attributes.getNamedItem("startTime")
+				.getNodeValue())).getDate(null);
+		this.expireDate = (new AdDate(attributes.getNamedItem("endTime")
+				.getNodeValue())).getDate(null);
 		this.targetURL = attributes.getNamedItem("targetURL").getNodeValue();
 	}
 
