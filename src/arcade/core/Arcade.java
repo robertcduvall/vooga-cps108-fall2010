@@ -79,7 +79,7 @@ public class Arcade extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		everything.addTab("Arcade", createArcadeView());
+//		everything.addTab("Arcade", createArcadeView());
 		everything.addChangeListener(new ChangeListener() {
 
 			@Override
@@ -94,20 +94,21 @@ public class Arcade extends JFrame {
 		});
 		return everything;
 	}
-
-	private JComponent createArcadeView() {		
-		GameView game = new GameView(20);		
-		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
-				game);		
-		columnar.setOneTouchExpandable(true);	
-		//					columnar.setDividerLocation(0);
-
-		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
-				createPanels("rightPanel"));		
-		mainPanel.setOneTouchExpandable(true);		
-		mainPanel.setName("Arcade");
-		return mainPanel;		
-	}
+//
+//	private JComponent createArcadeView() {		
+//		GameView game = new GameView(20);		
+//		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
+//				game);		
+//		columnar.setOneTouchExpandable(true);	
+//		//					columnar.setDividerLocation(0);
+//
+//		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
+//				createPanels("rightPanel"));	
+//		mainPanel.setDividerLocation(0);
+//		mainPanel.setOneTouchExpandable(true);		
+//		mainPanel.setName("Arcade");
+//		return mainPanel;		
+//	}
 
 	/**
 	 * Create panels in the main arcade view
@@ -115,20 +116,20 @@ public class Arcade extends JFrame {
 	 * @param name
 	 * @return
 	 */
-	private static JPanel createPanels(String name) {
-		JPanel contents = new JPanel();
-		contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
-		for (String classname : getSet(name)) {
-			if (classname.isEmpty())
-				continue;
-			try {
-				contents.add((JComponent) (getObject(classname)));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return contents;
-	}
+//	private static JPanel createPanels(String name) {
+//		JPanel contents = new JPanel();
+//		contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
+//		for (String classname : getSet(name)) {
+//			if (classname.isEmpty())
+//				continue;
+//			try {
+//				contents.add((JComponent) (getObject(classname)));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return contents;
+//	}
 
 	/**
 	 * Create windows
@@ -154,9 +155,8 @@ public class Arcade extends JFrame {
 	public static void play(int gameID) {
 		switchToTab(mainWindow.getTabCount()-1);
 		//		ExampleGUI.setGame(gameID);
-		columnar.setRightComponent(new GameView(gameID));
-		refreshLeft();
-		refreshRight();
+		ArcadeTab.play(gameID);
+//		refreshRight();
 	}
 
 	
@@ -168,14 +168,14 @@ public class Arcade extends JFrame {
 //	public static void setPlayer() {
 //		mainPanel.setRightComponent(createPanels("rightPanel"));
 //	}
-
-	public static void refreshLeft(){
-		columnar.setLeftComponent(createPanels("leftPanel"));
-	}
-
-	public static void refreshRight(){
-		mainPanel.setRightComponent(createPanels("rightPanel"));
-	}
+//
+//	public static void refreshLeft(){
+//		columnar.setLeftComponent(createPanels("leftPanel"));
+//	}
+//
+//	public static void refreshRight(){
+//		mainPanel.setRightComponent(createPanels("rightPanel"));
+//	}
 
 	/**
 	 * Changes the view to the tab selected.
