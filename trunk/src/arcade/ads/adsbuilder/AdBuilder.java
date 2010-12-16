@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,29 +41,27 @@ import arcade.ads.adscontent.BasicAd;
 
 public class AdBuilder extends JFrame{
 
-	private static final String XML_TEXT_FILE = "src/arcade/ads/resources/ads";
 	private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
 	private static final String PROPERTIES_FILE = "arcade/ads/adsbuilder/adbuilder";
 	private static final String TEXT_FILE = "arcade/ads/adsbuilder/ads";
 	
-	private JPanel panel1, panel2, panel3, panel4, subpanel1, subpanel2, subpanel3, subpanel4;
+	private JPanel panel1, panel2, panel3, subpanel1, subpanel2, subpanel3, subpanel4;
 	private JCheckBox[] tagBoxes;
 	private JTextField rankField;
 	
+	//resources
 	private HashMap<String, ArrayList<String>> propertiesMap;
 	private HashMap<String, JTextField> attributeMap;
-	private HashMap<String, ArrayList<String>> parameterMap;
-	private HashMap<String, ArrayList<String>> xmlTagMap;
 	private ResourceBundle myTextResources;
 	
+	//XML and Text Files
 	private File xmlText;
 	private File xmlFile;
 	private FileWriter xmlWriter;
 	
 	//ad properties
-	private BasicAd ad;
 	private String type = "Image"; //default is an ImageAd
-	private File file;
+	private File file; //image, video, etc.
 	private ArrayList<String> tags = new ArrayList<String>();
 	private boolean related, featured;
 	
@@ -71,11 +70,27 @@ public class AdBuilder extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		
-		propertiesMap = readFile(PROPERTIES_FILE);
+		chooseFiles();
 		
+		propertiesMap = readFile(PROPERTIES_FILE);
+		attributeMap = new HashMap<String, JTextField>();
+		myTextResources = ResourceBundle.getBundle(TEXT_FILE);
+		
+		addTag(XML_HEADER + "\n<AdGroup>\n");
+		
+		createPanels();
+		
+		getContentPane().add(panel1, BorderLayout.PAGE_START);
+		getContentPane().add(panel2, BorderLayout.CENTER);
+		getContentPane().add(panel3, BorderLayout.PAGE_END);
+		
+		pack();
+		setVisible(true);
+	}
+	
+	private void chooseFiles(){
 		JFileChooser chooser = new JFileChooser(System.getProperties().getProperty("user.dir"));
 		chooser.setDialogTitle("Save XML File");
-		//chooser.
 		int state = chooser.showSaveDialog(null);
 		if (state == chooser.APPROVE_OPTION);
 			xmlFile = chooser.getSelectedFile();
@@ -86,35 +101,9 @@ public class AdBuilder extends JFrame{
 		}
 		JFileChooser chooser2 = new JFileChooser(System.getProperties().getProperty("user.dir"));
 		chooser2.setDialogTitle("Select Text File of XML Files");
-		//chooser.
 		int state2 = chooser2.showOpenDialog(null);
 		if (state2 == chooser2.APPROVE_OPTION);
 			xmlText = chooser2.getSelectedFile();
-		
-		attributeMap = new HashMap<String, JTextField>();
-		myTextResources = ResourceBundle.getBundle(TEXT_FILE);
-		
-		addTag(XML_HEADER + "\n<AdGroup>\n");
-		
-		createPanels();
-		
-		makeMenu(subpanel1, propertiesMap.get("types").toArray(new String[propertiesMap.get("types").size()]));
-		makeCheckBoxes(subpanel1);
-		makeFileBrowser(subpanel2);
-		makeTextFields(panel2, (String[]) propertiesMap.get("labels").toArray(new String[propertiesMap.get("labels").size()]));
-		//rankField = addField("Rank", panel2); //if featured
-		//updateField(false, rankField);
-		tagBoxes = addCheckMenu(subpanel3, "Tags", (String[]) propertiesMap.get("tags").toArray(new String[propertiesMap.get("tags").size()])); //if related
-		updateField(false, tagBoxes);
-		addButton("Submit", subpanel4);
-
-		//getContentPane().setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
-		getContentPane().add(panel1, BorderLayout.PAGE_START);
-		getContentPane().add(panel2, BorderLayout.CENTER);
-		getContentPane().add(panel3, BorderLayout.PAGE_END);
-		
-		pack();
-		setVisible(true);
 	}
 	
 	private HashMap<String, ArrayList<String>> readFile(String file){
@@ -128,14 +117,6 @@ public class AdBuilder extends JFrame{
 		return map;
 	}
 	
-	private void addTag(String tag){
-		try {
-			xmlWriter.write(tag);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	private void createPanels(){
 		panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(2,1));
@@ -146,7 +127,7 @@ public class AdBuilder extends JFrame{
 		panel1.add(subpanel2);
 		
 		panel2 = new JPanel();
-		panel2.setLayout(new GridLayout(5,1));
+		panel2.setLayout(new GridLayout(myTextResources.keySet().size(),1));
 		
 		panel3 = new JPanel();
 		panel3.setLayout(new BorderLayout());
@@ -156,7 +137,15 @@ public class AdBuilder extends JFrame{
 		panel3.add(subpanel3, BorderLayout.NORTH);
 		panel3.add(subpanel4, BorderLayout.SOUTH);
 		
-		panel4 = new JPanel();
+		makeMenu(subpanel1, propertiesMap.get("types").toArray(new String[propertiesMap.get("types").size()]));
+		makeCheckBoxes(subpanel1);
+		makeFileBrowser(subpanel2);
+		makeTextFields(panel2, (String[]) propertiesMap.get("labels").toArray(new String[propertiesMap.get("labels").size()]));
+		rankField = addField("rank", panel2); //if featured
+		updateField(false, rankField);
+		tagBoxes = addCheckMenu(subpanel3, "Tags", (String[]) propertiesMap.get("tags").toArray(new String[propertiesMap.get("tags").size()])); //if related
+		updateField(false, tagBoxes);
+		addButton("Submit", subpanel4);
 	}
 	
 	private void makeMenu(JPanel panel, String[] items){
@@ -187,17 +176,17 @@ public class AdBuilder extends JFrame{
 			
 		});
 		JCheckBox featuredBox = new JCheckBox("Featured");
-		/*featuredBox.addActionListener(new ActionListener(){
+		featuredBox.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				featured = !featured;
-				//updateField(featured, rankField);
+				updateField(featured, rankField);
 				panel2.updateUI();
 			}
 		
 		});
-		featuredBox.setEnabled(false);*/
+		featuredBox.setEnabled(false);
 		panel.add(relatedBox);
 		panel.add(featuredBox);
 	}
@@ -276,12 +265,12 @@ public class AdBuilder extends JFrame{
 
 	private void addButton(String text, JPanel panel){
 		JButton button = new JButton(text);
-		//button.setPreferredSize(new Dimension(6,1));
 		button.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				getAllInfo();
+				//checkInput();
 				int n = JOptionPane.showConfirmDialog(null, "Do you want to create another ad?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				respond(n);
 			}
@@ -292,7 +281,6 @@ public class AdBuilder extends JFrame{
 	
 	private void getAllInfo(){
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 			if (!related && !featured) {
 				addTag("<Ads>\n");
 				writeBasicAd();
@@ -328,8 +316,7 @@ public class AdBuilder extends JFrame{
 			String path = file.getCanonicalPath().replace(System.getProperties().getProperty("user.dir"),"");
 			addTag(type.toLowerCase() + "=\"" + path.substring(1) + "\" ");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw InputException.FILE_EXCEPTION;
 		}
 		for (String label : propertiesMap.get("labels")){
 			addTag(label + "=\"" + attributeMap.get(label).getText() +"\" ");
@@ -349,18 +336,52 @@ public class AdBuilder extends JFrame{
 		}
 	}
 	
+	/*private void checkInput(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		if (file == null)
+			throw InputException.FILE_EXCEPTION;
+		try {
+			URL url = new URL(attributeMap.get("targetURL").getText());
+		}
+		catch (Exception e){
+			throw InputException.URL_PARSING_EXCEPTION;
+		}
+		try {
+			dateFormat.parse(attributeMap.get("effectiveDate").getText());
+			dateFormat.parse(attributeMap.get("expireDate").getText());
+		}
+		catch (Exception e){
+			throw InputException.DATE_PARSING_EXCEPTION;
+		}
+		try {
+			Integer.parseInt(attributeMap.get("duration").getText());
+			Integer.parseInt(attributeMap.get("rank").getText());
+		}
+		catch (Exception e){
+			throw InputException.INTEGER_PARSING_EXCEPTION;
+		}	
+	}*/
+	
+	private void respond(int n){
+		if (n==JOptionPane.YES_OPTION) {
+			this.setVisible(false);
+			AdBuilder.main(null);
+		}
+		else if (n==JOptionPane.NO_OPTION)
+			System.exit(0);
+	}
+	
 	private void updateField(boolean val, Component... comp){
 		for (Component c: comp)
 			c.setEnabled(val);
 	}
 	
-	private void respond(int n){
-		if (n==JOptionPane.YES_OPTION) {
-			new AdBuilder();
-			System.exit(0);
+	private void addTag(String tag){
+		try {
+			xmlWriter.write(tag);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		else if (n==JOptionPane.NO_OPTION)
-			System.exit(0);
 	}
 	
 	public static void main(String args[]){

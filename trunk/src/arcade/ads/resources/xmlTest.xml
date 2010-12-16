@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<AdGroup>
-<RelatedAds>
-<RelatedAd type="Action">
-<Ad class="arcade.ads.adscontent.ImageAd" image="src\arcade\ads\resources\unc.png" name="name" targetURL="http://www.cnn.com" startTime="12/12/2010 0:0:0" endTime="12/20/2010 0:0:0" duration="2" />
-</RelatedAd>
-</RelatedAds>
-</AdGroup>

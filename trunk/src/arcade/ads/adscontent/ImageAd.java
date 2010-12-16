@@ -102,7 +102,6 @@ public class ImageAd extends BasicAd {
 ////		avatar = new JLabel("werjkwejrkljl");
 //
 //		panel.add(avatar);
-
 	}
 
 	public void setParameters(NamedNodeMap attributes) {
