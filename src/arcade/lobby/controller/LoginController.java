@@ -27,6 +27,10 @@ public class LoginController {
 		return myModel.isSuccessfulLogin(username, String.valueOf(password));
 	}
 	
+	private void switchView(){
+		myView.switchToLogout();
+	}
+	
 	
 	
 	
@@ -47,6 +51,7 @@ public class LoginController {
 			//JOptionPane.showMessageDialog(view.getCurrentPanel(),"privilege is"+PrivilegeMap.getPrivilegeString());
 			
 			myModel.logIn(username);
+			switchView();
 		}
 	}
 	
