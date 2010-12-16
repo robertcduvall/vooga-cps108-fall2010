@@ -49,7 +49,7 @@ public class User implements UserService{  //or get rid of this user class, just
 	
 	
 	@Override
-	public User getCurrentUser() {   //return a user or userId?? Discussion
+	public User getCurrentUserID() {   //return a user or userId?? Discussion
 		return this;
 	}
 
