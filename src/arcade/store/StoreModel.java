@@ -137,6 +137,17 @@ public class StoreModel implements IModel{
 	}
 	
 	/**
+	 * Gets the current lobby profile that the StoreModel contains.
+	 * The reason for this is that it maintains consistence between the
+	 * StoreUser and Profile. 
+	 * @return current user's Profile
+	 */
+	public Profile getCurrentLobbyProfile() 
+	{
+		return lobbyUser;
+	}
+	
+	/**
 	 * Adds given creddits to user and updates database info.
 	 * @param amount to add.
 	 */
