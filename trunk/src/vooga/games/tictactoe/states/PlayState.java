@@ -103,9 +103,9 @@ public class PlayState extends GameState{
 		tieState = new GameOverState(tieField);
 		game.getGameStateManager().addGameState(tieState);
 		eventPool = new EventPool();
+		eventPool.addEvent(new GameTiedEvent(field, this));
 		eventPool.addEvent(new GameWonEvent(field, this));
 		eventPool.addEvent(new GameLostEvent(field, this));
-		eventPool.addEvent(new GameTiedEvent(field, this));
 	}
 
 	/**
