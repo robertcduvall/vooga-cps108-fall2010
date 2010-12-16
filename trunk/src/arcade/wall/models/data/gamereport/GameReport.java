@@ -3,8 +3,8 @@ package arcade.wall.models.data.gamereport;
 import arcade.wall.models.data.Datum;
 
 /**
- * A GameReport contains info regarding a game such as its average rating, number of comments
- * @author John
+ * A GameReport contains info regarding a game such as its average rating and number of comments.
+ * @author John Kline
  *
  */
 public class GameReport extends Datum {

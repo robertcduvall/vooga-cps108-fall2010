@@ -5,19 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import arcade.wall.models.data.DataSet;
+import arcade.util.database.DatabaseAdapter;
+import arcade.util.database.MySqlAdapter;
 
 /**
  * A CommentSet contains all the VOOGA Comments made by all users. It is linked to our online database.
- * @author John, David Herzka
+ * @author John Kline
+ * @author David Herzka
  */
-public class CommentSet extends DataSet {
+public class CommentSet {
 
+	private static DatabaseAdapter myDbAdapter;
+	private static String myTable;
+	public static int currentID;
+	
 	public CommentSet(String host, String dbName, String tableName,
 			String user, String pass) {
-		super(host, dbName, tableName, user, pass);
+		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
+		myTable = tableName;
+		currentID = size();
 	}
 
+	/**
+	 * Returns the size of the CommentSet (number of rows).
+	 */
+	public int size() {
+		List<String> col = myDbAdapter.getColumn(myTable, "Id");
+		return col.size();
+	}
+	
 	/**
 	 * Inserts a new row into the database, based on the given Comment.
 	 * @param comment
@@ -98,23 +114,21 @@ public class CommentSet extends DataSet {
 		}
 		return returnComments;
 	}
-
-//	/**
-//	 * Calculates the average rating for the given game. A single user's rating is only taken into account once, even
-//	 * if they have made multiple comments about a game.
-//	 */
-//	public double getAverageRating(String gameName) {
-//		double averageRating = 0;
-//		List<Comment> gameComments = getCommentsByField("GameInfo_Title", gameName);
-//		List<String> userIds = new ArrayList<String>();
-//		for(Comment comment: gameComments){
-//			if (!userIds.contains(comment.getUserId())) {
-//				averageRating += Integer.parseInt(comment.getRating());
-//				userIds.add(comment.getUserId());
-//			}
-//		}
-//		averageRating /= userIds.size();
-//		return averageRating;
-//	}
 	
+	/**
+	 * Updates a matching row's field in the database to a new value.
+	 */
+	public boolean updateField(String fieldToMatch, String valueToMatch, String fieldToUpdate, String newValue) {
+		Map<String, String> row = new HashMap<String, String>();
+		row.put(fieldToUpdate, ""+newValue);
+		return myDbAdapter.update(myTable, fieldToMatch, valueToMatch, row);
+	}
+	
+	/**
+	 * Retrieves the value of a desired field of a matched row.
+	 */
+	public String getValue(String fieldToMatch, String valueToMatch, String desiredField) {
+		Map<String, String> row = myDbAdapter.getRows(myTable, fieldToMatch, valueToMatch).get(0);
+		return row.get(desiredField);
+	}
 }

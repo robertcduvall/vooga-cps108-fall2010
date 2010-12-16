@@ -5,7 +5,7 @@ import arcade.wall.models.data.Datum;
 /**
  * A Comment represents a VOOGA Game Comment - it is about a particular game, it is made by a particular user, and
  * it contains a "Comment String" of text.
- * @author John
+ * @author John Kline
  *
  */
 public class Comment extends Datum {

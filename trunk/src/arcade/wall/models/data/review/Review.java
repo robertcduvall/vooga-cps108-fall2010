@@ -9,6 +9,7 @@ import arcade.wall.models.data.Datum;
  */
 public class Review extends Datum {
 
+	//TODO make this an int? and change call in PurchaseItemController
 	private String myUserId;
 	private String myGameInfoTitle;
 	private String myContent;

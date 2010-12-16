@@ -5,18 +5,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import arcade.wall.models.data.DataSet;
-import arcade.wall.models.data.comment.Comment;
+import arcade.util.database.DatabaseAdapter;
+import arcade.util.database.MySqlAdapter;
 
 /**
  * A ReviewSet contains all the VOOGA Reviews made by all users. It is linked to our online database.
- * @author John, David Herzka
+ * @author John Kline
+ * @author David Herzka
  */
-public class ReviewSet extends DataSet {
+public class ReviewSet {
+
+	private static DatabaseAdapter myDbAdapter;
+	private static String myTable;
+	public static int currentID;
 
 	public ReviewSet(String host, String dbName, String tableName, String user,
 			String pass) {
-		super(host, dbName, tableName, user, pass);
+		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
+		myTable = tableName;
+		currentID = size();
+	}
+
+	/**
+	 * Returns the size of the ReviewSet (number of rows).
+	 */
+	public int size() {
+		List<String> col = myDbAdapter.getColumn(myTable, "Id");
+		return col.size();
 	}
 
 	/**
@@ -26,26 +41,38 @@ public class ReviewSet extends DataSet {
 	 * @return
 	 * 		Whether the addition was successful
 	 */
-	public boolean addReview(Review review) {
+	public boolean addReview(Review review, boolean isConflicting) {
 		Map<String, String> row = new HashMap<String, String>();
+		Map<String, String> conditions = new HashMap<String, String>();
 		row.put("Id", review.getId());
 		row.put("User_Id", review.getUserId());
 		row.put("GameInfo_Title", review.getGameInfoTitle());
 		row.put("Content", review.getContent());
 		row.put("Rating", review.getRating());
 		currentID++;
-		boolean returnB = myDbAdapter.insert(myTable, row);
-		System.out.println(returnB);
-		return returnB;
+		return myDbAdapter.replace(myTable, row);
+//		if (isConflicting) {
+//			System.out.println("conflicting");
+//			conditions.put("User_Id", review.getUserId());
+//			conditions.put("GameInfo_Title", review.getGameInfoTitle());
+//			boolean returnB = myDbAdapter.replace(myTable, row);
+//			System.out.println(returnB);
+//			return returnB;
+//		} else {
+//			System.out.println("nonconflicting");
+//			boolean returnB = myDbAdapter.insert(myTable, row);
+//			System.out.println(returnB);
+//			return returnB;
+//		}
 	}
-	
+
 	/**
 	 * Returns all Reviews whose values match the given parameters.
 	 * @param fieldName - the field name to be considered
 	 * @param value - the value to match
 	 * @return a List of all the Reviews that match
 	 */
-	public List<Review> getReviewsByField(String fieldName, String value) {
+	public static List<Review> getReviewsByField(String fieldName, String value) {
 		List<Review> returnReviews = new ArrayList<Review>();
 		for (Map<String, String> row: myDbAdapter.getRows(myTable, fieldName, value)) {
 			returnReviews.add(new Review( 
@@ -54,11 +81,11 @@ public class ReviewSet extends DataSet {
 					row.get("GameInfo_Title"),
 					row.get("Content"),
 					row.get("Rating")
-					));
+			));
 		}
 		return returnReviews;
 	}
-	
+
 	/**
 	 * Calculates the average rating for the given game. A single user's rating is only taken into account once, even
 	 * if they have made multiple comments about a game.
@@ -76,7 +103,7 @@ public class ReviewSet extends DataSet {
 		averageRating /= userIds.size();
 		return averageRating;
 	}
-	
+
 	/**
 	 * Determines whether the given review is in conflict with one already existing in this ReviewSet.
 	 */
@@ -90,5 +117,27 @@ public class ReviewSet extends DataSet {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Updates a matching row's field in the database to a new value.
+	 */
+	public boolean updateField(String fieldToMatch, String valueToMatch, String fieldToUpdate, String newValue) {
+		Map<String, String> row = new HashMap<String, String>();
+		row.put(fieldToUpdate, ""+newValue);
+		return myDbAdapter.update(myTable, fieldToMatch, valueToMatch, row);
+	}
+
+	/**
+	 * Retrieves the value of a desired field of a matched row.
+	 */
+	public String getValue(String fieldToMatch, String valueToMatch, String desiredField) {
+		Map<String, String> row = myDbAdapter.getRows(myTable, fieldToMatch, valueToMatch).get(0);
+		return row.get(desiredField);
+	}
+
+	public static Review getRandomReview(String fieldName, String value) {
+		List<Review> possibleReviews = getReviewsByField(fieldName, value);
+		int i = (int)Math.random()*possibleReviews.size();
+		return possibleReviews.get(i);
+	}
 }

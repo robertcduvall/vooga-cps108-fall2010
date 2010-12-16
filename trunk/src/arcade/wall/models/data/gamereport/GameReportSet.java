@@ -5,21 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import arcade.util.database.DatabaseAdapter;
 import arcade.util.database.MySqlAdapter;
-import arcade.wall.models.data.DataSet;
 
 /**
  * A GameReportSet contains all the VOOGA GameReports. It is linked to our online database.
- * @author John, David Herzka
- *
+ * @author John Kline
+ * @author David Herzka
  */
-public class GameReportSet extends DataSet { 
+public class GameReportSet { 
 
+	private static DatabaseAdapter myDbAdapter;
+	private static String myTable;
+	public static int currentID;
+	
 	public GameReportSet(String host, String dbName, String tableName,
 			String user, String pass) {
-		super(host, dbName, tableName, user, pass);
+		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
+		myTable = tableName;
+		currentID = size();
 	}
 
+	/**
+	 * Returns the size of the GameReportSet (number of rows).
+	 */
+	public int size() {
+		List<String> col = myDbAdapter.getColumn(myTable, "Id");
+		return col.size();
+	}
+	
 	/**
 	 * Inserts a new row into the database, based on the given GameReport.
 	 * @param gameReport
@@ -47,7 +61,7 @@ public class GameReportSet extends DataSet {
 	 * 		Whether the update was successful
 	 */
 	public boolean updateAverageRating(String gameInfoTitle, double newRating) {
-		return super.updateField("GameInfo_Title", gameInfoTitle, "AverageRating", newRating+"");
+		return updateField("GameInfo_Title", gameInfoTitle, "AverageRating", newRating+"");
 	}
 	
 	/**
@@ -73,7 +87,8 @@ public class GameReportSet extends DataSet {
 	 * Retrieves the AverageRating for a Game.
 	 */
 	public double getAverageRating(String gameName) {
-		return Double.parseDouble(super.getValue("GameInfo_Title", gameName, "AverageRating"));
+		System.out.println("double=" + getValue("GameInfo_Title", gameName, "AverageRating"));
+		return Double.parseDouble(getValue("GameInfo_Title", gameName, "AverageRating"));
 	}
 
 	public void incrementComments(String gameTitle) {
@@ -114,5 +129,22 @@ public class GameReportSet extends DataSet {
 			returnList.add(row.get("GameInfo_Title"));
 		}
 		return returnList;
+	}
+	
+	/**
+	 * Updates a matching row's field in the database to a new value.
+	 */
+	public boolean updateField(String fieldToMatch, String valueToMatch, String fieldToUpdate, String newValue) {
+		Map<String, String> row = new HashMap<String, String>();
+		row.put(fieldToUpdate, ""+newValue);
+		return myDbAdapter.update(myTable, fieldToMatch, valueToMatch, row);
+	}
+	
+	/**
+	 * Retrieves the value of a desired field of a matched row.
+	 */
+	public String getValue(String fieldToMatch, String valueToMatch, String desiredField) {
+		Map<String, String> row = myDbAdapter.getRows(myTable, fieldToMatch, valueToMatch).get(0);
+		return row.get(desiredField);
 	}
 }

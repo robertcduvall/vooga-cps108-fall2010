@@ -15,8 +15,9 @@ import arcade.wall.views.walltab.WallTabPanel;
 
 /**
  * The WallTabController is the link between WallTabView and WallTabModel.
- * @author John, Cam, Bhawana
- *
+ * @author Cameron McCallie
+ * @author John Kline  
+ * @author Bhawana Singh
  */
 public class WallTabController {
 	WallModel myModel; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
@@ -39,17 +40,17 @@ public class WallTabController {
 	}
 
 	/**
-	 * Displays a dialog box asking the user if they want to overwrite their previous rating given to a game.
+	 * Displays a dialog box asking the user if they want to overwrite their previous review written to a game.
 	 * @return 
 	 * 		The user's selection
 	 */
-	public int showCommentDialog() {
+	public int showExistingReviewDialog() {
 		Object[] options = {"Yes",
 		"No"};
 		int n = JOptionPane.showOptionDialog(myView.getPanel(),
-				"Your new rating for this game is different from your last rating.\n"
-				+ "Do you still want to change your rating for this game?",
-				"Conflicting Ratings",
+				"You have already submitted a review for this game.\n"
+				+ "Do you want to overwrite your previous review?",
+				"Review Already Exists",
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
 				null,
@@ -112,14 +113,16 @@ public class WallTabController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
+			System.out.println(ProfileSet.getCurrentProfile().getUserName()+
+					"is reviewing "+ selectedGameName);
 			Review submittedReview = new Review(""+myModel.getNewReviewID(), ""+ProfileSet.getCurrentProfile().getUserId(), selectedGameName, 
 					   myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
-    		if (myModel.reviewIsConflicting(submittedReview)) {
-    			if (showCommentDialog() == JOptionPane.YES_OPTION) {
-    				myModel.addReview(submittedReview);
+			if (myModel.reviewIsConflicting(submittedReview)) {
+    			if (showExistingReviewDialog() == JOptionPane.YES_OPTION) {
+    				myModel.addReview(submittedReview, true);
     			}
     		} else {
-    			myModel.addReview(submittedReview);
+    			myModel.addReview(submittedReview, false);
     		}
 		}
 	}

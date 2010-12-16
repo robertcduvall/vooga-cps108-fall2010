@@ -8,8 +8,10 @@ import arcade.core.mvc.IController;
 import arcade.lobby.model.Profile;
 
 /**
- * The VOOGA WallTab. 
- * @author Cam, John, Bhawana
+ * The VOOGA WallTab. This class is reference in arcade.core.componentList.properties 
+ * @author Cameron McCallie
+ * @author John Kline  
+ * @author Bhawana Singh
  */
 
 
