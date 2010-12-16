@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import arcade.core.GameView;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.mod.controller.IPresenter;
@@ -157,12 +158,16 @@ public class View extends JPanel implements IViewer, Tab {
 	 * @return File to save
 	 */
 	public File saveFileSelect() {
-		JFileChooser saveChooser = new JFileChooser();
+		
+		String modSaveName = JOptionPane.showInputDialog("Mod name:");
+		
+		String currentGame = GameView.getGame().toLowerCase().replace(" ", "");
 
-		saveChooser.showSaveDialog(this);
+		modSaveName = System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "vooga" + File.separatorChar + "games" + File.separatorChar + currentGame + File.separatorChar + "resources" + File.separatorChar + modSaveName +"resources.xml";
 
-		return saveChooser.getSelectedFile();
-
+		System.out.println(modSaveName);
+		
+		return new File(modSaveName);
 	}
 
 	/**
