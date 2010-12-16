@@ -1,4 +1,4 @@
-package arcade.wall.views.wallwidget;
+package arcade.wall.retired;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
