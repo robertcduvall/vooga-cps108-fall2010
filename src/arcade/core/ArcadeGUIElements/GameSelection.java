@@ -54,6 +54,8 @@ public class GameSelection extends JPanel implements Tab {
 	}
 	
 	private void initPanels() {
+		gameData=Arcade.myDbAdapter.getRows(StoreModel.getUserOwnedGames(ProfileSet.getCurrentProfile().getUserId()));
+
 		for (Map<String, String> m : gameData) {
 			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
@@ -142,6 +144,7 @@ public class GameSelection extends JPanel implements Tab {
 	}
 
 	private void displayAllGames() {
+		initPanels();
 		games.removeAll();
 		for (Integer i : panels.keySet()) {
 			games.add(panels.get(i));
