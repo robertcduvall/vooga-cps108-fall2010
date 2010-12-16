@@ -1,12 +1,14 @@
 package arcade.core.examples;
 
+import arcade.core.GameView;
 import arcade.core.Panel;
-import arcade.lobby.model.Profile;
 import arcade.wall.controllers.WallTabController;
+import arcade.wall.views.walltab.FeedbackPanel;
+import arcade.wall.views.walltab.WallTabPanel;
 
 public class Rating extends Panel {
 	private WallTabController myController;
-	Profile myProfile;
+	private FeedbackPanel ratingPanel;
 	
 	public Rating() {
 		/*
@@ -26,7 +28,30 @@ public class Rating extends Panel {
 	private void initialize()
 	{
 		myController = new WallTabController();
-		add(myController.getView().getFeedbackPanel());
+		ratingPanel = myController.getView().getFeedbackPanel();
+		int indexOfGame = getIndex();
+		
+		if(indexOfGame != -1)
+		{
+			ratingPanel.setSelectedIndex(indexOfGame);
+		}
+		
+		add(ratingPanel);
+	}
+	
+	private int getIndex()
+	{
+		String[] gameArray = WallTabPanel.myGameChoices;
+		String currentGame = GameView.getGame();
+		
+		for(int i = 0; i < gameArray.length; i++)
+		{
+			if(gameArray[i].equals(currentGame))
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 
 }
