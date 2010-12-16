@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -48,6 +49,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		myURL = url;
 		myUser = user;
 		myPassword = pass;
+		log.setLevel(Level.OFF);
 		connect();
 	}
 

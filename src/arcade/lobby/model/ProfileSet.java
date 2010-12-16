@@ -90,8 +90,7 @@ public class ProfileSet implements Iterable<Profile> {
 	public static Profile getProfile(int userId) {
 		checkAdapter();
 		List<Map<String, String>> rows = myDbAdapter.getRows(myTable,
-				"User_Id", Integer.toString(userId));
-		System.out.println("profile data: " + rows);
+				resourceBundle.getString("dbUserID"), Integer.toString(userId));
 		Profile userProf = new Profile(userId);
 		if (rows == null || rows.size() == 0)
 			return userProf;
@@ -106,6 +105,12 @@ public class ProfileSet implements Iterable<Profile> {
 					.getString("dbJoinDate"))));
 		} catch (NumberFormatException e) {
 		}
+		
+		List<Map<String, String>> userInfo = myDbAdapter.getRows(resourceBundle.getString("dbUserTable"),
+				resourceBundle.getString("dbUserID"), Integer.toString(userId));
+		Map<String, String> userName = userInfo.get(0);
+		userProf.setUserName(userName.get(resourceBundle.getString("username")));
+
 		return userProf;
 	}
 
