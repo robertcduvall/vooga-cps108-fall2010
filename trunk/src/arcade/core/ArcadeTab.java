@@ -86,7 +86,6 @@ public class ArcadeTab extends JSplitPane implements Tab{
 
 	@Override
 	public void refresh() {
-		refreshPanels();
 		repaint();
 	}
 	
