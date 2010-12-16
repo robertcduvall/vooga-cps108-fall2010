@@ -12,7 +12,7 @@ import vooga.engine.networking.client.Serializeable;
  */
 public class Username extends Serializeable{
 	private String userName;
-	private static final String identifier = "name:";
+	private static final String identifier = "userName:";
 
 	/**
 	 * Constructor that saves the userName.
@@ -34,7 +34,7 @@ public class Username extends Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		return new Username(data.substring(5));
+		return new Username(data.substring(9));
 	}
 
 	/**

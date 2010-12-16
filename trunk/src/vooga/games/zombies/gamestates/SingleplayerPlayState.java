@@ -1,6 +1,5 @@
 package vooga.games.zombies.gamestates;
 
-
 import java.awt.Graphics2D;
 import java.util.Random;
 import com.golden.gamedev.object.SpriteGroup;
@@ -56,21 +55,11 @@ public class SingleplayerPlayState extends PlayState implements Constants {
 
 		SoundPlayer.playMusic(playField.getMusic(0));
 	}
-
-	/**
-	 * render the graphics component in the game
-	 */
-	public void render(Graphics2D g) {
+	
+	@Override
+	public void render(Graphics2D g){
 		super.render(g);
-		if (player.hasDied()) {
+		if(!player.isActive())
 			endGame();
-		}
-	}
-	/**
-	 * Stop the game altogether
-	 */
-	private void endGame() {
-		currentGame.updateHighScore((double)player.getScore().getStat());
-		currentGame.end();
 	}
 }

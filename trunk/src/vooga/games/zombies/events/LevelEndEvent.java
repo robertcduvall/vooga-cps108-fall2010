@@ -11,7 +11,6 @@ import vooga.games.zombies.gamestates.PlayState;
 public class LevelEndEvent implements IEventHandler {
 
 	private Shooter[] targets;
-	private Shooter target;
 	private PlayState state;
 
 	private AddZombieEvent addZombies;
@@ -28,18 +27,7 @@ public class LevelEndEvent implements IEventHandler {
 		addZombies = (AddZombieEvent) addzombies;
 		addItems = additems;
 		this.seed = seed;
-		// createZombies();
 	}
-	public LevelEndEvent(Shooter player, PlayState currentState,
-			IEventHandler addzombies, AddRandomItemEvent additems) {
-		state = currentState;
-		levelDeaths = levelZombies();
-		target = player;
-		addZombies = (AddZombieEvent) addzombies;
-		addItems = additems;
-		// createZombies();
-	}
-
 
 	@Override
 	public boolean isTriggered() {
@@ -71,10 +59,6 @@ public class LevelEndEvent implements IEventHandler {
 		state.getLevelStatOverlay().setActive(true);
 		state.getStatLevel().setStat(level + 1);
 		state.setLevel(level + 1);
-
-		// overlayLevelStat.setActive(true);
-		// statLevel.setStat(level + 1);
-		// level++;
 
 		int size = 0;
 		Random random = new Random(seed);

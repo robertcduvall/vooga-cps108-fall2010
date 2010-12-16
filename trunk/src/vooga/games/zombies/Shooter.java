@@ -2,7 +2,6 @@ package vooga.games.zombies;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 
 import vooga.engine.core.BetterSprite;
 import vooga.engine.event.IEventHandler;
@@ -42,8 +41,7 @@ public class Shooter extends BetterSprite implements Constants {
 	private boolean sentData;
 	private String overlayName;
 	private boolean died;
-	private int timesRevived;
-
+	
 	public Shooter() {
 		super();
 		// DEFAULT attributes
@@ -57,7 +55,6 @@ public class Shooter extends BetterSprite implements Constants {
 
 		int playerDefaultX = Resources.getInt("playerDefaultX");
 		int playerDefaultY = Resources.getInt("playerDefaultY");
-		timesRevived = 0;
 		this.setX(playerDefaultX);
 		this.setY(playerDefaultY);
 	}
@@ -114,14 +111,6 @@ public class Shooter extends BetterSprite implements Constants {
 	public void addBulletToGame(Bullet bullet) {
 		addbullets.addBullet(bullet);
 
-	}
-	
-	public int getTimesRevived() {
-		return timesRevived;
-	}
-	
-	public void setTimesRevived(int times) {
-		timesRevived = times;
 	}
 
 	private void showAnimation(String direction) {
@@ -342,16 +331,13 @@ public class Shooter extends BetterSprite implements Constants {
 	 * end game condition, which is when the player's health reaches 0
 	 */
 	public void update(long elapsedTime) {
-		died = false;
 		if (!sentData && connection != null) {
 			connection.send(new Health(getHealth().getStat()).serialize());
 		}
 		sentData = false;
 		AnimatedSprite sprite = (AnimatedSprite) getCurrentSprite();
 		super.update(elapsedTime);
-
 		sprite.setAnimate(false);
-
 		if (healthIsZero()) {
 			died = true;
 		}
