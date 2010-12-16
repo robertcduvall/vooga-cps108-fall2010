@@ -65,4 +65,10 @@ public class StoreTab extends JPanel implements Tab {
 
 	}
 
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

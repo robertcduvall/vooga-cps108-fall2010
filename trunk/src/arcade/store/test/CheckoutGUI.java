@@ -289,4 +289,11 @@ public class CheckoutGUI implements Tab {
 	}
 
 
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
