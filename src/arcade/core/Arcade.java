@@ -2,24 +2,19 @@ package arcade.core;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import arcade.lobby.view.Login;
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
 
@@ -63,24 +58,7 @@ public class Arcade extends JFrame {
 	// Temporary
 	// TODO: security group please create this
 	private JPanel createLogin() {
-		JPanel a = new JPanel();
-		a.setLayout(new BorderLayout());
-		Box box = Box.createHorizontalBox();
-		JLabel userLabel = new JLabel("Username: ");
-		JTextField userField = new JTextField(7);
-		JLabel passLabel = new JLabel("Password: ");
-		JPasswordField passField = new JPasswordField(7);
-		JButton login = new JButton("Log in");
-		JButton register = new JButton("Register");
-		box.add(userLabel);
-		box.add(userField);
-		box.add(passLabel);
-		box.add(passField);
-		box.add(login);
-		box.add(register);
-		box.setMaximumSize(new Dimension(200, 5));
-		a.add(box, BorderLayout.EAST);
-		return a;
+		return new Login();
 	}
 
 	/**

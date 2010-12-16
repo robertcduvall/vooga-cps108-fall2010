@@ -20,7 +20,11 @@ public class ValidatorDock extends JPanel {
 	private Map<String, ValidatingComponent<?>> myComponentMap;
 
 	public ValidatorDock() {
-		setLayout(new MigLayout("wrap 2, hidemode 3"));
+		this("wrap 2, hidemode 3");
+	}
+	
+	public ValidatorDock(String layout){
+		setLayout(new MigLayout(layout));
 		myComponentMap = new TreeMap<String, ValidatingComponent<?>>();
 	}
 
