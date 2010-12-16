@@ -94,8 +94,8 @@ public class CheckoutController extends Controller {
 	 * their credits are displayed.
 	 */
 	private void setRemainingCreditField(double balance) {
-		if (balance < Integer.parseInt(getString("minimumBalance"))) {
-			viewer.setRemainigCredditsTextField(getString("minimumBalance"));
+		if (balance < Integer.parseInt(getString("minimumBalanceString"))) {
+			viewer.setRemainigCredditsTextField(getString("minimumBalanceString"));
 		} else {
 			viewer.setRemainigCredditsTextField(getString("emptyString") + balance);
 		}
@@ -138,10 +138,10 @@ public class CheckoutController extends Controller {
 	public void processConfirmBuyCart() {
 
 		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
-			JOptionPane.showMessageDialog(null, getString("carIsEmpty"));
+			JOptionPane.showMessageDialog(null, getString("cartIsEmptyString"));
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
-					getString("wantToBuyCart"), getString("buyCart"),
+					getString("wantToBuyCartString"), getString("buyCartString"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
 				processBuyCart();
@@ -162,10 +162,10 @@ public class CheckoutController extends Controller {
 
 		if (storeModel.userHasNoItems() || storeModel.userHasEnoughCreddits()) {
 			JOptionPane
-					.showMessageDialog(null, getString("cannotPurchaseCart"));
+					.showMessageDialog(null, getString("cannotPurchaseCartString"));
 		} else {
 			processBuyCart();
-			JOptionPane.showMessageDialog(null, getString("thankYouForBuying"));
+			JOptionPane.showMessageDialog(null, getString("thankYouForBuyingString"));
 		}
 	}
 
@@ -186,11 +186,11 @@ public class CheckoutController extends Controller {
 	public void processConfirmDropItem() {
 
 		if (currentSelected == null) {
-			JOptionPane.showMessageDialog(null, getString("noItemSelected"));
+			JOptionPane.showMessageDialog(null, getString("noItemSelectedString"));
 		} else {
 
 			int ret = JOptionPane.showConfirmDialog(null,
-					getString("wantToDropItem"), getString("dropItem"),
+					getString("wantToDropItemString"), getString("dropItemString"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
 				storeModel.getCurrentUserAccount().emptyCart();
@@ -206,12 +206,12 @@ public class CheckoutController extends Controller {
 		// like another pop up
 
 		if (currentSelected == null) {
-			JOptionPane.showMessageDialog(null, getString("noItemSelected"));
+			JOptionPane.showMessageDialog(null, getString("noItemSelectedString"));
 		} else {
 			StoreUser user = storeModel.getCurrentUserAccount();
 			user.removeTitleFromCart(currentSelected);
 
-			JOptionPane.showMessageDialog(null, getString("itemDropped"));
+			JOptionPane.showMessageDialog(null, getString("itemDroppedString"));
 
 			initialize();
 		}
@@ -222,7 +222,7 @@ public class CheckoutController extends Controller {
 	 */
 	public void processSaveCart() {
 		storeModel.saveCart();
-		JOptionPane.showMessageDialog(null, getString("cartSaved"));
+		JOptionPane.showMessageDialog(null, getString("cartSavedString"));
 	}
 
 	/**
@@ -238,10 +238,10 @@ public class CheckoutController extends Controller {
 	 */
 	public void processConfirmDropCart() {
 		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
-			JOptionPane.showMessageDialog(null, getString("cartIsEmpty"));
+			JOptionPane.showMessageDialog(null, getString("cartIsEmptyString"));
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
-					getString("wantToDropCart"), getString("dropCart"),
+					getString("wantToDropCartString"), getString("dropCartString"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
 				storeModel.getCurrentUserAccount().emptyCart();
