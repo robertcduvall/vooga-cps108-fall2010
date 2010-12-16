@@ -93,7 +93,7 @@ public class XMLtoAds {
 			{
 				Element ad = (Element) listOfBasicAds.item(i);
 				String implementor = ad.getAttribute("class");
-				System.out.println(implementor);
+				//System.out.println(implementor);
 				
 				try {
 					Class<?> adClass = Class.forName(implementor);

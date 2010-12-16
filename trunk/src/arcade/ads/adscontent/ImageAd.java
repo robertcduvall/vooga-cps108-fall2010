@@ -86,7 +86,6 @@ public class ImageAd extends BasicAd {
 	@Override
 	public void render(JPanel panel, int width, int height) {
 		Graphics2D g = (Graphics2D) panel.getGraphics();
-		System.out.println("null pointer  " + panel==null);
 		g.drawImage(img, 0, 0, width, height, null);
 
 	}

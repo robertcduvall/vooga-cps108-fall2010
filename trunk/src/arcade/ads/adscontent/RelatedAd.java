@@ -76,31 +76,6 @@ public class RelatedAd extends BasicAd implements IRelatedAds{
 		return this.ad.getName();
 	}
 
-//	@Override
-//	public void mouseClicked(MouseEvent e) {
-//		ad.mouseClicked(e);
-//	}
-//
-//	@Override
-//	public void mouseEntered(MouseEvent e) {
-//		ad.mouseEntered(e);
-//	}
-//
-//	@Override
-//	public void mouseExited(MouseEvent e) {
-//		ad.mouseExited(e);
-//	}
-//
-//	@Override
-//	public void mousePressed(MouseEvent e) {
-//		ad.mousePressed(e);
-//	}
-//
-//	@Override
-//	public void mouseReleased(MouseEvent e) {
-//		ad.mouseReleased(e);
-//	}
-
 	@Override
 	public void onMouseOver() {
 		ad.onMouseOver();

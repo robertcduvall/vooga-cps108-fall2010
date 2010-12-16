@@ -123,11 +123,7 @@ public class AdsManager implements MouseListener {
 	 * render ads
 	 */
 	public void render() {
-		// System.out.println(gs==null);
 		if (!renderedAdsGroup.getAds().isEmpty()) {
-			// System.out.printlnindex();
-			// System.out.println("rendering");
-			System.out.println(renderedAdsGroup.getCurrentAd() == null);
 			renderedAdsGroup.getCurrentAd().render(panel, panel.getWidth(),
 					panel.getHeight());
 		}
@@ -150,7 +146,8 @@ public class AdsManager implements MouseListener {
 		for (String tag : tags)
 			for (BasicAd ad : activeAdsGroup.getAds()) {
 				if ((ad instanceof IRelatedAds)
-						&& ((IRelatedAds) ad).getCategories().contains(tag))
+						&& ((IRelatedAds) ad).getCategories().contains(tag) && ad.getEffectiveDate()
+						.before(new Date(System.currentTimeMillis())))
 					renderedAdsGroup.add(ad);
 			}
 	}

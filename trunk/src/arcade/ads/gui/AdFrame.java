@@ -64,7 +64,6 @@ public class AdFrame extends JFrame {
 
 		myManager = new AdsManager(panel2);
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
-//		myManager.setRenderedAds();
 		//myManager.setRenderedAds("action");
 		
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
@@ -73,11 +72,7 @@ public class AdFrame extends JFrame {
 		pack();
 		setVisible(true);
 
-
-		//myManager.setPanel(panel2);
 		myManager.runAdsManager();
-		// myManager.update();
-		// myManager.render();
 	}
 
 	/**
@@ -156,34 +151,6 @@ public class AdFrame extends JFrame {
 	}
 
 	public static void main(String args[]) {
-
-		//AdsManager manager = new AdsManager();
-
-//		BufferedImage img1 = null;
-//		BufferedImage img2 = null;
-//		try {
-//			// System.out.println(System.getProperty("user.dir") );
-//			img1 = ImageIO.read(new File("src/arcade/ads/resources/duke.png"));
-//			img2 = ImageIO.read(new File("src/arcade/ads/resources/unc.png"));
-//		} catch (IOException e) {
-//			// System.out.println("wer");
-//		}
-//
-//		manager.getRenderedAdsGroup().add((new ImageAd("duke", img1)));
-//		manager.getRenderedAdsGroup().add((new ImageAd("unc", img2)));
-		//manager.setRenderedAds("src/arcade/ads/resources/ads.txt");
-		// BufferedImage img = null;
-		// try
-		// {
-		// img = ImageIO.read(new
-		// File(System.getProperty("user.dir")+"/src/arcade/ads/resources/duke.png"));
-		// } catch (IOException e)
-		// {
-		// System.out.println("werwe");
-		// }
-		//
-		// manager.add(new DukeAds("duke", img));
-		// System.out.println(manager.retrieve());
 
 		new AdFrame(new Dimension(800, 600));
 	}
