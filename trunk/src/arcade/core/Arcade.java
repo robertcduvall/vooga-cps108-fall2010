@@ -2,17 +2,20 @@ package arcade.core;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Toolkit;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import net.miginfocom.swing.MigLayout;
 import arcade.lobby.view.Login;
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
@@ -28,29 +31,28 @@ import arcade.util.database.MySqlAdapter;
 @SuppressWarnings("serial")
 public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
-
+	private static final int XSIZE = 1000;
+	private static final int YSIZE = 820;
+	
 	private static ResourceBundle resources = ResourceBundle
-	.getBundle("arcade.core.componentList");
+			.getBundle("arcade.core.componentList");
 	public static MySqlAdapter myDbAdapter = new MySqlAdapter(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD);
 
 	private static JTabbedPane mainWindow;
+	private boolean[] myInitialized;
 
 	public Arcade() {
 		setLayout(new BorderLayout());
 		getContentPane().add(createLogin(), BorderLayout.NORTH);
 		mainWindow = createTabs();
 		getContentPane().add(mainWindow, BorderLayout.CENTER);
-		
-		Toolkit tk = Toolkit.getDefaultToolkit();  
-		int xSize = ((int) tk.getScreenSize().getWidth());  
-		int ySize = ((int) tk.getScreenSize().getHeight())-100;  
-		
-		setSize(xSize, ySize);
+
+		setSize(XSIZE, YSIZE);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		createWindows();
+		 createWindows();
 	}
 
 	private JPanel createLogin() {
@@ -64,32 +66,57 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		final JTabbedPane everything = new JTabbedPane();
-		for (String classname : getSet("tabs")) {
+		String[] tabs = getSet("tabs");
+		myInitialized = new boolean[tabs.length];
+		for (int i=0; i<tabs.length; i++) {
+			String classname = tabs[i];
+			myInitialized[i] = false;
 			if (classname.isEmpty())
 				continue;
 			try {
-				JComponent t =  (JComponent) getObject(classname);
+				JComponent t = (JComponent) getObject(classname);
 				everything.addTab(((JComponent) t).getName(), null, t,
 						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		everything.addChangeListener(new ChangeListener() {
+		
+		((Tab) everything.getSelectedComponent()).initialize();
 
+		everything.addChangeListener(new ChangeListener() {
+			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				int selectedIndex = everything.getSelectedIndex();
 				Component selected = everything.getComponentAt(selectedIndex);
-				if(selected instanceof Tab)
-					((Tab) selected).refresh();
-				// Update tab titles
-				everything.setTitleAt(selectedIndex,selected.getName());
+				if (selected instanceof Tab) {
+					Tab selectedTab = (Tab) selected;
+					if(!myInitialized[selectedIndex]) {
+						JFrame loading = new LoadingWindow(selected.getName());
+						selectedTab.initialize(); 
+						loading.dispose();
+						myInitialized[selectedIndex] = true;
+					}
+					selectedTab.refresh();
+				}
+				everything.setTitleAt(selectedIndex, selected.getName());
 			}
 		});
 		return everything;
 	}
+	
+	private class LoadingWindow extends JFrame {
+		public LoadingWindow(String name) {
+			setLayout(new MigLayout());
+			setLocationRelativeTo(mainWindow);
+			setSize(200,100);
+			add(new JLabel("Loading "+name+"..."));
+			setVisible(true);
+		}
+	}
 
+	
 	/**
 	 * Create windows
 	 */
@@ -106,21 +133,22 @@ public class Arcade extends JFrame {
 	}
 
 	/**
-	 * Switches to the Arcade tab and calls for a change to the main screen of the arcade.
-	 * It then calls for a refresh of the entire panel
+	 * Switches to the Arcade tab and calls for a change to the main screen of
+	 * the arcade. It then calls for a refresh of the entire panel
 	 * 
-	 * @param gameID The ID of the selected game
+	 * @param gameID
+	 *            The ID of the selected game
 	 */
 	public static void play(int gameID) {
 		switchToTab(mainWindow.getTabCount()-1);
 		ArcadeTab.play(gameID);
 	}
 
-
 	/**
 	 * Changes the view to the tab selected.
 	 * 
-	 * @param id The panel to switch to
+	 * @param id
+	 *            The panel to switch to
 	 */
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
@@ -136,9 +164,10 @@ public class Arcade extends JFrame {
 	 * @throws InvocationTargetException
 	 * @throws NoSuchMethodException
 	 */
-	private static Object getObject(String classname) throws ClassNotFoundException,
-	InstantiationException, IllegalAccessException,
-	InvocationTargetException, NoSuchMethodException {
+	private static Object getObject(String classname)
+			throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException,
+			NoSuchMethodException {
 		Class<?> c = Class.forName(classname);
 		return c.getConstructor().newInstance();
 	}
