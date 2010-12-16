@@ -67,9 +67,14 @@ public class Game extends com.golden.gamedev.Game {
 		stateManager=new GameStateManager();
 		Resources.initialize(this, getResourceXMLPath());
 		try {
-			Resources.loadResourcesXMLFile("resources.xml");
+			Resources.loadResourcesXMLFile(modName+"resources.xml");
 		} catch (IOException e) {
-			System.out.println("Failed to load resources.xml");
+			try {
+				Resources.loadResourcesXMLFile("resources.xml");
+			} catch (IOException e1) {
+				System.out.println("Failed to load default resources package.");
+				System.exit(0);
+			}
 		}
 		initializeEntityMap();
 		initGameStates();
