@@ -13,8 +13,8 @@ public class LogInHandler {
 		int userId = getUserId(username);
 		if(userId < 1) return false;
 		if(isPasswordValid(userId, password)){
-			Arcade.setPlayer(username); //from arcade group
 			ProfileSet.setUser(userId);
+			Arcade.setPlayer(); //from arcade group
 			return true;
 		}
 		return false;
