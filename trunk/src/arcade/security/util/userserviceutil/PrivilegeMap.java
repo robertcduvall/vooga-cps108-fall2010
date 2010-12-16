@@ -23,33 +23,31 @@ public class PrivilegeMap {
 	private static String DeveloperPrivilege = "000111111";
 	private static String AdminPrivilege = "111111111";
 
-	/*
-	 * private static int currentUserID; private static String currentUserName;
-	 * 
-	 * private static DataHandler handler =
-	 * DataHandler.getInstance("Privileges"); private static
-	 * HashMap<String,Boolean> currentMap = new HashMap<String,Boolean>();
-	 * private static String privilege;
+	/**
+	 * Constructor for the PrivilegeMap. Loads the map from the map handler
 	 */
-
-	// public static void update(){
-	// }
-	
-	public PrivilegeMap(){
+	public PrivilegeMap() {
 		loadMap();
 	}
-	
-	public Map<String,Boolean> userPrivilegeMap(String privilege){
-		Map<String,Boolean> userPrivilegeMap = new HashMap<String,Boolean>();
-		for(int i=0;i<privilege.length();i++){
+
+	/**
+	 * Creates a Privilege map from a String, which is a binary representation
+	 * of which privileges are allowed and which are not.
+	 * 
+	 * @param privilege
+	 *            The binary string of which privileges are on and which are off
+	 * @return A map of privileges to boolean values
+	 */
+	public Map<String, Boolean> userPrivilegeMap(String privilege) {
+		Map<String, Boolean> userPrivilegeMap = new HashMap<String, Boolean>();
+		for (int i = 0; i < privilege.length(); i++) {
 			String name = privilegeMap.get(i);
-			System.out.println(name);
-			boolean value = (privilege.charAt(i)=='1');
+			boolean value = (privilege.charAt(i) == '1');
 			userPrivilegeMap.put(name, value);
 		}
 		return userPrivilegeMap;
 	}
-	
+
 	/**
 	 * Returns the default Guest Privilege set
 	 */
