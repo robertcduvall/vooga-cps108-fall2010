@@ -9,7 +9,8 @@ public class PlayerShip extends BetterSprite {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	private int life;
 	private int weaponPower;
 	private KeyboardControl keyboardControl;
@@ -23,6 +24,7 @@ public class PlayerShip extends BetterSprite {
 
 	public PlayerShip(String name, BetterSprite s) {
 		super(name, s);
+		myLabel = "playerShip";
 	}
 
 	public int getWeaponPower() {
