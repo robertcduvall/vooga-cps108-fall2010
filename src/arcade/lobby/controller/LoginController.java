@@ -20,7 +20,7 @@ public class LoginController {
 	public LoginController(Login view){
 		myView = view;
 		myModel = new LoginProcess();
-		view.addLoginButtonListeners(new LoginEvent());
+		myView.addLoginButtonListeners(new LoginEvent());
 	}
 	
 	public boolean isSuccessfulLogin(String username, char[] password){

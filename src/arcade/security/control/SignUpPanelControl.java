@@ -37,12 +37,12 @@ public class SignUpPanelControl implements IControl {
 
 		this.view.addPasswordListener(new PasswordListener());
 		this.view.addSubmitButtonListener(new SubmitEvent());
-		this.view.addLoginPageButtonListener(new ActionListener() {
+		/*this.view.addLoginPageButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				switchToLoginPage();
 			}
-		});
+		});*/
 	}
 
 	private class PasswordListener implements KeyListener {

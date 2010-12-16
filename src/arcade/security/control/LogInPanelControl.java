@@ -79,10 +79,7 @@ public class LogInPanelControl implements IControl{
 		view.removeAll();
 		view.updateUI();
 		JPanel jp = new SignUpPanel();
-		view.add(jp);
-		SignUpProcess model = new SignUpProcess();
-		SignUpPanelControl controller = new SignUpPanelControl((IView)jp,model);	
-	
+		view.add(jp);	
 	}
 	
 	private class SignUpEvent implements ActionListener{
