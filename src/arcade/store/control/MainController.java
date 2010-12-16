@@ -3,7 +3,7 @@ package arcade.store.control;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import javax.swing.JPanel;
 
 import arcade.core.api.Tab;
@@ -61,6 +61,18 @@ public class MainController extends Controller{
 	public Tab getTab(String tabName)
 	{
 		return tabs.get(tabName);
+	}
+	
+	public Set<String> getAllTabNames() {
+		return tabs.keySet();
+	}
+	
+	public void refreshStoreUser() {
+		model.refreshUser();
+	}
+	
+	public boolean checkPrivileges(String privilegeType) {
+		return model.checkPrivileges(privilegeType);
 	}
 	
 }
