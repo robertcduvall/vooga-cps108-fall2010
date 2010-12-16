@@ -164,15 +164,6 @@ public abstract class GameState {
 	}
 	
 	/**
-	 * Overridden by subclasses that want to implement networking in their game. Called in the update method when it receives a message from the socket.
-	 * 
-	 * @param data the String received from the socket
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public void interpretMessage(String data){}
-	
-	/**
 	 * If there is a message to send then call the method that corresponds with that message and then set the message to null.
 	 * 
 	 * @return whether or not it was sent a message
@@ -188,20 +179,23 @@ public abstract class GameState {
 				String name = message.indexOf(":") == -1 ? message : message.substring(0, message.indexOf(":"));
 				String param = message.indexOf(":") == -1 ? null : message.substring(message.indexOf(":") + 1);
 				Method statusAction = param == null ? this.getClass().getMethod(name) : this.getClass().getMethod(name, String.class);
-				message = null;
 				return param == null ? ((Boolean)(statusAction.invoke(this))).booleanValue() : ((Boolean)(statusAction.invoke(this, param))).booleanValue();
 			} 
 			catch (Exception e) {
 				System.out.println("Couldn't find method '" + message + "'. Make sure the names of your stauses match the name of your status methods!");
 				System.exit(1);
 			}
+			finally{
+				message = null;
+			}
 		}
 		return false;
 	}
 	
 	/**
-	 * Sets the message. The message is initialized to anything sent through the socket that is not a Serializeable object, so just a String.  Corresponds
-	 * to a method in the GameState subclass that is called the next time checkMessage is called in the update method.
+	 * Sets the message. The message is initialized to anything sent through the socket.  Corresponds to a method in the GameState subclass 
+	 * that is called the next time checkMessage is called in the update method. For Serializeable objects, the name of the method is the same as the
+	 * identifier of the Serializeable object.
 	 * 
 	 * @param message to set the message instance to
 	 * @author Cue, Kolodziejzyk, Townsend

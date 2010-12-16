@@ -47,7 +47,7 @@ public class WaitingState extends GameState{
 	public void update(long t) {
 		String status = waitingConnection.getData();
 		if(!status.equals("wait")){
-			playState.interpretMessage(status);
+			playState.setMessage(status);
 			game.getGameStateManager().switchTo(playState);
 		}
 		super.update(t);

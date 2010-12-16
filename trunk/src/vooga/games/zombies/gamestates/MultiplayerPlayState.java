@@ -72,7 +72,6 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 	}
 	
 	public boolean name(String data){
-		System.out.println("HI");
 		player.setName(((Name) (Name.deserialize(data))).getName());
 		return false;
 	}

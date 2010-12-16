@@ -66,7 +66,6 @@ public class Blah extends Game {
 	}
 	
 	public void switchToState (GameState gs) {
-		System.out.println("tictactoe: blah.java: "+gs);
 		stateManager.switchTo(gs);
 	}
 
