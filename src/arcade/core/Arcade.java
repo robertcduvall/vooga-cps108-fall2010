@@ -36,7 +36,7 @@ public class Arcade extends JFrame {
 
 	// componentList contains 3 lists, panels, tabs, and windows
 	private static ResourceBundle resources = ResourceBundle
-			.getBundle("arcade.core.componentList");
+	.getBundle("arcade.core.componentList");
 	public static MySqlAdapter myDbAdapter = new MySqlAdapter(Constants.HOST,
 			Constants.DBNAME, Constants.USER, Constants.PASSWORD);
 
@@ -52,7 +52,7 @@ public class Arcade extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-//		 createWindows();
+		//		 createWindows();
 	}
 
 	// Temporary
@@ -68,8 +68,6 @@ public class Arcade extends JFrame {
 	 */
 	private JTabbedPane createTabs() {
 		final JTabbedPane everything = new JTabbedPane();
-		// JPanel main = createArcadeView();
-		// everything.addTab("Arcade", null, main, "Arcade Main View");
 		for (String classname : getSet("tabs")) {
 			if (classname.isEmpty())
 				continue;
@@ -83,7 +81,7 @@ public class Arcade extends JFrame {
 		}
 		everything.addTab("Arcade", createArcadeView());
 		everything.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				int selectedIndex = everything.getSelectedIndex();
@@ -98,19 +96,19 @@ public class Arcade extends JFrame {
 	}
 
 	private JComponent createArcadeView() {		
-					GameView game = new GameView(20);		
-				columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
-							game);		
-					columnar.setOneTouchExpandable(true);	
-//					columnar.setDividerLocation(0);
-				
-					mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
-					createPanels("rightPanel"));		
-				mainPanel.setOneTouchExpandable(true);		
-				mainPanel.setName("Arcade");
-				return mainPanel;		
-				}
-	
+		GameView game = new GameView(20);		
+		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
+				game);		
+		columnar.setOneTouchExpandable(true);	
+		//					columnar.setDividerLocation(0);
+
+		mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, columnar,		
+				createPanels("rightPanel"));		
+		mainPanel.setOneTouchExpandable(true);		
+		mainPanel.setName("Arcade");
+		return mainPanel;		
+	}
+
 	/**
 	 * Create panels in the main arcade view
 	 * 
@@ -155,10 +153,10 @@ public class Arcade extends JFrame {
 	 */
 	public static void play(int gameID) {
 		switchToTab(mainWindow.getTabCount()-1);
-//		ExampleGUI.setGame(gameID);
+		//		ExampleGUI.setGame(gameID);
 		columnar.setRightComponent(new GameView(gameID));
 		refreshLeft();
-		
+
 	}
 
 	
@@ -167,18 +165,18 @@ public class Arcade extends JFrame {
 	 * 
 	 * @param player The current player
 	 */
-	public static void setPlayer(String player) {
+	public static void setPlayer() {
 		mainPanel.setRightComponent(createPanels("rightPanel"));
 	}
-	
+
 	public static void refreshLeft(){
 		columnar.setLeftComponent(createPanels("leftPanel"));
 	}
-	
+
 	public static void refreshRight(){
 		mainPanel.setRightComponent(createPanels("rightPanel"));
 	}
-	
+
 	/**
 	 * Changes the view to the tab selected.
 	 * 
@@ -186,7 +184,7 @@ public class Arcade extends JFrame {
 	 */
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
-//		((Tab)mainWindow.getComponent(id)).update();
+		//		((Tab)mainWindow.getComponent(id)).update();
 	}
 
 	/**
@@ -200,8 +198,8 @@ public class Arcade extends JFrame {
 	 * @throws NoSuchMethodException
 	 */
 	private static Object getObject(String classname) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException,
-			InvocationTargetException, NoSuchMethodException {
+	InstantiationException, IllegalAccessException,
+	InvocationTargetException, NoSuchMethodException {
 		Class<?> c = Class.forName(classname);
 		return c.getConstructor().newInstance();
 	}

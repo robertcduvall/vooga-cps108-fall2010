@@ -2,9 +2,13 @@ package arcade.core.examples;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -12,34 +16,57 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import net.miginfocom.swing.MigLayout;
+
 import arcade.core.Arcade;
 import arcade.core.GameView;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
+import arcade.lobby.model.Profile;
+import arcade.lobby.model.ProfileSet;
 
-public class Profile extends Panel {
+public class ArcadeProfile extends Panel {
 	private static HighScoreControl hsc = new HighScoreControl(Arcade.myDbAdapter,
 	"HighScores");
 	private static double score;
-	private static String playerName = "Guest";
 	private static int playerID = 1;
+	private static final int AVATAR_WIDTH = 100;
+	private static final String AVATAR_DEFAULT = "http://imgur.com/29J5j.png";
+	private Profile myProfile;
 	
-	public Profile() {
+	public ArcadeProfile() {
+		myProfile = ProfileSet.getCurrentProfile();
 		score = 0;
-		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
-		Image scaled = icon.getImage().getScaledInstance(25, 25,
-				java.awt.Image.SCALE_SMOOTH);
-		icon = new ImageIcon(scaled);
-		JLabel label = new JLabel(icon);
 		
-		JLabel nameLabel = new JLabel(playerName + " Avatar");
-
+		initialize();
+		//add(getPlayerHighScoresPanel(playerName, 5));
+	}
+	
+	private void initialize() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+		JLabel avatar = null;
+		try {
+			String avatarPath = myProfile == null
+					|| myProfile.getAvatar() == null
+					|| myProfile.getAvatar().isEmpty() ? AVATAR_DEFAULT
+					: myProfile.getAvatar();
+			ImageIcon icon = new ImageIcon(ImageIO.read(new URL(avatarPath)));
+			scaleImage(icon);
+			avatar = new JLabel(icon);
+		} catch (MalformedURLException e) {
+			avatar = new JLabel("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		JLabel nameLabel = new JLabel(myProfile.getUserName());
 		add(nameLabel);
-		add(label);
-		//add(getPlayerHighScoresPanel(playerName, 5));
+		add(avatar);
+		add(new JLabel("Name:"));
+		add(new JLabel(myProfile.getFullName()));
+		add(getPlayerHighScoresPanel(myProfile.getUserId(), 5));
 	}
 	
 	public static void updateHighScore(double highScore) {
@@ -54,17 +81,12 @@ public class Profile extends Panel {
 		return isAdded;
 	}
 	
-	public static void setPlayer(String player){
-		playerName = player;
-	}
-	
-	public static JTextPane getPlayerHighScoresPanel(String playerName,
+	public JTextPane getPlayerHighScoresPanel(int playerID,
 			int numScores) {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
-//		String description = playerFormat(playerName, numScores,
-//				hsc.getPlayerHighScores(playerName, numScores,"id"));
-		String description="scores";
+		String description = playerFormat(myProfile.getFullName(), numScores,
+				hsc.getPlayerHighScores(playerID, numScores,"id"));
 		textPane.setEditable(false);
 
 		textPane.setText(description);
@@ -98,5 +120,17 @@ public class Profile extends Panel {
 		}
 		result += "</table>";
 		return result;
+	}
+	
+	public void refresh(Profile newProfile) {
+		myProfile = newProfile;
+		removeAll();
+		initialize();
+	}
+	
+	private void scaleImage(ImageIcon icon) {
+		Image image = icon.getImage();
+		icon.setImage(image.getScaledInstance(AVATAR_WIDTH,
+				AVATAR_WIDTH * icon.getIconHeight() / icon.getIconWidth(), 0));
 	}
 }
