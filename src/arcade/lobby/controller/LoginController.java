@@ -45,8 +45,8 @@ public class LoginController {
 	}
 	
 	private boolean isAdmin(){
-		return true;
-		//return UserServiceFactory.getCurrentUser().getUserType().equals("Admin");
+		//return true;
+		return UserServiceFactory.getCurrentUser().getUserType().equals("Admin");
 	}
 	
 	private void PopUpAdminPage(){
