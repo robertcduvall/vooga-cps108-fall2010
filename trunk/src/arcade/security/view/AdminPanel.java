@@ -10,6 +10,7 @@ import arcade.security.control.IControl;
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.gui.SecurityButton;
 import arcade.security.gui.AdminBox;
+import arcade.security.gui.GoToPrivilegesButton;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.userserviceutil.UserServiceFactory;
@@ -34,8 +35,8 @@ import java.util.Map;
 public class AdminPanel extends JPanel implements IView{
 	private final static Logger log=Logger.getLogger(AdminPanel.class);
 	private static final long serialVersionUID = 1L;
-	private static final int SECURITY_PANEL_WIDTH = 900;
-	private static final int SECURITY_PANEL_HEIGHT = 300;
+	private static final int SECURITY_PANEL_WIDTH = 1200;
+	private static final int SECURITY_PANEL_HEIGHT = 600;
 	private static final String DELIM = ";";
 	private JLabel adminUserName; 
 	private JScrollPane adminScrollPane;
@@ -104,16 +105,10 @@ public class AdminPanel extends JPanel implements IView{
 		GridLayout gridLayout = new GridLayout(0,4);
 		panel.setLayout(gridLayout);
 		for(String name:userTypeMap.keySet()){
-			//JPanel panel = new JPanel();
-			//panel.setSize(SECURITY_PANEL_WIDTH,30);
-			//panel.setLayout(gridLayout);
 			panel.add(new JLabel(name));
 			panel.add(new JLabel(userTypeMap.get(name)));
 			panel.add(model.createNewAdminBox(name));
-			//panel.add(new AdminBox(name,userTypes));
-			//panel.add(new JComboBox(userTypes));
-			panel.add(new JButton("Go to "+name+"'s privilege settings"));
-			//background.add(panel);
+			panel.add(new GoToPrivilegesButton(name));
 		}
 		adminScrollPane = new JScrollPane(panel);
 		adminScrollPane.setPreferredSize(new Dimension(SECURITY_PANEL_WIDTH,SECURITY_PANEL_HEIGHT));

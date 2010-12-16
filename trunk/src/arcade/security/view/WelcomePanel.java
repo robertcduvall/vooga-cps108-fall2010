@@ -10,9 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class WelcomePanel extends JPanel implements Tab,IView{
-	
-	
-	
 	public WelcomePanel(){
 		setLayout(new MigLayout("wrap 1"));
 		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));
@@ -29,6 +26,12 @@ public class WelcomePanel extends JPanel implements Tab,IView{
 
 	@Override
 	public void refresh() {
+	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

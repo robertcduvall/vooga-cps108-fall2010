@@ -36,10 +36,10 @@ public class Admin {
 	 *            the privilege to allow access to
 	 */
 	public static void allowAccess(String username, String privilegeName) {
-		int index = PrivilegeMap.getPrivilegeIndex(privilegeName);
+		int index = UserServiceFactory.getPrivilegeMap().getPrivilegeIndex(privilegeName);
 		currentPrivileges[index] = '1';
-		privilegeHandler.setUserPrivilege(username, privilegeName,
-				currentPrivileges.toString());
+		privilegeHandler.setUserPrivilege(username,
+				String.valueOf(currentPrivileges));
 	}
 
 	/**
@@ -51,7 +51,9 @@ public class Admin {
 	 *            the privilege to deny access to
 	 */
 	public static void denyAccess(String username, String privilegeName) {
-		privilegeHandler.setUserPrivilege(username, privilegeName, "false");
+		int index = UserServiceFactory.getPrivilegeMap().getPrivilegeIndex(privilegeName);
+		currentPrivileges[index] = '1';
+		privilegeHandler.setUserPrivilege(username,String.valueOf(currentPrivileges));
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class Admin {
 	 */
 	public static boolean hasAccess(String username, String privilegeName) {
 		loadUserPrivileges(username);
-		int index = PrivilegeMap.getPrivilegeIndex(privilegeName);
+		int index = UserServiceFactory.getPrivilegeMap().getPrivilegeIndex(privilegeName);
 		return (currentPrivileges[index] == '1');
 	}
 

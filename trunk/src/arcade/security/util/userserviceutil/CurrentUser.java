@@ -5,6 +5,7 @@ import arcade.lobby.model.ProfileSet;
 import arcade.security.util.userserviceutil.PrivilegeMap;
 import arcade.security.util.DataHandler;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class provides a way of accessing information about the currently logged
@@ -43,6 +44,11 @@ public class CurrentUser implements IUser {
 		userHandler.setLoggedIn(currentUserID);
 		initializePrivileges(currentUserID);
 
+	}
+	
+	
+	public Map<String,Boolean> getUserPrivilegeMap(){
+		return currentMap;
 	}
 
 	/**
