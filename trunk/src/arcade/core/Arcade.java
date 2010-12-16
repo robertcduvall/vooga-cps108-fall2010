@@ -165,9 +165,9 @@ public class Arcade extends JFrame {
 	 * 
 	 * @param player The current player
 	 */
-	public static void setPlayer() {
-		mainPanel.setRightComponent(createPanels("rightPanel"));
-	}
+//	public static void setPlayer() {
+//		mainPanel.setRightComponent(createPanels("rightPanel"));
+//	}
 
 	public static void refreshLeft(){
 		columnar.setLeftComponent(createPanels("leftPanel"));
