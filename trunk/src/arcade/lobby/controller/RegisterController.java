@@ -26,7 +26,9 @@ public class RegisterController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFrame registerFrame = new JFrame();
-			registerFrame.add(new SignUpPanel());
+			SignUpPanel signUpPanel = new SignUpPanel();
+			signUpPanel.setLogin(myView);
+			registerFrame.add(signUpPanel);
 			registerFrame.pack();
 			registerFrame.setVisible(true);
 		}
