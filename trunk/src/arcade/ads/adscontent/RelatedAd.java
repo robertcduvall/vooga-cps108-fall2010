@@ -3,6 +3,7 @@ package arcade.ads.adscontent;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -115,5 +116,10 @@ public class RelatedAd extends BasicAd implements IRelatedAds{
 	public void render(JPanel p, int x, int y) {
 		ad.render(p, x, y);
 	}
+	
+	@Override
+	public Date getExpireDate() {
+		return this.ad.getExpireDate();
+	}; 
 
 	}
