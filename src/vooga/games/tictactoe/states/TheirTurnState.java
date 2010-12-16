@@ -51,7 +51,7 @@ public class TheirTurnState extends GameState{
 			String status = connection.getData();
 			if(!status.equals(Resources.getString("theirTurnString"))){
 				checkDelay = 1;
-				playState.interpretMessage(status);
+				playState.setMessage(status);
 				game.getGameStateManager().switchTo(playState);
 			}
 		}
