@@ -20,16 +20,21 @@ public class ModelObserver {
 		listeners.add(listener);
 	}
 	
-	public void notifyModelChanged(Document modelDocument){
+	public void notifyModelChanged(XMLNode root){
 		for(ModelListener listener: listeners){
-			listener.modelChanged(new XMLNode((Element) modelDocument
-					.getFirstChild(), null));
+			listener.modelChanged(root);
 		}
 	}
 	
-	public void notifyElementSelected(Element element){
+	public void notifyNodeSelected(XMLNode node){
 		for(ModelListener listener: listeners){
-			listener.elementSelected(element);
+			listener.nodeSelected(node);
+		}
+	}
+	
+	public void notifyNodeUpdated(XMLNode node){
+		for(ModelListener listener: listeners){
+			listener.nodeUpdated(node);
 		}
 	}
 }

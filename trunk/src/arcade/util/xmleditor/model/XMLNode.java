@@ -8,18 +8,21 @@ import java.util.List;
 import javax.swing.tree.TreeNode;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XMLNode implements TreeNode{
 	
-	TreeNode parent;
+	XMLNode parent;
 	Element element;
+	ModelObserver observer;
 	List<XMLNode> children;
 	
-	public XMLNode(Element element, TreeNode parent){
+	public XMLNode(Element element, XMLNode parent, ModelObserver observer){
 		this.parent = parent;
 		this.element = element;
+		this.observer = observer;
 		children = convertNodeList(element.getChildNodes());
 	}
 
@@ -73,7 +76,7 @@ public class XMLNode implements TreeNode{
 		for(int i=0; i<nodeList.getLength(); i++){
 			Node node = nodeList.item(i);
 			if(node.getNodeType() == Node.ELEMENT_NODE){
-				elementList.add(new XMLNode((Element) node, this));
+				elementList.add(new XMLNode((Element) node, this, observer));
 			}
 		}
 		return elementList;
@@ -101,6 +104,45 @@ public class XMLNode implements TreeNode{
 			return iterator.next();
 		}
 	
+	}
+	
+	public void addAttribute(String name){
+		element.setAttribute(name, "");
+		getRoot().checkYourself();
+	}
+	
+	public void appendChild(XMLNode node){
+		element.appendChild(node.getElement());
+		getRoot().checkYourself();
+	}
+	
+	public void orphanSelf(){
+		element.getParentNode().removeChild(element);
+		getRoot().checkYourself();
+	}
+	
+	public NamedNodeMap getAttributes(){
+		return element.getAttributes();
+	}
+	
+	public ModelObserver getObserver(){
+		return observer;
+	}
+	
+	public void checkYourself(){
+		children = convertNodeList(element.getChildNodes());
+		for(XMLNode child: children){
+			child.checkYourself();
+		}
+		observer.notifyNodeUpdated(this);
+	}
+	
+	public XMLNode getRoot(){
+		if(parent==null){
+			return this;
+		} else{
+			return parent.getRoot();
+		}
 	}
 
 }

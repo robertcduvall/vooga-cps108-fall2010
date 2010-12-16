@@ -12,7 +12,7 @@ import arcade.util.xmleditor.model.XMLNode;
 
 public abstract class ElementToolBarButton implements ActionListener, ModelListener{
 	
-	private Element element;
+	private XMLNode node;
 	private JButton view;
 	
 	public ElementToolBarButton(String label){
@@ -24,17 +24,22 @@ public abstract class ElementToolBarButton implements ActionListener, ModelListe
 	public abstract void actionPerformed(ActionEvent arg0);
 
 	@Override
-	public void elementSelected(Element element){
-		this.element = element;
+	public void nodeSelected(XMLNode node){
+		this.node = node;
 	}
 
 	@Override
 	public void modelChanged(XMLNode root) {
-		element = null;	
+		node = null;
 	}
 	
-	public Element getElement(){
-		return element;
+	@Override
+	public void nodeUpdated(XMLNode node){
+		//Do nothing
+	}
+	
+	public XMLNode getNode(){
+		return node;
 	}
 	
 	public JButton getView(){

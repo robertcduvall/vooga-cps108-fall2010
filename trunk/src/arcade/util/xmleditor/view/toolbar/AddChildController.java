@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 
 import org.w3c.dom.Element;
 
+import arcade.util.xmleditor.model.XMLNode;
+
 public class AddChildController extends ElementToolBarButton{
 	
 	
@@ -16,9 +18,9 @@ public class AddChildController extends ElementToolBarButton{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String s = (String) JOptionPane.showInputDialog("Element Tag Name");
-		Element child = getElement().getOwnerDocument().createElement(s);
+		Element child = getNode().getElement().getOwnerDocument().createElement(s);
 		
-		getElement().appendChild(child);
+		getNode().appendChild(new XMLNode(child, getNode(), getNode().getObserver()));
 	}
 
 }

@@ -19,9 +19,9 @@ public class ElementController implements TreeSelectionListener{
 	AttributeController attributeController;
 	ElementNameController nameController;
 	
-	public ElementController(Controller parent, JToolBar toolbar){
+	public ElementController(Controller parent, JToolBar toolbar, AttributeController attributeController){
 		this.parent = parent;
-		attributeController = new AttributeController();
+		this.attributeController = attributeController;
 		nameController = new ElementNameController();
 		
 		view = new ElementPanel(this, attributeController.getView(), nameController.getView(), toolbar);

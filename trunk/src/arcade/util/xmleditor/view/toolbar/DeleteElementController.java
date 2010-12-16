@@ -10,6 +10,6 @@ public class DeleteElementController extends ElementToolBarButton{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		getElement().getParentNode().removeChild(getElement());
+		getNode().orphanSelf();
 	}
 }

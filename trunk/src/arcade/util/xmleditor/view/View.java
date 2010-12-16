@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.swing.JPanel;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import arcade.util.xmleditor.Controller;
@@ -16,6 +15,7 @@ import arcade.util.xmleditor.model.XMLNode;
 
 public class View extends JPanel implements ModelListener{
 	
+	private static final long serialVersionUID = 1L;
 	TreeViewer treeViewer;
 	ElementPanel elementPanel;
 	Controller controller;
@@ -53,8 +53,19 @@ public class View extends JPanel implements ModelListener{
 	}
 
 	@Override
-	public void elementSelected(Element element) {
+	public void nodeSelected(XMLNode node) {
 		//Do nothing		
+	}
+
+	@Override
+	public void nodeUpdated(XMLNode node) {
+		
+//		remove(treeViewer);
+//		updateUI();
+//		treeViewer = new TreeViewer(controller.getRoot());
+//		treeViewer.addTreeSelectionListener(elementPanel.getController());
+//		treeViewer.addTreeSelectionListener(controller);
+//		add(treeViewer, BorderLayout.WEST);
 	}
 
 }
