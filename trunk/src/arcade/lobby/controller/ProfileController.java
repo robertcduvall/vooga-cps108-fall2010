@@ -11,6 +11,13 @@ import arcade.lobby.view.ProfilePanel;
 import arcade.lobby.view.IView;
 import arcade.lobby.view.ProfileEditPanel;
 
+/**
+ * Controls the view and model aspect of Profiles.  Contains an instance
+ * of ProfilePanel (the View) and Profile (the Model).  Follows the MVC
+ * design.
+ * 
+ * @author segil, david
+ */
 public class ProfileController implements IController {
 
 	Profile myModel;
@@ -22,11 +29,11 @@ public class ProfileController implements IController {
 		myModel = (Profile) model;
 		myView = (ProfilePanel) view;
 		myView.refresh();
-		setup();
+		addListeners();
 	}
 
 
-	public void setup() {
+	private void addListeners() {
 		myView.addEditButtonListener(new EditEvent());
 //		myView.getEditPanel().addSaveListener(new SaveEvent());
 	}
