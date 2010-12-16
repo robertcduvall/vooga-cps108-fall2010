@@ -9,10 +9,13 @@ import java.util.List;
 import javax.swing.*;
 
 import arcade.core.mvc.IController;
+import arcade.lobby.model.ProfileSet;
+import arcade.store.StoreModel;
 
 public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
 	//TODO ORDER?
+	private static int[] gameIDs = {12,13,14,15,16,17,18,19,38,37};
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
@@ -22,7 +25,7 @@ public class GameSelection extends JPanel implements Tab {
 		setName("Games");
 		setToolTipText("A list of all the game available");
 		panels=new HashMap<Integer, JPanel>();
-		gameData=getGames();
+		gameData=Arcade.myDbAdapter.getRows(StoreModel.getUserOwnedGames(ProfileSet.getCurrentProfile().getUserId()));
 		
 		initPanels();
 		
@@ -35,16 +38,12 @@ public class GameSelection extends JPanel implements Tab {
 		initPanels();
 	}
 	
-	private static List<Map<String, String>> getGames() {
-		return Arcade.myDbAdapter.getColumns("GameInfo");
-	}
-	
-	private void initPanels() { 
+	private void initPanels() {
 		for (Map<String, String> m : gameData) {
 			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
 	}
-	private JPanel createItem(Map<String, String> m) {
+	public JPanel createItem(Map<String, String> m) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -80,7 +79,7 @@ public class GameSelection extends JPanel implements Tab {
 		}
 	}
 
-	private JComponent addSearchFunction() {
+	public JComponent addSearchFunction() {
 		JPanel search = new JPanel(new FlowLayout());
 		searchArea = new JTextField("Enter Search Terms", 25);
 		JButton searchButton = new JButton("Search");
@@ -127,7 +126,7 @@ public class GameSelection extends JPanel implements Tab {
 
 	}
 
-	private void displayAllGames() {
+	public void displayAllGames() {
 		games.removeAll();
 		for (Integer i : panels.keySet()) {
 			games.add(panels.get(i));
