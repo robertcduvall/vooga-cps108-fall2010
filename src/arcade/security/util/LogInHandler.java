@@ -16,7 +16,6 @@ public class LogInHandler {
 		if(isPasswordValid(userId, password)){
 			//Arcade.refreshRight(); //from arcade group
 			ProfileSet.setUser(userId);
-			ProfileSet.getCurrentProfile().setUserName(username);
 			return true;
 		}
 		return false;
