@@ -50,7 +50,7 @@ public class CheckoutController extends Controller{
 		double currCredits = Double.parseDouble(currentUserCreddits);
 
 		// The total cart cost
-		String totalCartPrice = "" + storeModel.getTotalUserCartCost();
+		String totalCartPrice = "" + storeModel.totalCartCost();
 		viewer.getTotalCostTextField().setText(totalCartPrice);
 		double totalCost = Double.parseDouble(totalCartPrice);
 
@@ -76,66 +76,19 @@ public class CheckoutController extends Controller{
 	 */
 	public void processConfirmBuyCart() {
 
-		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Your Cart Is Empty!");
+		if (storeModel.cartIsEmpty() || storeModel.notEnoughCreddits()) {
+			JOptionPane.showMessageDialog(null, "Sorry, We Cannot Proceed This Cart Purchase");
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
 					"Are You Sure You Want to Buy This Cart?", "Buy Cart",
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
-				processBuyCart();
+				storeModel.processBuyCart();
+				JOptionPane.showMessageDialog(null, "Thank You For Buying At the Store!");
 			}
 		}
 	}
-
-	public void verifyCreddits() {
-
-		// if no elements on cart...throw an error
-		// if no credits are less than cost throw an error
-		// else go ahead and buy the cart
-
-		if (userHasNoItems() || userHasNoCreddits()) {
-			// new SorryYouCantDoThisView();
-
-			JOptionPane.showMessageDialog(null,
-					"Sorry, We Cannot Proceed This Cart Purchase");
-		} else {
-			processBuyCart();
-			// new ThankYouForBuyingView();
-			// throw a message about "Hey! thank you!"
-
-			JOptionPane.showMessageDialog(null,
-					"Thank You For Buying At the Store!");
-		}
-	}
-
-	/**
-	 * TODO: move this method into StoreModel!
-	 * @return
-	 */
-	private boolean userHasNoCreddits() {
-
-		return !storeModel.userHasEnoughCredditsToBuyWishList();
-	}
-
-	/**
-	 * TODO: move this method into StoreModel!
-	 * @return
-	 */
-	private boolean userHasNoItems() {
-
-		StoreUser user = storeModel.getCurrentUserAccount();
-		return user.getCart().isEmpty();
-
-	}
-
-	/**
-	 * This method process the buy cart step!
-	 */
-	public void processBuyCart() {
-
-		storeModel.processBuyCart();
-	}
+	
 
 	public void processConfirmDropItem() {
 
@@ -169,7 +122,7 @@ public class CheckoutController extends Controller{
 	}
 
 	public void processSaveCart() {
-		storeModel.saveCart();
+		storeModel.saveUserCart();
 		JOptionPane.showMessageDialog(null, "Cart Successfully Saved!");
 	}
 
@@ -186,7 +139,7 @@ public class CheckoutController extends Controller{
 					"Are You Sure You Want to Drop This Cart?", "Drop Cart",
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
-				storeModel.getCurrentUserAccount().emptyCart();
+				storeModel.emptyUserCart();
 			}
 		}
 	}

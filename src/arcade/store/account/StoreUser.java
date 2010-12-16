@@ -23,7 +23,7 @@ public class StoreUser {
 
 	/**
 	 * Constructor for StoreUser. This sets the users names to the parameter
-	 * name, their total creddits to the parameter creddits, their car to the
+	 * name, their total creddits to the parameter creddits, their cart to the
 	 * parameter cart and their ownedGames to the parameter ownedGames.
 	 * 
 	 * @param name
@@ -43,15 +43,19 @@ public class StoreUser {
 	}
 
 	/**
-	 * Default constructor for a StoreUser. This sets the users name to the
-	 * DEFAULT_NAME constant, their total creddits to 0, their cart to an empty
-	 * String and their ownedGames to a new ArrayList of Strings.
+	 * Default constructor for a StoreUser. This sets the user's Id to the
+	 * DEFAULT_ID constant, their total creddits to 0, their cart to an empty
+	 * String.
 	 */
 	public StoreUser() {
 		this(DEFAULT_ID, "1", 0, "");
 	}
 
 
+	/**
+	 * 
+	 * @return number of creddits that a user has
+	 */
 	public double getCreddits() {
 		return creddits;
 	}
