@@ -8,7 +8,7 @@ public class SwitchStateButton extends Button{
 	private String stateName;
 	
 	public SwitchStateButton(String stateName) {
-		super();
+		super(null);
 		this.stateName = stateName;
 	}
 
