@@ -1,7 +1,6 @@
 package arcade.store.account;
 
 import java.util.*;
-import arcade.store.items.IItemInfo;
 
 /**
  * StoreUser contains the information for a user using the store. This
@@ -13,6 +12,7 @@ import arcade.store.items.IItemInfo;
  */
 public class StoreUser {
 
+	public static final int MINIMAL_BALANCE = 0;
 	private final static String DEFAULT_ID = "0";
 	private final static String SPLIT_CART_STRING = ",";
 	private String id;

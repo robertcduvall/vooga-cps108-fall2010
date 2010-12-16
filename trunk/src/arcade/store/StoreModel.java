@@ -161,7 +161,7 @@ public class StoreModel implements IModel{
 		return !userHasEnoughCredditsToBuyWishList();
 	}
 
-	public boolean userHasNoItems() {
+	public boolean userHasNoCartItems() {
 		return currentUser.getCart().isEmpty();
 	}
 	

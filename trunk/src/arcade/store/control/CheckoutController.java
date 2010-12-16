@@ -27,7 +27,7 @@ import arcade.store.gui.tabs.CheckoutTab;
 
 public class CheckoutController extends Controller {
 
-	private static final int MINIMAL_BALANCE = 0;
+	
 	private StoreModel storeModel;
 	private CheckoutTab viewer;
 	private String currentSelected;
@@ -93,8 +93,8 @@ public class CheckoutController extends Controller {
 	 * their credits are displayed.
 	 */
 	private void setRemainingCreditField(double balance) {
-		if (balance < MINIMAL_BALANCE) {
-			viewer.setRemainigCredditsTextField("" + MINIMAL_BALANCE);
+		if (balance < StoreUser.MINIMAL_BALANCE) {
+			viewer.setRemainigCredditsTextField("" + StoreUser.MINIMAL_BALANCE);
 		} else {
 			viewer.setRemainigCredditsTextField("" + balance);
 		}
@@ -106,7 +106,7 @@ public class CheckoutController extends Controller {
 	 */
 	public void setUpUserCostField() {
 		// The total cart cost
-		String totalCartPrice = getString("emptyString")
+		String totalCartPrice = ""
 				+ storeModel.getTotalUserCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
 	}
@@ -116,7 +116,7 @@ public class CheckoutController extends Controller {
 	 * this information on the CheckoutTab.
 	 */
 	public void setUpCurrentCredditsField() {
-		String currentUserCreddits = getString("emptyString")
+		String currentUserCreddits = ""
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
 	}
@@ -134,7 +134,7 @@ public class CheckoutController extends Controller {
 	 */
 	public void processConfirmBuyCart() {
 
-		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
+		if (storeModel.getCurrentUserAccount().cartEmpty()) {
 			JOptionPane.showMessageDialog(null, getString("cartIsEmptyString"));
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
@@ -157,7 +157,7 @@ public class CheckoutController extends Controller {
 		// if no credits are less than cost throw an error
 		// else go ahead and buy the cart
 
-		if (storeModel.userHasNoItems() || storeModel.userHasEnoughCreddits()) {
+		if (storeModel.userHasNoCartItems() || storeModel.userHasEnoughCreddits()) {
 			JOptionPane
 					.showMessageDialog(null, getString("cannotPurchaseCartString"));
 		} else {
