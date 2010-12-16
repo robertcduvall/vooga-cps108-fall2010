@@ -17,6 +17,13 @@ import arcade.core.mvc.IController;
 import arcade.store.control.CheckoutController;
 import arcade.store.gui.StoreTab;
 
+/**
+ * CheckoutTab is a StoreTab and it allows the user to view their cart, drop a
+ * specific item, save their cart or purchase their cart.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class CheckoutTab extends StoreTab {
 
 	/**
@@ -57,10 +64,10 @@ public class CheckoutTab extends StoreTab {
 		add(getTotalCostTextField(), null);
 		add(getRemainingCredditsTextField(), null);
 		add(getDropItemsButton(), null);
-		add(getJButton(), null);
+		add(getSaveCartButton(), null);
 		add(getBuyCartButton(), null);
 		add(getDropCartButton(), null);
-//		add(getRefreshButton(), null);
+		// add(getRefreshButton(), null);
 	}
 
 	private void initializeCheckoutTab() {
@@ -281,7 +288,7 @@ public class CheckoutTab extends StoreTab {
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	private JButton getJButton() {
+	private JButton getSaveCartButton() {
 		JButton saveCartButton = new JButton();
 		saveCartButton.setBounds(new Rectangle(Integer
 				.parseInt(getString("saveCartButtonXString")), Integer

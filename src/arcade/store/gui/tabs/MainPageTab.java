@@ -16,6 +16,10 @@ import arcade.store.gui.StoreTab;
 public class MainPageTab extends StoreTab {
 
 	/**
+	 * MainPageTab is a StoreTab and it is the initial view for the store. It
+	 * has a list of games in a scroll pane that the user can navigate and a
+	 * list of genres that the user can click to filter the games by genre.
+	 * 
 	 * @author: Drew Sternesky, Jimmy Mu, Marcus Molchany
 	 * @date: 12-16-10
 	 * @description:
