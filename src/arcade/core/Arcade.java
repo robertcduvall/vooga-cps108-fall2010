@@ -156,7 +156,7 @@ public class Arcade extends JFrame {
 		//		ExampleGUI.setGame(gameID);
 		columnar.setRightComponent(new GameView(gameID));
 		refreshLeft();
-
+		refreshRight();
 	}
 
 	
