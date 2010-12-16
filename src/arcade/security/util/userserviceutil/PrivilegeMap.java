@@ -3,7 +3,13 @@ package arcade.security.util.userserviceutil;
 import java.util.*;
 import arcade.security.util.DataHandler;
 
-
+/**
+ * This class represents a map of privileges. Each User has one of these,
+ * and it determines what that user can and cannot do.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ *
+ */
 public class PrivilegeMap {
 	
 	private static DataHandler mapHandler = DataHandler.getInstance("PrivilegeMap");
@@ -25,7 +31,9 @@ public class PrivilegeMap {
 	
 	//public static void update(){
 	//}
-	
+	/**
+	 * 
+	 */
 	public static String getGuestPrivilege(){
 		return GuestPrivilege;
 	}
