@@ -5,8 +5,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+
+import org.w3c.dom.Document;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -43,14 +46,12 @@ public abstract class MenuGameState extends GameState {
 	private MouseControl mouseControl;
 	private KeyboardControl keyboardControl;
 	private Game thisGame = Resources.getGame();
-	private BufferedImage DEFAULT_BUTTON_IMAGE;
-	private BufferedImage DEFAULT_BACKGROUND_IMAGE;
 	private BufferedImage buttonImage;
 	private BufferedImage backgroundImage;
 	private double imagePlacementBuffer = 5.0;
-	private File defaultButtonFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
-	private File backgroundImageFile = new File("src/vooga/engine/state/resources/images/defaultMenuBackground.png");
-
+	//private File defaultButtonFile = new File("src/vooga/engine/state/resources/images/defaultMenuButton.png");
+	//private File defaultBackgroundFile = new File("src/vooga/engine/state/resources/images/defaultMenuBackground.png");
+	private ResourceBundle resources;
 
 
 	/**
@@ -58,9 +59,9 @@ public abstract class MenuGameState extends GameState {
 	 */
 	public MenuGameState(){
 		super();
-		setDefaultButtons();
-		
-		Sprite menuBackGroundSprite = new Sprite(DEFAULT_BACKGROUND_IMAGE);
+		initResources("vooga/engine/state/resources/resource");
+		setDefaultImages();
+		Sprite menuBackGroundSprite = new Sprite(backgroundImage);
 		backgroundGroup.add(menuBackGroundSprite);
 		menuPlayfield.addGroup(backgroundGroup);
 		menuPlayfield.addGroup(buttons);
@@ -74,17 +75,24 @@ public abstract class MenuGameState extends GameState {
 	
 
 
-	private void setDefaultButtons() {
+	private void initResources(String path) {
+		resources = ResourceBundle.getBundle(path);
+	}
+
+
+
+
+	private void setDefaultImages() {
 		try{
-			DEFAULT_BUTTON_IMAGE     = 	ImageUtil.resize(	ImageIO.read(defaultButtonFile),
-															buttonWidth,
-															buttonHeight);
-			DEFAULT_BACKGROUND_IMAGE = 	ImageUtil.resize(	ImageIO.read(backgroundImageFile), 
-															thisGame.getWidth(), 
-															thisGame.getHeight());
+			setButtonImage(		ImageUtil.resize(	ImageIO.read(new File(resources.getString("buttonPath"))),
+													buttonWidth,
+													buttonHeight));
+			setBackgroundImage( ImageUtil.resize(	ImageIO.read(new File(resources.getString("backgroundPath"))), 
+													thisGame.getWidth(), 
+													thisGame.getHeight()));
 		}
 		catch(Exception e) {
-			System.out.println("MenuGameState.java: "+e.getMessage());	
+			System.out.println("MenuGameState.java Error: "+e.getMessage());	
 		}	
 	}
 
@@ -97,9 +105,7 @@ public abstract class MenuGameState extends GameState {
 	 */
 	public MenuGameState(Iterable<Button> buttons) {
 		this();
-		for (Button button : buttons) {
-			addButton(button);
-		}
+		addButtons(buttons);
 	}
 	
 
@@ -112,26 +118,24 @@ public abstract class MenuGameState extends GameState {
 		
 	}
 
-	/**
-	 * Adds a specified Button to the MenuGameState
-	 * @param button
-	 */
-	public void addButton(Button button) {
-		menuPlayfield.getGroup(buttonGroup).add(button);
-		addPlayField(menuPlayfield);
-
+	public void makeButton(	String label, 
+							GameState gamestate) {
+		makeButton(	label, 
+					gamestate, 
+					imagePlacementBuffer,
+					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight)+imagePlacementBuffer); //TODO FIX BAD CODE --DEVON
 	}
 	
-	/*
-	public void makeButton(String label) {
-		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, this));
+	public void makeButton(	String label, 
+							GameState gamestate, 
+							String method) {
+		makeButton(	label, 
+					gamestate,
+					method,
+					imagePlacementBuffer,
+					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight)+imagePlacementBuffer); //TODO FIX BAD CODE --DEVON
 	}
-	
 
-	
-	public void makeButton(String label, GameState gamestate) {
-		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, gamestate, this));
-	}*/
 	
 	public void makeButton(	String label, 
 							GameState gamestate, 
@@ -147,15 +151,43 @@ public abstract class MenuGameState extends GameState {
 							double x, 
 							double y) {
 		
-		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, gamestate, x, y, gameMethod,  this));
+		makeButton(	label, 
+					gamestate,
+					gameMethod,
+					imagePlacementBuffer,
+					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight)+imagePlacementBuffer,
+					buttonImage); 
+	}
+	
+	public void makeButton(	String label, 
+							GameState gamestate, 
+							String method,
+							double x,
+							double y,
+							BufferedImage img) {
+		addButton(new MenuButton(buttonImage, label, x, y, method, this, gamestate));
 	}
 	
 	
-	public void makeNextButton(String label, GameState gamestate) {
-		makeButton(	label, 
-					gamestate, 
-					imagePlacementBuffer,
-					(double)(menuPlayfield.getGroup(buttonGroup).getSize() * buttonHeight)+imagePlacementBuffer); //TODO FIX BAD CODE --DEVON
+	public void makeButton(	String label, 
+							Class<?> cls, 
+							String method,
+							double x,
+							double y,
+							BufferedImage img) {
+		
+	}
+
+	public void addButton(Button button) {
+		menuPlayfield.getGroup(buttonGroup).add(button);
+		addPlayField(menuPlayfield);
+
+	}
+	
+	public void addButtons(Iterable<Button> buttons) {
+		for (Button button : buttons) {
+			addButton(button);
+		}
 	}
 
 	
@@ -169,6 +201,15 @@ public abstract class MenuGameState extends GameState {
 	public KeyboardControl getKeyboardControl() {
 		return keyboardControl;
 	}
+	
+	public void setButtonImage (BufferedImage img) {
+		buttonImage = img;
+	}
+	
+	public void setBackgroundImage (BufferedImage img) {
+		backgroundImage = img;
+	}
+
 	
 	public void setButtonWidth(int w) {
 		buttonWidth = w;

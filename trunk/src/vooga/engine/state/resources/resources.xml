@@ -3,8 +3,8 @@
 
 <Resources>
 	<Images>
-		<Image name="defaultMenuButton" path="defaultMenuButton.png" />
-		<Image name="defaultMenuBackground" path="defaultMenuBackground.png" />
+		<Image name="defaultButton" path="defaultMenuButton.png" />
+		<Image name="defaultBackground" path="defaultMenuBackground.png" />
 	</Images>
 
 	<Animations>
