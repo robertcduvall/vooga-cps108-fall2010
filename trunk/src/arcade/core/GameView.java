@@ -37,7 +37,7 @@ public class GameView extends JPanel {
 		initialize();
 	}
 
-	public void initialize() {
+	private void initialize() {
 		gameProperties = parseGame(gameID);
 		add(setSplashScreen());
 		add(setText());

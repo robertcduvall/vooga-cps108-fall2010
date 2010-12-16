@@ -11,6 +11,14 @@ import javax.swing.JSplitPane;
 
 import arcade.core.mvc.IController;
 
+/**
+ * Main View for the Arcade. Current GameView is displayed and allows user to start the game.
+ * Also the home for all panels. Panels can be added to the left or right side of the page in componentList.properties. 
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
+
 @SuppressWarnings("serial")
 public class ArcadeTab extends JSplitPane implements Tab{
 
@@ -26,7 +34,6 @@ public class ArcadeTab extends JSplitPane implements Tab{
 		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
 				game);		
 		columnar.setOneTouchExpandable(true);	
-		//					columnar.setDividerLocation(0);
 		
 		setName("Arcade");
 		setOrientation(HORIZONTAL_SPLIT);
@@ -34,16 +41,9 @@ public class ArcadeTab extends JSplitPane implements Tab{
 		setLeftComponent(columnar);
 		
 		setRightComponent(createPanels("rightPanel"));
-		setDividerLocation(0.9999);
 		setOneTouchExpandable(true);	
 	}
 	
-	/**
-	 * Create panels in the main arcade view
-	 * 
-	 * @param name
-	 * @return
-	 */
 	private static JPanel createPanels(String name) {
 		JPanel contents = new JPanel();
 		contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
@@ -59,16 +59,6 @@ public class ArcadeTab extends JSplitPane implements Tab{
 		return contents;
 	}
 	
-	/**
-	 * 
-	 * @param classname
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 */
 	private static Object getObject(String classname) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException,
 	InvocationTargetException, NoSuchMethodException {
@@ -96,8 +86,7 @@ public class ArcadeTab extends JSplitPane implements Tab{
 
 	@Override
 	public void refresh() {
-//		mainPanel.setRightComponent(createPanels("rightPanel"));
-//		columnar.setLeftComponent(createPanels("leftPanel"));
+		refreshPanels();
 		repaint();
 	}
 	
@@ -110,17 +99,16 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	public static void play(int gameID) {
 		//		ExampleGUI.setGame(gameID);
 		columnar.setRightComponent(new GameView(gameID));
-		columnar.setLeftComponent(createPanels("leftPanel"));
+		refreshPanels();
 		
 	}
 	
-	public static void refreshLeft(){
+	/**
+	 * Refreshes all the panels on the left and right side of the view.
+	 */
+	public static void refreshPanels(){
+		mainPanel.setRightComponent(createPanels("rightPanel"));
 		columnar.setLeftComponent(createPanels("leftPanel"));
 	}
-
-	public static void refreshRight(){
-		mainPanel.setRightComponent(createPanels("rightPanel"));
-	}
-
 
 }

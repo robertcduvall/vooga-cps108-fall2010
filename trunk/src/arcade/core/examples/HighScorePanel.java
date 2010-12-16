@@ -14,6 +14,13 @@ import arcade.core.HighScoreControl;
 import arcade.core.Panel;
 import arcade.lobby.model.ProfileSet;
 
+/**
+ * A Panel to be added to the Arcade Tab which displays the top 5 high scores for the current game
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
+
 @SuppressWarnings("serial")
 public class HighScorePanel extends Panel{
 	private static HighScoreControl hsc = new HighScoreControl(Arcade.myDbAdapter,
@@ -27,7 +34,7 @@ public class HighScorePanel extends Panel{
 		add(highScores);
 	}
 	
-	public static JTextPane getGameHighScoresPanel(String gameName, int gameID,
+	private static JTextPane getGameHighScoresPanel(String gameName, int gameID,
 			int numScores) {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
@@ -40,16 +47,25 @@ public class HighScorePanel extends Panel{
 		return textPane;
 	}
 	
+	/**
+	 * Creates a new HighScore object asking the user if they want to submit their high score
+	 * 
+	 * @param highScore The latest High Score for the game
+	 */
 	public static void updateHighScore(double highScore) {
 		score = highScore;
 		new HighScore();
 	}
 
+	/**
+	 * The latest high score is added to the database, and the panels are refreshed.
+	 * 
+	 * @return If the high score was added correctly
+	 */
 	public static boolean addHighScore() {
 		boolean isAdded = hsc.addScore(ProfileSet.getCurrentProfile().getUserId(),
 				GameView.getGameID(), score);
-		ArcadeTab.refreshLeft();
-		ArcadeTab.refreshRight();
+		ArcadeTab.refreshPanels();
 		return isAdded;
 	}
 	
