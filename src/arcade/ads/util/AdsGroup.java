@@ -56,6 +56,10 @@ public class AdsGroup {
 	 * @return
 	 */
 	public BasicAd getCurrentAd() {
+		if (ads != null && !ads.isEmpty() && ads.get(index).getExpireDate().before(new Date(System.currentTimeMillis()))){
+			ads.remove(index);
+			index = (index == ads.size() ? 0 : index);
+		}
 		if (ads != null && !ads.isEmpty())
 			return ads.get(index);
 		else
@@ -68,7 +72,7 @@ public class AdsGroup {
 	 * @return
 	 */
 	public void nextAds() {
-		if (ads != null && !ads.isEmpty())
+		 if (ads != null && !ads.isEmpty())
 			index = (index == ads.size() - 1 ? 0 : index + 1);
 	}
 
@@ -96,7 +100,7 @@ public class AdsGroup {
 	
 	public void removeExpiredAds(){
 		for(BasicAd ad: ads){
-			if(ad.getExpireDate().after(new Date(System.currentTimeMillis()))){
+			if(ad.getExpireDate().before(new Date(System.currentTimeMillis()))){
 				ads.remove(ad);
 			}
 		}
