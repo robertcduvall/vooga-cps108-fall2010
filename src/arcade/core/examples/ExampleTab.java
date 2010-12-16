@@ -1,43 +1,42 @@
 package arcade.core.examples;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.DateFormat;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.text.DateFormatter;
 
-import arcade.core.Arcade;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 
+@SuppressWarnings("serial")
 public class ExampleTab extends JPanel implements Tab {
+	private JLabel time;
+	DateFormatter df = new DateFormatter();
+	
 	public ExampleTab() {
-		setToolTipText("This is an example");
-		setName("ExampleTab");
-	}
-
-	@Override
-	public JComponent getContent() {
-		JPanel panel = new JPanel();
-		JButton a = new JButton("back");
-		a.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Arcade.switchToTab(0);
-			}
-		});
-		panel.add(a);
-		return panel;
+		setName("Tab Example");
+		setToolTipText("This is an example of how to use the Tab interface.");
+		
+		add(new JLabel("You switched to this tab at:"));
+		add(time = new JLabel());
+		
+		refresh();
 	}
 
 	@Override
 	public IController getController() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
-		
+		setTimeString(System.currentTimeMillis());
+	}
+	
+	private void setTimeString(long timeMillis) {
+		time.setText(DateFormat.getDateTimeInstance().format(timeMillis));
 	}
 
 }
