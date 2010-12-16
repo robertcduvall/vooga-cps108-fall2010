@@ -8,10 +8,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import arcade.core.Panel;
+import arcade.lobby.model.Profile;
+import arcade.wall.controllers.WallTabController;
 
 @SuppressWarnings("serial")
 public class Lobby extends Panel {
+	
+	private WallTabController myController;
+	Profile myProfile;
+	
 	public Lobby(){
+		/*
 		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -19,6 +26,13 @@ public class Lobby extends Panel {
 		add(lobbyFriends);
 
 		JLabel moreLabels = new JLabel(icon);
-		add(moreLabels);
+		add(moreLabels);*/
+		initialize();
+	}
+	
+	private void initialize()
+	{
+		myController = new WallTabController();
+		add(myController.getView().getMessagesPanel());
 	}
 }
