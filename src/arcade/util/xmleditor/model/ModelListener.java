@@ -7,6 +7,8 @@ public interface ModelListener {
 	
 	public void modelChanged(XMLNode root);
 	
-	public void elementSelected(Element element);	
+	public void nodeSelected(XMLNode node);	
+	
+	public void nodeUpdated(XMLNode node);
 
 }

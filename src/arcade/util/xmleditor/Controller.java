@@ -26,7 +26,9 @@ import vooga.engine.util.XMLFileParser;
 import arcade.util.xmleditor.mainmenu.MenuBar;
 import arcade.util.xmleditor.model.ModelObserver;
 import arcade.util.xmleditor.model.XMLNode;
+import arcade.util.xmleditor.view.AttributeController;
 import arcade.util.xmleditor.view.ElementController;
+import arcade.util.xmleditor.view.ElementPanel;
 import arcade.util.xmleditor.view.View;
 import arcade.util.xmleditor.view.WindowCloser;
 import arcade.util.xmleditor.view.toolbar.AddAttributeController;
@@ -39,7 +41,8 @@ public class Controller implements TreeSelectionListener{
 	private View view;
 	private Document modelDocument;
 	private ModelObserver observer;
-	private Element currentElement;
+	private XMLNode currentNode;
+	private XMLNode root;
 	
 	public Controller(){
 		observer = new ModelObserver();
@@ -47,7 +50,7 @@ public class Controller implements TreeSelectionListener{
 		JToolBar toolbar = createElementToolBar();
 		
 		JFrame frame = new JFrame();
-		ElementController elementController = new ElementController(this, toolbar);
+		ElementController elementController = createElementController(toolbar);
 		try {
 			view = new View(this, elementController.getView());
 		} catch (ParserConfigurationException e) {
@@ -85,7 +88,8 @@ public class Controller implements TreeSelectionListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		observer.notifyModelChanged(modelDocument);
+		root = new XMLNode((Element)modelDocument.getFirstChild(), null, observer);
+		observer.notifyModelChanged(root);
 	}
 	
 	public static void main(String[] args) throws ParserConfigurationException,
@@ -127,16 +131,12 @@ public class Controller implements TreeSelectionListener{
 	    } catch (TransformerException e) {
 	    }
 	}
-	
-	public void addAttribute(){
-		
-	}
 
 
 	@Override
 	public void valueChanged(TreeSelectionEvent arg0) {
-		currentElement = ((XMLNode) arg0.getPath().getLastPathComponent()).getElement();	
-		observer.notifyElementSelected(currentElement);
+		currentNode = (XMLNode) arg0.getPath().getLastPathComponent();	
+		observer.notifyNodeSelected(currentNode);
 	}
 	
 	private JToolBar createElementToolBar(){
@@ -152,6 +152,19 @@ public class Controller implements TreeSelectionListener{
 	private void addElementButton(JToolBar toolbar, ElementToolBarButton button){
 		observer.addNewListener(button);
 		toolbar.add(button.getView());
+	}
+	
+	private ElementController createElementController(JToolBar toolbar){
+			AttributeController attributeController = new AttributeController();
+			observer.addNewListener(attributeController);
+			
+			ElementController elementController = new ElementController(this, toolbar, attributeController);
+			return elementController;
+			
+	}
+	
+	public XMLNode getRoot(){
+		return root;
 	}
 
 }
