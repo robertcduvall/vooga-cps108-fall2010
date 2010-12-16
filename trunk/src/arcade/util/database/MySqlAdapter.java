@@ -118,7 +118,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 */
 	@Override
 	public List<String> getColumn(String tableName, String columnName) {
-		//refreshConnection();
+		refreshConnection();
 		String sql = String.format("SELECT * FROM %s", tableName);
 		PreparedStatement ps;
 		List<String> result = new ArrayList<String>();
@@ -138,7 +138,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 					+ sql);
 			return null;
 		}
-		//closeConnection();
+		closeConnection();
 		return result;
 	}
 
@@ -273,7 +273,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 *         the query fails
 	 */
 	private List<Map<String, String>> getRows(String query) {
-		//refreshConnection();
+		refreshConnection();
 		ResultSet rs;
 		Map<String, String> map;
 		List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
@@ -298,7 +298,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			log.debug(e);
 			return null;
 		}
-		//closeConnection();
+		closeConnection();
 		log.info("Successful database operation: " + query);
 		return maps;
 	}
@@ -358,7 +358,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	
 	private boolean insertOrReplace(String operation, String tableName, Map<String, String> row){
 		// TODO Auto-generated method stub
-		//refreshConnection();
+		refreshConnection();
 		String keys = "(";
 		String values = "(";
 		for (String s : row.keySet()) {
@@ -382,7 +382,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			log.info(e);
 			return false;
 		}
-		//closeConnection();
+		closeConnection();
 		log.info("Successful database operation: " + sql);
 		return true;
 	}
@@ -426,7 +426,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean update(String tableName, Map<String, String> conditions,
 			Map<String, String> row) {
-		//refreshConnection();
+		refreshConnection();
 		String newValues = "";
 		for (String s : row.keySet()) {
 			newValues += s + "='" + row.get(s) + "', ";
@@ -444,7 +444,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			log.debug(e);
 			return false;
 		}
-		//closeConnection();
+		closeConnection();
 		log.info("Successful database operation: " + sql);
 		return true;
 	}
