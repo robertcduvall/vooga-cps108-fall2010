@@ -17,11 +17,12 @@ import arcade.store.gui.StoreTab;
 public class MainPageTab extends StoreTab {
 
 	/**
+	 * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
+	 * @date: 			12-16-10
+	 * @description:	
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private static final String ARCADE_STORE_GREETING = "Main Game Store: Browse, Demo, and Purchase Your Games Here!";
 
 	private static final String NAME = "Main Page";
 	private static final String FILE_PATH = "arcade.store.resources.MainPageController";
@@ -113,7 +114,6 @@ public class MainPageTab extends StoreTab {
 	 */
 	private JLabel getStoreBrowseLabel() {
 		JLabel storeBrowseLabel = new JLabel();
-		storeBrowseLabel.setText(ARCADE_STORE_GREETING);
 		return storeBrowseLabel;
 	}
 

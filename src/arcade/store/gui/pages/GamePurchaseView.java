@@ -19,11 +19,12 @@ import javax.swing.JTextField;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
+import arcade.store.gui.StoreTab;
 import arcade.store.control.MainController;
 import arcade.store.control.MainPageController;
 import arcade.store.control.PurchaseItemController;
 
-public class GamePurchaseView implements Tab {
+public class GamePurchaseView extends StoreTab {
 
 	private JFrame gamePurchaseFrame = null;
 	private JPanel gamePurchasePanel = null; // @jve:decl-index=0:visual-constraint="-15,3"
@@ -223,10 +224,6 @@ public class GamePurchaseView implements Tab {
 		return returnToStoreButton;
 	}
 
-	@Override
-	public IController getController() {
-		return controller;
-	}
 
 	public void setReviewText(String content) {
 		randomReviewLabel.setText(content);
@@ -247,16 +244,6 @@ public class GamePurchaseView implements Tab {
 		return commentPanel;
 	}
 
-	@Override
-	public JComponent getContent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void refresh() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -124,12 +124,4 @@ public class StoreContainer extends JPanel implements Tab {
 
 	}
 
-	@Override
-	public void setController(IController control) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 }
