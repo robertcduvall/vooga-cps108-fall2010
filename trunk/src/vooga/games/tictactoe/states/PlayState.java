@@ -37,7 +37,6 @@ public class PlayState extends GameState{
 	private GameOverState tieState;
 	private TheirTurnState theirTurnState;
 	private boolean myTurn;
-	private Move oMove;
 
 	/**
 	 * Constructor for the PlayState.
@@ -156,39 +155,6 @@ public class PlayState extends GameState{
 	}
 
 	/**
-	 * Called in interpretMessage if the data its parsing is an integer so it represents a Move. It gets the row and the column from the Move and
-	 * adds it to the board.
-	 * 
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public void placeOpposingPiece(){
-		int col = oMove.getCol();
-		int row = oMove.getRow();
-		int pieceX = col * Resources.getInt("squareDimension") + Resources.getInt("oOffsetX");
-		int pieceY = row * Resources.getInt("squareDimension") + Resources.getInt("oOffsetY");
-		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
-	}
-
-	/**
-	 * If the String starts with the Move class identifier then deserialize the String into a Move object and place the piece on the
-	 * board. Otherwise set the message to the String we received.
-	 * 
-	 * @param data data received from the socket
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	@Override
-	public void interpretMessage(String data){
-		if(data.startsWith(Move.getIdentifier())){
-			oMove = (Move) (Move.deserialize(data));
-			placeOpposingPiece();
-		}
-		else
-			setMessage(data);
-	}
-
-	/**
 	 * Checks events and then calls super.update which handles all the necessary networking calls.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
@@ -211,6 +177,16 @@ public class PlayState extends GameState{
 	@Override
 	public boolean shouldGetData(){
 		return (connection.isConnected() && !myTurn);
+	}
+	
+	public boolean move(String data){
+		Move oMove = (Move) (Move.deserialize(data));
+		int col = oMove.getCol();
+		int row = oMove.getRow();
+		int pieceX = col * Resources.getInt("squareDimension") + Resources.getInt("oOffsetX");
+		int pieceY = row * Resources.getInt("squareDimension") + Resources.getInt("oOffsetY");
+		field.getGroup("oGroup").add(new BetterSprite(Resources.getImage("O"), pieceX, pieceY));
+		return false;
 	}
 	
 	/**

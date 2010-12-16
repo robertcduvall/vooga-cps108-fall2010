@@ -9,7 +9,7 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.games.tictactoe.states.PlayState;
 import vooga.games.tictactoe.states.TicTacNetworkMenuState;
-import vooga.games.tictactoe.states.WaitingState;
+import vooga.engine.state.WaitingState;
 
 /**
  * The Vooga Game subclass for TicTacToe, a simple example game for the Networking API.
@@ -55,14 +55,14 @@ public class Blah extends Game {
 		LevelParser levelParser = new LevelParser();
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
 		waitState = new WaitingState(this, connection, waitField, playState);
-		TicTacNetworkMenuState networkMenuState = new TicTacNetworkMenuState();
-		networkMenuState.makeNextButton("WaitForOpponent", waitState);
-		networkMenuState.makeNextButton("Play", playState);
-		stateManager.addGameState(networkMenuState);
+//		TicTacNetworkMenuState networkMenuState = new TicTacNetworkMenuState();
+//		networkMenuState.makeNextButton("WaitForOpponent", waitState);
+//		networkMenuState.makeNextButton("Play", playState);
+//		stateManager.addGameState(networkMenuState);
 		stateManager.addGameState(waitState);
 		stateManager.addGameState(playState);
-		stateManager.switchTo(networkMenuState);
-		//stateManager.switchTo(waitState);
+		//stateManager.switchTo(networkMenuState);
+		stateManager.switchTo(waitState);
 	}
 	
 	public void switchToState (GameState gs) {

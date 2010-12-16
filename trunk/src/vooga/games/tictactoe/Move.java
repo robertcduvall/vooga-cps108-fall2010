@@ -38,7 +38,7 @@ public class Move extends Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		int move = Integer.parseInt(data.substring(identifier.length()));
+		int move = Integer.parseInt(data);
 		int col = move < 10 ? 0 : move / 10;
 		int row = move % 10;
 		return new Move(row, col);

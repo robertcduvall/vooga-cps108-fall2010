@@ -34,7 +34,7 @@ public class Username extends Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		return new Username(data.substring(9));
+		return new Username(data);
 	}
 
 	/**
