@@ -1,5 +1,7 @@
 package arcade.core.mvc;
 
+import arcade.core.Tab;
+
 
 /**
  * 
@@ -14,5 +16,5 @@ public interface IController {
 	
 	public void addModel(IModel model);
 	
-	public void addViewer(IViewer viewer);
+	public void addViewer(Tab viewer);
 }

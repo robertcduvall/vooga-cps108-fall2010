@@ -2,6 +2,7 @@ package arcade.store.control;
 
 import javax.swing.JOptionPane;
 
+import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -55,14 +56,13 @@ public class PurchaseItemController implements IController {
 		}
 	}
 
-
 	@Override
 	public void addModel(IModel model) {
 		storeModel = (StoreModel) model;
 	}
 
 	@Override
-	public void addViewer(IViewer viewer) {
+	public void addViewer(Tab viewer) {
 		view = (GamePurchaseView) viewer;
 	}
 
@@ -104,5 +104,6 @@ public class PurchaseItemController implements IController {
 		// TODO Auto-generated method stub
 
 	}
+
 
 }

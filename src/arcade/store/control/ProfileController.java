@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.swing.table.DefaultTableModel;
 
+import arcade.core.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -31,7 +32,7 @@ public class ProfileController extends Controller {
 	}
 
 	@Override
-	public void addViewer(IViewer viewer) {
+	public void addViewer(Tab viewer) {
 		profileTab = (ProfileTab) viewer;
 	}
 

@@ -3,9 +3,9 @@ package arcade.store.test;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+
+import arcade.core.Tab;
 import arcade.core.mvc.*;
-import arcade.core.mvc.IModel;
-import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.test.CheckoutGUI;
@@ -29,7 +29,7 @@ public class CheckoutController extends Controller{
 	}
 
 	@Override
-	public void addViewer(IViewer view) {
+	public void addViewer(Tab view) {
 
 		viewer = (CheckoutGUI) view;
 	}
