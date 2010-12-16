@@ -1,20 +1,16 @@
 package arcade.ads.adsmanager;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import arcade.ads.adsclassification.IRelatedAds;
 import arcade.ads.adscontent.BasicAd;
-import arcade.ads.adscontent.RelatedAd;
 import arcade.ads.thread.AdsThread;
 import arcade.ads.thread.RotateThread;
 import arcade.ads.util.AdsGroup;
@@ -44,7 +40,7 @@ public class AdsManager implements MouseListener {
 	private Graphics2D gs;
 	private AdsThread adsthread;
 	private RotateThread thread;
-	private JPanel panel;
+	private static JPanel panel;
 
 	private AdsGroup renderedAdsGroup;
 
@@ -245,5 +241,9 @@ public class AdsManager implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	public static JComponent getAdBoard()
+	{
+		return panel;
+	}
 }
