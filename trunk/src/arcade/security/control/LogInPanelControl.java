@@ -112,7 +112,7 @@ public class LogInPanelControl implements IControl{
 			
 			model.logIn(username);
 			
-			if(isAdmin()){
+			if(isAdmin(username)){
 				UserService userService = UserServiceFactory.getUserService();
 				User user = userService.getCurrentUser();
 				log.info("Before log in, Current User role: "+user.getRole());
@@ -129,9 +129,8 @@ public class LogInPanelControl implements IControl{
 		}
 	}
 	
-	private boolean isAdmin() {
-		//TODO
-		return true;
+	private boolean isAdmin(String username) {
+		return model.isAdmin(username);
 	}
 	
 //	Below might not be the best way to handle switching between different view, we will discuss.

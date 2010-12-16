@@ -31,6 +31,11 @@ public class LogInHandler {
 	public static int getUserId(String username){
 		return dataHandler.getUserId(username);
 	}
+	
+	public static boolean isAdmin(String username){
+		return dataHandler.isAdmin(username).equals("Admin");
+	}
+	
 	public static boolean isPasswordValid(int userId, char[] password){
 		String validPassword = dataHandler.getPassword(userId);
 		for(int i=0;i<password.length;i++){
