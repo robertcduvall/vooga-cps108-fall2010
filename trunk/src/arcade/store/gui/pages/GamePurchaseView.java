@@ -10,18 +10,20 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.MainController;
 import arcade.store.control.MainPageController;
 import arcade.store.control.PurchaseItemController;
 
-public class GamePurchaseView implements IViewer {
+public class GamePurchaseView implements Tab {
 
 	private JFrame gamePurchaseFrame = null;
 	private JPanel gamePurchasePanel = null; // @jve:decl-index=0:visual-constraint="-15,3"
@@ -243,6 +245,18 @@ public class GamePurchaseView implements IViewer {
 			commentPanel.setBounds(new Rectangle(34, 309, 590, 250));
 		}
 		return commentPanel;
+	}
+
+	@Override
+	public JComponent getContent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

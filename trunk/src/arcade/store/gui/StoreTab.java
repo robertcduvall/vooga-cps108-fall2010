@@ -17,7 +17,7 @@ import arcade.core.mvc.IViewer;
  * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
  * 
  */
-public class StoreTab extends JPanel implements Tab, IViewer {
+public class StoreTab extends JPanel implements Tab {
 
 	/**
 	 * 

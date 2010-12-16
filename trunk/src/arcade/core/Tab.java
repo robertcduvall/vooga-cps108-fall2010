@@ -7,7 +7,7 @@ import arcade.core.mvc.IController;
 
 
 /**
- * @author Derek Zhou, Yang Su, Aaron Choi
+ * @author Derek Zhou, Yang Su, Aaron Choi, Jimmy Mu
  * 
  */
 @SuppressWarnings("serial")
@@ -29,4 +29,10 @@ public abstract interface Tab {
 	 * when ever a tab is clicked
 	 */
 	public void refresh();
+	
+	/**
+	 * This method sets up the control.
+	 * @param control
+	 */
+	public void setController(IController control);
 }

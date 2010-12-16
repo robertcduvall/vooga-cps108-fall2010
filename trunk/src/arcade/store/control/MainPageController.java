@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import arcade.core.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
-import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
 import arcade.store.gui.StoreItemThumbnailPanel;
 import arcade.store.gui.pages.GamePurchaseView;
@@ -19,13 +19,13 @@ import arcade.store.items.IItemInfo;
  * @author 			Drew Sternesky, Jimmy Mu, Marcus Molchany
  * @date 			12-15-10
  * @description		The MainPageController is the controller for the StoreModel
- * 					and the MainPageTab.
+ * 					and the MainPageTab. This controller manages action events from
+ * 					ItemThumbnailPanel and transmit information to StoreModel 
  *
  */
 
 public class MainPageController extends Controller{
 
-	
 	private StoreModel storeModel;
 	private MainPageTab viewer;
 	
@@ -41,8 +41,8 @@ public class MainPageController extends Controller{
 	
 
 	@Override
-	public void addViewer(IViewer currentviewer) {
-		viewer = (MainPageTab) currentviewer;
+	public void addViewer(Tab mainPageTab) {
+		viewer = (MainPageTab) mainPageTab;
 
 	}
 
@@ -89,8 +89,8 @@ public class MainPageController extends Controller{
 		IItemInfo item = StoreModel.getItemInfo(tagName);
 		IController purchaseItemController = (IController) new PurchaseItemController(storeModel);
 
-		IViewer view = new GamePurchaseView(purchaseItemController);
-		purchaseItemController.addViewer(view);
+		Tab viewer = new GamePurchaseView(purchaseItemController);
+		purchaseItemController.addViewer(viewer);
 		
 		((PurchaseItemController) purchaseItemController).initializeViewerFromItemInfo(item);
 	}

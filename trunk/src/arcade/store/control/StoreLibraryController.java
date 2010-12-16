@@ -1,5 +1,6 @@
 package arcade.store.control;
 
+import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -18,8 +19,9 @@ public class StoreLibraryController implements IController{
 		
 	}
 
+
 	@Override
-	public void addViewer(IViewer viewer) {
+	public void addViewer(Tab viewer) {
 		// TODO Auto-generated method stub
 		
 	}

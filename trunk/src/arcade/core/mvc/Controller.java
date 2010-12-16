@@ -3,6 +3,9 @@ package arcade.core.mvc;
 import java.lang.reflect.Method;
 import java.util.ResourceBundle;
 
+import arcade.core.Tab;
+import arcade.store.gui.StoreTab;
+
 /**
  * This class represents a Controller 
  * @author Yijia Mu
@@ -34,11 +37,10 @@ public class Controller implements IController{
 	}
 
 	@Override
-	public void addViewer(IViewer viewer) {
+	public void addViewer(Tab tab) {
 		// TODO Auto-generated method stub
-
 	}
-
+	
 	/**
 	 * This method uses reflection to process all the 
 	 * events from the viewer and the controller.
@@ -95,6 +97,10 @@ public class Controller implements IController{
 	{
 		return reflectionMirror.getString(key);
 	}
+
+
+
+
 
 
 }

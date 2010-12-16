@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import arcade.core.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
@@ -58,7 +59,7 @@ public class CheckoutController extends Controller {
 	 * to this object.
 	 */
 	@Override
-	public void addViewer(IViewer view) {
+	public void addViewer(Tab view) {
 		viewer = (CheckoutTab) view;
 	}
 

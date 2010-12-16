@@ -38,7 +38,7 @@ public class MainController implements IController{
 	}
 
 	@Override
-	public void addViewer(IViewer viewer) {
+	public void addViewer(Tab viewer) {
 		
 		
 	}
