@@ -15,6 +15,7 @@ import javax.swing.event.ChangeListener;
 
 import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
+import arcade.lobby.model.ProfileSet;
 import arcade.store.control.MainController;
 
 
@@ -65,7 +66,6 @@ public class StoreContainer extends StoreTab{
 	private JTabbedPane createTabs() {
 		//final is used here because this is the only way that 
 		final JTabbedPane tabsPanel = new JTabbedPane();
-		
 		setUpTabs(tabsPanel);
 		setUpTabListener(tabsPanel);
 		return tabsPanel;
@@ -187,15 +187,24 @@ public class StoreContainer extends StoreTab{
 	 */
 	@Override
 	public void refresh() {
-		
+		mainController.refreshStoreUser();
+		setTabPrivileges();
 	}
-
+	
 	@Override
 	public void initialize() {
 		mainController = new MainController(MAIN_CONTROL_FILE_PATH);
 		mainController.addViewer(this);
 		setLayout(new BorderLayout());
 		this.add(createTabs(), BorderLayout.NORTH);
+	}
+	
+	private void setTabPrivileges() {
+		for(String tabName : mainController.getAllTabNames()) {
+			StoreTab currentTab = (StoreTab) mainController.getTab(tabName);
+			boolean privilege = mainController.checkPrivileges(tabName);
+			currentTab.setVisible(privilege);
+		}
 	}
 
 
