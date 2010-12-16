@@ -146,6 +146,10 @@ public class Presenter implements IPresenter {
 			//this is because digger is currently the only compliant game
 			currentGame="digger";
 			
+			className = "vooga.games." + currentGame + "." + className;
+			interfaceName = "vooga.games." + currentGame + "." + interfaceName;
+			modName = "vooga.games." + currentGame + ".mod." + modName;
+			
 			String destFilepath = System.getProperty("user.dir");
 		
 			destFilepath = destFilepath + File.separatorChar + "src" + File.separatorChar + "vooga" + File.separatorChar + "games" + File.separatorChar + currentGame + File.separatorChar + "mod" + File.separatorChar + file.getName();
