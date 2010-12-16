@@ -44,6 +44,7 @@ public class LoginController {
 				JOptionPane.showMessageDialog(myView, "Your username and password combination does not match");
 				//usernameField.selectAll();
 				//usernameField.requestFocus(true);
+				myView.resetPassword();
 				return;
 			}
 			

@@ -8,11 +8,11 @@ import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
-import arcade.lobby.validators.PasswordConfirmField;
 import arcade.security.model.IModel;
 import arcade.security.model.SignUpProcess;
 import arcade.security.resourcesbundle.LabelResources;
@@ -113,8 +113,8 @@ public class SignUpPanelControl implements IControl {
 			if (validate(dock)) {
 				String username = ((JTextField) dock.getComponent("username"))
 						.getText();
-				char[] pwd_1 = ((PasswordConfirmField) dock
-						.getComponent("pass1")).getPassword1();
+				char[] pwd_1 = ((JPasswordField) dock
+						.getComponent("pass1")).getPassword();
 				System.out.println("I'm here!");
 				int questionIndex = ((JComboBox) dock.getComponent("choices"))
 						.getSelectedIndex();
