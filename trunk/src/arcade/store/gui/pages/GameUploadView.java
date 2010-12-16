@@ -9,7 +9,9 @@ import java.awt.Rectangle;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
-public class GameUploadView {
+import arcade.core.Window;
+
+public class GameUploadView extends Window{
 
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="101,18"
 	private JPanel jContentPane = null;
@@ -109,6 +111,12 @@ public class GameUploadView {
 			descriptionArea = new JTextArea();
 		}
 		return descriptionArea;
+	}
+
+	@Override
+	protected void createContents() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
