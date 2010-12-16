@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.gui.StoreTab;

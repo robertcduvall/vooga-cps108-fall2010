@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import arcade.core.Arcade;
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.security.gui.SecurityButton;
 import arcade.security.model.LoginProcess;

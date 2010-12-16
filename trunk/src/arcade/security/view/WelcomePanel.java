@@ -1,6 +1,6 @@
 package arcade.security.view;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.security.resourcesbundle.StaticFileResources;
 import net.miginfocom.swing.MigLayout;

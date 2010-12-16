@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.ArcadeGUIElements;
 
 import java.awt.Color;
 import java.io.IOException;

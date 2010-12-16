@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import arcade.core.Arcade;
-import arcade.core.Window;
+import arcade.core.api.Window;
 import arcade.store.control.ProfileController;
 
 /**

@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.ArcadeGUIElements;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.swing.*;
 import vooga.engine.core.Game;
+import arcade.core.Arcade;
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallWidget;
 

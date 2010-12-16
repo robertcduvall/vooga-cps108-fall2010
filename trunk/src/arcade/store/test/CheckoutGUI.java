@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.test.CheckoutController;

@@ -1,6 +1,6 @@
 package arcade.core.components;
 
-import arcade.core.GameView;
+import arcade.core.ArcadeGUIElements.GameView;
 import arcade.core.api.Panel;
 import arcade.wall.controllers.WallTabController;
 import arcade.wall.views.walltab.FeedbackPanel;

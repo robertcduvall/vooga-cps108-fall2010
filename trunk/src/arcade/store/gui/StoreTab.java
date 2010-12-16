@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;

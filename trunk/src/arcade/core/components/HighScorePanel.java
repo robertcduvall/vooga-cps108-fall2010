@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import arcade.core.Arcade;
-import arcade.core.ArcadeTab;
-import arcade.core.GameView;
 import arcade.core.HighScoreControl;
+import arcade.core.ArcadeGUIElements.ArcadeTab;
+import arcade.core.ArcadeGUIElements.GameView;
 import arcade.core.api.Panel;
 import arcade.core.examples.HighScore;
 import arcade.lobby.model.ProfileSet;

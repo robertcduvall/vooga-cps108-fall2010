@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
-import arcade.core.GameView;
+import arcade.core.ArcadeGUIElements.GameView;
 import arcade.mod.model.IModel;
 import arcade.mod.model.IResourceNode;
 import arcade.mod.model.ModException;
