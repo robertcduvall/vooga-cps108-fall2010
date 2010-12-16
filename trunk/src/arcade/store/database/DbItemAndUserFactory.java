@@ -101,7 +101,7 @@ public class DbItemAndUserFactory {
 		else {
 			HashMap<String, String> newUser = new HashMap<String, String>();
 			newUser.put(StoreDbConstants.USER_FIELD, Integer.toString(userId));
-			newUser.put(StoreDbConstants.USER_TYPE_FIELD, "2");
+			newUser.put(StoreDbConstants.USER_TYPE_FIELD, "1");
 			newUser.put(StoreDbConstants.CREDDIT_FIELD, "0.00");
 			newUser.put(StoreDbConstants.CART_FIELD, "");
 			dbAdapter.insert(StoreDbConstants.STORE_USER_TABLE, newUser);
