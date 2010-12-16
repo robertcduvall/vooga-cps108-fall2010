@@ -121,5 +121,15 @@ public class RelatedAd extends BasicAd implements IRelatedAds{
 	public Date getExpireDate() {
 		return this.ad.getExpireDate();
 	}; 
+	
+	@Override
+	public Date getEffectiveDate() {
+		return this.ad.getEffectiveDate();
+	}; 
+	
+	@Override
+	public long getDuration() {
+		return this.ad.getDuration();
+	}; 
 
 	}

@@ -108,6 +108,7 @@ public class ImageAd extends BasicAd {
 		this.expireDate = (new AdDate(attributes.getNamedItem("endTime")
 				.getNodeValue())).getDate(null);
 		this.targetURL = attributes.getNamedItem("targetURL").getNodeValue();
+		this.duration = Long.parseLong(attributes.getNamedItem("duration").getNodeValue())*1000;
 	}
 
 	@Override

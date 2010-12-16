@@ -48,7 +48,7 @@ public class Ads extends Panel {
 		panel2.setLayout(new FlowLayout());
 		addListener(panel2);
 
-		myManager = new AdsManager(new JPanel());
+		myManager = new AdsManager(panel2);
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
 		myManager.setRenderedAds();
 		//myManager.setRenderedAds("action");
