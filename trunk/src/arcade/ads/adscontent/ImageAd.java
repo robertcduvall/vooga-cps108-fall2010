@@ -5,10 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.w3c.dom.DOMException;
@@ -33,8 +37,8 @@ import arcade.ads.util.AdDate;
 public class ImageAd extends BasicAd {
 
 	private Image img;
-	
-	public ImageAd(){
+
+	public ImageAd() {
 		super();
 	}
 
@@ -49,12 +53,13 @@ public class ImageAd extends BasicAd {
 		setWidth(img.getWidth(null));
 
 	}
-	
-	public ImageAd(String name, Image img, String targetURL, int width, int height, Date effective, Date expire, long duration){
+
+	public ImageAd(String name, Image img, String targetURL, int width,
+			int height, Date effective, Date expire, long duration) {
 		super(name, targetURL, width, height, effective, expire, duration);
 		this.img = img;
 	}
-	
+
 	@Override
 	public void onLeftClick() {
 		openBrowser();
@@ -85,8 +90,18 @@ public class ImageAd extends BasicAd {
 
 	@Override
 	public void render(JPanel panel, int width, int height) {
-		Graphics2D g = (Graphics2D) panel.getGraphics();
-		g.drawImage(img, 0, 0, width, height, null);
+		 Graphics2D g = (Graphics2D) panel.getGraphics();
+		
+		 g.drawImage(img, 0, 0, width, height, null);
+//
+//		JLabel avatar = null;
+//
+//		ImageIcon avatarIcon = new ImageIcon(img);
+//		// ExampleGUI.scaleImage(avatarIcon,100);
+//		avatar = new JLabel(avatarIcon);
+////		avatar = new JLabel("werjkwejrkljl");
+//
+//		panel.add(avatar);
 
 	}
 
@@ -108,19 +123,20 @@ public class ImageAd extends BasicAd {
 		this.expireDate = (new AdDate(attributes.getNamedItem("endTime")
 				.getNodeValue())).getDate(null);
 		this.targetURL = attributes.getNamedItem("targetURL").getNodeValue();
-		this.duration = Long.parseLong(attributes.getNamedItem("duration").getNodeValue())*1000;
+		this.duration = Long.parseLong(attributes.getNamedItem("duration")
+				.getNodeValue()) * 1000;
 	}
 
 	@Override
 	public void render(Graphics2D g) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void render(Graphics2D g, int x, int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
