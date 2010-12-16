@@ -35,7 +35,7 @@ public class LogInHandler {
 	}
 	
 	public static boolean isAdmin(String username){
-		return dataHandler.isAdmin(username).equals("Admin");
+		return dataHandler.isAdmin(username).equals("Administrator");
 	}
 	
 	public static boolean isPasswordValid(int userId, String password){
