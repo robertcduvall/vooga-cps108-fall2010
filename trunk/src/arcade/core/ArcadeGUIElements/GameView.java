@@ -88,11 +88,11 @@ public class GameView extends JPanel {
 	private static JTextPane setText() {
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
-		String description = "<center><p><b>" + gameProperties.get("title")[0]
+		String description = "<body bgcolor=\"#EDEDED\" ><center><p><b>" + gameProperties.get("title")[0]
 				+ "</b></p>" + "<p>Genre: " + gameProperties.get("genre")[0]
 				+ "</p>" + "<p>Description: "
 				+ gameProperties.get("description")[0] + "</p>"
-				+ "<p><b>Instructions</b></p><p>";
+				+ "<p><b>Instructions</b></p></body>";
 		textPane.setEditable(false);
 
 		for (String instruction : gameProperties.get("instructions")) {

@@ -247,7 +247,7 @@ public class Game extends com.golden.gamedev.Game {
 	public void updateHighScore(double score) {
 		finalScore = score;
 		// TODO Move following statement to a on close listener of some sort
-		//HighScore.updateHighScore(finalScore);
+		HighScorePanel.updateHighScore(finalScore);
 	}
 
 	public double getHighScore() {

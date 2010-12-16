@@ -2,6 +2,9 @@ package arcade.core.controllers;
 
 import java.util.*;
 
+import arcade.core.ArcadeGUIElements.ArcadeTab;
+import arcade.core.ArcadeGUIElements.GameView;
+import arcade.core.examples.HighScore;
 import arcade.lobby.model.ProfileSet;
 import arcade.util.database.MySqlAdapter;
 
@@ -58,6 +61,7 @@ public class HighScoreControl {
 		row.put("Score", score + "");
 		return dbAdapter.insert(tableName, row);
 	}
+
 
 	/**
 	 * Checks to see if the current score is a new personal high score on a game
