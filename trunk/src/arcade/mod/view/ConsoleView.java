@@ -8,6 +8,13 @@ import javax.swing.JFrame;
 
 import javax.swing.JTextField;
 
+/**
+ * 
+ * Console view
+ * gets user input and stores it
+ * @author vitorolivier
+ *
+ */
 public class ConsoleView extends JFrame {
 
 	public static final String NO_INPUT = "";
