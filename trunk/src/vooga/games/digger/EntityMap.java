@@ -43,7 +43,8 @@ public class EntityMap {
 	
 	
 	public static Object resolve(EntityKey key) throws InstantiationException, IllegalAccessException{
-		return entities.get(key).newInstance();
+		Class resolvedClass = entities.get(key);
+		return resolvedClass.newInstance();
 	}
 
 }
