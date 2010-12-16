@@ -39,4 +39,9 @@ public class ExampleTab extends JPanel implements Tab {
 		time.setText(DateFormat.getDateTimeInstance().format(timeMillis));
 	}
 
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 }
