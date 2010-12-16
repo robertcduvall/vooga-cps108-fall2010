@@ -27,6 +27,13 @@ import arcade.util.guiComponents.ValidatingComponent;
 import arcade.util.guiComponents.Validator;
 import arcade.util.guiComponents.ValidatorDock;
 
+/**
+ * Allows user to edit information about his/her profile
+ * and save it (to the database).
+ * 
+ * @author david
+ * @author segil
+ */
 @SuppressWarnings("serial")
 public class ProfileEditPanel extends JPanel implements IView {
 	private static final int FIELD_COLUMNS = 20;
@@ -106,6 +113,12 @@ public class ProfileEditPanel extends JPanel implements IView {
 		myDock.addValidatingComponent(vc, name);
 	}
 	
+	/**
+	 * Gets the string from the text field that's associated
+	 * with the key.
+	 * @param key
+	 * @return text from textField associated with key
+	 */
 	public String getText(String key) {
 		return myFields.get(key).getText();
 	}
@@ -170,14 +183,23 @@ public class ProfileEditPanel extends JPanel implements IView {
 		return saveButton;
 	}
 	
-	public void addSaveListener(ActionListener listener) {
-		mySaveButton.addActionListener(listener);
-	}
+//	public void addSaveListener(ActionListener listener) {
+//		mySaveButton.addActionListener(listener);
+//	}
 	
-	public Profile getProfile() {
-		return myProfile;
-	}
+	/**
+	 * @return
+	 */
+//	public Profile getProfile() {
+//		return myProfile;
+//	}
 
+	/**
+	 * Recreates the panel with the newProfile, which
+	 * is generally just an updated version of the
+	 * previous profile.
+	 * @param newProfile
+	 */
 	public void refresh(Profile newProfile) {
 		myProfile = newProfile;
 		removeAll();
