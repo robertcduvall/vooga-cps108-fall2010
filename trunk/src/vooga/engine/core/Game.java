@@ -71,9 +71,10 @@ public class Game extends com.golden.gamedev.Game {
 		} catch (IOException e) {
 			System.out.println("Failed to load resources.xml");
 		}
+		initializeEntityMap();
 		initGameStates();
 		initSoundPlayer();
-		initializeEntityMap();
+		
 		//setCurrentLevel(INITIAL_LEVEL);
 	}
 
@@ -296,6 +297,7 @@ public class Game extends com.golden.gamedev.Game {
 	}
 	
 	public void initializeEntityMap() {
+		System.out.println("INITIALIZING ENTITY MAP");
 		try {
 			EntityMap.inititalize();
 		} catch (Throwable e){
