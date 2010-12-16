@@ -41,16 +41,20 @@ public class ReviewSet {
 	 * @return
 	 * 		Whether the addition was successful
 	 */
-	public boolean addReview(Review review) {
+	public boolean addReview(Review review, boolean isConflicting) {
 		Map<String, String> row = new HashMap<String, String>();
-		Map<String, String> conditions = new HashMap<String, String>();
+//		Map<String, String> conditions = new HashMap<String, String>();
 		row.put("Id", review.getId());
 		row.put("User_Id", review.getUserId());
 		row.put("GameInfo_Title", review.getGameInfoTitle());
 		row.put("Content", review.getContent());
 		row.put("Rating", review.getRating());
 		currentID++;
-		return myDbAdapter.replace(myTable, row);
+		if (isConflicting) {
+			return myDbAdapter.replace(myTable, row);
+		} else {
+			return myDbAdapter.insert(myTable, row);
+		}
 	}
 
 	/**
@@ -61,6 +65,7 @@ public class ReviewSet {
 	 */
 	public static List<Review> getReviewsByField(String fieldName, String value) {
 		List<Review> returnReviews = new ArrayList<Review>();
+		if (myDbAdapter==null) System.out.println("myDbAdapter is null");
 		for (Map<String, String> row: myDbAdapter.getRows(myTable, fieldName, value)) {
 			returnReviews.add(new Review( 
 					row.get("Id"),
@@ -98,10 +103,10 @@ public class ReviewSet {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("GameInfo_Title", review.getGameInfoTitle());
 		conditions.put("User_Id", review.getUserId());
-		 if (myDbAdapter.getRows(myTable, conditions) != null) {
-			 return true;
+		 if (myDbAdapter.getRows(myTable, conditions) == null || myDbAdapter.getRows(myTable, conditions).isEmpty()) {
+			 return false;
 		 }
-		 return false;
+		 return true;
 	}
 
 	/**

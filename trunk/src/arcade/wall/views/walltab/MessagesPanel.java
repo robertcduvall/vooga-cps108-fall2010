@@ -1,5 +1,6 @@
 package arcade.wall.views.walltab;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -34,12 +35,12 @@ public class MessagesPanel extends JPanel {
 	myCloseButton,
 	myComposeMessageButton,
 	myRefreshInboxButton;
-	private JComboBox myFriendsComboBox;
+//	private JComboBox myFriendsComboBox;
 	private JFrame myComposeMessageFrame;
 	private JLabel
 	myEnterMessageLabel,
-	mySendToNewReceiverLabel,
-	mySendToFriendLabel;
+	myEnterReceiverLabel;
+//	mySendToFriendLabel;
 	private JTextField
 	myEnterReceiverField,
 	myEnterMessageField;
@@ -47,15 +48,17 @@ public class MessagesPanel extends JPanel {
 	private JScrollPane myInboxScrollPane;
 
 	public MessagesPanel() {
-		String[] test = {"yo"};
-		myFriendsComboBox = new JComboBox(test);
+//		String[] test = {"yo"};
+//		myFriendsComboBox = new JComboBox(test);
 		mySendMessageButton = new JButton(WallTabPanel.myResources.getString("sendMessageButton"));
 		myCloseButton = new JButton(WallTabPanel.myResources.getString("closeButton"));
 		myComposeMessageButton = new JButton(WallTabPanel.myResources.getString("composeMessageButton"));
 		myRefreshInboxButton = new JButton(WallTabPanel.myResources.getString("refreshInboxButton"));
 		myEnterMessageLabel = new JLabel(WallTabPanel.myResources.getString("enterMessageLabel"));
-		mySendToNewReceiverLabel = new JLabel(WallTabPanel.myResources.getString("sendToNewReceiverLabel"));
-		mySendToFriendLabel = new JLabel(WallTabPanel.myResources.getString("sendToFriendLabel"));
+		myEnterMessageLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		myEnterReceiverLabel = new JLabel(WallTabPanel.myResources.getString("enterReceiverLabel"));
+		myEnterReceiverLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+//		mySendToFriendLabel = new JLabel(WallTabPanel.myResources.getString("sendToFriendLabel"));
 		myEnterReceiverField = new JTextField();
 		myEnterMessageField = new JTextField();
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -123,14 +126,15 @@ public class MessagesPanel extends JPanel {
 	 */
 	private void constructComposeMessageFrame(){
 		myComposeMessageFrame = new JFrame();
+		myComposeMessageFrame.setTitle("Compose Message");
 		JPanel composePanel = new JPanel();
 		JPanel buttonPanel = new JPanel();
 
 		composePanel.setLayout(new BoxLayout(composePanel, BoxLayout.Y_AXIS));
 		composePanel.setBorder(WallTabPanel.constructWallBorder(WallTabPanel.myResources.getString("composeMessagePanelBorder")));
-		composePanel.add(mySendToFriendLabel);
-		composePanel.add(myFriendsComboBox);
-		composePanel.add(mySendToNewReceiverLabel);
+//		composePanel.add(mySendToFriendLabel);
+//		composePanel.add(myFriendsComboBox);
+		composePanel.add(myEnterReceiverLabel);
 		composePanel.add(myEnterReceiverField);
 		composePanel.add(myEnterMessageLabel);
 		composePanel.add(myEnterMessageField);

@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class FeedbackPanel extends JPanel {
-	public static JComboBox myGameComboBox;
+	public JComboBox myGameComboBox;
 	private CommentPanel myCommentPanel;
 	private ReviewPanel myReviewPanel;
 	private JLabel mySelectGameLabel;
@@ -42,6 +42,7 @@ public class FeedbackPanel extends JPanel {
 	}
 	
 	public String getSelectedGame() {
+		System.out.println("the selected index is"+myGameComboBox.getSelectedIndex());
 		return WallTabPanel.myGameChoices[myGameComboBox.getSelectedIndex()];
 	}
 	

@@ -87,7 +87,6 @@ public class GameReportSet {
 	 * Retrieves the AverageRating for a Game.
 	 */
 	public double getAverageRating(String gameName) {
-		System.out.println("double=" + getValue("GameInfo_Title", gameName, "AverageRating"));
 		return Double.parseDouble(getValue("GameInfo_Title", gameName, "AverageRating"));
 	}
 
