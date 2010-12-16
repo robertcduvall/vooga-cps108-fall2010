@@ -15,7 +15,7 @@ public class MenuButton extends Button {
 	
 
 	/**
-	 * 
+	 * Creat
 	 * @param img
 	 * @param label
 	 * @param gamestate
@@ -56,7 +56,7 @@ public class MenuButton extends Button {
 		}
 
 	/**
-	 * 
+	 * Creates a new menu button.
 	 * @param img
 	 * @param label
 	 * @param x
