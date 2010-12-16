@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 import java.awt.event.*;
 import java.util.ArrayList;
 import arcade.security.gui.AdminBox;
@@ -100,6 +102,7 @@ public class AdminHandler {
 		public void actionPerformed(ActionEvent e) {
 			userHandler.updateUserTypes(changeMap);
 			userTypeMap = userHandler.getUserTypeMap();
+			JOptionPane.showMessageDialog(null,"Changes committed");
 		}
 
 	}
