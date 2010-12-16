@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultTreeModel;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -25,7 +26,11 @@ public class View extends JPanel implements ModelListener{
 		
 		this.initializePanel();
 		this.controller = controller;
+		
+		
 		treeViewer = new TreeViewer();
+		
+		
 		this.elementPanel = elementPanel;
 		treeViewer.addTreeSelectionListener(elementPanel.getController());
 
@@ -59,6 +64,9 @@ public class View extends JPanel implements ModelListener{
 
 	@Override
 	public void nodeUpdated(XMLNode node) {
+		
+		treeViewer.reload(node);
+		validate();
 		
 //		remove(treeViewer);
 //		updateUI();

@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.w3c.dom.Element;
@@ -12,7 +13,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XMLNode implements TreeNode{
+public class XMLNode extends DefaultMutableTreeNode{
 	
 	XMLNode parent;
 	Element element;
@@ -108,17 +109,17 @@ public class XMLNode implements TreeNode{
 	
 	public void addAttribute(String name){
 		element.setAttribute(name, "");
-		getRoot().checkYourself();
+		checkYourself();
 	}
 	
 	public void appendChild(XMLNode node){
 		element.appendChild(node.getElement());
-		getRoot().checkYourself();
+		checkYourself();
 	}
 	
 	public void orphanSelf(){
 		element.getParentNode().removeChild(element);
-		getRoot().checkYourself();
+		parent.checkYourself();
 	}
 	
 	public NamedNodeMap getAttributes(){
@@ -135,6 +136,7 @@ public class XMLNode implements TreeNode{
 			child.checkYourself();
 		}
 		observer.notifyNodeUpdated(this);
+
 	}
 	
 	public XMLNode getRoot(){
