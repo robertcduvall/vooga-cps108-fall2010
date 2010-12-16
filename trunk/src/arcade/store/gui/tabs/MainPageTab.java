@@ -14,8 +14,9 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.MainPageController;
+import arcade.store.gui.StoreTab;
 
-public class MainPageTab extends JPanel implements Tab, IViewer {
+public class MainPageTab extends StoreTab implements Tab, IViewer {
 
 	/**
 	 * 
@@ -88,6 +89,7 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
+	@Override
 	public JComponent getContent() {
 		return this;
 	}

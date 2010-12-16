@@ -18,8 +18,9 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.CheckoutController;
+import arcade.store.gui.StoreTab;
 
-public class CheckoutTab extends JPanel implements Tab, IViewer {
+public class CheckoutTab extends StoreTab implements Tab, IViewer {
 
 	/**
 	 * 
@@ -169,6 +170,9 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	}
 
 	// TODO: Comment
+	/**
+	 * Set the available creddits TextField to the parameter text.
+	 */
 	public void setAvailableCredditsTextField(String text) {
 		availableCredditsTextField.setText(text);
 	}

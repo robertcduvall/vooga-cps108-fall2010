@@ -5,6 +5,8 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 import arcade.store.control.ProfileController;
+import arcade.store.gui.StoreTab;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
@@ -17,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ProfileTab extends JPanel implements Tab, IViewer {
+public class ProfileTab extends StoreTab implements Tab, IViewer {
 
 	// private JPanel jPanel = null; //
 	// @jve:decl-index=0:visual-constraint="133,-45"
@@ -99,6 +101,7 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
+	@Override
 	public JComponent getContent() {
 		return this;
 	}

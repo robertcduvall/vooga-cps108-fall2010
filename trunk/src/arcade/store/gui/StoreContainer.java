@@ -23,8 +23,9 @@ public class StoreContainer extends JPanel implements Tab {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final String FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
 
-	MainController mainController;
+	private MainController mainController;
 
 	private ResourceBundle tabBundle = ResourceBundle
 	.getBundle("arcade.store.gui.resources.tabList");
@@ -51,11 +52,12 @@ public class StoreContainer extends JPanel implements Tab {
 				continue;
 			try {
 
-				Tab t = (Tab) getObject(classname);
+				StoreTab t = (StoreTab) getObject(classname);
+				t.setResourceBundleFilePath(FILE_PATH);
 				String name = ((JComponent) t).getName();	
 
 				mainController.addSubTab(name, t);
-
+				
 				//initialize all the start up features of the 
 				t.getController().initialize();
 
