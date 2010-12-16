@@ -9,7 +9,7 @@ import arcade.security.util.userserviceutil.CurrentUser;
 public class LogInHandler {
 	public static DataHandler dataHandler = DataHandler.getInstance("User");
 	
-	public static boolean successfulLogin(String username, char[] password){
+	public static boolean successfulLogin(String username, String password){
 		int userId = getUserId(username);
 		if(userId < 1) return false;
 		if(isPasswordValid(userId, password)){
@@ -35,11 +35,8 @@ public class LogInHandler {
 		return dataHandler.isAdmin(username).equals("Admin");
 	}
 	
-	public static boolean isPasswordValid(int userId, char[] password){
+	public static boolean isPasswordValid(int userId, String password){
 		String validPassword = dataHandler.getPassword(userId);
-		for(int i=0;i<password.length;i++){
-			if(password[i]!=validPassword.charAt(i)) return false;
-		}
-		return true;
+		return password.compareTo(validPassword) == 0;
 	}
 }

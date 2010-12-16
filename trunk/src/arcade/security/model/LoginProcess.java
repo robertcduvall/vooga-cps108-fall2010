@@ -10,7 +10,7 @@ public class LoginProcess implements IModel{
 
 	}
 	
-	public boolean isSuccessfulLogin(String username, char[] password){
+	public boolean isSuccessfulLogin(String username, String password){
 		if(username.contains(" "))return false;
 		return LogInHandler.successfulLogin(username, password);
 	}
