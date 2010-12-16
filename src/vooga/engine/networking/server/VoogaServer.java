@@ -20,9 +20,6 @@ import vooga.engine.util.XMLFileParser;
  * @version 1.0
  */
 public class VoogaServer {
-	private static Document xmlDocument;
-
-	
 
 	/**
 	 * Main method iterates through the list of games in the XML file and runs 
@@ -42,7 +39,7 @@ public class VoogaServer {
 	 */
 	private static List<Element> getGameArray(String filePath) {
 		List<Element> gameArray = new ArrayList<Element>();
-		xmlDocument = getXMLDocument(filePath);
+		Document xmlDocument = getXMLDocument(filePath);
 		Node gameSection = xmlDocument.getElementsByTagName("Games").item(0);
 		
 		if(gameSection != null){

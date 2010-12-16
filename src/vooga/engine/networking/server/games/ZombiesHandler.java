@@ -48,7 +48,8 @@ public class ZombiesHandler extends ClientHandler{
 	}
 
 	/**
-	 * Just tell all the players in the game to keep playing.  still is a method in the PlayState that does nothing.
+	 * Go through all the players, send them their own name and send everyone else their name.  The name and userName identifiers are defined
+	 * in the Name and Username classes if you want to replicate this to send over usernames.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0

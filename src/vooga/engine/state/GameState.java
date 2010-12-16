@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import vooga.engine.core.BetterSprite;
 import vooga.engine.core.PlayField;
 import vooga.engine.factory.LevelManager;
 import vooga.engine.networking.client.ClientConnection;
@@ -169,18 +167,6 @@ public abstract class GameState {
 
 	public void setConnection(ClientConnection connection) {
 		this.connection = connection;
-	}
-
-	/**
-	 * Overridden by subclasses that want to implement networking in their game.
-	 * Called in the update method when it receives a message from the socket.
-	 * 
-	 * @param data
-	 *            the String received from the socket
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-	public void interpretMessage(String data) {
 	}
 
 	/**
