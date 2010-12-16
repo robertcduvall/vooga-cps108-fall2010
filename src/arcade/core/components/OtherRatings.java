@@ -1,4 +1,4 @@
-package arcade.core.examples;
+package arcade.core.components;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -10,21 +10,19 @@ import arcade.store.StoreModel;
 import arcade.wall.models.WallModel;
 import arcade.wall.views.walltab.WallTabPanel;
 
+/**
+ * A Panel to be added to the main view of the Arcade. Displays the average ratings 
+ * of the games that are available for you to play
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
 
 public class OtherRatings extends Panel {
 	private WallModel model;
 	private String[] gameList;
 	
 	public OtherRatings(){
-		/*
-		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
-		JLabel rateOthers = new JLabel("Rate These Other Games");
-		JLabel moreLabels = new JLabel(icon);
-		
-		add(rateOthers);
-		add(moreLabels);
-		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		*/
 		initialize();
 	}
 	

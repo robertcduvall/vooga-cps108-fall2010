@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import arcade.core.Window;
+import arcade.core.components.HighScorePanel;
 
 /**
  * Creates a window that asks the user if they wish to submit their latest score

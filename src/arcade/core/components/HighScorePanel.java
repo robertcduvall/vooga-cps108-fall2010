@@ -1,4 +1,4 @@
-package arcade.core.examples;
+package arcade.core.components;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +12,7 @@ import arcade.core.ArcadeTab;
 import arcade.core.GameView;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
+import arcade.core.examples.HighScore;
 import arcade.lobby.model.ProfileSet;
 
 /**

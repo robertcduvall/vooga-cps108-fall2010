@@ -1,4 +1,4 @@
-package arcade.core.examples;
+package arcade.core.components;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -10,6 +10,14 @@ import javax.swing.JLabel;
 
 import arcade.ads.adsmanager.AdsManager;
 import arcade.core.Panel;
+
+/**
+ * A Panel to be added to the main view of the Arcade. Displays the ads in the bottom
+ * right corner
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
 
 public class Ads extends Panel {
 	

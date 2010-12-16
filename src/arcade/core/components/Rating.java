@@ -1,10 +1,19 @@
-package arcade.core.examples;
+package arcade.core.components;
 
 import arcade.core.GameView;
 import arcade.core.Panel;
 import arcade.wall.controllers.WallTabController;
 import arcade.wall.views.walltab.FeedbackPanel;
 import arcade.wall.views.walltab.WallTabPanel;
+
+/**
+ * A Panel to be added to the main view of the Arcade. Displays the
+ * panel for rating a game
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
+
 
 public class Rating extends Panel {
 	private WallTabController myController;
