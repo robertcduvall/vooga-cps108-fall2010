@@ -9,7 +9,11 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
@@ -36,10 +40,12 @@ import arcade.ads.adscontent.BasicAd;
 
 public class AdBuilder extends JFrame{
 
+	private static final String XML_TEXT_FILE = "src/arcade/ads/resources/ads";
+	private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+	private static final String XML_PROPERTIES = "arcade/ads/adsbuilder/xml";
 	private static final String PROPERTIES_FILE = "arcade/ads/adsbuilder/adbuilder";
 	private static final String TEXT_FILE = "arcade/ads/adsbuilder/ads";
 	private static final String PARAMETERS_FILE = "arcade/ads/adsbuilder/parameters";
-	private static final String PATH = "";
 	
 	private JPanel panel1, panel2, panel3, panel4, subpanel1, subpanel2, subpanel3, subpanel4;
 	private JCheckBox[] tagBoxes;
@@ -48,7 +54,12 @@ public class AdBuilder extends JFrame{
 	private HashMap<String, ArrayList<String>> propertiesMap;
 	private HashMap<String, JTextField> attributeMap;
 	private HashMap<String, ArrayList<String>> parameterMap;
+	private HashMap<String, ArrayList<String>> xmlTagMap;
 	private ResourceBundle myTextResources;
+	
+	private File xmlText;
+	private File xmlFile;
+	private FileWriter xmlWriter;
 	
 	//ad properties
 	private BasicAd ad;
@@ -57,17 +68,37 @@ public class AdBuilder extends JFrame{
 	private ArrayList<String> tags = new ArrayList<String>();
 	private boolean related, featured;
 	
-	public AdBuilder(){
-		propertiesMap = readFile(PROPERTIES_FILE);
+	public AdBuilder(String xmlTextFile){
+		setTitle("Ad Builder");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-
-		//attributeMap = new HashMap<String, String>();
+		
+		propertiesMap = readFile(PROPERTIES_FILE);
+		xmlTagMap = readFile(XML_PROPERTIES);
+		
+		JFileChooser chooser = new JFileChooser(System.getProperties().getProperty("user.dir"));
+		chooser.setDialogTitle("Save XML File");
+		//chooser.
+		int state = chooser.showSaveDialog(null);
+		if (state == chooser.APPROVE_OPTION);
+			xmlFile = chooser.getSelectedFile();
+		try {
+			xmlWriter = new FileWriter(xmlFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		JFileChooser chooser2 = new JFileChooser(System.getProperties().getProperty("user.dir"));
+		chooser2.setDialogTitle("Select Text File of XML Files");
+		//chooser.
+		int state2 = chooser2.showOpenDialog(null);
+		if (state2 == chooser2.APPROVE_OPTION);
+			xmlText = chooser2.getSelectedFile();
+		
 		attributeMap = new HashMap<String, JTextField>();
 		myTextResources = ResourceBundle.getBundle(TEXT_FILE);
 		parameterMap = readFile(PARAMETERS_FILE);
 		
-		setTitle("Ad Builder");
+		addTag(XML_HEADER + "\n<Ad Group>\n");
 		
 		createPanels();
 		
@@ -75,8 +106,8 @@ public class AdBuilder extends JFrame{
 		makeCheckBoxes(subpanel1);
 		makeFileBrowser(subpanel2);
 		makeTextFields(panel2, (String[]) propertiesMap.get("labels").toArray(new String[propertiesMap.get("labels").size()]));
-		rankField = addField("Rank", panel2); //if featured
-		updateField(false, rankField);
+		//rankField = addField("Rank", panel2); //if featured
+		//updateField(false, rankField);
 		tagBoxes = addCheckMenu(subpanel3, "Tags", (String[]) propertiesMap.get("tags").toArray(new String[propertiesMap.get("tags").size()])); //if related
 		updateField(false, tagBoxes);
 		addButton("Submit", subpanel4);
@@ -99,6 +130,14 @@ public class AdBuilder extends JFrame{
 				map.get(key).add(value);
 		}
 		return map;
+	}
+	
+	private void addTag(String tag){
+		try {
+			xmlWriter.write(tag);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void createPanels(){
@@ -158,7 +197,7 @@ public class AdBuilder extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				featured = !featured;
-				updateField(featured, rankField);
+				//updateField(featured, rankField);
 				panel2.updateUI();
 			}
 		
@@ -176,7 +215,6 @@ public class AdBuilder extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser chooser = new JFileChooser(System.getProperties().getProperty("user.dir"));
-				//chooser.setFileView(new AdFileView());
 				int state = chooser.showOpenDialog(null);
 				if (state == chooser.APPROVE_OPTION)
 					setFile(chooser.getSelectedFile());
@@ -213,7 +251,7 @@ public class AdBuilder extends JFrame{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					tags.add(((JCheckBox) e.getSource()).getLabel());
+					updateTag(tags, ((JCheckBox) e.getSource()).getText());
 				}	
 			});
 			panel.add(box);
@@ -222,16 +260,19 @@ public class AdBuilder extends JFrame{
 		return boxes.toArray(new JCheckBox[boxes.size()]);
 	}
 	
+	private void updateTag(ArrayList<String> list, String tag){
+		if (list.contains(tag)){
+			list.remove(tag);
+		}
+		else
+			list.add(tag);
+	}
+	
 	
 	private JTextField addField(String text, JPanel panel){
 		JLabel label = new JLabel(text);
 		JTextField field = new JTextField(20);
-		String[] arr = text.split(" ");
-		String s = "";
-		for (String str : arr){
-			s += str;
-		}
-		field.setText(myTextResources.getString(s));
+		field.setText(myTextResources.getString(text));
 		panel.add(label);
 		panel.add(field);
 		return field;
@@ -255,68 +296,55 @@ public class AdBuilder extends JFrame{
 	
 	private void getAllInfo(){
 		try {
-			Class<?> c = Class.forName(propertiesMap.get(type).get(0));
-			//for (String s: propertiesMap.get("labels")){
-			Class[] parameters = new Class[parameterMap.get(type).size()];
-			for (int i=0; i<parameters.length; i++){
-				parameters[i] = Class.forName(parameterMap.get(type).get(i));
-				if (parameterMap.get(type).get(i).endsWith("Integer"))
-					parameters[i] = parameters[i].getMethod("intValue", null).getReturnType();
-				if (parameterMap.get(type).get(i).endsWith("Long"))
-					parameters[i] = parameters[i].getMethod("longValue", null).getReturnType();
-					
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+			if (!related && !featured) {
+				addTag("<Ads>\n");
+				writeBasicAd();
+				addTag("</Ads>\n");
 			}
-//			parameters[0] = String.class;
-//			parameters[1] = Image.class;
-//			parameters[2] = String.class;
-//			parameters[3] = Integer.TYPE;
-//			parameters[4] = Integer.TYPE;
-//			parameters[5] = Date.class;
-//			parameters[6] = Date.class; 
-//			parameters[7] = long.class; 
-			
-			Constructor constructor = c.getConstructor(parameters);
-			ArrayList<String> labels = propertiesMap.get("labels");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-			Object[] arguments = new Object[8];
-			arguments[0] = attributeMap.get(labels.get(0)).getText();
-			arguments[1] = ImageIO.read(file);
-			arguments[2] = attributeMap.get(labels.get(1)).getText();
-			arguments[3] = Integer.parseInt(attributeMap.get(labels.get(2)).getText());
-			arguments[4] = Integer.parseInt(attributeMap.get(labels.get(3)).getText());
-			arguments[5] = dateFormat.parse(attributeMap.get(labels.get(4)).getText());
-			arguments[6] = dateFormat.parse(attributeMap.get(labels.get(5)).getText());
-			arguments[7] = Long.parseLong(attributeMap.get(labels.get(6)).getText());
-			ad = (BasicAd) constructor.newInstance(arguments);
+			else if (related) {
+				addTag("<RelatedAds>\n");
+				addTag("<RelatedAd type=\"");
+				for (int i=0; i<tags.size()-1; i++) {
+					addTag(tags.get(i) + ",");
+				}
+				addTag(tags.get(tags.size()-1) + "\">\n");
+				writeBasicAd();
+				addTag("</RelatedAd>\n</RelatedAds>\n");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		addTag("</AdGroup>");
+		writeXMLtoText();
+		try {
+			xmlWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-//	public void set(String field, Object value){
-//		try {
-//			Class.class.getField(field).set(field, value);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-//	}
-	/*ry {
-        Class cls = Class.forName("constructor2");
-        Class partypes[] = new Class[2];
-         partypes[0] = Integer.TYPE;
-         partypes[1] = Integer.TYPE;
-         Constructor ct 
-           = cls.getConstructor(partypes);
-         Object arglist[] = new Object[2];
-         arglist[0] = new Integer(37);
-         arglist[1] = new Integer(47);
-         Object retobj = ct.newInstance(arglist);
-      }
-      catch (Throwable e) {
-         System.err.println(e)
-	*/
+	private void writeBasicAd(){
+		addTag("<Ad");
+		addTag(" class=\""+ propertiesMap.get(type).get(0) + "\" ");
+		for (String label : propertiesMap.get("labels")){
+			addTag(label + "=\"" + attributeMap.get(label).getText() +"\" ");
+		}
+		addTag("/>\n");
+	}
+	
+	private void writeXMLtoText(){
+		FileWriter textWriter;
+		try {
+			textWriter = new FileWriter(xmlText, true);
+			String path = xmlFile.getCanonicalPath().replace(System.getProperties().getProperty("user.dir")+"/", "");
+			textWriter.append("\n" + path);
+			textWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void updateField(boolean val, Component... comp){
 		for (Component c: comp)
@@ -325,15 +353,15 @@ public class AdBuilder extends JFrame{
 	
 	private void respond(int n){
 		if (n==JOptionPane.YES_OPTION) {
-			new AdBuilder();
 			System.exit(0);
+			new AdBuilder(XML_TEXT_FILE);
 		}
 		else if (n==JOptionPane.NO_OPTION)
 			System.exit(0);
 	}
 	
 	public static void main(String args[]){
-		new AdBuilder();
+		new AdBuilder(XML_TEXT_FILE);
 	}
 	
 }
