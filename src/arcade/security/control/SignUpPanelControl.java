@@ -22,6 +22,13 @@ import arcade.security.view.LogInPanel;
 import arcade.security.view.SignUpPanel;
 import arcade.util.guiComponents.ValidatorDock;
 
+/**
+ * Controller for the Sign Up Panel. Used in conjunction with security.view.SignUpPanel
+ * and security.model.SignUpProcess.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne 
+ *  
+ */
 public class SignUpPanelControl implements IControl {
 
 	private final static Logger log = Logger
@@ -30,6 +37,13 @@ public class SignUpPanelControl implements IControl {
 	private SignUpPanel view;
 	private PasswordHandler passwordHandler;
 
+	/**
+	 * Constructor for the signup panel controller. Takes an
+	 * IView object and an IModel object
+	 * 
+	 * @param view the corresponding view object
+	 * @param model the corresponding model object
+	 */
 	public SignUpPanelControl(IView view, IModel model) {
 		this.model = (SignUpProcess) model;
 		this.view = (SignUpPanel) view;
@@ -144,6 +158,9 @@ public class SignUpPanelControl implements IControl {
 
 	}
 
+	/**
+	 * Switches the current panel to the login page
+	 */
 	public void switchToLoginPage() {
 		view.removeAll();
 		view.updateUI();
