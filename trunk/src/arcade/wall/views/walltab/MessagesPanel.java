@@ -18,6 +18,15 @@ import javax.swing.table.AbstractTableModel;
 
 import arcade.wall.models.data.message.Message;
 
+/**
+ * This class allows users to refresh their inbox to check for new messages,
+ * as well as compose messages to other users.
+ * 
+ * 
+ * @author John Kline, Bhawana Singh, Cameron McCallie
+ *
+ */
+
 @SuppressWarnings("serial")
 public class MessagesPanel extends JPanel {
 	private JButton 

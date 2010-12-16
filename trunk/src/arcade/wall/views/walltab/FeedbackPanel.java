@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class FeedbackPanel extends JPanel {
-	public static JComboBox gameComboBox;
+	public static JComboBox myGameComboBox;
 	private CommentPanel myCommentPanel;
 	private ReviewPanel myReviewPanel;
 	private JLabel mySelectGameLabel;
@@ -17,13 +17,13 @@ public class FeedbackPanel extends JPanel {
 	public FeedbackPanel() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		mySelectGameLabel = new JLabel(WallTabPanel.myResources.getString("selectGameLabel"));
-		gameComboBox = new JComboBox(WallTabPanel.myGameChoices);
-		gameComboBox.setSelectedIndex(0);
+		myGameComboBox = new JComboBox(WallTabPanel.myGameChoices);
+		myGameComboBox.setSelectedIndex(0);
 		myCommentPanel = new CommentPanel();
 		myReviewPanel = new ReviewPanel();
 		
 		this.add(mySelectGameLabel);
-		this.add(gameComboBox);
+		this.add(myGameComboBox);
 		this.add(myCommentPanel);
 		this.add(myReviewPanel);
 	}
@@ -33,11 +33,11 @@ public class FeedbackPanel extends JPanel {
 	 */
 	public void addGameComboBoxListener(
 			ActionListener gameComboBoxListener) {
-		gameComboBox.addActionListener(gameComboBoxListener);
+		myGameComboBox.addActionListener(gameComboBoxListener);
 	}
 	
 	public String getSelectedGame() {
-		return WallTabPanel.myGameChoices[gameComboBox.getSelectedIndex()];
+		return WallTabPanel.myGameChoices[myGameComboBox.getSelectedIndex()];
 	}
 	
 	public CommentPanel getCommentPanel() {

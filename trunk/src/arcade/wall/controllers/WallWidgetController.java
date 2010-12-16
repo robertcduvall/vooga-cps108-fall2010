@@ -14,6 +14,7 @@ public class WallWidgetController {
 	WallTabController controller;
 	WallModel model; 
 	WallWidgetView view;
+	public String myTitle;
 
 	public WallWidgetController() {
 		model = new WallModel();
@@ -25,6 +26,15 @@ public class WallWidgetController {
 		return view;
 	}
 	
+	public void setTitle(String title){
+		myTitle = title;
+	}
+	
+	public String getTitle(){
+		return myTitle;
+	}
+	
+	//not being used
 	class ReviewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	String selectedGameName = view.getSelectedGame();
@@ -37,12 +47,6 @@ public class WallWidgetController {
         }
 	}
 	
-	class GameComboBoxListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-            if ("comboBoxChanged".equals(e.getActionCommand())) {
-                view.setEntryText("");
-    	    }
-        }
-	}
+
 	
 }

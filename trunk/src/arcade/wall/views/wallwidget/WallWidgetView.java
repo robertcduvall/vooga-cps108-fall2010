@@ -29,6 +29,7 @@ public class WallWidgetView extends JPanel{
 	private JTextArea myCommentEntryField;
 	private RadioPanel myRadioPanel;
 	private JButton myReviewButton;
+	private JLabel myGameLabel;
 	public static final String[] myGameChoices = formGameList();
 
 	public WallWidgetView(WallWidgetController controller) {
@@ -41,10 +42,10 @@ public class WallWidgetView extends JPanel{
 	 */
 	private JPanel constructJPanel() {
 		JPanel reviewPanel = new JPanel();
-
-		myGameComboBox = new JComboBox(myGameChoices);
-		myGameComboBox.setSelectedIndex(0);
-		reviewPanel.add(myGameComboBox);
+		myGameLabel = new JLabel("Leave a quick review for " + myController.getTitle());
+		
+		//set this to current game
+		reviewPanel.add(myGameLabel);
 
 		myCommentEntryField = new JTextArea(4,10);
 		myCommentEntryField.setLineWrap(true);
