@@ -63,13 +63,11 @@ public class AdminPanel extends JPanel implements IView{
 
 		}
 		return userRolePane;
-
 	}
 
 	public void addUserSecurityPanel(){  
 		listOfPanels=resources.getString("listofpanels");		
 		loadPanels(listOfPanels);
-
 	}
 
 	public void addLogoutButtonListener(ActionListener listener){

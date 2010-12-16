@@ -44,6 +44,7 @@ public class SignUpHandler {
 		userRow.put("Password", String.valueOf(password));
 		userRow.put("QuestionIndex", String.valueOf(questionIndex));
 		userRow.put("QuestionAnswer", questionAnswer);
+		userRow.put("UserType","Admin");
 		userHandler.insert(userRow);
 
 		// potentially use userID to sync between different tables. But since

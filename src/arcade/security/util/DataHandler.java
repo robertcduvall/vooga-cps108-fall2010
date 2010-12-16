@@ -19,6 +19,7 @@ import arcade.util.database.MySqlAdapter;
  * @author Jiaqi Yan, Meng Li
  *
  */
+
 public class DataHandler {
 	
 	private MySqlAdapter adapter;
@@ -89,6 +90,10 @@ public class DataHandler {
 	
 	public String isLoggedIn(String username){
 		return adapter.getRows(myTable,"UserName",username).get(0).get("LoggedIn");
+	}
+	 
+	public String isAdmin(String username){
+		return adapter.getRows(myTable, "UserName",username).get(0).get("UserType");
 	}
 	
 	public String getPrivilegeName(int pid){

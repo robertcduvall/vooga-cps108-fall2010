@@ -18,6 +18,10 @@ public class LoginProcess implements IModel{
 	public void logIn(String username){
 		LogInHandler.setCurrentUser(username);
 	}
+	
+	public boolean isAdmin(String username){
+		return LogInHandler.isAdmin(username);
+	}
 
 	
 	
