@@ -40,14 +40,14 @@ public class PurchaseItemController implements IController {
 		view.getGameIcon().setSize(150, 150);
 
 		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
-		Review randomReview = ReviewSet.getRandomReview("GameInfo_Title", item.getTitle());
-		try {
-			Profile p = ProfileSet.getProfile(Integer.parseInt(randomReview.getUserId()));
-			view.setReviewText(randomReview.getContent() + " ---"+
-				p.getFirstName());
-		} catch (NullPointerException e) {
-			view.setReviewText("No reviews have been written for this game yet.");
-		}
+//		Review randomReview = ReviewSet.getRandomReview("GameInfo_Title", item.getTitle());
+//		try {
+//			Profile p = ProfileSet.getProfile(Integer.parseInt(randomReview.getUserId()));
+//			view.setReviewText(randomReview.getContent() + " ---"+
+//				p.getFirstName());
+//		} catch (NullPointerException e) {
+//			view.setReviewText("No reviews have been written for this game yet.");
+//		}
 		int currentUserId = Integer.parseInt(storeModel.getCurrentUserAccount().getId());
 		for(String s : StoreModel.getUserOwnedGamesAsStrings(currentUserId)) {
 			if(s.equals(getItemName())) {
