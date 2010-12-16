@@ -13,7 +13,6 @@ import javax.swing.JScrollPane;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
-import arcade.store.StoreModel;
 import arcade.store.control.MainPageController;
 
 public class MainPageTab extends JPanel implements Tab, IViewer {
@@ -32,7 +31,7 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	private JList genreList;
 	private JScrollPane jScrollPane;
 	private JPanel gameListPanel;
-	
+
 	public MainPageTab() {
 		setName("Browse Catalogue");
 
@@ -49,20 +48,20 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	private void initializeMainPageTab() {
 		controller = new MainPageController(FILE_PATH);
 		controller.addViewer(this);
-		
+
 		genreList = new JList();
 		genreList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.processEvent("filter");
 			}
 		});
-		
+
 		gameListPanel = new JPanel(new GridLayout(0, 4));
 		gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		jScrollPane = new JScrollPane();
 		jScrollPane.setViewportView(getGameList());
-		
+
 		BorderLayout borderLayout = new BorderLayout();
 		borderLayout.setHgap(10);
 		borderLayout.setVgap(10);
@@ -101,7 +100,7 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	private JList getGenreList() {
 		return genreList;
 	}
-	
+
 	/**
 	 * 
 	 * @param list
@@ -117,7 +116,7 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	public Object getSelectedGenre() {
 		return genreList.getSelectedValue();
 	}
-	
+
 	/**
 	 * 
 	 * @return

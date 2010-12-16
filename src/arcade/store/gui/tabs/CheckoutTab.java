@@ -21,6 +21,10 @@ import arcade.store.control.CheckoutController;
 
 public class CheckoutTab extends JPanel implements Tab, IViewer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
 	private static final String NAME = "Checkout Page";
@@ -31,7 +35,7 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private JList itemsList;
 	private JTextField totalCostTextField;
 	private JTextField remainingCredditsTextField;
-	
+
 	/**
 	 * This method initializes myCheckOutTab
 	 * 
@@ -62,20 +66,20 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private void initializeComponents() {
 		controller = new CheckoutController(FILE_PATH);
 		controller.addViewer(this);
-		
+
 		availableCredditsTextField = new JTextField();
 		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25));
-		
+
 		itemsList = new JList();
 		itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				controller.processEvent("registerSelected");
 			}
 		});
-		
+
 		totalCostTextField = new JTextField();
 		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25));
-		
+
 		remainingCredditsTextField = new JTextField();
 		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25));
 	}
@@ -163,8 +167,8 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private JTextField getAvailableCredditsTextField() {
 		return availableCredditsTextField;
 	}
-	
-	//TODO: Comment
+
+	// TODO: Comment
 	public void setAvailableCredditsTextField(String text) {
 		availableCredditsTextField.setText(text);
 	}
@@ -177,8 +181,8 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private JTextField getTotalCostTextField() {
 		return totalCostTextField;
 	}
-	
-	//TODO:
+
+	// TODO:
 	public void setTotalCostTextField(String text) {
 		totalCostTextField.setText(text);
 	}
@@ -191,8 +195,8 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private JTextField getRemainingCredditsTextField() {
 		return remainingCredditsTextField;
 	}
-	
-	//TODO:
+
+	// TODO:
 	public void setRemainigCredditsTextField(String text) {
 		remainingCredditsTextField.setText(text);
 	}
@@ -239,17 +243,17 @@ public class CheckoutTab extends JPanel implements Tab, IViewer {
 	private JList getItemsList() {
 		return itemsList;
 	}
-	
-	//TODO:
+
+	// TODO:
 	public void setItemsList(String[] items) {
 		itemsList.setListData(items);
 	}
 
-	//TODO:
+	// TODO:
 	public Object getSelectedItem() {
 		return itemsList.getSelectedValue();
 	}
-	
+
 	/**
 	 * This method initializes BuyCartButton
 	 * 
