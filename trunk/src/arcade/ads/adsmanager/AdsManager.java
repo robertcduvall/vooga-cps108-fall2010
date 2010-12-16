@@ -117,7 +117,7 @@ public class AdsManager implements MouseListener {
 	 * update ads
 	 */
 	public void update() {
-		System.out.println(panel.getHeight());
+		//System.out.println(panel.getHeight());
 		render();
 	}
 
@@ -141,6 +141,11 @@ public class AdsManager implements MouseListener {
 		return null;
 	}
 	
+	public void setRenderedAds(){
+		renderedAdsGroup.clear();
+		renderedAdsGroup.setAds(activeAdsGroup.getAds());
+	}
+	
 	public void setRenderedAds(String...tags){
 		renderedAdsGroup.clear();
 		for (String tag: tags)
@@ -156,6 +161,10 @@ public class AdsManager implements MouseListener {
 	
 	public void setActiveAds(File file) {
 		activeAdsGroup.setAds(XMLtoAds.convertAds(file));
+	}
+	
+	public void setRenderedAds(AdsGroup group) {
+		renderedAdsGroup.setAds(group.getAds());
 	}
 	
 	/**

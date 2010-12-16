@@ -69,6 +69,11 @@ public class RelatedAd extends BasicAd implements IRelatedAds{
 	public void update(long elapsedTime) {
 		ad.update(elapsedTime);
 	}
+	
+	@Override
+	public String getName(){
+		return this.ad.getName();
+	}
 
 //	@Override
 //	public void mouseClicked(MouseEvent e) {
@@ -102,15 +107,13 @@ public class RelatedAd extends BasicAd implements IRelatedAds{
 
 	@Override
 	public void render(JPanel p) {
-		// TODO Auto-generated method stub
 		ad.render(p);
 		
 	}
 
 	@Override
 	public void render(JPanel p, int x, int y) {
-		// TODO Auto-generated method stub
-		
+		ad.render(p, x, y);
 	}
 
 	}
