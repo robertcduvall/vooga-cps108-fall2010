@@ -132,6 +132,16 @@ public class ProfileSet implements Iterable<Profile> {
 	public static void setUser(int userId) {
 		currentProfile = getProfile(userId);
 	}
+	
+	public static Map<String,Integer> getUserNames() {
+		List<String> names = myDbAdapter.getColumn("User", "UserName");
+		List<String> ids = myDbAdapter.getColumn("User", "Id");
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		for(int i = 0; i < names.size(); i++) {
+			map.put(names.get(i),Integer.parseInt(ids.get(i)));
+		}
+		return map;
+	}
 
 	public static Profile getCurrentProfile() {
 		return currentProfile == null ? GUEST_PROFILE : currentProfile;
