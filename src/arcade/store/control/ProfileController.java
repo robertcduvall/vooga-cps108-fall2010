@@ -50,10 +50,9 @@ public class ProfileController extends Controller {
 	 * Source: http://www.experts-exchange.com/Programming/Languages/Java/Q_23255872.html
 	 */
 	public void populatePurchaseHistory() {
-		List<Map<String, String>> data = dbAdapter.getRows("SELECT * FROM "
-				+ StoreDbConstants.PURCHASE_HISTORY_TABLE + " WHERE "
-				+ StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD + "='"
-				+ getUser().getId() + "'");
+		List<Map<String, String>> data = dbAdapter.getRows(StoreDbConstants.PURCHASE_HISTORY_TABLE,
+				StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD,
+				getUser().getId());
 		String[][] tableData = new String[data.size()][3];
 		for (int k = 0; k < data.size(); k++) {
 			tableData[k][0] = data.get(k).get(StoreDbConstants.ITEMNAME_FIELD);

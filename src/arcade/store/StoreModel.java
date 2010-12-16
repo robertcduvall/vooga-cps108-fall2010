@@ -1,6 +1,12 @@
 package arcade.store;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
@@ -198,8 +204,9 @@ public class StoreModel implements IModel{
 	}
 	
 	private static List<Map<String, String>> pollOwnedGamesTable(int userId) {
-		return dbAdapter.getRows("SELECT Item_Id,ItemName FROM "
-				+StoreDbConstants.PURCHASE_HISTORY_TABLE+" WHERE User_Id="+userId);
+		Map<String,String> condition = new HashMap<String, String>();
+		condition.put("User_Id", Integer.toString(userId));
+		return dbAdapter.getRows(StoreDbConstants.PURCHASE_HISTORY_TABLE, condition, "Item_Id","ItemName");
 	}
 	
 	public static void addItemsToCart(List<IItemInfo> itemsToPurchase) {
