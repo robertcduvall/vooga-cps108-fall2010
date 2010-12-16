@@ -41,7 +41,7 @@ public class ReviewSet {
 	 * @return
 	 * 		Whether the addition was successful
 	 */
-	public boolean addReview(Review review, boolean isConflicting) {
+	public boolean addReview(Review review) {
 		Map<String, String> row = new HashMap<String, String>();
 		Map<String, String> conditions = new HashMap<String, String>();
 		row.put("Id", review.getId());

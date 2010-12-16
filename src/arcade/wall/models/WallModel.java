@@ -55,8 +55,8 @@ public class WallModel implements IWallModel {
 		myMessageSet.addMessage(message);
 	}
 	
-	public void addReview(Review review, boolean isConflicting) {
-		myReviewSet.addReview(review, isConflicting);
+	public void addReview(Review review) {
+		myReviewSet.addReview(review);
 		double newAverageRating = myReviewSet.getAverageRating(review.getGameInfoTitle());
 		myGameReportSet.updateAverageRating(review.getGameInfoTitle(), newAverageRating);
 	}
