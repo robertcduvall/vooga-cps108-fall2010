@@ -1,1 +1,2 @@
 src/arcade/ads/resources/adGroup1.xml
+/src/arcade/ads/resources/xmlTest.xml

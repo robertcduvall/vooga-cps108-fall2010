@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Ad Group>
+<RelatedAds>
+<RelatedAd type="Action">
+<Ad class="arcade.ads.adscontent.ImageAd" name="name" targetURL="http://" startTime="MM/DD/YYYY HH:MM:SS" endTime="MM/DD/YYYY HH:MM:SS" duration="3" />
+</RelatedAd>
+</RelatedAds>
+</AdGroup>
