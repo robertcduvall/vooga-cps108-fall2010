@@ -27,18 +27,6 @@ public class WallWidgetController {
 		myView = new WallWidgetView(this);	
 		myView.addReviewButtonListener(new SubmitReviewButtonListener());
 	}
-
-	public WallWidgetView getView() {
-		return myView;
-	}
-	
-	public void setTitle(String title){
-		myTitle = title;
-	}
-	
-	public String getTitle(){
-		return myTitle;
-	}
 	
 	/**
 	 * Displays a dialog box asking the user if they want to overwrite their previous rating given to a game.
@@ -60,6 +48,9 @@ public class WallWidgetController {
 		return n;
 	}
 	
+	/**
+	 * ActionListener for the SubmitReviewButton in the WallWidget.
+	 */
 	class SubmitReviewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	String selectedGameName = myTitle;
@@ -73,6 +64,18 @@ public class WallWidgetController {
     			myModel.addReview(submittedReview, false);
     		}
         }
+	}
+	
+	public WallWidgetView getView() {
+		return myView;
+	}
+	
+	public void setTitle(String title){
+		myTitle = title;
+	}
+	
+	public String getTitle(){
+		return myTitle;
 	}
 	
 
