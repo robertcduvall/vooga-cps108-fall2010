@@ -117,8 +117,6 @@ public class GameView extends JPanel {
 							Game launchedGame = (Game) gameConstructor.newInstance();
 														
 							launchedGame.setMod(JOptionPane.showInputDialog("Enter mod name (leave blank otherwise):"));
-							System.out.println(gameName);
-							System.out.println(gameProperties.get("title")[0]);
 							WallWidget gameWidget = new WallWidget(gameName);
 
 							Game.launch(launchedGame, ProfileSet.getCurrentProfile().getUserName());
