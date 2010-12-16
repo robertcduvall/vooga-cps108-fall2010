@@ -9,7 +9,8 @@ import arcade.security.util.SignUpHandler;
 import arcade.util.guiComponents.ValidatorDock;
 
 /**
- * Model object for the signup panel
+ * Model object for the signup panel.  Used in conjunction with 
+ * security.view.SignUpPanel and security.control.SignUpPanelControl.
  * 
  * @author Meng Li, Jiaqi Yan, Nick Hawthorne
  *

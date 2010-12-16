@@ -24,11 +24,13 @@ import arcade.security.util.LogInHandler;
 import arcade.security.control.*;
 import arcade.util.database.MySqlAdapter;
 
+
 /**
- * Log In Panel. 
- * @author Jiaqi Yan
- * @author Meng Li
- * @author Andrew Brown
+ * View object for the Login panel. Used in conjunction with 
+ * security.model.LoginProcess and security.control.LogInPanelControl.
+ * 
+ * @author Meng Li, Jiaqi Yan, Andrew Brown, Nick Hawthorne
+ *
  */
 public class LogInPanel extends JPanel  implements Tab,IView{
 	
