@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  */
 public class StoreDbConstants {
 
-	private static final ResourceBundle bundle = ResourceBundle.getBundle("arcade.store.database.DatabaseResources");
+	public static final ResourceBundle bundle = ResourceBundle.getBundle("arcade.store.database.DatabaseResources");
 	
 	public static final String CREDDIT_FIELD = bundle.getString("credditField");
 	public static final String CART_FIELD = bundle.getString("cartField");

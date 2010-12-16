@@ -13,10 +13,27 @@ import javax.swing.JOptionPane;
  */
 public class GuestUser extends StoreUser {
 
-
+	private static final String GUEST_USER_TYPE = "0";
+	
+	public GuestUser(String id, double creddits, String cart)
+	{
+		super(id, creddits, cart);
+	}
+	
+	
 	@Override
 	public void addToCart(String name) {
-		//don't do anything
+	
 	}
-
+	
+	/**
+	 * This method returns the guest user type
+	 * @return
+	 */
+	public String getType()
+	{
+		return GUEST_USER_TYPE;
+	}
+	
+	
 }

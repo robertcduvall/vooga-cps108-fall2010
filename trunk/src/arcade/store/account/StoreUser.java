@@ -13,10 +13,10 @@ import java.util.*;
 public class StoreUser {
 
 	public static final int MINIMAL_BALANCE = 0;
-	private final static String DEFAULT_ID = "0";
-	private final static String SPLIT_CART_STRING = ",";
+	private static final String DEFAULT_ID = "0";
+	private static final String SPLIT_CART_STRING = ",";
+	private static final String STORE_USER_TYPE = "1";
 	private String id;
-	private String accountType;
 	private double creddits;
 	private List<String> cart;
 
@@ -30,8 +30,7 @@ public class StoreUser {
 	 * @param creddits
 	 * @param cart
 	 */
-	public StoreUser(String id, String userType, double creddits, String cart) {
-		this.accountType = userType;
+	public StoreUser(String id, double creddits, String cart) {
 		this.id = id;
 		this.creddits = creddits;
 		this.cart = new ArrayList<String>();
@@ -48,7 +47,7 @@ public class StoreUser {
 	 * String.
 	 */
 	public StoreUser() {
-		this(DEFAULT_ID, "1", 0, "");
+		this(DEFAULT_ID, 0, "");
 	}
 
 
@@ -68,7 +67,12 @@ public class StoreUser {
 	public List<String> getCart() {
 		return cart;
 	}
-
+	
+	public void setUSerType(String type)
+	{
+		
+	}
+	
 	/**
 	 * Checks for whether the user's cart is empty. 
 	 * @return
@@ -134,7 +138,7 @@ public class StoreUser {
 	 * convenience). 
 	 */
 	public String getAccountType() {
-		return accountType;
+		return STORE_USER_TYPE;
 	}
 
 }
