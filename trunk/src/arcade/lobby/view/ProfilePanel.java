@@ -182,14 +182,13 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		if (!panelClassString.isEmpty()) {
 			String[] panelClasses = panelClassString.split(",");
 			for (int j = 0; j < panelClasses.length; j++) {
-				JPanel newPanel = null;
 				try {
-					newPanel = (JPanel) Class.forName(panelClasses[j])
+					JPanel newPanel = (JPanel) Class.forName(panelClasses[j])
 							.newInstance();
+					sidebar.add(newPanel, "cell 0 " + j);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				sidebar.add(newPanel, "cell 0 " + j);
 			}
 		}
 		return sidebar;
