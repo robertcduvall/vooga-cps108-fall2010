@@ -20,7 +20,6 @@ public class TicTacNetworkMenuState extends MenuGameState{
 	@Override
 	public void initialize() {
 		MenuButton.setGamePath("vooga.games.tictactoe.Blah"); //TODO DONT HARDCODE -- Devon
-		/*makeNextButton("Quit","exit" ,"vooga.engine.state.MenuGameState");*/
 	}
 
 	

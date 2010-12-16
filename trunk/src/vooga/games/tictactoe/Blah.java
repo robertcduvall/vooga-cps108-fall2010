@@ -56,8 +56,8 @@ public class Blah extends Game {
 		PlayField waitField = levelParser.getPlayfield(Resources.getString("waitXml"), this);
 		waitState = new WaitingState(this, connection, waitField, playState);
 		TicTacNetworkMenuState networkMenuState = new TicTacNetworkMenuState();
-		networkMenuState.makeNextButton("WaitForOpponent", waitState);
-		networkMenuState.makeNextButton("Play", playState);
+		networkMenuState.makeButton("WaitForOpponent", waitState);
+		networkMenuState.makeButton("Play", playState);
 		stateManager.addGameState(networkMenuState);
 		stateManager.addGameState(waitState);
 		stateManager.addGameState(playState);
