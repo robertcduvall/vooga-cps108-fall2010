@@ -13,7 +13,7 @@ import arcade.core.mvc.IController;
 @SuppressWarnings("serial")
 public abstract interface Tab {
 	
-	public abstract JComponent getContent();
+//	public abstract JComponent getContent();
 
 	/**
 	 * This method returns a controller interface
@@ -29,10 +29,4 @@ public abstract interface Tab {
 	 * when ever a tab is clicked
 	 */
 	public void refresh();
-	
-	/**
-	 * This method sets up the control.
-	 * @param control
-	 */
-	public void setController(IController control);
 }

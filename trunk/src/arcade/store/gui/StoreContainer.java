@@ -61,7 +61,7 @@ public class StoreContainer extends JPanel implements Tab {
 				//initialize all the start up features of the 
 				t.getController().initialize();
 
-				everything.addTab(((JComponent) t).getName(), null, t.getContent(),
+				everything.addTab(((JComponent) t).getName(), null, t,
 						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
