@@ -18,6 +18,13 @@ import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
 import arcade.security.view.RetrievePasswordPanel;
 
+/**
+ * Controller for the forgotten password page. Used in conjunction with 
+ * security.view.RetrievePasswordPanel and security.model.RetrievePasswordProcess.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne 
+ *  
+ */
 public class RetrievePasswordPanelControl implements IControl {
 	private final static Logger log=Logger.getLogger(RetrievePasswordPanelControl.class);
 	private RetrievePasswordProcess model;
@@ -25,6 +32,13 @@ public class RetrievePasswordPanelControl implements IControl {
 	private String userNameInput;
 	private String userAnswerInput;
 	
+	/**
+	 * Constructor for the forgotten password panel controller. Takes 
+	 * an IView object and an IModel object
+	 * 
+	 * @param view the corresponding view object
+	 * @param model the corresponding model object
+	 */
 	public RetrievePasswordPanelControl(IView view, IModel model){
 		this.model = (RetrievePasswordProcess)model;
 		this.view = (RetrievePasswordPanel)view;
@@ -52,7 +66,10 @@ public class RetrievePasswordPanelControl implements IControl {
 		}	
 	}
 
-	public void switchToLogInPage(){
+	/**
+	 * Switches the current panel to the login page
+	 */
+	private void switchToLogInPage(){
 		view.removeAll();
 		view.updateUI();
 		LogInPanel jp = new LogInPanel();

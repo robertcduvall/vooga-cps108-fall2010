@@ -1,7 +1,7 @@
 package arcade.security.control;
 
 /**
- * Interface for Control Objects
+ * Interface for controllers in the security MVC
  * 
  * @author Meng Li, Jiaqi Yan, Nick Hawthorne
  *
