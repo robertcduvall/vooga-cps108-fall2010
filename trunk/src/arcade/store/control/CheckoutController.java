@@ -82,7 +82,7 @@ public class CheckoutController extends Controller {
 	 */
 	public void setUpRemainingCreddits() {
 
-		double remaining = storeModel.getUserWishListBalance();
+		double remaining = storeModel.totalCartCost();
 		setRemainingCreditField(remaining);
 	}
 
@@ -107,7 +107,7 @@ public class CheckoutController extends Controller {
 	public void setUpUserCostField() {
 		// The total cart cost
 		String totalCartPrice = ""
-				+ storeModel.getTotalUserCartCost();
+				+ storeModel.totalCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
 	}
 
@@ -141,7 +141,7 @@ public class CheckoutController extends Controller {
 					getString("wantToBuyCartString"), getString("buyCartString"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
-				processBuyCart();
+				verifyCreddits();
 			}
 		}
 	}
@@ -157,26 +157,16 @@ public class CheckoutController extends Controller {
 		// if no credits are less than cost throw an error
 		// else go ahead and buy the cart
 
-		if (storeModel.userHasNoCartItems() || storeModel.userHasEnoughCreddits()) {
+		if (storeModel.notEnoughCreddits()) {
 			JOptionPane
 					.showMessageDialog(null, getString("cannotPurchaseCartString"));
 		} else {
-			processBuyCart();
+			storeModel.processBuyCart();
+			initialize();
 			JOptionPane.showMessageDialog(null, getString("thankYouForBuyingString"));
 		}
 	}
 
-	/**
-	 * This method process the buy cart step. The games on the cart list are added
-	 * to the user's owned games.
-	 */
-	public void processBuyCart() {
-
-		storeModel.processBuyCart();
-
-		// refresh the content of inventory
-		initialize();
-	}
 
 	/**
 	 * processConfirmDropItem shows a dialogue message that prompts the user to
@@ -216,7 +206,7 @@ public class CheckoutController extends Controller {
 	 * profile page on the data base. 
 	 */
 	public void processSaveCart() {
-		storeModel.saveCart();
+		storeModel.saveUserCart();
 		JOptionPane.showMessageDialog(null, getString("cartSavedString"));
 	}
 

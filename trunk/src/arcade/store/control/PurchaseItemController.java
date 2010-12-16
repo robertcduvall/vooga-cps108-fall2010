@@ -72,7 +72,7 @@ public class PurchaseItemController implements IController {
 				"Add to Cart", JOptionPane.YES_NO_OPTION);
 		if (ret == JOptionPane.YES_OPTION) {
 			storeModel.getCurrentUserAccount().addToCart(getItemName());
-			view.getJFrame().setVisible(false);
+			
 		}
 	}
 
