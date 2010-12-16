@@ -1,18 +1,20 @@
 package arcade.core.examples;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import arcade.ads.adsmanager.AdsManager;
 import arcade.core.Panel;
 
-@SuppressWarnings("serial")
 public class Ads extends Panel {
 	
 	//private AdsManager myManager;
+	private static final int AVATAR_WIDTH = 50;
 	
 	public Ads() {
 		initialize();
@@ -35,16 +37,24 @@ public class Ads extends Panel {
 		myManager.setRenderedAds();
 		add(panel2);
 
-		myManager.runAdsManager();*/
+		myManager.runAdsManager();
 		
+		*/
 		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+		scaleImage(icon);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		JLabel randomAd = new JLabel("Buy Coke.");
 		add(randomAd);
 
 		JLabel evenMoreLabels = new JLabel(icon);
 		add(evenMoreLabels);
+		
+	}
+	
+	private void scaleImage(ImageIcon icon) {
+		Image image = icon.getImage();
+		icon.setImage(image.getScaledInstance(AVATAR_WIDTH,
+				AVATAR_WIDTH * icon.getIconHeight() / icon.getIconWidth(), 0));
 	}
 }
