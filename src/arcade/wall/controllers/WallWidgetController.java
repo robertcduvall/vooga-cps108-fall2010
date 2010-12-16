@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.models.WallModel;
-import arcade.wall.models.data.comment.Comment;
 import arcade.wall.models.data.review.Review;
 import arcade.wall.views.wallwidget.WallWidgetView;
 

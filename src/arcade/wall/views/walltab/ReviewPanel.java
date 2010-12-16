@@ -8,13 +8,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import arcade.wall.views.ratings.IconPanel;
 import arcade.wall.views.ratings.RadioPanel;
 
 @SuppressWarnings("serial")
 public class ReviewPanel extends JPanel {
 	
 	private JTextField myReviewArea;
-	private RadioPanel myRatingPanel;
+	private IconPanel myRatingPanel;
 	private JButton myReviewButton;
 	
 	public ReviewPanel() {
@@ -48,7 +49,7 @@ public class ReviewPanel extends JPanel {
 	 * Constructs the RatingPanel - this panel holds elements related to the Wall rating and comment submission system.
 	 */
 	private void constructRatingPanel() {
-		myRatingPanel = new RadioPanel(5);
+		myRatingPanel = new IconPanel(5);
 		ResourceBundle ratingLabelBundle = ResourceBundle.getBundle("arcade.wall.views.tierLabels");
 		for (String s: ratingLabelBundle.keySet()) {
 			myRatingPanel.addComment(Integer.parseInt(s), ratingLabelBundle.getString(s));
