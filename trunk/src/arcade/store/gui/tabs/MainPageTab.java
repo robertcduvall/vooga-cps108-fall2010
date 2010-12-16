@@ -17,15 +17,16 @@ import arcade.store.gui.StoreTab;
 public class MainPageTab extends StoreTab {
 
 	/**
-	 * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
-	 * @date: 			12-16-10
-	 * @description:	
+	 * @author: Drew Sternesky, Jimmy Mu, Marcus Molchany
+	 * @date: 12-16-10
+	 * @description:
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String NAME = "Main Page";
 	private static final String FILE_PATH = "arcade.store.resources.MainPageController";
+	private static final String CHECKOUT_TAB_FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
 
 	private MainPageController controller; // @jve:decl-index=0:
 	private JList genreList;
@@ -33,7 +34,8 @@ public class MainPageTab extends StoreTab {
 	private JPanel gameListPanel;
 
 	public MainPageTab() {
-		setName("Browse Catalogue");
+		setResourceBundleFilePath(CHECKOUT_TAB_FILE_PATH);
+		setName(getString("mainPageTabString"));
 
 		initializeMainPageTab();
 
@@ -56,15 +58,19 @@ public class MainPageTab extends StoreTab {
 			}
 		});
 
-		gameListPanel = new JPanel(new GridLayout(0, 4));
+		gameListPanel = new JPanel(new GridLayout(
+				Integer.parseInt(getString("gameListPanelRowsString")),
+				Integer.parseInt(getString("gameListPanelColsString"))));
 		gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		jScrollPane = new JScrollPane();
 		jScrollPane.setViewportView(getGameList());
 
 		BorderLayout borderLayout = new BorderLayout();
-		borderLayout.setHgap(10);
-		borderLayout.setVgap(10);
+		borderLayout.setHgap(Integer
+				.parseInt(getString("borderLayoutHgapString")));
+		borderLayout.setVgap(Integer
+				.parseInt(getString("borderLayoutVgapString")));
 		setLayout(borderLayout);
 	}
 
