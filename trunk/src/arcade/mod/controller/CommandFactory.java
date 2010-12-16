@@ -7,9 +7,6 @@ public class CommandFactory {
 
 	private Map<String, IConsoleCommand> myMappings = new HashMap<String, IConsoleCommand>();
 
-	/**
-	 * Creates a new instance of FrameFactory and populates the map
-	 */
 	public CommandFactory() {
 		myMappings.put("score", new IncreaseScore());
 		myMappings.put("increase", new IncreaseLives());

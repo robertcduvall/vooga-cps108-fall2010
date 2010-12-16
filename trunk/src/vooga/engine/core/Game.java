@@ -10,9 +10,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-
 import arcade.core.examples.HighScorePanel;
 import arcade.mod.controller.Console;
+import arcade.mod.controller.GameConsole;
 
 import com.golden.gamedev.GameLoader;
 
@@ -46,7 +46,7 @@ public class Game extends com.golden.gamedev.Game {
 	protected GameStateManager stateManager;
 	protected LevelParser levelParser;
 	protected PlayField myCurrentLevel;
-	protected Console myGameConsole;
+	protected GameConsole myGameConsole;
 	protected GameState myPlayState;
 	protected double finalScore;
 	// private static final int INITIAL_LEVEL = 1;
@@ -85,13 +85,20 @@ public class Game extends com.golden.gamedev.Game {
 		initializeEntityMap();
 		initGameStates();
 		initSoundPlayer();
+		initGameConsole();
 
 		// setCurrentLevel(INITIAL_LEVEL);
+	}
+
+	private void initGameConsole() {
+		myGameConsole = new GameConsole(this);
+
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 		stateManager.update(elapsedTime);
+		myGameConsole.update(elapsedTime);
 		if (isFinish()) {
 			notifyExit();
 		}
@@ -336,6 +343,13 @@ public class Game extends com.golden.gamedev.Game {
 	public LevelParser getLevelParser() {
 		return levelParser;
 	}
-	
+
+	public GameConsole getGameConsole() {
+		return myGameConsole;
+	}
+
+	public void toggleConsole() {
+		myGameConsole.toggleVisible();
+	}
 
 }
