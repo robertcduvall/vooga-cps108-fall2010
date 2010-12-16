@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.api;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;

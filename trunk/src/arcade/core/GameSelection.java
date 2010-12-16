@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;

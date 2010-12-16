@@ -4,7 +4,7 @@ package arcade.core.examples;
 import java.awt.event.*;
 import javax.swing.*;
 
-import arcade.core.Window;
+import arcade.core.api.Window;
 import arcade.core.components.HighScorePanel;
 
 /**

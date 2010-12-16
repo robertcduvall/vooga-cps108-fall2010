@@ -20,7 +20,7 @@ import net.miginfocom.swing.MigLayout;
 
 import arcade.core.Arcade;
 import arcade.core.HighScoreControl;
-import arcade.core.Panel;
+import arcade.core.api.Panel;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 

@@ -1,6 +1,6 @@
 package arcade.core.mvc;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 
 
 /**

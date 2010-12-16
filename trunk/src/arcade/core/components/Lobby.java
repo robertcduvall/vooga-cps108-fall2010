@@ -7,7 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import arcade.core.Panel;
+import arcade.core.api.Panel;
 import arcade.lobby.model.Profile;
 import arcade.wall.controllers.WallTabController;
 

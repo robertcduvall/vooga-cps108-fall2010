@@ -16,6 +16,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import net.miginfocom.swing.MigLayout;
+import arcade.core.api.Tab;
 import arcade.lobby.view.Login;
 import arcade.util.database.Constants;
 import arcade.util.database.MySqlAdapter;
