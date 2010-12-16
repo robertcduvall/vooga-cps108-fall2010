@@ -10,6 +10,7 @@ public class IncreaseLives implements IConsoleCommand {
 	@Override
 	public void performCommand(String myInput) {
 		for (BetterSprite bs : GameConsole.allSprites) {
+			System.out.println(bs.getCurrentSprite().getClass().getName());
 			if (bs.getLabel().equals(PLAYER_GROUP)) {
 
 				System.out.println(bs.getX());

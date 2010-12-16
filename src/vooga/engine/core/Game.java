@@ -70,7 +70,10 @@ public class Game extends com.golden.gamedev.Game {
 		stateManager = new GameStateManager();
 		Resources.initialize(this, getResourceXMLPath());
 		try {
-			Resources.loadResourcesXMLFile(modName+"resources.xml");
+			if (modName != null)
+				Resources.loadResourcesXMLFile(modName + "resources.xml");
+			else
+				Resources.loadResourcesXMLFile("resources.xml");
 		} catch (IOException e) {
 			try {
 				Resources.loadResourcesXMLFile("resources.xml");
