@@ -8,7 +8,8 @@ public class SignUpControl implements IControl{
 	
 	public void PopUpAdminPage(){
 		JFrame adminFrame = new JFrame();
-		AdminPanel adminPanel = new AdminPanel();
+		adminFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		AdminPanel adminPanel = new AdminPanel();	
 		adminFrame.add(adminPanel);
 		adminFrame.pack();
 		adminFrame.setVisible(true);
