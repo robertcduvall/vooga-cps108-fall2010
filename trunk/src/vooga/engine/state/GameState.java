@@ -68,13 +68,13 @@ public abstract class GameState {
 		this();
 		addPlayField(playfield);
 	}
-
-	public GameState(ClientConnection connection) {
+	
+	public GameState(ClientConnection connection){
 		this();
 		this.connection = connection;
 	}
-
-	public GameState(PlayField playfield, ClientConnection connection) {
+	
+	public GameState(PlayField playfield, ClientConnection connection){
 		this();
 		addPlayField(playfield);
 		this.connection = connection;
@@ -133,93 +133,83 @@ public abstract class GameState {
 	}
 
 	/**
-	 * Updates all sprites stored in the GameState' updateGroups. Also run
-	 * checkMessages to see, if the developer is making a game using networking,
-	 * if we have received any messages from the server that we need to execute.
-	 * Also see if we should listen to the socket for a message by calling the
+	 * Updates all sprites stored in the GameState' updateGroups.  Also run checkMessages to see, if the developer is making a game using networking, if
+	 * we have received any messages from the server that we need to execute.  Also see if we should listen to the socket for a message by calling the
 	 * shouldGetData method.
 	 * 
 	 * @param t
 	 */
 	public void update(long t) {
-		if (checkMessage())
+		if(checkMessage())
 			return;
 		for (PlayField playfield : myUpdateField) {
 			playfield.update(t);
 		}
-		if (connection != null && shouldGetData()) {
-			interpretMessage(connection.getData());
+		if(connection != null && shouldGetData()){
+			setMessage(connection.getData());
 		}
 	}
-
+	
 	/**
-	 * Overridden by subclasses that want to implement networking in their game.
-	 * Determines whether or not to listen for a message from the socket.
-	 * Defaults to false so networking is only implemented and checked if the
-	 * developer wants to.
+	 * Overridden by subclasses that want to implement networking in their game.  Determines whether or not to listen for a message from the socket.
+	 * Defaults to false so networking is only implemented and checked if the developer wants to.
 	 * 
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public boolean shouldGetData() {
+	public boolean shouldGetData(){
 		return connection.isConnected();
 	}
-
-	public void setConnection(ClientConnection connection) {
+	
+	public void setConnection(ClientConnection connection){
 		this.connection = connection;
 	}
-
+	
 	/**
-	 * Overridden by subclasses that want to implement networking in their game.
-	 * Called in the update method when it receives a message from the socket.
+	 * Overridden by subclasses that want to implement networking in their game. Called in the update method when it receives a message from the socket.
 	 * 
-	 * @param data
-	 *            the String received from the socket
+	 * @param data the String received from the socket
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void interpretMessage(String data) {
-	}
-
+	public void interpretMessage(String data){}
+	
 	/**
-	 * If there is a message to send then call the method that corresponds with
-	 * that message and then set the message to null.
+	 * If there is a message to send then call the method that corresponds with that message and then set the message to null.
 	 * 
 	 * @return whether or not it was sent a message
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public boolean checkMessage() {
-		if (message == null || message.length() == 0 || message.equals("still")) {
+	public boolean checkMessage(){
+		if(message == null || message.length() == 0 || message.equals("still")){
 			return false;
-		} else {
+		}
+		else{
 			try {
-				Method statusAction = this.getClass().getMethod(message);
+				String name = message.indexOf(":") == -1 ? message : message.substring(0, message.indexOf(":"));
+				String param = message.indexOf(":") == -1 ? null : message.substring(message.indexOf(":") + 1);
+				Method statusAction = param == null ? this.getClass().getMethod(name) : this.getClass().getMethod(name, String.class);
 				message = null;
-				return ((Boolean) (statusAction.invoke(this))).booleanValue();
-			} catch (Exception e) {
-				System.out
-						.println("Couldn't find method '"
-								+ message
-								+ "'. Make sure the names of your stauses match the name of your status methods!");
+				return param == null ? ((Boolean)(statusAction.invoke(this))).booleanValue() : ((Boolean)(statusAction.invoke(this, param))).booleanValue();
+			} 
+			catch (Exception e) {
+				System.out.println("Couldn't find method '" + message + "'. Make sure the names of your stauses match the name of your status methods!");
 				System.exit(1);
 			}
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Sets the message. The message is initialized to anything sent through the
-	 * socket that is not a Serializeable object, so just a String. Corresponds
-	 * to a method in the GameState subclass that is called the next time
-	 * checkMessage is called in the update method.
+	 * Sets the message. The message is initialized to anything sent through the socket that is not a Serializeable object, so just a String.  Corresponds
+	 * to a method in the GameState subclass that is called the next time checkMessage is called in the update method.
 	 * 
-	 * @param message
-	 *            to set the message instance to
+	 * @param message to set the message instance to
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
 	 */
-	public void setMessage(String message) {
+	public void setMessage(String message){
 		this.message = message;
 	}
 
@@ -363,7 +353,6 @@ public abstract class GameState {
 		return myUpdateField.equals(other.getUpdateField())
 				&& myRenderField.equals(other.getRenderField());
 	}
-
 	public ArrayList<SpriteGroup> getGroups() {
 		ArrayList<SpriteGroup> temp = new ArrayList<SpriteGroup>();
 		for (PlayField pf : myRenderField) {
