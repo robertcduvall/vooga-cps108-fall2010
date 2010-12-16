@@ -100,7 +100,8 @@ public class Arcade extends JFrame {
 						loading.dispose();
 						myInitialized[selectedIndex] = true;
 					}
-					selectedTab.refresh();
+					else
+						selectedTab.refresh();
 				}
 				everything.setTitleAt(selectedIndex, selected.getName());
 			}
