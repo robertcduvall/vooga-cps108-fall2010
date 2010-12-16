@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import arcade.security.gui.PrivilegeCheckBox;
 import arcade.security.util.userserviceutil.UserServiceFactory;
 
@@ -62,7 +64,7 @@ public class UserPrivilegesPanelHandler {
 				privilegeValues[index] = (changes.get(privilege))? '1':'0';
 			}
 			privilegeHandler.setUserPrivilege(username,String.valueOf(privilegeValues));
-			
+			JOptionPane.showMessageDialog(null,"Changes committed");
 			String privileges = privilegeHandler.getPrivileges(username);
 			currentUserMap = UserServiceFactory.getPrivilegeMap().userPrivilegeMap(privileges);
 		}
