@@ -1,30 +1,29 @@
 package arcade.mod.controller;
 
+import com.golden.gamedev.object.Sprite;
+
 import vooga.engine.core.BetterSprite;
+import vooga.engine.overlay.Overlay;
+import vooga.engine.overlay.Stat;
+import vooga.engine.state.GameStateManager;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
+import vooga.games.cyberion.states.PlayState;
 
 public class IncreaseLives implements IConsoleCommand {
 
-	private static final String PLAYER_GROUP = "playerGroup";
-
 	@Override
 	public void performCommand(String myInput) {
-		for (BetterSprite bs : GameConsole.allSprites) {
-			System.out.println(bs.getCurrentSprite().getClass().getName());
-			if (bs.getLabel().equals(PLAYER_GROUP)) {
+		
 
-				System.out.println(bs.getX());
+		PlayState ps = (PlayState) GameConsole.playState;
+		PlayerShip ship = ps.getPlayer();
+		ship.setLife(ship.getLife() + 1);
+		Stat<Integer> stat = (Stat<Integer>) ship.getStat("livesStat");
+		System.out.println(ship.getStat("livesStat").getStat());
+		stat.setStat(ship.getLife());
+		ship.setWeaponPower(3);
 
-				// ((PlayerShip) bs.getCurrentSprite())
-				// .setX(((PlayerShip) bs.getCurrentSprite())
-				// .getLife() + 1);
-
-				((PlayerShip) bs.getCurrentSprite()).setX(0);
-				GameConsole.setModified(true);
-
-			}
-
-		}
-
+		GameConsole.playState = ps;
 	}
+
 }
