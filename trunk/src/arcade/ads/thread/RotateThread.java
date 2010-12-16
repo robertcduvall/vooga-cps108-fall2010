@@ -18,7 +18,7 @@ import arcade.ads.adsmanager.AdsManager;
 public class RotateThread extends Thread {
 
 	private AdsManager manager;
-	private boolean flag;
+	private boolean flag = true;
 
 	public RotateThread(AdsManager manager) {
 		this.manager = manager;

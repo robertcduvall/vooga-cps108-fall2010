@@ -67,7 +67,6 @@ public class ExampleWindow extends Window {
 		// myManager.setPanel(panel2);
 		myManager.runAdsManager();
 		// myManager.update();
-		// myManager.render();
 	}
 
 	/**
