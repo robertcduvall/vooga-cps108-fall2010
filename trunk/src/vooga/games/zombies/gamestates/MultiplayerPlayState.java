@@ -10,8 +10,7 @@ import vooga.engine.util.SoundPlayer;
 import vooga.games.zombies.*;
 import vooga.games.zombies.events.*;
 import vooga.games.zombies.serializeables.Health;
-import vooga.games.zombies.serializeables.Name;
-import vooga.games.zombies.serializeables.Username;
+import vooga.engine.networking.client.serializeables.*;
 import vooga.games.zombies.serializeables.ZombieSeed;
 
 public class MultiplayerPlayState extends PlayState implements Constants {

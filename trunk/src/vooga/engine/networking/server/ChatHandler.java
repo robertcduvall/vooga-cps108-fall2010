@@ -72,7 +72,7 @@ public class ChatHandler extends Handler{
 	
 	/**
 	 * 
-	 * @param sender the handler who is sending the chat
+	 * @param sessionID the session ID of the game you want to get the number of players from
 	 * @return the number of players in this chat/game session
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0
@@ -89,7 +89,7 @@ public class ChatHandler extends Handler{
 	}
 
 	/**
-	 * Broadcast (send) the chat to everyone connected to this handler's game session besIDes the sender.
+	 * Broadcast (send) the chat to everyone connected to this handler's game session besides the sender.
 	 * 
 	 * @param chat the chat to send to the other players
 	 * @param sender the handler who is sending the chat

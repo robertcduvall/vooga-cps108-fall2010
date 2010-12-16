@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+</head>
+<body bgcolor="white">
+
+<p>
+There are two facets of the networking API (server and client), and taking advantage of
+both of them is the easiest, fastest way to make a multiplayer game with the Vooga engine.
+</p>
+
+<p>
+On the server side, there is only one class you need to worry about: the ClientHandler.
+There is only one thing on the server side that the developer needs to worry about: the ClientHandler.
+The ClientHandler is the class that receives each message sent to the socket by a participant in the game and then 
+relays that message to the rest of the participants. Inside of the ClientHandler subclass, there are two methods 
+that the developer needs to override: the firstRun method and the interpretMessage method. The firstRun method is 
+called right after the correct number of players are found for a game. The interpretMessage method is where you put the code that needs to run
+after you get a message from the server. interpretMessage is a boolean that should return true if you want to keep checking
+for new messages or false if the game is over and the connection should cease. All the other necessary server code we implement.
+For us to be able to do this, we need some information from developers when they submit their game to the Vooga Arcade. We just 
+need the name of their game, the number of players, and the name of their ClientHandler subclass. With that information we can 
+dedicate space on our server to run their code and handle communication between players and chats between players.
+</p>
+
+<p>
+The client side code involves an abstract class called ClientConnection with subclasses for the game and chat, methods in your main GameState subclass, 
+and the Serializeable class. The ClientConnection is all most developers should need to connect 
+to the server and read from and write to the server. In most cases, you will want to create this ClientConnection in your main Game 
+subclass and pass it into any states/sprites that need to send and receive information from the server. This is 
+where Serializeable comes into play. There are plenty of times when the developer may want to send something more complicated than just a String. 
+To send a Serializeable class over the network, you must extend Serializeable and then it's just as easy as passing that object into your ClientConnection
+subclass' send method. A class that implements Serializeable has three methods it needs to implement: serialize (which takes the object and turns it into 
+a String), identifier (which returns a unique String that represents that Serializeable subclass so you can detect when you send across a Serializeable object 
+and not a plain String), and deserialize (which takes a String and parses that String to return the original Serializeable object.) It is completely possible 
+to make a game without using Serializeable, but it can make your code a lot cleaner and easier to understand if you decide to pass objects using Serializeable.
+</p>
+
+<p>
+The only other aspect of the client side is the code in your main GameState subclass. The only thing you have to worry about in your main GameState subclass
+is that you have boolean methods that match the name of whatever you are sending through the network. If you send a String through the server, you should have
+a boolean method that takes no parameters in your main GameState subclass with the exact same name as that message.  In this method is where you should put
+any code that needs to execute when you receive that message from the server.  If you send across a Serializeable, you should have a boolean method that takes 
+one String parameter with the exact same name as that Serializeable's identifier. Then in this method you can deserialize the String and perform whatever 
+actions you want on it.  There is also an optional method you could override called shouldGetData(). This determines whether the update method of GameState 
+should ask the server for the latest message. In most cases it's fine to just let it check every time but there may be cases when you don't want to check.
+</p>
+
+</body>
+</html>

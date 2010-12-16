@@ -247,7 +247,7 @@ public class Game extends com.golden.gamedev.Game {
 	public void updateHighScore(double score) {
 		finalScore = score;
 		// TODO Move following statement to a on close listener of some sort
-		HighScorePanel.updateHighScore(finalScore);
+		//HighScore.updateHighScore(finalScore);
 	}
 
 	public double getHighScore() {
@@ -259,12 +259,12 @@ public class Game extends com.golden.gamedev.Game {
 	 * Launches the game using default or given settings. The game width,
 	 * height, and fullscreen option are stored in a file called
 	 * config.properties under the resources package. These values are extracted
-	 * before the game is launched. Any subclass should call launch() in the
-	 * main method
+	 * before the game is launched. Gets the game name from the game.properties and determines whether
+	 * it's an online game or not.  If it is it initializes the chat and sends the userName to the game.
+	 * If it isn't then just run the game normally.
 	 * 
-	 * @param g
-	 * @param userName
-	 *            TODO
+	 * @param g the Game to run
+	 * @param userName the name of the user
 	 */
 	public static void launch(Game g, String userName) {
 

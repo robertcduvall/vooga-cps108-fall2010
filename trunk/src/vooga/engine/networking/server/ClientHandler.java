@@ -25,7 +25,7 @@ public abstract class ClientHandler extends Handler{
 	protected static List<ClientHandler> handlers = new ArrayList<ClientHandler>();
 
 	/**
-	 * Static method to return the XML document with the list of games that can be run on the networking Vooga servers.
+	 * Calls super and initializes the numberOfPlayers in the game, the sessionID of the game, and the daemon that instantiated this.
 	 * 
 	 * @param daemon the VoogaDaemon that initialized this object; used to increment the numberOfGames when the correct amount of players is met
 	 * @param socket the socket that clients will be communicating through
@@ -36,7 +36,6 @@ public abstract class ClientHandler extends Handler{
 	 */
 	public ClientHandler(VoogaDaemon daemon, GameSocket socket, int numberOfPlayers, int gameNumber){
 		super(socket, gameNumber);
-		this.socket = socket;
 		this.numberOfPlayers = numberOfPlayers;
 		this.sessionID = gameNumber;
 		this.daemon = daemon;
@@ -92,8 +91,9 @@ public abstract class ClientHandler extends Handler{
 	/**
 	 * Abstract method that is called by run() after it reads a message from the socket. This is where you put the code you need to execute with the latest
 	 * piece of data from the server.
-	 * @param userName TODO
-	 * 
+	 *
+	 * @param message the message received from the server
+	 * @param userName the userName of the player who sent the message
 	 * @return if the loop for checking messages should keep running
 	 * @author Cue, Kolodziejzyk, Townsend
 	 * @version 1.0

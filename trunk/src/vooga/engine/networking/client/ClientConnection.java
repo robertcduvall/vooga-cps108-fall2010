@@ -17,9 +17,8 @@ import vooga.engine.networking.server.VoogaServer;
 public class ClientConnection extends Connection{
 	
 	/**
-	 * Calls GameSocket constructor with the server's IP address and the 
-	 * port.  The port is based on the name of the game since each game 
-	 * has a different port that it operates on.
+	 * Calls GameSocket constructor with the port.  The port is based on the name of the game 
+	 * since each game has a different port that it operates on.
 	 * 
 	 * @param name the name of the game you're trying to connect to and from
 	 * @author Cue, Kolodziejzyk, Townsend
