@@ -29,9 +29,7 @@ public class RotateThread extends Thread {
 	 */
 	public void run() {
 		while (true) {
-			System.out.println(flag);
 			if (!flag) {
-				System.out.println("not rotating!!!");
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -40,11 +38,8 @@ public class RotateThread extends Thread {
 				}
 			} else {
 				try {
-					System.out.println("rotating!!!");
 					if (!manager.getRenderedAdsGroup().getAds().isEmpty()) {
-						System.out.println("start");
 						Thread.sleep(manager.getRenderedAdsGroup().getCurrentAd().getDuration());
-						System.out.println("end");
 						manager.getRenderedAdsGroup().nextAds();
 					}
 				} catch (InterruptedException e) {
