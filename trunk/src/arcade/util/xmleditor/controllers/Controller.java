@@ -29,6 +29,16 @@ import arcade.util.xmleditor.model.XMLNode;
 import arcade.util.xmleditor.views.IBaseView;
 import arcade.util.xmleditor.views.View;
 
+/**
+ * Concrete implementation of IBaseController. Keeps track of the model
+ * as a Document, launches the main view, and creates a ModelObserver as 
+ * the primary way to inform the rest of the application about changes to 
+ * the model. All controllers which need updates must be created here so that 
+ * they can be added as a listener to the observer.
+ * 
+ * @author Daniel Koverman
+ *
+ */
 public class Controller implements IBaseController, ModelListener {
 
 	private IBaseView view;

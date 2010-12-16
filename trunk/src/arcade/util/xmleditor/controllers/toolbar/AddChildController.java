@@ -6,8 +6,12 @@ import javax.swing.JOptionPane;
 
 import org.w3c.dom.Element;
 
-import arcade.util.xmleditor.model.XMLNode;
-
+/**
+ * Adds a new child to the current XML tree. Element tag name 
+ * is prompted. It will start with no attributes.
+ * @author Daniel Koverman
+ *
+ */
 public class AddChildController extends ElementToolBarButton {
 
 	private static final String LABEL_TEXT = "Add Child";
@@ -19,11 +23,9 @@ public class AddChildController extends ElementToolBarButton {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String s = (String) JOptionPane.showInputDialog("Element Tag Name");
-		Element child = getNode().getElement().getOwnerDocument()
-				.createElement(s);
+		Element child = getNode().getDocument().createElement(s);
 
-		getNode().appendChild(
-				new XMLNode(child, getNode(), getNode().getObserver()));
+		getNode().appendChild(child);
 	}
 
 }

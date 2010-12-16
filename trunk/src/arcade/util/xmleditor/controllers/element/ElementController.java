@@ -17,6 +17,7 @@ public class ElementController implements ModelListener{
 	private ElementPanel view;
 	private IAttributeController attributeController;
 	private IElementNameController nameController;
+	private XMLNode currentNode;
 	
 	public ElementController(JComponent toolbar){
 		this.attributeController = new AttributeController();
@@ -36,14 +37,21 @@ public class ElementController implements ModelListener{
 
 	@Override
 	public void nodeSelected(XMLNode node) {
-		NamedNodeMap attributeMap = node.getAttributes();
-		attributeController.setAttributeMap(attributeMap);
-		nameController.setElementName(node.getName());		
+		currentNode = node;
+		updateDependents();
 	}
 
 	@Override
 	public void nodeUpdated(XMLNode node) {
-		//Do nothing
+		if(currentNode==node){
+			updateDependents();
+		}
+	}
+	
+	private void updateDependents(){
+		NamedNodeMap attributeMap = currentNode.getAttributes();
+		attributeController.setAttributeMap(attributeMap);
+		nameController.setElementName(currentNode.getName());
 	}
 
 }

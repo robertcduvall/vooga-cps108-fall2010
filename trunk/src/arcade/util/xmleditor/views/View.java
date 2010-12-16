@@ -15,18 +15,24 @@ import arcade.util.xmleditor.mainmenu.MenuBar;
 import arcade.util.xmleditor.model.XMLNode;
 import arcade.util.xmleditor.views.element.ElementPanel;
 
-public class View extends JPanel implements IBaseView, TreeSelectionListener{
-	
+/**
+ * Concrete implementation of IBaseView contained in a JPanel
+ * 
+ * @author Daniel Koverman
+ * 
+ */
+public class View extends JPanel implements IBaseView, TreeSelectionListener {
+
 	private static final long serialVersionUID = 1L;
 	private TreeViewer treeViewer;
 	private IBaseController controller;
 
-	public View(Controller controller, ElementPanel elementPanel){
-		
-		this.initializePanel();
-		this.controller = controller;		
-		
-		treeViewer = new TreeViewer();		
+	public View(Controller controller, ElementPanel elementPanel) {
+
+		initializePanel();
+		this.controller = controller;
+
+		treeViewer = new TreeViewer();
 
 		add(treeViewer, BorderLayout.WEST);
 		add(elementPanel, BorderLayout.CENTER);
@@ -34,10 +40,10 @@ public class View extends JPanel implements IBaseView, TreeSelectionListener{
 	}
 
 	private void initializePanel() {
-		
-		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(500, 600));
-		
+
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(800, 600));
+
 	}
 
 	@Override
@@ -47,24 +53,24 @@ public class View extends JPanel implements IBaseView, TreeSelectionListener{
 		treeViewer = new TreeViewer(root);
 		treeViewer.addTreeSelectionListener(this);
 		add(treeViewer, BorderLayout.WEST);
-		
+
 	}
 
 	@Override
 	public void updateModel(XMLNode node) {
-		
+
 		treeViewer.reload(node);
 		validate();
-		
+
 	}
-	
+
 	@Override
-	public void showError(String message){
+	public void showError(String message) {
 		JOptionPane.showMessageDialog(this, message);
 	}
-	
+
 	@Override
-	public void showView(){
+	public void showView() {
 		JFrame frame = new JFrame();
 		frame.add(this);
 		frame.addWindowListener(new WindowCloser());
@@ -78,7 +84,7 @@ public class View extends JPanel implements IBaseView, TreeSelectionListener{
 	public void valueChanged(TreeSelectionEvent arg0) {
 		controller.newNodeSelected((XMLNode) arg0.getPath()
 				.getLastPathComponent());
-		
+
 	}
 
 }

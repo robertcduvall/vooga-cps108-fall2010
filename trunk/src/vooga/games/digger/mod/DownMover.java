@@ -1,6 +1,7 @@
-package vooga.games.digger.movers;
+package vooga.games.digger.mod;
 
 import vooga.engine.core.BetterSprite;
+import vooga.games.digger.movers.Mover;
 
 public class DownMover implements Mover{
 

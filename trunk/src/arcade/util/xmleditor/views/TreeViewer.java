@@ -12,6 +12,13 @@ import javax.swing.tree.TreeNode;
 
 import arcade.util.xmleditor.model.XMLNode;
 
+/**
+ * A panel holding a JTree which graphically displays 
+ * the model hierarchy.
+ * 
+ * @author Daniel Koverman, Brent Sodman
+ *
+ */
 public class TreeViewer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
