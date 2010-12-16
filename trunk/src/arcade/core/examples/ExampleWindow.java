@@ -61,7 +61,7 @@ public class ExampleWindow extends Window {
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
 		// myManager.setRenderedAds();
 		System.out.println(myManager.getActiveAdsGroup() == null);
-		// myManager.setRenderedAds("action");
+		 myManager.setRenderedAds("Action");
 		add(panel1, BorderLayout.PAGE_START);
 		add(panel2, BorderLayout.CENTER);
 		// myManager.setPanel(panel2);
