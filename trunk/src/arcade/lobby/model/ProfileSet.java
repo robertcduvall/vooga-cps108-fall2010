@@ -14,7 +14,8 @@ public class ProfileSet implements Iterable<Profile> {
 
 	private static Profile currentProfile = null;
 	private static final Profile GUEST_PROFILE = createGuest();
-	public static DatabaseAdapter myDbAdapter;
+	public static DatabaseAdapter myDbAdapter = new MySqlAdapter(Constants.HOST, Constants.DBNAME,
+			Constants.USER, Constants.PASSWORD);
 	private static ResourceBundle resourceBundle = ResourceBundle
 			.getBundle("arcade.lobby.resources.resources");
 	public static String myTable = resourceBundle.getString("dbProfile");
@@ -29,15 +30,7 @@ public class ProfileSet implements Iterable<Profile> {
 		return guest;
 	}
 
-	private static void checkAdapter() {
-		if (myDbAdapter == null) {
-			myDbAdapter = new MySqlAdapter(Constants.HOST, Constants.DBNAME,
-					Constants.USER, Constants.PASSWORD);
-		}
-	}
-
 	public int size() {
-		checkAdapter();
 		return myDbAdapter.getColumn(myTable,
 				resourceBundle.getString("dbUserName")).size();
 	}
@@ -59,7 +52,6 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	private static Map<String, String> addToRow(Profile profile) {
-		checkAdapter();
 		Map<String, String> row = new HashMap<String, String>();
 		row.put(resourceBundle.getString("dbFirstName"),
 				nullToEmpty(profile.getFirstName()));
@@ -83,7 +75,6 @@ public class ProfileSet implements Iterable<Profile> {
 	}
 
 	public static Profile getProfile(int userId) {
-		checkAdapter();
 		List<Map<String, String>> rows = myDbAdapter.getRows(myTable,
 				resourceBundle.getString("dbUserID"), Integer.toString(userId));
 		Profile userProf = new Profile(userId);
