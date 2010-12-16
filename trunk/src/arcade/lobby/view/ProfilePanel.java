@@ -22,16 +22,17 @@ import arcade.lobby.model.ProfileSet;
 public class ProfilePanel extends JPanel implements Tab, IView {
 	public ProfileEditPanel myEditPanel;
 	public ProfileViewPanel myViewPanel;
+	private int previousUserId = -1;
 
 	private enum State {
 		view, edit, viewothers
 	};
 
-	private State mode = State.view;  //  @jve:decl-index=0:
+	private State mode = State.view; // @jve:decl-index=0:
 	private JPanel myLeftSidebar;
 	private JPanel myMainPanel;
 	private JPanel myRightSidebar;
-	private ResourceBundle resources;  //  @jve:decl-index=0:
+	private ResourceBundle resources; // @jve:decl-index=0:
 	private Profile myProfile;
 	private JButton myEditButton;
 	private JComboBox myUsers;
@@ -46,7 +47,6 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		setLayout(new MigLayout("fill"));
 		myProfile = ProfileSet.getCurrentProfile();
 
-		
 		myLeftSidebar = createSidebar("left");
 		myViewPanel = createViewPanel();
 		myEditPanel = createEditPanel();
@@ -62,9 +62,10 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		add(myRightSidebar, "ax r, sy 2");
 		add(myUsers, "newline,skip 1, ax c, ay c");
 		add(myEditButton, "ax c,ay c");
-		
-		ProfileController profileControl = new ProfileController(myProfile, this);
 
+		ProfileController profileControl = new ProfileController(myProfile,
+				this);
+		previousUserId = ProfileSet.getCurrentProfile().getUserId();
 	}
 
 	private JComboBox getUserBox() {
@@ -190,11 +191,15 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 
 	@Override
 	public void refresh() {
-		repaint();
-		mode = State.view;
-		reload();
-		redraw();
-		recreateSidebars();
+		int currentUserId = ProfileSet.getCurrentProfile().getUserId();
+		if (currentUserId != previousUserId) {
+			previousUserId = currentUserId;
+			repaint();
+			mode = State.view;
+			reload();
+			redraw();
+			recreateSidebars();
+		}
 	}
 
 	private void recreateSidebars() {
