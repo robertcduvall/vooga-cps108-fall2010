@@ -7,13 +7,13 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import arcade.util.xmleditor.Controller;
+import arcade.util.xmleditor.IBaseController;
 
 public class OpenFileEventListener implements ActionListener {
 
-	Controller controller;
+	IBaseController controller;
 
-	public OpenFileEventListener(Controller controller) {
+	public OpenFileEventListener(IBaseController controller) {
 		this.controller = controller;
 	}
 

@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import arcade.util.xmleditor.Controller;
+import arcade.util.xmleditor.IBaseController;
 import arcade.util.xmleditor.mainmenu.file.CloseEventListener;
 import arcade.util.xmleditor.mainmenu.file.NewModelEventListener;
 import arcade.util.xmleditor.mainmenu.file.OpenFileEventListener;
@@ -20,13 +21,13 @@ public class MenuBar extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;
 	
-	public MenuBar(Controller controller){
+	public MenuBar(IBaseController controller){
 		
 		add(createFileMenu(controller));
 		add(createEditMenu());
 	}
 	
-	public JMenu createFileMenu(Controller controller){
+	public JMenu createFileMenu(IBaseController controller){
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		

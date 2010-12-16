@@ -3,7 +3,6 @@ package arcade.util.xmleditor;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFrame;
 import javax.swing.JToolBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -11,8 +10,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -23,148 +20,123 @@ import org.xml.sax.SAXException;
 
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
-import arcade.util.xmleditor.mainmenu.MenuBar;
+import arcade.util.xmleditor.model.ModelListener;
 import arcade.util.xmleditor.model.ModelObserver;
 import arcade.util.xmleditor.model.XMLNode;
 import arcade.util.xmleditor.view.AttributeController;
 import arcade.util.xmleditor.view.ElementController;
-import arcade.util.xmleditor.view.ElementPanel;
+import arcade.util.xmleditor.view.IBaseView;
 import arcade.util.xmleditor.view.View;
-import arcade.util.xmleditor.view.WindowCloser;
 import arcade.util.xmleditor.view.toolbar.AddAttributeController;
 import arcade.util.xmleditor.view.toolbar.AddChildController;
 import arcade.util.xmleditor.view.toolbar.DeleteElementController;
 import arcade.util.xmleditor.view.toolbar.ElementToolBarButton;
 
-public class Controller implements TreeSelectionListener{
-	
-	private View view;
+public class Controller implements IBaseController, ModelListener {
+
+	private IBaseView view;
 	private Document modelDocument;
 	private ModelObserver observer;
-	private XMLNode currentNode;
-	private XMLNode root;
-	
-	public Controller(){
+
+	public Controller() {
 		observer = new ModelObserver();
+		observer.addNewListener(this);
 		
 		JToolBar toolbar = createElementToolBar();
-		
-		JFrame frame = new JFrame();
 		ElementController elementController = createElementController(toolbar);
-		try {
-			view = new View(this, elementController.getView());
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		observer.addNewListener(view);
-		frame.add(view);		
-		frame.addWindowListener(new WindowCloser());
-		frame.setJMenuBar(new MenuBar(this));
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		view = new View(this, elementController.getView());	
+		
+		view.showView();
 	}
-	
 
-	public void setModel(File file){
+	public void setModel(File file) {
 		XMLDocumentCreator xmlCreator = new XMLFileParser(file);
 		try {
 			modelDocument = xmlCreator.getDocument();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
+			view.showError("Parser Configuration Error\n" + e.getMessage());
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
+			view.showError("Malformed XML\n" + e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			view.showError("Error Opening File\n" + e.getMessage());
 			e.printStackTrace();
 		}
-		root = new XMLNode((Element)modelDocument.getFirstChild(), null, observer);
-		observer.notifyModelChanged(root);
+		observer.notifyModelChanged(new XMLNode((Element) modelDocument
+				.getFirstChild(), null, observer));
 	}
-	
-	public static void main(String[] args) throws ParserConfigurationException,
-			SAXException, IOException {
-		new Controller();
-
-	}
-	
-	public void save() {
-		File file = new File(modelDocument.getBaseURI());
-		try {
-	        // Prepare the DOM document for writing
-	        Source source = new DOMSource(modelDocument);
-
-	        // Prepare the output file
-	        Result result = new StreamResult(file);
-
-	        // Write the DOM document to the file
-	        Transformer xformer = TransformerFactory.newInstance().newTransformer();
-	        xformer.transform(source, result);
-	    } catch (TransformerConfigurationException e) {
-	    } catch (TransformerException e) {
-	    }
-	}
-
-
-	public void save(File file) {
-		try {
-	        // Prepare the DOM document for writing
-	        Source source = new DOMSource(modelDocument);
-
-	        // Prepare the output file
-	        Result result = new StreamResult(file);
-
-	        // Write the DOM document to the file
-	        Transformer xformer = TransformerFactory.newInstance().newTransformer();
-	        xformer.transform(source, result);
-	    } catch (TransformerConfigurationException e) {
-	    } catch (TransformerException e) {
-	    }
-	}
-
 
 	@Override
-	public void valueChanged(TreeSelectionEvent arg0) {
-		currentNode = (XMLNode) arg0.getPath().getLastPathComponent();	
-		observer.notifyNodeSelected(currentNode);
+	public void save() {
+		writeModelToFile(new File(modelDocument.getBaseURI()));
 	}
-	
-	private JToolBar createElementToolBar(){
+
+	@Override
+	public void save(File file) {
+		writeModelToFile(file);
+	}
+
+	private JToolBar createElementToolBar() {
 		JToolBar toolbar = new JToolBar();
-		
+
 		addElementButton(toolbar, new AddAttributeController());
 		addElementButton(toolbar, new DeleteElementController());
 		addElementButton(toolbar, new AddChildController());
-		
+
 		return toolbar;
 	}
-	
-	private void addElementButton(JToolBar toolbar, ElementToolBarButton button){
+
+	private void addElementButton(JToolBar toolbar, ElementToolBarButton button) {
 		observer.addNewListener(button);
 		toolbar.add(button.getView());
 	}
-	
-	private ElementController createElementController(JToolBar toolbar){
-			AttributeController attributeController = new AttributeController();
-			observer.addNewListener(attributeController);
-			
-			ElementController elementController = new ElementController(this, toolbar, attributeController);
-			return elementController;
-			
+
+	private ElementController createElementController(JToolBar toolbar) {
+		AttributeController attributeController = new AttributeController();
+		observer.addNewListener(attributeController);
+
+		ElementController elementController = new ElementController(this,
+				toolbar, attributeController);
+		return elementController;
 	}
-	
-	public XMLNode getRoot(){
-		return root;
+
+	private void writeModelToFile(File file) {
+		try {
+			Source source = new DOMSource(modelDocument);
+			Result result = new StreamResult(file);
+			Transformer xformer = TransformerFactory.newInstance()
+					.newTransformer();
+			xformer.transform(source, result);
+		} catch (Throwable e) {
+			view.showError("Error Saving File\n" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args){
+		new Controller();
+	}
+
+	@Override
+	public void modelChanged(XMLNode root) {
+		view.reloadModel(root);		
+	}
+
+	@Override
+	public void nodeSelected(XMLNode node) {
+		//Do nothing		
+	}
+
+	@Override
+	public void nodeUpdated(XMLNode node) {
+		view.updateModel(node);		
+	}
+
+	@Override
+	public void newNodeSelected(XMLNode node) {
+		observer.notifyNodeSelected(node);		
 	}
 
 }
