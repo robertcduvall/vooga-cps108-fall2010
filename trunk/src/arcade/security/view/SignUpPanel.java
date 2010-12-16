@@ -56,7 +56,7 @@ public class SignUpPanel extends JPanel implements IView {
 	private int maxUserNameLength = 10;
 	private int maxAnswerLength = 20;
 	private int START_INDEX = 0;
-
+	private SecurityButton LoginPageButton;
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
 
@@ -117,7 +117,7 @@ public class SignUpPanel extends JPanel implements IView {
 
 		submitButton = new SecurityButton(LabelResources
 				.getLabel("SignUpButton"));
-
+		LoginPageButton = new SecurityButton(LabelResources.getLabel("GoBackLoginPageButton"));
 		// Lobby Input
 		lobbyLabel = new JLabel("Tell us about yourself:");
 		myDock.add(lobbyLabel, "span,gaptop 20px");
@@ -158,6 +158,10 @@ public class SignUpPanel extends JPanel implements IView {
 		myDock.addValidatingComponent(vc, name);
 	}
 
+	public void addLoginPageButtonListener(ActionListener listener){
+		LoginPageButton.addActionListener(listener);
+	}
+	
 	/**
 	 * Adds a password field to the Signup panel
 	 * 
@@ -226,6 +230,7 @@ public class SignUpPanel extends JPanel implements IView {
 	 */
 	private void addContents() {
 		add(myDock, "wrap");
+		add(LoginPageButton);
 		add(submitButton);
 	}
 
