@@ -65,6 +65,14 @@ public class StoreUser {
 		return cart;
 	}
 
+	/**
+	 * Checks for whether the user's cart is empty. 
+	 * @return
+	 */
+	public boolean cartEmpty()
+	{
+		return cart.isEmpty();
+	}
 
 	/**
 	 * Takes the parameter newCreddits and sets the StoreUsers creddits to this

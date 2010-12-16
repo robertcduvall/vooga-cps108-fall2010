@@ -27,8 +27,7 @@ import arcade.store.gui.tabs.CheckoutTab;
 
 public class CheckoutController extends Controller {
 
-	// private static final String INITIALIZE_STRING = "initialize";
-
+	private static final int MINIMAL_BALANCE = 0;
 	private StoreModel storeModel;
 	private CheckoutTab viewer;
 	private String currentSelected;
@@ -94,10 +93,10 @@ public class CheckoutController extends Controller {
 	 * their credits are displayed.
 	 */
 	private void setRemainingCreditField(double balance) {
-		if (balance < Integer.parseInt(getString("minimumBalanceString"))) {
-			viewer.setRemainigCredditsTextField(getString("minimumBalanceString"));
+		if (balance < MINIMAL_BALANCE) {
+			viewer.setRemainigCredditsTextField("" + MINIMAL_BALANCE);
 		} else {
-			viewer.setRemainigCredditsTextField(getString("emptyString") + balance);
+			viewer.setRemainigCredditsTextField("" + balance);
 		}
 	}
 
@@ -117,14 +116,13 @@ public class CheckoutController extends Controller {
 	 * this information on the CheckoutTab.
 	 */
 	public void setUpCurrentCredditsField() {
-		// The current user creddits;
 		String currentUserCreddits = getString("emptyString")
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
 	}
 
 	/**
-	 * setUpUserCart makes
+	 * setUpUserCart sets up the user's cart on the viewer's shop list.
 	 */
 	public void setUpUserCart() {
 		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
@@ -132,8 +130,7 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * This method checks whether the use really wants to buy the items on his
-	 * cart
+	 * checks whether the user wants to process the purchase cart.
 	 */
 	public void processConfirmBuyCart() {
 
@@ -170,18 +167,20 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * This method process the buy cart step!
+	 * This method process the buy cart step. The games on the cart list are added
+	 * to the user's owned games.
 	 */
 	public void processBuyCart() {
 
 		storeModel.processBuyCart();
 
-		// refresh the content of your inventory
+		// refresh the content of inventory
 		initialize();
 	}
 
 	/**
-	 * 
+	 * processConfirmDropItem shows a dialogue message that prompts the user to
+	 * confirm purchase cart.
 	 */
 	public void processConfirmDropItem() {
 
@@ -199,18 +198,17 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * 
+	 * processDropItem drops the selected item from the user's shop cart.
+	 * If no item is selected, a message dialog will prompt the user 
+	 * that no item is selected. 
 	 */
 	public void processDropItem() {
-		// need something else here!
-		// like another pop up
 
 		if (currentSelected == null) {
 			JOptionPane.showMessageDialog(null, getString("noItemSelectedString"));
 		} else {
 			StoreUser user = storeModel.getCurrentUserAccount();
 			user.removeTitleFromCart(currentSelected);
-
 			JOptionPane.showMessageDialog(null, getString("itemDroppedString"));
 
 			initialize();
@@ -218,7 +216,8 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * 
+	 * processSaveCart saves the user's current cart to back to his
+	 * profile page on the data base. 
 	 */
 	public void processSaveCart() {
 		storeModel.saveCart();
@@ -226,7 +225,8 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * 
+	 * registerCurrentElement registers the currently selected item in the 
+	 * Checkout Controller's JList.
 	 */
 	public void registerCurrentElement() {
 		currentSelected = (String) viewer.getSelectedItem();
@@ -234,10 +234,12 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * 
+	 * processConfirmDropCart drops the user's whole shop cart.
+	 * If shop cart is empty, a dialog message will pop up reminding
+	 * the user. 
 	 */
 	public void processConfirmDropCart() {
-		if (storeModel.getCurrentUserAccount().getCart().isEmpty()) {
+		if (storeModel.getCurrentUserAccount().cartEmpty()) {
 			JOptionPane.showMessageDialog(null, getString("cartIsEmptyString"));
 		} else {
 			int ret = JOptionPane.showConfirmDialog(null,
@@ -247,5 +249,7 @@ public class CheckoutController extends Controller {
 				storeModel.getCurrentUserAccount().emptyCart();
 			}
 		}
+		
+		initialize();
 	}
 }
