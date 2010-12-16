@@ -53,16 +53,6 @@ public class LogInPanel extends JPanel  implements Tab,IView{
 		LogInPanelControl controller = new LogInPanelControl(this,model);
 	}
 	
-	@Override
-	public JComponent getContent() {
-		//TODO:put it on the EDT thread, Meng will try to do this later
-		
-		//TODO this code has been moved to the LogInPanel() constructor
-//		createAndShowGUI();
-//		LoginProcess model = new LoginProcess();
-//		LogInPanelControl controller = new LogInPanelControl(this,model);	
-		return this;
-	}
 	/**
 	 * Creates the GUI and sets it to visible
 	 */
