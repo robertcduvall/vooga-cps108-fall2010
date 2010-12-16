@@ -6,14 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import arcade.wall.controllers.WallWidgetController;
 import arcade.wall.views.ratings.IconPanel;
-import arcade.wall.views.ratings.RadioPanel;
 
 /**
  * Utility that allows users to comment on and rate items (games) while they are running 

@@ -11,6 +11,11 @@ import javax.swing.JTextField;
 import arcade.wall.views.ratings.IconPanel;
 import arcade.wall.views.ratings.RadioPanel;
 
+/**
+ * Represents the JPanel used to submit reviews.
+ * @author John, Cam, Bhawana
+ *
+ */
 @SuppressWarnings("serial")
 public class ReviewPanel extends JPanel {
 	

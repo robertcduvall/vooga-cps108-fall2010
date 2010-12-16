@@ -3,7 +3,7 @@ package arcade.wall.controllers;
 import javax.swing.JFrame;
 
 /**
- * 
+ * JFrame holder that contains a WallWidget. This JFrame appears when a user starts a game.
  * @author Cameron McCallie
  * @author John Kline  
  * @author Bhawana Singh

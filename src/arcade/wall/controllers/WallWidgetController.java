@@ -11,7 +11,7 @@ import arcade.wall.models.data.review.Review;
 import arcade.wall.views.wallwidget.WallWidgetView;
 
 /**
- * 
+ * The WallWidgetController handles communication between the WallModel and the WallWidgetView.
  * @author Cameron McCallie
  * @author John Kline  
  * @author Bhawana Singh
