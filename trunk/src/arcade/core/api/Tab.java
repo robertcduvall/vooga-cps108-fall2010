@@ -31,5 +31,9 @@ public abstract interface Tab {
 	public void refresh();
 	
 	
+	/**
+	 * Sets up the tab by creating panels and other
+	 * swing components contained in it.
+	 */
 	public void initialize();
 }
