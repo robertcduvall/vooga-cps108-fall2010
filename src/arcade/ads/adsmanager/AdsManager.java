@@ -122,7 +122,7 @@ public class AdsManager implements MouseListener {
 		} else {
 			renderedAdsGroup.addMoreAds(activeAdsGroup.retrieveActiveAds());
 		}
-		// render();
+		render();
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class AdsManager implements MouseListener {
 
 	public void setRenderedAds() {
 		renderedAdsGroup.clear();
-		renderedAdsGroup.setAds(activeAdsGroup.getAds());
+		renderedAdsGroup.setAds(activeAdsGroup.retrieveActiveAds());
 	}
 
 	public void setRenderedAds(String... tags) {
