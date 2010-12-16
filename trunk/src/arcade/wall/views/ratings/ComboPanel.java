@@ -2,6 +2,8 @@ package arcade.wall.views.ratings;
 
 import javax.swing.JRadioButton;
 
+import arcade.wall.retired.AbstractButtonPanel;
+
 /**
  * 
  * @author Cameron McCallie

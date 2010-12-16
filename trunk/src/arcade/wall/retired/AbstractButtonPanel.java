@@ -1,4 +1,4 @@
-package arcade.wall.views.ratings;
+package arcade.wall.retired;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

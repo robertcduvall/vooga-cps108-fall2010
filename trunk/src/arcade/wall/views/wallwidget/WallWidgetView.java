@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import arcade.wall.controllers.WallWidgetController;
+import arcade.wall.views.ratings.IconPanel;
 import arcade.wall.views.ratings.RadioPanel;
 
 /**
@@ -26,7 +27,7 @@ public class WallWidgetView extends JPanel{
 	
 	private JPanel myPanel;
 	private JTextArea myCommentEntryField;
-	private RadioPanel myRadioPanel;
+	private IconPanel myRatingPanel;
 	private JButton myReviewButton;
 	private JLabel myGameLabel;
 
@@ -40,7 +41,7 @@ public class WallWidgetView extends JPanel{
 	 */
 	private JPanel constructJPanel() {
 		JPanel reviewPanel = new JPanel();
-		myGameLabel = new JLabel("Leave a quick review for " + myController.getTitle());
+		myGameLabel = new JLabel("Having fun? Review the game!");
 		
 		reviewPanel.add(myGameLabel);
 
@@ -49,10 +50,10 @@ public class WallWidgetView extends JPanel{
 		reviewPanel.add(myCommentEntryField);
 		
 		JPanel ratingPanel = new JPanel();
-		myRadioPanel = new RadioPanel(5);
-		myRadioPanel.setHorizontal();	
+		myRatingPanel = new IconPanel(5);
+		myRatingPanel.setHorizontal();	
 		ratingPanel.add(new JLabel("Poor"));
-		ratingPanel.add(myRadioPanel);
+		ratingPanel.add(myRatingPanel);
 		ratingPanel.add(new JLabel("Excellent"));
 		ratingPanel.setLayout(new FlowLayout());
 		reviewPanel.add(ratingPanel);
@@ -75,7 +76,7 @@ public class WallWidgetView extends JPanel{
 	}
 
 	public String getSelectedRating() {
-		return myRadioPanel.getSelectedValue();
+		return myRatingPanel.getSelectedValue();
 	}
 
 	public void addReviewButtonListener(ActionListener reviewButtonListener) {
