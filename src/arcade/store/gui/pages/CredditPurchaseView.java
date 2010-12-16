@@ -18,6 +18,17 @@ import arcade.core.Arcade;
 import arcade.core.Window;
 import arcade.store.control.ProfileController;
 
+/**
+ * @author:			Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date:			12-16-10
+ * @description:	This is the UI that pops when the user press on the 
+ * 					StoreITemThumbnailPane. This UI processes purchases
+ * 					as well as relay information to the Controller to
+ * 					check whether the user has proper Creddits amount.					
+ * 					It also provides user with game demos and reviews/ comments. 		
+ *
+ */
+
 public class CredditPurchaseView extends Window {
 
 	/**

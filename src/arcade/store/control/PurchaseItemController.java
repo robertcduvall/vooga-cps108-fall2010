@@ -57,6 +57,9 @@ public class PurchaseItemController implements IController {
 		}
 	}
 
+	/**
+	 * This method sets up the textfields that are used to populate the page.
+	 */
 	private void setTextField(IItemInfo item) {
 		view.getDescriptionTextArea().setText(item.getDescription());
 		view.getTitleTextField().setText(item.getTitle());
