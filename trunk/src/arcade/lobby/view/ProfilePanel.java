@@ -127,11 +127,6 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	}
 
 	@Override
-	public JComponent getContent() {
-		return this;
-	}
-
-	@Override
 	public void refresh() {
 		repaint();
 		editMode = false;
