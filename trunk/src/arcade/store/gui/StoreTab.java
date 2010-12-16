@@ -6,6 +6,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import arcade.core.Tab;
+import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 
@@ -24,6 +25,7 @@ public class StoreTab extends JPanel implements Tab {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ResourceBundle storeTabBundle;
+	private Controller controller;
 
 	@Override
 	public IController getController() {
@@ -56,15 +58,14 @@ public class StoreTab extends JPanel implements Tab {
 		return storeTabBundle.getString(key);
 	}
 
-	@Override
-	public void setController(IController control) {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * This method sets up the control.
+	 * @param control
+	 */
+	public void setController(IController control){
+		controller = (Controller) control;
 	}
 
-	@Override
-	public JComponent getContent() {
-		return this;
-	}
 
 }

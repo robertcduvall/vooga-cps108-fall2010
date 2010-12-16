@@ -25,7 +25,7 @@ import arcade.core.mvc.IViewer;
 import arcade.store.test.CheckoutController;
 import arcade.store.control.MainController;
 
-public class CheckoutGUI implements Tab, IViewer {
+public class CheckoutGUI implements Tab {
 
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
@@ -103,10 +103,6 @@ public class CheckoutGUI implements Tab, IViewer {
 		controller.initialize();
 	}
 
-	@Override
-	public void setController(IController control) {
-		controller = (CheckoutController) control;
-	}
 
 	@Override
 	public IController getController() {

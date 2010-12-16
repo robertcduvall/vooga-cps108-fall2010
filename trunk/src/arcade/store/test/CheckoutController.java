@@ -30,7 +30,6 @@ public class CheckoutController extends Controller{
 
 	@Override
 	public void addViewer(Tab view) {
-
 		viewer = (CheckoutGUI) view;
 	}
 
