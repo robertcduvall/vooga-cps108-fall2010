@@ -2,6 +2,7 @@ package arcade.lobby.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -53,6 +54,7 @@ public class Login extends JPanel{
 		logout.setVisible(false);
 		name = new JLabel();
 		name.setVisible(false);
+		name.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		panel.add(myDock);
 		panel.add(login);
 		panel.add(register);
@@ -105,7 +107,7 @@ public class Login extends JPanel{
 		register.setVisible(false);
 		name.setVisible(true);
 		logout.setVisible(true);
-		name.setText(ProfileSet.getCurrentProfile().getFirstName());
+		name.setText("Helle " + ProfileSet.getCurrentProfile().getFirstName());
 	}
 	
 	public void switchToLogin(){
@@ -114,6 +116,16 @@ public class Login extends JPanel{
 		register.setVisible(true);
 		name.setVisible(false);
 		logout.setVisible(false);
+		resetPassword();
+		resetUsername();
+	}
+
+	public void resetPassword() {
+		((JPasswordField)myDock.getComponent("passwordLogin")).setText("");
+	}
+	
+	public void resetUsername(){
+		((JTextField)myDock.getComponent("usernameLogin")).setText("");
 	}
 
 
