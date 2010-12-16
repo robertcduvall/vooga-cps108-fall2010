@@ -62,7 +62,6 @@ public class ProfileController extends Controller {
 	 */
 	@Override
 	public void initialize() {
-		storeModel.refreshUser();
 		populateProfileFields();
 		setUpUserImage();
 		populatePurchaseHistory();

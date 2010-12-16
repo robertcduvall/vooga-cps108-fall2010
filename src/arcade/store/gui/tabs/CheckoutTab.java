@@ -60,7 +60,7 @@ public class CheckoutTab extends StoreTab {
 		add(getJButton(), null);
 		add(getBuyCartButton(), null);
 		add(getDropCartButton(), null);
-//		add(getRefreshButton(), null);
+		add(getRefreshButton(), null);
 	}
 
 	private void initializeCheckoutTab() {

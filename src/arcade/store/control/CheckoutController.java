@@ -68,7 +68,6 @@ public class CheckoutController extends Controller {
 	 */
 	@Override
 	public void initialize() {
-		storeModel.refreshUser();
 		processEventString("initialize");
 	}
 
