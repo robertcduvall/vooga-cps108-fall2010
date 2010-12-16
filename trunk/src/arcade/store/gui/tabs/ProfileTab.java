@@ -18,12 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class ProfileTab extends StoreTab {
 
-	// private JPanel jPanel = null; //
-	// @jve:decl-index=0:visual-constraint="133,-45"
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static final String NAME = "Shop Profile";
 	private static final String FILE_PATH = "arcade.store.resources.ProfileController";
@@ -106,6 +100,10 @@ public class ProfileTab extends StoreTab {
 		usernameTextField.setText(name);
 	}
 
+	public void setUserImage(ImageIcon image) {
+		getUserImageLabel().setIcon(image);
+	}
+	
 	/**
 	 * This method initializes availableCredditsTextField
 	 * 

@@ -2,6 +2,7 @@ package arcade.store.control;
 
 import java.util.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 import arcade.core.Tab;
@@ -38,10 +39,18 @@ public class ProfileController extends Controller {
 
 	@Override
 	public void initialize() {
-		profileTab.setUsernameTextField(getUser().getId());
+		profileTab.setUsernameTextField(storeModel.getCurrentLobbyProfile().getFullName());
 		profileTab.setAvailableCredditsTextField("" + getUser().getCreddits());
 		profileTab.checkPurchaseCredditsButtonPriviliges(storeModel
 				.checkPrivileges("addCreddits"));
+		ImageIcon image;
+		try {
+			image = new ImageIcon(storeModel.getCurrentLobbyProfile().getAvatar());
+		}
+		catch (Exception e) {
+			image = new ImageIcon("");
+		}
+		profileTab.setUserImage(image);
 		populatePurchaseHistory();
 	}
 

@@ -62,4 +62,9 @@ public class StoreTab extends JPanel implements Tab {
 		
 	}
 
+	@Override
+	public JComponent getContent() {
+		return this;
+	}
+
 }
