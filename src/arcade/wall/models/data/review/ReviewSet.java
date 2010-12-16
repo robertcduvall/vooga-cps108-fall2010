@@ -137,7 +137,7 @@ public class ReviewSet {
 
 	public static Review getRandomReview(String fieldName, String value) {
 		List<Review> possibleReviews = getReviewsByField(fieldName, value);
-		int i = (int)Math.random()*possibleReviews.size();
+		int i = (int)(Math.random()*possibleReviews.size());
 		return possibleReviews.get(i);
 	}
 }

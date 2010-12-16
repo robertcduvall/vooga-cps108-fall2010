@@ -5,12 +5,13 @@ import javax.swing.JOptionPane;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
+import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.items.IItemInfo;
-
-import arcade.wall.models.data.review.*;
+import arcade.wall.models.data.review.Review;
+import arcade.wall.models.data.review.ReviewSet;
 
 public class PurchaseItemController implements IController {
 
@@ -39,8 +40,13 @@ public class PurchaseItemController implements IController {
 
 		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
 		Review randomReview = ReviewSet.getRandomReview("GameInfo_Title", item.getTitle());
-		view.setReviewText(randomReview.getContent() + " ---"+
-				ProfileSet.getProfile(Integer.parseInt(randomReview.getUserId())).getUserName());
+		try {
+			Profile p = ProfileSet.getProfile(Integer.parseInt(randomReview.getUserId()));
+			view.setReviewText(randomReview.getContent() + " ---"+
+				p.getFirstName());
+		} catch (NullPointerException e) {
+			view.setReviewText("No reviews have been written for this game yet.");
+		}
 		int currentUserId = Integer.parseInt(storeModel.getCurrentUserAccount().getId());
 		for(String s : StoreModel.getUserOwnedGamesAsStrings(currentUserId)) {
 			if(s.equals(getItemName())) {
