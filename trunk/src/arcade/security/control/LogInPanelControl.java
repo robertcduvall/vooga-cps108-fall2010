@@ -35,7 +35,6 @@ import arcade.security.view.SignUpPanel;
  */
 public class LogInPanelControl implements IControl{
 
-	
 	private final static Logger log=Logger.getLogger(LogInPanelControl.class);
 	private LoginProcess model;
 	private LogInPanel view; 

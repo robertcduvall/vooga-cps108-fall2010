@@ -20,9 +20,6 @@ public class Admin {
 	private static List<String> loggedInUsers = new ArrayList<String>();
 	private static char[] currentPrivileges;
 
-	// private static Map<String,String> currentUserPrivileges = new
-	// HashMap<String,String>();
-
 	/**
 	 * Refreshes the list of currently logged in users
 	 */

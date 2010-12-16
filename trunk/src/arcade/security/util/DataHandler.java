@@ -60,6 +60,18 @@ public class DataHandler {
 		return privilegeMap;
 	}
 	
+	public Map<String,String> getUserTypeMap(){
+		List<String> usernames = adapter.getColumn(myTable,"UserName");
+		List<String> userTypes = adapter.getColumn(myTable,"UserType");
+		Map<String,String> userTypeMap = new HashMap<String,String>();
+		Iterator<String> itr = userTypes.iterator();
+		for(String name: usernames){
+			userTypeMap.put(name, itr.next());
+		}
+		return userTypeMap;
+	}
+	
+	
 	public List<String> getLoggedInUsers(){
 		List<Map<String,String>> list = adapter.getRows(myTable,"LoggedIn","true");
 		List<String> names = new ArrayList<String>();

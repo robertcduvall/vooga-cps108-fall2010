@@ -37,10 +37,6 @@ public class RetrievePasswordProcess implements IModel {
 				userNameInput).equals(userAnswerInput));
 	}
 
-	// public int getPasswordQuestionIndex(String username){
-	// return dataHandler.getPasswordQuestionIndex(username);
-	// }
-
 	/**
 	 * Gets a specific user's password
 	 * 
