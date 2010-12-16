@@ -53,6 +53,7 @@ public class MainPageController extends Controller{
 	
 	@Override
 	public void initialize() {
+		storeModel.refreshUser();
 		populateMainPage(storeModel.getAllItems());
 		populateGenreList(storeModel.getGenres());
 	}

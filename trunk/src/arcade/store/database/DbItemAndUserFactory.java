@@ -11,36 +11,89 @@ import arcade.store.account.StoreUser;
 import arcade.store.items.IItemInfo;
 import arcade.store.items.ItemInfo;
 
+/**
+ * Instantiates ItemInfo objects and StoreUser objects from 
+ * the database. Used to populate the store catalog and set
+ * the current user in StoreModel.
+ * 
+ * @author Drew Sternesky, Marcus Molchany, Jimmy Mu
+ *
+ */
+
 public class DbItemAndUserFactory {	
 	
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
+	private static final String DELIMITER = ",";
 	
+	/**
+	 * This method fetches a list of items in the store catalog and returns
+	 * them as an array of IItemInfo objects.
+	 * @return Map of String gameTitle to corresponding IItemInfo object. 
+	 */
 	public static Map<String, IItemInfo> getAllStoreItems() {
 		List<Map<String, String>> list = dbAdapter.getAllRows(StoreDbConstants.ITEM_INFO_TABLE);
 		HashMap<String, IItemInfo> answer = new HashMap<String, IItemInfo>();
 		for(Map<String, String> m : list) {
-			String[] images = m.get(StoreDbConstants.IMAGEPATHS_FIELD).split(",");
-			ArrayList<ImageIcon> icons = new ArrayList<ImageIcon>();
-			for(String s : images) {
-				icons.add(new ImageIcon(s));
-			}
-			IItemInfo item = new ItemInfo(Integer.parseInt(m.get(StoreDbConstants.ITEM_ID_FIELD)), m.get(StoreDbConstants.DESCRIPTION_FIELD), m.get(StoreDbConstants.PRICE_FIELD), m.get(StoreDbConstants.TITLE_FIELD),
-					m.get(StoreDbConstants.PURCHASES_FIELD), icons, m.get(StoreDbConstants.GENRE_FIELD));
+			List<ImageIcon> images = getImages(m.get(StoreDbConstants.IMAGEPATHS_FIELD));
+			int itemId = Integer.parseInt(m.get(StoreDbConstants.ITEM_ID_FIELD));
+			String description = m.get(StoreDbConstants.DESCRIPTION_FIELD);
+			String price = m.get(StoreDbConstants.PRICE_FIELD);
+			String title = m.get(StoreDbConstants.TITLE_FIELD);
+			String purchases = m.get(StoreDbConstants.PURCHASES_FIELD);
+			String genre = m.get(StoreDbConstants.GENRE_FIELD);
+			List<String> tags = parseTags(m.get(StoreDbConstants.TAGS_FIELD));
+			IItemInfo item = new ItemInfo(itemId, description, price, title, purchases, images, genre, tags);
 			answer.put(item.getTitle(), item);
 		}
 		return answer;
 	}
+	
+	/**
+	 * Parses comma-delimited string of tags into a list of tags.
+	 * @param tags comma-delimited string of tags
+	 * @return list of String tags
+	 */
+	private static List<String> parseTags(String tags) {
+		String[] tagList = tags.split(DELIMITER);
+		ArrayList<String> list = new ArrayList<String>();
+		for(String s : tagList) list.add(s);
+		return list;
+	}
+	
+	
+	/**
+	 * Generates a list of ImageIcons given a comma-delimited string of 
+	 * image paths
+	 * @param imagePaths comma-delimited string of image paths
+	 * @return list of all images associated with a game.
+	 */
+	private static List<ImageIcon> getImages(String imagePaths) {
+		String[] images = imagePaths.split(DELIMITER);
+		ArrayList<ImageIcon> icons = new ArrayList<ImageIcon>();
+		for(String s : images) {
+			icons.add(new ImageIcon(s));
+		}
+		return icons;
+	}
 
-
+	/**
+	 * Instantiates the current user given a userId. If the userId
+	 * associated with the current (lobby group's) Profile does not have
+	 * an associated entry in the StoreAccounts table, it creates one with
+	 * no owned games and no creddits.
+	 * 
+	 * @param userId unique user id
+	 * @return StoreUser object representing the current user.
+	 */
 	public static StoreUser getUser(int userId) {
 		List<Map<String, String>> list = dbAdapter.getRows(StoreDbConstants.STORE_USER_TABLE, StoreDbConstants.USER_FIELD, Integer.toString(userId));
-		Map<String,String> conditional = new HashMap<String,String>();
-		conditional.put(StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD, Integer.toString(userId));
-		List<Map<String, String>> ownedGames = dbAdapter.getRows(StoreDbConstants.PURCHASE_HISTORY_TABLE,conditional,StoreDbConstants.ITEMNAME_FIELD);
 		if(list!=null) {
 			Map<String, String> userMap = list.get(0);
-			return new StoreUser(userMap.get(StoreDbConstants.USER_FIELD),userMap.get(StoreDbConstants.USER_TYPE_FIELD),  Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD)),
-				userMap.get(StoreDbConstants.CART_FIELD));
+			String id = userMap.get(StoreDbConstants.USER_FIELD);
+			String type = userMap.get(StoreDbConstants.USER_TYPE_FIELD);
+			double creddits =  Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD));
+			String cart = userMap.get(StoreDbConstants.CART_FIELD);
+			return new StoreUser(id, type, creddits, cart);
 		}
 		else {
 			HashMap<String, String> newUser = new HashMap<String, String>();
