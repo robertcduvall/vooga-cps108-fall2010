@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import net.miginfocom.swing.MigLayout;
+
 import arcade.core.Arcade;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
@@ -45,9 +47,9 @@ public class ArcadeProfile extends Panel {
 	}
 	
 	private void initialize() {
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
+		setLayout(new MigLayout());
+		int row = 0;
+		
 		JLabel avatar = null;
 		try {
 			String avatarPath = myProfile == null
@@ -64,11 +66,14 @@ public class ArcadeProfile extends Panel {
 		}
 		
 		JLabel nameLabel = new JLabel(myProfile.getUserName());
-		add(nameLabel);
-		add(avatar);
-		add(new JLabel("Name:"));
-		add(new JLabel(myProfile.getFullName()));
-		add(getPlayerHighScoresPanel(myProfile.getUserId(), 5));
+		add(nameLabel, "cell 0 " + row);
+		row++;
+		add(avatar, "cell 0 " + row);
+		row++;
+		add(new JLabel("Name: " + myProfile.getFullName()), "cell 0 " + row);
+		row++;
+		add(getPlayerHighScoresPanel(myProfile.getUserId(), 5), "cell 0 " + row);
+		row++;
 	}
 	
 	public JTextPane getPlayerHighScoresPanel(int playerID,
@@ -118,6 +123,7 @@ public class ArcadeProfile extends Panel {
 		initialize();
 	}
 	
+	//method taken from profileviewpanel
 	private void scaleImage(ImageIcon icon) {
 		Image image = icon.getImage();
 		icon.setImage(image.getScaledInstance(AVATAR_WIDTH,
