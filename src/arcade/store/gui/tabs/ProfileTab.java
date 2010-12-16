@@ -1,13 +1,10 @@
 package arcade.store.gui.tabs;
 
 import javax.swing.JComponent;
-import arcade.core.Tab;
 import arcade.core.mvc.IController;
-import arcade.core.mvc.IViewer;
 import arcade.store.control.ProfileController;
 import arcade.store.gui.StoreTab;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -19,7 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ProfileTab extends StoreTab implements Tab, IViewer {
+public class ProfileTab extends StoreTab {
 
 	// private JPanel jPanel = null; //
 	// @jve:decl-index=0:visual-constraint="133,-45"
