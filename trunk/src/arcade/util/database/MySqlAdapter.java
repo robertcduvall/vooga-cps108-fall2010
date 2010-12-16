@@ -126,12 +126,12 @@ public class MySqlAdapter implements DatabaseAdapter {
 				result.add(rs.getString(columnName));
 			}
 			ps.close();
-			log.info("Successful database operation: Get a column from "
-					+ columnName + " of table " + tableName);
+			log.info("Successful database operation: "
+					+ sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			log.debug("Failed database operation: Get a column from "
-					+ columnName + " of table " + tableName);
+			log.debug("Failed database operation: "
+					+ sql);
 			return null;
 		}
 		//closeConnection();
