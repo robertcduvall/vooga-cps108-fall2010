@@ -13,7 +13,7 @@ public class StoreSqlAdapter extends MySqlAdapter {
 	}
 	
 	public List<Map<String, String>> getAllRows(String tableName) {
-		return super.getRows("SELECT * FROM "+tableName);
+		return super.getColumns(tableName);
 	}
 
 	public boolean updateCreddits(double newCreddits, String userId) {

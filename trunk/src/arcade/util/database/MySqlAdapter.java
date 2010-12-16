@@ -114,7 +114,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 */
 	@Override
 	public List<String> getColumn(String tableName, String columnName) {
-		refreshConnection();
+		//refreshConnection();
 		String sql = String.format("SELECT * FROM %s", tableName);
 		PreparedStatement ps;
 		List<String> result = new ArrayList<String>();
@@ -134,7 +134,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 					+ columnName + " of table " + tableName);
 			return null;
 		}
-		closeConnection();
+		//closeConnection();
 		return result;
 	}
 
@@ -189,7 +189,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	public List<Map<String, String>> getRows(String tableName,
 			Map<String, String> conditions) {
 		String conditional = createConditional(conditions);
-		String query = "SELECT * FROM " + tableName + " WHERE " + conditional;
+		String query = "SELECT * FROM " + tableName + conditional;
 		return getRows(query);
 	}
 
@@ -213,7 +213,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			Map<String, String> conditions, String... cols) {
 		String conditional = createConditional(conditions);
 		String columns = createColumnSelection(cols);
-		String query = "SELECT " + columns + " FROM " + tableName + " WHERE "
+		String query = "SELECT " + columns + " FROM " + tableName
 				+ conditional;
 		return getRows(query);
 	}
@@ -242,12 +242,12 @@ public class MySqlAdapter implements DatabaseAdapter {
 			int number, String... cols) {
 		String conditional = createConditional(conditions);
 		String columns = createColumnSelection(cols);
-		String query = "SELECT " + columns + " FROM " + tableName + " WHERE "
+		String query = "SELECT " + columns + " FROM " + tableName
 				+ conditional + " ORDER BY " + sortBy + " "
 				+ ((ascending) ? "ASC" : "DESC") + " LIMIT 0 , " + number;
 		return getRows(query);
 	}
-
+/*
 	/**
 	 * Gets a set of rows from the database using a query
 	 * 
@@ -256,8 +256,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 * @return A list of maps of field names to values for each row or null if
 	 *         the query fails
 	 */
-	public List<Map<String, String>> getRows(String query) {
-		refreshConnection();
+	private List<Map<String, String>> getRows(String query) {
+		//refreshConnection();
 		ResultSet rs;
 		Map<String, String> map;
 		List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
@@ -283,7 +283,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			log.debug(e);
 			return null;
 		}
-		closeConnection();
+		//closeConnection();
 		log.info("Successful database operation: " + query);
 		return maps;
 	}
@@ -298,6 +298,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 * @return select statement for a query
 	 */
 	private String createColumnSelection(String[] cols) {
+		if (cols.length == 0) return " * ";
 		String columns = "";
 		if (cols.length == 0)
 			columns = "*";
@@ -322,7 +323,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean insert(String tableName, Map<String, String> row) {
 		// TODO Auto-generated method stub
-		refreshConnection();
+		//refreshConnection();
 		String keys = "(";
 		String values = "(";
 		for (String s : row.keySet()) {
@@ -346,7 +347,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			log.info(e);
 			return false;
 		}
-		closeConnection();
+		//closeConnection();
 		log.info("Successful database operation: " + sql);
 		return true;
 	}
@@ -390,14 +391,14 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean update(String tableName, Map<String, String> conditions,
 			Map<String, String> row) {
-		refreshConnection();
+		//refreshConnection();
 		String newValues = "";
 		for (String s : row.keySet()) {
 			newValues += s + "='" + row.get(s) + "', ";
 		}
 		newValues = newValues.substring(0, newValues.length() - 2);
 		String conditional = createConditional(conditions);
-		String sql = "UPDATE " + tableName + " SET " + newValues + " WHERE "
+		String sql = "UPDATE " + tableName + " SET " + newValues
 				+ conditional;
 		try {
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
@@ -408,7 +409,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 			log.debug(e);
 			return false;
 		}
-		closeConnection();
+		//closeConnection();
 		log.info("Successful database operation: " + sql);
 		return true;
 	}
@@ -418,7 +419,8 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 * desired values
 	 */
 	private String createConditional(Map<String, String> conditions) {
-		String conditional = "";
+		if(conditions.isEmpty()) return "";
+		String conditional = " WHERE ";
 		Iterator<String> it = conditions.keySet().iterator();
 		while (it.hasNext()) {
 			String field = it.next();

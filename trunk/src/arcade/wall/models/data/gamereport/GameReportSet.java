@@ -106,8 +106,9 @@ public class GameReportSet extends DataSet {
 	 * Uses an SQL query to construct the GameRankings list.
 	 */
 	public List<String> getGameRankList() {
+		Map<String,String> emptyConditional = new HashMap<String,String>();
 		List<Map<String, String>> list = ((MySqlAdapter)(myDbAdapter)).getRows(
-				"SELECT GameInfo_Title, AverageRating FROM GameReports ORDER BY AverageRating DESC, NumberOfComments DESC, GameInfo_Title ASC");
+		"GameReports", emptyConditional,"AverageRating", false, 100000,"GameInfo_Title", "AverageRating");
 		List<String> returnList = new ArrayList<String>();
 		for (Map<String, String> row: list) {
 			returnList.add(row.get("GameInfo_Title"));
