@@ -25,7 +25,7 @@ public class ProfileViewPanel extends JPanel {
 	private int myRow;
 
 	public ProfileViewPanel() {
-		this(ProfileSet.getProfile(1));
+		this(ProfileSet.getProfile(47));
 		// this(null);
 	}
 
@@ -56,7 +56,7 @@ public class ProfileViewPanel extends JPanel {
 		addField(new JLabel("Name:"), new JLabel(myProfile.getFullName()));
 		addField(new JLabel("Email Address:"), new JLabel(myProfile.getEmail()));
 		addField(new JLabel("Birthday:"), new JLabel(myProfile.getBirthday()));
-
+		
 		if (myProfile.getJoinDate() != 0) {
 			long seconds = (System.currentTimeMillis() - myProfile
 					.getJoinDate()) / 1000;

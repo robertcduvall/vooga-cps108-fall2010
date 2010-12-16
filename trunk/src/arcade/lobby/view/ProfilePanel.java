@@ -1,11 +1,18 @@
 package arcade.lobby.view;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
@@ -17,13 +24,15 @@ import arcade.lobby.model.ProfileSet;
 public class ProfilePanel extends JPanel implements Tab, IView {
 	public ProfileEditPanel myEditPanel;
 	public ProfileViewPanel myViewPanel;
-	private boolean editMode = false;
+	private enum State{view,edit,viewothers};
+	private State mode = State.view;
 	private JPanel myLeftSidebar;
 	private JPanel myMainPanel;
 	private JPanel myRightSidebar;
 	private ResourceBundle resources;
 	private Profile myProfile;
 	private JButton myEditButton;
+	private JComboBox myUsers;
 
 	public ProfilePanel() {
 		super();
@@ -47,6 +56,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		myEditPanel = createEditPanel();
 		myRightSidebar = createSidebar("right");
 		myEditButton = new JButton();
+		myUsers = getUserBox();
 		myMainPanel = new JPanel();
 		myMainPanel.setLayout(new BoxLayout(myMainPanel, BoxLayout.Y_AXIS));
 		refreshContent();
@@ -54,7 +64,27 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		add(myLeftSidebar, "ax l, sy 2");
 		add(myMainPanel);
 		add(myRightSidebar, "ax r, sy 2");
+		add(myUsers,"newline,ax center");
 		add(myEditButton, "newline,skip 1,ax c,ay c");
+
+	private JComboBox getUserBox() {
+		JComboBox userBox = new JComboBox();
+		final Map<String, Integer> users = ProfileSet.getUserNames();
+		for(String user : users.keySet()) {
+			userBox.addItem(user);
+		}
+		userBox.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				String selectedUser = (String) e.getItem();
+				Profile profile = ProfileSet.getProfile(users.get(selectedUser));
+				myViewPanel = new ProfileViewPanel(profile);
+				mode = State.viewothers;
+				redraw();
+			}
+		});
+		return userBox;
 	}
 
 	public void addEditButtonListener(ActionListener listener) {
@@ -86,10 +116,18 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		return myEditPanel;
 	}
 	
-	public boolean changeEditMode() {
-		editMode = !editMode;
+	public State changeMode() {
+		switch(mode) {
+		case view:
+			mode = State.edit;
+			break;
+		case edit:
+		case viewothers:
+			mode = State.view;
+		}
 		reload();
-		return editMode;
+		redraw();
+		return mode;
 	}
 
 	private ProfileEditPanel createEditPanel() {
@@ -101,9 +139,32 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	}
 
 	private void refreshContent() {
-		myEditButton.setText(editMode ? "View Profile" : "Edit Profile");
+		myEditButton.setText(getButtonString());
 		myMainPanel.removeAll();
-		myMainPanel.add(editMode ? myEditPanel : myViewPanel);
+		myMainPanel.add(getCurentMainPanel());
+	}
+	
+	private String getButtonString() {
+		switch(mode) {
+		case view:
+			return "Edit Profile";
+		case edit:
+		case viewothers:
+			return "View My Profile";
+		default:
+			return "";
+		}
+	}
+	
+	private JPanel getCurentMainPanel() {
+		switch(mode) {
+		case edit:
+			return myEditPanel;
+		default:
+		case viewothers:
+		case view:
+			return myViewPanel;
+		}
 	}
 
 	private JPanel createSidebar(String name) {
@@ -128,21 +189,24 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	@Override
 	public void refresh() {
 		repaint();
-		editMode = false;
+		mode = State.view;
 		reload();
+		redraw();
 	}
 	
 	private void reload() {
-		// To test with no current profile by switching between users 1 and 2:
-		// myProfile = ProfileSet.getProfile((myProfile.getUserId())%2+1);
 		myProfile = ProfileSet.getCurrentProfile();
 		myViewPanel.refresh(myProfile);
 		myEditPanel.refresh(myProfile);
 		setName(myProfile.getUserName() + "'s Profile");
-//		editMode = !editMode;
+	}
+	
+	private void redraw() {
+		State oldmode = mode;
+		mode = State.edit;
 		refreshContent();
-//		editMode = !editMode;
-//		refreshContent();
+		mode = oldmode;
+		refreshContent();
 	}
 
 	@Override

@@ -22,11 +22,11 @@ public class ProfileController implements IController {
 		myModel = (Profile) model;
 		myView = (ProfilePanel) view;
 		myView.refresh();
-		addListeners();
+		setup();
 	}
 
 
-	private void addListeners() {
+	public void setup() {
 		myView.addEditButtonListener(new EditEvent());
 //		myView.getEditPanel().addSaveListener(new SaveEvent());
 	}
@@ -48,7 +48,7 @@ public class ProfileController implements IController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			myView.changeEditMode();
+			myView.changeMode();
 		}
 	}
 	
