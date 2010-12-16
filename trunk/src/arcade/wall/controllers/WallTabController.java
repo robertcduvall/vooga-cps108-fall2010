@@ -119,10 +119,10 @@ public class WallTabController {
 					   myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
 			if (myModel.reviewIsConflicting(submittedReview)) {
     			if (showExistingReviewDialog() == JOptionPane.YES_OPTION) {
-    				myModel.addReview(submittedReview, true);
+    				myModel.addReview(submittedReview);
     			}
     		} else {
-    			myModel.addReview(submittedReview, false);
+    			myModel.addReview(submittedReview);
     		}
 		}
 	}
