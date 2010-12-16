@@ -31,10 +31,6 @@ public class RelatedAd extends BasicAd implements IRelatedAds{
 		tagList = list;
 	}
 
-	public String getName(){
-		return this.ad.getName();
-	}
-	
 	public List<String> getCategories(){
 		return tagList;
 	}
