@@ -10,6 +10,12 @@ import arcade.wall.models.WallModel;
 import arcade.wall.models.data.comment.Comment;
 import arcade.wall.views.wallwidget.WallWidgetView;
 
+/**
+ * 
+ * @author Cameron McCallie
+ * @author John Kline  
+ * @author Bhawana Singh
+ */
 public class WallWidgetController {
 	WallTabController controller;
 	WallModel model; 

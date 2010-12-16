@@ -2,6 +2,12 @@ package arcade.wall.models.data.message;
 
 import arcade.wall.models.data.Datum;
 
+/**
+ * A Message represents a VOOGA Message - it is from a particular user, sent to a particular user, and
+ * it contains textual content.
+ * @author John Kline
+ *
+ */
 public class Message extends Datum {
 
 	private String mySender;

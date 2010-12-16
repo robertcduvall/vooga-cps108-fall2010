@@ -5,20 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import arcade.wall.models.data.DataSet;
+import arcade.util.database.DatabaseAdapter;
+import arcade.util.database.MySqlAdapter;
 
 /**
  * A MessageSet contains all the VOOGA Messages. It is linked to our online database.
- * @author John, David Herzka
- *
+ * @author John Kline
+ * @author David Herzka
  */
-public class MessageSet extends DataSet {
+public class MessageSet {
 
+	private static DatabaseAdapter myDbAdapter;
+	private static String myTable;
+	public static int currentID;
+	
 	public MessageSet(String host, String dbName, String tableName,
 			String user, String pass) {
-		super(host, dbName, tableName, user, pass);
+		myDbAdapter = new MySqlAdapter(host, dbName, user, pass);
+		myTable = tableName;
+		currentID = size();
 	}
 
+	/**
+	 * Returns the size of the MessageSet (number of rows).
+	 */
+	public int size() {
+		List<String> col = myDbAdapter.getColumn(myTable, "Id");
+		return col.size();
+	}
+	
 	/**
 	 * Inserts a new row into the database, based on the given Message.
 	 * @param message
@@ -53,5 +68,22 @@ public class MessageSet extends DataSet {
 					));
 		}
 		return returnMessages;
+	}
+	
+	/**
+	 * Updates a matching row's field in the database to a new value.
+	 */
+	public boolean updateField(String fieldToMatch, String valueToMatch, String fieldToUpdate, String newValue) {
+		Map<String, String> row = new HashMap<String, String>();
+		row.put(fieldToUpdate, ""+newValue);
+		return myDbAdapter.update(myTable, fieldToMatch, valueToMatch, row);
+	}
+	
+	/**
+	 * Retrieves the value of a desired field of a matched row.
+	 */
+	public String getValue(String fieldToMatch, String valueToMatch, String desiredField) {
+		Map<String, String> row = myDbAdapter.getRows(myTable, fieldToMatch, valueToMatch).get(0);
+		return row.get(desiredField);
 	}
 }

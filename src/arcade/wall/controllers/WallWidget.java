@@ -2,7 +2,12 @@ package arcade.wall.controllers;
 
 import javax.swing.JFrame;
 
-
+/**
+ * 
+ * @author Cameron McCallie
+ * @author John Kline  
+ * @author Bhawana Singh
+ */
 @SuppressWarnings("serial")
 public class WallWidget extends JFrame{
 	

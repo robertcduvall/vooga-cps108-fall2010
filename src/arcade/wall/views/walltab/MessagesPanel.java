@@ -64,6 +64,8 @@ public class MessagesPanel extends JPanel {
 		this.add(myRefreshInboxButton);
 		constructComposeMessageFrame();
 		myInboxTable = new JTable();
+		myInboxTable.setPreferredScrollableViewportSize(new Dimension(100, 100)); // This should match the panel it goes in
+        myInboxTable.setFillsViewportHeight(true);
 		myInboxScrollPane = new JScrollPane(myInboxTable);
 		this.add(myInboxScrollPane);
 	}
