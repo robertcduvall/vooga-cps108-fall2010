@@ -7,12 +7,24 @@ import java.util.Map;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
+/**
+ * Model object for the sign up panel
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ * 
+ */
 public class SignUpHandler {
-	// potentially add another datahandler that handles the privilege table
 	private static DataHandler userHandler = DataHandler.getInstance("User");
 	private static DataHandler privilegeHandler = DataHandler
 			.getInstance("Privileges");
 
+	/**
+	 * Checks a username to see if it is valid.
+	 * 
+	 * @param name
+	 *            The potential username to check
+	 * @return true if it is valid
+	 */
 	public static boolean isValidUserName(String name) {
 		if (name.contains(" "))
 			return false;
@@ -21,6 +33,15 @@ public class SignUpHandler {
 		return (userHandler.getUserId(name) < 1);
 	}
 
+	/**
+	 * Compares two passwords to see if they are the same.
+	 * 
+	 * @param pwd_1
+	 *            The first password to compare
+	 * @param pwd_2
+	 *            The second password to compare
+	 * @return true if they are the same.
+	 */
 	public static boolean samePassword(char[] pwd_1, char[] pwd_2) {
 		if (pwd_1.length != pwd_2.length)
 			return false;
@@ -31,6 +52,28 @@ public class SignUpHandler {
 		return true;
 	}
 
+	/**
+	 * Creates a new user in the database.
+	 * 
+	 * @param username
+	 *            The new user's username
+	 * @param password
+	 *            The new user's password
+	 * @param questionIndex
+	 *            The index of the new user's forgotten password question
+	 * @param questionAnswer
+	 *            The new user's forgotten password question
+	 * @param firstName
+	 *            The new user's first name
+	 * @param lastName
+	 *            The new user's last name
+	 * @param email
+	 *            The new user's email address
+	 * @param birthday
+	 *            The new user's birthday
+	 * @param avatar
+	 *            The new user's avatar's URL
+	 */
 	public static void createNewUser(String username, char[] password,
 			int questionIndex, String questionAnswer, String firstName,
 			String lastName, String email, String birthday, String avatar) {
@@ -38,18 +81,17 @@ public class SignUpHandler {
 		// int id = ProfileSet.currentProfile.getUserId();
 		PasswordHasher hasher = new PasswordHasher();
 		String hashedPassword = hasher.encrypt(String.valueOf(password));
-		
+
 		Map<String, String> userRow = new LinkedHashMap<String, String>();
 		userRow.put("UserName", username);
 		userRow.put("Password", hashedPassword);
 		userRow.put("QuestionIndex", String.valueOf(questionIndex));
 		userRow.put("QuestionAnswer", questionAnswer);
-		userRow.put("UserType","Administrator");
-		if(userHandler.insert(userRow))
+		userRow.put("UserType", "Administrator");
+		if (userHandler.insert(userRow))
 			System.out.println("User created");
 		else
 			System.out.println("User not created!!!");
-
 
 		// potentially use userID to sync between different tables. But since
 		// the
