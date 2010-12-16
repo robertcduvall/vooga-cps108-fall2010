@@ -13,15 +13,16 @@ import arcade.store.gui.tabs.CheckoutTab;
 
 /**
  * 
- * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
- * @date: 			12-10-15
- * @description: 	This class represents the controller for the the CheckoutTab and the 
- * 					the StoreModel. The CheckoutTab extends the Controller class and maintain
- * 					all the communications between the the StoreModel and the Viewer.
- * 					These interactions include displaying StoreUser creddits in the 
- * 					JTextFields, calculating the the purchase cost of the cart, and 
- * 					processing user's shopping requests. 
- *
+ * @author: Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date: 12-10-15
+ * @description: This class represents the controller for the the CheckoutTab
+ *               and the the StoreModel. The CheckoutTab extends the Controller
+ *               class and maintain all the communications between the the
+ *               StoreModel and the Viewer. These interactions include
+ *               displaying StoreUser creddits in the JTextFields, calculating
+ *               the the purchase cost of the cart, and processing user's
+ *               shopping requests.
+ * 
  */
 
 public class CheckoutController extends Controller {
@@ -33,9 +34,9 @@ public class CheckoutController extends Controller {
 	private String currentSelected;
 
 	/**
-	 * default constructor for CheckoutController that takes in
-	 * a filepath for the resource bundle that this class
-	 * uses with the processEvent and processEventString methods.
+	 * default constructor for CheckoutController that takes in a filepath for
+	 * the resource bundle that this class uses with the processEvent and
+	 * processEventString methods.
 	 */
 	public CheckoutController(String filepath) {
 		super(filepath);
@@ -78,9 +79,9 @@ public class CheckoutController extends Controller {
 	}
 
 	/**
-	 * sets up the GUI JTextField for the remaining creddits. 
+	 * sets up the GUI JTextField for the remaining creddits.
 	 */
-	private void setUpRemainingCreddits() {
+	public void setUpRemainingCreddits() {
 
 		double remaining = storeModel.getUserWishListBalance();
 		setRemainingCreditField(remaining);
@@ -88,45 +89,44 @@ public class CheckoutController extends Controller {
 
 	/**
 	 * setRemainingCreditField takes in the parameter balance and puts this
-	 * value in a JTextField. If the user has has a balance of less than 0,
-	 * 0 is displayed. If the user has a balance of greater than or equal to 0,
-	 * then their credits are displayed.
+	 * value in a JTextField. If the user has has a balance of less than 0, 0 is
+	 * displayed. If the user has a balance of greater than or equal to 0, then
+	 * their credits are displayed.
 	 */
 	private void setRemainingCreditField(double balance) {
 		if (balance < Integer.parseInt(getString("minimumBalance"))) {
 			viewer.setRemainigCredditsTextField(getString("minimumBalance"));
 		} else {
-			viewer.setRemainigCredditsTextField(getString(null) + balance);
+			viewer.setRemainigCredditsTextField(getString("emptyString") + balance);
 		}
 	}
 
 	/**
-	 * setUpUserCostField gets the total cost of the user's 
-	 * shopping cart and display this information in the 
-	 * cost JTextField of the CheckoutTab.
+	 * setUpUserCostField gets the total cost of the user's shopping cart and
+	 * display this information in the cost JTextField of the CheckoutTab.
 	 */
-	private void setUpUserCostField() {
+	public void setUpUserCostField() {
 		// The total cart cost
-		String totalCartPrice = getString(null)
+		String totalCartPrice = getString("emptyString")
 				+ storeModel.getTotalUserCartCost();
 		viewer.setTotalCostTextField(totalCartPrice);
 	}
 
 	/**
-	 * setUpCurrentCredditsField gets the user's current creddits
-	 * and displays this information on the CheckoutTab. 
+	 * setUpCurrentCredditsField gets the user's current creddits and displays
+	 * this information on the CheckoutTab.
 	 */
-	private void setUpCurrentCredditsField() {
+	public void setUpCurrentCredditsField() {
 		// The current user creddits;
-		String currentUserCreddits = getString(null)
+		String currentUserCreddits = getString("emptyString")
 				+ storeModel.getCurrentUserAccount().getCreddits();
 		viewer.setAvailableCredditsTextField(currentUserCreddits);
 	}
 
 	/**
-	 * setUpUserCart makes 
+	 * setUpUserCart makes
 	 */
-	private void setUpUserCart() {
+	public void setUpUserCart() {
 		List<String> currentCart = storeModel.getCurrentUserAccount().getCart();
 		viewer.setItemsList(currentCart.toArray(new String[currentCart.size()]));
 	}
