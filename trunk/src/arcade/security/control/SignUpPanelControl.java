@@ -23,11 +23,11 @@ import arcade.security.view.SignUpPanel;
 import arcade.util.guiComponents.ValidatorDock;
 
 /**
- * Controller for the Sign Up Panel. Used in conjunction with security.view.SignUpPanel
- * and security.model.SignUpProcess.
+ * Controller for the Sign Up Panel. Used in conjunction with
+ * security.view.SignUpPanel and security.model.SignUpProcess.
  * 
- * @author Meng Li, Jiaqi Yan, Nick Hawthorne 
- *  
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ * 
  */
 public class SignUpPanelControl implements IControl {
 
@@ -38,11 +38,13 @@ public class SignUpPanelControl implements IControl {
 	private PasswordHandler passwordHandler;
 
 	/**
-	 * Constructor for the signup panel controller. Takes an
-	 * IView object and an IModel object
+	 * Constructor for the signup panel controller. Takes an IView object and an
+	 * IModel object
 	 * 
-	 * @param view the corresponding view object
-	 * @param model the corresponding model object
+	 * @param view
+	 *            the corresponding view object
+	 * @param model
+	 *            the corresponding model object
 	 */
 	public SignUpPanelControl(IView view, IModel model) {
 		this.model = (SignUpProcess) model;
@@ -51,12 +53,12 @@ public class SignUpPanelControl implements IControl {
 
 		this.view.addPasswordListener(new PasswordListener());
 		this.view.addSubmitButtonListener(new SubmitEvent());
-		/*this.view.addLoginPageButtonListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				switchToLoginPage();
-			}
-		});*/
+		/*
+		 * this.view.addLoginPageButtonListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent arg0) {
+		 * switchToLoginPage(); } });
+		 */
 	}
 
 	private class PasswordListener implements KeyListener {
@@ -98,11 +100,13 @@ public class SignUpPanelControl implements IControl {
 			// char[] pwd_2 = view.getRepPasswordUserInput();
 			// String username = view.getUserNameUserInput();
 			// if(!model.isSamePassword(pwd_1, pwd_2)){
-			// JOptionPane.showMessageDialog(view.getCurrentPanel(),"Password are not the same");
+			// JOptionPane.showMessageDialog(view.getCurrentPanel(),
+			// "Password are not the same");
 			// return;
 			// }
 			// if(!model.isValidUserName(username)){
-			// JOptionPane.showMessageDialog(view.getCurrentPanel(),"Useraname is not valid");
+			// JOptionPane.showMessageDialog(view.getCurrentPanel(),
+			// "Useraname is not valid");
 			// return;
 			// }
 			// int questionIndex = view.getQuestionSelectedIndex();
@@ -125,15 +129,16 @@ public class SignUpPanelControl implements IControl {
 						.getText();
 				String lastName = ((JTextField) dock.getComponent("lname"))
 						.getText();
-				String email = ((JTextField) dock
-						.getComponent("email")).getText();
-				String birthday = ((JTextField) dock
-						.getComponent("bday")).getText();
-				String avatar = ((JTextField) dock
-						.getComponent("avatar")).getText();
+				String email = ((JTextField) dock.getComponent("email"))
+						.getText();
+				String birthday = ((JTextField) dock.getComponent("bday"))
+						.getText();
+				String avatar = ((JTextField) dock.getComponent("avatar"))
+						.getText();
 
 				model.createNewUser(username, pwd_1, questionIndex,
-						questionAnswer, firstName, lastName, email, birthday, avatar);
+						questionAnswer, firstName, lastName, email, birthday,
+						avatar);
 
 				log.info(username + " User has been created.");
 				switchToLoginPage();
@@ -148,8 +153,8 @@ public class SignUpPanelControl implements IControl {
 			for (String s : validMap.keySet()) {
 				if (!validMap.get(s)) {
 					isValid = false;
-					JOptionPane.showMessageDialog(dock,
-							LabelResources.getLabel(s + "ErrorMessage"));
+					JOptionPane.showMessageDialog(dock, LabelResources
+							.getLabel(s + "ErrorMessage"));
 					break;
 				}
 			}
