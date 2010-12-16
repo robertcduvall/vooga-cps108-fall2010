@@ -127,7 +127,7 @@ public class AdsManager implements MouseListener {
 		if (!renderedAdsGroup.getAds().isEmpty()) {
 			// System.out.printlnindex();
 			// System.out.println("rendering");
-			System.out.println(renderedAdsGroup.getCurrentAd()==null);
+			System.out.println(renderedAdsGroup.getCurrentAd() == null);
 			renderedAdsGroup.getCurrentAd().render(panel, panel.getWidth(),
 					panel.getHeight());
 		}
@@ -216,8 +216,12 @@ public class AdsManager implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getButton() == MouseEvent.BUTTON1)
+			renderedAdsGroup.getCurrentAd().onLeftClick();
 
+		if (e.getButton() == MouseEvent.BUTTON2) {
+			System.out.println("right button");
+		}
 	}
 
 	@Override
