@@ -46,7 +46,7 @@ public class ArcadeTab extends JSplitPane implements Tab{
 		setOrientation(HORIZONTAL_SPLIT);
 		columnar.setMinimumSize(new Dimension(700, 820));
 		setLeftComponent(columnar);
-		
+
 		setRightComponent(createPanels("rightPanel"));
 		setOneTouchExpandable(true);	
 	}
@@ -111,6 +111,8 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	@Override
 	public void refresh() {
 		repaint();
+		refreshPanels();
+		setRightComponent(createPanels("rightPanel"));
 	}
 	
 	/**
@@ -120,7 +122,6 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	 * @param gameID The ID of the selected game
 	 */
 	public static void play(int gameID) {
-		//		ExampleGUI.setGame(gameID);
 		columnar.setRightComponent(new GameView(gameID));
 		refreshPanels();
 	}
@@ -129,8 +130,8 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	 * Refreshes all the panels on the left and right side of the view.
 	 */
 	public static void refreshPanels(){
-		
 		columnar.setLeftComponent(createPanels("leftPanel"));
 	}
+
 
 }

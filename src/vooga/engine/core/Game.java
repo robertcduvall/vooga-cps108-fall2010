@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import arcade.core.examples.HighScorePanel;
+import arcade.core.components.HighScorePanel;
 import arcade.mod.controller.GameConsole;
 
 import com.golden.gamedev.GameLoader;
