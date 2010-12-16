@@ -218,11 +218,6 @@ public class View extends JPanel implements IViewer, Tab {
 	}
 
 	@Override
-	public JComponent getContent() {
-		return this;
-	}
-
-	@Override
 	public IController getController() {
 		// TODO wtf
 		return null;

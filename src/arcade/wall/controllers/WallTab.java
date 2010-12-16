@@ -32,11 +32,6 @@ public class WallTab extends JPanel implements Tab {
 	}
 
 	@Override
-	public JComponent getContent() {
-		return this;
-	}
-
-	@Override
 	public IController getController() {
 		return null;
 	}
