@@ -4,6 +4,10 @@ import javax.swing.JTextField;
 
 import arcade.util.guiComponents.Validator;
 
+/**
+ * Validation class for emails.
+ * @author the lobbyists
+ */
 public class EmailValidator extends Validator<JTextField> {
 
 	@Override

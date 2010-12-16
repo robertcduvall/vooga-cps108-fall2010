@@ -16,6 +16,12 @@ import net.miginfocom.swing.MigLayout;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
+/**
+ * The view-only version of the profile.  This is what
+ * first shows up when a user switches to the "Profile"
+ * tab in the Arcade.
+ * @author david, segil
+ */
 @SuppressWarnings("serial")
 public class ProfileViewPanel extends JPanel {
 	private static final int AVATAR_WIDTH = 100;

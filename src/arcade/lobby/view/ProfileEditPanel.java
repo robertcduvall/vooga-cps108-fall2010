@@ -186,13 +186,6 @@ public class ProfileEditPanel extends JPanel implements IView {
 //	public void addSaveListener(ActionListener listener) {
 //		mySaveButton.addActionListener(listener);
 //	}
-	
-	/**
-	 * @return
-	 */
-//	public Profile getProfile() {
-//		return myProfile;
-//	}
 
 	/**
 	 * Recreates the panel with the newProfile, which

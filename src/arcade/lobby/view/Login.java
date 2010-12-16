@@ -20,6 +20,12 @@ import arcade.util.guiComponents.ValidatingComponent;
 import arcade.util.guiComponents.Validator;
 import arcade.util.guiComponents.ValidatorDock;
 
+/**
+ * Viewer for the login interface at the top of
+ * Arcade.
+ * @author the lobbyists
+ *
+ */
 @SuppressWarnings("serial")
 public class Login extends JPanel{
 	ValidatorDock myDock;
@@ -80,26 +86,47 @@ public class Login extends JPanel{
 		myDock.addValidatingComponent(vc, name);
 	}
 	
+	/**
+	 * Adds an action listener to the login button.
+	 * @param listener
+	 */
 	public void addLoginButtonListeners(ActionListener listener){
 		login.addActionListener(listener);
 	}
 	
+	/**
+	 * Adds an action listener to the register button.
+	 * @param listener
+	 */
 	public void addRegisterButtonListener(ActionListener listener){
 		register.addActionListener(listener);
 	}
 	
+	/**
+	 * Adds an action listener to the logout button.
+	 * @param listener
+	 */
 	public void addLogoutButtonListener(ActionListener listener){
 		logout.addActionListener(listener);
 	}
 	
+	/**
+	 * @return string from the username text field.
+	 */
 	public String getUserNameUserInput(){
 		return ((JTextField)(myDock.getComponent("usernameLogin"))).getText();
 	}
 	
+	/**
+	 * @return char array in password text field.
+	 */
 	public char[] getPasswordUserInput(){
 		return ((JPasswordField)(myDock.getComponent("passwordLogin"))).getPassword();
 	}
 
+	/**
+	 * Switches to logged in view.  Allows you to logout.
+	 */
 	public void switchToLogout() {
 		myDock.setVisible(false);
 		login.setVisible(false);
@@ -110,6 +137,10 @@ public class Login extends JPanel{
 		validate();
 	}
 	
+	/**
+	 * Switches to guest view.  Allows users to login
+	 * or register.
+	 */
 	public void switchToLogin(){
 		myDock.setVisible(true);
 		login.setVisible(true);
@@ -121,10 +152,16 @@ public class Login extends JPanel{
 		validate();
 	}
 
+	/**
+	 * Sets the password field to blank.
+	 */
 	public void resetPassword() {
 		((JPasswordField)myDock.getComponent("passwordLogin")).setText("");
 	}
 	
+	/**
+	 * Sets the username field to blank.
+	 */
 	public void resetUsername(){
 		((JTextField)myDock.getComponent("usernameLogin")).setText("");
 	}

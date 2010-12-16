@@ -10,14 +10,25 @@ import arcade.util.database.DatabaseAdapter;
 import arcade.util.database.MySqlAdapter;
 import arcade.util.database.Constants;
 
+/**
+ * Communicates with the database, receiving and updating
+ * current profile information.  
+ * @author andrew, david, justin
+ */
 public class ProfileSet implements Iterable<Profile> {
 
 	private static Profile currentProfile = null;
 	private static final Profile GUEST_PROFILE = createGuest();
+	/**
+	 * Adapter used to connect to the MySQL database.
+	 */
 	public static DatabaseAdapter myDbAdapter = new MySqlAdapter(Constants.HOST, Constants.DBNAME,
 			Constants.USER, Constants.PASSWORD);
 	private static ResourceBundle resourceBundle = ResourceBundle
 			.getBundle("arcade.lobby.resources.resources");
+	/**
+	 * The Profile table in the database.
+	 */
 	public static String myTable = resourceBundle.getString("dbProfile");
 
 
@@ -30,11 +41,19 @@ public class ProfileSet implements Iterable<Profile> {
 		return guest;
 	}
 
+	/**
+	 * @return number of users in Profile table.
+	 */
 	public int size() {
 		return myDbAdapter.getColumn(myTable,
 				resourceBundle.getString("dbUserName")).size();
 	}
 
+	/**
+	 * Adds a new profile to the database.
+	 * @param profile
+	 * @return if profile successfully added.
+	 */
 	public static boolean addProfile(Profile profile) {
 		if (profile.getUserId() == 0)
 			return false;
@@ -44,6 +63,11 @@ public class ProfileSet implements Iterable<Profile> {
 		return myDbAdapter.insert(myTable, row);
 	}
 
+	/**
+	 * Update an existing profile in the database.
+	 * @param profile
+	 * @return if profile was successfully updated.
+	 */
 	public static boolean updateProfile(Profile profile) {
 		Map<String, String> row = addToRow(profile);
 		return myDbAdapter.update(myTable,
@@ -74,6 +98,10 @@ public class ProfileSet implements Iterable<Profile> {
 		return s;
 	}
 
+	/**
+	 * @param userId
+	 * @return profile with the matching userID in the database.
+	 */
 	public static Profile getProfile(int userId) {
 		List<Map<String, String>> rows = myDbAdapter.getRows(myTable,
 				resourceBundle.getString("dbUserID"), Integer.toString(userId));
@@ -129,10 +157,18 @@ public class ProfileSet implements Iterable<Profile> {
 		};
 	}
 
+	/**
+	 * Sets the current user to the profile matching
+	 * the given user ID.
+	 * @param userId
+	 */
 	public static void setUser(int userId) {
 		currentProfile = getProfile(userId);
 	}
 	
+	/**
+	 * @return list of available usernames in the database.
+	 */
 	public static Map<String,Integer> getUserNames() {
 		List<String> names = myDbAdapter.getColumn("User", "UserName");
 		List<String> ids = myDbAdapter.getColumn("User", "Id");
@@ -143,10 +179,17 @@ public class ProfileSet implements Iterable<Profile> {
 		return map;
 	}
 
+	/**
+	 * @return current profile accessing the Arcade.
+	 */
 	public static Profile getCurrentProfile() {
 		return currentProfile == null ? GUEST_PROFILE : currentProfile;
 	}
 
+	/**
+	 * Sets the current profile to the given profile.
+	 * @param profile
+	 */
 	public static void setCurrentProfile(Profile profile) {
 		currentProfile = profile;
 	}
