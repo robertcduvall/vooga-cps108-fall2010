@@ -25,7 +25,6 @@ public class ProfileController extends Controller {
 	private static final String[] columnNames = { "Item Name", "Date", "Price" };
 	private static StoreSqlAdapter dbAdapter = new StoreSqlAdapter();
 
-	
 	@Override
 	public void addModel(IModel model) {
 		storeModel = (StoreModel) model;
@@ -38,33 +37,41 @@ public class ProfileController extends Controller {
 
 	@Override
 	public void initialize() {
-		profileTab.getUsernameTextField().setText(getUser().getId());
-		profileTab.getAvailableCredditsTextField().setText(
-				"" + getUser().getCreddits());
-		profileTab.getPurchaseCredditsButton().setEnabled(storeModel.checkPrivileges("addCreddits"));
+		profileTab.setUsernameTextField(getUser().getId());
+		profileTab.setAvailableCredditsTextField("" + getUser().getCreddits());
+		profileTab.checkPurchaseCredditsButtonPriviliges(storeModel
+				.checkPrivileges("addCreddits"));
 		populatePurchaseHistory();
 	}
 
 	/**
 	 * 
-	 * Source: http://www.experts-exchange.com/Programming/Languages/Java/Q_23255872.html
+	 * Source:
+	 * http://www.experts-exchange.com/Programming/Languages/Java/Q_23255872
+	 * .html
 	 */
 	public void populatePurchaseHistory() {
-		List<Map<String, String>> data = dbAdapter.getRows(StoreDbConstants.PURCHASE_HISTORY_TABLE,
-				StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD,
-				getUser().getId());
+		List<Map<String, String>> data = dbAdapter.getRows(
+				StoreDbConstants.PURCHASE_HISTORY_TABLE,
+				StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD, getUser()
+						.getId());
 		String[][] tableData = new String[data.size()][3];
 		for (int k = 0; k < data.size(); k++) {
 			tableData[k][0] = data.get(k).get(StoreDbConstants.ITEMNAME_FIELD);
 			tableData[k][1] = data.get(k).get(StoreDbConstants.DATE_FIELD);
 			tableData[k][2] = data.get(k).get(StoreDbConstants.PRICE_FIELD);
 		}
-		profileTab.getPurchasedItemsTable().setModel(
-				new DefaultTableModel(tableData, columnNames) {
-					public boolean isCellEditable(int rowIndex, int mColIndex) {
-						return false;
-					}
-				});
+		profileTab.setPurchasedItemsTableModel(new DefaultTableModel(tableData,
+				columnNames) {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int rowIndex, int mColIndex) {
+				return false;
+			}
+		});
 	}
 
 	public void openCredditPurchaseView() {

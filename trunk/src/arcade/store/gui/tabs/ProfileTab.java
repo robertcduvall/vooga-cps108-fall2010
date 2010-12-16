@@ -15,60 +15,68 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class ProfileTab extends JPanel implements Tab, IViewer {
 
 	// private JPanel jPanel = null; //
 	// @jve:decl-index=0:visual-constraint="133,-45"
-	private JLabel introLabel1 = null;
-	private JLabel userImageLabel = null;
-	private JTextField usernameTextField = null;
-	private JLabel AvailableCredditsLabel = null;
-	private JTextField availableCredditsTextField = null;
-	private JButton purchaseCredditsButton = null;
-	private JButton editMyProfileButton = null;
-	private JTable purchasedItemsTable = null;
-	private JLabel MyPurchasedItemsLabel = null;
-	private JButton RefreshButton = null;
-	private JScrollPane itemTableScrollPane = null;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String NAME = "Shop Profile";
-	private static final String FILE_PATH ="arcade.store.resources.ProfileController";
+	private static final String FILE_PATH = "arcade.store.resources.ProfileController";
+
 	private ProfileController controller;
+	private JButton purchaseCredditsButton;
+	private JTextField usernameTextField;
+	private JTextField availableCredditsTextField;
+	private JTable purchasedItemsTable;
 
 	public ProfileTab() {
-		controller = new ProfileController(FILE_PATH);
-		controller.addViewer(this);
-		setName(NAME);
+		initializeProfileTab();
 
-		MyPurchasedItemsLabel = new JLabel();
-		MyPurchasedItemsLabel.setBounds(new Rectangle(102, 289, 139, 35));
-		MyPurchasedItemsLabel.setText("My Purchased Items");
-		AvailableCredditsLabel = new JLabel();
-		AvailableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
-		AvailableCredditsLabel.setText("Availabe Creddits");
-		userImageLabel = new JLabel();
-		userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
-		try {
-			userImageLabel.setIcon(new ImageIcon(""));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		introLabel1 = new JLabel();
-		introLabel1.setText("Manage My Shop Account");
-		introLabel1.setBounds(new Rectangle(13, 14, 163, 16));
-
-		setLayout(null);
-		add(introLabel1, null);
-		add(userImageLabel, null);
+		add(getProfileTabMessageLabel(), null);
+		add(getUserImageLabel(), null);
 		add(getUsernameTextField(), null);
-		add(AvailableCredditsLabel, null);
+		add(getAvailableCredditsLabel(), null);
 		add(getAvailableCredditsTextField(), null);
 		add(getPurchaseCredditsButton(), null);
 		add(getEditMyProfileButton(), null);
 		add(getItemTableScrollPane(), null);
-		add(MyPurchasedItemsLabel, null);
+		add(getPurchasedItemsLabel(), null);
 		add(getRefreshButton(), null);
+	}
+
+	private void initializeProfileTab() {
+		controller = new ProfileController(FILE_PATH);
+		controller.addViewer(this);
+
+		purchaseCredditsButton = new JButton();
+		purchaseCredditsButton.setBounds(new Rectangle(486, 158, 149, 32));
+		purchaseCredditsButton.setText("Purchase Creddits");
+		purchaseCredditsButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				controller.processEvent("purchasePopUp");
+			}
+		});
+
+		usernameTextField = new JTextField();
+		usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed
+																		// from
+																		// http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
+		usernameTextField.setEditable(false);
+		usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
+
+		availableCredditsTextField = new JTextField();
+		availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
+
+		purchasedItemsTable = new JTable();
+
+		setName(NAME);
+		setLayout(null);
 	}
 
 	@Override
@@ -100,16 +108,12 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getUsernameTextField() {
-		if (usernameTextField == null) {
-			usernameTextField = new JTextField();
-			usernameTextField.setHorizontalAlignment(JTextField.CENTER); // Borrowed
-																			// from
-																			// http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
-			usernameTextField.setEditable(false);
-			usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
-		}
+	private JTextField getUsernameTextField() {
 		return usernameTextField;
+	}
+
+	public void setUsernameTextField(String name) {
+		usernameTextField.setText(name);
 	}
 
 	/**
@@ -117,14 +121,12 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getAvailableCredditsTextField() {
-		if (availableCredditsTextField == null) {
-			availableCredditsTextField = new JTextField();
-			// 506, 53, 111, 29
-			availableCredditsTextField
-					.setBounds(new Rectangle(506, 94, 111, 29));
-		}
+	private JTextField getAvailableCredditsTextField() {
 		return availableCredditsTextField;
+	}
+
+	public void setAvailableCredditsTextField(String creddits) {
+		availableCredditsTextField.setText(creddits);
 	}
 
 	/**
@@ -132,18 +134,12 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JButton
 	 */
-	public JButton getPurchaseCredditsButton() {
-		if (purchaseCredditsButton == null) {
-			purchaseCredditsButton = new JButton();
-			purchaseCredditsButton.setBounds(new Rectangle(486, 158, 149, 32));
-			purchaseCredditsButton.setText("Purchase Creddits");
-			purchaseCredditsButton.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					controller.processEvent("purchasePopUp");
-				}
-			});
-		}
+	private JButton getPurchaseCredditsButton() {
 		return purchaseCredditsButton;
+	}
+
+	public void checkPurchaseCredditsButtonPriviliges(boolean privilege) {
+		purchaseCredditsButton.setEnabled(privilege);
 	}
 
 	/**
@@ -152,16 +148,14 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getEditMyProfileButton() {
-		if (editMyProfileButton == null) {
-			editMyProfileButton = new JButton();
-			editMyProfileButton.setBounds(new Rectangle(486, 211, 149, 32));
-			editMyProfileButton.setText("Edit My Profile");
-			editMyProfileButton.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
+		JButton editMyProfileButton = new JButton();
+		editMyProfileButton.setBounds(new Rectangle(486, 211, 149, 32));
+		editMyProfileButton.setText("Edit My Profile");
+		editMyProfileButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 
-				}
-			});
-		}
+			}
+		});
 		return editMyProfileButton;
 	}
 
@@ -170,19 +164,18 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JTable
 	 */
-	public JTable getPurchasedItemsTable() {
-		if (purchasedItemsTable == null) {
-			purchasedItemsTable = new JTable();
-		}
+	private JTable getPurchasedItemsTable() {
 		return purchasedItemsTable;
 	}
 
+	public void setPurchasedItemsTableModel(DefaultTableModel model) {
+		purchasedItemsTable.setModel(model);
+	}
+
 	public JScrollPane getItemTableScrollPane() {
-		if (itemTableScrollPane == null) {
-			itemTableScrollPane = new JScrollPane();
-			itemTableScrollPane.setViewportView(getPurchasedItemsTable());
-			itemTableScrollPane.setBounds(new Rectangle(102, 347, 542, 256));
-		}
+		JScrollPane itemTableScrollPane = new JScrollPane();
+		itemTableScrollPane.setViewportView(getPurchasedItemsTable());
+		itemTableScrollPane.setBounds(new Rectangle(102, 347, 542, 256));
 		return itemTableScrollPane;
 	}
 
@@ -192,18 +185,48 @@ public class ProfileTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getRefreshButton() {
-		if (RefreshButton == null) {
-			RefreshButton = new JButton();
-			RefreshButton.setBounds(new Rectangle(291, 15, 87, 26));
-			RefreshButton.setText("Refresh");
-			RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent e) {
+		JButton refreshButton = new JButton();
+		refreshButton.setBounds(new Rectangle(291, 15, 87, 26));
+		refreshButton.setText("Refresh");
+		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
 
-					controller.processEvent("refresh");
-				}
-			});
+				controller.processEvent("refresh");
+			}
+		});
+		return refreshButton;
+	}
+
+	private JLabel getUserImageLabel() {
+		JLabel userImageLabel = new JLabel();
+		userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
+		try {
+			userImageLabel.setIcon(new ImageIcon(""));
+		} catch (Exception e) {
+			throw TabExceptions.IMAGE_NOT_FOUND;
 		}
-		return RefreshButton;
+		return userImageLabel;
+	}
+
+	private JLabel getProfileTabMessageLabel() {
+		JLabel profileTabMessageLabel = new JLabel();
+		profileTabMessageLabel.setText("Manage My Shop Account");
+		profileTabMessageLabel.setBounds(new Rectangle(13, 14, 163, 16));
+		return profileTabMessageLabel;
+	}
+
+	private JLabel getAvailableCredditsLabel() {
+		JLabel availableCredditsLabel = new JLabel();
+		availableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
+		availableCredditsLabel.setText("Availabe Creddits");
+		return availableCredditsLabel;
+	}
+
+	private JLabel getPurchasedItemsLabel() {
+		JLabel purchasedItemsLabel = new JLabel();
+		purchasedItemsLabel.setBounds(new Rectangle(102, 289, 139, 35));
+		purchasedItemsLabel.setText("Purchased Items");
+		return purchasedItemsLabel;
 	}
 
 	@Override
