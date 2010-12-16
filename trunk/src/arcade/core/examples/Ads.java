@@ -1,24 +1,20 @@
 package arcade.core.examples;
 
 import java.awt.Color;
-import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import arcade.ads.adsmanager.AdsManager;
 import arcade.core.Panel;
 
+@SuppressWarnings("serial")
 public class Ads extends Panel {
 	
-	private AdsManager myManager;
+	//private AdsManager myManager;
 	
 	public Ads() {
-
-//		add(evenMoreLabels);
 		initialize();
 	}
 	
