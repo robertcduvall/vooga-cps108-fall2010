@@ -16,8 +16,8 @@
 
 	<Strings>
 		<String name="levelFilesDirectory" value="src/vooga/games/tictactoe/resources/levels" />
-		<String name="playStateDirectory" value="vooga.games.tictactoe.states.PlayState" />
 		<String name="levelNamesFile" value="levelNames.txt" />
+		<String name="playStateDirectory" value="vooga.games.tictactoe.states.PlayState" />
 		<String name="Level1" value="levels/mainLevel.xml" />
 		<String name="gameWonXml" value="src/vooga/games/tictactoe/resources/levels/gameWon.xml" />
 		<String name="waitXml" value="src/vooga/games/tictactoe/resources/levels/waitingLevel.xml" />

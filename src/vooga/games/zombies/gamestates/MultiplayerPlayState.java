@@ -17,12 +17,9 @@ import vooga.games.zombies.serializeables.ZombieSeed;
 public class MultiplayerPlayState extends PlayState implements Constants {
 
 	private SpriteGroup otherPlayers;
-	public static long seed;
-	public Timer reviveTimer;
-	private static final String levelXmlPath = "src/vooga/games/zombies/resources/levels/multiplayerLevel.xml";
 
 	public MultiplayerPlayState(Blah game) {
-		super(game, levelXmlPath);
+		super(game, "src/vooga/games/zombies/resources/levels/multiplayerLevel.xml");
 	}
 
 	/**
@@ -73,50 +70,43 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 		SoundPlayer.playMusic(playField.getMusic(0));
 	}
-
-	/**
-	 * Set the message to the String we received. Checks to see if the data
-	 * starts with any of the serializable identifiers and if so, performs the
-	 * necessary action.
-	 * 
-	 * @param data
-	 *            data received from the socket
-	 * @author Cue, Kolodziejzyk, Townsend
-	 * @version 1.0
-	 */
-
-	@Override
-	public void interpretMessage(String data) {
-		if (data.startsWith(Name.getIdentifier())) {
-			player.setName(((Name) (Name.deserialize(data))).getName());
-		} else if (data.startsWith(Username.getIdentifier())) {
-			String userName = ((Username) (Username.deserialize(data)))
-			.getUsername();
-			for (int i = 0; i < otherPlayers.getSprites().length; i++) {
-				Shooter shooter = (Shooter) otherPlayers.getSprites()[i];
-				if (shooter != null && shooter.getName() == null) {
-					shooter.setName(userName);
-					return;
-				}
-			}
-		} else if (data.startsWith(Health.getIdentifier())) {
-			int health = ((Health) (Health.deserialize(data))).getHealth();
-			((Shooter) (otherPlayers.getSprites()[0])).setHealth(health);
-		} else if (data.startsWith(ZombieSeed.getIdentifier())) {
-			seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
-			Shooter[] shooters = new Shooter[otherPlayers.getSprites().length + 1];
-			shooters[0] = player;
-			for (int i = 0; i < otherPlayers.getSprites().length; i++) {
-				shooters[i + 1] = (Shooter) (otherPlayers.getSprites()[i]);
-			}
-			LevelEndEvent endLevel = new LevelEndEvent(shooters, this,
-					addZombies, addItems, seed);
-			eventPool.addEvent(endLevel);
-		} else {
-			setMessage(data);
-		}
+	
+	public boolean name(String data){
+		System.out.println("HI");
+		player.setName(((Name) (Name.deserialize(data))).getName());
+		return false;
 	}
 
+	public boolean userName(String data){
+		String userName = ((Username) (Username.deserialize(data))).getUsername();
+		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			Shooter shooter = (Shooter) otherPlayers.getSprites()[i];
+			if (shooter != null && shooter.getName() == null) {
+				shooter.setName(userName);
+			}
+		}
+		return false;
+	}
+	
+	public boolean health(String data){
+		int health = ((Health) (Health.deserialize(data))).getHealth();
+		((Shooter) (otherPlayers.getSprites()[0])).setHealth(health);
+		return false;
+	}
+	
+	public boolean seed(String data){
+		long seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
+		Shooter[] shooters = new Shooter[otherPlayers.getSprites().length + 1];
+		shooters[0] = player;
+		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
+			shooters[i + 1] = (Shooter) (otherPlayers.getSprites()[i]);
+		}
+		LevelEndEvent endLevel = new LevelEndEvent(shooters, this,
+				addZombies, addItems, seed);
+		eventPool.addEvent(endLevel);
+		return false;
+	}
+	
 	/**
 	 * Makes the other players in the game move up.
 	 * 

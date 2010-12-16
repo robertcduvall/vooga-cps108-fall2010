@@ -34,7 +34,7 @@ public class Health extends Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		return new Health(Integer.parseInt(data.substring(7)));
+		return new Health(Integer.parseInt(data));
 	}
 
 	/**

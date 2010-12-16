@@ -70,19 +70,18 @@ public class Blah extends Game implements Constants {
 		helpMenu2 =         new HelpMenu2(this);
 		creditMenu =        new CreditMenu(this);
 		endGameState =      new EndGameState(this);
-		ZombiesNetworkMenuState networkMenuState = new ZombiesNetworkMenuState();
-		networkMenuState.makeNextButton("Singleplayer", singleplayerState);
-		networkMenuState.makeNextButton("Multiplayer", waitingState);
-		networkMenuState.makeNextButton("Main Menu", mainMenu);
-		networkMenuState.makeNextButton("End Game", endGameState);
+//		ZombiesNetworkMenuState networkMenuState = new ZombiesNetworkMenuState();
+//		networkMenuState.makeNextButton("Singleplayer", singleplayerState);
+//		networkMenuState.makeNextButton("Multiplayer", waitingState);
+//		networkMenuState.makeNextButton("Main Menu", mainMenu);
+//		networkMenuState.makeNextButton("End Game", endGameState);
 
-		getGameStateManager().addGameState(waitingState, singleplayerState, multiplayerState, pauseState, endGameState, networkMenuState);
-		//getGameStateManager().switchTo(waitingState);
-		getGameStateManager().switchTo(networkMenuState);
+		getGameStateManager().addGameState(waitingState, singleplayerState, multiplayerState, pauseState, endGameState);
+		getGameStateManager().switchTo(waitingState);
+		//getGameStateManager().switchTo(networkMenuState);
 	}
 	
 	public void switchToState (GameState gs) {
-		System.out.println("Zombies: blah.java: "+gs);
 		getGameStateManager().switchTo(gs);
 
 	}

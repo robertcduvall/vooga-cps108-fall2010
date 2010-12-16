@@ -56,8 +56,8 @@ public class ZombiesHandler extends ClientHandler{
 	public void firstRun(){
 		List<ClientHandler> handlersInGame = getPlayers(sessionID);
 		for(ClientHandler handler : handlersInGame){
-			handler.getSocket().send("yourName:" + handler.getUsername());
-			broadcastToOthers("name:" + handler.getUsername(), handler);
+			handler.getSocket().send("name:" + handler.getUsername());
+			broadcastToOthers("userName:" + handler.getUsername(), handler);
 		}
 		ClientHandler firstPlayer = handlersInGame.get(0);
 		Random random = new Random();

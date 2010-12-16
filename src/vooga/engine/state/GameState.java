@@ -144,7 +144,7 @@ public abstract class GameState {
 			playfield.update(t);
 		}
 		if(connection != null && shouldGetData()){
-			interpretMessage(connection.getData());
+			setMessage(connection.getData());
 		}
 	}
 	
@@ -185,9 +185,11 @@ public abstract class GameState {
 		}
 		else{
 			try {
-				Method statusAction = this.getClass().getMethod(message);
+				String name = message.indexOf(":") == -1 ? message : message.substring(0, message.indexOf(":"));
+				String param = message.indexOf(":") == -1 ? null : message.substring(message.indexOf(":") + 1);
+				Method statusAction = param == null ? this.getClass().getMethod(name) : this.getClass().getMethod(name, String.class);
 				message = null;
-				return ((Boolean)(statusAction.invoke(this))).booleanValue();
+				return param == null ? ((Boolean)(statusAction.invoke(this))).booleanValue() : ((Boolean)(statusAction.invoke(this, param))).booleanValue();
 			} 
 			catch (Exception e) {
 				System.out.println("Couldn't find method '" + message + "'. Make sure the names of your stauses match the name of your status methods!");

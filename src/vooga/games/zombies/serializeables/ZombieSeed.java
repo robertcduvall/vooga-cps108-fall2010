@@ -34,7 +34,7 @@ public class ZombieSeed extends Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		return new ZombieSeed(Long.parseLong(data.substring(5)));
+		return new ZombieSeed(Long.parseLong(data));
 	}
 
 	/**

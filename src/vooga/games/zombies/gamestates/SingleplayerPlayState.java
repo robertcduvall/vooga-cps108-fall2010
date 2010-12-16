@@ -11,10 +11,9 @@ import vooga.games.zombies.*;
 import vooga.games.zombies.events.*;
 
 public class SingleplayerPlayState extends PlayState implements Constants {
-	private static final String levelXmlPath = "src/vooga/games/zombies/resources/levels/singleplayerLevel.xml";
 	
 	public SingleplayerPlayState(Blah game) {
-		super(game, levelXmlPath);
+		super(game, "src/vooga/games/zombies/resources/levels/singleplayerLevel.xml");
 	}
 
 	@Override

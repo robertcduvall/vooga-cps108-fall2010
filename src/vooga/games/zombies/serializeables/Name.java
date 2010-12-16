@@ -34,7 +34,7 @@ public class Name extends Serializeable{
 	 * @version 1.0
 	 */
 	public static Serializeable deserialize(String data) {
-		return new Name(data.substring(5));
+		return new Name(data);
 	}
 
 	/**
