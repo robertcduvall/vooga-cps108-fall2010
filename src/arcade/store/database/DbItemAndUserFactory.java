@@ -1,5 +1,6 @@
 package arcade.store.database;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +94,9 @@ public class DbItemAndUserFactory {
 			String type = userMap.get(StoreDbConstants.USER_TYPE_FIELD);
 			double creddits =  Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD));
 			String cart = userMap.get(StoreDbConstants.CART_FIELD);
-			return new StoreUser(id, type, creddits, cart);
+			
+			return getStoreUser(id, type, creddits, cart);
+		
 		}
 		else {
 			HashMap<String, String> newUser = new HashMap<String, String>();
@@ -103,6 +106,33 @@ public class DbItemAndUserFactory {
 			newUser.put(StoreDbConstants.CART_FIELD, "");
 			dbAdapter.insert(StoreDbConstants.STORE_USER_TABLE, newUser);
 			return getUser(userId);
+		}
+	}
+
+	/**
+	 * This method uses reflection to create the appropriate StoreUser
+	 * subclass of StoreUser. 
+	 * @param id
+	 * @param type
+	 * @param creddits
+	 * @param cart
+	 * @return
+	 */
+	private static StoreUser getStoreUser(String id, String type,
+			double creddits, String cart) {
+	
+		String userClassName = StoreDbConstants.bundle.getString(type);
+		try {
+			Class userClass = Class.forName(userClassName);
+			Class<?>[] paramTypes = {String.class, double.class, String.class};
+			Constructor<StoreUser> constructor = userClass.getConstructor(paramTypes);
+			
+			StoreUser user = (StoreUser) constructor.newInstance(id, creddits, cart);
+			return user;
+		} 
+		catch (Exception e) {
+			
+				throw DbExceptions.USER_TYPE_UNFOUND;
 		}
 	}
 }
