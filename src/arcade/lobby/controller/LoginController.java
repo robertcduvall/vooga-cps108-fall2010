@@ -24,7 +24,7 @@ public class LoginController {
 	}
 	
 	public boolean isSuccessfulLogin(String username, char[] password){
-		return myModel.isSuccessfulLogin(username, password);
+		return myModel.isSuccessfulLogin(username, String.valueOf(password));
 	}
 	
 	
