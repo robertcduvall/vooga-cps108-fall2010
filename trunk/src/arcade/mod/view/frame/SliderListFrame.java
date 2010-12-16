@@ -1,5 +1,8 @@
 package arcade.mod.view.frame;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,14 +26,18 @@ public abstract class SliderListFrame extends ListFrame {
 	protected int INIT;
 	
 	private final int HEIGHT = 100;
+	
+	protected GridBagConstraints gbConstraints;
 
 	public SliderListFrame() {
 
 	}
 
 	public SliderListFrame(IResourceNode node) {
+		
 		super(node);
 		
+				
 		restrictSize(HEIGHT);
 
 	}
@@ -118,17 +125,37 @@ public abstract class SliderListFrame extends ListFrame {
 
 		myDescriptionLabel.setText(myDescription);
 		myCurrentValue.setText(value.toString());
-		myNameLabel.setText("Constant name: " + myName);
-		myStringLabel.setText("Value: " + myValue);
-		myNewValue.setText("New Constant: ");
+		myNameLabel.setText("Name: " + myName);
+		myStringLabel.setText("Current value: " + myValue);
+		myNewValue.setText("New value: ");
 
-		add(myNameLabel);
-		add(myDescriptionLabel);
-		add(myStringLabel);
-		add(myNewValue);
-		add(mySliderInput);
-		add(myCurrentValue);
-		add(myTextInput);
+		this.setLayout(new GridBagLayout());
+		
+		gbConstraints = new GridBagConstraints();
+		
+		gbConstraints.fill = GridBagConstraints.NONE;
+		gbConstraints.weightx = 0;
+		gbConstraints.weighty = 0;
+		
+		gbConstraints.insets = new Insets(3,3,3,3);
+		gbConstraints.ipadx = 5;
+		gbConstraints.ipady = 5;
+		
+		gbConstraints.gridx = 0;
+		gbConstraints.gridy = 1;
+		add(myNameLabel, gbConstraints);
+		gbConstraints.gridx = 2;
+		add(myStringLabel, gbConstraints);
+		gbConstraints.gridx = 1;
+		gbConstraints.gridy = 0;
+		add(myDescriptionLabel, gbConstraints);
+		gbConstraints.gridx = 0;
+		gbConstraints.gridy = 2;
+		add(myNewValue, gbConstraints);
+		gbConstraints.gridx = 1;
+		add(mySliderInput, gbConstraints);
+		gbConstraints.gridx = 2;
+		add(myTextInput, gbConstraints);
 
 	}
 }

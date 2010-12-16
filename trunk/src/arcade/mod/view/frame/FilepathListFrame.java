@@ -1,5 +1,7 @@
 package arcade.mod.view.frame;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -57,7 +59,7 @@ public class FilepathListFrame extends ListFrame {
 			}
 
 		});
-
+				
 		add(myNameLabel);
 		add(myDescriptionLabel);
 		add(myFileButton);
@@ -72,8 +74,8 @@ public class FilepathListFrame extends ListFrame {
 	@Override
 	public void handleNode(IResourceNode node) {
 
-		myName = node.getAttribute("name");
-		myFilepath = node.getAttribute("path");
+		myName = node.getAttribute("File name: ");
+		myFilepath = node.getAttribute("File path: ");
 		myDescription = node.getDescription();
 	}
 
