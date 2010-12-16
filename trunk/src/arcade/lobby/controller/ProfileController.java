@@ -22,27 +22,27 @@ public class ProfileController implements IController {
 		myModel = (Profile) model;
 		myView = (ProfilePanel) view;
 		myView.refresh();
-		setup();
+		addListeners();
 	}
 
 
-	public void setup() {
+	private void addListeners() {
 		myView.addEditButtonListener(new EditEvent());
-		myView.getEditPanel().addSaveListener(new SaveEvent());
+//		myView.getEditPanel().addSaveListener(new SaveEvent());
 	}
 	
-	public void saveProfile() {
-		ProfileEditPanel editPanel = myView.getEditPanel();
-		//TODO put validation in Profile
-		if(editPanel.isValid()) {
-			myModel.setAvatar(editPanel.getText(resource.getString("avatar")));
-			myModel.setEmail(editPanel.getText(resource.getString("email")));
-			myModel.setName(editPanel.getText(resource.getString("firstName")),
-					editPanel.getText(resource.getString("lastName")));
-			myModel.setBirthday(editPanel.getText(resource.getString("birthday")));
-			ProfileSet.setCurrentProfile(myModel);
-		}
-	}
+//	private void saveProfile() {
+//		ProfileEditPanel editPanel = myView.getEditPanel();
+//		if(editPanel.validateFields()) {
+//			myModel.setAvatar(editPanel.getText(resource.getString("avatar")));
+//			myModel.setEmail(editPanel.getText(resource.getString("email")));
+//			myModel.setName(editPanel.getText(resource.getString("firstName")),
+//					editPanel.getText(resource.getString("lastName")));
+//			myModel.setBirthday(editPanel.getText(resource.getString("birthday")));
+//			ProfileSet.updateProfile(myModel);
+//		}
+//		editPanel.refresh(myModel);
+//	}
 	
 	private class EditEvent implements ActionListener {		
 
@@ -52,14 +52,14 @@ public class ProfileController implements IController {
 		}
 	}
 	
-	private class SaveEvent implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			saveProfile();
-			myView.changeEditMode();
-		}
-	}
+//	private class SaveEvent implements ActionListener {
+//		
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			saveProfile();
+//			myView.changeEditMode();
+//		}
+//	}
 	
 	
 }

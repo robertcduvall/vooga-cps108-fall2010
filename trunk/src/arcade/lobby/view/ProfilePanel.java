@@ -49,13 +49,12 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		myEditButton = new JButton();
 		myMainPanel = new JPanel();
 		myMainPanel.setLayout(new BoxLayout(myMainPanel, BoxLayout.Y_AXIS));
-
 		refreshContent();
 
-		add(myLeftSidebar, "ax l");
+		add(myLeftSidebar, "ax l, sy 2");
 		add(myMainPanel);
-		add(myRightSidebar, "ax r");
-		add(myEditButton, "newline, span, align center");
+		add(myRightSidebar, "ax r, sy 2");
+		add(myEditButton, "newline,skip 1,ax c,ay c");
 	}
 
 	public void addEditButtonListener(ActionListener listener) {
