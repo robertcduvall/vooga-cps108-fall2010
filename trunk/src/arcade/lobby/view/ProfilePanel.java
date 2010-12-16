@@ -193,8 +193,16 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		mode = State.view;
 		reload();
 		redraw();
+		recreateSidebars();
 	}
 	
+	private void recreateSidebars() {
+		myLeftSidebar.removeAll();
+		myRightSidebar.removeAll();
+		myLeftSidebar.add(createSidebar("left"));
+		myRightSidebar.add(createSidebar("right"));
+	}
+
 	private void reload() {
 		myProfile = ProfileSet.getCurrentProfile();
 		myViewPanel.refresh(myProfile);
