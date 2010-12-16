@@ -31,9 +31,6 @@ import arcade.store.control.ProfileController;
 
 public class CredditPurchaseView extends Window {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static final String CREDDITS_ADDED_STRING = "Creddits Added to Your Account!";
 	private ProfileController controller;
