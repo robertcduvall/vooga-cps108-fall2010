@@ -5,6 +5,7 @@ import arcade.security.view.AdminPanel;
 
 
 public class SignUpControl implements IControl{
+	
 	public void PopUpAdminPage(){
 		JFrame adminFrame = new JFrame();
 		AdminPanel adminPanel = new AdminPanel();
@@ -12,5 +13,5 @@ public class SignUpControl implements IControl{
 		adminFrame.pack();
 		adminFrame.setVisible(true);
 	}
-	
+
 }
