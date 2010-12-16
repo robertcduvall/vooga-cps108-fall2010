@@ -292,11 +292,4 @@ public class CheckoutGUI implements Tab, IViewer {
 		return RefreshButton;
 	}
 
-
-	@Override
-	public JComponent getContent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

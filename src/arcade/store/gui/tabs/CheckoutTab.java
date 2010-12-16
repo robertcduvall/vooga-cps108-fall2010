@@ -106,10 +106,6 @@ public class CheckoutTab extends StoreTab {
 		return controller;
 	}
 
-	public JComponent getContent() {
-		return this;
-	}
-
 	private JLabel getCheckoutLabel() {
 		JLabel checkoutLabel = new JLabel();
 		//TODO:

@@ -83,16 +83,6 @@ public class MainPageTab extends StoreTab {
 	}
 
 	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	@Override
-	public JComponent getContent() {
-		return this;
-	}
-
-	/**
 	 * This method initializes genreList
 	 * 
 	 * @return javax.swing.JList
