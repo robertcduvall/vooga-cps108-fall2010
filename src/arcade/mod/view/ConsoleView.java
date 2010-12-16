@@ -35,7 +35,7 @@ public class ConsoleView extends JFrame {
 		this.setTitle("Console");
 
 		setSize(600, 50);
-		setVisible(true);
+		setVisible(false);
 	}
 
 }

@@ -44,7 +44,7 @@ public class Blah extends Game {
 	private GameCompleteState myGameCompleteState;
 	private GameOverState myGameOverState;
 	private EventPool eventPool;
-	private GameConsole myConsole;
+//	private GameConsole myConsole;
 	private LevelParser levelParser;
 	private LevelManager levelManager;
 	private Control gameControl;
@@ -95,7 +95,7 @@ public class Blah extends Game {
 		stateManager.addGameState(myPauseState = new PauseGameState(
 				myPlayState, "Paused"));
 		stateManager.activateOnly(myMenuState);
-		myConsole = new GameConsole(this);
+		
 
 	}
 
@@ -110,7 +110,7 @@ public class Blah extends Game {
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		gameControl.update();
-		myConsole.update(elapsedTime);
+		
 
 	}
 
