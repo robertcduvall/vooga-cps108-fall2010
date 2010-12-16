@@ -84,17 +84,18 @@ public class HighScorePanel extends Panel{
 	 */
 	private static String gameFormat(String gameName,int numScores,
 			List<Map<String, String>> rows) {
-		String result = "<h2 align=center>" + "Top " + numScores
+		String result = "<body bgcolor=\"#EDEDED\" ><h2 align=center>" + "Top " + numScores
 				+ " Scores for " + gameName + "</h2>";
-		result += "<table align=\"Center\">"
+		result += "<table align=\"Center\" >"
 				+ "<tr><th></th><th>Player</th><th>Score</th></tr>";
 		int i = 1;
 		for (Map<String, String> row : rows) {
-			result += "<tr><td>" + i + "</td><td>" + row.get("PlayerName")
+			String pname=(row.get("PlayerName")==null) ?"Guest":row.get("PlayerName");
+			result += "<tr><td>" + i + "</td><td>" + pname
 					+ "</td><td>" + row.get("Score") + "</td></tr>";
 			i++;
 		}
-		result += "</table>";
+		result += "</table></body>";
 		return result;
 	}
 }

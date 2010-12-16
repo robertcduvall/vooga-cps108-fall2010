@@ -102,7 +102,7 @@ public class ArcadeProfile extends Panel {
 	 */
 	private static String playerFormat(String playerName, int numScores,
 			List<Map<String, String>> rows) {
-		String result = "<h3 align=center>" + playerName + "'s Recent Scores"
+		String result = "<body bgcolor=\"#EDEDED\" ><h3 align=center>" + playerName + "'s Recent Scores"
 				+ "</h3>";
 		result += "<table align=\"Center\">"
 				+ "<tr><th></th><th>Game</th><th>Score</th></tr>";
@@ -112,7 +112,7 @@ public class ArcadeProfile extends Panel {
 					+ "</td><td>" + row.get("Score") + "</td></tr>";
 			i++;
 		}
-		result += "</table>";
+		result += "</table></body>";
 		return result;
 	}
 	
