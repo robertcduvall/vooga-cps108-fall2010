@@ -23,8 +23,6 @@ import arcade.store.StoreModel;
 @SuppressWarnings("serial")
 public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
-	//TODO ORDER?
-//	private static int[] gameIDs = {12,13,14,15,16,17,18,19,38,37};
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame;
@@ -46,7 +44,6 @@ public class GameSelection extends JPanel implements Tab {
 		add(addSearchFunction(), BorderLayout.NORTH);
 		add(games, BorderLayout.CENTER);
 		
-		initPanels();
 	}
 	
 	private void initPanels() {
@@ -143,6 +140,7 @@ public class GameSelection extends JPanel implements Tab {
 			games.add(panels.get(i));
 			panels.get(i).repaint();
 		}
+		validate();
 		refresh();
 	}
 
