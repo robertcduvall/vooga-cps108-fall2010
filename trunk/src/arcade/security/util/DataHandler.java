@@ -138,20 +138,7 @@ public class DataHandler {
 	
 	public boolean insert(Map<String,String> row){
 		return adapter.insert(myTable, row);
-//		List<String> ids = adapter.getColumn(myTable, "Id");
-//		Collections.sort(ids,new Comparator<String>() {
-//
-//			@Override
-//			public int compare(String o1, String o2) {
-//				if(Integer.parseInt(o1)==Integer.parseInt(o2))
-//					return 0;
-//				if(Integer.parseInt(o1)<Integer.parseInt(o2))
-//					return 1;
-//				return -1;
-//			}
-//			
-//		});
-//		return Integer.parseInt(ids.get(0));
+
 	}
 	
 	public int getUserId(String username){

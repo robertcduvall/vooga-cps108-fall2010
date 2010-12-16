@@ -164,40 +164,6 @@ public class LogInPanelControl implements IControl{
 		//TODO
 		return true;
 	}
-	
-//	Below might not be the best way to handle switching between different view, we will discuss.
-//	/**
-//	 * Sets the corresponding panel to show on this tab 
-//	 * @param panel
-//	 */
-//	//public  void setValidate(String panel) {
-//	public  void validatePanelSwitch(String panelClassPath) {
-//		view.removeAll();
-//		view.updateUI();
-//		try{
-//			
-//			view.add(getPanel(panelClassPath));	
-//		}
-//		catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		view.validate();
-//	}
-//	/**
-//	 * Reflection method
-//	 * @param className
-//	 * @return
-//	 * @throws ClassNotFoundException
-//	 * @throws IllegalArgumentException
-//	 * @throws SecurityException
-//	 * @throws InstantiationException
-//	 * @throws IllegalAccessException
-//	 * @throws InvocationTargetException
-//	 * @throws NoSuchMethodException
-//	 */
-//	private static JComponent getPanel(String className) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-//		Class<?> c = Class.forName(className);
-//		return (JPanel) c.getConstructor().newInstance();
-//	}
+
 	
 }
