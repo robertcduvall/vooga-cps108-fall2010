@@ -11,6 +11,7 @@ import arcade.mod.controller.Console;
 import arcade.mod.controller.GameConsole;
 
 import com.golden.gamedev.object.GameFont;
+import com.golden.gamedev.object.Sprite;
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -56,11 +57,11 @@ public class Blah extends Game {
 	public void initResources() {
 		super.initResources();
 
-		myConsole = new GameConsole(this);
 		Resources.loadInt("Height", HEIGHT);
 		Resources.loadInt("Width", WIDTH);
 
 		initControls();
+		
 	}
 
 	public void initControls() {
@@ -94,6 +95,8 @@ public class Blah extends Game {
 		stateManager.addGameState(myPauseState = new PauseGameState(
 				myPlayState, "Paused"));
 		stateManager.activateOnly(myMenuState);
+		myConsole = new GameConsole(this);
+
 	}
 
 	public void initLevelManager() {
@@ -101,15 +104,14 @@ public class Blah extends Game {
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");
 		String levelNamesFile = Resources.getString("levelNamesFile");
 		levelManager.makeLevels(levelFilesDirectory, levelNamesFile);
+		
 	}
 
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		gameControl.update();
-		myConsole.update();
-		if (myConsole.isModified()) {
-			myPlayState = (PlayState) myConsole.refresh();
-		}
+		myConsole.update(elapsedTime);
+
 	}
 
 	public void setPlayState() {

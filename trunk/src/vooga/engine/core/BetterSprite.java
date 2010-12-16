@@ -606,4 +606,5 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 
 	}
 
+
 }

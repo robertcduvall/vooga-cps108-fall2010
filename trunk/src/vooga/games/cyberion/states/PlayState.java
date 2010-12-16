@@ -46,6 +46,7 @@ public class PlayState extends GameState {
 	}
 
 	public void initialize() {
+		
 		// System.out.println("initialize called");
 		playfield = myLevelManager.loadFirstLevel();
 		player = (PlayerShip) playfield.getGroup("playerGroup").getSprites()[0];
@@ -104,6 +105,10 @@ public class PlayState extends GameState {
 	// TODO this method is being used for collision handling also
 	public PlayerShip getPlayer() {
 		return player;
+	}
+	public EnemyShip getEnemy(){
+		return (EnemyShip) this.getPlayField().getGroup("enemyGroup")
+				.getActiveSprite();
 	}
 
 	public PlayField getPlayField() {

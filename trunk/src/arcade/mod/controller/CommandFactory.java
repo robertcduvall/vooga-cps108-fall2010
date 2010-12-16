@@ -11,6 +11,7 @@ public class CommandFactory {
 	 * Creates a new instance of FrameFactory and populates the map
 	 */
 	public CommandFactory() {
+		myMappings.put("score", new IncreaseScore());
 		myMappings.put("increase", new IncreaseLives());
 		myMappings.put("pause", new PauseCommand());
 		myMappings.put("unpause", new UnpauseCommand());

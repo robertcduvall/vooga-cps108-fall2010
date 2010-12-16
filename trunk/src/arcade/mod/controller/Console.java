@@ -13,7 +13,7 @@ public class Console {
 
 	}
 
-	public void update() {
+	public void update(long t) {
 		if (!myView.myInput.equals(ConsoleView.NO_INPUT)) {
 			runCommand(myView.textInput.getText());
 			myView.myInput = ConsoleView.NO_INPUT;

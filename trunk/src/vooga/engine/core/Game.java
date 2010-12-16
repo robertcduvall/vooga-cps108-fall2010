@@ -336,5 +336,6 @@ public class Game extends com.golden.gamedev.Game {
 	public LevelParser getLevelParser() {
 		return levelParser;
 	}
+	
 
 }
