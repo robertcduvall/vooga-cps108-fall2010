@@ -106,11 +106,12 @@ public class ProfileSet implements Iterable<Profile> {
 		} catch (NumberFormatException e) {
 		}
 		
+		System.out.println("my query start");
 		List<Map<String, String>> userInfo = myDbAdapter.getRows(resourceBundle.getString("dbUserTable"),
-				resourceBundle.getString("dbUserID"), Integer.toString(userId));
+				resourceBundle.getString("dbUserTableID"), Integer.toString(userId));
+		System.out.println("stop");
 		Map<String, String> userName = userInfo.get(0);
 		userProf.setUserName(userName.get(resourceBundle.getString("username")));
-
 		return userProf;
 	}
 
