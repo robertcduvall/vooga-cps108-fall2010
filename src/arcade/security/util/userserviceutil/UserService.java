@@ -7,7 +7,7 @@ package arcade.security.util.userserviceutil;
  * @author Meng Li
  *
  */
-public abstract interface UserService {
+public interface UserService {
 	
 	
 	
