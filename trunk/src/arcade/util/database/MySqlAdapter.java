@@ -391,6 +391,30 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean update(String tableName, Map<String, String> conditions,
 			Map<String, String> row) {
+		return updateOrInsert("UPDATE",tableName,conditions,row);
+	}
+	
+	
+	/**
+	 * Replaces the rows of a database that satisfy the given conditions with the
+	 * specified new values if they exist, if they do not exist it inserts them
+	 * 
+	 * @param tableName
+	 *            Name of table
+	 * @param conditions
+	 *            Conditions rows must satisfy in order to be updated
+	 * @param row
+	 *            A row containing a mapping of the fields that will change to
+	 *            their new information
+	 * @return True if the query was successful, false if it failed
+	 */
+	public boolean replace(String tableName, Map<String, String> conditions,
+			Map<String, String> row) {
+		return updateOrInsert("REPLACE",tableName,conditions,row);
+	}
+	
+	private boolean updateOrInsert(String operation, String tableName, Map<String, String> conditions,
+			Map<String, String> row){
 		//refreshConnection();
 		String newValues = "";
 		for (String s : row.keySet()) {
@@ -398,7 +422,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		}
 		newValues = newValues.substring(0, newValues.length() - 2);
 		String conditional = createConditional(conditions);
-		String sql = "UPDATE " + tableName + " SET " + newValues
+		String sql = operation +" " + tableName + " SET " + newValues
 				+ conditional;
 		try {
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
