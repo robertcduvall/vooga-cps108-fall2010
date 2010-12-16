@@ -1,6 +1,6 @@
 package arcade.security.util;
 
-import arcade.core.Arcade;
+import arcade.core.ArcadeTab;
 import arcade.lobby.model.ProfileSet;
 import arcade.lobby.view.ProfilePanel;
 import arcade.security.util.userserviceutil.PrivilegeMap;
@@ -14,7 +14,7 @@ public class LogInHandler {
 		if(userId < 1) return false;
 		if(isPasswordValid(userId, password)){
 			ProfileSet.setUser(userId);
-			Arcade.refreshRight(); //from arcade group
+			ArcadeTab.refreshRight(); //from arcade group
 			return true;
 		}
 		return false;

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import arcade.core.ExampleGUI;
 import arcade.core.Window;
 
 public class HighScore extends Window {

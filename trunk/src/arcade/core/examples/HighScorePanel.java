@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import arcade.core.Arcade;
+import arcade.core.ArcadeTab;
 import arcade.core.GameView;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
@@ -47,7 +48,8 @@ public class HighScorePanel extends Panel{
 	public static boolean addHighScore() {
 		boolean isAdded = hsc.addScore(ProfileSet.getCurrentProfile().getUserId(),
 				GameView.getGameID(), score);
-		Arcade.refreshLeft();
+		ArcadeTab.refreshLeft();
+		ArcadeTab.refreshRight();
 //		mainPanel.setRightComponent(makeRightPanel());
 		return isAdded;
 	}

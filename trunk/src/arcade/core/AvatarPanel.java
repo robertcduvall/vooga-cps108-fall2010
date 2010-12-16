@@ -25,7 +25,7 @@ class AvatarPanel extends JPanel {
 		try {
 			String avatarPath = profile.getAvatar();
 			ImageIcon avatarIcon = new ImageIcon(ImageIO.read(new URL(avatarPath)));
-			ExampleGUI.scaleImage(avatarIcon,100);
+//			ExampleGUI.scaleImage(avatarIcon,100);
 			avatar = new JLabel(avatarIcon);
 		} catch (MalformedURLException e) {
 			avatar = new JLabel("");
