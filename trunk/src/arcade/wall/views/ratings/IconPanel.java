@@ -19,8 +19,11 @@ import arcade.wall.retired.AbstractButtonPanel;
  * Creates a Rating Panel that is made up of a number of Buttons
  * as provided by the user. The Buttons will be created
  * with an icon image as provided by the user.
- * In order to change the Panel layout, please refer
- * to the methods in the ButtonPanel superclass.
+ * 
+ * Example: 
+ * image = "src/arcade/core/RatingStar.gif"
+ * IconPanel ratingPanel = new IconPanel(5);
+ * ratingPanel.setDefaultIcon(image);
  * 
  * @author Cameron McCallie
  *
@@ -32,12 +35,12 @@ public class IconPanel extends JPanel implements ActionListener {
 	private ImageIcon myIcon;
 	private String myIconPath = "src/arcade/core/RatingStar.gif"; 
 	private JButton[] myIconButtons;
+	private boolean[] mySelectedButtons;
 	private ButtonGroup myButtons;
 
 	
 	//TODO: Allow the users to change individual images
 	//TODO: Use Resources properly, remove hard-coding
-	//TODO: The superclass method .getSelectedValue does NOT work with this
 	//TODO: Add constructors that take in image path and scaling sizes
 
 	
@@ -45,12 +48,13 @@ public class IconPanel extends JPanel implements ActionListener {
 		setDefaultIcon(myIconPath);
 		scaleDefaultIcon(25,25);
 		myIconButtons = new JButton[scale];
+		mySelectedButtons = new boolean[scale];
 		myButtons = new ButtonGroup();
 		
 		for (int i = 1; i < scale+1; i ++){
 			JButton thisButton = new JButton(""+i, myIcon);
-			thisButton.setActionCommand(""+i);
 			thisButton.addActionListener(this);
+			thisButton.setActionCommand(""+i);
 			myButtons.add(thisButton);
 			myIconButtons[i-1] = thisButton;
 			this.add(thisButton);	
@@ -102,10 +106,9 @@ public class IconPanel extends JPanel implements ActionListener {
     public String getSelectedValue() {
     	String actionCommand = " ";
     	for (int i = 0; i < myIconButtons.length; i++){
-    		if (myIconButtons[i].isSelected())
+    		if (mySelectedButtons[i] == true)
     			actionCommand = myIconButtons[i].getActionCommand();
     	}
-		System.out.println(actionCommand);
 		return actionCommand;
 	}
     
@@ -127,15 +130,11 @@ public class IconPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		int correctValue = 0;
 		for (int i = 0; i < myIconButtons.length; i++){
-			String actionCommand = ""+i+1;
+			String actionCommand = ""+(i+1);
 			if (actionCommand.equals(e.getActionCommand())){
-				myIconButtons[i].setSelected(true);
+				mySelectedButtons[i] = true;
 				correctValue = i+1;
 			}
-		}
-		for (int j = 0; j < 5; j++){
-			if (j != correctValue)
-				myIconButtons[j].setSelected(false);
 		}
 	}
     

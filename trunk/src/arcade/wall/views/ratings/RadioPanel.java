@@ -10,8 +10,10 @@ import javax.swing.JRadioButton;
 
 /**
  * Creates a Rating Panel that is made up of a number of Radio Buttons
- * as provided by the user. In order to change the Panel layout, please refer
- * to the methods in the ButtonPanel superclass.
+ * as provided by the user.
+ * 
+ * Example:
+ * RadioPanel ratingPanel = new RadioPanel(5);
  * 
  * @author Cameron McCallie
  *
