@@ -35,6 +35,7 @@ public class WallTabController {
 		myView.getMessagesPanel().addSendMessageButtonListener(new SendMessageButtonListener());
 		myView.getMessagesPanel().addComposeMessageButtonListener(new ComposeMessageButtonListener());
 		myView.getMessagesPanel().addCloseButtonListener(new CloseButtonListener());
+		myView.getMessagesPanel().addRefreshInboxButtonListener(new RefreshInboxButtonListener());
 	}
 
 	/**
@@ -111,24 +112,22 @@ public class WallTabController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
-			Review submittedReview = new Review(""+myModel.getNewReviewID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
+			Review submittedReview = new Review(""+myModel.getNewReviewID(), ""+ProfileSet.getCurrentProfile().getUserId(), selectedGameName, 
 					   myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
     		if (myModel.reviewIsConflicting(submittedReview)) {
     			if (showCommentDialog() == JOptionPane.YES_OPTION) {
-    				myModel.updateReview(selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
     				myModel.addReview(submittedReview);
     			}
     		} else {
     			myModel.addReview(submittedReview);
     		}
-			myModel.addReview(submittedReview);
 		}
 	}
 
 	class SendMessageButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (showSendMessageDialog() == JOptionPane.YES_OPTION){ 
-				Message message = new Message(""+myModel.getNewMessageID(), "1", 
+				Message message = new Message(""+myModel.getNewMessageID(), ProfileSet.getCurrentProfile().getUserName(), 
 						myView.getMessagesPanel().getReceiverText(), myView.getMessagesPanel().getMessageContentText());
 				myModel.addMessage(message);
 				myView.getMessagesPanel().setReceiverText("");
@@ -146,6 +145,14 @@ public class WallTabController {
 	class CloseButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			myView.getMessagesPanel().getComposeMessageFrame().dispose();
+		}
+	}
+	
+	class RefreshInboxButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			List<Message> messageList = myModel.getMessageSet().getMessagesByField("Receiver", ""+ProfileSet.getCurrentProfile().getUserName());
+			myView.getMessagesPanel().refreshInbox(messageList);
+			myView.getMessagesPanel().validate();
 		}
 	}
 

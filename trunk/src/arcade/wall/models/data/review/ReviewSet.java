@@ -32,8 +32,11 @@ public class ReviewSet extends DataSet {
 		row.put("User_Id", review.getUserId());
 		row.put("GameInfo_Title", review.getGameInfoTitle());
 		row.put("Content", review.getContent());
+		row.put("Rating", review.getRating());
 		currentID++;
-		return myDbAdapter.insert(myTable, row);
+		boolean returnB = myDbAdapter.insert(myTable, row);
+		System.out.println(returnB);
+		return returnB;
 	}
 	
 	/**
