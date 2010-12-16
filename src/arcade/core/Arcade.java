@@ -2,6 +2,7 @@ package arcade.core;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
@@ -27,8 +28,6 @@ import arcade.util.database.MySqlAdapter;
 @SuppressWarnings("serial")
 public class Arcade extends JFrame {
 	private static final String DELIMITER = ",";
-	private static final int XSIZE = 1000;
-	private static final int YSIZE = 820;
 
 	private static ResourceBundle resources = ResourceBundle
 	.getBundle("arcade.core.componentList");
@@ -42,12 +41,16 @@ public class Arcade extends JFrame {
 		getContentPane().add(createLogin(), BorderLayout.NORTH);
 		mainWindow = createTabs();
 		getContentPane().add(mainWindow, BorderLayout.CENTER);
-
-		setSize(XSIZE, YSIZE);
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();  
+		int xSize = ((int) tk.getScreenSize().getWidth());  
+		int ySize = ((int) tk.getScreenSize().getHeight());  
+		
+		setSize(xSize, ySize);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		//		 createWindows();
+				 createWindows();
 	}
 
 	private JPanel createLogin() {
