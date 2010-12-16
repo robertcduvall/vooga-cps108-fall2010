@@ -82,6 +82,8 @@ public class Arcade extends JFrame {
 			}
 		}
 		
+		((Tab) everything.getSelectedComponent()).initialize();
+
 		everything.addChangeListener(new ChangeListener() {
 			
 			@Override
@@ -109,7 +111,7 @@ public class Arcade extends JFrame {
 			setLayout(new MigLayout());
 			setLocationRelativeTo(mainWindow);
 			setSize(200,100);
-			add(new JTextField("Loading "+name));
+			add(new JLabel("Loading "+name+"..."));
 			setVisible(true);
 		}
 	}
