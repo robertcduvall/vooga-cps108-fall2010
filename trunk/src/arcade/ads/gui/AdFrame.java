@@ -156,7 +156,7 @@ public class AdFrame extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		new AdFrame();
+		//new AdFrame();
 		//AdsManager manager = new AdsManager();
 
 //		BufferedImage img1 = null;
@@ -185,6 +185,6 @@ public class AdFrame extends JFrame {
 		// manager.add(new DukeAds("duke", img));
 		// System.out.println(manager.retrieve());
 
-		//new AdFrame(new Dimension(800, 600));
+		new AdFrame(new Dimension(800, 600));
 	}
 }
