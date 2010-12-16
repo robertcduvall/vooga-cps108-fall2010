@@ -9,6 +9,7 @@ import arcade.security.control.IControl;
 
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.gui.SecurityButton;
+import arcade.security.gui.AdminBox;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.userserviceutil.UserServiceFactory;
@@ -37,14 +38,18 @@ public class AdminPanel extends JPanel implements IView{
 	private static final int SECURITY_PANEL_HEIGHT = 300;
 	private static final String DELIM = ";";
 	private JLabel adminUserName; 
-	private JButton LogoutButton;
 	private JScrollPane adminScrollPane;
 	private JPanel columnName;
+	private Map<String,String> originalMap;
 	private Map<String,String> userTypeMap;
 	private AdminHandler model;
-	private String[] userTypes = {"Guest","User","Developer","Administrator"};
+	private String[] userTypes;
+	private JButton submitButton;
+	private JButton undoButton;
+	
 	
 	private JPanel userRolePane;
+	private JButton LogoutButton;
 	private static String listOfPanels;
 	private ResourceBundle resources = ResourceBundle
 	.getBundle("arcade.security.resources.securitypanels.panels");
@@ -63,6 +68,10 @@ public class AdminPanel extends JPanel implements IView{
 		//add(LogoutButton,"gapleft 585");
 		createColumnName();
 		createScrollList();
+		submitButton = model.createSubmitButton();
+		add(submitButton);
+		undoButton = model.createUndoButton();
+		add(undoButton);
 		//add(columnName);
 		//adminScrollPane = new JScrollPane();
 		//adminScrollPane.setViewportView(getUserRolePanel());		
@@ -70,6 +79,9 @@ public class AdminPanel extends JPanel implements IView{
 		//add(adminScrollPane,"span 2");
 		setVisible(true);
 	}
+	
+	
+	
 	
 	private void createColumnName(){
 		JPanel panel= new JPanel();
@@ -86,10 +98,10 @@ public class AdminPanel extends JPanel implements IView{
 	
 	private void createScrollList(){
 		userTypeMap = model.getUserTypeMap();
+		userTypes = model.getUserTypes();
+		originalMap = userTypeMap;
 		JPanel panel = new JPanel();
-		//background.setLayout(new MigLayout("wrap 1"));
 		GridLayout gridLayout = new GridLayout(0,4);
-		//gridLayout.setColumns(4);
 		panel.setLayout(gridLayout);
 		for(String name:userTypeMap.keySet()){
 			//JPanel panel = new JPanel();
@@ -97,8 +109,10 @@ public class AdminPanel extends JPanel implements IView{
 			//panel.setLayout(gridLayout);
 			panel.add(new JLabel(name));
 			panel.add(new JLabel(userTypeMap.get(name)));
-			panel.add(new JComboBox(userTypes));
-			panel.add(new JButton("Go to "+name+"'s privilege page"));
+			panel.add(model.createNewAdminBox(name));
+			//panel.add(new AdminBox(name,userTypes));
+			//panel.add(new JComboBox(userTypes));
+			panel.add(new JButton("Go to "+name+"'s privilege settings"));
 			//background.add(panel);
 		}
 		adminScrollPane = new JScrollPane(panel);
