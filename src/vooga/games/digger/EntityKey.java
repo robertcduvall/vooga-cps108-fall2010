@@ -38,5 +38,10 @@ public class EntityKey {
 	public int hashCode(){
 		return callingClass.hashCode() * requestedClass.hashCode() * modName.hashCode();
 	}
+	
+	@Override
+	public String toString(){
+		return "Calling class: " + callingClass.toString() + "\t Requested interface: " + requestedClass.toString() + "\t mod name: " + modName; 
+	}
 
 }
