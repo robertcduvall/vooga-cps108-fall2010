@@ -15,7 +15,6 @@ public class LogInHandler {
 		if(isPasswordValid(userId, password)){
 			Arcade.setPlayer(username); //from arcade group
 			ProfileSet.setUser(userId);
-			ProfileSet.getCurrentProfile().setUserName(username);
 			return true;
 		}
 		return false;
