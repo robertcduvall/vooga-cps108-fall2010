@@ -15,7 +15,6 @@ public class SearchOrganizer implements IOrganizer {
 
 	@Override
 	public List<IItemInfo> organize(List<IItemInfo> list, String criteria) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
