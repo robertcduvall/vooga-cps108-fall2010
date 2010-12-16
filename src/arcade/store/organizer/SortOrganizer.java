@@ -4,6 +4,17 @@ import java.util.List;
 
 import arcade.store.items.IItemInfo;
 
+/**
+ * SortOrganizer implements the interface IOrganizer. All classes that will
+ * perform a sort are subclasses of SortOrganizer. The override method returns
+ * an organized List of IItemInfo objects by sorting the IItemInfo List by
+ * performing a compareTo against every object in the list against String
+ * criteria. Subclasses may override the compareTo method so that it functions a
+ * specific way.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class SortOrganizer implements IOrganizer {
 
 	@Override
