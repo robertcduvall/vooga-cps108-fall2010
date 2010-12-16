@@ -55,7 +55,8 @@ public class AdsManager implements MouseListener {
 		renderedAdsGroup = new AdsGroup();
 		activeAdsGroup = new AdsGroup();
 		toBeActiveAdsGroup = new AdsGroup();
-		renderedAdsGroup.setAds(activeAdsGroup.getAds()); //default rendered ads
+		renderedAdsGroup.setAds(activeAdsGroup.getAds()); // default rendered
+															// ads
 
 		adsthread = new AdsThread(this);
 		thread = new RotateThread(this);
@@ -113,12 +114,10 @@ public class AdsManager implements MouseListener {
 	 * update ads
 	 */
 	public void update() {
-		
-		//removeExpiredAds();
-		//System.out.println(panel.getHeight());
+
+		renderedAdsGroup.addMoreAds(activeAdsGroup.retrieveActiveAds());
 		render();
 	}
-
 
 	/**
 	 * render ads
@@ -128,6 +127,7 @@ public class AdsManager implements MouseListener {
 		if (!renderedAdsGroup.getAds().isEmpty()) {
 			// System.out.printlnindex();
 			// System.out.println("rendering");
+			System.out.println(renderedAdsGroup.getCurrentAd()==null);
 			renderedAdsGroup.getCurrentAd().render(panel, panel.getWidth(),
 					panel.getHeight());
 		}
@@ -139,33 +139,34 @@ public class AdsManager implements MouseListener {
 	public String retrieve() {
 		return null;
 	}
-	
-	public void setRenderedAds(){
+
+	public void setRenderedAds() {
 		renderedAdsGroup.clear();
 		renderedAdsGroup.setAds(activeAdsGroup.getAds());
 	}
-	
-	public void setRenderedAds(String...tags){
+
+	public void setRenderedAds(String... tags) {
 		renderedAdsGroup.clear();
-		for (String tag: tags)
-			for (BasicAd ad: activeAdsGroup.getAds()){
-				if ((ad instanceof IRelatedAds) && ((IRelatedAds) ad).getCategories().contains(tag))
-			        renderedAdsGroup.add(ad);
+		for (String tag : tags)
+			for (BasicAd ad : activeAdsGroup.getAds()) {
+				if ((ad instanceof IRelatedAds)
+						&& ((IRelatedAds) ad).getCategories().contains(tag))
+					renderedAdsGroup.add(ad);
 			}
 	}
 
 	public void setRenderedAds(File file) {
 		renderedAdsGroup.setAds(XMLtoAds.convertAds(file));
 	}
-	
+
 	public void setActiveAds(File file) {
 		activeAdsGroup.setAds(XMLtoAds.convertAds(file));
 	}
-	
+
 	public void setRenderedAds(AdsGroup group) {
 		renderedAdsGroup.setAds(group.getAds());
 	}
-	
+
 	/**
 	 * set date
 	 * 
@@ -242,9 +243,8 @@ public class AdsManager implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public static JComponent getAdBoard()
-	{
+
+	public static JComponent getAdBoard() {
 		return panel;
 	}
 }
