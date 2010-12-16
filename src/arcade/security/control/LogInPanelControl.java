@@ -161,8 +161,7 @@ public class LogInPanelControl implements IControl{
 	 * @return true if user is an admin
 	 */
 	private boolean isAdmin() {
-		//TODO
-		return true;
+		return UserServiceFactory.getCurrentUser().getUserType().equals("Administrator");
 	}
 
 	
