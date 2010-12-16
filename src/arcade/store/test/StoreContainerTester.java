@@ -1,4 +1,4 @@
-package arcade.store.gui;
+package arcade.store.test;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 import arcade.store.gui.*;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

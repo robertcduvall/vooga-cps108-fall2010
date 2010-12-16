@@ -1,4 +1,4 @@
-package arcade.store.gui;
+package arcade.util.guiComponents;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

@@ -1,5 +1,12 @@
 package arcade.core.mvc;
 
+/**
+ * 
+ * @author 			Yijia Mu
+ * @date			12-16-10
+ * @description		This is the class of exceptions that conver all the used control exceptions.
+ */
+
 public class ControlExceptions extends RuntimeException{
 
 	public static final RuntimeException METHOD_NOT_FOUND = 

@@ -7,37 +7,55 @@ import arcade.core.Tab;
 import arcade.store.gui.StoreTab;
 
 /**
- * This class represents a Controller 
- * @author Yijia Mu
  *
+ * @author: 		Jimmy Mu
+ * @date:			12-16-10
+ * @description:	This class represents a control unit in the Model View Controller.
+ * 					Basically, the control unit can add a model and a viewer. It is 
+ * 					supplemented with the ability to use the resource bundle
+ * 					and call reflection on keys to get methods and call those 
+ * 					methods on itself. This is especially useful when the subclass
+ * 					have methods that needed to be called. 
  */
 
 public class Controller implements IController{
 
 	private ResourceBundle reflectionMirror;
 	
-	private IModel model;
-	private Tab viewer;
-	
+	/**
+	 * This is the basic constructor. It takes in a filepath
+	 * so that it can use reflection 
+	 * @param filepath
+	 */
 	public Controller(String filepath)
 	{
 		reflectionMirror = ResourceBundle.getBundle(filepath);		
 	}
 	
 
+	/**
+	 * This method specifies the first actions to perform when the 
+	 * controller is created.
+	 */
 	@Override
 	public void initialize() {
 
 	}
 
+	/**
+	 * This method adds the model associated with the controller.
+	 */
 	@Override
 	public void addModel(IModel model) {
-		this.model = model;
+
 	}
 
+	/**
+	 * this method adds the viewr associated with the controller.
+	 */
 	@Override
 	public void addViewer(Tab tab) {
-		viewer = tab;
+
 	}
 	
 	/**
@@ -97,10 +115,6 @@ public class Controller implements IController{
 	{
 		return reflectionMirror.getString(key);
 	}
-
-
-
-
 
 
 }

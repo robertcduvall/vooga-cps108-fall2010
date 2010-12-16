@@ -65,6 +65,14 @@ public class GamePurchaseView extends StoreTab {
 	}
 
 	/**
+	 * This method retursn the Item title field
+	 * @return
+	 */
+	public String getItemName() {
+		return getTitleTextField().getText();
+	}
+	
+	/**
 	 * This method initializes gamePurchasePanel
 	 * 
 	 * @return javax.swing.JPanel
