@@ -77,11 +77,11 @@ public class MenuButton extends Button {
 						MenuGameState mgs,
 						GameState gamestateForButton) {
 		this(img, label, x, y, method, mgs, GameState.class, gamestateForButton);
-		menuState = mgs;
-		System.out.println("menubutton: "+method);
+		/*menuState = mgs;
+		System.out.println("menubutton: "+method+" "+gamestateForButton);
 		menuState.getKeyboardControl().addInput(keyboardKey, method, gamePath, GameState.class);
 		menuState.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
-		keyboardKey++;
+		keyboardKey++;*/
 	}
 
 
