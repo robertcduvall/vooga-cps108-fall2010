@@ -107,14 +107,12 @@ public interface DatabaseAdapter {
 	 * 
 	 * @param tableName
 	 *            Name of table
-	 * @param conditions
-	 *            Conditions rows must satisfy in order to be updated
 	 * @param row
 	 *            A row containing a mapping of the fields that will change to
 	 *            their new information
 	 * @return True if the query was successful, false if it failed
 	 */
-	public boolean replace(String tableName, Map<String, String> conditions,
+	public boolean replace(String tableName,
 			Map<String, String> row);
 
 }

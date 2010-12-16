@@ -321,6 +321,26 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 */
 	@Override
 	public boolean insert(String tableName, Map<String, String> row) {
+		return insertOrReplace("INSERT INTO",tableName,row);
+	}
+	
+	/**
+	 * Replaces the rows of a database that satisfy the given conditions with the
+	 * specified new values if they exist, if they do not exist it inserts them
+	 * 
+	 * @param tableName
+	 *            Name of table
+	 * @param row
+	 *            A row containing a mapping of the fields that will change to
+	 *            their new information
+	 * @return True if the query was successful, false if it failed
+	 */
+	@Override
+	public boolean replace(String tableName, Map<String, String> row) {
+		return insertOrReplace("REPLACE",tableName, row);
+	}
+	
+	private boolean insertOrReplace(String operation, String tableName, Map<String, String> row){
 		// TODO Auto-generated method stub
 		//refreshConnection();
 		String keys = "(";
@@ -334,7 +354,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		keys += ")";
 		values += ")";
 
-		String sql = "INSERT INTO " + tableName + " " + keys + " VALUES "
+		String sql = operation+" " + tableName + " " + keys + " VALUES "
 				+ values;
 		try {
 
@@ -390,31 +410,6 @@ public class MySqlAdapter implements DatabaseAdapter {
 	@Override
 	public boolean update(String tableName, Map<String, String> conditions,
 			Map<String, String> row) {
-		return updateOrInsert("UPDATE",tableName,conditions,row);
-	}
-	
-	
-	/**
-	 * Replaces the rows of a database that satisfy the given conditions with the
-	 * specified new values if they exist, if they do not exist it inserts them
-	 * 
-	 * @param tableName
-	 *            Name of table
-	 * @param conditions
-	 *            Conditions rows must satisfy in order to be updated
-	 * @param row
-	 *            A row containing a mapping of the fields that will change to
-	 *            their new information
-	 * @return True if the query was successful, false if it failed
-	 */
-	@Override
-	public boolean replace(String tableName, Map<String, String> conditions,
-			Map<String, String> row) {
-		return updateOrInsert("REPLACE",tableName,conditions,row);
-	}
-	
-	private boolean updateOrInsert(String operation, String tableName, Map<String, String> conditions,
-			Map<String, String> row){
 		//refreshConnection();
 		String newValues = "";
 		for (String s : row.keySet()) {
@@ -422,7 +417,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		}
 		newValues = newValues.substring(0, newValues.length() - 2);
 		String conditional = createConditional(conditions);
-		String sql = operation +" " + tableName + " SET " + newValues
+		String sql = "UPDATE " + tableName + " SET " + newValues
 				+ conditional;
 		try {
 			PreparedStatement ps = myDBConnection.prepareStatement(sql);
@@ -437,6 +432,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		log.info("Successful database operation: " + sql);
 		return true;
 	}
+	
 
 	/**
 	 * Creates a set of mySQL conditions from a mapping of field names to their
