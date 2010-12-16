@@ -123,14 +123,11 @@ public class AdsGroup {
 
 	public List<BasicAd> retrieveActiveAds() {
 		ArrayList<BasicAd> moreAds = new ArrayList<BasicAd>();
-		int i = 0;
-		while (i < ads.size()) {
+		for (int i=0;i < ads.size();i++) {
 			if (ads.get(i).getEffectiveDate()
 					.before(new Date(System.currentTimeMillis()))) {
 				moreAds.add(ads.get(i));
-				ads.remove(ads.get(i));
 			}
-			i++;
 		}
 		return moreAds;
 	}

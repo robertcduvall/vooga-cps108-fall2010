@@ -2,8 +2,8 @@
 <AdGroup name="AdGroup1">
 <Ads>
 
-<Ad class="arcade.ads.adscontent.ImageAd" name="ad1" duration="5" startTime="12/14/2010 0:0:0" endTime="12/12/2010 00:00:00" image="src/arcade/ads/resources/duke.png" targetURL="http://www.duke.edu" />
-<Ad class="arcade.ads.adscontent.ImageAd" name="ad2" duration="1" startTime="12/16/2010 0:0:0" endTime="12/19/2010 00:00:00" image="src/arcade/ads/resources/unc.png" targetURL="http://www.unc.edu" />
+<Ad class="arcade.ads.adscontent.ImageAd" name="ad1" duration="5" startTime="12/14/2010 0:0:0" endTime="12/19/2010 00:00:00" image="src/arcade/ads/resources/duke.png" targetURL="http://www.duke.edu" />
+<Ad class="arcade.ads.adscontent.ImageAd" name="ad2" duration="1" startTime="12/15/2010 0:0:0" endTime="12/19/2010 00:00:00" image="src/arcade/ads/resources/unc.png" targetURL="http://www.unc.edu" />
 
 </Ads>
 <RelatedAds>
