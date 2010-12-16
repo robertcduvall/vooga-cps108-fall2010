@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 import arcade.lobby.controller.LoginController;
+import arcade.lobby.controller.RegisterController;
 import arcade.util.guiComponents.ValidatingComponent;
 import arcade.util.guiComponents.Validator;
 import arcade.util.guiComponents.ValidatorDock;
@@ -32,7 +33,8 @@ public class Login extends JPanel{
 	}
 	
 	private void createController() {
-		new LoginController(this);	
+		new LoginController(this);
+		new RegisterController(this);
 	}
 
 	private void initialize() {
@@ -41,7 +43,7 @@ public class Login extends JPanel{
 		JPanel panel = new JPanel();
 		panel.setLayout(new MigLayout());
 		addTextField("usernameLogin","Username: ");
-		addPasswordField("passwordLogin","Username: ");
+		addPasswordField("passwordLogin","Password: ");
 		login = new JButton("Login");
 		register = new JButton("Register");
 		panel.add(myDock);

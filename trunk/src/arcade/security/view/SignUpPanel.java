@@ -20,7 +20,9 @@ import arcade.lobby.validators.NameValidator;
 import arcade.lobby.validators.PasswordValidator;
 import arcade.lobby.validators.UsernameValidator;
 import arcade.lobby.validators.WebImageValidator;
+import arcade.security.control.SignUpPanelControl;
 import arcade.security.gui.SecurityButton;
+import arcade.security.model.SignUpProcess;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.util.guiComponents.ValidatingComponent;
 import arcade.util.guiComponents.Validator;
@@ -51,7 +53,7 @@ public class SignUpPanel extends JPanel implements IView {
 	private int maxUserNameLength = 10;
 	private int maxAnswerLength = 20;
 	private int START_INDEX = 0;
-	private JButton LoginPageButton;
+	
 
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
@@ -66,7 +68,7 @@ public class SignUpPanel extends JPanel implements IView {
 		setName("Sign up");
 		setLayout(new MigLayout("wrap 2"));
 
-		passwordSuggestions = new JLabel();
+		passwordSuggestions = new JLabel("Score: will show upon password input");
 		add(passwordSuggestions,"cell 2 3");
 		passwordField = new JPasswordField(maxPasswordLength);
 		// JLabel usernameReminder = new JLabel("Username Does not Exist");
@@ -107,8 +109,6 @@ public class SignUpPanel extends JPanel implements IView {
 		myDock.addValidatingComponent(new ValidatingComponent<JComponent>(
 				answerField), "answer");
 
-		LoginPageButton = new SecurityButton(
-				LabelResources.getLabel("GoBackLoginPageButton"));
 		submitButton = new SecurityButton(
 				LabelResources.getLabel("SignUpButton"));
 
@@ -124,6 +124,8 @@ public class SignUpPanel extends JPanel implements IView {
 		// Add it all to the panel
 		addContents();
 		myDock.revalidate();
+		SignUpProcess model = new SignUpProcess();
+		new SignUpPanelControl((IView)this,model);	
 	}
 
 	public ValidatorDock getDock() {
@@ -155,10 +157,6 @@ public class SignUpPanel extends JPanel implements IView {
 		submitButton.addActionListener(listener);
 	}
 
-	public void addLoginPageButtonListener(ActionListener listener) {
-		LoginPageButton.addActionListener(listener);
-	}
-
 	public JPanel getCurrentPanel() {
 		return this;
 	}
@@ -173,7 +171,6 @@ public class SignUpPanel extends JPanel implements IView {
 
 	private void addContents() {
 		add(myDock, "wrap");
-		add(LoginPageButton);
 		add(submitButton);
 	}
 
