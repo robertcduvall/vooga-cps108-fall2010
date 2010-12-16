@@ -29,10 +29,12 @@ import arcade.util.guiComponents.Validator;
 import arcade.util.guiComponents.ValidatorDock;
 
 /**
- * The sign up panel for security-related profiles of the user.
+ * The sign up panel for security-related profiles of the user.  Used in conjunction with 
+ * security.model.SignUpProcess and security.control.SignUpPanelControl.
  * 
  * @author Meng Li
  * @author Jiaqi Yan
+ * @author Nick Hawthorne
  * @author Lobby Group
  * 
  */

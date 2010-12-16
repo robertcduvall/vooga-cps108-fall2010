@@ -3,7 +3,8 @@ package arcade.security.model;
 import arcade.security.util.DataHandler;
 
 /**
- * Model object for the forgotten password panel
+ * Model object for the forgotten password panel.  Used in conjunction with 
+ * security.view.RetrievePasswordPanel and security.control.RetrievePasswordPanelControl.
  * 
  * @author Meng Li, Jiaqi Yan, Nick Hawthorne
  *

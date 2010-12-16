@@ -23,7 +23,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
-
+/**
+ * View object for the Admin panel. Used in conjunction with 
+ * security.model.AdminProcess and security.control.AdminPanelControl.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ *
+ */
 public class AdminPanel extends JPanel implements IView{
 	private final static Logger log=Logger.getLogger(AdminPanel.class);
 	private static final long serialVersionUID = 1L;
@@ -40,6 +46,9 @@ public class AdminPanel extends JPanel implements IView{
 	.getBundle("arcade.security.resources.securitypanels.panels");
 
 
+	/**
+	 * Constructor for the Administrator Panel. Currently under construction.
+	 */
 	public AdminPanel(){
 		setName("Admin page"); 
 		setLayout(new MigLayout("wrap 2"));
@@ -55,7 +64,11 @@ public class AdminPanel extends JPanel implements IView{
 		setVisible(true);
 	}
 
-	public JPanel getUserRolePanel() {
+	/**
+	 * Returns the current user role panel
+	 * 
+	 */
+	private JPanel getUserRolePanel() {
 		if (userRolePane == null) {
 			userRolePane = new JPanel(new GridLayout(0, 1));
 			userRolePane.setPreferredSize(new Dimension(SECURITY_PANEL_WIDTH,SECURITY_PANEL_HEIGHT));
@@ -64,16 +77,29 @@ public class AdminPanel extends JPanel implements IView{
 		return userRolePane;
 	}
 
-	public void addUserSecurityPanel(){  
+	/**
+	 * Adds a user security panel to the list of panels
+	 */
+	private void addUserSecurityPanel(){  
 		listOfPanels=resources.getString("listofpanels");		
 		loadPanels(listOfPanels);
 	}
 
+
+	/**
+	 * Adds a listener for the logout button
+	 * 
+	 * @param listener the listener to be added
+	 */
 	public void addLogoutButtonListener(ActionListener listener){
 		LogoutButton.addActionListener(listener);
 	}
 
-
+	/**
+	 * loads all the panels in the list of panels
+	 * 
+	 * @param listOfPanels the panels to be loadaed, in the form of a String
+	 */
 	private void loadPanels(String listOfPanels) {
 		String[] panel = listOfPanels.split(DELIM);
 		for(String p: panel){
@@ -82,6 +108,10 @@ public class AdminPanel extends JPanel implements IView{
 		}				
 	}
 
+	/**
+	 * Creates and returns a security panel
+	 * 
+	 */
 	private JPanel createSecurityPane(String classPath)
 	{			
 		try{

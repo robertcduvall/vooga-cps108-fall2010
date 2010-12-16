@@ -4,7 +4,8 @@ package arcade.security.model;
 import arcade.security.util.LogInHandler;
 
 /**
- * Model object for the Login panel
+ * Model object for the Login panel Used in conjunction with 
+ * security.view.LogInPanel and security.control.LogInPanelControl.
  * 
  * @author Meng Li, Jiaqi Yan, Nick Hawthorne
  *

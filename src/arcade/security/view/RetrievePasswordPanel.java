@@ -13,6 +13,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ResourceBundle;
 
+/**
+ * View object for the forgotten password panel. Used in conjunction with 
+ * security.model.RetrievePasswordProcess and security.control.RetrievePasswordPanelControl.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ *
+ */
 public class RetrievePasswordPanel extends JPanel implements IView{
 
 
