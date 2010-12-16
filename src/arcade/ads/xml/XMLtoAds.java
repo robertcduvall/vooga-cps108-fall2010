@@ -98,7 +98,6 @@ public class XMLtoAds {
 				try {
 					Class<?> adClass = Class.forName(implementor);
 					Constructor<?> ct = adClass.getConstructor();
-					System.out.println(ct);
 					BasicAd adInstance = (BasicAd) ct.newInstance();
 					adInstance.setParameters(ad.getAttributes());
 					tempAds.add(adInstance);
