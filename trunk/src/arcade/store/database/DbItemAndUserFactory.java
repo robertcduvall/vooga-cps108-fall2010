@@ -88,7 +88,7 @@ public class DbItemAndUserFactory {
 	 */
 	public static StoreUser getUser(int userId) {
 		List<Map<String, String>> list = dbAdapter.getRows(StoreDbConstants.STORE_USER_TABLE, StoreDbConstants.USER_FIELD, Integer.toString(userId));
-		if(list!=null) {
+		if(list.size() > 0) {
 			Map<String, String> userMap = list.get(0);
 			String id = userMap.get(StoreDbConstants.USER_FIELD);
 			String type = userMap.get(StoreDbConstants.USER_TYPE_FIELD);
