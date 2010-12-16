@@ -5,11 +5,12 @@ import javax.swing.JOptionPane;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
+import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;
-
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.items.IItemInfo;
-import arcade.store.privileges.PrivilegeManager;
+
+import arcade.wall.models.data.review.*;
 
 public class PurchaseItemController implements IController {
 
@@ -37,7 +38,9 @@ public class PurchaseItemController implements IController {
 		view.getGameIcon().setSize(150, 150);
 
 		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
-		
+		Review randomReview = ReviewSet.getRandomReview("GameInfo_Title", item.getTitle());
+		view.setReviewText(randomReview.getContent() + " ---"+
+				ProfileSet.getProfile(Integer.parseInt(randomReview.getUserId())).getUserName());
 		int currentUserId = Integer.parseInt(storeModel.getCurrentUserAccount().getId());
 		for(String s : StoreModel.getUserOwnedGamesAsStrings(currentUserId)) {
 			if(s.equals(getItemName())) {
