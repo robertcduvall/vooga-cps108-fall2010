@@ -1,6 +1,7 @@
 package arcade.ads.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import arcade.ads.adscontent.BasicAd;
@@ -91,5 +92,13 @@ public class AdsGroup {
 	
 	public void clear(){
 		this.ads.clear();
+	}
+	
+	public void removeExpiredAds(){
+		for(BasicAd ad: ads){
+			if(ad.getExpireDate().after(new Date(System.currentTimeMillis()))){
+				ads.remove(ad);
+			}
+		}
 	}
 }

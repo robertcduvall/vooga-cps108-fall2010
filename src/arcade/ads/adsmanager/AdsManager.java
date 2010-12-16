@@ -117,6 +117,8 @@ public class AdsManager implements MouseListener {
 	 * update ads
 	 */
 	public void update() {
+		
+		renderedAdsGroup.removeExpiredAds();
 		//System.out.println(panel.getHeight());
 		render();
 	}
