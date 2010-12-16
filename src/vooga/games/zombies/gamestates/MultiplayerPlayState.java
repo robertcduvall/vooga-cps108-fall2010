@@ -1,6 +1,7 @@
 package vooga.games.zombies.gamestates;
 
 import java.awt.Graphics2D;
+
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import vooga.engine.event.EventPool;
@@ -9,6 +10,7 @@ import vooga.engine.util.SoundPlayer;
 import vooga.games.zombies.*;
 import vooga.games.zombies.events.*;
 import vooga.games.zombies.serializeables.Health;
+import vooga.games.zombies.serializeables.Name;
 import vooga.games.zombies.serializeables.Username;
 import vooga.games.zombies.serializeables.ZombieSeed;
 
@@ -85,8 +87,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 	@Override
 	public void interpretMessage(String data) {
-		if (data.startsWith("yourName")) {
-			player.setName(data.substring(9));
+		if (data.startsWith(Name.getIdentifier())) {
+			player.setName(((Name) (Name.deserialize(data))).getName());
 		} else if (data.startsWith(Username.getIdentifier())) {
 			String userName = ((Username) (Username.deserialize(data)))
 			.getUsername();
@@ -111,69 +113,55 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 					addZombies, addItems, seed);
 			eventPool.addEvent(endLevel);
 		} else {
-			System.out.println(data);
-			System.out.println(data);
 			setMessage(data);
 		}
 	}
 
 	/**
-	 * Makes the other players in the game move up depending on the data sent
+	 * Makes the other players in the game move up.
 	 * 
-	 * @return
+	 * @return false because the game shouldn't end
 	 */
 
 	public boolean goUp() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-
-				if (player != null) {
-
+				if (player != null)
 					player.goUp();
-				}
 			}
-
 		}
 		return false;
 	}
 
 	/**
-	 * Makes the other players in the game move down depending on the data sent
+	 * Makes the other players in the game move down.
 	 * 
-	 * @return
+	 * @return false because the game shouldn't end
 	 */
 
 	public boolean goDown() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-
-				if (player != null) {
-
+				if (player != null)
 					player.goDown();
-				}
 			}
-
 		}
 		return false;
 	}
 
 	/**
-	 * Makes the other players in the game move left depending on the data sent
+	 * Makes the other players in the game move left.
 	 * 
-	 * @return
+	 * @return false because the game shouldn't end
 	 */
-
 	public boolean goLeft() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-
-				if (player != null) {
-
+				if (player != null)
 					player.goLeft();
-				}
 			}
 
 		}
@@ -183,17 +171,15 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 	/**
 	 * Make the other players in the game move right depending on the data sent
 	 * 
-	 * @return
+	 * @return false because the game shouldn't end
 	 */
 
 	public boolean goRight() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-
-				if (player != null) {
+				if (player != null)
 					player.goRight();
-				}
 			}
 
 		}
@@ -203,16 +189,14 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 	/**
 	 * Make the other players in the game shoot depending on the data sent
 	 * 
-	 * @return
+	 * @return false because the game shouldn't end
 	 */
-
 	public boolean shoot() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-				if (player != null) {
+				if (player != null)
 					player.shoot();
-				}
 			}
 
 		}
@@ -222,58 +206,35 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 	/**
 	 * Kill all the other players in the game
 	 * 
-	 * @return
+	 * @return false because the game shouldn't end
 	 */
-
 	public boolean killOtherPlayer() {
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-				if (player != null) {
+				if (player != null)
 					player.setHealth(0);
-				}
 			}
 		}
 		return false;
 	}
-
-	/**
-	 * Check to see if the player has actually died and ends the game. If he is
-	 * waiting to be revived, remove his controls. If he has been revived,
-	 * reestablish his controls
-	 */
-
-	public void checkForDeath() {
-		int playerHealth = getPlayerHealth(player);
-
-		if (player.getTimesRevived() == 1 && playerHealth <= 0) {
-			currentGame.end();
-		}
-
-		if (playerHealth <= 0 && playField.getControl("Shooter") != null) {
-			playField.removeControl("Shooter");
-		}
-
-		if (playerHealth > 0 && playField.getControl("Shooter") == null) {
-			playField.addControl("Shooter", control);
-		}
+	
+	@Override
+	public void render(Graphics2D g){
+		super.render(g);
+		if(player.hasDied() && othersDead())
+			endGame();
+	}
+	
+	private boolean othersDead(){
+		boolean othersDead = true;
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
-			Shooter otherPlayer = (Shooter) otherPlayers.getSprites()[i];
-			if (otherPlayer != null && playerHealth <= 0 && getPlayerHealth(otherPlayer) <= 0) {
-				currentGame.updateHighScore((double) player.getScore()
-						.getStat());
-				currentGame.end();
+			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
+			if (player != null) {
+				if(!player.hasDied())
+					othersDead = false;
 			}
 		}
-
-	}
-
-	/**
-	 * Render the game
-	 */
-
-	public void render(Graphics2D g) {
-		super.render(g);
-		checkForDeath();
+		return othersDead;
 	}
 }
