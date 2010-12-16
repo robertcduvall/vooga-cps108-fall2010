@@ -49,7 +49,6 @@ public class LoginController {
 			//PrivilegeMap.setCurrentUser(username);
 			//JOptionPane.showMessageDialog(view.getCurrentPanel(),"privilege is"+PrivilegeMap.getPrivilegeString());
 			
-			myModel.logIn(username);
 			switchView();
 		}
 	}

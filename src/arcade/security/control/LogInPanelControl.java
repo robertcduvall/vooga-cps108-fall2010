@@ -80,7 +80,7 @@ public class LogInPanelControl implements IControl{
 	 * @param password
 	 * @return true if the login is successful
 	 */
-	public boolean isSuccessfulLogin(String username, char[] password){
+	public boolean isSuccessfulLogin(String username, String password){
 		return model.isSuccessfulLogin(username, password);
 	}
 	
@@ -128,7 +128,7 @@ public class LogInPanelControl implements IControl{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String username = new String(view.getUserNameUserInput());
-			char[] password = view.getPasswordUserInput();
+			String password = view.getPasswordUserInput().toString();
 			if(!isSuccessfulLogin(username, password)){ //next step towards true mvc:move this to controller
 			//if(!LogInHandler.successfulLogin(username, password)){
 				JOptionPane.showMessageDialog(view.getCurrentPanel(),"Your username and password combination does not match");

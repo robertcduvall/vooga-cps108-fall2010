@@ -19,6 +19,7 @@ import arcade.util.database.MySqlAdapter;
  * @author Jiaqi Yan, Meng Li
  *
  */
+
 public class DataHandler {
 	
 	private MySqlAdapter adapter;
@@ -71,7 +72,7 @@ public class DataHandler {
 	public void setLoggedIn(int userId){
 		Map<String,String> row = new HashMap<String,String>();
 		row.put("LoggedIn", "true");
-		adapter.update(myTable, "Id", String.valueOf(userId), row);
+		adapter.update(myTable, "UserName", Integer.toString(userId), row);
 	}
 	
 	public void setUserPrivilege(String username,String privilegeName,String value){
@@ -86,24 +87,21 @@ public class DataHandler {
 		adapter.update(myTable, "UserName",username,row);
 	}
 	
-	public String getUserType(int userId){
-		return adapter.getRows(myTable,"Id",String.valueOf(userId)).get(0).get("UserType");
-	}
 	
-	public String isLoggedIn(int userId){
-		return adapter.getRows(myTable,"Id",String.valueOf(userId)).get(0).get("LoggedIn");
+	public String isLoggedIn(String username){
+		return adapter.getRows(myTable,"UserName",username).get(0).get("LoggedIn");
 	}
-	
-	public String getPrivilegeName(int pid){
-		return adapter.getRows(myTable,"P_Id",String.valueOf(pid)).get(0).get("P_name");
-	}
-	
+	 
 	public String isAdmin(String username){
 		return adapter.getRows(myTable, "UserName",username).get(0).get("UserType");
 	}
 	
+	public String getPrivilegeName(int pid){
+		return adapter.getRows(myTable,"P_Id",Integer.toString(pid)).get(0).get("P_name");
+	}
+	
 	public String getPrivileges(int userId){
-		return adapter.getRows(myTable,"User_Id", String.valueOf(userId)).get(0).get("Privileges");
+		return adapter.getRows(myTable,"User_Id", Integer.toString(userId)).get(0).get("Privileges");
 	}
 	
 	public String getPrivileges(String username){
@@ -116,8 +114,8 @@ public class DataHandler {
 		return row.get("Password");
 	}
 	
-	public void insert(Map<String,String> row){
-		adapter.insert(myTable, row);
+	public boolean insert(Map<String,String> row){
+		return adapter.insert(myTable, row);
 //		List<String> ids = adapter.getColumn(myTable, "Id");
 //		Collections.sort(ids,new Comparator<String>() {
 //
