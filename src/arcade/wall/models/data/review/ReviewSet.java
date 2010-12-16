@@ -51,19 +51,6 @@ public class ReviewSet {
 		row.put("Rating", review.getRating());
 		currentID++;
 		return myDbAdapter.replace(myTable, row);
-//		if (isConflicting) {
-//			System.out.println("conflicting");
-//			conditions.put("User_Id", review.getUserId());
-//			conditions.put("GameInfo_Title", review.getGameInfoTitle());
-//			boolean returnB = myDbAdapter.replace(myTable, row);
-//			System.out.println(returnB);
-//			return returnB;
-//		} else {
-//			System.out.println("nonconflicting");
-//			boolean returnB = myDbAdapter.insert(myTable, row);
-//			System.out.println(returnB);
-//			return returnB;
-//		}
 	}
 
 	/**
@@ -111,11 +98,10 @@ public class ReviewSet {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("GameInfo_Title", review.getGameInfoTitle());
 		conditions.put("User_Id", review.getUserId());
-		for( Map<String, String> row: myDbAdapter.getRows(myTable, conditions)) {
-			if (!row.get("Rating").equals(review.getRating()))
-				return true;
-		}
-		return false;
+		 if (myDbAdapter.getRows(myTable, conditions) != null) {
+			 return true;
+		 }
+		 return false;
 	}
 
 	/**
