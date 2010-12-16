@@ -115,7 +115,7 @@ public class AdsManager implements MouseListener {
 	 */
 	public void update() {
 		renderedAdsGroup.removeExpiredAds();
-		renderedAdsGroup.addMoreAds(activeAdsGroup.retrieveActiveAds());
+		//renderedAdsGroup.addMoreAds(activeAdsGroup.retrieveActiveAds());
 		render();
 	}
 
@@ -138,7 +138,7 @@ public class AdsManager implements MouseListener {
 
 	public void setRenderedAds() {
 		renderedAdsGroup.clear();
-		renderedAdsGroup.setAds(activeAdsGroup.getAds());
+		renderedAdsGroup.setAds(activeAdsGroup.retrieveActiveAds());
 	}
 
 	public void setRenderedAds(String... tags) {
