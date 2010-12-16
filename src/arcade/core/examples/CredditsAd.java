@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import arcade.core.Arcade;
-import arcade.core.Window;
+import arcade.core.api.Window;
 
 public class CredditsAd extends Window {
 	

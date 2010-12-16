@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.api;
 
 import java.awt.*;
 import java.awt.Event.*;

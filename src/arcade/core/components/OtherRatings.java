@@ -4,7 +4,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import arcade.core.Panel;
+import arcade.core.api.Panel;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;
 import arcade.wall.models.WallModel;

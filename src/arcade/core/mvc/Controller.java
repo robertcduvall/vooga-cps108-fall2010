@@ -3,7 +3,7 @@ package arcade.core.mvc;
 import java.lang.reflect.Method;
 import java.util.ResourceBundle;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.store.gui.StoreTab;
 
 /**

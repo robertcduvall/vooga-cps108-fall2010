@@ -11,6 +11,7 @@ import javax.swing.JSplitPane;
 
 import net.miginfocom.swing.MigLayout;
 
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 
 /**

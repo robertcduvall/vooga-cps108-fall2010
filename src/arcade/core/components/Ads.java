@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import arcade.ads.adsmanager.AdsManager;
-import arcade.core.Panel;
+import arcade.core.api.Panel;
 
 /**
  * A Panel to be added to the main view of the Arcade. Displays the ads in the bottom

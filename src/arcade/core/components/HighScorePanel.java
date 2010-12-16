@@ -11,7 +11,7 @@ import arcade.core.Arcade;
 import arcade.core.ArcadeTab;
 import arcade.core.GameView;
 import arcade.core.HighScoreControl;
-import arcade.core.Panel;
+import arcade.core.api.Panel;
 import arcade.core.examples.HighScore;
 import arcade.lobby.model.ProfileSet;
 
