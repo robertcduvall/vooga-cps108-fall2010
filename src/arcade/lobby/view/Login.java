@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import net.miginfocom.swing.MigLayout;
 
 import arcade.lobby.controller.LoginController;
 import arcade.util.guiComponents.ValidatingComponent;
@@ -35,16 +38,18 @@ public class Login extends JPanel{
 	private void initialize() {
 		myDock = new ValidatorDock("wrap 4");
 		this.setLayout(new BorderLayout());
-		Box box = Box.createHorizontalBox();
+		JPanel panel = new JPanel();
+		panel.setLayout(new MigLayout());
 		addTextField("usernameLogin","Username: ");
 		addPasswordField("passwordLogin","Username: ");
 		login = new JButton("Login");
 		register = new JButton("Register");
-		box.add(myDock);
-		box.add(login);
-		box.add(register);
-		box.setMaximumSize(new Dimension(200, 5));
-		this.add(box, BorderLayout.EAST);		
+		panel.add(myDock);
+		panel.add(login);
+		panel.add(register);
+		panel.setMaximumSize(new Dimension(200, 5));
+		this.add(panel, BorderLayout.EAST);
+	
 	}	
 	
 	private void addTextField(String name, String label,
