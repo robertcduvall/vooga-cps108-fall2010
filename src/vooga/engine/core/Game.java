@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import arcade.core.ExampleGUI;
 import arcade.core.examples.HighScorePanel;
@@ -19,6 +22,7 @@ import vooga.engine.resource.Resources;
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.util.SoundPlayer;
+import vooga.games.digger.EntityMap;
 
 /**
  * Extension of the Golden T game to automate some Vooga API functionality. <br />
@@ -69,6 +73,7 @@ public class Game extends com.golden.gamedev.Game {
 		}
 		initGameStates();
 		initSoundPlayer();
+		initializeEntityMap();
 		//setCurrentLevel(INITIAL_LEVEL);
 	}
 
@@ -288,6 +293,14 @@ public class Game extends com.golden.gamedev.Game {
 
 	public void setMod(String modName){
 		this.modName = modName;
+	}
+	
+	public void initializeEntityMap() {
+		try {
+			EntityMap.inititalize();
+		} catch (Throwable e){
+			
+		}
 	}
 
 	public String getMod(){
