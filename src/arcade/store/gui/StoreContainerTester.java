@@ -33,7 +33,7 @@ public class StoreContainerTester {
 
 
 	public StoreContainerTester() {
-		mainController = new MainController();
+		mainController = new MainController("arcade.store.gui.resources.tabList");
 		JFrame frame = new JFrame();
 		frame.add(createTabs());
 		frame.setVisible(true);
