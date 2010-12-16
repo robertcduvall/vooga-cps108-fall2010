@@ -8,8 +8,6 @@ import javax.swing.JOptionPane;
 import arcade.core.Arcade;
 import arcade.lobby.view.Login;
 import arcade.security.model.LoginProcess;
-import arcade.security.util.userserviceutil.User;
-import arcade.security.util.userserviceutil.UserService;
 import arcade.security.util.userserviceutil.UserServiceFactory;
 
 public class LoginController {
