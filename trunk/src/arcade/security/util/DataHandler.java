@@ -114,8 +114,8 @@ public class DataHandler {
 		return row.get("Password");
 	}
 	
-	public void insert(Map<String,String> row){
-		adapter.insert(myTable, row);
+	public boolean insert(Map<String,String> row){
+		return adapter.insert(myTable, row);
 //		List<String> ids = adapter.getColumn(myTable, "Id");
 //		Collections.sort(ids,new Comparator<String>() {
 //
