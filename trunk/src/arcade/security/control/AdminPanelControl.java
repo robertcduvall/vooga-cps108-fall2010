@@ -62,7 +62,6 @@ public class AdminPanelControl implements IControl {
 		view.removeAll();
 		view.updateUI();
 		LogInPanel jp = new LogInPanel();
-		jp.getContent();
 		view.add(jp);
 	}
 }
