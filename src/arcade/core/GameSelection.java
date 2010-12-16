@@ -13,7 +13,6 @@ import arcade.core.mvc.IController;
 public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
 	//TODO ORDER?
-	private static int[] gameIDs = {12,13,14,15,16,17,18,19,38,37,39};
 	public JPanel games;
 	public static JTextField searchArea;
 	public static String currentGame = "";
@@ -23,7 +22,7 @@ public class GameSelection extends JPanel implements Tab {
 		setName("Games");
 		setToolTipText("A list of all the game available");
 		panels=new HashMap<Integer, JPanel>();
-		gameData=getGames(gameIDs);
+		gameData=getGames();
 		
 		initPanels();
 		
@@ -36,15 +35,11 @@ public class GameSelection extends JPanel implements Tab {
 		initPanels();
 	}
 	
-	private static List<Map<String, String>> getGames(int[] games) {
-		String query = "SELECT * FROM " + "GameInfo" + " WHERE ";
-		for (int id : games) {
-			query += "Id=" + id + " OR ";
-		}
-		return Arcade.myDbAdapter.getRows(query.substring(0, query.length() - 4));
+	private static List<Map<String, String>> getGames() {
+		return Arcade.myDbAdapter.getColumns("GameInfo");
 	}
 	
-	private void initPanels() {
+	private void initPanels() { 
 		for (Map<String, String> m : gameData) {
 			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
