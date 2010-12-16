@@ -6,8 +6,7 @@ import arcade.store.gui.StoreTab;
 
 import javax.swing.JLabel;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -59,8 +58,8 @@ public class ProfileTab extends StoreTab {
 
 		purchaseCredditsButton
 				.setText(getString("purchaseCredditsButtonString"));
-		purchaseCredditsButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		purchaseCredditsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				controller.processEvent("purchasePopUp");
 			}
 		});
