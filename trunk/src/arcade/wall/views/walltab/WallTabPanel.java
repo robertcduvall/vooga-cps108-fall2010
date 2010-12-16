@@ -12,7 +12,7 @@ import arcade.store.StoreModel;
 import arcade.wall.controllers.WallTabController;
 
 /**
- * WallTabView is the Wall entity that deals with the display of the Wall Arcade Tab GUI elements and data on screen. 
+ * WallTabPanel is the tab in arcade that deals with the display of the Wall GUI elements and data on screen. 
  * @author John, Cam, Bhawana
  *
  */

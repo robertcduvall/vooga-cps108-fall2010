@@ -7,6 +7,11 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Represents the JPanel used to hold the CommentPanel and ReviewPanel.
+ * @author John, Cam, Bhawana
+ *
+ */
 @SuppressWarnings("serial")
 public class FeedbackPanel extends JPanel {
 	public JComboBox myGameComboBox;
@@ -42,7 +47,6 @@ public class FeedbackPanel extends JPanel {
 	}
 	
 	public String getSelectedGame() {
-		System.out.println("the selected index is"+myGameComboBox.getSelectedIndex());
 		return WallTabPanel.myGameChoices[myGameComboBox.getSelectedIndex()];
 	}
 	

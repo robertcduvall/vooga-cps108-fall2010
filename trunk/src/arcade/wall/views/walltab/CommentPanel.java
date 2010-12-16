@@ -8,6 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Represents the JPanel used to submit comments.
+ * @author John, Cam, Bhawana
+ *
+ */
 @SuppressWarnings("serial")
 public class CommentPanel extends JPanel {
 

@@ -12,6 +12,11 @@ import javax.swing.SwingConstants;
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.models.data.comment.Comment;
 
+/**
+ * Represents the JPanel used to display game comments and ratings.
+ * @author John, Cam, Bhawana
+ *
+ */
 @SuppressWarnings("serial")
 public class DisplayPanel extends JPanel {
 	private JLabel 

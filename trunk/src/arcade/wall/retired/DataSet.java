@@ -1,3 +1,4 @@
+package arcade.wall.retired;
 //package arcade.wall.models.data;
 //
 //import java.util.HashMap;
