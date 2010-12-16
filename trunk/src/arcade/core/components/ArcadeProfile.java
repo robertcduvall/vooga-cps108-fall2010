@@ -1,4 +1,4 @@
-package arcade.core.examples;
+package arcade.core.components;
 
 import java.awt.Color;
 import java.awt.Image;
