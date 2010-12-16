@@ -15,30 +15,29 @@ import arcade.store.gui.StoreTab;
 public class Controller implements IController{
 
 	private ResourceBundle reflectionMirror;
-	private Class<?> classType; 
-
+	
+	private IModel model;
+	private Tab viewer;
+	
 	public Controller(String filepath)
 	{
 		reflectionMirror = ResourceBundle.getBundle(filepath);		
-		classType = this.getClass();
 	}
 	
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void addModel(IModel model) {
-		// TODO Auto-generated method stub
-
+		this.model = model;
 	}
 
 	@Override
 	public void addViewer(Tab tab) {
-		// TODO Auto-generated method stub
+		viewer = tab;
 	}
 	
 	/**
@@ -49,6 +48,7 @@ public class Controller implements IController{
 	public void processEvent(String eventName) {
 
 		try {
+			Class<?> classType = this.getClass();
 			String methodname = reflectionMirror.getString(eventName);
 			Method currMethod = classType.getMethod(methodname, null);
 			currMethod.invoke(this, null);
