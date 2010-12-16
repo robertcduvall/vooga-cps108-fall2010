@@ -77,6 +77,9 @@ public class WallTabController {
 		return n;
 	}
 
+	/**
+	 * Displays a dialog box stating that the user must be logged in to Arcade to do this action.
+	 */
 	public void showMustBeLoggedInDialog() {
 		Object[] options = {"OK"};
 		JOptionPane.showOptionDialog(myView.getPanel(),
@@ -89,14 +92,9 @@ public class WallTabController {
 				options[0]);
 	}
 
-	public WallTabPanel getView() {
-		return myView;
-	}
-
-	public double getRating(String gameName) {
-		return myModel.getAverageRating(gameName);
-	}
-
+	/**
+	 * ActionListener for the GameComboBox in the FeedbackPanel.
+	 */
 	class GameComboBoxListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if ("comboBoxChanged".equals(e.getActionCommand())) {
@@ -108,6 +106,9 @@ public class WallTabController {
 		}
 	}
 
+	/**
+	 * ActionListener for the CommentButton in the CommentPanel.
+	 */
 	class CommentButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them comment.
@@ -126,6 +127,9 @@ public class WallTabController {
 		}
 	}
 
+	/**
+	 * ActionListener for the ReviewButton in the ReviewPanel.
+	 */
 	class ReviewButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them review.
@@ -147,6 +151,9 @@ public class WallTabController {
 		}
 	}
 
+	/**
+	 * ActionListener for the ComposeMessageButton in the MessagePanel.
+	 */
 	class ComposeMessageButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them send message.
@@ -157,6 +164,9 @@ public class WallTabController {
 		}
 	}
 	
+	/**
+	 * ActionListener for the SendMessageButton in the MessageFrame.
+	 */
 	class SendMessageButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (showSendMessageDialog() == JOptionPane.YES_OPTION){ 
@@ -169,19 +179,24 @@ public class WallTabController {
 		}
 	}
 
+	/**
+	 * ActionListener for the CloseButton in the MessageFrame.
+	 */
 	class CloseButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			myView.getMessagesPanel().getComposeMessageFrame().dispose();
 		}
 	}
 
+	/**
+	 * ActionListener for the RefreshInboxButton in the MessagesPanel.
+	 */
 	class RefreshInboxButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them refresh inbox.
 				showMustBeLoggedInDialog();
 			} else {
 				System.out.println("current Username = " +ProfileSet.getCurrentProfile().getUserName());
-				//TODO currently, ProfileSet.getCurrentProfile().getUserName() is returning null.
 				List<Message> messageList = myModel.getMessageSet().getMessagesByField("Receiver", ""+ProfileSet.getCurrentProfile().getUserName());
 				myView.getMessagesPanel().refreshInbox(messageList);
 				myView.getMessagesPanel().validate();
@@ -195,5 +210,13 @@ public class WallTabController {
 
 	public void refreshMainPanelText() {
 		myView.setMainPanelText();
+	}
+	
+	public WallTabPanel getView() {
+		return myView;
+	}
+
+	public double getRating(String gameName) {
+		return myModel.getAverageRating(gameName);
 	}
 }
