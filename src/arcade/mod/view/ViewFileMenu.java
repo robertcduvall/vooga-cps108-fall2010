@@ -13,6 +13,7 @@ import arcade.mod.controller.IPresenter;
 import arcade.mod.view.file.CurrentFileOpener;
 import arcade.mod.view.file.RecentFileOpener;
 import arcade.mod.view.file.SystemFileOpener;
+import arcade.util.xmleditor.Controller;
 
 /**
  * MenuBar which includes a File category. File category has open, save, and
@@ -41,8 +42,31 @@ public class ViewFileMenu extends JMenuBar {
 		
 		JMenu behaviorMenu = buildBehaviorMenu();
 		
+		JMenu xmlMenu = buildXMLMenu();
+		
 		this.add(menu);
 		this.add(behaviorMenu);
+		this.add(xmlMenu);
+	}
+	
+	private JMenu buildXMLMenu(){
+		JMenu XMLMenu = new JMenu("XML");
+		XMLMenu.setMnemonic(KeyEvent.VK_X);
+		XMLMenu.getAccessibleContext().setAccessibleDescription("For modifying generic XML");
+		
+		JMenuItem openItem = new JMenuItem("Edit XML", KeyEvent.VK_E);
+		openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
+				ActionEvent.CTRL_MASK));
+		openItem.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				Controller controller = new Controller();
+			}
+		});
+		
+		XMLMenu.add(openItem);
+		
+		return XMLMenu;
+		
 	}
 	
 	private JMenu buildBehaviorMenu(){
@@ -52,7 +76,6 @@ public class ViewFileMenu extends JMenuBar {
 		behaviorMenu.setMnemonic(KeyEvent.VK_B);
 		behaviorMenu.getAccessibleContext().setAccessibleDescription("For modifying behavior");
 
-		// a group of JMenuItems
 		JMenuItem openItem = new JMenuItem("Modify", KeyEvent.VK_M);
 		openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M,
 				ActionEvent.CTRL_MASK));
