@@ -19,7 +19,8 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 	private SpriteGroup otherPlayers;
 
 	public MultiplayerPlayState(Blah game) {
-		super(game, "src/vooga/games/zombies/resources/levels/multiplayerLevel.xml");
+		super(game,
+				"src/vooga/games/zombies/resources/levels/multiplayerLevel.xml");
 	}
 
 	/**
@@ -70,14 +71,29 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 
 		SoundPlayer.playMusic(playField.getMusic(0));
 	}
-	
-	public boolean name(String data){
+
+	/**
+	 * Deserialize the player's name and set the overlay
+	 * 
+	 * @param data
+	 * @return false because the game shouldn't stop
+	 */
+
+	public boolean name(String data) {
 		player.setName(((Name) (Name.deserialize(data))).getName());
 		return false;
 	}
 
-	public boolean userName(String data){
-		String userName = ((Username) (Username.deserialize(data))).getUsername();
+	/**
+	 * Deserialize the other players' names and set their overlays
+	 * 
+	 * @param data
+	 * @return false because the game shouldn't stop
+	 */
+
+	public boolean userName(String data) {
+		String userName = ((Username) (Username.deserialize(data)))
+				.getUsername();
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter shooter = (Shooter) otherPlayers.getSprites()[i];
 			if (shooter != null && shooter.getName() == null) {
@@ -86,26 +102,42 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 		}
 		return false;
 	}
-	
-	public boolean health(String data){
+
+	/**
+	 * Deserialize the health of the other player and set the overlays
+	 * appropriately
+	 * 
+	 * @param data
+	 * @return false because the game shouldn't stop
+	 */
+
+	public boolean health(String data) {
 		int health = ((Health) (Health.deserialize(data))).getHealth();
 		((Shooter) (otherPlayers.getSprites()[0])).setHealth(health);
 		return false;
 	}
-	
-	public boolean seed(String data){
+
+	/**
+	 * Initializes the random zombie creator with the seed from the server so
+	 * each player produces the same random zombies
+	 * 
+	 * @param data
+	 * @return false because the game shouldn't end
+	 */
+
+	public boolean seed(String data) {
 		long seed = ((ZombieSeed) (ZombieSeed.deserialize(data))).getSeed();
 		Shooter[] shooters = new Shooter[otherPlayers.getSprites().length + 1];
 		shooters[0] = player;
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			shooters[i + 1] = (Shooter) (otherPlayers.getSprites()[i]);
 		}
-		LevelEndEvent endLevel = new LevelEndEvent(shooters, this,
-				addZombies, addItems, seed);
+		LevelEndEvent endLevel = new LevelEndEvent(shooters, this, addZombies,
+				addItems, seed);
 		eventPool.addEvent(endLevel);
 		return false;
 	}
-	
+
 	/**
 	 * Makes the other players in the game move up.
 	 * 
@@ -207,20 +239,30 @@ public class MultiplayerPlayState extends PlayState implements Constants {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * End the game if everyone is dead
+	 */
+
 	@Override
-	public void render(Graphics2D g){
+	public void render(Graphics2D g) {
 		super.render(g);
-		if(player.hasDied() && othersDead())
+		if (player.hasDied() && othersDead())
 			endGame();
 	}
-	
-	private boolean othersDead(){
+
+	/**
+	 * Check to see if other players are dead
+	 * 
+	 * @return true if other players are all dead
+	 */
+
+	private boolean othersDead() {
 		boolean othersDead = true;
 		for (int i = 0; i < otherPlayers.getSprites().length; i++) {
 			Shooter player = (Shooter) (otherPlayers.getSprites()[i]);
 			if (player != null) {
-				if(!player.hasDied())
+				if (!player.hasDied())
 					othersDead = false;
 			}
 		}
