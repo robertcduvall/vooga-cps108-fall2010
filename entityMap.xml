@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><EntityMap>
-	<Mapping callingClass="vooga.games.digger.actors.Player" modName="mod1" requestedClass="vooga.games.digger.movers.Mover" resolveTo="vooga.games.digger.movers.DefaultMover"/>
-	<Mapping callingClass="vooga.games.digger.actors.Player" modName="mod2" requestedClass="vooga.games.digger.movers.Mover" resolveTo="vooga.games.digger.movers.DownMover"/>  
-    <Mapping callingClass="vooga.games.digger.actors.Player" modName="super" requestedClass="vooga.games.digger.movers.Mover" resolveTo="vooga.games.digger.mod.SuperMover"/></EntityMap>
+	<Mapping callingClass="vooga.games.digger.actors.Player" modName="" requestedClass="vooga.games.digger.movers.Mover" resolveTo="vooga.games.digger.movers.DefaultMover"/>
+	<Mapping callingClass="vooga.games.digger.actors.Player" modName="mod1" requestedClass="vooga.games.digger.movers.Mover" resolveTo="vooga.games.digger.mod.DownMover"/>  
+    <Mapping callingClass="vooga.games.digger.actors.Player" modName="super" requestedClass="vooga.games.digger.movers.Mover" resolveTo="vooga.games.digger.mod.SuperMover"/>
+    <Mapping callingClass="vooga.games.digger.actors.Player" modName="" requestedClass="vooga.games.digger.shooters.Shooter" resolveTo="vooga.games.digger.shooters.DefaultShooter"/>
+</EntityMap>

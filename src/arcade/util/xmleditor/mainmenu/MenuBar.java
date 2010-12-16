@@ -8,7 +8,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import arcade.util.xmleditor.controllers.Controller;
 import arcade.util.xmleditor.controllers.IBaseController;
 import arcade.util.xmleditor.mainmenu.file.CloseEventListener;
 import arcade.util.xmleditor.mainmenu.file.NewModelEventListener;

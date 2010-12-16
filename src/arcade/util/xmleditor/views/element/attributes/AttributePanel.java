@@ -3,9 +3,6 @@ package arcade.util.xmleditor.views.element.attributes;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-
 public class AttributePanel extends JPanel implements IAttributeView {
 
 	private static final long serialVersionUID = 1L;
@@ -19,13 +16,14 @@ public class AttributePanel extends JPanel implements IAttributeView {
 	}
 
 	@Override
-	public void updateAttributes(NamedNodeMap attributeMap) {
+	public void clearAttributes() {
 		removeAll();
 		updateUI();
-		for (int i = 0; i < attributeMap.getLength(); i++) {
-			Node attribute = attributeMap.item(i);
-			add(new AttributeFrame(attribute));
-		}
+	}
+
+	@Override
+	public void addAttributeFrame(AttributeFrame frame) {
+		add(frame);
 	}
 
 }

@@ -2,6 +2,8 @@ package vooga.games.digger;
 
 public class EntityKey {
 	
+	private final String DEFAULT_MOD_NAME= "";
+	
 	private Class callingClass;
 	private Class requestedClass;
 	private String modName;
@@ -22,6 +24,10 @@ public class EntityKey {
 	
 	public String getModName(){
 		return modName;
+	}
+	
+	public EntityKey getDefaultVersion(){
+		return new EntityKey(getCallingClass(), getRequestedClass(), DEFAULT_MOD_NAME);
 	}
 	
 	@Override

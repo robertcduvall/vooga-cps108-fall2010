@@ -39,7 +39,9 @@ public class Blah extends Game {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		launch(new Blah(), "Guest");
+		Blah blah = new Blah();
+		blah.setMod("super");
+		launch(blah, "Guest");
 	}
 	
 	public void switchGameState(String stateName){
@@ -47,7 +49,8 @@ public class Blah extends Game {
 	}
 	
 	@Override
-	public void initGameStates(){		
+	public void initGameStates(){	
+		
 		super.initGameStates();
 		stateMap = new HashMap<String, GameState>();
 		GameState mainMenu = addGameState(new MenuState("mainMenuLayout"));
