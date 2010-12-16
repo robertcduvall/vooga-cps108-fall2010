@@ -92,17 +92,7 @@ public class ProfileTab extends StoreTab {
 	public IController getController() {
 		return controller;
 	}
-
-	/**
-	 * This method initializes jPanel
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	@Override
-	public JComponent getContent() {
-		return this;
-	}
-
+	
 	/**
 	 * This method initializes usernameTextField
 	 * 
