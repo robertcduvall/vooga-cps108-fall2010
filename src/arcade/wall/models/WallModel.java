@@ -56,6 +56,7 @@ public class WallModel implements IWallModel {
 	}
 	
 	public void addReview(Review review) {
+		myReviewSet.addReview(review);
 		double newAverageRating = myReviewSet.getAverageRating(review.getGameInfoTitle());
 		myGameReportSet.updateAverageRating(review.getGameInfoTitle(), newAverageRating);
 	}
@@ -72,21 +73,20 @@ public class WallModel implements IWallModel {
 		return myReviewSet.reviewIsConflicting(review);
 	}
 
-	public void updateReview(String selectedGameName,
-			String myUserId, String selectedValue) {
-		myCommentSet.updateCommentRatings(selectedGameName,
-				myUserId, selectedValue);
-	}
-
-	/**
-	 * Returns the Model's CommentSet.
-	 */
 	public CommentSet getCommentSet() {
 		return this.myCommentSet;
 	}
 
 	public GameReportSet getGameReportSet() {
 		return this.myGameReportSet;
+	}
+	
+	public MessageSet getMessageSet() {
+		return this.myMessageSet;
+	}
+	
+	public ReviewSet getReviewSet() {
+		return this.myReviewSet;
 	}
 
 	public int getNewCommentID() {
@@ -105,6 +105,7 @@ public class WallModel implements IWallModel {
 		return this.myMessageSet.currentID;
 	}
 
+	//TODO probably unnecessary
 	public List<Comment> getGameComments(String gameName) {
 		return myCommentSet.getCommentsByField("GameInfo_Title", gameName);
 	}
