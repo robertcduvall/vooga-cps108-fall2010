@@ -17,74 +17,41 @@ import arcade.core.Tab;
 import arcade.core.mvc.IController;
 import arcade.store.control.MainController;
 
-
-/**
- * 
- * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
- * @date: 			12-16-10
- * @description: 	This is the UI for the main store tab inside the Arcade. It creates
- * 					and contains all the subtabs inside itself. (Although we admit this 
- * 					may not be the best design since an object operates as the factory for JPanel
- * 					and also the object itself, we are limited by the fact that Arcade can only
- * 					instantiate the StoreContainer in this manner. Ideally, we would 
- * 					like to have a StoreContainer Factory class that would produce
- * 					the StoreContainer JPanel and pass that JPanel the the Arcade. Given the current
- * 					way Arcade is setup, we can only create the StoreContainer in this manner.
- */
-public class StoreContainer extends JPanel implements Tab{
-
-	private static final long serialVersionUID = 1L;
-	
-	//this is set up because it is impossible to pass this String in 
-	//because the Arcade can only create objects that have no parameters
-	private static final String SUBTAB_FILE_PATH= "arcade.store.gui.resources.tabList";
-	private static final String MAIN_CONTROL_FILE_PATH = "arcade.store.resources.MainController";
-	
-	private MainController mainController;
+public class StoreContainer extends JPanel implements Tab {
 
 	/**
-	 * this is the basic constructor for the StoreContainer
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	//private static final String FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
+
+	private MainController mainController;
+
+	private ResourceBundle tabBundle = ResourceBundle
+	.getBundle("arcade.store.gui.resources.tabList");
+
+
 	public StoreContainer() {
+		setName("Store");
+	}
+	
+	@Override
+	public void initialize() {
 		mainController = new MainController(MAIN_CONTROL_FILE_PATH);
 		mainController.addViewer(this);
 		setLayout(new BorderLayout());
-		setName("Store");
-		
-		//this method creates all the tabs
 		this.add(createTabs(), BorderLayout.NORTH);
+		
 	}
 
-	/**
-	 * getContent returns this object as an UI component to be used by the arcade
-	 * @return JComponet
-	 */
 	public JComponent getContent() {
 		return this;
 	}
 
-	/**
-	 * creatTabs sets up the all the subtabs of the StoreContainer
-	 * and set up the event listener for switching between the subtabs
-	 * @return
-	 */
 	private JTabbedPane createTabs() {
-		//final is used here because this is the only way that 
-		final JTabbedPane tabsPanel = new JTabbedPane();
-		
-		setUpTabs(tabsPanel);
-		setUpTabListener(tabsPanel);
-		return tabsPanel;
-	}
-	
-	/**
-	 * setUpTabs finds the Strings of all the subtabs that are 
-	 * located inside the ResourceTabList properties file, 
-	 * instantiate the tabs, and add them to the panel.
-	 * @param storeContainer
-	 */
-	private void setUpTabs(final JTabbedPane storeContainer) {
-		
+
+		final JTabbedPane everything = new JTabbedPane();
+
 		for (String classname : getTabList()) {
 			if (classname.isEmpty())
 				continue;
@@ -99,45 +66,33 @@ public class StoreContainer extends JPanel implements Tab{
 				//initialize all the start up features of the 
 				t.getController().initialize();
 
-				storeContainer.addTab(((JComponent) t).getName(), null, t,
+				everything.addTab(((JComponent) t).getName(), null, t,
 						((JComponent) t).getToolTipText());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-	}
 
-	/**
-	 * setUpTabListener sets the JPanel to listen for changes between
-	 * different tabs. This allow different sub-tabs to be updated without
-	 * having to manually update the sub-tabs.
-	 * @param storeContainer
-	 */
-	private void setUpTabListener(final JTabbedPane storeContainer) {
-		storeContainer.addChangeListener(new ChangeListener() {
+		everything.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				int selectedIndex = storeContainer.getSelectedIndex();
-				Component selected = storeContainer.getComponentAt(selectedIndex);
+				int selectedIndex = everything.getSelectedIndex();
+				Component selected = everything.getComponentAt(selectedIndex);
 				if(selected instanceof Tab)
 					((Tab) selected).refresh();
-				
 				// Update tab titles
-				storeContainer.setTitleAt(selectedIndex,selected.getName());
+				everything.setTitleAt(selectedIndex,selected.getName());
 			}
 		});
+		return everything;
+
 	}
 
-	/**
-	 * This method obtains the list of string of all the subclasses used
-	 * for reflection.
-	 * @return String array
-	 */
+
+
 	private String[] getTabList() {
 
-		ResourceBundle tabBundle = ResourceBundle.getBundle(SUBTAB_FILE_PATH);
-		
 		Enumeration<String> iterator = tabBundle.getKeys();
 		ArrayList<String> tabs = new ArrayList<String>();
 
@@ -150,17 +105,6 @@ public class StoreContainer extends JPanel implements Tab{
 	}
 
 
-	/**
-	 * This method uses reflection to create the subtabs that are 
-	 * that are added to the UI.
-	 * @param classname
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 */
 	private Tab getObject(String classname) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException,
 	InvocationTargetException, NoSuchMethodException {
@@ -170,31 +114,21 @@ public class StoreContainer extends JPanel implements Tab{
 		return newTab;
 	}
 
-	/**
-	 * This is a main method that used to test a stable, self-contained
-	 * version of the StoreContainer.
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		new StoreContainer();
 	}
 
-	/**
-	 * getController returns the mainController.
-	 */
 	@Override
 	public IController getController() {
 		return mainController;
 	}
 
-	/**
-	 * refresh is not used because it is useful
-	 * for our purpose.
-	 */
 	@Override
 	public void refresh() {
-		
+		// TODO Auto-generated method stub
+
 	}
+
 
 
 }

@@ -31,12 +31,17 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	.getBundle("arcade.core.componentList");
 	
 	public ArcadeTab(){
+		setName("Arcade");
+	}
+	
+
+	@Override
+	public void initialize() {
 		GameView game = new GameView(20);		
 		columnar = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createPanels("leftPanel"),		
 				game);		
 		columnar.setOneTouchExpandable(true);	
 		
-		setName("Arcade");
 		setOrientation(HORIZONTAL_SPLIT);
 		columnar.setMinimumSize(new Dimension(700, 820));
 		setLeftComponent(columnar);

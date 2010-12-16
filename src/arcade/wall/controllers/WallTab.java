@@ -23,12 +23,8 @@ public class WallTab extends JPanel implements Tab {
 	Profile myProfile;
 	
 	public WallTab(){
-		super();
 		setToolTipText("Click here to see your Wall.");
 		setName("Wall");
-		myController = new WallTabController();
-		add(myController.getView().getPanel());
-		refresh();
 	}
 
 	@Override
@@ -39,5 +35,12 @@ public class WallTab extends JPanel implements Tab {
 	@Override
 	public void refresh() {
 		myController.refreshMainPanelText();
+	}
+
+	@Override
+	public void initialize() {
+		myController = new WallTabController();
+		add(myController.getView().getPanel());
+		refresh();
 	}
 }
