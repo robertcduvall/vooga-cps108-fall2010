@@ -6,10 +6,10 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import arcade.core.Panel;
 
+@SuppressWarnings("serial")
 public class Lobby extends Panel {
 	public Lobby(){
 		ImageIcon icon = new ImageIcon("src/arcade/core/RatingStar.gif");

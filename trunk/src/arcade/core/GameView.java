@@ -1,7 +1,6 @@
 package arcade.core;
 
 import java.awt.Component;
-import java.awt.GraphicsConfiguration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 import javax.swing.*;
 import vooga.engine.core.Game;
-import arcade.core.examples.HighScorePanel;
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallWidget;
 
@@ -124,8 +122,7 @@ public class GameView extends JPanel {
 							Game launchedGame = (Game) gameConstructor.newInstance();
 														
 							launchedGame.setMod(JOptionPane.showInputDialog("Enter mod name (leave blank otherwise):"));
-							WallWidget gameWidget = new WallWidget(gameName);
-
+					
 							Game.launch(launchedGame, ProfileSet.getCurrentProfile().getUserName());
 							
 						} catch (Throwable e) {
@@ -137,8 +134,6 @@ public class GameView extends JPanel {
 						return 0;
 					}
 				};
-				// Try something with this
-				// worker.isDone()
 				worker.execute();
 			}
 		});
