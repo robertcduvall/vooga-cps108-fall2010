@@ -192,7 +192,7 @@ public class CheckoutController extends Controller {
 					getString("wantToDropItemString"), getString("dropItemString"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
-				storeModel.getCurrentUserAccount().emptyCart();
+				processDropItem();
 			}
 		}
 	}
@@ -204,15 +204,11 @@ public class CheckoutController extends Controller {
 	 */
 	public void processDropItem() {
 
-		if (currentSelected == null) {
-			JOptionPane.showMessageDialog(null, getString("noItemSelectedString"));
-		} else {
 			StoreUser user = storeModel.getCurrentUserAccount();
 			user.removeTitleFromCart(currentSelected);
 			JOptionPane.showMessageDialog(null, getString("itemDroppedString"));
 
 			initialize();
-		}
 	}
 
 	/**
@@ -246,10 +242,9 @@ public class CheckoutController extends Controller {
 					getString("wantToDropCartString"), getString("dropCartString"),
 					JOptionPane.YES_NO_OPTION);
 			if (ret == JOptionPane.YES_OPTION) {
-				storeModel.getCurrentUserAccount().emptyCart();
+				storeModel.emptyUserCart();
 			}
 		}
-		
 		initialize();
 	}
 }
