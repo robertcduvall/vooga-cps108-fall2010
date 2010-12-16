@@ -71,6 +71,15 @@ public class DataHandler {
 		return userTypeMap;
 	}
 	
+	public void updateUserTypes(Map<String,Integer> changeMap){
+		for(String name: changeMap.keySet()){
+			Map<String,String> row = new HashMap<String,String>();
+			row.put("UserType", AdminHandler.getUserType(changeMap.get(name)));
+			System.out.println("Will update");
+			adapter.update(myTable, "UserName", name, row);
+		}
+	}
+	
 	
 	public List<String> getLoggedInUsers(){
 		List<Map<String,String>> list = adapter.getRows(myTable,"LoggedIn","true");
