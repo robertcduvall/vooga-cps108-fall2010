@@ -25,7 +25,6 @@ import arcade.core.mvc.IController;
 public class ArcadeTab extends JSplitPane implements Tab{
 
 	private static JSplitPane columnar;
-	private static JSplitPane mainPanel;
 	private static final String DELIMITER = ",";
 
 	private static ResourceBundle resources = ResourceBundle
@@ -124,7 +123,7 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	 * Refreshes all the panels on the left and right side of the view.
 	 */
 	public static void refreshPanels(){
-		mainPanel.setRightComponent(createPanels("rightPanel"));
+		
 		columnar.setLeftComponent(createPanels("leftPanel"));
 	}
 
