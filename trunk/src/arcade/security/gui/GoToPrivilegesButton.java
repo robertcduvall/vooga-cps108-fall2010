@@ -8,16 +8,31 @@ import arcade.security.util.UserPrivilegesPanelHandler;
 
 import java.awt.event.*;
 
-public class GoToPrivilegesButton extends JButton{
+/**
+ * This is a Button for the administrator panel.
+ * 
+ * @author Jiaqi Yan, Meng Li, Nick Hawthorne
+ * 
+ */
+public class GoToPrivilegesButton extends JButton {
 	private String username;
-	
-	public GoToPrivilegesButton(String name){
-		super("Go To "+name+"'s Privilege Settings");
+
+	/**
+	 * Constructor for the button.
+	 * 
+	 * @param name
+	 *            The username of the person whose privileges should be accessed
+	 */
+	public GoToPrivilegesButton(String name) {
+		super("Go To " + name + "'s Privilege Settings");
 		username = name;
 		addActionListener(new GoToPrivilegesListener());
 	}
-	
-	public class GoToPrivilegesListener implements ActionListener{
+
+	/**
+	 * Listener for the GoToPrivilegeButton
+	 */
+	public class GoToPrivilegesListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -28,5 +43,5 @@ public class GoToPrivilegesButton extends JButton{
 			privilegeFrame.setVisible(true);
 		}
 	}
-	
+
 }
