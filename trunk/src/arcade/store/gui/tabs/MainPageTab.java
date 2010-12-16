@@ -27,30 +27,46 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 
 	private static final String NAME = "Main Page";
 	private static final String FILE_PATH = "arcade.store.resources.MainPageController";
-	// private JPanel jContentPane = null;
-	private JList genreList = null;
-	private JLabel storeBrowseLabel = null;
-	private JScrollPane jScrollPane = null;
-	private JPanel gameListPanel = null;
-	
-	private MainPageController controller; // @jve:decl-index=0:
 
+	private MainPageController controller; // @jve:decl-index=0:
+	private JList genreList;
+	private JScrollPane jScrollPane;
+	private JPanel gameListPanel;
+	
 	public MainPageTab() {
 		setName("Browse Catalogue");
-		controller = new MainPageController(FILE_PATH);
-		controller.addViewer(this);
-		BorderLayout borderLayout = new BorderLayout();
-		borderLayout.setHgap(10);
-		borderLayout.setVgap(10);
-		storeBrowseLabel = new JLabel();
-		storeBrowseLabel.setText(ARCADE_STORE_GREETING);
-		add(storeBrowseLabel);
-		setLayout(borderLayout);
+
+		initializeMainPageTab();
+
+		add(getStoreBrowseLabel());
 		add(getGenreList(), BorderLayout.WEST);
 		add(getJScrollPane(), BorderLayout.CENTER);
 		setVisible(true);
 
 		refresh();
+	}
+
+	private void initializeMainPageTab() {
+		controller = new MainPageController(FILE_PATH);
+		controller.addViewer(this);
+		
+		genreList = new JList();
+		genreList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				controller.processEvent("filter");
+			}
+		});
+		
+		gameListPanel = new JPanel(new GridLayout(0, 4));
+		gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+		jScrollPane = new JScrollPane();
+		jScrollPane.setViewportView(getGameList());
+		
+		BorderLayout borderLayout = new BorderLayout();
+		borderLayout.setHgap(10);
+		borderLayout.setVgap(10);
+		setLayout(borderLayout);
 	}
 
 	@Override
@@ -82,16 +98,34 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	 * 
 	 * @return javax.swing.JList
 	 */
-	public JList getGenreList() {
-		if (genreList == null) {
-			genreList = new JList();
-			genreList.addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					controller.processEvent("filter");
-				}
-			});
-		}
+	private JList getGenreList() {
 		return genreList;
+	}
+	
+	/**
+	 * 
+	 * @param list
+	 */
+	public void setGenreList(String[] list) {
+		genreList.setListData(list);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Object getSelectedGenre() {
+		return genreList.getSelectedValue();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private JLabel getStoreBrowseLabel() {
+		JLabel storeBrowseLabel = new JLabel();
+		storeBrowseLabel.setText(ARCADE_STORE_GREETING);
+		return storeBrowseLabel;
 	}
 
 	/**
@@ -100,22 +134,15 @@ public class MainPageTab extends JPanel implements Tab, IViewer {
 	 * @return javax.swing.JScrollPane
 	 */
 	public JScrollPane getJScrollPane() {
-		if (jScrollPane == null) {
-			jScrollPane = new JScrollPane();
-			jScrollPane.setViewportView(getGameList());
-		}
 		return jScrollPane;
 	}
 
-	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public JPanel getGameList() {
-		if (gameListPanel == null) {
-			gameListPanel = new JPanel(new GridLayout(0,4));
-			gameListPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		}
 		return gameListPanel;
-
 	}
 
 	@Override
