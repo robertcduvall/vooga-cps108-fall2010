@@ -107,7 +107,7 @@ public class Login extends JPanel{
 		register.setVisible(false);
 		name.setVisible(true);
 		logout.setVisible(true);
-		name.setText("Helle " + ProfileSet.getCurrentProfile().getFirstName());
+		name.setText("Hello " + ProfileSet.getCurrentProfile().getFirstName());
 	}
 	
 	public void switchToLogin(){

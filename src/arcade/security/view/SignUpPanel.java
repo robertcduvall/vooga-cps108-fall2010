@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -20,6 +19,7 @@ import arcade.lobby.validators.NameValidator;
 import arcade.lobby.validators.PasswordValidator;
 import arcade.lobby.validators.UsernameValidator;
 import arcade.lobby.validators.WebImageValidator;
+import arcade.lobby.view.Login;
 import arcade.security.control.SignUpPanelControl;
 import arcade.security.gui.SecurityButton;
 import arcade.security.model.SignUpProcess;
@@ -59,6 +59,7 @@ public class SignUpPanel extends JPanel implements IView {
 	//private SecurityButton LoginPageButton;
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
+	private SignUpPanelControl signUpControl;
 
 	// private Control controller;
 
@@ -131,7 +132,7 @@ public class SignUpPanel extends JPanel implements IView {
 		addContents();
 		myDock.revalidate();
 		SignUpProcess model = new SignUpProcess();
-		new SignUpPanelControl((IView) this, model);
+		signUpControl = new SignUpPanelControl((IView) this, model);
 	}
 
 	/**
@@ -232,6 +233,10 @@ public class SignUpPanel extends JPanel implements IView {
 		add(myDock, "wrap");
 		//add(LoginPageButton);
 		add(submitButton);
+	}
+	
+	public void setLogin(Login login){
+		signUpControl.setLogin(login);
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
+import arcade.lobby.view.Login;
 import arcade.security.model.IModel;
 import arcade.security.model.SignUpProcess;
 import arcade.security.resourcesbundle.LabelResources;
@@ -27,7 +28,7 @@ import arcade.util.guiComponents.ValidatorDock;
  * Controller for the Sign Up Panel. Used in conjunction with
  * security.view.SignUpPanel and security.model.SignUpProcess.
  * 
- * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne and Lobby group
  * 
  */
 public class SignUpPanelControl implements IControl {
@@ -37,6 +38,7 @@ public class SignUpPanelControl implements IControl {
 	private SignUpProcess model;
 	private SignUpPanel view;
 	private PasswordHandler passwordHandler;
+	private Login login;
 
 	/**
 	 * Constructor for the signup panel controller. Takes an IView object and an
@@ -144,6 +146,9 @@ public class SignUpPanelControl implements IControl {
 				log.info(username + " User has been created.");
 				view.getParent().getParent().getParent().getParent().setVisible(false);
 				LogInHandler.successfulLogin(username, String.valueOf(pwd_1));
+				if(login != null){
+					login.switchToLogout();
+				}
 			}
 
 		}
@@ -174,5 +179,9 @@ public class SignUpPanelControl implements IControl {
 		LogInPanel jp = new LogInPanel();
 		view.add(jp);
 
+	}
+	
+	public void setLogin(Login login){
+		this.login = login;
 	}
 }
