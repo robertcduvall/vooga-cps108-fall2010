@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import arcade.security.model.IModel;
 import arcade.security.model.SignUpProcess;
 import arcade.security.resourcesbundle.LabelResources;
+import arcade.security.util.LogInHandler;
 import arcade.security.util.PasswordHandler;
 import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
@@ -141,7 +142,8 @@ public class SignUpPanelControl implements IControl {
 						avatar);
 
 				log.info(username + " User has been created.");
-				switchToLoginPage();
+				view.getParent().getParent().getParent().getParent().setVisible(false);
+				LogInHandler.successfulLogin(username, String.valueOf(pwd_1));
 			}
 
 		}
