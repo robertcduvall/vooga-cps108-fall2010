@@ -80,7 +80,7 @@ public class MainPageController extends Controller{
 		
 		IItemInfo item = StoreModel.getItemInfo(tagName);
 		IController purchaseItemController = (IController) new PurchaseItemController(storeModel);
-		
+
 		IViewer view = new GamePurchaseView(purchaseItemController);
 		purchaseItemController.addViewer(view);
 		

@@ -34,6 +34,7 @@ public class GamePurchaseView implements IViewer {
 	private JLabel TitleLabel = null;
 	private JTextField TitleTextField = null;
 	private JTextField PriceTextField = null;
+	private JLabel randomReviewLabel = null;
 
 	private PurchaseItemController controller; // @jve:decl-index=0:
 	private JButton returnToStoreButton = null;
@@ -89,9 +90,18 @@ public class GamePurchaseView implements IViewer {
 			gamePurchasePanel.add(getTitleTextField(), null);
 			gamePurchasePanel.add(getPriceTextField(), null);
 			gamePurchasePanel.add(getReturnToStoreButton(), null);
+			randomReviewLabel = new JLabel();
 			gamePurchasePanel.add(getCommentPanel(), null);
 		}
 		return gamePurchasePanel;
+	}
+
+	private JLabel getRandomReviewLabel() {
+		if (randomReviewLabel == null) {
+			randomReviewLabel = new JLabel("LABEL!!");
+			randomReviewLabel.setText("Label");
+		}
+		return randomReviewLabel;
 	}
 
 	/**
@@ -216,6 +226,10 @@ public class GamePurchaseView implements IViewer {
 		return controller;
 	}
 
+	public void setReviewText(String content) {
+		randomReviewLabel.setText(content);
+	}
+
 	/**
 	 * This method initializes commentPanel	
 	 * 	
@@ -224,6 +238,7 @@ public class GamePurchaseView implements IViewer {
 	private JPanel getCommentPanel() {
 		if (commentPanel == null) {
 			commentPanel = new JPanel();
+			commentPanel.add(randomReviewLabel);
 			commentPanel.setLayout(new GridBagLayout());
 			commentPanel.setBounds(new Rectangle(34, 309, 590, 250));
 		}
