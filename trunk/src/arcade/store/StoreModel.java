@@ -58,6 +58,10 @@ public class StoreModel implements IModel{
 		refreshUser();
 	}
 	
+	/**
+	 * Called when tabs are selected. Ensures that the current
+	 * store user always corresponds to the current lobby user.
+	 */
 	public void refreshUser() {
 		lobbyUser = ProfileSet.getCurrentProfile();
 		currentUser = DbItemAndUserFactory.getUser(lobbyUser.getUserId());
