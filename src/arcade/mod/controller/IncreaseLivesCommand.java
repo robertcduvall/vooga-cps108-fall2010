@@ -1,19 +1,13 @@
 package arcade.mod.controller;
 
-import com.golden.gamedev.object.Sprite;
-
-import vooga.engine.core.BetterSprite;
-import vooga.engine.overlay.Overlay;
 import vooga.engine.overlay.Stat;
-import vooga.engine.state.GameStateManager;
 import vooga.games.cyberion.sprites.playership.PlayerShip;
 import vooga.games.cyberion.states.PlayState;
 
-public class IncreaseLives implements IConsoleCommand {
+public class IncreaseLivesCommand implements IConsoleCommand {
 
 	@Override
 	public void performCommand(String myInput) {
-		
 
 		PlayState ps = (PlayState) GameConsole.playState;
 		PlayerShip ship = ps.getPlayer();

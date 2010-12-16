@@ -1,17 +1,12 @@
 package vooga.games.cyberion;
 
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
-
-import arcade.mod.controller.Console;
-import arcade.mod.controller.GameConsole;
+import arcade.mod.controller.CyberionConsole;
 
 import com.golden.gamedev.object.GameFont;
-import com.golden.gamedev.object.Sprite;
+
 
 import vooga.engine.control.Control;
 import vooga.engine.control.KeyboardControl;
@@ -98,7 +93,9 @@ public class Blah extends Game {
 		
 
 	}
-
+	public void initGameConsole(){
+		myGameConsole = new CyberionConsole(this);
+	}
 	public void initLevelManager() {
 		levelManager = new LevelManager(this);
 		String levelFilesDirectory = Resources.getString("levelFilesDirectory");

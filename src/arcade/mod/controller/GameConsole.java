@@ -4,44 +4,51 @@ import java.util.ArrayList;
 
 import com.golden.gamedev.object.Sprite;
 
-import vooga.engine.core.BetterSprite;
 import vooga.engine.core.Game;
-import vooga.engine.factory.LevelManager;
-import vooga.engine.factory.LevelParser;
+
 import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
-import vooga.games.cyberion.states.PlayState;
 
-public class GameConsole extends Console {
-	static LevelManager levelManager;
-	static GameStateManager stateManager;
-	static GameState playState;
-	static ArrayList<Sprite> allSprites;
-	static public boolean modified;
-	public static final int PLAY_STATE = 4;
+import arcade.mod.view.ConsoleView;
 
-	public GameConsole(Game game) {
-		super();
-		modified = false;
-		stateManager = game.getGameStateManager();
-		playState = stateManager.getGameState(PLAY_STATE);
-		allSprites = playState.getSprites();
-		levelManager = playState.getLevelManager();
-		
+/**
+ * 
+ * gives access for the commands to be able to modify all the major parts of the
+ * game
+ * 
+ * @author vitorolivier
+ * 
+ */
+public class GameConsole {
+	protected static GameStateManager stateManager;
+	protected static GameState playState;
+	protected static ArrayList<Sprite> allSprites;
+
+	public static int PLAY_STATE;
+	protected ConsoleView myView;
+	protected CommandFactory myCommandFactory;
+
+	public GameConsole() {
+		myView = new ConsoleView();
+		myCommandFactory = new GenericFactory();
+	}
+
+	public void update(long t) {
+		if (!myView.myInput.equals(ConsoleView.NO_INPUT)) {
+			runCommand(myView.textInput.getText());
+			myView.myInput = ConsoleView.NO_INPUT;
+		}
 
 	}
 
-	// public boolean isModified() {
-	// return modified;
-	// }
-	//
-	// public static void setModified(boolean b) {
-	// modified = b;
-	// }
-	//
-	// public GameState refresh() {
-	// setModified(false);
-	// return playState;
-	// }
+	private void runCommand(String textInput) {
+		IConsoleCommand command = myCommandFactory.runCommand(textInput);
+		if (command != null) {
+			command.performCommand(textInput);
+		}
+	}
 
+	public void toggleVisible() {
+		myView.setVisible(!myView.isVisible());
+	}
 }

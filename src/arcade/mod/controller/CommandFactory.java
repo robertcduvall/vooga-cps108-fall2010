@@ -3,21 +3,15 @@ package arcade.mod.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandFactory {
+/**
+ * Factory that maps input to a specific kind of console command
+ * 
+ * @author vitorolivier
+ *
+ */
+public abstract class CommandFactory {
+	protected Map<String, IConsoleCommand> myMappings = new HashMap<String, IConsoleCommand>();
+	
+	public abstract IConsoleCommand runCommand(String command);
 
-	private Map<String, IConsoleCommand> myMappings = new HashMap<String, IConsoleCommand>();
-
-	public CommandFactory() {
-		myMappings.put("score", new IncreaseScore());
-		myMappings.put("increase", new IncreaseLives());
-		myMappings.put("pause", new PauseCommand());
-		myMappings.put("unpause", new UnpauseCommand());
-	}
-
-	public IConsoleCommand runCommand(String command) {
-		if (myMappings.containsKey(command))
-			return myMappings.get(command);
-		else
-			return null;
-	}
 }

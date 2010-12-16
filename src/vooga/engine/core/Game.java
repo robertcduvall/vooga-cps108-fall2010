@@ -11,7 +11,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import arcade.core.examples.HighScorePanel;
-import arcade.mod.controller.Console;
 import arcade.mod.controller.GameConsole;
 
 import com.golden.gamedev.GameLoader;
@@ -90,8 +89,8 @@ public class Game extends com.golden.gamedev.Game {
 		// setCurrentLevel(INITIAL_LEVEL);
 	}
 
-	private void initGameConsole() {
-		myGameConsole = new GameConsole(this);
+	public void initGameConsole() {
+		myGameConsole = new GameConsole();
 
 	}
 

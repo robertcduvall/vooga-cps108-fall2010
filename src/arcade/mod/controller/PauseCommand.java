@@ -4,6 +4,12 @@ import vooga.engine.state.GameState;
 import vooga.engine.state.GameStateManager;
 import vooga.engine.state.PauseGameState;
 
+/**
+ * Simple implementation of command
+ * pauses game
+ * @author vitorolivier
+ *
+ */
 public class PauseCommand implements IConsoleCommand {
 
 	@Override
