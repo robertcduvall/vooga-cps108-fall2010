@@ -1,5 +1,6 @@
 package arcade.core;
 
+import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
@@ -28,9 +29,11 @@ public class ArcadeTab extends JSplitPane implements Tab{
 		
 		setName("Arcade");
 		setOrientation(HORIZONTAL_SPLIT);
+		columnar.setMinimumSize(new Dimension(700, 820));
 		setLeftComponent(columnar);
 		
 		setRightComponent(createPanels("rightPanel"));
+		setDividerLocation(0.9999);
 		setOneTouchExpandable(true);	
 	}
 	

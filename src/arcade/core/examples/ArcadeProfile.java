@@ -69,17 +69,17 @@ public class ArcadeProfile extends Panel {
 		add(getPlayerHighScoresPanel(myProfile.getUserId(), 5));
 	}
 	
-	public static void updateHighScore(double highScore) {
-		score = highScore;
-		new HighScore();
-	}
+//	public static void updateHighScore(double highScore) {
+//		score = highScore;
+//		new HighScore();
+//	}
 
-	public static boolean addHighScore() {
-		boolean isAdded = hsc.addScore(playerID, GameView.getGameID(), score);
-//		columnar.setLeftComponent(makeLeftPanel());
-//		mainPanel.setRightComponent(makeRightPanel());
-		return isAdded;
-	}
+//	public static boolean addHighScore() {
+//		boolean isAdded = hsc.addScore(playerID, GameView.getGameID(), score);
+////		columnar.setLeftComponent(makeLeftPanel());
+////		mainPanel.setRightComponent(makeRightPanel());
+//		return isAdded;
+//	}
 	
 	public JTextPane getPlayerHighScoresPanel(int playerID,
 			int numScores) {
@@ -114,7 +114,7 @@ public class ArcadeProfile extends Panel {
 				+ "<tr><th></th><th>Game</th><th>Score</th></tr>";
 		int i = 1;
 		for (Map<String, String> row : rows) {
-			result += "<tr><td>" + i + "</td><td>" + row.get("Game")
+			result += "<tr><td>" + i + ". </td><td>" + row.get("GameName")
 					+ "</td><td>" + row.get("Score") + "</td></tr>";
 			i++;
 		}
