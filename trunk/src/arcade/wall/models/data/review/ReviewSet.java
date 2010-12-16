@@ -124,6 +124,10 @@ public class ReviewSet {
 	public static Review getRandomReview(String fieldName, String value) {
 		List<Review> possibleReviews = getReviewsByField(fieldName, value);
 		int i = (int)(Math.random()*possibleReviews.size());
-		return possibleReviews.get(i);
+		try {
+			return possibleReviews.get(i);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 }
