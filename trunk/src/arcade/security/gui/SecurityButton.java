@@ -7,58 +7,97 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
- * 
- * @author Meng Li
+ * This class extends JButton class to include all its frequently-used features and provide developer convenience
+ * to use JButton.
+ * @author Security Group
  *
  */
 public class SecurityButton extends JButton{
+	
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Constructor 
+	 * @param name the name for the button
+	 * @param listener <code>ActionListener</code> object
+	 */
 	public SecurityButton(String name,ActionListener listener) {
-		super(name);
-		addActionListener(listener);
-	}
-	public SecurityButton(String name,Icon icon,ActionListener listener) {
-		super(name,icon);
-		addActionListener(listener);
+		this(name,null,null,listener);
 	}
 	
+	/**
+	 * Constructor 
+	 * @param name the name displayed on the button
+	 * @param icon the icon for the button
+	 * @param listener <code>ActionListener</code> object
+	 */
+	public SecurityButton(String name,Icon icon,ActionListener listener) {
+		this(name,icon,null,listener);
+
+	}
+	
+	/**
+	 * Constructor
+	 * @param name the name displayed on the button
+	 * @param icon the icon for the button
+	 * @param toolTip the tooltip for the button
+	 * @param listener listener <code>ActionListener</code> object
+	 */
 	public SecurityButton(String name,Icon icon,String toolTip,ActionListener listener) {
 		super(name,icon);
 		this.setToolTipText(toolTip);
 		addActionListener(listener);
 	}
 
+	/**
+	 * Constructor
+	 * @param icon the icon for the button
+	 */
 	public SecurityButton(Icon icon) {
-		super(icon);
+		this(null,icon,null,null);
 		
 	}
-
+	/**
+	 * Constructor
+	 * @param name the name displayed on the button
+	 */
 	public SecurityButton(String name) {
-		super(name);
+		this(name,null,null,null);
 		
 	}
-/**
- * Abstract action
- * @param a
- */
-	public SecurityButton(Action a) {    
-		super(a);
-		
-	}
-
-	public SecurityButton(String arg0, Icon arg1) {
-		super(arg0, arg1);
+	/**
+	 * Constructor
+	 * @param action <code>Action</code> object associated with this button
+	 */
+	public SecurityButton(Action action) {    
+		super(action);
 		
 	}
 	
+	/**
+	 * Constructor
+	 * @param name the name displayed on the button
+	 * @param icon the icon for the button
+	 */
+	public SecurityButton(String name, Icon icon) {
+		this(name,icon,null,null);
+		
+	}
+	/**
+	 * Constructor
+	 * @param name the name displayed on the button
+	 * @param icon the icon for the button
+	 * @param toolTip the tooltip for the button
+	 */
 	public SecurityButton(String name,Icon icon,String toolTip){
-		super(name,icon);
-		this.setToolTipText(toolTip);
+		this(name,icon,toolTip,null);
 	}
-	
+	/**
+	 * Constructor
+	 * @param name the name displayed on the button
+	 * @param toolTip the tooltip for the button
+	 */
 	public SecurityButton(String name,String toolTip){
-		super(name);
-		this.setToolTipText(toolTip);
+		this(name,null,toolTip,null);
 	}
 }
