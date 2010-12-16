@@ -18,12 +18,26 @@ import arcade.security.view.AdminPanel;
 import arcade.security.view.IView;
 import arcade.security.view.LogInPanel;
 
+/**
+ * Controller for the Administrator Panel. Used in conjunction with security.view.AdminPanel
+ * and security.model.AdminProcess.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne 
+ *  
+ */
+
 public class AdminPanelControl implements IControl {
 
 	private final static Logger log=Logger.getLogger(AdminPanelControl.class);
 	private AdminProcess model;
 	private AdminPanel view; 
 
+	/**
+	 * Constructor for the admin panel controller. Takes an IView object and an IModel object
+	 * 
+	 * @param view the corresponding view object
+	 * @param model the corresponding model object
+	 */
 	public AdminPanelControl(IView view, IModel model){
 		this.model = (AdminProcess)model;
 		this.view = (AdminPanel)view;
@@ -42,7 +56,10 @@ public class AdminPanelControl implements IControl {
 		});
 	}
 
-	public void switchToLogInPage(){
+	/**
+	 * Switches the current panel to the login panel.
+	 */
+	private void switchToLogInPage(){
 
 		view.removeAll();
 		view.updateUI();

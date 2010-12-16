@@ -26,6 +26,13 @@ import arcade.security.view.LogInPanel;
 import arcade.security.view.RetrievePasswordPanel;
 import arcade.security.view.SignUpPanel;
 
+/**
+ * Controller for the Login Panel. Used in conjunction with security.view.LogInPanel
+ * and security.model.LoginProcess.
+ * 
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne 
+ *  
+ */
 public class LogInPanelControl implements IControl{
 
 	
@@ -33,6 +40,12 @@ public class LogInPanelControl implements IControl{
 	private LoginProcess model;
 	private LogInPanel view; 
 	
+	/**
+	 * Constructor for the login panel controller. Takes a view and a model object
+	 * 
+	 * @param view - the corresponding view object
+	 * @param model - the corresponding model object
+	 */
 	public LogInPanelControl(IView view, IModel model){
 		this.model = (LoginProcess)model;
 		this.view = (LogInPanel)view;
@@ -46,7 +59,11 @@ public class LogInPanelControl implements IControl{
 		});
 	}
 	
-	public void switchToForgetPasswordPage(){
+	/**
+	 * Switches the current panel to the forgotten password page
+	 * 
+	 */
+	private void switchToForgetPasswordPage(){
 		view.removeAll();
 		view.updateUI();
 		JPanel jp = new RetrievePasswordPanel();
@@ -55,12 +72,20 @@ public class LogInPanelControl implements IControl{
 		RetrievePasswordPanelControl controller = new RetrievePasswordPanelControl((IView)jp,model);	
 	}
 
-	
-	public boolean isSuccessfulLogin(String username, char[] password){
+	/**
+	 * Checks a username and password to see if they are in the database
+	 * @param username
+	 * @param password
+	 * @return true if the login is successful
+	 */
+	private boolean isSuccessfulLogin(String username, char[] password){
 		return model.isSuccessfulLogin(username, password);
 	}
 	
-	public void switchToAdminPage(){
+	/**
+	 * Switches the current panel to the administrator page
+	 */
+	private void switchToAdminPage(){
 		view.removeAll();
 		view.updateUI();
 		JPanel jp = new AdminPanel();
@@ -69,13 +94,19 @@ public class LogInPanelControl implements IControl{
 		AdminPanelControl controller = new AdminPanelControl((IView)jp,model);	
 	}
 	
-	public LogInPanelControl getCurrentController(){
+	/**
+	 * Returns the current LogInPanelControl object
+	 * @return the current LogInPanelControl object
+	 */
+	private LogInPanelControl getCurrentController(){
 		return this;
 	}
 	
 
-	
-	public void switchToSignUpPage(){
+	/**
+	 * Switches the current panel to the signup page
+	 */
+	private void switchToSignUpPage(){
 		view.removeAll();
 		view.updateUI();
 		JPanel jp = new SignUpPanel();
@@ -125,7 +156,11 @@ public class LogInPanelControl implements IControl{
 
 		}
 	}
-	
+	/**
+	 * Returns whether a user is an administrator
+	 * @param username
+	 * @return true if user is an admin
+	 */
 	private boolean isAdmin(String username) {
 		return model.isAdmin(username);
 	}

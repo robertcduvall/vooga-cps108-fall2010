@@ -9,7 +9,6 @@ import arcade.security.control.IControl;
 
 import arcade.security.exceptions.UserConfigurationNotFoundException;
 import arcade.security.gui.SecurityButton;
-import arcade.security.gui.UserConfigurationFrame;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.userserviceutil.User;
