@@ -18,31 +18,47 @@ public class MenuButton extends Button {
 
 	private static String gamePath; //TODO DONT HARDCODE and allow it to extend to other games -- Devon
 	private static int keyboardKey = 49; //WTF is this?  --Devon
+	private MenuGameState menuState;
 	
 
 	
-	
-	public MenuButton(BufferedImage img, String label, MenuGameState mgs) {
-		this(img, label, null, mgs);
-	}
-	
+
 	public MenuButton(BufferedImage img, String label, GameState gamestate, MenuGameState mgs) {
-		this(img, label, gamestate, 0, 0, mgs);
+		super(img, label, 0, 0);
 	}
 	
-	//PROBABLY NOT USED --DEVON
-	public MenuButton(BufferedImage img, String label, double x, double y, MenuGameState mgs, String method, String className) {
+	public MenuButton(	BufferedImage img, 
+						String label, 
+						double x, 
+						double y, 
+						MenuGameState mgs, 
+						String method, 
+						Class<?>...paramTypes
+						) {
 		super(img, label, x, y);
-		mgs.getKeyboardControl().addInput(keyboardKey, method, className);
+		menuState = mgs;
+		menuState.getKeyboardControl().addInput(keyboardKey, method, gamePath, paramTypes);
 		keyboardKey++;	
-
 		}
 	
-	public MenuButton(BufferedImage img, String label, GameState gamestateForButton, double x, double y, MenuGameState mgs) {
+	
+	/*public MenuButton(BufferedImage img, String label, GameState gamestateForButton, double x, double y, String method, MenuGameState mgs) {
+		this(img, label, x, y, mgs, method, GameState.class);
+		setGameStateToSwitchTo(gamestateForButton);
+	}*/
+
+	public MenuButton(	BufferedImage img, 
+						String label, 
+						GameState gamestateForButton, 
+						double x, 
+						double y, 
+						String method, 
+						MenuGameState mgs) {
 		super(img, label, x, y);
-		System.out.println("MenuButton: "+ label+" "+gamestateForButton+" "+keyboardKey+ " "+gamePath);
-		mgs.getKeyboardControl().addInput(keyboardKey, "switchToState", gamePath, GameState.class);
-		mgs.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
+		menuState = mgs;
+		System.out.println("menubutton: "+method);
+		menuState.getKeyboardControl().addInput(keyboardKey, method, gamePath, GameState.class);
+		menuState.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
 		keyboardKey++;
 
 	}
