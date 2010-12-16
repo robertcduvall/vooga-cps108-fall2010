@@ -8,6 +8,10 @@ import arcade.lobby.model.ProfileSet;
 import arcade.lobby.view.Login;
 import arcade.security.model.LoginProcess;
 
+/**
+ * Controller for logging out.
+ * @author the lobbyists
+ */
 public class LogoutController {
 
 	private Login myView;

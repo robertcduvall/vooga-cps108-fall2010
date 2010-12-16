@@ -8,6 +8,11 @@ import javax.swing.JTextField;
 
 import arcade.util.guiComponents.Validator;
 
+/**
+ * Validates the Avatar URL.  Does nothing if the
+ * URL is not a valid image.
+ * @author the lobbyists
+ */
 public class WebImageValidator extends Validator<JTextField> {
 
 	@Override

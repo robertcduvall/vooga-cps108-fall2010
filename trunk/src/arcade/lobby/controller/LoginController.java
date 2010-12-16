@@ -11,6 +11,12 @@ import arcade.security.control.SignUpControl;
 import arcade.security.model.LoginProcess;
 import arcade.security.util.userserviceutil.UserServiceFactory;
 
+/**
+ * Controls the login process and login view.
+ * It also switches to the Sign Up controller
+ * when a user clikces the Sign Up button.
+ * @author justin
+ */
 public class LoginController {
 
 	private Login myView;
@@ -24,6 +30,12 @@ public class LoginController {
 		securityControl = new SignUpControl();
 	}
 	
+	/**
+	 * Check if username-password combination is correct.
+	 * @param username
+	 * @param password
+	 * @return if user logs in successfully
+	 */
 	public boolean isSuccessfulLogin(String username, char[] password){
 		return myModel.isSuccessfulLogin(username, String.valueOf(password));
 	}

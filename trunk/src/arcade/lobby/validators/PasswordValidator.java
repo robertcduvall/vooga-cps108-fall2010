@@ -4,6 +4,11 @@ import javax.swing.JPasswordField;
 
 import arcade.util.guiComponents.Validator;
 
+/**
+ * Validation class to make sure passwords are strong,
+ * and it checks if the 1st and 2nd password fields match.
+ * @author the lobbyists
+ */
 public class PasswordValidator extends Validator<JPasswordField> {
 
 	private JPasswordField[] myPasswordFields = new JPasswordField[2];

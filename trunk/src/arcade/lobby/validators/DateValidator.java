@@ -8,6 +8,11 @@ import javax.swing.JTextField;
 
 import arcade.util.guiComponents.Validator;
 
+/**
+ * Validator class for determining if the text
+ * in a JTextField is in date form of MM/dd/yyyy.
+ * @author justin
+ */
 public class DateValidator extends Validator<JTextField> {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 

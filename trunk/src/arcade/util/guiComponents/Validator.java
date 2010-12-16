@@ -8,9 +8,9 @@ import javax.swing.JComponent;
  * Must extend this to use it.  
  * All you have to do is to create a Validator of a certain type, and when you create a validating component
  * pass as many validators to it as you want
- * @author Lobby Group
- *
+ * 
  * @param <T>
+ * @author Lobby Group
  */
 public abstract class Validator<T extends JComponent> {
 	

@@ -8,8 +8,6 @@ import javax.swing.JLabel;
 
 
 /**
- * 
- * 
  * Class to help with validating fields.
  * This is the component to be added to the dock.
  * @author Lobby Group
@@ -53,10 +51,18 @@ public class ValidatingComponent<T extends JComponent> {
 		
 	}
 
+	/**
+	 * Gets the component being validated.
+	 * @return component
+	 */
 	public T getComponent() {
 		return myComponent;
 	}
 	
+	/**
+	 * Label associated with this validating component.
+	 * @return JLabel
+	 */
 	public JLabel getLabel(){
 		return myLabel;
 	}

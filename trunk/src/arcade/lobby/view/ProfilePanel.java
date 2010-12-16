@@ -18,6 +18,12 @@ import arcade.lobby.controller.ProfileController;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
+/**
+ * Main viewer for user profiles.  Allows viewing and editing
+ * of own profile as well as viewing of others' profiles.  This
+ * is what is viewed in the profile tab.
+ * @author david, segil
+ */
 @SuppressWarnings("serial")
 public class ProfilePanel extends JPanel implements Tab, IView {
 	public ProfileEditPanel myEditPanel;
@@ -41,7 +47,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		setToolTipText("Click here to see your user info");
 		setName("Profile");
 	}
-
+	
 	public void initialize() {
 		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
 		setLayout(new MigLayout("fill"));
@@ -88,35 +94,35 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		return userBox;
 	}
 
+	/**
+	 * Adds listener to the edit button in the profile view.
+	 * @param listener
+	 */
 	public void addEditButtonListener(ActionListener listener) {
 		myEditButton.addActionListener(listener);
 	}
 
-	// private JButton createEditButton() {
-	// JButton button = new JButton();
-	// button.addActionListener(new ActionListener() {
-	//
-	// @Override
-	// public void actionPerformed(ActionEvent e) {
-	// editMode = !editMode;
-	// reload();
-	// }
-	// });
-	// return button;
-	// }
-
-	public JPanel getMainPanel() {
-		return myMainPanel;
-	}
-
+	/**
+	 * Gets the view-only profile.
+	 * @return view version of profile panel
+	 */
 	public ProfileViewPanel getViewPanel() {
 		return myViewPanel;
 	}
 
+	/**
+	 * Gets the editable profile.
+	 * @return edit version of profile panel
+	 */
 	public ProfileEditPanel getEditPanel() {
 		return myEditPanel;
 	}
 
+	/**
+	 * Switches between profile views: Edit,
+	 * View, and Viewing other profiles
+	 * @return current state / profile view
+	 */
 	public State changeMode() {
 		switch (mode) {
 		case view:

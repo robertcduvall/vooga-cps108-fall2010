@@ -10,6 +10,12 @@ import arcade.security.view.SignUpPanel;
 
 
 
+/**
+ * Controls the Sign up process for new user.
+ * Brings up the registration window when the
+ * registration button in the login view is clicked.
+ * @author justin
+ */
 public class RegisterController {
 
 	private Login myView;
