@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -26,11 +25,8 @@ public class CheckoutTab extends StoreTab {
 	private static final long serialVersionUID = 1L;
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
-	private static final String NAME = /* TODO: "Checkout Page" */"Checkout Page";
-	private static final String FILE_PATH = /*
-											 * TODO:
-											 * "arcade.store.resources.CheckoutController"
-											 */"arcade.store.resources.CheckoutController"; // @jve:decl-index=0:
+	private static final String NAME = "Checkout Page";
+	private static final String FILE_PATH = "arcade.store.resources.CheckoutController"; // @jve:decl-index=0:
 
 	private CheckoutController controller; // @jve:decl-index=0:
 	private JTextField availableCredditsTextField;
@@ -70,7 +66,7 @@ public class CheckoutTab extends StoreTab {
 		controller.addViewer(this);
 
 		availableCredditsTextField = new JTextField();
-		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25)); //TODO:
+		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25)); // TODO:
 
 		itemsList = new JList();
 		itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,10 +76,10 @@ public class CheckoutTab extends StoreTab {
 		});
 
 		totalCostTextField = new JTextField();
-		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25)); //TODO:
+		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25)); // TODO:
 
 		remainingCredditsTextField = new JTextField();
-		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25)); //TODO:
+		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25)); // TODO:
 	}
 
 	@Override
@@ -108,7 +104,7 @@ public class CheckoutTab extends StoreTab {
 
 	private JLabel getCheckoutLabel() {
 		JLabel checkoutLabel = new JLabel();
-		//TODO:
+		// TODO:
 		checkoutLabel.setText("My Check Out: ");
 		checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
 
@@ -117,7 +113,7 @@ public class CheckoutTab extends StoreTab {
 
 	private JLabel getAvailableCredditsLabel() {
 		JLabel availableCredditsLabel = new JLabel();
-		//TODO:
+		// TODO:
 		availableCredditsLabel.setBounds(new Rectangle(222, 87, 124, 25));
 		availableCredditsLabel.setText("Available Creddits");
 
@@ -126,6 +122,7 @@ public class CheckoutTab extends StoreTab {
 
 	private JLabel getTotalCostLabel() {
 		JLabel totalCostLabel = new JLabel();
+		// TODO:
 		totalCostLabel.setBounds(new Rectangle(222, 122, 124, 25));
 		totalCostLabel.setText("Total Cost");
 
@@ -134,6 +131,7 @@ public class CheckoutTab extends StoreTab {
 
 	private JLabel getCredditAfterPurchaseLabel() {
 		JLabel credditAfterPurchaseLabel = new JLabel();
+		//TODO:
 		credditAfterPurchaseLabel.setBounds(new Rectangle(222, 157, 124, 25));
 		credditAfterPurchaseLabel.setText("Remaining Creddits");
 
@@ -146,17 +144,28 @@ public class CheckoutTab extends StoreTab {
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getWishlistpanel() {
+		JPanel wishListPanel = new JPanel();
+		wishListPanel.setLayout(new GridBagLayout());
+		//TODO:
+		wishListPanel.setBounds(new Rectangle(17, 75, 184, 243));
+		wishListPanel.add(getItemsList(), makeGridBagConstraints());
+		return wishListPanel;
+	}
+
+	/**
+	 * Creates a GridBagConstaints object
+	 * 
+	 * @return gridBagConstraints
+	 */
+	private GridBagConstraints makeGridBagConstraints() {
+		//TODO:
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.weightx = 1.0;
 		gridBagConstraints.weighty = 1.0;
 		gridBagConstraints.gridx = 0;
-		JPanel wishlistpanel = new JPanel();
-		wishlistpanel.setLayout(new GridBagLayout());
-		wishlistpanel.setBounds(new Rectangle(17, 75, 184, 243));
-		wishlistpanel.add(getItemsList(), gridBagConstraints);
-		return wishlistpanel;
+		return gridBagConstraints;
 	}
 
 	/**
