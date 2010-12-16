@@ -3,14 +3,12 @@ package arcade.lobby.view;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
@@ -29,33 +27,26 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		view, edit, viewothers
 	};
 
-	private State mode = State.view;
+	private State mode = State.view;  //  @jve:decl-index=0:
 	private JPanel myLeftSidebar;
 	private JPanel myMainPanel;
 	private JPanel myRightSidebar;
-	private ResourceBundle resources;
+	private ResourceBundle resources;  //  @jve:decl-index=0:
 	private Profile myProfile;
 	private JButton myEditButton;
 	private JComboBox myUsers;
 
 	public ProfilePanel() {
-		super();
+		setToolTipText("Click here to see your user info");
+		setName("Profile");
+	}
+
+	public void initialize() {
+		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
 		setLayout(new MigLayout("fill"));
 		myProfile = ProfileSet.getCurrentProfile();
 
-		// Just so that there is some profile set.
-		if (myProfile == null)
-			myProfile = ProfileSet.getProfile(1);
-
-		setToolTipText("Click here to see your user info");
-		setName("Profile");
-		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
-		initialize();
-		ProfileController profileControl = new ProfileController(myProfile,
-				this);
-	}
-
-	private void initialize() {
+		
 		myLeftSidebar = createSidebar("left");
 		myViewPanel = createViewPanel();
 		myEditPanel = createEditPanel();
@@ -71,6 +62,9 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		add(myRightSidebar, "ax r, sy 2");
 		add(myUsers, "newline,skip 1, ax c, ay c");
 		add(myEditButton, "ax c,ay c");
+		
+		ProfileController profileControl = new ProfileController(myProfile, this);
+
 	}
 
 	private JComboBox getUserBox() {
@@ -218,11 +212,8 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	}
 
 	private void redraw() {
-		State oldmode = mode;
-		mode = State.edit;
 		refreshContent();
-		mode = oldmode;
-		refreshContent();
+		revalidate();
 	}
 
 	@Override

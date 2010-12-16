@@ -32,6 +32,10 @@ public class GameSelection extends JPanel implements Tab {
 	public GameSelection() {
 		setName("Games");
 		setToolTipText("A list of all the game available");
+	}
+	
+	@Override
+	public void initialize() {
 		currentGame = "";
 		panels=new HashMap<Integer, JPanel>();
 		gameData=Arcade.myDbAdapter.getRows(StoreModel.getUserOwnedGames(ProfileSet.getCurrentProfile().getUserId()));
@@ -43,6 +47,7 @@ public class GameSelection extends JPanel implements Tab {
 		setLayout(new BorderLayout());
 		add(addSearchFunction(), BorderLayout.NORTH);
 		add(games, BorderLayout.CENTER);
+		
 		
 	}
 	
@@ -153,4 +158,6 @@ public class GameSelection extends JPanel implements Tab {
 	public void refresh() {
 		repaint();
 	}
+
+
 }

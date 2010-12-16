@@ -48,6 +48,10 @@ public class LogInPanel extends JPanel  implements Tab,IView{
 	 */
 	public LogInPanel() {
 		setName("Log in Service");
+	}
+	
+	@Override
+	public void initialize() {
 		createAndShowGUI();
 		LoginProcess model = new LoginProcess();
 		LogInPanelControl controller = new LogInPanelControl(this,model);
@@ -146,6 +150,8 @@ public class LogInPanel extends JPanel  implements Tab,IView{
 	public void refresh() {
 		
 	}
+
+
 
 
 		

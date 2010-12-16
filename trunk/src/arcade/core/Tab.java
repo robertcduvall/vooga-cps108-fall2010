@@ -29,4 +29,7 @@ public abstract interface Tab {
 	 * when ever a tab is clicked
 	 */
 	public void refresh();
+	
+	
+	public void initialize();
 }
