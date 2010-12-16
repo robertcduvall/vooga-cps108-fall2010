@@ -66,7 +66,7 @@ public class AdBuilder extends JFrame{
 	private ArrayList<String> tags = new ArrayList<String>();
 	private boolean related, featured;
 	
-	public AdBuilder(String xmlTextFile){
+	public AdBuilder(){
 		setTitle("Ad Builder");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -326,7 +326,7 @@ public class AdBuilder extends JFrame{
 		addTag(" class=\""+ propertiesMap.get(type).get(0) + "\" ");
 		try {
 			String path = file.getCanonicalPath().replace(System.getProperties().getProperty("user.dir"),"");
-			addTag(type.toLowerCase() + "=" + path.substring(1) + " ");
+			addTag(type.toLowerCase() + "=\"" + path.substring(1) + "\" ");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -356,15 +356,15 @@ public class AdBuilder extends JFrame{
 	
 	private void respond(int n){
 		if (n==JOptionPane.YES_OPTION) {
-			//this.
-			new AdBuilder(XML_TEXT_FILE);
+			new AdBuilder();
+			System.exit(0);
 		}
 		else if (n==JOptionPane.NO_OPTION)
 			System.exit(0);
 	}
 	
 	public static void main(String args[]){
-		new AdBuilder(XML_TEXT_FILE);
+		new AdBuilder();
 	}
 	
 }

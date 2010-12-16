@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <AdGroup>
 <Ads>
-<Ad class="arcade.ads.adscontent.ImageAd" image=/Users/KateYang/Documents/Duke/2/Fall/Compsci 108/vooga/src/arcade/ads/resources/duke.pngname="name" targetURL="http://" startTime="MM/DD/YYYY HH:MM:SS" endTime="MM/DD/YYYY HH:MM:SS" duration="3" />
+<Ad class="arcade.ads.adscontent.ImageAd" image=src/arcade/ads/resources/duke.png name="name" targetURL="http://" startTime="MM/DD/YYYY HH:MM:SS" endTime="MM/DD/YYYY HH:MM:SS" duration="3" />
 </Ads>
 </AdGroup>
