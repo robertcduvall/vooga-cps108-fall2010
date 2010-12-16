@@ -156,7 +156,7 @@ public class AdFrame extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		new AdFrame(new Dimension(800, 600));
+		new AdFrame();
 		//AdsManager manager = new AdsManager();
 
 //		BufferedImage img1 = null;
