@@ -1,23 +1,30 @@
 package arcade.mod.controller;
 
-import java.io.File;
-import java.io.IOException;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-import arcade.mod.model.XMLModel;
 import arcade.mod.view.ConsoleView;
 
 public class Console {
 
-	public XMLModel myModel;
-	public ConsoleView myView;
+	protected ConsoleView myView;
+	protected CommandFactory myCommandFactory;
 
-	public static void main(String args[]) {
-		new Console();
-	}
 	public Console() {
 		myView = new ConsoleView();
+		myCommandFactory = new CommandFactory();
 
 	}
 
+	public void update() {
+		if (!myView.myInput.equals(ConsoleView.NO_INPUT)) {
+			runCommand(myView.textInput.getText());
+			myView.myInput = ConsoleView.NO_INPUT;
+		}
+
+	}
+
+	private void runCommand(String textInput) {
+		IConsoleCommand command = myCommandFactory.runCommand(textInput);
+		if (command != null) {
+			command.performCommand(textInput);
+		}
+	}
 }

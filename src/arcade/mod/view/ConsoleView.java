@@ -4,20 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 import javax.swing.JTextField;
 
 public class ConsoleView extends JFrame {
-	JPanel centralPanel;
-	JTextField textInput;
-	String myVariable;
-	String myInput;
+
+	public static final String NO_INPUT = "";
+
+	public JTextField textInput;
+
+	public String myInput = "NO_INPUT";
 
 	public ConsoleView() {
 		initialize();
+
 	}
 
 	public void initialize() {
@@ -26,14 +27,9 @@ public class ConsoleView extends JFrame {
 		textInput.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent evt) {
-				String temp = textInput.getText();
-				temp = temp.replace(" ", "");
-				String[] input = temp.split("=");
-				myVariable = input[0];
-				if (input.length > 1) {
-					myInput = input[1];
-				}
-				runConsoleCommand();
+
+				myInput = textInput.getText();
+
 			}
 
 		});
@@ -42,10 +38,6 @@ public class ConsoleView extends JFrame {
 
 		setSize(600, 50);
 		setVisible(true);
-	}
-
-	private void runConsoleCommand() {
-
 	}
 
 }

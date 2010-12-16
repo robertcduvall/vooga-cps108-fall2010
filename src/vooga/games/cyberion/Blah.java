@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import arcade.mod.controller.Console;
+import arcade.mod.controller.StateManagerConsole;
 
 import com.golden.gamedev.object.GameFont;
 
@@ -55,7 +56,7 @@ public class Blah extends Game {
 	public void initResources() {
 		super.initResources();
 		
-		myConsole= new Console();
+		myConsole= new StateManagerConsole(stateManager);
 		Resources.loadInt("Height", HEIGHT);
 		Resources.loadInt("Width", WIDTH);
 		
@@ -107,6 +108,7 @@ public class Blah extends Game {
 	public void update(long elapsedTime) {
 		super.update(elapsedTime);
 		gameControl.update();
+		myConsole.update();
 	}
 
 	public void setPlayState() {

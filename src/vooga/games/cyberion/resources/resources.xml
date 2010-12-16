@@ -28,8 +28,8 @@
 	
 	<Integers>
 		<Integer name="maxX" value="750" />
-		<Integer name="maxY" value="550" /><Integer name="playerLife"
-			value="3">
+		<Integer name="maxY" value="550" />
+		<Integer name="playerLife" value="3">
 </Integer>
 		<Integer name="playerWeaponPower" value="1"></Integer>
 	</Integers>
