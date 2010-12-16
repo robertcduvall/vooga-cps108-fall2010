@@ -1,6 +1,5 @@
 package arcade.store.gui.tabs;
 
-import javax.swing.JComponent;
 import arcade.core.mvc.IController;
 import arcade.store.control.ProfileController;
 import arcade.store.gui.StoreTab;
@@ -21,6 +20,7 @@ public class ProfileTab extends StoreTab {
 	private static final long serialVersionUID = 1L;
 	private static final String NAME = "Shop Profile";
 	private static final String FILE_PATH = "arcade.store.resources.ProfileController";
+	private static final String PROFILE_TAB_FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
 
 	private ProfileController controller;
 	private JButton purchaseCredditsButton;
@@ -29,6 +29,8 @@ public class ProfileTab extends StoreTab {
 	private JTable purchasedItemsTable;
 
 	public ProfileTab() {
+		setResourceBundleFilePath(PROFILE_TAB_FILE_PATH);
+
 		initializeProfileTab();
 
 		add(getProfileTabMessageLabel(), null);
@@ -48,8 +50,15 @@ public class ProfileTab extends StoreTab {
 		controller.addViewer(this);
 
 		purchaseCredditsButton = new JButton();
-		purchaseCredditsButton.setBounds(new Rectangle(486, 158, 149, 32));
-		purchaseCredditsButton.setText("Purchase Creddits");
+		purchaseCredditsButton
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("purchaseCredditsButtonXString")),
+						Integer.parseInt(getString("purchaseCredditsButtonYString")),
+						Integer.parseInt(getString("purchaseCredditsButtonWidthString")),
+						Integer.parseInt(getString("purchaseCredditsButtonHeightString"))));
+
+		purchaseCredditsButton
+				.setText(getString("purchaseCredditsButtonString"));
 		purchaseCredditsButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.processEvent("purchasePopUp");
@@ -61,10 +70,19 @@ public class ProfileTab extends StoreTab {
 																		// from
 																		// http://www.exampledepot.com/egs/javax.swing.text/tf_Align.html
 		usernameTextField.setEditable(false);
-		usernameTextField.setBounds(new Rectangle(102, 198, 142, 26));
+		usernameTextField.setBounds(new Rectangle(Integer
+				.parseInt(getString("usernameTextFieldXString")), Integer
+				.parseInt(getString("usernameTextFieldYString")), Integer
+				.parseInt(getString("usernameTextFieldWidthString")), Integer
+				.parseInt(getString("usernameTextFieldHeightString"))));
 
 		availableCredditsTextField = new JTextField();
-		availableCredditsTextField.setBounds(new Rectangle(506, 94, 111, 29));
+		availableCredditsTextField
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("availableCredditsTextFieldXProfileString")),
+						Integer.parseInt(getString("availableCredditsTextFieldYProfileString")),
+						Integer.parseInt(getString("availableCredditsTextFieldWidthProfileString")),
+						Integer.parseInt(getString("availableCredditsTextFieldHeightProfileString"))));
 
 		purchasedItemsTable = new JTable();
 
@@ -86,7 +104,7 @@ public class ProfileTab extends StoreTab {
 	public IController getController() {
 		return controller;
 	}
-	
+
 	/**
 	 * This method initializes usernameTextField
 	 * 
@@ -103,7 +121,7 @@ public class ProfileTab extends StoreTab {
 	public void setUserImage(ImageIcon image) {
 		getUserImageLabel().setIcon(image);
 	}
-	
+
 	/**
 	 * This method initializes availableCredditsTextField
 	 * 
@@ -137,8 +155,13 @@ public class ProfileTab extends StoreTab {
 	 */
 	private JButton getEditMyProfileButton() {
 		JButton editMyProfileButton = new JButton();
-		editMyProfileButton.setBounds(new Rectangle(486, 211, 149, 32));
-		editMyProfileButton.setText("Edit My Profile");
+		editMyProfileButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("editMyProfileButtonXString")), Integer
+				.parseInt(getString("editMyProfileButtonYString")), Integer
+				.parseInt(getString("editMyProfileButtonWidthString")), Integer
+				.parseInt(getString("editMyProfileButtonHeightString"))));
+
+		editMyProfileButton.setText(getString("editMyProfileButtonString"));
 		editMyProfileButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -163,7 +186,12 @@ public class ProfileTab extends StoreTab {
 	public JScrollPane getItemTableScrollPane() {
 		JScrollPane itemTableScrollPane = new JScrollPane();
 		itemTableScrollPane.setViewportView(getPurchasedItemsTable());
-		itemTableScrollPane.setBounds(new Rectangle(102, 347, 542, 256));
+		itemTableScrollPane.setBounds(new Rectangle(Integer
+				.parseInt(getString("itemTableScrollPaneXString")), Integer
+				.parseInt(getString("itemTableScrollPaneYString")), Integer
+				.parseInt(getString("itemTableScrollPaneWidthString")), Integer
+				.parseInt(getString("itemTableScrollPaneHeightString"))));
+
 		return itemTableScrollPane;
 	}
 
@@ -174,8 +202,13 @@ public class ProfileTab extends StoreTab {
 	 */
 	private JButton getRefreshButton() {
 		JButton refreshButton = new JButton();
-		refreshButton.setBounds(new Rectangle(291, 15, 87, 26));
-		refreshButton.setText("Refresh");
+		refreshButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("refreshButtonXString")), Integer
+				.parseInt(getString("refreshButtonYString")), Integer
+				.parseInt(getString("refreshButtonWidthString")), Integer
+				.parseInt(getString("refreshButtonHeightString"))));
+
+		refreshButton.setText(getString("refreshButtonString"));
 		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 
@@ -187,9 +220,15 @@ public class ProfileTab extends StoreTab {
 
 	private JLabel getUserImageLabel() {
 		JLabel userImageLabel = new JLabel();
-		userImageLabel.setBounds(new Rectangle(102, 54, 142, 132));
+		userImageLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("userImageLabelXString")), Integer
+				.parseInt(getString("userImageLabelYString")), Integer
+				.parseInt(getString("userImageLabelWidthString")), Integer
+				.parseInt(getString("userImageLabelHeightString"))));
+
 		try {
-			userImageLabel.setIcon(new ImageIcon(""));
+			userImageLabel.setIcon(new ImageIcon(
+					getString("userImageLabelString")));
 		} catch (Exception e) {
 			throw TabExceptions.IMAGE_NOT_FOUND;
 		}
@@ -198,22 +237,41 @@ public class ProfileTab extends StoreTab {
 
 	private JLabel getProfileTabMessageLabel() {
 		JLabel profileTabMessageLabel = new JLabel();
-		profileTabMessageLabel.setText("Manage My Shop Account");
-		profileTabMessageLabel.setBounds(new Rectangle(13, 14, 163, 16));
+		profileTabMessageLabel
+				.setText(getString("profileTabMessageLabelString"));
+		profileTabMessageLabel
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("profileTabMessageLabelXString")),
+						Integer.parseInt(getString("profileTabMessageLabelYString")),
+						Integer.parseInt(getString("profileTabMessageLabelWidthString")),
+						Integer.parseInt(getString("profileTabMessageLabelHeightString"))));
+
 		return profileTabMessageLabel;
 	}
 
 	private JLabel getAvailableCredditsLabel() {
 		JLabel availableCredditsLabel = new JLabel();
-		availableCredditsLabel.setBounds(new Rectangle(361, 94, 111, 29));
-		availableCredditsLabel.setText("Availabe Creddits");
+		availableCredditsLabel
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("availableCredditsLabelXProfileString")),
+						Integer.parseInt(getString("availableCredditsLabelYProfileString")),
+						Integer.parseInt(getString("availableCredditsLabelWidthProfileString")),
+						Integer.parseInt(getString("availableCredditsLabelHeightProfileString"))));
+
+		availableCredditsLabel
+				.setText(getString("availableCredditsLabelProfileString"));
 		return availableCredditsLabel;
 	}
 
 	private JLabel getPurchasedItemsLabel() {
 		JLabel purchasedItemsLabel = new JLabel();
-		purchasedItemsLabel.setBounds(new Rectangle(102, 289, 139, 35));
-		purchasedItemsLabel.setText("Purchased Items");
+		purchasedItemsLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("purchasedItemsLabelXString")), Integer
+				.parseInt(getString("purchasedItemsLabelYString")), Integer
+				.parseInt(getString("purchasedItemsLabelWidthString")), Integer
+				.parseInt(getString("purchasedItemsLabelHeightString"))));
+
+		purchasedItemsLabel.setText(getString("purchasedItemsLabelString"));
 		return purchasedItemsLabel;
 	}
 

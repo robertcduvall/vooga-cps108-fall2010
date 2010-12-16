@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -26,7 +25,7 @@ public class MainPageTab extends StoreTab {
 
 	private static final String NAME = "Main Page";
 	private static final String FILE_PATH = "arcade.store.resources.MainPageController";
-	private static final String CHECKOUT_TAB_FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
+	private static final String MAIN_PAGE_TAB_FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
 
 	private MainPageController controller; // @jve:decl-index=0:
 	private JList genreList;
@@ -34,7 +33,7 @@ public class MainPageTab extends StoreTab {
 	private JPanel gameListPanel;
 
 	public MainPageTab() {
-		setResourceBundleFilePath(CHECKOUT_TAB_FILE_PATH);
+		setResourceBundleFilePath(MAIN_PAGE_TAB_FILE_PATH);
 		setName(getString("mainPageTabString"));
 
 		initializeMainPageTab();
