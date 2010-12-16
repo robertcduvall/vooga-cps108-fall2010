@@ -133,11 +133,20 @@ public abstract class MenuGameState extends GameState {
 		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, gamestate, this));
 	}*/
 	
-	public void makeButton(String label, GameState gamestate, double x, double y) {
+	public void makeButton(	String label, 
+							GameState gamestate, 
+							double x, 
+							double y) {
+		
 		makeButton(label, gamestate, switchStateMethod, x, y);
 	}
 	
-	public void makeButton(String label, GameState gamestate, String gameMethod, double x, double y) {
+	public void makeButton(	String label, 
+							GameState gamestate, 
+							String gameMethod, 
+							double x, 
+							double y) {
+		
 		addButton(new MenuButton(DEFAULT_BUTTON_IMAGE, label, gamestate, x, y, gameMethod,  this));
 	}
 	
