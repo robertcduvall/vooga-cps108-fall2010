@@ -30,7 +30,7 @@ public class Rating extends Panel {
 		myController = new WallTabController();
 		ratingPanel = myController.getView().getFeedbackPanel();
 		int indexOfGame = getIndex();
-		
+		System.out.println(indexOfGame);
 		if(indexOfGame != -1)
 		{
 			ratingPanel.setSelectedIndex(indexOfGame);

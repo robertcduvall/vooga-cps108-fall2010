@@ -9,6 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import net.miginfocom.swing.MigLayout;
+
 import arcade.core.mvc.IController;
 
 /**
@@ -45,7 +47,7 @@ public class ArcadeTab extends JSplitPane implements Tab{
 	}
 	
 	private static JPanel createPanels(String name) {
-		JPanel contents = new JPanel();
+		/*JPanel contents = new JPanel();
 		contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
 		for (String classname : getSet(name)) {
 			if (classname.isEmpty())
@@ -57,6 +59,23 @@ public class ArcadeTab extends JSplitPane implements Tab{
 			}
 		}
 		return contents;
+		*/
+		JPanel sidebar = new JPanel();
+		sidebar.setVisible(true);
+		sidebar.setLayout(new MigLayout());
+		String panelClassString = resources.getString(name);
+		String[] panelClasses = panelClassString.split(",");
+		for (int j = 0; j < panelClasses.length; j++) {
+			JPanel newPanel = null;
+			try {
+				newPanel = (JPanel) Class.forName(panelClasses[j])
+						.newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			sidebar.add(newPanel, "cell 0 " + j);
+		}
+		return sidebar;
 	}
 	
 	private static Object getObject(String classname) throws ClassNotFoundException,
@@ -99,7 +118,6 @@ public class ArcadeTab extends JSplitPane implements Tab{
 		//		ExampleGUI.setGame(gameID);
 		columnar.setRightComponent(new GameView(gameID));
 		refreshPanels();
-		
 	}
 	
 	/**
