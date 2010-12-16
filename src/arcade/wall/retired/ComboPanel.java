@@ -1,8 +1,7 @@
-package arcade.wall.views.ratings;
+package arcade.wall.retired;
 
 import javax.swing.JRadioButton;
 
-import arcade.wall.retired.AbstractButtonPanel;
 
 /**
  * 
