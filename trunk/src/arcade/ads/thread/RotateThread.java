@@ -41,12 +41,11 @@ public class RotateThread extends Thread {
 			} else {
 				try {
 					System.out.println("rotating!!!");
-					if (!manager.r.isEmpty()) {
+					if (!manager.getRenderedAdsGroup().getAds().isEmpty()) {
 						System.out.println("start");
-						Thread.sleep(manager.ads.get(manager.index)
-								.getDuration());
+						Thread.sleep(manager.getRenderedAdsGroup().getCurrentAd().getDuration());
 						System.out.println("end");
-						AdsManager.nextAds();
+						manager.getRenderedAdsGroup().nextAds();
 					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
