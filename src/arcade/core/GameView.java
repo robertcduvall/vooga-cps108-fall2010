@@ -13,6 +13,7 @@ import javax.swing.*;
 import vooga.engine.core.Game;
 import arcade.core.examples.HighScorePanel;
 import arcade.lobby.model.ProfileSet;
+import arcade.wall.controllers.WallWidget;
 
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
@@ -116,8 +117,12 @@ public class GameView extends JPanel {
 							Game launchedGame = (Game) gameConstructor.newInstance();
 														
 							launchedGame.setMod(JOptionPane.showInputDialog("Enter mod name (leave blank otherwise):"));
-							
+							System.out.println(gameName);
+							System.out.println(gameProperties.get("title")[0]);
+							WallWidget gameWidget = new WallWidget(gameName);
+
 							Game.launch(launchedGame, ProfileSet.getCurrentProfile().getUserName());
+							
 						} catch (Throwable e) {
 							System.out.println("vooga.games."
 									+ gameProperties.get("classname")[0]

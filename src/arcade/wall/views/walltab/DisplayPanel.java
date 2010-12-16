@@ -26,7 +26,7 @@ public class DisplayPanel extends JPanel {
 		myTopRatedGamesLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		updateTopRatedGamesLabel();
-		setGameHeaderLabel(WallTabPanel.myGameChoices[FeedbackPanel.gameComboBox.getSelectedIndex()]);
+		setGameHeaderLabel(WallTabPanel.myGameChoices[FeedbackPanel.myGameComboBox.getSelectedIndex()]);
 		this.add(myGameHeaderLabel);
 		myCommentsArea = new JTextArea();
 		myCommentsArea.setEditable(false);
@@ -51,10 +51,6 @@ public class DisplayPanel extends JPanel {
 	public void refreshCommentsArea(List<Comment> gameComments){
 		String displayString = "";
 		for(Comment comment: gameComments){  
-//			String starString = "";
-//			for (int i = 0; i < Integer.parseInt(comment.getRating()); i++) {
-//				starString += "*";
-//			}
 			displayString += " >> ''" + comment.getString() + "'' ---" + ProfileSet.getProfile(Integer.parseInt(comment.getUserId())).getFirstName() + "\n";           
 		}
 		myCommentsArea.setText(displayString);
