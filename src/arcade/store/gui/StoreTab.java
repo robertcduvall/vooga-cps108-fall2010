@@ -58,14 +58,13 @@ public class StoreTab extends JPanel implements Tab {
 		return storeTabBundle.getString(key);
 	}
 
-	
 	/**
 	 * This method sets up the control.
+	 * 
 	 * @param control
 	 */
-	public void setController(IController control){
+	public void setController(IController control) {
 		controller = (Controller) control;
 	}
-
 
 }

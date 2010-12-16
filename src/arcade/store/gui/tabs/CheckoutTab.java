@@ -27,6 +27,7 @@ public class CheckoutTab extends StoreTab {
 	// @jve:decl-index=0:visual-constraint="199,58"
 	private static final String NAME = "Checkout Page";
 	private static final String FILE_PATH = "arcade.store.resources.CheckoutController"; // @jve:decl-index=0:
+	private static final String CHECKOUT_TAB_FILE_PATH = "arcade.store.gui.resources.storeTabProperties";
 
 	private CheckoutController controller; // @jve:decl-index=0:
 	private JTextField availableCredditsTextField;
@@ -40,9 +41,10 @@ public class CheckoutTab extends StoreTab {
 	 * @return javax.swing.JPanel
 	 */
 	public CheckoutTab() {
+		setResourceBundleFilePath(CHECKOUT_TAB_FILE_PATH);
 		setName(NAME);
 
-		initializeComponents();
+		initializeCheckoutTab();
 
 		setLayout(null);
 
@@ -61,13 +63,17 @@ public class CheckoutTab extends StoreTab {
 		add(getRefreshButton(), null);
 	}
 
-	private void initializeComponents() {
+	private void initializeCheckoutTab() {
 		controller = new CheckoutController(FILE_PATH);
 		controller.addViewer(this);
 
 		availableCredditsTextField = new JTextField();
-		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25)); // TODO:
-
+		availableCredditsTextField
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("availableCredditsTextFieldXString")),
+						Integer.parseInt(getString("availableCredditsTextFieldYString")),
+						Integer.parseInt(getString("availableCredditsTextFieldWidthString")),
+						Integer.parseInt(getString("availableCredditsTextFieldHeightString"))));
 		itemsList = new JList();
 		itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -76,10 +82,19 @@ public class CheckoutTab extends StoreTab {
 		});
 
 		totalCostTextField = new JTextField();
-		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25)); // TODO:
+		totalCostTextField.setBounds(new Rectangle(Integer
+				.parseInt(getString("totalCostTextFieldXString")), Integer
+				.parseInt(getString("totalCostTextFieldYString")), Integer
+				.parseInt(getString("totalCostTextFieldWidthString")), Integer
+				.parseInt(getString("totalCostTextFieldHeightString"))));
 
 		remainingCredditsTextField = new JTextField();
-		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25)); // TODO:
+		remainingCredditsTextField
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("remainingCredditsTextFieldXString")),
+						Integer.parseInt(getString("remainingCredditsTextFieldYString")),
+						Integer.parseInt(getString("remainingCredditsTextFieldWidthString")),
+						Integer.parseInt(getString("remainingCredditsTextFieldHeightString"))));
 	}
 
 	@Override
@@ -104,36 +119,54 @@ public class CheckoutTab extends StoreTab {
 
 	private JLabel getCheckoutLabel() {
 		JLabel checkoutLabel = new JLabel();
-		// TODO:
-		checkoutLabel.setText("My Check Out: ");
-		checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
-
+		checkoutLabel.setText(getString("checkoutLabelString"));
+		checkoutLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("checkoutLabelXString")), Integer
+				.parseInt(getString("checkoutLabelYString")), Integer
+				.parseInt(getString("checkoutLabelWidthString")), Integer
+				.parseInt(getString("checkoutLabelHeightString"))));
 		return checkoutLabel;
 	}
 
 	private JLabel getAvailableCredditsLabel() {
 		JLabel availableCredditsLabel = new JLabel();
-		// TODO:
-		availableCredditsLabel.setBounds(new Rectangle(222, 87, 124, 25));
-		availableCredditsLabel.setText("Available Creddits");
+		availableCredditsLabel
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("availableCredditsLabelXString")),
+						Integer.parseInt(getString("availableCredditsLabelYString")),
+						Integer.parseInt(getString("availableCredditsLabelWidthString")),
+						Integer.parseInt(getString("availableCredditsLabelHeightString"))));
+
+		availableCredditsLabel
+				.setText(getString("availableCredditsLabelString"));
 
 		return availableCredditsLabel;
 	}
 
 	private JLabel getTotalCostLabel() {
 		JLabel totalCostLabel = new JLabel();
-		// TODO:
-		totalCostLabel.setBounds(new Rectangle(222, 122, 124, 25));
-		totalCostLabel.setText("Total Cost");
+		totalCostLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("totalCostLabelXString")), Integer
+				.parseInt(getString("totalCostLabelYString")), Integer
+				.parseInt(getString("totalCostLabelWidthString")), Integer
+				.parseInt(getString("totalCostLabelHeightString"))));
+
+		totalCostLabel.setText(getString("totalCostLabelString"));
 
 		return totalCostLabel;
 	}
 
 	private JLabel getCredditAfterPurchaseLabel() {
 		JLabel credditAfterPurchaseLabel = new JLabel();
-		//TODO:
-		credditAfterPurchaseLabel.setBounds(new Rectangle(222, 157, 124, 25));
-		credditAfterPurchaseLabel.setText("Remaining Creddits");
+		credditAfterPurchaseLabel
+				.setBounds(new Rectangle(
+						Integer.parseInt(getString("credditAfterPurchaseLabelXString")),
+						Integer.parseInt(getString("credditAfterPurchaseLabelYString")),
+						Integer.parseInt(getString("credditAfterPurchaseLabelWidthString")),
+						Integer.parseInt(getString("credditAfterPurchaseLabelHeightString"))));
+
+		credditAfterPurchaseLabel
+				.setText(getString("credditAfterPurchaseLabelString"));
 
 		return credditAfterPurchaseLabel;
 	}
@@ -146,8 +179,12 @@ public class CheckoutTab extends StoreTab {
 	private JPanel getWishlistpanel() {
 		JPanel wishListPanel = new JPanel();
 		wishListPanel.setLayout(new GridBagLayout());
-		//TODO:
-		wishListPanel.setBounds(new Rectangle(17, 75, 184, 243));
+		wishListPanel.setBounds(new Rectangle(Integer
+				.parseInt(getString("wishlistpanelXString")), Integer
+				.parseInt(getString("wishlistpanelYString")), Integer
+				.parseInt(getString("wishlistpanelWidthString")), Integer
+				.parseInt(getString("wishlistpanelHeightString"))));
+
 		wishListPanel.add(getItemsList(), makeGridBagConstraints());
 		return wishListPanel;
 	}
@@ -158,13 +195,17 @@ public class CheckoutTab extends StoreTab {
 	 * @return gridBagConstraints
 	 */
 	private GridBagConstraints makeGridBagConstraints() {
-		//TODO:
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 		gridBagConstraints.fill = GridBagConstraints.BOTH;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.weightx = 1.0;
-		gridBagConstraints.weighty = 1.0;
-		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = Integer
+				.parseInt(getString("gridBagConstraintsGridYString"));
+		gridBagConstraints.weightx = Double
+				.parseDouble(getString("gridBagConstraintsWeightXString"));
+		gridBagConstraints.weighty = Double
+				.parseDouble(getString("gridBagConstraintsWeightYString"));
+		gridBagConstraints.gridx = Integer
+				.parseInt(getString("gridBagConstraintsGridXString"));
+		;
 		return gridBagConstraints;
 	}
 
@@ -220,8 +261,13 @@ public class CheckoutTab extends StoreTab {
 	 */
 	private JButton getDropItemsButton() {
 		JButton dropItemButton = new JButton();
-		dropItemButton.setBounds(new Rectangle(218, 226, 100, 26));
-		dropItemButton.setText("Drop Item");
+		dropItemButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("dropItemButtonXString")), Integer
+				.parseInt(getString("dropItemButtonYString")), Integer
+				.parseInt(getString("dropItemButtonWidthString")), Integer
+				.parseInt(getString("dropItemButtonHeightString"))));
+
+		dropItemButton.setText(getString("dropItemButtonString"));
 		dropItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				controller.processEvent("dropItem");
@@ -237,8 +283,13 @@ public class CheckoutTab extends StoreTab {
 	 */
 	private JButton getJButton() {
 		JButton saveCartButton = new JButton();
-		saveCartButton.setBounds(new Rectangle(340, 226, 108, 26));
-		saveCartButton.setText("Save Cart");
+		saveCartButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("saveCartButtonXString")), Integer
+				.parseInt(getString("saveCartButtonYString")), Integer
+				.parseInt(getString("saveCartButtonWidthString")), Integer
+				.parseInt(getString("saveCartButtonHeightString"))));
+
+		saveCartButton.setText(getString("saveCartButtonString"));
 		saveCartButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				controller.processEvent("saveCart");
@@ -273,8 +324,13 @@ public class CheckoutTab extends StoreTab {
 	 */
 	private JButton getBuyCartButton() {
 		JButton buyCartButton = new JButton();
-		buyCartButton.setBounds(new Rectangle(218, 267, 100, 26));
-		buyCartButton.setText("Buy Cart");
+		buyCartButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("buyCartButtonXString")), Integer
+				.parseInt(getString("buyCartButtonYString")), Integer
+				.parseInt(getString("buyCartButtonWidthString")), Integer
+				.parseInt(getString("buyCartButtonHeightString"))));
+
+		buyCartButton.setText(getString("buyCartButtonString"));
 		buyCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				controller.processEvent("buyCart");
@@ -290,8 +346,13 @@ public class CheckoutTab extends StoreTab {
 	 */
 	private JButton getDropCartButton() {
 		JButton dropCartButton = new JButton();
-		dropCartButton.setBounds(new Rectangle(340, 267, 108, 26));
-		dropCartButton.setText("Drop Cart");
+		dropCartButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("dropCartButtonXString")), Integer
+				.parseInt(getString("dropCartButtonYString")), Integer
+				.parseInt(getString("dropCartButtonWidthString")), Integer
+				.parseInt(getString("dropCartButtonHeightString"))));
+
+		dropCartButton.setText(getString("dropCartButtonString"));
 		dropCartButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				controller.processEvent("dropCart");
@@ -307,8 +368,13 @@ public class CheckoutTab extends StoreTab {
 	 */
 	private JButton getRefreshButton() {
 		JButton refreshButton = new JButton();
-		refreshButton.setBounds(new Rectangle(291, 15, 87, 26));
-		refreshButton.setText("Refresh");
+		refreshButton.setBounds(new Rectangle(Integer
+				.parseInt(getString("refreshButtonXString")), Integer
+				.parseInt(getString("refreshButtonYString")), Integer
+				.parseInt(getString("refreshButtonWidthString")), Integer
+				.parseInt(getString("refreshButtonHeightString"))));
+
+		refreshButton.setText(getString("refreshButtonString"));
 		refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 
@@ -317,5 +383,4 @@ public class CheckoutTab extends StoreTab {
 		});
 		return refreshButton;
 	}
-
 }
