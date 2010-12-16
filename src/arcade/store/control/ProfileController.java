@@ -62,6 +62,7 @@ public class ProfileController extends Controller {
 	 */
 	@Override
 	public void initialize() {
+		storeModel.refreshUser();
 		populateProfileFields();
 		setUpUserImage();
 		populatePurchaseHistory();
@@ -130,11 +131,14 @@ public class ProfileController extends Controller {
 		new CredditPurchaseView(this);
 	}
 
-	
-//	public StoreUser getUser() {
-//		return storeModel.getCurrentUserAccount();
-//	}
-
+	/**
+	 * Takes input from user and calls on the StoreModel
+	 * to add the correct number of creddits to the current
+	 * user.
+	 * 
+	 * @param creddits amount of creddits to add to current user's
+	 * account.
+	 */
 	public void processCredditPurchase(String creddits) {
 		
 		double amount;
