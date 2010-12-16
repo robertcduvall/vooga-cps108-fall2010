@@ -8,7 +8,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import arcade.core.ExampleGUI;
 import arcade.mod.controller.IPresenter;
 import arcade.mod.view.file.CurrentFileOpener;
 import arcade.mod.view.file.RecentFileOpener;

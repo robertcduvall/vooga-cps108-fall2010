@@ -127,17 +127,6 @@ public class GameSelection extends JPanel implements Tab {
 
 	}
 
-	@Override
-	public JComponent getContent() {
-		JPanel panel = new JPanel();
-		games = new JPanel(new GridLayout(0, 3));
-		displayAllGames();
-		panel.setLayout(new BorderLayout());
-		panel.add(addSearchFunction(), BorderLayout.NORTH);
-		panel.add(games, BorderLayout.CENTER);
-		return panel;
-	}
-
 	private void displayAllGames() {
 		games.removeAll();
 		for (Integer i : panels.keySet()) {

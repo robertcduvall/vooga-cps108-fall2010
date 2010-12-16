@@ -59,7 +59,7 @@ public class GameView extends JPanel {
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Id", id+"");
-		List<Map<String, String>> attributes = ArcadeEdited.myDbAdapter.getRows(
+		List<Map<String, String>> attributes = Arcade.myDbAdapter.getRows(
 				"GameInfo", conditions, "Title", "Genre",
 				"Description", "Tags", "ClassName", "ImagePaths",
 				"Instructions");
