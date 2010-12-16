@@ -28,40 +28,40 @@ import arcade.store.control.PurchaseItemController;
 /**
  * 
  * @author Drew Sternesky, Yijia Mu, Marcus Molchany
- *
+ * 
  */
 public class GamePurchaseView extends StoreTab {
-	
-	 
+
 	private static final String FILE_PATH = "arcade.store.resources.Pages";
 	private static final long serialVersionUID = 1L;
+
 	private JFrame gamePurchaseFrame = null;
 	private JPanel gamePurchasePanel = null; // @jve:decl-index=0:visual-constraint="-15,3"
 	private JButton addToCartButton = null;
-	private JButton DemoTheGameButton = null;
-	private JLabel DescriptionLabel = null;
-	private JTextArea DescriptionTextArea = null;
+	private JButton demoTheGameButton = null;
+
+	private JTextArea descriptionTextArea = null;
 	private JLabel gameImageLabel = null;
-	private JLabel PriceLabel = null;
-	private JLabel TitleLabel = null;
-	private JTextField TitleTextField = null;
-	private JTextField PriceTextField = null;
+	private JTextField titleTextField = null;
+	private JTextField priceTextField = null;
 
 	private PurchaseItemController controller; // @jve:decl-index=0:
 	private JButton returnToStoreButton = null;
 	private JPanel commentPanel = null;
 
 	public GamePurchaseView(IController control) {
+		setResourceBundleFilePath(FILE_PATH);
 		controller = (PurchaseItemController) control;
 		gamePurchaseFrame = getJFrame();
 		gamePurchaseFrame.setVisible(true);
-		setResourceBundleFilePath(FILE_PATH);
 	}
 
 	public JFrame getJFrame() {
 		JFrame jFrame = new JFrame();
-		jFrame.setSize(new Dimension(650, 600));
-		jFrame.setTitle("Game Purchase View");
+		jFrame.setSize(new Dimension(Integer
+				.parseInt(getString("jFrameWidthString")), Integer
+				.parseInt(getString("jFrameHeightString"))));
+		jFrame.setTitle(getString("jFrameString"));
 		jFrame.setContentPane(getGamePurchasePanel());
 
 		return jFrame;
@@ -75,56 +75,88 @@ public class GamePurchaseView extends StoreTab {
 
 	/**
 	 * This method retursn the Item title field
+	 * 
 	 * @return
 	 */
 	public String getItemName() {
 		return getTitleTextField().getText();
 	}
-	
+
 	/**
 	 * This method initializes gamePurchasePanel
 	 * 
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getGamePurchasePanel() {
-		if (gamePurchasePanel == null) {
-			TitleLabel = new JLabel();
-			TitleLabel.setBounds(new Rectangle(184, 20, 46, 21));
-			TitleLabel.setText("Title:");
-			PriceLabel = new JLabel();
-			PriceLabel.setBounds(new Rectangle(184, 50, 43, 24));
-			PriceLabel.setText("Price:");
-			DescriptionLabel = new JLabel();
-			DescriptionLabel.setBounds(new Rectangle(184, 85, 87, 24));
-			DescriptionLabel.setText("Description:");
-			gamePurchasePanel = new JPanel();
-			gamePurchasePanel.setLayout(null);
-			gamePurchasePanel.setSize(new Dimension(632, 277));
-			gamePurchasePanel.add(getAddToCartButton(), null);
-			gamePurchasePanel.add(getDemoTheGameButton(), null);
-			gamePurchasePanel.add(DescriptionLabel, null);
-			gamePurchasePanel.add(getDescriptionTextArea(), null);
-			gamePurchasePanel.add(getGameIcon(), null);
-			gamePurchasePanel.add(PriceLabel, null);
-			gamePurchasePanel.add(TitleLabel, null);
-			gamePurchasePanel.add(getTitleTextField(), null);
-			gamePurchasePanel.add(getPriceTextField(), null);
-			gamePurchasePanel.add(getReturnToStoreButton(), null);
-//			randomReviewLabel = new JLabel();
-//			gamePurchasePanel.add(getCommentPanel(), null);
-		}
+		gamePurchasePanel = new JPanel();
+		gamePurchasePanel.setLayout(null);
+		gamePurchasePanel.setSize(new Dimension(Integer
+				.parseInt(getString("gamePurchasePanelWidthString")), Integer
+				.parseInt(getString("gamePurchasePanelHeightString"))));
+		gamePurchasePanel.add(getAddToCartButton(), null);
+		gamePurchasePanel.add(getDemoTheGameButton(), null);
+		gamePurchasePanel.add(getDescriptionLabel(), null);
+		gamePurchasePanel.add(getDescriptionTextArea(), null);
+		gamePurchasePanel.add(getImageLabel(), null);
+		gamePurchasePanel.add(getPriceLabel(), null);
+		gamePurchasePanel.add(getTitleLabel(), null);
+		gamePurchasePanel.add(getTitleTextField(), null);
+		gamePurchasePanel.add(getPriceTextField(), null);
+		gamePurchasePanel.add(getReturnToStoreButton(), null);
+		// randomReviewLabel = new JLabel();
+		// gamePurchasePanel.add(getCommentPanel(), null);
 		return gamePurchasePanel;
+	}
+
+	private JLabel getPriceLabel() {
+		JLabel priceLabel = new JLabel();
+		priceLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("priceLabelXString")), Integer
+				.parseInt(getString("priceLabelYString")), Integer
+				.parseInt(getString("priceLabelWidthString")), Integer
+				.parseInt(getString("priceLabelHeightString"))));
+		priceLabel.setText(getString("priceLabelString"));
+		return priceLabel;
+	}
+
+	private JLabel getTitleLabel() {
+		JLabel titleLabel = new JLabel();
+		titleLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("titleLabelXString")), Integer
+				.parseInt(getString("titleLabelYString")), Integer
+				.parseInt(getString("titleLabelWidthString")), Integer
+				.parseInt(getString("titleLabelHeightString"))));
+		titleLabel.setText(getString("titleLabelString"));
+		return titleLabel;
+	}
+
+	private JLabel getDescriptionLabel() {
+		JLabel descriptionLabel = new JLabel();
+		descriptionLabel.setBounds(new Rectangle(Integer
+				.parseInt(getString("descriptionLabelXString")), Integer
+				.parseInt(getString("descriptionLabelYString")), Integer
+				.parseInt(getString("descriptionLabelWidthString")), Integer
+				.parseInt(getString("descriptionLabelHeightString"))));
+
+		descriptionLabel.setText(getString("descriptionLabelString"));
+		return descriptionLabel;
 	}
 
 	/**
 	 * This method returns the gameImageLabel
 	 */
-	public JLabel getGameIcon() {
+	private JLabel getImageLabel() {
 		if (gameImageLabel == null) {
 			gameImageLabel = new JLabel();
-
+			gameImageLabel.setSize(
+					Integer.parseInt(getString("gameImageLabelWidthString")),
+					Integer.parseInt(getString("gameImageLabelHeightString")));
 		}
 		return gameImageLabel;
+	}
+
+	public void setGameImageLabel(ImageIcon icon) {
+		gameImageLabel.setIcon(icon);
 	}
 
 	/**
@@ -135,8 +167,13 @@ public class GamePurchaseView extends StoreTab {
 	private JButton getAddToCartButton() {
 		if (addToCartButton == null) {
 			addToCartButton = new JButton();
-			addToCartButton.setBounds(new Rectangle(480, 58, 136, 30));
-			addToCartButton.setText("Add To Cart");
+			addToCartButton.setBounds(new Rectangle(Integer
+					.parseInt(getString("addToCartButtonXString")), Integer
+					.parseInt(getString("addToCartButtonYString")), Integer
+					.parseInt(getString("addToCartButtonWidthString")), Integer
+					.parseInt(getString("addToCartButtonHeightString"))));
+
+			addToCartButton.setText(getString("addToCartButtonString"));
 			addToCartButton
 					.addActionListener(new java.awt.event.ActionListener() {
 						@Override
@@ -158,11 +195,16 @@ public class GamePurchaseView extends StoreTab {
 	 * @return javax.swing.JButton
 	 */
 	private JButton getDemoTheGameButton() {
-		if (DemoTheGameButton == null) {
-			DemoTheGameButton = new JButton();
-			DemoTheGameButton.setBounds(new Rectangle(481, 19, 134, 30));
-			DemoTheGameButton.setText("Demo The Game");
-			DemoTheGameButton
+		if (demoTheGameButton == null) {
+			demoTheGameButton = new JButton();
+			demoTheGameButton
+					.setBounds(new Rectangle(
+							Integer.parseInt(getString("demoTheGameButtonXString")),
+							Integer.parseInt(getString("demoTheGameButtonYString")),
+							Integer.parseInt(getString("demoTheGameButtonWidthString")),
+							Integer.parseInt(getString("demoTheGameButtonHeightString"))));
+			demoTheGameButton.setText(getString("demoTheGameButtonString"));
+			demoTheGameButton
 					.addMouseListener(new java.awt.event.MouseAdapter() {
 						public void mouseClicked(java.awt.event.MouseEvent e) {
 							controller.processConfirmDemoGame();
@@ -170,7 +212,7 @@ public class GamePurchaseView extends StoreTab {
 					});
 
 		}
-		return DemoTheGameButton;
+		return demoTheGameButton;
 	}
 
 	/**
@@ -178,13 +220,28 @@ public class GamePurchaseView extends StoreTab {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextArea getDescriptionTextArea() {
-		if (DescriptionTextArea == null) {
-			DescriptionTextArea = new JTextArea();
-			DescriptionTextArea.setBounds(new Rectangle(184, 121, 278, 157));
-			DescriptionTextArea.setWrapStyleWord(true);
+	private JTextArea getDescriptionTextArea() {
+		if (descriptionTextArea == null) {
+			descriptionTextArea = new JTextArea();
+			descriptionTextArea
+					.setBounds(new Rectangle(
+							Integer.parseInt(getString("descriptionTextAreaXString")),
+							Integer.parseInt(getString("descriptionTextAreaYString")),
+							Integer.parseInt(getString("descriptionTextAreaWidthString")),
+							Integer.parseInt(getString("descriptionTextAreaHeightString"))));
+			descriptionTextArea.setWrapStyleWord(true);
 		}
-		return DescriptionTextArea;
+		return descriptionTextArea;
+	}
+
+	/**
+	 * Set the text inside of the descriptionTextArea
+	 * 
+	 * @param text
+	 *            description of the item
+	 */
+	public void setDescriptionTextArea(String text) {
+		descriptionTextArea.setText(text);
 	}
 
 	/**
@@ -192,12 +249,26 @@ public class GamePurchaseView extends StoreTab {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getTitleTextField() {
-		if (TitleTextField == null) {
-			TitleTextField = new JTextField();
-			TitleTextField.setBounds(new Rectangle(242, 22, 219, 20));
+	private JTextField getTitleTextField() {
+		if (titleTextField == null) {
+			titleTextField = new JTextField();
+			titleTextField.setBounds(new Rectangle(Integer
+					.parseInt(getString("titleTextFieldXString")), Integer
+					.parseInt(getString("titleTextFieldYString")), Integer
+					.parseInt(getString("titleTextFieldWidthString")), Integer
+					.parseInt(getString("titleTextFieldHeightString"))));
 		}
-		return TitleTextField;
+		return titleTextField;
+	}
+
+	/**
+	 * Set the text inside of the titleTextArea
+	 * 
+	 * @param text
+	 *            title of the item
+	 */
+	public void setTitleTextField(String text) {
+		titleTextField.setText(text);
 	}
 
 	/**
@@ -205,12 +276,26 @@ public class GamePurchaseView extends StoreTab {
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	public JTextField getPriceTextField() {
-		if (PriceTextField == null) {
-			PriceTextField = new JTextField();
-			PriceTextField.setBounds(new Rectangle(241, 52, 220, 20));
+	private JTextField getPriceTextField() {
+		if (priceTextField == null) {
+			priceTextField = new JTextField();
+			priceTextField.setBounds(new Rectangle(Integer
+					.parseInt(getString("priceTextFieldXString")), Integer
+					.parseInt(getString("priceTextFieldYString")), Integer
+					.parseInt(getString("priceTextFieldWidthString")), Integer
+					.parseInt(getString("priceTextFieldHeightString"))));
 		}
-		return PriceTextField;
+		return priceTextField;
+	}
+
+	/**
+	 * Set the text inside of the priceTextArea
+	 * 
+	 * @param text
+	 *            price of the item
+	 */
+	public void setPriceTextField(String text) {
+		priceTextField.setText(text);
 	}
 
 	/**
@@ -221,8 +306,14 @@ public class GamePurchaseView extends StoreTab {
 	private JButton getReturnToStoreButton() {
 		if (returnToStoreButton == null) {
 			returnToStoreButton = new JButton();
-			returnToStoreButton.setBounds(new Rectangle(480, 97, 136, 30));
-			returnToStoreButton.setText("Return To Store");
+			// TODO:
+			returnToStoreButton
+					.setBounds(new Rectangle(
+							Integer.parseInt(getString("returnToStoreButtonXString")),
+							Integer.parseInt(getString("returnToStoreButtonYString")),
+							Integer.parseInt(getString("returnToStoreButtonWidthString")),
+							Integer.parseInt(getString("returnToStoreButtonHeightString"))));
+			returnToStoreButton.setText(getString("returnToStoreButtonString"));
 			returnToStoreButton
 					.addMouseListener(new java.awt.event.MouseAdapter() {
 						public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -233,26 +324,23 @@ public class GamePurchaseView extends StoreTab {
 		return returnToStoreButton;
 	}
 
+	// public void setReviewText(String content) {
+	// randomReviewLabel.setText(content);
+	// }
 
-//	public void setReviewText(String content) {
-//		randomReviewLabel.setText(content);
-//	}
-
-//	/**
-//	 * This method initializes commentPanel	
-//	 * 	
-//	 * @return javax.swing.JPanel	
-//	 */
-//	private JPanel getCommentPanel() {
-//		if (commentPanel == null) {
-//			commentPanel = new JPanel();
-////			commentPanel.add(randomReviewLabel);
-//			commentPanel.setLayout(new GridBagLayout());
-//			commentPanel.setBounds(new Rectangle(34, 309, 590, 250));
-//		}
-//		return commentPanel;
-//	}
-
-
+	// /**
+	// * This method initializes commentPanel
+	// *
+	// * @return javax.swing.JPanel
+	// */
+	// private JPanel getCommentPanel() {
+	// if (commentPanel == null) {
+	// commentPanel = new JPanel();
+	// // commentPanel.add(randomReviewLabel);
+	// commentPanel.setLayout(new GridBagLayout());
+	// commentPanel.setBounds(new Rectangle(34, 309, 590, 250));
+	// }
+	// return commentPanel;
+	// }
 
 }

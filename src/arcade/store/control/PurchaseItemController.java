@@ -16,13 +16,12 @@ import arcade.wall.models.data.review.ReviewSet;
 
 /**
  * 
- * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
- * @date:			12-16-10
- * @description:	This is the controller for the StoreModel and the 
- * 					GamePurchaseView class. This class specifically 
- * 					handles user purchases and the necessary 
- * 					processing, and privilege checking that go
- * 					in between.
+ * @author: Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date: 12-16-10
+ * @description: This is the controller for the StoreModel and the
+ *               GamePurchaseView class. This class specifically handles user
+ *               purchases and the necessary processing, and privilege checking
+ *               that go in between.
  */
 
 public class PurchaseItemController implements IController {
@@ -36,6 +35,7 @@ public class PurchaseItemController implements IController {
 
 	/**
 	 * This method initializes the controller given an IITemInfo object
+	 * 
 	 * @param item
 	 */
 	public void initializeViewerFromItemInfo(IItemInfo item) {
@@ -51,10 +51,11 @@ public class PurchaseItemController implements IController {
 	 */
 	private void setButtonPrivilege() {
 		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
-		
-		int currentUserId = Integer.parseInt(storeModel.getCurrentUserAccount().getId());
-		for(String s : StoreModel.getUserOwnedGamesAsStrings(currentUserId)) {
-			if(s.equals(view.getItemName())) {
+
+		int currentUserId = Integer.parseInt(storeModel.getCurrentUserAccount()
+				.getId());
+		for (String s : StoreModel.getUserOwnedGamesAsStrings(currentUserId)) {
+			if (s.equals(view.getItemName())) {
 				view.setAddToCartButtonClickable(false);
 			}
 		}
@@ -64,12 +65,10 @@ public class PurchaseItemController implements IController {
 	 * This method sets up the textfields that are used to populate the page.
 	 */
 	private void setTextField(IItemInfo item) {
-		view.getDescriptionTextArea().setText(item.getDescription());
-		view.getTitleTextField().setText(item.getTitle());
-		view.getPriceTextField().setText(item.getPrice());
-		view.getGameIcon().setIcon(
-				(item.getImages().get(IItemInfo.COVER_IMAGE)));
-		view.getGameIcon().setSize(150, 150);
+		view.setDescriptionTextArea(item.getDescription());
+		view.setTitleTextField(item.getTitle());
+		view.setPriceTextField(item.getPrice());
+		view.setGameImageLabel((item.getImages().get(IItemInfo.COVER_IMAGE)));
 	}
 
 	@Override
@@ -93,7 +92,7 @@ public class PurchaseItemController implements IController {
 				"Add to Cart", JOptionPane.YES_NO_OPTION);
 		if (ret == JOptionPane.YES_OPTION) {
 			storeModel.getCurrentUserAccount().addToCart(view.getItemName());
-			
+
 		}
 	}
 
@@ -102,7 +101,7 @@ public class PurchaseItemController implements IController {
 	 * Purchase View
 	 */
 	public void processConfirmDemoGame() {
-	
+
 		JOptionPane.showConfirmDialog(null,
 				"Are You Sure You Want to Demo This Game?", "Demo Game",
 				JOptionPane.YES_NO_OPTION);
@@ -113,14 +112,12 @@ public class PurchaseItemController implements IController {
 	 * the game
 	 */
 	public void processDemoGame() {
-		
-	}
 
+	}
 
 	@Override
 	public void initialize() {
-		
-	}
 
+	}
 
 }
