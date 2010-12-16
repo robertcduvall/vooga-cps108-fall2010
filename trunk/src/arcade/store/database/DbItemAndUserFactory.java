@@ -1,7 +1,12 @@
 package arcade.store.database;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.swing.ImageIcon;
+
 import arcade.store.account.StoreUser;
 import arcade.store.items.IItemInfo;
 import arcade.store.items.ItemInfo;
@@ -29,6 +34,9 @@ public class DbItemAndUserFactory {
 
 	public static StoreUser getUser(int userId) {
 		List<Map<String, String>> list = dbAdapter.getRows(StoreDbConstants.STORE_USER_TABLE, StoreDbConstants.USER_FIELD, Integer.toString(userId));
+		Map<String,String> conditional = new HashMap<String,String>();
+		conditional.put(StoreDbConstants.PURCHASE_HISTORY_USERID_FIELD, Integer.toString(userId));
+		List<Map<String, String>> ownedGames = dbAdapter.getRows(StoreDbConstants.PURCHASE_HISTORY_TABLE,conditional,StoreDbConstants.ITEMNAME_FIELD);
 		if(list!=null) {
 			Map<String, String> userMap = list.get(0);
 			return new StoreUser(userMap.get(StoreDbConstants.USER_FIELD),userMap.get(StoreDbConstants.USER_TYPE_FIELD),  Double.parseDouble(userMap.get(StoreDbConstants.CREDDIT_FIELD)),
