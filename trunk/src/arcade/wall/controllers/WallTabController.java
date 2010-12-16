@@ -113,8 +113,6 @@ public class WallTabController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
-			System.out.println(ProfileSet.getCurrentProfile().getUserName()+
-					"is reviewing "+ selectedGameName);
 			Review submittedReview = new Review(""+myModel.getNewReviewID(), ""+ProfileSet.getCurrentProfile().getUserId(), selectedGameName, 
 					   myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
 			if (myModel.reviewIsConflicting(submittedReview)) {
