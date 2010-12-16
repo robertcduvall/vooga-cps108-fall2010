@@ -44,7 +44,7 @@ public class SignUpHandler {
 		userRow.put("Password", hashedPassword);
 		userRow.put("QuestionIndex", String.valueOf(questionIndex));
 		userRow.put("QuestionAnswer", questionAnswer);
-		userRow.put("UserType","Admin");
+		userRow.put("UserType","Administrator");
 		if(userHandler.insert(userRow))
 			System.out.println("User created");
 		else
