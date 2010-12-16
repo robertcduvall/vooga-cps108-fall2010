@@ -13,6 +13,7 @@ import arcade.core.api.Window;
 
 public class GameUploadView extends Window{
 
+	
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="101,18"
 	private JPanel jContentPane = null;
 	private JLabel titleLabel = null;

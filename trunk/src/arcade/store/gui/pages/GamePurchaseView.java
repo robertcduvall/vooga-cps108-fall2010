@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -24,8 +25,16 @@ import arcade.store.control.MainController;
 import arcade.store.control.MainPageController;
 import arcade.store.control.PurchaseItemController;
 
+/**
+ * 
+ * @author Drew Sternesky, Yijia Mu, Marcus Molchany
+ *
+ */
 public class GamePurchaseView extends StoreTab {
-
+	
+	 
+	private static final String FILE_PATH = "arcade.store.resources.GamePurchaseView";
+	private static final long serialVersionUID = 1L;
 	private JFrame gamePurchaseFrame = null;
 	private JPanel gamePurchasePanel = null; // @jve:decl-index=0:visual-constraint="-15,3"
 	private JButton addToCartButton = null;
@@ -37,7 +46,6 @@ public class GamePurchaseView extends StoreTab {
 	private JLabel TitleLabel = null;
 	private JTextField TitleTextField = null;
 	private JTextField PriceTextField = null;
-//	private JLabel randomReviewLabel = null;
 
 	private PurchaseItemController controller; // @jve:decl-index=0:
 	private JButton returnToStoreButton = null;
@@ -47,6 +55,7 @@ public class GamePurchaseView extends StoreTab {
 		controller = (PurchaseItemController) control;
 		gamePurchaseFrame = getJFrame();
 		gamePurchaseFrame.setVisible(true);
+		setResourceBundleFilePath(FILE_PATH);
 	}
 
 	public JFrame getJFrame() {

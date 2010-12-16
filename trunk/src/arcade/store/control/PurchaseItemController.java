@@ -46,6 +46,9 @@ public class PurchaseItemController implements IController {
 		setButtonPrivilege();
 	}
 
+	/**
+	 * This method sets up the privilege buttons for the class.
+	 */
 	private void setButtonPrivilege() {
 		view.setAddToCartButtonClickable(storeModel.checkPrivileges("purchase"));
 		
