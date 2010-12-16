@@ -7,7 +7,7 @@
 
 </Ads>
 <RelatedAds>
-<RelatedAd type="action">
+<RelatedAd type="Action">
 
 <Ad class="arcade.ads.adscontent.ImageAd" name="ad3" duration="3" startTime="12/13/2010 0:0:0" endTime="12/19/2010 00:00:00" image="src/arcade/ads/resources/ncsu.png" targetURL="http://www.ncsu.edu" />
 

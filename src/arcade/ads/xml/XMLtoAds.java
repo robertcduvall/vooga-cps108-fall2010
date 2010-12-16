@@ -30,7 +30,9 @@ public class XMLtoAds {
 		try {
 			Scanner scanner = new Scanner(xmlLevelFile);
 			while(scanner.hasNextLine()){
-				myAds.addAll(convert(scanner.nextLine()));
+				String temp = scanner.nextLine();
+				if (!temp.equals(""))
+				myAds.addAll(convert(temp));
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("!");
