@@ -6,13 +6,13 @@ package arcade.security.util.userserviceutil;
  */
 public final class UserServiceFactory {
 	
-	private static UserService instance = new User();
+	private static CurrentUser instance = new CurrentUser();
 	
 	private UserServiceFactory(){
 		
 	}
 	
-	public static UserService getUserService(){
+	public static CurrentUser getCurrentUser(){
 		return instance;
 	}
 }
