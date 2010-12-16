@@ -51,7 +51,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 		myURL = url;
 		myUser = user;
 		myPassword = pass;
-		//log.setLevel(Level.OFF);
+		log.setLevel(Level.OFF);
 		connect();
 	}
 
