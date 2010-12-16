@@ -6,61 +6,67 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import arcade.core.mvc.IController;
-import arcade.store.control.MainController;
-import arcade.store.control.MainPageController;
 
-public class ItemThumbnailPanel extends JPanel {
+/**
+ * 
+ * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date:			12-15-10
+ * @description: 	This is a modified panel that allows the user
+ * 					to grid panels next to each other. This class
+ * 					is especially useful if the user needs to 
+ * 					connect together different boxes for display.
+ */
+
+public abstract class ItemThumbnailPanel extends JPanel{
+
+	/**
+	 * This is the default serial.
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	private static final String CREDDIT_STRING = " Creddits";
-	private IController controller;
+	/**
+	 * The basic constructor.
+	 * @param title
+	 */
+	public ItemThumbnailPanel(String title)
+	{
+		initialize(title);
+	}
 	
-	public ItemThumbnailPanel(String title, String price, String genre, ImageIcon image, 
-			IController control) {
-		this(title, price, genre, image);
-		controller = control;
+	/**
+	 * This method initialize the Grid layout and 
+	 * @param title
+	 */
+	protected void initialize(String title) {
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setName(title);
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				openItemView();
+				processMouseEvent();
 			}
 		});
 	}
 	
+	/**
+	 * This method specify how the ImageThumbnailPanel 
+	 * is populated. 
+	 * @param objects
+	 */
+	protected abstract void populate();
 	
-	public ItemThumbnailPanel(String title, String price, String genre, ImageIcon image) {
-		addLabels(title, price, genre, image);
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setName(title);
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-	}
-	
-	
-	private void addLabels(String title, String price, String genre, ImageIcon image) {
-		JLabel gameTitle = new JLabel(title);
-		gameTitle.setAlignmentX(CENTER_ALIGNMENT);
+	/**
+	 * This method specifies the specific action upon 
+	 * clicking on the ItemThumbnailPanel object.
+	 */
+	protected abstract void processMouseEvent(); 
 
-		JLabel icon = new JLabel(image);
-		icon.setAlignmentX(CENTER_ALIGNMENT);
-		icon.setSize(150, 150);
-		
-		JLabel genreLabel = new JLabel(genre);
-		genreLabel.setAlignmentX(CENTER_ALIGNMENT);
-		
-		JLabel priceLabel = new JLabel(price + CREDDIT_STRING);
-		priceLabel.setAlignmentX(CENTER_ALIGNMENT);
-		
-		this.add(gameTitle);
-		this.add(icon);
-		this.add(genreLabel);
-		this.add(priceLabel);
-	}
 	
-	public void openItemView() {
-		((MainPageController) controller).openGamePurchasePage(getName());
-	}
-
+	
+	
+	
+	
 }

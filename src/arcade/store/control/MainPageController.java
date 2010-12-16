@@ -9,10 +9,19 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.store.StoreModel;
-import arcade.store.gui.ItemThumbnailPanel;
+import arcade.store.gui.StoreItemThumbnailPanel;
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.gui.tabs.MainPageTab;
 import arcade.store.items.IItemInfo;
+
+/**
+ * 
+ * @author 			Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date 			12-15-10
+ * @description		The MainPageController is the controller for the StoreModel
+ * 					and the MainPageTab.
+ *
+ */
 
 public class MainPageController extends Controller{
 
@@ -28,7 +37,6 @@ public class MainPageController extends Controller{
 	@Override
 	public void addModel(IModel currentmodel) {
 		storeModel = (StoreModel) currentmodel;
-		
 	}
 	
 
@@ -61,14 +69,13 @@ public class MainPageController extends Controller{
 		JPanel gamePanel = viewer.getGameList();
 		viewer.remove(gamePanel);
 
-		for (IItemInfo i : list) {
-			ItemThumbnailPanel itemPanel = new ItemThumbnailPanel(i.getTitle(), i.getPrice(), i.getGenre(), i
-					.getImages().get(0), this);
+		for (IItemInfo item : list) {
+			StoreItemThumbnailPanel itemPanel 
+					= new StoreItemThumbnailPanel(item, this);
 			gamePanel.add(itemPanel);
 		}
 
 		viewer.getJScrollPane().setViewportView(gamePanel);
-
 	}
 
 	public void filter(String label) {
