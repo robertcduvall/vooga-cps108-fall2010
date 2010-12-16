@@ -14,7 +14,7 @@ public class LogInHandler {
 		if(userId < 1) return false;
 		if(isPasswordValid(userId, password)){
 			ProfileSet.setUser(userId);
-			Arcade.setPlayer(); //from arcade group
+			Arcade.refreshRight(); //from arcade group
 			return true;
 		}
 		return false;
