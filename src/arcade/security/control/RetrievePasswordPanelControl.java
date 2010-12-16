@@ -10,8 +10,6 @@ import org.apache.log4j.Logger;
 import arcade.security.model.AdminProcess;
 import arcade.security.model.IModel;
 import arcade.security.model.RetrievePasswordProcess;
-import arcade.security.util.userserviceutil.User;
-import arcade.security.util.userserviceutil.UserService;
 import arcade.security.util.userserviceutil.UserServiceFactory;
 import arcade.security.view.AdminPanel;
 import arcade.security.view.IView;
