@@ -1,5 +1,12 @@
 package arcade.store.gui.tabs;
 
+/**
+ * TabExceptions contains all of the possible exceptions that can be produced by
+ * a tab in the store.gui.tabs package.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class TabExceptions extends RuntimeException {
 
 	/**

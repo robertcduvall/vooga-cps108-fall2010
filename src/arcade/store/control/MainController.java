@@ -28,6 +28,7 @@ public class MainController implements IController{
 	{
 		IController control = tabComponent.getController();
 		control.addModel(model);
+		
 		tabs.put(name, tabComponent);
 	}
 	
