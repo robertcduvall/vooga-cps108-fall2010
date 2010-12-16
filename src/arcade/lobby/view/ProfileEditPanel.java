@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -31,7 +32,7 @@ public class ProfileEditPanel extends JPanel implements IView {
 	private static final int FIELD_COLUMNS = 20;
 	private static final int AVATAR_WIDTH = 100;
 	private static final String AVATAR_DEFAULT = "http://imgur.com/29J5j.png";
-	private Profile myProfile;
+	private Profile myProfile;  //  @jve:decl-index=0:
 	private Map<String, JTextField> myFields;
 	private JButton mySaveButton;
 	private ValidatorDock myDock;
@@ -53,7 +54,8 @@ public class ProfileEditPanel extends JPanel implements IView {
 	private void initialize() {
 		setLayout(new MigLayout());
 		myDock = new ValidatorDock();
-		mySaveButton = new JButton("Save");
+//		mySaveButton = new JButton("Save");
+		mySaveButton = getSaveButton();
 
 		JLabel avatar = new JLabel("");
 		try {
@@ -125,47 +127,48 @@ public class ProfileEditPanel extends JPanel implements IView {
 	
 
 	
-//	private JButton getSaveButton() {
-//		mySaveButton = new JButton("Save");
-//		mySaveButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(java.awt.event.ActionEvent e) {
-//				if (isValid()) {
-//					myProfile.setName(myFields.get("First Name").getText(),
-//							myFields.get("Last Name").getText());
-//					myProfile.setEmail(myFields.get("Email").getText());
-//					myProfile.setBirthday(myFields.get("Birthday").getText());
-//					myProfile.setAvatar(myFields.get("Avatar").getText());
-//					ProfileSet.updateProfile(myProfile);
-//				}
-//				refresh(myProfile);
-//			}
-//
-//			public boolean isValid() {
-//				boolean isValid = true;
-//				String failures = "";
-//				Map<String, Boolean> validMap = myDock.validateComponents();
-//				for (String s : validMap.keySet()) {
-//					if (!validMap.get(s)) {
-//						isValid = false;
-//						failures += s + ", ";
-//					}
-//				}
-//				if (!isValid) {
-//					JOptionPane.showMessageDialog(
-//							myDock,
-//							"Validation has failed for: "
-//									+ failures.substring(0,
-//											failures.length() - 2));
-//					return false;
-//				}
-//				return true;
-//			}
-//
-//		});
-//		return mySaveButton;
-//	}
+	private JButton getSaveButton() {
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				System.out.println("Saved!");
+				if (validateFields()) {
+					myProfile.setName(myFields.get("First Name").getText(),
+							myFields.get("Last Name").getText());
+					myProfile.setEmail(myFields.get("Email").getText());
+					myProfile.setBirthday(myFields.get("Birthday").getText());
+					myProfile.setAvatar(myFields.get("Avatar URL").getText());
+					ProfileSet.updateProfile(myProfile);
+				}
+				refresh(myProfile);
+			}
+
+			private boolean validateFields() {
+				boolean isValid = true;
+				String failures = "";
+				Map<String, Boolean> validMap = myDock.validateComponents();
+				for (String s : validMap.keySet()) {
+					if (!validMap.get(s)) {
+						isValid = false;
+						failures += s + ", ";
+					}
+				}
+				if (!isValid) {
+					JOptionPane.showMessageDialog(
+							myDock,
+							"Validation has failed for: "
+									+ failures.substring(0,
+											failures.length() - 2));
+					return false;
+				}
+				return true;
+			}
+
+		});
+		return saveButton;
+	}
 	
 	public void addSaveListener(ActionListener listener) {
 		mySaveButton.addActionListener(listener);
