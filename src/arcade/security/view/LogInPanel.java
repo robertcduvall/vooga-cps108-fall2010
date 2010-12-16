@@ -1,6 +1,6 @@
 package arcade.security.view;
-import javax.swing.*;
 
+import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -24,20 +24,19 @@ import arcade.security.util.LogInHandler;
 import arcade.security.control.*;
 import arcade.util.database.MySqlAdapter;
 
-
 /**
- * View object for the Login panel. Used in conjunction with 
+ * View object for the Login panel. Used in conjunction with
  * security.model.LoginProcess and security.control.LogInPanelControl.
  * 
  * @author Meng Li, Jiaqi Yan, Andrew Brown, Nick Hawthorne
- *
+ * 
  */
-public class LogInPanel extends JPanel  implements Tab,IView{
-	
+public class LogInPanel extends JPanel implements Tab, IView {
+
 	private static final long serialVersionUID = 1L;
-	private final static Logger log=Logger.getLogger(LogInPanel.class);
+	private final static Logger log = Logger.getLogger(LogInPanel.class);
 	private JButton submitButton;
-	//private JButton logoutButton;
+	// private JButton logoutButton;
 	private JButton signUpButton;
 	private JButton forgotPasswordButton;
 	private JTextField usernameField;
@@ -45,78 +44,111 @@ public class LogInPanel extends JPanel  implements Tab,IView{
 	private int maxPasswordLength = 9;
 	private int maxUserNameLength = 9;
 
-	
+	/**
+	 * Constructor for the login panel
+	 */
 	public LogInPanel() {
 		setName("Log in Service");
 		createAndShowGUI();
 		LoginProcess model = new LoginProcess();
-		LogInPanelControl controller = new LogInPanelControl(this,model);
+		LogInPanelControl controller = new LogInPanelControl(this, model);
 	}
 
-	@Override
-	public JComponent getContent() {
-		//TODO:put it on the EDT thread, Meng will try to do this later
-		
-		//TODO this code has been moved to the LogInPanel() constructor
-//		createAndShowGUI();
-//		LoginProcess model = new LoginProcess();
-//		LogInPanelControl controller = new LogInPanelControl(this,model);	
-		return this;
-	}
-	
+	/**
+	 * Creates the GUI and sets it to visible
+	 */
 	private void createAndShowGUI() {
 		setLayout(new MigLayout());
-		JLabel image=new JLabel(new ImageIcon(StaticFileResources.getPath("loginimage")));
-		JLabel usernameLabel=new JLabel(LabelResources.getLabel("UserId"));		
-		JLabel passwordLabel=new JLabel(LabelResources.getLabel("Password"));
-		
-		usernameField=new JTextField(maxUserNameLength);	
-		passwordField=new JPasswordField(maxPasswordLength);
-		
-		add(image,"cell 0 0 2 1");
-		add(usernameLabel,"cell 0 1");
-		add(usernameField,"cell 1 1,wrap");
-		add(passwordLabel,"cell 0 2");
-		add(passwordField,"wrap");
-		
-		submitButton = new SecurityButton(LabelResources.getLabel("LoginframeSubmit"),new ImageIcon(StaticFileResources.getPath("loginsubmit")),"Log in");
-		//logoutButton = new SecurityButton(LabelResources.getLabel("Logout"),new ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
-		signUpButton = new SecurityButton(LabelResources.getLabel("LoginframeSignup"),new ImageIcon(StaticFileResources.getPath("login_signup")),"SignUp");
-		forgotPasswordButton = new SecurityButton(LabelResources.getLabel("LoginframeForgot"),new ImageIcon(StaticFileResources.getPath("login_forget")),"ForgottenPassword");
-		
+		JLabel image = new JLabel(new ImageIcon(StaticFileResources
+				.getPath("loginimage")));
+		JLabel usernameLabel = new JLabel(LabelResources.getLabel("UserId"));
+		JLabel passwordLabel = new JLabel(LabelResources.getLabel("Password"));
+
+		usernameField = new JTextField(maxUserNameLength);
+		passwordField = new JPasswordField(maxPasswordLength);
+
+		add(image, "cell 0 0 2 1");
+		add(usernameLabel, "cell 0 1");
+		add(usernameField, "cell 1 1,wrap");
+		add(passwordLabel, "cell 0 2");
+		add(passwordField, "wrap");
+
+		submitButton = new SecurityButton(LabelResources
+				.getLabel("LoginframeSubmit"), new ImageIcon(
+				StaticFileResources.getPath("loginsubmit")), "Log in");
+		// logoutButton = new
+		// SecurityButton(LabelResources.getLabel("Logout"),new
+		// ImageIcon(StaticFileResources.getPath("logincancel")),"Cancel");
+		signUpButton = new SecurityButton(LabelResources
+				.getLabel("LoginframeSignup"), new ImageIcon(
+				StaticFileResources.getPath("login_signup")), "SignUp");
+		forgotPasswordButton = new SecurityButton(LabelResources
+				.getLabel("LoginframeForgot"), new ImageIcon(
+				StaticFileResources.getPath("login_forget")),
+				"ForgottenPassword");
+
 		signUpButton.requestFocus(true);
 		forgotPasswordButton.requestFocus(true);
 		submitButton.requestFocus(true);
-		
-		add(submitButton,"cell 0 3");
-		//add(logoutButton,"wrap");
-		add(signUpButton,"cell 0 3");
-		add(forgotPasswordButton,"wrap");
+
+		add(submitButton, "cell 0 3");
+		// add(logoutButton,"wrap");
+		add(signUpButton, "cell 0 3");
+		add(forgotPasswordButton, "wrap");
 		setVisible(true);
 	}
 
-	public void addSubmitButtonListeners(ActionListener listener){
+	/**
+	 * Adds listeners for the Submit button
+	 * 
+	 * @param listener
+	 */
+	public void addSubmitButtonListeners(ActionListener listener) {
 		submitButton.addActionListener(listener);
 	}
-	
-	public void addSignUpButtonListener(ActionListener listener){
+
+	/**
+	 * Adds listeners for the Signup button
+	 * 
+	 * @param listener
+	 */
+	public void addSignUpButtonListener(ActionListener listener) {
 		signUpButton.addActionListener(listener);
 	}
-	
-	public void addForgetButtonListener(ActionListener listener){
+
+	/**
+	 * Adds listeners for the Forget Password button
+	 * 
+	 * @param listener
+	 */
+	public void addForgetButtonListener(ActionListener listener) {
 		forgotPasswordButton.addActionListener(listener);
 	}
 
-	
-	public String getUserNameUserInput(){
+	/**
+	 * Gets the text input by the user trying to log in
+	 * 
+	 * @return the username input by the user trying to log in
+	 */
+	public String getUserNameUserInput() {
 		return new String(usernameField.getText());
 	}
-	
-	public char[] getPasswordUserInput(){
+
+	/**
+	 * Gets the text input from the password box by the user trying to log in
+	 * 
+	 * @return the password input by the user trying to log in
+	 */
+	public char[] getPasswordUserInput() {
 		return passwordField.getPassword();
 	}
-	
-	public JPanel getCurrentPanel(){
+
+	/**
+	 * Returns the current Panel
+	 * 
+	 * @return
+	 */
+	public JPanel getCurrentPanel() {
 		return this;
 	}
 
@@ -128,12 +160,7 @@ public class LogInPanel extends JPanel  implements Tab,IView{
 
 	@Override
 	public void refresh() {
-		
+
 	}
 
-
-		
-	
-
 }
-

@@ -29,8 +29,9 @@ import arcade.util.guiComponents.Validator;
 import arcade.util.guiComponents.ValidatorDock;
 
 /**
- * The sign up panel for security-related profiles of the user.  Used in conjunction with 
- * security.model.SignUpProcess and security.control.SignUpPanelControl.
+ * The sign up panel for security-related profiles of the user. Used in
+ * conjunction with security.model.SignUpProcess and
+ * security.control.SignUpPanelControl.
  * 
  * @author Meng Li
  * @author Jiaqi Yan
@@ -43,8 +44,8 @@ public class SignUpPanel extends JPanel implements IView {
 
 	JProgressBar progressbar;
 	private SecurityButton submitButton;
-//	private JLabel usernameReminder;
-//	private JLabel passwordReminder;
+	// private JLabel usernameReminder;
+	// private JLabel passwordReminder;
 	private JLabel passwordSuggestions;
 	private JPasswordField passwordField;
 
@@ -55,13 +56,15 @@ public class SignUpPanel extends JPanel implements IView {
 	private int maxUserNameLength = 10;
 	private int maxAnswerLength = 20;
 	private int START_INDEX = 0;
-	
 
 	private final static String QUESTIONS = "arcade.security.resources.passwordquestions";
 	private final int questionNum = 3;
 
 	// private Control controller;
 
+	/**
+	 * Constructor for the signup panel.
+	 */
 	@SuppressWarnings("unchecked")
 	public SignUpPanel() {
 		myDock = new ValidatorDock();
@@ -71,7 +74,7 @@ public class SignUpPanel extends JPanel implements IView {
 		setLayout(new MigLayout("wrap 2"));
 
 		passwordSuggestions = new JLabel("Score: will show upon password input");
-		add(passwordSuggestions,"cell 2 3");
+		add(passwordSuggestions, "cell 2 3");
 		passwordField = new JPasswordField(maxPasswordLength);
 		// JLabel usernameReminder = new JLabel("Username Does not Exist");
 		// JLabel passwordReminder = new JLabel("Password is not valid");
@@ -79,21 +82,22 @@ public class SignUpPanel extends JPanel implements IView {
 		// passwordSuggestions = new JLabel();
 
 		PasswordValidator validator = new PasswordValidator();
-		addTextField("username", LabelResources.getLabel("AskForUserName"), new UsernameValidator());
-		addPasswordField("pass1",LabelResources.getLabel("AskForPass1"),validator);
-		addPasswordField("pass2",LabelResources.getLabel("AskForPass2"),validator);
-		
-		
-		/*PasswordConfirmField passwordConfirm = new PasswordConfirmField(
-				maxPasswordLength);
-		myDock.addValidatingComponent(
-				new ValidatingComponent<PasswordConfirmField>(passwordConfirm,
-						"Please Enter Your Password Twice",
-						new PasswordValidator()), "password", "default", "wrap");*/
+		addTextField("username", LabelResources.getLabel("AskForUserName"),
+				new UsernameValidator());
+		addPasswordField("pass1", LabelResources.getLabel("AskForPass1"),
+				validator);
+		addPasswordField("pass2", LabelResources.getLabel("AskForPass2"),
+				validator);
 
-		
-//		myDock.add(passwordSuggestions);
-		
+		/*
+		 * PasswordConfirmField passwordConfirm = new PasswordConfirmField(
+		 * maxPasswordLength); myDock.addValidatingComponent( new
+		 * ValidatingComponent<PasswordConfirmField>(passwordConfirm,
+		 * "Please Enter Your Password Twice", new PasswordValidator()),
+		 * "password", "default", "wrap");
+		 */
+
+		// myDock.add(passwordSuggestions);
 		ResourceBundle questions = ResourceBundle.getBundle(QUESTIONS);
 		String[] q = new String[questionNum];
 		int count = 0;
@@ -111,8 +115,8 @@ public class SignUpPanel extends JPanel implements IView {
 		myDock.addValidatingComponent(new ValidatingComponent<JComponent>(
 				answerField), "answer");
 
-		submitButton = new SecurityButton(
-				LabelResources.getLabel("SignUpButton"));
+		submitButton = new SecurityButton(LabelResources
+				.getLabel("SignUpButton"));
 
 		// Lobby Input
 		lobbyLabel = new JLabel("Tell us about yourself:");
@@ -127,13 +131,25 @@ public class SignUpPanel extends JPanel implements IView {
 		addContents();
 		myDock.revalidate();
 		SignUpProcess model = new SignUpProcess();
-		new SignUpPanelControl((IView)this,model);	
+		new SignUpPanelControl((IView) this, model);
 	}
 
+	/**
+	 * Returns the current Validator Dock
+	 * 
+	 * @return
+	 */
 	public ValidatorDock getDock() {
 		return myDock;
 	}
 
+	/**
+	 * Adds a text field to the Signup panel
+	 * 
+	 * @param name
+	 * @param label
+	 * @param validators
+	 */
 	private void addTextField(String name, String label,
 			Validator<JTextField>... validators) {
 		JTextField textField = new JTextField(maxAnswerLength);
@@ -141,36 +157,73 @@ public class SignUpPanel extends JPanel implements IView {
 				textField, label, validators);
 		myDock.addValidatingComponent(vc, name);
 	}
-	
+
+	/**
+	 * Adds a password field to the Signup panel
+	 * 
+	 * @param name
+	 * @param label
+	 * @param validators
+	 */
 	private void addPasswordField(String name, String label,
 			Validator<JPasswordField>... validators) {
 		JPasswordField pwdField = new JPasswordField(maxPasswordLength);
-		if(name.equals("pass1")) pwdField = passwordField;
+		if (name.equals("pass1"))
+			pwdField = passwordField;
 		ValidatingComponent<JPasswordField> vc = new ValidatingComponent<JPasswordField>(
 				pwdField, label, validators);
 		myDock.addValidatingComponent(vc, name);
 	}
 
+	/**
+	 * Add a listener for the password field.
+	 * 
+	 * @param listener
+	 */
 	public void addPasswordListener(KeyListener listener) {
 		passwordField.addKeyListener(listener);
 	}
 
+	/**
+	 * Add a listener for the submit button
+	 * 
+	 * @param listener
+	 */
 	public void addSubmitButtonListener(ActionListener listener) {
 		submitButton.addActionListener(listener);
 	}
 
+	/**
+	 * returns the current panel
+	 * 
+	 * @return
+	 */
 	public JPanel getCurrentPanel() {
 		return this;
 	}
-	
+
+	/**
+	 * Gets the text entered by the user in the password field.
+	 * 
+	 * @return the text entered in the password field.
+	 */
 	public char[] getPasswordUserInput() {
 		return passwordField.getPassword();
 	}
-	
+
+	/**
+	 * Sets the list of suggested passwords.
+	 * 
+	 * @param suggestions
+	 *            passwords to be suggested
+	 */
 	public void setPasswordSuggestions(String suggestions) {
 		passwordSuggestions.setText(suggestions);
 	}
 
+	/**
+	 * Adds everything to the panel.
+	 */
 	private void addContents() {
 		add(myDock, "wrap");
 		add(submitButton);

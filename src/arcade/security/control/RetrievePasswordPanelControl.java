@@ -19,57 +19,66 @@ import arcade.security.view.LogInPanel;
 import arcade.security.view.RetrievePasswordPanel;
 
 /**
- * Controller for the forgotten password page. Used in conjunction with 
- * security.view.RetrievePasswordPanel and security.model.RetrievePasswordProcess.
+ * Controller for the forgotten password page. Used in conjunction with
+ * security.view.RetrievePasswordPanel and
+ * security.model.RetrievePasswordProcess.
  * 
- * @author Meng Li, Jiaqi Yan, Nick Hawthorne 
- *  
+ * @author Meng Li, Jiaqi Yan, Nick Hawthorne
+ * 
  */
 public class RetrievePasswordPanelControl implements IControl {
-	private final static Logger log=Logger.getLogger(RetrievePasswordPanelControl.class);
+	private final static Logger log = Logger
+			.getLogger(RetrievePasswordPanelControl.class);
 	private RetrievePasswordProcess model;
-	private RetrievePasswordPanel view; 
+	private RetrievePasswordPanel view;
 	private String userNameInput;
 	private String userAnswerInput;
-	
+
 	/**
-	 * Constructor for the forgotten password panel controller. Takes 
-	 * an IView object and an IModel object
+	 * Constructor for the forgotten password panel controller. Takes an IView
+	 * object and an IModel object
 	 * 
-	 * @param view the corresponding view object
-	 * @param model the corresponding model object
+	 * @param view
+	 *            the corresponding view object
+	 * @param model
+	 *            the corresponding model object
 	 */
-	public RetrievePasswordPanelControl(IView view, IModel model){
-		this.model = (RetrievePasswordProcess)model;
-		this.view = (RetrievePasswordPanel)view;
-		this.view.addLoginPageButtonListener(new ActionListener(){
+	public RetrievePasswordPanelControl(IView view, IModel model) {
+		this.model = (RetrievePasswordProcess) model;
+		this.view = (RetrievePasswordPanel) view;
+		this.view.addLoginPageButtonListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				switchToLogInPage();
 			}
-			
+
 		});
 		this.view.addSubmitButtonListener(new SubmitEvent());
 	}
-	
-	private class SubmitEvent implements ActionListener{
+
+	private class SubmitEvent implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			userNameInput = view.getUserNameUserInput();
 			userAnswerInput = view.getQuestionAnswer();
-			if(model.isAnswerMatched(userNameInput,userAnswerInput)){
-				JOptionPane.showMessageDialog(view.getCurrentPanel(),"Your password is :"+ model.getPassword(userNameInput));
+			if (model.isAnswerMatched(userNameInput, userAnswerInput)) {
+				JOptionPane
+						.showMessageDialog(view.getCurrentPanel(),
+								"Your password is :"
+										+ model.getPassword(userNameInput));
+			} else {
+				JOptionPane
+						.showMessageDialog(
+								view.getCurrentPanel(),
+								"Your answer and the correct answer do not match or your username does not exist.");
 			}
-			else{
-				JOptionPane.showMessageDialog(view.getCurrentPanel(),"Your answer and the correct answer do not match or your username does not exist.");
-			}
-		}	
+		}
 	}
 
 	/**
 	 * Switches the current panel to the login page
 	 */
-	private void switchToLogInPage(){
+	private void switchToLogInPage() {
 		view.removeAll();
 		view.updateUI();
 		LogInPanel jp = new LogInPanel();
