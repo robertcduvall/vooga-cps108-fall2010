@@ -64,7 +64,7 @@ public class AdFrame extends JFrame {
 
 		myManager = new AdsManager(panel2);
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
-		myManager.setRenderedAds();
+//		myManager.setRenderedAds();
 		//myManager.setRenderedAds("action");
 		
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
@@ -156,7 +156,7 @@ public class AdFrame extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		//new AdFrame();
+
 		//AdsManager manager = new AdsManager();
 
 //		BufferedImage img1 = null;

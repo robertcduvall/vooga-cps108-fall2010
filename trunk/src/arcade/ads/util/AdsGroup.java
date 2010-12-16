@@ -56,7 +56,10 @@ public class AdsGroup {
 	 * @return
 	 */
 	public BasicAd getCurrentAd() {
-		if (ads != null && !ads.isEmpty() && ads.get(index).getExpireDate().before(new Date(System.currentTimeMillis()))){
+		if (ads != null
+				&& !ads.isEmpty()
+				&& ads.get(index).getExpireDate()
+						.before(new Date(System.currentTimeMillis()))) {
 			ads.remove(index);
 			index = (index == ads.size() ? 0 : index);
 		}
@@ -72,7 +75,7 @@ public class AdsGroup {
 	 * @return
 	 */
 	public void nextAds() {
-		 if (ads != null && !ads.isEmpty())
+		if (ads != null && !ads.isEmpty())
 			index = (index == ads.size() - 1 ? 0 : index + 1);
 	}
 
@@ -93,16 +96,37 @@ public class AdsGroup {
 	public void setAds(List<BasicAd> ads) {
 		this.ads = ads;
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		this.ads.clear();
 	}
-	
-	public void removeExpiredAds(){
-		for(BasicAd ad: ads){
-			if(ad.getExpireDate().before(new Date(System.currentTimeMillis()))){
+
+	public void removeExpiredAds() {
+		for (BasicAd ad : ads) {
+			if (ad.getExpireDate().before(new Date(System.currentTimeMillis()))) {
 				ads.remove(ad);
 			}
 		}
+	}
+
+	public List<BasicAd> retrieveActiveAds() {
+		ArrayList<BasicAd> moreAds = new ArrayList<BasicAd>();
+		int i = 0;
+		while (i < ads.size()) {
+			if (ads.get(i).getEffectiveDate()
+					.before(new Date(System.currentTimeMillis()))) {
+				moreAds.add(ads.get(i));
+				ads.remove(ads.get(i));
+			}
+			i++;
+		}
+		return moreAds;
+	}
+
+	public void addMoreAds(List<BasicAd> ad) {
+		if (ad != null && !ad.isEmpty())
+			for (BasicAd a : ad) {
+				ads.add(a);
+			}
 	}
 }
