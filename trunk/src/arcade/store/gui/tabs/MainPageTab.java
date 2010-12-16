@@ -10,13 +10,11 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import arcade.core.Tab;
 import arcade.core.mvc.IController;
-import arcade.core.mvc.IViewer;
 import arcade.store.control.MainPageController;
 import arcade.store.gui.StoreTab;
 
-public class MainPageTab extends StoreTab implements Tab, IViewer {
+public class MainPageTab extends StoreTab {
 
 	/**
 	 * 

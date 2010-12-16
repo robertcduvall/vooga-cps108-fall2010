@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import arcade.core.Tab;
 import arcade.core.mvc.IController;
+import arcade.core.mvc.IViewer;
 
 /**
  * StoreTab extends JPanel and implements Tab. It contains a resource bundle
@@ -16,7 +17,7 @@ import arcade.core.mvc.IController;
  * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
  * 
  */
-public class StoreTab extends JPanel implements Tab {
+public class StoreTab extends JPanel implements Tab, IViewer {
 
 	/**
 	 * 
@@ -59,6 +60,12 @@ public class StoreTab extends JPanel implements Tab {
 	 */
 	protected String getString(String key) {
 		return storeTabBundle.getString(key);
+	}
+
+	@Override
+	public void setController(IController control) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

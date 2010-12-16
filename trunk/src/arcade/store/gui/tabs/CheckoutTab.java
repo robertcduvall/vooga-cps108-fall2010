@@ -14,13 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 
-import arcade.core.Tab;
 import arcade.core.mvc.IController;
-import arcade.core.mvc.IViewer;
 import arcade.store.control.CheckoutController;
 import arcade.store.gui.StoreTab;
 
-public class CheckoutTab extends StoreTab implements Tab, IViewer {
+public class CheckoutTab extends StoreTab {
 
 	/**
 	 * 
@@ -28,8 +26,11 @@ public class CheckoutTab extends StoreTab implements Tab, IViewer {
 	private static final long serialVersionUID = 1L;
 	// private JPanel myCheckOutTab = null; //
 	// @jve:decl-index=0:visual-constraint="199,58"
-	private static final String NAME = "Checkout Page";
-	private static final String FILE_PATH = "arcade.store.resources.CheckoutController"; // @jve:decl-index=0:
+	private static final String NAME = /* TODO: "Checkout Page" */"Checkout Page";
+	private static final String FILE_PATH = /*
+											 * TODO:
+											 * "arcade.store.resources.CheckoutController"
+											 */"arcade.store.resources.CheckoutController"; // @jve:decl-index=0:
 
 	private CheckoutController controller; // @jve:decl-index=0:
 	private JTextField availableCredditsTextField;
@@ -69,7 +70,7 @@ public class CheckoutTab extends StoreTab implements Tab, IViewer {
 		controller.addViewer(this);
 
 		availableCredditsTextField = new JTextField();
-		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25));
+		availableCredditsTextField.setBounds(new Rectangle(349, 87, 98, 25)); //TODO:
 
 		itemsList = new JList();
 		itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,10 +80,10 @@ public class CheckoutTab extends StoreTab implements Tab, IViewer {
 		});
 
 		totalCostTextField = new JTextField();
-		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25));
+		totalCostTextField.setBounds(new Rectangle(349, 122, 98, 25)); //TODO:
 
 		remainingCredditsTextField = new JTextField();
-		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25));
+		remainingCredditsTextField.setBounds(new Rectangle(349, 157, 98, 25)); //TODO:
 	}
 
 	@Override
@@ -111,6 +112,7 @@ public class CheckoutTab extends StoreTab implements Tab, IViewer {
 
 	private JLabel getCheckoutLabel() {
 		JLabel checkoutLabel = new JLabel();
+		//TODO:
 		checkoutLabel.setText("My Check Out: ");
 		checkoutLabel.setBounds(new Rectangle(16, 15, 101, 32));
 
@@ -119,6 +121,7 @@ public class CheckoutTab extends StoreTab implements Tab, IViewer {
 
 	private JLabel getAvailableCredditsLabel() {
 		JLabel availableCredditsLabel = new JLabel();
+		//TODO:
 		availableCredditsLabel.setBounds(new Rectangle(222, 87, 124, 25));
 		availableCredditsLabel.setText("Available Creddits");
 
