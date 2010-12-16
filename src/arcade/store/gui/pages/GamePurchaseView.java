@@ -33,7 +33,7 @@ import arcade.store.control.PurchaseItemController;
 public class GamePurchaseView extends StoreTab {
 	
 	 
-	private static final String FILE_PATH = "arcade.store.resources.GamePurchaseView";
+	private static final String FILE_PATH = "arcade.store.resources.Pages";
 	private static final long serialVersionUID = 1L;
 	private JFrame gamePurchaseFrame = null;
 	private JPanel gamePurchasePanel = null; // @jve:decl-index=0:visual-constraint="-15,3"
