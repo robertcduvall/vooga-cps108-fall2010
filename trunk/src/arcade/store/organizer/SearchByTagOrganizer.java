@@ -5,6 +5,14 @@ import java.util.List;
 
 import arcade.store.items.IItemInfo;
 
+/**
+ * SearchByTagOrganizer extends the class SearchOrganizer. The override method
+ * organize searches through every item in the IItemInfo List and checks if that
+ * item's tags match the String criteria.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class SearchByTagOrganizer extends SearchOrganizer {
 
 	@Override

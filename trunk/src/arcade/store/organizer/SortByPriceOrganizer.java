@@ -2,6 +2,13 @@ package arcade.store.organizer;
 
 import arcade.store.items.IItemInfo;
 
+/**
+ * SortByPriceOrganizer extends teh class SortOrganizer. The override method
+ * compareTo compares the price of two IItemInfo objects.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class SortByPriceOrganizer extends SortOrganizer {
 
 	@Override
