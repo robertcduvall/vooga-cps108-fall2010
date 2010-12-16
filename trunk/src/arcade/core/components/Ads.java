@@ -125,8 +125,8 @@ public class Ads extends JPanel {
 		System.out.println("panel2 null ? :  "  + panel2==null);
 		myManager = new AdsManager(panel2);
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
-//		myManager.setRenderedAds();
-		System.out.println(myManager.getActiveAdsGroup()==null);
+		myManager.setRenderedAds();
+//		System.out.println(myManager.getActiveAdsGroup()==null);
 		//myManager.setRenderedAds("action");
 		add(panel1, BorderLayout.PAGE_START);
 		add(panel2, BorderLayout.CENTER);
