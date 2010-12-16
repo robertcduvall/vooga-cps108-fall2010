@@ -27,4 +27,8 @@ public class Console {
 			command.performCommand(textInput);
 		}
 	}
+
+	public void toggleVisible() {
+		myView.setVisible(!myView.isVisible());
+	}
 }

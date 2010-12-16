@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 
 import arcade.core.ExampleGUI;
 import arcade.core.examples.HighScorePanel;
+import arcade.mod.controller.Console;
 
 import com.golden.gamedev.GameLoader;
 
@@ -45,9 +46,10 @@ public class Game extends com.golden.gamedev.Game {
 	protected GameStateManager stateManager;
 	protected LevelParser levelParser;
 	protected PlayField myCurrentLevel;
+	protected Console myGameConsole;
 	protected GameState myPlayState;
 	protected double finalScore;
-	//private static final int INITIAL_LEVEL = 1;
+	// private static final int INITIAL_LEVEL = 1;
 
 	private static final int DEFAULT_WIDTH = 600;
 	private static final int DEFAULT_HEIGHT = 400;
@@ -59,12 +61,13 @@ public class Game extends com.golden.gamedev.Game {
 
 	@Override
 	public void initResources() {
+
 		// Game teams should now convert their old imagelist.txt, soundlist.txt,
 		// etc. files into the
 		// new and improved resources.xml file format by following the example
 		// code in
 		// vooga.examples.resource.resourcesxmlexample
-		stateManager=new GameStateManager();
+		stateManager = new GameStateManager();
 		Resources.initialize(this, getResourceXMLPath());
 		try {
 			Resources.loadResourcesXMLFile(modName+"resources.xml");
@@ -79,22 +82,21 @@ public class Game extends com.golden.gamedev.Game {
 		initializeEntityMap();
 		initGameStates();
 		initSoundPlayer();
-		
-		//setCurrentLevel(INITIAL_LEVEL);
+
+		// setCurrentLevel(INITIAL_LEVEL);
 	}
 
 	@Override
 	public void update(long elapsedTime) {
 		stateManager.update(elapsedTime);
-		if (isFinish())
-		{
+		if (isFinish()) {
 			notifyExit();
 		}
+
 	}
 
 	@Override
-	protected void notifyExit()
-	{
+	protected void notifyExit() {
 
 	}
 
@@ -103,7 +105,7 @@ public class Game extends com.golden.gamedev.Game {
 		stateManager.render(g);
 	}
 
-	public void initSoundPlayer(){
+	public void initSoundPlayer() {
 		SoundPlayer.setGame(this);
 	}
 
@@ -116,30 +118,30 @@ public class Game extends com.golden.gamedev.Game {
 
 	/**
 	 * this method gets the play game state
+	 * 
 	 * @return
 	 */
-	public GameState getPlayGameState()
-	{
+	public GameState getPlayGameState() {
 		return myPlayState;
 	}
 
 	/**
 	 * This method sets the play game state
+	 * 
 	 * @param state
 	 */
-	public void setAsPlayGameState(GameState state)
-	{
+	public void setAsPlayGameState(GameState state) {
 		myPlayState = state;
 	}
 
-
-	// No longer needed. This should be done inside the actual game using the LevelManger
-	//	/**
-	//	 * Sets the VoogaPlayField to the desired level.
-	//	 */
-	//	public void setCurrentLevel(int level) {
-	//		myCurrentLevel = initLevel(level);
-	//	}
+	// No longer needed. This should be done inside the actual game using the
+	// LevelManger
+	// /**
+	// * Sets the VoogaPlayField to the desired level.
+	// */
+	// public void setCurrentLevel(int level) {
+	// myCurrentLevel = initLevel(level);
+	// }
 
 	/**
 	 * Initializes the GameStateManager. This should be overridden by subclasses
@@ -149,33 +151,35 @@ public class Game extends com.golden.gamedev.Game {
 		stateManager = new GameStateManager();
 	}
 
-	// No longer needed. This should be done inside the actual game using the LevelManger
-	// See initLevelManager() in BlahThis of asteroids.	
-	//	/**
-	//	 * Initializes the level specified by the given int index. The XML file
-	//	 * associated with the level is located at a filepath specified by
-	//	 * Resources.getString("Level" + index) For example, if the level's XML file
-	//	 * is called blueLevel.xml, the stringMap in Resources contains the String
-	//	 * -> String entry: "Level" + index -> "blueLevel.xml"
-	//	 */
-	//	public PlayField initLevel(int index) {
-	//		levelParser = new LevelParser();
-	//		PlayField vpf;
-	//		try {
-	//			vpf = levelParser
-	//					.getPlayfield(
-	//							getResourceXMLPath()
-	//									+ Resources.getString("Level" + index),
-	//							this);
-	//			return vpf;
-	//		} catch (Exception e) {
-	//			// TODO display error messages like: throw new
-	//			// Resources.FileNotFoundException;
-	//			e.printStackTrace();
-	//			return null;
-	//		}
+	// No longer needed. This should be done inside the actual game using the
+	// LevelManger
+	// See initLevelManager() in BlahThis of asteroids.
+	// /**
+	// * Initializes the level specified by the given int index. The XML file
+	// * associated with the level is located at a filepath specified by
+	// * Resources.getString("Level" + index) For example, if the level's XML
+	// file
+	// * is called blueLevel.xml, the stringMap in Resources contains the String
+	// * -> String entry: "Level" + index -> "blueLevel.xml"
+	// */
+	// public PlayField initLevel(int index) {
+	// levelParser = new LevelParser();
+	// PlayField vpf;
+	// try {
+	// vpf = levelParser
+	// .getPlayfield(
+	// getResourceXMLPath()
+	// + Resources.getString("Level" + index),
+	// this);
+	// return vpf;
+	// } catch (Exception e) {
+	// // TODO display error messages like: throw new
+	// // Resources.FileNotFoundException;
+	// e.printStackTrace();
+	// return null;
+	// }
 	//
-	//	}
+	// }
 
 	/**
 	 * get the GameStateManager for this game
@@ -187,30 +191,30 @@ public class Game extends com.golden.gamedev.Game {
 	}
 
 	/**
-	 * add a GameState to the stateManager to 
-	 * prevent repetitive calls to retrieve the stateManager 
-	 * to add to it in Game extensions
+	 * add a GameState to the stateManager to prevent repetitive calls to
+	 * retrieve the stateManager to add to it in Game extensions
 	 * 
-	 * @param gameState GameState to add to the Game stateManager
-	 * @return gameState added to reduce number of lines of code when adding GameStates
+	 * @param gameState
+	 *            GameState to add to the Game stateManager
+	 * @return gameState added to reduce number of lines of code when adding
+	 *         GameStates
 	 */
-	public GameState addGameState(GameState gameState){
+	public GameState addGameState(GameState gameState) {
 		stateManager.addGameState(gameState);
 		return gameState;
 	}
 
+	// No longer needed.
+	// /**
+	// * get the LevelParser for this game
+	// *
+	// * @return LevelParser object
+	// */
+	// public LevelParser getLevelParser() {
+	// return levelParser;
+	// }
 
-	//	No longer needed.
-	//	/**
-	//	 * get the LevelParser for this game
-	//	 * 
-	//	 * @return LevelParser object
-	//	 */
-	//	public LevelParser getLevelParser() {
-	//		return levelParser;
-	//	}
-
-	//TODO change ambiguity of "." and "/"
+	// TODO change ambiguity of "." and "/"
 	/**
 	 * Get the path for the resources package directory where the resources.xml
 	 * file is
@@ -233,7 +237,7 @@ public class Game extends com.golden.gamedev.Game {
 
 	public void updateHighScore(double score) {
 		finalScore = score;
-		//TODO Move following statement to a on close listener of some sort
+		// TODO Move following statement to a on close listener of some sort
 		HighScorePanel.updateHighScore(finalScore);
 	}
 
@@ -241,14 +245,17 @@ public class Game extends com.golden.gamedev.Game {
 		return finalScore;
 
 	}
+
 	/**
 	 * Launches the game using default or given settings. The game width,
 	 * height, and fullscreen option are stored in a file called
 	 * config.properties under the resources package. These values are extracted
 	 * before the game is launched. Any subclass should call launch() in the
 	 * main method
+	 * 
 	 * @param g
-	 * @param userName TODO
+	 * @param userName
+	 *            TODO
 	 */
 	public static void launch(Game g, String userName) {
 
@@ -272,15 +279,15 @@ public class Game extends com.golden.gamedev.Game {
 			e.printStackTrace();
 		}
 
-		if(VoogaServer.getChatPort(gameName) != -1){
+		if (VoogaServer.getChatPort(gameName) != -1) {
 			ChatConnection connection = null;
-			try{
+			try {
 				connection = new ChatConnection(gameName, userName);
+			} catch (IOException e) {
 			}
-			catch(IOException e){}
 			VoogaFrame frame = new VoogaFrame(connection);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//frame.setUndecorated(true);
+			// frame.setUndecorated(true);
 			frame.setVisible(true);
 			g.setUsername(userName);
 		}
@@ -291,34 +298,40 @@ public class Game extends com.golden.gamedev.Game {
 
 	/**
 	 * For networking team.
+	 * 
 	 * @param gameStateForButton
 	 */
 	public void switchState(GameState gameStateForButton) {
 		stateManager.switchTo(gameStateForButton);
 	}
 
-	public void setMod(String modName){
+	public void setMod(String modName) {
 		this.modName = modName;
 	}
-	
+
 	public void initializeEntityMap() {
 		System.out.println("INITIALIZING ENTITY MAP");
 		try {
 			EntityMap.inititalize();
-		} catch (Throwable e){
-			
+		} catch (Throwable e) {
+
 		}
 	}
 
-	public String getMod(){
+	public String getMod() {
 		return modName;
 	}
-	
-	public void setUsername(String userName){
+
+	public void setUsername(String userName) {
 		this.userName = userName;
 	}
-	
-	public String getUsername(){
+
+	public String getUsername() {
 		return userName;
 	}
+
+	public LevelParser getLevelParser() {
+		return levelParser;
+	}
+
 }

@@ -12,40 +12,39 @@ import com.golden.gamedev.object.AnimatedSprite;
 import com.golden.gamedev.object.Background;
 
 /**
- *  The vooga.engine.core.Sprite class can represent any renderable object in the game 
- *  environment. The vooga.engine.core.Sprite class extends the 
- *  com.golden.gamedev.object.Sprite class but provides two additional useful
- *  features: the option to switch between renderable images and the capacity to contain 
- *  any attributes in the form of a Stat. 
- *  
- *  Like the Golden T Sprite class, the Vooga Sprite class supports update and render
- *  behaviors for a Sprite object. In addition, the Sprite class contains all the images
- *  and attributes that a Sprite object needs. The functionalities supported by the 
- *  Sprite class include rendering image animation, setting Sprite location and 
- *  velocity, switching to a different image, and allows for the updating of Sprite 
- *  attributes. 
+ * The vooga.engine.core.Sprite class can represent any renderable object in the
+ * game environment. The vooga.engine.core.Sprite class extends the
+ * com.golden.gamedev.object.Sprite class but provides two additional useful
+ * features: the option to switch between renderable images and the capacity to
+ * contain any attributes in the form of a Stat.
  * 
- * Code Example:
- * 	<XMP>
- * Sprite robertDuvall = new Sprite(normal, "robertDuvall.jpg");
+ * Like the Golden T Sprite class, the Vooga Sprite class supports update and
+ * render behaviors for a Sprite object. In addition, the Sprite class contains
+ * all the images and attributes that a Sprite object needs. The functionalities
+ * supported by the Sprite class include rendering image animation, setting
+ * Sprite location and velocity, switching to a different image, and allows for
+ * the updating of Sprite attributes.
+ * 
+ * Code Example: <XMP> Sprite robertDuvall = new Sprite(normal,
+ * "robertDuvall.jpg");
  * 
  * robertDuvall.addSprite(yelling, new Sprite("robertDuvallYelling.jpg"));
- * BufferedImage[] duvallLaughing = Resources.getImages("robertDuvallLaughing"));
+ * BufferedImage[] duvallLaughing =
+ * Resources.getImages("robertDuvallLaughing"));
  * robertDuvall.addAnimatedImages("laughing", duvallLaughing);
  * robertDuvall.setAsRenderedSprite("laughing");
  * 
- * Stat<String> unhappyprojectResponse = new Stat("Well, this person obviously doesn't know how to code...");
- * Stat<Double> understandability = new Stat(0.0);
+ * Stat<String> unhappyprojectResponse = new
+ * Stat("Well, this person obviously doesn't know how to code..."); Stat<Double>
+ * understandability = new Stat(0.0);
  * robertDuvall.setStat("unhappyprojectResponse", unhappyprojectResponse);
  * robertDuvall.setStat("understandability", understandability);
  * 
  * Stat<Double> intelligible = robertDuvall.getStat("understandability");
- *
+ * 
  * long timeExisted = robertDuvall.getTimeInExistence();
- *
- * robertDuvall.update(timeExisted);
- * robertDvuall.render(g);
- * 	</XMP>
+ * 
+ * robertDuvall.update(timeExisted); robertDvuall.render(g); </XMP>
  * 
  * @author Jimmy Mu, Marcus Molchany, Drew Sternesky
  * 
@@ -60,8 +59,9 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	private Map<String, com.golden.gamedev.object.Sprite> mySprites;
 	private com.golden.gamedev.object.Sprite myCurrentSprite;
 	private Map<String, Stat<?>> myStatMap;
+	protected String myLabel;
 	private boolean firstRun;
-	
+
 	protected OverlayLabel nameLabel;
 
 	/**
@@ -70,6 +70,14 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	 */
 	public BetterSprite() {
 		this(DEFAULT_STATE_NAME, new com.golden.gamedev.object.Sprite());
+	}
+
+	/**
+	 * Constructs an entity with null image and 0, 0 position and the default
+	 * label.
+	 */
+	public BetterSprite(com.golden.gamedev.object.Sprite sprite) {
+		this(DEFAULT_STATE_NAME, sprite);
 	}
 
 	/**
@@ -97,6 +105,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 		mySprites = new HashMap<String, com.golden.gamedev.object.Sprite>();
 		addSprite(label, s);
 		myCurrentSprite = s;
+		myLabel = label;
 		myStatMap = new HashMap<String, Stat<?>>();
 		firstRun = true;
 	}
@@ -110,19 +119,20 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 		this(DEFAULT_STATE_NAME, new AnimatedSprite(images));
 	}
 
-	
 	/**
-	 * Construct an entity from an array of BufferedImages to create an animated sprite
+	 * Construct an entity from an array of BufferedImages to create an animated
+	 * sprite
 	 * 
 	 * @param image
 	 */
 	public BetterSprite(String label, BufferedImage[] images) {
 		this(label, new AnimatedSprite(images));
+		myLabel = label;
 	}
-	
+
 	/**
-	 * Constructs an entity with an image located at the specified
-	 * coordinates and the default label.
+	 * Constructs an entity with an image located at the specified coordinates
+	 * and the default label.
 	 * 
 	 * @param image
 	 * 
@@ -148,8 +158,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	public BetterSprite(double x, double y) {
 		this(null, x, y);
 	}
-	
-	
+
 	/**
 	 * Constructs an entity with given image located at specified coordinates
 	 * AND labels the image so that you can switch to this initial sprite if
@@ -213,7 +222,6 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	public void addAnimatedImages(String label, BufferedImage[] images) {
 		addSprite(label, new AnimatedSprite(images));
 	}
-	
 
 	/**
 	 * This method returns my currentSprite. Beware that the currentSprite may
@@ -292,43 +300,45 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	}
 
 	public Stat<Integer> getIntStat(String statname) {
-		//TODO: Implement Method
+		// TODO: Implement Method
 		return new Stat<Integer>(0);
 	}
+
 	public void setIntStat(String statname, int stat) {
-		//TODO: Implement Method
+		// TODO: Implement Method
 	}
+
 	public Stat<Double> getDoubleStat(String statname) {
-		//TODO: Implement Method
+		// TODO: Implement Method
 		return new Stat<Double>(0.0);
 	}
+
 	public void setDoubleStat(String statname) {
-		//TODO: Implement Method
+		// TODO: Implement Method
 	}
-
-
 
 	/**
 	 * Specify how the GameEntity Object should be updated.
 	 */
 	@Override
 	public void update(long elapsedTime) {
-		if(firstRun){
+		if (firstRun) {
 			firstRun();
 			firstRun = false;
 		}
-		if(nameLabel != null)
+		if (nameLabel != null)
 			nameLabel.update(elapsedTime);
 		myCurrentSprite.update(elapsedTime);
 	}
 
 	/**
-	 * Override this method to do any initializations necessary after the sprite is initialized by the level file.
+	 * Override this method to do any initializations necessary after the sprite
+	 * is initialized by the level file.
 	 */
-	public void firstRun(){
-		
+	public void firstRun() {
+
 	}
-	
+
 	/**
 	 * Render the image onto the screen
 	 * 
@@ -336,7 +346,7 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	 */
 	@Override
 	public void render(Graphics2D g) {
-		if(nameLabel != null){
+		if (nameLabel != null) {
 			nameLabel.render(g);
 		}
 		myCurrentSprite.render(g);
@@ -366,16 +376,18 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	}
 
 	/**
-	 * This method sets a new image array to the current image array only if myCurrentSprite
-	 * is an AnimatedSprite
+	 * This method sets a new image array to the current image array only if
+	 * myCurrentSprite is an AnimatedSprite
 	 * 
-	 * @param images the images to set on myCurrentSprite
+	 * @param images
+	 *            the images to set on myCurrentSprite
 	 */
-	public void setImages(BufferedImage[] images){
-		if(myCurrentSprite instanceof AnimatedSprite){
+	public void setImages(BufferedImage[] images) {
+		if (myCurrentSprite instanceof AnimatedSprite) {
 			((AnimatedSprite) myCurrentSprite).setImages(images);
 		}
 	}
+
 	/**
 	 * Check whether the myCurrentSprite is on the screen
 	 */
@@ -583,6 +595,15 @@ public class BetterSprite extends com.golden.gamedev.object.Sprite {
 	@Override
 	public void moveY(double dy) {
 		myCurrentSprite.moveY(dy);
+	}
+
+	public String getLabel() {
+		return myLabel;
+	}
+
+	public void setLabel(String name) {
+		myLabel = name;
+
 	}
 
 }
