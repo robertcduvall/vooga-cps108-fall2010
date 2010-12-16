@@ -23,6 +23,7 @@ public class Blah extends Game {
 	public Map<String, GameState> stateMap;
 	
 	public static void main(String[] args){
+		
 		try {
 			EntityMap.inititalize();
 		} catch (ParserConfigurationException e) {
@@ -46,7 +47,7 @@ public class Blah extends Game {
 	}
 	
 	@Override
-	public void initGameStates(){
+	public void initGameStates(){		
 		super.initGameStates();
 		stateMap = new HashMap<String, GameState>();
 		GameState mainMenu = addGameState(new MenuState("mainMenuLayout"));
