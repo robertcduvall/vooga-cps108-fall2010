@@ -2,9 +2,8 @@ package arcade.security.util;
 
 import arcade.core.ArcadeTab;
 import arcade.lobby.model.ProfileSet;
-import arcade.lobby.view.ProfilePanel;
-import arcade.security.util.userserviceutil.PrivilegeMap;
 import arcade.security.util.userserviceutil.CurrentUser;
+import arcade.security.util.userserviceutil.PrivilegeMap;
 
 public class LogInHandler {
 	public static DataHandler dataHandler = DataHandler.getInstance("User");
@@ -35,8 +34,10 @@ public class LogInHandler {
 		return dataHandler.isAdmin(username).equals("Admin");
 	}
 	
-	public static boolean isPasswordValid(int userId, String password){
-		String validPassword = dataHandler.getPassword(userId);
-		return password.compareTo(validPassword) == 0;
+	public static boolean isPasswordValid(int userId, String enteredPassword){
+		String realPassword = dataHandler.getPassword(userId);
+		PasswordHasher hasher = new PasswordHasher();
+		enteredPassword = hasher.encrypt(enteredPassword);
+		return enteredPassword.compareTo(realPassword) == 0;
 	}
 }

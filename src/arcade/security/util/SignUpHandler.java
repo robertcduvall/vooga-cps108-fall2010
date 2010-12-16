@@ -36,16 +36,20 @@ public class SignUpHandler {
 			String lastName, String email, String birthday, String avatar) {
 		// The next line is the potentially integration with the lobby group
 		// int id = ProfileSet.currentProfile.getUserId();
-		Map<String, String> userRow = new LinkedHashMap<String, String>();// insertion
-																			// order,does
-																			// this
-																			// matter?
+		PasswordHasher hasher = new PasswordHasher();
+		String hashedPassword = hasher.encrypt(String.valueOf(password));
+		
+		Map<String, String> userRow = new LinkedHashMap<String, String>();
 		userRow.put("UserName", username);
-		userRow.put("Password", String.valueOf(password));
+		userRow.put("Password", hashedPassword);
 		userRow.put("QuestionIndex", String.valueOf(questionIndex));
 		userRow.put("QuestionAnswer", questionAnswer);
 		userRow.put("UserType","Admin");
-		userHandler.insert(userRow);
+		if(userHandler.insert(userRow))
+			System.out.println("User created");
+		else
+			System.out.println("User not created!!!");
+
 
 		// potentially use userID to sync between different tables. But since
 		// the
