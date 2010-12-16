@@ -14,6 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * ProfileTab is a StoreTab that allows the user to view their creddits, add
+ * creddits and view their purchased items.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
 public class ProfileTab extends StoreTab {
 
 	private static final long serialVersionUID = 1L;
@@ -41,7 +48,7 @@ public class ProfileTab extends StoreTab {
 		add(getEditMyProfileButton(), null);
 		add(getItemTableScrollPane(), null);
 		add(getPurchasedItemsLabel(), null);
-//		add(getRefreshButton(), null);
+		// add(getRefreshButton(), null);
 	}
 
 	private void initializeProfileTab() {

@@ -11,10 +11,16 @@ import javax.swing.JTextArea;
 
 import arcade.core.api.Window;
 
-public class GameUploadView extends Window{
+/**
+ * GameUploadView is a window that allows a developer to upload a game to the
+ * arcade store.
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * 
+ */
+public class GameUploadView extends Window {
 
-	
-	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="101,18"
+	private JFrame jFrame = null; // @jve:decl-index=0:visual-constraint="101,18"
 	private JPanel jContentPane = null;
 	private JLabel titleLabel = null;
 	private JLabel genreLabel = null;
@@ -28,9 +34,9 @@ public class GameUploadView extends Window{
 	private JTextArea descriptionArea = null;
 
 	/**
-	 * This method initializes jFrame	
-	 * 	
-	 * @return javax.swing.JFrame	
+	 * This method initializes jFrame
+	 * 
+	 * @return javax.swing.JFrame
 	 */
 	private JFrame getJFrame() {
 		if (jFrame == null) {
@@ -43,9 +49,9 @@ public class GameUploadView extends Window{
 	}
 
 	/**
-	 * This method initializes jContentPane	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jContentPane
+	 * 
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
@@ -90,9 +96,9 @@ public class GameUploadView extends Window{
 	}
 
 	/**
-	 * This method initializes gameTitleBox	
-	 * 	
-	 * @return javax.swing.JTextField	
+	 * This method initializes gameTitleBox
+	 * 
+	 * @return javax.swing.JTextField
 	 */
 	private JTextField getGameTitleBox() {
 		if (gameTitleBox == null) {
@@ -103,9 +109,9 @@ public class GameUploadView extends Window{
 	}
 
 	/**
-	 * This method initializes descriptionArea	
-	 * 	
-	 * @return javax.swing.JTextArea	
+	 * This method initializes descriptionArea
+	 * 
+	 * @return javax.swing.JTextArea
 	 */
 	private JTextArea getDescriptionArea() {
 		if (descriptionArea == null) {
@@ -117,7 +123,7 @@ public class GameUploadView extends Window{
 	@Override
 	protected void createContents() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

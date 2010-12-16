@@ -26,6 +26,10 @@ import arcade.store.control.MainPageController;
 import arcade.store.control.PurchaseItemController;
 
 /**
+ * GamePurchasedView is a window that pops up when a user clicks on a
+ * StoreItemThumbnail. This view shows the user the name and image of the game,
+ * gives a descript, shows the price, and allows the user to demo or add the
+ * game to their cart.
  * 
  * @author Drew Sternesky, Yijia Mu, Marcus Molchany
  * 
