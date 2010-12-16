@@ -65,7 +65,7 @@ public class AdFrame extends JFrame {
 		myManager = new AdsManager(panel2);
 		myManager.setActiveAds(new File("src/arcade/ads/resources/ads.txt"));
 		//myManager.setRenderedAds();
-		myManager.setRenderedAds("action");
+		myManager.setRenderedAds("Action");
 		
 		getContentPane().add(panel1, BorderLayout.PAGE_START);
 		getContentPane().add(panel2, BorderLayout.CENTER);
