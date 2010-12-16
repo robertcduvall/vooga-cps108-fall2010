@@ -62,7 +62,6 @@ public class Login extends JPanel{
 		panel.add(logout);
 		panel.setMaximumSize(new Dimension(200, 5));
 		this.add(panel, BorderLayout.EAST);
-	
 	}	
 	
 	private void addTextField(String name, String label,

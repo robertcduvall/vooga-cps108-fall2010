@@ -19,8 +19,6 @@ public class RegisterController {
 		myView.addRegisterButtonListener(new RegisterEvent());
 	}
 	
-	
-	
 	private class RegisterEvent implements ActionListener {
 
 		@Override

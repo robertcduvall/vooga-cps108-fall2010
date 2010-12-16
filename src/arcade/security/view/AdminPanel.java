@@ -12,6 +12,7 @@ import arcade.security.gui.SecurityButton;
 import arcade.security.resourcesbundle.LabelResources;
 import arcade.security.resourcesbundle.StaticFileResources;
 import arcade.security.util.userserviceutil.UserServiceFactory;
+import arcade.security.util.AdminHandler;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -20,6 +21,7 @@ import java.awt.event.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Map;
 
 /**
  * View object for the Admin panel. Used in conjunction with
@@ -36,8 +38,12 @@ public class AdminPanel extends JPanel implements IView{
 	private static final String DELIM = ";";
 	private JLabel adminUserName; 
 	private JButton LogoutButton;
-	//private AdminPanelControl controller;
-	private JScrollPane adminScollPane;
+	private JScrollPane adminScrollPane;
+	private JPanel columnName;
+	private Map<String,String> userTypeMap;
+	private AdminHandler model;
+	private String[] userTypes = {"Guest","User","Developer","Administrator"};
+	
 	private JPanel userRolePane;
 	private static String listOfPanels;
 	private ResourceBundle resources = ResourceBundle
@@ -48,18 +54,59 @@ public class AdminPanel extends JPanel implements IView{
 	 */
 	public AdminPanel(){
 		setName("Admin page"); 
-		setLayout(new MigLayout("wrap 2"));
-		adminUserName = new JLabel("Admin page. Currently under construction");
+		model = new AdminHandler();
+		//setLayout(new MigLayout("wrap 2"));
+		setLayout(new MigLayout("wrap 1"));
+		adminUserName = new JLabel("Administrator: "+UserServiceFactory.getCurrentUser().getFullName());
 		add(adminUserName);
-		LogoutButton = new SecurityButton(LabelResources.getLabel("Logout"));
-		add(LogoutButton,"gapleft 585");
-
-		adminScollPane = new JScrollPane();
-		adminScollPane.setViewportView(getUserRolePanel());		
-		addUserSecurityPanel();
-		add(adminScollPane,"span 2");
+		//LogoutButton = new SecurityButton(LabelResources.getLabel("Logout"));
+		//add(LogoutButton,"gapleft 585");
+		createColumnName();
+		createScrollList();
+		//add(columnName);
+		//adminScrollPane = new JScrollPane();
+		//adminScrollPane.setViewportView(getUserRolePanel());		
+		//addUserSecurityPanel();
+		//add(adminScrollPane,"span 2");
 		setVisible(true);
 	}
+	
+	private void createColumnName(){
+		JPanel panel= new JPanel();
+		panel.setSize(SECURITY_PANEL_WIDTH,30);
+		GridLayout gridLayout = new GridLayout();
+		gridLayout.setColumns(4);
+		panel.setLayout(gridLayout);
+		panel.add(new JLabel("UserName"));
+		panel.add(new JLabel("Current User Type"));
+		panel.add(new JLabel("Set User Type"));
+		panel.add(new JLabel("Go to detailed User Privilege"));
+		add(panel);
+	}
+	
+	private void createScrollList(){
+		userTypeMap = model.getUserTypeMap();
+		JPanel panel = new JPanel();
+		//background.setLayout(new MigLayout("wrap 1"));
+		GridLayout gridLayout = new GridLayout(0,4);
+		//gridLayout.setColumns(4);
+		panel.setLayout(gridLayout);
+		for(String name:userTypeMap.keySet()){
+			//JPanel panel = new JPanel();
+			//panel.setSize(SECURITY_PANEL_WIDTH,30);
+			//panel.setLayout(gridLayout);
+			panel.add(new JLabel(name));
+			panel.add(new JLabel(userTypeMap.get(name)));
+			panel.add(new JComboBox(userTypes));
+			panel.add(new JButton("Go to "+name+"'s privilege page"));
+			//background.add(panel);
+		}
+		adminScrollPane = new JScrollPane(panel);
+		adminScrollPane.setPreferredSize(new Dimension(SECURITY_PANEL_WIDTH,SECURITY_PANEL_HEIGHT));
+		add(adminScrollPane);
+	}
+	
+	
 	/**
 	 * Returns the current user role panel
 	 * 
