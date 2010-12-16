@@ -26,12 +26,6 @@ public class StoreTab extends JPanel implements Tab, IViewer {
 	private ResourceBundle storeTabBundle;
 
 	@Override
-	public JComponent getContent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public IController getController() {
 		// TODO Auto-generated method stub
 		return null;
