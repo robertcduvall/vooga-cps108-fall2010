@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class ModException extends RuntimeException {
 	
-	private static final String INPUT_ERROR_MESSAGE = "you have entered an invalid image, son";
+	private static final String INPUT_ERROR_MESSAGE = "BAD INPUT";
 
 	public static ModException BAD_INPUT = new ModException(
 			INPUT_ERROR_MESSAGE);
