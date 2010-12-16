@@ -23,7 +23,10 @@ public class MenuButton extends Button {
 
 	
 
-	public MenuButton(BufferedImage img, String label, GameState gamestate, MenuGameState mgs) {
+	public MenuButton(	BufferedImage img, 
+						String label, 
+						GameState gamestate, 
+						MenuGameState mgs) {
 		super(img, label, 0, 0);
 	}
 	
@@ -31,13 +34,17 @@ public class MenuButton extends Button {
 						String label, 
 						double x, 
 						double y, 
-						MenuGameState mgs, 
 						String method, 
-						Class<?>...paramTypes
+						MenuGameState mgs, 
+						Class<?> paramType,
+						Object...objects
 						) {
 		super(img, label, x, y);
 		menuState = mgs;
-		menuState.getKeyboardControl().addInput(keyboardKey, method, gamePath, paramTypes);
+		menuState.getKeyboardControl().addInput(keyboardKey, method, gamePath, paramType);
+		menuState.getKeyboardControl().setParams(keyboardKey, objects);
+
+		System.out.println("yeah menubutton");
 		keyboardKey++;	
 		}
 	
@@ -47,13 +54,13 @@ public class MenuButton extends Button {
 		setGameStateToSwitchTo(gamestateForButton);
 	}*/
 
-	public MenuButton(	BufferedImage img, 
+	/*public MenuButton(	BufferedImage img, 
 						String label, 
-						GameState gamestateForButton, 
 						double x, 
 						double y, 
 						String method, 
-						MenuGameState mgs) {
+						MenuGameState mgs,
+						GameState gamestateForButton) {
 		super(img, label, x, y);
 		menuState = mgs;
 		System.out.println("menubutton: "+method);
@@ -61,6 +68,20 @@ public class MenuButton extends Button {
 		menuState.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
 		keyboardKey++;
 
+	}*/
+	public MenuButton(	BufferedImage img, 
+						String label, 
+						double x, 
+						double y, 
+						String method, 
+						MenuGameState mgs,
+						GameState gamestateForButton) {
+		this(img, label, x, y, method, mgs, GameState.class, gamestateForButton);
+		menuState = mgs;
+		System.out.println("menubutton: "+method);
+		menuState.getKeyboardControl().addInput(keyboardKey, method, gamePath, GameState.class);
+		menuState.getKeyboardControl().setParams(keyboardKey, gamestateForButton);
+		keyboardKey++;
 	}
 
 
