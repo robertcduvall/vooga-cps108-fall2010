@@ -92,7 +92,7 @@ public class ImageAd extends BasicAd {
 	public void render(JPanel panel, int width, int height) {
 		 Graphics2D g = (Graphics2D) panel.getGraphics();
 		
-		 g.drawImage(img, 0, 0, width, height, null);
+		 g.drawImage(img, 0, 0, panel.getWidth(), panel.getHeight(), null);
 //
 //		JLabel avatar = null;
 //
