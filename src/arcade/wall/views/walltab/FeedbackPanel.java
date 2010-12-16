@@ -36,6 +36,11 @@ public class FeedbackPanel extends JPanel {
 		myGameComboBox.addActionListener(gameComboBoxListener);
 	}
 	
+	public void setSelectedIndex(int i)
+	{
+		myGameComboBox.setSelectedIndex(i);
+	}
+	
 	public String getSelectedGame() {
 		return WallTabPanel.myGameChoices[myGameComboBox.getSelectedIndex()];
 	}
