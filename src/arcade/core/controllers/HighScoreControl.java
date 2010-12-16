@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.controllers;
 
 import java.util.*;
 
