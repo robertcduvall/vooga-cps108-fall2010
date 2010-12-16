@@ -25,7 +25,7 @@ public class LogInHandler {
 	public static void setCurrentUser(int userId){
 		PrivilegeMap.loadMap();
 		CurrentUser user = UserServiceFactory.getCurrentUser();
-		//user.setAsLogined(userId);
+		user.setAsLogined(userId);
 	}
 	
 	

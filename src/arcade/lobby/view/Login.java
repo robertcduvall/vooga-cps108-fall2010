@@ -108,6 +108,7 @@ public class Login extends JPanel{
 		name.setVisible(true);
 		logout.setVisible(true);
 		name.setText("Hello " + ProfileSet.getCurrentProfile().getFirstName());
+		validate();
 	}
 	
 	public void switchToLogin(){
@@ -118,6 +119,7 @@ public class Login extends JPanel{
 		logout.setVisible(false);
 		resetPassword();
 		resetUsername();
+		validate();
 	}
 
 	public void resetPassword() {
