@@ -41,12 +41,11 @@ public class ArcadeProfile extends Panel {
 	private Profile myProfile;
 	
 	public ArcadeProfile() {
-		myProfile = ProfileSet.getCurrentProfile();
-		
 		initialize();
 	}
 	
 	private void initialize() {
+		myProfile = ProfileSet.getCurrentProfile();
 		setLayout(new MigLayout());
 		int row = 0;
 		
