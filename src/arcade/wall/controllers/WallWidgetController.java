@@ -68,10 +68,10 @@ public class WallWidgetController {
 					   myView.getEntryText(), myView.getSelectedRating());
     		if (myModel.reviewIsConflicting(submittedReview)) {
     			if (showCommentDialog() == JOptionPane.YES_OPTION) {
-    				myModel.addReview(submittedReview);
+    				myModel.addReview(submittedReview, true);
     			}
     		} else {
-    			myModel.addReview(submittedReview);
+    			myModel.addReview(submittedReview, false);
     		}
         }
 	}

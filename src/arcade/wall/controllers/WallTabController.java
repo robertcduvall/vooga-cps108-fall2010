@@ -22,13 +22,14 @@ import arcade.wall.views.walltab.WallTabPanel;
 public class WallTabController {
 	WallModel myModel; //TODO make a WallModelInterface that can be used to interchange WallModels in controller constructor
 	WallTabPanel myView; //TODO allow a controller to accept multiple views
-//	Profile myProfile;
 
 	public WallTabController() {
 		myModel = new WallModel();
 		myView = new WallTabPanel(this);
-		myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(WallTabPanel.myGameChoices[0]));
-
+		String selectedGame = myView.getFeedbackPanel().getSelectedGame();
+		myView.getDisplayPanel().setGameHeaderLabel(selectedGame);
+		myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(selectedGame));
+		
 		//Add listeners to the view.
 		myView.getFeedbackPanel().addGameComboBoxListener(new GameComboBoxListener());
 		myView.getFeedbackPanel().getCommentPanel().addCommentButtonListener(new CommentButtonListener());
@@ -75,7 +76,19 @@ public class WallTabController {
 				options[1]);
 		return n;
 	}
-	
+
+	public void showMustBeLoggedInDialog() {
+		Object[] options = {"OK"};
+		JOptionPane.showOptionDialog(myView.getPanel(),
+				"Sorry, you must be logged-in to the Arcade to do this.",
+				"Must be Logged-In",
+				JOptionPane.OK_OPTION,
+				JOptionPane.WARNING_MESSAGE,
+				null,
+				options,
+				options[0]);
+	}
+
 	public WallTabPanel getView() {
 		return myView;
 	}
@@ -96,35 +109,54 @@ public class WallTabController {
 	}
 
 	class CommentButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-        	String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
-        	
-    		Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
-    											   myView.getFeedbackPanel().getCommentPanel().getEntryText());
-    		myModel.addComment(submittedComment);
-    		//myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
-    		myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(selectedGameName));
-    		myView.getDisplayPanel().updateTopRatedGamesLabel();
-    		myView.getFeedbackPanel().getCommentPanel().setEntryText("");
-        }
-    }
-	
-	class ReviewButtonListener implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
-			String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
-			Review submittedReview = new Review(""+myModel.getNewReviewID(), ""+ProfileSet.getCurrentProfile().getUserId(), selectedGameName, 
-					   myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
-			if (myModel.reviewIsConflicting(submittedReview)) {
-    			if (showExistingReviewDialog() == JOptionPane.YES_OPTION) {
-    				myModel.addReview(submittedReview);
-    			}
-    		} else {
-    			myModel.addReview(submittedReview);
-    		}
+			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them comment.
+				showMustBeLoggedInDialog();
+			} else {
+				String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
+
+				Comment submittedComment = new Comment(""+myModel.getNewCommentID(), selectedGameName, ""+ProfileSet.getCurrentProfile().getUserId(), 
+						myView.getFeedbackPanel().getCommentPanel().getEntryText());
+				myModel.addComment(submittedComment);
+				//myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
+				myView.getDisplayPanel().refreshCommentsArea(myModel.getGameComments(selectedGameName));
+//				myView.getDisplayPanel().updateTopRatedGamesLabel();
+				myView.getFeedbackPanel().getCommentPanel().setEntryText("");
+			}
 		}
 	}
 
+	class ReviewButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them review.
+				showMustBeLoggedInDialog();
+			} else {
+				String selectedGameName = myView.getFeedbackPanel().getSelectedGame();
+				Review submittedReview = new Review(""+myModel.getNewReviewID(), ""+ProfileSet.getCurrentProfile().getUserId(), selectedGameName, 
+						myView.getFeedbackPanel().getReviewPanel().getEntryText(), myView.getFeedbackPanel().getReviewPanel().getSelectedRating());
+				if (myModel.reviewIsConflicting(submittedReview)) {
+					if (showExistingReviewDialog() == JOptionPane.YES_OPTION) {
+						myModel.addReview(submittedReview, true);
+					}
+				} else {
+					myModel.addReview(submittedReview, false);
+				}
+				myView.getDisplayPanel().setGameHeaderLabel(selectedGameName);
+				myView.getDisplayPanel().updateTopRatedGamesLabel();
+			}
+		}
+	}
+
+	class ComposeMessageButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them send message.
+				showMustBeLoggedInDialog();
+			} else {
+				myView.getMessagesPanel().getComposeMessageFrame().setVisible(true);
+			}
+		}
+	}
+	
 	class SendMessageButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (showSendMessageDialog() == JOptionPane.YES_OPTION){ 
@@ -137,23 +169,23 @@ public class WallTabController {
 		}
 	}
 
-	class ComposeMessageButtonListener implements ActionListener{
-		public void actionPerformed(ActionEvent e){
-			myView.getMessagesPanel().getComposeMessageFrame().setVisible(true);
-		}
-	}
-	
 	class CloseButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			myView.getMessagesPanel().getComposeMessageFrame().dispose();
 		}
 	}
-	
+
 	class RefreshInboxButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			List<Message> messageList = myModel.getMessageSet().getMessagesByField("Receiver", ""+ProfileSet.getCurrentProfile().getUserName());
-			myView.getMessagesPanel().refreshInbox(messageList);
-			myView.getMessagesPanel().validate();
+			if (ProfileSet.getCurrentProfile().getUserId()==0) { //User is a guest - do not let them refresh inbox.
+				showMustBeLoggedInDialog();
+			} else {
+				System.out.println("current Username = " +ProfileSet.getCurrentProfile().getUserName());
+				//TODO currently, ProfileSet.getCurrentProfile().getUserName() is returning null.
+				List<Message> messageList = myModel.getMessageSet().getMessagesByField("Receiver", ""+ProfileSet.getCurrentProfile().getUserName());
+				myView.getMessagesPanel().refreshInbox(messageList);
+				myView.getMessagesPanel().validate();
+			}
 		}
 	}
 

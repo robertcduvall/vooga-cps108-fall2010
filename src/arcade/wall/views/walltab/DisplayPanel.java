@@ -26,7 +26,7 @@ public class DisplayPanel extends JPanel {
 		myTopRatedGamesLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		
 		updateTopRatedGamesLabel();
-		setGameHeaderLabel(WallTabPanel.myGameChoices[FeedbackPanel.myGameComboBox.getSelectedIndex()]);
+//		setGameHeaderLabel(WallTabPanel.myGameChoices[FeedbackPanel.myGameComboBox.getSelectedIndex()]);
 		this.add(myGameHeaderLabel);
 		myCommentsArea = new JTextArea();
 		myCommentsArea.setEditable(false);
