@@ -261,7 +261,6 @@ public class MySqlAdapter implements DatabaseAdapter {
 		ResultSet rs;
 		Map<String, String> map;
 		List<Map<String, String>> maps = new ArrayList<Map<String, String>>();
-		System.out.println("get query: " + query);
 		try {
 			PreparedStatement ps = myDBConnection.prepareStatement(query);
 			ps.executeQuery();
@@ -408,6 +407,7 @@ public class MySqlAdapter implements DatabaseAdapter {
 	 *            their new information
 	 * @return True if the query was successful, false if it failed
 	 */
+	@Override
 	public boolean replace(String tableName, Map<String, String> conditions,
 			Map<String, String> row) {
 		return updateOrInsert("REPLACE",tableName,conditions,row);

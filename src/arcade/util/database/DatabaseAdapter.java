@@ -100,5 +100,21 @@ public interface DatabaseAdapter {
 	 */
 	boolean update(String tableName, Map<String, String> conditions,
 			Map<String, String> row);
+	
+	/**
+	 * Replaces the rows of a database that satisfy the given conditions with the
+	 * specified new values if they exist, if they do not exist it inserts them
+	 * 
+	 * @param tableName
+	 *            Name of table
+	 * @param conditions
+	 *            Conditions rows must satisfy in order to be updated
+	 * @param row
+	 *            A row containing a mapping of the fields that will change to
+	 *            their new information
+	 * @return True if the query was successful, false if it failed
+	 */
+	public boolean replace(String tableName, Map<String, String> conditions,
+			Map<String, String> row);
 
 }
