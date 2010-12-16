@@ -3,7 +3,7 @@ package arcade.wall.controllers;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.model.Profile;
 

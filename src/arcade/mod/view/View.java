@@ -22,8 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import arcade.core.GameView;
-import arcade.core.Tab;
+import arcade.core.ArcadeGUIElements.GameView;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.mod.controller.IPresenter;
 import arcade.mod.controller.Presenter;

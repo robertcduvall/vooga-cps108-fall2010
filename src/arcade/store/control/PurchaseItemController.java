@@ -2,7 +2,7 @@ package arcade.store.control;
 
 import javax.swing.JOptionPane;
 
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;

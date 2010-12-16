@@ -12,7 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
-import arcade.core.Tab;
+import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.controller.ProfileController;
 import arcade.lobby.model.Profile;

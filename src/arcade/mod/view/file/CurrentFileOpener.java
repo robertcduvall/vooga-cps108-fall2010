@@ -2,7 +2,7 @@ package arcade.mod.view.file;
 
 import java.io.File;
 
-import arcade.core.GameView;
+import arcade.core.ArcadeGUIElements.GameView;
 
 public class CurrentFileOpener implements IFileOpener {
 

@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.ArcadeGUIElements;
 
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;

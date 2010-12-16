@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
-import arcade.core.Window;
+import arcade.core.api.Window;
 
 public class GameUploadView extends Window{
 
