@@ -24,7 +24,11 @@ import arcade.lobby.model.ProfileSet;
 public class ProfilePanel extends JPanel implements Tab, IView {
 	public ProfileEditPanel myEditPanel;
 	public ProfileViewPanel myViewPanel;
-	private enum State{view,edit,viewothers};
+
+	private enum State {
+		view, edit, viewothers
+	};
+
 	private State mode = State.view;
 	private JPanel myLeftSidebar;
 	private JPanel myMainPanel;
@@ -47,7 +51,8 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		setName("Profile");
 		resources = ResourceBundle.getBundle("arcade.lobby.resources.sidebars");
 		initialize();
-		ProfileController profileControl = new ProfileController(myProfile, this);
+		ProfileController profileControl = new ProfileController(myProfile,
+				this);
 	}
 
 	private void initialize() {
@@ -62,20 +67,20 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		refreshContent();
 
 		add(myLeftSidebar, "ax l, sy 2");
-		add(myMainPanel,"span 2");
+		add(myMainPanel, "span 2");
 		add(myRightSidebar, "ax r, sy 2");
-		add(myUsers,"newline,skip 1, ax c, ay c");
+		add(myUsers, "newline,skip 1, ax c, ay c");
 		add(myEditButton, "ax c,ay c");
 	}
 
 	private JComboBox getUserBox() {
 		JComboBox userBox = new JComboBox();
 		final Map<String, Integer> users = ProfileSet.getUserNames();
-		for(String user : users.keySet()) {
+		for (String user : users.keySet()) {
 			userBox.addItem(user);
 		}
 		userBox.addItemListener(new ItemListener() {
-			
+
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				String selectedUser = (String) e.getItem();
@@ -91,34 +96,34 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 	public void addEditButtonListener(ActionListener listener) {
 		myEditButton.addActionListener(listener);
 	}
-	
-//	private JButton createEditButton() {
-//		JButton button = new JButton();
-//		button.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				editMode = !editMode;
-//				reload();
-//			}
-//		});
-//		return button;
-//	}
-	
+
+	// private JButton createEditButton() {
+	// JButton button = new JButton();
+	// button.addActionListener(new ActionListener() {
+	//
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// editMode = !editMode;
+	// reload();
+	// }
+	// });
+	// return button;
+	// }
+
 	public JPanel getMainPanel() {
 		return myMainPanel;
 	}
-	
+
 	public ProfileViewPanel getViewPanel() {
 		return myViewPanel;
 	}
-	
+
 	public ProfileEditPanel getEditPanel() {
 		return myEditPanel;
 	}
-	
+
 	public State changeMode() {
-		switch(mode) {
+		switch (mode) {
 		case view:
 			mode = State.edit;
 			break;
@@ -144,9 +149,9 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		myMainPanel.removeAll();
 		myMainPanel.add(getCurentMainPanel());
 	}
-	
+
 	private String getButtonString() {
-		switch(mode) {
+		switch (mode) {
 		case view:
 			return "Edit Profile";
 		case edit:
@@ -156,9 +161,9 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 			return "";
 		}
 	}
-	
+
 	private JPanel getCurentMainPanel() {
-		switch(mode) {
+		switch (mode) {
 		case edit:
 			return myEditPanel;
 		default:
@@ -173,16 +178,18 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		sidebar.setVisible(true);
 		sidebar.setLayout(new MigLayout());
 		String panelClassString = resources.getString(name);
-		String[] panelClasses = panelClassString.split(",");
-		for (int j = 0; j < panelClasses.length; j++) {
-			JPanel newPanel = null;
-			try {
-				newPanel = (JPanel) Class.forName(panelClasses[j])
-						.newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
+		if (!panelClassString.isEmpty()) {
+			String[] panelClasses = panelClassString.split(",");
+			for (int j = 0; j < panelClasses.length; j++) {
+				JPanel newPanel = null;
+				try {
+					newPanel = (JPanel) Class.forName(panelClasses[j])
+							.newInstance();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				sidebar.add(newPanel, "cell 0 " + j);
 			}
-			sidebar.add(newPanel, "cell 0 " + j);
 		}
 		return sidebar;
 	}
@@ -195,7 +202,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		redraw();
 		recreateSidebars();
 	}
-	
+
 	private void recreateSidebars() {
 		myLeftSidebar.removeAll();
 		myRightSidebar.removeAll();
@@ -209,7 +216,7 @@ public class ProfilePanel extends JPanel implements Tab, IView {
 		myEditPanel.refresh(myProfile);
 		setName(myProfile.getUserName() + "'s Profile");
 	}
-	
+
 	private void redraw() {
 		State oldmode = mode;
 		mode = State.edit;
