@@ -59,6 +59,7 @@ public class DataHandler {
 		}
 		return privilegeMap;
 	}
+
 	
 	public Map<String,String> getUserTypeMap(){
 		List<String> usernames = adapter.getColumn(myTable,"UserName");
@@ -96,7 +97,7 @@ public class DataHandler {
 		adapter.update(myTable, "UserName", Integer.toString(userId), row);
 	}
 	
-	public void setUserPrivilege(String username,String privilegeName,String value){
+	public void setUserPrivilege(String username,String value){
 		Map<String,String> row = new HashMap<String,String>();
 		row.put("Privileges",value);
 		adapter.update(myTable,"UserName",username,row);

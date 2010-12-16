@@ -7,6 +7,7 @@ package arcade.security.util.userserviceutil;
 public final class UserServiceFactory {
 	
 	private static CurrentUser instance = new CurrentUser();
+	private static PrivilegeMap map = new PrivilegeMap();
 	
 	private UserServiceFactory(){
 		
@@ -14,5 +15,9 @@ public final class UserServiceFactory {
 	
 	public static CurrentUser getCurrentUser(){
 		return instance;
+	}
+	
+	public static PrivilegeMap getPrivilegeMap(){
+		return map;
 	}
 }

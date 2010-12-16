@@ -34,6 +34,22 @@ public class PrivilegeMap {
 
 	// public static void update(){
 	// }
+	
+	public PrivilegeMap(){
+		loadMap();
+	}
+	
+	public Map<String,Boolean> userPrivilegeMap(String privilege){
+		Map<String,Boolean> userPrivilegeMap = new HashMap<String,Boolean>();
+		for(int i=0;i<privilege.length();i++){
+			String name = privilegeMap.get(i);
+			System.out.println(name);
+			boolean value = (privilege.charAt(i)=='1');
+			userPrivilegeMap.put(name, value);
+		}
+		return userPrivilegeMap;
+	}
+	
 	/**
 	 * Returns the default Guest Privilege set
 	 */
@@ -86,7 +102,7 @@ public class PrivilegeMap {
 	 * @param privilegeName
 	 *            the name of the privilege to be added
 	 */
-	public static void addPrivilege(String privilegeName) {
+	public void addPrivilege(String privilegeName) {
 		Map<String, String> row = new HashMap<String, String>();
 		row.put("P_name", privilegeName);
 		mapHandler.insert(row);
@@ -101,7 +117,7 @@ public class PrivilegeMap {
 	 *            the privilege to look up
 	 * @return the index of that privilege
 	 */
-	public static int getPrivilegeIndex(String pname) {
+	public int getPrivilegeIndex(String pname) {
 		return privilegeIndex.get(pname);
 	}
 
