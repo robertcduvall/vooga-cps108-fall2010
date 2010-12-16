@@ -19,8 +19,8 @@ import javax.swing.JTextPane;
 import net.miginfocom.swing.MigLayout;
 
 import arcade.core.Arcade;
-import arcade.core.HighScoreControl;
 import arcade.core.api.Panel;
+import arcade.core.controllers.HighScoreControl;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 

@@ -1,4 +1,4 @@
-package arcade.core;
+package arcade.core.ArcadeGUIElements;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import arcade.core.Arcade;
 import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.model.ProfileSet;
