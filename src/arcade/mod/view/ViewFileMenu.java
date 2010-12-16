@@ -12,7 +12,7 @@ import arcade.mod.controller.IPresenter;
 import arcade.mod.view.file.CurrentFileOpener;
 import arcade.mod.view.file.RecentFileOpener;
 import arcade.mod.view.file.SystemFileOpener;
-import arcade.util.xmleditor.Controller;
+import arcade.util.xmleditor.controllers.Controller;
 
 /**
  * MenuBar which includes a File category. File category has open, save, and

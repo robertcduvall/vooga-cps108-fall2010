@@ -1,4 +1,4 @@
-package arcade.util.xmleditor.view;
+package arcade.util.xmleditor.controllers.element.attributes;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -7,14 +7,12 @@ import javax.swing.JTextField;
 
 import org.w3c.dom.Node;
 
-public class AttributeFrameController implements FocusListener{
-	
-	AttributeFrame view;
+public class AttributeFrameController implements FocusListener {
+
 	private Node attribute;
-	
-	public AttributeFrameController(Node attribute, AttributeFrame view){
+
+	public AttributeFrameController(Node attribute) {
 		this.attribute = attribute;
-		this.view = view;
 	}
 
 	@Override

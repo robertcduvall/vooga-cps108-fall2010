@@ -15,10 +15,12 @@ import org.w3c.dom.NodeList;
 
 public class XMLNode extends DefaultMutableTreeNode{
 	
-	XMLNode parent;
-	Element element;
-	ModelObserver observer;
-	List<XMLNode> children;
+	private static final long serialVersionUID = 1L;
+	
+	private XMLNode parent;
+	private Element element;
+	private ModelObserver observer;
+	private List<XMLNode> children;
 	
 	public XMLNode(Element element, XMLNode parent, ModelObserver observer){
 		this.parent = parent;
@@ -83,10 +85,6 @@ public class XMLNode extends DefaultMutableTreeNode{
 		return elementList;
 	}
 	
-	public Element getElement(){
-		return element;
-	}
-	
 	private class Enumerator implements Enumeration{
 		
 		Iterator iterator;
@@ -112,6 +110,10 @@ public class XMLNode extends DefaultMutableTreeNode{
 		checkYourself();
 	}
 	
+	public Element getElement(){
+		return element;
+	}
+	
 	public void appendChild(XMLNode node){
 		element.appendChild(node.getElement());
 		checkYourself();
@@ -130,6 +132,10 @@ public class XMLNode extends DefaultMutableTreeNode{
 		return observer;
 	}
 	
+	public String getName(){
+		return element.getNodeName();
+	}
+	
 	public void checkYourself(){
 		children = convertNodeList(element.getChildNodes());
 		for(XMLNode child: children){
@@ -137,14 +143,6 @@ public class XMLNode extends DefaultMutableTreeNode{
 		}
 		observer.notifyNodeUpdated(this);
 
-	}
-	
-	public XMLNode getRoot(){
-		if(parent==null){
-			return this;
-		} else{
-			return parent.getRoot();
-		}
 	}
 
 }

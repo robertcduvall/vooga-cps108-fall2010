@@ -1,4 +1,4 @@
-package arcade.util.xmleditor.view;
+package arcade.util.xmleditor.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,29 +9,24 @@ import javax.swing.JPanel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
-import arcade.util.xmleditor.Controller;
-import arcade.util.xmleditor.IBaseController;
+import arcade.util.xmleditor.controllers.Controller;
+import arcade.util.xmleditor.controllers.IBaseController;
 import arcade.util.xmleditor.mainmenu.MenuBar;
 import arcade.util.xmleditor.model.XMLNode;
+import arcade.util.xmleditor.views.element.ElementPanel;
 
 public class View extends JPanel implements IBaseView, TreeSelectionListener{
 	
 	private static final long serialVersionUID = 1L;
-	TreeViewer treeViewer;
-	ElementPanel elementPanel;
-	IBaseController controller;
+	private TreeViewer treeViewer;
+	private IBaseController controller;
 
 	public View(Controller controller, ElementPanel elementPanel){
 		
 		this.initializePanel();
-		this.controller = controller;
+		this.controller = controller;		
 		
-		
-		treeViewer = new TreeViewer();
-		
-		
-		this.elementPanel = elementPanel;
-		treeViewer.addTreeSelectionListener(elementPanel.getController());
+		treeViewer = new TreeViewer();		
 
 		add(treeViewer, BorderLayout.WEST);
 		add(elementPanel, BorderLayout.CENTER);
@@ -50,7 +45,6 @@ public class View extends JPanel implements IBaseView, TreeSelectionListener{
 		remove(treeViewer);
 		updateUI();
 		treeViewer = new TreeViewer(root);
-		treeViewer.addTreeSelectionListener(elementPanel.getController());
 		treeViewer.addTreeSelectionListener(this);
 		add(treeViewer, BorderLayout.WEST);
 		

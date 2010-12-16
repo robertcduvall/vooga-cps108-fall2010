@@ -3,12 +3,12 @@ package arcade.util.xmleditor.mainmenu.file;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import arcade.util.xmleditor.IBaseController;
+import arcade.util.xmleditor.controllers.IBaseController;
 
 public class SaveEventListener implements ActionListener{
 
 	
-	IBaseController controller;
+	private IBaseController controller;
 
 	public SaveEventListener(IBaseController controller) {
 		this.controller = controller;

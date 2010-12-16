@@ -7,12 +7,12 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import arcade.util.xmleditor.IBaseController;
+import arcade.util.xmleditor.controllers.IBaseController;
 
 public class SaveAsEventListener implements ActionListener{
 
 	
-	IBaseController controller;
+	private IBaseController controller;
 
 	public SaveAsEventListener(IBaseController controller) {
 		this.controller = controller;

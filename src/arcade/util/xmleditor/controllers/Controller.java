@@ -1,11 +1,9 @@
-package arcade.util.xmleditor;
+package arcade.util.xmleditor.controllers;
 
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JToolBar;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -20,17 +18,16 @@ import org.xml.sax.SAXException;
 
 import vooga.engine.util.XMLDocumentCreator;
 import vooga.engine.util.XMLFileParser;
+import arcade.util.xmleditor.controllers.element.ElementController;
+import arcade.util.xmleditor.controllers.toolbar.AddAttributeController;
+import arcade.util.xmleditor.controllers.toolbar.AddChildController;
+import arcade.util.xmleditor.controllers.toolbar.DeleteElementController;
+import arcade.util.xmleditor.controllers.toolbar.ElementToolBarButton;
 import arcade.util.xmleditor.model.ModelListener;
 import arcade.util.xmleditor.model.ModelObserver;
 import arcade.util.xmleditor.model.XMLNode;
-import arcade.util.xmleditor.view.AttributeController;
-import arcade.util.xmleditor.view.ElementController;
-import arcade.util.xmleditor.view.IBaseView;
-import arcade.util.xmleditor.view.View;
-import arcade.util.xmleditor.view.toolbar.AddAttributeController;
-import arcade.util.xmleditor.view.toolbar.AddChildController;
-import arcade.util.xmleditor.view.toolbar.DeleteElementController;
-import arcade.util.xmleditor.view.toolbar.ElementToolBarButton;
+import arcade.util.xmleditor.views.IBaseView;
+import arcade.util.xmleditor.views.View;
 
 public class Controller implements IBaseController, ModelListener {
 
@@ -41,12 +38,12 @@ public class Controller implements IBaseController, ModelListener {
 	public Controller() {
 		observer = new ModelObserver();
 		observer.addNewListener(this);
-		
+
 		JToolBar toolbar = createElementToolBar();
 		ElementController elementController = createElementController(toolbar);
-		
-		view = new View(this, elementController.getView());	
-		
+
+		view = new View(this, elementController.getView());
+
 		view.showView();
 	}
 
@@ -94,11 +91,8 @@ public class Controller implements IBaseController, ModelListener {
 	}
 
 	private ElementController createElementController(JToolBar toolbar) {
-		AttributeController attributeController = new AttributeController();
-		observer.addNewListener(attributeController);
-
-		ElementController elementController = new ElementController(this,
-				toolbar, attributeController);
+		ElementController elementController = new ElementController(toolbar);
+		observer.addNewListener(elementController);
 		return elementController;
 	}
 
@@ -115,28 +109,28 @@ public class Controller implements IBaseController, ModelListener {
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		new Controller();
 	}
 
 	@Override
 	public void modelChanged(XMLNode root) {
-		view.reloadModel(root);		
+		view.reloadModel(root);
 	}
 
 	@Override
 	public void nodeSelected(XMLNode node) {
-		//Do nothing		
+		// Do nothing
 	}
 
 	@Override
 	public void nodeUpdated(XMLNode node) {
-		view.updateModel(node);		
+		view.updateModel(node);
 	}
 
 	@Override
 	public void newNodeSelected(XMLNode node) {
-		observer.notifyNodeSelected(node);		
+		observer.notifyNodeSelected(node);
 	}
 
 }
