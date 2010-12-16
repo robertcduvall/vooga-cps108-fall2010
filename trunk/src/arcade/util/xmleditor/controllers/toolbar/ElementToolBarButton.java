@@ -1,11 +1,9 @@
-package arcade.util.xmleditor.view.toolbar;
+package arcade.util.xmleditor.controllers.toolbar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-
-import org.w3c.dom.Element;
 
 import arcade.util.xmleditor.model.ModelListener;
 import arcade.util.xmleditor.model.XMLNode;

@@ -1,17 +1,16 @@
-package arcade.util.xmleditor.view.toolbar;
+package arcade.util.xmleditor.controllers.toolbar;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
-import org.w3c.dom.Element;
-
-import arcade.util.xmleditor.model.XMLNode;
 
 public class AddAttributeController extends ElementToolBarButton {
 	
+	private static final String LABEL_TEXT = "Add Attribute";
+	
 	public AddAttributeController(){
-		super("Add Attribute");
+		super(LABEL_TEXT);
 	}
 	
 	@Override

@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import arcade.util.xmleditor.IBaseController;
+import arcade.util.xmleditor.controllers.IBaseController;
 
 public class NewModelEventListener implements ActionListener{
 	
-	IBaseController controller;
+	private IBaseController controller;
 	
 	public NewModelEventListener(IBaseController controller){
 		this.controller = controller;

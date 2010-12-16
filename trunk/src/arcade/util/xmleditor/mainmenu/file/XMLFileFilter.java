@@ -1,8 +1,8 @@
 package arcade.util.xmleditor.mainmenu.file;
 
 import java.io.File;
-import javax.swing.*;
-import javax.swing.filechooser.*;
+
+import javax.swing.filechooser.FileFilter;
 
 public class XMLFileFilter extends FileFilter {
 
@@ -32,7 +32,7 @@ public class XMLFileFilter extends FileFilter {
 	private String getExtension(File file) {
 		String path = file.getPath();
 		int lastIndex = path.lastIndexOf('.');
-		if(lastIndex>0){
+		if (lastIndex > 0) {
 			return path.substring(lastIndex);
 		}
 		return "";

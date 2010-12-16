@@ -1,4 +1,4 @@
-package arcade.util.xmleditor;
+package arcade.util.xmleditor.controllers;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package arcade.util.xmleditor.view;
+package arcade.util.xmleditor.views;
 
 import arcade.util.xmleditor.model.XMLNode;
 
