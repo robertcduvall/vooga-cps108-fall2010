@@ -2,6 +2,15 @@ package arcade.store.database;
 
 import java.util.ResourceBundle;
 
+
+/**
+ * This class contains a list of constants related to the database.
+ * Mostly, this holds references to different field names and table names
+ * within the database. 
+ * 
+ * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
+ *
+ */
 public class StoreDbConstants {
 
 	private static final ResourceBundle bundle = ResourceBundle.getBundle("arcade.store.database.DatabaseResources");
@@ -25,5 +34,6 @@ public class StoreDbConstants {
 	public static final String ITEM_ID_FIELD = bundle.getString("itemIdField");
 	public static final String USER_TYPE_FIELD = bundle.getString("userTypeField");
 	public static final String PURCHASED_ITEMS_ID_FIELD = bundle.getString("purchasedItemsIdField");
+	public static final String TAGS_FIELD = bundle.getString("tagsField");
 
 }

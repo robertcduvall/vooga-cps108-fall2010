@@ -32,7 +32,6 @@ import arcade.store.privileges.PrivilegeManager;
  * such as wall, who can then allow users only to comment on their owned
  * games.
  * 
- * 
  * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
  *
  */
@@ -56,6 +55,10 @@ public class StoreModel implements IModel{
 		privilegeManager = new PrivilegeManager();
 		storeCatalogue = DbItemAndUserFactory.getAllStoreItems();
 		controller = control;
+		refreshUser();
+	}
+	
+	public void refreshUser() {
 		lobbyUser = ProfileSet.getCurrentProfile();
 		currentUser = DbItemAndUserFactory.getUser(lobbyUser.getUserId());
 	}
