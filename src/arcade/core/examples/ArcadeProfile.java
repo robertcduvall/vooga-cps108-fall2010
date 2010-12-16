@@ -16,30 +16,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
-import net.miginfocom.swing.MigLayout;
-
 import arcade.core.Arcade;
-import arcade.core.GameView;
 import arcade.core.HighScoreControl;
 import arcade.core.Panel;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
 
+/**
+ * A Panel to be added to the main view of the Arcade. Displays scores of recent games
+ * the current user has played.
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
+
+@SuppressWarnings("serial")
 public class ArcadeProfile extends Panel {
 	private static HighScoreControl hsc = new HighScoreControl(Arcade.myDbAdapter,
 	"HighScores");
-	private static double score;
-	private static int playerID = 1;
 	private static final int AVATAR_WIDTH = 100;
 	private static final String AVATAR_DEFAULT = "http://imgur.com/29J5j.png";
 	private Profile myProfile;
 	
 	public ArcadeProfile() {
 		myProfile = ProfileSet.getCurrentProfile();
-		score = 0;
 		
 		initialize();
-		//add(getPlayerHighScoresPanel(playerName, 5));
 	}
 	
 	private void initialize() {
@@ -68,18 +70,6 @@ public class ArcadeProfile extends Panel {
 		add(new JLabel(myProfile.getFullName()));
 		add(getPlayerHighScoresPanel(myProfile.getUserId(), 5));
 	}
-	
-//	public static void updateHighScore(double highScore) {
-//		score = highScore;
-//		new HighScore();
-//	}
-
-//	public static boolean addHighScore() {
-//		boolean isAdded = hsc.addScore(playerID, GameView.getGameID(), score);
-////		columnar.setLeftComponent(makeLeftPanel());
-////		mainPanel.setRightComponent(makeRightPanel());
-//		return isAdded;
-//	}
 	
 	public JTextPane getPlayerHighScoresPanel(int playerID,
 			int numScores) {

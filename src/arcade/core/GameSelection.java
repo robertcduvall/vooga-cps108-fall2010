@@ -12,6 +12,14 @@ import arcade.core.mvc.IController;
 import arcade.lobby.model.ProfileSet;
 import arcade.store.StoreModel;
 
+/**
+ * The first tab for the Arcade, this screen allows the user to choose whichever game
+ * is available to them. List of available games provided by Store group
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
+
 @SuppressWarnings("serial")
 public class GameSelection extends JPanel implements Tab {
 	private static final String DELIMITER = ",";
@@ -19,12 +27,14 @@ public class GameSelection extends JPanel implements Tab {
 //	private static int[] gameIDs = {12,13,14,15,16,17,18,19,38,37};
 	public JPanel games;
 	public static JTextField searchArea;
-	public static String currentGame = "";
+	public static String currentGame;
 	private List<Map<String, String>> gameData;
 	private Map<Integer, JPanel> panels;
+	
 	public GameSelection() {
 		setName("Games");
 		setToolTipText("A list of all the game available");
+		currentGame = "";
 		panels=new HashMap<Integer, JPanel>();
 		gameData=Arcade.myDbAdapter.getRows(StoreModel.getUserOwnedGames(ProfileSet.getCurrentProfile().getUserId()));
 		
@@ -44,7 +54,7 @@ public class GameSelection extends JPanel implements Tab {
 			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
 	}
-	public JPanel createItem(Map<String, String> m) {
+	private JPanel createItem(Map<String, String> m) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -80,7 +90,7 @@ public class GameSelection extends JPanel implements Tab {
 		}
 	}
 
-	public JComponent addSearchFunction() {
+	private JComponent addSearchFunction() {
 		JPanel search = new JPanel(new FlowLayout());
 		searchArea = new JTextField("Enter Search Terms", 25);
 		JButton searchButton = new JButton("Search");
@@ -127,7 +137,7 @@ public class GameSelection extends JPanel implements Tab {
 
 	}
 
-	public void displayAllGames() {
+	private void displayAllGames() {
 		games.removeAll();
 		for (Integer i : panels.keySet()) {
 			games.add(panels.get(i));

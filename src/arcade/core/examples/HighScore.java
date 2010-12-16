@@ -6,6 +6,12 @@ import javax.swing.*;
 
 import arcade.core.Window;
 
+/**
+ * Creates a window that asks the user if they wish to submit their latest score
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
 @SuppressWarnings("serial")
 public class HighScore extends Window {
 	public HighScore() {
