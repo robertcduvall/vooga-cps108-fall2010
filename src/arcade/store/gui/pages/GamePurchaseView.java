@@ -37,6 +37,7 @@ public class GamePurchaseView implements IViewer {
 
 	private PurchaseItemController controller; // @jve:decl-index=0:
 	private JButton returnToStoreButton = null;
+	private JPanel commentPanel = null;
 
 	public GamePurchaseView(IController control) {
 		controller = (PurchaseItemController) control;
@@ -46,7 +47,7 @@ public class GamePurchaseView implements IViewer {
 
 	public JFrame getJFrame() {
 		JFrame jFrame = new JFrame();
-		jFrame.setSize(new Dimension(650, 321));
+		jFrame.setSize(new Dimension(650, 600));
 		jFrame.setTitle("Game Purchase View");
 		jFrame.setContentPane(getGamePurchasePanel());
 
@@ -88,6 +89,7 @@ public class GamePurchaseView implements IViewer {
 			gamePurchasePanel.add(getTitleTextField(), null);
 			gamePurchasePanel.add(getPriceTextField(), null);
 			gamePurchasePanel.add(getReturnToStoreButton(), null);
+			gamePurchasePanel.add(getCommentPanel(), null);
 		}
 		return gamePurchasePanel;
 	}
@@ -212,6 +214,20 @@ public class GamePurchaseView implements IViewer {
 	@Override
 	public IController getController() {
 		return controller;
+	}
+
+	/**
+	 * This method initializes commentPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getCommentPanel() {
+		if (commentPanel == null) {
+			commentPanel = new JPanel();
+			commentPanel.setLayout(new GridBagLayout());
+			commentPanel.setBounds(new Rectangle(34, 309, 590, 250));
+		}
+		return commentPanel;
 	}
 
 }

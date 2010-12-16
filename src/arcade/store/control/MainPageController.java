@@ -40,7 +40,7 @@ public class MainPageController extends Controller{
 
 	public void processFilter()
 	{
-		filter((String) viewer.getGenreList().getSelectedValue());
+		filter((String) viewer.getSelectedGenre());
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class MainPageController extends Controller{
 
 
 	public void populateGenreList(String[] list) {
-		viewer.getGenreList().setListData(list);
+		viewer.setGenreList(list);
 	}
 
 
