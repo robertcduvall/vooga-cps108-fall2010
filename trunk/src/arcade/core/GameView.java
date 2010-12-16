@@ -15,6 +15,15 @@ import arcade.core.examples.HighScorePanel;
 import arcade.lobby.model.ProfileSet;
 import arcade.wall.controllers.WallWidget;
 
+/**
+ * The main game view where games can be launched. Descriptions and instructions
+ * and the splash screen are all displayed in this view. This is a panel that is the
+ * center and main view of the arcade. 
+ * 
+ * @author Aaron Choi, Derek Zhou, Yang Su
+ *
+ */
+
 @SuppressWarnings("serial")
 public class GameView extends JPanel {
 
@@ -46,8 +55,7 @@ public class GameView extends JPanel {
 		return panel;
 	}
 
-	public static Map<String, String[]> parseGame(int id) {
-		System.out.println("yes");
+	private static Map<String, String[]> parseGame(int id) {
 		Map<String, String[]> gameMap = new HashMap<String, String[]>();
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Id", id+"");
@@ -55,7 +63,6 @@ public class GameView extends JPanel {
 				"GameInfo", conditions, "Title", "Genre",
 				"Description", "Tags", "ClassName", "ImagePaths",
 				"Instructions");
-		System.out.println(attributes);
 		for (Map<String, String> m : attributes) {
 			for (String key : m.keySet()) {
 				gameMap.put(key.toLowerCase(), (key.equals("Tags") || key
@@ -148,11 +155,18 @@ public class GameView extends JPanel {
 		return back;
 	}
 
+	/**
+	 * Returns the name of the active game
+	 * @return Name of current game as a String
+	 */
 	public static String getGame() {
 		return gameName;
 	}
 	
-
+	/**
+	 * Returns the ID number of the active game
+	 * @return ID of current game as an integer
+	 */
 	public static int getGameID() {
 		return gameID;
 	}

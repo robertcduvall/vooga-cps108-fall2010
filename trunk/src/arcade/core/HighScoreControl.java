@@ -70,7 +70,7 @@ public class HighScoreControl {
 	 *            score
 	 * @return true if it's a new high score, false otherwise
 	 */
-	public boolean isHighScore(int playerID, int gameID, String score) {
+	private boolean isHighScore(int playerID, int gameID, String score) {
 		Map<String, String> conditions = new HashMap<String, String>();
 		conditions.put("Player_Id", playerID + "");
 		conditions.put("Game_Id", gameID + "");
@@ -135,7 +135,7 @@ public class HighScoreControl {
 		return getHighScores(playerID, gameID, numScores, "Score");
 	}
 
-	public List<Map<String, String>> getHighScores(int playerID, int gameID,
+	private List<Map<String, String>> getHighScores(int playerID, int gameID,
 			int numScores, String sortBy) {
 
 		Map<String, String> conditions = new HashMap<String, String>();
