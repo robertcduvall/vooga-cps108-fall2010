@@ -51,6 +51,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 
 	public PlayField(Background background){
 		this();
+		
 	}
 
 	public PlayField() {
@@ -214,6 +215,7 @@ public class PlayField extends com.golden.gamedev.object.PlayField {
 	public void addEventPool(EventPool eventPool){
 		myEventPool = eventPool;
 	}
+	
 
 
 }

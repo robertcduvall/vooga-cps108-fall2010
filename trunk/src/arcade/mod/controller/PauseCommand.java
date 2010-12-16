@@ -8,8 +8,8 @@ public class PauseCommand implements IConsoleCommand {
 
 	@Override
 	public void performCommand(String myInput) {
-		GameStateManager gm = StateManagerConsole.stateManager;
-		GameState gs = new PauseGameState((StateManagerConsole.playState),
+		GameStateManager gm = GameConsole.stateManager;
+		GameState gs = new PauseGameState((GameConsole.playState),
 				"Paused");
 		gm.addGameState(gs);
 		gm.switchTo(gs);

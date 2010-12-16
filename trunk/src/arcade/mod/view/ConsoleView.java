@@ -11,9 +11,7 @@ import javax.swing.JTextField;
 public class ConsoleView extends JFrame {
 
 	public static final String NO_INPUT = "";
-
 	public JTextField textInput;
-
 	public String myInput = "NO_INPUT";
 
 	public ConsoleView() {
