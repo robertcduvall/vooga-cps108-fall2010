@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import arcade.core.mvc.Controller;
 import arcade.store.control.MainPageController;
 import arcade.store.items.IItemInfo;
+import arcade.util.guiComponents.ItemThumbnailPanel;
 
 /**
  * 

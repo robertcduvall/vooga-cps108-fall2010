@@ -31,7 +31,7 @@ import arcade.store.control.MainController;
  * 					the StoreContainer JPanel and pass that JPanel the the Arcade. Given the current
  * 					way Arcade is setup, we can only create the StoreContainer in this manner.
  */
-public class StoreContainer extends JPanel implements Tab{
+public class StoreContainer extends StoreTab{
 
 	private static final long serialVersionUID = 1L;
 	

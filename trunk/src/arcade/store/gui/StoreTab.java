@@ -11,21 +11,17 @@ import arcade.core.mvc.IController;
 import arcade.core.mvc.IViewer;
 
 /**
- * StoreTab extends JPanel and implements Tab. It contains a resource bundle
- * that subclasses of StoreTab can use to extract Strings from a properties
- * file.
- * 
- * @author Drew Sternesky, Jimmy Mu, Marcus Molchany
- * 
+ * @author: 		Drew Sternesky, Jimmy Mu, Marcus Molchany
+ * @date:			12-16-10
+ * @description: 	StoreTab extends JPanel and implements Tab. It contains a resource bundle
+ * 					that subclasses of StoreTab can use to extract Strings from a properties
+ * 					file.
  */
+
 public class StoreTab extends JPanel implements Tab {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private ResourceBundle storeTabBundle;
-	private Controller controller;
 
 	@Override
 	public IController getController() {
@@ -33,10 +29,12 @@ public class StoreTab extends JPanel implements Tab {
 		return null;
 	}
 
+	/**
+	 * refresh updates the content of the Store Tab
+	 */
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	/**
@@ -64,7 +62,7 @@ public class StoreTab extends JPanel implements Tab {
 	 * @param control
 	 */
 	public void setController(IController control) {
-		controller = (Controller) control;
+
 	}
 
 }

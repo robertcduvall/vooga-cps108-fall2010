@@ -156,6 +156,15 @@ public class StoreModel implements IModel{
 	}
 	
 	/**
+	 * This method returns the balance of the current User
+	 * @return
+	 */
+	public double getUserCreddits()
+	{
+		return currentUser.getCreddits();
+	}
+	
+	/**
 	 * Sets user creddits as the specified amount and updates database.
 	 * @param amount the new creddit balance
 	 */
@@ -284,5 +293,7 @@ public class StoreModel implements IModel{
 	public boolean checkPrivileges(String privilegeType) {
 		return privilegeManager.getPermission(currentUser, privilegeType);
 	}
+
+
 		
 }
