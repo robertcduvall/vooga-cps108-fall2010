@@ -44,7 +44,7 @@ public class GameSelection extends JPanel implements Tab {
 			panels.put(Integer.parseInt(m.get("Id")), createItem(m));
 		}
 	}
-	public JPanel createItem(Map<String, String> m) {
+	private JPanel createItem(Map<String, String> m) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -80,7 +80,7 @@ public class GameSelection extends JPanel implements Tab {
 		}
 	}
 
-	public JComponent addSearchFunction() {
+	private JComponent addSearchFunction() {
 		JPanel search = new JPanel(new FlowLayout());
 		searchArea = new JTextField("Enter Search Terms", 25);
 		JButton searchButton = new JButton("Search");
@@ -138,7 +138,7 @@ public class GameSelection extends JPanel implements Tab {
 		return panel;
 	}
 
-	public void displayAllGames() {
+	private void displayAllGames() {
 		games.removeAll();
 		for (Integer i : panels.keySet()) {
 			games.add(panels.get(i));

@@ -148,9 +148,10 @@ public class Arcade extends JFrame {
 	}
 
 	/**
-	 * TODO
+	 * Switches to the Arcade tab and calls for a change to the main screen of the arcade.
+	 * It then calls for a refresh of the entire panel
 	 * 
-	 * @param index
+	 * @param gameID The ID of the selected game
 	 */
 	public static void play(int gameID) {
 		switchToTab(mainWindow.getTabCount()-1);
@@ -160,6 +161,12 @@ public class Arcade extends JFrame {
 		
 	}
 
+	
+	/**
+	 * Changes the current player.
+	 * 
+	 * @param player The current player
+	 */
 	public static void setPlayer(String player) {
 		mainPanel.setRightComponent(createPanels("rightPanel"));
 	}
@@ -172,6 +179,11 @@ public class Arcade extends JFrame {
 		mainPanel.setRightComponent(createPanels("rightPanel"));
 	}
 	
+	/**
+	 * Changes the view to the tab selected.
+	 * 
+	 * @param id The panel to switch to
+	 */
 	public static void switchToTab(int id) {
 		mainWindow.setSelectedIndex(id);
 //		((Tab)mainWindow.getComponent(id)).update();
