@@ -15,7 +15,8 @@ import vooga.games.zombies.gamestates.MultiplayerPlayState;
 import vooga.games.zombies.gamestates.PauseState;
 import vooga.games.zombies.gamestates.PlayState;
 import vooga.games.zombies.gamestates.SingleplayerPlayState;
-import vooga.games.zombies.gamestates.WaitingState;
+//import vooga.games.zombies.gamestates.WaitingState;
+import vooga.engine.state.WaitingState;
 import vooga.games.zombies.gamestates.ZombiesNetworkMenuState;
 
 /**
@@ -76,8 +77,8 @@ public class Blah extends Game implements Constants {
 		networkMenuState.makeNextButton("End Game", endGameState);
 
 		getGameStateManager().addGameState(waitingState, singleplayerState, multiplayerState, pauseState, endGameState, networkMenuState);
-		getGameStateManager().switchTo(waitingState);
-		//getGameStateManager().switchTo(networkMenuState);
+		//getGameStateManager().switchTo(waitingState);
+		getGameStateManager().switchTo(networkMenuState);
 	}
 	
 	public void switchToState (GameState gs) {
