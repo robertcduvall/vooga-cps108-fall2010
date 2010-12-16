@@ -25,12 +25,10 @@ public class WallWidgetView extends JPanel{
 	private WallWidgetController myController;
 	
 	private JPanel myPanel;
-	private JComboBox myGameComboBox;	
 	private JTextArea myCommentEntryField;
 	private RadioPanel myRadioPanel;
 	private JButton myReviewButton;
 	private JLabel myGameLabel;
-	public static final String[] myGameChoices = formGameList();
 
 	public WallWidgetView(WallWidgetController controller) {
 		myController = controller;
@@ -44,7 +42,6 @@ public class WallWidgetView extends JPanel{
 		JPanel reviewPanel = new JPanel();
 		myGameLabel = new JLabel("Leave a quick review for " + myController.getTitle());
 		
-		//set this to current game
 		reviewPanel.add(myGameLabel);
 
 		myCommentEntryField = new JTextArea(4,10);
@@ -68,23 +65,9 @@ public class WallWidgetView extends JPanel{
 		return reviewPanel;
 	}
 
-	private static String[] formGameList() {
-		String[] gameList = { "Grandius", "Zombieland", "Jumper", 
-				"Doodlejump", "Galaxy Invaders", "Cyberion", 
-				"Tron", "MarioClone", "TronLegacy" };
-		return gameList;
-	}
 
 	public JPanel getPanel() {
 		return this.myPanel;
-	}
-
-	public String getSelectedGame() {
-		return myGameChoices[myGameComboBox.getSelectedIndex()];
-	}
-
-	public void addGameComboBoxListener(ActionListener gameComboBoxListener) {
-		myGameComboBox.addActionListener(gameComboBoxListener);
 	}
 
 	public String getEntryText() {
