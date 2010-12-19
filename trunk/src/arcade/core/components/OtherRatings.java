@@ -6,7 +6,7 @@ import javax.swing.SwingConstants;
 
 import arcade.core.api.Panel;
 import arcade.lobby.model.ProfileSet;
-import arcade.store.StoreModel;
+import arcade.store.model.StoreModel;
 import arcade.wall.models.WallModel;
 import arcade.wall.views.walltab.WallTabPanel;
 

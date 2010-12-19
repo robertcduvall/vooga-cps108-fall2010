@@ -8,11 +8,11 @@ import arcade.core.api.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
-import arcade.store.StoreModel;
 import arcade.store.gui.StoreItemThumbnailPanel;
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.gui.tabs.MainPageTab;
 import arcade.store.items.IItemInfo;
+import arcade.store.model.StoreModel;
 
 /**
  * 

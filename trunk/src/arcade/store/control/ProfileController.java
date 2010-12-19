@@ -9,12 +9,12 @@ import arcade.core.api.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
-import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.database.StoreDbConstants;
 import arcade.store.database.StoreSqlAdapter;
 import arcade.store.gui.pages.CredditPurchaseView;
 import arcade.store.gui.tabs.ProfileTab;
+import arcade.store.model.StoreModel;
 
 /**
  * 

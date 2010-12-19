@@ -8,9 +8,9 @@ import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
 import arcade.lobby.model.Profile;
 import arcade.lobby.model.ProfileSet;
-import arcade.store.StoreModel;
 import arcade.store.gui.pages.GamePurchaseView;
 import arcade.store.items.IItemInfo;
+import arcade.store.model.StoreModel;
 import arcade.wall.models.data.review.Review;
 import arcade.wall.models.data.review.ReviewSet;
 

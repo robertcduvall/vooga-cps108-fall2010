@@ -11,7 +11,7 @@ import arcade.core.mvc.Controller;
 import arcade.core.mvc.IController;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
-import arcade.store.StoreModel;
+import arcade.store.model.StoreModel;
 
 /**
  * 
@@ -73,6 +73,24 @@ public class MainController extends Controller{
 	
 	public boolean checkPrivileges(String privilegeType) {
 		return model.checkPrivileges(privilegeType);
+	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addModel(IModel model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addViewer(Tab tab) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

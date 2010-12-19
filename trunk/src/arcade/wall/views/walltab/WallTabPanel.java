@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import arcade.lobby.model.ProfileSet;
-import arcade.store.StoreModel;
+import arcade.store.model.StoreModel;
 import arcade.wall.controllers.WallTabController;
 
 /**
