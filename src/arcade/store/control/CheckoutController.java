@@ -8,9 +8,9 @@ import arcade.core.api.Tab;
 import arcade.core.mvc.Controller;
 import arcade.core.mvc.IModel;
 import arcade.core.mvc.IViewer;
-import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
 import arcade.store.gui.tabs.CheckoutTab;
+import arcade.store.model.StoreModel;
 
 /**
  * 

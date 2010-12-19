@@ -12,7 +12,7 @@ import arcade.core.Arcade;
 import arcade.core.api.Tab;
 import arcade.core.mvc.IController;
 import arcade.lobby.model.ProfileSet;
-import arcade.store.StoreModel;
+import arcade.store.model.StoreModel;
 
 /**
  * The first tab for the Arcade, this screen allows the user to choose whichever game

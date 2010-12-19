@@ -6,8 +6,8 @@ import javax.swing.JOptionPane;
 
 import arcade.core.api.Tab;
 import arcade.core.mvc.*;
-import arcade.store.StoreModel;
 import arcade.store.account.StoreUser;
+import arcade.store.model.StoreModel;
 import arcade.store.test.CheckoutGUI;
 
 public class CheckoutController extends Controller{

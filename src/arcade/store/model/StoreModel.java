@@ -1,4 +1,4 @@
-package arcade.store;
+package arcade.store.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

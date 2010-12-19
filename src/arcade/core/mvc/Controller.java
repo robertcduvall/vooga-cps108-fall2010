@@ -18,7 +18,7 @@ import arcade.store.gui.StoreTab;
  * 					have methods that needed to be called. 
  */
 
-public class Controller implements IController{
+public abstract class Controller implements IController{
 
 	private ResourceBundle reflectionMirror;
 	
@@ -38,26 +38,19 @@ public class Controller implements IController{
 	 * controller is created.
 	 */
 	@Override
-	public void initialize() {
-
-	}
+	public abstract void initialize();
 
 	/**
 	 * This method adds the model associated with the controller.
 	 */
 	@Override
-	public void addModel(IModel model) {
-
-	}
+	public abstract void addModel(IModel model);
 
 	/**
 	 * this method adds the viewr associated with the controller.
 	 */
 	@Override
-	public void addViewer(Tab tab) {
-
-	}
-	
+	public abstract void addViewer(Tab tab); 
 	/**
 	 * This method uses reflection to process all the 
 	 * events from the viewer and the controller.
